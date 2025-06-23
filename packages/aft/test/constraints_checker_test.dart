@@ -31,10 +31,7 @@ void main() {
               )
               .create();
           final amplifyFlutter = await d
-              .package(
-                'amplify_flutter',
-                sdkConstraint: preReleaseConstraint,
-              )
+              .package('amplify_flutter', sdkConstraint: preReleaseConstraint)
               .create();
           final checker = GlobalConstraintChecker(
             action,
@@ -59,10 +56,7 @@ void main() {
           {
             switch (action) {
               case ConstraintsAction.apply || ConstraintsAction.update:
-                expect(
-                  checker.checkConstraints(amplifyFlutter),
-                  isTrue,
-                );
+                expect(checker.checkConstraints(amplifyFlutter), isTrue);
                 expect(
                   amplifyFlutter.pubspecInfo.pubspecYamlEditor.edits.single,
                   isA<SourceEdit>().having(
@@ -111,113 +105,100 @@ void main() {
         ConstraintsAction.apply => 'applies',
         ConstraintsAction.update => 'updates',
       };
-      test(
-        '$result when a direct dep and transitive dev dep conflict '
-        'for a published package',
-        () async {
-          final repo = await d.repo([
-            d.package('amplify_core', version: '1.0.0'),
-            d.package(
-              'amplify_test',
-              publishable: false,
-              dependencies: {
-                // An outdated constraint
-                'amplify_core': '<1.0.0',
-              },
-            ),
-            d.package(
-              'amplify_flutter',
-              version: '1.0.0',
-              dependencies: {
-                'amplify_core': '>=1.0.0 <1.1.0',
-              },
-              devDependencies: {
-                'amplify_test': {
-                  'path': '../amplify_test',
-                },
-              },
-            ),
-          ]).create();
-          final constraintsChecker = PublishConstraintsChecker(
-            action,
-            repo.getPackageGraph(includeDevDependencies: true),
+      test('$result when a direct dep and transitive dev dep conflict '
+          'for a published package', () async {
+        final repo = await d.repo([
+          d.package('amplify_core', version: '1.0.0'),
+          d.package(
+            'amplify_test',
+            publishable: false,
+            dependencies: {
+              // An outdated constraint
+              'amplify_core': '<1.0.0',
+            },
+          ),
+          d.package(
+            'amplify_flutter',
+            version: '1.0.0',
+            dependencies: {'amplify_core': '>=1.0.0 <1.1.0'},
+            devDependencies: {
+              'amplify_test': {'path': '../amplify_test'},
+            },
+          ),
+        ]).create();
+        final constraintsChecker = PublishConstraintsChecker(
+          action,
+          repo.getPackageGraph(includeDevDependencies: true),
+        );
+
+        {
+          expect(constraintsChecker.checkConstraints(repo.amplifyCore), isTrue);
+        }
+
+        {
+          expect(
+            constraintsChecker.checkConstraints(repo.amplifyTest),
+            isTrue,
+            reason:
+                "amplify_test's constraint on amplify_core is fine by itself",
           );
+        }
 
-          {
-            expect(
-              constraintsChecker.checkConstraints(repo.amplifyCore),
-              isTrue,
-            );
+        {
+          switch (action) {
+            case ConstraintsAction.apply || ConstraintsAction.update:
+              expect(
+                constraintsChecker.checkConstraints(repo.amplifyFlutter),
+                isTrue,
+              );
+              expect(
+                repo.amplifyTest.pubspecInfo.pubspecYamlEditor.edits.single,
+                isA<SourceEdit>().having(
+                  (edit) => edit.replacement,
+                  'replacement',
+                  'any',
+                ),
+              );
+              expect(constraintsChecker.mismatchedDependencies, isEmpty);
+            case ConstraintsAction.check:
+              expect(
+                constraintsChecker.checkConstraints(repo.amplifyFlutter),
+                isFalse,
+                reason:
+                    'The constraint amplify_test has on amplify_core would '
+                    "cause a publish error since it conflicts with amplify_flutter's "
+                    'direct constraint',
+              );
+              expect(
+                constraintsChecker.mismatchedDependencies.single,
+                isA<MismatchedDependency>()
+                    .having(
+                      (err) => err.package.name,
+                      'packageName',
+                      'amplify_test',
+                    )
+                    .having(
+                      (err) => err.dependencyName,
+                      'dependencyName',
+                      'amplify_core',
+                    ),
+              );
+              expect(
+                repo.amplifyTest.pubspecInfo.pubspecYamlEditor.edits,
+                isEmpty,
+              );
           }
+        }
+      });
 
-          {
-            expect(
-              constraintsChecker.checkConstraints(repo.amplifyTest),
-              isTrue,
-              reason:
-                  "amplify_test's constraint on amplify_core is fine by itself",
-            );
-          }
-
-          {
-            switch (action) {
-              case ConstraintsAction.apply || ConstraintsAction.update:
-                expect(
-                  constraintsChecker.checkConstraints(repo.amplifyFlutter),
-                  isTrue,
-                );
-                expect(
-                  repo.amplifyTest.pubspecInfo.pubspecYamlEditor.edits.single,
-                  isA<SourceEdit>().having(
-                    (edit) => edit.replacement,
-                    'replacement',
-                    'any',
-                  ),
-                );
-                expect(constraintsChecker.mismatchedDependencies, isEmpty);
-              case ConstraintsAction.check:
-                expect(
-                  constraintsChecker.checkConstraints(repo.amplifyFlutter),
-                  isFalse,
-                  reason:
-                      'The constraint amplify_test has on amplify_core would '
-                      "cause a publish error since it conflicts with amplify_flutter's "
-                      'direct constraint',
-                );
-                expect(
-                  constraintsChecker.mismatchedDependencies.single,
-                  isA<MismatchedDependency>()
-                      .having(
-                        (err) => err.package.name,
-                        'packageName',
-                        'amplify_test',
-                      )
-                      .having(
-                        (err) => err.dependencyName,
-                        'dependencyName',
-                        'amplify_core',
-                      ),
-                );
-                expect(
-                  repo.amplifyTest.pubspecInfo.pubspecYamlEditor.edits,
-                  isEmpty,
-                );
-            }
-          }
-        },
-      );
-
-      test(
-          '$result when a published package lists an unpublished package '
+      test('$result when a published package lists an unpublished package '
           'as a hosted dependency', () async {
         final repo = await d.repo([
           d.package('amplify_test', publishable: false),
           d.package(
             'amplify_core',
             version: '1.0.0',
-            devDependencies: {
-              'amplify_test': 'any',
-            },
+            devDependencies: {'amplify_test': 'any'},
           ),
         ]).create();
 
@@ -245,7 +226,8 @@ void main() {
             expect(
               constraintsChecker.checkConstraints(repo.amplifyCore),
               isFalse,
-              reason: 'The constraint amplify_core has on amplify_test would '
+              reason:
+                  'The constraint amplify_core has on amplify_test would '
                   'cause a publish error since amplify_test cannot be retrieved '
                   "from pub.dev (it's unpublished)",
             );

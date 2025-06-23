@@ -26,16 +26,19 @@ void main() {
     });
 
     group(
-        'Schalar type value is null or a list of scalar types where the list is null',
-        () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-      testModelOperations(models: models);
-    });
+      'Schalar type value is null or a list of scalar types where the list is null',
+      () {
+        var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
+        testModelOperations(models: models);
+      },
+    );
 
     group('List<String>', () {
       var list = List.generate(3, (i) => '$i');
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfStringValue: list));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(listOfStringValue: list),
+      );
       testModelOperations(models: models);
     });
 
@@ -50,7 +53,9 @@ void main() {
     group('List<Int>', () {
       var list = List.generate(3, (i) => i);
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfIntValue: list));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(listOfIntValue: list),
+      );
       testModelOperations(models: models);
     });
 
@@ -65,22 +70,28 @@ void main() {
     group('List<Float>', () {
       var list = List.generate(3, (i) => i.toDouble());
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfFloatValue: list));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(listOfFloatValue: list),
+      );
       testModelOperations(models: models);
     });
 
     group('Boolean', () {
       var models = List.generate(
-          5,
-          (i) => ModelWithAppsyncScalarTypes(
-              booleanValue: i % 2 == 0 ? false : true));
+        5,
+        (i) => ModelWithAppsyncScalarTypes(
+          booleanValue: i % 2 == 0 ? false : true,
+        ),
+      );
       testModelOperations(models: models);
     });
 
     group('List<Boolean>', () {
       var list = List.generate(3, (i) => i == 0 ? false : true);
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfBooleanValue: list));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(listOfBooleanValue: list),
+      );
       testModelOperations(models: models);
     });
 
@@ -93,8 +104,10 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) =>
-              ModelWithAppsyncScalarTypes(awsDateValue: TemporalDate(value)))
+          .map(
+            (value) =>
+                ModelWithAppsyncScalarTypes(awsDateValue: TemporalDate(value)),
+          )
           .toList();
       testModelOperations(models: models);
     });
@@ -102,9 +115,13 @@ void main() {
     group('List<AWSDate>', () {
       var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
       var list = List.generate(
-          3, (i) => TemporalDate(dateTime.add(Duration(days: i))));
+        3,
+        (i) => TemporalDate(dateTime.add(Duration(days: i))),
+      );
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfAWSDateValue: list));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(listOfAWSDateValue: list),
+      );
       testModelOperations(models: models);
     });
 
@@ -118,8 +135,11 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) => ModelWithAppsyncScalarTypes(
-              awsDateTimeValue: TemporalDateTime(value)))
+          .map(
+            (value) => ModelWithAppsyncScalarTypes(
+              awsDateTimeValue: TemporalDateTime(value),
+            ),
+          )
           .toList();
       testModelOperations(models: models);
       testModelOperations(
@@ -131,9 +151,13 @@ void main() {
     group('List<AWSDateTime>', () {
       var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
       var list = List.generate(
-          3, (i) => TemporalDateTime(dateTime.add(Duration(days: i))));
+        3,
+        (i) => TemporalDateTime(dateTime.add(Duration(days: i))),
+      );
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfAWSDateTimeValue: list));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(listOfAWSDateTimeValue: list),
+      );
       testModelOperations(models: models);
     });
 
@@ -147,8 +171,10 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) =>
-              ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(value)))
+          .map(
+            (value) =>
+                ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(value)),
+          )
           .toList();
       testModelOperations(
         models: models,
@@ -166,9 +192,13 @@ void main() {
     group('List<AWSTime>', () {
       var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
       var list = List.generate(
-          3, (i) => TemporalTime(dateTime.add(Duration(days: i))));
+        3,
+        (i) => TemporalTime(dateTime.add(Duration(days: i))),
+      );
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfAWSTimeValue: list));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(listOfAWSTimeValue: list),
+      );
       testModelOperations(models: models);
     });
 
@@ -181,8 +211,11 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) => ModelWithAppsyncScalarTypes(
-              awsTimestampValue: TemporalTimestamp(value)))
+          .map(
+            (value) => ModelWithAppsyncScalarTypes(
+              awsTimestampValue: TemporalTimestamp(value),
+            ),
+          )
           .toList();
       testModelOperations(models: models);
     });
@@ -190,9 +223,13 @@ void main() {
     group('List<AWSTimestamp>', () {
       var now = DateTime.now();
       var list = List.generate(
-          3, (i) => TemporalTimestamp(now.add(Duration(days: i))));
+        3,
+        (i) => TemporalTimestamp(now.add(Duration(days: i))),
+      );
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfAWSTimestampValue: list));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(listOfAWSTimestampValue: list),
+      );
       testModelOperations(models: models);
     });
 
@@ -204,28 +241,34 @@ void main() {
         'double': 1.0,
       });
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(awsJsonValue: json));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(awsJsonValue: json),
+      );
       testModelOperations(models: models);
     });
 
     group('List<AWSJSON>', () {
-      String generateJson(int value) => jsonEncode(Map.from({
-            'string': 'foo',
-            'bool': true,
-            'int': value,
-            'double': value.toDouble()
-          }));
+      String generateJson(int value) => jsonEncode(
+        Map.from({
+          'string': 'foo',
+          'bool': true,
+          'int': value,
+          'double': value.toDouble(),
+        }),
+      );
       var list = List.generate(3, (i) => generateJson(i));
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfAWSJsonValue: list));
+        5,
+        (_) => ModelWithAppsyncScalarTypes(listOfAWSJsonValue: list),
+      );
       testModelOperations(models: models);
     });
 
     group('enum', () {
       var models = List.generate(
-          5,
-          (i) =>
-              ModelWithEnum(enumField: i == 0 ? EnumField.no : EnumField.yes));
+        5,
+        (i) => ModelWithEnum(enumField: i == 0 ? EnumField.no : EnumField.yes),
+      );
       testModelOperations(models: models);
     });
 
@@ -236,8 +279,10 @@ void main() {
 
     group('List<enum>', () {
       var list = List.generate(3, (i) => i == 0 ? EnumField.no : EnumField.yes);
-      var models =
-          List.generate(5, (_) => ModelWithEnum(listOfEnumField: list));
+      var models = List.generate(
+        5,
+        (_) => ModelWithEnum(listOfEnumField: list),
+      );
       testModelOperations(models: models);
     });
 
@@ -250,8 +295,9 @@ void main() {
         awsDateValue: TemporalDate(DateTime.utc(2021, 9, 22)),
         awsDateTimeValue: TemporalDateTime(DateTime.utc(2021, 9, 22, 23, 0, 0)),
         awsTimeValue: TemporalTime(DateTime.utc(2021, 9, 22, 0, 0, 0)),
-        awsTimestampValue:
-            TemporalTimestamp(DateTime.utc(2021, 9, 22, 0, 0, 0)),
+        awsTimestampValue: TemporalTimestamp(
+          DateTime.utc(2021, 9, 22, 0, 0, 0),
+        ),
         awsJsonValue: '{"foo":"bar"}',
         enumValue: EnumField.yes,
         customTypeValue: SimpleCustomType(foo: 'bar'),
@@ -266,7 +312,7 @@ void main() {
           listOfBooleanValue: [i % 2 == 0, i % 2 != 0],
           listOfAWSDateValue: [
             TemporalDate(DateTime.utc(2021, 9, 22 + i)),
-            TemporalDate(DateTime.utc(2021, 9, 22 - i))
+            TemporalDate(DateTime.utc(2021, 9, 22 - i)),
           ],
           listOfAWSDateTimeValue: [
             TemporalDateTime(DateTime.utc(2021, 9, 22 + i, 23, 0, 0)),
@@ -274,29 +320,31 @@ void main() {
           ],
           listOfAWSTimeValue: [
             TemporalTime(DateTime.utc(2021, 9, 22 + i, 0, 0, 0)),
-            TemporalTime(DateTime.utc(2021, 9, 22 - i, 0, 0, 0))
+            TemporalTime(DateTime.utc(2021, 9, 22 - i, 0, 0, 0)),
           ],
           listOfAWSTimestampValue: [
             TemporalTimestamp(DateTime.utc(2021, 9, 22 + i, 0, 0, 0)),
-            TemporalTimestamp(DateTime.utc(2021, 9, 22 - i, 0, 0, 0))
+            TemporalTimestamp(DateTime.utc(2021, 9, 22 - i, 0, 0, 0)),
           ],
           listOfAWSJsonValue: ['{"foo":"bar"}', '{"baz":"qux"}'],
           listOfEnumValue: [
             i % 2 == 0 ? EnumField.no : EnumField.yes,
-            i % 2 != 0 ? EnumField.no : EnumField.yes
+            i % 2 != 0 ? EnumField.no : EnumField.yes,
           ],
           listOfCustomTypeValue: [
             SimpleCustomType(foo: 'bar number $i'),
-            SimpleCustomType(foo: 'bar number ${i + 1}')
+            SimpleCustomType(foo: 'bar number ${i + 1}'),
           ],
         ),
       );
 
       var models = List.generate(
-          5,
-          (_) => ModelWithCustomType(
-              customTypeValue: customTypeValue,
-              listOfCustomTypeValue: listCustomTypeValue));
+        5,
+        (_) => ModelWithCustomType(
+          customTypeValue: customTypeValue,
+          listOfCustomTypeValue: listCustomTypeValue,
+        ),
+      );
 
       testModelOperations(models: models);
     });

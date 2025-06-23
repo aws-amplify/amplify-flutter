@@ -1,13 +1,13 @@
 name: amplify_analytics_pinpoint
 description: The Amplify Flutter Analytics category plugin using the AWS Pinpoint provider.
-version: 1.4.1
+version: 2.6.3
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/analytics/amplify_analytics_pinpoint
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=3.10.0"
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:
@@ -19,23 +19,24 @@ platforms:
   web:
 
 dependencies:
-  amplify_analytics_pinpoint_dart: ">=0.3.0+5 <0.4.0"
-  amplify_core: ">=1.4.0 <1.5.0"
-  amplify_db_common: ">=0.3.0+5 <0.4.0"
-  amplify_secure_storage: ">=0.4.0+6 <0.5.0"
-  aws_common: ">=0.6.0 <0.7.0"
-  device_info_plus: ^9.0.0
+  amplify_analytics_pinpoint_dart: ">=0.4.10 <0.5.0"
+  amplify_core: ">=2.6.3 <2.7.0"
+  amplify_db_common: ">=0.4.11 <0.5.0"
+  amplify_secure_storage: ">=0.5.10 <0.6.0"
+  aws_common: ">=0.7.8 <0.8.0"
+  device_info_plus: ^11.3.3
+
   flutter:
     sdk: flutter
-  meta: ^1.7.0
-  package_info_plus: ^4.0.1
-  path_provider: ^2.0.0
+  meta: ^1.16.0
+  package_info_plus: ^8.0.0
+  path_provider: ^2.0.11
 
 dev_dependencies:
-  amplify_lints: ">=3.0.0 <3.1.0"
+  amplify_lints: ">=3.1.2 <3.2.0"
   flutter_test:
     sdk: flutter
-  pigeon: ^11.0.0
+  pigeon: ^25.5.0
 
 flutter:
   plugin:

@@ -8,20 +8,23 @@ import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/oauth.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_config.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
-    if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
+    if (dart.library.js_interop) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.io) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 
 /// A factory constructor for a [HostedUiPlatform] instance.
-typedef HostedUiPlatformFactory = HostedUiPlatform Function(
-  DependencyManager dependencyManager,
-);
+typedef HostedUiPlatformFactory =
+    HostedUiPlatform Function(DependencyManager dependencyManager);
 
 /// {@template amplify_auth_cognito.hosted_ui_platform}
 /// Platform-specific behavior for the Hosted UI flow.
@@ -35,12 +38,18 @@ abstract class HostedUiPlatform implements Closeable {
   @protected
   HostedUiPlatform.protected(this.dependencyManager);
 
-  /// The Hosted UI configuration.
+  /// The Auth configuration.
   @protected
-  CognitoOAuthConfig get config => dependencyManager.expect();
+  AuthOutputs get authOutputs {
+    final authOutputs = dependencyManager.get<AuthOutputs>();
+    if (authOutputs?.oauth == null || authOutputs?.userPoolClientId == null) {
+      throw const InvalidAccountTypeException.noUserPool();
+    }
+    return authOutputs!;
+  }
 
   /// The Hosted UI storage keys.
-  late final HostedUiKeys _keys = HostedUiKeys(config);
+  late final HostedUiKeys _keys = HostedUiKeys(authOutputs.userPoolClientId!);
 
   /// The secure storage plugin.
   SecureStorageInterface get _secureStorage => dependencyManager.getOrCreate();
@@ -93,19 +102,13 @@ abstract class HostedUiPlatform implements Closeable {
   @protected
   @visibleForTesting
   @nonVirtual
-  Future<Uri> getSignInUri({
-    Uri? redirectUri,
-    AuthProvider? provider,
-  }) async {
+  Future<Uri> getSignInUri({Uri? redirectUri, AuthProvider? provider}) async {
     final state = generateState();
     final codeVerifier = createCodeVerifier();
 
     await Future.wait<void>(
       [
-        _secureStorage.write(
-          key: _keys[HostedUiKey.state],
-          value: state,
-        ),
+        _secureStorage.write(key: _keys[HostedUiKey.state], value: state),
         _secureStorage.write(
           key: _keys[HostedUiKey.codeVerifier],
           value: codeVerifier,
@@ -114,21 +117,22 @@ abstract class HostedUiPlatform implements Closeable {
     );
 
     _authCodeGrant = createGrant(
-      config,
+      authOutputs.oauth!,
+      authOutputs.userPoolClientId!,
+      // ignore: invalid_use_of_internal_member
+      appClientSecret: authOutputs.appClientSecret,
       codeVerifier: codeVerifier,
       httpClient: httpClient,
       provider: provider,
     );
     final uri = _authCodeGrant!.getAuthorizationUrl(
       redirectUri ?? signInRedirectUri,
-      scopes: config.scopes,
+      scopes: authOutputs.oauth?.scopes,
       state: state,
     );
 
     return uri.replace(
-      queryParameters: <String, String>{
-        ...uri.queryParameters,
-      },
+      queryParameters: <String, String>{...uri.queryParameters},
     );
   }
 
@@ -137,7 +141,9 @@ abstract class HostedUiPlatform implements Closeable {
   @visibleForTesting
   @nonVirtual
   Uri getSignOutUri({Uri? redirectUri}) {
-    final signOutUri = HostedUiConfig(config).signOutUri;
+    final signOutUri = HostedUiConfig(
+      authOutputs.oauth!,
+    ).signOutUri(authOutputs.userPoolClientId!);
 
     return signOutUri.replace(
       queryParameters: <String, String>{
@@ -152,16 +158,18 @@ abstract class HostedUiPlatform implements Closeable {
   @visibleForTesting
   @nonVirtual
   oauth2.AuthorizationCodeGrant createGrant(
-    CognitoOAuthConfig config, {
+    OAuthOutputs oauthOutputs,
+    String userPoolClientId, {
+    String? appClientSecret,
     AuthProvider? provider,
     String? codeVerifier,
     http.Client? httpClient,
   }) {
     return oauth2.AuthorizationCodeGrant(
-      config.appClientId,
-      HostedUiConfig(config).signInUri(provider),
-      HostedUiConfig(config).tokenUri,
-      secret: config.appClientSecret,
+      userPoolClientId,
+      HostedUiConfig(authOutputs.oauth!).signInUri(provider),
+      HostedUiConfig(authOutputs.oauth!).tokenUri,
+      secret: appClientSecret,
       httpClient: httpClient,
       codeVerifier: codeVerifier,
 
@@ -177,13 +185,15 @@ abstract class HostedUiPlatform implements Closeable {
   @visibleForTesting
   @nonVirtual
   oauth2.AuthorizationCodeGrant restoreGrant(
-    CognitoOAuthConfig config, {
+    OAuthOutputs oauthOutputs,
+    String userPoolClientId, {
     required String state,
     required String codeVerifier,
     http.Client? httpClient,
   }) {
     final grant = createGrant(
-      config,
+      oauthOutputs,
+      userPoolClientId,
       codeVerifier: codeVerifier,
       httpClient: httpClient,
     );
@@ -192,7 +202,7 @@ abstract class HostedUiPlatform implements Closeable {
       // Advances the internal state.
       ..getAuthorizationUrl(
         signInRedirectUri,
-        scopes: config.scopes,
+        scopes: oauthOutputs.scopes,
         state: state,
       );
   }
@@ -247,7 +257,8 @@ abstract class HostedUiPlatform implements Closeable {
     final parameters = dependencyManager.get<OAuthParameters>();
     if (parameters != null) {
       authCodeGrant = restoreGrant(
-        config,
+        authOutputs.oauth!,
+        authOutputs.userPoolClientId!,
         state: state,
         codeVerifier: codeVerifier,
         httpClient: httpClient,
@@ -261,8 +272,6 @@ abstract class HostedUiPlatform implements Closeable {
       [
         _secureStorage.delete(key: _keys[HostedUiKey.state]),
         _secureStorage.delete(key: _keys[HostedUiKey.codeVerifier]),
-        // ignore: deprecated_member_use_from_same_package
-        _secureStorage.delete(key: _keys[HostedUiKey.nonce]),
         _secureStorage.delete(key: _keys[HostedUiKey.options]),
       ].map(Future.value),
     );
@@ -280,9 +289,7 @@ abstract class HostedUiPlatform implements Closeable {
   Future<void> cancelSignIn() async {}
 
   /// Sign out the current user.
-  Future<void> signOut({
-    required CognitoSignInWithWebUIPluginOptions options,
-  });
+  Future<void> signOut({required CognitoSignInWithWebUIPluginOptions options});
 
   @override
   FutureOr<void> close() {}

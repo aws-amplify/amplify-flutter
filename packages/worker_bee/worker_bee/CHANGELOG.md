@@ -1,3 +1,52 @@
+## 0.3.6
+
+- Minor bug fixes and improvements
+
+## 0.3.5
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 0.3.4
+
+- Minor bug fixes and improvements
+
+## 0.3.3
+
+- Minor bug fixes and improvements
+
+## 0.3.2
+
+- Minor bug fixes and improvements
+
+## 0.3.1
+
+- Minor bug fixes and improvements
+
+## 0.3.0
+
+- Minor bug fixes and improvements
+
+## 0.2.4
+
+### Features
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 0.2.3
+
+### Fixes
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
+## 0.2.2
+
+- Minor bug fixes and improvements
+
+## 0.2.1
+
+- Minor bug fixes and improvements
+
 ## 0.2.0+5
 
 - Minor bug fixes and improvements

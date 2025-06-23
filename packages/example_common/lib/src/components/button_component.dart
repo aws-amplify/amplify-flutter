@@ -1,10 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:html';
+import 'dart:js_interop';
 
 import 'package:example_common/src/components/component.dart';
 import 'package:example_common/src/utils/component_edge_insets.dart';
+import 'package:web/web.dart';
 
 /// {@template example_common.button_component}
 /// A component that renders an html button element.
@@ -42,7 +43,8 @@ class ButtonComponent extends Component {
   final bool loading;
 
   late final _buttonElement = () {
-    final el = ButtonElement()..innerHtml = loading ? 'Loading ...' : innerHtml;
+    final el = HTMLButtonElement()
+      ..innerHTML = loading ? 'Loading ...'.toJS : innerHtml.toJS;
     if (id != null) {
       el.id = id!;
     }

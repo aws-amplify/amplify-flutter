@@ -13,20 +13,19 @@ class _$RecursiveXmlShapesOutputNested1
   @override
   final RecursiveXmlShapesOutputNested2? nested;
 
-  factory _$RecursiveXmlShapesOutputNested1(
-          [void Function(RecursiveXmlShapesOutputNested1Builder)? updates]) =>
-      (new RecursiveXmlShapesOutputNested1Builder()..update(updates))._build();
+  factory _$RecursiveXmlShapesOutputNested1([
+    void Function(RecursiveXmlShapesOutputNested1Builder)? updates,
+  ]) => (RecursiveXmlShapesOutputNested1Builder()..update(updates))._build();
 
   _$RecursiveXmlShapesOutputNested1._({this.foo, this.nested}) : super._();
-
   @override
   RecursiveXmlShapesOutputNested1 rebuild(
-          void Function(RecursiveXmlShapesOutputNested1Builder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RecursiveXmlShapesOutputNested1Builder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RecursiveXmlShapesOutputNested1Builder toBuilder() =>
-      new RecursiveXmlShapesOutputNested1Builder()..replace(this);
+      RecursiveXmlShapesOutputNested1Builder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,8 +47,10 @@ class _$RecursiveXmlShapesOutputNested1
 
 class RecursiveXmlShapesOutputNested1Builder
     implements
-        Builder<RecursiveXmlShapesOutputNested1,
-            RecursiveXmlShapesOutputNested1Builder> {
+        Builder<
+          RecursiveXmlShapesOutputNested1,
+          RecursiveXmlShapesOutputNested1Builder
+        > {
   _$RecursiveXmlShapesOutputNested1? _$v;
 
   String? _foo;
@@ -58,7 +59,7 @@ class RecursiveXmlShapesOutputNested1Builder
 
   RecursiveXmlShapesOutputNested2Builder? _nested;
   RecursiveXmlShapesOutputNested2Builder get nested =>
-      _$this._nested ??= new RecursiveXmlShapesOutputNested2Builder();
+      _$this._nested ??= RecursiveXmlShapesOutputNested2Builder();
   set nested(RecursiveXmlShapesOutputNested2Builder? nested) =>
       _$this._nested = nested;
 
@@ -76,7 +77,6 @@ class RecursiveXmlShapesOutputNested1Builder
 
   @override
   void replace(RecursiveXmlShapesOutputNested1 other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RecursiveXmlShapesOutputNested1;
   }
 
@@ -91,17 +91,23 @@ class RecursiveXmlShapesOutputNested1Builder
   _$RecursiveXmlShapesOutputNested1 _build() {
     _$RecursiveXmlShapesOutputNested1 _$result;
     try {
-      _$result = _$v ??
-          new _$RecursiveXmlShapesOutputNested1._(
-              foo: foo, nested: _nested?.build());
+      _$result =
+          _$v ??
+          _$RecursiveXmlShapesOutputNested1._(
+            foo: foo,
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'RecursiveXmlShapesOutputNested1', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'RecursiveXmlShapesOutputNested1',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

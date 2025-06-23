@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.s3.common.endpoint_resolver; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,10 +14,7 @@ final _partitions = [
     isRegionalized: true,
     defaults: const _i1.EndpointDefinition(
       hostname: 's3.{region}.amazonaws.com',
-      protocols: [
-        'http',
-        'https',
-      ],
+      protocols: ['http', 'https'],
       signatureVersions: [
         _i1.AWSSignatureVersion.s3v4,
         _i1.AWSSignatureVersion.v4,
@@ -50,18 +47,22 @@ final _partitions = [
       'us-west-2',
     },
     endpoints: const {
-      'af-south-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.af-south-1.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
-      'ap-east-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.ap-east-1.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
+      'af-south-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.af-south-1.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
+      'ap-east-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.ap-east-1.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
       'ap-northeast-1': _i1.EndpointDefinition(
         hostname: 's3.ap-northeast-1.amazonaws.com',
         signatureVersions: [
@@ -72,27 +73,33 @@ final _partitions = [
           _i1.EndpointDefinitionVariant(
             hostname: 's3.dualstack.ap-northeast-1.amazonaws.com',
             tags: ['dualstack'],
-          )
+          ),
         ],
       ),
-      'ap-northeast-2': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.ap-northeast-2.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
-      'ap-northeast-3': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.ap-northeast-3.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
-      'ap-south-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.ap-south-1.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
+      'ap-northeast-2': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.ap-northeast-2.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
+      'ap-northeast-3': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.ap-northeast-3.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
+      'ap-south-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.ap-south-1.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
       'ap-southeast-1': _i1.EndpointDefinition(
         hostname: 's3.ap-southeast-1.amazonaws.com',
         signatureVersions: [
@@ -103,7 +110,7 @@ final _partitions = [
           _i1.EndpointDefinitionVariant(
             hostname: 's3.dualstack.ap-southeast-1.amazonaws.com',
             tags: ['dualstack'],
-          )
+          ),
         ],
       ),
       'ap-southeast-2': _i1.EndpointDefinition(
@@ -116,15 +123,17 @@ final _partitions = [
           _i1.EndpointDefinitionVariant(
             hostname: 's3.dualstack.ap-southeast-2.amazonaws.com',
             tags: ['dualstack'],
-          )
+          ),
         ],
       ),
-      'ap-southeast-3': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.ap-southeast-3.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
+      'ap-southeast-3': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.ap-southeast-3.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
       'aws-global': _i1.EndpointDefinition(
         hostname: 's3.amazonaws.com',
         signatureVersions: [
@@ -134,41 +143,46 @@ final _partitions = [
         credentialScope: _i1.CredentialScope(region: 'us-east-1'),
         variants: [],
       ),
-      'ca-central-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3-fips.ca-central-1.amazonaws.com',
-          tags: ['fips'],
-        ),
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3-fips.dualstack.ca-central-1.amazonaws.com',
-          tags: [
-            'dualstack',
-            'fips',
-          ],
-        ),
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.ca-central-1.amazonaws.com',
-          tags: ['dualstack'],
-        ),
-      ]),
-      'eu-central-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.eu-central-1.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
-      'eu-north-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.eu-north-1.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
-      'eu-south-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.eu-south-1.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
+      'ca-central-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3-fips.ca-central-1.amazonaws.com',
+            tags: ['fips'],
+          ),
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3-fips.dualstack.ca-central-1.amazonaws.com',
+            tags: ['dualstack', 'fips'],
+          ),
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.ca-central-1.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
+      'eu-central-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.eu-central-1.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
+      'eu-north-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.eu-north-1.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
+      'eu-south-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.eu-south-1.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
       'eu-west-1': _i1.EndpointDefinition(
         hostname: 's3.eu-west-1.amazonaws.com',
         signatureVersions: [
@@ -179,21 +193,25 @@ final _partitions = [
           _i1.EndpointDefinitionVariant(
             hostname: 's3.dualstack.eu-west-1.amazonaws.com',
             tags: ['dualstack'],
-          )
+          ),
         ],
       ),
-      'eu-west-2': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.eu-west-2.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
-      'eu-west-3': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.eu-west-3.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
+      'eu-west-2': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.eu-west-2.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
+      'eu-west-3': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.eu-west-3.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
       'fips-ca-central-1': _i1.EndpointDefinition(
         hostname: 's3-fips.ca-central-1.amazonaws.com',
         credentialScope: _i1.CredentialScope(region: 'ca-central-1'),
@@ -219,12 +237,14 @@ final _partitions = [
         credentialScope: _i1.CredentialScope(region: 'us-west-2'),
         variants: [],
       ),
-      'me-south-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.me-south-1.amazonaws.com',
-          tags: ['dualstack'],
-        )
-      ]),
+      'me-south-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.me-south-1.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
       's3-external-1': _i1.EndpointDefinition(
         hostname: 's3-external-1.amazonaws.com',
         signatureVersions: [
@@ -244,7 +264,7 @@ final _partitions = [
           _i1.EndpointDefinitionVariant(
             hostname: 's3.dualstack.sa-east-1.amazonaws.com',
             tags: ['dualstack'],
-          )
+          ),
         ],
       ),
       'us-east-1': _i1.EndpointDefinition(
@@ -256,10 +276,7 @@ final _partitions = [
         variants: [
           _i1.EndpointDefinitionVariant(
             hostname: 's3-fips.dualstack.us-east-1.amazonaws.com',
-            tags: [
-              'dualstack',
-              'fips',
-            ],
+            tags: ['dualstack', 'fips'],
           ),
           _i1.EndpointDefinitionVariant(
             hostname: 's3-fips.us-east-1.amazonaws.com',
@@ -271,23 +288,22 @@ final _partitions = [
           ),
         ],
       ),
-      'us-east-2': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3-fips.dualstack.us-east-2.amazonaws.com',
-          tags: [
-            'dualstack',
-            'fips',
-          ],
-        ),
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3-fips.us-east-2.amazonaws.com',
-          tags: ['fips'],
-        ),
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.us-east-2.amazonaws.com',
-          tags: ['dualstack'],
-        ),
-      ]),
+      'us-east-2': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3-fips.dualstack.us-east-2.amazonaws.com',
+            tags: ['dualstack', 'fips'],
+          ),
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3-fips.us-east-2.amazonaws.com',
+            tags: ['fips'],
+          ),
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.us-east-2.amazonaws.com',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
       'us-west-1': _i1.EndpointDefinition(
         hostname: 's3.us-west-1.amazonaws.com',
         signatureVersions: [
@@ -297,10 +313,7 @@ final _partitions = [
         variants: [
           _i1.EndpointDefinitionVariant(
             hostname: 's3-fips.dualstack.us-west-1.amazonaws.com',
-            tags: [
-              'dualstack',
-              'fips',
-            ],
+            tags: ['dualstack', 'fips'],
           ),
           _i1.EndpointDefinitionVariant(
             hostname: 's3-fips.us-west-1.amazonaws.com',
@@ -321,10 +334,7 @@ final _partitions = [
         variants: [
           _i1.EndpointDefinitionVariant(
             hostname: 's3-fips.dualstack.us-west-2.amazonaws.com',
-            tags: [
-              'dualstack',
-              'fips',
-            ],
+            tags: ['dualstack', 'fips'],
           ),
           _i1.EndpointDefinitionVariant(
             hostname: 's3-fips.us-west-2.amazonaws.com',
@@ -345,10 +355,7 @@ final _partitions = [
     isRegionalized: true,
     defaults: const _i1.EndpointDefinition(
       hostname: 's3.{region}.amazonaws.com.cn',
-      protocols: [
-        'http',
-        'https',
-      ],
+      protocols: ['http', 'https'],
       signatureVersions: [
         _i1.AWSSignatureVersion.s3v4,
         _i1.AWSSignatureVersion.v4,
@@ -356,23 +363,24 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'cn-north-1',
-      'cn-northwest-1',
-    },
+    regions: const {'cn-north-1', 'cn-northwest-1'},
     endpoints: const {
-      'cn-north-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.cn-north-1.amazonaws.com.cn',
-          tags: ['dualstack'],
-        )
-      ]),
-      'cn-northwest-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 's3.dualstack.cn-northwest-1.amazonaws.com.cn',
-          tags: ['dualstack'],
-        )
-      ]),
+      'cn-north-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.cn-north-1.amazonaws.com.cn',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
+      'cn-northwest-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 's3.dualstack.cn-northwest-1.amazonaws.com.cn',
+            tags: ['dualstack'],
+          ),
+        ],
+      ),
     },
   ),
   _i1.Partition(
@@ -390,16 +398,10 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-iso-east-1',
-      'us-iso-west-1',
-    },
+    regions: const {'us-iso-east-1', 'us-iso-west-1'},
     endpoints: const {
       'us-iso-east-1': _i1.EndpointDefinition(
-        protocols: [
-          'http',
-          'https',
-        ],
+        protocols: ['http', 'https'],
         signatureVersions: [_i1.AWSSignatureVersion.s3v4],
         variants: [],
       ),
@@ -413,10 +415,7 @@ final _partitions = [
     isRegionalized: true,
     defaults: const _i1.EndpointDefinition(
       hostname: 's3.{region}.sc2s.sgov.gov',
-      protocols: [
-        'http',
-        'https',
-      ],
+      protocols: ['http', 'https'],
       signatureVersions: [
         _i1.AWSSignatureVersion.s3v4,
         _i1.AWSSignatureVersion.v4,
@@ -443,10 +442,7 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-gov-east-1',
-      'us-gov-west-1',
-    },
+    regions: const {'us-gov-east-1', 'us-gov-west-1'},
     endpoints: const {
       'fips-us-gov-east-1': _i1.EndpointDefinition(
         hostname: 's3-fips.us-gov-east-1.amazonaws.com',
@@ -460,10 +456,7 @@ final _partitions = [
       ),
       'us-gov-east-1': _i1.EndpointDefinition(
         hostname: 's3.us-gov-east-1.amazonaws.com',
-        protocols: [
-          'http',
-          'https',
-        ],
+        protocols: ['http', 'https'],
         variants: [
           _i1.EndpointDefinitionVariant(
             hostname: 's3-fips.us-gov-east-1.amazonaws.com',
@@ -477,10 +470,7 @@ final _partitions = [
       ),
       'us-gov-west-1': _i1.EndpointDefinition(
         hostname: 's3.us-gov-west-1.amazonaws.com',
-        protocols: [
-          'http',
-          'https',
-        ],
+        protocols: ['http', 'https'],
         variants: [
           _i1.EndpointDefinitionVariant(
             hostname: 's3-fips.us-gov-west-1.amazonaws.com',
@@ -496,7 +486,8 @@ final _partitions = [
   ),
 ];
 @_i2.internal
-final _i1.AWSEndpointResolver endpointResolver =
-    _i1.AWSEndpointResolver(_partitions);
+final _i1.AWSEndpointResolver endpointResolver = _i1.AWSEndpointResolver(
+  _partitions,
+);
 @_i2.internal
 const String sdkId = 'S3';

@@ -7,7 +7,7 @@ part of 'sign_in_parameters.dart';
 // **************************************************************************
 
 Serializer<SignInParameters> _$signInParametersSerializer =
-    new _$SignInParametersSerializer();
+    _$SignInParametersSerializer();
 
 class _$SignInParametersSerializer
     implements StructuredSerializer<SignInParameters> {
@@ -17,29 +17,37 @@ class _$SignInParametersSerializer
   final String wireName = 'SignInParameters';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, SignInParameters object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    SignInParameters object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'username',
-      serializers.serialize(object.username,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.username,
+        specifiedType: const FullType(String),
+      ),
     ];
     Object? value;
     value = object.password;
     if (value != null) {
       result
         ..add('password')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   SignInParameters deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new SignInParametersBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = SignInParametersBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -48,12 +56,20 @@ class _$SignInParametersSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'username':
-          result.username = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.username =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'password':
-          result.password = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.password =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -68,22 +84,18 @@ class _$SignInParameters extends SignInParameters {
   @override
   final String? password;
 
-  factory _$SignInParameters(
-          [void Function(SignInParametersBuilder)? updates]) =>
-      (new SignInParametersBuilder()..update(updates))._build();
+  factory _$SignInParameters([
+    void Function(SignInParametersBuilder)? updates,
+  ]) => (SignInParametersBuilder()..update(updates))._build();
 
-  _$SignInParameters._({required this.username, this.password}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        username, r'SignInParameters', 'username');
-  }
-
+  _$SignInParameters._({required this.username, this.password}) : super._();
   @override
   SignInParameters rebuild(void Function(SignInParametersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   SignInParametersBuilder toBuilder() =>
-      new SignInParametersBuilder()..replace(this);
+      SignInParametersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -137,7 +149,6 @@ class SignInParametersBuilder
 
   @override
   void replace(SignInParameters other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignInParameters;
   }
 
@@ -150,11 +161,16 @@ class SignInParametersBuilder
   SignInParameters build() => _build();
 
   _$SignInParameters _build() {
-    final _$result = _$v ??
-        new _$SignInParameters._(
-            username: BuiltValueNullFieldError.checkNotNull(
-                username, r'SignInParameters', 'username'),
-            password: password);
+    final _$result =
+        _$v ??
+        _$SignInParameters._(
+          username: BuiltValueNullFieldError.checkNotNull(
+            username,
+            r'SignInParameters',
+            'username',
+          ),
+          password: password,
+        );
     replace(_$result);
     return _$result;
   }

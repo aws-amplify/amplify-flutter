@@ -60,7 +60,7 @@ abstract class AuthService {
   Future<GetAttributeVerificationStatusResult> getAttributeVerificationStatus();
 
   Future<SendUserAttributeVerificationCodeResult>
-      sendUserAttributeVerificationCode({
+  sendUserAttributeVerificationCode({
     required CognitoUserAttributeKey userAttributeKey,
   });
 
@@ -68,7 +68,7 @@ abstract class AuthService {
     required CognitoUserAttributeKey userAttributeKey,
     required String confirmationCode,
   });
-  Future<AmplifyConfig> waitForConfiguration();
+  Future<AmplifyOutputs> waitForConfiguration();
 
   Future<void> rememberDevice();
 
@@ -94,10 +94,7 @@ class AmplifyAuthService
   @override
   Future<SignInResult> signIn(String username, String password) async {
     final result = await _withUserAgent(
-      () => Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      ),
+      () => Amplify.Auth.signIn(username: username, password: password),
     );
 
     return result;
@@ -137,9 +134,7 @@ class AmplifyAuthService
       return Amplify.Auth.signUp(
         username: username,
         password: password,
-        options: SignUpOptions(
-          userAttributes: attributes,
-        ),
+        options: SignUpOptions(userAttributes: attributes),
       );
     });
   }
@@ -173,9 +168,7 @@ class AmplifyAuthService
 
   @override
   Future<void> rememberDevice() {
-    return _withUserAgent(
-      () => Amplify.Auth.rememberDevice(),
-    );
+    return _withUserAgent(() => Amplify.Auth.rememberDevice());
   }
 
   @override
@@ -219,25 +212,23 @@ class AmplifyAuthService
         // If tokens can be retrieved without an exception, return true.
         AuthSuccessResult _ => true,
         AuthErrorResult(:final exception) => switch (exception) {
-            SignedOutException _ => false,
+          SignedOutException _ => false,
 
-            // NetworkException indicates that access and/or id tokens have expired
-            // and cannot be refreshed due to a network error. In this case the user
-            // should be treated as authenticated to allow for offline use cases.
-            NetworkException _ => true,
+          // NetworkException indicates that access and/or id tokens have expired
+          // and cannot be refreshed due to a network error. In this case the user
+          // should be treated as authenticated to allow for offline use cases.
+          NetworkException _ => true,
 
-            // Any other exception should be thrown to be handled appropriately.
-            _ => throw exception,
-          },
+          // Any other exception should be thrown to be handled appropriately.
+          _ => throw exception,
+        },
       };
     });
   }
 
   @override
   Future<ResetPasswordResult> resetPassword(String username) {
-    return _withUserAgent(
-      () => Amplify.Auth.resetPassword(username: username),
-    );
+    return _withUserAgent(() => Amplify.Auth.resetPassword(username: username));
   }
 
   @override
@@ -257,7 +248,7 @@ class AmplifyAuthService
 
   @override
   Future<SendUserAttributeVerificationCodeResult>
-      sendUserAttributeVerificationCode({
+  sendUserAttributeVerificationCode({
     required CognitoUserAttributeKey userAttributeKey,
   }) {
     return _withUserAgent(
@@ -286,7 +277,7 @@ class AmplifyAuthService
   /// https://github.com/aws-amplify/amplify-js/blob/6de9a1d743deef8de5205590bf7cf8134a5fb5f4/packages/auth/src/Auth.ts#L1199-L1224
   @override
   Future<GetAttributeVerificationStatusResult>
-      getAttributeVerificationStatus() async {
+  getAttributeVerificationStatus() async {
     return _withUserAgent(() async {
       final userAttributes = await Amplify.Auth.fetchUserAttributes();
 
@@ -310,8 +301,9 @@ class AmplifyAuthService
             'true';
       }
 
-      final verifiedAttributes =
-          verifiableAttributes.where(attributeIsVerified).toList();
+      final verifiedAttributes = verifiableAttributes
+          .where(attributeIsVerified)
+          .toList();
       final unverifiedAttributes = verifiableAttributes
           .where((attribute) => !attributeIsVerified(attribute))
           .toList();
@@ -324,7 +316,7 @@ class AmplifyAuthService
   }
 
   @override
-  Future<AmplifyConfig> waitForConfiguration() async {
+  Future<AmplifyOutputs> waitForConfiguration() async {
     final timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       logger.warn(
         'Amplify is taking longer than expected to configure.'
@@ -332,6 +324,7 @@ class AmplifyAuthService
       );
     });
     try {
+      // ignore: invalid_use_of_internal_member
       return await Amplify.asyncConfig;
     } finally {
       timer.cancel();

@@ -11,16 +11,15 @@ class _$XmlMapsOutput extends XmlMapsOutput {
   final _i2.BuiltMap<String, GreetingStruct>? myMap;
 
   factory _$XmlMapsOutput([void Function(XmlMapsOutputBuilder)? updates]) =>
-      (new XmlMapsOutputBuilder()..update(updates))._build();
+      (XmlMapsOutputBuilder()..update(updates))._build();
 
   _$XmlMapsOutput._({this.myMap}) : super._();
-
   @override
   XmlMapsOutput rebuild(void Function(XmlMapsOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  XmlMapsOutputBuilder toBuilder() => new XmlMapsOutputBuilder()..replace(this);
+  XmlMapsOutputBuilder toBuilder() => XmlMapsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -43,7 +42,7 @@ class XmlMapsOutputBuilder
 
   _i2.MapBuilder<String, GreetingStruct>? _myMap;
   _i2.MapBuilder<String, GreetingStruct> get myMap =>
-      _$this._myMap ??= new _i2.MapBuilder<String, GreetingStruct>();
+      _$this._myMap ??= _i2.MapBuilder<String, GreetingStruct>();
   set myMap(_i2.MapBuilder<String, GreetingStruct>? myMap) =>
       _$this._myMap = myMap;
 
@@ -60,7 +59,6 @@ class XmlMapsOutputBuilder
 
   @override
   void replace(XmlMapsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlMapsOutput;
   }
 
@@ -75,15 +73,18 @@ class XmlMapsOutputBuilder
   _$XmlMapsOutput _build() {
     _$XmlMapsOutput _$result;
     try {
-      _$result = _$v ?? new _$XmlMapsOutput._(myMap: _myMap?.build());
+      _$result = _$v ?? _$XmlMapsOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'myMap';
         _myMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'XmlMapsOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'XmlMapsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

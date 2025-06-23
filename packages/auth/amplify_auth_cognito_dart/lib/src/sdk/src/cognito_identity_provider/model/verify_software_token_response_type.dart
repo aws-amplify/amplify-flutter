@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_software_token_response_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -7,20 +7,12 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class VerifySoftwareTokenResponseType
     extends _i1.SmithyEnum<VerifySoftwareTokenResponseType> {
-  const VerifySoftwareTokenResponseType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const VerifySoftwareTokenResponseType._(super.index, super.name, super.value);
 
   const VerifySoftwareTokenResponseType._sdkUnknown(super.value)
-      : super.sdkUnknown();
+    : super.sdkUnknown();
 
-  static const error = VerifySoftwareTokenResponseType._(
-    0,
-    'ERROR',
-    'ERROR',
-  );
+  static const error = VerifySoftwareTokenResponseType._(0, 'ERROR', 'ERROR');
 
   static const success = VerifySoftwareTokenResponseType._(
     1,
@@ -35,18 +27,15 @@ class VerifySoftwareTokenResponseType
   ];
 
   static const List<_i1.SmithySerializer<VerifySoftwareTokenResponseType>>
-      serializers = [
+  serializers = [
     _i1.SmithyEnumSerializer(
       'VerifySoftwareTokenResponseType',
       values: values,
       sdkUnknown: VerifySoftwareTokenResponseType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

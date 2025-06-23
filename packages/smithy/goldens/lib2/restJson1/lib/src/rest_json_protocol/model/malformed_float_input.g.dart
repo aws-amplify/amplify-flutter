@@ -16,28 +16,24 @@ class _$MalformedFloatInput extends MalformedFloatInput {
   @override
   final double? floatInHeader;
 
-  factory _$MalformedFloatInput(
-          [void Function(MalformedFloatInputBuilder)? updates]) =>
-      (new MalformedFloatInputBuilder()..update(updates))._build();
+  factory _$MalformedFloatInput([
+    void Function(MalformedFloatInputBuilder)? updates,
+  ]) => (MalformedFloatInputBuilder()..update(updates))._build();
 
-  _$MalformedFloatInput._(
-      {this.floatInBody,
-      required this.floatInPath,
-      this.floatInQuery,
-      this.floatInHeader})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        floatInPath, r'MalformedFloatInput', 'floatInPath');
-  }
-
+  _$MalformedFloatInput._({
+    this.floatInBody,
+    required this.floatInPath,
+    this.floatInQuery,
+    this.floatInHeader,
+  }) : super._();
   @override
   MalformedFloatInput rebuild(
-          void Function(MalformedFloatInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedFloatInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedFloatInputBuilder toBuilder() =>
-      new MalformedFloatInputBuilder()..replace(this);
+      MalformedFloatInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -98,7 +94,6 @@ class MalformedFloatInputBuilder
 
   @override
   void replace(MalformedFloatInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedFloatInput;
   }
 
@@ -111,13 +106,18 @@ class MalformedFloatInputBuilder
   MalformedFloatInput build() => _build();
 
   _$MalformedFloatInput _build() {
-    final _$result = _$v ??
-        new _$MalformedFloatInput._(
-            floatInBody: floatInBody,
-            floatInPath: BuiltValueNullFieldError.checkNotNull(
-                floatInPath, r'MalformedFloatInput', 'floatInPath'),
-            floatInQuery: floatInQuery,
-            floatInHeader: floatInHeader);
+    final _$result =
+        _$v ??
+        _$MalformedFloatInput._(
+          floatInBody: floatInBody,
+          floatInPath: BuiltValueNullFieldError.checkNotNull(
+            floatInPath,
+            r'MalformedFloatInput',
+            'floatInPath',
+          ),
+          floatInQuery: floatInQuery,
+          floatInHeader: floatInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -127,20 +127,19 @@ class _$MalformedFloatInputPayload extends MalformedFloatInputPayload {
   @override
   final double? floatInBody;
 
-  factory _$MalformedFloatInputPayload(
-          [void Function(MalformedFloatInputPayloadBuilder)? updates]) =>
-      (new MalformedFloatInputPayloadBuilder()..update(updates))._build();
+  factory _$MalformedFloatInputPayload([
+    void Function(MalformedFloatInputPayloadBuilder)? updates,
+  ]) => (MalformedFloatInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedFloatInputPayload._({this.floatInBody}) : super._();
-
   @override
   MalformedFloatInputPayload rebuild(
-          void Function(MalformedFloatInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedFloatInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedFloatInputPayloadBuilder toBuilder() =>
-      new MalformedFloatInputPayloadBuilder()..replace(this);
+      MalformedFloatInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -180,7 +179,6 @@ class MalformedFloatInputPayloadBuilder
 
   @override
   void replace(MalformedFloatInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedFloatInputPayload;
   }
 
@@ -194,7 +192,7 @@ class MalformedFloatInputPayloadBuilder
 
   _$MalformedFloatInputPayload _build() {
     final _$result =
-        _$v ?? new _$MalformedFloatInputPayload._(floatInBody: floatInBody);
+        _$v ?? _$MalformedFloatInputPayload._(floatInBody: floatInBody);
     replace(_$result);
     return _$result;
   }

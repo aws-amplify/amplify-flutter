@@ -14,21 +14,20 @@ class _$LimitExceededException extends LimitExceededException {
   @override
   final Map<String, String>? headers;
 
-  factory _$LimitExceededException(
-          [void Function(LimitExceededExceptionBuilder)? updates]) =>
-      (new LimitExceededExceptionBuilder()..update(updates))._build();
+  factory _$LimitExceededException([
+    void Function(LimitExceededExceptionBuilder)? updates,
+  ]) => (LimitExceededExceptionBuilder()..update(updates))._build();
 
   _$LimitExceededException._({this.message, this.code, this.headers})
-      : super._();
-
+    : super._();
   @override
   LimitExceededException rebuild(
-          void Function(LimitExceededExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(LimitExceededExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   LimitExceededExceptionBuilder toBuilder() =>
-      new LimitExceededExceptionBuilder()..replace(this);
+      LimitExceededExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -79,7 +78,6 @@ class LimitExceededExceptionBuilder
 
   @override
   void replace(LimitExceededException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$LimitExceededException;
   }
 
@@ -92,9 +90,13 @@ class LimitExceededExceptionBuilder
   LimitExceededException build() => _build();
 
   _$LimitExceededException _build() {
-    final _$result = _$v ??
-        new _$LimitExceededException._(
-            message: message, code: code, headers: headers);
+    final _$result =
+        _$v ??
+        _$LimitExceededException._(
+          message: message,
+          code: code,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

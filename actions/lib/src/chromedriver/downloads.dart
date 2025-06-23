@@ -7,16 +7,11 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'downloads.g.dart';
 
-const serializable = JsonSerializable(
-  createToJson: false,
-  anyMap: true,
-);
+const serializable = JsonSerializable(createToJson: false, anyMap: true);
 
 @serializable
 final class AllChromeDownloads {
-  const AllChromeDownloads({
-    required this.versions,
-  });
+  const AllChromeDownloads({required this.versions});
 
   factory AllChromeDownloads.fromJson(Map<String, Object?> json) =>
       _$AllChromeDownloadsFromJson(json);
@@ -79,10 +74,7 @@ final class ChromeVersionDownloads {
 
 @serializable
 final class ChromeDownload {
-  const ChromeDownload({
-    required this.platform,
-    required this.url,
-  });
+  const ChromeDownload({required this.platform, required this.url});
 
   factory ChromeDownload.fromJson(Map<String, Object?> json) =>
       _$ChromeDownloadFromJson(json);
@@ -101,10 +93,11 @@ enum ChromePlatform {
   win64;
 
   static ChromePlatform fromOsArch(OS os, Arch arch) => switch ((os, arch)) {
-        (OS.linux, Arch.x64) => ChromePlatform.linux64,
-        (OS.macOS, Arch.x64) => ChromePlatform.macX64,
-        (OS.macOS, Arch.arm64) => ChromePlatform.macArm64,
-        final unsupported =>
-          throw UnsupportedError('Unsupported OS/arch combo: $unsupported'),
-      };
+    (OS.linux, Arch.x64) => ChromePlatform.linux64,
+    (OS.macOS, Arch.x64) => ChromePlatform.macX64,
+    (OS.macOS, Arch.arm64) => ChromePlatform.macArm64,
+    final unsupported => throw UnsupportedError(
+      'Unsupported OS/arch combo: $unsupported',
+    ),
+  };
 }

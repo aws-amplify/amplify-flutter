@@ -13,23 +13,21 @@ class _$InvalidSmsRoleAccessPolicyException
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidSmsRoleAccessPolicyException(
-          [void Function(InvalidSmsRoleAccessPolicyExceptionBuilder)?
-              updates]) =>
-      (new InvalidSmsRoleAccessPolicyExceptionBuilder()..update(updates))
-          ._build();
+  factory _$InvalidSmsRoleAccessPolicyException([
+    void Function(InvalidSmsRoleAccessPolicyExceptionBuilder)? updates,
+  ]) =>
+      (InvalidSmsRoleAccessPolicyExceptionBuilder()..update(updates))._build();
 
   _$InvalidSmsRoleAccessPolicyException._({this.message, this.headers})
-      : super._();
-
+    : super._();
   @override
   InvalidSmsRoleAccessPolicyException rebuild(
-          void Function(InvalidSmsRoleAccessPolicyExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidSmsRoleAccessPolicyExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidSmsRoleAccessPolicyExceptionBuilder toBuilder() =>
-      new InvalidSmsRoleAccessPolicyExceptionBuilder()..replace(this);
+      InvalidSmsRoleAccessPolicyExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -49,8 +47,10 @@ class _$InvalidSmsRoleAccessPolicyException
 
 class InvalidSmsRoleAccessPolicyExceptionBuilder
     implements
-        Builder<InvalidSmsRoleAccessPolicyException,
-            InvalidSmsRoleAccessPolicyExceptionBuilder> {
+        Builder<
+          InvalidSmsRoleAccessPolicyException,
+          InvalidSmsRoleAccessPolicyExceptionBuilder
+        > {
   _$InvalidSmsRoleAccessPolicyException? _$v;
 
   String? _message;
@@ -75,13 +75,13 @@ class InvalidSmsRoleAccessPolicyExceptionBuilder
 
   @override
   void replace(InvalidSmsRoleAccessPolicyException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidSmsRoleAccessPolicyException;
   }
 
   @override
   void update(
-      void Function(InvalidSmsRoleAccessPolicyExceptionBuilder)? updates) {
+    void Function(InvalidSmsRoleAccessPolicyExceptionBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -89,9 +89,12 @@ class InvalidSmsRoleAccessPolicyExceptionBuilder
   InvalidSmsRoleAccessPolicyException build() => _build();
 
   _$InvalidSmsRoleAccessPolicyException _build() {
-    final _$result = _$v ??
-        new _$InvalidSmsRoleAccessPolicyException._(
-            message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$InvalidSmsRoleAccessPolicyException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

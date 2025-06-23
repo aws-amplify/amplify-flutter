@@ -14,29 +14,23 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$UpdateUserAttributesRequest(
-          [void Function(UpdateUserAttributesRequestBuilder)? updates]) =>
-      (new UpdateUserAttributesRequestBuilder()..update(updates))._build();
+  factory _$UpdateUserAttributesRequest([
+    void Function(UpdateUserAttributesRequestBuilder)? updates,
+  ]) => (UpdateUserAttributesRequestBuilder()..update(updates))._build();
 
-  _$UpdateUserAttributesRequest._(
-      {required this.userAttributes,
-      required this.accessToken,
-      this.clientMetadata})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        userAttributes, r'UpdateUserAttributesRequest', 'userAttributes');
-    BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'UpdateUserAttributesRequest', 'accessToken');
-  }
-
+  _$UpdateUserAttributesRequest._({
+    required this.userAttributes,
+    required this.accessToken,
+    this.clientMetadata,
+  }) : super._();
   @override
   UpdateUserAttributesRequest rebuild(
-          void Function(UpdateUserAttributesRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateUserAttributesRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateUserAttributesRequestBuilder toBuilder() =>
-      new UpdateUserAttributesRequestBuilder()..replace(this);
+      UpdateUserAttributesRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -60,13 +54,15 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
 
 class UpdateUserAttributesRequestBuilder
     implements
-        Builder<UpdateUserAttributesRequest,
-            UpdateUserAttributesRequestBuilder> {
+        Builder<
+          UpdateUserAttributesRequest,
+          UpdateUserAttributesRequestBuilder
+        > {
   _$UpdateUserAttributesRequest? _$v;
 
   _i3.ListBuilder<AttributeType>? _userAttributes;
   _i3.ListBuilder<AttributeType> get userAttributes =>
-      _$this._userAttributes ??= new _i3.ListBuilder<AttributeType>();
+      _$this._userAttributes ??= _i3.ListBuilder<AttributeType>();
   set userAttributes(_i3.ListBuilder<AttributeType>? userAttributes) =>
       _$this._userAttributes = userAttributes;
 
@@ -76,7 +72,7 @@ class UpdateUserAttributesRequestBuilder
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -95,7 +91,6 @@ class UpdateUserAttributesRequestBuilder
 
   @override
   void replace(UpdateUserAttributesRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateUserAttributesRequest;
   }
 
@@ -110,12 +105,17 @@ class UpdateUserAttributesRequestBuilder
   _$UpdateUserAttributesRequest _build() {
     _$UpdateUserAttributesRequest _$result;
     try {
-      _$result = _$v ??
-          new _$UpdateUserAttributesRequest._(
-              userAttributes: userAttributes.build(),
-              accessToken: BuiltValueNullFieldError.checkNotNull(
-                  accessToken, r'UpdateUserAttributesRequest', 'accessToken'),
-              clientMetadata: _clientMetadata?.build());
+      _$result =
+          _$v ??
+          _$UpdateUserAttributesRequest._(
+            userAttributes: userAttributes.build(),
+            accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken,
+              r'UpdateUserAttributesRequest',
+              'accessToken',
+            ),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -125,8 +125,11 @@ class UpdateUserAttributesRequestBuilder
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'UpdateUserAttributesRequest', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'UpdateUserAttributesRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

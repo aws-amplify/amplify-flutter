@@ -7,20 +7,19 @@ part of 'confirm_forgot_password_response.dart';
 // **************************************************************************
 
 class _$ConfirmForgotPasswordResponse extends ConfirmForgotPasswordResponse {
-  factory _$ConfirmForgotPasswordResponse(
-          [void Function(ConfirmForgotPasswordResponseBuilder)? updates]) =>
-      (new ConfirmForgotPasswordResponseBuilder()..update(updates))._build();
+  factory _$ConfirmForgotPasswordResponse([
+    void Function(ConfirmForgotPasswordResponseBuilder)? updates,
+  ]) => (ConfirmForgotPasswordResponseBuilder()..update(updates))._build();
 
   _$ConfirmForgotPasswordResponse._() : super._();
-
   @override
   ConfirmForgotPasswordResponse rebuild(
-          void Function(ConfirmForgotPasswordResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConfirmForgotPasswordResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConfirmForgotPasswordResponseBuilder toBuilder() =>
-      new ConfirmForgotPasswordResponseBuilder()..replace(this);
+      ConfirmForgotPasswordResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -36,15 +35,16 @@ class _$ConfirmForgotPasswordResponse extends ConfirmForgotPasswordResponse {
 
 class ConfirmForgotPasswordResponseBuilder
     implements
-        Builder<ConfirmForgotPasswordResponse,
-            ConfirmForgotPasswordResponseBuilder> {
+        Builder<
+          ConfirmForgotPasswordResponse,
+          ConfirmForgotPasswordResponseBuilder
+        > {
   _$ConfirmForgotPasswordResponse? _$v;
 
   ConfirmForgotPasswordResponseBuilder();
 
   @override
   void replace(ConfirmForgotPasswordResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConfirmForgotPasswordResponse;
   }
 
@@ -57,7 +57,7 @@ class ConfirmForgotPasswordResponseBuilder
   ConfirmForgotPasswordResponse build() => _build();
 
   _$ConfirmForgotPasswordResponse _build() {
-    final _$result = _$v ?? new _$ConfirmForgotPasswordResponse._();
+    final _$result = _$v ?? _$ConfirmForgotPasswordResponse._();
     replace(_$result);
     return _$result;
   }

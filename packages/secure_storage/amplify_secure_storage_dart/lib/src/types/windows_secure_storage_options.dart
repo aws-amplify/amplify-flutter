@@ -23,9 +23,8 @@ abstract class WindowsSecureStorageOptions
   /// An in memory file system will be used when this value is not
   /// provided in a non-flutter application.
   /// {@endtemplate}
-  factory WindowsSecureStorageOptions({
-    String? storagePath,
-  }) = _$WindowsSecureStorageOptions._;
+  factory WindowsSecureStorageOptions({String? storagePath}) =
+      _$WindowsSecureStorageOptions._;
 
   const WindowsSecureStorageOptions._();
 

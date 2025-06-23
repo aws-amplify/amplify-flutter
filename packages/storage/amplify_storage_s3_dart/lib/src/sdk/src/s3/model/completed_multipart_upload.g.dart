@@ -10,20 +10,19 @@ class _$CompletedMultipartUpload extends CompletedMultipartUpload {
   @override
   final _i2.BuiltList<CompletedPart>? parts;
 
-  factory _$CompletedMultipartUpload(
-          [void Function(CompletedMultipartUploadBuilder)? updates]) =>
-      (new CompletedMultipartUploadBuilder()..update(updates))._build();
+  factory _$CompletedMultipartUpload([
+    void Function(CompletedMultipartUploadBuilder)? updates,
+  ]) => (CompletedMultipartUploadBuilder()..update(updates))._build();
 
   _$CompletedMultipartUpload._({this.parts}) : super._();
-
   @override
   CompletedMultipartUpload rebuild(
-          void Function(CompletedMultipartUploadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CompletedMultipartUploadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CompletedMultipartUploadBuilder toBuilder() =>
-      new CompletedMultipartUploadBuilder()..replace(this);
+      CompletedMultipartUploadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,7 +46,7 @@ class CompletedMultipartUploadBuilder
 
   _i2.ListBuilder<CompletedPart>? _parts;
   _i2.ListBuilder<CompletedPart> get parts =>
-      _$this._parts ??= new _i2.ListBuilder<CompletedPart>();
+      _$this._parts ??= _i2.ListBuilder<CompletedPart>();
   set parts(_i2.ListBuilder<CompletedPart>? parts) => _$this._parts = parts;
 
   CompletedMultipartUploadBuilder();
@@ -63,7 +62,6 @@ class CompletedMultipartUploadBuilder
 
   @override
   void replace(CompletedMultipartUpload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CompletedMultipartUpload;
   }
 
@@ -78,16 +76,18 @@ class CompletedMultipartUploadBuilder
   _$CompletedMultipartUpload _build() {
     _$CompletedMultipartUpload _$result;
     try {
-      _$result =
-          _$v ?? new _$CompletedMultipartUpload._(parts: _parts?.build());
+      _$result = _$v ?? _$CompletedMultipartUpload._(parts: _parts?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'parts';
         _parts?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'CompletedMultipartUpload', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'CompletedMultipartUpload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

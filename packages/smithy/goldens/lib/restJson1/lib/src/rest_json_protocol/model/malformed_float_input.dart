@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.malformed_float_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,9 +32,9 @@ abstract class MalformedFloatInput
     );
   }
 
-  factory MalformedFloatInput.build(
-          [void Function(MalformedFloatInputBuilder) updates]) =
-      _$MalformedFloatInput;
+  factory MalformedFloatInput.build([
+    void Function(MalformedFloatInputBuilder) updates,
+  ]) = _$MalformedFloatInput;
 
   const MalformedFloatInput._();
 
@@ -42,23 +42,21 @@ abstract class MalformedFloatInput
     MalformedFloatInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedFloatInput.build((b) {
-        b.floatInBody = payload.floatInBody;
-        if (request.headers['floatInHeader'] != null) {
-          b.floatInHeader = double.parse(request.headers['floatInHeader']!);
-        }
-        if (request.queryParameters['floatInQuery'] != null) {
-          b.floatInQuery =
-              double.parse(request.queryParameters['floatInQuery']!);
-        }
-        if (labels['floatInPath'] != null) {
-          b.floatInPath = double.parse(labels['floatInPath']!);
-        }
-      });
+  }) => MalformedFloatInput.build((b) {
+    b.floatInBody = payload.floatInBody;
+    if (request.headers['floatInHeader'] != null) {
+      b.floatInHeader = double.parse(request.headers['floatInHeader']!);
+    }
+    if (request.queryParameters['floatInQuery'] != null) {
+      b.floatInQuery = double.parse(request.queryParameters['floatInQuery']!);
+    }
+    if (labels['floatInPath'] != null) {
+      b.floatInPath = double.parse(labels['floatInPath']!);
+    }
+  });
 
   static const List<_i1.SmithySerializer<MalformedFloatInputPayload>>
-      serializers = [MalformedFloatInputRestJson1Serializer()];
+  serializers = [MalformedFloatInputRestJson1Serializer()];
 
   double? get floatInBody;
   double get floatInPath;
@@ -70,42 +68,29 @@ abstract class MalformedFloatInput
       case 'floatInPath':
         return floatInPath.toString();
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   MalformedFloatInputPayload getPayload() => MalformedFloatInputPayload((b) {
-        b.floatInBody = floatInBody;
-      });
+    b.floatInBody = floatInBody;
+  });
+
   @override
   List<Object?> get props => [
-        floatInBody,
-        floatInPath,
-        floatInQuery,
-        floatInHeader,
-      ];
+    floatInBody,
+    floatInPath,
+    floatInQuery,
+    floatInHeader,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedFloatInput')
-      ..add(
-        'floatInBody',
-        floatInBody,
-      )
-      ..add(
-        'floatInPath',
-        floatInPath,
-      )
-      ..add(
-        'floatInQuery',
-        floatInQuery,
-      )
-      ..add(
-        'floatInHeader',
-        floatInHeader,
-      );
+      ..add('floatInBody', floatInBody)
+      ..add('floatInPath', floatInPath)
+      ..add('floatInQuery', floatInQuery)
+      ..add('floatInHeader', floatInHeader);
     return helper.toString();
   }
 }
@@ -115,22 +100,20 @@ abstract class MalformedFloatInputPayload
     with _i2.AWSEquatable<MalformedFloatInputPayload>
     implements
         Built<MalformedFloatInputPayload, MalformedFloatInputPayloadBuilder> {
-  factory MalformedFloatInputPayload(
-          [void Function(MalformedFloatInputPayloadBuilder) updates]) =
-      _$MalformedFloatInputPayload;
+  factory MalformedFloatInputPayload([
+    void Function(MalformedFloatInputPayloadBuilder) updates,
+  ]) = _$MalformedFloatInputPayload;
 
   const MalformedFloatInputPayload._();
 
   double? get floatInBody;
   @override
   List<Object?> get props => [floatInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedFloatInputPayload')
-      ..add(
-        'floatInBody',
-        floatInBody,
-      );
+      ..add('floatInBody', floatInBody);
     return helper.toString();
   }
 }
@@ -141,18 +124,17 @@ class MalformedFloatInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        MalformedFloatInput,
-        _$MalformedFloatInput,
-        MalformedFloatInputPayload,
-        _$MalformedFloatInputPayload,
-      ];
+    MalformedFloatInput,
+    _$MalformedFloatInput,
+    MalformedFloatInputPayload,
+    _$MalformedFloatInputPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   MalformedFloatInputPayload deserialize(
     Serializers serializers,
@@ -170,10 +152,12 @@ class MalformedFloatInputRestJson1Serializer
       }
       switch (key) {
         case 'floatInBody':
-          result.floatInBody = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.floatInBody =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
       }
     }
 
@@ -191,10 +175,12 @@ class MalformedFloatInputRestJson1Serializer
     if (floatInBody != null) {
       result$
         ..add('floatInBody')
-        ..add(serializers.serialize(
-          floatInBody,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            floatInBody,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     return result$;
   }

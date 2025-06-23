@@ -73,8 +73,9 @@ void main() {
               ),
             }),
         );
-        final memberNames =
-            shape.members.values.map((m) => m.dartName(ShapeType.structure));
+        final memberNames = shape.members.values.map(
+          (m) => m.dartName(ShapeType.structure),
+        );
         expect(
           memberNames,
           unorderedEquals([
@@ -144,11 +145,7 @@ void main() {
         final memberNames = shape.members.values.map(generator.variantName);
         expect(
           memberNames,
-          unorderedEquals([
-            r'value$',
-            r'sdkUnknown$',
-            r'unknown$',
-          ]),
+          unorderedEquals([r'value$', r'sdkUnknown$', r'unknown$']),
         );
       });
     });
@@ -163,8 +160,9 @@ void main() {
                 (b) => b
                   ..memberName = 'TEST'
                   ..target = Shape.unit
-                  ..traits =
-                      TraitMap.fromTraits(const [EnumValueTrait('test')]),
+                  ..traits = TraitMap.fromTraits(const [
+                    EnumValueTrait('test'),
+                  ]),
               ),
             }),
         );
@@ -182,8 +180,9 @@ void main() {
                 (b) => b
                   ..memberName = 'TEST'
                   ..target = Shape.unit
-                  ..traits =
-                      TraitMap.fromTraits(const [EnumValueTrait('test')]),
+                  ..traits = TraitMap.fromTraits(const [
+                    EnumValueTrait('test'),
+                  ]),
               ),
             }),
         );
@@ -222,14 +221,7 @@ void main() {
           ),
         ];
         final memberNames = traits.map((def) => def.enumVariantName);
-        expect(
-          memberNames,
-          unorderedEquals([
-            r'name$',
-            r'value$',
-            r'index$',
-          ]),
-        );
+        expect(memberNames, unorderedEquals([r'name$', r'value$', r'index$']));
       });
     });
   });

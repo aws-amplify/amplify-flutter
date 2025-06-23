@@ -44,64 +44,38 @@ class _$DefaultValuesInput extends DefaultValuesInput {
   @override
   final bool? nullifiedDefaultBool;
 
-  factory _$DefaultValuesInput(
-          [void Function(DefaultValuesInputBuilder)? updates]) =>
-      (new DefaultValuesInputBuilder()..update(updates))._build();
+  factory _$DefaultValuesInput([
+    void Function(DefaultValuesInputBuilder)? updates,
+  ]) => (DefaultValuesInputBuilder()..update(updates))._build();
 
-  _$DefaultValuesInput._(
-      {required this.requiredDefaultInt,
-      required this.optionalDefaultInt,
-      this.nullifiedDefaultInt,
-      required this.requiredDefaultString,
-      required this.optionalDefaultString,
-      this.nullifiedDefaultString,
-      required this.requiredDefaultEnum,
-      required this.optionalDefaultEnum,
-      this.nullifiedDefaultEnum,
-      required this.requiredDefaultList,
-      required this.optionalDefaultList,
-      this.nullifiedDefaultList,
-      required this.requiredDefaultMap,
-      required this.optionalDefaultMap,
-      this.nullifiedDefaultMap,
-      required this.requiredDefaultBool,
-      required this.optionalDefaultBool,
-      this.nullifiedDefaultBool})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultInt, r'DefaultValuesInput', 'requiredDefaultInt');
-    BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultInt, r'DefaultValuesInput', 'optionalDefaultInt');
-    BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultString, r'DefaultValuesInput', 'requiredDefaultString');
-    BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultString, r'DefaultValuesInput', 'optionalDefaultString');
-    BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultEnum, r'DefaultValuesInput', 'requiredDefaultEnum');
-    BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultEnum, r'DefaultValuesInput', 'optionalDefaultEnum');
-    BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultList, r'DefaultValuesInput', 'requiredDefaultList');
-    BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultList, r'DefaultValuesInput', 'optionalDefaultList');
-    BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultMap, r'DefaultValuesInput', 'requiredDefaultMap');
-    BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultMap, r'DefaultValuesInput', 'optionalDefaultMap');
-    BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultBool, r'DefaultValuesInput', 'requiredDefaultBool');
-    BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultBool, r'DefaultValuesInput', 'optionalDefaultBool');
-  }
-
+  _$DefaultValuesInput._({
+    required this.requiredDefaultInt,
+    required this.optionalDefaultInt,
+    this.nullifiedDefaultInt,
+    required this.requiredDefaultString,
+    required this.optionalDefaultString,
+    this.nullifiedDefaultString,
+    required this.requiredDefaultEnum,
+    required this.optionalDefaultEnum,
+    this.nullifiedDefaultEnum,
+    required this.requiredDefaultList,
+    required this.optionalDefaultList,
+    this.nullifiedDefaultList,
+    required this.requiredDefaultMap,
+    required this.optionalDefaultMap,
+    this.nullifiedDefaultMap,
+    required this.requiredDefaultBool,
+    required this.optionalDefaultBool,
+    this.nullifiedDefaultBool,
+  }) : super._();
   @override
   DefaultValuesInput rebuild(
-          void Function(DefaultValuesInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DefaultValuesInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DefaultValuesInputBuilder toBuilder() =>
-      new DefaultValuesInputBuilder()..replace(this);
+      DefaultValuesInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -204,40 +178,40 @@ class DefaultValuesInputBuilder
 
   _i3.ListBuilder<String>? _requiredDefaultList;
   _i3.ListBuilder<String> get requiredDefaultList =>
-      _$this._requiredDefaultList ??= new _i3.ListBuilder<String>();
+      _$this._requiredDefaultList ??= _i3.ListBuilder<String>();
   set requiredDefaultList(_i3.ListBuilder<String>? requiredDefaultList) =>
       _$this._requiredDefaultList = requiredDefaultList;
 
   _i3.ListBuilder<String>? _optionalDefaultList;
   _i3.ListBuilder<String> get optionalDefaultList =>
-      _$this._optionalDefaultList ??= new _i3.ListBuilder<String>();
+      _$this._optionalDefaultList ??= _i3.ListBuilder<String>();
   set optionalDefaultList(_i3.ListBuilder<String>? optionalDefaultList) =>
       _$this._optionalDefaultList = optionalDefaultList;
 
   _i3.ListBuilder<String>? _nullifiedDefaultList;
   _i3.ListBuilder<String> get nullifiedDefaultList =>
-      _$this._nullifiedDefaultList ??= new _i3.ListBuilder<String>();
+      _$this._nullifiedDefaultList ??= _i3.ListBuilder<String>();
   set nullifiedDefaultList(_i3.ListBuilder<String>? nullifiedDefaultList) =>
       _$this._nullifiedDefaultList = nullifiedDefaultList;
 
   _i3.MapBuilder<String, String>? _requiredDefaultMap;
   _i3.MapBuilder<String, String> get requiredDefaultMap =>
-      _$this._requiredDefaultMap ??= new _i3.MapBuilder<String, String>();
+      _$this._requiredDefaultMap ??= _i3.MapBuilder<String, String>();
   set requiredDefaultMap(_i3.MapBuilder<String, String>? requiredDefaultMap) =>
       _$this._requiredDefaultMap = requiredDefaultMap;
 
   _i3.MapBuilder<String, String>? _optionalDefaultMap;
   _i3.MapBuilder<String, String> get optionalDefaultMap =>
-      _$this._optionalDefaultMap ??= new _i3.MapBuilder<String, String>();
+      _$this._optionalDefaultMap ??= _i3.MapBuilder<String, String>();
   set optionalDefaultMap(_i3.MapBuilder<String, String>? optionalDefaultMap) =>
       _$this._optionalDefaultMap = optionalDefaultMap;
 
   _i3.MapBuilder<String, String>? _nullifiedDefaultMap;
   _i3.MapBuilder<String, String> get nullifiedDefaultMap =>
-      _$this._nullifiedDefaultMap ??= new _i3.MapBuilder<String, String>();
+      _$this._nullifiedDefaultMap ??= _i3.MapBuilder<String, String>();
   set nullifiedDefaultMap(
-          _i3.MapBuilder<String, String>? nullifiedDefaultMap) =>
-      _$this._nullifiedDefaultMap = nullifiedDefaultMap;
+    _i3.MapBuilder<String, String>? nullifiedDefaultMap,
+  ) => _$this._nullifiedDefaultMap = nullifiedDefaultMap;
 
   bool? _requiredDefaultBool;
   bool? get requiredDefaultBool => _$this._requiredDefaultBool;
@@ -286,7 +260,6 @@ class DefaultValuesInputBuilder
 
   @override
   void replace(DefaultValuesInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DefaultValuesInput;
   }
 
@@ -301,34 +274,60 @@ class DefaultValuesInputBuilder
   _$DefaultValuesInput _build() {
     _$DefaultValuesInput _$result;
     try {
-      _$result = _$v ??
-          new _$DefaultValuesInput._(
-              requiredDefaultInt: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultInt, r'DefaultValuesInput', 'requiredDefaultInt'),
-              optionalDefaultInt: BuiltValueNullFieldError.checkNotNull(
-                  optionalDefaultInt, r'DefaultValuesInput', 'optionalDefaultInt'),
-              nullifiedDefaultInt: nullifiedDefaultInt,
-              requiredDefaultString: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultString, r'DefaultValuesInput', 'requiredDefaultString'),
-              optionalDefaultString: BuiltValueNullFieldError.checkNotNull(
-                  optionalDefaultString, r'DefaultValuesInput', 'optionalDefaultString'),
-              nullifiedDefaultString: nullifiedDefaultString,
-              requiredDefaultEnum: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultEnum, r'DefaultValuesInput', 'requiredDefaultEnum'),
-              optionalDefaultEnum: BuiltValueNullFieldError.checkNotNull(
-                  optionalDefaultEnum, r'DefaultValuesInput', 'optionalDefaultEnum'),
-              nullifiedDefaultEnum: nullifiedDefaultEnum,
-              requiredDefaultList: requiredDefaultList.build(),
-              optionalDefaultList: optionalDefaultList.build(),
-              nullifiedDefaultList: _nullifiedDefaultList?.build(),
-              requiredDefaultMap: requiredDefaultMap.build(),
-              optionalDefaultMap: optionalDefaultMap.build(),
-              nullifiedDefaultMap: _nullifiedDefaultMap?.build(),
-              requiredDefaultBool: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultBool, r'DefaultValuesInput', 'requiredDefaultBool'),
-              optionalDefaultBool:
-                  BuiltValueNullFieldError.checkNotNull(optionalDefaultBool, r'DefaultValuesInput', 'optionalDefaultBool'),
-              nullifiedDefaultBool: nullifiedDefaultBool);
+      _$result =
+          _$v ??
+          _$DefaultValuesInput._(
+            requiredDefaultInt: BuiltValueNullFieldError.checkNotNull(
+              requiredDefaultInt,
+              r'DefaultValuesInput',
+              'requiredDefaultInt',
+            ),
+            optionalDefaultInt: BuiltValueNullFieldError.checkNotNull(
+              optionalDefaultInt,
+              r'DefaultValuesInput',
+              'optionalDefaultInt',
+            ),
+            nullifiedDefaultInt: nullifiedDefaultInt,
+            requiredDefaultString: BuiltValueNullFieldError.checkNotNull(
+              requiredDefaultString,
+              r'DefaultValuesInput',
+              'requiredDefaultString',
+            ),
+            optionalDefaultString: BuiltValueNullFieldError.checkNotNull(
+              optionalDefaultString,
+              r'DefaultValuesInput',
+              'optionalDefaultString',
+            ),
+            nullifiedDefaultString: nullifiedDefaultString,
+            requiredDefaultEnum: BuiltValueNullFieldError.checkNotNull(
+              requiredDefaultEnum,
+              r'DefaultValuesInput',
+              'requiredDefaultEnum',
+            ),
+            optionalDefaultEnum: BuiltValueNullFieldError.checkNotNull(
+              optionalDefaultEnum,
+              r'DefaultValuesInput',
+              'optionalDefaultEnum',
+            ),
+            nullifiedDefaultEnum: nullifiedDefaultEnum,
+            requiredDefaultList: requiredDefaultList.build(),
+            optionalDefaultList: optionalDefaultList.build(),
+            nullifiedDefaultList: _nullifiedDefaultList?.build(),
+            requiredDefaultMap: requiredDefaultMap.build(),
+            optionalDefaultMap: optionalDefaultMap.build(),
+            nullifiedDefaultMap: _nullifiedDefaultMap?.build(),
+            requiredDefaultBool: BuiltValueNullFieldError.checkNotNull(
+              requiredDefaultBool,
+              r'DefaultValuesInput',
+              'requiredDefaultBool',
+            ),
+            optionalDefaultBool: BuiltValueNullFieldError.checkNotNull(
+              optionalDefaultBool,
+              r'DefaultValuesInput',
+              'optionalDefaultBool',
+            ),
+            nullifiedDefaultBool: nullifiedDefaultBool,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -345,8 +344,11 @@ class DefaultValuesInputBuilder
         _$failedField = 'nullifiedDefaultMap';
         _nullifiedDefaultMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'DefaultValuesInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'DefaultValuesInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

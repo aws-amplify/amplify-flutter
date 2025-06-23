@@ -14,33 +14,33 @@ void main() {
   testRunner.setupTests();
 
   group('getCurrentUser', () {
-    for (final environmentName in userPoolEnvironments) {
+    for (final environment in userPoolEnvironments) {
       group('no alias', () {
-        group(environmentName, () {
-          final username = generateUsername();
+        group(environment.name, () {
+          final username = environment.generateUsername();
           final password = generatePassword();
+          late String cognitoUsername;
 
           setUp(() async {
             await testRunner.configure(
-              environmentName: environmentName,
+              environmentName: environment.name,
+              useAmplifyOutputs: environment.useAmplifyOutputs,
             );
 
-            await adminCreateUser(
+            cognitoUsername = await adminCreateUser(
               username,
               password,
               autoConfirm: true,
               verifyAttributes: true,
+              autoFillAttributes: environment.loginMethod.isUsername,
             );
             await signOutUser();
-            await Amplify.Auth.signIn(
-              username: username,
-              password: password,
-            );
+            await Amplify.Auth.signIn(username: username, password: password);
           });
 
           asyncTest('should return the current user', (_) async {
             final authUser = await Amplify.Auth.getCurrentUser();
-            expect(authUser.username, username);
+            expect(authUser.username, cognitoUsername);
             expect(isValidUserSub(authUser.userId), isTrue);
             expect(
               authUser.signInDetails,
@@ -50,6 +50,7 @@ void main() {
                 authUser.username,
               ),
               reason: 'Should return the same username as AuthUser.username',
+              skip: !environment.loginMethod.isUsername,
             );
           });
 
@@ -67,67 +68,59 @@ void main() {
       });
     }
 
-    group(
-      'with alias',
-      () {
-        late String username;
-        late String password;
+    group('with alias', () {
+      late String username;
+      late String password;
 
-        setUp(() async {
-          await testRunner.configure(
-            environmentName: 'sign-in-with-phone',
-          );
+      setUp(() async {
+        await testRunner.configure(environmentName: 'sign-in-with-phone');
 
-          username = generatePhoneNumber();
-          password = generatePassword();
-          final cognitoUsername = await adminCreateUser(
+        username = generatePhoneNumber();
+        password = generatePassword();
+        final cognitoUsername = await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: true,
+          enableMfa: true,
+          attributes: {AuthUserAttributeKey.phoneNumber: username},
+        );
+
+        final code = await getOtpCode(UserAttribute.username(cognitoUsername));
+        final signInRes = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(
+          signInRes.nextStep.signInStep,
+          AuthSignInStep.confirmSignInWithSmsMfaCode,
+        );
+        final confirmSignInRes = await Amplify.Auth.confirmSignIn(
+          confirmationValue: await code.code,
+        );
+        expect(confirmSignInRes.isSignedIn, isTrue);
+      });
+
+      asyncTest('should return the current user', (_) async {
+        final authUser = await Amplify.Auth.getCurrentUser();
+        expect(
+          authUser.username,
+          isNot(username),
+          reason: 'Cognito should assign an alias username',
+        );
+        expect(isValidUserSub(authUser.userId), isTrue);
+        expect(
+          authUser.signInDetails,
+          isA<CognitoSignInDetailsApiBased>().having(
+            (details) => details.username,
+            'username',
             username,
-            password,
-            autoConfirm: true,
-            verifyAttributes: true,
-            enableMfa: true,
-            attributes: {
-              AuthUserAttributeKey.phoneNumber: username,
-            },
-          );
-
-          final code = await getOtpCode(
-            UserAttribute.username(cognitoUsername),
-          );
-          final signInRes = await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
-          expect(
-            signInRes.nextStep.signInStep,
-            AuthSignInStep.confirmSignInWithSmsMfaCode,
-          );
-          final confirmSignInRes = await Amplify.Auth.confirmSignIn(
-            confirmationValue: await code.code,
-          );
-          expect(confirmSignInRes.isSignedIn, isTrue);
-        });
-
-        asyncTest('should return the current user', (_) async {
-          final authUser = await Amplify.Auth.getCurrentUser();
-          expect(
-            authUser.username,
-            isNot(username),
-            reason: 'Cognito should assign an alias username',
-          );
-          expect(isValidUserSub(authUser.userId), isTrue);
-          expect(
-            authUser.signInDetails,
-            isA<CognitoSignInDetailsApiBased>().having(
-              (details) => details.username,
-              'username',
-              username,
-            ),
-            reason: 'Should return the phone number alias since it '
-                'was used to sign in',
-          );
-        });
-      },
-    );
+          ),
+          reason:
+              'Should return the phone number alias since it '
+              'was used to sign in',
+        );
+      });
+    });
   });
 }

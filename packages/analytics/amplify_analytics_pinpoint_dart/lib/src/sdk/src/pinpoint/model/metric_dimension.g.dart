@@ -13,22 +13,16 @@ class _$MetricDimension extends MetricDimension {
   final double value;
 
   factory _$MetricDimension([void Function(MetricDimensionBuilder)? updates]) =>
-      (new MetricDimensionBuilder()..update(updates))._build();
+      (MetricDimensionBuilder()..update(updates))._build();
 
   _$MetricDimension._({required this.comparisonOperator, required this.value})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        comparisonOperator, r'MetricDimension', 'comparisonOperator');
-    BuiltValueNullFieldError.checkNotNull(value, r'MetricDimension', 'value');
-  }
-
+    : super._();
   @override
   MetricDimension rebuild(void Function(MetricDimensionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  MetricDimensionBuilder toBuilder() =>
-      new MetricDimensionBuilder()..replace(this);
+  MetricDimensionBuilder toBuilder() => MetricDimensionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -75,7 +69,6 @@ class MetricDimensionBuilder
 
   @override
   void replace(MetricDimension other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MetricDimension;
   }
 
@@ -88,12 +81,20 @@ class MetricDimensionBuilder
   MetricDimension build() => _build();
 
   _$MetricDimension _build() {
-    final _$result = _$v ??
-        new _$MetricDimension._(
-            comparisonOperator: BuiltValueNullFieldError.checkNotNull(
-                comparisonOperator, r'MetricDimension', 'comparisonOperator'),
-            value: BuiltValueNullFieldError.checkNotNull(
-                value, r'MetricDimension', 'value'));
+    final _$result =
+        _$v ??
+        _$MetricDimension._(
+          comparisonOperator: BuiltValueNullFieldError.checkNotNull(
+            comparisonOperator,
+            r'MetricDimension',
+            'comparisonOperator',
+          ),
+          value: BuiltValueNullFieldError.checkNotNull(
+            value,
+            r'MetricDimension',
+            'value',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

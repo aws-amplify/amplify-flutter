@@ -8,20 +8,19 @@ part of 'http_prefix_headers_in_response_input.dart';
 
 class _$HttpPrefixHeadersInResponseInput
     extends HttpPrefixHeadersInResponseInput {
-  factory _$HttpPrefixHeadersInResponseInput(
-          [void Function(HttpPrefixHeadersInResponseInputBuilder)? updates]) =>
-      (new HttpPrefixHeadersInResponseInputBuilder()..update(updates))._build();
+  factory _$HttpPrefixHeadersInResponseInput([
+    void Function(HttpPrefixHeadersInResponseInputBuilder)? updates,
+  ]) => (HttpPrefixHeadersInResponseInputBuilder()..update(updates))._build();
 
   _$HttpPrefixHeadersInResponseInput._() : super._();
-
   @override
   HttpPrefixHeadersInResponseInput rebuild(
-          void Function(HttpPrefixHeadersInResponseInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPrefixHeadersInResponseInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPrefixHeadersInResponseInputBuilder toBuilder() =>
-      new HttpPrefixHeadersInResponseInputBuilder()..replace(this);
+      HttpPrefixHeadersInResponseInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -37,15 +36,16 @@ class _$HttpPrefixHeadersInResponseInput
 
 class HttpPrefixHeadersInResponseInputBuilder
     implements
-        Builder<HttpPrefixHeadersInResponseInput,
-            HttpPrefixHeadersInResponseInputBuilder> {
+        Builder<
+          HttpPrefixHeadersInResponseInput,
+          HttpPrefixHeadersInResponseInputBuilder
+        > {
   _$HttpPrefixHeadersInResponseInput? _$v;
 
   HttpPrefixHeadersInResponseInputBuilder();
 
   @override
   void replace(HttpPrefixHeadersInResponseInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPrefixHeadersInResponseInput;
   }
 
@@ -58,7 +58,7 @@ class HttpPrefixHeadersInResponseInputBuilder
   HttpPrefixHeadersInResponseInput build() => _build();
 
   _$HttpPrefixHeadersInResponseInput _build() {
-    final _$result = _$v ?? new _$HttpPrefixHeadersInResponseInput._();
+    final _$result = _$v ?? _$HttpPrefixHeadersInResponseInput._();
     replace(_$result);
     return _$result;
   }

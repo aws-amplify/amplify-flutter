@@ -12,21 +12,20 @@ class _$ChallengeResponseType extends ChallengeResponseType {
   @override
   final ChallengeResponse? challengeResponse;
 
-  factory _$ChallengeResponseType(
-          [void Function(ChallengeResponseTypeBuilder)? updates]) =>
-      (new ChallengeResponseTypeBuilder()..update(updates))._build();
+  factory _$ChallengeResponseType([
+    void Function(ChallengeResponseTypeBuilder)? updates,
+  ]) => (ChallengeResponseTypeBuilder()..update(updates))._build();
 
   _$ChallengeResponseType._({this.challengeName, this.challengeResponse})
-      : super._();
-
+    : super._();
   @override
   ChallengeResponseType rebuild(
-          void Function(ChallengeResponseTypeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ChallengeResponseTypeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ChallengeResponseTypeBuilder toBuilder() =>
-      new ChallengeResponseTypeBuilder()..replace(this);
+      ChallengeResponseTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +73,6 @@ class ChallengeResponseTypeBuilder
 
   @override
   void replace(ChallengeResponseType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ChallengeResponseType;
   }
 
@@ -87,9 +85,12 @@ class ChallengeResponseTypeBuilder
   ChallengeResponseType build() => _build();
 
   _$ChallengeResponseType _build() {
-    final _$result = _$v ??
-        new _$ChallengeResponseType._(
-            challengeName: challengeName, challengeResponse: challengeResponse);
+    final _$result =
+        _$v ??
+        _$ChallengeResponseType._(
+          challengeName: challengeName,
+          challengeResponse: challengeResponse,
+        );
     replace(_$result);
     return _$result;
   }

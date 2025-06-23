@@ -10,20 +10,19 @@ class _$IgnoresWrappingXmlNameOutput extends IgnoresWrappingXmlNameOutput {
   @override
   final String? foo;
 
-  factory _$IgnoresWrappingXmlNameOutput(
-          [void Function(IgnoresWrappingXmlNameOutputBuilder)? updates]) =>
-      (new IgnoresWrappingXmlNameOutputBuilder()..update(updates))._build();
+  factory _$IgnoresWrappingXmlNameOutput([
+    void Function(IgnoresWrappingXmlNameOutputBuilder)? updates,
+  ]) => (IgnoresWrappingXmlNameOutputBuilder()..update(updates))._build();
 
   _$IgnoresWrappingXmlNameOutput._({this.foo}) : super._();
-
   @override
   IgnoresWrappingXmlNameOutput rebuild(
-          void Function(IgnoresWrappingXmlNameOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(IgnoresWrappingXmlNameOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   IgnoresWrappingXmlNameOutputBuilder toBuilder() =>
-      new IgnoresWrappingXmlNameOutputBuilder()..replace(this);
+      IgnoresWrappingXmlNameOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -42,8 +41,10 @@ class _$IgnoresWrappingXmlNameOutput extends IgnoresWrappingXmlNameOutput {
 
 class IgnoresWrappingXmlNameOutputBuilder
     implements
-        Builder<IgnoresWrappingXmlNameOutput,
-            IgnoresWrappingXmlNameOutputBuilder> {
+        Builder<
+          IgnoresWrappingXmlNameOutput,
+          IgnoresWrappingXmlNameOutputBuilder
+        > {
   _$IgnoresWrappingXmlNameOutput? _$v;
 
   String? _foo;
@@ -63,7 +64,6 @@ class IgnoresWrappingXmlNameOutputBuilder
 
   @override
   void replace(IgnoresWrappingXmlNameOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$IgnoresWrappingXmlNameOutput;
   }
 
@@ -76,7 +76,7 @@ class IgnoresWrappingXmlNameOutputBuilder
   IgnoresWrappingXmlNameOutput build() => _build();
 
   _$IgnoresWrappingXmlNameOutput _build() {
-    final _$result = _$v ?? new _$IgnoresWrappingXmlNameOutput._(foo: foo);
+    final _$result = _$v ?? _$IgnoresWrappingXmlNameOutput._(foo: foo);
     replace(_$result);
     return _$result;
   }

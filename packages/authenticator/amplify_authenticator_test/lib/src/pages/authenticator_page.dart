@@ -28,13 +28,22 @@ abstract class AuthenticatorPage {
   Finder get signOutButton => find.byKey(keySignOutButton);
 
   /// Then I see "Username" as an input field
-  void expectUsername({
-    String label = 'Username',
-    bool isPresent = true,
-  }) {
+  void expectUsername({String label = 'Username', bool isPresent = true}) {
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
+    final usernameFieldHint = find.descendant(
+      of: usernameField,
+      matching: find.text(label),
+    );
+    expect(usernameFieldHint, isPresent ? findsOneWidget : findsNothing);
+  }
+
+  /// Then I see "Email" as an input field
+  void expectEmail({String label = 'Email', bool isPresent = true}) {
+    // email field is present
+    expect(usernameField, findsOneWidget);
+    // login type is "email"
     final usernameFieldHint = find.descendant(
       of: usernameField,
       matching: find.text(label),
@@ -56,10 +65,7 @@ abstract class AuthenticatorPage {
     final finder = find.byKey(inputField);
     expect(finder, findsOneWidget);
     expect(
-      find.descendant(
-        of: finder,
-        matching: find.textContaining(errorText),
-      ),
+      find.descendant(of: finder, matching: find.textContaining(errorText)),
       findsOneWidget,
     );
   }
@@ -88,8 +94,9 @@ abstract class AuthenticatorPage {
   }
 
   Future<void> expectState(AuthState state) async {
-    final inheritedBloc =
-        tester.widget<InheritedAuthBloc>(find.byKey(keyInheritedAuthBloc));
+    final inheritedBloc = tester.widget<InheritedAuthBloc>(
+      find.byKey(keyInheritedAuthBloc),
+    );
     if (inheritedBloc.authBloc.currentState != state) {
       await nextBlocEvent(tester);
     }
@@ -126,13 +133,17 @@ abstract class AuthenticatorPage {
     await tester.tap(countrySelectField);
     await tester.pumpAndSettle();
     expect(countrySelectDialog, findsOneWidget);
-    expect(countrySearchField, findsOneWidget);
-    await tester.enterText(countrySearchField, countryName);
-    await tester.pumpAndSettle();
     final dialCode = find.descendant(
       of: find.byKey(keyCountryDialog),
-      matching: find.textContaining('($countryCode)'),
+      matching: find.textContaining(countryCode),
     );
+    await tester.dragUntilVisible(
+      dialCode,
+      countrySelectDialog,
+      const Offset(0, -250),
+      maxIteration: 100, // delta to move
+    );
+    await tester.pumpAndSettle();
     expect(dialCode, findsOneWidget);
     await tester.tap(dialCode);
   }

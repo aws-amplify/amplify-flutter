@@ -15,7 +15,7 @@ import 'package:smithy/ast.dart';
 /// {@template aws.smithy.timestamp}
 /// A [DateTime] wrapper which provides custom formatting and parsing options
 /// for use with Smithy services.
-/// @{endtemplate}
+/// {@endtemplate}
 class Timestamp {
   /// {@macro aws.smithy.timestamp}
   Timestamp(DateTime timestamp) : _timestamp = timestamp.stripMicroseconds();
@@ -49,14 +49,12 @@ class Timestamp {
         }
         return Timestamp(dt);
       case TimestampFormat.epochSeconds:
-        final secs =
-            timestamp is String ? double.parse(timestamp) : timestamp as num;
+        final secs = timestamp is String
+            ? double.parse(timestamp)
+            : timestamp as num;
         final millisecs = (secs * 1000).truncate();
         return Timestamp(
-          DateTime.fromMillisecondsSinceEpoch(
-            millisecs,
-            isUtc: true,
-          ),
+          DateTime.fromMillisecondsSinceEpoch(millisecs, isUtc: true),
         );
       default:
         break;

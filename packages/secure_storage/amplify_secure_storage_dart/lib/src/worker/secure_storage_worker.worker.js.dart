@@ -7,6 +7,7 @@ import 'package:aws_common/aws_common.dart';
 class SecureStorageWorkerImpl extends SecureStorageWorker {
   @override
   String get name => 'SecureStorageWorker';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.
@@ -37,9 +38,6 @@ class SecureStorageWorkerImpl extends SecureStorageWorker {
       port: baseUri.port,
       path: '$basePath/test/$relativePath',
     ).toString();
-    return [
-      relativePath,
-      testRelativePath,
-    ];
+    return [relativePath, testRelativePath];
   }
 }

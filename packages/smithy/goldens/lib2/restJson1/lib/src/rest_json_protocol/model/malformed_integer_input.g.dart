@@ -16,28 +16,24 @@ class _$MalformedIntegerInput extends MalformedIntegerInput {
   @override
   final int? integerInHeader;
 
-  factory _$MalformedIntegerInput(
-          [void Function(MalformedIntegerInputBuilder)? updates]) =>
-      (new MalformedIntegerInputBuilder()..update(updates))._build();
+  factory _$MalformedIntegerInput([
+    void Function(MalformedIntegerInputBuilder)? updates,
+  ]) => (MalformedIntegerInputBuilder()..update(updates))._build();
 
-  _$MalformedIntegerInput._(
-      {this.integerInBody,
-      required this.integerInPath,
-      this.integerInQuery,
-      this.integerInHeader})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        integerInPath, r'MalformedIntegerInput', 'integerInPath');
-  }
-
+  _$MalformedIntegerInput._({
+    this.integerInBody,
+    required this.integerInPath,
+    this.integerInQuery,
+    this.integerInHeader,
+  }) : super._();
   @override
   MalformedIntegerInput rebuild(
-          void Function(MalformedIntegerInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedIntegerInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedIntegerInputBuilder toBuilder() =>
-      new MalformedIntegerInputBuilder()..replace(this);
+      MalformedIntegerInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,7 +97,6 @@ class MalformedIntegerInputBuilder
 
   @override
   void replace(MalformedIntegerInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedIntegerInput;
   }
 
@@ -114,13 +109,18 @@ class MalformedIntegerInputBuilder
   MalformedIntegerInput build() => _build();
 
   _$MalformedIntegerInput _build() {
-    final _$result = _$v ??
-        new _$MalformedIntegerInput._(
-            integerInBody: integerInBody,
-            integerInPath: BuiltValueNullFieldError.checkNotNull(
-                integerInPath, r'MalformedIntegerInput', 'integerInPath'),
-            integerInQuery: integerInQuery,
-            integerInHeader: integerInHeader);
+    final _$result =
+        _$v ??
+        _$MalformedIntegerInput._(
+          integerInBody: integerInBody,
+          integerInPath: BuiltValueNullFieldError.checkNotNull(
+            integerInPath,
+            r'MalformedIntegerInput',
+            'integerInPath',
+          ),
+          integerInQuery: integerInQuery,
+          integerInHeader: integerInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -130,20 +130,19 @@ class _$MalformedIntegerInputPayload extends MalformedIntegerInputPayload {
   @override
   final int? integerInBody;
 
-  factory _$MalformedIntegerInputPayload(
-          [void Function(MalformedIntegerInputPayloadBuilder)? updates]) =>
-      (new MalformedIntegerInputPayloadBuilder()..update(updates))._build();
+  factory _$MalformedIntegerInputPayload([
+    void Function(MalformedIntegerInputPayloadBuilder)? updates,
+  ]) => (MalformedIntegerInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedIntegerInputPayload._({this.integerInBody}) : super._();
-
   @override
   MalformedIntegerInputPayload rebuild(
-          void Function(MalformedIntegerInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedIntegerInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedIntegerInputPayloadBuilder toBuilder() =>
-      new MalformedIntegerInputPayloadBuilder()..replace(this);
+      MalformedIntegerInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -163,8 +162,10 @@ class _$MalformedIntegerInputPayload extends MalformedIntegerInputPayload {
 
 class MalformedIntegerInputPayloadBuilder
     implements
-        Builder<MalformedIntegerInputPayload,
-            MalformedIntegerInputPayloadBuilder> {
+        Builder<
+          MalformedIntegerInputPayload,
+          MalformedIntegerInputPayloadBuilder
+        > {
   _$MalformedIntegerInputPayload? _$v;
 
   int? _integerInBody;
@@ -185,7 +186,6 @@ class MalformedIntegerInputPayloadBuilder
 
   @override
   void replace(MalformedIntegerInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedIntegerInputPayload;
   }
 
@@ -198,8 +198,8 @@ class MalformedIntegerInputPayloadBuilder
   MalformedIntegerInputPayload build() => _build();
 
   _$MalformedIntegerInputPayload _build() {
-    final _$result = _$v ??
-        new _$MalformedIntegerInputPayload._(integerInBody: integerInBody);
+    final _$result =
+        _$v ?? _$MalformedIntegerInputPayload._(integerInBody: integerInBody);
     replace(_$result);
     return _$result;
   }

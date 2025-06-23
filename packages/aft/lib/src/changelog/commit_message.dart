@@ -19,8 +19,8 @@ final RegExp _trailerRegex = RegExp(r'^[^:\s]+:[^:]+$');
 
 enum CommitTypeGroup {
   breaking('Breaking Changes'),
-  fixes('Fixes'),
   features('Features'),
+  fixes('Fixes'),
   other('Other Changes');
 
   const CommitTypeGroup(this.header);
@@ -72,9 +72,7 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
   }) {
     final dateTime = commitTimeSecs == null
         ? DateTime.now().toUtc()
-        : DateTime.fromMillisecondsSinceEpoch(
-            commitTimeSecs * 1000,
-          ).toUtc();
+        : DateTime.fromMillisecondsSinceEpoch(commitTimeSecs * 1000).toUtc();
     final mergeCommit = _mergeCommitRegex.firstMatch(summary);
     if (mergeCommit != null) {
       return MergeCommitMessage(
@@ -104,7 +102,8 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
 
     final type = CommitType.values.byName(typeStr);
     final isBreakingChange = commitMessage.namedGroup('breaking') != null;
-    final scopes = commitMessage
+    final scopes =
+        commitMessage
             .namedGroup('scope')
             ?.replaceAll(RegExp(r'[\(\)]'), '')
             .split(',')
@@ -350,11 +349,10 @@ class VersionCommitMessage extends CommitMessage {
     required DateTime dateTime,
   }) {
     final trailers = Map.fromEntries(
-      LineSplitter.split(body).where(_trailerRegex.hasMatch).map(
-            (line) => MapEntry(
-              line.split(':')[0],
-              line.split(':')[1].trim(),
-            ),
+      LineSplitter.split(body)
+          .where(_trailerRegex.hasMatch)
+          .map(
+            (line) => MapEntry(line.split(':')[0], line.split(':')[1].trim()),
           ),
     );
     final updatedComponentsStr = trailers['Updated-Components'];

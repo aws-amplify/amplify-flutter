@@ -39,8 +39,7 @@ class WorkerHiveGenerator extends GeneratorForAnnotation<WorkerHive> {
             ..assignment = literalMap(
               {
                 for (final workerType in workers)
-                  workerType.getDisplayString(withNullability: false):
-                      Block.of([
+                  workerType.getDisplayString(): Block.of([
                     (workerType.accept(_symbolVisitor) as TypeReference)
                         .rebuild((t) => t.isNullable = false)
                         .property('create')
@@ -55,9 +54,7 @@ class WorkerHiveGenerator extends GeneratorForAnnotation<WorkerHive> {
         Method.returnsVoid(
           (m) => m
             ..name = 'main'
-            ..body = DartTypes.workerBee.runHive.call([
-              refer('_workers'),
-            ]).code,
+            ..body = DartTypes.workerBee.runHive.call([refer('_workers')]).code,
         ),
       ]);
     });

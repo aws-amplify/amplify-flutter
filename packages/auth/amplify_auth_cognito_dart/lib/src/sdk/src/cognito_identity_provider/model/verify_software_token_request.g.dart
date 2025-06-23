@@ -16,28 +16,24 @@ class _$VerifySoftwareTokenRequest extends VerifySoftwareTokenRequest {
   @override
   final String? friendlyDeviceName;
 
-  factory _$VerifySoftwareTokenRequest(
-          [void Function(VerifySoftwareTokenRequestBuilder)? updates]) =>
-      (new VerifySoftwareTokenRequestBuilder()..update(updates))._build();
+  factory _$VerifySoftwareTokenRequest([
+    void Function(VerifySoftwareTokenRequestBuilder)? updates,
+  ]) => (VerifySoftwareTokenRequestBuilder()..update(updates))._build();
 
-  _$VerifySoftwareTokenRequest._(
-      {this.accessToken,
-      this.session,
-      required this.userCode,
-      this.friendlyDeviceName})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        userCode, r'VerifySoftwareTokenRequest', 'userCode');
-  }
-
+  _$VerifySoftwareTokenRequest._({
+    this.accessToken,
+    this.session,
+    required this.userCode,
+    this.friendlyDeviceName,
+  }) : super._();
   @override
   VerifySoftwareTokenRequest rebuild(
-          void Function(VerifySoftwareTokenRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(VerifySoftwareTokenRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   VerifySoftwareTokenRequestBuilder toBuilder() =>
-      new VerifySoftwareTokenRequestBuilder()..replace(this);
+      VerifySoftwareTokenRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -99,7 +95,6 @@ class VerifySoftwareTokenRequestBuilder
 
   @override
   void replace(VerifySoftwareTokenRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$VerifySoftwareTokenRequest;
   }
 
@@ -112,13 +107,18 @@ class VerifySoftwareTokenRequestBuilder
   VerifySoftwareTokenRequest build() => _build();
 
   _$VerifySoftwareTokenRequest _build() {
-    final _$result = _$v ??
-        new _$VerifySoftwareTokenRequest._(
-            accessToken: accessToken,
-            session: session,
-            userCode: BuiltValueNullFieldError.checkNotNull(
-                userCode, r'VerifySoftwareTokenRequest', 'userCode'),
-            friendlyDeviceName: friendlyDeviceName);
+    final _$result =
+        _$v ??
+        _$VerifySoftwareTokenRequest._(
+          accessToken: accessToken,
+          session: session,
+          userCode: BuiltValueNullFieldError.checkNotNull(
+            userCode,
+            r'VerifySoftwareTokenRequest',
+            'userCode',
+          ),
+          friendlyDeviceName: friendlyDeviceName,
+        );
     replace(_$result);
     return _$result;
   }

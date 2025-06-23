@@ -24,26 +24,24 @@ class EndpointClient {
     required PinpointClient pinpointClient,
     required EndpointInfoStoreManager endpointInfoStoreManager,
     DeviceContextInfo? deviceContextInfo,
-  })  : _pinpointAppId = pinpointAppId,
-        _pinpointClient = pinpointClient,
-        _fixedEndpointId = endpointInfoStoreManager.endpointId,
-        _globalFieldsManager = endpointInfoStoreManager.endpointFields,
-        _endpointBuilder = PublicEndpoint(
-          effectiveDate: DateTime.now().toUtc().toIso8601String(),
-          demographic: EndpointDemographic(
-            appVersion: deviceContextInfo?.appVersion,
-            locale: deviceContextInfo?.locale,
-            make: deviceContextInfo?.make,
-            model: deviceContextInfo?.model,
-            modelVersion: deviceContextInfo?.modelVersion,
-            platform: deviceContextInfo?.platform?.name,
-            platformVersion: deviceContextInfo?.platformVersion,
-            timezone: deviceContextInfo?.timezone,
-          ),
-          location: EndpointLocation(
-            country: deviceContextInfo?.countryCode,
-          ),
-        ).toBuilder();
+  }) : _pinpointAppId = pinpointAppId,
+       _pinpointClient = pinpointClient,
+       _fixedEndpointId = endpointInfoStoreManager.endpointId,
+       _globalFieldsManager = endpointInfoStoreManager.endpointFields,
+       _endpointBuilder = PublicEndpoint(
+         effectiveDate: DateTime.now().toUtc().toIso8601String(),
+         demographic: EndpointDemographic(
+           appVersion: deviceContextInfo?.appVersion,
+           locale: deviceContextInfo?.locale,
+           make: deviceContextInfo?.make,
+           model: deviceContextInfo?.model,
+           modelVersion: deviceContextInfo?.modelVersion,
+           platform: deviceContextInfo?.platform?.name,
+           platformVersion: deviceContextInfo?.platformVersion,
+           timezone: deviceContextInfo?.timezone,
+         ),
+         location: EndpointLocation(country: deviceContextInfo?.countryCode),
+       ).toBuilder();
 
   late final String _fixedEndpointId;
   late final EndpointGlobalFieldsManager _globalFieldsManager;
@@ -82,10 +80,7 @@ class EndpointClient {
   ///
   /// Copies the fields of [userProfile]
   /// into a [EndpointUserBuilder] and [PublicEndpointBuilder].
-  Future<void> setUser(
-    String userId,
-    UserProfile? userProfile,
-  ) async {
+  Future<void> setUser(String userId, UserProfile? userProfile) async {
     final newUserBuilder = EndpointUserBuilder()..userId = userId;
 
     // The [AnalyticsUserProfile] name, email, and plan fields are added as regular attributes to the local Endpoint
@@ -117,16 +112,19 @@ class EndpointClient {
     // Instead of the [EndpointUserBuilder] object.
     // TODO(kylechen): Analytics API provides no way to remove these attributes ...
     if (userProfile?.customProperties != null) {
-      await _globalFieldsManager
-          .addAttributes(userProfile!.customProperties!.attributes);
-      await _globalFieldsManager
-          .addMetrics(userProfile.customProperties!.metrics);
+      await _globalFieldsManager.addAttributes(
+        userProfile!.customProperties!.attributes,
+      );
+      await _globalFieldsManager.addMetrics(
+        userProfile.customProperties!.metrics,
+      );
     }
 
     if (userProfile is AWSPinpointUserProfile &&
         userProfile.userAttributes != null) {
-      newUserBuilder.userAttributes =
-          ListMultimapBuilder(userProfile.userAttributes);
+      newUserBuilder.userAttributes = ListMultimapBuilder(
+        userProfile.userAttributes,
+      );
     }
 
     _endpointBuilder.user = newUserBuilder;

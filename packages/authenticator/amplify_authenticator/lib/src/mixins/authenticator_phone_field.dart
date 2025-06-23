@@ -10,8 +10,10 @@ import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
-        T extends AuthenticatorFormField<FieldType, String>>
+mixin AuthenticatorPhoneFieldMixin<
+  FieldType extends Enum,
+  T extends AuthenticatorFormField<FieldType, String>
+>
     on AuthenticatorFormFieldState<FieldType, String, T>
     implements SelectableConfig<DialCodeResolverKey, DialCode> {
   late final DialCodeResolver _dialCodeResolver = stringResolver.dialCodes;
@@ -25,10 +27,8 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
   late final List<InputSelection<DialCodeResolverKey, DialCode>> selections =
       DialCode.values
           .map(
-            (DialCode country) => InputSelection(
-              label: country.key,
-              value: country,
-            ),
+            (DialCode country) =>
+                InputSelection(label: country.key, value: country),
           )
           .toList();
 
@@ -39,9 +39,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
             .toLowerCase()
             .contains(_searchVal.toLowerCase()),
       )
-      .sortedBy(
-        (dialCode) => _dialCodeResolver.resolve(context, dialCode.key),
-      );
+      .sortedBy((dialCode) => _dialCodeResolver.resolve(context, dialCode.key));
 
   String? formatPhoneNumber(String? phoneNumber) {
     return phoneNumber?.ensureStartsWith('+${state.dialCode.value}');
@@ -68,6 +66,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
       child: SearchAnchor(
         // Always use full screen at small break point. Otherwise use default
         // behavior.
+        key: keySelectCountryCode,
         isFullScreen: Breakpoint.of(context) == Breakpoint.small ? true : null,
         viewHintText: _dialCodeResolver.resolve(
           context,
@@ -77,13 +76,8 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
           return Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                '+${state.dialCode.value}',
-                textAlign: TextAlign.center,
-              ),
-              const Flexible(
-                child: Icon(Icons.arrow_drop_down, size: 16),
-              ),
+              Text('+${state.dialCode.value}', textAlign: TextAlign.center),
+              const Flexible(child: Icon(Icons.arrow_drop_down, size: 16)),
             ],
           );
         },
@@ -93,14 +87,27 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
           minWidth: 360,
           maxHeight: 300,
         ),
+        // Custom suggestion list widget. This displays the output of `suggestionsBuilder`
+        viewBuilder: (suggestions) {
+          return ListView.builder(
+            key: keyCountryDialog,
+            itemCount: suggestions.length,
+            itemBuilder: (BuildContext context, int index) {
+              return suggestions.elementAt(index);
+            },
+          );
+        },
+        // Custom suggestion item widgets
         suggestionsBuilder: ((context, SearchController controller) {
-          final textStyle = Theme.of(context).listTileTheme.titleTextStyle ??
+          final textStyle =
+              Theme.of(context).listTileTheme.titleTextStyle ??
               const TextStyle(fontSize: 15);
           final filteredCountries = DialCode.values
               .where(
                 (dialCode) =>
-                    dialCode.value
-                        .contains(controller.text.replaceFirst('+', '')) ||
+                    dialCode.value.contains(
+                      controller.text.replaceFirst('+', ''),
+                    ) ||
                     _dialCodeResolver
                         .resolve(context, dialCode.key)
                         .toLowerCase()
@@ -128,10 +135,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
                     ),
                     // Prevent overflows during animations.
                     trailing: constraints.maxWidth > 250
-                        ? Text(
-                            '+${country.value}',
-                            style: textStyle,
-                          )
+                        ? Text('+${country.value}', style: textStyle)
                         : null,
                   );
                 },
@@ -144,30 +148,26 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
   }
 
   Widget get m2Prefix => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: InkWell(
-          key: keySelectCountryCode,
-          onTap: showCountryDialog,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '+${state.dialCode.value}',
-                style: Theme.of(context).inputDecorationTheme.hintStyle ??
-                    Theme.of(context).textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
-              const Flexible(
-                child: Icon(
-                  Icons.arrow_drop_down,
-                  size: 15,
-                ),
-              ),
-              const SizedBox(width: 5),
-            ],
+    padding: const EdgeInsets.symmetric(horizontal: 8),
+    child: InkWell(
+      key: keySelectCountryCode,
+      onTap: showCountryDialog,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '+${state.dialCode.value}',
+            style:
+                Theme.of(context).inputDecorationTheme.hintStyle ??
+                Theme.of(context).textTheme.titleMedium,
+            textAlign: TextAlign.center,
           ),
-        ),
-      );
+          const Flexible(child: Icon(Icons.arrow_drop_down, size: 15)),
+          const SizedBox(width: 5),
+        ],
+      ),
+    ),
+  );
 
   Future<void> showCountryDialog() async {
     // Reset search
@@ -191,7 +191,8 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
                           context,
                           DialCodeResolverKey.selectDialCode,
                         ),
-                        style: DialogTheme.of(context).titleTextStyle ??
+                        style:
+                            DialogTheme.of(context).titleTextStyle ??
                             Theme.of(context).textTheme.titleLarge!,
                       ),
                     ),
@@ -208,9 +209,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
                             _searchVal = searchVal;
                           });
                         },
-                        autofillHints: const [
-                          AutofillHints.countryName,
-                        ],
+                        autofillHints: const [AutofillHints.countryName],
                       ),
                     ),
                     const SizedBox(height: 10),

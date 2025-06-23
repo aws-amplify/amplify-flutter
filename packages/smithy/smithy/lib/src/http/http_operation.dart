@@ -35,17 +35,20 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   /// Expands labels in [template] using [input].
   static String expandLabels(String template, HasLabel input) {
     final pattern = UriPattern.parse(template);
-    return pattern.segments.map((segment) {
-      return switch (segment.type) {
-        SegmentType.literal => segment.content,
-        SegmentType.label => _escapeLabel(input.labelFor(segment.content)),
-        SegmentType.greedyLabel => input
-            .labelFor(segment.content)
-            .split('/')
-            .map(_escapeLabel)
-            .join('/'),
-      };
-    }).join('/');
+    return pattern.segments
+        .map((segment) {
+          return switch (segment.type) {
+            SegmentType.literal => segment.content,
+            SegmentType.label => _escapeLabel(input.labelFor(segment.content)),
+            SegmentType.greedyLabel =>
+              input
+                  .labelFor(segment.content)
+                  .split('/')
+                  .map(_escapeLabel)
+                  .join('/'),
+          };
+        })
+        .join('/');
   }
 
   static String expandHostLabel(String template, HasLabel input) {
@@ -60,15 +63,12 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
 
   /// Builds the output from the [payload] and metadata from the HTTP
   /// [response].
-  Output buildOutput(
-    OutputPayload payload,
-    AWSBaseHttpResponse response,
-  );
+  Output buildOutput(OutputPayload payload, AWSBaseHttpResponse response);
 
   /// The protocols used by this operation for all serialization/deserialization
   /// of wire formats.
   Iterable<HttpProtocol<InputPayload, Input, OutputPayload, Output>>
-      get protocols;
+  get protocols;
 
   /// The error types of the operation.
   List<SmithyError> get errorTypes;
@@ -158,10 +158,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
 
     // Calculate remaining request parameters
     final host = _hostForRequest(request, input, uri);
-    final headers = {
-      ...protocol.headers,
-      ...request.headers.asMap(),
-    };
+    final headers = {...protocol.headers, ...request.headers.asMap()};
     final queryParameters = {
       for (final literal in pattern.queryLiterals.entries)
         literal.key: [literal.value],
@@ -217,17 +214,8 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
           closeWhenDone: false,
         );
         return operation.operation.then(
-          (response) => deserializeOutput(
-            protocol: protocol,
-            response: response,
-            // Prevents errors thrown from registering as "Uncaught Exceptions"
-            // in the Dart debugger.
-            //
-            // This is a false positive because we do catch errors in the
-            // retryer which wraps this. Likely this is due to the use of
-            // completers in `CancelableOperation` or some other Zone-related
-            // nonsense.
-          ).catchError(Error.throwWithStackTrace),
+          (response) =>
+              deserializeOutput(protocol: protocol, response: response),
         );
       },
       onCancel: () {
@@ -291,12 +279,10 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       SmithyError? smithyError;
       final resolvedType = await protocol.resolveErrorType(response);
       if (resolvedType != null) {
-        smithyError =
-            errorTypes.firstWhereOrNull((t) => t.shapeId.shape == resolvedType);
+        smithyError = errorTypes.firstWhereOrNull(
+          (t) => t.shapeId.shape == resolvedType,
+        );
       }
-      smithyError ??= errorTypes.singleWhereOrNull(
-        (t) => t.statusCode == response.statusCode,
-      );
       if (smithyError == null) {
         throw SmithyHttpException(
           statusCode: response.statusCode,
@@ -326,11 +312,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     client ??= protocol.getClient(input);
     final request = buildRequest(input);
     return send(
-      createRequest: () => createRequest(
-        request,
-        protocol,
-        input,
-      ),
+      createRequest: () => createRequest(request, protocol, input),
       client: client,
       protocol: protocol,
     );
@@ -340,13 +322,15 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
 /// A version of [HttpOperation] which provides a convenient API for retrieving
 /// pages of results.
 abstract class PaginatedHttpOperation<
-    InputPayload,
-    Input,
-    OutputPayload,
-    Output,
-    Token,
-    PageSize,
-    Items> extends HttpOperation<InputPayload, Input, OutputPayload, Output> {
+  InputPayload,
+  Input,
+  OutputPayload,
+  Output,
+  Token,
+  PageSize,
+  Items
+>
+    extends HttpOperation<InputPayload, Input, OutputPayload, Output> {
   /// Retrieves the token from the operation output.
   Token? getToken(Output output);
 
@@ -362,11 +346,7 @@ abstract class PaginatedHttpOperation<
     AWSHttpClient? client,
     ShapeId? useProtocol,
   }) {
-    final operation = run(
-      input,
-      client: client,
-      useProtocol: useProtocol,
-    );
+    final operation = run(input, client: client, useProtocol: useProtocol);
     final paginatedOperation = operation.operation.then((output) {
       final token = getToken(output);
       final items = getItems(output);

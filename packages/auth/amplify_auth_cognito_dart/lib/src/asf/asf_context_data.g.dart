@@ -7,7 +7,7 @@ part of 'asf_context_data.dart';
 // **************************************************************************
 
 Serializer<ASFContextData> _$aSFContextDataSerializer =
-    new _$ASFContextDataSerializer();
+    _$ASFContextDataSerializer();
 
 class _$ASFContextDataSerializer
     implements StructuredSerializer<ASFContextData> {
@@ -17,65 +17,76 @@ class _$ASFContextDataSerializer
   final String wireName = 'ASFContextData';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ASFContextData object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ASFContextData object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.deviceName;
     if (value != null) {
       result
         ..add('deviceName')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.thirdPartyDeviceId;
     if (value != null) {
       result
         ..add('thirdPartyDeviceId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.deviceFingerprint;
     if (value != null) {
       result
         ..add('deviceFingerprint')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.clientTimezone;
     if (value != null) {
       result
         ..add('clientTimezone')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.applicationName;
     if (value != null) {
       result
         ..add('applicationName')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.applicationVersion;
     if (value != null) {
       result
         ..add('applicationVersion')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.deviceLanguage;
     if (value != null) {
       result
         ..add('deviceLanguage')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.deviceOsReleaseVersion;
     if (value != null) {
       result
         ..add('deviceOsReleaseVersion')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.screenHeightPixels;
     if (value != null) {
@@ -94,9 +105,11 @@ class _$ASFContextDataSerializer
 
   @override
   ASFContextData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new ASFContextDataBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = ASFContextDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -105,44 +118,78 @@ class _$ASFContextDataSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'deviceName':
-          result.deviceName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.deviceName =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'thirdPartyDeviceId':
-          result.thirdPartyDeviceId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.thirdPartyDeviceId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'deviceFingerprint':
-          result.deviceFingerprint = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.deviceFingerprint =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'clientTimezone':
-          result.clientTimezone = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.clientTimezone =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'applicationName':
-          result.applicationName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.applicationName =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'applicationVersion':
-          result.applicationVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.applicationVersion =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'deviceLanguage':
-          result.deviceLanguage = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.deviceLanguage =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'deviceOsReleaseVersion':
-          result.deviceOsReleaseVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.deviceOsReleaseVersion =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'screenHeightPixels':
-          result.screenHeightPixels = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+          result.screenHeightPixels =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int?;
           break;
         case 'screenWidthPixels':
-          result.screenWidthPixels = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+          result.screenWidthPixels =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int?;
           break;
       }
     }
@@ -174,28 +221,26 @@ class _$ASFContextData extends ASFContextData {
   final int? screenWidthPixels;
 
   factory _$ASFContextData([void Function(ASFContextDataBuilder)? updates]) =>
-      (new ASFContextDataBuilder()..update(updates))._build();
+      (ASFContextDataBuilder()..update(updates))._build();
 
-  _$ASFContextData._(
-      {this.deviceName,
-      this.thirdPartyDeviceId,
-      this.deviceFingerprint,
-      this.clientTimezone,
-      this.applicationName,
-      this.applicationVersion,
-      this.deviceLanguage,
-      this.deviceOsReleaseVersion,
-      this.screenHeightPixels,
-      this.screenWidthPixels})
-      : super._();
-
+  _$ASFContextData._({
+    this.deviceName,
+    this.thirdPartyDeviceId,
+    this.deviceFingerprint,
+    this.clientTimezone,
+    this.applicationName,
+    this.applicationVersion,
+    this.deviceLanguage,
+    this.deviceOsReleaseVersion,
+    this.screenHeightPixels,
+    this.screenWidthPixels,
+  }) : super._();
   @override
   ASFContextData rebuild(void Function(ASFContextDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ASFContextDataBuilder toBuilder() =>
-      new ASFContextDataBuilder()..replace(this);
+  ASFContextDataBuilder toBuilder() => ASFContextDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -322,7 +367,6 @@ class ASFContextDataBuilder
 
   @override
   void replace(ASFContextData other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ASFContextData;
   }
 
@@ -335,18 +379,20 @@ class ASFContextDataBuilder
   ASFContextData build() => _build();
 
   _$ASFContextData _build() {
-    final _$result = _$v ??
-        new _$ASFContextData._(
-            deviceName: deviceName,
-            thirdPartyDeviceId: thirdPartyDeviceId,
-            deviceFingerprint: deviceFingerprint,
-            clientTimezone: clientTimezone,
-            applicationName: applicationName,
-            applicationVersion: applicationVersion,
-            deviceLanguage: deviceLanguage,
-            deviceOsReleaseVersion: deviceOsReleaseVersion,
-            screenHeightPixels: screenHeightPixels,
-            screenWidthPixels: screenWidthPixels);
+    final _$result =
+        _$v ??
+        _$ASFContextData._(
+          deviceName: deviceName,
+          thirdPartyDeviceId: thirdPartyDeviceId,
+          deviceFingerprint: deviceFingerprint,
+          clientTimezone: clientTimezone,
+          applicationName: applicationName,
+          applicationVersion: applicationVersion,
+          deviceLanguage: deviceLanguage,
+          deviceOsReleaseVersion: deviceOsReleaseVersion,
+          screenHeightPixels: screenHeightPixels,
+          screenWidthPixels: screenWidthPixels,
+        );
     replace(_$result);
     return _$result;
   }

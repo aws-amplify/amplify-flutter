@@ -5,6 +5,8 @@ import 'dart:async';
 
 import 'package:amplify_api_dart/src/decorators/authorize_http_request.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:meta/meta.dart';
 
 /// Implementation of [AWSHttpClient] that authorizes HTTP requests with
@@ -24,7 +26,7 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   final AmplifyAuthProviderRepository authProviderRepo;
 
   /// Determines how requests with this client are authorized.
-  final AWSApiConfig endpointConfig;
+  final ApiOutputs endpointConfig;
 
   /// The authorization mode to use for requests with this client.
   ///
@@ -39,9 +41,7 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   @override
   Future<AWSBaseHttpRequest> transformRequest(AWSBaseHttpRequest request) {
     if (request.scheme != 'https') {
-      throw const ApiOperationException(
-        'Non-HTTPS requests not supported.',
-      );
+      throw const ApiOperationException('Non-HTTPS requests not supported.');
     }
     return authorizeHttpRequest(
       request,
@@ -55,8 +55,8 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   Future<AWSBaseHttpResponse> transformResponse(
     AWSBaseHttpResponse response,
   ) async {
-    // For REST endpoints, throw [RestException] on non-successful responses.
-    if (endpointConfig.endpointType == EndpointType.rest &&
+    // For REST endpoints, throw [HttpStatusException] on non-successful responses.
+    if (endpointConfig.apiType == ApiType.rest &&
         (response.statusCode < 200 || response.statusCode >= 300)) {
       final responseForException = switch (response) {
         AWSStreamedHttpResponse _ => await response.read(),

@@ -1,3 +1,92 @@
+## 0.5.10
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 0.5.9
+
+- Minor bug fixes and improvements
+
+## 0.5.8
+
+- Minor bug fixes and improvements
+
+## 0.5.7
+
+- Minor bug fixes and improvements
+
+## 0.5.6
+
+### Features
+- feat(api): move App Sync subscription headers to protocol ([#5301](https://github.com/aws-amplify/amplify-flutter/pull/5301))
+
+### Fixes
+- fix(api): Reconnect WebSocket when resuming app from a paused state ([#5567](https://github.com/aws-amplify/amplify-flutter/pull/5567))
+
+## 0.5.5
+
+### Fixes
+- fix(api): web socket error handling ([#5359](https://github.com/aws-amplify/amplify-flutter/pull/5359))
+
+## 0.5.4
+
+### Fixes
+- fix(datastore): Restart Sync Engine when network on/off ([#5218](https://github.com/aws-amplify/amplify-flutter/pull/5218))
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
+## 0.5.3
+
+- Minor bug fixes and improvements
+
+## 0.5.2
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
+## 0.5.1
+
+- Minor bug fixes and improvements
+
+## 0.5.0
+
+### Breaking Changes
+- chore!: Model .fromJson() Refactor ([#4665](https://github.com/aws-amplify/amplify-flutter/pull/4665))
+- chore!: Removed deprecated members … ([#4772](https://github.com/aws-amplify/amplify-flutter/pull/4772))
+- chore!: remove Model.getId() usages ([#4774](https://github.com/aws-amplify/amplify-flutter/pull/4774))
+- feat!: use plugin options for optional plugin parameters ([#4762](https://github.com/aws-amplify/amplify-flutter/pull/4762))
+
+### Features
+- feat: Add attributeExists query predicate ([#4134](https://github.com/aws-amplify/amplify-flutter/pull/4134))
+
+## 0.4.1
+
+### Fixes
+- fix(api): Paginated GraphQL preserve request params ([#4605](https://github.com/aws-amplify/amplify-flutter/pull/4605))
+- fix(api): Web socket decode connection errors ([#4606](https://github.com/aws-amplify/amplify-flutter/pull/4606))
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 0.4.0
+
+### Features
+- feat(api): add copyWith to GraphQLRequest ([#4365](https://github.com/aws-amplify/amplify-flutter/pull/4365))
+
+## 0.3.4
+
+### Fixes
+- fix(api): GraphQL Model Helpers support lowercase model names #4143 (#4144)
+
+## 0.3.3
+
+- Minor bug fixes and improvements
+
+## 0.3.2
+
+- Minor bug fixes and improvements
+
 ## 0.3.1+1
 
 ### Fixes

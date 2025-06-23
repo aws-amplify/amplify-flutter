@@ -27,6 +27,7 @@ class AWSService {
   static const acmPca = AWSService('acm-pca');
 
   /// Alexa For Business
+  @Deprecated('This will be removed in the next major version')
   static const alexaForBusiness = AWSService('a4b');
 
   /// Amazon Prometheus Service
@@ -74,6 +75,9 @@ class AWSService {
   /// AWS AppSync
   static const appSync = AWSService('appsync');
 
+  /// AWS Mainframe Modernization Application Testing
+  static const appTest = AWSService('apptest');
+
   /// Amazon Appflow
   static const appflow = AWSService('appflow');
 
@@ -81,8 +85,9 @@ class AWSService {
   static const applicationAutoScaling = AWSService('application-autoscaling');
 
   /// AWS Application Cost Profiler
-  static const applicationCostProfiler =
-      AWSService('application-cost-profiler');
+  static const applicationCostProfiler = AWSService(
+    'application-cost-profiler',
+  );
 
   /// AWS Application Discovery Service
   static const applicationDiscoveryService = AWSService('discovery');
@@ -90,8 +95,14 @@ class AWSService {
   /// Amazon CloudWatch Application Insights
   static const applicationInsights = AWSService('applicationinsights');
 
+  /// Amazon CloudWatch Application Signals
+  static const applicationSignals = AWSService('application-signals');
+
   /// AWS ARC - Zonal Shift
   static const arcZonalShift = AWSService('arc-zonal-shift');
+
+  /// AWS Artifact
+  static const artifact = AWSService('artifact');
 
   /// Amazon Athena
   static const athena = AWSService('athena');
@@ -105,6 +116,9 @@ class AWSService {
   /// AWS Auto Scaling Plans
   static const autoScalingPlans = AWSService('autoscaling-plans');
 
+  /// AWS B2B Data Interchange
+  static const b2Bi = AWSService('b2bi');
+
   /// AWS Backup
   static const backup = AWSService('backup');
 
@@ -112,10 +126,26 @@ class AWSService {
   static const backupGateway = AWSService('backup-gateway');
 
   /// AWS Backup Storage
+  @Deprecated('This will be removed in the next major version')
   static const backupStorage = AWSService('backup-storage');
 
   /// AWS Batch
   static const batch = AWSService('batch');
+
+  /// AWS Billing and Cost Management Data Exports
+  static const bcmDataExports = AWSService('bcm-data-exports');
+
+  /// Amazon Bedrock
+  static const bedrock = AWSService('bedrock');
+
+  /// Agents for Amazon Bedrock
+  static const bedrockAgent = AWSService('bedrock');
+
+  /// Agents for Amazon Bedrock Runtime
+  static const bedrockAgentRuntime = AWSService('bedrock');
+
+  /// Amazon Bedrock Runtime
+  static const bedrockRuntime = AWSService('bedrock');
 
   /// AWSBillingConductor
   static const billingconductor = AWSService('billingconductor');
@@ -125,6 +155,9 @@ class AWSService {
 
   /// AWS Budgets
   static const budgets = AWSService('budgets');
+
+  /// AWS Chatbot
+  static const chatbot = AWSService('chatbot');
 
   /// Amazon Chime
   static const chime = AWSService('chime');
@@ -147,6 +180,9 @@ class AWSService {
   /// AWS Clean Rooms Service
   static const cleanRooms = AWSService('cleanrooms');
 
+  /// AWS Clean Rooms ML
+  static const cleanRoomsMl = AWSService('cleanrooms-ml');
+
   /// AWS Cloud9
   static const cloud9 = AWSService('cloud9');
 
@@ -161,6 +197,9 @@ class AWSService {
 
   /// Amazon CloudFront
   static const cloudFront = AWSService('cloudfront');
+
+  /// Amazon CloudFront KeyValueStore
+  static const cloudFrontKeyValueStore = AWSService('cloudfront-keyvaluestore');
 
   /// Amazon CloudHSM
   static const cloudHsm = AWSService('cloudhsm');
@@ -195,6 +234,9 @@ class AWSService {
   /// AWS CodeCommit
   static const codeCommit = AWSService('codecommit');
 
+  /// AWS CodeConnections
+  static const codeConnections = AWSService('codeconnections');
+
   /// AWS CodeDeploy
   static const codeDeploy = AWSService('codedeploy');
 
@@ -211,6 +253,7 @@ class AWSService {
   static const codePipeline = AWSService('codepipeline');
 
   /// AWS CodeStar
+  @Deprecated('This will be removed in the next major version')
   static const codeStar = AWSService('codestar');
 
   /// AWS CodeStar connections
@@ -258,6 +301,9 @@ class AWSService {
   /// Amazon Connect Participant Service
   static const connectParticipant = AWSService('execute-api');
 
+  /// AWS Control Catalog
+  static const controlCatalog = AWSService('controlcatalog');
+
   /// AWS Control Tower
   static const controlTower = AWSService('controltower');
 
@@ -266,6 +312,9 @@ class AWSService {
 
   /// AWS Cost Explorer Service
   static const costExplorer = AWSService('ce');
+
+  /// Cost Optimization Hub
+  static const costOptimizationHub = AWSService('cost-optimization-hub');
 
   /// Amazon Connect Customer Profiles
   static const customerProfiles = AWSService('profile');
@@ -282,11 +331,17 @@ class AWSService {
   /// AWS DataSync
   static const dataSync = AWSService('datasync');
 
+  /// Amazon DataZone
+  static const dataZone = AWSService('datazone');
+
   /// AWS Database Migration Service
   static const databaseMigrationService = AWSService('dms');
 
   /// Amazon DynamoDB Accelerator (DAX)
   static const dax = AWSService('dax');
+
+  /// AWSDeadlineCloud
+  static const deadline = AWSService('deadline');
 
   /// Amazon Detective
   static const detective = AWSService('detective');
@@ -344,6 +399,9 @@ class AWSService {
 
   /// Amazon Elastic Kubernetes Service
   static const eks = AWSService('eks');
+
+  /// Amazon EKS Auth
+  static const eksAuth = AWSService('eks-auth');
 
   /// Amazon ElastiCache
   static const elastiCache = AWSService('elasticache');
@@ -411,10 +469,14 @@ class AWSService {
   /// Amazon Fraud Detector
   static const fraudDetector = AWSService('frauddetector');
 
+  /// AWS Free Tier
+  static const freeTier = AWSService('freetier');
+
   /// Amazon GameLift
   static const gameLift = AWSService('gamelift');
 
   /// GameSparks
+  @Deprecated('This will be removed in the next major version')
   static const gameSparks = AWSService('gamesparks');
 
   /// Amazon Glacier
@@ -448,6 +510,7 @@ class AWSService {
   static const healthLake = AWSService('healthlake');
 
   /// Amazon Honeycode
+  @Deprecated('This will be removed in the next major version')
   static const honeycode = AWSService('honeycode');
 
   /// AWS Identity and Access Management
@@ -464,6 +527,9 @@ class AWSService {
 
   /// Inspector2
   static const inspector2 = AWSService('inspector2');
+
+  /// Inspector Scan
+  static const inspectorScan = AWSService('inspector-scan');
 
   /// Amazon CloudWatch Internet Monitor
   static const internetMonitor = AWSService('internetmonitor');
@@ -517,6 +583,7 @@ class AWSService {
   static const iotJobsDataPlane = AWSService('iot-jobs-data');
 
   /// AWS IoT RoboRunner
+  @Deprecated('This will be removed in the next major version')
   static const iotRoboRunner = AWSService('iotroborunner');
 
   /// AWS IoT Wireless
@@ -579,6 +646,9 @@ class AWSService {
   /// AWS Lambda
   static const lambda = AWSService('lambda');
 
+  /// AWS Launch Wizard
+  static const launchWizard = AWSService('launchwizard');
+
   /// Amazon Lex Model Building Service
   static const lexModelBuildingService = AWSService('lex');
 
@@ -595,12 +665,14 @@ class AWSService {
   static const licenseManager = AWSService('license-manager');
 
   /// AWS License Manager Linux Subscriptions
-  static const licenseManagerLinuxSubscriptions =
-      AWSService('license-manager-linux-subscriptions');
+  static const licenseManagerLinuxSubscriptions = AWSService(
+    'license-manager-linux-subscriptions',
+  );
 
   /// AWS License Manager User Subscriptions
-  static const licenseManagerUserSubscriptions =
-      AWSService('license-manager-user-subscriptions');
+  static const licenseManagerUserSubscriptions = AWSService(
+    'license-manager-user-subscriptions',
+  );
 
   /// Amazon Lightsail
   static const lightsail = AWSService('lightsail');
@@ -627,10 +699,14 @@ class AWSService {
   static const machineLearning = AWSService('machinelearning');
 
   /// Amazon Macie
+  @Deprecated('This will be removed in the next major version')
   static const macie = AWSService('macie');
 
   /// Amazon Macie 2
   static const macie2 = AWSService('macie2');
+
+  /// MailManager
+  static const mailManager = AWSService('ses');
 
   /// Amazon Managed Blockchain
   static const managedBlockchain = AWSService('managedblockchain');
@@ -638,12 +714,19 @@ class AWSService {
   /// Amazon Managed Blockchain Query
   static const managedBlockchainQuery = AWSService('managedblockchain-query');
 
+  /// AWS Marketplace Agreement Service
+  static const marketplaceAgreement = AWSService('aws-marketplace');
+
   /// AWS Marketplace Catalog Service
   static const marketplaceCatalog = AWSService('aws-marketplace');
 
   /// AWS Marketplace Commerce Analytics
-  static const marketplaceCommerceAnalytics =
-      AWSService('marketplacecommerceanalytics');
+  static const marketplaceCommerceAnalytics = AWSService(
+    'marketplacecommerceanalytics',
+  );
+
+  /// AWS Marketplace Deployment Service
+  static const marketplaceDeployment = AWSService('aws-marketplace');
 
   /// AWS Marketplace Entitlement Service
   static const marketplaceEntitlementService = AWSService('aws-marketplace');
@@ -694,8 +777,9 @@ class AWSService {
   static const migrationHubConfig = AWSService('mgh');
 
   /// AWS Migration Hub Orchestrator
-  static const migrationHubOrchestrator =
-      AWSService('migrationhub-orchestrator');
+  static const migrationHubOrchestrator = AWSService(
+    'migrationhub-orchestrator',
+  );
 
   /// AWS Migration Hub Refactor Spaces
   static const migrationHubRefactorSpaces = AWSService('refactor-spaces');
@@ -704,6 +788,7 @@ class AWSService {
   static const migrationHubStrategy = AWSService('migrationhub-strategy');
 
   /// AWS Mobile
+  @Deprecated('This will be removed in the next major version')
   static const mobile = AWSService('AWSMobileHubService');
 
   /// AmazonMQ
@@ -715,6 +800,9 @@ class AWSService {
   /// Amazon Neptune
   static const neptune = AWSService('rds');
 
+  /// Amazon Neptune Graph
+  static const neptuneGraph = AWSService('neptune-graph');
+
   /// Amazon NeptuneData
   static const neptunedata = AWSService('neptune-db');
 
@@ -723,6 +811,9 @@ class AWSService {
 
   /// AWS Network Manager
   static const networkManager = AWSService('networkmanager');
+
+  /// Amazon CloudWatch Network Monitor
+  static const networkMonitor = AWSService('networkmonitor');
 
   /// AmazonNimbleStudio
   static const nimble = AWSService('nimble');
@@ -766,6 +857,9 @@ class AWSService {
   /// PcaConnectorAd
   static const pcaConnectorAd = AWSService('pca-connector-ad');
 
+  /// Private CA Connector for SCEP
+  static const pcaConnectorScep = AWSService('pca-connector-scep');
+
   /// Amazon Personalize
   static const personalize = AWSService('personalize');
 
@@ -805,6 +899,15 @@ class AWSService {
   /// AWS Proton
   static const proton = AWSService('proton');
 
+  /// QApps
+  static const qApps = AWSService('qapps');
+
+  /// QBusiness
+  static const qBusiness = AWSService('qbusiness');
+
+  /// Amazon Q Connect
+  static const qConnect = AWSService('wisdom');
+
   /// Amazon QLDB
   static const qldb = AWSService('qldb');
 
@@ -841,6 +944,9 @@ class AWSService {
   /// Amazon Rekognition Streaming
   static const rekognitionStreaming = AWSService('rekognition');
 
+  /// AWS re:Post Private
+  static const repostspace = AWSService('repostspace');
+
   /// AWS Resilience Hub
   static const resiliencehub = AWSService('resiliencehub');
 
@@ -865,16 +971,21 @@ class AWSService {
   /// Amazon Route 53 Domains
   static const route53Domains = AWSService('route53domains');
 
+  /// Route 53 Profiles
+  static const route53Profiles = AWSService('route53profiles');
+
   /// Route53 Recovery Cluster
   static const route53RecoveryCluster = AWSService('route53-recovery-cluster');
 
   /// AWS Route53 Recovery Control Config
-  static const route53RecoveryControlConfig =
-      AWSService('route53-recovery-control-config');
+  static const route53RecoveryControlConfig = AWSService(
+    'route53-recovery-control-config',
+  );
 
   /// AWS Route53 Recovery Readiness
-  static const route53RecoveryReadiness =
-      AWSService('route53-recovery-readiness');
+  static const route53RecoveryReadiness = AWSService(
+    'route53-recovery-readiness',
+  );
 
   /// Amazon Route 53 Resolver
   static const route53Resolver = AWSService('route53resolver');
@@ -987,6 +1098,9 @@ class AWSService {
   /// AWS Systems Manager Incident Manager
   static const ssmIncidents = AWSService('ssm-incidents');
 
+  /// AWS Systems Manager QuickSetup
+  static const ssmQuickSetup = AWSService('ssm-quicksetup');
+
   /// AWS Systems Manager for SAP
   static const ssmSap = AWSService('ssm-sap');
 
@@ -997,13 +1111,16 @@ class AWSService {
   static const ssoAdmin = AWSService('sso');
 
   /// AWS SSO OIDC
-  static const ssoOidc = AWSService('awsssooidc');
+  static const ssoOidc = AWSService('sso-oauth');
 
   /// AWS Storage Gateway
   static const storageGateway = AWSService('storagegateway');
 
   /// AWS Security Token Service
   static const sts = AWSService('sts');
+
+  /// AWS Supply Chain
+  static const supplyChain = AWSService('scn');
 
   /// AWS Support
   static const support = AWSService('support');
@@ -1017,8 +1134,14 @@ class AWSService {
   /// Synthetics
   static const synthetics = AWSService('synthetics');
 
+  /// Tax Settings
+  static const taxSettings = AWSService('tax');
+
   /// Amazon Textract
   static const textract = AWSService('textract');
+
+  /// Timestream InfluxDB
+  static const timestreamInfluxDb = AWSService('timestream-influxdb');
 
   /// Amazon Timestream Query
   static const timestreamQuery = AWSService('timestream');
@@ -1040,6 +1163,9 @@ class AWSService {
 
   /// Amazon Translate
   static const translate = AWSService('translate');
+
+  /// TrustedAdvisor Public API
+  static const trustedAdvisor = AWSService('trustedadvisor');
 
   /// Amazon Verified Permissions
   static const verifiedPermissions = AWSService('verifiedpermissions');
@@ -1079,6 +1205,9 @@ class AWSService {
 
   /// Amazon WorkSpaces
   static const workSpaces = AWSService('workspaces');
+
+  /// Amazon WorkSpaces Thin Client
+  static const workSpacesThinClient = AWSService('thinclient');
 
   /// Amazon WorkSpaces Web
   static const workSpacesWeb = AWSService('workspaces-web');

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.s3.model.delete_object_tagging_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,9 +33,9 @@ abstract class DeleteObjectTaggingRequest
     );
   }
 
-  factory DeleteObjectTaggingRequest.build(
-          [void Function(DeleteObjectTaggingRequestBuilder) updates]) =
-      _$DeleteObjectTaggingRequest;
+  factory DeleteObjectTaggingRequest.build([
+    void Function(DeleteObjectTaggingRequestBuilder) updates,
+  ]) = _$DeleteObjectTaggingRequest;
 
   const DeleteObjectTaggingRequest._();
 
@@ -43,25 +43,23 @@ abstract class DeleteObjectTaggingRequest
     DeleteObjectTaggingRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      DeleteObjectTaggingRequest.build((b) {
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.queryParameters['versionId'] != null) {
-          b.versionId = request.queryParameters['versionId']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+  }) => DeleteObjectTaggingRequest.build((b) {
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.queryParameters['versionId'] != null) {
+      b.versionId = request.queryParameters['versionId']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<DeleteObjectTaggingRequestPayload>>
-      serializers = [DeleteObjectTaggingRequestRestXmlSerializer()];
+  serializers = [DeleteObjectTaggingRequestRestXmlSerializer()];
 
   String get bucket;
   String get key;
@@ -75,65 +73,50 @@ abstract class DeleteObjectTaggingRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   DeleteObjectTaggingRequestPayload getPayload() =>
       DeleteObjectTaggingRequestPayload();
+
   @override
-  List<Object?> get props => [
-        bucket,
-        key,
-        versionId,
-        expectedBucketOwner,
-      ];
+  List<Object?> get props => [bucket, key, versionId, expectedBucketOwner];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectTaggingRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'versionId',
-        versionId,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      );
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('versionId', versionId)
+      ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class DeleteObjectTaggingRequestPayload
-    with
-        _i2.AWSEquatable<DeleteObjectTaggingRequestPayload>
+    with _i2.AWSEquatable<DeleteObjectTaggingRequestPayload>
     implements
-        Built<DeleteObjectTaggingRequestPayload,
-            DeleteObjectTaggingRequestPayloadBuilder>,
+        Built<
+          DeleteObjectTaggingRequestPayload,
+          DeleteObjectTaggingRequestPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory DeleteObjectTaggingRequestPayload(
-          [void Function(DeleteObjectTaggingRequestPayloadBuilder) updates]) =
-      _$DeleteObjectTaggingRequestPayload;
+  factory DeleteObjectTaggingRequestPayload([
+    void Function(DeleteObjectTaggingRequestPayloadBuilder) updates,
+  ]) = _$DeleteObjectTaggingRequestPayload;
 
   const DeleteObjectTaggingRequestPayload._();
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteObjectTaggingRequestPayload');
+    final helper = newBuiltValueToStringHelper(
+      'DeleteObjectTaggingRequestPayload',
+    );
     return helper.toString();
   }
 }
@@ -141,22 +124,21 @@ abstract class DeleteObjectTaggingRequestPayload
 class DeleteObjectTaggingRequestRestXmlSerializer
     extends _i1.StructuredSmithySerializer<DeleteObjectTaggingRequestPayload> {
   const DeleteObjectTaggingRequestRestXmlSerializer()
-      : super('DeleteObjectTaggingRequest');
+    : super('DeleteObjectTaggingRequest');
 
   @override
   Iterable<Type> get types => const [
-        DeleteObjectTaggingRequest,
-        _$DeleteObjectTaggingRequest,
-        DeleteObjectTaggingRequestPayload,
-        _$DeleteObjectTaggingRequestPayload,
-      ];
+    DeleteObjectTaggingRequest,
+    _$DeleteObjectTaggingRequest,
+    DeleteObjectTaggingRequestPayload,
+    _$DeleteObjectTaggingRequestPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   DeleteObjectTaggingRequestPayload deserialize(
     Serializers serializers,
@@ -176,7 +158,7 @@ class DeleteObjectTaggingRequestRestXmlSerializer
       const _i1.XmlElementName(
         'DeleteObjectTaggingRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

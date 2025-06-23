@@ -1,3 +1,111 @@
+## 0.11.11
+
+- Minor bug fixes and improvements
+
+## 0.11.10
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 0.11.9
+
+- Minor bug fixes and improvements
+
+## 0.11.8
+
+- Minor bug fixes and improvements
+
+## 0.11.7
+
+### Features
+- feat(auth, authenticator): Add support for Email OTP MFA ([#5449](https://github.com/aws-amplify/amplify-flutter/pull/5449)) (#5472)
+
+## 0.11.6
+
+- Minor bug fixes and improvements
+
+## 0.11.5
+
+- Minor bug fixes and improvements
+
+## 0.11.4
+
+### Features
+- feat(Auth): Add fetchCurrentDevice API ([#5251](https://github.com/aws-amplify/amplify-flutter/pull/5251))
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
+## 0.11.3
+
+- Minor bug fixes and improvements
+
+## 0.11.2
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
+## 0.11.1
+
+- Minor bug fixes and improvements
+
+## 0.11.0
+
+### Breaking Changes
+- chore!: remove deprecated auth types ([#4764](https://github.com/aws-amplify/amplify-flutter/pull/4764))
+- fix!: regenerate cognito sdks to update signup operation for adding limit exceeded exception ([#4781](https://github.com/aws-amplify/amplify-flutter/pull/4781))
+
+### Fixes
+- fix: map Lambda exceptions correctly ([#4804](https://github.com/aws-amplify/amplify-flutter/pull/4804))
+
+## 0.10.13
+
+### Features
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 0.10.12
+
+### Fixes
+- fix(auth): Allow retries with verifyTotpSetup() ([#4532](https://github.com/aws-amplify/amplify-flutter/pull/4532))
+- fix(auth): device metadata migration ([#4503](https://github.com/aws-amplify/amplify-flutter/pull/4503))
+- fix(auth): verifyTotp throw EnableSoftwareTokenMfaException ([#4558](https://github.com/aws-amplify/amplify-flutter/pull/4558))
+
+## 0.10.11
+
+- This version was retracted to avoid a breaking change introduced in ([#4532](https://github.com/aws-amplify/amplify-flutter/pull/4532))
+
+## 0.10.10
+
+- Minor bug fixes and improvements
+
+## 0.10.9
+
+### Fixes
+- fix(auth): forget local device only if matches ([#4060](https://github.com/aws-amplify/amplify-flutter/pull/4060))
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
+## 0.10.8
+
+- Minor bug fixes and improvements
+
+## 0.10.7
+
+- Minor bug fixes and improvements
+
+## 0.10.6
+
+### Fixes
+- fix(auth): use loadCredentials to check login state
+
+### Features
+- feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
+
+## 0.10.5
+
+- Minor bug fixes and improvements
+
 ## 0.10.4
 
 - Minor bug fixes and improvements

@@ -30,15 +30,14 @@ class EventClient implements Closeable {
     required EndpointClient endpointClient,
     QueuedItemStore? eventStore,
     DeviceContextInfo? deviceContextInfo,
-  })  : _pinpointAppId = pinpointAppId,
-        _fixedEndpointId = endpointClient.fixedEndpointId,
-        _pinpointClient = pinpointClient,
-        _endpointClient = endpointClient,
-        _eventStorage =
-            EventStorageAdapter(eventStore ?? InMemoryQueuedItemStore()),
-        _eventCreator = EventCreator(
-          deviceContextInfo: deviceContextInfo,
-        ) {
+  }) : _pinpointAppId = pinpointAppId,
+       _fixedEndpointId = endpointClient.fixedEndpointId,
+       _pinpointClient = pinpointClient,
+       _endpointClient = endpointClient,
+       _eventStorage = EventStorageAdapter(
+         eventStore ?? InMemoryQueuedItemStore(),
+       ),
+       _eventCreator = EventCreator(deviceContextInfo: deviceContextInfo) {
     _listenForFlushEvents();
   }
 
@@ -69,8 +68,9 @@ class EventClient implements Closeable {
     }
   }
 
-  static final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.analytics).createChild('EventClient');
+  static final AmplifyLogger _logger = AmplifyLogger.category(
+    Category.analytics,
+  ).createChild('EventClient');
 
   /// Record event to be sent in the next event batch on [flushEvents].
   Future<void> recordEvent({
@@ -87,16 +87,12 @@ class EventClient implements Closeable {
   }
 
   /// Register [CustomProperties] to be sent with all future events.
-  void registerGlobalProperties(
-    CustomProperties globalProperties,
-  ) {
+  void registerGlobalProperties(CustomProperties globalProperties) {
     return _eventCreator.registerGlobalProperties(globalProperties);
   }
 
   /// Unregister [CustomProperties] to not be sent with all future events.
-  void unregisterGlobalProperties(
-    List<String> propertyNames,
-  ) {
+  void unregisterGlobalProperties(List<String> propertyNames) {
     return _eventCreator.unregisterGlobalProperties(propertyNames);
   }
 
@@ -196,12 +192,18 @@ class EventClient implements Closeable {
       _logger
         ..warn('putEvents - PayloadTooLarge exception: ', e)
         ..warn(
-            'Pinpoint event batch limits exceeded: 100 events / 4 mb total size / 1 mb max size per event \n '
-            'Reduce your event size or change number of events in a batch')
+          'Pinpoint event batch limits exceeded: 100 events / 4 mb total size / 1 mb max size per event \n '
+          'Reduce your event size or change number of events in a batch',
+        )
         ..warn('Unrecoverable issue, deleting cache for local event batch');
     } on AWSHttpException {
       // AWSHttpException indicates request did not complete
       // Due to no internet or unable to reach server.
+      // These exceptions are always retryable.
+      eventsToDelete.clear();
+    } on AuthException {
+      // AuthException indicates request did not complete
+      // Due to Authentication error.
       // These exceptions are always retryable.
       eventsToDelete.clear();
     } on SmithyHttpException catch (e) {

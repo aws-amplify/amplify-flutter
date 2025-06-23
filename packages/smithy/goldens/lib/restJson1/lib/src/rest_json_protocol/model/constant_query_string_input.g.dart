@@ -10,23 +10,19 @@ class _$ConstantQueryStringInput extends ConstantQueryStringInput {
   @override
   final String hello;
 
-  factory _$ConstantQueryStringInput(
-          [void Function(ConstantQueryStringInputBuilder)? updates]) =>
-      (new ConstantQueryStringInputBuilder()..update(updates))._build();
+  factory _$ConstantQueryStringInput([
+    void Function(ConstantQueryStringInputBuilder)? updates,
+  ]) => (ConstantQueryStringInputBuilder()..update(updates))._build();
 
-  _$ConstantQueryStringInput._({required this.hello}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        hello, r'ConstantQueryStringInput', 'hello');
-  }
-
+  _$ConstantQueryStringInput._({required this.hello}) : super._();
   @override
   ConstantQueryStringInput rebuild(
-          void Function(ConstantQueryStringInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConstantQueryStringInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConstantQueryStringInputBuilder toBuilder() =>
-      new ConstantQueryStringInputBuilder()..replace(this);
+      ConstantQueryStringInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -65,7 +61,6 @@ class ConstantQueryStringInputBuilder
 
   @override
   void replace(ConstantQueryStringInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConstantQueryStringInput;
   }
 
@@ -78,10 +73,15 @@ class ConstantQueryStringInputBuilder
   ConstantQueryStringInput build() => _build();
 
   _$ConstantQueryStringInput _build() {
-    final _$result = _$v ??
-        new _$ConstantQueryStringInput._(
-            hello: BuiltValueNullFieldError.checkNotNull(
-                hello, r'ConstantQueryStringInput', 'hello'));
+    final _$result =
+        _$v ??
+        _$ConstantQueryStringInput._(
+          hello: BuiltValueNullFieldError.checkNotNull(
+            hello,
+            r'ConstantQueryStringInput',
+            'hello',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -89,20 +89,19 @@ class ConstantQueryStringInputBuilder
 
 class _$ConstantQueryStringInputPayload
     extends ConstantQueryStringInputPayload {
-  factory _$ConstantQueryStringInputPayload(
-          [void Function(ConstantQueryStringInputPayloadBuilder)? updates]) =>
-      (new ConstantQueryStringInputPayloadBuilder()..update(updates))._build();
+  factory _$ConstantQueryStringInputPayload([
+    void Function(ConstantQueryStringInputPayloadBuilder)? updates,
+  ]) => (ConstantQueryStringInputPayloadBuilder()..update(updates))._build();
 
   _$ConstantQueryStringInputPayload._() : super._();
-
   @override
   ConstantQueryStringInputPayload rebuild(
-          void Function(ConstantQueryStringInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConstantQueryStringInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConstantQueryStringInputPayloadBuilder toBuilder() =>
-      new ConstantQueryStringInputPayloadBuilder()..replace(this);
+      ConstantQueryStringInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -118,15 +117,16 @@ class _$ConstantQueryStringInputPayload
 
 class ConstantQueryStringInputPayloadBuilder
     implements
-        Builder<ConstantQueryStringInputPayload,
-            ConstantQueryStringInputPayloadBuilder> {
+        Builder<
+          ConstantQueryStringInputPayload,
+          ConstantQueryStringInputPayloadBuilder
+        > {
   _$ConstantQueryStringInputPayload? _$v;
 
   ConstantQueryStringInputPayloadBuilder();
 
   @override
   void replace(ConstantQueryStringInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConstantQueryStringInputPayload;
   }
 
@@ -139,7 +139,7 @@ class ConstantQueryStringInputPayloadBuilder
   ConstantQueryStringInputPayload build() => _build();
 
   _$ConstantQueryStringInputPayload _build() {
-    final _$result = _$v ?? new _$ConstantQueryStringInputPayload._();
+    final _$result = _$v ?? _$ConstantQueryStringInputPayload._();
     replace(_$result);
     return _$result;
   }

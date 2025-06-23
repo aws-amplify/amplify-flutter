@@ -35,30 +35,29 @@ class _$RestApi extends RestApi {
   final bool? disableExecuteApiEndpoint;
 
   factory _$RestApi([void Function(RestApiBuilder)? updates]) =>
-      (new RestApiBuilder()..update(updates))._build();
+      (RestApiBuilder()..update(updates))._build();
 
-  _$RestApi._(
-      {this.id,
-      this.name,
-      this.description,
-      this.createdDate,
-      this.version,
-      this.warnings,
-      this.binaryMediaTypes,
-      this.minimumCompressionSize,
-      this.apiKeySource,
-      this.endpointConfiguration,
-      this.policy,
-      this.tags,
-      this.disableExecuteApiEndpoint})
-      : super._();
-
+  _$RestApi._({
+    this.id,
+    this.name,
+    this.description,
+    this.createdDate,
+    this.version,
+    this.warnings,
+    this.binaryMediaTypes,
+    this.minimumCompressionSize,
+    this.apiKeySource,
+    this.endpointConfiguration,
+    this.policy,
+    this.tags,
+    this.disableExecuteApiEndpoint,
+  }) : super._();
   @override
   RestApi rebuild(void Function(RestApiBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  RestApiBuilder toBuilder() => new RestApiBuilder()..replace(this);
+  RestApiBuilder toBuilder() => RestApiBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -125,13 +124,13 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
 
   _i2.ListBuilder<String>? _warnings;
   _i2.ListBuilder<String> get warnings =>
-      _$this._warnings ??= new _i2.ListBuilder<String>();
+      _$this._warnings ??= _i2.ListBuilder<String>();
   set warnings(_i2.ListBuilder<String>? warnings) =>
       _$this._warnings = warnings;
 
   _i2.ListBuilder<String>? _binaryMediaTypes;
   _i2.ListBuilder<String> get binaryMediaTypes =>
-      _$this._binaryMediaTypes ??= new _i2.ListBuilder<String>();
+      _$this._binaryMediaTypes ??= _i2.ListBuilder<String>();
   set binaryMediaTypes(_i2.ListBuilder<String>? binaryMediaTypes) =>
       _$this._binaryMediaTypes = binaryMediaTypes;
 
@@ -147,10 +146,10 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
 
   EndpointConfigurationBuilder? _endpointConfiguration;
   EndpointConfigurationBuilder get endpointConfiguration =>
-      _$this._endpointConfiguration ??= new EndpointConfigurationBuilder();
+      _$this._endpointConfiguration ??= EndpointConfigurationBuilder();
   set endpointConfiguration(
-          EndpointConfigurationBuilder? endpointConfiguration) =>
-      _$this._endpointConfiguration = endpointConfiguration;
+    EndpointConfigurationBuilder? endpointConfiguration,
+  ) => _$this._endpointConfiguration = endpointConfiguration;
 
   String? _policy;
   String? get policy => _$this._policy;
@@ -158,7 +157,7 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
 
   _i2.MapBuilder<String, String>? _tags;
   _i2.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i2.MapBuilder<String, String>();
+      _$this._tags ??= _i2.MapBuilder<String, String>();
   set tags(_i2.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   bool? _disableExecuteApiEndpoint;
@@ -191,7 +190,6 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
 
   @override
   void replace(RestApi other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RestApi;
   }
 
@@ -206,21 +204,23 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   _$RestApi _build() {
     _$RestApi _$result;
     try {
-      _$result = _$v ??
-          new _$RestApi._(
-              id: id,
-              name: name,
-              description: description,
-              createdDate: createdDate,
-              version: version,
-              warnings: _warnings?.build(),
-              binaryMediaTypes: _binaryMediaTypes?.build(),
-              minimumCompressionSize: minimumCompressionSize,
-              apiKeySource: apiKeySource,
-              endpointConfiguration: _endpointConfiguration?.build(),
-              policy: policy,
-              tags: _tags?.build(),
-              disableExecuteApiEndpoint: disableExecuteApiEndpoint);
+      _$result =
+          _$v ??
+          _$RestApi._(
+            id: id,
+            name: name,
+            description: description,
+            createdDate: createdDate,
+            version: version,
+            warnings: _warnings?.build(),
+            binaryMediaTypes: _binaryMediaTypes?.build(),
+            minimumCompressionSize: minimumCompressionSize,
+            apiKeySource: apiKeySource,
+            endpointConfiguration: _endpointConfiguration?.build(),
+            policy: policy,
+            tags: _tags?.build(),
+            disableExecuteApiEndpoint: disableExecuteApiEndpoint,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -235,8 +235,11 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
         _$failedField = 'tags';
         _tags?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'RestApi', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'RestApi',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

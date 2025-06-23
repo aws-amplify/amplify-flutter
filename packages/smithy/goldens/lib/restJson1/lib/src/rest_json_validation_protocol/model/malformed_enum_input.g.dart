@@ -18,22 +18,25 @@ class _$MalformedEnumInput extends MalformedEnumInput {
   @override
   final EnumUnion? union;
 
-  factory _$MalformedEnumInput(
-          [void Function(MalformedEnumInputBuilder)? updates]) =>
-      (new MalformedEnumInputBuilder()..update(updates))._build();
+  factory _$MalformedEnumInput([
+    void Function(MalformedEnumInputBuilder)? updates,
+  ]) => (MalformedEnumInputBuilder()..update(updates))._build();
 
-  _$MalformedEnumInput._(
-      {this.string, this.stringWithEnumTrait, this.list, this.map, this.union})
-      : super._();
-
+  _$MalformedEnumInput._({
+    this.string,
+    this.stringWithEnumTrait,
+    this.list,
+    this.map,
+    this.union,
+  }) : super._();
   @override
   MalformedEnumInput rebuild(
-          void Function(MalformedEnumInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedEnumInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedEnumInputBuilder toBuilder() =>
-      new MalformedEnumInputBuilder()..replace(this);
+      MalformedEnumInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,12 +77,12 @@ class MalformedEnumInputBuilder
 
   _i3.ListBuilder<EnumString>? _list;
   _i3.ListBuilder<EnumString> get list =>
-      _$this._list ??= new _i3.ListBuilder<EnumString>();
+      _$this._list ??= _i3.ListBuilder<EnumString>();
   set list(_i3.ListBuilder<EnumString>? list) => _$this._list = list;
 
   _i3.MapBuilder<EnumString, EnumString>? _map;
   _i3.MapBuilder<EnumString, EnumString> get map =>
-      _$this._map ??= new _i3.MapBuilder<EnumString, EnumString>();
+      _$this._map ??= _i3.MapBuilder<EnumString, EnumString>();
   set map(_i3.MapBuilder<EnumString, EnumString>? map) => _$this._map = map;
 
   EnumUnion? _union;
@@ -103,7 +106,6 @@ class MalformedEnumInputBuilder
 
   @override
   void replace(MalformedEnumInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedEnumInput;
   }
 
@@ -118,13 +120,15 @@ class MalformedEnumInputBuilder
   _$MalformedEnumInput _build() {
     _$MalformedEnumInput _$result;
     try {
-      _$result = _$v ??
-          new _$MalformedEnumInput._(
-              string: string,
-              stringWithEnumTrait: stringWithEnumTrait,
-              list: _list?.build(),
-              map: _map?.build(),
-              union: union);
+      _$result =
+          _$v ??
+          _$MalformedEnumInput._(
+            string: string,
+            stringWithEnumTrait: stringWithEnumTrait,
+            list: _list?.build(),
+            map: _map?.build(),
+            union: union,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -133,8 +137,11 @@ class MalformedEnumInputBuilder
         _$failedField = 'map';
         _map?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'MalformedEnumInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'MalformedEnumInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

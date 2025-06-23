@@ -97,7 +97,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   /// The ID of the package, such as com.example.app
   Future<String> _getPackageId() async {
-    if (_packageId != null) return _packageId!;
+    if (_packageId != null) return _packageId;
     return _packageIdMemo.runOnce(getApplicationId);
   }
 
@@ -145,18 +145,10 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   /// If no key is provided, an empty [GHashTable] is returned.
   ///
   /// The hash table will be destroyed when the arena releases memory.
-  Pointer<GHashTable> _getAttributes({
-    String? key,
-    required Arena arena,
-  }) {
+  Pointer<GHashTable> _getAttributes({String? key, required Arena arena}) {
     final gHashTable = glib.g_hash_table_new(gStrHashPointer, nullptr);
     if (key != null) {
-      gHashTable.insertAll(
-        {
-          Attributes.key.name: key,
-        },
-        arena: arena,
-      );
+      gHashTable.insertAll({Attributes.key.name: key}, arena: arena);
     }
     arena.onReleaseAll(() {
       glib.g_hash_table_destroy(gHashTable);
@@ -166,6 +158,4 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 }
 
 /// The attributes used to identify the secret.
-enum Attributes {
-  key,
-}
+enum Attributes { key }

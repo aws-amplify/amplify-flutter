@@ -18,8 +18,8 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=3.10.0"
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
 
 dependencies:
   amplify_auth_cognito: ">=1.0.0-next.8 <1.0.0-next.9"
@@ -33,6 +33,7 @@ dependencies:
   #
   # See https://flutter.dev/docs/development/accessibility-and-localization/internationalization
   # for more information.
+  flutter_gen: ^5.10.0
   flutter_localizations:
     sdk: flutter
 
@@ -54,8 +55,8 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  stream_transform: ^2.0.0
-  uuid: ">=3.0.6 <=3.0.7"
+  stream_transform: ^2.1.0
+  uuid: ^4.5.1
 
 flutter:
   uses-material-design: true

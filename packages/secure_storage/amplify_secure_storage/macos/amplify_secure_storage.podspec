@@ -19,5 +19,6 @@ A new Flutter plugin project.
 
   s.platform = :osx, '10.15'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
-  s.swift_version = '5.0'
+  s.swift_version = '5.9'
+  s.resource_bundles = {'amplify_secure_storage_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
 end

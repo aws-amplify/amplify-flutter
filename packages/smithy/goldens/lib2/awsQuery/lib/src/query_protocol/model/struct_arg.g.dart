@@ -15,16 +15,15 @@ class _$StructArg extends StructArg {
   final StructArg? recursiveArg;
 
   factory _$StructArg([void Function(StructArgBuilder)? updates]) =>
-      (new StructArgBuilder()..update(updates))._build();
+      (StructArgBuilder()..update(updates))._build();
 
   _$StructArg._({this.stringArg, this.otherArg, this.recursiveArg}) : super._();
-
   @override
   StructArg rebuild(void Function(StructArgBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  StructArgBuilder toBuilder() => new StructArgBuilder()..replace(this);
+  StructArgBuilder toBuilder() => StructArgBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -59,7 +58,7 @@ class StructArgBuilder implements Builder<StructArg, StructArgBuilder> {
 
   StructArgBuilder? _recursiveArg;
   StructArgBuilder get recursiveArg =>
-      _$this._recursiveArg ??= new StructArgBuilder();
+      _$this._recursiveArg ??= StructArgBuilder();
   set recursiveArg(StructArgBuilder? recursiveArg) =>
       _$this._recursiveArg = recursiveArg;
 
@@ -78,7 +77,6 @@ class StructArgBuilder implements Builder<StructArg, StructArgBuilder> {
 
   @override
   void replace(StructArg other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StructArg;
   }
 
@@ -93,19 +91,24 @@ class StructArgBuilder implements Builder<StructArg, StructArgBuilder> {
   _$StructArg _build() {
     _$StructArg _$result;
     try {
-      _$result = _$v ??
-          new _$StructArg._(
-              stringArg: stringArg,
-              otherArg: otherArg,
-              recursiveArg: _recursiveArg?.build());
+      _$result =
+          _$v ??
+          _$StructArg._(
+            stringArg: stringArg,
+            otherArg: otherArg,
+            recursiveArg: _recursiveArg?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'recursiveArg';
         _recursiveArg?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'StructArg', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'StructArg',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

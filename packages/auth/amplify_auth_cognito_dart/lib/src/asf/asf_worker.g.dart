@@ -6,15 +6,16 @@ part of 'asf_worker.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$_serializers = (new Serializers().toBuilder()
-      ..add(ASFContextData.serializer)
-      ..add(ASFWorkerRequest.serializer)
-      ..add(ASFWorkerResponse.serializer))
-    .build();
+Serializers _$_serializers =
+    (Serializers().toBuilder()
+          ..add(ASFContextData.serializer)
+          ..add(ASFWorkerRequest.serializer)
+          ..add(ASFWorkerResponse.serializer))
+        .build();
 Serializer<ASFWorkerRequest> _$aSFWorkerRequestSerializer =
-    new _$ASFWorkerRequestSerializer();
+    _$ASFWorkerRequestSerializer();
 Serializer<ASFWorkerResponse> _$aSFWorkerResponseSerializer =
-    new _$ASFWorkerResponseSerializer();
+    _$ASFWorkerResponseSerializer();
 
 class _$ASFWorkerRequestSerializer
     implements StructuredSerializer<ASFWorkerRequest> {
@@ -24,27 +25,42 @@ class _$ASFWorkerRequestSerializer
   final String wireName = 'ASFWorkerRequest';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ASFWorkerRequest object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ASFWorkerRequest object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'requestId',
-      serializers.serialize(object.requestId,
-          specifiedType: const FullType(int)),
+      serializers.serialize(
+        object.requestId,
+        specifiedType: const FullType(int),
+      ),
       'userPoolId',
-      serializers.serialize(object.userPoolId,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.userPoolId,
+        specifiedType: const FullType(String),
+      ),
       'clientId',
-      serializers.serialize(object.clientId,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.clientId,
+        specifiedType: const FullType(String),
+      ),
       'username',
-      serializers.serialize(object.username,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.username,
+        specifiedType: const FullType(String),
+      ),
       'deviceId',
-      serializers.serialize(object.deviceId,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.deviceId,
+        specifiedType: const FullType(String),
+      ),
       'nativeContextData',
-      serializers.serialize(object.nativeContextData,
-          specifiedType: const FullType(ASFContextData)),
+      serializers.serialize(
+        object.nativeContextData,
+        specifiedType: const FullType(ASFContextData),
+      ),
     ];
 
     return result;
@@ -52,9 +68,11 @@ class _$ASFWorkerRequestSerializer
 
   @override
   ASFWorkerRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new ASFWorkerRequestBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = ASFWorkerRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -63,29 +81,53 @@ class _$ASFWorkerRequestSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
+          result.requestId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'userPoolId':
-          result.userPoolId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.userPoolId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'clientId':
-          result.clientId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.clientId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'username':
-          result.username = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.username =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'deviceId':
-          result.deviceId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.deviceId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'nativeContextData':
-          result.nativeContextData.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(ASFContextData))!
-              as ASFContextData);
+          result.nativeContextData.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ASFContextData),
+                )!
+                as ASFContextData,
+          );
           break;
       }
     }
@@ -102,15 +144,22 @@ class _$ASFWorkerResponseSerializer
   final String wireName = 'ASFWorkerResponse';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ASFWorkerResponse object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ASFWorkerResponse object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'requestId',
-      serializers.serialize(object.requestId,
-          specifiedType: const FullType(int)),
+      serializers.serialize(
+        object.requestId,
+        specifiedType: const FullType(int),
+      ),
       'userContextData',
-      serializers.serialize(object.userContextData,
-          specifiedType: const FullType(UserContextDataType)),
+      serializers.serialize(
+        object.userContextData,
+        specifiedType: const FullType(UserContextDataType),
+      ),
     ];
 
     return result;
@@ -118,9 +167,11 @@ class _$ASFWorkerResponseSerializer
 
   @override
   ASFWorkerResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new ASFWorkerResponseBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = ASFWorkerResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -129,13 +180,21 @@ class _$ASFWorkerResponseSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
+          result.requestId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'userContextData':
-          result.userContextData.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(UserContextDataType))!
-              as UserContextDataType);
+          result.userContextData.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(UserContextDataType),
+                )!
+                as UserContextDataType,
+          );
           break;
       }
     }
@@ -158,39 +217,25 @@ class _$ASFWorkerRequest extends ASFWorkerRequest {
   @override
   final ASFContextData nativeContextData;
 
-  factory _$ASFWorkerRequest(
-          [void Function(ASFWorkerRequestBuilder)? updates]) =>
-      (new ASFWorkerRequestBuilder()..update(updates))._build();
+  factory _$ASFWorkerRequest([
+    void Function(ASFWorkerRequestBuilder)? updates,
+  ]) => (ASFWorkerRequestBuilder()..update(updates))._build();
 
-  _$ASFWorkerRequest._(
-      {required this.requestId,
-      required this.userPoolId,
-      required this.clientId,
-      required this.username,
-      required this.deviceId,
-      required this.nativeContextData})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        requestId, r'ASFWorkerRequest', 'requestId');
-    BuiltValueNullFieldError.checkNotNull(
-        userPoolId, r'ASFWorkerRequest', 'userPoolId');
-    BuiltValueNullFieldError.checkNotNull(
-        clientId, r'ASFWorkerRequest', 'clientId');
-    BuiltValueNullFieldError.checkNotNull(
-        username, r'ASFWorkerRequest', 'username');
-    BuiltValueNullFieldError.checkNotNull(
-        deviceId, r'ASFWorkerRequest', 'deviceId');
-    BuiltValueNullFieldError.checkNotNull(
-        nativeContextData, r'ASFWorkerRequest', 'nativeContextData');
-  }
-
+  _$ASFWorkerRequest._({
+    required this.requestId,
+    required this.userPoolId,
+    required this.clientId,
+    required this.username,
+    required this.deviceId,
+    required this.nativeContextData,
+  }) : super._();
   @override
   ASFWorkerRequest rebuild(void Function(ASFWorkerRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   ASFWorkerRequestBuilder toBuilder() =>
-      new ASFWorkerRequestBuilder()..replace(this);
+      ASFWorkerRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -256,7 +301,7 @@ class ASFWorkerRequestBuilder
 
   ASFContextDataBuilder? _nativeContextData;
   ASFContextDataBuilder get nativeContextData =>
-      _$this._nativeContextData ??= new ASFContextDataBuilder();
+      _$this._nativeContextData ??= ASFContextDataBuilder();
   set nativeContextData(ASFContextDataBuilder? nativeContextData) =>
       _$this._nativeContextData = nativeContextData;
 
@@ -280,7 +325,6 @@ class ASFWorkerRequestBuilder
 
   @override
   void replace(ASFWorkerRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ASFWorkerRequest;
   }
 
@@ -295,27 +339,47 @@ class ASFWorkerRequestBuilder
   _$ASFWorkerRequest _build() {
     _$ASFWorkerRequest _$result;
     try {
-      _$result = _$v ??
-          new _$ASFWorkerRequest._(
-              requestId: BuiltValueNullFieldError.checkNotNull(
-                  requestId, r'ASFWorkerRequest', 'requestId'),
-              userPoolId: BuiltValueNullFieldError.checkNotNull(
-                  userPoolId, r'ASFWorkerRequest', 'userPoolId'),
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'ASFWorkerRequest', 'clientId'),
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'ASFWorkerRequest', 'username'),
-              deviceId: BuiltValueNullFieldError.checkNotNull(
-                  deviceId, r'ASFWorkerRequest', 'deviceId'),
-              nativeContextData: nativeContextData.build());
+      _$result =
+          _$v ??
+          _$ASFWorkerRequest._(
+            requestId: BuiltValueNullFieldError.checkNotNull(
+              requestId,
+              r'ASFWorkerRequest',
+              'requestId',
+            ),
+            userPoolId: BuiltValueNullFieldError.checkNotNull(
+              userPoolId,
+              r'ASFWorkerRequest',
+              'userPoolId',
+            ),
+            clientId: BuiltValueNullFieldError.checkNotNull(
+              clientId,
+              r'ASFWorkerRequest',
+              'clientId',
+            ),
+            username: BuiltValueNullFieldError.checkNotNull(
+              username,
+              r'ASFWorkerRequest',
+              'username',
+            ),
+            deviceId: BuiltValueNullFieldError.checkNotNull(
+              deviceId,
+              r'ASFWorkerRequest',
+              'deviceId',
+            ),
+            nativeContextData: nativeContextData.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nativeContextData';
         nativeContextData.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ASFWorkerRequest', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ASFWorkerRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -330,26 +394,21 @@ class _$ASFWorkerResponse extends ASFWorkerResponse {
   @override
   final UserContextDataType userContextData;
 
-  factory _$ASFWorkerResponse(
-          [void Function(ASFWorkerResponseBuilder)? updates]) =>
-      (new ASFWorkerResponseBuilder()..update(updates))._build();
+  factory _$ASFWorkerResponse([
+    void Function(ASFWorkerResponseBuilder)? updates,
+  ]) => (ASFWorkerResponseBuilder()..update(updates))._build();
 
-  _$ASFWorkerResponse._(
-      {required this.requestId, required this.userContextData})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        requestId, r'ASFWorkerResponse', 'requestId');
-    BuiltValueNullFieldError.checkNotNull(
-        userContextData, r'ASFWorkerResponse', 'userContextData');
-  }
-
+  _$ASFWorkerResponse._({
+    required this.requestId,
+    required this.userContextData,
+  }) : super._();
   @override
   ASFWorkerResponse rebuild(void Function(ASFWorkerResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   ASFWorkerResponseBuilder toBuilder() =>
-      new ASFWorkerResponseBuilder()..replace(this);
+      ASFWorkerResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -387,7 +446,7 @@ class ASFWorkerResponseBuilder
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
@@ -405,7 +464,6 @@ class ASFWorkerResponseBuilder
 
   @override
   void replace(ASFWorkerResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ASFWorkerResponse;
   }
 
@@ -420,19 +478,27 @@ class ASFWorkerResponseBuilder
   _$ASFWorkerResponse _build() {
     _$ASFWorkerResponse _$result;
     try {
-      _$result = _$v ??
-          new _$ASFWorkerResponse._(
-              requestId: BuiltValueNullFieldError.checkNotNull(
-                  requestId, r'ASFWorkerResponse', 'requestId'),
-              userContextData: userContextData.build());
+      _$result =
+          _$v ??
+          _$ASFWorkerResponse._(
+            requestId: BuiltValueNullFieldError.checkNotNull(
+              requestId,
+              r'ASFWorkerResponse',
+              'requestId',
+            ),
+            userContextData: userContextData.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'userContextData';
         userContextData.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ASFWorkerResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ASFWorkerResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

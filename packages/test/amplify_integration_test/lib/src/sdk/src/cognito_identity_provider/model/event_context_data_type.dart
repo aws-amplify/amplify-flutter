@@ -32,14 +32,14 @@ abstract class EventContextDataType
   }
 
   /// Specifies the user context data captured at the time of an event request.
-  factory EventContextDataType.build(
-          [void Function(EventContextDataTypeBuilder) updates]) =
-      _$EventContextDataType;
+  factory EventContextDataType.build([
+    void Function(EventContextDataTypeBuilder) updates,
+  ]) = _$EventContextDataType;
 
   const EventContextDataType._();
 
   static const List<_i2.SmithySerializer<EventContextDataType>> serializers = [
-    EventContextDataTypeAwsJson11Serializer()
+    EventContextDataTypeAwsJson11Serializer(),
   ];
 
   /// The source IP address of your user's device.
@@ -57,36 +57,15 @@ abstract class EventContextDataType
   /// The user's country.
   String? get country;
   @override
-  List<Object?> get props => [
-        ipAddress,
-        deviceName,
-        timezone,
-        city,
-        country,
-      ];
+  List<Object?> get props => [ipAddress, deviceName, timezone, city, country];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EventContextDataType')
-      ..add(
-        'ipAddress',
-        ipAddress,
-      )
-      ..add(
-        'deviceName',
-        deviceName,
-      )
-      ..add(
-        'timezone',
-        timezone,
-      )
-      ..add(
-        'city',
-        city,
-      )
-      ..add(
-        'country',
-        country,
-      );
+      ..add('ipAddress', ipAddress)
+      ..add('deviceName', deviceName)
+      ..add('timezone', timezone)
+      ..add('city', city)
+      ..add('country', country);
     return helper.toString();
   }
 }
@@ -94,20 +73,17 @@ abstract class EventContextDataType
 class EventContextDataTypeAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<EventContextDataType> {
   const EventContextDataTypeAwsJson11Serializer()
-      : super('EventContextDataType');
+    : super('EventContextDataType');
 
   @override
   Iterable<Type> get types => const [
-        EventContextDataType,
-        _$EventContextDataType,
-      ];
+    EventContextDataType,
+    _$EventContextDataType,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
   @override
   EventContextDataType deserialize(
     Serializers serializers,
@@ -125,30 +101,40 @@ class EventContextDataTypeAwsJson11Serializer
       }
       switch (key) {
         case 'IpAddress':
-          result.ipAddress = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.ipAddress =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'DeviceName':
-          result.deviceName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.deviceName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Timezone':
-          result.timezone = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.timezone =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'City':
-          result.city = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.city =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Country':
-          result.country = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.country =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -167,47 +153,51 @@ class EventContextDataTypeAwsJson11Serializer
       :deviceName,
       :timezone,
       :city,
-      :country
+      :country,
     ) = object;
     if (ipAddress != null) {
       result$
         ..add('IpAddress')
-        ..add(serializers.serialize(
-          ipAddress,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            ipAddress,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (deviceName != null) {
       result$
         ..add('DeviceName')
-        ..add(serializers.serialize(
-          deviceName,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            deviceName,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (timezone != null) {
       result$
         ..add('Timezone')
-        ..add(serializers.serialize(
-          timezone,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            timezone,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (city != null) {
       result$
         ..add('City')
-        ..add(serializers.serialize(
-          city,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(city, specifiedType: const FullType(String)),
+        );
     }
     if (country != null) {
       result$
         ..add('Country')
-        ..add(serializers.serialize(
-          country,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(country, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

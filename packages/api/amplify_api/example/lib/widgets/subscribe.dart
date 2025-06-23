@@ -32,9 +32,9 @@ class GraphQLSubscriptionsExamples extends StatelessWidget {
   final StreamSubscription<GraphQLResponse<Post>>? subscriptionByID;
   final void Function(String) setResults;
   final void Function(StreamSubscription<GraphQLResponse<Blog>>)
-      setSubscription;
+  setSubscription;
   final void Function(StreamSubscription<GraphQLResponse<Post>>)
-      setSubscriptionByID;
+  setSubscriptionByID;
   final void Function(void Function()?)? setUnsubscribe;
   final void Function()? unsubscribe;
 
@@ -56,9 +56,7 @@ class GraphQLSubscriptionsExamples extends StatelessWidget {
 
     final streamSubscription = operation.listen(
       handleSubscriptionEvents,
-      onError: (Object error) => print(
-        'Error in GraphQL subscription: $error',
-      ),
+      onError: (Object error) => print('Error in GraphQL subscription: $error'),
     );
 
     setSubscription(streamSubscription);
@@ -85,9 +83,7 @@ class GraphQLSubscriptionsExamples extends StatelessWidget {
 
     final streamSubscription = operation.listen(
       handleSubscriptionEvents,
-      onError: (Object error) => print(
-        'Error in GraphQL subscription: $error',
-      ),
+      onError: (Object error) => print('Error in GraphQL subscription: $error'),
     );
     setSubscriptionByID(streamSubscription);
     setUnsubscribe!(streamSubscription.cancel);
@@ -98,10 +94,7 @@ class GraphQLSubscriptionsExamples extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
-          'Subscriptions',
-          textAlign: TextAlign.left,
-        ),
+        const Text('Subscriptions', textAlign: TextAlign.left),
         Wrap(
           alignment: WrapAlignment.spaceBetween,
           spacing: 12,

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.malformed_boolean_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,9 +32,9 @@ abstract class MalformedBooleanInput
     );
   }
 
-  factory MalformedBooleanInput.build(
-          [void Function(MalformedBooleanInputBuilder) updates]) =
-      _$MalformedBooleanInput;
+  factory MalformedBooleanInput.build([
+    void Function(MalformedBooleanInputBuilder) updates,
+  ]) = _$MalformedBooleanInput;
 
   const MalformedBooleanInput._();
 
@@ -42,23 +42,21 @@ abstract class MalformedBooleanInput
     MalformedBooleanInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedBooleanInput.build((b) {
-        b.booleanInBody = payload.booleanInBody;
-        if (request.headers['booleanInHeader'] != null) {
-          b.booleanInHeader = request.headers['booleanInHeader']! == 'true';
-        }
-        if (request.queryParameters['booleanInQuery'] != null) {
-          b.booleanInQuery =
-              request.queryParameters['booleanInQuery']! == 'true';
-        }
-        if (labels['booleanInPath'] != null) {
-          b.booleanInPath = labels['booleanInPath']! == 'true';
-        }
-      });
+  }) => MalformedBooleanInput.build((b) {
+    b.booleanInBody = payload.booleanInBody;
+    if (request.headers['booleanInHeader'] != null) {
+      b.booleanInHeader = request.headers['booleanInHeader']! == 'true';
+    }
+    if (request.queryParameters['booleanInQuery'] != null) {
+      b.booleanInQuery = request.queryParameters['booleanInQuery']! == 'true';
+    }
+    if (labels['booleanInPath'] != null) {
+      b.booleanInPath = labels['booleanInPath']! == 'true';
+    }
+  });
 
   static const List<_i1.SmithySerializer<MalformedBooleanInputPayload>>
-      serializers = [MalformedBooleanInputRestJson1Serializer()];
+  serializers = [MalformedBooleanInputRestJson1Serializer()];
 
   bool? get booleanInBody;
   bool get booleanInPath;
@@ -70,10 +68,7 @@ abstract class MalformedBooleanInput
       case 'booleanInPath':
         return booleanInPath.toString();
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -81,59 +76,48 @@ abstract class MalformedBooleanInput
       MalformedBooleanInputPayload((b) {
         b.booleanInBody = booleanInBody;
       });
+
   @override
   List<Object?> get props => [
-        booleanInBody,
-        booleanInPath,
-        booleanInQuery,
-        booleanInHeader,
-      ];
+    booleanInBody,
+    booleanInPath,
+    booleanInQuery,
+    booleanInHeader,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedBooleanInput')
-      ..add(
-        'booleanInBody',
-        booleanInBody,
-      )
-      ..add(
-        'booleanInPath',
-        booleanInPath,
-      )
-      ..add(
-        'booleanInQuery',
-        booleanInQuery,
-      )
-      ..add(
-        'booleanInHeader',
-        booleanInHeader,
-      );
+      ..add('booleanInBody', booleanInBody)
+      ..add('booleanInPath', booleanInPath)
+      ..add('booleanInQuery', booleanInQuery)
+      ..add('booleanInHeader', booleanInHeader);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class MalformedBooleanInputPayload
-    with
-        _i2.AWSEquatable<MalformedBooleanInputPayload>
+    with _i2.AWSEquatable<MalformedBooleanInputPayload>
     implements
-        Built<MalformedBooleanInputPayload,
-            MalformedBooleanInputPayloadBuilder> {
-  factory MalformedBooleanInputPayload(
-          [void Function(MalformedBooleanInputPayloadBuilder) updates]) =
-      _$MalformedBooleanInputPayload;
+        Built<
+          MalformedBooleanInputPayload,
+          MalformedBooleanInputPayloadBuilder
+        > {
+  factory MalformedBooleanInputPayload([
+    void Function(MalformedBooleanInputPayloadBuilder) updates,
+  ]) = _$MalformedBooleanInputPayload;
 
   const MalformedBooleanInputPayload._();
 
   bool? get booleanInBody;
   @override
   List<Object?> get props => [booleanInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedBooleanInputPayload')
-      ..add(
-        'booleanInBody',
-        booleanInBody,
-      );
+      ..add('booleanInBody', booleanInBody);
     return helper.toString();
   }
 }
@@ -141,22 +125,21 @@ abstract class MalformedBooleanInputPayload
 class MalformedBooleanInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<MalformedBooleanInputPayload> {
   const MalformedBooleanInputRestJson1Serializer()
-      : super('MalformedBooleanInput');
+    : super('MalformedBooleanInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedBooleanInput,
-        _$MalformedBooleanInput,
-        MalformedBooleanInputPayload,
-        _$MalformedBooleanInputPayload,
-      ];
+    MalformedBooleanInput,
+    _$MalformedBooleanInput,
+    MalformedBooleanInputPayload,
+    _$MalformedBooleanInputPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   MalformedBooleanInputPayload deserialize(
     Serializers serializers,
@@ -174,10 +157,12 @@ class MalformedBooleanInputRestJson1Serializer
       }
       switch (key) {
         case 'booleanInBody':
-          result.booleanInBody = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.booleanInBody =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 
@@ -195,10 +180,12 @@ class MalformedBooleanInputRestJson1Serializer
     if (booleanInBody != null) {
       result$
         ..add('booleanInBody')
-        ..add(serializers.serialize(
-          booleanInBody,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(
+            booleanInBody,
+            specifiedType: const FullType(bool),
+          ),
+        );
     }
     return result$;
   }

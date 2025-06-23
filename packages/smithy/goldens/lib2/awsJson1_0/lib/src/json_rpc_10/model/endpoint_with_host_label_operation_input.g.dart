@@ -11,25 +11,20 @@ class _$EndpointWithHostLabelOperationInput
   @override
   final String label;
 
-  factory _$EndpointWithHostLabelOperationInput(
-          [void Function(EndpointWithHostLabelOperationInputBuilder)?
-              updates]) =>
-      (new EndpointWithHostLabelOperationInputBuilder()..update(updates))
-          ._build();
+  factory _$EndpointWithHostLabelOperationInput([
+    void Function(EndpointWithHostLabelOperationInputBuilder)? updates,
+  ]) =>
+      (EndpointWithHostLabelOperationInputBuilder()..update(updates))._build();
 
-  _$EndpointWithHostLabelOperationInput._({required this.label}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        label, r'EndpointWithHostLabelOperationInput', 'label');
-  }
-
+  _$EndpointWithHostLabelOperationInput._({required this.label}) : super._();
   @override
   EndpointWithHostLabelOperationInput rebuild(
-          void Function(EndpointWithHostLabelOperationInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EndpointWithHostLabelOperationInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EndpointWithHostLabelOperationInputBuilder toBuilder() =>
-      new EndpointWithHostLabelOperationInputBuilder()..replace(this);
+      EndpointWithHostLabelOperationInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,8 +43,10 @@ class _$EndpointWithHostLabelOperationInput
 
 class EndpointWithHostLabelOperationInputBuilder
     implements
-        Builder<EndpointWithHostLabelOperationInput,
-            EndpointWithHostLabelOperationInputBuilder> {
+        Builder<
+          EndpointWithHostLabelOperationInput,
+          EndpointWithHostLabelOperationInputBuilder
+        > {
   _$EndpointWithHostLabelOperationInput? _$v;
 
   String? _label;
@@ -69,13 +66,13 @@ class EndpointWithHostLabelOperationInputBuilder
 
   @override
   void replace(EndpointWithHostLabelOperationInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointWithHostLabelOperationInput;
   }
 
   @override
   void update(
-      void Function(EndpointWithHostLabelOperationInputBuilder)? updates) {
+    void Function(EndpointWithHostLabelOperationInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -83,10 +80,15 @@ class EndpointWithHostLabelOperationInputBuilder
   EndpointWithHostLabelOperationInput build() => _build();
 
   _$EndpointWithHostLabelOperationInput _build() {
-    final _$result = _$v ??
-        new _$EndpointWithHostLabelOperationInput._(
-            label: BuiltValueNullFieldError.checkNotNull(
-                label, r'EndpointWithHostLabelOperationInput', 'label'));
+    final _$result =
+        _$v ??
+        _$EndpointWithHostLabelOperationInput._(
+          label: BuiltValueNullFieldError.checkNotNull(
+            label,
+            r'EndpointWithHostLabelOperationInput',
+            'label',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

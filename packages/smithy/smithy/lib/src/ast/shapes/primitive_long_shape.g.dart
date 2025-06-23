@@ -7,7 +7,7 @@ part of 'primitive_long_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveLongShape> _$primitiveLongShapeSerializer =
-    new _$PrimitiveLongShapeSerializer();
+    _$PrimitiveLongShapeSerializer();
 
 class _$PrimitiveLongShapeSerializer
     implements StructuredSerializer<PrimitiveLongShape> {
@@ -18,12 +18,16 @@ class _$PrimitiveLongShapeSerializer
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, PrimitiveLongShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    PrimitiveLongShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -31,9 +35,11 @@ class _$PrimitiveLongShapeSerializer
 
   @override
   PrimitiveLongShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new PrimitiveLongShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = PrimitiveLongShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -42,8 +48,12 @@ class _$PrimitiveLongShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -58,26 +68,20 @@ class _$PrimitiveLongShape extends PrimitiveLongShape {
   @override
   final TraitMap traits;
 
-  factory _$PrimitiveLongShape(
-          [void Function(PrimitiveLongShapeBuilder)? updates]) =>
-      (new PrimitiveLongShapeBuilder()..update(updates))._build();
+  factory _$PrimitiveLongShape([
+    void Function(PrimitiveLongShapeBuilder)? updates,
+  ]) => (PrimitiveLongShapeBuilder()..update(updates))._build();
 
   _$PrimitiveLongShape._({required this.shapeId, required this.traits})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'PrimitiveLongShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(
-        traits, r'PrimitiveLongShape', 'traits');
-  }
-
+    : super._();
   @override
   PrimitiveLongShape rebuild(
-          void Function(PrimitiveLongShapeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PrimitiveLongShapeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PrimitiveLongShapeBuilder toBuilder() =>
-      new PrimitiveLongShapeBuilder()..replace(this);
+      PrimitiveLongShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,7 +139,6 @@ class PrimitiveLongShapeBuilder
 
   @override
   void replace(covariant PrimitiveLongShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveLongShape;
   }
 
@@ -148,12 +151,20 @@ class PrimitiveLongShapeBuilder
   PrimitiveLongShape build() => _build();
 
   _$PrimitiveLongShape _build() {
-    final _$result = _$v ??
-        new _$PrimitiveLongShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'PrimitiveLongShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'PrimitiveLongShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$PrimitiveLongShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'PrimitiveLongShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'PrimitiveLongShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

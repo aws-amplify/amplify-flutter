@@ -10,45 +10,40 @@ import 'dart:ffi' as ffi;
 class Glib {
   /// Holds the symbol lookup function.
   final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-      _lookup;
+  _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
   Glib(ffi.DynamicLibrary dynamicLibrary) : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
   Glib.fromLookup(
-      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-          lookup)
-      : _lookup = lookup;
+    ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup,
+  ) : _lookup = lookup;
 
   ffi.Pointer<GHashTable> g_hash_table_new(
     GHashFunc hash_func,
     GEqualFunc key_equal_func,
   ) {
-    return _g_hash_table_new(
-      hash_func,
-      key_equal_func,
-    );
+    return _g_hash_table_new(hash_func, key_equal_func);
   }
 
-  late final _g_hash_table_newPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<GHashTable> Function(
-              GHashFunc, GEqualFunc)>>('g_hash_table_new');
+  late final _g_hash_table_newPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<GHashTable> Function(GHashFunc, GEqualFunc)
+        >
+      >('g_hash_table_new');
   late final _g_hash_table_new = _g_hash_table_newPtr
       .asFunction<ffi.Pointer<GHashTable> Function(GHashFunc, GEqualFunc)>();
 
-  void g_hash_table_destroy(
-    ffi.Pointer<GHashTable> hash_table,
-  ) {
-    return _g_hash_table_destroy(
-      hash_table,
-    );
+  void g_hash_table_destroy(ffi.Pointer<GHashTable> hash_table) {
+    return _g_hash_table_destroy(hash_table);
   }
 
   late final _g_hash_table_destroyPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<GHashTable>)>>(
-          'g_hash_table_destroy');
+        'g_hash_table_destroy',
+      );
   late final _g_hash_table_destroy = _g_hash_table_destroyPtr
       .asFunction<void Function(ffi.Pointer<GHashTable>)>();
 
@@ -57,17 +52,15 @@ class Glib {
     gpointer key,
     gpointer value,
   ) {
-    return _g_hash_table_insert(
-      hash_table,
-      key,
-      value,
-    );
+    return _g_hash_table_insert(hash_table, key, value);
   }
 
-  late final _g_hash_table_insertPtr = _lookup<
-      ffi.NativeFunction<
-          gboolean Function(ffi.Pointer<GHashTable>, gpointer,
-              gpointer)>>('g_hash_table_insert');
+  late final _g_hash_table_insertPtr =
+      _lookup<
+        ffi.NativeFunction<
+          gboolean Function(ffi.Pointer<GHashTable>, gpointer, gpointer)
+        >
+      >('g_hash_table_insert');
   late final _g_hash_table_insert = _g_hash_table_insertPtr
       .asFunction<int Function(ffi.Pointer<GHashTable>, gpointer, gpointer)>();
 }
@@ -89,12 +82,14 @@ typedef GHashTable = _GHashTable;
 
 final class _GHashTable extends ffi.Opaque {}
 
-typedef GHashFunc
-    = ffi.Pointer<ffi.NativeFunction<guint Function(gconstpointer key)>>;
+typedef GHashFunc =
+    ffi.Pointer<ffi.NativeFunction<guint Function(gconstpointer key)>>;
 typedef guint = ffi.UnsignedInt;
 typedef gconstpointer = ffi.Pointer<ffi.Void>;
-typedef GEqualFunc = ffi.Pointer<
-    ffi.NativeFunction<gboolean Function(gconstpointer a, gconstpointer b)>>;
+typedef GEqualFunc =
+    ffi.Pointer<
+      ffi.NativeFunction<gboolean Function(gconstpointer a, gconstpointer b)>
+    >;
 typedef gboolean = gint;
 typedef gpointer = ffi.Pointer<ffi.Void>;
 

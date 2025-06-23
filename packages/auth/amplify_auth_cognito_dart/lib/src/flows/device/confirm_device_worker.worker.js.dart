@@ -7,6 +7,7 @@ import 'package:aws_common/aws_common.dart';
 class ConfirmDeviceWorkerImpl extends ConfirmDeviceWorker {
   @override
   String get name => 'ConfirmDeviceWorker';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.
@@ -37,9 +38,6 @@ class ConfirmDeviceWorkerImpl extends ConfirmDeviceWorker {
       port: baseUri.port,
       path: '$basePath/test/$relativePath',
     ).toString();
-    return [
-      relativePath,
-      testRelativePath,
-    ];
+    return [relativePath, testRelativePath];
   }
 }

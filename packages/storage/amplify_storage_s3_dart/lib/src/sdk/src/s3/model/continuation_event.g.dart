@@ -7,19 +7,18 @@ part of 'continuation_event.dart';
 // **************************************************************************
 
 class _$ContinuationEvent extends ContinuationEvent {
-  factory _$ContinuationEvent(
-          [void Function(ContinuationEventBuilder)? updates]) =>
-      (new ContinuationEventBuilder()..update(updates))._build();
+  factory _$ContinuationEvent([
+    void Function(ContinuationEventBuilder)? updates,
+  ]) => (ContinuationEventBuilder()..update(updates))._build();
 
   _$ContinuationEvent._() : super._();
-
   @override
   ContinuationEvent rebuild(void Function(ContinuationEventBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   ContinuationEventBuilder toBuilder() =>
-      new ContinuationEventBuilder()..replace(this);
+      ContinuationEventBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -41,7 +40,6 @@ class ContinuationEventBuilder
 
   @override
   void replace(ContinuationEvent other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ContinuationEvent;
   }
 
@@ -54,7 +52,7 @@ class ContinuationEventBuilder
   ContinuationEvent build() => _build();
 
   _$ContinuationEvent _build() {
-    final _$result = _$v ?? new _$ContinuationEvent._();
+    final _$result = _$v ?? _$ContinuationEvent._();
     replace(_$result);
     return _$result;
   }

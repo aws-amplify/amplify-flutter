@@ -47,11 +47,7 @@ enum SupportedProtocols {
   ///
   /// **Note**: Currently this only supports HTTP/3 on the Web via `fetch`.
   /// HTTP/3 is not supported on VM.
-  http1_2_3._([
-    AlpnProtocol.http1_1,
-    AlpnProtocol.http2,
-    AlpnProtocol.http3,
-  ]);
+  http1_2_3._([AlpnProtocol.http1_1, AlpnProtocol.http2, AlpnProtocol.http3]);
 
   const SupportedProtocols._(this.protocols);
 

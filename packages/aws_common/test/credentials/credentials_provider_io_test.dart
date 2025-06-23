@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
+library;
 
 import 'dart:io';
 
@@ -17,34 +18,28 @@ void main() {
   group('AWSCredentialsProvider', () {
     Future<String> setUpProfile() async {
       final tempDir = await Directory.systemTemp.createTemp();
-      final awsDir =
-          await Directory.fromUri(tempDir.uri.resolve('.aws')).create();
+      final awsDir = await Directory.fromUri(
+        tempDir.uri.resolve('.aws'),
+      ).create();
       final credentialsFile = File.fromUri(awsDir.uri.resolve('credentials'));
-      await credentialsFile.writeAsString(
-        '''
+      await credentialsFile.writeAsString('''
 [default]
 aws_access_key_id = $accessKeyId
 aws_secret_access_key = $secretAccessKey
 aws_session_token = $sessionToken
-''',
-      );
+''');
       return tempDir.path;
     }
 
     test('profile', () async {
       final path = await setUpProfile();
       const credentialsProvider = AWSCredentialsProvider.profile();
-      final credentials = await overrideEnvironment(
-        {'HOME': path},
-        credentialsProvider.retrieve,
-      );
+      final credentials = await overrideEnvironment({
+        'HOME': path,
+      }, credentialsProvider.retrieve);
       expect(
         credentials,
-        const AWSCredentials(
-          accessKeyId,
-          secretAccessKey,
-          sessionToken,
-        ),
+        const AWSCredentials(accessKeyId, secretAccessKey, sessionToken),
       );
     });
 
@@ -57,28 +52,23 @@ aws_session_token = $sessionToken
           () => const AWSCredentialsProvider.environment().retrieve(),
           throwsA(isA<InvalidCredentialsException>()),
         );
-        final credentials = await overrideEnvironment(
-          {'HOME': path},
-          credentialsProvider.retrieve,
-        );
+        final credentials = await overrideEnvironment({
+          'HOME': path,
+        }, credentialsProvider.retrieve);
         expect(
           credentials,
-          const AWSCredentials(
-            accessKeyId,
-            secretAccessKey,
-            sessionToken,
-          ),
-          reason: 'Should fall back to profile when no environment '
+          const AWSCredentials(accessKeyId, secretAccessKey, sessionToken),
+          reason:
+              'Should fall back to profile when no environment '
               'credentials are present',
         );
       });
 
       test('fails when no credentials are available', () async {
         await expectLater(
-          overrideEnvironment(
-            {'HOME': Directory.systemTemp.createTempSync('no_creds').path},
-            credentialsProvider.retrieve,
-          ),
+          overrideEnvironment({
+            'HOME': Directory.systemTemp.createTempSync('no_creds').path,
+          }, credentialsProvider.retrieve),
           throwsA(isA<InvalidCredentialsException>()),
         );
       });

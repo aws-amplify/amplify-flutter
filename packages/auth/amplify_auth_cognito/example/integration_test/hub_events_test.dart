@@ -12,8 +12,8 @@ void main() {
   testRunner.setupTests();
 
   group('Auth Hub', () {
-    final authEventStream =
-        Amplify.Hub.availableStreams[HubChannel.Auth]!.cast<AuthHubEvent>();
+    final authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!
+        .cast<AuthHubEvent>();
 
     final username = generateUsername();
     final password = generatePassword();
@@ -34,33 +34,26 @@ void main() {
     Matcher hasEventName(String name) =>
         isA<AuthHubEvent>().having((e) => e.eventName, 'eventName', name);
 
-    asyncTest(
-      'should broadcast events for sign in and sign out',
-      (expectations) async {
-        expectations.add(
-          expectLater(
-            authEventStream,
-            emitsInOrder([
-              hasEventName('SIGNED_IN'),
-              hasEventName('SIGNED_OUT'),
-              hasEventName('SIGNED_IN'),
-              hasEventName('SIGNED_OUT'),
-            ]),
-          ),
-        );
+    asyncTest('should broadcast events for sign in and sign out', (
+      expectations,
+    ) async {
+      expectations.add(
+        expectLater(
+          authEventStream,
+          emitsInOrder([
+            hasEventName('SIGNED_IN'),
+            hasEventName('SIGNED_OUT'),
+            hasEventName('SIGNED_IN'),
+            hasEventName('SIGNED_OUT'),
+          ]),
+        ),
+      );
 
-        await Amplify.Auth.signIn(
-          username: username,
-          password: password,
-        );
-        await Amplify.Auth.signOut();
-        await Amplify.Auth.signIn(
-          username: username,
-          password: password,
-        );
-        await Amplify.Auth.signOut();
-      },
-    );
+      await Amplify.Auth.signIn(username: username, password: password);
+      await Amplify.Auth.signOut();
+      await Amplify.Auth.signIn(username: username, password: password);
+      await Amplify.Auth.signOut();
+    });
 
     asyncTest('should broadcast events for deleteUser', (expectations) async {
       expectations.add(
@@ -74,10 +67,7 @@ void main() {
         ),
       );
 
-      await Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      );
+      await Amplify.Auth.signIn(username: username, password: password);
       await Amplify.Auth.deleteUser();
     });
   });

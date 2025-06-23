@@ -15,32 +15,24 @@ class _$GetUserAttributeVerificationCodeRequest
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$GetUserAttributeVerificationCodeRequest(
-          [void Function(GetUserAttributeVerificationCodeRequestBuilder)?
-              updates]) =>
-      (new GetUserAttributeVerificationCodeRequestBuilder()..update(updates))
-          ._build();
+  factory _$GetUserAttributeVerificationCodeRequest([
+    void Function(GetUserAttributeVerificationCodeRequestBuilder)? updates,
+  ]) => (GetUserAttributeVerificationCodeRequestBuilder()..update(updates))
+      ._build();
 
-  _$GetUserAttributeVerificationCodeRequest._(
-      {required this.accessToken,
-      required this.attributeName,
-      this.clientMetadata})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'GetUserAttributeVerificationCodeRequest', 'accessToken');
-    BuiltValueNullFieldError.checkNotNull(attributeName,
-        r'GetUserAttributeVerificationCodeRequest', 'attributeName');
-  }
-
+  _$GetUserAttributeVerificationCodeRequest._({
+    required this.accessToken,
+    required this.attributeName,
+    this.clientMetadata,
+  }) : super._();
   @override
   GetUserAttributeVerificationCodeRequest rebuild(
-          void Function(GetUserAttributeVerificationCodeRequestBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetUserAttributeVerificationCodeRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetUserAttributeVerificationCodeRequestBuilder toBuilder() =>
-      new GetUserAttributeVerificationCodeRequestBuilder()..replace(this);
+      GetUserAttributeVerificationCodeRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -64,8 +56,10 @@ class _$GetUserAttributeVerificationCodeRequest
 
 class GetUserAttributeVerificationCodeRequestBuilder
     implements
-        Builder<GetUserAttributeVerificationCodeRequest,
-            GetUserAttributeVerificationCodeRequestBuilder> {
+        Builder<
+          GetUserAttributeVerificationCodeRequest,
+          GetUserAttributeVerificationCodeRequestBuilder
+        > {
   _$GetUserAttributeVerificationCodeRequest? _$v;
 
   String? _accessToken;
@@ -79,7 +73,7 @@ class GetUserAttributeVerificationCodeRequestBuilder
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -98,13 +92,13 @@ class GetUserAttributeVerificationCodeRequestBuilder
 
   @override
   void replace(GetUserAttributeVerificationCodeRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserAttributeVerificationCodeRequest;
   }
 
   @override
   void update(
-      void Function(GetUserAttributeVerificationCodeRequestBuilder)? updates) {
+    void Function(GetUserAttributeVerificationCodeRequestBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -114,25 +108,32 @@ class GetUserAttributeVerificationCodeRequestBuilder
   _$GetUserAttributeVerificationCodeRequest _build() {
     _$GetUserAttributeVerificationCodeRequest _$result;
     try {
-      _$result = _$v ??
-          new _$GetUserAttributeVerificationCodeRequest._(
-              accessToken: BuiltValueNullFieldError.checkNotNull(accessToken,
-                  r'GetUserAttributeVerificationCodeRequest', 'accessToken'),
-              attributeName: BuiltValueNullFieldError.checkNotNull(
-                  attributeName,
-                  r'GetUserAttributeVerificationCodeRequest',
-                  'attributeName'),
-              clientMetadata: _clientMetadata?.build());
+      _$result =
+          _$v ??
+          _$GetUserAttributeVerificationCodeRequest._(
+            accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken,
+              r'GetUserAttributeVerificationCodeRequest',
+              'accessToken',
+            ),
+            attributeName: BuiltValueNullFieldError.checkNotNull(
+              attributeName,
+              r'GetUserAttributeVerificationCodeRequest',
+              'attributeName',
+            ),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GetUserAttributeVerificationCodeRequest',
-            _$failedField,
-            e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GetUserAttributeVerificationCodeRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

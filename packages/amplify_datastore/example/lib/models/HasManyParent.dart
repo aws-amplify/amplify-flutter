@@ -17,7 +17,7 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, override_on_non_overriding_member, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
@@ -37,7 +37,8 @@ class HasManyParent extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -65,33 +66,35 @@ class HasManyParent extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const HasManyParent._internal(
-      {required this.id,
-      name,
-      implicitChildren,
-      explicitChildren,
-      createdAt,
-      updatedAt})
-      : _name = name,
-        _implicitChildren = implicitChildren,
-        _explicitChildren = explicitChildren,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const HasManyParent._internal({
+    required this.id,
+    name,
+    implicitChildren,
+    explicitChildren,
+    createdAt,
+    updatedAt,
+  }) : _name = name,
+       _implicitChildren = implicitChildren,
+       _explicitChildren = explicitChildren,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory HasManyParent(
-      {String? id,
-      String? name,
-      List<HasManyChildImplicit>? implicitChildren,
-      List<HasManyChildExplicit>? explicitChildren}) {
+  factory HasManyParent({
+    String? id,
+    String? name,
+    List<HasManyChildImplicit>? implicitChildren,
+    List<HasManyChildExplicit>? explicitChildren,
+  }) {
     return HasManyParent._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        implicitChildren: implicitChildren != null
-            ? List<HasManyChildImplicit>.unmodifiable(implicitChildren)
-            : implicitChildren,
-        explicitChildren: explicitChildren != null
-            ? List<HasManyChildExplicit>.unmodifiable(explicitChildren)
-            : explicitChildren);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      implicitChildren: implicitChildren != null
+          ? List<HasManyChildImplicit>.unmodifiable(implicitChildren)
+          : implicitChildren,
+      explicitChildren: explicitChildren != null
+          ? List<HasManyChildExplicit>.unmodifiable(explicitChildren)
+          : explicitChildren,
+    );
   }
 
   bool equals(Object other) {
@@ -104,10 +107,14 @@ class HasManyParent extends amplify_core.Model {
     return other is HasManyParent &&
         id == other.id &&
         _name == other._name &&
-        DeepCollectionEquality()
-            .equals(_implicitChildren, other._implicitChildren) &&
-        DeepCollectionEquality()
-            .equals(_explicitChildren, other._explicitChildren);
+        DeepCollectionEquality().equals(
+          _implicitChildren,
+          other._implicitChildren,
+        ) &&
+        DeepCollectionEquality().equals(
+          _explicitChildren,
+          other._explicitChildren,
+        );
   }
 
   @override
@@ -120,144 +127,198 @@ class HasManyParent extends amplify_core.Model {
     buffer.write("HasManyParent {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  HasManyParent copyWith(
-      {String? name,
-      List<HasManyChildImplicit>? implicitChildren,
-      List<HasManyChildExplicit>? explicitChildren}) {
+  HasManyParent copyWith({
+    String? name,
+    List<HasManyChildImplicit>? implicitChildren,
+    List<HasManyChildExplicit>? explicitChildren,
+  }) {
     return HasManyParent._internal(
-        id: id,
-        name: name ?? this.name,
-        implicitChildren: implicitChildren ?? this.implicitChildren,
-        explicitChildren: explicitChildren ?? this.explicitChildren);
+      id: id,
+      name: name ?? this.name,
+      implicitChildren: implicitChildren ?? this.implicitChildren,
+      explicitChildren: explicitChildren ?? this.explicitChildren,
+    );
   }
 
-  HasManyParent copyWithModelFieldValues(
-      {ModelFieldValue<String?>? name,
-      ModelFieldValue<List<HasManyChildImplicit>?>? implicitChildren,
-      ModelFieldValue<List<HasManyChildExplicit>?>? explicitChildren}) {
+  HasManyParent copyWithModelFieldValues({
+    ModelFieldValue<String?>? name,
+    ModelFieldValue<List<HasManyChildImplicit>?>? implicitChildren,
+    ModelFieldValue<List<HasManyChildExplicit>?>? explicitChildren,
+  }) {
     return HasManyParent._internal(
-        id: id,
-        name: name == null ? this.name : name.value,
-        implicitChildren: implicitChildren == null
-            ? this.implicitChildren
-            : implicitChildren.value,
-        explicitChildren: explicitChildren == null
-            ? this.explicitChildren
-            : explicitChildren.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+      implicitChildren: implicitChildren == null
+          ? this.implicitChildren
+          : implicitChildren.value,
+      explicitChildren: explicitChildren == null
+          ? this.explicitChildren
+          : explicitChildren.value,
+    );
   }
 
   HasManyParent.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _implicitChildren = json['implicitChildren'] is List
-            ? (json['implicitChildren'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => HasManyChildImplicit.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
-        _explicitChildren = json['explicitChildren'] is List
-            ? (json['explicitChildren'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => HasManyChildExplicit.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _name = json['name'],
+      _implicitChildren = json['implicitChildren'] is Map
+          ? (json['implicitChildren']['items'] is List
+                ? (json['implicitChildren']['items'] as List)
+                      .where((e) => e != null)
+                      .map(
+                        (e) => HasManyChildImplicit.fromJson(
+                          new Map<String, dynamic>.from(e),
+                        ),
+                      )
+                      .toList()
+                : null)
+          : (json['implicitChildren'] is List
+                ? (json['implicitChildren'] as List)
+                      .where((e) => e?['serializedData'] != null)
+                      .map(
+                        (e) => HasManyChildImplicit.fromJson(
+                          new Map<String, dynamic>.from(e?['serializedData']),
+                        ),
+                      )
+                      .toList()
+                : null),
+      _explicitChildren = json['explicitChildren'] is Map
+          ? (json['explicitChildren']['items'] is List
+                ? (json['explicitChildren']['items'] as List)
+                      .where((e) => e != null)
+                      .map(
+                        (e) => HasManyChildExplicit.fromJson(
+                          new Map<String, dynamic>.from(e),
+                        ),
+                      )
+                      .toList()
+                : null)
+          : (json['explicitChildren'] is List
+                ? (json['explicitChildren'] as List)
+                      .where((e) => e?['serializedData'] != null)
+                      .map(
+                        (e) => HasManyChildExplicit.fromJson(
+                          new Map<String, dynamic>.from(e?['serializedData']),
+                        ),
+                      )
+                      .toList()
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'implicitChildren': _implicitChildren
-            ?.map((HasManyChildImplicit? e) => e?.toJson())
-            .toList(),
-        'explicitChildren': _explicitChildren
-            ?.map((HasManyChildExplicit? e) => e?.toJson())
-            .toList(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'implicitChildren': _implicitChildren
+        ?.map((HasManyChildImplicit? e) => e?.toJson())
+        .toList(),
+    'explicitChildren': _explicitChildren
+        ?.map((HasManyChildExplicit? e) => e?.toJson())
+        .toList(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'implicitChildren': _implicitChildren,
-        'explicitChildren': _explicitChildren,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'implicitChildren': _implicitChildren,
+    'explicitChildren': _explicitChildren,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<HasManyParentModelIdentifier>
-      MODEL_IDENTIFIER =
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<HasManyParentModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final IMPLICITCHILDREN = amplify_core.QueryField(
-      fieldName: "implicitChildren",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'HasManyChildImplicit'));
+    fieldName: "implicitChildren",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'HasManyChildImplicit',
+    ),
+  );
   static final EXPLICITCHILDREN = amplify_core.QueryField(
-      fieldName: "explicitChildren",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'HasManyChildExplicit'));
+    fieldName: "explicitChildren",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'HasManyChildExplicit',
+    ),
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasManyParent";
-    modelSchemaDefinition.pluralName = "HasManyParents";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "HasManyParent";
+      modelSchemaDefinition.pluralName = "HasManyParents";
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: HasManyParent.NAME,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: HasManyParent.NAME,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: HasManyParent.IMPLICITCHILDREN,
-        isRequired: false,
-        ofModelName: 'HasManyChildImplicit',
-        associatedKey: HasManyChildImplicit.HASMANYPARENTIMPLICITCHILDRENID));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasMany(
+          key: HasManyParent.IMPLICITCHILDREN,
+          isRequired: false,
+          ofModelName: 'HasManyChildImplicit',
+          associatedKey: HasManyChildImplicit.HASMANYPARENTIMPLICITCHILDRENID,
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: HasManyParent.EXPLICITCHILDREN,
-        isRequired: false,
-        ofModelName: 'HasManyChildExplicit',
-        associatedKey: HasManyChildExplicit.HASMANYPARENTID));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasMany(
+          key: HasManyParent.EXPLICITCHILDREN,
+          isRequired: false,
+          ofModelName: 'HasManyChildExplicit',
+          associatedKey: HasManyChildExplicit.HASMANYPARENTID,
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _HasManyParentModelType extends amplify_core.ModelType<HasManyParent> {
@@ -289,8 +350,7 @@ class HasManyParentModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
       .map((entry) => (<String, dynamic>{entry.key: entry.value}))
       .toList();
 

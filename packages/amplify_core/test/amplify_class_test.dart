@@ -35,21 +35,12 @@ void main() {
       });
 
       test('throws for invalid JSON', () async {
-        expect(
-          Amplify.asyncConfig,
-          throwsA(isA<ConfigurationError>()),
-        );
-        expect(
-          Amplify.configure('...'),
-          throwsA(isA<ConfigurationError>()),
-        );
+        expect(Amplify.asyncConfig, throwsA(isA<ConfigurationError>()));
+        expect(Amplify.configure('...'), throwsA(isA<ConfigurationError>()));
       });
 
       test('throws for configuration exceptions', () async {
-        expect(
-          Amplify.asyncConfig,
-          throwsA(isA<ConfigurationError>()),
-        );
+        expect(Amplify.asyncConfig, throwsA(isA<ConfigurationError>()));
         await Amplify.addPlugin(ConfigErrorPlugin());
         expect(
           Amplify.configure(dummyConfiguration),
@@ -72,7 +63,7 @@ void main() {
 class ConfigErrorPlugin extends AnalyticsPluginInterface {
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) {
     throw ConfigurationError('Could not configure');
@@ -82,7 +73,7 @@ class ConfigErrorPlugin extends AnalyticsPluginInterface {
 class NonConfigErrorPlugin extends AnalyticsPluginInterface {
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) {
     throw const UnknownException('Could not configure');
@@ -92,7 +83,7 @@ class NonConfigErrorPlugin extends AnalyticsPluginInterface {
 class SuccessPlugin extends AnalyticsPluginInterface {
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     return;
@@ -107,7 +98,7 @@ class AsyncAddPlugin extends AnalyticsPluginInterface {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     _configureCompleter.complete();

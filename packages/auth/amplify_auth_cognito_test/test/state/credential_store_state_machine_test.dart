@@ -31,17 +31,14 @@ void main() {
       secureStorage = MockSecureStorage();
       manager = DependencyManager()
         ..addInstance(secureStorage)
-        ..addInstance(mockConfig)
-        ..addInstance(authConfig);
+        ..addInstance(mockConfig.auth!);
       stateMachine = CognitoAuthStateMachine(dependencyManager: manager);
     });
 
     // Load an empty credential store.
     test('loadCredentialStore (empty)', () async {
       stateMachine
-          .dispatch(
-            const CredentialStoreEvent.loadCredentialStore(),
-          )
+          .dispatch(const CredentialStoreEvent.loadCredentialStore())
           .ignore();
 
       final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
@@ -67,9 +64,7 @@ void main() {
         version: CredentialStoreVersion.v1,
       );
       stateMachine
-          .dispatch(
-            const CredentialStoreEvent.loadCredentialStore(),
-          )
+          .dispatch(const CredentialStoreEvent.loadCredentialStore())
           .ignore();
 
       final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
@@ -100,9 +95,7 @@ void main() {
     group('storeCredentials', () {
       test('all', () async {
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
@@ -166,9 +159,7 @@ void main() {
           version: CredentialStoreVersion.v1,
         );
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
@@ -184,9 +175,7 @@ void main() {
         stateMachine
             .dispatch(
               const CredentialStoreEvent.storeCredentials(
-                CredentialStoreData(
-                  identityId: identityId,
-                ),
+                CredentialStoreData(identityId: identityId),
               ),
             )
             .ignore();
@@ -222,9 +211,7 @@ void main() {
           version: CredentialStoreVersion.v1,
         );
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
@@ -246,9 +233,7 @@ void main() {
         stateMachine
             .dispatch(
               const CredentialStoreEvent.storeCredentials(
-                CredentialStoreData(
-                  awsCredentials: newCredentials,
-                ),
+                CredentialStoreData(awsCredentials: newCredentials),
               ),
             )
             .ignore();
@@ -274,9 +259,7 @@ void main() {
       test('federation', () async {
         seedStorage(secureStorage, identityPoolKeys: identityPoolKeys);
         await stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .completed;
         final result = await stateMachine.loadCredentials();
 
@@ -314,16 +297,8 @@ void main() {
         expect(
           newResult.signInDetails,
           isA<CognitoSignInDetailsFederated>()
-              .having(
-                (details) => details.provider,
-                'provider',
-                provider,
-              )
-              .having(
-                (details) => details.token,
-                'token',
-                providerToken,
-              ),
+              .having((details) => details.provider, 'provider', provider)
+              .having((details) => details.token, 'token', providerToken),
         );
 
         await stateMachine.close();
@@ -339,9 +314,7 @@ void main() {
           version: CredentialStoreVersion.v1,
         );
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
@@ -355,9 +328,7 @@ void main() {
         );
 
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.clearCredentials(),
-            )
+            .dispatch(const CredentialStoreEvent.clearCredentials())
             .ignore();
 
         await expectLater(
@@ -385,9 +356,7 @@ void main() {
           version: CredentialStoreVersion.v1,
         );
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
@@ -401,11 +370,7 @@ void main() {
         );
 
         stateMachine
-            .dispatch(
-              CredentialStoreEvent.clearCredentials(
-                identityPoolKeys,
-              ),
-            )
+            .dispatch(CredentialStoreEvent.clearCredentials(identityPoolKeys))
             .ignore();
 
         await expectLater(
@@ -434,9 +399,7 @@ void main() {
         expect(await sm.getVersion(), CredentialStoreVersion.none);
 
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .ignore();
 
         await expectLater(
@@ -473,9 +436,7 @@ void main() {
         expect(await sm.getVersion(), CredentialStoreVersion.none);
 
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .ignore();
 
         await expectLater(
@@ -524,9 +485,7 @@ void main() {
         expect(await sm.getVersion(), CredentialStoreVersion.none);
 
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .ignore();
 
         await expectLater(
@@ -574,9 +533,7 @@ void main() {
         seedStorage(secureStorage, version: CredentialStoreVersion.v1);
 
         stateMachine
-            .dispatch(
-              const CredentialStoreEvent.loadCredentialStore(),
-            )
+            .dispatch(const CredentialStoreEvent.loadCredentialStore())
             .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);

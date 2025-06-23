@@ -4,15 +4,12 @@
 import Foundation
 import Flutter
 import UIKit
-import Amplify
-import AmplifyPlugins
-import AWSCore
 import Combine
 
 public struct FlutterHubElement {
     var model: [String: Any]
     var version: Int?
-    var lastChangedAt: Int?
+    var lastChangedAt: Int64?
     var deleted: Bool
 
     init(
@@ -50,14 +47,13 @@ public struct FlutterHubElement {
                 modelName: modelName
             )
             self.version = hubElement.version
-            let serializedData = model["serializedData"] as? [String: Any] ?? [:]
-            self.deleted = serializedData["_deleted"] as? Bool ?? false
-            if let value = serializedData["_lastChangedAt"] as? Double {
-                self.lastChangedAt = Int(value)
-            } else if let value = serializedData["_lastChangedAt"] as? String {
-                self.lastChangedAt = Int(value)
-            } else if let value = serializedData["_lastChangedAt"] as? Int {
-                self.lastChangedAt = value
+            self.deleted = self.model["_deleted"] as? Bool ?? false
+            if let value = self.model["_lastChangedAt"] as? Double {
+                self.lastChangedAt = Int64(value)
+            } else if let value = self.model["_lastChangedAt"] as? String {
+                self.lastChangedAt = Int64(value)
+            } else if let value = self.model["_lastChangedAt"] as? Int {
+                self.lastChangedAt = Int64(value)
             }
         } catch {
             throw FlutterDataStoreError.hubEventCast

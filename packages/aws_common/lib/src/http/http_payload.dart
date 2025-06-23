@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:async/async.dart';
+import 'package:meta/meta.dart';
 
 /// {@template aws_common.http.http_payload}
 /// An HTTP request's payload.
@@ -42,52 +43,46 @@ final class HttpPayload extends StreamView<List<int>> {
     String body, {
     Encoding encoding = utf8,
     String? contentType,
-  })  : contentType = contentType ?? 'text/plain; charset=${encoding.name}',
-        super(LazyStream(() => Stream.value(encoding.encode(body))));
+  }) : contentType = contentType ?? 'text/plain; charset=${encoding.name}',
+       super(LazyStream(() => Stream.value(encoding.encode(body))));
 
   /// A byte buffer HTTP body.
-  HttpPayload.bytes(
-    List<int> body, {
-    this.contentType,
-  }) : super(Stream.value(body));
+  HttpPayload.bytes(List<int> body, {this.contentType})
+    : super(Stream.value(body));
 
   /// A form-encoded body of `key=value` pairs.
   HttpPayload.formFields(
     Map<String, String> body, {
     Encoding encoding = utf8,
     String? contentType,
-  })  : contentType = contentType ??
-            'application/x-www-form-urlencoded; charset=${encoding.name}',
-        super(
-          LazyStream(
-            () => Stream.value(
-              encoding.encode(_encodeFormValues(body, encoding: encoding)),
-            ),
-          ),
-        );
+  }) : contentType =
+           contentType ??
+           'application/x-www-form-urlencoded; charset=${encoding.name}',
+       super(
+         LazyStream(
+           () => Stream.value(
+             encoding.encode(encodeFormValues(body, encoding: encoding)),
+           ),
+         ),
+       );
 
   /// Encodes body as a JSON string and sets Content-Type to 'application/json'.
   HttpPayload.json(
     Object? body, {
     Encoding encoding = utf8,
     String? contentType,
-  })  : contentType =
-            contentType ?? 'application/json; charset=${encoding.name}',
-        super(
-          LazyStream(
-            () => Stream.value(encoding.encode(json.encode(body))),
-          ),
-        );
+  }) : contentType =
+           contentType ?? 'application/json; charset=${encoding.name}',
+       super(
+         LazyStream(() => Stream.value(encoding.encode(json.encode(body)))),
+       );
 
   /// A streaming HTTP body.
-  const HttpPayload.streaming(
-    super.body, {
-    this.contentType,
-  });
+  const HttpPayload.streaming(super.body, {this.contentType});
 
   /// A data url HTTP body.
   factory HttpPayload.dataUrl(String dataUrl) {
-    if (!dataUrl.startsWith(_dataUrlMatcher)) {
+    if (!dataUrl.startsWith(dataUrlMatcher)) {
       throw ArgumentError('Invalid data url: $dataUrl');
     }
 
@@ -118,18 +113,20 @@ final class HttpPayload extends StreamView<List<int>> {
   ///     //=> "foo=bar&baz=bang"
   ///
   /// Similar util at https://github.com/dart-lang/http/blob/06649afbb5847dbb0293816ba8348766b116e419/pkgs/http/lib/src/utils.dart#L15
-  static String _encodeFormValues(
+  @internal
+  static String encodeFormValues(
     Map<String, String> params, {
     required Encoding encoding,
-  }) =>
-      params.entries
-          .map(
-            (e) => [
-              Uri.encodeQueryComponent(e.key, encoding: encoding),
-              Uri.encodeQueryComponent(e.value, encoding: encoding),
-            ].join('='),
-          )
-          .join('&');
+  }) => params.entries
+      .map(
+        (e) => [
+          Uri.encodeQueryComponent(e.key, encoding: encoding),
+          Uri.encodeQueryComponent(e.value, encoding: encoding),
+        ].join('='),
+      )
+      .join('&');
 
-  static final _dataUrlMatcher = RegExp(r'^data:.*,');
+  /// A [RegExp] matcher for data urls.
+  @internal
+  static final dataUrlMatcher = RegExp(r'^data:.*,');
 }

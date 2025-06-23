@@ -3,6 +3,8 @@
 
 import 'dart:js_interop';
 
+import 'package:web/web.dart';
+
 @JS()
 extension type HttpClient._(JSObject it) {
   external HttpClient([
@@ -14,10 +16,15 @@ extension type HttpClient._(JSObject it) {
   @JS('getJson')
   external JSPromise _getJson(String requestUrl, [JSObject headers]);
 
-  Future<Map<String, Object?>> getJson(String requestUrl, {
+  Future<Map<String, Object?>> getJson(
+    String requestUrl, {
     Map<String, String> headers = const {},
-  }  ) async {
-    final jsHeaders = headers.jsify() as JSObject; 
+  }) async {
+    final jsHeaders = Headers();
+    for (final entry in headers.entries) {
+      jsHeaders.append(entry.key, entry.value);
+    }
+
     final response = await _getJson(requestUrl, jsHeaders).toDart;
     final result = response as TypedResponse<JSObject>;
     if (result.statusCode != 200) {
@@ -30,10 +37,7 @@ extension type HttpClient._(JSObject it) {
 @JS()
 @anonymous
 extension type TypedResponse<T extends JSAny>._(JSObject it) {
-  external factory TypedResponse({
-    int statusCode,
-    T result,
-  });
+  external factory TypedResponse({int statusCode, T result});
 
   external int get statusCode;
   external T? get result;

@@ -6,7 +6,7 @@ part of 'byte_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ByteShape> _$byteShapeSerializer = new _$ByteShapeSerializer();
+Serializer<ByteShape> _$byteShapeSerializer = _$ByteShapeSerializer();
 
 class _$ByteShapeSerializer implements StructuredSerializer<ByteShape> {
   @override
@@ -15,21 +15,29 @@ class _$ByteShapeSerializer implements StructuredSerializer<ByteShape> {
   final String wireName = 'ByteShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ByteShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ByteShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  ByteShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new ByteShapeBuilder();
+  ByteShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = ByteShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -38,8 +46,12 @@ class _$ByteShapeSerializer implements StructuredSerializer<ByteShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -55,19 +67,15 @@ class _$ByteShape extends ByteShape {
   final TraitMap traits;
 
   factory _$ByteShape([void Function(ByteShapeBuilder)? updates]) =>
-      (new ByteShapeBuilder()..update(updates))._build();
+      (ByteShapeBuilder()..update(updates))._build();
 
-  _$ByteShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'ByteShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'ByteShape', 'traits');
-  }
-
+  _$ByteShape._({required this.shapeId, required this.traits}) : super._();
   @override
   ByteShape rebuild(void Function(ByteShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ByteShapeBuilder toBuilder() => new ByteShapeBuilder()..replace(this);
+  ByteShapeBuilder toBuilder() => ByteShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -123,7 +131,6 @@ class ByteShapeBuilder
 
   @override
   void replace(covariant ByteShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ByteShape;
   }
 
@@ -136,12 +143,20 @@ class ByteShapeBuilder
   ByteShape build() => _build();
 
   _$ByteShape _build() {
-    final _$result = _$v ??
-        new _$ByteShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'ByteShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'ByteShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$ByteShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'ByteShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'ByteShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

@@ -1,32 +1,32 @@
 name: amplify_authenticator
 description: A prebuilt Sign In and Sign Up experience for the Amplify Auth category
-version: 1.4.2
+version: 2.3.5
 homepage: https://ui.docs.amplify.aws/flutter/connected-components/authenticator
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/authenticator/amplify_authenticator
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=3.10.0"
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
 
 dependencies:
-  amplify_auth_cognito: ">=1.4.0 <1.5.0"
-  amplify_core: ">=1.4.0 <1.5.0"
-  amplify_flutter: ">=1.4.0 <1.5.0"
+  amplify_auth_cognito: ">=2.6.3 <2.7.0"
+  amplify_core: ">=2.6.2 <2.7.0"
+  amplify_flutter: ">=2.6.3 <2.7.0"
   async: ^2.10.0
-  aws_common: ">=0.6.0 <0.7.0"
-  collection: ^1.15.0
+  aws_common: ">=0.7.7 <0.8.0"
+  collection: ^1.18.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ">=0.18.0 <1.0.0"
-  meta: ^1.7.0
+  intl: ^0.20.2
+  meta: ^1.16.0
   # TODO(equartey): Remove this once we have our own method of getting the app name
-  package_info_plus: ^4.0.1
+  package_info_plus: ^8.0.0
   qr_flutter: 4.1.0
-  smithy: ">=0.5.1 <0.6.0"
-  stream_transform: ^2.0.0
+  smithy: ">=0.7.5 <0.8.0"
+  stream_transform: ^2.1.0
   url_launcher: ^6.1.11
 
 dev_dependencies:
@@ -34,14 +34,14 @@ dev_dependencies:
     path: ../amplify_authenticator_test
   amplify_integration_test:
     path: ../../test/amplify_integration_test
-  amplify_lints: ">=3.0.0 <3.1.0"
-  build_runner: ^2.4.0
+  amplify_lints: ">=3.1.2 <3.2.0"
+  build_runner: ^2.4.9
   build_version: ^2.1.1
   flutter_test:
     sdk: flutter
   golden_toolkit: ^0.15.0
   mocktail: ^1.0.0
-  path: any
+  path: ^1.8.0
 
 flutter:
   assets:

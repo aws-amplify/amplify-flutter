@@ -10,20 +10,19 @@ class _$RecursiveXmlShapesOutput extends RecursiveXmlShapesOutput {
   @override
   final RecursiveXmlShapesOutputNested1? nested;
 
-  factory _$RecursiveXmlShapesOutput(
-          [void Function(RecursiveXmlShapesOutputBuilder)? updates]) =>
-      (new RecursiveXmlShapesOutputBuilder()..update(updates))._build();
+  factory _$RecursiveXmlShapesOutput([
+    void Function(RecursiveXmlShapesOutputBuilder)? updates,
+  ]) => (RecursiveXmlShapesOutputBuilder()..update(updates))._build();
 
   _$RecursiveXmlShapesOutput._({this.nested}) : super._();
-
   @override
   RecursiveXmlShapesOutput rebuild(
-          void Function(RecursiveXmlShapesOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RecursiveXmlShapesOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RecursiveXmlShapesOutputBuilder toBuilder() =>
-      new RecursiveXmlShapesOutputBuilder()..replace(this);
+      RecursiveXmlShapesOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,7 +46,7 @@ class RecursiveXmlShapesOutputBuilder
 
   RecursiveXmlShapesOutputNested1Builder? _nested;
   RecursiveXmlShapesOutputNested1Builder get nested =>
-      _$this._nested ??= new RecursiveXmlShapesOutputNested1Builder();
+      _$this._nested ??= RecursiveXmlShapesOutputNested1Builder();
   set nested(RecursiveXmlShapesOutputNested1Builder? nested) =>
       _$this._nested = nested;
 
@@ -64,7 +63,6 @@ class RecursiveXmlShapesOutputBuilder
 
   @override
   void replace(RecursiveXmlShapesOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RecursiveXmlShapesOutput;
   }
 
@@ -79,16 +77,18 @@ class RecursiveXmlShapesOutputBuilder
   _$RecursiveXmlShapesOutput _build() {
     _$RecursiveXmlShapesOutput _$result;
     try {
-      _$result =
-          _$v ?? new _$RecursiveXmlShapesOutput._(nested: _nested?.build());
+      _$result = _$v ?? _$RecursiveXmlShapesOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'RecursiveXmlShapesOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'RecursiveXmlShapesOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

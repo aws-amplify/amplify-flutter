@@ -98,6 +98,7 @@ on:
       - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
   schedule:
     - cron: "0 13 * * *" # Everyday at 06:00 PST
+  workflow_dispatch:
 defaults:
   run:
     shell: bash

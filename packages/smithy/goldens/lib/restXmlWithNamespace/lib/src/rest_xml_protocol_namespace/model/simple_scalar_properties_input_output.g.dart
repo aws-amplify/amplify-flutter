@@ -31,33 +31,31 @@ class _$SimpleScalarPropertiesInputOutput
   @override
   final double? doubleValue;
 
-  factory _$SimpleScalarPropertiesInputOutput(
-          [void Function(SimpleScalarPropertiesInputOutputBuilder)? updates]) =>
-      (new SimpleScalarPropertiesInputOutputBuilder()..update(updates))
-          ._build();
+  factory _$SimpleScalarPropertiesInputOutput([
+    void Function(SimpleScalarPropertiesInputOutputBuilder)? updates,
+  ]) => (SimpleScalarPropertiesInputOutputBuilder()..update(updates))._build();
 
-  _$SimpleScalarPropertiesInputOutput._(
-      {this.foo,
-      this.stringValue,
-      this.trueBooleanValue,
-      this.falseBooleanValue,
-      this.byteValue,
-      this.shortValue,
-      this.integerValue,
-      this.longValue,
-      this.floatValue,
-      this.nested,
-      this.doubleValue})
-      : super._();
-
+  _$SimpleScalarPropertiesInputOutput._({
+    this.foo,
+    this.stringValue,
+    this.trueBooleanValue,
+    this.falseBooleanValue,
+    this.byteValue,
+    this.shortValue,
+    this.integerValue,
+    this.longValue,
+    this.floatValue,
+    this.nested,
+    this.doubleValue,
+  }) : super._();
   @override
   SimpleScalarPropertiesInputOutput rebuild(
-          void Function(SimpleScalarPropertiesInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SimpleScalarPropertiesInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SimpleScalarPropertiesInputOutputBuilder toBuilder() =>
-      new SimpleScalarPropertiesInputOutputBuilder()..replace(this);
+      SimpleScalarPropertiesInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -97,8 +95,10 @@ class _$SimpleScalarPropertiesInputOutput
 
 class SimpleScalarPropertiesInputOutputBuilder
     implements
-        Builder<SimpleScalarPropertiesInputOutput,
-            SimpleScalarPropertiesInputOutputBuilder> {
+        Builder<
+          SimpleScalarPropertiesInputOutput,
+          SimpleScalarPropertiesInputOutputBuilder
+        > {
   _$SimpleScalarPropertiesInputOutput? _$v;
 
   String? _foo;
@@ -141,7 +141,7 @@ class SimpleScalarPropertiesInputOutputBuilder
 
   NestedWithNamespaceBuilder? _nested;
   NestedWithNamespaceBuilder get nested =>
-      _$this._nested ??= new NestedWithNamespaceBuilder();
+      _$this._nested ??= NestedWithNamespaceBuilder();
   set nested(NestedWithNamespaceBuilder? nested) => _$this._nested = nested;
 
   double? _doubleValue;
@@ -171,13 +171,13 @@ class SimpleScalarPropertiesInputOutputBuilder
 
   @override
   void replace(SimpleScalarPropertiesInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleScalarPropertiesInputOutput;
   }
 
   @override
   void update(
-      void Function(SimpleScalarPropertiesInputOutputBuilder)? updates) {
+    void Function(SimpleScalarPropertiesInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -187,27 +187,32 @@ class SimpleScalarPropertiesInputOutputBuilder
   _$SimpleScalarPropertiesInputOutput _build() {
     _$SimpleScalarPropertiesInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$SimpleScalarPropertiesInputOutput._(
-              foo: foo,
-              stringValue: stringValue,
-              trueBooleanValue: trueBooleanValue,
-              falseBooleanValue: falseBooleanValue,
-              byteValue: byteValue,
-              shortValue: shortValue,
-              integerValue: integerValue,
-              longValue: longValue,
-              floatValue: floatValue,
-              nested: _nested?.build(),
-              doubleValue: doubleValue);
+      _$result =
+          _$v ??
+          _$SimpleScalarPropertiesInputOutput._(
+            foo: foo,
+            stringValue: stringValue,
+            trueBooleanValue: trueBooleanValue,
+            falseBooleanValue: falseBooleanValue,
+            byteValue: byteValue,
+            shortValue: shortValue,
+            integerValue: integerValue,
+            longValue: longValue,
+            floatValue: floatValue,
+            nested: _nested?.build(),
+            doubleValue: doubleValue,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'SimpleScalarPropertiesInputOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'SimpleScalarPropertiesInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -239,34 +244,31 @@ class _$SimpleScalarPropertiesInputOutputPayload
   @override
   final bool? trueBooleanValue;
 
-  factory _$SimpleScalarPropertiesInputOutputPayload(
-          [void Function(SimpleScalarPropertiesInputOutputPayloadBuilder)?
-              updates]) =>
-      (new SimpleScalarPropertiesInputOutputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$SimpleScalarPropertiesInputOutputPayload([
+    void Function(SimpleScalarPropertiesInputOutputPayloadBuilder)? updates,
+  ]) => (SimpleScalarPropertiesInputOutputPayloadBuilder()..update(updates))
+      ._build();
 
-  _$SimpleScalarPropertiesInputOutputPayload._(
-      {this.byteValue,
-      this.doubleValue,
-      this.falseBooleanValue,
-      this.floatValue,
-      this.integerValue,
-      this.longValue,
-      this.nested,
-      this.shortValue,
-      this.stringValue,
-      this.trueBooleanValue})
-      : super._();
-
+  _$SimpleScalarPropertiesInputOutputPayload._({
+    this.byteValue,
+    this.doubleValue,
+    this.falseBooleanValue,
+    this.floatValue,
+    this.integerValue,
+    this.longValue,
+    this.nested,
+    this.shortValue,
+    this.stringValue,
+    this.trueBooleanValue,
+  }) : super._();
   @override
   SimpleScalarPropertiesInputOutputPayload rebuild(
-          void Function(SimpleScalarPropertiesInputOutputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SimpleScalarPropertiesInputOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SimpleScalarPropertiesInputOutputPayloadBuilder toBuilder() =>
-      new SimpleScalarPropertiesInputOutputPayloadBuilder()..replace(this);
+      SimpleScalarPropertiesInputOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -304,8 +306,10 @@ class _$SimpleScalarPropertiesInputOutputPayload
 
 class SimpleScalarPropertiesInputOutputPayloadBuilder
     implements
-        Builder<SimpleScalarPropertiesInputOutputPayload,
-            SimpleScalarPropertiesInputOutputPayloadBuilder> {
+        Builder<
+          SimpleScalarPropertiesInputOutputPayload,
+          SimpleScalarPropertiesInputOutputPayloadBuilder
+        > {
   _$SimpleScalarPropertiesInputOutputPayload? _$v;
 
   int? _byteValue;
@@ -335,7 +339,7 @@ class SimpleScalarPropertiesInputOutputPayloadBuilder
 
   NestedWithNamespaceBuilder? _nested;
   NestedWithNamespaceBuilder get nested =>
-      _$this._nested ??= new NestedWithNamespaceBuilder();
+      _$this._nested ??= NestedWithNamespaceBuilder();
   set nested(NestedWithNamespaceBuilder? nested) => _$this._nested = nested;
 
   int? _shortValue;
@@ -373,13 +377,13 @@ class SimpleScalarPropertiesInputOutputPayloadBuilder
 
   @override
   void replace(SimpleScalarPropertiesInputOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleScalarPropertiesInputOutputPayload;
   }
 
   @override
   void update(
-      void Function(SimpleScalarPropertiesInputOutputPayloadBuilder)? updates) {
+    void Function(SimpleScalarPropertiesInputOutputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -389,28 +393,31 @@ class SimpleScalarPropertiesInputOutputPayloadBuilder
   _$SimpleScalarPropertiesInputOutputPayload _build() {
     _$SimpleScalarPropertiesInputOutputPayload _$result;
     try {
-      _$result = _$v ??
-          new _$SimpleScalarPropertiesInputOutputPayload._(
-              byteValue: byteValue,
-              doubleValue: doubleValue,
-              falseBooleanValue: falseBooleanValue,
-              floatValue: floatValue,
-              integerValue: integerValue,
-              longValue: longValue,
-              nested: _nested?.build(),
-              shortValue: shortValue,
-              stringValue: stringValue,
-              trueBooleanValue: trueBooleanValue);
+      _$result =
+          _$v ??
+          _$SimpleScalarPropertiesInputOutputPayload._(
+            byteValue: byteValue,
+            doubleValue: doubleValue,
+            falseBooleanValue: falseBooleanValue,
+            floatValue: floatValue,
+            integerValue: integerValue,
+            longValue: longValue,
+            nested: _nested?.build(),
+            shortValue: shortValue,
+            stringValue: stringValue,
+            trueBooleanValue: trueBooleanValue,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'SimpleScalarPropertiesInputOutputPayload',
-            _$failedField,
-            e.toString());
+        throw BuiltValueNestedFieldError(
+          r'SimpleScalarPropertiesInputOutputPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

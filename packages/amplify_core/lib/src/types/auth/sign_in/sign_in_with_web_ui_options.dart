@@ -13,9 +13,7 @@ class SignInWithWebUIOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.sign_in_with_web_ui_options}
-  const SignInWithWebUIOptions({
-    this.pluginOptions,
-  });
+  const SignInWithWebUIOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.sign_in_with_web_ui_plugin_options}
   final SignInWithWebUIPluginOptions? pluginOptions;
@@ -26,14 +24,8 @@ class SignInWithWebUIOptions
   @override
   String get runtimeTypeName => 'SignInWithWebUIOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

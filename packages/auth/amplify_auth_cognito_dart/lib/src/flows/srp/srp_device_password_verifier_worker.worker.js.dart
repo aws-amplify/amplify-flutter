@@ -8,6 +8,7 @@ class SrpDevicePasswordVerifierWorkerImpl
     extends SrpDevicePasswordVerifierWorker {
   @override
   String get name => 'SrpDevicePasswordVerifierWorker';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.
@@ -38,9 +39,6 @@ class SrpDevicePasswordVerifierWorkerImpl
       port: baseUri.port,
       path: '$basePath/test/$relativePath',
     ).toString();
-    return [
-      relativePath,
-      testRelativePath,
-    ];
+    return [relativePath, testRelativePath];
   }
 }

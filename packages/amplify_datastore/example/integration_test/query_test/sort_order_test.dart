@@ -97,8 +97,10 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) =>
-              ModelWithAppsyncScalarTypes(awsDateValue: TemporalDate(value)))
+          .map(
+            (value) =>
+                ModelWithAppsyncScalarTypes(awsDateValue: TemporalDate(value)),
+          )
           .toList();
       testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
@@ -119,8 +121,11 @@ void main() {
         // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) => ModelWithAppsyncScalarTypes(
-              awsDateTimeValue: TemporalDateTime(value)))
+          .map(
+            (value) => ModelWithAppsyncScalarTypes(
+              awsDateTimeValue: TemporalDateTime(value),
+            ),
+          )
           .toList();
       testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
@@ -142,8 +147,10 @@ void main() {
         // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) =>
-              ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(value)))
+          .map(
+            (value) =>
+                ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(value)),
+          )
           .toList();
       testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
@@ -164,8 +171,11 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) => ModelWithAppsyncScalarTypes(
-              awsTimestampValue: TemporalTimestamp(value)))
+          .map(
+            (value) => ModelWithAppsyncScalarTypes(
+              awsTimestampValue: TemporalTimestamp(value),
+            ),
+          )
           .toList();
       testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
@@ -197,8 +207,10 @@ void main() {
 
       testWidgets('ascending() & ascending()', (WidgetTester tester) async {
         var expectedModels = models
-          ..sort(
-              (ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+          ..sort((
+            ModelWithAppsyncScalarTypes a,
+            ModelWithAppsyncScalarTypes b,
+          ) {
             return a.intValue != b.intValue
                 ? a.intValue!.compareTo(b.intValue!)
                 : a.stringValue!.compareTo(b.stringValue!);
@@ -215,8 +227,10 @@ void main() {
 
       testWidgets('ascending() & descending()', (WidgetTester tester) async {
         var expectedModels = models
-          ..sort(
-              (ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+          ..sort((
+            ModelWithAppsyncScalarTypes a,
+            ModelWithAppsyncScalarTypes b,
+          ) {
             return a.intValue != b.intValue
                 ? a.intValue!.compareTo(b.intValue!)
                 : b.stringValue!.compareTo(a.stringValue!);
@@ -233,8 +247,10 @@ void main() {
 
       testWidgets('descending() & descending()', (WidgetTester tester) async {
         var expectedModels = models
-          ..sort(
-              (ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+          ..sort((
+            ModelWithAppsyncScalarTypes a,
+            ModelWithAppsyncScalarTypes b,
+          ) {
             return a.intValue != b.intValue
                 ? b.intValue!.compareTo(a.intValue!)
                 : b.stringValue!.compareTo(a.stringValue!);

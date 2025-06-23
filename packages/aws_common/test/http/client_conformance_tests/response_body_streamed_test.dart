@@ -8,13 +8,17 @@ import 'package:test/test.dart';
 
 import '../http_common.dart';
 import 'response_body_streamed_server_vm.dart'
-    if (dart.library.js) 'response_body_streamed_server_web.dart';
+    if (dart.library.js_interop) 'response_body_streamed_server_web.dart';
 
 /// Tests that the [AWSHttpClient] correctly implements HTTP responses with
 /// bodies of unbounded size.
 void main() {
-  clientTest('streamed response body', startServer,
-      (client, httpServerQueue, httpServerChannel, createUri) {
+  clientTest('streamed response body', startServer, (
+    client,
+    httpServerQueue,
+    httpServerChannel,
+    createUri,
+  ) {
     test('large response streamed without content length', () async {
       // The server continuously streams data to the client until
       // instructed to stop.
@@ -26,11 +30,11 @@ void main() {
       await const LineSplitter()
           .bind(const Utf8Decoder().bind(response.body))
           .forEach((s) {
-        lastReceived = int.parse(s.trim());
-        if (lastReceived == 1000) {
-          httpServerChannel().sink.add(true);
-        }
-      });
+            lastReceived = int.parse(s.trim());
+            if (lastReceived == 1000) {
+              httpServerChannel().sink.add(true);
+            }
+          });
       expect(response.headers[AWSHeaders.contentType], 'text/plain');
       expect(lastReceived, greaterThanOrEqualTo(1000));
     });

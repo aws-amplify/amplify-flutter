@@ -40,9 +40,7 @@ void main() {
         );
 
         setUp(() async {
-          await testRunner.configure(
-            environmentName: environmentName,
-          );
+          await testRunner.configure(environmentName: environmentName);
 
           username = generateUsername();
           password = generatePassword();
@@ -55,43 +53,41 @@ void main() {
           );
         });
 
-        asyncTest(
-          'signIn should return data from the auth challenge lambda',
-          (_) async {
-            final res = await Amplify.Auth.signIn(
-              username: username,
-              options: options,
-            );
-            expect(
-              res.nextStep.signInStep,
-              AuthSignInStep.confirmSignInWithCustomChallenge,
-            );
+        asyncTest('signIn should return data from the auth challenge lambda', (
+          _,
+        ) async {
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            options: options,
+          );
+          expect(
+            res.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithCustomChallenge,
+          );
 
-            // additionalInfo key values defined in lambda code
-            expect(res.nextStep.additionalInfo, {
-              'test-key': 'test-value',
-              'USERNAME': username,
-            });
-          },
-        );
+          // additionalInfo key values defined in lambda code
+          expect(res.nextStep.additionalInfo, {
+            'test-key': 'test-value',
+            'USERNAME': username,
+          });
+        });
 
-        asyncTest(
-          'a correct challenge reply should sign in the user in',
-          (_) async {
-            final signInRes = await Amplify.Auth.signIn(
-              username: username,
-              options: options,
-            );
-            expect(
-              signInRes.nextStep.signInStep,
-              AuthSignInStep.confirmSignInWithCustomChallenge,
-            );
-            final res = await Amplify.Auth.confirmSignIn(
-              confirmationValue: confirmationValue,
-            );
-            expect(res.isSignedIn, isTrue);
-          },
-        );
+        asyncTest('a correct challenge reply should sign in the user in', (
+          _,
+        ) async {
+          final signInRes = await Amplify.Auth.signIn(
+            username: username,
+            options: options,
+          );
+          expect(
+            signInRes.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithCustomChallenge,
+          );
+          final res = await Amplify.Auth.confirmSignIn(
+            confirmationValue: confirmationValue,
+          );
+          expect(res.isSignedIn, isTrue);
+        });
 
         asyncTest(
           'an incorrect challenge reply should throw a NotAuthorizedException',
@@ -120,51 +116,44 @@ void main() {
               );
             }
             await expectLater(
-              Amplify.Auth.confirmSignIn(
-                confirmationValue: 'wrong',
-              ),
+              Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
               throwsA(isA<AuthNotAuthorizedException>()),
               reason: 'After 3 tries, fail completely',
             );
           },
         );
 
-        asyncTest(
-          'challenges can be re-attempted on failure',
-          (_) async {
-            final res = await Amplify.Auth.signIn(
-              username: username,
-              options: options,
-            );
-            expect(
-              res.nextStep.signInStep,
-              AuthSignInStep.confirmSignInWithCustomChallenge,
-            );
-            final confirmRes = await Amplify.Auth.confirmSignIn(
-              confirmationValue: 'wrong',
-            );
-            expect(
-              confirmRes.nextStep.signInStep,
-              AuthSignInStep.confirmSignInWithCustomChallenge,
-            );
-            expect(
-              confirmRes.nextStep.additionalInfo,
-              containsPair('errorCode', 'NotAuthorizedException'),
-            );
-            await expectLater(
-              Amplify.Auth.confirmSignIn(
-                confirmationValue: confirmationValue,
+        asyncTest('challenges can be re-attempted on failure', (_) async {
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            options: options,
+          );
+          expect(
+            res.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithCustomChallenge,
+          );
+          final confirmRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: 'wrong',
+          );
+          expect(
+            confirmRes.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithCustomChallenge,
+          );
+          expect(
+            confirmRes.nextStep.additionalInfo,
+            containsPair('errorCode', 'NotAuthorizedException'),
+          );
+          await expectLater(
+            Amplify.Auth.confirmSignIn(confirmationValue: confirmationValue),
+            completion(
+              isA<CognitoSignInResult>().having(
+                (res) => res.isSignedIn,
+                'isSignedIn',
+                isTrue,
               ),
-              completion(
-                isA<CognitoSignInResult>().having(
-                  (res) => res.isSignedIn,
-                  'isSignedIn',
-                  isTrue,
-                ),
-              ),
-            );
-          },
-        );
+            ),
+          );
+        });
 
         asyncTest('fails when including a password', (_) async {
           await expectLater(
@@ -177,27 +166,23 @@ void main() {
           );
         });
 
-        asyncTest(
-          'passes client metadata to signIn',
-          (_) async {
-            await expectLater(
-              Amplify.Auth.signIn(
-                username: username,
-                options: const SignInOptions(
-                  pluginOptions: CognitoSignInPluginOptions(
-                    authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
-                    clientMetadata: {
-                      'should-fail': 'true',
-                    },
-                  ),
+        asyncTest('passes client metadata to signIn', (_) async {
+          await expectLater(
+            () => Amplify.Auth.signIn(
+              username: username,
+              options: const SignInOptions(
+                pluginOptions: CognitoSignInPluginOptions(
+                  authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
+                  clientMetadata: {'should-fail': 'true'},
                 ),
               ),
-              throwsA(isA<AuthNotAuthorizedException>()),
-              skip: 'Cognito does not pass InitiateAuth client metadata to the '
-                  'custom auth triggers: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html#CognitoUserPools-InitiateAuth-request-ClientMetadata',
-            );
-          },
-        );
+            ),
+            throwsA(isA<AuthNotAuthorizedException>()),
+            skip:
+                'Cognito does not pass InitiateAuth client metadata to the '
+                'custom auth triggers: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html#CognitoUserPools-InitiateAuth-request-ClientMetadata',
+          );
+        });
 
         asyncTest('passes client metadata to confirmSignIn', (_) async {
           final res = await Amplify.Auth.signIn(
@@ -213,46 +198,16 @@ void main() {
               confirmationValue: confirmationValue,
               options: const ConfirmSignInOptions(
                 pluginOptions: CognitoConfirmSignInPluginOptions(
-                  clientMetadata: {
-                    'should-fail': 'true',
-                  },
+                  clientMetadata: {'should-fail': 'true'},
                 ),
               ),
             ),
             throwsA(isA<AuthNotAuthorizedException>()),
           );
           await expectLater(
-            Amplify.Auth.confirmSignIn(
-              confirmationValue: confirmationValue,
-            ),
+            Amplify.Auth.confirmSignIn(confirmationValue: confirmationValue),
             throwsA(isA<AuthNotAuthorizedException>()),
             reason: 'Authorization failures are not retryable',
-          );
-        });
-
-        asyncTest('works with deprecated auth flow', (_) async {
-          const options = SignInOptions(
-            pluginOptions: CognitoSignInPluginOptions(
-              // ignore: deprecated_member_use
-              authFlowType: AuthenticationFlowType.customAuth,
-            ),
-          );
-          final signInRes = await Amplify.Auth.signIn(
-            username: username,
-            options: options,
-          );
-          expect(
-            signInRes.nextStep.signInStep,
-            AuthSignInStep.confirmSignInWithCustomChallenge,
-            reason: 'should use non-SRP flow based on exclusion of password',
-          );
-          final res = await Amplify.Auth.confirmSignIn(
-            confirmationValue: confirmationValue,
-          );
-          expect(
-            res.isSignedIn,
-            isTrue,
-            reason: 'should use non-SRP flow based on exclusion of password',
           );
         });
       });
@@ -270,9 +225,7 @@ void main() {
         );
 
         setUp(() async {
-          await testRunner.configure(
-            environmentName: environmentName,
-          );
+          await testRunner.configure(environmentName: environmentName);
 
           username = generateUsername();
           password = generatePassword();
@@ -285,21 +238,18 @@ void main() {
           );
         });
 
-        asyncTest(
-          'if a password is provided but is incorrect, throw '
-          'NotAuthorizedException',
-          (_) async {
-            // '123' is the arbitrary challenge answer defined in lambda code
-            await expectLater(
-              Amplify.Auth.signIn(
-                username: username,
-                password: 'wrong',
-                options: options,
-              ),
-              throwsA(isA<AuthNotAuthorizedException>()),
-            );
-          },
-        );
+        asyncTest('if a password is provided but is incorrect, throw '
+            'NotAuthorizedException', (_) async {
+          // '123' is the arbitrary challenge answer defined in lambda code
+          await expectLater(
+            Amplify.Auth.signIn(
+              username: username,
+              password: 'wrong',
+              options: options,
+            ),
+            throwsA(isA<AuthNotAuthorizedException>()),
+          );
+        });
 
         asyncTest(
           'a correct password and correct challenge reply should sign in '
@@ -340,53 +290,44 @@ void main() {
           },
         );
 
-        asyncTest(
-          'should return data from the auth challenge lambda '
-          '(with password)',
-          (_) async {
-            final res = await Amplify.Auth.signIn(
-              username: username,
-              password: password,
-              options: options,
-            );
-            expect(
-              res.nextStep.signInStep,
-              AuthSignInStep.confirmSignInWithCustomChallenge,
-            );
+        asyncTest('should return data from the auth challenge lambda '
+            '(with password)', (_) async {
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+            options: options,
+          );
+          expect(
+            res.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithCustomChallenge,
+          );
 
-            // additionalInfo key values defined in lambda code
-            expect(res.nextStep.additionalInfo, {
-              'test-key': 'test-value',
-            });
-          },
-        );
+          // additionalInfo key values defined in lambda code
+          expect(res.nextStep.additionalInfo, {'test-key': 'test-value'});
+        });
 
         asyncTest('fails when excluding a password', (_) async {
           await expectLater(
-            Amplify.Auth.signIn(
-              username: username,
-              options: options,
-            ),
+            Amplify.Auth.signIn(username: username, options: options),
             throwsA(isA<AuthValidationException>()),
           );
         });
 
         asyncTest('passes client metadata to signIn', (_) async {
           await expectLater(
-            Amplify.Auth.signIn(
+            () => Amplify.Auth.signIn(
               username: username,
               password: password,
               options: const SignInOptions(
                 pluginOptions: CognitoSignInPluginOptions(
                   authFlowType: AuthenticationFlowType.customAuthWithSrp,
-                  clientMetadata: {
-                    'should-fail': 'true',
-                  },
+                  clientMetadata: {'should-fail': 'true'},
                 ),
               ),
             ),
             throwsA(isA<AuthNotAuthorizedException>()),
-            skip: 'Cognito does not pass InitiateAuth client metadata to the '
+            skip:
+                'Cognito does not pass InitiateAuth client metadata to the '
                 'custom auth triggers: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html#CognitoUserPools-InitiateAuth-request-ClientMetadata',
           );
         });
@@ -406,47 +347,16 @@ void main() {
               confirmationValue: confirmationValue,
               options: const ConfirmSignInOptions(
                 pluginOptions: CognitoConfirmSignInPluginOptions(
-                  clientMetadata: {
-                    'should-fail': 'true',
-                  },
+                  clientMetadata: {'should-fail': 'true'},
                 ),
               ),
             ),
             throwsA(isA<AuthNotAuthorizedException>()),
           );
           await expectLater(
-            Amplify.Auth.confirmSignIn(
-              confirmationValue: confirmationValue,
-            ),
+            Amplify.Auth.confirmSignIn(confirmationValue: confirmationValue),
             throwsA(isA<AuthNotAuthorizedException>()),
             reason: 'Authorization failures are not retryable',
-          );
-        });
-
-        asyncTest('works with deprecated auth flow', (_) async {
-          const options = SignInOptions(
-            pluginOptions: CognitoSignInPluginOptions(
-              // ignore: deprecated_member_use
-              authFlowType: AuthenticationFlowType.customAuth,
-            ),
-          );
-          final signInRes = await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-            options: options,
-          );
-          expect(
-            signInRes.nextStep.signInStep,
-            AuthSignInStep.confirmSignInWithCustomChallenge,
-            reason: 'should use SRP flow based on inclusion of password',
-          );
-          final res = await Amplify.Auth.confirmSignIn(
-            confirmationValue: confirmationValue,
-          );
-          expect(
-            res.isSignedIn,
-            isTrue,
-            reason: 'should use SRP flow based on inclusion of password',
           );
         });
       });
@@ -457,19 +367,17 @@ void main() {
         // See: https://github.com/aws-amplify/amplify-flutter/issues/3541#issuecomment-1675384073
         (
           'custom-auth-device-with-srp',
-          AuthenticationFlowType.customAuthWithSrp
+          AuthenticationFlowType.customAuthWithSrp,
         ),
         // See: https://github.com/aws-amplify/amplify-flutter/issues/3596#issue-1862400577
         (
           'custom-auth-device-without-srp',
-          AuthenticationFlowType.customAuthWithoutSrp
+          AuthenticationFlowType.customAuthWithoutSrp,
         ),
       ]) {
         group(environmentName, () {
           setUp(() async {
-            await testRunner.configure(
-              environmentName: environmentName,
-            );
+            await testRunner.configure(environmentName: environmentName);
 
             username = generateUsername();
             password = generatePassword();
@@ -485,14 +393,14 @@ void main() {
           Future<void> signIn() async {
             final signInRes = await switch (authFlowType) {
               AuthenticationFlowType.customAuthWithSrp => Amplify.Auth.signIn(
-                  username: username,
-                  password: password,
-                  options: const SignInOptions(
-                    pluginOptions: CognitoSignInPluginOptions(
-                      authFlowType: AuthenticationFlowType.customAuthWithSrp,
-                    ),
+                username: username,
+                password: password,
+                options: const SignInOptions(
+                  pluginOptions: CognitoSignInPluginOptions(
+                    authFlowType: AuthenticationFlowType.customAuthWithSrp,
                   ),
                 ),
+              ),
               AuthenticationFlowType.customAuthWithoutSrp =>
                 Amplify.Auth.signIn(
                   username: username,
@@ -543,7 +451,8 @@ void main() {
                   ChallengeNameType.devicePasswordVerifier,
                 ),
               ),
-              reason: 'Devices which are tracked and remembered automatically '
+              reason:
+                  'Devices which are tracked and remembered automatically '
                   'trigger device SRP at the end of a custom auth flow',
             );
 

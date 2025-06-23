@@ -7,26 +7,30 @@ part of 'primitive_short_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveShortShape> _$primitiveShortShapeSerializer =
-    new _$PrimitiveShortShapeSerializer();
+    _$PrimitiveShortShapeSerializer();
 
 class _$PrimitiveShortShapeSerializer
     implements StructuredSerializer<PrimitiveShortShape> {
   @override
   final Iterable<Type> types = const [
     PrimitiveShortShape,
-    _$PrimitiveShortShape
+    _$PrimitiveShortShape,
   ];
   @override
   final String wireName = 'PrimitiveShortShape';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, PrimitiveShortShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    PrimitiveShortShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -34,9 +38,11 @@ class _$PrimitiveShortShapeSerializer
 
   @override
   PrimitiveShortShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new PrimitiveShortShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = PrimitiveShortShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -45,8 +51,12 @@ class _$PrimitiveShortShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -61,26 +71,20 @@ class _$PrimitiveShortShape extends PrimitiveShortShape {
   @override
   final TraitMap traits;
 
-  factory _$PrimitiveShortShape(
-          [void Function(PrimitiveShortShapeBuilder)? updates]) =>
-      (new PrimitiveShortShapeBuilder()..update(updates))._build();
+  factory _$PrimitiveShortShape([
+    void Function(PrimitiveShortShapeBuilder)? updates,
+  ]) => (PrimitiveShortShapeBuilder()..update(updates))._build();
 
   _$PrimitiveShortShape._({required this.shapeId, required this.traits})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'PrimitiveShortShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(
-        traits, r'PrimitiveShortShape', 'traits');
-  }
-
+    : super._();
   @override
   PrimitiveShortShape rebuild(
-          void Function(PrimitiveShortShapeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PrimitiveShortShapeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PrimitiveShortShapeBuilder toBuilder() =>
-      new PrimitiveShortShapeBuilder()..replace(this);
+      PrimitiveShortShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -138,7 +142,6 @@ class PrimitiveShortShapeBuilder
 
   @override
   void replace(covariant PrimitiveShortShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveShortShape;
   }
 
@@ -151,12 +154,20 @@ class PrimitiveShortShapeBuilder
   PrimitiveShortShape build() => _build();
 
   _$PrimitiveShortShape _build() {
-    final _$result = _$v ??
-        new _$PrimitiveShortShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'PrimitiveShortShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'PrimitiveShortShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$PrimitiveShortShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'PrimitiveShortShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'PrimitiveShortShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

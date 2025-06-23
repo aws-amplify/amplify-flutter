@@ -11,20 +11,19 @@ class _$HttpChecksumRequiredInputOutput
   @override
   final String? foo;
 
-  factory _$HttpChecksumRequiredInputOutput(
-          [void Function(HttpChecksumRequiredInputOutputBuilder)? updates]) =>
-      (new HttpChecksumRequiredInputOutputBuilder()..update(updates))._build();
+  factory _$HttpChecksumRequiredInputOutput([
+    void Function(HttpChecksumRequiredInputOutputBuilder)? updates,
+  ]) => (HttpChecksumRequiredInputOutputBuilder()..update(updates))._build();
 
   _$HttpChecksumRequiredInputOutput._({this.foo}) : super._();
-
   @override
   HttpChecksumRequiredInputOutput rebuild(
-          void Function(HttpChecksumRequiredInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpChecksumRequiredInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpChecksumRequiredInputOutputBuilder toBuilder() =>
-      new HttpChecksumRequiredInputOutputBuilder()..replace(this);
+      HttpChecksumRequiredInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -43,8 +42,10 @@ class _$HttpChecksumRequiredInputOutput
 
 class HttpChecksumRequiredInputOutputBuilder
     implements
-        Builder<HttpChecksumRequiredInputOutput,
-            HttpChecksumRequiredInputOutputBuilder> {
+        Builder<
+          HttpChecksumRequiredInputOutput,
+          HttpChecksumRequiredInputOutputBuilder
+        > {
   _$HttpChecksumRequiredInputOutput? _$v;
 
   String? _foo;
@@ -64,7 +65,6 @@ class HttpChecksumRequiredInputOutputBuilder
 
   @override
   void replace(HttpChecksumRequiredInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpChecksumRequiredInputOutput;
   }
 
@@ -77,7 +77,7 @@ class HttpChecksumRequiredInputOutputBuilder
   HttpChecksumRequiredInputOutput build() => _build();
 
   _$HttpChecksumRequiredInputOutput _build() {
-    final _$result = _$v ?? new _$HttpChecksumRequiredInputOutput._(foo: foo);
+    final _$result = _$v ?? _$HttpChecksumRequiredInputOutput._(foo: foo);
     replace(_$result);
     return _$result;
   }

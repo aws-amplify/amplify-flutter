@@ -14,8 +14,9 @@ void main() {
     const body = [0, 1, 2];
 
     test('create and send request', () async {
-      final uri =
-          Uri.parse('ws://example.com:440/myPath?abc=123&abc=456&def=000');
+      final uri = Uri.parse(
+        'ws://example.com:440/myPath?abc=123&abc=456&def=000',
+      );
       final client = MockAWSHttpClient((request, _) async {
         expect(request.uri, equals(uri));
         expect(request.bodyBytes, orderedEquals(<int>[0, 1, 2]));
@@ -41,8 +42,8 @@ void main() {
         }),
       );
 
-      request.headers[AWSHeaders.contentLength] =
-          request.contentLength.toString();
+      request.headers[AWSHeaders.contentLength] = request.contentLength
+          .toString();
       await request.send(client: client).response;
     });
 
@@ -89,10 +90,10 @@ void main() {
 
   group('AWSStreamedHttpRequest', () {
     Stream<List<int>> makeBody() => Stream.fromIterable([
-          [0],
-          [1],
-          [2],
-        ]);
+      [0],
+      [1],
+      [2],
+    ]);
     final emitsBody = emitsInOrder(<Matcher>[
       orderedEquals(<int>[0]),
       orderedEquals(<int>[1]),
@@ -101,8 +102,9 @@ void main() {
     ]);
 
     test('create and send request', () async {
-      final uri =
-          Uri.parse('ws://example.com:440/myPath?abc=123&abc=456&def=000');
+      final uri = Uri.parse(
+        'ws://example.com:440/myPath?abc=123&abc=456&def=000',
+      );
       final client = MockAWSHttpClient((request, _) async {
         expect(request.uri, equals(uri));
         expect(request.bodyBytes, orderedEquals(<int>[0, 1, 2]));
@@ -131,8 +133,8 @@ void main() {
         }),
       );
 
-      request.headers[AWSHeaders.contentLength] =
-          (await request.contentLength).toString();
+      request.headers[AWSHeaders.contentLength] = (await request.contentLength)
+          .toString();
       await request.send(client: client).response;
     });
 

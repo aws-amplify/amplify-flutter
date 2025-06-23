@@ -38,38 +38,31 @@ class AwsQueryProtocol<InputPayload, Input, OutputPayload, Output>
     List<SmithySerializer<dynamic>> serializers = const [],
     Map<FullType, Function> builderFactories = const {},
   }) : super(
-          _coreSerializers,
-          serializers: serializers,
-          builderFactories: builderFactories,
-          requestInterceptors: requestInterceptors,
-          responseInterceptors: responseInterceptors,
-        );
+         _coreSerializers,
+         serializers: serializers,
+         builderFactories: builderFactories,
+         requestInterceptors: requestInterceptors,
+         responseInterceptors: responseInterceptors,
+       );
 
-  static final _coreSerializers = (Serializers().toBuilder()
-        ..addPlugin(const SmithyXmlPlugin())
-        ..addAll(const [
-          QueryBoolSerializer(),
-          QueryIntSerializer(),
-          QueryDoubleSerializer(),
-          BigIntSerializer.asString,
-          Int64Serializer.asString,
-          TimestampSerializer.dateTime,
-          XmlBuiltListSerializer(
-            indexer: XmlIndexer.awsQueryList,
-          ),
-          XmlBuiltMapSerializer(
-            indexer: XmlIndexer.awsQueryMap,
-          ),
-          XmlBuiltMultimapSerializer(
-            indexer: XmlIndexer.awsQueryMap,
-          ),
-          XmlBuiltSetSerializer(
-            indexer: XmlIndexer.awsQueryList,
-          ),
-          XmlStringSerializer(),
-          UnitSerializer(),
-        ]))
-      .build();
+  static final _coreSerializers =
+      (Serializers().toBuilder()
+            ..addPlugin(const SmithyXmlPlugin())
+            ..addAll(const [
+              QueryBoolSerializer(),
+              QueryIntSerializer(),
+              QueryDoubleSerializer(),
+              BigIntSerializer.asString,
+              Int64Serializer.asString,
+              TimestampSerializer.dateTime,
+              XmlBuiltListSerializer(indexer: XmlIndexer.awsQueryList),
+              XmlBuiltMapSerializer(indexer: XmlIndexer.awsQueryMap),
+              XmlBuiltMultimapSerializer(indexer: XmlIndexer.awsQueryMap),
+              XmlBuiltSetSerializer(indexer: XmlIndexer.awsQueryList),
+              XmlStringSerializer(),
+              UnitSerializer(),
+            ]))
+          .build();
 
   final String action;
   final String version;

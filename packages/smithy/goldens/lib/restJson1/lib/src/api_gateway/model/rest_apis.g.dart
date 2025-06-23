@@ -13,16 +13,15 @@ class _$RestApis extends RestApis {
   final String? position;
 
   factory _$RestApis([void Function(RestApisBuilder)? updates]) =>
-      (new RestApisBuilder()..update(updates))._build();
+      (RestApisBuilder()..update(updates))._build();
 
   _$RestApis._({this.items, this.position}) : super._();
-
   @override
   RestApis rebuild(void Function(RestApisBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  RestApisBuilder toBuilder() => new RestApisBuilder()..replace(this);
+  RestApisBuilder toBuilder() => RestApisBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,7 +46,7 @@ class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
 
   _i2.ListBuilder<RestApi>? _items;
   _i2.ListBuilder<RestApi> get items =>
-      _$this._items ??= new _i2.ListBuilder<RestApi>();
+      _$this._items ??= _i2.ListBuilder<RestApi>();
   set items(_i2.ListBuilder<RestApi>? items) => _$this._items = items;
 
   String? _position;
@@ -68,7 +67,6 @@ class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
 
   @override
   void replace(RestApis other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RestApis;
   }
 
@@ -84,15 +82,18 @@ class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
     _$RestApis _$result;
     try {
       _$result =
-          _$v ?? new _$RestApis._(items: _items?.build(), position: position);
+          _$v ?? _$RestApis._(items: _items?.build(), position: position);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'items';
         _items?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'RestApis', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'RestApis',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

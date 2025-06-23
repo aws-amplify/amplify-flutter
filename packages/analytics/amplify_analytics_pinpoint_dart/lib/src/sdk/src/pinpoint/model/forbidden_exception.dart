@@ -17,20 +17,14 @@ abstract class ForbiddenException
         Built<ForbiddenException, ForbiddenExceptionBuilder>,
         _i2.SmithyHttpException {
   /// Provides information about an API request or response.
-  factory ForbiddenException({
-    String? message,
-    String? requestId,
-  }) {
-    return _$ForbiddenException._(
-      message: message,
-      requestId: requestId,
-    );
+  factory ForbiddenException({String? message, String? requestId}) {
+    return _$ForbiddenException._(message: message, requestId: requestId);
   }
 
   /// Provides information about an API request or response.
-  factory ForbiddenException.build(
-          [void Function(ForbiddenExceptionBuilder) updates]) =
-      _$ForbiddenException;
+  factory ForbiddenException.build([
+    void Function(ForbiddenExceptionBuilder) updates,
+  ]) = _$ForbiddenException;
 
   const ForbiddenException._();
 
@@ -38,13 +32,12 @@ abstract class ForbiddenException
   factory ForbiddenException.fromResponse(
     ForbiddenException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<ForbiddenException>> serializers = [
-    ForbiddenExceptionRestJson1Serializer()
+    ForbiddenExceptionRestJson1Serializer(),
   ];
 
   /// The message that's returned from the API.
@@ -55,9 +48,9 @@ abstract class ForbiddenException
   String? get requestId;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.pinpoint',
-        shape: 'ForbiddenException',
-      );
+    namespace: 'com.amazonaws.pinpoint',
+    shape: 'ForbiddenException',
+  );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -69,21 +62,12 @@ abstract class ForbiddenException
   @override
   Exception? get underlyingException => null;
   @override
-  List<Object?> get props => [
-        message,
-        requestId,
-      ];
+  List<Object?> get props => [message, requestId];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForbiddenException')
-      ..add(
-        'message',
-        message,
-      )
-      ..add(
-        'requestId',
-        requestId,
-      );
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }
@@ -93,17 +77,11 @@ class ForbiddenExceptionRestJson1Serializer
   const ForbiddenExceptionRestJson1Serializer() : super('ForbiddenException');
 
   @override
-  Iterable<Type> get types => const [
-        ForbiddenException,
-        _$ForbiddenException,
-      ];
+  Iterable<Type> get types => const [ForbiddenException, _$ForbiddenException];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   ForbiddenException deserialize(
     Serializers serializers,
@@ -121,15 +99,19 @@ class ForbiddenExceptionRestJson1Serializer
       }
       switch (key) {
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'RequestID':
-          result.requestId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.requestId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -147,18 +129,19 @@ class ForbiddenExceptionRestJson1Serializer
     if (message != null) {
       result$
         ..add('Message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (requestId != null) {
       result$
         ..add('RequestID')
-        ..add(serializers.serialize(
-          requestId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            requestId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

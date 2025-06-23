@@ -16,25 +16,25 @@ void main() {
     for (final environmentName in ['main']) {
       group(environmentName, () {
         setUp(() async {
-          await testRunner.configure(
-            environmentName: environmentName,
-          );
+          await testRunner.configure(environmentName: environmentName);
         });
 
         asyncTest('should signUp a user with valid parameters', (_) async {
           final username = generateUsername();
           final password = generatePassword();
 
-          final res = await Amplify.Auth.signUp(
-            username: username,
-            password: password,
-            options: SignUpOptions(
-              userAttributes: {
-                AuthUserAttributeKey.email: generateEmail(),
-                AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
-              },
-            ),
-          ) as CognitoSignUpResult;
+          final res =
+              await Amplify.Auth.signUp(
+                    username: username,
+                    password: password,
+                    options: SignUpOptions(
+                      userAttributes: {
+                        AuthUserAttributeKey.email: generateEmail(),
+                        AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
+                      },
+                    ),
+                  )
+                  as CognitoSignUpResult;
           expect(
             res.isSignUpComplete,
             isFalse,
@@ -78,168 +78,155 @@ void main() {
           },
         );
 
-        asyncTest(
-          'should throw a UsernameExistsException for a username that '
-          'already exists',
-          (_) async {
-            // create username for both sign up attempts
-            final username = generateUsername();
+        asyncTest('should throw a UsernameExistsException for a username that '
+            'already exists', (_) async {
+          // create username for both sign up attempts
+          final username = generateUsername();
 
-            // sign up first user
-            final userOnePassword = generatePassword();
-            final userOneOptions = SignUpOptions(
+          // sign up first user
+          final userOnePassword = generatePassword();
+          final userOneOptions = SignUpOptions(
+            userAttributes: {
+              AuthUserAttributeKey.email: generateEmail(),
+              AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
+            },
+          );
+          await Amplify.Auth.signUp(
+            username: username,
+            password: userOnePassword,
+            options: userOneOptions,
+          );
+
+          // attempt to sign up second user with the same username
+          final userTwoPassword = generatePassword();
+          final userTwoOptions = SignUpOptions(
+            userAttributes: {
+              AuthUserAttributeKey.email: generateEmail(),
+              AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
+            },
+          );
+          await expectLater(
+            Amplify.Auth.signUp(
+              username: username,
+              password: userTwoPassword,
+              options: userTwoOptions,
+            ),
+            throwsA(isA<UsernameExistsException>()),
+          );
+        });
+
+        asyncTest('should verify phone when email+phone are passed', (_) async {
+          final username = generateUsername();
+          final password = generatePassword();
+          final email = generateEmail();
+          final phoneNumber = generatePhoneNumber();
+
+          final phoneCode = await getOtpCode(UserAttribute.phone(phoneNumber));
+          final signUpRes = await Amplify.Auth.signUp(
+            username: username,
+            password: password,
+            options: SignUpOptions(
               userAttributes: {
-                AuthUserAttributeKey.email: generateEmail(),
-                AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
+                AuthUserAttributeKey.email: email,
+                AuthUserAttributeKey.phoneNumber: phoneNumber,
               },
-            );
-            await Amplify.Auth.signUp(
-              username: username,
-              password: userOnePassword,
-              options: userOneOptions,
-            );
+            ),
+          );
+          expect(signUpRes.isSignUpComplete, false);
+          expect(signUpRes.nextStep.signUpStep, AuthSignUpStep.confirmSignUp);
+          expect(
+            signUpRes.nextStep.codeDeliveryDetails,
+            isA<AuthCodeDeliveryDetails>()
+                .having(
+                  (d) => d.attributeKey,
+                  'attributeKey',
+                  AuthUserAttributeKey.phoneNumber,
+                )
+                .having(
+                  (d) => d.deliveryMedium,
+                  'deliveryMedium',
+                  DeliveryMedium.sms,
+                )
+                .having((d) => d.destination, 'destination', isNotNull),
+          );
 
-            // attempt to sign up second user with the same username
-            final userTwoPassword = generatePassword();
-            final userTwoOptions = SignUpOptions(
-              userAttributes: {
-                AuthUserAttributeKey.email: generateEmail(),
-                AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
-              },
-            );
-            await expectLater(
-              Amplify.Auth.signUp(
-                username: username,
-                password: userTwoPassword,
-                options: userTwoOptions,
-              ),
-              throwsA(isA<UsernameExistsException>()),
-            );
-          },
-        );
+          final confirmSignUpRes = await Amplify.Auth.confirmSignUp(
+            username: username,
+            confirmationCode: await phoneCode.code,
+          );
+          expect(confirmSignUpRes.isSignUpComplete, true);
 
-        asyncTest(
-          'should verify phone when email+phone are passed',
-          (_) async {
-            final username = generateUsername();
-            final password = generatePassword();
-            final email = generateEmail();
-            final phoneNumber = generatePhoneNumber();
+          // Login and confirm email
+          final signInRes = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          expect(signInRes.isSignedIn, true);
 
-            final phoneCode = await getOtpCode(
-              UserAttribute.phone(phoneNumber),
-            );
-            final signUpRes = await Amplify.Auth.signUp(
-              username: username,
-              password: password,
-              options: SignUpOptions(
-                userAttributes: {
-                  AuthUserAttributeKey.email: email,
-                  AuthUserAttributeKey.phoneNumber: phoneNumber,
-                },
-              ),
-            );
-            expect(signUpRes.isSignUpComplete, false);
-            expect(signUpRes.nextStep.signUpStep, AuthSignUpStep.confirmSignUp);
-            expect(
-              signUpRes.nextStep.codeDeliveryDetails,
-              isA<AuthCodeDeliveryDetails>()
-                  .having(
-                    (d) => d.attributeKey,
-                    'attributeKey',
-                    AuthUserAttributeKey.phoneNumber,
-                  )
-                  .having(
-                    (d) => d.deliveryMedium,
-                    'deliveryMedium',
-                    DeliveryMedium.sms,
-                  )
-                  .having((d) => d.destination, 'destination', isNotNull),
-            );
+          final userAttributes = await Amplify.Auth.fetchUserAttributes();
+          expect(
+            userAttributes.toMap(),
+            allOf([
+              containsPair(AuthUserAttributeKey.email, email),
+              containsPair(AuthUserAttributeKey.emailVerified, 'false'),
+              containsPair(AuthUserAttributeKey.phoneNumber, phoneNumber),
+              containsPair(AuthUserAttributeKey.phoneNumberVerified, 'true'),
+            ]),
+            reason:
+                'When both phone and email are passed during sign up, only '
+                'phone is verified by Cognito. It is the responsibility of developers '
+                'to all sendUserAttributeVerificationCode to receive a code for '
+                'verifying the other attribute.',
+          );
 
-            final confirmSignUpRes = await Amplify.Auth.confirmSignUp(
-              username: username,
-              confirmationCode: await phoneCode.code,
-            );
-            expect(confirmSignUpRes.isSignUpComplete, true);
-
-            // Login and confirm email
-            final signInRes = await Amplify.Auth.signIn(
-              username: username,
-              password: password,
-            );
-            expect(signInRes.isSignedIn, true);
-
-            final userAttributes = await Amplify.Auth.fetchUserAttributes();
-            expect(
-              userAttributes.toMap(),
-              allOf([
-                containsPair(AuthUserAttributeKey.email, email),
-                containsPair(AuthUserAttributeKey.emailVerified, 'false'),
-                containsPair(AuthUserAttributeKey.phoneNumber, phoneNumber),
-                containsPair(AuthUserAttributeKey.phoneNumberVerified, 'true'),
-              ]),
-              reason:
-                  'When both phone and email are passed during sign up, only '
-                  'phone is verified by Cognito. It is the responsibility of developers '
-                  'to all sendUserAttributeVerificationCode to receive a code for '
-                  'verifying the other attribute.',
-            );
-
-            final emailCode = await getOtpCode(UserAttribute.email(email));
-            final resendRes =
-                await Amplify.Auth.sendUserAttributeVerificationCode(
-              userAttributeKey: AuthUserAttributeKey.email,
-            );
-            expect(
-              resendRes.codeDeliveryDetails.attributeKey,
-              AuthUserAttributeKey.email,
-            );
-            expect(
-              resendRes.codeDeliveryDetails.deliveryMedium,
-              DeliveryMedium.email,
-            );
-            expect(resendRes.codeDeliveryDetails.destination, isNotNull);
-
-            await expectLater(
-              Amplify.Auth.confirmUserAttribute(
+          final emailCode = await getOtpCode(UserAttribute.email(email));
+          final resendRes =
+              await Amplify.Auth.sendUserAttributeVerificationCode(
                 userAttributeKey: AuthUserAttributeKey.email,
-                confirmationCode: await emailCode.code,
-              ),
-              completes,
-            );
+              );
+          expect(
+            resendRes.codeDeliveryDetails.attributeKey,
+            AuthUserAttributeKey.email,
+          );
+          expect(
+            resendRes.codeDeliveryDetails.deliveryMedium,
+            DeliveryMedium.email,
+          );
+          expect(resendRes.codeDeliveryDetails.destination, isNotNull);
 
-            final updatedUserAttributes =
-                await Amplify.Auth.fetchUserAttributes();
-            expect(
-              updatedUserAttributes.toMap(),
-              allOf([
-                containsPair(AuthUserAttributeKey.email, email),
-                containsPair(AuthUserAttributeKey.emailVerified, 'true'),
-                containsPair(AuthUserAttributeKey.phoneNumber, phoneNumber),
-                containsPair(AuthUserAttributeKey.phoneNumberVerified, 'true'),
-              ]),
-            );
-          },
-        );
+          await expectLater(
+            Amplify.Auth.confirmUserAttribute(
+              userAttributeKey: AuthUserAttributeKey.email,
+              confirmationCode: await emailCode.code,
+            ),
+            completes,
+          );
+
+          final updatedUserAttributes =
+              await Amplify.Auth.fetchUserAttributes();
+          expect(
+            updatedUserAttributes.toMap(),
+            allOf([
+              containsPair(AuthUserAttributeKey.email, email),
+              containsPair(AuthUserAttributeKey.emailVerified, 'true'),
+              containsPair(AuthUserAttributeKey.phoneNumber, phoneNumber),
+              containsPair(AuthUserAttributeKey.phoneNumberVerified, 'true'),
+            ]),
+          );
+        });
       });
     }
 
     group('identity pool-only', () {
       setUp(() async {
-        await testRunner.configure(
-          environmentName: 'identity-pool-only',
-        );
+        await testRunner.configure(environmentName: 'identity-pool-only');
       });
 
       asyncTest('throws on sign-up attempt', (_) async {
         final username = generateUsername();
         final password = generatePassword();
         await expectLater(
-          Amplify.Auth.signUp(
-            username: username,
-            password: password,
-          ),
+          Amplify.Auth.signUp(username: username, password: password),
           throwsA(isA<InvalidAccountTypeException>()),
         );
       });
@@ -249,6 +236,6 @@ void main() {
 
 extension on List<AuthUserAttribute> {
   Map<AuthUserAttributeKey, String> toMap() => {
-        for (final attr in this) attr.userAttributeKey: attr.value,
-      };
+    for (final attr in this) attr.userAttributeKey: attr.value,
+  };
 }

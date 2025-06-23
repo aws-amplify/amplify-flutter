@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:async/async.dart';
 
 /// Base [WebSocketState] containing the discrete state for a websocket
@@ -22,8 +24,8 @@ abstract class WebSocketState {
     this.options,
   );
 
-  /// AWS Config
-  final AWSApiConfig config;
+  /// API Outputs
+  final ApiOutputs config;
 
   /// Amplify Auth Provider
   final AmplifyAuthProviderRepository authProviderRepo;
@@ -44,22 +46,21 @@ abstract class WebSocketState {
   final GraphQLSubscriptionOptions options;
 
   /// Poll URI
-  Uri get pollUri => Uri.parse(config.endpoint).replace(path: 'ping');
+  Uri get pollUri => Uri.parse(config.url).replace(path: 'ping');
 
   /// Move state to [ConnectingState]
   ConnectingState connecting({
     NetworkState? networkState,
     IntendedState? intendedState,
-  }) =>
-      ConnectingState(
-        config,
-        authProviderRepo,
-        networkState ?? this.networkState,
-        intendedState ?? this.intendedState,
-        service,
-        subscriptionBlocs,
-        options,
-      );
+  }) => ConnectingState(
+    config,
+    authProviderRepo,
+    networkState ?? this.networkState,
+    intendedState ?? this.intendedState,
+    service,
+    subscriptionBlocs,
+    options,
+  );
 
   /// Move state to [ReconnectingState]
   ReconnectingState reconnecting({
@@ -79,38 +80,38 @@ abstract class WebSocketState {
 
   /// Move state to [DisconnectedState]
   DisconnectedState disconnect() => DisconnectedState(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
-        options,
-      );
+    config,
+    authProviderRepo,
+    networkState,
+    intendedState,
+    service,
+    subscriptionBlocs,
+    options,
+  );
 
   /// Move state to [FailureState]
   FailureState failed(Object e, StackTrace st) => FailureState(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
-        options,
-        e,
-        st,
-      );
+    config,
+    authProviderRepo,
+    networkState,
+    intendedState,
+    service,
+    subscriptionBlocs,
+    options,
+    e,
+    st,
+  );
 
   /// Move state to [PendingDisconnect]
   PendingDisconnect shutdown() => PendingDisconnect(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
-        options,
-      );
+    config,
+    authProviderRepo,
+    networkState,
+    intendedState,
+    service,
+    subscriptionBlocs,
+    options,
+  );
 }
 
 /// State for when a new connection is pending
@@ -229,10 +230,7 @@ class ConnectedState extends WebSocketState {
 
   /// Move state to [FailureState]
   @override
-  FailureState failed(
-    Object e,
-    StackTrace st,
-  ) {
+  FailureState failed(Object e, StackTrace st) {
     _cancelTimers();
 
     return super.failed(e, st);

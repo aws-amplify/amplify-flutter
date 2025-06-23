@@ -18,12 +18,11 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
     super.shape,
     CodegenContext context, {
     super.smithyLibrary,
-  }) : super(
-          context: context,
-        );
+  }) : super(context: context);
 
-  late final List<OperationShape> _operations =
-      context.shapes.values.whereType<OperationShape>().toList();
+  late final List<OperationShape> _operations = context.shapes.values
+      .whereType<OperationShape>()
+      .toList();
 
   bool get isAwsService => shape.hasTrait<ServiceTrait>();
 
@@ -41,66 +40,62 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
   }
 
   Class get _clientClass => Class((c) {
-        c
-          ..name = className
-          ..docs.addAll([
-            if (shape.hasDocs(context)) shape.formattedDocs(context),
-          ])
-          ..constructors.add(_clientConstructor)
-          ..methods.addAll(_operationMethods)
-          ..fields.addAll(_clientFields);
-      });
+    c
+      ..name = className
+      ..docs.addAll([if (shape.hasDocs(context)) shape.formattedDocs(context)])
+      ..constructors.add(_clientConstructor)
+      ..methods.addAll(_operationMethods)
+      ..fields.addAll(_clientFields);
+  });
 
   Constructor get _clientConstructor => Constructor(
-        (ctor) => ctor
-          ..docs.addAll([
-            if (shape.hasDocs(context)) shape.formattedDocs(context),
-          ])
-          ..constant = true
-          ..optionalParameters.addAll(constructorParameters)
-          ..initializers.addAll(constructorInitializers),
-      );
+    (ctor) => ctor
+      ..docs.addAll([if (shape.hasDocs(context)) shape.formattedDocs(context)])
+      ..constant = true
+      ..optionalParameters.addAll(constructorParameters)
+      ..initializers.addAll(constructorInitializers),
+  );
 
-  Iterable<Field> get _clientFields => LinkedHashSet<Field>(
+  Iterable<Field> get _clientFields =>
+      LinkedHashSet<Field>(
         equals: (a, b) => a.name == b.name,
         hashCode: (key) => key.name.hashCode,
       )..addAll(
-          _operations
-              .expand((op) => op.operationParameters(context))
-              .where((p) => p.location.inClientConstructor)
-              .map(
-                (parameter) => Field(
-                  (f) => f
-                    ..modifier = FieldModifier.final$
-                    ..type = parameter.type
-                    ..name = private(parameter.name),
-                ),
+        _operations
+            .expand((op) => op.operationParameters(context))
+            .where((p) => p.location.inClientConstructor)
+            .map(
+              (parameter) => Field(
+                (f) => f
+                  ..modifier = FieldModifier.final$
+                  ..type = parameter.type
+                  ..name = private(parameter.name),
               ),
-        );
-
-  Iterable<Parameter> get constructorParameters =>
-      operationParameters.where((p) => p.location.inClientConstructor).map(
-            (param) => Parameter(
-              (p) => p
-                ..type = param.type
-                ..required = param.required && param.defaultTo == null
-                ..defaultTo = param.defaultTo
-                ..name = param.name
-                ..named = true,
             ),
-          );
+      );
+
+  Iterable<Parameter> get constructorParameters => operationParameters
+      .where((p) => p.location.inClientConstructor)
+      .map(
+        (param) => Parameter(
+          (p) => p
+            ..type = param.type
+            ..required = param.required && param.defaultTo == null
+            ..defaultTo = param.defaultTo
+            ..name = param.name
+            ..named = true,
+        ),
+      );
 
   Iterable<ConfigParameter> get operationParameters =>
       LinkedHashSet<ConfigParameter>(
         equals: (a, b) => a.name == b.name,
         hashCode: (key) => key.name.hashCode,
-      )..addAll(
-          _operations.expand((op) => op.operationParameters(context)),
-        );
+      )..addAll(_operations.expand((op) => op.operationParameters(context)));
 
   Iterable<Code> get constructorInitializers => constructorParameters.map(
-        (param) => refer(private(param.name)).assign(refer(param.name)).code,
-      );
+    (param) => refer(private(param.name)).assign(refer(param.name)).code,
+  );
 
   String private(String s) => s.startsWith('_') ? s : '_$s';
 
@@ -145,7 +140,9 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
               ),
           ])
           ..optionalParameters.addAll(
-            operationParameters.where((p) => p.location.inClientMethod).map(
+            operationParameters
+                .where((p) => p.location.inClientMethod)
+                .map(
                   (param) => Parameter(
                     (p) => p
                       ..required = false
@@ -159,29 +156,36 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
           ..body = context
               .symbolFor(operation.shapeId)
               .newInstance([], {
-                for (final param in operationParameters
-                    .where((p) => p.location.inConstructor))
-                  param.name: param.location.inClientMethod &&
+                for (final param in operationParameters.where(
+                  (p) => p.location.inConstructor,
+                ))
+                  param.name:
+                      param.location.inClientMethod &&
                           param.location.inClientConstructor
                       ? refer(param.name).ifNullThen(refer(private(param.name)))
                       : param.location.inClientConstructor
-                          ? refer(private(param.name))
-                          : refer(param.name),
-              })
-              .property(isPaginated ? 'runPaginated' : 'run')
-              .call([
-                if (operationInput == DartTypes.smithy.unit)
-                  DartTypes.smithy.unit.constInstance([])
-                else
-                  refer('input'),
-              ], {
-                for (final param in operationParameters.where(
-                  (p) => p.location.inClientMethod && p.location.inRun,
-                ))
-                  param.name: param.location.inClientConstructor
-                      ? refer(param.name).ifNullThen(refer(private(param.name)))
+                      ? refer(private(param.name))
                       : refer(param.name),
               })
+              .property(isPaginated ? 'runPaginated' : 'run')
+              .call(
+                [
+                  if (operationInput == DartTypes.smithy.unit)
+                    DartTypes.smithy.unit.constInstance([])
+                  else
+                    refer('input'),
+                ],
+                {
+                  for (final param in operationParameters.where(
+                    (p) => p.location.inClientMethod && p.location.inRun,
+                  ))
+                    param.name: param.location.inClientConstructor
+                        ? refer(
+                            param.name,
+                          ).ifNullThen(refer(private(param.name)))
+                        : refer(param.name),
+                },
+              )
               .returned
               .statement,
       );

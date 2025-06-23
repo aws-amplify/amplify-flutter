@@ -13,16 +13,15 @@ class _$MfaOptionType extends MfaOptionType {
   final String? attributeName;
 
   factory _$MfaOptionType([void Function(MfaOptionTypeBuilder)? updates]) =>
-      (new MfaOptionTypeBuilder()..update(updates))._build();
+      (MfaOptionTypeBuilder()..update(updates))._build();
 
   _$MfaOptionType._({this.deliveryMedium, this.attributeName}) : super._();
-
   @override
   MfaOptionType rebuild(void Function(MfaOptionTypeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  MfaOptionTypeBuilder toBuilder() => new MfaOptionTypeBuilder()..replace(this);
+  MfaOptionTypeBuilder toBuilder() => MfaOptionTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +69,6 @@ class MfaOptionTypeBuilder
 
   @override
   void replace(MfaOptionType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MfaOptionType;
   }
 
@@ -83,9 +81,12 @@ class MfaOptionTypeBuilder
   MfaOptionType build() => _build();
 
   _$MfaOptionType _build() {
-    final _$result = _$v ??
-        new _$MfaOptionType._(
-            deliveryMedium: deliveryMedium, attributeName: attributeName);
+    final _$result =
+        _$v ??
+        _$MfaOptionType._(
+          deliveryMedium: deliveryMedium,
+          attributeName: attributeName,
+        );
     replace(_$result);
     return _$result;
   }

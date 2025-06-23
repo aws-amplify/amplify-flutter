@@ -10,20 +10,19 @@ class _$NestedStructuresInput extends NestedStructuresInput {
   @override
   final StructArg? nested;
 
-  factory _$NestedStructuresInput(
-          [void Function(NestedStructuresInputBuilder)? updates]) =>
-      (new NestedStructuresInputBuilder()..update(updates))._build();
+  factory _$NestedStructuresInput([
+    void Function(NestedStructuresInputBuilder)? updates,
+  ]) => (NestedStructuresInputBuilder()..update(updates))._build();
 
   _$NestedStructuresInput._({this.nested}) : super._();
-
   @override
   NestedStructuresInput rebuild(
-          void Function(NestedStructuresInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NestedStructuresInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NestedStructuresInputBuilder toBuilder() =>
-      new NestedStructuresInputBuilder()..replace(this);
+      NestedStructuresInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -45,7 +44,7 @@ class NestedStructuresInputBuilder
   _$NestedStructuresInput? _$v;
 
   StructArgBuilder? _nested;
-  StructArgBuilder get nested => _$this._nested ??= new StructArgBuilder();
+  StructArgBuilder get nested => _$this._nested ??= StructArgBuilder();
   set nested(StructArgBuilder? nested) => _$this._nested = nested;
 
   NestedStructuresInputBuilder();
@@ -61,7 +60,6 @@ class NestedStructuresInputBuilder
 
   @override
   void replace(NestedStructuresInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NestedStructuresInput;
   }
 
@@ -76,15 +74,18 @@ class NestedStructuresInputBuilder
   _$NestedStructuresInput _build() {
     _$NestedStructuresInput _$result;
     try {
-      _$result = _$v ?? new _$NestedStructuresInput._(nested: _nested?.build());
+      _$result = _$v ?? _$NestedStructuresInput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'NestedStructuresInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'NestedStructuresInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

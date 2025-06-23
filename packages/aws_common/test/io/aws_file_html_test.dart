@@ -2,15 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
+library;
 
+import 'dart:async';
 import 'dart:convert';
-import 'dart:html' as html;
+import 'dart:js_interop';
 import 'dart:typed_data';
 
-import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/web.dart';
 import 'package:test/test.dart';
+import 'package:web/web.dart';
 
 import 'utils.dart';
 
@@ -19,14 +21,17 @@ void main() {
     const testStringContent = 'I ❤️ Amplify, œ 小新';
     const testContentType = 'text/plain';
     final testBytes = utf8.encode(testStringContent);
-    final testBlob = html.Blob([testBytes], testContentType);
-    final testFile = html.File(
-        [testBlob],
-        'test_file.txt',
-        {
-          'type': testBlob.type,
-        });
-    final testFilePath = html.Url.createObjectUrl(testFile);
+    final testBytesUtf16 = testStringContent.codeUnits;
+    final testBlob = Blob(
+      [testBytes.toJS].toJS,
+      BlobPropertyBag(type: testContentType),
+    );
+    final testFile = File(
+      [testBlob].toJS,
+      'test_file.txt',
+      FilePropertyBag(type: testBlob.type),
+    );
+    final testFilePath = URL.createObjectURL(testFile);
 
     group('getChunkedStreamReader() API', () {
       test('should return ChunkedStreamReader over html File', () async {
@@ -97,40 +102,37 @@ void main() {
       });
 
       test('should resolve contentType from underlying html File', () async {
-        final awsFile = AWSFilePlatform.fromFile(
-          testFile,
-        );
+        final awsFile = AWSFilePlatform.fromFile(testFile);
 
         expect(await awsFile.contentType, testFile.type);
       });
 
       test('should resolve contentType from underlying html Blob', () async {
-        final awsFile = AWSFilePlatform.fromBlob(
-          testBlob,
-        );
+        final awsFile = AWSFilePlatform.fromBlob(testBlob);
 
         expect(await awsFile.contentType, testBlob.type);
       });
 
       test(
-          'should resolve contentType from the blob that is resolved from the path',
-          () async {
-        final awsFile = AWSFilePlatform.fromPath(
-          testFilePath,
-        );
+        'should resolve contentType from the blob that is resolved from the path',
+        () async {
+          final awsFile = AWSFilePlatform.fromPath(testFilePath);
 
-        expect(await awsFile.contentType, testFile.type);
-      });
+          expect(await awsFile.contentType, testFile.type);
+        },
+      );
 
-      test('should return null as contentType if contentType is unresolvable',
-          () async {
-        final awsFile = AWSFile.fromStream(
-          Stream.value(testBytes),
-          size: testBytes.length,
-        );
+      test(
+        'should return null as contentType if contentType is unresolvable',
+        () async {
+          final awsFile = AWSFile.fromStream(
+            Stream.value(testBytes),
+            size: testBytes.length,
+          );
 
-        expect(await awsFile.contentType, isNull);
-      });
+          expect(await awsFile.contentType, isNull);
+        },
+      );
     });
 
     group('openRead() API', () {
@@ -183,6 +185,14 @@ void main() {
         expect(bytesBuffer.takeBytes(), equals(testBytes));
       });
 
+      test('returns streams over the underlying bytes (utf16)', () async {
+        final awsFile = AWSFile.fromData(testBytesUtf16);
+
+        final collectedBytes = await collectBytes(awsFile.openRead());
+
+        expect(collectedBytes, equals(testBytesUtf16));
+      });
+
       test(
         'returns streams over the underlying file pointed by the path',
         () async {
@@ -204,4 +214,22 @@ void main() {
       );
     });
   });
+}
+
+/// Collects an asynchronous sequence of byte lists into a single list of bytes.
+///
+/// Similar to collectBytes from package:async, but works for any List of int,
+/// where as collectBytes from package:async only supports [Uint8List].
+Future<List<int>> collectBytes(Stream<List<int>> source) {
+  final bytes = <int>[];
+  final completer = Completer<List<int>>.sync();
+  source.listen(
+    bytes.addAll,
+    onError: completer.completeError,
+    onDone: () {
+      completer.complete(bytes);
+    },
+    cancelOnError: true,
+  );
+  return completer.future;
 }

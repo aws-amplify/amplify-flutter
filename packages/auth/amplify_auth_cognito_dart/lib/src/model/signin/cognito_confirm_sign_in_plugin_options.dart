@@ -15,14 +15,13 @@ class CognitoConfirmSignInPluginOptions extends ConfirmSignInPluginOptions {
     Map<String, String>? clientMetadata,
     Map<CognitoUserAttributeKey, String>? userAttributes,
     this.friendlyDeviceName,
-  })  : clientMetadata = clientMetadata ?? const {},
-        userAttributes = userAttributes ?? const {};
+  }) : clientMetadata = clientMetadata ?? const {},
+       userAttributes = userAttributes ?? const {};
 
   /// {@macro amplify_auth_cognito.model.cognito_confirm_sign_in_plugin_options}
   factory CognitoConfirmSignInPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoConfirmSignInPluginOptionsFromJson(json);
+  ) => _$CognitoConfirmSignInPluginOptionsFromJson(json);
 
   /// A map of custom key-value pairs that you can provide as input for certain
   /// custom workflows that this action triggers.
@@ -37,10 +36,10 @@ class CognitoConfirmSignInPluginOptions extends ConfirmSignInPluginOptions {
 
   @override
   List<Object?> get props => [
-        clientMetadata,
-        userAttributes,
-        friendlyDeviceName,
-      ];
+    clientMetadata,
+    userAttributes,
+    friendlyDeviceName,
+  ];
 
   @override
   String get runtimeTypeName => 'CognitoConfirmSignInPluginOptions';

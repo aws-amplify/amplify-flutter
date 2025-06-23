@@ -10,23 +10,19 @@ class _$GetBucketLocationRequest extends GetBucketLocationRequest {
   @override
   final String bucket;
 
-  factory _$GetBucketLocationRequest(
-          [void Function(GetBucketLocationRequestBuilder)? updates]) =>
-      (new GetBucketLocationRequestBuilder()..update(updates))._build();
+  factory _$GetBucketLocationRequest([
+    void Function(GetBucketLocationRequestBuilder)? updates,
+  ]) => (GetBucketLocationRequestBuilder()..update(updates))._build();
 
-  _$GetBucketLocationRequest._({required this.bucket}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'GetBucketLocationRequest', 'bucket');
-  }
-
+  _$GetBucketLocationRequest._({required this.bucket}) : super._();
   @override
   GetBucketLocationRequest rebuild(
-          void Function(GetBucketLocationRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetBucketLocationRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetBucketLocationRequestBuilder toBuilder() =>
-      new GetBucketLocationRequestBuilder()..replace(this);
+      GetBucketLocationRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -65,7 +61,6 @@ class GetBucketLocationRequestBuilder
 
   @override
   void replace(GetBucketLocationRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetBucketLocationRequest;
   }
 
@@ -78,10 +73,15 @@ class GetBucketLocationRequestBuilder
   GetBucketLocationRequest build() => _build();
 
   _$GetBucketLocationRequest _build() {
-    final _$result = _$v ??
-        new _$GetBucketLocationRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'GetBucketLocationRequest', 'bucket'));
+    final _$result =
+        _$v ??
+        _$GetBucketLocationRequest._(
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'GetBucketLocationRequest',
+            'bucket',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -89,20 +89,19 @@ class GetBucketLocationRequestBuilder
 
 class _$GetBucketLocationRequestPayload
     extends GetBucketLocationRequestPayload {
-  factory _$GetBucketLocationRequestPayload(
-          [void Function(GetBucketLocationRequestPayloadBuilder)? updates]) =>
-      (new GetBucketLocationRequestPayloadBuilder()..update(updates))._build();
+  factory _$GetBucketLocationRequestPayload([
+    void Function(GetBucketLocationRequestPayloadBuilder)? updates,
+  ]) => (GetBucketLocationRequestPayloadBuilder()..update(updates))._build();
 
   _$GetBucketLocationRequestPayload._() : super._();
-
   @override
   GetBucketLocationRequestPayload rebuild(
-          void Function(GetBucketLocationRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetBucketLocationRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetBucketLocationRequestPayloadBuilder toBuilder() =>
-      new GetBucketLocationRequestPayloadBuilder()..replace(this);
+      GetBucketLocationRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -118,15 +117,16 @@ class _$GetBucketLocationRequestPayload
 
 class GetBucketLocationRequestPayloadBuilder
     implements
-        Builder<GetBucketLocationRequestPayload,
-            GetBucketLocationRequestPayloadBuilder> {
+        Builder<
+          GetBucketLocationRequestPayload,
+          GetBucketLocationRequestPayloadBuilder
+        > {
   _$GetBucketLocationRequestPayload? _$v;
 
   GetBucketLocationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketLocationRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetBucketLocationRequestPayload;
   }
 
@@ -139,7 +139,7 @@ class GetBucketLocationRequestPayloadBuilder
   GetBucketLocationRequestPayload build() => _build();
 
   _$GetBucketLocationRequestPayload _build() {
-    final _$result = _$v ?? new _$GetBucketLocationRequestPayload._();
+    final _$result = _$v ?? _$GetBucketLocationRequestPayload._();
     replace(_$result);
     return _$result;
   }

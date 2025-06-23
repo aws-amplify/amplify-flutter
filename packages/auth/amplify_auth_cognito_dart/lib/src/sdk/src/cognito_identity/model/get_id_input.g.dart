@@ -15,20 +15,16 @@ class _$GetIdInput extends GetIdInput {
   final _i3.BuiltMap<String, String>? logins;
 
   factory _$GetIdInput([void Function(GetIdInputBuilder)? updates]) =>
-      (new GetIdInputBuilder()..update(updates))._build();
+      (GetIdInputBuilder()..update(updates))._build();
 
   _$GetIdInput._({this.accountId, required this.identityPoolId, this.logins})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        identityPoolId, r'GetIdInput', 'identityPoolId');
-  }
-
+    : super._();
   @override
   GetIdInput rebuild(void Function(GetIdInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GetIdInputBuilder toBuilder() => new GetIdInputBuilder()..replace(this);
+  GetIdInputBuilder toBuilder() => GetIdInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -64,7 +60,7 @@ class GetIdInputBuilder implements Builder<GetIdInput, GetIdInputBuilder> {
 
   _i3.MapBuilder<String, String>? _logins;
   _i3.MapBuilder<String, String> get logins =>
-      _$this._logins ??= new _i3.MapBuilder<String, String>();
+      _$this._logins ??= _i3.MapBuilder<String, String>();
   set logins(_i3.MapBuilder<String, String>? logins) => _$this._logins = logins;
 
   GetIdInputBuilder();
@@ -82,7 +78,6 @@ class GetIdInputBuilder implements Builder<GetIdInput, GetIdInputBuilder> {
 
   @override
   void replace(GetIdInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetIdInput;
   }
 
@@ -97,20 +92,28 @@ class GetIdInputBuilder implements Builder<GetIdInput, GetIdInputBuilder> {
   _$GetIdInput _build() {
     _$GetIdInput _$result;
     try {
-      _$result = _$v ??
-          new _$GetIdInput._(
-              accountId: accountId,
-              identityPoolId: BuiltValueNullFieldError.checkNotNull(
-                  identityPoolId, r'GetIdInput', 'identityPoolId'),
-              logins: _logins?.build());
+      _$result =
+          _$v ??
+          _$GetIdInput._(
+            accountId: accountId,
+            identityPoolId: BuiltValueNullFieldError.checkNotNull(
+              identityPoolId,
+              r'GetIdInput',
+              'identityPoolId',
+            ),
+            logins: _logins?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'logins';
         _logins?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GetIdInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GetIdInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

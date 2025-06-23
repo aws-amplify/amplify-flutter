@@ -13,9 +13,7 @@ class ConfirmResetPasswordOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.confirm_reset_password_options}
-  const ConfirmResetPasswordOptions({
-    this.pluginOptions,
-  });
+  const ConfirmResetPasswordOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.confirm_reset_password_plugin_options}
   final ConfirmResetPasswordPluginOptions? pluginOptions;
@@ -26,14 +24,8 @@ class ConfirmResetPasswordOptions
   @override
   String get runtimeTypeName => 'ConfirmResetPasswordOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

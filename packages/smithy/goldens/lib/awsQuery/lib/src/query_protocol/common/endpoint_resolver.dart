@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v1.query_protocol.common.endpoint_resolver; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -57,10 +57,7 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'cn-north-1',
-      'cn-northwest-1',
-    },
+    regions: const {'cn-north-1', 'cn-northwest-1'},
     endpoints: const {},
   ),
   _i1.Partition(
@@ -75,10 +72,7 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-iso-east-1',
-      'us-iso-west-1',
-    },
+    regions: const {'us-iso-east-1', 'us-iso-west-1'},
     endpoints: const {},
   ),
   _i1.Partition(
@@ -108,15 +102,13 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-gov-east-1',
-      'us-gov-west-1',
-    },
+    regions: const {'us-gov-east-1', 'us-gov-west-1'},
     endpoints: const {},
   ),
 ];
 @_i2.internal
-final _i1.AWSEndpointResolver endpointResolver =
-    _i1.AWSEndpointResolver(_partitions);
+final _i1.AWSEndpointResolver endpointResolver = _i1.AWSEndpointResolver(
+  _partitions,
+);
 @_i2.internal
 const String sdkId = 'Query Protocol';

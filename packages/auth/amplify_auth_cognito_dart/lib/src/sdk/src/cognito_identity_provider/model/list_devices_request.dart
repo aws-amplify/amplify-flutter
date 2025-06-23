@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.list_devices_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -28,9 +28,9 @@ abstract class ListDevicesRequest
   }
 
   /// Represents the request to list the devices.
-  factory ListDevicesRequest.build(
-          [void Function(ListDevicesRequestBuilder) updates]) =
-      _$ListDevicesRequest;
+  factory ListDevicesRequest.build([
+    void Function(ListDevicesRequestBuilder) updates,
+  ]) = _$ListDevicesRequest;
 
   const ListDevicesRequest._();
 
@@ -38,11 +38,10 @@ abstract class ListDevicesRequest
     ListDevicesRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<ListDevicesRequest>> serializers = [
-    ListDevicesRequestAwsJson11Serializer()
+    ListDevicesRequestAwsJson11Serializer(),
   ];
 
   /// A valid access token that Amazon Cognito issued to the user whose list of devices you want to view.
@@ -51,31 +50,20 @@ abstract class ListDevicesRequest
   /// The limit of the device request.
   int? get limit;
 
-  /// The pagination token for the list request.
+  /// This API operation returns a limited number of results. The pagination token is an identifier that you can present in an additional API request with the same parameters. When you include the pagination token, Amazon Cognito returns the next set of items after the current list. Subsequent requests return a new pagination token. By use of this token, you can paginate through the full list of items.
   String? get paginationToken;
   @override
   ListDevicesRequest getPayload() => this;
+
   @override
-  List<Object?> get props => [
-        accessToken,
-        limit,
-        paginationToken,
-      ];
+  List<Object?> get props => [accessToken, limit, paginationToken];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListDevicesRequest')
-      ..add(
-        'accessToken',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'limit',
-        limit,
-      )
-      ..add(
-        'paginationToken',
-        paginationToken,
-      );
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('limit', limit)
+      ..add('paginationToken', paginationToken);
     return helper.toString();
   }
 }
@@ -85,17 +73,13 @@ class ListDevicesRequestAwsJson11Serializer
   const ListDevicesRequestAwsJson11Serializer() : super('ListDevicesRequest');
 
   @override
-  Iterable<Type> get types => const [
-        ListDevicesRequest,
-        _$ListDevicesRequest,
-      ];
+  Iterable<Type> get types => const [ListDevicesRequest, _$ListDevicesRequest];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   ListDevicesRequest deserialize(
     Serializers serializers,
@@ -113,20 +97,26 @@ class ListDevicesRequestAwsJson11Serializer
       }
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accessToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Limit':
-          result.limit = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.limit =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'PaginationToken':
-          result.paginationToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.paginationToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -143,26 +133,22 @@ class ListDevicesRequestAwsJson11Serializer
     final ListDevicesRequest(:accessToken, :limit, :paginationToken) = object;
     result$.addAll([
       'AccessToken',
-      serializers.serialize(
-        accessToken,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(accessToken, specifiedType: const FullType(String)),
     ]);
     if (limit != null) {
       result$
         ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
-        ));
+        ..add(serializers.serialize(limit, specifiedType: const FullType(int)));
     }
     if (paginationToken != null) {
       result$
         ..add('PaginationToken')
-        ..add(serializers.serialize(
-          paginationToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            paginationToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

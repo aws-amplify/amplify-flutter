@@ -1,13 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library authenticator.form_field;
+library;
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/l10n/instructions_resolver.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
@@ -29,7 +28,9 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 part 'form_fields/confirm_sign_in_form_field.dart';
 part 'form_fields/confirm_sign_up_form_field.dart';
+part 'form_fields/email_setup_form_field.dart';
 part 'form_fields/mfa_selection_form_field.dart';
+part 'form_fields/mfa_setup_selection_form_field.dart';
 part 'form_fields/phone_number_field.dart';
 part 'form_fields/reset_password_form_field.dart';
 part 'form_fields/sign_in_form_field.dart';
@@ -48,10 +49,12 @@ part 'form_fields/verify_user_form_field.dart';
 /// - [TotpSetupFormField]
 /// - [VerifyUserFormField]
 /// {@endtemplate}
-abstract class AuthenticatorFormField<FieldType extends Enum,
-        FieldValue extends Object>
-    extends AuthenticatorComponent<
-        AuthenticatorFormField<FieldType, FieldValue>> {
+abstract class AuthenticatorFormField<
+  FieldType extends Enum,
+  FieldValue extends Object
+>
+    extends
+        AuthenticatorComponent<AuthenticatorFormField<FieldType, FieldValue>> {
   /// {@macro amplify_authenticator.authenticator_form_field}
   const AuthenticatorFormField._({
     super.key,
@@ -127,9 +130,10 @@ abstract class AuthenticatorFormField<FieldType extends Enum,
 }
 
 abstract class AuthenticatorFormFieldState<
-        FieldType extends Enum,
-        FieldValue extends Object,
-        T extends AuthenticatorFormField<FieldType, FieldValue>>
+  FieldType extends Enum,
+  FieldValue extends Object,
+  T extends AuthenticatorFormField<FieldType, FieldValue>
+>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
   Widget get visibilityToggle =>
@@ -149,7 +153,8 @@ abstract class AuthenticatorFormFieldState<
   /// Validates inputs of this form field.
   ///
   /// By default, this validates all inputs.
-  FormFieldValidator<FieldValue> get validator => (_) => null;
+  FormFieldValidator<FieldValue> get validator =>
+      (_) => null;
 
   /// Whether to hide input.
   bool get obscureText => false;
@@ -184,8 +189,9 @@ abstract class AuthenticatorFormFieldState<
     var labelText =
         widget.title ?? widget.titleKey?.resolve(context, inputResolver);
     if (labelText != null) {
-      labelText =
-          isOptional ? inputResolver.optional(context, labelText) : labelText;
+      labelText = isOptional
+          ? inputResolver.optional(context, labelText)
+          : labelText;
     }
     return labelText;
   }
@@ -230,11 +236,17 @@ abstract class AuthenticatorFormFieldState<
         state.confirmSignInCustomAuth();
       case AuthenticatorStep.confirmSignInMfa:
         state.confirmSignInMFA();
+      case AuthenticatorStep.confirmSignInWithOtpCode:
+        state.confirmEmailMfa();
       case AuthenticatorStep.confirmSignInNewPassword:
         state.confirmSignInNewPassword();
       case AuthenticatorStep.confirmSignInWithTotpMfaCode:
       case AuthenticatorStep.continueSignInWithTotpSetup:
         state.confirmTotp();
+      case AuthenticatorStep.continueSignInWithEmailMfaSetup:
+        state.continueEmailMfaSetup();
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
+        state.continueSignInWithMfaSetupSelection();
       case AuthenticatorStep.resetPassword:
         state.resetPassword();
       case AuthenticatorStep.confirmResetPassword:

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v1.json_protocol.model.error_with_members; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,8 +37,9 @@ abstract class ErrorWithMembers
     );
   }
 
-  factory ErrorWithMembers.build(
-      [void Function(ErrorWithMembersBuilder) updates]) = _$ErrorWithMembers;
+  factory ErrorWithMembers.build([
+    void Function(ErrorWithMembersBuilder) updates,
+  ]) = _$ErrorWithMembers;
 
   const ErrorWithMembers._();
 
@@ -46,14 +47,13 @@ abstract class ErrorWithMembers
   factory ErrorWithMembers.fromResponse(
     ErrorWithMembers payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<ErrorWithMembers>> serializers = [
-    ErrorWithMembersAwsJson11Serializer()
+    ErrorWithMembersAwsJson11Serializer(),
   ];
 
   String? get code;
@@ -68,11 +68,13 @@ abstract class ErrorWithMembers
   String? get stringField;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'aws.protocoltests.json',
-        shape: 'ErrorWithMembers',
-      );
+    namespace: 'aws.protocoltests.json',
+    shape: 'ErrorWithMembers',
+  );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -81,47 +83,28 @@ abstract class ErrorWithMembers
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
-        code,
-        complexData,
-        integerField,
-        listField,
-        mapField,
-        message,
-        stringField,
-      ];
+    code,
+    complexData,
+    integerField,
+    listField,
+    mapField,
+    message,
+    stringField,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ErrorWithMembers')
-      ..add(
-        'code',
-        code,
-      )
-      ..add(
-        'complexData',
-        complexData,
-      )
-      ..add(
-        'integerField',
-        integerField,
-      )
-      ..add(
-        'listField',
-        listField,
-      )
-      ..add(
-        'mapField',
-        mapField,
-      )
-      ..add(
-        'message',
-        message,
-      )
-      ..add(
-        'stringField',
-        stringField,
-      );
+      ..add('code', code)
+      ..add('complexData', complexData)
+      ..add('integerField', integerField)
+      ..add('listField', listField)
+      ..add('mapField', mapField)
+      ..add('message', message)
+      ..add('stringField', stringField);
     return helper.toString();
   }
 }
@@ -131,17 +114,13 @@ class ErrorWithMembersAwsJson11Serializer
   const ErrorWithMembersAwsJson11Serializer() : super('ErrorWithMembers');
 
   @override
-  Iterable<Type> get types => const [
-        ErrorWithMembers,
-        _$ErrorWithMembers,
-      ];
+  Iterable<Type> get types => const [ErrorWithMembers, _$ErrorWithMembers];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   ErrorWithMembers deserialize(
     Serializers serializers,
@@ -159,49 +138,62 @@ class ErrorWithMembersAwsJson11Serializer
       }
       switch (key) {
         case 'Code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ComplexData':
-          result.complexData.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(KitchenSink),
-          ) as KitchenSink));
+          result.complexData.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(KitchenSink),
+                )
+                as KitchenSink),
+          );
         case 'IntegerField':
-          result.integerField = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.integerField =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'ListField':
-          result.listField.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i3.BuiltList<String>));
+          result.listField.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltList<String>),
+          );
         case 'MapField':
-          result.mapField.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.mapField.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'StringField':
-          result.stringField = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.stringField =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -222,72 +214,74 @@ class ErrorWithMembersAwsJson11Serializer
       :listField,
       :mapField,
       :message,
-      :stringField
+      :stringField,
     ) = object;
     if (code != null) {
       result$
         ..add('Code')
-        ..add(serializers.serialize(
-          code,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(code, specifiedType: const FullType(String)),
+        );
     }
     if (complexData != null) {
       result$
         ..add('ComplexData')
-        ..add(serializers.serialize(
-          complexData,
-          specifiedType: const FullType(KitchenSink),
-        ));
+        ..add(
+          serializers.serialize(
+            complexData,
+            specifiedType: const FullType(KitchenSink),
+          ),
+        );
     }
     if (integerField != null) {
       result$
         ..add('IntegerField')
-        ..add(serializers.serialize(
-          integerField,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(
+            integerField,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     if (listField != null) {
       result$
         ..add('ListField')
-        ..add(serializers.serialize(
-          listField,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
+        ..add(
+          serializers.serialize(
+            listField,
+            specifiedType: const FullType(_i3.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     if (mapField != null) {
       result$
         ..add('MapField')
-        ..add(serializers.serialize(
-          mapField,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            mapField,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (message != null) {
       result$
         ..add('Message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (stringField != null) {
       result$
         ..add('StringField')
-        ..add(serializers.serialize(
-          stringField,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            stringField,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

@@ -10,20 +10,19 @@ class _$MediaTypeHeaderInput extends MediaTypeHeaderInput {
   @override
   final _i3.JsonObject? json;
 
-  factory _$MediaTypeHeaderInput(
-          [void Function(MediaTypeHeaderInputBuilder)? updates]) =>
-      (new MediaTypeHeaderInputBuilder()..update(updates))._build();
+  factory _$MediaTypeHeaderInput([
+    void Function(MediaTypeHeaderInputBuilder)? updates,
+  ]) => (MediaTypeHeaderInputBuilder()..update(updates))._build();
 
   _$MediaTypeHeaderInput._({this.json}) : super._();
-
   @override
   MediaTypeHeaderInput rebuild(
-          void Function(MediaTypeHeaderInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MediaTypeHeaderInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MediaTypeHeaderInputBuilder toBuilder() =>
-      new MediaTypeHeaderInputBuilder()..replace(this);
+      MediaTypeHeaderInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +60,6 @@ class MediaTypeHeaderInputBuilder
 
   @override
   void replace(MediaTypeHeaderInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MediaTypeHeaderInput;
   }
 
@@ -74,27 +72,26 @@ class MediaTypeHeaderInputBuilder
   MediaTypeHeaderInput build() => _build();
 
   _$MediaTypeHeaderInput _build() {
-    final _$result = _$v ?? new _$MediaTypeHeaderInput._(json: json);
+    final _$result = _$v ?? _$MediaTypeHeaderInput._(json: json);
     replace(_$result);
     return _$result;
   }
 }
 
 class _$MediaTypeHeaderInputPayload extends MediaTypeHeaderInputPayload {
-  factory _$MediaTypeHeaderInputPayload(
-          [void Function(MediaTypeHeaderInputPayloadBuilder)? updates]) =>
-      (new MediaTypeHeaderInputPayloadBuilder()..update(updates))._build();
+  factory _$MediaTypeHeaderInputPayload([
+    void Function(MediaTypeHeaderInputPayloadBuilder)? updates,
+  ]) => (MediaTypeHeaderInputPayloadBuilder()..update(updates))._build();
 
   _$MediaTypeHeaderInputPayload._() : super._();
-
   @override
   MediaTypeHeaderInputPayload rebuild(
-          void Function(MediaTypeHeaderInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MediaTypeHeaderInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MediaTypeHeaderInputPayloadBuilder toBuilder() =>
-      new MediaTypeHeaderInputPayloadBuilder()..replace(this);
+      MediaTypeHeaderInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -110,15 +107,16 @@ class _$MediaTypeHeaderInputPayload extends MediaTypeHeaderInputPayload {
 
 class MediaTypeHeaderInputPayloadBuilder
     implements
-        Builder<MediaTypeHeaderInputPayload,
-            MediaTypeHeaderInputPayloadBuilder> {
+        Builder<
+          MediaTypeHeaderInputPayload,
+          MediaTypeHeaderInputPayloadBuilder
+        > {
   _$MediaTypeHeaderInputPayload? _$v;
 
   MediaTypeHeaderInputPayloadBuilder();
 
   @override
   void replace(MediaTypeHeaderInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MediaTypeHeaderInputPayload;
   }
 
@@ -131,7 +129,7 @@ class MediaTypeHeaderInputPayloadBuilder
   MediaTypeHeaderInputPayload build() => _build();
 
   _$MediaTypeHeaderInputPayload _build() {
-    final _$result = _$v ?? new _$MediaTypeHeaderInputPayload._();
+    final _$result = _$v ?? _$MediaTypeHeaderInputPayload._();
     replace(_$result);
     return _$result;
   }

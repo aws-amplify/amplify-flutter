@@ -29,13 +29,14 @@ abstract class EventFeedbackType
   }
 
   /// Specifies the event feedback type.
-  factory EventFeedbackType.build(
-      [void Function(EventFeedbackTypeBuilder) updates]) = _$EventFeedbackType;
+  factory EventFeedbackType.build([
+    void Function(EventFeedbackTypeBuilder) updates,
+  ]) = _$EventFeedbackType;
 
   const EventFeedbackType._();
 
   static const List<_i2.SmithySerializer<EventFeedbackType>> serializers = [
-    EventFeedbackTypeAwsJson11Serializer()
+    EventFeedbackTypeAwsJson11Serializer(),
   ];
 
   /// The authentication event feedback value. When you provide a `FeedbackValue` value of `valid`, you tell Amazon Cognito that you trust a user session where Amazon Cognito has evaluated some level of risk. When you provide a `FeedbackValue` value of `invalid`, you tell Amazon Cognito that you don't trust a user session, or you don't believe that Amazon Cognito evaluated a high-enough risk level.
@@ -47,26 +48,13 @@ abstract class EventFeedbackType
   /// The event feedback date.
   DateTime? get feedbackDate;
   @override
-  List<Object?> get props => [
-        feedbackValue,
-        provider,
-        feedbackDate,
-      ];
+  List<Object?> get props => [feedbackValue, provider, feedbackDate];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EventFeedbackType')
-      ..add(
-        'feedbackValue',
-        feedbackValue,
-      )
-      ..add(
-        'provider',
-        provider,
-      )
-      ..add(
-        'feedbackDate',
-        feedbackDate,
-      );
+      ..add('feedbackValue', feedbackValue)
+      ..add('provider', provider)
+      ..add('feedbackDate', feedbackDate);
     return helper.toString();
   }
 }
@@ -76,17 +64,11 @@ class EventFeedbackTypeAwsJson11Serializer
   const EventFeedbackTypeAwsJson11Serializer() : super('EventFeedbackType');
 
   @override
-  Iterable<Type> get types => const [
-        EventFeedbackType,
-        _$EventFeedbackType,
-      ];
+  Iterable<Type> get types => const [EventFeedbackType, _$EventFeedbackType];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
   @override
   EventFeedbackType deserialize(
     Serializers serializers,
@@ -104,20 +86,26 @@ class EventFeedbackTypeAwsJson11Serializer
       }
       switch (key) {
         case 'FeedbackValue':
-          result.feedbackValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(FeedbackValueType),
-          ) as FeedbackValueType);
+          result.feedbackValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(FeedbackValueType),
+                  )
+                  as FeedbackValueType);
         case 'Provider':
-          result.provider = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.provider =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'FeedbackDate':
-          result.feedbackDate = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.feedbackDate =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
       }
     }
 
@@ -139,18 +127,17 @@ class EventFeedbackTypeAwsJson11Serializer
         specifiedType: const FullType(FeedbackValueType),
       ),
       'Provider',
-      serializers.serialize(
-        provider,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(provider, specifiedType: const FullType(String)),
     ]);
     if (feedbackDate != null) {
       result$
         ..add('FeedbackDate')
-        ..add(serializers.serialize(
-          feedbackDate,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            feedbackDate,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     return result$;
   }

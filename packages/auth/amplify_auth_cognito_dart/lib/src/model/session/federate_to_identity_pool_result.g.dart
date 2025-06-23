@@ -7,16 +7,21 @@ part of 'federate_to_identity_pool_result.dart';
 // **************************************************************************
 
 FederateToIdentityPoolResult _$FederateToIdentityPoolResultFromJson(
-        Map<String, dynamic> json) =>
-    FederateToIdentityPoolResult(
-      identityId: json['identityId'] as String,
-      credentials:
-          AWSCredentials.fromJson(json['credentials'] as Map<String, dynamic>),
-    );
+  Map<String, dynamic> json,
+) => $checkedCreate('FederateToIdentityPoolResult', json, ($checkedConvert) {
+  final val = FederateToIdentityPoolResult(
+    identityId: $checkedConvert('identityId', (v) => v as String),
+    credentials: $checkedConvert(
+      'credentials',
+      (v) => AWSCredentials.fromJson(v as Map<String, dynamic>),
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$FederateToIdentityPoolResultToJson(
-        FederateToIdentityPoolResult instance) =>
-    <String, dynamic>{
-      'identityId': instance.identityId,
-      'credentials': instance.credentials.toJson(),
-    };
+  FederateToIdentityPoolResult instance,
+) => <String, dynamic>{
+  'identityId': instance.identityId,
+  'credentials': instance.credentials.toJson(),
+};

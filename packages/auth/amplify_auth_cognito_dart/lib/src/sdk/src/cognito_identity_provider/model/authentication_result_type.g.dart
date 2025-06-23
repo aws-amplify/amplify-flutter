@@ -20,30 +20,26 @@ class _$AuthenticationResultType extends AuthenticationResultType {
   @override
   final NewDeviceMetadataType? newDeviceMetadata;
 
-  factory _$AuthenticationResultType(
-          [void Function(AuthenticationResultTypeBuilder)? updates]) =>
-      (new AuthenticationResultTypeBuilder()..update(updates))._build();
+  factory _$AuthenticationResultType([
+    void Function(AuthenticationResultTypeBuilder)? updates,
+  ]) => (AuthenticationResultTypeBuilder()..update(updates))._build();
 
-  _$AuthenticationResultType._(
-      {this.accessToken,
-      required this.expiresIn,
-      this.tokenType,
-      this.refreshToken,
-      this.idToken,
-      this.newDeviceMetadata})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        expiresIn, r'AuthenticationResultType', 'expiresIn');
-  }
-
+  _$AuthenticationResultType._({
+    this.accessToken,
+    required this.expiresIn,
+    this.tokenType,
+    this.refreshToken,
+    this.idToken,
+    this.newDeviceMetadata,
+  }) : super._();
   @override
   AuthenticationResultType rebuild(
-          void Function(AuthenticationResultTypeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AuthenticationResultTypeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AuthenticationResultTypeBuilder toBuilder() =>
-      new AuthenticationResultTypeBuilder()..replace(this);
+      AuthenticationResultTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -98,7 +94,7 @@ class AuthenticationResultTypeBuilder
 
   NewDeviceMetadataTypeBuilder? _newDeviceMetadata;
   NewDeviceMetadataTypeBuilder get newDeviceMetadata =>
-      _$this._newDeviceMetadata ??= new NewDeviceMetadataTypeBuilder();
+      _$this._newDeviceMetadata ??= NewDeviceMetadataTypeBuilder();
   set newDeviceMetadata(NewDeviceMetadataTypeBuilder? newDeviceMetadata) =>
       _$this._newDeviceMetadata = newDeviceMetadata;
 
@@ -122,7 +118,6 @@ class AuthenticationResultTypeBuilder
 
   @override
   void replace(AuthenticationResultType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AuthenticationResultType;
   }
 
@@ -137,23 +132,31 @@ class AuthenticationResultTypeBuilder
   _$AuthenticationResultType _build() {
     _$AuthenticationResultType _$result;
     try {
-      _$result = _$v ??
-          new _$AuthenticationResultType._(
-              accessToken: accessToken,
-              expiresIn: BuiltValueNullFieldError.checkNotNull(
-                  expiresIn, r'AuthenticationResultType', 'expiresIn'),
-              tokenType: tokenType,
-              refreshToken: refreshToken,
-              idToken: idToken,
-              newDeviceMetadata: _newDeviceMetadata?.build());
+      _$result =
+          _$v ??
+          _$AuthenticationResultType._(
+            accessToken: accessToken,
+            expiresIn: BuiltValueNullFieldError.checkNotNull(
+              expiresIn,
+              r'AuthenticationResultType',
+              'expiresIn',
+            ),
+            tokenType: tokenType,
+            refreshToken: refreshToken,
+            idToken: idToken,
+            newDeviceMetadata: _newDeviceMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'newDeviceMetadata';
         _newDeviceMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'AuthenticationResultType', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'AuthenticationResultType',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

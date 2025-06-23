@@ -72,10 +72,7 @@ class AWSProfileFileStandardizer {
         final credentialsProfile = profile.value;
         config.profiles.updateValue(
           credentialsProfileName,
-          (configProfile) => _mergeProfiles(
-            configProfile,
-            credentialsProfile,
-          ),
+          (configProfile) => _mergeProfiles(configProfile, credentialsProfile),
           ifAbsent: () => credentialsProfile,
         );
       }
@@ -153,10 +150,7 @@ class AWSProfileFileStandardizer {
       builder.clear();
       for (final profile in profiles.entries) {
         final profileName = profile.key;
-        final standardizedName = _standardizeProfileName(
-          type,
-          profileName,
-        );
+        final standardizedName = _standardizeProfileName(type, profileName);
         if (standardizedName == null) {
           continue;
         }
@@ -189,10 +183,7 @@ class AWSProfileFileStandardizer {
           (p) => p
             ..name = standardizedName
             ..properties.replace(
-              _standardizeProperties(
-                standardizedName,
-                p.properties.build(),
-              ),
+              _standardizeProperties(standardizedName, p.properties.build()),
             ),
         );
       }

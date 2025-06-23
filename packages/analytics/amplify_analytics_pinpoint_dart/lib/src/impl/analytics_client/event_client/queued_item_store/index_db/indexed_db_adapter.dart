@@ -2,13 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:js_util';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:aws_common/src/js/indexed_db.dart';
 import 'package:collection/collection.dart';
+import 'package:web/web.dart';
 
 // TODO(kylechen): Consider merging/refactoring with existing 'amplify_secure_storage_web - _IndexedDBStorage' class
 /// {@template amplify_analytics_pinpoint_dart.indexed_db_adapter}
@@ -38,28 +40,33 @@ class IndexedDbAdapter implements QueuedItemStore {
     if (db == null) {
       throw const InvalidStateException('IndexedDB is not available');
     }
+    void onUpgradeNeeded(IDBVersionChangeEvent event) {
+      final database = event.target?.getProperty<IDBDatabase>('result'.toJS);
+      final objectStoreNames = database?.objectStoreNames;
+      if (!(objectStoreNames?.contains(storeName) ?? false)) {
+        database?.createObjectStore(
+          storeName,
+          IDBObjectStoreParameters(keyPath: 'id'.toJS, autoIncrement: true),
+        );
+      }
+    }
+
     final openRequest = db.open(databaseName, 1)
-      ..onupgradeneeded = (event) {
-        final database = event.target.result;
-        final objectStoreNames = database.objectStoreNames;
-        if (!objectStoreNames.contains(storeName)) {
-          database.createObjectStore(
-            storeName,
-            keyPath: 'id',
-            autoIncrement: true,
-          );
-        }
-      };
-    _database = await openRequest.future;
+      ..onupgradeneeded = onUpgradeNeeded.toJS;
+
+    final result = await openRequest.future;
+    if (result.isA<IDBDatabase>()) {
+      result as IDBDatabase;
+      _database = result;
+    } else {
+      throw const InvalidStateException('IDBOpenDBRequest failed');
+    }
   }
 
   /// Returns a new [IDBObjectStore] instance after waiting for initialization
   /// to complete.
   IDBObjectStore _getObjectStore() {
-    final transaction = _database.transaction(
-      storeName,
-      mode: IDBTransactionMode.readwrite,
-    );
+    final transaction = _database.transaction(storeName.toJS, 'readwrite');
     final store = transaction.objectStore(storeName);
     return store;
   }
@@ -67,7 +74,9 @@ class IndexedDbAdapter implements QueuedItemStore {
   @override
   Future<void> addItem(String string) async {
     await _databaseOpenEvent;
-    await _getObjectStore().push({'value': string}).future;
+    final item = JSObject()..setProperty('value'.toJS, string.toJS);
+
+    await _getObjectStore().add(item).future;
   }
 
   @override
@@ -76,17 +85,27 @@ class IndexedDbAdapter implements QueuedItemStore {
 
     await _databaseOpenEvent;
     final store = _getObjectStore();
-    final request = store.getAll(null, count);
+
+    late IDBRequest request;
+    if (count == null) {
+      request = store.getAll();
+    } else {
+      request = store.getAll(null, count);
+    }
 
     await request.future;
+    final jsResult = request.result;
+    var result = <JSObject>[];
+    if (jsResult.isA<JSArray<JSObject>>()) {
+      jsResult as JSArray<JSObject>;
+      result = jsResult.toDart;
+    }
 
-    for (final elem in request.result) {
-      final value = elem as Object;
-      final id = getProperty<int>(value, 'id');
-      final string = getProperty<String>(value, 'value');
-      readValues.add(
-        QueuedItem(id: id, value: string),
-      );
+    for (final elem in result) {
+      final id = elem.getProperty<JSNumber>('id'.toJS).toDartInt;
+      final string = elem.getProperty<JSString>('value'.toJS).toDart;
+
+      readValues.add(QueuedItem(id: id, value: string));
     }
     return readValues;
   }
@@ -100,12 +119,10 @@ class IndexedDbAdapter implements QueuedItemStore {
     await _databaseOpenEvent;
     final store = _getObjectStore();
 
-    final ranges = idsToDelete.splitBetween((a, b) => b != a + 1).map(
-          (range) => IDBKeyRange.bound(range.first, range.last),
-        );
-    await Future.wait<void>(
-      ranges.map((range) => store.deleteByKeyRange(range).future),
-    );
+    final ranges = idsToDelete
+        .splitBetween((a, b) => b != a + 1)
+        .map((range) => IDBKeyRange.bound(range.first.toJS, range.last.toJS));
+    await Future.wait<void>(ranges.map((range) => store.delete(range).future));
   }
 
   /// Clear the database.

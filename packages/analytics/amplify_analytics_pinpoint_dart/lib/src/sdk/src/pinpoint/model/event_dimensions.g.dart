@@ -15,18 +15,16 @@ class _$EventDimensions extends EventDimensions {
   final _i2.BuiltMap<String, MetricDimension>? metrics;
 
   factory _$EventDimensions([void Function(EventDimensionsBuilder)? updates]) =>
-      (new EventDimensionsBuilder()..update(updates))._build();
+      (EventDimensionsBuilder()..update(updates))._build();
 
   _$EventDimensions._({this.attributes, this.eventType, this.metrics})
-      : super._();
-
+    : super._();
   @override
   EventDimensions rebuild(void Function(EventDimensionsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EventDimensionsBuilder toBuilder() =>
-      new EventDimensionsBuilder()..replace(this);
+  EventDimensionsBuilder toBuilder() => EventDimensionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -54,19 +52,19 @@ class EventDimensionsBuilder
 
   _i2.MapBuilder<String, AttributeDimension>? _attributes;
   _i2.MapBuilder<String, AttributeDimension> get attributes =>
-      _$this._attributes ??= new _i2.MapBuilder<String, AttributeDimension>();
+      _$this._attributes ??= _i2.MapBuilder<String, AttributeDimension>();
   set attributes(_i2.MapBuilder<String, AttributeDimension>? attributes) =>
       _$this._attributes = attributes;
 
   SetDimensionBuilder? _eventType;
   SetDimensionBuilder get eventType =>
-      _$this._eventType ??= new SetDimensionBuilder();
+      _$this._eventType ??= SetDimensionBuilder();
   set eventType(SetDimensionBuilder? eventType) =>
       _$this._eventType = eventType;
 
   _i2.MapBuilder<String, MetricDimension>? _metrics;
   _i2.MapBuilder<String, MetricDimension> get metrics =>
-      _$this._metrics ??= new _i2.MapBuilder<String, MetricDimension>();
+      _$this._metrics ??= _i2.MapBuilder<String, MetricDimension>();
   set metrics(_i2.MapBuilder<String, MetricDimension>? metrics) =>
       _$this._metrics = metrics;
 
@@ -85,7 +83,6 @@ class EventDimensionsBuilder
 
   @override
   void replace(EventDimensions other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EventDimensions;
   }
 
@@ -100,11 +97,13 @@ class EventDimensionsBuilder
   _$EventDimensions _build() {
     _$EventDimensions _$result;
     try {
-      _$result = _$v ??
-          new _$EventDimensions._(
-              attributes: _attributes?.build(),
-              eventType: _eventType?.build(),
-              metrics: _metrics?.build());
+      _$result =
+          _$v ??
+          _$EventDimensions._(
+            attributes: _attributes?.build(),
+            eventType: _eventType?.build(),
+            metrics: _metrics?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -115,8 +114,11 @@ class EventDimensionsBuilder
         _$failedField = 'metrics';
         _metrics?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'EventDimensions', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'EventDimensions',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -27,20 +27,18 @@ abstract class StatsEvent
   const StatsEvent._();
 
   static const List<_i2.SmithySerializer<StatsEvent>> serializers = [
-    StatsEventRestXmlSerializer()
+    StatsEventRestXmlSerializer(),
   ];
 
   /// The Stats event details.
   Stats? get details;
   @override
   List<Object?> get props => [details];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StatsEvent')
-      ..add(
-        'details',
-        details,
-      );
+      ..add('details', details);
     return helper.toString();
   }
 }
@@ -50,17 +48,13 @@ class StatsEventRestXmlSerializer
   const StatsEventRestXmlSerializer() : super('StatsEvent');
 
   @override
-  Iterable<Type> get types => const [
-        StatsEvent,
-        _$StatsEvent,
-      ];
+  Iterable<Type> get types => const [StatsEvent, _$StatsEvent];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   StatsEvent deserialize(
     Serializers serializers,
@@ -78,10 +72,13 @@ class StatsEventRestXmlSerializer
       }
       switch (key) {
         case 'Details':
-          result.details.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(Stats),
-          ) as Stats));
+          result.details.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(Stats),
+                )
+                as Stats),
+          );
       }
     }
 
@@ -98,16 +95,15 @@ class StatsEventRestXmlSerializer
       const _i2.XmlElementName(
         'StatsEvent',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final StatsEvent(:details) = object;
     if (details != null) {
       result$
         ..add(const _i2.XmlElementName('Details'))
-        ..add(serializers.serialize(
-          details,
-          specifiedType: const FullType(Stats),
-        ));
+        ..add(
+          serializers.serialize(details, specifiedType: const FullType(Stats)),
+        );
     }
     return result$;
   }

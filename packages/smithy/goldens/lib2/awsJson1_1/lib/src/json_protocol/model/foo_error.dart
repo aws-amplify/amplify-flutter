@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v2.json_protocol.model.foo_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,25 +31,25 @@ abstract class FooError
   factory FooError.fromResponse(
     FooError payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<FooError>> serializers = [
-    FooErrorAwsJson11Serializer()
+    FooErrorAwsJson11Serializer(),
   ];
 
   @override
-  _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'aws.protocoltests.json',
-        shape: 'FooError',
-      );
+  _i2.ShapeId get shapeId =>
+      const _i2.ShapeId(namespace: 'aws.protocoltests.json', shape: 'FooError');
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -58,8 +58,10 @@ abstract class FooError
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FooError');
@@ -72,17 +74,13 @@ class FooErrorAwsJson11Serializer
   const FooErrorAwsJson11Serializer() : super('FooError');
 
   @override
-  Iterable<Type> get types => const [
-        FooError,
-        _$FooError,
-      ];
+  Iterable<Type> get types => const [FooError, _$FooError];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   FooError deserialize(
     Serializers serializers,
@@ -97,6 +95,5 @@ class FooErrorAwsJson11Serializer
     Serializers serializers,
     FooError object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

@@ -32,33 +32,32 @@ class _$ListObjectsV2Output extends ListObjectsV2Output {
   @override
   final String? startAfter;
 
-  factory _$ListObjectsV2Output(
-          [void Function(ListObjectsV2OutputBuilder)? updates]) =>
-      (new ListObjectsV2OutputBuilder()..update(updates))._build();
+  factory _$ListObjectsV2Output([
+    void Function(ListObjectsV2OutputBuilder)? updates,
+  ]) => (ListObjectsV2OutputBuilder()..update(updates))._build();
 
-  _$ListObjectsV2Output._(
-      {this.isTruncated,
-      this.contents,
-      this.name,
-      this.prefix,
-      this.delimiter,
-      this.maxKeys,
-      this.commonPrefixes,
-      this.encodingType,
-      this.keyCount,
-      this.continuationToken,
-      this.nextContinuationToken,
-      this.startAfter})
-      : super._();
-
+  _$ListObjectsV2Output._({
+    this.isTruncated,
+    this.contents,
+    this.name,
+    this.prefix,
+    this.delimiter,
+    this.maxKeys,
+    this.commonPrefixes,
+    this.encodingType,
+    this.keyCount,
+    this.continuationToken,
+    this.nextContinuationToken,
+    this.startAfter,
+  }) : super._();
   @override
   ListObjectsV2Output rebuild(
-          void Function(ListObjectsV2OutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListObjectsV2OutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListObjectsV2OutputBuilder toBuilder() =>
-      new ListObjectsV2OutputBuilder()..replace(this);
+      ListObjectsV2OutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -108,7 +107,7 @@ class ListObjectsV2OutputBuilder
 
   _i2.ListBuilder<S3Object>? _contents;
   _i2.ListBuilder<S3Object> get contents =>
-      _$this._contents ??= new _i2.ListBuilder<S3Object>();
+      _$this._contents ??= _i2.ListBuilder<S3Object>();
   set contents(_i2.ListBuilder<S3Object>? contents) =>
       _$this._contents = contents;
 
@@ -130,7 +129,7 @@ class ListObjectsV2OutputBuilder
 
   _i2.ListBuilder<CommonPrefix>? _commonPrefixes;
   _i2.ListBuilder<CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i2.ListBuilder<CommonPrefix>();
+      _$this._commonPrefixes ??= _i2.ListBuilder<CommonPrefix>();
   set commonPrefixes(_i2.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
@@ -181,7 +180,6 @@ class ListObjectsV2OutputBuilder
 
   @override
   void replace(ListObjectsV2Output other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListObjectsV2Output;
   }
 
@@ -196,20 +194,22 @@ class ListObjectsV2OutputBuilder
   _$ListObjectsV2Output _build() {
     _$ListObjectsV2Output _$result;
     try {
-      _$result = _$v ??
-          new _$ListObjectsV2Output._(
-              isTruncated: isTruncated,
-              contents: _contents?.build(),
-              name: name,
-              prefix: prefix,
-              delimiter: delimiter,
-              maxKeys: maxKeys,
-              commonPrefixes: _commonPrefixes?.build(),
-              encodingType: encodingType,
-              keyCount: keyCount,
-              continuationToken: continuationToken,
-              nextContinuationToken: nextContinuationToken,
-              startAfter: startAfter);
+      _$result =
+          _$v ??
+          _$ListObjectsV2Output._(
+            isTruncated: isTruncated,
+            contents: _contents?.build(),
+            name: name,
+            prefix: prefix,
+            delimiter: delimiter,
+            maxKeys: maxKeys,
+            commonPrefixes: _commonPrefixes?.build(),
+            encodingType: encodingType,
+            keyCount: keyCount,
+            continuationToken: continuationToken,
+            nextContinuationToken: nextContinuationToken,
+            startAfter: startAfter,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -219,8 +219,11 @@ class ListObjectsV2OutputBuilder
         _$failedField = 'commonPrefixes';
         _commonPrefixes?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ListObjectsV2Output', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ListObjectsV2Output',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

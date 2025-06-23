@@ -38,28 +38,19 @@ class _UpdateUserAttributesScreenState
 
   void _showSuccess(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.green[800],
-        content: Text(message),
-      ),
+      SnackBar(backgroundColor: Colors.green[800], content: Text(message)),
     );
   }
 
   void _showInfo(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.blue[800],
-        content: Text(message),
-      ),
+      SnackBar(backgroundColor: Colors.blue[800], content: Text(message)),
     );
   }
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.red[900],
-        content: Text(message),
-      ),
+      SnackBar(backgroundColor: Colors.red[900], content: Text(message)),
     );
   }
 
@@ -120,9 +111,7 @@ class _UpdateUserAttributesScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update Attributes'),
-      ),
+      appBar: AppBar(title: const Text('Update Attributes')),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Form(
@@ -173,10 +162,7 @@ class _UpdateUserAttributesScreenState
                         children: [
                           IconButton(
                             padding: EdgeInsets.zero,
-                            icon: const Icon(
-                              Icons.close,
-                              size: 18,
-                            ),
+                            icon: const Icon(Icons.close, size: 18),
                             onPressed: () => _removeAttribute(element),
                           ),
                         ],

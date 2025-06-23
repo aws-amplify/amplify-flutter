@@ -10,7 +10,7 @@ part 'transfer_record.g.dart';
 /// {@template amplify_storage_s3_dart.transfer_data}
 /// the type used by Storage S3 plugin upload operations when using s3 multipart upload.
 /// it is persisted to TransferDatabase.
-/// {@endtemplate amplify_storage_s3_dart.transfer_data}
+/// {@endtemplate}
 @JsonSerializable()
 class TransferRecord {
   /// {@macro amplify_storage_s3_dart.transfer_data}
@@ -18,6 +18,8 @@ class TransferRecord {
     required this.uploadId,
     required this.objectKey,
     required this.createdAt,
+    this.bucketName,
+    this.awsRegion,
   });
 
   /// creates new [TransferRecord] object from a [json] map.
@@ -39,6 +41,12 @@ class TransferRecord {
 
   /// Timestamp of [uploadId] creation.
   final DateTime createdAt;
+
+  /// Amazon S3 bucket name.
+  final String? bucketName;
+
+  /// AWS region of Amazon S3 bucket.
+  final String? awsRegion;
 
   /// return json map representation of [TransferRecord] object.
   Map<String, dynamic> toJson() => _$TransferRecordToJson(this);

@@ -95,16 +95,14 @@ abstract class ConfirmDeviceWorker
 
       // Generate a random BigInt
       final salt = encodeBigInt(decodeBigInt(getRandomBytes(16)));
-      final verifier = SrpHelper.calculateDeviceVerifier(
-        salt,
-        deviceKeyHash,
-      );
+      final verifier = SrpHelper.calculateDeviceVerifier(salt, deviceKeyHash);
       final request = ConfirmDeviceRequest.build((b) {
         b
           ..accessToken = accessToken
           ..deviceKey = deviceKey
-          ..deviceSecretVerifierConfig.passwordVerifier =
-              base64Encode(encodeBigInt(verifier))
+          ..deviceSecretVerifierConfig.passwordVerifier = base64Encode(
+            encodeBigInt(verifier),
+          )
           ..deviceSecretVerifierConfig.salt = base64Encode(salt);
       });
       respond.add(
@@ -121,12 +119,10 @@ abstract class ConfirmDeviceWorker
 }
 
 /// Serializers for the [ConfirmDeviceWorker] worker.
-@SerializersFor([
-  ConfirmDeviceMessage,
-  ConfirmDeviceResponse,
-])
-final Serializers _serializers = (_$_serializers.toBuilder()
-      ..addAll(NewDeviceMetadataType.serializers)
-      ..addAll(ConfirmDeviceRequest.serializers)
-      ..addAll(DeviceSecretVerifierConfigType.serializers))
-    .build();
+@SerializersFor([ConfirmDeviceMessage, ConfirmDeviceResponse])
+final Serializers _serializers =
+    (_$_serializers.toBuilder()
+          ..addAll(NewDeviceMetadataType.serializers)
+          ..addAll(ConfirmDeviceRequest.serializers)
+          ..addAll(DeviceSecretVerifierConfigType.serializers))
+        .build();

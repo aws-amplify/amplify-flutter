@@ -41,9 +41,9 @@ class StreamSerializer<T extends Object>
 
   @override
   Iterable<Type> get types => [
-        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49851
-        Stream,
-      ];
+    // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49851
+    Stream,
+  ];
 
   @override
   String get wireName => 'Stream<$T>';

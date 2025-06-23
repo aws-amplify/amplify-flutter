@@ -14,11 +14,7 @@ import 'package:worker_bee/worker_bee.dart';
 /// {@endtemplate}
 class SendPorts {
   /// {@macro worker_bee.send_ports}
-  const SendPorts(
-    this.messagePort,
-    this.donePort,
-    this.logPort,
-  );
+  const SendPorts(this.messagePort, this.donePort, this.logPort);
 
   /// The port used for communicating messages, passed to the [IsolateChannel]
   /// instance upon launch.
@@ -129,9 +125,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
   }
 
   @override
-  Future<void> close({
-    bool force = false,
-  }) async {
+  Future<void> close({bool force = false}) async {
     await _controller?.close();
     _controller = null;
     await super.close(force: force);

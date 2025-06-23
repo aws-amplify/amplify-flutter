@@ -11,17 +11,15 @@ class _$EventsResponse extends EventsResponse {
   final _i2.BuiltMap<String, ItemResponse>? results;
 
   factory _$EventsResponse([void Function(EventsResponseBuilder)? updates]) =>
-      (new EventsResponseBuilder()..update(updates))._build();
+      (EventsResponseBuilder()..update(updates))._build();
 
   _$EventsResponse._({this.results}) : super._();
-
   @override
   EventsResponse rebuild(void Function(EventsResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EventsResponseBuilder toBuilder() =>
-      new EventsResponseBuilder()..replace(this);
+  EventsResponseBuilder toBuilder() => EventsResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -44,7 +42,7 @@ class EventsResponseBuilder
 
   _i2.MapBuilder<String, ItemResponse>? _results;
   _i2.MapBuilder<String, ItemResponse> get results =>
-      _$this._results ??= new _i2.MapBuilder<String, ItemResponse>();
+      _$this._results ??= _i2.MapBuilder<String, ItemResponse>();
   set results(_i2.MapBuilder<String, ItemResponse>? results) =>
       _$this._results = results;
 
@@ -61,7 +59,6 @@ class EventsResponseBuilder
 
   @override
   void replace(EventsResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EventsResponse;
   }
 
@@ -76,15 +73,18 @@ class EventsResponseBuilder
   _$EventsResponse _build() {
     _$EventsResponse _$result;
     try {
-      _$result = _$v ?? new _$EventsResponse._(results: _results?.build());
+      _$result = _$v ?? _$EventsResponse._(results: _results?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'results';
         _results?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'EventsResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'EventsResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

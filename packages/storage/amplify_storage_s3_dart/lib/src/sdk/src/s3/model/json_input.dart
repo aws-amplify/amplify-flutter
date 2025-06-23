@@ -27,20 +27,17 @@ abstract class JsonInput
   const JsonInput._();
 
   static const List<_i2.SmithySerializer<JsonInput>> serializers = [
-    JsonInputRestXmlSerializer()
+    JsonInputRestXmlSerializer(),
   ];
 
   /// The type of JSON. Valid values: Document, Lines.
   JsonType? get type;
   @override
   List<Object?> get props => [type];
+
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonInput')
-      ..add(
-        'type',
-        type,
-      );
+    final helper = newBuiltValueToStringHelper('JsonInput')..add('type', type);
     return helper.toString();
   }
 }
@@ -50,17 +47,13 @@ class JsonInputRestXmlSerializer
   const JsonInputRestXmlSerializer() : super('JsonInput');
 
   @override
-  Iterable<Type> get types => const [
-        JsonInput,
-        _$JsonInput,
-      ];
+  Iterable<Type> get types => const [JsonInput, _$JsonInput];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   JsonInput deserialize(
     Serializers serializers,
@@ -78,10 +71,12 @@ class JsonInputRestXmlSerializer
       }
       switch (key) {
         case 'Type':
-          result.type = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(JsonType),
-          ) as JsonType);
+          result.type =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(JsonType),
+                  )
+                  as JsonType);
       }
     }
 
@@ -98,16 +93,15 @@ class JsonInputRestXmlSerializer
       const _i2.XmlElementName(
         'JsonInput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final JsonInput(:type) = object;
     if (type != null) {
       result$
         ..add(const _i2.XmlElementName('Type'))
-        ..add(serializers.serialize(
-          type,
-          specifiedType: const FullType(JsonType),
-        ));
+        ..add(
+          serializers.serialize(type, specifiedType: const FullType(JsonType)),
+        );
     }
     return result$;
   }

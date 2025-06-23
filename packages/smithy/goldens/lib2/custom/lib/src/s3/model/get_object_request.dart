@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.s3.model.get_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,15 +24,12 @@ abstract class GetObjectRequest
     required String key,
     String? range,
   }) {
-    return _$GetObjectRequest._(
-      bucket: bucket,
-      key: key,
-      range: range,
-    );
+    return _$GetObjectRequest._(bucket: bucket, key: key, range: range);
   }
 
-  factory GetObjectRequest.build(
-      [void Function(GetObjectRequestBuilder) updates]) = _$GetObjectRequest;
+  factory GetObjectRequest.build([
+    void Function(GetObjectRequestBuilder) updates,
+  ]) = _$GetObjectRequest;
 
   const GetObjectRequest._();
 
@@ -40,18 +37,17 @@ abstract class GetObjectRequest
     GetObjectRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      GetObjectRequest.build((b) {
-        if (request.headers['Range'] != null) {
-          b.range = request.headers['Range']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+  }) => GetObjectRequest.build((b) {
+    if (request.headers['Range'] != null) {
+      b.range = request.headers['Range']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<GetObjectRequestPayload>> serializers =
       [GetObjectRequestRestXmlSerializer()];
@@ -67,35 +63,21 @@ abstract class GetObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   GetObjectRequestPayload getPayload() => GetObjectRequestPayload();
+
   @override
-  List<Object?> get props => [
-        bucket,
-        key,
-        range,
-      ];
+  List<Object?> get props => [bucket, key, range];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'range',
-        range,
-      );
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('range', range);
     return helper.toString();
   }
 }
@@ -106,14 +88,15 @@ abstract class GetObjectRequestPayload
     implements
         Built<GetObjectRequestPayload, GetObjectRequestPayloadBuilder>,
         _i1.EmptyPayload {
-  factory GetObjectRequestPayload(
-          [void Function(GetObjectRequestPayloadBuilder) updates]) =
-      _$GetObjectRequestPayload;
+  factory GetObjectRequestPayload([
+    void Function(GetObjectRequestPayloadBuilder) updates,
+  ]) = _$GetObjectRequestPayload;
 
   const GetObjectRequestPayload._();
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectRequestPayload');
@@ -127,18 +110,17 @@ class GetObjectRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        GetObjectRequest,
-        _$GetObjectRequest,
-        GetObjectRequestPayload,
-        _$GetObjectRequestPayload,
-      ];
+    GetObjectRequest,
+    _$GetObjectRequest,
+    GetObjectRequestPayload,
+    _$GetObjectRequestPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   GetObjectRequestPayload deserialize(
     Serializers serializers,
@@ -158,7 +140,7 @@ class GetObjectRequestRestXmlSerializer
       const _i1.XmlElementName(
         'GetObjectRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.document_type_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,14 +22,15 @@ abstract class DocumentTypeInputOutput
   }) {
     return _$DocumentTypeInputOutput._(
       stringValue: stringValue,
-      documentValue:
-          documentValue == null ? null : _i3.JsonObject(documentValue),
+      documentValue: documentValue == null
+          ? null
+          : _i3.JsonObject(documentValue),
     );
   }
 
-  factory DocumentTypeInputOutput.build(
-          [void Function(DocumentTypeInputOutputBuilder) updates]) =
-      _$DocumentTypeInputOutput;
+  factory DocumentTypeInputOutput.build([
+    void Function(DocumentTypeInputOutputBuilder) updates,
+  ]) = _$DocumentTypeInputOutput;
 
   const DocumentTypeInputOutput._();
 
@@ -37,15 +38,13 @@ abstract class DocumentTypeInputOutput
     DocumentTypeInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [DocumentTypeInputOutput] from a [payload] and [response].
   factory DocumentTypeInputOutput.fromResponse(
     DocumentTypeInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<DocumentTypeInputOutput>> serializers =
       [DocumentTypeInputOutputRestJson1Serializer()];
@@ -54,22 +53,15 @@ abstract class DocumentTypeInputOutput
   _i3.JsonObject? get documentValue;
   @override
   DocumentTypeInputOutput getPayload() => this;
+
   @override
-  List<Object?> get props => [
-        stringValue,
-        documentValue,
-      ];
+  List<Object?> get props => [stringValue, documentValue];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DocumentTypeInputOutput')
-      ..add(
-        'stringValue',
-        stringValue,
-      )
-      ..add(
-        'documentValue',
-        documentValue,
-      );
+      ..add('stringValue', stringValue)
+      ..add('documentValue', documentValue);
     return helper.toString();
   }
 }
@@ -77,20 +69,19 @@ abstract class DocumentTypeInputOutput
 class DocumentTypeInputOutputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<DocumentTypeInputOutput> {
   const DocumentTypeInputOutputRestJson1Serializer()
-      : super('DocumentTypeInputOutput');
+    : super('DocumentTypeInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        DocumentTypeInputOutput,
-        _$DocumentTypeInputOutput,
-      ];
+    DocumentTypeInputOutput,
+    _$DocumentTypeInputOutput,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   DocumentTypeInputOutput deserialize(
     Serializers serializers,
@@ -108,15 +99,19 @@ class DocumentTypeInputOutputRestJson1Serializer
       }
       switch (key) {
         case 'documentValue':
-          result.documentValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i3.JsonObject),
-          ) as _i3.JsonObject);
+          result.documentValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i3.JsonObject),
+                  )
+                  as _i3.JsonObject);
         case 'stringValue':
-          result.stringValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.stringValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -134,18 +129,22 @@ class DocumentTypeInputOutputRestJson1Serializer
     if (documentValue != null) {
       result$
         ..add('documentValue')
-        ..add(serializers.serialize(
-          documentValue,
-          specifiedType: const FullType(_i3.JsonObject),
-        ));
+        ..add(
+          serializers.serialize(
+            documentValue,
+            specifiedType: const FullType(_i3.JsonObject),
+          ),
+        );
     }
     if (stringValue != null) {
       result$
         ..add('stringValue')
-        ..add(serializers.serialize(
-          stringValue,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            stringValue,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

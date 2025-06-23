@@ -43,17 +43,15 @@ class PubDatabase extends _$PubDatabase {
     required String pubspecYaml,
     required String readme,
     required String changelog,
+    required String archiveSha256,
   }) async {
     await transaction(() async {
-      final existingPackage = await (select(packages)
-            ..where((p) => p.name.equals(name)))
-          .getSingleOrNull();
+      final existingPackage = await (select(
+        packages,
+      )..where((p) => p.name.equals(name))).getSingleOrNull();
       if (existingPackage == null) {
         await into(packages).insert(
-          PackagesCompanion.insert(
-            name: name,
-            latest: version.toString(),
-          ),
+          PackagesCompanion.insert(name: name, latest: version.toString()),
         );
       }
       await into(packageVersions).insert(
@@ -65,6 +63,7 @@ class PubDatabase extends _$PubDatabase {
           readme: readme,
           changelog: changelog,
           published: DateTime.now(),
+          archiveSha256: archiveSha256,
         ),
       );
     });
@@ -72,15 +71,15 @@ class PubDatabase extends _$PubDatabase {
 
   /// Returns the package with the given [packageName].
   Future<PubPackage?> getPackage(String packageName) async {
-    final package = await (select(packages)
-          ..where((p) => p.name.equals(packageName)))
-        .getSingleOrNull();
+    final package = await (select(
+      packages,
+    )..where((p) => p.name.equals(packageName))).getSingleOrNull();
     if (package == null) {
       return null;
     }
-    final versions = await (select(packageVersions)
-          ..where((row) => row.package.equals(packageName)))
-        .get();
+    final versions = await (select(
+      packageVersions,
+    )..where((row) => row.package.equals(packageName))).get();
     versions.sort((a, b) {
       return -Version.parse(a.version).compareTo(Version.parse(b.version));
     });
@@ -111,6 +110,7 @@ class PackageVersions extends Table {
   TextColumn get readme => text()();
   TextColumn get changelog => text()();
   DateTimeColumn get published => dateTime()();
+  TextColumn get archiveSha256 => text()();
 
   @override
   Set<Column<Object>> get primaryKey => {package, version};

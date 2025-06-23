@@ -14,10 +14,10 @@ void main() {
   testRunner.setupTests();
 
   group('sign-in-sms-totp-mfa', () {
-    testRunner.withEnvironment(MfaEnvironment.mfaRequiredSmsTotp, () {
+    testRunner.withEnvironment(mfaRequiredSmsTotp, (env) {
       // Scenario: Sign in using a totp code when both SMS and TOTP are enabled
       testWidgets('can select TOTP MFA', (tester) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generateUSPhoneNumber();
 
@@ -26,9 +26,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-          },
+          attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
         );
 
         await loadAuthenticator(tester: tester);
@@ -50,8 +48,9 @@ void main() {
         final signInPage = SignInPage(tester: tester);
         final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-        final smsResult =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+        final smsResult = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // When I type my "username"
         await signInPage.enterUsername(username);
@@ -121,7 +120,7 @@ void main() {
 
       // Scenario: Sign in using a SMS code when both SMS and TOTP are enabled
       testWidgets('can select SMS MFA', (tester) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generateUSPhoneNumber();
 
@@ -130,9 +129,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-          },
+          attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
         );
 
         await loadAuthenticator(tester: tester);
@@ -154,8 +151,9 @@ void main() {
         final signInPage = SignInPage(tester: tester);
         final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-        final smsResult_1 =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+        final smsResult_1 = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // When I type my "username"
         await signInPage.enterUsername(username);
@@ -200,8 +198,9 @@ void main() {
         // Then I will be redirected to the MFA selection page
         await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
 
-        final smsResult_2 =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+        final smsResult_2 = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // When I select "SMS"
         await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);

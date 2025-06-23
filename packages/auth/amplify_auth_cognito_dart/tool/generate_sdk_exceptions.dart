@@ -36,7 +36,7 @@ void main(List<String> args) async {
 // Generated with tool/generate_sdk_exceptions.dart. Do not modify by hand.
 
 /// Exception types bridged from generated SDKs to their legacy counterparts.
-library amplify_auth_cognito_dart.sdk.sdk_exception;
+library;
 
 import 'package:amplify_core/amplify_core.dart' as core;
 import 'package:meta/meta.dart';
@@ -59,30 +59,27 @@ sealed class CognitoServiceException extends core.AuthServiceException {
 /// {@endtemplate}
 final class LambdaException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk.lambda_exception}
-  factory LambdaException(String message, {
-    String? recoverySuggestion, 
-    Object? underlyingException,
-  }) {
-    final match = _errorRegex.firstMatch(message);
-    final lambdaName = match?.group(1);
-    final parsedMessage = match?.group(2);
-    if (parsedMessage != null) {
-      message = parsedMessage;
-    }
-    return LambdaException._(
-      message,
-      lambdaName: lambdaName,
-      recoverySuggestion: recoverySuggestion,
-      underlyingException: underlyingException,
-    );
-  }
-
-  const LambdaException._(
+  const LambdaException(
     super.message, {
-    this.lambdaName,
     super.recoverySuggestion,
     super.underlyingException,
-  });
+  }) : _message = message;
+
+  final String _message;
+
+  @override
+  String get message {
+    final match = _errorRegex.firstMatch(_message);
+    final parsedMessage = match?.group(2);
+    return parsedMessage ?? _message;
+  }
+
+  /// The name of the lambda which triggered this exception.
+  String? get lambdaName {
+    final match = _errorRegex.firstMatch(_message);
+    final lambdaName = match?.group(1);
+    return lambdaName;
+  }
 
   /// Whether [exception] originated in a user Lambda.
   static bool isLambdaException(String exception) =>
@@ -95,9 +92,6 @@ final class LambdaException extends CognitoServiceException {
   /// send back any special code to distinguish these from other, more general
   /// errors.
   static final RegExp _errorRegex = RegExp(r'(\w+) failed with error (.*)\.');
-
-  /// The name of the lambda which triggered this exception.
-  final String? lambdaName;
 
   @override
   String get runtimeTypeName => 'LambdaException';
@@ -115,27 +109,6 @@ final class UnknownServiceException extends CognitoServiceException
   String get runtimeTypeName => 'UnknownServiceException';
 }
 
-/// Exception thrown when a verification code provided to the requested service
-/// is expired.
-@Deprecated('Use ExpiredCodeException instead')
-typedef CodeExpiredException = ExpiredCodeException;
-
-/// Exception thrown when the software token time-based one-time password (TOTP)
-/// multi-factor authentication (MFA) isn't activated for the user pool.
-@Deprecated('Use SoftwareTokenMfaNotFoundException instead')
-typedef SoftwareTokenMFANotFoundException
-    = SoftwareTokenMfaNotFoundException;
-
-/// Exception thrown when too many failed attempts for a given action has been
-/// made, such as sign-in.
-@Deprecated('Use TooManyFailedAttemptsException instead')
-typedef FailedAttemptsLimitExceededException
-    = TooManyFailedAttemptsException;
-
-/// Exception thrown when the requested service cannot find a multi-factor
-/// authentication (MFA) method.
-@Deprecated('Use MfaMethodNotFoundException instead')
-typedef MFAMethodNotFoundException = MfaMethodNotFoundException;
 ''');
 
   // Collect errors
@@ -147,12 +120,13 @@ typedef MFAMethodNotFoundException = MfaMethodNotFoundException;
   );
   final operationShapes = ast.shapes.values.whereType<OperationShape>();
   // Find error shapes which are attached to an operation we use.
-  final errorShapes =
-      ast.shapes.values.where((s) => s.hasTrait<ErrorTrait>()).where(
-            (e) => operationShapes.any(
-              (o) => o.errors.map((ref) => ref.target).contains(e.shapeId),
-            ),
-          );
+  final errorShapes = ast.shapes.values
+      .where((s) => s.hasTrait<ErrorTrait>())
+      .where(
+        (e) => operationShapes.any(
+          (o) => o.errors.map((ref) => ref.target).contains(e.shapeId),
+        ),
+      );
   final uniqueErrorShapes = LinkedHashSet<Shape>(
     equals: (a, b) => a.shapeId.shape == b.shapeId.shape,
     hashCode: (s) => s.shapeId.shape.hashCode,
@@ -164,6 +138,11 @@ typedef MFAMethodNotFoundException = MfaMethodNotFoundException;
 
     final hasCoreType = authExceptions.keys.contains(shapeName);
     final className = authExceptions[shapeName] ?? shapeName.pascalCase;
+    final isLambdaException = [
+      'InvalidLambdaResponseException',
+      'UnexpectedLambdaException',
+      'UserLambdaValidationException',
+    ].contains(shapeName);
     final templateName =
         'amplify_auth_cognito_dart.sdk_exception.${shapeName.snakeCase}';
     final docs = shape.formattedDocs(context);
@@ -171,7 +150,7 @@ typedef MFAMethodNotFoundException = MfaMethodNotFoundException;
 /// {@template $templateName}
 ${docs.isEmpty ? '/// Cognito `$shapeName` exception' : docs}
 /// {@endtemplate}
-final class $className extends CognitoServiceException ${hasCoreType ? 'implements core.Auth$shapeName' : ''} {
+final class $className extends ${isLambdaException ? 'LambdaException' : 'CognitoServiceException'} ${hasCoreType ? 'implements core.Auth$shapeName' : ''} {
   /// {@macro $templateName}
   const $className(
     super.message, {
@@ -197,15 +176,6 @@ Object transformSdkException(Object e) {
   final message = e.message ?? 'An unknown error occurred';
   final shapeName = e.shapeId?.shape;
 
-  // Some exceptions are returned as non-Lambda exceptions even though they
-  // orginated in user-defined lambdas.
-  if (LambdaException.isLambdaException(message) ||
-      shapeName == 'InvalidLambdaResponseException' ||
-      shapeName == 'UnexpectedLambdaException' ||
-      shapeName == 'UserLambdaValidationException') {
-    return LambdaException(message, underlyingException: e);
-  }
-
   return switch (shapeName) {
 ''');
 
@@ -217,7 +187,14 @@ Object transformSdkException(Object e) {
   }
 
   exceptions.write('''
-    _ => UnknownServiceException(message, underlyingException: e),
+    _ => (() {
+        // Some exceptions are returned as non-Lambda exceptions even though they
+        // originated in user-defined lambdas.
+        if (LambdaException.isLambdaException(message)) {
+          return LambdaException(message, underlyingException: e);
+        }
+        return UnknownServiceException(message, underlyingException: e);
+      })(),
   };
 }
 ''');

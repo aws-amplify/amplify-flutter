@@ -12,20 +12,19 @@ class _$ExpiredCodeException extends ExpiredCodeException {
   @override
   final Map<String, String>? headers;
 
-  factory _$ExpiredCodeException(
-          [void Function(ExpiredCodeExceptionBuilder)? updates]) =>
-      (new ExpiredCodeExceptionBuilder()..update(updates))._build();
+  factory _$ExpiredCodeException([
+    void Function(ExpiredCodeExceptionBuilder)? updates,
+  ]) => (ExpiredCodeExceptionBuilder()..update(updates))._build();
 
   _$ExpiredCodeException._({this.message, this.headers}) : super._();
-
   @override
   ExpiredCodeException rebuild(
-          void Function(ExpiredCodeExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ExpiredCodeExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ExpiredCodeExceptionBuilder toBuilder() =>
-      new ExpiredCodeExceptionBuilder()..replace(this);
+      ExpiredCodeExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +67,6 @@ class ExpiredCodeExceptionBuilder
 
   @override
   void replace(ExpiredCodeException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ExpiredCodeException;
   }
 
@@ -82,7 +80,7 @@ class ExpiredCodeExceptionBuilder
 
   _$ExpiredCodeException _build() {
     final _$result =
-        _$v ?? new _$ExpiredCodeException._(message: message, headers: headers);
+        _$v ?? _$ExpiredCodeException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

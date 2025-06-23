@@ -22,28 +22,27 @@ class _$FileConfigSettings extends FileConfigSettings {
   @override
   final int? maxAttempts;
 
-  factory _$FileConfigSettings(
-          [void Function(FileConfigSettingsBuilder)? updates]) =>
-      (new FileConfigSettingsBuilder()..update(updates))._build();
+  factory _$FileConfigSettings([
+    void Function(FileConfigSettingsBuilder)? updates,
+  ]) => (FileConfigSettingsBuilder()..update(updates))._build();
 
-  _$FileConfigSettings._(
-      {this.awsAccessKeyId,
-      this.awsSecretAccessKey,
-      this.awsSessionToken,
-      this.region,
-      this.s3,
-      this.retryMode,
-      this.maxAttempts})
-      : super._();
-
+  _$FileConfigSettings._({
+    this.awsAccessKeyId,
+    this.awsSecretAccessKey,
+    this.awsSessionToken,
+    this.region,
+    this.s3,
+    this.retryMode,
+    this.maxAttempts,
+  }) : super._();
   @override
   FileConfigSettings rebuild(
-          void Function(FileConfigSettingsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(FileConfigSettingsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   FileConfigSettingsBuilder toBuilder() =>
-      new FileConfigSettingsBuilder()..replace(this);
+      FileConfigSettingsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -97,7 +96,7 @@ class FileConfigSettingsBuilder
   set region(String? region) => _$this._region = region;
 
   S3ConfigBuilder? _s3;
-  S3ConfigBuilder get s3 => _$this._s3 ??= new S3ConfigBuilder();
+  S3ConfigBuilder get s3 => _$this._s3 ??= S3ConfigBuilder();
   set s3(S3ConfigBuilder? s3) => _$this._s3 = s3;
 
   RetryMode? _retryMode;
@@ -127,7 +126,6 @@ class FileConfigSettingsBuilder
 
   @override
   void replace(FileConfigSettings other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$FileConfigSettings;
   }
 
@@ -142,23 +140,28 @@ class FileConfigSettingsBuilder
   _$FileConfigSettings _build() {
     _$FileConfigSettings _$result;
     try {
-      _$result = _$v ??
-          new _$FileConfigSettings._(
-              awsAccessKeyId: awsAccessKeyId,
-              awsSecretAccessKey: awsSecretAccessKey,
-              awsSessionToken: awsSessionToken,
-              region: region,
-              s3: _s3?.build(),
-              retryMode: retryMode,
-              maxAttempts: maxAttempts);
+      _$result =
+          _$v ??
+          _$FileConfigSettings._(
+            awsAccessKeyId: awsAccessKeyId,
+            awsSecretAccessKey: awsSecretAccessKey,
+            awsSessionToken: awsSessionToken,
+            region: region,
+            s3: _s3?.build(),
+            retryMode: retryMode,
+            maxAttempts: maxAttempts,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 's3';
         _s3?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'FileConfigSettings', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'FileConfigSettings',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

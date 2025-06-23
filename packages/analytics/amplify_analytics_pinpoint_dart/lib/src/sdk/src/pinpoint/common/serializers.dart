@@ -124,83 +124,32 @@ const List<_i1.SmithySerializer> serializers = [
   ...UpdateEndpointsBatchResponse.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(
-    _i2.BuiltListMultimap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i2.ListMultimapBuilder<String, String>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(double),
-    ],
-  ): _i2.MapBuilder<String, double>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(InAppMessageContent)],
-  ): _i2.ListBuilder<InAppMessageContent>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i2.MapBuilder<String, String>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(String)],
-  ): _i2.ListBuilder<String>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(AttributeDimension),
-    ],
-  ): _i2.MapBuilder<String, AttributeDimension>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(MetricDimension),
-    ],
-  ): _i2.MapBuilder<String, MetricDimension>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(InAppMessageCampaign)],
-  ): _i2.ListBuilder<InAppMessageCampaign>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(Event),
-    ],
-  ): _i2.MapBuilder<String, Event>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(EventsBatch),
-    ],
-  ): _i2.MapBuilder<String, EventsBatch>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(EventItemResponse),
-    ],
-  ): _i2.MapBuilder<String, EventItemResponse>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(ItemResponse),
-    ],
-  ): _i2.MapBuilder<String, ItemResponse>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(EndpointBatchItem)],
-  ): _i2.ListBuilder<EndpointBatchItem>.new,
+  const FullType(_i2.BuiltListMultimap, [FullType(String), FullType(String)]):
+      _i2.ListMultimapBuilder<String, String>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(double)]):
+      _i2.MapBuilder<String, double>.new,
+  const FullType(_i2.BuiltList, [FullType(InAppMessageContent)]):
+      _i2.ListBuilder<InAppMessageContent>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(String)]):
+      _i2.MapBuilder<String, String>.new,
+  const FullType(_i2.BuiltList, [FullType(String)]):
+      _i2.ListBuilder<String>.new,
+  const FullType(_i2.BuiltMap, [
+    FullType(String),
+    FullType(AttributeDimension),
+  ]): _i2.MapBuilder<String, AttributeDimension>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(MetricDimension)]):
+      _i2.MapBuilder<String, MetricDimension>.new,
+  const FullType(_i2.BuiltList, [FullType(InAppMessageCampaign)]):
+      _i2.ListBuilder<InAppMessageCampaign>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(Event)]):
+      _i2.MapBuilder<String, Event>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(EventsBatch)]):
+      _i2.MapBuilder<String, EventsBatch>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(EventItemResponse)]):
+      _i2.MapBuilder<String, EventItemResponse>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(ItemResponse)]):
+      _i2.MapBuilder<String, ItemResponse>.new,
+  const FullType(_i2.BuiltList, [FullType(EndpointBatchItem)]):
+      _i2.ListBuilder<EndpointBatchItem>.new,
 };

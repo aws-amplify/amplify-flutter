@@ -3,10 +3,8 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
-import 'package:amplify_core/amplify_core.dart';
-// ignore: implementation_imports
-import 'package:aws_common/src/js/common.dart';
 import 'package:path/path.dart' show url;
+import 'package:web/web.dart';
 
 /// {@macro amplify_auth_cognito.hosted_ui_platform}
 class HostedUiPlatformImpl extends HostedUiPlatform {
@@ -31,16 +29,20 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   }
 
   @override
-  Uri get signInRedirectUri => config.signInRedirectUris.firstWhere(
-        (uri) => uri.toString().startsWith(_baseUrl),
-        orElse: () => _noSuitableRedirect(signIn: true),
-      );
+  Uri get signInRedirectUri => Uri.parse(
+    authOutputs.oauth!.redirectSignInUri.firstWhere(
+      (uri) => uri.startsWith(_baseUrl),
+      orElse: () => _noSuitableRedirect(signIn: true),
+    ),
+  );
 
   @override
-  Uri get signOutRedirectUri => config.signOutRedirectUris.firstWhere(
-        (uri) => uri.toString().startsWith(_baseUrl),
-        orElse: () => _noSuitableRedirect(signIn: false),
-      );
+  Uri get signOutRedirectUri => Uri.parse(
+    authOutputs.oauth!.redirectSignOutUri.firstWhere(
+      (uri) => uri.startsWith(_baseUrl),
+      orElse: () => _noSuitableRedirect(signIn: false),
+    ),
+  );
 
   /// Launches the given URL.
   Future<void> launchUrl(String url) async {

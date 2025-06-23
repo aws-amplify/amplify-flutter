@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/not_available_exception.dart';
@@ -9,6 +11,7 @@ import 'package:amplify_secure_storage_dart/src/exception/secure_storage_excepti
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_in_memory.dart';
 // ignore: implementation_imports
 import 'package:aws_common/src/js/indexed_db.dart';
+import 'package:web/web.dart';
 
 /// The web implementation of [SecureStorageInterface].
 class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
@@ -89,16 +92,25 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
         recoverySuggestion: SecureStorageException.missingRecovery,
       );
     }
+
+    void onUpgradeNeeded(IDBVersionChangeEvent event) {
+      final database = event.target?.getProperty<IDBDatabase>('result'.toJS);
+      final objectStoreNames = database?.objectStoreNames;
+      if (!(objectStoreNames?.contains(storeName) ?? false)) {
+        database?.createObjectStore(storeName);
+      }
+    }
+
     final openRequest = indexedDB!.open(databaseName, 1)
-      ..onupgradeneeded = (event) {
-        final database = event.target.result;
-        final objectStoreNames = database.objectStoreNames;
-        if (!objectStoreNames.contains(storeName)) {
-          database.createObjectStore(storeName);
-        }
-      };
+      ..onupgradeneeded = onUpgradeNeeded.toJS;
+
     try {
-      return await openRequest.future;
+      final result = await openRequest.future;
+      if (result.isA<IDBDatabase>()) {
+        return result as IDBDatabase;
+      } else {
+        throw Exception('IDBOpenDBRequest failed');
+      }
     } on Object catch (e) {
       throw SecureStorageException(e.toString());
     }
@@ -109,7 +121,7 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
     final database = await _databaseFuture;
     final store = database.getObjectStore(storeName);
     try {
-      await store.put(value, key).future;
+      await store.put(value.toJS, key.toJS).future;
     } on Object catch (e) {
       throw SecureStorageException(e.toString());
     }
@@ -120,8 +132,8 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
     final database = await _databaseFuture;
     final store = database.getObjectStore(storeName);
     try {
-      final value = await store.getObject(key).future;
-      return value;
+      final result = store.get(key.toJS).future;
+      return result.then((value) => (value as JSString?)?.toDart);
     } on Object catch (e) {
       throw SecureStorageException(e.toString());
     }
@@ -132,7 +144,7 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
     final database = await _databaseFuture;
     final store = database.getObjectStore(storeName);
     try {
-      await store.delete(key).future;
+      await store.delete(key.toJS).future;
     } on Object catch (e) {
       throw SecureStorageException(e.toString());
     }

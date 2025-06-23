@@ -60,14 +60,12 @@ Available scripts:
       script.from,
       commandPackageSelector,
     ]).allPaths(aftConfig);
-    logger.verbose(
-      '''
+    logger.verbose('''
 Executing script: $scriptName
 with arguments: $arguments
 for package paths:
 ${commandPaths.map((path) => '- $path').join('\n')}
-''',
-    );
+''');
     try {
       for (final commandPath in commandPaths) {
         final package = aftConfig.allPackages.values.firstWhereOrNull(
@@ -77,28 +75,28 @@ ${commandPaths.map((path) => '- $path').join('\n')}
         final renderedScript = templater.render({
           'package': package?.toJson(),
         }).trim();
-        final fullScript = '''
+        final fullScript =
+            '''
 #/bin/bash
 set -euo pipefail
 
 $renderedScript
 '''
-            .trim();
-        logger.verbose(
-          '''
+                .trim();
+        logger.verbose('''
 Full script:
 
 $fullScript
-''',
-        );
+''');
         final tempFile = File.fromUri(tempDir.uri.resolve('script.sh'))
           ..createSync()
           ..writeAsStringSync(fullScript);
         logger.info('Running `$scriptName` script in: $commandPath');
-        final result = await execCommand(
-          ['bash', tempFile.path, ...arguments],
-          workingDirectory: commandPath,
-        );
+        final result = await execCommand([
+          'bash',
+          tempFile.path,
+          ...arguments,
+        ], workingDirectory: commandPath);
         if (result.exitCode != 0) {
           exitCode = result.exitCode;
           if (failFast) {

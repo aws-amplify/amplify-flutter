@@ -52,29 +52,35 @@ class GraphQLRequestFactory {
     // Get a list of field names to include in the request body.
     final fields = schema.fields!.entries
         .where(
-      (entry) => entry.value.association == null,
-    ) // ignore related model fields
+          (entry) => entry.value.association == null,
+        ) // ignore related model fields
         .map((entry) {
-      if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded ||
-          entry.value.type.fieldType == ModelFieldTypeEnum.embeddedCollection) {
-        final embeddedSchema =
-            getModelSchemaByModelName(entry.value.type.ofCustomTypeName!, null);
-        final embeddedSelectionSet = _getSelectionSetFromModelSchema(
-          embeddedSchema,
-          GraphQLRequestOperation.get,
-        );
-        return '${entry.key} { $embeddedSelectionSet }';
-      }
-      return entry.key;
-    }).toList(); // e.g. ["id", "name", "createdAt"]
+          if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded ||
+              entry.value.type.fieldType ==
+                  ModelFieldTypeEnum.embeddedCollection) {
+            final embeddedSchema = getModelSchemaByModelName(
+              entry.value.type.ofCustomTypeName!,
+              null,
+            );
+            final embeddedSelectionSet = _getSelectionSetFromModelSchema(
+              embeddedSchema,
+              GraphQLRequestOperation.get,
+            );
+            return '${entry.key} { $embeddedSelectionSet }';
+          }
+          return entry.key;
+        })
+        .toList(); // e.g. ["id", "name", "createdAt"]
 
     // If belongsTo, also add selection set of parent.
     final allBelongsTo = getBelongsToFieldsFromModelSchema(schema);
     for (final belongsTo in allBelongsTo) {
       final belongsToModelName = belongsTo.type.ofModelName;
       if (belongsToModelName != null && !ignoreParents) {
-        final parentSchema =
-            getModelSchemaByModelName(belongsToModelName, null);
+        final parentSchema = getModelSchemaByModelName(
+          belongsToModelName,
+          null,
+        );
         final parentSelectionSet = _getSelectionSetFromModelSchema(
           parentSchema,
           GraphQLRequestOperation.get,
@@ -86,11 +92,7 @@ class GraphQLRequestFactory {
         // deserializing response because model will use ID nested in `parentSelectionSet`.
         // However, including the ID in selection set allows subscriptions that
         // filter by these ID to be triggered by these mutations.
-        var belongsToKeys = belongsTo.association?.targetNames;
-        if (belongsToKeys == null &&
-            belongsTo.association?.targetName != null) {
-          belongsToKeys = [belongsTo.association!.targetName as String];
-        }
+        final belongsToKeys = belongsTo.association?.targetNames;
         if (belongsToKeys != null) {
           fields.addAll(belongsToKeys);
         }
@@ -103,8 +105,10 @@ class GraphQLRequestFactory {
         .whereNotNull()
         .toList();
 
-    final fieldSelection =
-        [...fields, ...ownerFields].join(' '); // e.g. "id name createdAt"
+    final fieldSelection = [
+      ...fields,
+      ...ownerFields,
+    ].join(' '); // e.g. "id name createdAt"
 
     if (operation == GraphQLRequestOperation.list) {
       return '$items { $fieldSelection } nextToken';
@@ -126,14 +130,15 @@ class GraphQLRequestFactory {
   ) {
     var upperOutput = '';
     var lowerOutput = '';
-    final modelName = schema.name;
+    final modelName = _capitalize(schema.name);
 
     // build inputs based on request operation
     switch (operation) {
       case GraphQLRequestOperation.get:
         final indexes = schema.indexes;
-        final modelIndex =
-            indexes?.firstWhereOrNull((index) => index.name == null);
+        final modelIndex = indexes?.firstWhereOrNull(
+          (index) => index.name == null,
+        );
         if (modelIndex != null) {
           // custom index(es), e.g.
           // upperOutput: no change (empty string)
@@ -180,11 +185,6 @@ class GraphQLRequestFactory {
           upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
           lowerOutput = r'(filter: $filter)';
         }
-      default:
-        throw const ApiOperationException(
-          'GraphQL Request Operation is currently unsupported',
-          recoverySuggestion: 'please use a supported GraphQL operation',
-        );
     }
 
     return DocumentInputs(upperOutput, lowerOutput);
@@ -205,11 +205,13 @@ class GraphQLRequestFactory {
     int depth = 0,
   }) {
     // retrieve schema from ModelType and validate required properties
-    final schema =
-        getModelSchemaByModelName(modelType.modelName(), requestOperation);
+    final schema = getModelSchemaByModelName(
+      modelType.modelName(),
+      requestOperation,
+    );
 
     // e.g. "Blog" or "Blogs"
-    final name = _getName(schema, requestOperation);
+    final name = _capitalize(_getName(schema, requestOperation));
     // e.g. "query" or "mutation"
     final requestTypeVal = requestType.name;
     // e.g. "get" or "list"
@@ -258,10 +260,7 @@ class GraphQLRequestFactory {
     required Map<String, dynamic> input,
     Map<String, dynamic>? condition,
   }) {
-    return <String, dynamic>{
-      'input': input,
-      'condition': condition,
-    };
+    return <String, dynamic>{'input': input, 'condition': condition};
   }
 
   Map<String, dynamic> buildVariablesForSubscriptionRequest({
@@ -271,11 +270,11 @@ class GraphQLRequestFactory {
     if (where == null) {
       return {};
     }
-    final filter = GraphQLRequestFactory.instance
-        .queryPredicateToGraphQLFilter(where, modelType);
-    return <String, dynamic>{
-      'filter': filter,
-    };
+    final filter = GraphQLRequestFactory.instance.queryPredicateToGraphQLFilter(
+      where,
+      modelType,
+    );
+    return <String, dynamic>{'filter': filter};
   }
 
   /// Translates a `QueryPredicate` to a map representing a GraphQL filter
@@ -295,8 +294,7 @@ class GraphQLRequestFactory {
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
       final association = schema.fields?[queryPredicate.field]?.association;
-      final associatedTargetName =
-          association?.targetNames?.first ?? association?.targetName;
+      final associatedTargetName = association?.targetNames?.first;
       var fieldName = queryPredicate.field;
       if (queryPredicate.field ==
           '${_lowerCaseFirstCharacter(schema.name)}.$_defaultIdFieldName') {
@@ -366,8 +364,10 @@ class GraphQLRequestFactory {
     Model model, {
     required GraphQLRequestOperation operation,
   }) {
-    final schema =
-        getModelSchemaByModelName(model.getInstanceType().modelName(), null);
+    final schema = getModelSchemaByModelName(
+      model.getInstanceType().modelName(),
+      null,
+    );
     final modelJson = model.toJson();
 
     // Get the primary key field name from parent schema(s) so it can be taken from
@@ -388,19 +388,18 @@ class GraphQLRequestFactory {
       // Traverse parent schema to get expected JSON strings and remove from JSON.
       // A parent with complex identifier may have multiple keys.
       var belongsToKeys = belongsTo.association?.targetNames;
-      final legacyTargetName =
-          belongsTo.association?.targetName; // pre-CPK codegen
-      if (belongsToKeys == null && legacyTargetName == null) {
+      if (belongsToKeys == null) {
         // no way to resolve key to write to JSON
         continue;
       }
-      belongsToKeys = belongsToKeys ?? [legacyTargetName as String];
+      belongsToKeys = belongsToKeys;
       var i = 0; // needed to track corresponding index field name
       for (final belongsToKey in belongsToKeys) {
         final parentIdFieldName =
             primaryKeyIndex?.fields[i] ?? _defaultIdFieldName;
-        final belongsToValue = (modelJson[belongsToModelName]
-            as Map?)?[parentIdFieldName] as String?;
+        final belongsToValue =
+            (modelJson[belongsToModelName] as Map?)?[parentIdFieldName]
+                as String?;
 
         // Assign the parent ID(s) if the model has a parent.
         if (belongsToValue != null) {
@@ -454,6 +453,11 @@ Map<String, dynamic> _queryFieldOperatorToPartialGraphQLFilter(
       ],
     };
   }
+  if (queryFieldOperator is AttributeExistsQueryOperator) {
+    return <String, dynamic>{
+      filterExpression: _getSerializedValue(queryFieldOperator.exists),
+    };
+  }
 
   throw ApiOperationException(
     'Unable to translate the QueryFieldOperator ${queryFieldOperator.type} to a GraphQL filter.',
@@ -471,6 +475,7 @@ String _getGraphQLFilterExpression(QueryFieldOperatorType operatorType) {
     QueryFieldOperatorType.between: 'between',
     QueryFieldOperatorType.contains: 'contains',
     QueryFieldOperatorType.begins_with: 'beginsWith',
+    QueryFieldOperatorType.attribute_exists: 'attributeExists',
   };
   final result = dictionary[operatorType];
   if (result == null) {

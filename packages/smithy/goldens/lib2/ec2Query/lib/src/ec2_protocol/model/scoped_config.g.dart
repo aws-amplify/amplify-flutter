@@ -19,22 +19,21 @@ class _$ScopedConfig extends ScopedConfig {
   final OperationConfig? operation;
 
   factory _$ScopedConfig([void Function(ScopedConfigBuilder)? updates]) =>
-      (new ScopedConfigBuilder()..update(updates))._build();
+      (ScopedConfigBuilder()..update(updates))._build();
 
-  _$ScopedConfig._(
-      {this.environment,
-      this.configFile,
-      this.credentialsFile,
-      this.client,
-      this.operation})
-      : super._();
-
+  _$ScopedConfig._({
+    this.environment,
+    this.configFile,
+    this.credentialsFile,
+    this.client,
+    this.operation,
+  }) : super._();
   @override
   ScopedConfig rebuild(void Function(ScopedConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ScopedConfigBuilder toBuilder() => new ScopedConfigBuilder()..replace(this);
+  ScopedConfigBuilder toBuilder() => ScopedConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -66,32 +65,30 @@ class ScopedConfigBuilder
 
   EnvironmentConfigBuilder? _environment;
   EnvironmentConfigBuilder get environment =>
-      _$this._environment ??= new EnvironmentConfigBuilder();
+      _$this._environment ??= EnvironmentConfigBuilder();
   set environment(EnvironmentConfigBuilder? environment) =>
       _$this._environment = environment;
 
   _i2.MapBuilder<String, FileConfigSettings>? _configFile;
   _i2.MapBuilder<String, FileConfigSettings> get configFile =>
-      _$this._configFile ??= new _i2.MapBuilder<String, FileConfigSettings>();
+      _$this._configFile ??= _i2.MapBuilder<String, FileConfigSettings>();
   set configFile(_i2.MapBuilder<String, FileConfigSettings>? configFile) =>
       _$this._configFile = configFile;
 
   _i2.MapBuilder<String, FileConfigSettings>? _credentialsFile;
   _i2.MapBuilder<String, FileConfigSettings> get credentialsFile =>
-      _$this._credentialsFile ??=
-          new _i2.MapBuilder<String, FileConfigSettings>();
+      _$this._credentialsFile ??= _i2.MapBuilder<String, FileConfigSettings>();
   set credentialsFile(
-          _i2.MapBuilder<String, FileConfigSettings>? credentialsFile) =>
-      _$this._credentialsFile = credentialsFile;
+    _i2.MapBuilder<String, FileConfigSettings>? credentialsFile,
+  ) => _$this._credentialsFile = credentialsFile;
 
   ClientConfigBuilder? _client;
-  ClientConfigBuilder get client =>
-      _$this._client ??= new ClientConfigBuilder();
+  ClientConfigBuilder get client => _$this._client ??= ClientConfigBuilder();
   set client(ClientConfigBuilder? client) => _$this._client = client;
 
   OperationConfigBuilder? _operation;
   OperationConfigBuilder get operation =>
-      _$this._operation ??= new OperationConfigBuilder();
+      _$this._operation ??= OperationConfigBuilder();
   set operation(OperationConfigBuilder? operation) =>
       _$this._operation = operation;
 
@@ -112,7 +109,6 @@ class ScopedConfigBuilder
 
   @override
   void replace(ScopedConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ScopedConfig;
   }
 
@@ -127,13 +123,15 @@ class ScopedConfigBuilder
   _$ScopedConfig _build() {
     _$ScopedConfig _$result;
     try {
-      _$result = _$v ??
-          new _$ScopedConfig._(
-              environment: _environment?.build(),
-              configFile: _configFile?.build(),
-              credentialsFile: _credentialsFile?.build(),
-              client: _client?.build(),
-              operation: _operation?.build());
+      _$result =
+          _$v ??
+          _$ScopedConfig._(
+            environment: _environment?.build(),
+            configFile: _configFile?.build(),
+            credentialsFile: _credentialsFile?.build(),
+            client: _client?.build(),
+            operation: _operation?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -148,8 +146,11 @@ class ScopedConfigBuilder
         _$failedField = 'operation';
         _operation?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ScopedConfig', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ScopedConfig',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

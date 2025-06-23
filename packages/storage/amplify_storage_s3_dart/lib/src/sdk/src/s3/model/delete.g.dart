@@ -13,18 +13,15 @@ class _$Delete extends Delete {
   final bool? quiet;
 
   factory _$Delete([void Function(DeleteBuilder)? updates]) =>
-      (new DeleteBuilder()..update(updates))._build();
+      (DeleteBuilder()..update(updates))._build();
 
-  _$Delete._({required this.objects, this.quiet}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(objects, r'Delete', 'objects');
-  }
-
+  _$Delete._({required this.objects, this.quiet}) : super._();
   @override
   Delete rebuild(void Function(DeleteBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  DeleteBuilder toBuilder() => new DeleteBuilder()..replace(this);
+  DeleteBuilder toBuilder() => DeleteBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,7 +44,7 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
 
   _i2.ListBuilder<ObjectIdentifier>? _objects;
   _i2.ListBuilder<ObjectIdentifier> get objects =>
-      _$this._objects ??= new _i2.ListBuilder<ObjectIdentifier>();
+      _$this._objects ??= _i2.ListBuilder<ObjectIdentifier>();
   set objects(_i2.ListBuilder<ObjectIdentifier>? objects) =>
       _$this._objects = objects;
 
@@ -69,7 +66,6 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
 
   @override
   void replace(Delete other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Delete;
   }
 
@@ -84,15 +80,18 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
   _$Delete _build() {
     _$Delete _$result;
     try {
-      _$result = _$v ?? new _$Delete._(objects: objects.build(), quiet: quiet);
+      _$result = _$v ?? _$Delete._(objects: objects.build(), quiet: quiet);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'objects';
         objects.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'Delete', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'Delete',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

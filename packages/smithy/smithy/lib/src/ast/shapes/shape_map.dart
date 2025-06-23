@@ -12,7 +12,7 @@ class ShapeMap extends DelegatingMap<ShapeId, Shape> {
   ShapeMap(super.shapes);
 
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       other is ShapeMap &&
           const MapEquality<ShapeId, Shape>().equals(this, other);
@@ -32,18 +32,22 @@ class ShapeMapSerializer extends StructuredSerializer<ShapeMap> {
     final applyTraits = ShapeMap({});
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final shapeId = serializers.deserializeWith(
-        ShapeId.serializer,
-        iterator.current as String,
-      ) as ShapeId;
+      final shapeId =
+          serializers.deserializeWith(
+                ShapeId.serializer,
+                iterator.current as String,
+              )
+              as ShapeId;
       iterator.moveNext();
       final value = (iterator.current as Map).cast<String, Object?>();
       final type = value['type'] as String;
       final shape = serializers
           .deserializeWith(
             Shape.serializer,
-            StandardJsonPlugin()
-                .beforeDeserialize(value, const FullType(Shape)),
+            StandardJsonPlugin().beforeDeserialize(
+              value,
+              const FullType(Shape),
+            ),
           )!
           .rebuild((b) => b.shapeId = shapeId);
       if (ShapeType.deserialize(type) == ShapeType.apply) {
@@ -94,10 +98,7 @@ class ShapeMapSerializer extends StructuredSerializer<ShapeMap> {
     for (final shape in shapeMap.values.whereType<OperationShape>()) {
       final inputShape = shapeMap[shape.input?.target];
       if (inputShape != null) {
-        inputShape.traits.putIfAbsent(
-          InputTrait.id,
-          () => const InputTrait(),
-        );
+        inputShape.traits.putIfAbsent(InputTrait.id, () => const InputTrait());
       }
       final outputShape = shapeMap[shape.output?.target];
       if (outputShape != null) {

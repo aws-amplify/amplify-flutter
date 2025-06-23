@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v1.s3.test.list_objects_v2_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -33,272 +33,298 @@ import 'package:smithy_test/smithy_test.dart' as _i1;
 import 'package:test/test.dart' as _i2;
 
 void main() {
-  final vendorSerializers = (_i1.testSerializers.toBuilder()
-        ..addAll(const [
-          AwsConfigSerializer(),
-          ScopedConfigSerializer(),
-          EnvironmentConfigSerializer(),
-          FileConfigSettingsSerializer(),
-          S3ConfigSerializer(),
-          ClientConfigSerializer(),
-          RetryConfigSerializer(),
-          OperationConfigSerializer(),
-          ...EncodingType.serializers,
-          ...RequestPayer.serializers,
-          ...RetryMode.serializers,
-          ...S3AddressingStyle.serializers,
-          ...ObjectStorageClass.serializers,
-        ]))
-      .build();
+  final vendorSerializers =
+      (_i1.testSerializers.toBuilder()..addAll(const [
+            AwsConfigSerializer(),
+            ScopedConfigSerializer(),
+            EnvironmentConfigSerializer(),
+            FileConfigSettingsSerializer(),
+            S3ConfigSerializer(),
+            ClientConfigSerializer(),
+            RetryConfigSerializer(),
+            OperationConfigSerializer(),
+            ...EncodingType.serializers,
+            ...RequestPayer.serializers,
+            ...RetryMode.serializers,
+            ...S3AddressingStyle.serializers,
+            ...ObjectStorageClass.serializers,
+          ]))
+          .build();
 
-  _i2.test(
-    'S3DefaultAddressing (request)',
-    () async {
-      final config = (vendorSerializers.deserialize(
-        {
+  _i2.test('S3DefaultAddressing (request)', () async {
+    final config =
+        (vendorSerializers.deserialize({
+              'scopedConfig': {
+                'client': {'region': 'us-west-2'},
+              },
+            }, specifiedType: const FullType(AwsConfig))
+            as AwsConfig);
+    final s3ClientConfig = _i3.S3ClientConfig(
+      useAcceleration:
+          config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
+          config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
+          false,
+      useDualStack:
+          config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
+          config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
+          false,
+      usePathStyle:
+          (config.scopedConfig?.operation?.s3?.addressingStyle ??
+              config.scopedConfig?.client?.s3?.addressingStyle) ==
+          S3AddressingStyle.path,
+      signerConfiguration: _i4.S3ServiceConfiguration(
+        signPayload: false,
+        chunked: false,
+      ),
+    );
+    await _i1.httpRequestTest(
+      operation: ListObjectsV2Operation(
+        region: config.scopedConfig?.client?.region ?? 'us-east-1',
+        baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i1.HttpRequestTestCase(
+        id: 'S3DefaultAddressing',
+        documentation:
+            'S3 clients should map the default addressing style to virtual host.',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'Bucket': 'mybucket'},
+        vendorParamsShape: _i5.ShapeId(
+          namespace: 'aws.protocoltests.config',
+          shape: 'AwsConfig',
+        ),
+        vendorParams: {
           'scopedConfig': {
-            'client': {'region': 'us-west-2'}
-          }
-        },
-        specifiedType: const FullType(AwsConfig),
-      ) as AwsConfig);
-      final s3ClientConfig = _i3.S3ClientConfig(
-        useAcceleration:
-            config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
-                config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
-                false,
-        useDualStack:
-            config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
-                config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
-                false,
-        usePathStyle: (config.scopedConfig?.operation?.s3?.addressingStyle ??
-                config.scopedConfig?.client?.s3?.addressingStyle) ==
-            S3AddressingStyle.path,
-        signerConfiguration: _i4.S3ServiceConfiguration(
-          signPayload: false,
-          chunked: false,
-        ),
-      );
-      await _i1.httpRequestTest(
-        operation: ListObjectsV2Operation(
-          region: config.scopedConfig?.client?.region ?? 'us-east-1',
-          baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i1.HttpRequestTestCase(
-          id: 'S3DefaultAddressing',
-          documentation:
-              'S3 clients should map the default addressing style to virtual host.',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'Bucket': 'mybucket'},
-          vendorParamsShape: _i5.ShapeId(
-            namespace: 'aws.protocoltests.config',
-            shape: 'AwsConfig',
-          ),
-          vendorParams: {
-            'scopedConfig': {
-              'client': {'region': 'us-west-2'}
-            }
+            'client': {'region': 'us-west-2'},
           },
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/',
-          host: 's3.us-west-2.amazonaws.com',
-          resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
-          queryParams: ['list-type=2'],
-          forbidQueryParams: [],
-          requireQueryParams: [],
+        },
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/',
+        host: 's3.us-west-2.amazonaws.com',
+        resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
+        queryParams: ['list-type=2'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
+    );
+  });
+  _i2.test('S3VirtualHostAddressing (request)', () async {
+    final config =
+        (vendorSerializers.deserialize({
+              'scopedConfig': {
+                'client': {
+                  'region': 'us-west-2',
+                  's3': {'addressing_style': 'virtual'},
+                },
+              },
+            }, specifiedType: const FullType(AwsConfig))
+            as AwsConfig);
+    final s3ClientConfig = _i3.S3ClientConfig(
+      useAcceleration:
+          config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
+          config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
+          false,
+      useDualStack:
+          config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
+          config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
+          false,
+      usePathStyle:
+          (config.scopedConfig?.operation?.s3?.addressingStyle ??
+              config.scopedConfig?.client?.s3?.addressingStyle) ==
+          S3AddressingStyle.path,
+      signerConfiguration: _i4.S3ServiceConfiguration(
+        signPayload: false,
+        chunked: false,
+      ),
+    );
+    await _i1.httpRequestTest(
+      operation: ListObjectsV2Operation(
+        region: config.scopedConfig?.client?.region ?? 'us-east-1',
+        baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
-      );
-    },
-  );
-  _i2.test(
-    'S3VirtualHostAddressing (request)',
-    () async {
-      final config = (vendorSerializers.deserialize(
-        {
+      ),
+      testCase: const _i1.HttpRequestTestCase(
+        id: 'S3VirtualHostAddressing',
+        documentation:
+            'S3 clients should support the explicit virtual host addressing style.',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'Bucket': 'mybucket'},
+        vendorParamsShape: _i5.ShapeId(
+          namespace: 'aws.protocoltests.config',
+          shape: 'AwsConfig',
+        ),
+        vendorParams: {
           'scopedConfig': {
             'client': {
               'region': 'us-west-2',
               's3': {'addressing_style': 'virtual'},
-            }
-          }
-        },
-        specifiedType: const FullType(AwsConfig),
-      ) as AwsConfig);
-      final s3ClientConfig = _i3.S3ClientConfig(
-        useAcceleration:
-            config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
-                config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
-                false,
-        useDualStack:
-            config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
-                config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
-                false,
-        usePathStyle: (config.scopedConfig?.operation?.s3?.addressingStyle ??
-                config.scopedConfig?.client?.s3?.addressingStyle) ==
-            S3AddressingStyle.path,
-        signerConfiguration: _i4.S3ServiceConfiguration(
-          signPayload: false,
-          chunked: false,
-        ),
-      );
-      await _i1.httpRequestTest(
-        operation: ListObjectsV2Operation(
-          region: config.scopedConfig?.client?.region ?? 'us-east-1',
-          baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i1.HttpRequestTestCase(
-          id: 'S3VirtualHostAddressing',
-          documentation:
-              'S3 clients should support the explicit virtual host addressing style.',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'Bucket': 'mybucket'},
-          vendorParamsShape: _i5.ShapeId(
-            namespace: 'aws.protocoltests.config',
-            shape: 'AwsConfig',
-          ),
-          vendorParams: {
-            'scopedConfig': {
-              'client': {
-                'region': 'us-west-2',
-                's3': {'addressing_style': 'virtual'},
-              }
-            }
+            },
           },
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/',
-          host: 's3.us-west-2.amazonaws.com',
-          resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
-          queryParams: ['list-type=2'],
-          forbidQueryParams: [],
-          requireQueryParams: [],
+        },
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/',
+        host: 's3.us-west-2.amazonaws.com',
+        resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
+        queryParams: ['list-type=2'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
+    );
+  });
+  _i2.test('S3PathAddressing (request)', () async {
+    final config =
+        (vendorSerializers.deserialize({
+              'scopedConfig': {
+                'client': {
+                  'region': 'us-west-2',
+                  's3': {'addressing_style': 'path'},
+                },
+              },
+            }, specifiedType: const FullType(AwsConfig))
+            as AwsConfig);
+    final s3ClientConfig = _i3.S3ClientConfig(
+      useAcceleration:
+          config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
+          config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
+          false,
+      useDualStack:
+          config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
+          config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
+          false,
+      usePathStyle:
+          (config.scopedConfig?.operation?.s3?.addressingStyle ??
+              config.scopedConfig?.client?.s3?.addressingStyle) ==
+          S3AddressingStyle.path,
+      signerConfiguration: _i4.S3ServiceConfiguration(
+        signPayload: false,
+        chunked: false,
+      ),
+    );
+    await _i1.httpRequestTest(
+      operation: ListObjectsV2Operation(
+        region: config.scopedConfig?.client?.region ?? 'us-east-1',
+        baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
-      );
-    },
-  );
-  _i2.test(
-    'S3PathAddressing (request)',
-    () async {
-      final config = (vendorSerializers.deserialize(
-        {
+      ),
+      testCase: const _i1.HttpRequestTestCase(
+        id: 'S3PathAddressing',
+        documentation:
+            'S3 clients should support the explicit path addressing style.',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'Bucket': 'mybucket'},
+        vendorParamsShape: _i5.ShapeId(
+          namespace: 'aws.protocoltests.config',
+          shape: 'AwsConfig',
+        ),
+        vendorParams: {
           'scopedConfig': {
             'client': {
               'region': 'us-west-2',
               's3': {'addressing_style': 'path'},
-            }
-          }
-        },
-        specifiedType: const FullType(AwsConfig),
-      ) as AwsConfig);
-      final s3ClientConfig = _i3.S3ClientConfig(
-        useAcceleration:
-            config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
-                config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
-                false,
-        useDualStack:
-            config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
-                config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
-                false,
-        usePathStyle: (config.scopedConfig?.operation?.s3?.addressingStyle ??
-                config.scopedConfig?.client?.s3?.addressingStyle) ==
-            S3AddressingStyle.path,
-        signerConfiguration: _i4.S3ServiceConfiguration(
-          signPayload: false,
-          chunked: false,
-        ),
-      );
-      await _i1.httpRequestTest(
-        operation: ListObjectsV2Operation(
-          region: config.scopedConfig?.client?.region ?? 'us-east-1',
-          baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i1.HttpRequestTestCase(
-          id: 'S3PathAddressing',
-          documentation:
-              'S3 clients should support the explicit path addressing style.',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'Bucket': 'mybucket'},
-          vendorParamsShape: _i5.ShapeId(
-            namespace: 'aws.protocoltests.config',
-            shape: 'AwsConfig',
-          ),
-          vendorParams: {
-            'scopedConfig': {
-              'client': {
-                'region': 'us-west-2',
-                's3': {'addressing_style': 'path'},
-              }
-            }
+            },
           },
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/mybucket',
-          host: 's3.us-west-2.amazonaws.com',
-          resolvedHost: 's3.us-west-2.amazonaws.com',
-          queryParams: ['list-type=2'],
-          forbidQueryParams: [],
-          requireQueryParams: [],
+        },
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/mybucket',
+        host: 's3.us-west-2.amazonaws.com',
+        resolvedHost: 's3.us-west-2.amazonaws.com',
+        queryParams: ['list-type=2'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
+    );
+  });
+  _i2.test('S3VirtualHostDualstackAddressing (request)', () async {
+    final config =
+        (vendorSerializers.deserialize({
+              'scopedConfig': {
+                'client': {
+                  'region': 'us-west-2',
+                  's3': {
+                    'addressing_style': 'virtual',
+                    'use_dualstack_endpoint': true,
+                  },
+                },
+              },
+            }, specifiedType: const FullType(AwsConfig))
+            as AwsConfig);
+    final s3ClientConfig = _i3.S3ClientConfig(
+      useAcceleration:
+          config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
+          config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
+          false,
+      useDualStack:
+          config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
+          config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
+          false,
+      usePathStyle:
+          (config.scopedConfig?.operation?.s3?.addressingStyle ??
+              config.scopedConfig?.client?.s3?.addressingStyle) ==
+          S3AddressingStyle.path,
+      signerConfiguration: _i4.S3ServiceConfiguration(
+        signPayload: false,
+        chunked: false,
+      ),
+    );
+    await _i1.httpRequestTest(
+      operation: ListObjectsV2Operation(
+        region: config.scopedConfig?.client?.region ?? 'us-east-1',
+        baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
-      );
-    },
-  );
-  _i2.test(
-    'S3VirtualHostDualstackAddressing (request)',
-    () async {
-      final config = (vendorSerializers.deserialize(
-        {
+      ),
+      testCase: const _i1.HttpRequestTestCase(
+        id: 'S3VirtualHostDualstackAddressing',
+        documentation:
+            'S3 clients should support the explicit virtual host\naddressing style with Dualstack.',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'Bucket': 'mybucket'},
+        vendorParamsShape: _i5.ShapeId(
+          namespace: 'aws.protocoltests.config',
+          shape: 'AwsConfig',
+        ),
+        vendorParams: {
           'scopedConfig': {
             'client': {
               'region': 'us-west-2',
@@ -306,88 +332,80 @@ void main() {
                 'addressing_style': 'virtual',
                 'use_dualstack_endpoint': true,
               },
-            }
-          }
-        },
-        specifiedType: const FullType(AwsConfig),
-      ) as AwsConfig);
-      final s3ClientConfig = _i3.S3ClientConfig(
-        useAcceleration:
-            config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
-                config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
-                false,
-        useDualStack:
-            config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
-                config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
-                false,
-        usePathStyle: (config.scopedConfig?.operation?.s3?.addressingStyle ??
-                config.scopedConfig?.client?.s3?.addressingStyle) ==
-            S3AddressingStyle.path,
-        signerConfiguration: _i4.S3ServiceConfiguration(
-          signPayload: false,
-          chunked: false,
-        ),
-      );
-      await _i1.httpRequestTest(
-        operation: ListObjectsV2Operation(
-          region: config.scopedConfig?.client?.region ?? 'us-east-1',
-          baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i1.HttpRequestTestCase(
-          id: 'S3VirtualHostDualstackAddressing',
-          documentation:
-              'S3 clients should support the explicit virtual host\naddressing style with Dualstack.',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'Bucket': 'mybucket'},
-          vendorParamsShape: _i5.ShapeId(
-            namespace: 'aws.protocoltests.config',
-            shape: 'AwsConfig',
-          ),
-          vendorParams: {
-            'scopedConfig': {
-              'client': {
-                'region': 'us-west-2',
-                's3': {
-                  'addressing_style': 'virtual',
-                  'use_dualstack_endpoint': true,
-                },
-              }
-            }
+            },
           },
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/',
-          host: 's3.us-west-2.amazonaws.com',
-          resolvedHost: 'mybucket.s3.dualstack.us-west-2.amazonaws.com',
-          queryParams: ['list-type=2'],
-          forbidQueryParams: [],
-          requireQueryParams: [],
+        },
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/',
+        host: 's3.us-west-2.amazonaws.com',
+        resolvedHost: 'mybucket.s3.dualstack.us-west-2.amazonaws.com',
+        queryParams: ['list-type=2'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
+    );
+  });
+  _i2.test('S3VirtualHostAccelerateAddressing (request)', () async {
+    final config =
+        (vendorSerializers.deserialize({
+              'scopedConfig': {
+                'client': {
+                  'region': 'us-west-2',
+                  's3': {
+                    'addressing_style': 'virtual',
+                    'use_accelerate_endpoint': true,
+                  },
+                },
+              },
+            }, specifiedType: const FullType(AwsConfig))
+            as AwsConfig);
+    final s3ClientConfig = _i3.S3ClientConfig(
+      useAcceleration:
+          config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
+          config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
+          false,
+      useDualStack:
+          config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
+          config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
+          false,
+      usePathStyle:
+          (config.scopedConfig?.operation?.s3?.addressingStyle ??
+              config.scopedConfig?.client?.s3?.addressingStyle) ==
+          S3AddressingStyle.path,
+      signerConfiguration: _i4.S3ServiceConfiguration(
+        signPayload: false,
+        chunked: false,
+      ),
+    );
+    await _i1.httpRequestTest(
+      operation: ListObjectsV2Operation(
+        region: config.scopedConfig?.client?.region ?? 'us-east-1',
+        baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
-      );
-    },
-  );
-  _i2.test(
-    'S3VirtualHostAccelerateAddressing (request)',
-    () async {
-      final config = (vendorSerializers.deserialize(
-        {
+      ),
+      testCase: const _i1.HttpRequestTestCase(
+        id: 'S3VirtualHostAccelerateAddressing',
+        documentation:
+            'S3 clients should support the explicit virtual host\naddressing style with S3 Accelerate.',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'Bucket': 'mybucket'},
+        vendorParamsShape: _i5.ShapeId(
+          namespace: 'aws.protocoltests.config',
+          shape: 'AwsConfig',
+        ),
+        vendorParams: {
           'scopedConfig': {
             'client': {
               'region': 'us-west-2',
@@ -395,88 +413,81 @@ void main() {
                 'addressing_style': 'virtual',
                 'use_accelerate_endpoint': true,
               },
-            }
-          }
-        },
-        specifiedType: const FullType(AwsConfig),
-      ) as AwsConfig);
-      final s3ClientConfig = _i3.S3ClientConfig(
-        useAcceleration:
-            config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
-                config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
-                false,
-        useDualStack:
-            config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
-                config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
-                false,
-        usePathStyle: (config.scopedConfig?.operation?.s3?.addressingStyle ??
-                config.scopedConfig?.client?.s3?.addressingStyle) ==
-            S3AddressingStyle.path,
-        signerConfiguration: _i4.S3ServiceConfiguration(
-          signPayload: false,
-          chunked: false,
-        ),
-      );
-      await _i1.httpRequestTest(
-        operation: ListObjectsV2Operation(
-          region: config.scopedConfig?.client?.region ?? 'us-east-1',
-          baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i1.HttpRequestTestCase(
-          id: 'S3VirtualHostAccelerateAddressing',
-          documentation:
-              'S3 clients should support the explicit virtual host\naddressing style with S3 Accelerate.',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'Bucket': 'mybucket'},
-          vendorParamsShape: _i5.ShapeId(
-            namespace: 'aws.protocoltests.config',
-            shape: 'AwsConfig',
-          ),
-          vendorParams: {
-            'scopedConfig': {
-              'client': {
-                'region': 'us-west-2',
-                's3': {
-                  'addressing_style': 'virtual',
-                  'use_accelerate_endpoint': true,
-                },
-              }
-            }
+            },
           },
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/',
-          host: 's3.us-west-2.amazonaws.com',
-          resolvedHost: 'mybucket.s3-accelerate.amazonaws.com',
-          queryParams: ['list-type=2'],
-          forbidQueryParams: [],
-          requireQueryParams: [],
+        },
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/',
+        host: 's3.us-west-2.amazonaws.com',
+        resolvedHost: 'mybucket.s3-accelerate.amazonaws.com',
+        queryParams: ['list-type=2'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
+    );
+  });
+  _i2.test('S3VirtualHostDualstackAccelerateAddressing (request)', () async {
+    final config =
+        (vendorSerializers.deserialize({
+              'scopedConfig': {
+                'client': {
+                  'region': 'us-west-2',
+                  's3': {
+                    'addressing_style': 'virtual',
+                    'use_dualstack_endpoint': true,
+                    'use_accelerate_endpoint': true,
+                  },
+                },
+              },
+            }, specifiedType: const FullType(AwsConfig))
+            as AwsConfig);
+    final s3ClientConfig = _i3.S3ClientConfig(
+      useAcceleration:
+          config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
+          config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
+          false,
+      useDualStack:
+          config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
+          config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
+          false,
+      usePathStyle:
+          (config.scopedConfig?.operation?.s3?.addressingStyle ??
+              config.scopedConfig?.client?.s3?.addressingStyle) ==
+          S3AddressingStyle.path,
+      signerConfiguration: _i4.S3ServiceConfiguration(
+        signPayload: false,
+        chunked: false,
+      ),
+    );
+    await _i1.httpRequestTest(
+      operation: ListObjectsV2Operation(
+        region: config.scopedConfig?.client?.region ?? 'us-east-1',
+        baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
-      );
-    },
-  );
-  _i2.test(
-    'S3VirtualHostDualstackAccelerateAddressing (request)',
-    () async {
-      final config = (vendorSerializers.deserialize(
-        {
+      ),
+      testCase: const _i1.HttpRequestTestCase(
+        id: 'S3VirtualHostDualstackAccelerateAddressing',
+        documentation:
+            'S3 clients should support the explicit virtual host\naddressing style with Dualstack and S3 Accelerate.',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'Bucket': 'mybucket'},
+        vendorParamsShape: _i5.ShapeId(
+          namespace: 'aws.protocoltests.config',
+          shape: 'AwsConfig',
+        ),
+        vendorParams: {
           'scopedConfig': {
             'client': {
               'region': 'us-west-2',
@@ -485,173 +496,106 @@ void main() {
                 'use_dualstack_endpoint': true,
                 'use_accelerate_endpoint': true,
               },
-            }
-          }
-        },
-        specifiedType: const FullType(AwsConfig),
-      ) as AwsConfig);
-      final s3ClientConfig = _i3.S3ClientConfig(
-        useAcceleration:
-            config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
-                config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
-                false,
-        useDualStack:
-            config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
-                config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
-                false,
-        usePathStyle: (config.scopedConfig?.operation?.s3?.addressingStyle ??
-                config.scopedConfig?.client?.s3?.addressingStyle) ==
-            S3AddressingStyle.path,
-        signerConfiguration: _i4.S3ServiceConfiguration(
-          signPayload: false,
-          chunked: false,
-        ),
-      );
-      await _i1.httpRequestTest(
-        operation: ListObjectsV2Operation(
-          region: config.scopedConfig?.client?.region ?? 'us-east-1',
-          baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i1.HttpRequestTestCase(
-          id: 'S3VirtualHostDualstackAccelerateAddressing',
-          documentation:
-              'S3 clients should support the explicit virtual host\naddressing style with Dualstack and S3 Accelerate.',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'Bucket': 'mybucket'},
-          vendorParamsShape: _i5.ShapeId(
-            namespace: 'aws.protocoltests.config',
-            shape: 'AwsConfig',
-          ),
-          vendorParams: {
-            'scopedConfig': {
-              'client': {
-                'region': 'us-west-2',
-                's3': {
-                  'addressing_style': 'virtual',
-                  'use_dualstack_endpoint': true,
-                  'use_accelerate_endpoint': true,
-                },
-              }
-            }
+            },
           },
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/',
-          host: 's3.us-west-2.amazonaws.com',
-          resolvedHost: 'mybucket.s3-accelerate.dualstack.amazonaws.com',
-          queryParams: ['list-type=2'],
-          forbidQueryParams: [],
-          requireQueryParams: [],
+        },
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/',
+        host: 's3.us-west-2.amazonaws.com',
+        resolvedHost: 'mybucket.s3-accelerate.dualstack.amazonaws.com',
+        queryParams: ['list-type=2'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
+    );
+  });
+  _i2.test('S3OperationAddressingPreferred (request)', () async {
+    final config =
+        (vendorSerializers.deserialize({
+              'scopedConfig': {
+                'client': {
+                  'region': 'us-west-2',
+                  's3': {'addressing_style': 'path'},
+                },
+                'operation': {
+                  's3': {'addressing_style': 'virtual'},
+                },
+              },
+            }, specifiedType: const FullType(AwsConfig))
+            as AwsConfig);
+    final s3ClientConfig = _i3.S3ClientConfig(
+      useAcceleration:
+          config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
+          config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
+          false,
+      useDualStack:
+          config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
+          config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
+          false,
+      usePathStyle:
+          (config.scopedConfig?.operation?.s3?.addressingStyle ??
+              config.scopedConfig?.client?.s3?.addressingStyle) ==
+          S3AddressingStyle.path,
+      signerConfiguration: _i4.S3ServiceConfiguration(
+        signPayload: false,
+        chunked: false,
+      ),
+    );
+    await _i1.httpRequestTest(
+      operation: ListObjectsV2Operation(
+        region: config.scopedConfig?.client?.region ?? 'us-east-1',
+        baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
-      );
-    },
-  );
-  _i2.test(
-    'S3OperationAddressingPreferred (request)',
-    () async {
-      final config = (vendorSerializers.deserialize(
-        {
+      ),
+      testCase: const _i1.HttpRequestTestCase(
+        id: 'S3OperationAddressingPreferred',
+        documentation:
+            'S3 clients should resolve to the addressing style of the\noperation if defined on both the client and operation.',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'Bucket': 'mybucket'},
+        vendorParamsShape: _i5.ShapeId(
+          namespace: 'aws.protocoltests.config',
+          shape: 'AwsConfig',
+        ),
+        vendorParams: {
           'scopedConfig': {
             'client': {
               'region': 'us-west-2',
               's3': {'addressing_style': 'path'},
             },
             'operation': {
-              's3': {'addressing_style': 'virtual'}
+              's3': {'addressing_style': 'virtual'},
             },
-          }
-        },
-        specifiedType: const FullType(AwsConfig),
-      ) as AwsConfig);
-      final s3ClientConfig = _i3.S3ClientConfig(
-        useAcceleration:
-            config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
-                config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
-                false,
-        useDualStack:
-            config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
-                config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
-                false,
-        usePathStyle: (config.scopedConfig?.operation?.s3?.addressingStyle ??
-                config.scopedConfig?.client?.s3?.addressingStyle) ==
-            S3AddressingStyle.path,
-        signerConfiguration: _i4.S3ServiceConfiguration(
-          signPayload: false,
-          chunked: false,
-        ),
-      );
-      await _i1.httpRequestTest(
-        operation: ListObjectsV2Operation(
-          region: config.scopedConfig?.client?.region ?? 'us-east-1',
-          baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i1.HttpRequestTestCase(
-          id: 'S3OperationAddressingPreferred',
-          documentation:
-              'S3 clients should resolve to the addressing style of the\noperation if defined on both the client and operation.',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'Bucket': 'mybucket'},
-          vendorParamsShape: _i5.ShapeId(
-            namespace: 'aws.protocoltests.config',
-            shape: 'AwsConfig',
-          ),
-          vendorParams: {
-            'scopedConfig': {
-              'client': {
-                'region': 'us-west-2',
-                's3': {'addressing_style': 'path'},
-              },
-              'operation': {
-                's3': {'addressing_style': 'virtual'}
-              },
-            }
           },
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/',
-          host: 's3.us-west-2.amazonaws.com',
-          resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
-          queryParams: ['list-type=2'],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
-      );
-    },
-  );
+        },
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/',
+        host: 's3.us-west-2.amazonaws.com',
+        resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
+        queryParams: ['list-type=2'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [ListObjectsV2RequestRestXmlSerializer()],
+    );
+  });
 }
 
 class ListObjectsV2RequestRestXmlSerializer
@@ -660,13 +604,12 @@ class ListObjectsV2RequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [ListObjectsV2Request];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   ListObjectsV2Request deserialize(
     Serializers serializers,
@@ -684,55 +627,75 @@ class ListObjectsV2RequestRestXmlSerializer
       }
       switch (key) {
         case 'Bucket':
-          result.bucket = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.bucket =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Delimiter':
-          result.delimiter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.delimiter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'EncodingType':
-          result.encodingType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(EncodingType),
-          ) as EncodingType);
+          result.encodingType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(EncodingType),
+                  )
+                  as EncodingType);
         case 'MaxKeys':
-          result.maxKeys = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxKeys =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'Prefix':
-          result.prefix = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.prefix =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ContinuationToken':
-          result.continuationToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.continuationToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'FetchOwner':
-          result.fetchOwner = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.fetchOwner =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'StartAfter':
-          result.startAfter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.startAfter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'RequestPayer':
-          result.requestPayer = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RequestPayer),
-          ) as RequestPayer);
+          result.requestPayer =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RequestPayer),
+                  )
+                  as RequestPayer);
         case 'ExpectedBucketOwner':
-          result.expectedBucketOwner = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.expectedBucketOwner =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -755,13 +718,12 @@ class ListObjectsV2OutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [ListObjectsV2Output];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   ListObjectsV2Output deserialize(
     Serializers serializers,
@@ -779,71 +741,95 @@ class ListObjectsV2OutputRestXmlSerializer
       }
       switch (key) {
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.isTruncated =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'Contents':
-          result.contents.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(S3Object)],
-            ),
-          ) as _i6.BuiltList<S3Object>));
+          result.contents.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i6.BuiltList, [
+                    FullType(S3Object),
+                  ]),
+                )
+                as _i6.BuiltList<S3Object>),
+          );
         case 'Name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Prefix':
-          result.prefix = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.prefix =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Delimiter':
-          result.delimiter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.delimiter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'MaxKeys':
-          result.maxKeys = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxKeys =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'CommonPrefixes':
-          result.commonPrefixes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(CommonPrefix)],
-            ),
-          ) as _i6.BuiltList<CommonPrefix>));
+          result.commonPrefixes.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i6.BuiltList, [
+                    FullType(CommonPrefix),
+                  ]),
+                )
+                as _i6.BuiltList<CommonPrefix>),
+          );
         case 'EncodingType':
-          result.encodingType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(EncodingType),
-          ) as EncodingType);
+          result.encodingType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(EncodingType),
+                  )
+                  as EncodingType);
         case 'KeyCount':
-          result.keyCount = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.keyCount =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'ContinuationToken':
-          result.continuationToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.continuationToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'NextContinuationToken':
-          result.nextContinuationToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.nextContinuationToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'StartAfter':
-          result.startAfter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.startAfter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -865,13 +851,12 @@ class ObjectRestXmlSerializer extends _i5.StructuredSmithySerializer<S3Object> {
 
   @override
   Iterable<Type> get types => const [S3Object];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   S3Object deserialize(
     Serializers serializers,
@@ -889,36 +874,44 @@ class ObjectRestXmlSerializer extends _i5.StructuredSmithySerializer<S3Object> {
       }
       switch (key) {
         case 'Key':
-          result.key = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.key =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'LastModified':
-          result.lastModified =
-              _i5.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.lastModified = _i5.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'ETag':
-          result.eTag = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.eTag =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Size':
-          result.size = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.size =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'StorageClass':
-          result.storageClass = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ObjectStorageClass),
-          ) as ObjectStorageClass);
+          result.storageClass =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ObjectStorageClass),
+                  )
+                  as ObjectStorageClass);
         case 'Owner':
-          result.owner.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(Owner),
-          ) as Owner));
+          result.owner.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(Owner),
+                )
+                as Owner),
+          );
       }
     }
 
@@ -940,13 +933,12 @@ class OwnerRestXmlSerializer extends _i5.StructuredSmithySerializer<Owner> {
 
   @override
   Iterable<Type> get types => const [Owner];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   Owner deserialize(
     Serializers serializers,
@@ -964,15 +956,19 @@ class OwnerRestXmlSerializer extends _i5.StructuredSmithySerializer<Owner> {
       }
       switch (key) {
         case 'DisplayName':
-          result.displayName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.displayName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ID':
-          result.id = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.id =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -995,13 +991,12 @@ class CommonPrefixRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [CommonPrefix];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   CommonPrefix deserialize(
     Serializers serializers,
@@ -1019,10 +1014,12 @@ class CommonPrefixRestXmlSerializer
       }
       switch (key) {
         case 'Prefix':
-          result.prefix = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.prefix =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -1045,13 +1042,12 @@ class NoSuchBucketRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [NoSuchBucket];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   NoSuchBucket deserialize(
     Serializers serializers,
@@ -1076,13 +1072,12 @@ class AwsConfigSerializer extends _i5.StructuredSmithySerializer<AwsConfig> {
 
   @override
   Iterable<Type> get types => const [AwsConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
+
   @override
   AwsConfig deserialize(
     Serializers serializers,
@@ -1100,15 +1095,20 @@ class AwsConfigSerializer extends _i5.StructuredSmithySerializer<AwsConfig> {
       }
       switch (key) {
         case 'clockTime':
-          result.clockTime = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.clockTime =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
         case 'scopedConfig':
-          result.scopedConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ScopedConfig),
-          ) as ScopedConfig));
+          result.scopedConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ScopedConfig),
+                )
+                as ScopedConfig),
+          );
       }
     }
 
@@ -1131,13 +1131,12 @@ class ScopedConfigSerializer
 
   @override
   Iterable<Type> get types => const [ScopedConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
+
   @override
   ScopedConfig deserialize(
     Serializers serializers,
@@ -1155,42 +1154,51 @@ class ScopedConfigSerializer
       }
       switch (key) {
         case 'environment':
-          result.environment.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(EnvironmentConfig),
-          ) as EnvironmentConfig));
+          result.environment.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(EnvironmentConfig),
+                )
+                as EnvironmentConfig),
+          );
         case 'configFile':
-          result.configFile.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i6.BuiltMap,
-              [
-                FullType(String),
-                FullType(FileConfigSettings),
-              ],
-            ),
-          ) as _i6.BuiltMap<String, FileConfigSettings>));
+          result.configFile.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i6.BuiltMap, [
+                    FullType(String),
+                    FullType(FileConfigSettings),
+                  ]),
+                )
+                as _i6.BuiltMap<String, FileConfigSettings>),
+          );
         case 'credentialsFile':
-          result.credentialsFile.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i6.BuiltMap,
-              [
-                FullType(String),
-                FullType(FileConfigSettings),
-              ],
-            ),
-          ) as _i6.BuiltMap<String, FileConfigSettings>));
+          result.credentialsFile.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i6.BuiltMap, [
+                    FullType(String),
+                    FullType(FileConfigSettings),
+                  ]),
+                )
+                as _i6.BuiltMap<String, FileConfigSettings>),
+          );
         case 'client':
-          result.client.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ClientConfig),
-          ) as ClientConfig));
+          result.client.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ClientConfig),
+                )
+                as ClientConfig),
+          );
         case 'operation':
-          result.operation.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(OperationConfig),
-          ) as OperationConfig));
+          result.operation.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(OperationConfig),
+                )
+                as OperationConfig),
+          );
       }
     }
 
@@ -1213,13 +1221,12 @@ class EnvironmentConfigSerializer
 
   @override
   Iterable<Type> get types => const [EnvironmentConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
+
   @override
   EnvironmentConfig deserialize(
     Serializers serializers,
@@ -1237,35 +1244,47 @@ class EnvironmentConfigSerializer
       }
       switch (key) {
         case 'AWS_ACCESS_KEY_ID':
-          result.awsAccessKeyId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsAccessKeyId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_SECRET_ACCESS_KEY':
-          result.awsSecretAccessKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSecretAccessKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_DEFAULT_REGION':
-          result.awsDefaultRegion = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsDefaultRegion =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_RETRY_MODE':
-          result.awsRetryMode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.awsRetryMode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 'AWS_SESSION_TOKEN':
-          result.awsSessionToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSessionToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_PROFILE':
-          result.awsProfile = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsProfile =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -1288,13 +1307,12 @@ class FileConfigSettingsSerializer
 
   @override
   Iterable<Type> get types => const [FileConfigSettings];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
+
   @override
   FileConfigSettings deserialize(
     Serializers serializers,
@@ -1312,40 +1330,55 @@ class FileConfigSettingsSerializer
       }
       switch (key) {
         case 'aws_access_key_id':
-          result.awsAccessKeyId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsAccessKeyId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_secret_access_key':
-          result.awsSecretAccessKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSecretAccessKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_session_token':
-          result.awsSessionToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSessionToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'region':
-          result.region = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.region =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 's3':
-          result.s3.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3Config),
-          ) as S3Config));
+          result.s3.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(S3Config),
+                )
+                as S3Config),
+          );
         case 'retry_mode':
-          result.retryMode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.retryMode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 'max_attempts':
-          result.maxAttempts = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxAttempts =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -1367,13 +1400,12 @@ class S3ConfigSerializer extends _i5.StructuredSmithySerializer<S3Config> {
 
   @override
   Iterable<Type> get types => const [S3Config];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
+
   @override
   S3Config deserialize(
     Serializers serializers,
@@ -1391,20 +1423,26 @@ class S3ConfigSerializer extends _i5.StructuredSmithySerializer<S3Config> {
       }
       switch (key) {
         case 'addressing_style':
-          result.addressingStyle = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3AddressingStyle),
-          ) as S3AddressingStyle);
+          result.addressingStyle =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(S3AddressingStyle),
+                  )
+                  as S3AddressingStyle);
         case 'use_accelerate_endpoint':
-          result.useAccelerateEndpoint = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.useAccelerateEndpoint =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'use_dualstack_endpoint':
-          result.useDualstackEndpoint = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.useDualstackEndpoint =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 
@@ -1427,13 +1465,12 @@ class ClientConfigSerializer
 
   @override
   Iterable<Type> get types => const [ClientConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
+
   @override
   ClientConfig deserialize(
     Serializers serializers,
@@ -1451,40 +1488,56 @@ class ClientConfigSerializer
       }
       switch (key) {
         case 'aws_access_key_id':
-          result.awsAccessKeyId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsAccessKeyId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_secret_access_key':
-          result.awsSecretAccessKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSecretAccessKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_session_token':
-          result.awsSessionToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSessionToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'region':
-          result.region = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.region =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 's3':
-          result.s3.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3Config),
-          ) as S3Config));
+          result.s3.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(S3Config),
+                )
+                as S3Config),
+          );
         case 'retry_config':
-          result.retryConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryConfig),
-          ) as RetryConfig));
+          result.retryConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(RetryConfig),
+                )
+                as RetryConfig),
+          );
         case 'aws_profile':
-          result.awsProfile = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsProfile =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -1507,13 +1560,12 @@ class RetryConfigSerializer
 
   @override
   Iterable<Type> get types => const [RetryConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
+
   @override
   RetryConfig deserialize(
     Serializers serializers,
@@ -1531,15 +1583,19 @@ class RetryConfigSerializer
       }
       switch (key) {
         case 'mode':
-          result.mode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.mode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 'max_attempts':
-          result.maxAttempts = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxAttempts =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -1562,13 +1618,12 @@ class OperationConfigSerializer
 
   @override
   Iterable<Type> get types => const [OperationConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
+
   @override
   OperationConfig deserialize(
     Serializers serializers,
@@ -1586,10 +1641,13 @@ class OperationConfigSerializer
       }
       switch (key) {
         case 's3':
-          result.s3.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3Config),
-          ) as S3Config));
+          result.s3.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(S3Config),
+                )
+                as S3Config),
+          );
       }
     }
 

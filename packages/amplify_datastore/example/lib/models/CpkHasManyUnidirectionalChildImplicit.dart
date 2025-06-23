@@ -17,7 +17,7 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, override_on_non_overriding_member, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
@@ -37,21 +37,27 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
   CpkHasManyUnidirectionalChildImplicitModelIdentifier get modelIdentifier {
     try {
       return CpkHasManyUnidirectionalChildImplicitModelIdentifier(
-          id: id, name: _name!);
+        id: id,
+        name: _name!,
+      );
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -60,11 +66,14 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
       return _name!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -84,33 +93,35 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
     return _cpkHasManyUnidirectionalParentImplicitChildrenName;
   }
 
-  const CpkHasManyUnidirectionalChildImplicit._internal(
-      {required this.id,
-      required name,
-      createdAt,
-      updatedAt,
-      cpkHasManyUnidirectionalParentImplicitChildrenId,
-      cpkHasManyUnidirectionalParentImplicitChildrenName})
-      : _name = name,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt,
-        _cpkHasManyUnidirectionalParentImplicitChildrenId =
-            cpkHasManyUnidirectionalParentImplicitChildrenId,
-        _cpkHasManyUnidirectionalParentImplicitChildrenName =
-            cpkHasManyUnidirectionalParentImplicitChildrenName;
+  const CpkHasManyUnidirectionalChildImplicit._internal({
+    required this.id,
+    required name,
+    createdAt,
+    updatedAt,
+    cpkHasManyUnidirectionalParentImplicitChildrenId,
+    cpkHasManyUnidirectionalParentImplicitChildrenName,
+  }) : _name = name,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt,
+       _cpkHasManyUnidirectionalParentImplicitChildrenId =
+           cpkHasManyUnidirectionalParentImplicitChildrenId,
+       _cpkHasManyUnidirectionalParentImplicitChildrenName =
+           cpkHasManyUnidirectionalParentImplicitChildrenName;
 
-  factory CpkHasManyUnidirectionalChildImplicit(
-      {String? id,
-      required String name,
-      String? cpkHasManyUnidirectionalParentImplicitChildrenId,
-      String? cpkHasManyUnidirectionalParentImplicitChildrenName}) {
+  factory CpkHasManyUnidirectionalChildImplicit({
+    String? id,
+    required String name,
+    String? cpkHasManyUnidirectionalParentImplicitChildrenId,
+    String? cpkHasManyUnidirectionalParentImplicitChildrenName,
+  }) {
     return CpkHasManyUnidirectionalChildImplicit._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        cpkHasManyUnidirectionalParentImplicitChildrenId:
-            cpkHasManyUnidirectionalParentImplicitChildrenId,
-        cpkHasManyUnidirectionalParentImplicitChildrenName:
-            cpkHasManyUnidirectionalParentImplicitChildrenName);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      cpkHasManyUnidirectionalParentImplicitChildrenId:
+          cpkHasManyUnidirectionalParentImplicitChildrenId,
+      cpkHasManyUnidirectionalParentImplicitChildrenName:
+          cpkHasManyUnidirectionalParentImplicitChildrenName,
+    );
   }
 
   bool equals(Object other) {
@@ -139,149 +150,181 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
     buffer.write("CpkHasManyUnidirectionalChildImplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write("updatedAt=" +
-        (_updatedAt != null ? _updatedAt!.format() : "null") +
-        ", ");
-    buffer.write("cpkHasManyUnidirectionalParentImplicitChildrenId=" +
-        "$_cpkHasManyUnidirectionalParentImplicitChildrenId" +
-        ", ");
-    buffer.write("cpkHasManyUnidirectionalParentImplicitChildrenName=" +
-        "$_cpkHasManyUnidirectionalParentImplicitChildrenName");
+    buffer.write(
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "cpkHasManyUnidirectionalParentImplicitChildrenId=" +
+          "$_cpkHasManyUnidirectionalParentImplicitChildrenId" +
+          ", ",
+    );
+    buffer.write(
+      "cpkHasManyUnidirectionalParentImplicitChildrenName=" +
+          "$_cpkHasManyUnidirectionalParentImplicitChildrenName",
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  CpkHasManyUnidirectionalChildImplicit copyWith(
-      {String? cpkHasManyUnidirectionalParentImplicitChildrenId,
-      String? cpkHasManyUnidirectionalParentImplicitChildrenName}) {
+  CpkHasManyUnidirectionalChildImplicit copyWith({
+    String? cpkHasManyUnidirectionalParentImplicitChildrenId,
+    String? cpkHasManyUnidirectionalParentImplicitChildrenName,
+  }) {
     return CpkHasManyUnidirectionalChildImplicit._internal(
-        id: id,
-        name: name,
-        cpkHasManyUnidirectionalParentImplicitChildrenId:
-            cpkHasManyUnidirectionalParentImplicitChildrenId ??
-                this.cpkHasManyUnidirectionalParentImplicitChildrenId,
-        cpkHasManyUnidirectionalParentImplicitChildrenName:
-            cpkHasManyUnidirectionalParentImplicitChildrenName ??
-                this.cpkHasManyUnidirectionalParentImplicitChildrenName);
+      id: id,
+      name: name,
+      cpkHasManyUnidirectionalParentImplicitChildrenId:
+          cpkHasManyUnidirectionalParentImplicitChildrenId ??
+          this.cpkHasManyUnidirectionalParentImplicitChildrenId,
+      cpkHasManyUnidirectionalParentImplicitChildrenName:
+          cpkHasManyUnidirectionalParentImplicitChildrenName ??
+          this.cpkHasManyUnidirectionalParentImplicitChildrenName,
+    );
   }
 
-  CpkHasManyUnidirectionalChildImplicit copyWithModelFieldValues(
-      {ModelFieldValue<String?>?
-          cpkHasManyUnidirectionalParentImplicitChildrenId,
-      ModelFieldValue<String?>?
-          cpkHasManyUnidirectionalParentImplicitChildrenName}) {
+  CpkHasManyUnidirectionalChildImplicit copyWithModelFieldValues({
+    ModelFieldValue<String?>? cpkHasManyUnidirectionalParentImplicitChildrenId,
+    ModelFieldValue<String?>?
+    cpkHasManyUnidirectionalParentImplicitChildrenName,
+  }) {
     return CpkHasManyUnidirectionalChildImplicit._internal(
-        id: id,
-        name: name,
-        cpkHasManyUnidirectionalParentImplicitChildrenId:
-            cpkHasManyUnidirectionalParentImplicitChildrenId == null
-                ? this.cpkHasManyUnidirectionalParentImplicitChildrenId
-                : cpkHasManyUnidirectionalParentImplicitChildrenId.value,
-        cpkHasManyUnidirectionalParentImplicitChildrenName:
-            cpkHasManyUnidirectionalParentImplicitChildrenName == null
-                ? this.cpkHasManyUnidirectionalParentImplicitChildrenName
-                : cpkHasManyUnidirectionalParentImplicitChildrenName.value);
+      id: id,
+      name: name,
+      cpkHasManyUnidirectionalParentImplicitChildrenId:
+          cpkHasManyUnidirectionalParentImplicitChildrenId == null
+          ? this.cpkHasManyUnidirectionalParentImplicitChildrenId
+          : cpkHasManyUnidirectionalParentImplicitChildrenId.value,
+      cpkHasManyUnidirectionalParentImplicitChildrenName:
+          cpkHasManyUnidirectionalParentImplicitChildrenName == null
+          ? this.cpkHasManyUnidirectionalParentImplicitChildrenName
+          : cpkHasManyUnidirectionalParentImplicitChildrenName.value,
+    );
   }
 
   CpkHasManyUnidirectionalChildImplicit.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null,
-        _cpkHasManyUnidirectionalParentImplicitChildrenId =
-            json['cpkHasManyUnidirectionalParentImplicitChildrenId'],
-        _cpkHasManyUnidirectionalParentImplicitChildrenName =
-            json['cpkHasManyUnidirectionalParentImplicitChildrenName'];
+    : id = json['id'],
+      _name = json['name'],
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null,
+      _cpkHasManyUnidirectionalParentImplicitChildrenId =
+          json['cpkHasManyUnidirectionalParentImplicitChildrenId'],
+      _cpkHasManyUnidirectionalParentImplicitChildrenName =
+          json['cpkHasManyUnidirectionalParentImplicitChildrenName'];
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format(),
-        'cpkHasManyUnidirectionalParentImplicitChildrenId':
-            _cpkHasManyUnidirectionalParentImplicitChildrenId,
-        'cpkHasManyUnidirectionalParentImplicitChildrenName':
-            _cpkHasManyUnidirectionalParentImplicitChildrenName
-      };
+    'id': id,
+    'name': _name,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+    'cpkHasManyUnidirectionalParentImplicitChildrenId':
+        _cpkHasManyUnidirectionalParentImplicitChildrenId,
+    'cpkHasManyUnidirectionalParentImplicitChildrenName':
+        _cpkHasManyUnidirectionalParentImplicitChildrenName,
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt,
-        'cpkHasManyUnidirectionalParentImplicitChildrenId':
-            _cpkHasManyUnidirectionalParentImplicitChildrenId,
-        'cpkHasManyUnidirectionalParentImplicitChildrenName':
-            _cpkHasManyUnidirectionalParentImplicitChildrenName
-      };
+    'id': id,
+    'name': _name,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+    'cpkHasManyUnidirectionalParentImplicitChildrenId':
+        _cpkHasManyUnidirectionalParentImplicitChildrenId,
+    'cpkHasManyUnidirectionalParentImplicitChildrenName':
+        _cpkHasManyUnidirectionalParentImplicitChildrenName,
+  };
 
   static final amplify_core.QueryModelIdentifier<
-          CpkHasManyUnidirectionalChildImplicitModelIdentifier>
-      MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
-          CpkHasManyUnidirectionalChildImplicitModelIdentifier>();
+    CpkHasManyUnidirectionalChildImplicitModelIdentifier
+  >
+  MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<
+        CpkHasManyUnidirectionalChildImplicitModelIdentifier
+      >();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID =
       amplify_core.QueryField(
-          fieldName: "cpkHasManyUnidirectionalParentImplicitChildrenId");
+        fieldName: "cpkHasManyUnidirectionalParentImplicitChildrenId",
+      );
   static final CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENNAME =
       amplify_core.QueryField(
-          fieldName: "cpkHasManyUnidirectionalParentImplicitChildrenName");
+        fieldName: "cpkHasManyUnidirectionalParentImplicitChildrenName",
+      );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CpkHasManyUnidirectionalChildImplicit";
-    modelSchemaDefinition.pluralName = "CpkHasManyUnidirectionalChildImplicits";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "CpkHasManyUnidirectionalChildImplicit";
+      modelSchemaDefinition.pluralName =
+          "CpkHasManyUnidirectionalChildImplicits";
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id", "name"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(fields: const ["id", "name"], name: null),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkHasManyUnidirectionalChildImplicit.NAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkHasManyUnidirectionalChildImplicit.NAME,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkHasManyUnidirectionalChildImplicit
-            .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkHasManyUnidirectionalChildImplicit
+              .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkHasManyUnidirectionalChildImplicit
-            .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENNAME,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-  });
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkHasManyUnidirectionalChildImplicit
+              .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENNAME,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _CpkHasManyUnidirectionalChildImplicitModelType
@@ -290,7 +333,8 @@ class _CpkHasManyUnidirectionalChildImplicitModelType
 
   @override
   CpkHasManyUnidirectionalChildImplicit fromJson(
-      Map<String, dynamic> jsonData) {
+    Map<String, dynamic> jsonData,
+  ) {
     return CpkHasManyUnidirectionalChildImplicit.fromJson(jsonData);
   }
 
@@ -314,16 +358,17 @@ class CpkHasManyUnidirectionalChildImplicitModelIdentifier
    * Create an instance of CpkHasManyUnidirectionalChildImplicitModelIdentifier using [id] the primary key.
    * And [name] the sort key.
    */
-  const CpkHasManyUnidirectionalChildImplicitModelIdentifier(
-      {required this.id, required this.name});
+  const CpkHasManyUnidirectionalChildImplicitModelIdentifier({
+    required this.id,
+    required this.name,
+  });
 
   @override
   Map<String, dynamic> serializeAsMap() =>
       (<String, dynamic>{'id': id, 'name': name});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
       .map((entry) => (<String, dynamic>{entry.key: entry.value}))
       .toList();
 

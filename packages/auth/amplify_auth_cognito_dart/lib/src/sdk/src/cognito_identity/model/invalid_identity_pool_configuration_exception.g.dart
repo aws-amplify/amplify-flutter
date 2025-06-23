@@ -13,24 +13,21 @@ class _$InvalidIdentityPoolConfigurationException
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidIdentityPoolConfigurationException(
-          [void Function(InvalidIdentityPoolConfigurationExceptionBuilder)?
-              updates]) =>
-      (new InvalidIdentityPoolConfigurationExceptionBuilder()..update(updates))
-          ._build();
+  factory _$InvalidIdentityPoolConfigurationException([
+    void Function(InvalidIdentityPoolConfigurationExceptionBuilder)? updates,
+  ]) => (InvalidIdentityPoolConfigurationExceptionBuilder()..update(updates))
+      ._build();
 
   _$InvalidIdentityPoolConfigurationException._({this.message, this.headers})
-      : super._();
-
+    : super._();
   @override
   InvalidIdentityPoolConfigurationException rebuild(
-          void Function(InvalidIdentityPoolConfigurationExceptionBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidIdentityPoolConfigurationExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidIdentityPoolConfigurationExceptionBuilder toBuilder() =>
-      new InvalidIdentityPoolConfigurationExceptionBuilder()..replace(this);
+      InvalidIdentityPoolConfigurationExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -50,8 +47,10 @@ class _$InvalidIdentityPoolConfigurationException
 
 class InvalidIdentityPoolConfigurationExceptionBuilder
     implements
-        Builder<InvalidIdentityPoolConfigurationException,
-            InvalidIdentityPoolConfigurationExceptionBuilder> {
+        Builder<
+          InvalidIdentityPoolConfigurationException,
+          InvalidIdentityPoolConfigurationExceptionBuilder
+        > {
   _$InvalidIdentityPoolConfigurationException? _$v;
 
   String? _message;
@@ -76,14 +75,13 @@ class InvalidIdentityPoolConfigurationExceptionBuilder
 
   @override
   void replace(InvalidIdentityPoolConfigurationException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidIdentityPoolConfigurationException;
   }
 
   @override
   void update(
-      void Function(InvalidIdentityPoolConfigurationExceptionBuilder)?
-          updates) {
+    void Function(InvalidIdentityPoolConfigurationExceptionBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -91,9 +89,12 @@ class InvalidIdentityPoolConfigurationExceptionBuilder
   InvalidIdentityPoolConfigurationException build() => _build();
 
   _$InvalidIdentityPoolConfigurationException _build() {
-    final _$result = _$v ??
-        new _$InvalidIdentityPoolConfigurationException._(
-            message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$InvalidIdentityPoolConfigurationException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

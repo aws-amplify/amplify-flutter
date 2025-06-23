@@ -24,29 +24,28 @@ class _$InAppMessageCampaign extends InAppMessageCampaign {
   @override
   final String? treatmentId;
 
-  factory _$InAppMessageCampaign(
-          [void Function(InAppMessageCampaignBuilder)? updates]) =>
-      (new InAppMessageCampaignBuilder()..update(updates))._build();
+  factory _$InAppMessageCampaign([
+    void Function(InAppMessageCampaignBuilder)? updates,
+  ]) => (InAppMessageCampaignBuilder()..update(updates))._build();
 
-  _$InAppMessageCampaign._(
-      {this.campaignId,
-      this.dailyCap,
-      this.inAppMessage,
-      this.priority,
-      this.schedule,
-      this.sessionCap,
-      this.totalCap,
-      this.treatmentId})
-      : super._();
-
+  _$InAppMessageCampaign._({
+    this.campaignId,
+    this.dailyCap,
+    this.inAppMessage,
+    this.priority,
+    this.schedule,
+    this.sessionCap,
+    this.totalCap,
+    this.treatmentId,
+  }) : super._();
   @override
   InAppMessageCampaign rebuild(
-          void Function(InAppMessageCampaignBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InAppMessageCampaignBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageCampaignBuilder toBuilder() =>
-      new InAppMessageCampaignBuilder()..replace(this);
+      InAppMessageCampaignBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -92,7 +91,7 @@ class InAppMessageCampaignBuilder
 
   InAppMessageBuilder? _inAppMessage;
   InAppMessageBuilder get inAppMessage =>
-      _$this._inAppMessage ??= new InAppMessageBuilder();
+      _$this._inAppMessage ??= InAppMessageBuilder();
   set inAppMessage(InAppMessageBuilder? inAppMessage) =>
       _$this._inAppMessage = inAppMessage;
 
@@ -102,7 +101,7 @@ class InAppMessageCampaignBuilder
 
   InAppCampaignScheduleBuilder? _schedule;
   InAppCampaignScheduleBuilder get schedule =>
-      _$this._schedule ??= new InAppCampaignScheduleBuilder();
+      _$this._schedule ??= InAppCampaignScheduleBuilder();
   set schedule(InAppCampaignScheduleBuilder? schedule) =>
       _$this._schedule = schedule;
 
@@ -138,7 +137,6 @@ class InAppMessageCampaignBuilder
 
   @override
   void replace(InAppMessageCampaign other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppMessageCampaign;
   }
 
@@ -153,16 +151,18 @@ class InAppMessageCampaignBuilder
   _$InAppMessageCampaign _build() {
     _$InAppMessageCampaign _$result;
     try {
-      _$result = _$v ??
-          new _$InAppMessageCampaign._(
-              campaignId: campaignId,
-              dailyCap: dailyCap,
-              inAppMessage: _inAppMessage?.build(),
-              priority: priority,
-              schedule: _schedule?.build(),
-              sessionCap: sessionCap,
-              totalCap: totalCap,
-              treatmentId: treatmentId);
+      _$result =
+          _$v ??
+          _$InAppMessageCampaign._(
+            campaignId: campaignId,
+            dailyCap: dailyCap,
+            inAppMessage: _inAppMessage?.build(),
+            priority: priority,
+            schedule: _schedule?.build(),
+            sessionCap: sessionCap,
+            totalCap: totalCap,
+            treatmentId: treatmentId,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -172,8 +172,11 @@ class InAppMessageCampaignBuilder
         _$failedField = 'schedule';
         _schedule?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'InAppMessageCampaign', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'InAppMessageCampaign',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.malformed_timestamp_query_default_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,19 @@ abstract class MalformedTimestampQueryDefaultInput
         _i1.HttpInput<MalformedTimestampQueryDefaultInputPayload>,
         _i2.AWSEquatable<MalformedTimestampQueryDefaultInput>
     implements
-        Built<MalformedTimestampQueryDefaultInput,
-            MalformedTimestampQueryDefaultInputBuilder>,
+        Built<
+          MalformedTimestampQueryDefaultInput,
+          MalformedTimestampQueryDefaultInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<MalformedTimestampQueryDefaultInputPayload> {
   factory MalformedTimestampQueryDefaultInput({required DateTime timestamp}) {
     return _$MalformedTimestampQueryDefaultInput._(timestamp: timestamp);
   }
 
-  factory MalformedTimestampQueryDefaultInput.build(
-          [void Function(MalformedTimestampQueryDefaultInputBuilder) updates]) =
-      _$MalformedTimestampQueryDefaultInput;
+  factory MalformedTimestampQueryDefaultInput.build([
+    void Function(MalformedTimestampQueryDefaultInputBuilder) updates,
+  ]) = _$MalformedTimestampQueryDefaultInput;
 
   const MalformedTimestampQueryDefaultInput._();
 
@@ -34,81 +36,85 @@ abstract class MalformedTimestampQueryDefaultInput
     MalformedTimestampQueryDefaultInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedTimestampQueryDefaultInput.build((b) {
-        if (request.queryParameters['timestamp'] != null) {
-          b.timestamp = _i1.Timestamp.parse(
-            request.queryParameters['timestamp']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
-        }
-      });
+  }) => MalformedTimestampQueryDefaultInput.build((b) {
+    if (request.queryParameters['timestamp'] != null) {
+      b.timestamp = _i1.Timestamp.parse(
+        request.queryParameters['timestamp']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<MalformedTimestampQueryDefaultInputPayload>>
-      serializers = [MalformedTimestampQueryDefaultInputRestJson1Serializer()];
+    _i1.SmithySerializer<MalformedTimestampQueryDefaultInputPayload>
+  >
+  serializers = [MalformedTimestampQueryDefaultInputRestJson1Serializer()];
 
   DateTime get timestamp;
   @override
   MalformedTimestampQueryDefaultInputPayload getPayload() =>
       MalformedTimestampQueryDefaultInputPayload();
+
   @override
   List<Object?> get props => [timestamp];
+
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedTimestampQueryDefaultInput')
-          ..add(
-            'timestamp',
-            timestamp,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'MalformedTimestampQueryDefaultInput',
+    )..add('timestamp', timestamp);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class MalformedTimestampQueryDefaultInputPayload
-    with
-        _i2.AWSEquatable<MalformedTimestampQueryDefaultInputPayload>
+    with _i2.AWSEquatable<MalformedTimestampQueryDefaultInputPayload>
     implements
-        Built<MalformedTimestampQueryDefaultInputPayload,
-            MalformedTimestampQueryDefaultInputPayloadBuilder>,
+        Built<
+          MalformedTimestampQueryDefaultInputPayload,
+          MalformedTimestampQueryDefaultInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory MalformedTimestampQueryDefaultInputPayload(
-      [void Function(MalformedTimestampQueryDefaultInputPayloadBuilder)
-          updates]) = _$MalformedTimestampQueryDefaultInputPayload;
+  factory MalformedTimestampQueryDefaultInputPayload([
+    void Function(MalformedTimestampQueryDefaultInputPayloadBuilder) updates,
+  ]) = _$MalformedTimestampQueryDefaultInputPayload;
 
   const MalformedTimestampQueryDefaultInputPayload._();
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MalformedTimestampQueryDefaultInputPayload');
+      'MalformedTimestampQueryDefaultInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class MalformedTimestampQueryDefaultInputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<MalformedTimestampQueryDefaultInputPayload> {
+class MalformedTimestampQueryDefaultInputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<
+          MalformedTimestampQueryDefaultInputPayload
+        > {
   const MalformedTimestampQueryDefaultInputRestJson1Serializer()
-      : super('MalformedTimestampQueryDefaultInput');
+    : super('MalformedTimestampQueryDefaultInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedTimestampQueryDefaultInput,
-        _$MalformedTimestampQueryDefaultInput,
-        MalformedTimestampQueryDefaultInputPayload,
-        _$MalformedTimestampQueryDefaultInputPayload,
-      ];
+    MalformedTimestampQueryDefaultInput,
+    _$MalformedTimestampQueryDefaultInput,
+    MalformedTimestampQueryDefaultInputPayload,
+    _$MalformedTimestampQueryDefaultInputPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   MalformedTimestampQueryDefaultInputPayload deserialize(
     Serializers serializers,
@@ -123,6 +129,5 @@ class MalformedTimestampQueryDefaultInputRestJson1Serializer extends _i1
     Serializers serializers,
     MalformedTimestampQueryDefaultInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

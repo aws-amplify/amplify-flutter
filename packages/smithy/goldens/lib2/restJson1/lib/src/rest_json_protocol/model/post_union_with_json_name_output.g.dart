@@ -10,23 +10,19 @@ class _$PostUnionWithJsonNameOutput extends PostUnionWithJsonNameOutput {
   @override
   final UnionWithJsonName value;
 
-  factory _$PostUnionWithJsonNameOutput(
-          [void Function(PostUnionWithJsonNameOutputBuilder)? updates]) =>
-      (new PostUnionWithJsonNameOutputBuilder()..update(updates))._build();
+  factory _$PostUnionWithJsonNameOutput([
+    void Function(PostUnionWithJsonNameOutputBuilder)? updates,
+  ]) => (PostUnionWithJsonNameOutputBuilder()..update(updates))._build();
 
-  _$PostUnionWithJsonNameOutput._({required this.value}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        value, r'PostUnionWithJsonNameOutput', 'value');
-  }
-
+  _$PostUnionWithJsonNameOutput._({required this.value}) : super._();
   @override
   PostUnionWithJsonNameOutput rebuild(
-          void Function(PostUnionWithJsonNameOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PostUnionWithJsonNameOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PostUnionWithJsonNameOutputBuilder toBuilder() =>
-      new PostUnionWithJsonNameOutputBuilder()..replace(this);
+      PostUnionWithJsonNameOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -45,8 +41,10 @@ class _$PostUnionWithJsonNameOutput extends PostUnionWithJsonNameOutput {
 
 class PostUnionWithJsonNameOutputBuilder
     implements
-        Builder<PostUnionWithJsonNameOutput,
-            PostUnionWithJsonNameOutputBuilder> {
+        Builder<
+          PostUnionWithJsonNameOutput,
+          PostUnionWithJsonNameOutputBuilder
+        > {
   _$PostUnionWithJsonNameOutput? _$v;
 
   UnionWithJsonName? _value;
@@ -66,7 +64,6 @@ class PostUnionWithJsonNameOutputBuilder
 
   @override
   void replace(PostUnionWithJsonNameOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PostUnionWithJsonNameOutput;
   }
 
@@ -79,10 +76,15 @@ class PostUnionWithJsonNameOutputBuilder
   PostUnionWithJsonNameOutput build() => _build();
 
   _$PostUnionWithJsonNameOutput _build() {
-    final _$result = _$v ??
-        new _$PostUnionWithJsonNameOutput._(
-            value: BuiltValueNullFieldError.checkNotNull(
-                value, r'PostUnionWithJsonNameOutput', 'value'));
+    final _$result =
+        _$v ??
+        _$PostUnionWithJsonNameOutput._(
+          value: BuiltValueNullFieldError.checkNotNull(
+            value,
+            r'PostUnionWithJsonNameOutput',
+            'value',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

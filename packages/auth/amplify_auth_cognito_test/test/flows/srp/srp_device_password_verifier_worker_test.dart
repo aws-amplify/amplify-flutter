@@ -30,7 +30,7 @@ void main() {
       final message = SrpDevicePasswordVerifierMessage(
         (b) => b
           ..initResult = initResult
-          ..clientId = testAppClientId
+          ..clientId = mockConfig.auth!.userPoolClientId
           ..deviceSecrets = CognitoDeviceSecrets(
             (b) => b
               ..deviceKey = deviceKey
@@ -52,8 +52,9 @@ void main() {
         worker.stream,
         emits(
           isA<RespondToAuthChallengeRequest>().having(
-            (req) => req.challengeResponses?[
-                CognitoConstants.challengeParamPasswordSignature],
+            (req) =>
+                req.challengeResponses?[CognitoConstants
+                    .challengeParamPasswordSignature],
             'signature',
             isNotNull,
           ),
@@ -69,7 +70,7 @@ void main() {
       final message = SrpDevicePasswordVerifierMessage(
         (b) => b
           ..initResult = initResult
-          ..clientId = testAppClientId
+          ..clientId = mockConfig.auth!.userPoolClientId
           ..deviceSecrets = CognitoDeviceSecrets(
             (b) => b
               ..deviceKey = deviceKey
@@ -81,14 +82,8 @@ void main() {
       );
       worker.add(message);
 
-      expect(
-        worker.result,
-        completion(isA<ErrorResult>()),
-      );
-      await expectLater(
-        worker.stream,
-        emitsError(isA<WorkerBeeException>()),
-      );
+      expect(worker.result, completion(isA<ErrorResult>()));
+      await expectLater(worker.stream, emitsError(isA<WorkerBeeException>()));
       unawaited(worker.close());
     });
   });

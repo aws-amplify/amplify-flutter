@@ -9,9 +9,12 @@ import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_serv
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/subscriptions_event.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -26,14 +29,16 @@ part '../types/web_socket_event.dart';
 class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro api.web_socket_bloc}
   WebSocketBloc({
-    required AWSApiConfig config,
+    required ApiOutputs config,
     required AmplifyAuthProviderRepository authProviderRepo,
     required WebSocketService wsService,
     required GraphQLSubscriptionOptions subscriptionOptions,
     required ConnectivityPlatform connectivity,
+    required ProcessLifeCycle processLifeCycle,
     AWSHttpClient? pollClientOverride,
-  })  : _connectivity = connectivity,
-        _pollClient = pollClientOverride ?? AWSHttpClient() {
+  }) : _connectivity = connectivity,
+       _processLifeCycle = processLifeCycle,
+       _pollClient = pollClientOverride ?? AWSHttpClient() {
     final subBlocs = <String, SubscriptionBloc<Object?>>{};
 
     _currentState = DisconnectedState(
@@ -47,12 +52,15 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     );
     final blocStream = _wsEventStream.asyncExpand(_eventTransformer);
     _networkSubscription = _getConnectivityStream();
+    _processLifeCycleSubscription = _getProcessLifecycleStream();
     _stateSubscription = blocStream.listen(_emit);
     add(const InitEvent());
   }
 
+  final blocId = uuid();
+
   @override
-  String get runtimeTypeName => 'WebSocketBloc';
+  String get runtimeTypeName => 'WebSocketBloc - $blocId';
 
   /// Default timeout response for polling
   static const Duration _pollResponseTimeout = Duration(seconds: 5);
@@ -77,9 +85,13 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   late final Stream<WebSocketEvent> _wsEventStream = _wsEventController.stream;
   late final StreamSubscription<WebSocketState> _stateSubscription;
   late final StreamSubscription<ConnectivityStatus> _networkSubscription;
+  late final StreamSubscription<ProcessStatus> _processLifeCycleSubscription;
 
   /// Creates a stream representing network connectivity at the hardware level.
   final ConnectivityPlatform _connectivity;
+
+  /// Creates a stream representing the process life cycle state.
+  final ProcessLifeCycle _processLifeCycle;
 
   /// The underlying event stream, used only in testing.
   @visibleForTesting
@@ -160,6 +172,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       yield* _networkLoss();
     } else if (event is NetworkFoundEvent) {
       yield* _networkFound();
+    } else if (event is ProcessResumeEvent) {
+      yield* _processResumed();
     } else if (event is PollSuccessEvent) {
       yield* _pollSuccess();
     } else if (event is PollFailedEvent) {
@@ -212,15 +226,19 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       'We should never evaluate a connection ack message while not connecting.',
     );
 
-    final timeoutDuration =
-        Duration(milliseconds: event.payload.connectionTimeoutMs);
+    final timeoutDuration = Duration(
+      milliseconds: event.payload.connectionTimeoutMs,
+    );
     final timeoutTimer = RestartableTimer(
       timeoutDuration,
       () => _timeout(timeoutDuration),
     );
 
-    final pollTimer =
-        Timer.periodic(_currentState.options.pollInterval, (_) => _poll());
+    final pollTimer = Timer.periodic(
+      _currentState.options.pollInterval,
+      // ignore: invalid_use_of_internal_member
+      (_) => WebSocketOptions.autoReconnect ? _poll() : () {},
+    );
 
     final connectedState = (_currentState as ConnectingState).connected(
       timeoutTimer,
@@ -233,9 +251,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
     // register any outstanding subs
     await Future.wait(
-      connectedState.subscriptionBlocs.values.map((
-        bloc,
-      ) async {
+      connectedState.subscriptionBlocs.values.map((bloc) async {
         assert(
           bloc.currentState is SubscriptionPendingState,
           'Subscription bloc should be in pending state for registration, but is ${bloc.currentState}',
@@ -271,18 +287,20 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       'Bloc should not be in ${_currentState.runtimeType} when calling init.',
     );
 
-    _currentState.service.init(_currentState).listen(
-      // In some cases, the service will keep getting messages during/after
-      // disconnect. Ignore those messages.
-      _safeAdd,
-      onError: (Object error, StackTrace st) {
-        final exception = NetworkException(
-          'Exception from WebSocketService.',
-          underlyingException: error.toString(),
+    _currentState.service
+        .init(_currentState)
+        .listen(
+          // In some cases, the service will keep getting messages during/after
+          // disconnect. Ignore those messages.
+          _safeAdd,
+          onError: (Object error, StackTrace st) {
+            final exception = NetworkException(
+              'Exception from WebSocketService.',
+              underlyingException: error.toString(),
+            );
+            _shutdownWithException(exception, st);
+          },
         );
-        _shutdownWithException(exception, st);
-      },
-    );
 
     yield _currentState.connecting(networkState: NetworkState.connected);
   }
@@ -315,6 +333,16 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     if (state is ConnectingState &&
         state.networkState == NetworkState.disconnected) {
       yield state.reconnecting();
+      add(const ReconnectEvent());
+    }
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
+  }
+
+  Stream<WebSocketState> _processResumed() async* {
+    final state = _currentState;
+    if (state is ConnectedState) {
+      yield state.reconnecting(networkState: NetworkState.disconnected);
       add(const ReconnectEvent());
     }
     // TODO(dnys1): Yield broken on web debug build.
@@ -405,10 +433,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     }
 
     currentState.service
-        .register(
-          currentState,
-          request,
-        )
+        .register(currentState, request)
         .onError<Object>(subscriptionBloc.addResponseError);
   }
 
@@ -460,6 +485,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     await Future.wait<void>([
       // TODO(equartey): https://github.com/fluttercommunity/plus_plugins/issues/1382
       if (!isWindows()) _networkSubscription.cancel(),
+      _processLifeCycleSubscription.cancel(),
       Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
       _wsEventController.close(),
@@ -472,17 +498,67 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Connectivity stream monitors network availability on a hardware level.
   StreamSubscription<ConnectivityStatus> _getConnectivityStream() {
+    var prev = ConnectivityStatus.disconnected;
     return _connectivity.onConnectivityChanged.listen(
       (status) {
-        if (status == ConnectivityStatus.connected) {
+        // ignore: invalid_use_of_internal_member
+        if (!WebSocketOptions.autoReconnect) {
+          // shutdown the socket when autoReconnect is turned off
+          if (status == ConnectivityStatus.disconnected &&
+              prev == ConnectivityStatus.connected) {
+            _shutdownWithException(
+              const NetworkException(
+                'Unable to recover network connection, web socket will close.',
+                recoverySuggestion: 'Check internet connection.',
+              ),
+              StackTrace.current,
+            );
+          }
+        } else if (status == ConnectivityStatus.connected) {
           add(const NetworkFoundEvent());
         } else if (status == ConnectivityStatus.disconnected) {
           add(const NetworkLossEvent());
         }
+        prev = status;
       },
       onError: (Object e, StackTrace st) =>
           logger.error('Error in connectivity stream $e, $st'),
     );
+  }
+
+  /// Process life cycle stream monitors when the process resumes from a paused state.
+  StreamSubscription<ProcessStatus> _getProcessLifecycleStream() {
+    var prev = ProcessStatus.detached;
+    return _processLifeCycle.onStateChanged.listen(
+      (state) {
+        if (_isResuming(state, prev)) {
+          // ignore: invalid_use_of_internal_member
+          if (!WebSocketOptions.autoReconnect) {
+            _shutdownWithException(
+              const NetworkException(
+                'Unable to recover network connection, web socket will close.',
+                recoverySuggestion: 'Avoid pausing the process.',
+              ),
+              StackTrace.current,
+            );
+          } else {
+            add(const ProcessResumeEvent());
+          }
+        }
+
+        prev = state;
+      },
+      onError: (Object e, StackTrace st) =>
+          logger.error('Error in process life cycle stream $e, $st'),
+    );
+  }
+
+  bool _isResuming(ProcessStatus current, ProcessStatus previous) {
+    if (previous != ProcessStatus.paused) return false;
+
+    return current == ProcessStatus.hidden ||
+        current == ProcessStatus.inactive ||
+        current == ProcessStatus.resumed;
   }
 
   Future<void> _poll() async {
@@ -508,9 +584,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
     // Init a subscription state machine with <T> and save it in state
     final subState = SubscriptionPendingState<T>(event.request, callback, this);
-    final subBloc = SubscriptionBloc(
-      subState,
-    );
+    final subBloc = SubscriptionBloc(subState);
     _currentState.subscriptionBlocs[event.request.id] = subBloc;
 
     return subBloc;
@@ -530,9 +604,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// GET request on the configured AppSync url via the `/poll` endpoint
   Future<AWSBaseHttpResponse> _sendPollRequest() {
-    final req = AWSHttpRequest.get(
-      _currentState.pollUri,
-    );
+    final req = AWSHttpRequest.get(_currentState.pollUri);
 
     final op = req.send(client: _pollClient);
     return op.response.timeout(

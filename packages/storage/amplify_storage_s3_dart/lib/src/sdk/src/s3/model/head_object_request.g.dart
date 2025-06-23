@@ -38,39 +38,34 @@ class _$HeadObjectRequest extends HeadObjectRequest {
   @override
   final ChecksumMode? checksumMode;
 
-  factory _$HeadObjectRequest(
-          [void Function(HeadObjectRequestBuilder)? updates]) =>
-      (new HeadObjectRequestBuilder()..update(updates))._build();
+  factory _$HeadObjectRequest([
+    void Function(HeadObjectRequestBuilder)? updates,
+  ]) => (HeadObjectRequestBuilder()..update(updates))._build();
 
-  _$HeadObjectRequest._(
-      {required this.bucket,
-      this.ifMatch,
-      this.ifModifiedSince,
-      this.ifNoneMatch,
-      this.ifUnmodifiedSince,
-      required this.key,
-      this.range,
-      this.versionId,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5,
-      this.requestPayer,
-      this.partNumber,
-      this.expectedBucketOwner,
-      this.checksumMode})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'HeadObjectRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(key, r'HeadObjectRequest', 'key');
-  }
-
+  _$HeadObjectRequest._({
+    required this.bucket,
+    this.ifMatch,
+    this.ifModifiedSince,
+    this.ifNoneMatch,
+    this.ifUnmodifiedSince,
+    required this.key,
+    this.range,
+    this.versionId,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+    this.requestPayer,
+    this.partNumber,
+    this.expectedBucketOwner,
+    this.checksumMode,
+  }) : super._();
   @override
   HeadObjectRequest rebuild(void Function(HeadObjectRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   HeadObjectRequestBuilder toBuilder() =>
-      new HeadObjectRequestBuilder()..replace(this);
+      HeadObjectRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -215,7 +210,6 @@ class HeadObjectRequestBuilder
 
   @override
   void replace(HeadObjectRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HeadObjectRequest;
   }
 
@@ -228,45 +222,52 @@ class HeadObjectRequestBuilder
   HeadObjectRequest build() => _build();
 
   _$HeadObjectRequest _build() {
-    final _$result = _$v ??
-        new _$HeadObjectRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'HeadObjectRequest', 'bucket'),
-            ifMatch: ifMatch,
-            ifModifiedSince: ifModifiedSince,
-            ifNoneMatch: ifNoneMatch,
-            ifUnmodifiedSince: ifUnmodifiedSince,
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'HeadObjectRequest', 'key'),
-            range: range,
-            versionId: versionId,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKey: sseCustomerKey,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            requestPayer: requestPayer,
-            partNumber: partNumber,
-            expectedBucketOwner: expectedBucketOwner,
-            checksumMode: checksumMode);
+    final _$result =
+        _$v ??
+        _$HeadObjectRequest._(
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'HeadObjectRequest',
+            'bucket',
+          ),
+          ifMatch: ifMatch,
+          ifModifiedSince: ifModifiedSince,
+          ifNoneMatch: ifNoneMatch,
+          ifUnmodifiedSince: ifUnmodifiedSince,
+          key: BuiltValueNullFieldError.checkNotNull(
+            key,
+            r'HeadObjectRequest',
+            'key',
+          ),
+          range: range,
+          versionId: versionId,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKey: sseCustomerKey,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          requestPayer: requestPayer,
+          partNumber: partNumber,
+          expectedBucketOwner: expectedBucketOwner,
+          checksumMode: checksumMode,
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$HeadObjectRequestPayload extends HeadObjectRequestPayload {
-  factory _$HeadObjectRequestPayload(
-          [void Function(HeadObjectRequestPayloadBuilder)? updates]) =>
-      (new HeadObjectRequestPayloadBuilder()..update(updates))._build();
+  factory _$HeadObjectRequestPayload([
+    void Function(HeadObjectRequestPayloadBuilder)? updates,
+  ]) => (HeadObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$HeadObjectRequestPayload._() : super._();
-
   @override
   HeadObjectRequestPayload rebuild(
-          void Function(HeadObjectRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HeadObjectRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HeadObjectRequestPayloadBuilder toBuilder() =>
-      new HeadObjectRequestPayloadBuilder()..replace(this);
+      HeadObjectRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -289,7 +290,6 @@ class HeadObjectRequestPayloadBuilder
 
   @override
   void replace(HeadObjectRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HeadObjectRequestPayload;
   }
 
@@ -302,7 +302,7 @@ class HeadObjectRequestPayloadBuilder
   HeadObjectRequestPayload build() => _build();
 
   _$HeadObjectRequestPayload _build() {
-    final _$result = _$v ?? new _$HeadObjectRequestPayload._();
+    final _$result = _$v ?? _$HeadObjectRequestPayload._();
     replace(_$result);
     return _$result;
   }

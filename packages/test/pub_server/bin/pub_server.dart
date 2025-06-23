@@ -23,10 +23,7 @@ Future<void> main(List<String> args) async {
           'Seeds the pub server. Must specify with --local-path or --git-url.',
       defaultsTo: false,
     )
-    ..addOption(
-      'local-path',
-      help: 'Seeds the pub server with the given path.',
-    )
+    ..addOption('local-path', help: 'Seeds the pub server with the given path.')
     ..addOption(
       'git-url',
       help: 'Seeds the pub server with the given git repository.',
@@ -70,14 +67,13 @@ Future<void> main(List<String> args) async {
     }
   }
 
-  var dataDir = argResults['data-dir'] as String? ??
+  var dataDir =
+      argResults['data-dir'] as String? ??
       const String.fromEnvironment('DATA_DIR');
   if (dataDir.isEmpty) {
     dataDir = Directory.systemTemp.createTempSync('pub-local').path;
   }
-  final server = PubServer.prod(
-    dataDir: dataDir,
-  );
+  final server = PubServer.prod(dataDir: dataDir);
   var port = int.parse(argResults['port'] as String);
   if (port == 0) {
     port = const int.fromEnvironment('PORT', defaultValue: 0);

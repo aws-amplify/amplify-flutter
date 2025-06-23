@@ -85,40 +85,40 @@ ShapeType _$shapeTypeValueOf(String name) {
     case 'operation':
       return _$operation;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<ShapeType> _$shapeTypeValues =
-    new BuiltSet<ShapeType>(const <ShapeType>[
-  _$apply,
-  _$blob,
-  _$boolean,
-  _$string,
-  _$enum,
-  _$timestamp,
-  _$byte,
-  _$short,
-  _$integer,
-  _$intEnum,
-  _$long,
-  _$float,
-  _$document,
-  _$double,
-  _$bigDecimal,
-  _$bigInteger,
-  _$list,
-  _$set,
-  _$map,
-  _$structure,
-  _$union,
-  _$member,
-  _$service,
-  _$resource,
-  _$operation,
-]);
+    BuiltSet<ShapeType>(const <ShapeType>[
+      _$apply,
+      _$blob,
+      _$boolean,
+      _$string,
+      _$enum,
+      _$timestamp,
+      _$byte,
+      _$short,
+      _$integer,
+      _$intEnum,
+      _$long,
+      _$float,
+      _$document,
+      _$double,
+      _$bigDecimal,
+      _$bigInteger,
+      _$list,
+      _$set,
+      _$map,
+      _$structure,
+      _$union,
+      _$member,
+      _$service,
+      _$resource,
+      _$operation,
+    ]);
 
-Serializer<ShapeType> _$shapeTypeSerializer = new _$ShapeTypeSerializer();
+Serializer<ShapeType> _$shapeTypeSerializer = _$ShapeTypeSerializer();
 
 class _$ShapeTypeSerializer implements PrimitiveSerializer<ShapeType> {
   static const Map<String, Object> _toWire = const <String, Object>{
@@ -134,15 +134,20 @@ class _$ShapeTypeSerializer implements PrimitiveSerializer<ShapeType> {
   final String wireName = 'ShapeType';
 
   @override
-  Object serialize(Serializers serializers, ShapeType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    ShapeType object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  ShapeType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      ShapeType.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  ShapeType deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => ShapeType.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

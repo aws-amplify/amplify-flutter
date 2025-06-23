@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v2.ec2_protocol.model.fractional_seconds_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,19 +13,13 @@ part 'fractional_seconds_output.g.dart';
 abstract class FractionalSecondsOutput
     with _i1.AWSEquatable<FractionalSecondsOutput>
     implements Built<FractionalSecondsOutput, FractionalSecondsOutputBuilder> {
-  factory FractionalSecondsOutput({
-    DateTime? datetime,
-    DateTime? httpdate,
-  }) {
-    return _$FractionalSecondsOutput._(
-      datetime: datetime,
-      httpdate: httpdate,
-    );
+  factory FractionalSecondsOutput({DateTime? datetime, DateTime? httpdate}) {
+    return _$FractionalSecondsOutput._(datetime: datetime, httpdate: httpdate);
   }
 
-  factory FractionalSecondsOutput.build(
-          [void Function(FractionalSecondsOutputBuilder) updates]) =
-      _$FractionalSecondsOutput;
+  factory FractionalSecondsOutput.build([
+    void Function(FractionalSecondsOutputBuilder) updates,
+  ]) = _$FractionalSecondsOutput;
 
   const FractionalSecondsOutput._();
 
@@ -33,8 +27,7 @@ abstract class FractionalSecondsOutput
   factory FractionalSecondsOutput.fromResponse(
     FractionalSecondsOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<FractionalSecondsOutput>> serializers =
       [FractionalSecondsOutputEc2QuerySerializer()];
@@ -42,21 +35,13 @@ abstract class FractionalSecondsOutput
   DateTime? get datetime;
   DateTime? get httpdate;
   @override
-  List<Object?> get props => [
-        datetime,
-        httpdate,
-      ];
+  List<Object?> get props => [datetime, httpdate];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FractionalSecondsOutput')
-      ..add(
-        'datetime',
-        datetime,
-      )
-      ..add(
-        'httpdate',
-        httpdate,
-      );
+      ..add('datetime', datetime)
+      ..add('httpdate', httpdate);
     return helper.toString();
   }
 }
@@ -64,20 +49,19 @@ abstract class FractionalSecondsOutput
 class FractionalSecondsOutputEc2QuerySerializer
     extends _i2.StructuredSmithySerializer<FractionalSecondsOutput> {
   const FractionalSecondsOutputEc2QuerySerializer()
-      : super('FractionalSecondsOutput');
+    : super('FractionalSecondsOutput');
 
   @override
   Iterable<Type> get types => const [
-        FractionalSecondsOutput,
-        _$FractionalSecondsOutput,
-      ];
+    FractionalSecondsOutput,
+    _$FractionalSecondsOutput,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
+
   @override
   FractionalSecondsOutput deserialize(
     Serializers serializers,
@@ -120,24 +104,22 @@ class FractionalSecondsOutputEc2QuerySerializer
       const _i2.XmlElementName(
         'FractionalSecondsOutputResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final FractionalSecondsOutput(:datetime, :httpdate) = object;
     if (datetime != null) {
       result$
         ..add(const _i2.XmlElementName('Datetime'))
-        ..add(_i2.TimestampSerializer.dateTime.serialize(
-          serializers,
-          datetime,
-        ));
+        ..add(
+          _i2.TimestampSerializer.dateTime.serialize(serializers, datetime),
+        );
     }
     if (httpdate != null) {
       result$
         ..add(const _i2.XmlElementName('Httpdate'))
-        ..add(_i2.TimestampSerializer.httpDate.serialize(
-          serializers,
-          httpdate,
-        ));
+        ..add(
+          _i2.TimestampSerializer.httpDate.serialize(serializers, httpdate),
+        );
     }
     return result$;
   }

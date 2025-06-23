@@ -14,9 +14,8 @@ import 'package:yaml/yaml.dart';
 
 /// Loads the AFT configuration for the current working directory.
 class AftConfigLoader {
-  AftConfigLoader({
-    Directory? workingDirectory,
-  }) : workingDirectory = workingDirectory ?? Directory.current;
+  AftConfigLoader({Directory? workingDirectory})
+    : workingDirectory = workingDirectory ?? Directory.current;
 
   final Directory workingDirectory;
 
@@ -66,11 +65,7 @@ class AftConfigLoader {
 
     final rawComponents = <String, RawAftComponent>{};
 
-    void mergePubspec(
-      YamlMap yaml,
-      Pubspec pubspec, {
-      bool isRoot = false,
-    }) {
+    void mergePubspec(YamlMap yaml, Pubspec pubspec, {bool isRoot = false}) {
       final rawPubspecConfig = RawPubspecConfig.fromJson(yaml.cast());
 
       // Process top-level pubspec entries for root configs
@@ -80,7 +75,7 @@ class AftConfigLoader {
               (entry) => switch (entry) {
                 MapEntry(
                   key: final name,
-                  value: final HostedDependency dependency
+                  value: final HostedDependency dependency,
                 ) =>
                   MapEntry(name, dependency.version),
                 _ => null,
@@ -129,14 +124,14 @@ class AftConfigLoader {
           final summaryPackage = switch (component.summary) {
             null => null,
             final summary => switch (repoPackages[summary]) {
-                final summaryPackage? => summaryPackage,
-                // Allow missing summary package for testing
-                _ when zDebugMode => null,
-                _ => throw StateError(
-                    'Summary package "$summary" does not exist for component: '
-                    '${component.name}',
-                  ),
-              },
+              final summaryPackage? => summaryPackage,
+              // Allow missing summary package for testing
+              _ when zDebugMode => null,
+              _ => throw StateError(
+                'Summary package "$summary" does not exist for component: '
+                '${component.name}',
+              ),
+            },
           };
           final packages = component.packages
               .map(
@@ -145,9 +140,9 @@ class AftConfigLoader {
                   // Allow missing component package for testing
                   _ when zDebugMode => null,
                   _ => throw StateError(
-                      'Component package "$name" does not exist for component: '
-                      '${component.name}',
-                    ),
+                    'Component package "$name" does not exist for component: '
+                    '${component.name}',
+                  ),
                 },
               )
               .nonNulls

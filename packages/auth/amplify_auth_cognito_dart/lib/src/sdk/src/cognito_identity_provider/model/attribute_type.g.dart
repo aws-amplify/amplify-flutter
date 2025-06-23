@@ -13,18 +13,15 @@ class _$AttributeType extends AttributeType {
   final String? value;
 
   factory _$AttributeType([void Function(AttributeTypeBuilder)? updates]) =>
-      (new AttributeTypeBuilder()..update(updates))._build();
+      (AttributeTypeBuilder()..update(updates))._build();
 
-  _$AttributeType._({required this.name, this.value}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(name, r'AttributeType', 'name');
-  }
-
+  _$AttributeType._({required this.name, this.value}) : super._();
   @override
   AttributeType rebuild(void Function(AttributeTypeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AttributeTypeBuilder toBuilder() => new AttributeTypeBuilder()..replace(this);
+  AttributeTypeBuilder toBuilder() => AttributeTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +65,6 @@ class AttributeTypeBuilder
 
   @override
   void replace(AttributeType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AttributeType;
   }
 
@@ -81,11 +77,16 @@ class AttributeTypeBuilder
   AttributeType build() => _build();
 
   _$AttributeType _build() {
-    final _$result = _$v ??
-        new _$AttributeType._(
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'AttributeType', 'name'),
-            value: value);
+    final _$result =
+        _$v ??
+        _$AttributeType._(
+          name: BuiltValueNullFieldError.checkNotNull(
+            name,
+            r'AttributeType',
+            'name',
+          ),
+          value: value,
+        );
     replace(_$result);
     return _$result;
   }

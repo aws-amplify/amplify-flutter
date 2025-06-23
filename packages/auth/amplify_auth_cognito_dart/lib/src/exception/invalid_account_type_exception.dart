@@ -20,17 +20,17 @@ final class InvalidAccountTypeException extends AuthServiceException {
   const InvalidAccountTypeException.noIdentityPool({
     String recoverySuggestion = 'Register an identity pool using the CLI',
   }) : this(
-          'No identity pool registered for this account',
-          recoverySuggestion: recoverySuggestion,
-        );
+         'No identity pool registered for this account',
+         recoverySuggestion: recoverySuggestion,
+       );
 
   /// Thrown when no user pool is available, but a user pool operation
   /// was explicitly requested.
   const InvalidAccountTypeException.noUserPool()
-      : this(
-          'No user pool registered for this account',
-          recoverySuggestion: 'Register a user pool using the CLI',
-        );
+    : this(
+        'No user pool registered for this account',
+        recoverySuggestion: 'Register a user pool using the CLI',
+      );
 
   @override
   String get runtimeTypeName => 'InvalidAccountTypeException';

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_pattern_override_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,8 +17,10 @@ abstract class MalformedPatternOverrideInput
         _i1.HttpInput<MalformedPatternOverrideInput>,
         _i2.AWSEquatable<MalformedPatternOverrideInput>
     implements
-        Built<MalformedPatternOverrideInput,
-            MalformedPatternOverrideInputBuilder> {
+        Built<
+          MalformedPatternOverrideInput,
+          MalformedPatternOverrideInputBuilder
+        > {
   factory MalformedPatternOverrideInput({
     String? string,
     List<String>? list,
@@ -33,9 +35,9 @@ abstract class MalformedPatternOverrideInput
     );
   }
 
-  factory MalformedPatternOverrideInput.build(
-          [void Function(MalformedPatternOverrideInputBuilder) updates]) =
-      _$MalformedPatternOverrideInput;
+  factory MalformedPatternOverrideInput.build([
+    void Function(MalformedPatternOverrideInputBuilder) updates,
+  ]) = _$MalformedPatternOverrideInput;
 
   const MalformedPatternOverrideInput._();
 
@@ -43,11 +45,10 @@ abstract class MalformedPatternOverrideInput
     MalformedPatternOverrideInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<MalformedPatternOverrideInput>>
-      serializers = [MalformedPatternOverrideInputRestJson1Serializer()];
+  serializers = [MalformedPatternOverrideInputRestJson1Serializer()];
 
   String? get string;
   _i3.BuiltList<String>? get list;
@@ -55,32 +56,17 @@ abstract class MalformedPatternOverrideInput
   PatternUnionOverride? get union;
   @override
   MalformedPatternOverrideInput getPayload() => this;
+
   @override
-  List<Object?> get props => [
-        string,
-        list,
-        map,
-        union,
-      ];
+  List<Object?> get props => [string, list, map, union];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedPatternOverrideInput')
-      ..add(
-        'string',
-        string,
-      )
-      ..add(
-        'list',
-        list,
-      )
-      ..add(
-        'map',
-        map,
-      )
-      ..add(
-        'union',
-        union,
-      );
+      ..add('string', string)
+      ..add('list', list)
+      ..add('map', map)
+      ..add('union', union);
     return helper.toString();
   }
 }
@@ -88,20 +74,19 @@ abstract class MalformedPatternOverrideInput
 class MalformedPatternOverrideInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<MalformedPatternOverrideInput> {
   const MalformedPatternOverrideInputRestJson1Serializer()
-      : super('MalformedPatternOverrideInput');
+    : super('MalformedPatternOverrideInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedPatternOverrideInput,
-        _$MalformedPatternOverrideInput,
-      ];
+    MalformedPatternOverrideInput,
+    _$MalformedPatternOverrideInput,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   MalformedPatternOverrideInput deserialize(
     Serializers serializers,
@@ -119,34 +104,40 @@ class MalformedPatternOverrideInputRestJson1Serializer
       }
       switch (key) {
         case 'list':
-          result.list.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i3.BuiltList<String>));
+          result.list.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltList<String>),
+          );
         case 'map':
-          result.map.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.map.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
         case 'string':
-          result.string = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.string =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'union':
-          result.union = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(PatternUnionOverride),
-          ) as PatternUnionOverride);
+          result.union =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(PatternUnionOverride),
+                  )
+                  as PatternUnionOverride);
       }
     }
 
@@ -164,43 +155,42 @@ class MalformedPatternOverrideInputRestJson1Serializer
     if (list != null) {
       result$
         ..add('list')
-        ..add(serializers.serialize(
-          list,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
+        ..add(
+          serializers.serialize(
+            list,
+            specifiedType: const FullType(_i3.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     if (map != null) {
       result$
         ..add('map')
-        ..add(serializers.serialize(
-          map,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            map,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (string != null) {
       result$
         ..add('string')
-        ..add(serializers.serialize(
-          string,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(string, specifiedType: const FullType(String)),
+        );
     }
     if (union != null) {
       result$
         ..add('union')
-        ..add(serializers.serialize(
-          union,
-          specifiedType: const FullType(PatternUnionOverride),
-        ));
+        ..add(
+          serializers.serialize(
+            union,
+            specifiedType: const FullType(PatternUnionOverride),
+          ),
+        );
     }
     return result$;
   }

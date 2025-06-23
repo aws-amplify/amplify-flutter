@@ -11,30 +11,24 @@ mixin GitRefOptions on AmplifyCommand {
   void init() {
     super.init();
     argParser
-      ..addOption(
-        'base-ref',
-        help: 'The base ref to update against',
-      )
-      ..addOption(
-        'head-ref',
-        help: 'The head ref to update against',
-      );
+      ..addOption('base-ref', help: 'The base ref to update against')
+      ..addOption('head-ref', help: 'The head ref to update against');
   }
 
   /// The base reference git operations should be based on.
   ///
   /// By default, this is the latest release tag.
   String? get baseRef {
-    return Platform.environment['GITHUB_BASE_REF'] ??
-        argResults!['base-ref'] as String?;
+    return argResults?['base-ref'] as String? ??
+        Platform.environment['GITHUB_BASE_REF'];
   }
 
   /// The head reference git operations should be based on.
   ///
   /// By default, this is the current `HEAD`.
   String get headRef {
-    return Platform.environment['GITHUB_HEAD_REF'] ??
-        argResults!['head-ref'] as String? ??
+    return argResults?['head-ref'] as String? ??
+        Platform.environment['GITHUB_HEAD_REF'] ??
         'HEAD';
   }
 }

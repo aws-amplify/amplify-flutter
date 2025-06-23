@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.device_remembered_status_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -7,14 +7,10 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class DeviceRememberedStatusType
     extends _i1.SmithyEnum<DeviceRememberedStatusType> {
-  const DeviceRememberedStatusType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const DeviceRememberedStatusType._(super.index, super.name, super.value);
 
   const DeviceRememberedStatusType._sdkUnknown(super.value)
-      : super.sdkUnknown();
+    : super.sdkUnknown();
 
   static const notRemembered = DeviceRememberedStatusType._(
     0,
@@ -35,18 +31,15 @@ class DeviceRememberedStatusType
   ];
 
   static const List<_i1.SmithySerializer<DeviceRememberedStatusType>>
-      serializers = [
+  serializers = [
     _i1.SmithyEnumSerializer(
       'DeviceRememberedStatusType',
       values: values,
       sdkUnknown: DeviceRememberedStatusType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

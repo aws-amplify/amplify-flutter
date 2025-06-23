@@ -2,11 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:js_interop';
 
-// ignore: implementation_imports
-import 'package:aws_common/src/js/common.dart';
 import 'package:built_value/serializer.dart';
+import 'package:web/web.dart';
 import 'package:worker_bee/src/exception/worker_bee_exception.dart';
+import 'package:worker_bee/src/js/js_extensions.dart';
 import 'package:worker_bee/src/serializers/serializers.dart';
 import 'package:worker_bee/worker_bee.dart';
 
@@ -21,8 +22,10 @@ class MessagePortChannel<T>
     this.messagePort, {
     Serializers? serializers,
     FullType specifiedType = FullType.unspecified,
-  })  : _serializers = serializers ?? workerBeeSerializers,
-        _specifiedType = specifiedType;
+  }) : _serializers = serializers ?? workerBeeSerializers,
+       _specifiedType = specifiedType {
+    messagePort.onmessage = _addEvent.toJS;
+  }
 
   /// The message port to communicate over.
   final MessagePort messagePort;
@@ -33,18 +36,29 @@ class MessagePortChannel<T>
   @override
   StreamSink<T> get sink => this;
 
+  final StreamController<MessageEvent> _streamController =
+      StreamController<MessageEvent>();
+  void _addEvent(MessageEvent event) => _streamController.add(event);
+
   @override
-  late final Stream<T> stream = messagePort.onMessage
+  late final Stream<T> stream = _streamController.stream
       .transform(
         StreamTransformer<MessageEvent, T>.fromHandlers(
           handleData: Zone.current.bindBinaryCallback((event, sink) {
-            if (event.data == 'done') {
-              sink.close();
-              close();
-              return;
+            final eventData = event.data;
+
+            if (eventData.isA<JSString>()) {
+              eventData as JSString;
+              final state = eventData.toDart;
+
+              if (state == 'done') {
+                sink.close();
+                close();
+                return;
+              }
             }
             final data = _serializers.deserialize(
-              event.data,
+              eventData,
               specifiedType: _specifiedType,
             );
             if (data is WorkerBeeException || data is! T) {
@@ -68,25 +82,20 @@ class MessagePortChannel<T>
   void add(T event) {
     final transfer = <Object>[];
     final serialized = runZoned(
-      () => _serializers.serialize(
-        event,
-        specifiedType: _specifiedType,
-      ),
-      zoneValues: {
-        #transfer: transfer,
-      },
+      () => _serializers.serialize(event, specifiedType: _specifiedType),
+      zoneValues: {#transfer: transfer},
     );
-    messagePort.postMessage(serialized, transfer);
+    messagePort.postMessage(serialized?.toJSBoxOrCast, transfer.toJSBoxOrCast);
   }
 
   @override
   void addError(Object error, [StackTrace? stackTrace]) {
-    messagePort.postMessage(
-      _serializers.serialize(
-        WorkerBeeExceptionImpl(error, stackTrace),
-        specifiedType: FullType.unspecified,
-      ),
+    final serialized = _serializers.serialize(
+      WorkerBeeExceptionImpl(error, stackTrace),
+      specifiedType: FullType.unspecified,
     );
+
+    messagePort.postMessage(serialized?.toJSBoxOrCast);
     close();
   }
 
@@ -103,9 +112,11 @@ class MessagePortChannel<T>
   Future<void> close() async {
     if (_done.isCompleted) return;
     messagePort
-      ..postMessage('done')
+      ..postMessage('done'.toJS)
       ..close();
+
     _done.complete();
+    await _streamController.close();
   }
 
   @override

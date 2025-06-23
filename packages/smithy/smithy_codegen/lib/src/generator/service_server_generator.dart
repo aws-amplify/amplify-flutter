@@ -27,9 +27,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
     super.shape,
     CodegenContext context, {
     super.smithyLibrary,
-  }) : super(
-          context: context,
-        );
+  }) : super(context: context);
 
   late final List<OperationShape> _httpOperations = context.shapes.values
       .whereType<OperationShape>()
@@ -55,33 +53,30 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
     if (_httpOperations.isNotEmpty && !isQueryProtocol) {
       builder
         ..name = context.serviceClientLibrary.libraryName
-        ..body.addAll([
-          _baseClass,
-          _serviceClass,
-        ]);
+        ..body.addAll([_baseClass, _serviceClass]);
     }
     return builder.build();
   }
 
   Class get _serviceClass => Class(
-        (c) => c
-          ..name = '_$className'
-          ..extend = DartTypes.smithy.httpServer(_baseClassRef)
-          ..constructors.add(_serviceConstructor)
-          ..methods.addAll(_serviceMethods)
-          ..fields.addAll(_serviceFields),
-      );
+    (c) => c
+      ..name = '_$className'
+      ..extend = DartTypes.smithy.httpServer(_baseClassRef)
+      ..constructors.add(_serviceConstructor)
+      ..methods.addAll(_serviceMethods)
+      ..fields.addAll(_serviceFields),
+  );
 
   Constructor get _serviceConstructor => Constructor(
-        (ctor) => ctor
-          ..requiredParameters.add(
-            Parameter(
-              (p) => p
-                ..name = 'service'
-                ..toThis = true,
-            ),
-          ),
-      );
+    (ctor) => ctor
+      ..requiredParameters.add(
+        Parameter(
+          (p) => p
+            ..name = 'service'
+            ..toThis = true,
+        ),
+      ),
+  );
 
   Iterable<Method> get _serviceMethods sync* {
     for (final shape in _httpOperations) {
@@ -114,9 +109,9 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
   }
 
   Iterable<Code> _serviceMethodBody(OperationShape operation) sync* {
-    yield declareFinal('awsRequest')
-        .assign(refer('request').property('awsRequest'))
-        .statement;
+    yield declareFinal(
+      'awsRequest',
+    ).assign(refer('request').property('awsRequest')).statement;
     yield declareFinal('context')
         .assign(DartTypes.smithy.context.newInstance([refer('awsRequest')]))
         .statement;
@@ -136,11 +131,10 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
     final payload = refer(operation.protocolField)
         .property('wireSerializer')
         .property('deserialize')
-        .call([
-          awsRequest.property('bodyBytes').awaited,
-        ], {
-          'specifiedType': payloadSymbol.fullType(),
-        })
+        .call(
+          [awsRequest.property('bodyBytes').awaited],
+          {'specifiedType': payloadSymbol.fullType()},
+        )
         .awaited
         .asA(payloadSymbol);
     yield declareFinal('payload').assign(payload).statement;
@@ -149,15 +143,16 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
     final inputSymbol = operation.inputSymbol(context);
     final input = inputSymbol == DartTypes.smithy.unit
         ? refer('payload')
-        : inputSymbol.newInstanceNamed('fromRequest', [
-            refer('payload'),
-            awsRequest,
-          ], {
-            'labels': literalMap({
-              for (final label in inputLabels)
-                label.memberName: refer(label.memberName),
-            }),
-          });
+        : inputSymbol.newInstanceNamed(
+            'fromRequest',
+            [refer('payload'), awsRequest],
+            {
+              'labels': literalMap({
+                for (final label in inputLabels)
+                  label.memberName: refer(label.memberName),
+              }),
+            },
+          );
     yield declareFinal('input').assign(input).statement;
 
     final output = refer('service').property(operation.methodName).call([
@@ -168,10 +163,13 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
 
     final httpHeaders = outputTraits?.httpHeaders ?? BuiltMap();
     for (final entry in httpHeaders.entries) {
-      final property =
-          refer('output').property(entry.value.dartName(ShapeType.structure));
-      final isNullable =
-          entry.value.isNullable(context, operation.inputShape(context));
+      final property = refer(
+        'output',
+      ).property(entry.value.dartName(ShapeType.structure));
+      final isNullable = entry.value.isNullable(
+        context,
+        operation.inputShape(context),
+      );
       yield refer('context')
           .property('response')
           .property('headers')
@@ -183,10 +181,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
               isHeader: true,
             ),
           )
-          .wrapWithBlockIf(
-            property.notEqualTo(literalNull),
-            isNullable,
-          );
+          .wrapWithBlockIf(property.notEqualTo(literalNull), isNullable);
     }
 
     final outputResponseCode = outputTraits?.httpResponseCode;
@@ -195,9 +190,9 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
           .assign(refer(outputResponseCode.dartName(ShapeType.structure)))
           .statement;
     } else {
-      yield declareConst('statusCode')
-          .assign(literalNum(operation.httpTrait(context)?.code ?? 200))
-          .statement;
+      yield declareConst(
+        'statusCode',
+      ).assign(literalNum(operation.httpTrait(context)?.code ?? 200)).statement;
     }
 
     yield declareFinal('body')
@@ -205,28 +200,31 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
           refer(operation.protocolField)
               .property('wireSerializer')
               .property('serialize')
-              .call([
-            refer('output'),
-          ], {
-            'specifiedType': operation.outputSymbol(context).fullType([
-              operation.outputShape(context).httpPayload.symbol,
-            ]),
-          }).awaited,
+              .call(
+                [refer('output')],
+                {
+                  'specifiedType': operation.outputSymbol(context).fullType([
+                    operation.outputShape(context).httpPayload.symbol,
+                  ]),
+                },
+              )
+              .awaited,
         )
         .statement;
     yield DartTypes.shelf.response
-        .newInstance([
-          refer('statusCode'),
-        ], {
-          'body': refer('body'),
-          'headers': refer('context')
-              .property('response')
-              .property('build')
-              .call([])
-              .property('headers')
-              .property('toMap')
-              .call([]),
-        })
+        .newInstance(
+          [refer('statusCode')],
+          {
+            'body': refer('body'),
+            'headers': refer('context')
+                .property('response')
+                .property('build')
+                .call([])
+                .property('headers')
+                .property('toMap')
+                .call([]),
+          },
+        )
         .returned
         .statement;
 
@@ -255,13 +253,14 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
             refer(operation.protocolField)
                 .property('wireSerializer')
                 .property('serialize')
-                .call([
-              refer('e'),
-            ], {
-              'specifiedType': errorSymbol.fullType([
-                errorShape.httpPayload.symbol,
-              ]),
-            }),
+                .call(
+                  [refer('e')],
+                  {
+                    'specifiedType': errorSymbol.fullType([
+                      errorShape.httpPayload.symbol,
+                    ]),
+                  },
+                ),
           )
           .statement;
 
@@ -270,18 +269,19 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
       yield declareConst('statusCode').assign(literalNum(statusCode)).statement;
 
       yield DartTypes.shelf.response
-          .newInstance([
-            refer('statusCode'),
-          ], {
-            'body': refer('body'),
-            'headers': refer('context')
-                .property('response')
-                .property('build')
-                .call([])
-                .property('headers')
-                .property('toMap')
-                .call([]),
-          })
+          .newInstance(
+            [refer('statusCode')],
+            {
+              'body': refer('body'),
+              'headers': refer('context')
+                  .property('response')
+                  .property('build')
+                  .call([])
+                  .property('headers')
+                  .property('toMap')
+                  .call([]),
+            },
+          )
           .returned
           .statement;
 
@@ -341,13 +341,13 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
   }
 
   Class get _baseClass => Class(
-        (c) => c
-          ..name = _baseClassName
-          ..abstract = true
-          ..extend = DartTypes.smithy.httpServerBase
-          ..methods.addAll(_baseMethods)
-          ..fields.addAll([_baseProtocol, _router]),
-      );
+    (c) => c
+      ..name = _baseClassName
+      ..abstract = true
+      ..extend = DartTypes.smithy.httpServerBase
+      ..methods.addAll(_baseMethods)
+      ..fields.addAll([_baseProtocol, _router]),
+  );
 
   Iterable<Method> get _baseMethods sync* {
     for (final operation in _httpOperations) {
@@ -390,16 +390,16 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
   Field get _router {
     final buildRouter = BlockBuilder()
       ..addExpression(
-        declareFinal('service').assign(
-          refer('_$className').newInstance([refer('this')]),
-        ),
+        declareFinal(
+          'service',
+        ).assign(refer('_$className').newInstance([refer('this')])),
       );
     final service = refer('service');
 
     buildRouter.addExpression(
-      declareFinal('router').assign(
-        DartTypes.shelfRouter.router.newInstance([]),
-      ),
+      declareFinal(
+        'router',
+      ).assign(DartTypes.shelfRouter.router.newInstance([])),
     );
     final router = refer('router');
 
@@ -419,10 +419,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
         final routes = <Expression, Expression>{};
         for (final operation in _httpOperations) {
           final rpcEndpoint = literalString(
-            [
-              shape.shapeId.shape,
-              operation.shapeId.shape,
-            ].join('.'),
+            [shape.shapeId.shape, operation.shapeId.shape].join('.'),
           );
           routes[rpcEndpoint] = service.property(operation.methodName);
         }
@@ -430,10 +427,12 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
           router.property('add').call([
             literalString('POST'),
             literalString('/'),
-            DartTypes.smithy.rpcRouter.newInstance([
-              literalString('X-Amz-Target'),
-              literalMap(routes),
-            ]),
+            DartTypes.smithy.rpcRouter
+                .newInstance([
+                  literalString('X-Amz-Target'),
+                  literalMap(routes),
+                ])
+                .property('call'),
           ]),
         );
     }
@@ -446,24 +445,25 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
         ..modifier = FieldModifier.final$
         ..type = DartTypes.shelfRouter.router
         ..name = '_router'
-        ..assignment =
-            Method((m) => m..body = buildRouter.build()).closure.call([]).code,
+        ..assignment = Method(
+          (m) => m..body = buildRouter.build(),
+        ).closure.call([]).code,
     );
   }
 
   /// The `protocol` override
   Field get _baseProtocol => Field(
-        (f) => f
-          ..annotations.add(DartTypes.core.override)
-          ..late = true
-          ..modifier = FieldModifier.final$
-          ..name = 'protocol'
-          ..type = DartTypes.smithy.httpProtocol()
-          ..assignment = protocol.instantiableProtocolSymbol.newInstance([], {
-            'serializers': protocol.serializers(context),
-            'builderFactories': context.builderFactoriesRef,
-          }).code,
-      );
+    (f) => f
+      ..annotations.add(DartTypes.core.override)
+      ..late = true
+      ..modifier = FieldModifier.final$
+      ..name = 'protocol'
+      ..type = DartTypes.smithy.httpProtocol()
+      ..assignment = protocol.instantiableProtocolSymbol.newInstance([], {
+        'serializers': protocol.serializers(context),
+        'builderFactories': context.builderFactoriesRef,
+      }).code,
+  );
 }
 
 class _ShelfParameters {

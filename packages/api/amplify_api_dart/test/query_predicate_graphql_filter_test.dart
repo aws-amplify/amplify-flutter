@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
@@ -15,7 +16,9 @@ void main() {
     setUpAll(() async {
       await Amplify.addPlugin(
         // needed to fetch the schema from within the helper
-        MockAmplifyAPI(modelProvider: ModelProvider.instance),
+        MockAmplifyAPI(
+          options: APIPluginOptions(modelProvider: ModelProvider.instance),
+        ),
       );
     });
 
@@ -73,61 +76,64 @@ void main() {
     });
 
     test(
-        'query with with all possible string operators and-ed together converts to expected filter',
-        () {
-      // Note: this filter would not actually make sense for a real query.
-      final queryPredicate = Blog.ID.ne('id') &
-          Blog.ID.eq('id') &
-          Blog.ID.lt('id') &
-          Blog.ID.le('id') &
-          Blog.ID.gt('id') &
-          Blog.ID.ge('id') &
-          Blog.ID.contains('id') &
-          Blog.ID.between('id', 'id') &
-          Blog.ID.beginsWith('id');
+      'query with with all possible string operators and-ed together converts to expected filter',
+      () {
+        // Note: this filter would not actually make sense for a real query.
+        final queryPredicate =
+            Blog.ID.ne('id') &
+            Blog.ID.eq('id') &
+            Blog.ID.lt('id') &
+            Blog.ID.le('id') &
+            Blog.ID.gt('id') &
+            Blog.ID.ge('id') &
+            Blog.ID.contains('id') &
+            Blog.ID.between('id', 'id') &
+            Blog.ID.beginsWith('id');
 
-      const expectedFilter = {
-        'and': [
-          {
-            'id': {'ne': 'id'},
-          },
-          {
-            'id': {'eq': 'id'},
-          },
-          {
-            'id': {'lt': 'id'},
-          },
-          {
-            'id': {'le': 'id'},
-          },
-          {
-            'id': {'gt': 'id'},
-          },
-          {
-            'id': {'ge': 'id'},
-          },
-          {
-            'id': {'contains': 'id'},
-          },
-          {
-            'id': {
-              'between': ['id', 'id'],
+        const expectedFilter = {
+          'and': [
+            {
+              'id': {'ne': 'id'},
             },
-          },
-          {
-            'id': {'beginsWith': 'id'},
-          }
-        ],
-      };
-      testQueryPredicateTranslation(
-        queryPredicate,
-        expectedFilter,
-        modelType: Blog.classType,
-      );
-    });
+            {
+              'id': {'eq': 'id'},
+            },
+            {
+              'id': {'lt': 'id'},
+            },
+            {
+              'id': {'le': 'id'},
+            },
+            {
+              'id': {'gt': 'id'},
+            },
+            {
+              'id': {'ge': 'id'},
+            },
+            {
+              'id': {'contains': 'id'},
+            },
+            {
+              'id': {
+                'between': ['id', 'id'],
+              },
+            },
+            {
+              'id': {'beginsWith': 'id'},
+            },
+          ],
+        };
+        testQueryPredicateTranslation(
+          queryPredicate,
+          expectedFilter,
+          modelType: Blog.classType,
+        );
+      },
+    );
 
     test('nested and(or()) operator converts to expected filter', () {
-      final queryPredicate = Blog.ID.eq('id') &
+      final queryPredicate =
+          Blog.ID.eq('id') &
           (Blog.NAME.beginsWith('Title') | Blog.NAME.contains('Turtles'));
       const expectedFilter = {
         'and': [
@@ -141,9 +147,9 @@ void main() {
               },
               {
                 'name': {'contains': 'Turtles'},
-              }
+              },
             ],
-          }
+          },
         ],
       };
       testQueryPredicateTranslation(
@@ -154,7 +160,8 @@ void main() {
     });
 
     test('nested or(and()) operator converts to expected filter', () {
-      final queryPredicate = Blog.ID.eq('id') |
+      final queryPredicate =
+          Blog.ID.eq('id') |
           (Blog.NAME.beginsWith('Title') & Blog.NAME.contains('Turtles'));
       const expectedFilter = {
         'or': [
@@ -168,7 +175,7 @@ void main() {
               },
               {
                 'name': {'contains': 'Turtles'},
-              }
+              },
             ],
           },
         ],

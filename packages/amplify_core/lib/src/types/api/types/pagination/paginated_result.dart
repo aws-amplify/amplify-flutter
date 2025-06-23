@@ -30,11 +30,6 @@ class PaginatedResult<T extends Model> extends Model {
   /// original request. Returns `null` if no more data.
   final GraphQLRequest<PaginatedResult<T>>? requestForNextResult;
 
-  @override
-  String getId() {
-    return '';
-  }
-
   /// Returns `true` if there is more data to fetch beyond the data
   /// contained in this response. If `true`, the request for the next page of
   /// data can be obtained with `.requestForNextResult`.

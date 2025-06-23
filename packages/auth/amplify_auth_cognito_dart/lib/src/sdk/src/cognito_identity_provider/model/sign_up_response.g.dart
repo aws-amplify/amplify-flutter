@@ -15,26 +15,19 @@ class _$SignUpResponse extends SignUpResponse {
   final String userSub;
 
   factory _$SignUpResponse([void Function(SignUpResponseBuilder)? updates]) =>
-      (new SignUpResponseBuilder()..update(updates))._build();
+      (SignUpResponseBuilder()..update(updates))._build();
 
-  _$SignUpResponse._(
-      {required this.userConfirmed,
-      this.codeDeliveryDetails,
-      required this.userSub})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        userConfirmed, r'SignUpResponse', 'userConfirmed');
-    BuiltValueNullFieldError.checkNotNull(
-        userSub, r'SignUpResponse', 'userSub');
-  }
-
+  _$SignUpResponse._({
+    required this.userConfirmed,
+    this.codeDeliveryDetails,
+    required this.userSub,
+  }) : super._();
   @override
   SignUpResponse rebuild(void Function(SignUpResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SignUpResponseBuilder toBuilder() =>
-      new SignUpResponseBuilder()..replace(this);
+  SignUpResponseBuilder toBuilder() => SignUpResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,10 +60,10 @@ class SignUpResponseBuilder
 
   CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
   CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
+      _$this._codeDeliveryDetails ??= CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
-          CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
-      _$this._codeDeliveryDetails = codeDeliveryDetails;
+    CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
+  ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   String? _userSub;
   String? get userSub => _$this._userSub;
@@ -93,7 +86,6 @@ class SignUpResponseBuilder
 
   @override
   void replace(SignUpResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignUpResponse;
   }
 
@@ -108,21 +100,32 @@ class SignUpResponseBuilder
   _$SignUpResponse _build() {
     _$SignUpResponse _$result;
     try {
-      _$result = _$v ??
-          new _$SignUpResponse._(
-              userConfirmed: BuiltValueNullFieldError.checkNotNull(
-                  userConfirmed, r'SignUpResponse', 'userConfirmed'),
-              codeDeliveryDetails: _codeDeliveryDetails?.build(),
-              userSub: BuiltValueNullFieldError.checkNotNull(
-                  userSub, r'SignUpResponse', 'userSub'));
+      _$result =
+          _$v ??
+          _$SignUpResponse._(
+            userConfirmed: BuiltValueNullFieldError.checkNotNull(
+              userConfirmed,
+              r'SignUpResponse',
+              'userConfirmed',
+            ),
+            codeDeliveryDetails: _codeDeliveryDetails?.build(),
+            userSub: BuiltValueNullFieldError.checkNotNull(
+              userSub,
+              r'SignUpResponse',
+              'userSub',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'codeDeliveryDetails';
         _codeDeliveryDetails?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'SignUpResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'SignUpResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

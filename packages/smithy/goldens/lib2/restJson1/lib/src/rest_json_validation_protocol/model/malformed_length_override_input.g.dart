@@ -20,27 +20,26 @@ class _$MalformedLengthOverrideInput extends MalformedLengthOverrideInput {
   @override
   final _i4.BuiltListMultimap<String, String>? map;
 
-  factory _$MalformedLengthOverrideInput(
-          [void Function(MalformedLengthOverrideInputBuilder)? updates]) =>
-      (new MalformedLengthOverrideInputBuilder()..update(updates))._build();
+  factory _$MalformedLengthOverrideInput([
+    void Function(MalformedLengthOverrideInputBuilder)? updates,
+  ]) => (MalformedLengthOverrideInputBuilder()..update(updates))._build();
 
-  _$MalformedLengthOverrideInput._(
-      {this.blob,
-      this.string,
-      this.minString,
-      this.maxString,
-      this.list,
-      this.map})
-      : super._();
-
+  _$MalformedLengthOverrideInput._({
+    this.blob,
+    this.string,
+    this.minString,
+    this.maxString,
+    this.list,
+    this.map,
+  }) : super._();
   @override
   MalformedLengthOverrideInput rebuild(
-          void Function(MalformedLengthOverrideInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLengthOverrideInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLengthOverrideInputBuilder toBuilder() =>
-      new MalformedLengthOverrideInputBuilder()..replace(this);
+      MalformedLengthOverrideInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,8 +69,10 @@ class _$MalformedLengthOverrideInput extends MalformedLengthOverrideInput {
 
 class MalformedLengthOverrideInputBuilder
     implements
-        Builder<MalformedLengthOverrideInput,
-            MalformedLengthOverrideInputBuilder> {
+        Builder<
+          MalformedLengthOverrideInput,
+          MalformedLengthOverrideInputBuilder
+        > {
   _$MalformedLengthOverrideInput? _$v;
 
   _i3.Uint8List? _blob;
@@ -92,12 +93,12 @@ class MalformedLengthOverrideInputBuilder
 
   _i4.ListBuilder<String>? _list;
   _i4.ListBuilder<String> get list =>
-      _$this._list ??= new _i4.ListBuilder<String>();
+      _$this._list ??= _i4.ListBuilder<String>();
   set list(_i4.ListBuilder<String>? list) => _$this._list = list;
 
   _i4.ListMultimapBuilder<String, String>? _map;
   _i4.ListMultimapBuilder<String, String> get map =>
-      _$this._map ??= new _i4.ListMultimapBuilder<String, String>();
+      _$this._map ??= _i4.ListMultimapBuilder<String, String>();
   set map(_i4.ListMultimapBuilder<String, String>? map) => _$this._map = map;
 
   MalformedLengthOverrideInputBuilder();
@@ -118,7 +119,6 @@ class MalformedLengthOverrideInputBuilder
 
   @override
   void replace(MalformedLengthOverrideInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedLengthOverrideInput;
   }
 
@@ -133,14 +133,16 @@ class MalformedLengthOverrideInputBuilder
   _$MalformedLengthOverrideInput _build() {
     _$MalformedLengthOverrideInput _$result;
     try {
-      _$result = _$v ??
-          new _$MalformedLengthOverrideInput._(
-              blob: blob,
-              string: string,
-              minString: minString,
-              maxString: maxString,
-              list: _list?.build(),
-              map: _map?.build());
+      _$result =
+          _$v ??
+          _$MalformedLengthOverrideInput._(
+            blob: blob,
+            string: string,
+            minString: minString,
+            maxString: maxString,
+            list: _list?.build(),
+            map: _map?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -149,8 +151,11 @@ class MalformedLengthOverrideInputBuilder
         _$failedField = 'map';
         _map?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'MalformedLengthOverrideInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'MalformedLengthOverrideInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

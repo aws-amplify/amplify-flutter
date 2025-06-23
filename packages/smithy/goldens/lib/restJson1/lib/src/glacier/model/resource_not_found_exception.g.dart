@@ -16,22 +16,24 @@ class _$ResourceNotFoundException extends ResourceNotFoundException {
   @override
   final Map<String, String>? headers;
 
-  factory _$ResourceNotFoundException(
-          [void Function(ResourceNotFoundExceptionBuilder)? updates]) =>
-      (new ResourceNotFoundExceptionBuilder()..update(updates))._build();
+  factory _$ResourceNotFoundException([
+    void Function(ResourceNotFoundExceptionBuilder)? updates,
+  ]) => (ResourceNotFoundExceptionBuilder()..update(updates))._build();
 
-  _$ResourceNotFoundException._(
-      {this.type, this.code, this.message, this.headers})
-      : super._();
-
+  _$ResourceNotFoundException._({
+    this.type,
+    this.code,
+    this.message,
+    this.headers,
+  }) : super._();
   @override
   ResourceNotFoundException rebuild(
-          void Function(ResourceNotFoundExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ResourceNotFoundExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResourceNotFoundExceptionBuilder toBuilder() =>
-      new ResourceNotFoundExceptionBuilder()..replace(this);
+      ResourceNotFoundExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -90,7 +92,6 @@ class ResourceNotFoundExceptionBuilder
 
   @override
   void replace(ResourceNotFoundException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResourceNotFoundException;
   }
 
@@ -103,9 +104,14 @@ class ResourceNotFoundExceptionBuilder
   ResourceNotFoundException build() => _build();
 
   _$ResourceNotFoundException _build() {
-    final _$result = _$v ??
-        new _$ResourceNotFoundException._(
-            type: type, code: code, message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$ResourceNotFoundException._(
+          type: type,
+          code: code,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

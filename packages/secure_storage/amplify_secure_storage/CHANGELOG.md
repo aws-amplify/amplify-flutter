@@ -1,3 +1,74 @@
+## 0.5.10
+
+- Minor bug fixes and improvements
+
+## 0.5.9
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 0.5.8
+
+- Minor bug fixes and improvements
+
+## 0.5.7
+
+- Minor bug fixes and improvements
+
+## 0.5.6
+
+### Fixes
+- fix(secure_storage): add missing macOS plugin ([#5372](https://github.com/aws-amplify/amplify-flutter/pull/5372))
+
+## 0.5.5
+
+### Fixes
+- fix(secure_storage): Add plugin platform entry. ([#5178](https://github.com/aws-amplify/amplify-flutter/pull/5178))
+- fix(secure_storage): process file system operations one at a time on Windows ([#5195](https://github.com/aws-amplify/amplify-flutter/pull/5195))
+- fix(secure_storage): Plugin Endorsement ([#5208](https://github.com/aws-amplify/amplify-flutter/pull/5208))
+
+## 0.5.4
+
+- Minor bug fixes and improvements
+
+## 0.5.3
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
+## 0.5.2
+
+- Minor bug fixes and improvements
+
+## 0.5.1
+
+- Minor bug fixes and improvements
+
+## 0.5.0
+
+- Retracted
+
+## 0.4.4
+
+- Add Apple privacy manifest file ([#4794](https://github.com/aws-amplify/amplify-flutter/pull/4794))
+
+## 0.4.3
+
+### Features
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 0.4.2
+
+### Fixes
+- fix: `google.crypto.tink` version constraint ([#4434](https://github.com/aws-amplify/amplify-flutter/pull/4434))
+
+## 0.4.1
+
+### Fixes
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
 ## 0.4.0+6
 
 - Minor bug fixes and improvements

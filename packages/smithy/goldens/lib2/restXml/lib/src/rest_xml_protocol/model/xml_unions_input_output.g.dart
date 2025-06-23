@@ -10,20 +10,19 @@ class _$XmlUnionsInputOutput extends XmlUnionsInputOutput {
   @override
   final XmlUnionShape? unionValue;
 
-  factory _$XmlUnionsInputOutput(
-          [void Function(XmlUnionsInputOutputBuilder)? updates]) =>
-      (new XmlUnionsInputOutputBuilder()..update(updates))._build();
+  factory _$XmlUnionsInputOutput([
+    void Function(XmlUnionsInputOutputBuilder)? updates,
+  ]) => (XmlUnionsInputOutputBuilder()..update(updates))._build();
 
   _$XmlUnionsInputOutput._({this.unionValue}) : super._();
-
   @override
   XmlUnionsInputOutput rebuild(
-          void Function(XmlUnionsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlUnionsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlUnionsInputOutputBuilder toBuilder() =>
-      new XmlUnionsInputOutputBuilder()..replace(this);
+      XmlUnionsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +60,6 @@ class XmlUnionsInputOutputBuilder
 
   @override
   void replace(XmlUnionsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlUnionsInputOutput;
   }
 
@@ -74,8 +72,7 @@ class XmlUnionsInputOutputBuilder
   XmlUnionsInputOutput build() => _build();
 
   _$XmlUnionsInputOutput _build() {
-    final _$result =
-        _$v ?? new _$XmlUnionsInputOutput._(unionValue: unionValue);
+    final _$result = _$v ?? _$XmlUnionsInputOutput._(unionValue: unionValue);
     replace(_$result);
     return _$result;
   }

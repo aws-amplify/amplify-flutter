@@ -65,10 +65,7 @@ void main(List<String> args) async {
   final dependencies = <String>{};
   for (final library in outputs.values.expand((out) => out.libraries)) {
     final smithyLibrary = library.smithyLibrary;
-    final outPath = path.join(
-      outputPath,
-      smithyLibrary.projectRelativePath,
-    );
+    final outPath = path.join(outputPath, smithyLibrary.projectRelativePath);
     final output = library.emit();
     dependencies.addAll(library.dependencies);
     final outFile = File(outPath);
@@ -108,10 +105,7 @@ analyzer:
   // Run `dart pub get`
   final pubGetRes = await Process.run(
     'dart',
-    [
-      'pub',
-      'upgrade',
-    ],
+    ['pub', 'upgrade'],
     workingDirectory: outputPath,
     stdoutEncoding: utf8,
     stderrEncoding: utf8,
@@ -125,16 +119,12 @@ analyzer:
   }
 
   // Run built_value generator
-  final buildRunnerCmd = await Process.start(
-    'dart',
-    [
-      'run',
-      'build_runner',
-      'build',
-      '--delete-conflicting-outputs',
-    ],
-    workingDirectory: outputPath,
-  );
+  final buildRunnerCmd = await Process.start('dart', [
+    'run',
+    'build_runner',
+    'build',
+    '--delete-conflicting-outputs',
+  ], workingDirectory: outputPath);
   buildRunnerCmd.stdout
       .transform(utf8.decoder)
       .transform(const LineSplitter())

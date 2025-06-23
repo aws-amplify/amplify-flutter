@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -29,26 +29,24 @@ abstract class GetUserRequest
     GetUserRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<GetUserRequest>> serializers = [
-    GetUserRequestAwsJson11Serializer()
+    GetUserRequestAwsJson11Serializer(),
   ];
 
   /// A non-expired access token for the user whose information you want to query.
   String get accessToken;
   @override
   GetUserRequest getPayload() => this;
+
   @override
   List<Object?> get props => [accessToken];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetUserRequest')
-      ..add(
-        'accessToken',
-        '***SENSITIVE***',
-      );
+      ..add('accessToken', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -58,17 +56,13 @@ class GetUserRequestAwsJson11Serializer
   const GetUserRequestAwsJson11Serializer() : super('GetUserRequest');
 
   @override
-  Iterable<Type> get types => const [
-        GetUserRequest,
-        _$GetUserRequest,
-      ];
+  Iterable<Type> get types => const [GetUserRequest, _$GetUserRequest];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   GetUserRequest deserialize(
     Serializers serializers,
@@ -86,10 +80,12 @@ class GetUserRequestAwsJson11Serializer
       }
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accessToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -106,10 +102,7 @@ class GetUserRequestAwsJson11Serializer
     final GetUserRequest(:accessToken) = object;
     result$.addAll([
       'AccessToken',
-      serializers.serialize(
-        accessToken,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(accessToken, specifiedType: const FullType(String)),
     ]);
     return result$;
   }

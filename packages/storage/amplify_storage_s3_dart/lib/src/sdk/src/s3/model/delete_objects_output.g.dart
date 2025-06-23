@@ -14,21 +14,20 @@ class _$DeleteObjectsOutput extends DeleteObjectsOutput {
   @override
   final _i3.BuiltList<Error>? errors;
 
-  factory _$DeleteObjectsOutput(
-          [void Function(DeleteObjectsOutputBuilder)? updates]) =>
-      (new DeleteObjectsOutputBuilder()..update(updates))._build();
+  factory _$DeleteObjectsOutput([
+    void Function(DeleteObjectsOutputBuilder)? updates,
+  ]) => (DeleteObjectsOutputBuilder()..update(updates))._build();
 
   _$DeleteObjectsOutput._({this.deleted, this.requestCharged, this.errors})
-      : super._();
-
+    : super._();
   @override
   DeleteObjectsOutput rebuild(
-          void Function(DeleteObjectsOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectsOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectsOutputBuilder toBuilder() =>
-      new DeleteObjectsOutputBuilder()..replace(this);
+      DeleteObjectsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -56,7 +55,7 @@ class DeleteObjectsOutputBuilder
 
   _i3.ListBuilder<DeletedObject>? _deleted;
   _i3.ListBuilder<DeletedObject> get deleted =>
-      _$this._deleted ??= new _i3.ListBuilder<DeletedObject>();
+      _$this._deleted ??= _i3.ListBuilder<DeletedObject>();
   set deleted(_i3.ListBuilder<DeletedObject>? deleted) =>
       _$this._deleted = deleted;
 
@@ -67,7 +66,7 @@ class DeleteObjectsOutputBuilder
 
   _i3.ListBuilder<Error>? _errors;
   _i3.ListBuilder<Error> get errors =>
-      _$this._errors ??= new _i3.ListBuilder<Error>();
+      _$this._errors ??= _i3.ListBuilder<Error>();
   set errors(_i3.ListBuilder<Error>? errors) => _$this._errors = errors;
 
   DeleteObjectsOutputBuilder();
@@ -85,7 +84,6 @@ class DeleteObjectsOutputBuilder
 
   @override
   void replace(DeleteObjectsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectsOutput;
   }
 
@@ -100,11 +98,13 @@ class DeleteObjectsOutputBuilder
   _$DeleteObjectsOutput _build() {
     _$DeleteObjectsOutput _$result;
     try {
-      _$result = _$v ??
-          new _$DeleteObjectsOutput._(
-              deleted: _deleted?.build(),
-              requestCharged: requestCharged,
-              errors: _errors?.build());
+      _$result =
+          _$v ??
+          _$DeleteObjectsOutput._(
+            deleted: _deleted?.build(),
+            requestCharged: requestCharged,
+            errors: _errors?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -114,8 +114,11 @@ class DeleteObjectsOutputBuilder
         _$failedField = 'errors';
         _errors?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'DeleteObjectsOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'DeleteObjectsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -130,20 +133,19 @@ class _$DeleteObjectsOutputPayload extends DeleteObjectsOutputPayload {
   @override
   final _i3.BuiltList<Error>? errors;
 
-  factory _$DeleteObjectsOutputPayload(
-          [void Function(DeleteObjectsOutputPayloadBuilder)? updates]) =>
-      (new DeleteObjectsOutputPayloadBuilder()..update(updates))._build();
+  factory _$DeleteObjectsOutputPayload([
+    void Function(DeleteObjectsOutputPayloadBuilder)? updates,
+  ]) => (DeleteObjectsOutputPayloadBuilder()..update(updates))._build();
 
   _$DeleteObjectsOutputPayload._({this.deleted, this.errors}) : super._();
-
   @override
   DeleteObjectsOutputPayload rebuild(
-          void Function(DeleteObjectsOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectsOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectsOutputPayloadBuilder toBuilder() =>
-      new DeleteObjectsOutputPayloadBuilder()..replace(this);
+      DeleteObjectsOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -170,13 +172,13 @@ class DeleteObjectsOutputPayloadBuilder
 
   _i3.ListBuilder<DeletedObject>? _deleted;
   _i3.ListBuilder<DeletedObject> get deleted =>
-      _$this._deleted ??= new _i3.ListBuilder<DeletedObject>();
+      _$this._deleted ??= _i3.ListBuilder<DeletedObject>();
   set deleted(_i3.ListBuilder<DeletedObject>? deleted) =>
       _$this._deleted = deleted;
 
   _i3.ListBuilder<Error>? _errors;
   _i3.ListBuilder<Error> get errors =>
-      _$this._errors ??= new _i3.ListBuilder<Error>();
+      _$this._errors ??= _i3.ListBuilder<Error>();
   set errors(_i3.ListBuilder<Error>? errors) => _$this._errors = errors;
 
   DeleteObjectsOutputPayloadBuilder();
@@ -193,7 +195,6 @@ class DeleteObjectsOutputPayloadBuilder
 
   @override
   void replace(DeleteObjectsOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectsOutputPayload;
   }
 
@@ -208,9 +209,12 @@ class DeleteObjectsOutputPayloadBuilder
   _$DeleteObjectsOutputPayload _build() {
     _$DeleteObjectsOutputPayload _$result;
     try {
-      _$result = _$v ??
-          new _$DeleteObjectsOutputPayload._(
-              deleted: _deleted?.build(), errors: _errors?.build());
+      _$result =
+          _$v ??
+          _$DeleteObjectsOutputPayload._(
+            deleted: _deleted?.build(),
+            errors: _errors?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -219,8 +223,11 @@ class DeleteObjectsOutputPayloadBuilder
         _$failedField = 'errors';
         _errors?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'DeleteObjectsOutputPayload', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'DeleteObjectsOutputPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

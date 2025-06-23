@@ -11,45 +11,52 @@ import 'codegen.pbenum.dart';
 export 'codegen.pbenum.dart';
 
 class SmithyLibrary extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'SmithyLibrary',
-      createEmptyInstance: create)
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'packageName',
-        protoName: 'packageName')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'serviceName',
-        protoName: 'serviceName')
-    ..e<SmithyLibrary_LibraryType>(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'libraryType',
-        $pb.PbFieldType.OE,
-        protoName: 'libraryType',
-        defaultOrMaker: SmithyLibrary_LibraryType.MODEL,
-        valueOf: SmithyLibrary_LibraryType.valueOf,
-        enumValues: SmithyLibrary_LibraryType.values)
-    ..aOS(
-        4,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'filename')
-    ..aOS(
-        5,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'basePath',
-        protoName: 'basePath')
-    ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i =
+      $pb.BuilderInfo(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'SmithyLibrary',
+          createEmptyInstance: create,
+        )
+        ..aOS(
+          1,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'packageName',
+          protoName: 'packageName',
+        )
+        ..aOS(
+          2,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'serviceName',
+          protoName: 'serviceName',
+        )
+        ..e<SmithyLibrary_LibraryType>(
+          3,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'libraryType',
+          $pb.PbFieldType.OE,
+          protoName: 'libraryType',
+          defaultOrMaker: SmithyLibrary_LibraryType.MODEL,
+          valueOf: SmithyLibrary_LibraryType.valueOf,
+          enumValues: SmithyLibrary_LibraryType.values,
+        )
+        ..aOS(
+          4,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'filename',
+        )
+        ..aOS(
+          5,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'basePath',
+          protoName: 'basePath',
+        )
+        ..hasRequiredFields = false;
 
   SmithyLibrary._() : super();
   factory SmithyLibrary({
@@ -77,19 +84,25 @@ class SmithyLibrary extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory SmithyLibrary.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory SmithyLibrary.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  factory SmithyLibrary.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) => create()..mergeFromBuffer(i, r);
+  factory SmithyLibrary.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+    'Will be removed in next major version',
+  )
   SmithyLibrary clone() => SmithyLibrary()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+    'Will be removed in next major version',
+  )
   SmithyLibrary copyWith(void Function(SmithyLibrary) updates) =>
       super.copyWith((message) => updates(message as SmithyLibrary))
           as SmithyLibrary; // ignore: deprecated_member_use
@@ -166,31 +179,36 @@ class SmithyLibrary extends $pb.GeneratedMessage {
 }
 
 class CodegenRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'CodegenRequest',
-      createEmptyInstance: create)
-    ..m<$core.String, $core.String>(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'settings',
-        entryClassName: 'CodegenRequest.SettingsEntry',
-        keyFieldType: $pb.PbFieldType.OS,
-        valueFieldType: $pb.PbFieldType.OS)
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'serviceName',
-        protoName: 'serviceName')
-    ..aOS(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'json')
-    ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i =
+      $pb.BuilderInfo(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'CodegenRequest',
+          createEmptyInstance: create,
+        )
+        ..m<$core.String, $core.String>(
+          1,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'settings',
+          entryClassName: 'CodegenRequest.SettingsEntry',
+          keyFieldType: $pb.PbFieldType.OS,
+          valueFieldType: $pb.PbFieldType.OS,
+        )
+        ..aOS(
+          2,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'serviceName',
+          protoName: 'serviceName',
+        )
+        ..aOS(
+          3,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'json',
+        )
+        ..hasRequiredFields = false;
 
   CodegenRequest._() : super();
   factory CodegenRequest({
@@ -210,19 +228,25 @@ class CodegenRequest extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory CodegenRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory CodegenRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  factory CodegenRequest.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) => create()..mergeFromBuffer(i, r);
+  factory CodegenRequest.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+    'Will be removed in next major version',
+  )
   CodegenRequest clone() => CodegenRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+    'Will be removed in next major version',
+  )
   CodegenRequest copyWith(void Function(CodegenRequest) updates) =>
       super.copyWith((message) => updates(message as CodegenRequest))
           as CodegenRequest; // ignore: deprecated_member_use
@@ -266,23 +290,27 @@ class CodegenRequest extends $pb.GeneratedMessage {
 }
 
 class CodegenResponse_Library extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'CodegenResponse.Library',
-      createEmptyInstance: create)
-    ..aOM<SmithyLibrary>(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'metadata',
-        subBuilder: SmithyLibrary.create)
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'definition')
-    ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i =
+      $pb.BuilderInfo(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'CodegenResponse.Library',
+          createEmptyInstance: create,
+        )
+        ..aOM<SmithyLibrary>(
+          1,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'metadata',
+          subBuilder: SmithyLibrary.create,
+        )
+        ..aOS(
+          2,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'definition',
+        )
+        ..hasRequiredFields = false;
 
   CodegenResponse_Library._() : super();
   factory CodegenResponse_Library({
@@ -298,22 +326,29 @@ class CodegenResponse_Library extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory CodegenResponse_Library.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory CodegenResponse_Library.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  factory CodegenResponse_Library.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) => create()..mergeFromBuffer(i, r);
+  factory CodegenResponse_Library.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+    'Will be removed in next major version',
+  )
   CodegenResponse_Library clone() =>
       CodegenResponse_Library()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+    'Will be removed in next major version',
+  )
   CodegenResponse_Library copyWith(
-          void Function(CodegenResponse_Library) updates) =>
+    void Function(CodegenResponse_Library) updates,
+  ) =>
       super.copyWith((message) => updates(message as CodegenResponse_Library))
           as CodegenResponse_Library; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
@@ -355,34 +390,40 @@ class CodegenResponse_Library extends $pb.GeneratedMessage {
 }
 
 class CodegenResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'CodegenResponse',
-      createEmptyInstance: create)
-    ..aOB(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'success')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'error')
-    ..aOS(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'pubspec')
-    ..pc<CodegenResponse_Library>(
-        4,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'libraries',
-        $pb.PbFieldType.PM,
-        subBuilder: CodegenResponse_Library.create)
-    ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i =
+      $pb.BuilderInfo(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'CodegenResponse',
+          createEmptyInstance: create,
+        )
+        ..aOB(
+          1,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'success',
+        )
+        ..aOS(
+          2,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'error',
+        )
+        ..aOS(
+          3,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'pubspec',
+        )
+        ..pc<CodegenResponse_Library>(
+          4,
+          const $core.bool.fromEnvironment('protobuf.omit_field_names')
+              ? ''
+              : 'libraries',
+          $pb.PbFieldType.PM,
+          subBuilder: CodegenResponse_Library.create,
+        )
+        ..hasRequiredFields = false;
 
   CodegenResponse._() : super();
   factory CodegenResponse({
@@ -406,19 +447,25 @@ class CodegenResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory CodegenResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory CodegenResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  factory CodegenResponse.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) => create()..mergeFromBuffer(i, r);
+  factory CodegenResponse.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+    'Will be removed in next major version',
+  )
   CodegenResponse clone() => CodegenResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+    'Will be removed in next major version',
+  )
   CodegenResponse copyWith(void Function(CodegenResponse) updates) =>
       super.copyWith((message) => updates(message as CodegenResponse))
           as CodegenResponse; // ignore: deprecated_member_use

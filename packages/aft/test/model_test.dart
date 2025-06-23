@@ -35,8 +35,9 @@ void main() {
       expect(nextPatch, Version(0, 1, 2));
       expect(proagation.propagateToComponent(version, nextPatch), false);
 
-      final nonBreaking =
-          version.nextAmplifyVersion(VersionBumpType.nonBreaking);
+      final nonBreaking = version.nextAmplifyVersion(
+        VersionBumpType.nonBreaking,
+      );
       expect(nonBreaking, Version(0, 1, 1));
       expect(proagation.propagateToComponent(version, nonBreaking), false);
 
@@ -49,25 +50,17 @@ void main() {
       final version = Version(1, 0, 0, pre: 'next.0');
 
       final patch = version.nextAmplifyVersion(VersionBumpType.patch);
-      expect(
-        patch,
-        Version(1, 0, 0, pre: 'next.0', build: '1'),
-      );
+      expect(patch, Version(1, 0, 0, pre: 'next.0', build: '1'));
       expect(proagation.propagateToComponent(version, patch), false);
 
-      final nonBreaking =
-          version.nextAmplifyVersion(VersionBumpType.nonBreaking);
-      expect(
-        nonBreaking,
-        Version(1, 0, 0, pre: 'next.0', build: '1'),
+      final nonBreaking = version.nextAmplifyVersion(
+        VersionBumpType.nonBreaking,
       );
+      expect(nonBreaking, Version(1, 0, 0, pre: 'next.0', build: '1'));
       expect(proagation.propagateToComponent(version, nonBreaking), false);
 
       final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
-      expect(
-        breaking,
-        Version(1, 0, 0, pre: 'next.1'),
-      );
+      expect(breaking, Version(1, 0, 0, pre: 'next.1'));
       expect(proagation.propagateToComponent(version, breaking), true);
     });
 
@@ -75,25 +68,17 @@ void main() {
       final version = Version(1, 0, 0, pre: 'next.0', build: '1');
 
       final patch = version.nextAmplifyVersion(VersionBumpType.patch);
-      expect(
-        patch,
-        Version(1, 0, 0, pre: 'next.0', build: '2'),
-      );
+      expect(patch, Version(1, 0, 0, pre: 'next.0', build: '2'));
       expect(proagation.propagateToComponent(version, patch), false);
 
-      final nonBreaking =
-          version.nextAmplifyVersion(VersionBumpType.nonBreaking);
-      expect(
-        nonBreaking,
-        Version(1, 0, 0, pre: 'next.0', build: '2'),
+      final nonBreaking = version.nextAmplifyVersion(
+        VersionBumpType.nonBreaking,
       );
+      expect(nonBreaking, Version(1, 0, 0, pre: 'next.0', build: '2'));
       expect(proagation.propagateToComponent(version, nonBreaking), false);
 
       final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
-      expect(
-        breaking,
-        Version(1, 0, 0, pre: 'next.1'),
-      );
+      expect(breaking, Version(1, 0, 0, pre: 'next.1'));
       expect(proagation.propagateToComponent(version, breaking), true);
     });
 
@@ -104,8 +89,9 @@ void main() {
       expect(patch, Version(1, 0, 1));
       expect(proagation.propagateToComponent(version, patch), false);
 
-      final nonBreaking =
-          version.nextAmplifyVersion(VersionBumpType.nonBreaking);
+      final nonBreaking = version.nextAmplifyVersion(
+        VersionBumpType.nonBreaking,
+      );
       expect(nonBreaking, Version(1, 1, 0));
       expect(proagation.propagateToComponent(version, nonBreaking), true);
 
@@ -120,21 +106,14 @@ void main() {
       final currentDartVersion = Version.parse(
         Platform.version.split(RegExp(r'\s+')).first,
       );
+      final major = currentDartVersion.major;
+      final minor = currentDartVersion.minor;
       final stablePackage = await d.package('stable_pkg').create();
       final previewPackage = await d
-          .package(
-            'preview_pkg',
-            sdkConstraint: '^3.2.0-0',
-          )
+          .package('preview_pkg', sdkConstraint: '^$major.${minor + 1}.0-0')
           .create();
-      expect(
-        stablePackage.compatibleWithActiveSdk,
-        isTrue,
-      );
-      expect(
-        previewPackage.compatibleWithActiveSdk,
-        currentDartVersion.isPreRelease,
-      );
+      expect(stablePackage.compatibleWithActiveSdk, isTrue);
+      expect(previewPackage.compatibleWithActiveSdk, isFalse);
     });
   });
 }

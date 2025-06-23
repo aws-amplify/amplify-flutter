@@ -1,0 +1,8 @@
+diff --git a/packages/auth/amplify_auth_cognito/CHANGELOG.md b/packages/auth/amplify_auth_cognito/CHANGELOG.md
++## 2.3.1
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/auth/amplify_auth_cognito/pubspec.yaml b/packages/auth/amplify_auth_cognito/pubspec.yaml
+-version: 2.3.0
++version: 2.3.1

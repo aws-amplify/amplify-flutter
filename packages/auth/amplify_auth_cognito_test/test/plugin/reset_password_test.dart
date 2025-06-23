@@ -3,7 +3,6 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
@@ -17,11 +16,10 @@ import 'package:test/test.dart';
 // Follows resetPassword test cases:
 // https://github.com/aws-amplify/amplify-android/tree/main/aws-auth-cognito/src/test/resources/feature-test/testsuites/resetPassword
 void main() {
-  final authConfig = AuthConfiguration.fromConfig(mockConfig.auth!.awsPlugin!);
-  final userPoolConfig = authConfig.userPoolConfig!;
-  final identityPoolConfig = authConfig.identityPoolConfig!;
-  final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
-  final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
+  final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
+  final identityPoolKeys = CognitoIdentityPoolKeys(
+    mockConfig.auth!.identityPoolId!,
+  );
 
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;

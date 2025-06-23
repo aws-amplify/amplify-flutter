@@ -37,7 +37,8 @@ class Todo extends Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -50,11 +51,11 @@ class Todo extends Model {
       return _name!;
     } catch (e) {
       throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion: AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -67,11 +68,11 @@ class Todo extends Model {
       return _owner!;
     } catch (e) {
       throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion: AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -83,29 +84,31 @@ class Todo extends Model {
     return _updatedAt;
   }
 
-  const Todo._internal(
-      {required this.id,
-      required name,
-      description,
-      required owner,
-      createdAt,
-      updatedAt})
-      : _name = name,
-        _description = description,
-        _owner = owner,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const Todo._internal({
+    required this.id,
+    required name,
+    description,
+    required owner,
+    createdAt,
+    updatedAt,
+  }) : _name = name,
+       _description = description,
+       _owner = owner,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory Todo(
-      {String? id,
-      required String name,
-      String? description,
-      required String owner}) {
+  factory Todo({
+    String? id,
+    required String name,
+    String? description,
+    required String owner,
+  }) {
     return Todo._internal(
-        id: id == null ? UUID.getUUID() : id,
-        name: name,
-        description: description,
-        owner: owner);
+      id: id == null ? UUID.getUUID() : id,
+      name: name,
+      description: description,
+      owner: owner,
+    );
   }
 
   bool equals(Object other) {
@@ -134,11 +137,14 @@ class Todo extends Model {
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("owner=" + "$_owner" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -146,41 +152,42 @@ class Todo extends Model {
 
   Todo copyWith({String? name, String? description, String? owner}) {
     return Todo._internal(
-        id: id,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        owner: owner ?? this.owner);
+      id: id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      owner: owner ?? this.owner,
+    );
   }
 
   Todo.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _description = json['description'],
-        _owner = json['owner'],
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _name = json['name'],
+      _description = json['description'],
+      _owner = json['owner'],
+      _createdAt = json['createdAt'] != null
+          ? TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'description': _description,
-        'owner': _owner,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'description': _description,
+    'owner': _owner,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'description': _description,
-        'owner': _owner,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'description': _description,
+    'owner': _owner,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final QueryModelIdentifier<TodoModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<TodoModelIdentifier>();
@@ -188,13 +195,13 @@ class Todo extends Model {
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField OWNER = QueryField(fieldName: "owner");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Todo";
-    modelSchemaDefinition.pluralName = "Todos";
+  static var schema = Model.defineSchema(
+    define: (ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "Todo";
+      modelSchemaDefinition.pluralName = "Todos";
 
-    modelSchemaDefinition.authRules = [
-      AuthRule(
+      modelSchemaDefinition.authRules = [
+        AuthRule(
           authStrategy: AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
@@ -203,39 +210,56 @@ class Todo extends Model {
             ModelOperation.CREATE,
             ModelOperation.UPDATE,
             ModelOperation.DELETE,
-            ModelOperation.READ
-          ])
-    ];
+            ModelOperation.READ,
+          ],
+        ),
+      ];
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Todo.NAME,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        ModelFieldDefinition.field(
+          key: Todo.NAME,
+          isRequired: true,
+          ofType: ModelFieldType(ModelFieldTypeEnum.string),
+        ),
+      );
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Todo.DESCRIPTION,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        ModelFieldDefinition.field(
+          key: Todo.DESCRIPTION,
+          isRequired: false,
+          ofType: ModelFieldType(ModelFieldTypeEnum.string),
+        ),
+      );
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Todo.OWNER,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        ModelFieldDefinition.field(
+          key: Todo.OWNER,
+          isRequired: true,
+          ofType: ModelFieldType(ModelFieldTypeEnum.string),
+        ),
+      );
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+      modelSchemaDefinition.addField(
+        ModelFieldDefinition.nonQueryField(
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: ModelFieldType(ModelFieldTypeEnum.dateTime),
+        ),
+      );
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-  });
+      modelSchemaDefinition.addField(
+        ModelFieldDefinition.nonQueryField(
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: ModelFieldType(ModelFieldTypeEnum.dateTime),
+        ),
+      );
+    },
+  );
 }
 
 class _TodoModelType extends ModelType<Todo> {
@@ -267,8 +291,7 @@ class TodoModelIdentifier implements ModelIdentifier<Todo> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
       .map((entry) => (<String, dynamic>{entry.key: entry.value}))
       .toList();
 

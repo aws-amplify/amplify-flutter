@@ -7,20 +7,19 @@ part of 'revoke_token_response.dart';
 // **************************************************************************
 
 class _$RevokeTokenResponse extends RevokeTokenResponse {
-  factory _$RevokeTokenResponse(
-          [void Function(RevokeTokenResponseBuilder)? updates]) =>
-      (new RevokeTokenResponseBuilder()..update(updates))._build();
+  factory _$RevokeTokenResponse([
+    void Function(RevokeTokenResponseBuilder)? updates,
+  ]) => (RevokeTokenResponseBuilder()..update(updates))._build();
 
   _$RevokeTokenResponse._() : super._();
-
   @override
   RevokeTokenResponse rebuild(
-          void Function(RevokeTokenResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RevokeTokenResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RevokeTokenResponseBuilder toBuilder() =>
-      new RevokeTokenResponseBuilder()..replace(this);
+      RevokeTokenResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -42,7 +41,6 @@ class RevokeTokenResponseBuilder
 
   @override
   void replace(RevokeTokenResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RevokeTokenResponse;
   }
 
@@ -55,7 +53,7 @@ class RevokeTokenResponseBuilder
   RevokeTokenResponse build() => _build();
 
   _$RevokeTokenResponse _build() {
-    final _$result = _$v ?? new _$RevokeTokenResponse._();
+    final _$result = _$v ?? _$RevokeTokenResponse._();
     replace(_$result);
     return _$result;
   }

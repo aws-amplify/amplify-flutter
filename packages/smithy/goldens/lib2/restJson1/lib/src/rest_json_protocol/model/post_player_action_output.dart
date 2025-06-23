@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.post_player_action_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,9 +18,9 @@ abstract class PostPlayerActionOutput
     return _$PostPlayerActionOutput._(action: action);
   }
 
-  factory PostPlayerActionOutput.build(
-          [void Function(PostPlayerActionOutputBuilder) updates]) =
-      _$PostPlayerActionOutput;
+  factory PostPlayerActionOutput.build([
+    void Function(PostPlayerActionOutputBuilder) updates,
+  ]) = _$PostPlayerActionOutput;
 
   const PostPlayerActionOutput._();
 
@@ -28,8 +28,7 @@ abstract class PostPlayerActionOutput
   factory PostPlayerActionOutput.fromResponse(
     PostPlayerActionOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<PostPlayerActionOutput>> serializers =
       [PostPlayerActionOutputRestJson1Serializer()];
@@ -37,13 +36,11 @@ abstract class PostPlayerActionOutput
   PlayerAction get action;
   @override
   List<Object?> get props => [action];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PostPlayerActionOutput')
-      ..add(
-        'action',
-        action,
-      );
+      ..add('action', action);
     return helper.toString();
   }
 }
@@ -51,20 +48,19 @@ abstract class PostPlayerActionOutput
 class PostPlayerActionOutputRestJson1Serializer
     extends _i2.StructuredSmithySerializer<PostPlayerActionOutput> {
   const PostPlayerActionOutputRestJson1Serializer()
-      : super('PostPlayerActionOutput');
+    : super('PostPlayerActionOutput');
 
   @override
   Iterable<Type> get types => const [
-        PostPlayerActionOutput,
-        _$PostPlayerActionOutput,
-      ];
+    PostPlayerActionOutput,
+    _$PostPlayerActionOutput,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   PostPlayerActionOutput deserialize(
     Serializers serializers,
@@ -82,10 +78,12 @@ class PostPlayerActionOutputRestJson1Serializer
       }
       switch (key) {
         case 'action':
-          result.action = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(PlayerAction),
-          ) as PlayerAction);
+          result.action =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(PlayerAction),
+                  )
+                  as PlayerAction);
       }
     }
 

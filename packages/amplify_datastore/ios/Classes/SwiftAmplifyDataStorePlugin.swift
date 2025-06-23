@@ -3,10 +3,6 @@
 
 import Flutter
 import UIKit
-import Amplify
-import AmplifyPlugins
-import AWSPluginsCore
-import AWSCore
 import Combine
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {
@@ -15,6 +11,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
     private let customTypeSchemaRegistry: FlutterSchemaRegistry
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
+    private let nativeSubscriptionEventBus = PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>()
     private var channel: FlutterMethodChannel?
     private var observeSubscription: AnyCancellable?
     private let nativeAuthPlugin: NativeAuthPlugin
@@ -83,17 +80,21 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
         }
     }
     
-    func addApiPlugin(authProvidersList: [String], completion: @escaping (Result<Void, Error>) -> Void) {
+    func addApiPlugin(authProvidersList: [String], endpoints: [String: String], completion: @escaping (Result<Void, Error>) -> Void) {
         do {
             let authProviders = authProvidersList.compactMap {
                 AWSAuthorizationType(rawValue: $0)
             }
+            
             try Amplify.add(
-                plugin: AWSAPIPlugin(
+                plugin: FlutterApiPlugin(
                     apiAuthProviderFactory: FlutterAuthProviders(
                         authProviders: authProviders,
                         nativeApiPlugin: nativeApiPlugin
-                    )
+                    ), 
+                    nativeApiPlugin: nativeApiPlugin,
+                    subscriptionEventBus: nativeSubscriptionEventBus,
+                    endpoints: endpoints
                 )
             )
             return completion(.success(()))
@@ -144,10 +145,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                     nil
                 )
             }
-            let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self,
-                                                                from: data)
-            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: "\(version) /datastore")
-            try Amplify.configure(amplifyConfiguration)
+            try Amplify.configure(with : .data(data))
             return completion(.success(()))
         } catch let error as ConfigurationError {
             switch error {
@@ -234,6 +232,16 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             onStart(flutterResult: result)
         case "stop":
             onStop(flutterResult: result)
+            DispatchQueue.main.async {
+                self.nativeApiPlugin.onStop { result in
+                    switch result {
+                        case .success(let session):
+                            break //NoOp
+                        case .failure(let error):
+                            break //NoOp
+                    }   
+                }
+            }
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -294,6 +302,17 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             }
 
             modelSchemas.forEach { modelSchema in
+                modelSchemaRegistry.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
+            }
+            
+            // Amplify Swift DataStore system schemas must be added manually
+            let systemSchemas = [
+                ModelSyncMetadata.schema,
+                MutationEvent.schema,
+                MutationSyncMetadata.schema
+            ]
+            
+            systemSchemas.forEach { modelSchema in
                 modelSchemaRegistry.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
 
@@ -610,6 +629,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
         }
+    }
+    
+    func sendSubscriptionEvent(event: NativeGraphQLSubscriptionResponse, completion: @escaping (Result<Void, any Error>) -> Void) {
+        nativeSubscriptionEventBus.send(event)
     }
 
     private func checkArguments(args: Any) throws -> [String: Any] {

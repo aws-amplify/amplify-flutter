@@ -24,38 +24,28 @@ class _$ConfirmForgotPasswordRequest extends ConfirmForgotPasswordRequest {
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$ConfirmForgotPasswordRequest(
-          [void Function(ConfirmForgotPasswordRequestBuilder)? updates]) =>
-      (new ConfirmForgotPasswordRequestBuilder()..update(updates))._build();
+  factory _$ConfirmForgotPasswordRequest([
+    void Function(ConfirmForgotPasswordRequestBuilder)? updates,
+  ]) => (ConfirmForgotPasswordRequestBuilder()..update(updates))._build();
 
-  _$ConfirmForgotPasswordRequest._(
-      {required this.clientId,
-      this.secretHash,
-      required this.username,
-      required this.confirmationCode,
-      required this.password,
-      this.analyticsMetadata,
-      this.userContextData,
-      this.clientMetadata})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        clientId, r'ConfirmForgotPasswordRequest', 'clientId');
-    BuiltValueNullFieldError.checkNotNull(
-        username, r'ConfirmForgotPasswordRequest', 'username');
-    BuiltValueNullFieldError.checkNotNull(
-        confirmationCode, r'ConfirmForgotPasswordRequest', 'confirmationCode');
-    BuiltValueNullFieldError.checkNotNull(
-        password, r'ConfirmForgotPasswordRequest', 'password');
-  }
-
+  _$ConfirmForgotPasswordRequest._({
+    required this.clientId,
+    this.secretHash,
+    required this.username,
+    required this.confirmationCode,
+    required this.password,
+    this.analyticsMetadata,
+    this.userContextData,
+    this.clientMetadata,
+  }) : super._();
   @override
   ConfirmForgotPasswordRequest rebuild(
-          void Function(ConfirmForgotPasswordRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConfirmForgotPasswordRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConfirmForgotPasswordRequestBuilder toBuilder() =>
-      new ConfirmForgotPasswordRequestBuilder()..replace(this);
+      ConfirmForgotPasswordRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -89,8 +79,10 @@ class _$ConfirmForgotPasswordRequest extends ConfirmForgotPasswordRequest {
 
 class ConfirmForgotPasswordRequestBuilder
     implements
-        Builder<ConfirmForgotPasswordRequest,
-            ConfirmForgotPasswordRequestBuilder> {
+        Builder<
+          ConfirmForgotPasswordRequest,
+          ConfirmForgotPasswordRequestBuilder
+        > {
   _$ConfirmForgotPasswordRequest? _$v;
 
   String? _clientId;
@@ -116,19 +108,19 @@ class ConfirmForgotPasswordRequestBuilder
 
   AnalyticsMetadataTypeBuilder? _analyticsMetadata;
   AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+      _$this._analyticsMetadata ??= AnalyticsMetadataTypeBuilder();
   set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -152,7 +144,6 @@ class ConfirmForgotPasswordRequestBuilder
 
   @override
   void replace(ConfirmForgotPasswordRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConfirmForgotPasswordRequest;
   }
 
@@ -167,22 +158,34 @@ class ConfirmForgotPasswordRequestBuilder
   _$ConfirmForgotPasswordRequest _build() {
     _$ConfirmForgotPasswordRequest _$result;
     try {
-      _$result = _$v ??
-          new _$ConfirmForgotPasswordRequest._(
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'ConfirmForgotPasswordRequest', 'clientId'),
-              secretHash: secretHash,
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'ConfirmForgotPasswordRequest', 'username'),
-              confirmationCode: BuiltValueNullFieldError.checkNotNull(
-                  confirmationCode,
-                  r'ConfirmForgotPasswordRequest',
-                  'confirmationCode'),
-              password: BuiltValueNullFieldError.checkNotNull(
-                  password, r'ConfirmForgotPasswordRequest', 'password'),
-              analyticsMetadata: _analyticsMetadata?.build(),
-              userContextData: _userContextData?.build(),
-              clientMetadata: _clientMetadata?.build());
+      _$result =
+          _$v ??
+          _$ConfirmForgotPasswordRequest._(
+            clientId: BuiltValueNullFieldError.checkNotNull(
+              clientId,
+              r'ConfirmForgotPasswordRequest',
+              'clientId',
+            ),
+            secretHash: secretHash,
+            username: BuiltValueNullFieldError.checkNotNull(
+              username,
+              r'ConfirmForgotPasswordRequest',
+              'username',
+            ),
+            confirmationCode: BuiltValueNullFieldError.checkNotNull(
+              confirmationCode,
+              r'ConfirmForgotPasswordRequest',
+              'confirmationCode',
+            ),
+            password: BuiltValueNullFieldError.checkNotNull(
+              password,
+              r'ConfirmForgotPasswordRequest',
+              'password',
+            ),
+            analyticsMetadata: _analyticsMetadata?.build(),
+            userContextData: _userContextData?.build(),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -193,8 +196,11 @@ class ConfirmForgotPasswordRequestBuilder
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ConfirmForgotPasswordRequest', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ConfirmForgotPasswordRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

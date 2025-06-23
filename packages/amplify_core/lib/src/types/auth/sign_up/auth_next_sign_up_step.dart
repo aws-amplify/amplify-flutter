@@ -21,11 +21,7 @@ class AuthNextSignUpStep extends AuthNextStep
   final AuthSignUpStep signUpStep;
 
   @override
-  List<Object?> get props => [
-        additionalInfo,
-        codeDeliveryDetails,
-        signUpStep,
-      ];
+  List<Object?> get props => [additionalInfo, codeDeliveryDetails, signUpStep];
 
   @override
   String get runtimeTypeName => 'AuthNextSignUpStep';

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.s3.model.get_bucket_location_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,9 +23,9 @@ abstract class GetBucketLocationRequest
     return _$GetBucketLocationRequest._(bucket: bucket);
   }
 
-  factory GetBucketLocationRequest.build(
-          [void Function(GetBucketLocationRequestBuilder) updates]) =
-      _$GetBucketLocationRequest;
+  factory GetBucketLocationRequest.build([
+    void Function(GetBucketLocationRequestBuilder) updates,
+  ]) = _$GetBucketLocationRequest;
 
   const GetBucketLocationRequest._();
 
@@ -33,15 +33,14 @@ abstract class GetBucketLocationRequest
     GetBucketLocationRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      GetBucketLocationRequest.build((b) {
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-      });
+  }) => GetBucketLocationRequest.build((b) {
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<GetBucketLocationRequestPayload>>
-      serializers = [GetBucketLocationRequestRestXmlSerializer()];
+  serializers = [GetBucketLocationRequestRestXmlSerializer()];
 
   String get bucket;
   @override
@@ -50,48 +49,47 @@ abstract class GetBucketLocationRequest
       case 'Bucket':
         return bucket;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   GetBucketLocationRequestPayload getPayload() =>
       GetBucketLocationRequestPayload();
+
   @override
   List<Object?> get props => [bucket];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBucketLocationRequest')
-      ..add(
-        'bucket',
-        bucket,
-      );
+      ..add('bucket', bucket);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class GetBucketLocationRequestPayload
-    with
-        _i2.AWSEquatable<GetBucketLocationRequestPayload>
+    with _i2.AWSEquatable<GetBucketLocationRequestPayload>
     implements
-        Built<GetBucketLocationRequestPayload,
-            GetBucketLocationRequestPayloadBuilder>,
+        Built<
+          GetBucketLocationRequestPayload,
+          GetBucketLocationRequestPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory GetBucketLocationRequestPayload(
-          [void Function(GetBucketLocationRequestPayloadBuilder) updates]) =
-      _$GetBucketLocationRequestPayload;
+  factory GetBucketLocationRequestPayload([
+    void Function(GetBucketLocationRequestPayloadBuilder) updates,
+  ]) = _$GetBucketLocationRequestPayload;
 
   const GetBucketLocationRequestPayload._();
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetBucketLocationRequestPayload');
+    final helper = newBuiltValueToStringHelper(
+      'GetBucketLocationRequestPayload',
+    );
     return helper.toString();
   }
 }
@@ -99,22 +97,21 @@ abstract class GetBucketLocationRequestPayload
 class GetBucketLocationRequestRestXmlSerializer
     extends _i1.StructuredSmithySerializer<GetBucketLocationRequestPayload> {
   const GetBucketLocationRequestRestXmlSerializer()
-      : super('GetBucketLocationRequest');
+    : super('GetBucketLocationRequest');
 
   @override
   Iterable<Type> get types => const [
-        GetBucketLocationRequest,
-        _$GetBucketLocationRequest,
-        GetBucketLocationRequestPayload,
-        _$GetBucketLocationRequestPayload,
-      ];
+    GetBucketLocationRequest,
+    _$GetBucketLocationRequest,
+    GetBucketLocationRequestPayload,
+    _$GetBucketLocationRequestPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   GetBucketLocationRequestPayload deserialize(
     Serializers serializers,
@@ -134,7 +131,7 @@ class GetBucketLocationRequestRestXmlSerializer
       const _i1.XmlElementName(
         'GetBucketLocationRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

@@ -13,20 +13,19 @@ class _$EnableSoftwareTokenMfaException
   @override
   final Map<String, String>? headers;
 
-  factory _$EnableSoftwareTokenMfaException(
-          [void Function(EnableSoftwareTokenMfaExceptionBuilder)? updates]) =>
-      (new EnableSoftwareTokenMfaExceptionBuilder()..update(updates))._build();
+  factory _$EnableSoftwareTokenMfaException([
+    void Function(EnableSoftwareTokenMfaExceptionBuilder)? updates,
+  ]) => (EnableSoftwareTokenMfaExceptionBuilder()..update(updates))._build();
 
   _$EnableSoftwareTokenMfaException._({this.message, this.headers}) : super._();
-
   @override
   EnableSoftwareTokenMfaException rebuild(
-          void Function(EnableSoftwareTokenMfaExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EnableSoftwareTokenMfaExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EnableSoftwareTokenMfaExceptionBuilder toBuilder() =>
-      new EnableSoftwareTokenMfaExceptionBuilder()..replace(this);
+      EnableSoftwareTokenMfaExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -45,8 +44,10 @@ class _$EnableSoftwareTokenMfaException
 
 class EnableSoftwareTokenMfaExceptionBuilder
     implements
-        Builder<EnableSoftwareTokenMfaException,
-            EnableSoftwareTokenMfaExceptionBuilder> {
+        Builder<
+          EnableSoftwareTokenMfaException,
+          EnableSoftwareTokenMfaExceptionBuilder
+        > {
   _$EnableSoftwareTokenMfaException? _$v;
 
   String? _message;
@@ -71,7 +72,6 @@ class EnableSoftwareTokenMfaExceptionBuilder
 
   @override
   void replace(EnableSoftwareTokenMfaException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EnableSoftwareTokenMfaException;
   }
 
@@ -84,9 +84,9 @@ class EnableSoftwareTokenMfaExceptionBuilder
   EnableSoftwareTokenMfaException build() => _build();
 
   _$EnableSoftwareTokenMfaException _build() {
-    final _$result = _$v ??
-        new _$EnableSoftwareTokenMfaException._(
-            message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$EnableSoftwareTokenMfaException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

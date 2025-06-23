@@ -3,7 +3,7 @@
 
 import 'package:aws_common/aws_common.dart';
 
-/// (@template amplify_core.state_machine.precondition_exception)
+/// {@template amplify_core.state_machine.precondition_exception}
 /// An exception raised within a state machine when an event could not be
 /// processed due to some precondition not being met.
 /// {@endtemplate}

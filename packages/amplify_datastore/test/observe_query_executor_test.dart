@@ -12,9 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 var syncQueriesStartedEvent = DataStoreHubEvent(
   'syncQueriesStarted',
   type: DataStoreHubEventType.syncQueriesStarted,
-  payload: SyncQueriesStartedEvent({
-    "models": "[\"Blog\"]",
-  }),
+  payload: SyncQueriesStartedEvent({"models": "[\"Blog\"]"}),
 );
 
 var modelSyncEvent = DataStoreHubEvent(
@@ -32,8 +30,10 @@ var modelSyncEvent = DataStoreHubEvent(
 
 void main() {
   Blog initialBlog = Blog(name: 'initial blog');
-  List<Blog> syncedBlogs =
-      List.generate(10, (index) => Blog(name: 'synced blog $index'));
+  List<Blog> syncedBlogs = List.generate(
+    10,
+    (index) => Blog(name: 'synced blog $index'),
+  );
   group('ObserveQueryExecutor', () {
     Future<List<T>> query<T extends Model>(
       ModelType<T> modelType, {
@@ -41,8 +41,9 @@ void main() {
       QueryPagination? pagination,
       List<QuerySortBy>? sortBy,
     }) {
-      return Future.delayed(Duration(milliseconds: 100))
-          .then((value) => [initialBlog as T]);
+      return Future.delayed(
+        Duration(milliseconds: 100),
+      ).then((value) => [initialBlog as T]);
     }
 
     Stream<SubscriptionEvent<T>> observe<T extends Model>(
@@ -87,11 +88,13 @@ void main() {
           throttleOptions: ObserveQueryThrottleOptions.none(),
         );
 
-        Stream<bool> observeQueryStatus =
-            observeQuery.map((event) => event.isSynced);
+        Stream<bool> observeQueryStatus = observeQuery.map(
+          (event) => event.isSynced,
+        );
 
-        Stream<List<Blog>> observeQueryItems =
-            observeQuery.map((event) => event.items);
+        Stream<List<Blog>> observeQueryItems = observeQuery.map(
+          (event) => event.items,
+        );
 
         expect(
           observeQueryStatus,
@@ -104,8 +107,12 @@ void main() {
             orderedEquals([initialBlog]),
             orderedEquals([initialBlog, syncedBlogs[0]]),
             orderedEquals([initialBlog, syncedBlogs[0], syncedBlogs[1]]),
-            orderedEquals(
-                [initialBlog, syncedBlogs[0], syncedBlogs[1], syncedBlogs[2]]),
+            orderedEquals([
+              initialBlog,
+              syncedBlogs[0],
+              syncedBlogs[1],
+              syncedBlogs[2],
+            ]),
           ]),
         );
 
@@ -125,22 +132,17 @@ void main() {
           modelType: Blog.classType,
         );
 
-        Stream<List<Blog>> observeQueryItems =
-            observeQuery.map((event) => event.items);
+        Stream<List<Blog>> observeQueryItems = observeQuery.map(
+          (event) => event.items,
+        );
 
         expect(
           observeQueryItems,
           emitsInOrder([
             // initial query at 100 ms
-            orderedEquals([
-              initialBlog,
-            ]),
+            orderedEquals([initialBlog]),
             // + 2 events after 2s throttle
-            orderedEquals([
-              initialBlog,
-              syncedBlogs[0],
-              syncedBlogs[1],
-            ]),
+            orderedEquals([initialBlog, syncedBlogs[0], syncedBlogs[1]]),
             // + 2 events after 2s throttle
             orderedEquals([
               initialBlog,
@@ -197,13 +199,11 @@ void main() {
           modelType: Blog.classType,
         );
 
-        Stream<bool> observeQueryStatus =
-            observeQuery.map((event) => event.isSynced);
-
-        expect(
-          observeQueryStatus,
-          emitsInOrder([true]),
+        Stream<bool> observeQueryStatus = observeQuery.map(
+          (event) => event.isSynced,
         );
+
+        expect(observeQueryStatus, emitsInOrder([true]));
 
         async.elapse(Duration(seconds: 10));
       });

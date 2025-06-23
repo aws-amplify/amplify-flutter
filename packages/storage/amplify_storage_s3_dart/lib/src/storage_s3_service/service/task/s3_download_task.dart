@@ -7,15 +7,15 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
     as s3_exception;
+import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
-import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart' as smithy;
 import 'package:smithy_aws/smithy_aws.dart' as smithy_aws;
 
 /// {@template amplify_storage_s3_dart.download_task}
 /// A task created to fulfill a download operation.
-/// {@template}
+/// {@endtemplate}
 @internal
 class S3DownloadTask {
   /// {@macro amplify_storage_s3_dart.download_task}
@@ -50,52 +50,44 @@ class S3DownloadTask {
   S3DownloadTask({
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
-    required S3PrefixResolver prefixResolver,
-    required StorageAccessLevel defaultAccessLevel,
+    required S3PathResolver pathResolver,
     required String bucket,
-    required String key,
+    required StoragePath path,
     required StorageDownloadDataOptions options,
     FutureOr<void> Function()? preStart,
     void Function(S3TransferProgress)? onProgress,
     void Function(List<int>)? onData,
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
-    required AWSLogger logger,
-  })  : _downloadCompleter = Completer<S3Item>(),
-        _s3Client = s3Client,
-        _defaultS3ClientConfig = defaultS3ClientConfig,
-        _prefixResolver = prefixResolver,
-        _bucket = bucket,
-        _defaultAccessLevel = defaultAccessLevel,
-        _key = key,
-        _downloadDataOptions = options,
-        _preStart = preStart,
-        _onProgress = onProgress,
-        _onData = onData,
-        _onDone = onDone,
-        _onError = onError,
-        _logger = logger,
-        _downloadedBytesSize = 0,
-        _s3PluginOptions =
-            options.pluginOptions as S3DownloadDataPluginOptions? ??
-                const S3DownloadDataPluginOptions();
+  }) : _downloadCompleter = Completer<S3Item>(),
+       _s3Client = s3Client,
+       _defaultS3ClientConfig = defaultS3ClientConfig,
+       _pathResolver = pathResolver,
+       _bucket = bucket,
+       _path = path,
+       _preStart = preStart,
+       _onProgress = onProgress,
+       _onData = onData,
+       _onDone = onDone,
+       _onError = onError,
+       _downloadedBytesSize = 0,
+       _s3PluginOptions =
+           options.pluginOptions as S3DownloadDataPluginOptions? ??
+           const S3DownloadDataPluginOptions();
 
   // the Completer to complete the final `result` Future.
   final Completer<S3Item> _downloadCompleter;
 
   final s3.S3Client _s3Client;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
-  final S3PrefixResolver _prefixResolver;
+  final S3PathResolver _pathResolver;
   final String _bucket;
-  final StorageAccessLevel _defaultAccessLevel;
-  final String _key;
-  final StorageDownloadDataOptions _downloadDataOptions;
+  final StoragePath _path;
   final FutureOr<void> Function()? _preStart;
   final void Function(S3TransferProgress)? _onProgress;
   final void Function(List<int> bytes)? _onData;
   final FutureOr<void> Function()? _onDone;
   final FutureOr<void> Function()? _onError;
-  final AWSLogger _logger;
   final S3DownloadDataPluginOptions _s3PluginOptions;
 
   int _downloadedBytesSize;
@@ -110,7 +102,7 @@ class S3DownloadTask {
   Completer<void>? _pauseCompleter;
 
   late StorageTransferState _state;
-  late final String _resolvedKey;
+  late final String _resolvedPath;
   late final S3Item _downloadedS3Item;
 
   // Total bytes that need to be downloaded, this field is set when the
@@ -145,19 +137,12 @@ class S3DownloadTask {
       return;
     }
 
-    final resolvedPrefix = await StorageS3Service.getResolvedPrefix(
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      accessLevel: _downloadDataOptions.accessLevel ?? _defaultAccessLevel,
-      identityId: _s3PluginOptions.targetIdentityId,
-    );
-
-    _resolvedKey = '$resolvedPrefix$_key';
+    _resolvedPath = await _pathResolver.resolvePath(path: _path);
 
     try {
       final getObjectOutput = await _getObject(
         bucket: _bucket,
-        key: _resolvedKey,
+        key: _resolvedPath,
         bytesRange: _s3PluginOptions.bytesRange,
       );
 
@@ -175,8 +160,10 @@ class S3DownloadTask {
 
       _totalBytes = remoteSize;
       _listenToBytesSteam(getObjectOutput.body);
-      _downloadedS3Item =
-          S3Item.fromGetObjectOutput(getObjectOutput, key: _key);
+      _downloadedS3Item = S3Item.fromGetObjectOutput(
+        getObjectOutput,
+        path: _resolvedPath,
+      );
     } on Exception catch (error, stackTrace) {
       await _completeDownloadWithError(error, stackTrace);
     }
@@ -227,7 +214,7 @@ class S3DownloadTask {
     try {
       final getObjectOutput = await _getObject(
         bucket: _bucket,
-        key: _resolvedKey,
+        key: _resolvedPath,
         bytesRange: bytesRangeToDownload,
       );
       _listenToBytesSteam(getObjectOutput.body);
@@ -289,44 +276,45 @@ class S3DownloadTask {
       return;
     }
 
-    _bytesSubscription = bytesStream.listen((bytes) {
-      _downloadedBytesSize += bytes.length;
-      _onData?.call(bytes);
-      _emitTransferProgress();
-    })
-      ..onDone(() async {
-        if (_downloadedBytesSize == _totalBytes) {
-          _state = StorageTransferState.success;
-          try {
-            await _onDone?.call();
+    _bytesSubscription =
+        bytesStream.listen((bytes) {
+            _downloadedBytesSize += bytes.length;
+            _onData?.call(bytes);
             _emitTransferProgress();
-            _downloadCompleter.complete(
-              // On VM, download operation gets object metadata directly
-              // from the underlying `GetObject` call.
-              // On Web, download operation is done by browser download from
-              // object presigned URL, where object metadata needs to be
-              // retrieve via a separate `HeadObject` call.
-              // To unify the behavior on `downloadOptions.getProperties`
-              // we hide the metadata from the result on VM if this parameter
-              // is set to `false`.
-              _s3PluginOptions.getProperties
-                  ? _downloadedS3Item
-                  : S3Item(key: _downloadedS3Item.key),
-            );
-          } on Exception catch (error, stackTrace) {
-            await _completeDownloadWithError(error, stackTrace);
-          }
-        } else {
-          await _completeDownloadWithError(
-            const UnknownException(
-              'The download operation was completed, but only a portion of the data was downloaded.',
-              recoverySuggestion:
-                  AmplifyExceptionMessages.missingExceptionMessage,
-            ),
-          );
-        }
-      })
-      ..onError(_completeDownloadWithError);
+          })
+          ..onDone(() async {
+            if (_downloadedBytesSize == _totalBytes) {
+              _state = StorageTransferState.success;
+              try {
+                await _onDone?.call();
+                _emitTransferProgress();
+                _downloadCompleter.complete(
+                  // On VM, download operation gets object metadata directly
+                  // from the underlying `GetObject` call.
+                  // On Web, download operation is done by browser download from
+                  // object presigned URL, where object metadata needs to be
+                  // retrieve via a separate `HeadObject` call.
+                  // To unify the behavior on `downloadOptions.getProperties`
+                  // we hide the metadata from the result on VM if this parameter
+                  // is set to `false`.
+                  _s3PluginOptions.getProperties
+                      ? _downloadedS3Item
+                      : S3Item(path: _downloadedS3Item.path),
+                );
+              } on Exception catch (error, stackTrace) {
+                await _completeDownloadWithError(error, stackTrace);
+              }
+            } else {
+              await _completeDownloadWithError(
+                const UnknownException(
+                  'The download operation was completed, but only a portion of the data was downloaded.',
+                  recoverySuggestion:
+                      AmplifyExceptionMessages.missingExceptionMessage,
+                ),
+              );
+            }
+          })
+          ..onError(_completeDownloadWithError);
 
     // After setting up the body stream listener, we consider the task is fully
     // started, and can be paused etc.
@@ -370,7 +358,7 @@ class S3DownloadTask {
       throw error.toStorageException();
     } on s3.NoSuchKey catch (error) {
       // 404 error is wrapped by s3.NoSuchKey for getObject :/
-      throw error.toStorageKeyNotFoundException();
+      throw error.toStorageNotFoundException();
     } on AWSHttpException catch (error) {
       throw error.toNetworkException();
     }

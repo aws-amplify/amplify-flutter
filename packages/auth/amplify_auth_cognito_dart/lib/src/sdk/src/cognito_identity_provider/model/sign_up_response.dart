@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.sign_up_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -39,11 +39,10 @@ abstract class SignUpResponse
   factory SignUpResponse.fromResponse(
     SignUpResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<SignUpResponse>> serializers = [
-    SignUpResponseAwsJson11Serializer()
+    SignUpResponseAwsJson11Serializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -57,29 +56,17 @@ abstract class SignUpResponse
   /// The code delivery details returned by the server response to the user registration request.
   CodeDeliveryDetailsType? get codeDeliveryDetails;
 
-  /// The UUID of the authenticated user. This isn't the same as `username`.
+  /// The 128-bit ID of the authenticated user. This isn't the same as `username`.
   String get userSub;
   @override
-  List<Object?> get props => [
-        userConfirmed,
-        codeDeliveryDetails,
-        userSub,
-      ];
+  List<Object?> get props => [userConfirmed, codeDeliveryDetails, userSub];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SignUpResponse')
-      ..add(
-        'userConfirmed',
-        userConfirmed,
-      )
-      ..add(
-        'codeDeliveryDetails',
-        codeDeliveryDetails,
-      )
-      ..add(
-        'userSub',
-        userSub,
-      );
+      ..add('userConfirmed', userConfirmed)
+      ..add('codeDeliveryDetails', codeDeliveryDetails)
+      ..add('userSub', userSub);
     return helper.toString();
   }
 }
@@ -89,17 +76,13 @@ class SignUpResponseAwsJson11Serializer
   const SignUpResponseAwsJson11Serializer() : super('SignUpResponse');
 
   @override
-  Iterable<Type> get types => const [
-        SignUpResponse,
-        _$SignUpResponse,
-      ];
+  Iterable<Type> get types => const [SignUpResponse, _$SignUpResponse];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   SignUpResponse deserialize(
     Serializers serializers,
@@ -117,20 +100,27 @@ class SignUpResponseAwsJson11Serializer
       }
       switch (key) {
         case 'UserConfirmed':
-          result.userConfirmed = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.userConfirmed =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'CodeDeliveryDetails':
-          result.codeDeliveryDetails.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CodeDeliveryDetailsType),
-          ) as CodeDeliveryDetailsType));
+          result.codeDeliveryDetails.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CodeDeliveryDetailsType),
+                )
+                as CodeDeliveryDetailsType),
+          );
         case 'UserSub':
-          result.userSub = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.userSub =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -148,23 +138,19 @@ class SignUpResponseAwsJson11Serializer
         object;
     result$.addAll([
       'UserConfirmed',
-      serializers.serialize(
-        userConfirmed,
-        specifiedType: const FullType(bool),
-      ),
+      serializers.serialize(userConfirmed, specifiedType: const FullType(bool)),
       'UserSub',
-      serializers.serialize(
-        userSub,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(userSub, specifiedType: const FullType(String)),
     ]);
     if (codeDeliveryDetails != null) {
       result$
         ..add('CodeDeliveryDetails')
-        ..add(serializers.serialize(
-          codeDeliveryDetails,
-          specifiedType: const FullType(CodeDeliveryDetailsType),
-        ));
+        ..add(
+          serializers.serialize(
+            codeDeliveryDetails,
+            specifiedType: const FullType(CodeDeliveryDetailsType),
+          ),
+        );
     }
     return result$;
   }

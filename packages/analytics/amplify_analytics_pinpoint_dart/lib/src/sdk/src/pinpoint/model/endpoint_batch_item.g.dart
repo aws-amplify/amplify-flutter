@@ -32,32 +32,31 @@ class _$EndpointBatchItem extends EndpointBatchItem {
   @override
   final EndpointUser? user;
 
-  factory _$EndpointBatchItem(
-          [void Function(EndpointBatchItemBuilder)? updates]) =>
-      (new EndpointBatchItemBuilder()..update(updates))._build();
+  factory _$EndpointBatchItem([
+    void Function(EndpointBatchItemBuilder)? updates,
+  ]) => (EndpointBatchItemBuilder()..update(updates))._build();
 
-  _$EndpointBatchItem._(
-      {this.address,
-      this.attributes,
-      this.channelType,
-      this.demographic,
-      this.effectiveDate,
-      this.endpointStatus,
-      this.id,
-      this.location,
-      this.metrics,
-      this.optOut,
-      this.requestId,
-      this.user})
-      : super._();
-
+  _$EndpointBatchItem._({
+    this.address,
+    this.attributes,
+    this.channelType,
+    this.demographic,
+    this.effectiveDate,
+    this.endpointStatus,
+    this.id,
+    this.location,
+    this.metrics,
+    this.optOut,
+    this.requestId,
+    this.user,
+  }) : super._();
   @override
   EndpointBatchItem rebuild(void Function(EndpointBatchItemBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   EndpointBatchItemBuilder toBuilder() =>
-      new EndpointBatchItemBuilder()..replace(this);
+      EndpointBatchItemBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -107,7 +106,7 @@ class EndpointBatchItemBuilder
 
   _i2.ListMultimapBuilder<String, String>? _attributes;
   _i2.ListMultimapBuilder<String, String> get attributes =>
-      _$this._attributes ??= new _i2.ListMultimapBuilder<String, String>();
+      _$this._attributes ??= _i2.ListMultimapBuilder<String, String>();
   set attributes(_i2.ListMultimapBuilder<String, String>? attributes) =>
       _$this._attributes = attributes;
 
@@ -118,7 +117,7 @@ class EndpointBatchItemBuilder
 
   EndpointDemographicBuilder? _demographic;
   EndpointDemographicBuilder get demographic =>
-      _$this._demographic ??= new EndpointDemographicBuilder();
+      _$this._demographic ??= EndpointDemographicBuilder();
   set demographic(EndpointDemographicBuilder? demographic) =>
       _$this._demographic = demographic;
 
@@ -138,13 +137,13 @@ class EndpointBatchItemBuilder
 
   EndpointLocationBuilder? _location;
   EndpointLocationBuilder get location =>
-      _$this._location ??= new EndpointLocationBuilder();
+      _$this._location ??= EndpointLocationBuilder();
   set location(EndpointLocationBuilder? location) =>
       _$this._location = location;
 
   _i2.MapBuilder<String, double>? _metrics;
   _i2.MapBuilder<String, double> get metrics =>
-      _$this._metrics ??= new _i2.MapBuilder<String, double>();
+      _$this._metrics ??= _i2.MapBuilder<String, double>();
   set metrics(_i2.MapBuilder<String, double>? metrics) =>
       _$this._metrics = metrics;
 
@@ -157,7 +156,7 @@ class EndpointBatchItemBuilder
   set requestId(String? requestId) => _$this._requestId = requestId;
 
   EndpointUserBuilder? _user;
-  EndpointUserBuilder get user => _$this._user ??= new EndpointUserBuilder();
+  EndpointUserBuilder get user => _$this._user ??= EndpointUserBuilder();
   set user(EndpointUserBuilder? user) => _$this._user = user;
 
   EndpointBatchItemBuilder();
@@ -184,7 +183,6 @@ class EndpointBatchItemBuilder
 
   @override
   void replace(EndpointBatchItem other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointBatchItem;
   }
 
@@ -199,20 +197,22 @@ class EndpointBatchItemBuilder
   _$EndpointBatchItem _build() {
     _$EndpointBatchItem _$result;
     try {
-      _$result = _$v ??
-          new _$EndpointBatchItem._(
-              address: address,
-              attributes: _attributes?.build(),
-              channelType: channelType,
-              demographic: _demographic?.build(),
-              effectiveDate: effectiveDate,
-              endpointStatus: endpointStatus,
-              id: id,
-              location: _location?.build(),
-              metrics: _metrics?.build(),
-              optOut: optOut,
-              requestId: requestId,
-              user: _user?.build());
+      _$result =
+          _$v ??
+          _$EndpointBatchItem._(
+            address: address,
+            attributes: _attributes?.build(),
+            channelType: channelType,
+            demographic: _demographic?.build(),
+            effectiveDate: effectiveDate,
+            endpointStatus: endpointStatus,
+            id: id,
+            location: _location?.build(),
+            metrics: _metrics?.build(),
+            optOut: optOut,
+            requestId: requestId,
+            user: _user?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -230,8 +230,11 @@ class EndpointBatchItemBuilder
         _$failedField = 'user';
         _user?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'EndpointBatchItem', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'EndpointBatchItem',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

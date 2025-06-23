@@ -14,10 +14,7 @@ part 'test_event.g.dart';
 const _testSerializable = JsonSerializable(
   createToJson: false,
   fieldRename: FieldRename.snake,
-  converters: [
-    _EndpointSerializer(),
-    _DateTimeSerializer(),
-  ],
+  converters: [_EndpointSerializer(), _DateTimeSerializer()],
 );
 
 @_testSerializable
@@ -47,15 +44,15 @@ class TestEvent with AWSEquatable<TestEvent>, AWSDebuggable {
 
   @override
   List<Object?> get props => [
-        eventType,
-        eventTimestamp,
-        arrivalTimestamp,
-        eventVersion,
-        attributes,
-        metrics,
-        session,
-        endpoint,
-      ];
+    eventType,
+    eventTimestamp,
+    arrivalTimestamp,
+    eventVersion,
+    attributes,
+    metrics,
+    session,
+    endpoint,
+  ];
 
   @override
   String get runtimeTypeName => 'TestEvent';
@@ -77,11 +74,7 @@ class TestSession with AWSEquatable<TestSession>, AWSDebuggable {
   final DateTime? stopTimestamp;
 
   @override
-  List<Object?> get props => [
-        sessionId,
-        startTimestamp,
-        stopTimestamp,
-      ];
+  List<Object?> get props => [sessionId, startTimestamp, stopTimestamp];
 
   @override
   String get runtimeTypeName => 'TestSession';
@@ -102,16 +95,18 @@ class _EndpointSerializer
   @override
   EndpointResponse fromJson(Map<String, Object?> json) =>
       _serializers.deserialize(
-        json,
-        specifiedType: const FullType(EndpointResponse),
-      ) as EndpointResponse;
+            json,
+            specifiedType: const FullType(EndpointResponse),
+          )
+          as EndpointResponse;
 
   @override
   Map<String, Object?> toJson(EndpointResponse object) =>
       _serializers.serialize(
-        object,
-        specifiedType: const FullType(EndpointResponse),
-      ) as Map<String, Object?>;
+            object,
+            specifiedType: const FullType(EndpointResponse),
+          )
+          as Map<String, Object?>;
 }
 
 class _DateTimeSerializer implements JsonConverter<DateTime, int> {

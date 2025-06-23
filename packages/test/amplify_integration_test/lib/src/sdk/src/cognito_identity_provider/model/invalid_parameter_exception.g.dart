@@ -12,20 +12,19 @@ class _$InvalidParameterException extends InvalidParameterException {
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidParameterException(
-          [void Function(InvalidParameterExceptionBuilder)? updates]) =>
-      (new InvalidParameterExceptionBuilder()..update(updates))._build();
+  factory _$InvalidParameterException([
+    void Function(InvalidParameterExceptionBuilder)? updates,
+  ]) => (InvalidParameterExceptionBuilder()..update(updates))._build();
 
   _$InvalidParameterException._({this.message, this.headers}) : super._();
-
   @override
   InvalidParameterException rebuild(
-          void Function(InvalidParameterExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidParameterExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidParameterExceptionBuilder toBuilder() =>
-      new InvalidParameterExceptionBuilder()..replace(this);
+      InvalidParameterExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class InvalidParameterExceptionBuilder
 
   @override
   void replace(InvalidParameterException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidParameterException;
   }
 
@@ -82,8 +80,9 @@ class InvalidParameterExceptionBuilder
   InvalidParameterException build() => _build();
 
   _$InvalidParameterException _build() {
-    final _$result = _$v ??
-        new _$InvalidParameterException._(message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$InvalidParameterException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

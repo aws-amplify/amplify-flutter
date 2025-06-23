@@ -4,11 +4,13 @@
 // ignore_for_file: public_member_api_docs
 
 @internal
-library amplify_api.graphql.ws.web_socket_types;
+library;
 
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -56,11 +58,15 @@ enum MessageType {
 abstract class WebSocketMessagePayload {
   const WebSocketMessagePayload();
 
-  static const Map<MessageType,
-      WebSocketMessagePayload Function(Map<String, dynamic>)> _factories = {
+  static const Map<
+    MessageType,
+    WebSocketMessagePayload Function(Map<String, dynamic>)
+  >
+  _factories = {
     MessageType.connectionAck: ConnectionAckMessagePayload.fromJson,
     MessageType.data: SubscriptionDataPayload.fromJson,
     MessageType.error: WebSocketError.fromJson,
+    MessageType.connectionError: WebSocketError.fromJson,
   };
 
   static WebSocketMessagePayload? fromJson(
@@ -88,8 +94,8 @@ class ConnectionAckMessagePayload extends WebSocketMessagePayload {
 
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'connectionTimeoutMs': connectionTimeoutMs,
-      };
+    'connectionTimeoutMs': connectionTimeoutMs,
+  };
 }
 
 class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
@@ -99,15 +105,16 @@ class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
     required this.authorizationHeaders,
   });
   final GraphQLRequest<dynamic> request;
-  final AWSApiConfig config;
+  final ApiOutputs config;
   final Map<String, String> authorizationHeaders;
 
   @override
   Map<String, Object> toJson() {
     return <String, Object>{
-      'data': jsonEncode(
-        {'variables': request.variables, 'query': request.document},
-      ),
+      'data': jsonEncode({
+        'variables': request.variables,
+        'query': request.document,
+      }),
       'extensions': <String, Map<String, String>>{
         'authorization': authorizationHeaders,
       },
@@ -131,9 +138,9 @@ class SubscriptionDataPayload extends WebSocketMessagePayload {
 
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'data': data,
-        'errors': errors,
-      };
+    'data': data,
+    'errors': errors,
+  };
 }
 
 class WebSocketError extends WebSocketMessagePayload implements Exception {
@@ -141,28 +148,26 @@ class WebSocketError extends WebSocketMessagePayload implements Exception {
   final List<Map<String, dynamic>> errors;
 
   static WebSocketError fromJson(Map<String, dynamic> json) {
-    final errors = json['errors'] as List?;
-    return WebSocketError(errors?.cast() ?? []);
+    final errors = json['errors'];
+    List<Map<String, dynamic>>? errorsList = [];
+    if (errors is List?) {
+      errorsList = errors?.cast();
+    } else if (errors is Map<String, dynamic>) {
+      errorsList = [errors];
+    }
+
+    return WebSocketError(errorsList ?? []);
   }
 
   @override
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'errors': errors,
-      };
+  Map<String, dynamic> toJson() => <String, dynamic>{'errors': errors};
 }
 
 @immutable
 class WebSocketMessage {
-  WebSocketMessage({
-    String? id,
-    required this.messageType,
-    this.payload,
-  }) : id = id ?? uuid();
-  const WebSocketMessage._({
-    this.id,
-    required this.messageType,
-    this.payload,
-  });
+  WebSocketMessage({String? id, required this.messageType, this.payload})
+    : id = id ?? uuid();
+  const WebSocketMessage._({this.id, required this.messageType, this.payload});
   final String? id;
   final MessageType messageType;
   final WebSocketMessagePayload? payload;
@@ -174,10 +179,7 @@ class WebSocketMessage {
     final payloadMap = json['payload'] as Map<String, dynamic>?;
     final payload = payloadMap == null
         ? null
-        : WebSocketMessagePayload.fromJson(
-            payloadMap,
-            messageType,
-          );
+        : WebSocketMessagePayload.fromJson(payloadMap, messageType);
     return WebSocketMessage._(
       id: id,
       messageType: messageType,
@@ -186,10 +188,10 @@ class WebSocketMessage {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        if (id != null) 'id': id,
-        'type': messageType.type,
-        if (payload != null) 'payload': payload?.toJson(),
-      };
+    if (id != null) 'id': id,
+    'type': messageType.type,
+    if (payload != null) 'payload': payload?.toJson(),
+  };
 
   @override
   String toString() {
@@ -199,7 +201,7 @@ class WebSocketMessage {
 
 class WebSocketConnectionInitMessage extends WebSocketMessage {
   WebSocketConnectionInitMessage()
-      : super(messageType: MessageType.connectionInit);
+    : super(messageType: MessageType.connectionInit);
 }
 
 class WebSocketSubscriptionRegistrationMessage extends WebSocketMessage {
@@ -211,5 +213,5 @@ class WebSocketSubscriptionRegistrationMessage extends WebSocketMessage {
 
 class WebSocketStopMessage extends WebSocketMessage {
   WebSocketStopMessage({required String id})
-      : super(messageType: MessageType.stop, id: id);
+    : super(messageType: MessageType.stop, id: id);
 }

@@ -17,18 +17,20 @@ class _$DeletedObject extends DeletedObject {
   final String? deleteMarkerVersionId;
 
   factory _$DeletedObject([void Function(DeletedObjectBuilder)? updates]) =>
-      (new DeletedObjectBuilder()..update(updates))._build();
+      (DeletedObjectBuilder()..update(updates))._build();
 
-  _$DeletedObject._(
-      {this.key, this.versionId, this.deleteMarker, this.deleteMarkerVersionId})
-      : super._();
-
+  _$DeletedObject._({
+    this.key,
+    this.versionId,
+    this.deleteMarker,
+    this.deleteMarkerVersionId,
+  }) : super._();
   @override
   DeletedObject rebuild(void Function(DeletedObjectBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  DeletedObjectBuilder toBuilder() => new DeletedObjectBuilder()..replace(this);
+  DeletedObjectBuilder toBuilder() => DeletedObjectBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -89,7 +91,6 @@ class DeletedObjectBuilder
 
   @override
   void replace(DeletedObject other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeletedObject;
   }
 
@@ -102,12 +103,14 @@ class DeletedObjectBuilder
   DeletedObject build() => _build();
 
   _$DeletedObject _build() {
-    final _$result = _$v ??
-        new _$DeletedObject._(
-            key: key,
-            versionId: versionId,
-            deleteMarker: deleteMarker,
-            deleteMarkerVersionId: deleteMarkerVersionId);
+    final _$result =
+        _$v ??
+        _$DeletedObject._(
+          key: key,
+          versionId: versionId,
+          deleteMarker: deleteMarker,
+          deleteMarkerVersionId: deleteMarkerVersionId,
+        );
     replace(_$result);
     return _$result;
   }

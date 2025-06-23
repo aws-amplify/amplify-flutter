@@ -10,23 +10,19 @@ class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
   @override
   final MessageBody messageBody;
 
-  factory _$UpdateEndpointsBatchResponse(
-          [void Function(UpdateEndpointsBatchResponseBuilder)? updates]) =>
-      (new UpdateEndpointsBatchResponseBuilder()..update(updates))._build();
+  factory _$UpdateEndpointsBatchResponse([
+    void Function(UpdateEndpointsBatchResponseBuilder)? updates,
+  ]) => (UpdateEndpointsBatchResponseBuilder()..update(updates))._build();
 
-  _$UpdateEndpointsBatchResponse._({required this.messageBody}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        messageBody, r'UpdateEndpointsBatchResponse', 'messageBody');
-  }
-
+  _$UpdateEndpointsBatchResponse._({required this.messageBody}) : super._();
   @override
   UpdateEndpointsBatchResponse rebuild(
-          void Function(UpdateEndpointsBatchResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateEndpointsBatchResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateEndpointsBatchResponseBuilder toBuilder() =>
-      new UpdateEndpointsBatchResponseBuilder()..replace(this);
+      UpdateEndpointsBatchResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,13 +42,15 @@ class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
 
 class UpdateEndpointsBatchResponseBuilder
     implements
-        Builder<UpdateEndpointsBatchResponse,
-            UpdateEndpointsBatchResponseBuilder> {
+        Builder<
+          UpdateEndpointsBatchResponse,
+          UpdateEndpointsBatchResponseBuilder
+        > {
   _$UpdateEndpointsBatchResponse? _$v;
 
   MessageBodyBuilder? _messageBody;
   MessageBodyBuilder get messageBody =>
-      _$this._messageBody ??= new MessageBodyBuilder();
+      _$this._messageBody ??= MessageBodyBuilder();
   set messageBody(MessageBodyBuilder? messageBody) =>
       _$this._messageBody = messageBody;
 
@@ -69,7 +67,6 @@ class UpdateEndpointsBatchResponseBuilder
 
   @override
   void replace(UpdateEndpointsBatchResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateEndpointsBatchResponse;
   }
 
@@ -84,17 +81,20 @@ class UpdateEndpointsBatchResponseBuilder
   _$UpdateEndpointsBatchResponse _build() {
     _$UpdateEndpointsBatchResponse _$result;
     try {
-      _$result = _$v ??
-          new _$UpdateEndpointsBatchResponse._(
-              messageBody: messageBody.build());
+      _$result =
+          _$v ??
+          _$UpdateEndpointsBatchResponse._(messageBody: messageBody.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'messageBody';
         messageBody.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'UpdateEndpointsBatchResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'UpdateEndpointsBatchResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

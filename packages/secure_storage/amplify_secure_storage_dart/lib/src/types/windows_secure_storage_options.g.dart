@@ -7,40 +7,45 @@ part of 'windows_secure_storage_options.dart';
 // **************************************************************************
 
 Serializer<WindowsSecureStorageOptions>
-    _$windowsSecureStorageOptionsSerializer =
-    new _$WindowsSecureStorageOptionsSerializer();
+_$windowsSecureStorageOptionsSerializer =
+    _$WindowsSecureStorageOptionsSerializer();
 
 class _$WindowsSecureStorageOptionsSerializer
     implements StructuredSerializer<WindowsSecureStorageOptions> {
   @override
   final Iterable<Type> types = const [
     WindowsSecureStorageOptions,
-    _$WindowsSecureStorageOptions
+    _$WindowsSecureStorageOptions,
   ];
   @override
   final String wireName = 'WindowsSecureStorageOptions';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, WindowsSecureStorageOptions object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    WindowsSecureStorageOptions object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.storagePath;
     if (value != null) {
       result
         ..add('storagePath')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   WindowsSecureStorageOptions deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new WindowsSecureStorageOptionsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = WindowsSecureStorageOptionsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -49,8 +54,12 @@ class _$WindowsSecureStorageOptionsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'storagePath':
-          result.storagePath = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.storagePath =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -63,20 +72,19 @@ class _$WindowsSecureStorageOptions extends WindowsSecureStorageOptions {
   @override
   final String? storagePath;
 
-  factory _$WindowsSecureStorageOptions(
-          [void Function(WindowsSecureStorageOptionsBuilder)? updates]) =>
-      (new WindowsSecureStorageOptionsBuilder()..update(updates))._build();
+  factory _$WindowsSecureStorageOptions([
+    void Function(WindowsSecureStorageOptionsBuilder)? updates,
+  ]) => (WindowsSecureStorageOptionsBuilder()..update(updates))._build();
 
   _$WindowsSecureStorageOptions._({this.storagePath}) : super._();
-
   @override
   WindowsSecureStorageOptions rebuild(
-          void Function(WindowsSecureStorageOptionsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(WindowsSecureStorageOptionsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   WindowsSecureStorageOptionsBuilder toBuilder() =>
-      new WindowsSecureStorageOptionsBuilder()..replace(this);
+      WindowsSecureStorageOptionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -95,16 +103,18 @@ class _$WindowsSecureStorageOptions extends WindowsSecureStorageOptions {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'WindowsSecureStorageOptions')
-          ..add('storagePath', storagePath))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'WindowsSecureStorageOptions',
+    )..add('storagePath', storagePath)).toString();
   }
 }
 
 class WindowsSecureStorageOptionsBuilder
     implements
-        Builder<WindowsSecureStorageOptions,
-            WindowsSecureStorageOptionsBuilder> {
+        Builder<
+          WindowsSecureStorageOptions,
+          WindowsSecureStorageOptionsBuilder
+        > {
   _$WindowsSecureStorageOptions? _$v;
 
   String? _storagePath;
@@ -124,7 +134,6 @@ class WindowsSecureStorageOptionsBuilder
 
   @override
   void replace(WindowsSecureStorageOptions other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WindowsSecureStorageOptions;
   }
 
@@ -138,7 +147,7 @@ class WindowsSecureStorageOptionsBuilder
 
   _$WindowsSecureStorageOptions _build() {
     final _$result =
-        _$v ?? new _$WindowsSecureStorageOptions._(storagePath: storagePath);
+        _$v ?? _$WindowsSecureStorageOptions._(storagePath: storagePath);
     replace(_$result);
     return _$result;
   }

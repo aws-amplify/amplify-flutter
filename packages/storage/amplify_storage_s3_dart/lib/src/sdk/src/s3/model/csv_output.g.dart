@@ -19,22 +19,21 @@ class _$CsvOutput extends CsvOutput {
   final String? quoteCharacter;
 
   factory _$CsvOutput([void Function(CsvOutputBuilder)? updates]) =>
-      (new CsvOutputBuilder()..update(updates))._build();
+      (CsvOutputBuilder()..update(updates))._build();
 
-  _$CsvOutput._(
-      {this.quoteFields,
-      this.quoteEscapeCharacter,
-      this.recordDelimiter,
-      this.fieldDelimiter,
-      this.quoteCharacter})
-      : super._();
-
+  _$CsvOutput._({
+    this.quoteFields,
+    this.quoteEscapeCharacter,
+    this.recordDelimiter,
+    this.fieldDelimiter,
+    this.quoteCharacter,
+  }) : super._();
   @override
   CsvOutput rebuild(void Function(CsvOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CsvOutputBuilder toBuilder() => new CsvOutputBuilder()..replace(this);
+  CsvOutputBuilder toBuilder() => CsvOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -105,7 +104,6 @@ class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
 
   @override
   void replace(CsvOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CsvOutput;
   }
 
@@ -118,13 +116,15 @@ class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   CsvOutput build() => _build();
 
   _$CsvOutput _build() {
-    final _$result = _$v ??
-        new _$CsvOutput._(
-            quoteFields: quoteFields,
-            quoteEscapeCharacter: quoteEscapeCharacter,
-            recordDelimiter: recordDelimiter,
-            fieldDelimiter: fieldDelimiter,
-            quoteCharacter: quoteCharacter);
+    final _$result =
+        _$v ??
+        _$CsvOutput._(
+          quoteFields: quoteFields,
+          quoteEscapeCharacter: quoteEscapeCharacter,
+          recordDelimiter: recordDelimiter,
+          fieldDelimiter: fieldDelimiter,
+          quoteCharacter: quoteCharacter,
+        );
     replace(_$result);
     return _$result;
   }

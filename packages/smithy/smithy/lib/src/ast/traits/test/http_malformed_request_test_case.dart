@@ -32,13 +32,13 @@ class HttpMalformedRequestTestCase
 
   @override
   List<Object?> get props => [
-        documentation,
-        id,
-        protocol,
-        request,
-        response,
-        tags,
-      ];
+    documentation,
+    id,
+    protocol,
+    request,
+    response,
+    tags,
+  ];
 
   @override
   Map<String, Object?> toJson() => _$HttpMalformedRequestTestCaseToJson(this);

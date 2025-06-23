@@ -37,8 +37,9 @@ void main() async {
       });
 
       // Required to call this after Amplify.configure.
-      Amplify.Notifications.Push.onNotificationReceivedInForeground
-          .listen((event) {
+      Amplify.Notifications.Push.onNotificationReceivedInForeground.listen((
+        event,
+      ) {
         print('🚀 onNotificationReceivedInForeground $event');
       });
 
@@ -84,17 +85,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget headerText(String title) => Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: Center(
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      );
+    padding: const EdgeInsets.only(top: 16),
+    child: Center(
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +107,8 @@ class _MyAppState extends State<MyApp> {
               headerText('Permissions APIs'),
               ElevatedButton(
                 onPressed: () async {
-                  final status =
-                      await Amplify.Notifications.Push.getPermissionStatus();
+                  final status = await Amplify.Notifications.Push
+                      .getPermissionStatus();
                   setState(() {
                     getPermissionStatus = status;
                   });
@@ -121,8 +119,8 @@ class _MyAppState extends State<MyApp> {
                 Text('Permission status: $getPermissionStatus'),
               ElevatedButton(
                 onPressed: () async {
-                  final result =
-                      await Amplify.Notifications.Push.requestPermissions();
+                  final result = await Amplify.Notifications.Push
+                      .requestPermissions();
                   setState(() {
                     requestPermissionsResult = result;
                   });
@@ -130,12 +128,8 @@ class _MyAppState extends State<MyApp> {
                 child: const Text('requestPermissions'),
               ),
               if (requestPermissionsResult != null)
-                Text(
-                  'Requesting permission result: $requestPermissionsResult',
-                ),
-              const Divider(
-                height: 20,
-              ),
+                Text('Requesting permission result: $requestPermissionsResult'),
+              const Divider(height: 20),
               headerText('Analytics APIs'),
               ElevatedButton(
                 onPressed: () async {
@@ -146,9 +140,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: const Text('identifyUser'),
               ),
-              const Divider(
-                height: 20,
-              ),
+              const Divider(height: 20),
               headerText('Notification Handling APIs'),
               ElevatedButton(
                 onPressed: getLaunchNotification,

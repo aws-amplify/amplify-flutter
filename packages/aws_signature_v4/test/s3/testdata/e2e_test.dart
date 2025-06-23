@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
+library;
 
 import 'dart:convert';
 import 'dart:io';

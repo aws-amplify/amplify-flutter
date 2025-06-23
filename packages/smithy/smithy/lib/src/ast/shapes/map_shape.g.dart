@@ -6,7 +6,7 @@ part of 'map_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<MapShape> _$mapShapeSerializer = new _$MapShapeSerializer();
+Serializer<MapShape> _$mapShapeSerializer = _$MapShapeSerializer();
 
 class _$MapShapeSerializer implements StructuredSerializer<MapShape> {
   @override
@@ -15,27 +15,39 @@ class _$MapShapeSerializer implements StructuredSerializer<MapShape> {
   final String wireName = 'MapShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, MapShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    MapShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'key',
-      serializers.serialize(object.key,
-          specifiedType: const FullType(ShapeRef)),
+      serializers.serialize(
+        object.key,
+        specifiedType: const FullType(ShapeRef),
+      ),
       'value',
-      serializers.serialize(object.value,
-          specifiedType: const FullType(ShapeRef)),
+      serializers.serialize(
+        object.value,
+        specifiedType: const FullType(ShapeRef),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  MapShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new MapShapeBuilder();
+  MapShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = MapShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -44,16 +56,30 @@ class _$MapShapeSerializer implements StructuredSerializer<MapShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'key':
-          result.key.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.key.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'value':
-          result.value.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.value.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -73,26 +99,20 @@ class _$MapShape extends MapShape {
   final TraitMap traits;
 
   factory _$MapShape([void Function(MapShapeBuilder)? updates]) =>
-      (new MapShapeBuilder()..update(updates))._build();
+      (MapShapeBuilder()..update(updates))._build();
 
-  _$MapShape._(
-      {required this.key,
-      required this.value,
-      required this.shapeId,
-      required this.traits})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(key, r'MapShape', 'key');
-    BuiltValueNullFieldError.checkNotNull(value, r'MapShape', 'value');
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'MapShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'MapShape', 'traits');
-  }
-
+  _$MapShape._({
+    required this.key,
+    required this.value,
+    required this.shapeId,
+    required this.traits,
+  }) : super._();
   @override
   MapShape rebuild(void Function(MapShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  MapShapeBuilder toBuilder() => new MapShapeBuilder()..replace(this);
+  MapShapeBuilder toBuilder() => MapShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -131,11 +151,11 @@ class MapShapeBuilder
   _$MapShape? _$v;
 
   ShapeRefBuilder? _key;
-  ShapeRefBuilder get key => _$this._key ??= new ShapeRefBuilder();
+  ShapeRefBuilder get key => _$this._key ??= ShapeRefBuilder();
   set key(covariant ShapeRefBuilder? key) => _$this._key = key;
 
   ShapeRefBuilder? _value;
-  ShapeRefBuilder get value => _$this._value ??= new ShapeRefBuilder();
+  ShapeRefBuilder get value => _$this._value ??= ShapeRefBuilder();
   set value(covariant ShapeRefBuilder? value) => _$this._value = value;
 
   ShapeId? _shapeId;
@@ -164,7 +184,6 @@ class MapShapeBuilder
 
   @override
   void replace(covariant MapShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MapShape;
   }
 
@@ -179,14 +198,22 @@ class MapShapeBuilder
   _$MapShape _build() {
     _$MapShape _$result;
     try {
-      _$result = _$v ??
-          new _$MapShape._(
-              key: key.build(),
-              value: value.build(),
-              shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, r'MapShape', 'shapeId'),
-              traits: BuiltValueNullFieldError.checkNotNull(
-                  traits, r'MapShape', 'traits'));
+      _$result =
+          _$v ??
+          _$MapShape._(
+            key: key.build(),
+            value: value.build(),
+            shapeId: BuiltValueNullFieldError.checkNotNull(
+              shapeId,
+              r'MapShape',
+              'shapeId',
+            ),
+            traits: BuiltValueNullFieldError.checkNotNull(
+              traits,
+              r'MapShape',
+              'traits',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -195,8 +222,11 @@ class MapShapeBuilder
         _$failedField = 'value';
         value.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'MapShape', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'MapShape',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

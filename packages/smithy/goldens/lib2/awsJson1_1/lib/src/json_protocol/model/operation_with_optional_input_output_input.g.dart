@@ -11,23 +11,20 @@ class _$OperationWithOptionalInputOutputInput
   @override
   final String? value;
 
-  factory _$OperationWithOptionalInputOutputInput(
-          [void Function(OperationWithOptionalInputOutputInputBuilder)?
-              updates]) =>
-      (new OperationWithOptionalInputOutputInputBuilder()..update(updates))
-          ._build();
+  factory _$OperationWithOptionalInputOutputInput([
+    void Function(OperationWithOptionalInputOutputInputBuilder)? updates,
+  ]) => (OperationWithOptionalInputOutputInputBuilder()..update(updates))
+      ._build();
 
   _$OperationWithOptionalInputOutputInput._({this.value}) : super._();
-
   @override
   OperationWithOptionalInputOutputInput rebuild(
-          void Function(OperationWithOptionalInputOutputInputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OperationWithOptionalInputOutputInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OperationWithOptionalInputOutputInputBuilder toBuilder() =>
-      new OperationWithOptionalInputOutputInputBuilder()..replace(this);
+      OperationWithOptionalInputOutputInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,8 +44,10 @@ class _$OperationWithOptionalInputOutputInput
 
 class OperationWithOptionalInputOutputInputBuilder
     implements
-        Builder<OperationWithOptionalInputOutputInput,
-            OperationWithOptionalInputOutputInputBuilder> {
+        Builder<
+          OperationWithOptionalInputOutputInput,
+          OperationWithOptionalInputOutputInputBuilder
+        > {
   _$OperationWithOptionalInputOutputInput? _$v;
 
   String? _value;
@@ -68,13 +67,13 @@ class OperationWithOptionalInputOutputInputBuilder
 
   @override
   void replace(OperationWithOptionalInputOutputInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OperationWithOptionalInputOutputInput;
   }
 
   @override
   void update(
-      void Function(OperationWithOptionalInputOutputInputBuilder)? updates) {
+    void Function(OperationWithOptionalInputOutputInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -83,7 +82,7 @@ class OperationWithOptionalInputOutputInputBuilder
 
   _$OperationWithOptionalInputOutputInput _build() {
     final _$result =
-        _$v ?? new _$OperationWithOptionalInputOutputInput._(value: value);
+        _$v ?? _$OperationWithOptionalInputOutputInput._(value: value);
     replace(_$result);
     return _$result;
   }

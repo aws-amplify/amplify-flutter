@@ -8,13 +8,10 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class StorageRemoveManyRequest {
   /// {@macro amplify_core.storage.remove_many_request}
-  const StorageRemoveManyRequest({
-    required this.keys,
-    this.options,
-  });
+  const StorageRemoveManyRequest({required this.paths, this.options});
 
   /// Object keys to be removed.
-  final List<String> keys;
+  final List<StoragePath> paths;
 
   /// Configurable options of the [StorageRemoveManyRequest].
   final StorageRemoveManyOptions? options;

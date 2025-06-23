@@ -15,14 +15,8 @@ abstract class QuietTime
     with _i1.AWSEquatable<QuietTime>
     implements Built<QuietTime, QuietTimeBuilder> {
   /// Specifies the start and end times that define a time range when messages aren't sent to endpoints.
-  factory QuietTime({
-    String? end,
-    String? start,
-  }) {
-    return _$QuietTime._(
-      end: end,
-      start: start,
-    );
+  factory QuietTime({String? end, String? start}) {
+    return _$QuietTime._(end: end, start: start);
   }
 
   /// Specifies the start and end times that define a time range when messages aren't sent to endpoints.
@@ -32,7 +26,7 @@ abstract class QuietTime
   const QuietTime._();
 
   static const List<_i2.SmithySerializer<QuietTime>> serializers = [
-    QuietTimeRestJson1Serializer()
+    QuietTimeRestJson1Serializer(),
   ];
 
   /// The specific time when quiet time ends. This value has to use 24-hour notation and be in HH:MM format, where HH is the hour (with a leading zero, if applicable) and MM is the minutes. For example, use 02:30 to represent 2:30 AM, or 14:30 to represent 2:30 PM.
@@ -41,21 +35,12 @@ abstract class QuietTime
   /// The specific time when quiet time begins. This value has to use 24-hour notation and be in HH:MM format, where HH is the hour (with a leading zero, if applicable) and MM is the minutes. For example, use 02:30 to represent 2:30 AM, or 14:30 to represent 2:30 PM.
   String? get start;
   @override
-  List<Object?> get props => [
-        end,
-        start,
-      ];
+  List<Object?> get props => [end, start];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QuietTime')
-      ..add(
-        'end',
-        end,
-      )
-      ..add(
-        'start',
-        start,
-      );
+      ..add('end', end)
+      ..add('start', start);
     return helper.toString();
   }
 }
@@ -65,17 +50,11 @@ class QuietTimeRestJson1Serializer
   const QuietTimeRestJson1Serializer() : super('QuietTime');
 
   @override
-  Iterable<Type> get types => const [
-        QuietTime,
-        _$QuietTime,
-      ];
+  Iterable<Type> get types => const [QuietTime, _$QuietTime];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   QuietTime deserialize(
     Serializers serializers,
@@ -93,15 +72,19 @@ class QuietTimeRestJson1Serializer
       }
       switch (key) {
         case 'End':
-          result.end = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.end =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Start':
-          result.start = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.start =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -119,18 +102,16 @@ class QuietTimeRestJson1Serializer
     if (end != null) {
       result$
         ..add('End')
-        ..add(serializers.serialize(
-          end,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(end, specifiedType: const FullType(String)),
+        );
     }
     if (start != null) {
       result$
         ..add('Start')
-        ..add(serializers.serialize(
-          start,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(start, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

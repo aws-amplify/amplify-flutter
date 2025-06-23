@@ -24,29 +24,28 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$UploadPartCopyOutput(
-          [void Function(UploadPartCopyOutputBuilder)? updates]) =>
-      (new UploadPartCopyOutputBuilder()..update(updates))._build();
+  factory _$UploadPartCopyOutput([
+    void Function(UploadPartCopyOutputBuilder)? updates,
+  ]) => (UploadPartCopyOutputBuilder()..update(updates))._build();
 
-  _$UploadPartCopyOutput._(
-      {this.copySourceVersionId,
-      this.copyPartResult,
-      this.serverSideEncryption,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.bucketKeyEnabled,
-      this.requestCharged})
-      : super._();
-
+  _$UploadPartCopyOutput._({
+    this.copySourceVersionId,
+    this.copyPartResult,
+    this.serverSideEncryption,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.bucketKeyEnabled,
+    this.requestCharged,
+  }) : super._();
   @override
   UploadPartCopyOutput rebuild(
-          void Function(UploadPartCopyOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UploadPartCopyOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UploadPartCopyOutputBuilder toBuilder() =>
-      new UploadPartCopyOutputBuilder()..replace(this);
+      UploadPartCopyOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -89,7 +88,7 @@ class UploadPartCopyOutputBuilder
 
   CopyPartResultBuilder? _copyPartResult;
   CopyPartResultBuilder get copyPartResult =>
-      _$this._copyPartResult ??= new CopyPartResultBuilder();
+      _$this._copyPartResult ??= CopyPartResultBuilder();
   set copyPartResult(CopyPartResultBuilder? copyPartResult) =>
       _$this._copyPartResult = copyPartResult;
 
@@ -143,7 +142,6 @@ class UploadPartCopyOutputBuilder
 
   @override
   void replace(UploadPartCopyOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadPartCopyOutput;
   }
 
@@ -158,24 +156,29 @@ class UploadPartCopyOutputBuilder
   _$UploadPartCopyOutput _build() {
     _$UploadPartCopyOutput _$result;
     try {
-      _$result = _$v ??
-          new _$UploadPartCopyOutput._(
-              copySourceVersionId: copySourceVersionId,
-              copyPartResult: _copyPartResult?.build(),
-              serverSideEncryption: serverSideEncryption,
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKeyMd5: sseCustomerKeyMd5,
-              ssekmsKeyId: ssekmsKeyId,
-              bucketKeyEnabled: bucketKeyEnabled,
-              requestCharged: requestCharged);
+      _$result =
+          _$v ??
+          _$UploadPartCopyOutput._(
+            copySourceVersionId: copySourceVersionId,
+            copyPartResult: _copyPartResult?.build(),
+            serverSideEncryption: serverSideEncryption,
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+            ssekmsKeyId: ssekmsKeyId,
+            bucketKeyEnabled: bucketKeyEnabled,
+            requestCharged: requestCharged,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'copyPartResult';
         _copyPartResult?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'UploadPartCopyOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'UploadPartCopyOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

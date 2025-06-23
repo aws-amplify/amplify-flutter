@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_validation_protocol.model.foo_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,33 +14,28 @@ sealed class FooUnion extends _i1.SmithyUnion<FooUnion> {
 
   const factory FooUnion.integer(int integer) = FooUnionInteger$;
 
-  const factory FooUnion.sdkUnknown(
-    String name,
-    Object value,
-  ) = FooUnionSdkUnknown$;
+  const factory FooUnion.sdkUnknown(String name, Object value) =
+      FooUnionSdkUnknown$;
 
   static const List<_i1.SmithySerializer<FooUnion>> serializers = [
-    FooUnionRestJson1Serializer()
+    FooUnionRestJson1Serializer(),
   ];
 
   String? get string => null;
+
   int? get integer => null;
+
   @override
   Object get value => (string ?? integer)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'FooUnion');
     if (string != null) {
-      helper.add(
-        r'string',
-        string,
-      );
+      helper.add(r'string', string);
     }
     if (integer != null) {
-      helper.add(
-        r'integer',
-        integer,
-      );
+      helper.add(r'integer', integer);
     }
     return helper.toString();
   }
@@ -67,10 +62,7 @@ final class FooUnionInteger$ extends FooUnion {
 }
 
 final class FooUnionSdkUnknown$ extends FooUnion {
-  const FooUnionSdkUnknown$(
-    this.name,
-    this.value,
-  ) : super._();
+  const FooUnionSdkUnknown$(this.name, this.value) : super._();
 
   @override
   final String name;
@@ -85,17 +77,16 @@ class FooUnionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        FooUnion,
-        FooUnionString$,
-        FooUnionInteger$,
-      ];
+    FooUnion,
+    FooUnionString$,
+    FooUnionInteger$,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   FooUnion deserialize(
     Serializers serializers,
@@ -105,20 +96,17 @@ class FooUnionRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'string':
-        return FooUnionString$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
+        return FooUnionString$(
+          (serializers.deserialize(value, specifiedType: const FullType(String))
+              as String),
+        );
       case 'integer':
-        return FooUnionInteger$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(int),
-        ) as int));
+        return FooUnionInteger$(
+          (serializers.deserialize(value, specifiedType: const FullType(int))
+              as int),
+        );
     }
-    return FooUnion.sdkUnknown(
-      key,
-      value,
-    );
+    return FooUnion.sdkUnknown(key, value);
   }
 
   @override
@@ -131,13 +119,13 @@ class FooUnionRestJson1Serializer
       object.name,
       switch (object) {
         FooUnionString$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(String),
-          ),
+          value,
+          specifiedType: const FullType(String),
+        ),
         FooUnionInteger$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(int),
-          ),
+          value,
+          specifiedType: const FullType(int),
+        ),
         FooUnionSdkUnknown$(:final value) => value,
       },
     ];

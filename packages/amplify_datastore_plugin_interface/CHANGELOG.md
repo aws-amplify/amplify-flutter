@@ -1,3 +1,66 @@
+## 2.6.2
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 2.6.1
+
+- Minor bug fixes and improvements
+
+## 2.6.0
+
+- Minor bug fixes and improvements
+
+## 2.5.0
+
+- Minor bug fixes and improvements
+
+## 2.4.1
+
+- Minor bug fixes and improvements
+
+## 2.4.0
+
+- Minor bug fixes and improvements
+
+## 2.3.0
+
+- Minor bug fixes and improvements
+
+## 2.2.0
+
+- Minor bug fixes and improvements
+
+## 2.1.0
+
+- Minor bug fixes and improvements
+
+## 2.0.0
+
+- Minor bug fixes and improvements
+
+## 1.8.0
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 1.7.0
+
+- Minor bug fixes and improvements
+
+## 1.6.1
+
+### Fixes
+- fix(datastore): emit observeQuery snapshot when model create mutation results in an updated model ([#4084](https://github.com/aws-amplify/amplify-flutter/pull/4084))
+
+## 1.6.0
+
+- Minor bug fixes and improvements
+
+## 1.5.0
+
+- Minor bug fixes and improvements
+
 ## 1.4.0
 
 - Minor bug fixes and improvements

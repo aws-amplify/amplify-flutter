@@ -21,25 +21,30 @@ void main() {
     });
 
     testWidgets(
-        'should return an initial result set that is consistent with query()',
-        (WidgetTester tester) async {
-      List<Blog> blogs =
-          List.generate(10, (index) => Blog(name: 'blog $index'));
+      'should return an initial result set that is consistent with query()',
+      (WidgetTester tester) async {
+        List<Blog> blogs = List.generate(
+          10,
+          (index) => Blog(name: 'blog $index'),
+        );
 
-      for (var blog in blogs) {
-        await Amplify.DataStore.save(blog);
-      }
-      var queryBlogs = await Amplify.DataStore.query(Blog.classType);
+        for (var blog in blogs) {
+          await Amplify.DataStore.save(blog);
+        }
+        var queryBlogs = await Amplify.DataStore.query(Blog.classType);
 
-      var observeQueryBlogs =
-          (await Amplify.DataStore.observeQuery(Blog.classType).first).items;
+        var observeQueryBlogs = (await Amplify.DataStore.observeQuery(
+          Blog.classType,
+        ).first).items;
 
-      expect(observeQueryBlogs.length, 10);
-      expect(observeQueryBlogs, orderedEquals(queryBlogs));
-    });
+        expect(observeQueryBlogs.length, 10);
+        expect(observeQueryBlogs, orderedEquals(queryBlogs));
+      },
+    );
 
-    testWidgets('should emit new snapshots with updated items',
-        (WidgetTester tester) async {
+    testWidgets('should emit new snapshots with updated items', (
+      WidgetTester tester,
+    ) async {
       List<Blog> blogs = List.generate(3, (index) => Blog(name: 'blog $index'));
 
       for (var blog in blogs) {
@@ -120,19 +125,13 @@ void main() {
         final blog2 = Blog(name: 'blog 2');
         final blog1Posts = List.generate(
           3,
-          (index) => Post(
-            title: 'post $index for blog1',
-            rating: 0,
-            blog: blog1,
-          ),
+          (index) =>
+              Post(title: 'post $index for blog1', rating: 0, blog: blog1),
         );
         final blog2Posts = List.generate(
           3,
-          (index) => Post(
-            title: 'post $index for blog2',
-            rating: 0,
-            blog: blog2,
-          ),
+          (index) =>
+              Post(title: 'post $index for blog2', rating: 0, blog: blog2),
         );
         await Amplify.DataStore.save(blog1);
         await Amplify.DataStore.save(blog2);
@@ -152,20 +151,14 @@ void main() {
         // create new posts to save
         final blog1NewPosts = List.generate(
           3,
-          (index) => Post(
-            title: 'New post $index for blog1',
-            rating: 0,
-            blog: blog1,
-          ),
+          (index) =>
+              Post(title: 'New post $index for blog1', rating: 0, blog: blog1),
         );
 
         final blog2NewPosts = List.generate(
           3,
-          (index) => Post(
-            title: 'New post $index for blog2',
-            rating: 0,
-            blog: blog2,
-          ),
+          (index) =>
+              Post(title: 'New post $index for blog2', rating: 0, blog: blog2),
         );
 
         // assert subsequent snapshots have posts for blog1 only

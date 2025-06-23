@@ -14,22 +14,23 @@ class _$CodeDeliveryDetailsType extends CodeDeliveryDetailsType {
   @override
   final String? attributeName;
 
-  factory _$CodeDeliveryDetailsType(
-          [void Function(CodeDeliveryDetailsTypeBuilder)? updates]) =>
-      (new CodeDeliveryDetailsTypeBuilder()..update(updates))._build();
+  factory _$CodeDeliveryDetailsType([
+    void Function(CodeDeliveryDetailsTypeBuilder)? updates,
+  ]) => (CodeDeliveryDetailsTypeBuilder()..update(updates))._build();
 
-  _$CodeDeliveryDetailsType._(
-      {this.destination, this.deliveryMedium, this.attributeName})
-      : super._();
-
+  _$CodeDeliveryDetailsType._({
+    this.destination,
+    this.deliveryMedium,
+    this.attributeName,
+  }) : super._();
   @override
   CodeDeliveryDetailsType rebuild(
-          void Function(CodeDeliveryDetailsTypeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CodeDeliveryDetailsTypeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CodeDeliveryDetailsTypeBuilder toBuilder() =>
-      new CodeDeliveryDetailsTypeBuilder()..replace(this);
+      CodeDeliveryDetailsTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -85,7 +86,6 @@ class CodeDeliveryDetailsTypeBuilder
 
   @override
   void replace(CodeDeliveryDetailsType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CodeDeliveryDetailsType;
   }
 
@@ -98,11 +98,13 @@ class CodeDeliveryDetailsTypeBuilder
   CodeDeliveryDetailsType build() => _build();
 
   _$CodeDeliveryDetailsType _build() {
-    final _$result = _$v ??
-        new _$CodeDeliveryDetailsType._(
-            destination: destination,
-            deliveryMedium: deliveryMedium,
-            attributeName: attributeName);
+    final _$result =
+        _$v ??
+        _$CodeDeliveryDetailsType._(
+          destination: destination,
+          deliveryMedium: deliveryMedium,
+          attributeName: attributeName,
+        );
     replace(_$result);
     return _$result;
   }

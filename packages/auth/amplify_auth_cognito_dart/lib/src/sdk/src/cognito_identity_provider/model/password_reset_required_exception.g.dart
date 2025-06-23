@@ -12,20 +12,19 @@ class _$PasswordResetRequiredException extends PasswordResetRequiredException {
   @override
   final Map<String, String>? headers;
 
-  factory _$PasswordResetRequiredException(
-          [void Function(PasswordResetRequiredExceptionBuilder)? updates]) =>
-      (new PasswordResetRequiredExceptionBuilder()..update(updates))._build();
+  factory _$PasswordResetRequiredException([
+    void Function(PasswordResetRequiredExceptionBuilder)? updates,
+  ]) => (PasswordResetRequiredExceptionBuilder()..update(updates))._build();
 
   _$PasswordResetRequiredException._({this.message, this.headers}) : super._();
-
   @override
   PasswordResetRequiredException rebuild(
-          void Function(PasswordResetRequiredExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PasswordResetRequiredExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PasswordResetRequiredExceptionBuilder toBuilder() =>
-      new PasswordResetRequiredExceptionBuilder()..replace(this);
+      PasswordResetRequiredExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -44,8 +43,10 @@ class _$PasswordResetRequiredException extends PasswordResetRequiredException {
 
 class PasswordResetRequiredExceptionBuilder
     implements
-        Builder<PasswordResetRequiredException,
-            PasswordResetRequiredExceptionBuilder> {
+        Builder<
+          PasswordResetRequiredException,
+          PasswordResetRequiredExceptionBuilder
+        > {
   _$PasswordResetRequiredException? _$v;
 
   String? _message;
@@ -70,7 +71,6 @@ class PasswordResetRequiredExceptionBuilder
 
   @override
   void replace(PasswordResetRequiredException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PasswordResetRequiredException;
   }
 
@@ -83,9 +83,9 @@ class PasswordResetRequiredExceptionBuilder
   PasswordResetRequiredException build() => _build();
 
   _$PasswordResetRequiredException _build() {
-    final _$result = _$v ??
-        new _$PasswordResetRequiredException._(
-            message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$PasswordResetRequiredException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

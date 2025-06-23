@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_api/src/connectivity_plus_platform.dart';
+import 'package:amplify_api/src/flutter_life_cycle.dart';
 import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -10,14 +11,11 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
   /// {@macro amplify_api.amplify_api}
-  AmplifyAPI({
-    super.authProviders,
-    super.baseHttpClient,
-    super.modelProvider,
-    super.subscriptionOptions,
-  }) : super(
-          connectivity: const ConnectivityPlusPlatform(),
-        );
+  AmplifyAPI({super.options})
+    : super(
+        connectivity: const ConnectivityPlusPlatform(),
+        processLifeCycle: FlutterLifeCycle(),
+      );
 
   @override
   Future<void> addPlugin({

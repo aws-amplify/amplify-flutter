@@ -16,22 +16,24 @@ class _$InputSerialization extends InputSerialization {
   @override
   final ParquetInput? parquet;
 
-  factory _$InputSerialization(
-          [void Function(InputSerializationBuilder)? updates]) =>
-      (new InputSerializationBuilder()..update(updates))._build();
+  factory _$InputSerialization([
+    void Function(InputSerializationBuilder)? updates,
+  ]) => (InputSerializationBuilder()..update(updates))._build();
 
-  _$InputSerialization._(
-      {this.csv, this.compressionType, this.json, this.parquet})
-      : super._();
-
+  _$InputSerialization._({
+    this.csv,
+    this.compressionType,
+    this.json,
+    this.parquet,
+  }) : super._();
   @override
   InputSerialization rebuild(
-          void Function(InputSerializationBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InputSerializationBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InputSerializationBuilder toBuilder() =>
-      new InputSerializationBuilder()..replace(this);
+      InputSerializationBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -60,7 +62,7 @@ class InputSerializationBuilder
   _$InputSerialization? _$v;
 
   CsvInputBuilder? _csv;
-  CsvInputBuilder get csv => _$this._csv ??= new CsvInputBuilder();
+  CsvInputBuilder get csv => _$this._csv ??= CsvInputBuilder();
   set csv(CsvInputBuilder? csv) => _$this._csv = csv;
 
   CompressionType? _compressionType;
@@ -69,12 +71,11 @@ class InputSerializationBuilder
       _$this._compressionType = compressionType;
 
   JsonInputBuilder? _json;
-  JsonInputBuilder get json => _$this._json ??= new JsonInputBuilder();
+  JsonInputBuilder get json => _$this._json ??= JsonInputBuilder();
   set json(JsonInputBuilder? json) => _$this._json = json;
 
   ParquetInputBuilder? _parquet;
-  ParquetInputBuilder get parquet =>
-      _$this._parquet ??= new ParquetInputBuilder();
+  ParquetInputBuilder get parquet => _$this._parquet ??= ParquetInputBuilder();
   set parquet(ParquetInputBuilder? parquet) => _$this._parquet = parquet;
 
   InputSerializationBuilder();
@@ -93,7 +94,6 @@ class InputSerializationBuilder
 
   @override
   void replace(InputSerialization other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InputSerialization;
   }
 
@@ -108,12 +108,14 @@ class InputSerializationBuilder
   _$InputSerialization _build() {
     _$InputSerialization _$result;
     try {
-      _$result = _$v ??
-          new _$InputSerialization._(
-              csv: _csv?.build(),
-              compressionType: compressionType,
-              json: _json?.build(),
-              parquet: _parquet?.build());
+      _$result =
+          _$v ??
+          _$InputSerialization._(
+            csv: _csv?.build(),
+            compressionType: compressionType,
+            json: _json?.build(),
+            parquet: _parquet?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -125,8 +127,11 @@ class InputSerializationBuilder
         _$failedField = 'parquet';
         _parquet?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'InputSerialization', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'InputSerialization',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

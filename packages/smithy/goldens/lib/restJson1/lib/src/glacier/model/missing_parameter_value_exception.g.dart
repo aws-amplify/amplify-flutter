@@ -16,22 +16,24 @@ class _$MissingParameterValueException extends MissingParameterValueException {
   @override
   final Map<String, String>? headers;
 
-  factory _$MissingParameterValueException(
-          [void Function(MissingParameterValueExceptionBuilder)? updates]) =>
-      (new MissingParameterValueExceptionBuilder()..update(updates))._build();
+  factory _$MissingParameterValueException([
+    void Function(MissingParameterValueExceptionBuilder)? updates,
+  ]) => (MissingParameterValueExceptionBuilder()..update(updates))._build();
 
-  _$MissingParameterValueException._(
-      {this.type, this.code, this.message, this.headers})
-      : super._();
-
+  _$MissingParameterValueException._({
+    this.type,
+    this.code,
+    this.message,
+    this.headers,
+  }) : super._();
   @override
   MissingParameterValueException rebuild(
-          void Function(MissingParameterValueExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MissingParameterValueExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MissingParameterValueExceptionBuilder toBuilder() =>
-      new MissingParameterValueExceptionBuilder()..replace(this);
+      MissingParameterValueExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -55,8 +57,10 @@ class _$MissingParameterValueException extends MissingParameterValueException {
 
 class MissingParameterValueExceptionBuilder
     implements
-        Builder<MissingParameterValueException,
-            MissingParameterValueExceptionBuilder> {
+        Builder<
+          MissingParameterValueException,
+          MissingParameterValueExceptionBuilder
+        > {
   _$MissingParameterValueException? _$v;
 
   String? _type;
@@ -91,7 +95,6 @@ class MissingParameterValueExceptionBuilder
 
   @override
   void replace(MissingParameterValueException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MissingParameterValueException;
   }
 
@@ -104,9 +107,14 @@ class MissingParameterValueExceptionBuilder
   MissingParameterValueException build() => _build();
 
   _$MissingParameterValueException _build() {
-    final _$result = _$v ??
-        new _$MissingParameterValueException._(
-            type: type, code: code, message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$MissingParameterValueException._(
+          type: type,
+          code: code,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

@@ -26,12 +26,12 @@ extension LegacyCredentialStoreDataX on LegacyCredentialStoreData {
         : null;
     final userPoolTokensData =
         accessToken != null && refreshToken != null && idToken != null
-            ? CognitoUserPoolTokens(
-                accessToken: JsonWebToken.parse(accessToken!),
-                refreshToken: refreshToken!,
-                idToken: JsonWebToken.parse(idToken!),
-              )
-            : null;
+        ? CognitoUserPoolTokens(
+            accessToken: JsonWebToken.parse(accessToken!),
+            refreshToken: refreshToken!,
+            idToken: JsonWebToken.parse(idToken!),
+          )
+        : null;
     return CredentialStoreData(
       identityId: identityId,
       awsCredentials: awsCredentialsData,

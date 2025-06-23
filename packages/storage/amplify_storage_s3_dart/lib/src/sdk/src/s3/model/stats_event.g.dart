@@ -11,16 +11,15 @@ class _$StatsEvent extends StatsEvent {
   final Stats? details;
 
   factory _$StatsEvent([void Function(StatsEventBuilder)? updates]) =>
-      (new StatsEventBuilder()..update(updates))._build();
+      (StatsEventBuilder()..update(updates))._build();
 
   _$StatsEvent._({this.details}) : super._();
-
   @override
   StatsEvent rebuild(void Function(StatsEventBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  StatsEventBuilder toBuilder() => new StatsEventBuilder()..replace(this);
+  StatsEventBuilder toBuilder() => StatsEventBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -41,7 +40,7 @@ class StatsEventBuilder implements Builder<StatsEvent, StatsEventBuilder> {
   _$StatsEvent? _$v;
 
   StatsBuilder? _details;
-  StatsBuilder get details => _$this._details ??= new StatsBuilder();
+  StatsBuilder get details => _$this._details ??= StatsBuilder();
   set details(StatsBuilder? details) => _$this._details = details;
 
   StatsEventBuilder();
@@ -57,7 +56,6 @@ class StatsEventBuilder implements Builder<StatsEvent, StatsEventBuilder> {
 
   @override
   void replace(StatsEvent other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StatsEvent;
   }
 
@@ -72,15 +70,18 @@ class StatsEventBuilder implements Builder<StatsEvent, StatsEventBuilder> {
   _$StatsEvent _build() {
     _$StatsEvent _$result;
     try {
-      _$result = _$v ?? new _$StatsEvent._(details: _details?.build());
+      _$result = _$v ?? _$StatsEvent._(details: _details?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'details';
         _details?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'StatsEvent', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'StatsEvent',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

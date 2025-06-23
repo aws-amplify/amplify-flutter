@@ -31,25 +31,25 @@ abstract class NotFound
   factory NotFound.fromResponse(
     NotFound payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<NotFound>> serializers = [
-    NotFoundRestXmlSerializer()
+    NotFoundRestXmlSerializer(),
   ];
 
   @override
-  _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.s3',
-        shape: 'NotFound',
-      );
+  _i2.ShapeId get shapeId =>
+      const _i2.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NotFound');
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -58,8 +58,10 @@ abstract class NotFound
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NotFound');
@@ -72,17 +74,13 @@ class NotFoundRestXmlSerializer
   const NotFoundRestXmlSerializer() : super('NotFound');
 
   @override
-  Iterable<Type> get types => const [
-        NotFound,
-        _$NotFound,
-      ];
+  Iterable<Type> get types => const [NotFound, _$NotFound];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   NotFound deserialize(
     Serializers serializers,
@@ -102,7 +100,7 @@ class NotFoundRestXmlSerializer
       const _i2.XmlElementName(
         'NotFound',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

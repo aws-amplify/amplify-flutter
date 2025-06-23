@@ -15,9 +15,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class EventCreator {
   /// {@macro amplify_analytics_pinpoint_dart.event_creator}
-  EventCreator({
-    DeviceContextInfo? deviceContextInfo,
-  }) : _deviceContextInfo = deviceContextInfo;
+  EventCreator({DeviceContextInfo? deviceContextInfo})
+    : _deviceContextInfo = deviceContextInfo;
 
   static const int _maxEventTypeLength = 50;
 
@@ -63,9 +62,7 @@ class EventCreator {
   }
 
   /// Register new global properties that will be added to all newly created events.
-  void registerGlobalProperties(
-    CustomProperties globalProperties,
-  ) =>
+  void registerGlobalProperties(CustomProperties globalProperties) =>
       _globalFieldsManager.addGlobalProperties(globalProperties);
 
   /// Unregister global properties that will no longer be added to all newly created events.

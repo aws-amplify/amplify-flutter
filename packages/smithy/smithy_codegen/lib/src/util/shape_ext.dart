@@ -21,24 +21,26 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 extension SimpleShapeUtil on SimpleShape {
   Reference get typeReference => switch (getType()) {
-        ShapeType.bigDecimal => throw UnimplementedError(),
-        ShapeType.bigInteger => DartTypes.core.bigInt,
-        ShapeType.blob when isStreaming =>
-          DartTypes.async.stream(DartTypes.core.list(DartTypes.core.int)),
-        ShapeType.blob when (!isStreaming) => DartTypes.typedData.uint8List,
-        ShapeType.boolean => DartTypes.core.bool,
-        ShapeType.byte => DartTypes.core.int,
-        ShapeType.document => DartTypes.builtValue.jsonObject,
-        ShapeType.double => DartTypes.core.double,
-        ShapeType.float => DartTypes.core.double,
-        ShapeType.integer => DartTypes.core.int,
-        ShapeType.long => DartTypes.fixNum.int64,
-        ShapeType.short => DartTypes.core.int,
-        ShapeType.string => DartTypes.core.string,
-        ShapeType.timestamp => DartTypes.core.dateTime,
-        final ShapeType invalid =>
-          throw ArgumentError('Invalid simple shape: $invalid'),
-      };
+    ShapeType.bigDecimal => throw UnimplementedError(),
+    ShapeType.bigInteger => DartTypes.core.bigInt,
+    ShapeType.blob when isStreaming => DartTypes.async.stream(
+      DartTypes.core.list(DartTypes.core.int),
+    ),
+    ShapeType.blob when (!isStreaming) => DartTypes.typedData.uint8List,
+    ShapeType.boolean => DartTypes.core.bool,
+    ShapeType.byte => DartTypes.core.int,
+    ShapeType.document => DartTypes.builtValue.jsonObject,
+    ShapeType.double => DartTypes.core.double,
+    ShapeType.float => DartTypes.core.double,
+    ShapeType.integer => DartTypes.core.int,
+    ShapeType.long => DartTypes.fixNum.int64,
+    ShapeType.short => DartTypes.core.int,
+    ShapeType.string => DartTypes.core.string,
+    ShapeType.timestamp => DartTypes.core.dateTime,
+    final ShapeType invalid => throw ArgumentError(
+      'Invalid simple shape: $invalid',
+    ),
+  };
 }
 
 extension ShapeClassName on Shape {
@@ -71,7 +73,8 @@ extension ShapeClassName on Shape {
     if (name == null) {
       return null;
     }
-    final needsRename = reservedTypeNames.contains(name) ||
+    final needsRename =
+        reservedTypeNames.contains(name) ||
         context.shapes.values.any((shape) {
           return shape.className(context) == '${name}Builder';
         });
@@ -99,8 +102,8 @@ extension DartName on String {
 
     final escapeChar =
         (parentType == ShapeType.enum_ || parentType == ShapeType.union)
-            ? r'$'
-            : '_';
+        ? r'$'
+        : '_';
     var name = this;
     if (reservedWords.contains(name)) {
       name = '$name$escapeChar';
@@ -134,14 +137,12 @@ extension MemberShapeUtils on MemberShape {
   Expression transformFromFriendly({required String name, bool? isNullable}) {
     final typeRef = context.symbolFor(target).typeRef;
     isNullable ??= typeRef.isNullable!;
-    if (context.symbolOverrideFor(this)
-        case ShapeOverrides(:final transformFromFriendly)) {
+    if (context.symbolOverrideFor(this) case ShapeOverrides(
+      :final transformFromFriendly,
+    )) {
       return transformFromFriendly(refer(name), isNullable: isNullable);
     }
-    return typeRef.transformToBuiltValue(
-      name: name,
-      isNullable: isNullable,
-    );
+    return typeRef.transformToBuiltValue(name: name, isNullable: isNullable);
   }
 }
 
@@ -195,17 +196,17 @@ extension ShapeUtils on Shape {
       case ShapeType.structure:
         final targetShape = switch (context.smithyVersion) {
           SmithyVersion.v1 => switch (this) {
-              final MemberShape member => context.shapeFor(member.target),
-              _ => this,
-            },
+            final MemberShape member => context.shapeFor(member.target),
+            _ => this,
+          },
           _ => switch (this) {
-              MemberShape _ => this,
-              _ => throw ArgumentError.value(
-                  '$shapeId',
-                  'shapeId',
-                  'Null checks for structs should only happen on the member shape',
-                ),
-            },
+            MemberShape _ => this,
+            _ => throw ArgumentError.value(
+              '$shapeId',
+              'shapeId',
+              'Null checks for structs should only happen on the member shape',
+            ),
+          },
         };
         return isS3Primitive(context) || targetShape.isBoxed;
 
@@ -296,9 +297,7 @@ extension ShapeUtils on Shape {
     if (since != null) {
       message = 'Since $since. $message';
     }
-    return DartTypes.core.deprecated.newInstance([
-      literalString(message),
-    ]);
+    return DartTypes.core.deprecated.newInstance([literalString(message)]);
   }
 
   /// The default value of this shape when not boxed.
@@ -385,9 +384,7 @@ extension ShapeUtils on Shape {
           );
         }
         return (
-          DartTypes.async.stream().newInstanceNamed('value', [
-            encodedExp,
-          ]),
+          DartTypes.async.stream().newInstanceNamed('value', [encodedExp]),
           false,
         );
       case ListShape _:
@@ -410,15 +407,14 @@ extension ShapeUtils on Shape {
 
   /// The library type generated for this shape.
   SmithyLibrary_LibraryType get libraryType => switch (getType()) {
-        ShapeType.service => SmithyLibrary_LibraryType.CLIENT,
-        ShapeType.operation => SmithyLibrary_LibraryType.OPERATION,
-        ShapeType.structure ||
-        ShapeType.union =>
-          SmithyLibrary_LibraryType.MODEL,
-        ShapeType _ when isEnum => SmithyLibrary_LibraryType.MODEL,
-        final ShapeType invalid =>
-          throw ArgumentError('Invalid shape type: $invalid'),
-      };
+    ShapeType.service => SmithyLibrary_LibraryType.CLIENT,
+    ShapeType.operation => SmithyLibrary_LibraryType.OPERATION,
+    ShapeType.structure || ShapeType.union => SmithyLibrary_LibraryType.MODEL,
+    ShapeType _ when isEnum => SmithyLibrary_LibraryType.MODEL,
+    final ShapeType invalid => throw ArgumentError(
+      'Invalid shape type: $invalid',
+    ),
+  };
 
   /// The smithy library for this shape.
   SmithyLibrary smithyLibrary(CodegenContext context) {
@@ -567,37 +563,27 @@ extension OperationShapeUtil on OperationShape {
 
       if (b.inputTokenPath != null) {
         b.inputToken.replace(
-          inputShape(context).parsePathToExpression(
-            context,
-            b.inputTokenPath!,
-          ),
+          inputShape(context).parsePathToExpression(context, b.inputTokenPath!),
         );
       }
 
       if (b.outputTokenPath != null) {
         b.outputToken.replace(
-          outputShape(context).parsePathToExpression(
+          outputShape(
             context,
-            b.outputTokenPath!,
-          ),
+          ).parsePathToExpression(context, b.outputTokenPath!),
         );
       }
 
       if (b.itemsPath != null) {
         b.items.replace(
-          outputShape(context).parsePathToExpression(
-            context,
-            b.itemsPath!,
-          ),
+          outputShape(context).parsePathToExpression(context, b.itemsPath!),
         );
       }
 
       if (b.pageSizePath != null) {
         b.pageSize.replace(
-          inputShape(context).parsePathToExpression(
-            context,
-            b.pageSizePath!,
-          ),
+          inputShape(context).parsePathToExpression(context, b.pageSizePath!),
         );
       }
     });
@@ -641,7 +627,8 @@ extension OperationShapeUtil on OperationShape {
       (p) => p
         ..type = DartTypes.awsCommon.awsHttpClient.boxed
         ..name = 'client'
-        ..location = ParameterLocation.run |
+        ..location =
+            ParameterLocation.run |
             ParameterLocation.clientConstructor |
             ParameterLocation.clientMethod,
     );
@@ -652,7 +639,8 @@ extension OperationShapeUtil on OperationShape {
           ..type = DartTypes.core.string
           ..name = 'region'
           ..required = true
-          ..location = ParameterLocation.constructor |
+          ..location =
+              ParameterLocation.constructor |
               ParameterLocation.clientConstructor,
       );
 
@@ -661,7 +649,8 @@ extension OperationShapeUtil on OperationShape {
         (p) => p
           ..type = DartTypes.core.uri.boxed
           ..name = 'baseUri'
-          ..location = ParameterLocation.constructor |
+          ..location =
+              ParameterLocation.constructor |
               ParameterLocation.clientConstructor,
       );
     } else {
@@ -672,7 +661,8 @@ extension OperationShapeUtil on OperationShape {
           ..name = 'baseUri'
           ..isOverride = true
           ..required = true
-          ..location = ParameterLocation.constructor |
+          ..location =
+              ParameterLocation.constructor |
               ParameterLocation.clientConstructor,
       );
     }
@@ -684,11 +674,13 @@ extension OperationShapeUtil on OperationShape {
           ..type = DartTypes.smithyAws.s3ClientConfig
           ..name = 's3ClientConfig'
           ..required = true
-          ..location = ParameterLocation.constructor |
+          ..location =
+              ParameterLocation.constructor |
               ParameterLocation.clientConstructor |
               ParameterLocation.clientMethod
-          ..defaultTo =
-              DartTypes.smithyAws.s3ClientConfig.constInstance([]).code,
+          ..defaultTo = DartTypes.smithyAws.s3ClientConfig
+              .constInstance([])
+              .code,
       );
     }
 
@@ -697,12 +689,14 @@ extension OperationShapeUtil on OperationShape {
         (p) => p
           ..type = DartTypes.awsSigV4.awsCredentialsProvider
           ..name = 'credentialsProvider'
-          ..location = ParameterLocation.constructor |
+          ..location =
+              ParameterLocation.constructor |
               ParameterLocation.clientConstructor |
               ParameterLocation.clientMethod
           ..required = true
           ..defaultTo = DartTypes.awsSigV4.awsCredentialsProvider
-              .constInstanceNamed('defaultChain', []).code,
+              .constInstanceNamed('defaultChain', [])
+              .code,
       );
     }
 
@@ -730,8 +724,9 @@ extension OperationShapeUtil on OperationShape {
   /// Fields which should be generated for the operation and its service client
   /// based off the traits attached to this shape's service.
   Iterable<Field> protocolFields(CodegenContext context) sync* {
-    for (final parameter in operationParameters(context)
-        .where((p) => p.location.inConstructor)) {
+    for (final parameter in operationParameters(
+      context,
+    ).where((p) => p.location.inConstructor)) {
       yield Field(
         (f) => f
           ..modifier = FieldModifier.final$
@@ -750,8 +745,9 @@ extension OperationShapeUtil on OperationShape {
     CodegenContext context, {
     bool Function(ConfigParameter) toThis = _defaultToThis,
   }) sync* {
-    for (final parameter in operationParameters(context)
-        .where((p) => p.location.inConstructor)) {
+    for (final parameter in operationParameters(
+      context,
+    ).where((p) => p.location.inConstructor)) {
       yield Parameter((p) {
         final pToThis = toThis(parameter);
         p
@@ -772,11 +768,11 @@ extension StructureShapeUtil on StructureShape {
   /// The operation this shape belongs to, if any.
   OperationShape? operationShape(CodegenContext context) =>
       context.shapes.values.whereType<OperationShape>().firstWhereOrNull(
-            (operation) =>
-                operation.input?.target == shapeId ||
-                operation.output?.target == shapeId ||
-                operation.errors.map((ref) => ref.target).contains(shapeId),
-          );
+        (operation) =>
+            operation.input?.target == shapeId ||
+            operation.output?.target == shapeId ||
+            operation.errors.map((ref) => ref.target).contains(shapeId),
+      );
 
   /// Whether this is an unwrapped S3 output.
   bool isS3UnwrappedOutput(CodegenContext context) {
@@ -810,9 +806,7 @@ extension StructureShapeUtil on StructureShape {
   }
 
   /// HTTP metadata on operation output structures.
-  HttpOutputTraits? httpOutputTraits({
-    bool overrideTrait = false,
-  }) {
+  HttpOutputTraits? httpOutputTraits({bool overrideTrait = false}) {
     if (!isOutputShape && !overrideTrait && Shape.unit != shapeId) {
       return null;
     }
@@ -836,9 +830,7 @@ extension StructureShapeUtil on StructureShape {
   }
 
   /// HTTP metadata on operation input structures.
-  HttpInputTraits? httpInputTraits({
-    bool overrideTrait = false,
-  }) {
+  HttpInputTraits? httpInputTraits({bool overrideTrait = false}) {
     if (!isInputShape && !overrideTrait && Shape.unit != shapeId) {
       return null;
     }
@@ -871,9 +863,7 @@ extension StructureShapeUtil on StructureShape {
     return builder.build();
   }
 
-  HttpErrorTraits? httpErrorTraits([
-    Reference? payloadSymbol,
-  ]) {
+  HttpErrorTraits? httpErrorTraits([Reference? payloadSymbol]) {
     if (!isError) {
       return null;
     }
@@ -910,11 +900,11 @@ extension StructureShapeUtil on StructureShape {
 
   /// Member shapes and their [Reference] types.
   Map<MemberShape, Reference> memberSymbols(CodegenContext context) => {
-        for (final member in sortedMembers)
-          member: context
-              .symbolFor(member.target, this)
-              .withBoxed(member.isNullable(context, this)),
-      };
+    for (final member in sortedMembers)
+      member: context
+          .symbolFor(member.target, this)
+          .withBoxed(member.isNullable(context, this)),
+  };
 
   /// Members sorted by their re-cased Dart name.
   List<MemberShape> get sortedMembers => members.values.toList()
@@ -928,8 +918,9 @@ extension StructureShapeUtil on StructureShape {
   /// The list of all members which convey some information about the request,
   /// and for most protocols are not included in the body of the request.
   List<MemberShape> get metadataMembers {
-    final serviceSupportsHttpTraits = context.serviceProtocols
-        .any((protocol) => protocol.supportsTrait(HttpPayloadTrait.id));
+    final serviceSupportsHttpTraits = context.serviceProtocols.any(
+      (protocol) => protocol.supportsTrait(HttpPayloadTrait.id),
+    );
     if (!serviceSupportsHttpTraits) {
       return const [];
     }
@@ -949,10 +940,9 @@ extension StructureShapeUtil on StructureShape {
       httpOutputTraits?.httpPrefixHeaders?.member,
       ...?httpErrorTraits?.httpHeaders.values,
       httpErrorTraits?.httpPrefixHeaders?.member,
-    }.whereType<MemberShape>().toList()
-      ..sorted(
-        (a, b) => a.dartName(getType()).compareTo(b.dartName(getType())),
-      );
+    }.whereType<MemberShape>().toList()..sorted(
+      (a, b) => a.dartName(getType()).compareTo(b.dartName(getType())),
+    );
   }
 
   /// The list of all members which should always be included in the body of
@@ -990,10 +980,10 @@ extension StructureShapeUtil on StructureShape {
 extension ShapeIdUtil on ShapeId {
   /// A constructed ShapeId expression.
   Expression get constructed => DartTypes.smithy.shapeId.constInstance([], {
-        'namespace': literalString(namespace),
-        'shape': literalString(shape),
-        if (member != null) 'member': literalString(member!),
-      });
+    'namespace': literalString(namespace),
+    'shape': literalString(shape),
+    if (member != null) 'member': literalString(member!),
+  });
 }
 
 extension ServiceShapeUtil on ServiceShape {

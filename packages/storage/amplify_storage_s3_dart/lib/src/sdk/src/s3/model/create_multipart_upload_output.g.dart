@@ -34,34 +34,33 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
   @override
   final ChecksumAlgorithm? checksumAlgorithm;
 
-  factory _$CreateMultipartUploadOutput(
-          [void Function(CreateMultipartUploadOutputBuilder)? updates]) =>
-      (new CreateMultipartUploadOutputBuilder()..update(updates))._build();
+  factory _$CreateMultipartUploadOutput([
+    void Function(CreateMultipartUploadOutputBuilder)? updates,
+  ]) => (CreateMultipartUploadOutputBuilder()..update(updates))._build();
 
-  _$CreateMultipartUploadOutput._(
-      {this.abortDate,
-      this.abortRuleId,
-      this.bucket,
-      this.key,
-      this.uploadId,
-      this.serverSideEncryption,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.ssekmsEncryptionContext,
-      this.bucketKeyEnabled,
-      this.requestCharged,
-      this.checksumAlgorithm})
-      : super._();
-
+  _$CreateMultipartUploadOutput._({
+    this.abortDate,
+    this.abortRuleId,
+    this.bucket,
+    this.key,
+    this.uploadId,
+    this.serverSideEncryption,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.bucketKeyEnabled,
+    this.requestCharged,
+    this.checksumAlgorithm,
+  }) : super._();
   @override
   CreateMultipartUploadOutput rebuild(
-          void Function(CreateMultipartUploadOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateMultipartUploadOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateMultipartUploadOutputBuilder toBuilder() =>
-      new CreateMultipartUploadOutputBuilder()..replace(this);
+      CreateMultipartUploadOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -105,8 +104,10 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
 
 class CreateMultipartUploadOutputBuilder
     implements
-        Builder<CreateMultipartUploadOutput,
-            CreateMultipartUploadOutputBuilder> {
+        Builder<
+          CreateMultipartUploadOutput,
+          CreateMultipartUploadOutputBuilder
+        > {
   _$CreateMultipartUploadOutput? _$v;
 
   DateTime? _abortDate;
@@ -194,7 +195,6 @@ class CreateMultipartUploadOutputBuilder
 
   @override
   void replace(CreateMultipartUploadOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateMultipartUploadOutput;
   }
 
@@ -207,21 +207,23 @@ class CreateMultipartUploadOutputBuilder
   CreateMultipartUploadOutput build() => _build();
 
   _$CreateMultipartUploadOutput _build() {
-    final _$result = _$v ??
-        new _$CreateMultipartUploadOutput._(
-            abortDate: abortDate,
-            abortRuleId: abortRuleId,
-            bucket: bucket,
-            key: key,
-            uploadId: uploadId,
-            serverSideEncryption: serverSideEncryption,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            ssekmsKeyId: ssekmsKeyId,
-            ssekmsEncryptionContext: ssekmsEncryptionContext,
-            bucketKeyEnabled: bucketKeyEnabled,
-            requestCharged: requestCharged,
-            checksumAlgorithm: checksumAlgorithm);
+    final _$result =
+        _$v ??
+        _$CreateMultipartUploadOutput._(
+          abortDate: abortDate,
+          abortRuleId: abortRuleId,
+          bucket: bucket,
+          key: key,
+          uploadId: uploadId,
+          serverSideEncryption: serverSideEncryption,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          ssekmsKeyId: ssekmsKeyId,
+          ssekmsEncryptionContext: ssekmsEncryptionContext,
+          bucketKeyEnabled: bucketKeyEnabled,
+          requestCharged: requestCharged,
+          checksumAlgorithm: checksumAlgorithm,
+        );
     replace(_$result);
     return _$result;
   }
@@ -236,23 +238,20 @@ class _$CreateMultipartUploadOutputPayload
   @override
   final String? uploadId;
 
-  factory _$CreateMultipartUploadOutputPayload(
-          [void Function(CreateMultipartUploadOutputPayloadBuilder)?
-              updates]) =>
-      (new CreateMultipartUploadOutputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$CreateMultipartUploadOutputPayload([
+    void Function(CreateMultipartUploadOutputPayloadBuilder)? updates,
+  ]) => (CreateMultipartUploadOutputPayloadBuilder()..update(updates))._build();
 
   _$CreateMultipartUploadOutputPayload._({this.bucket, this.key, this.uploadId})
-      : super._();
-
+    : super._();
   @override
   CreateMultipartUploadOutputPayload rebuild(
-          void Function(CreateMultipartUploadOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateMultipartUploadOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateMultipartUploadOutputPayloadBuilder toBuilder() =>
-      new CreateMultipartUploadOutputPayloadBuilder()..replace(this);
+      CreateMultipartUploadOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -276,8 +275,10 @@ class _$CreateMultipartUploadOutputPayload
 
 class CreateMultipartUploadOutputPayloadBuilder
     implements
-        Builder<CreateMultipartUploadOutputPayload,
-            CreateMultipartUploadOutputPayloadBuilder> {
+        Builder<
+          CreateMultipartUploadOutputPayload,
+          CreateMultipartUploadOutputPayloadBuilder
+        > {
   _$CreateMultipartUploadOutputPayload? _$v;
 
   String? _bucket;
@@ -307,13 +308,13 @@ class CreateMultipartUploadOutputPayloadBuilder
 
   @override
   void replace(CreateMultipartUploadOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateMultipartUploadOutputPayload;
   }
 
   @override
   void update(
-      void Function(CreateMultipartUploadOutputPayloadBuilder)? updates) {
+    void Function(CreateMultipartUploadOutputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -321,9 +322,13 @@ class CreateMultipartUploadOutputPayloadBuilder
   CreateMultipartUploadOutputPayload build() => _build();
 
   _$CreateMultipartUploadOutputPayload _build() {
-    final _$result = _$v ??
-        new _$CreateMultipartUploadOutputPayload._(
-            bucket: bucket, key: key, uploadId: uploadId);
+    final _$result =
+        _$v ??
+        _$CreateMultipartUploadOutputPayload._(
+          bucket: bucket,
+          key: key,
+          uploadId: uploadId,
+        );
     replace(_$result);
     return _$result;
   }

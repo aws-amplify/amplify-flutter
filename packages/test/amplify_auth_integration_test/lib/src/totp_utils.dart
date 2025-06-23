@@ -25,15 +25,12 @@ Future<int> get _nextTotpTime async {
   }
   // Cognito allows a +/- 1 interval range for codes and codes cannot be reused.
   final acceptableWindowEnd = now.add(_totpInterval);
-  final nextTime = maxBy(
-    [
-      now,
-      DateTime.fromMillisecondsSinceEpoch(
-        OTP.lastUsedTime + _totpInterval.inMilliseconds,
-      ),
-    ],
-    (dt) => dt,
-  )!;
+  final nextTime = maxBy([
+    now,
+    DateTime.fromMillisecondsSinceEpoch(
+      OTP.lastUsedTime + _totpInterval.inMilliseconds,
+    ),
+  ], (dt) => dt)!;
   if (nextTime.isAfter(acceptableWindowEnd)) {
     // Wait until the next window opens.
     await Future<void>.delayed(nextTime.difference(now));

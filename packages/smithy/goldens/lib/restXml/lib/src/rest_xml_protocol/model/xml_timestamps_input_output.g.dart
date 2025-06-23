@@ -22,28 +22,27 @@ class _$XmlTimestampsInputOutput extends XmlTimestampsInputOutput {
   @override
   final DateTime? httpDateOnTarget;
 
-  factory _$XmlTimestampsInputOutput(
-          [void Function(XmlTimestampsInputOutputBuilder)? updates]) =>
-      (new XmlTimestampsInputOutputBuilder()..update(updates))._build();
+  factory _$XmlTimestampsInputOutput([
+    void Function(XmlTimestampsInputOutputBuilder)? updates,
+  ]) => (XmlTimestampsInputOutputBuilder()..update(updates))._build();
 
-  _$XmlTimestampsInputOutput._(
-      {this.normal,
-      this.dateTime,
-      this.dateTimeOnTarget,
-      this.epochSeconds,
-      this.epochSecondsOnTarget,
-      this.httpDate,
-      this.httpDateOnTarget})
-      : super._();
-
+  _$XmlTimestampsInputOutput._({
+    this.normal,
+    this.dateTime,
+    this.dateTimeOnTarget,
+    this.epochSeconds,
+    this.epochSecondsOnTarget,
+    this.httpDate,
+    this.httpDateOnTarget,
+  }) : super._();
   @override
   XmlTimestampsInputOutput rebuild(
-          void Function(XmlTimestampsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlTimestampsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlTimestampsInputOutputBuilder toBuilder() =>
-      new XmlTimestampsInputOutputBuilder()..replace(this);
+      XmlTimestampsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -129,7 +128,6 @@ class XmlTimestampsInputOutputBuilder
 
   @override
   void replace(XmlTimestampsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlTimestampsInputOutput;
   }
 
@@ -142,15 +140,17 @@ class XmlTimestampsInputOutputBuilder
   XmlTimestampsInputOutput build() => _build();
 
   _$XmlTimestampsInputOutput _build() {
-    final _$result = _$v ??
-        new _$XmlTimestampsInputOutput._(
-            normal: normal,
-            dateTime: dateTime,
-            dateTimeOnTarget: dateTimeOnTarget,
-            epochSeconds: epochSeconds,
-            epochSecondsOnTarget: epochSecondsOnTarget,
-            httpDate: httpDate,
-            httpDateOnTarget: httpDateOnTarget);
+    final _$result =
+        _$v ??
+        _$XmlTimestampsInputOutput._(
+          normal: normal,
+          dateTime: dateTime,
+          dateTimeOnTarget: dateTimeOnTarget,
+          epochSeconds: epochSeconds,
+          epochSecondsOnTarget: epochSecondsOnTarget,
+          httpDate: httpDate,
+          httpDateOnTarget: httpDateOnTarget,
+        );
     replace(_$result);
     return _$result;
   }

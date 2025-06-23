@@ -7,11 +7,7 @@ import 'package:smithy/ast.dart';
 
 part 'segment.g.dart';
 
-enum SegmentType {
-  literal,
-  label,
-  greedyLabel,
-}
+enum SegmentType { literal, label, greedyLabel }
 
 @JsonSerializable()
 class Segment with AWSEquatable<Segment> {
@@ -62,10 +58,10 @@ class Segment with AWSEquatable<Segment> {
   List<Object> get props => [content, type];
 
   String get asString => switch (type) {
-        SegmentType.literal => content,
-        SegmentType.label => '{$content}',
-        SegmentType.greedyLabel => '{$content+}',
-      };
+    SegmentType.literal => content,
+    SegmentType.label => '{$content}',
+    SegmentType.greedyLabel => '{$content+}',
+  };
 
   bool get isLabel => type != SegmentType.literal;
 

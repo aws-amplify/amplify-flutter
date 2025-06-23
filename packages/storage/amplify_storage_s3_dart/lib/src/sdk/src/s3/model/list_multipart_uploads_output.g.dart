@@ -34,34 +34,33 @@ class _$ListMultipartUploadsOutput extends ListMultipartUploadsOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$ListMultipartUploadsOutput(
-          [void Function(ListMultipartUploadsOutputBuilder)? updates]) =>
-      (new ListMultipartUploadsOutputBuilder()..update(updates))._build();
+  factory _$ListMultipartUploadsOutput([
+    void Function(ListMultipartUploadsOutputBuilder)? updates,
+  ]) => (ListMultipartUploadsOutputBuilder()..update(updates))._build();
 
-  _$ListMultipartUploadsOutput._(
-      {this.bucket,
-      this.keyMarker,
-      this.uploadIdMarker,
-      this.nextKeyMarker,
-      this.prefix,
-      this.delimiter,
-      this.nextUploadIdMarker,
-      this.maxUploads,
-      this.isTruncated,
-      this.uploads,
-      this.commonPrefixes,
-      this.encodingType,
-      this.requestCharged})
-      : super._();
-
+  _$ListMultipartUploadsOutput._({
+    this.bucket,
+    this.keyMarker,
+    this.uploadIdMarker,
+    this.nextKeyMarker,
+    this.prefix,
+    this.delimiter,
+    this.nextUploadIdMarker,
+    this.maxUploads,
+    this.isTruncated,
+    this.uploads,
+    this.commonPrefixes,
+    this.encodingType,
+    this.requestCharged,
+  }) : super._();
   @override
   ListMultipartUploadsOutput rebuild(
-          void Function(ListMultipartUploadsOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListMultipartUploadsOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListMultipartUploadsOutputBuilder toBuilder() =>
-      new ListMultipartUploadsOutputBuilder()..replace(this);
+      ListMultipartUploadsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -149,13 +148,13 @@ class ListMultipartUploadsOutputBuilder
 
   _i3.ListBuilder<MultipartUpload>? _uploads;
   _i3.ListBuilder<MultipartUpload> get uploads =>
-      _$this._uploads ??= new _i3.ListBuilder<MultipartUpload>();
+      _$this._uploads ??= _i3.ListBuilder<MultipartUpload>();
   set uploads(_i3.ListBuilder<MultipartUpload>? uploads) =>
       _$this._uploads = uploads;
 
   _i3.ListBuilder<CommonPrefix>? _commonPrefixes;
   _i3.ListBuilder<CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i3.ListBuilder<CommonPrefix>();
+      _$this._commonPrefixes ??= _i3.ListBuilder<CommonPrefix>();
   set commonPrefixes(_i3.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
@@ -194,7 +193,6 @@ class ListMultipartUploadsOutputBuilder
 
   @override
   void replace(ListMultipartUploadsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListMultipartUploadsOutput;
   }
 
@@ -209,21 +207,23 @@ class ListMultipartUploadsOutputBuilder
   _$ListMultipartUploadsOutput _build() {
     _$ListMultipartUploadsOutput _$result;
     try {
-      _$result = _$v ??
-          new _$ListMultipartUploadsOutput._(
-              bucket: bucket,
-              keyMarker: keyMarker,
-              uploadIdMarker: uploadIdMarker,
-              nextKeyMarker: nextKeyMarker,
-              prefix: prefix,
-              delimiter: delimiter,
-              nextUploadIdMarker: nextUploadIdMarker,
-              maxUploads: maxUploads,
-              isTruncated: isTruncated,
-              uploads: _uploads?.build(),
-              commonPrefixes: _commonPrefixes?.build(),
-              encodingType: encodingType,
-              requestCharged: requestCharged);
+      _$result =
+          _$v ??
+          _$ListMultipartUploadsOutput._(
+            bucket: bucket,
+            keyMarker: keyMarker,
+            uploadIdMarker: uploadIdMarker,
+            nextKeyMarker: nextKeyMarker,
+            prefix: prefix,
+            delimiter: delimiter,
+            nextUploadIdMarker: nextUploadIdMarker,
+            maxUploads: maxUploads,
+            isTruncated: isTruncated,
+            uploads: _uploads?.build(),
+            commonPrefixes: _commonPrefixes?.build(),
+            encodingType: encodingType,
+            requestCharged: requestCharged,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -232,8 +232,11 @@ class ListMultipartUploadsOutputBuilder
         _$failedField = 'commonPrefixes';
         _commonPrefixes?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ListMultipartUploadsOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ListMultipartUploadsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -269,34 +272,32 @@ class _$ListMultipartUploadsOutputPayload
   @override
   final _i3.BuiltList<MultipartUpload>? uploads;
 
-  factory _$ListMultipartUploadsOutputPayload(
-          [void Function(ListMultipartUploadsOutputPayloadBuilder)? updates]) =>
-      (new ListMultipartUploadsOutputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$ListMultipartUploadsOutputPayload([
+    void Function(ListMultipartUploadsOutputPayloadBuilder)? updates,
+  ]) => (ListMultipartUploadsOutputPayloadBuilder()..update(updates))._build();
 
-  _$ListMultipartUploadsOutputPayload._(
-      {this.bucket,
-      this.commonPrefixes,
-      this.delimiter,
-      this.encodingType,
-      this.isTruncated,
-      this.keyMarker,
-      this.maxUploads,
-      this.nextKeyMarker,
-      this.nextUploadIdMarker,
-      this.prefix,
-      this.uploadIdMarker,
-      this.uploads})
-      : super._();
-
+  _$ListMultipartUploadsOutputPayload._({
+    this.bucket,
+    this.commonPrefixes,
+    this.delimiter,
+    this.encodingType,
+    this.isTruncated,
+    this.keyMarker,
+    this.maxUploads,
+    this.nextKeyMarker,
+    this.nextUploadIdMarker,
+    this.prefix,
+    this.uploadIdMarker,
+    this.uploads,
+  }) : super._();
   @override
   ListMultipartUploadsOutputPayload rebuild(
-          void Function(ListMultipartUploadsOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListMultipartUploadsOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListMultipartUploadsOutputPayloadBuilder toBuilder() =>
-      new ListMultipartUploadsOutputPayloadBuilder()..replace(this);
+      ListMultipartUploadsOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -338,8 +339,10 @@ class _$ListMultipartUploadsOutputPayload
 
 class ListMultipartUploadsOutputPayloadBuilder
     implements
-        Builder<ListMultipartUploadsOutputPayload,
-            ListMultipartUploadsOutputPayloadBuilder> {
+        Builder<
+          ListMultipartUploadsOutputPayload,
+          ListMultipartUploadsOutputPayloadBuilder
+        > {
   _$ListMultipartUploadsOutputPayload? _$v;
 
   String? _bucket;
@@ -348,7 +351,7 @@ class ListMultipartUploadsOutputPayloadBuilder
 
   _i3.ListBuilder<CommonPrefix>? _commonPrefixes;
   _i3.ListBuilder<CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i3.ListBuilder<CommonPrefix>();
+      _$this._commonPrefixes ??= _i3.ListBuilder<CommonPrefix>();
   set commonPrefixes(_i3.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
@@ -394,7 +397,7 @@ class ListMultipartUploadsOutputPayloadBuilder
 
   _i3.ListBuilder<MultipartUpload>? _uploads;
   _i3.ListBuilder<MultipartUpload> get uploads =>
-      _$this._uploads ??= new _i3.ListBuilder<MultipartUpload>();
+      _$this._uploads ??= _i3.ListBuilder<MultipartUpload>();
   set uploads(_i3.ListBuilder<MultipartUpload>? uploads) =>
       _$this._uploads = uploads;
 
@@ -422,13 +425,13 @@ class ListMultipartUploadsOutputPayloadBuilder
 
   @override
   void replace(ListMultipartUploadsOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListMultipartUploadsOutputPayload;
   }
 
   @override
   void update(
-      void Function(ListMultipartUploadsOutputPayloadBuilder)? updates) {
+    void Function(ListMultipartUploadsOutputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -438,20 +441,22 @@ class ListMultipartUploadsOutputPayloadBuilder
   _$ListMultipartUploadsOutputPayload _build() {
     _$ListMultipartUploadsOutputPayload _$result;
     try {
-      _$result = _$v ??
-          new _$ListMultipartUploadsOutputPayload._(
-              bucket: bucket,
-              commonPrefixes: _commonPrefixes?.build(),
-              delimiter: delimiter,
-              encodingType: encodingType,
-              isTruncated: isTruncated,
-              keyMarker: keyMarker,
-              maxUploads: maxUploads,
-              nextKeyMarker: nextKeyMarker,
-              nextUploadIdMarker: nextUploadIdMarker,
-              prefix: prefix,
-              uploadIdMarker: uploadIdMarker,
-              uploads: _uploads?.build());
+      _$result =
+          _$v ??
+          _$ListMultipartUploadsOutputPayload._(
+            bucket: bucket,
+            commonPrefixes: _commonPrefixes?.build(),
+            delimiter: delimiter,
+            encodingType: encodingType,
+            isTruncated: isTruncated,
+            keyMarker: keyMarker,
+            maxUploads: maxUploads,
+            nextKeyMarker: nextKeyMarker,
+            nextUploadIdMarker: nextUploadIdMarker,
+            prefix: prefix,
+            uploadIdMarker: uploadIdMarker,
+            uploads: _uploads?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -461,8 +466,11 @@ class ListMultipartUploadsOutputPayloadBuilder
         _$failedField = 'uploads';
         _uploads?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ListMultipartUploadsOutputPayload', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ListMultipartUploadsOutputPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

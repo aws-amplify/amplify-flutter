@@ -23,18 +23,16 @@ class GraphQLAuthMode extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
-          'Authorization Mode',
-          textAlign: TextAlign.left,
-        ),
+        const Text('Authorization Mode', textAlign: TextAlign.left),
         DropdownButton<APIAuthorizationType>(
           value: authMode,
           icon: const Icon(Icons.arrow_downward),
           isExpanded: true,
           elevation: 16,
           onChanged: (apiType) => setAuthType(apiType!),
-          items: authTypes.map<DropdownMenuItem<APIAuthorizationType>>(
-              (APIAuthorizationType value) {
+          items: authTypes.map<DropdownMenuItem<APIAuthorizationType>>((
+            APIAuthorizationType value,
+          ) {
             return DropdownMenuItem<APIAuthorizationType>(
               value: value,
               child: Text(value.authProviderToken.name),

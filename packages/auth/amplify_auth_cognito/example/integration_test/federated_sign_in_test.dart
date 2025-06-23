@@ -18,9 +18,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'test_runner.dart';
 
-AmplifyAuthCognito get cognitoPlugin => Amplify.Auth.getPlugin(
-      AmplifyAuthCognito.pluginKey,
-    );
+AmplifyAuthCognito get cognitoPlugin =>
+    Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
 
 void main() {
   testRunner.setupTests();
@@ -145,7 +144,7 @@ void main() {
       // Clear but do not sign out so that tokens are still valid.
       // ignore: invalid_use_of_protected_member
       await cognitoPlugin.stateMachine.clearCredentials(
-        CognitoUserPoolKeys(userPoolConfig),
+        CognitoUserPoolKeys(userPoolConfig.appClientId),
       );
 
       final session = await cognitoPlugin.federateToIdentityPool(
@@ -211,15 +210,12 @@ void main() {
       await federateToIdentityPool();
 
       final session = await cognitoPlugin.fetchAuthSession();
-      expect(
-        session.isSignedIn,
-        isTrue,
-        reason: 'API requirement',
-      );
+      expect(session.isSignedIn, isTrue, reason: 'API requirement');
       await expectLater(
         cognitoPlugin.getCurrentUser(),
         throwsA(isA<InvalidStateException>()),
-        reason: 'API requirement. getCurrentUser should throw '
+        reason:
+            'API requirement. getCurrentUser should throw '
             'even though isSignedIn=true',
       );
     });

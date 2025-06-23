@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -33,9 +33,9 @@ abstract class ConfirmDeviceRequest
   }
 
   /// Confirms the device request.
-  factory ConfirmDeviceRequest.build(
-          [void Function(ConfirmDeviceRequestBuilder) updates]) =
-      _$ConfirmDeviceRequest;
+  factory ConfirmDeviceRequest.build([
+    void Function(ConfirmDeviceRequestBuilder) updates,
+  ]) = _$ConfirmDeviceRequest;
 
   const ConfirmDeviceRequest._();
 
@@ -43,11 +43,10 @@ abstract class ConfirmDeviceRequest
     ConfirmDeviceRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<ConfirmDeviceRequest>> serializers = [
-    ConfirmDeviceRequestAwsJson11Serializer()
+    ConfirmDeviceRequestAwsJson11Serializer(),
   ];
 
   /// A valid access token that Amazon Cognito issued to the user whose device you want to confirm.
@@ -63,32 +62,22 @@ abstract class ConfirmDeviceRequest
   String? get deviceName;
   @override
   ConfirmDeviceRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
-        accessToken,
-        deviceKey,
-        deviceSecretVerifierConfig,
-        deviceName,
-      ];
+    accessToken,
+    deviceKey,
+    deviceSecretVerifierConfig,
+    deviceName,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmDeviceRequest')
-      ..add(
-        'accessToken',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'deviceKey',
-        deviceKey,
-      )
-      ..add(
-        'deviceSecretVerifierConfig',
-        deviceSecretVerifierConfig,
-      )
-      ..add(
-        'deviceName',
-        deviceName,
-      );
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('deviceKey', deviceKey)
+      ..add('deviceSecretVerifierConfig', deviceSecretVerifierConfig)
+      ..add('deviceName', deviceName);
     return helper.toString();
   }
 }
@@ -96,20 +85,19 @@ abstract class ConfirmDeviceRequest
 class ConfirmDeviceRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<ConfirmDeviceRequest> {
   const ConfirmDeviceRequestAwsJson11Serializer()
-      : super('ConfirmDeviceRequest');
+    : super('ConfirmDeviceRequest');
 
   @override
   Iterable<Type> get types => const [
-        ConfirmDeviceRequest,
-        _$ConfirmDeviceRequest,
-      ];
+    ConfirmDeviceRequest,
+    _$ConfirmDeviceRequest,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   ConfirmDeviceRequest deserialize(
     Serializers serializers,
@@ -127,25 +115,34 @@ class ConfirmDeviceRequestAwsJson11Serializer
       }
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accessToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'DeviceKey':
-          result.deviceKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.deviceKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'DeviceSecretVerifierConfig':
-          result.deviceSecretVerifierConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(DeviceSecretVerifierConfigType),
-          ) as DeviceSecretVerifierConfigType));
+          result.deviceSecretVerifierConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(DeviceSecretVerifierConfigType),
+                )
+                as DeviceSecretVerifierConfigType),
+          );
         case 'DeviceName':
-          result.deviceName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.deviceName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -163,35 +160,33 @@ class ConfirmDeviceRequestAwsJson11Serializer
       :accessToken,
       :deviceKey,
       :deviceSecretVerifierConfig,
-      :deviceName
+      :deviceName,
     ) = object;
     result$.addAll([
       'AccessToken',
-      serializers.serialize(
-        accessToken,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(accessToken, specifiedType: const FullType(String)),
       'DeviceKey',
-      serializers.serialize(
-        deviceKey,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(deviceKey, specifiedType: const FullType(String)),
     ]);
     if (deviceSecretVerifierConfig != null) {
       result$
         ..add('DeviceSecretVerifierConfig')
-        ..add(serializers.serialize(
-          deviceSecretVerifierConfig,
-          specifiedType: const FullType(DeviceSecretVerifierConfigType),
-        ));
+        ..add(
+          serializers.serialize(
+            deviceSecretVerifierConfig,
+            specifiedType: const FullType(DeviceSecretVerifierConfigType),
+          ),
+        );
     }
     if (deviceName != null) {
       result$
         ..add('DeviceName')
-        ..add(serializers.serialize(
-          deviceName,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            deviceName,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

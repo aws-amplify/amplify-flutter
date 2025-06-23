@@ -11,7 +11,8 @@ mixin FailFastOption on AmplifyCommand {
     super.init();
     argParser.addFlag(
       'fail-fast',
-      help: 'When running commands for multiple packages, '
+      help:
+          'When running commands for multiple packages, '
           'the first command triggers an exit.',
       defaultsTo: false,
     );

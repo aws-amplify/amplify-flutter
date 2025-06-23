@@ -22,28 +22,24 @@ void main() {
       eventsStream = await subscribeToEvents();
     });
 
-    testWidgets(
-      'custom events are automatically submitted without calls to '
-      'Analytics.flushEvents()',
-      (_) async {
-        const customEventName = 'custom events auto submitted event';
-        final customEvent = AnalyticsEvent(customEventName);
+    testWidgets('custom events are automatically submitted without calls to '
+        'Analytics.flushEvents()', (_) async {
+      const customEventName = 'custom events auto submitted event';
+      final customEvent = AnalyticsEvent(customEventName);
 
-        await Amplify.Analytics.recordEvent(event: customEvent);
+      await Amplify.Analytics.recordEvent(event: customEvent);
 
-        await expectLater(
-          eventsStream,
-          emits(
-            isA<TestEvent>().having(
-              (e) => e.eventType,
-              'eventType',
-              customEventName,
-            ),
+      await expectLater(
+        eventsStream,
+        emits(
+          isA<TestEvent>().having(
+            (e) => e.eventType,
+            'eventType',
+            customEventName,
           ),
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+        ),
+      );
+    }, timeout: const Timeout(Duration(minutes: 3)));
 
     testWidgets(
       'recorded custom event is sent with correct custom and meta properties',
@@ -67,15 +63,12 @@ void main() {
             stringProperty,
           ]),
         );
-        expect(
-          customEvent.customProperties.getAllPropertiesTypes(),
-          {
-            boolProperty.key: 'BOOL',
-            doubleProperty.key: 'DOUBLE',
-            intProperty.key: 'INT',
-            stringProperty.key: 'STRING',
-          },
-        );
+        expect(customEvent.customProperties.getAllPropertiesTypes(), {
+          boolProperty.key: 'BOOL',
+          doubleProperty.key: 'DOUBLE',
+          intProperty.key: 'INT',
+          stringProperty.key: 'STRING',
+        });
 
         await Amplify.Analytics.recordEvent(event: customEvent);
         await Amplify.Analytics.flushEvents();
@@ -90,19 +83,13 @@ void main() {
                   (e) => e.attributes,
                   'attributes',
                   equals(
-                    Map.fromEntries(
-                      [stringifiedBoolProperty, stringProperty],
-                    ),
+                    Map.fromEntries([stringifiedBoolProperty, stringProperty]),
                   ),
                 )
                 .having(
                   (e) => e.metrics,
                   'metrics',
-                  equals(
-                    Map.fromEntries(
-                      [lossyDoubleProperty, intProperty],
-                    ),
-                  ),
+                  equals(Map.fromEntries([lossyDoubleProperty, intProperty])),
                 )
                 .having(
                   (e) => e.endpoint.endpointStatus,
@@ -198,17 +185,17 @@ void main() {
                 .having(
                   (e) => e.attributes,
                   'attributes',
-                  equals(
-                    Map.fromEntries([secondStringProperty]),
-                  ),
+                  equals(Map.fromEntries([secondStringProperty])),
                 )
                 .having(
                   (e) => e.metrics,
                   'metrics',
                   equals(
-                    Map.fromEntries(
-                      [lossyDoubleProperty, intProperty, secondIntProperty],
-                    ),
+                    Map.fromEntries([
+                      lossyDoubleProperty,
+                      intProperty,
+                      secondIntProperty,
+                    ]),
                   ),
                 ),
           ),

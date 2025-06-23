@@ -39,20 +39,19 @@ class HostedUiServer implements Closeable {
   /// Launches a Hosted UI server on the default [rpcUri].
   static Future<HostedUiServer> launch() async {
     final completer = StreamChannelCompleter<String>();
-    final wsHandler = webSocketHandler((dynamic webSocket) {
+    final wsHandler = webSocketHandler((dynamic webSocket, _) {
       webSocket as WebSocketChannel;
       completer.setChannel(webSocket.cast());
     });
-    final handler = const Pipeline().addMiddleware(
-      logRequests(
-        logger: (message, isError) {
-          _logger.log(
-            isError ? LogLevel.error : LogLevel.debug,
-            message,
-          );
-        },
-      ),
-    ).addHandler(wsHandler);
+    final handler = const Pipeline()
+        .addMiddleware(
+          logRequests(
+            logger: (message, isError) {
+              _logger.log(isError ? LogLevel.error : LogLevel.debug, message);
+            },
+          ),
+        )
+        .addHandler(wsHandler);
     final server = await shelf_io.serve(handler, rpcUri.host, rpcUri.port);
     final rpcServer = Server(completer.channel);
 
@@ -82,13 +81,14 @@ class HostedUiServer implements Closeable {
       AmplifyAuthCognitoDart(
         // ignore: invalid_use_of_visible_for_testing_member
         secureStorageFactory: (scope) => AmplifySecureStorageWorker(
-          config: AmplifySecureStorageConfig.byNamespace(
-            namespace: webDatabaseName,
-          ).rebuild((config) {
-            // enabling useDataProtection requires adding the app to an
-            // app group, which requires setting a development team
-            config.macOSOptions.useDataProtection = false;
-          }),
+          config:
+              AmplifySecureStorageConfig.byNamespace(
+                namespace: webDatabaseName,
+              ).rebuild((config) {
+                // enabling useDataProtection requires adding the app to an
+                // app group, which requires setting a development team
+                config.macOSOptions.useDataProtection = false;
+              }),
         ),
         hostedUiPlatformFactory: (manager) => _HostedUiPlatform(manager, this),
       ),
@@ -99,10 +99,7 @@ class HostedUiServer implements Closeable {
   Future<Map<String, Object?>> _signIn(Parameters parameters) async {
     final username = parameters['username'].asString;
     final password = parameters['password'].asString;
-    final result = await _plugin.signIn(
-      username: username,
-      password: password,
-    );
+    final result = await _plugin.signIn(username: username, password: password);
     return result.toJson();
   }
 
@@ -112,9 +109,7 @@ class HostedUiServer implements Closeable {
         ? AuthProvider.fromJson(provider.asMap.cast())
         : AuthProvider.cognito;
     _urlCompleter = Completer();
-    unawaited(
-      _currentSignIn = _plugin.signInWithWebUI(provider: authProvider),
-    );
+    unawaited(_currentSignIn = _plugin.signInWithWebUI(provider: authProvider));
     final url = await _urlCompleter.future;
     return url;
   }

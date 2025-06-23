@@ -6,12 +6,13 @@ part of 'srp_init_worker.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(SrpInitMessage.serializer)
-      ..add(SrpInitResult.serializer))
-    .build();
+Serializers _$serializers =
+    (Serializers().toBuilder()
+          ..add(SrpInitMessage.serializer)
+          ..add(SrpInitResult.serializer))
+        .build();
 Serializer<SrpInitMessage> _$srpInitMessageSerializer =
-    new _$SrpInitMessageSerializer();
+    _$SrpInitMessageSerializer();
 
 class _$SrpInitMessageSerializer
     implements StructuredSerializer<SrpInitMessage> {
@@ -21,32 +22,35 @@ class _$SrpInitMessageSerializer
   final String wireName = 'SrpInitMessage';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, SrpInitMessage object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    SrpInitMessage object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return <Object?>[];
   }
 
   @override
   SrpInitMessage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return new SrpInitMessageBuilder().build();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return SrpInitMessageBuilder().build();
   }
 }
 
 class _$SrpInitMessage extends SrpInitMessage {
   factory _$SrpInitMessage([void Function(SrpInitMessageBuilder)? updates]) =>
-      (new SrpInitMessageBuilder()..update(updates))._build();
+      (SrpInitMessageBuilder()..update(updates))._build();
 
   _$SrpInitMessage._() : super._();
-
   @override
   SrpInitMessage rebuild(void Function(SrpInitMessageBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SrpInitMessageBuilder toBuilder() =>
-      new SrpInitMessageBuilder()..replace(this);
+  SrpInitMessageBuilder toBuilder() => SrpInitMessageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -73,7 +77,6 @@ class SrpInitMessageBuilder
 
   @override
   void replace(SrpInitMessage other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SrpInitMessage;
   }
 
@@ -86,7 +89,7 @@ class SrpInitMessageBuilder
   SrpInitMessage build() => _build();
 
   _$SrpInitMessage _build() {
-    final _$result = _$v ?? new _$SrpInitMessage._();
+    final _$result = _$v ?? _$SrpInitMessage._();
     replace(_$result);
     return _$result;
   }

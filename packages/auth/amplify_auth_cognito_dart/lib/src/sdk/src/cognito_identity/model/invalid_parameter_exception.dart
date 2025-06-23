@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity.model.invalid_parameter_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -22,9 +22,9 @@ abstract class InvalidParameterException
   }
 
   /// Thrown for missing or bad input parameter(s).
-  factory InvalidParameterException.build(
-          [void Function(InvalidParameterExceptionBuilder) updates]) =
-      _$InvalidParameterException;
+  factory InvalidParameterException.build([
+    void Function(InvalidParameterExceptionBuilder) updates,
+  ]) = _$InvalidParameterException;
 
   const InvalidParameterException._();
 
@@ -32,41 +32,42 @@ abstract class InvalidParameterException
   factory InvalidParameterException.fromResponse(
     InvalidParameterException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<InvalidParameterException>>
-      serializers = [InvalidParameterExceptionAwsJson11Serializer()];
+  serializers = [InvalidParameterExceptionAwsJson11Serializer()];
 
   /// The message returned by an InvalidParameterException.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentity',
-        shape: 'InvalidParameterException',
-      );
+    namespace: 'com.amazonaws.cognitoidentity',
+    shape: 'InvalidParameterException',
+  );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InvalidParameterException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -74,20 +75,19 @@ abstract class InvalidParameterException
 class InvalidParameterExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<InvalidParameterException> {
   const InvalidParameterExceptionAwsJson11Serializer()
-      : super('InvalidParameterException');
+    : super('InvalidParameterException');
 
   @override
   Iterable<Type> get types => const [
-        InvalidParameterException,
-        _$InvalidParameterException,
-      ];
+    InvalidParameterException,
+    _$InvalidParameterException,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   InvalidParameterException deserialize(
     Serializers serializers,
@@ -105,10 +105,12 @@ class InvalidParameterExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -126,10 +128,9 @@ class InvalidParameterExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

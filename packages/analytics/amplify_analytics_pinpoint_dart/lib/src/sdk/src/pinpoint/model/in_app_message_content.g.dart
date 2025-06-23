@@ -20,27 +20,26 @@ class _$InAppMessageContent extends InAppMessageContent {
   @override
   final InAppMessageButton? secondaryBtn;
 
-  factory _$InAppMessageContent(
-          [void Function(InAppMessageContentBuilder)? updates]) =>
-      (new InAppMessageContentBuilder()..update(updates))._build();
+  factory _$InAppMessageContent([
+    void Function(InAppMessageContentBuilder)? updates,
+  ]) => (InAppMessageContentBuilder()..update(updates))._build();
 
-  _$InAppMessageContent._(
-      {this.backgroundColor,
-      this.bodyConfig,
-      this.headerConfig,
-      this.imageUrl,
-      this.primaryBtn,
-      this.secondaryBtn})
-      : super._();
-
+  _$InAppMessageContent._({
+    this.backgroundColor,
+    this.bodyConfig,
+    this.headerConfig,
+    this.imageUrl,
+    this.primaryBtn,
+    this.secondaryBtn,
+  }) : super._();
   @override
   InAppMessageContent rebuild(
-          void Function(InAppMessageContentBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InAppMessageContentBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageContentBuilder toBuilder() =>
-      new InAppMessageContentBuilder()..replace(this);
+      InAppMessageContentBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -79,13 +78,13 @@ class InAppMessageContentBuilder
 
   InAppMessageBodyConfigBuilder? _bodyConfig;
   InAppMessageBodyConfigBuilder get bodyConfig =>
-      _$this._bodyConfig ??= new InAppMessageBodyConfigBuilder();
+      _$this._bodyConfig ??= InAppMessageBodyConfigBuilder();
   set bodyConfig(InAppMessageBodyConfigBuilder? bodyConfig) =>
       _$this._bodyConfig = bodyConfig;
 
   InAppMessageHeaderConfigBuilder? _headerConfig;
   InAppMessageHeaderConfigBuilder get headerConfig =>
-      _$this._headerConfig ??= new InAppMessageHeaderConfigBuilder();
+      _$this._headerConfig ??= InAppMessageHeaderConfigBuilder();
   set headerConfig(InAppMessageHeaderConfigBuilder? headerConfig) =>
       _$this._headerConfig = headerConfig;
 
@@ -95,13 +94,13 @@ class InAppMessageContentBuilder
 
   InAppMessageButtonBuilder? _primaryBtn;
   InAppMessageButtonBuilder get primaryBtn =>
-      _$this._primaryBtn ??= new InAppMessageButtonBuilder();
+      _$this._primaryBtn ??= InAppMessageButtonBuilder();
   set primaryBtn(InAppMessageButtonBuilder? primaryBtn) =>
       _$this._primaryBtn = primaryBtn;
 
   InAppMessageButtonBuilder? _secondaryBtn;
   InAppMessageButtonBuilder get secondaryBtn =>
-      _$this._secondaryBtn ??= new InAppMessageButtonBuilder();
+      _$this._secondaryBtn ??= InAppMessageButtonBuilder();
   set secondaryBtn(InAppMessageButtonBuilder? secondaryBtn) =>
       _$this._secondaryBtn = secondaryBtn;
 
@@ -123,7 +122,6 @@ class InAppMessageContentBuilder
 
   @override
   void replace(InAppMessageContent other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppMessageContent;
   }
 
@@ -138,14 +136,16 @@ class InAppMessageContentBuilder
   _$InAppMessageContent _build() {
     _$InAppMessageContent _$result;
     try {
-      _$result = _$v ??
-          new _$InAppMessageContent._(
-              backgroundColor: backgroundColor,
-              bodyConfig: _bodyConfig?.build(),
-              headerConfig: _headerConfig?.build(),
-              imageUrl: imageUrl,
-              primaryBtn: _primaryBtn?.build(),
-              secondaryBtn: _secondaryBtn?.build());
+      _$result =
+          _$v ??
+          _$InAppMessageContent._(
+            backgroundColor: backgroundColor,
+            bodyConfig: _bodyConfig?.build(),
+            headerConfig: _headerConfig?.build(),
+            imageUrl: imageUrl,
+            primaryBtn: _primaryBtn?.build(),
+            secondaryBtn: _secondaryBtn?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -159,8 +159,11 @@ class InAppMessageContentBuilder
         _$failedField = 'secondaryBtn';
         _secondaryBtn?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'InAppMessageContent', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'InAppMessageContent',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

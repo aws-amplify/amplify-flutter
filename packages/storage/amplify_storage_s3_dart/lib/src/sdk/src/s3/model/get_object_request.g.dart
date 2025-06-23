@@ -50,45 +50,40 @@ class _$GetObjectRequest extends GetObjectRequest {
   @override
   final ChecksumMode? checksumMode;
 
-  factory _$GetObjectRequest(
-          [void Function(GetObjectRequestBuilder)? updates]) =>
-      (new GetObjectRequestBuilder()..update(updates))._build();
+  factory _$GetObjectRequest([
+    void Function(GetObjectRequestBuilder)? updates,
+  ]) => (GetObjectRequestBuilder()..update(updates))._build();
 
-  _$GetObjectRequest._(
-      {required this.bucket,
-      this.ifMatch,
-      this.ifModifiedSince,
-      this.ifNoneMatch,
-      this.ifUnmodifiedSince,
-      required this.key,
-      this.range,
-      this.responseCacheControl,
-      this.responseContentDisposition,
-      this.responseContentEncoding,
-      this.responseContentLanguage,
-      this.responseContentType,
-      this.responseExpires,
-      this.versionId,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5,
-      this.requestPayer,
-      this.partNumber,
-      this.expectedBucketOwner,
-      this.checksumMode})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'GetObjectRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(key, r'GetObjectRequest', 'key');
-  }
-
+  _$GetObjectRequest._({
+    required this.bucket,
+    this.ifMatch,
+    this.ifModifiedSince,
+    this.ifNoneMatch,
+    this.ifUnmodifiedSince,
+    required this.key,
+    this.range,
+    this.responseCacheControl,
+    this.responseContentDisposition,
+    this.responseContentEncoding,
+    this.responseContentLanguage,
+    this.responseContentType,
+    this.responseExpires,
+    this.versionId,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+    this.requestPayer,
+    this.partNumber,
+    this.expectedBucketOwner,
+    this.checksumMode,
+  }) : super._();
   @override
   GetObjectRequest rebuild(void Function(GetObjectRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   GetObjectRequestBuilder toBuilder() =>
-      new GetObjectRequestBuilder()..replace(this);
+      GetObjectRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -281,7 +276,6 @@ class GetObjectRequestBuilder
 
   @override
   void replace(GetObjectRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetObjectRequest;
   }
 
@@ -294,51 +288,58 @@ class GetObjectRequestBuilder
   GetObjectRequest build() => _build();
 
   _$GetObjectRequest _build() {
-    final _$result = _$v ??
-        new _$GetObjectRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'GetObjectRequest', 'bucket'),
-            ifMatch: ifMatch,
-            ifModifiedSince: ifModifiedSince,
-            ifNoneMatch: ifNoneMatch,
-            ifUnmodifiedSince: ifUnmodifiedSince,
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'GetObjectRequest', 'key'),
-            range: range,
-            responseCacheControl: responseCacheControl,
-            responseContentDisposition: responseContentDisposition,
-            responseContentEncoding: responseContentEncoding,
-            responseContentLanguage: responseContentLanguage,
-            responseContentType: responseContentType,
-            responseExpires: responseExpires,
-            versionId: versionId,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKey: sseCustomerKey,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            requestPayer: requestPayer,
-            partNumber: partNumber,
-            expectedBucketOwner: expectedBucketOwner,
-            checksumMode: checksumMode);
+    final _$result =
+        _$v ??
+        _$GetObjectRequest._(
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'GetObjectRequest',
+            'bucket',
+          ),
+          ifMatch: ifMatch,
+          ifModifiedSince: ifModifiedSince,
+          ifNoneMatch: ifNoneMatch,
+          ifUnmodifiedSince: ifUnmodifiedSince,
+          key: BuiltValueNullFieldError.checkNotNull(
+            key,
+            r'GetObjectRequest',
+            'key',
+          ),
+          range: range,
+          responseCacheControl: responseCacheControl,
+          responseContentDisposition: responseContentDisposition,
+          responseContentEncoding: responseContentEncoding,
+          responseContentLanguage: responseContentLanguage,
+          responseContentType: responseContentType,
+          responseExpires: responseExpires,
+          versionId: versionId,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKey: sseCustomerKey,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          requestPayer: requestPayer,
+          partNumber: partNumber,
+          expectedBucketOwner: expectedBucketOwner,
+          checksumMode: checksumMode,
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$GetObjectRequestPayload extends GetObjectRequestPayload {
-  factory _$GetObjectRequestPayload(
-          [void Function(GetObjectRequestPayloadBuilder)? updates]) =>
-      (new GetObjectRequestPayloadBuilder()..update(updates))._build();
+  factory _$GetObjectRequestPayload([
+    void Function(GetObjectRequestPayloadBuilder)? updates,
+  ]) => (GetObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$GetObjectRequestPayload._() : super._();
-
   @override
   GetObjectRequestPayload rebuild(
-          void Function(GetObjectRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetObjectRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetObjectRequestPayloadBuilder toBuilder() =>
-      new GetObjectRequestPayloadBuilder()..replace(this);
+      GetObjectRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -361,7 +362,6 @@ class GetObjectRequestPayloadBuilder
 
   @override
   void replace(GetObjectRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetObjectRequestPayload;
   }
 
@@ -374,7 +374,7 @@ class GetObjectRequestPayloadBuilder
   GetObjectRequestPayload build() => _build();
 
   _$GetObjectRequestPayload _build() {
-    final _$result = _$v ?? new _$GetObjectRequestPayload._();
+    final _$result = _$v ?? _$GetObjectRequestPayload._();
     replace(_$result);
     return _$result;
   }

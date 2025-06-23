@@ -1,10 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:html';
-
 import 'package:example_common/src/components/component.dart';
 import 'package:example_common/src/utils/component_edge_insets.dart';
+import 'package:web/web.dart';
 
 /// {@template example_common.container_component}
 /// A component that renders a container with an optional child
@@ -36,7 +35,7 @@ class ContainerComponent extends Component {
 
   @override
   Component render() {
-    final div = Element.div();
+    final div = HTMLDivElement();
     if (margin != null) div.style.margin = margin!.toCssString();
     if (padding != null) div.style.padding = padding!.toCssString();
     if (height != null) div.style.height = '${height}px';

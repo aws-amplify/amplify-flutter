@@ -2,7 +2,7 @@ group 'com.amazonaws.amplify.amplify_push_notifications'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.9.10'
     repositories {
         google()
         mavenCentral()
@@ -27,15 +27,17 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
 
 android {
-    compileSdkVersion 33
+    compileSdk 34
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     sourceSets {
@@ -63,9 +65,10 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.2.0"
     api "com.google.firebase:firebase-messaging:23.2.0"
     // Import support library for Amplify push utils
-    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.13.0'
+    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.21.1'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
     implementation project(path: ':flutter_plugin_android_lifecycle')
     implementation 'androidx.test:core-ktx:1.5.0'

@@ -20,13 +20,11 @@ final _voidType = _typeOf<void>();
 /// {@endtemplate}
 abstract class WorkerBeeCommon<Request extends Object, Response>
     implements AWSLoggerPlugin, Closeable {
-  /// {@template worker_bee.worker_bee_common}
-  WorkerBeeCommon({
-    Serializers? serializers,
-  }) : serializers = serializers == null
-            ? workerBeeSerializers
-            : (serializers.toBuilder()
-                  ..addAll(workerBeeSerializers.serializers))
+  /// {@macro worker_bee.worker_bee_common}
+  WorkerBeeCommon({Serializers? serializers})
+    : serializers = serializers == null
+          ? workerBeeSerializers
+          : (serializers.toBuilder()..addAll(workerBeeSerializers.serializers))
                 .build() {
     _checkSerializers();
     _initLogger();
@@ -45,11 +43,11 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
         serializers.serializerForType(Response) != null;
 
     if (
-        // Cannot check `Response != void`
-        _typeOf<Response>() != _voidType &&
-            // No determination can be made when Response is nullable
-            _typeOf<Response>() != _typeOf<Response?>() &&
-            !hasResponseSerializer) {
+    // Cannot check `Response != void`
+    _typeOf<Response>() != _voidType &&
+        // No determination can be made when Response is nullable
+        _typeOf<Response>() != _typeOf<Response?>() &&
+        !hasResponseSerializer) {
       throw StateError(
         'Worker did not include serializer for response type ($Response)',
       );
@@ -70,9 +68,7 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
 
   @override
   void handleLogEntry(LogEntry logEntry) {
-    logSink.sink.add(
-      WorkerLogEntry.fromLogEntry(logEntry, local: false),
-    );
+    logSink.sink.add(WorkerLogEntry.fromLogEntry(logEntry, local: false));
     if (logsController.isClosed) return;
     logsController.add(
       WorkerLogEntry.fromLogEntry(logEntry, local: !isRemoteWorker),
@@ -122,8 +118,9 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
 
   /// The log stream for external listening.
   @protected
-  final StreamController<LogEntry> logsController =
-      StreamController.broadcast(sync: true);
+  final StreamController<LogEntry> logsController = StreamController.broadcast(
+    sync: true,
+  );
 
   /// The logger to use for all messages.
   Stream<LogEntry> get logs => logsController.stream;
@@ -168,9 +165,7 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
   ///
   /// Should only be called from a worker bee.
   @mustCallSuper
-  Future<void> connect({
-    StreamChannel<LogEntry>? logsChannel,
-  }) async {
+  Future<void> connect({StreamChannel<LogEntry>? logsChannel}) async {
     _isRemoteWorker = true;
     if (logsChannel != null) {
       _logsChannel = logsChannel;
@@ -237,16 +232,13 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
 
   @override
   @mustCallSuper
-  Future<void> close({
-    bool force = false,
-  }) =>
-      _closeMemoizer.runOnce(() async {
-        logger.debug('Closing worker (force=$force)');
-        await Future.wait(
-          _pendingOperations.map(
-            (op) => force ? op.cancel() : op.valueOrCancellation(),
-          ),
-        );
-        await sink.close();
-      });
+  Future<void> close({bool force = false}) => _closeMemoizer.runOnce(() async {
+    logger.debug('Closing worker (force=$force)');
+    await Future.wait(
+      _pendingOperations.map(
+        (op) => force ? op.cancel() : op.valueOrCancellation(),
+      ),
+    );
+    await sink.close();
+  });
 }

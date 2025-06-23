@@ -12,26 +12,21 @@ class _$PutEventsRequest extends PutEventsRequest {
   @override
   final EventsRequest eventsRequest;
 
-  factory _$PutEventsRequest(
-          [void Function(PutEventsRequestBuilder)? updates]) =>
-      (new PutEventsRequestBuilder()..update(updates))._build();
+  factory _$PutEventsRequest([
+    void Function(PutEventsRequestBuilder)? updates,
+  ]) => (PutEventsRequestBuilder()..update(updates))._build();
 
-  _$PutEventsRequest._(
-      {required this.applicationId, required this.eventsRequest})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        applicationId, r'PutEventsRequest', 'applicationId');
-    BuiltValueNullFieldError.checkNotNull(
-        eventsRequest, r'PutEventsRequest', 'eventsRequest');
-  }
-
+  _$PutEventsRequest._({
+    required this.applicationId,
+    required this.eventsRequest,
+  }) : super._();
   @override
   PutEventsRequest rebuild(void Function(PutEventsRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   PutEventsRequestBuilder toBuilder() =>
-      new PutEventsRequestBuilder()..replace(this);
+      PutEventsRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +57,7 @@ class PutEventsRequestBuilder
 
   EventsRequestBuilder? _eventsRequest;
   EventsRequestBuilder get eventsRequest =>
-      _$this._eventsRequest ??= new EventsRequestBuilder();
+      _$this._eventsRequest ??= EventsRequestBuilder();
   set eventsRequest(EventsRequestBuilder? eventsRequest) =>
       _$this._eventsRequest = eventsRequest;
 
@@ -80,7 +75,6 @@ class PutEventsRequestBuilder
 
   @override
   void replace(PutEventsRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutEventsRequest;
   }
 
@@ -95,19 +89,27 @@ class PutEventsRequestBuilder
   _$PutEventsRequest _build() {
     _$PutEventsRequest _$result;
     try {
-      _$result = _$v ??
-          new _$PutEventsRequest._(
-              applicationId: BuiltValueNullFieldError.checkNotNull(
-                  applicationId, r'PutEventsRequest', 'applicationId'),
-              eventsRequest: eventsRequest.build());
+      _$result =
+          _$v ??
+          _$PutEventsRequest._(
+            applicationId: BuiltValueNullFieldError.checkNotNull(
+              applicationId,
+              r'PutEventsRequest',
+              'applicationId',
+            ),
+            eventsRequest: eventsRequest.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'eventsRequest';
         eventsRequest.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'PutEventsRequest', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'PutEventsRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v1.machine_learning.machine_learning_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,18 +32,14 @@ abstract class MachineLearningServerBase extends _i1.HttpServerBase {
     router.add(
       'POST',
       '/',
-      _i1.RpcRouter(
-        'X-Amz-Target',
-        {'AmazonML_20141212.Predict': service.predict},
-      ),
+      _i1.RpcRouter('X-Amz-Target', {
+        'AmazonML_20141212.Predict': service.predict,
+      }).call,
     );
     return router;
   }();
 
-  _i3.Future<PredictOutput> predict(
-    PredictInput input,
-    _i1.Context context,
-  );
+  _i3.Future<PredictOutput> predict(PredictInput input, _i1.Context context);
   _i3.Future<_i4.Response> call(_i4.Request request) => _router(request);
 }
 
@@ -53,9 +49,13 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
   @override
   final MachineLearningServerBase service;
 
-  late final _i1
-      .HttpProtocol<PredictInput, PredictInput, PredictOutput, PredictOutput>
-      _predictProtocol = _i2.AwsJson1_1Protocol(
+  late final _i1.HttpProtocol<
+    PredictInput,
+    PredictInput,
+    PredictOutput,
+    PredictOutput
+  >
+  _predictProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
@@ -65,26 +65,18 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _predictProtocol.contentType;
     try {
-      final payload = (await _predictProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(PredictInput),
-      ) as PredictInput);
-      final input = PredictInput.fromRequest(
-        payload,
-        awsRequest,
-        labels: {},
-      );
-      final output = await service.predict(
-        input,
-        context,
-      );
+      final payload =
+          (await _predictProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(PredictInput),
+              )
+              as PredictInput);
+      final input = PredictInput.fromRequest(payload, awsRequest, labels: {});
+      final output = await service.predict(input, context);
       const statusCode = 200;
       final body = await _predictProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          PredictOutput,
-          [FullType(PredictOutput)],
-        ),
+        specifiedType: const FullType(PredictOutput, [FullType(PredictOutput)]),
       );
       return _i4.Response(
         statusCode,
@@ -94,10 +86,9 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
     } on InternalServerException catch (e) {
       final body = _predictProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          InternalServerException,
-          [FullType(InternalServerException)],
-        ),
+        specifiedType: const FullType(InternalServerException, [
+          FullType(InternalServerException),
+        ]),
       );
       const statusCode = 500;
       return _i4.Response(
@@ -108,10 +99,9 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
     } on InvalidInputException catch (e) {
       final body = _predictProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          InvalidInputException,
-          [FullType(InvalidInputException)],
-        ),
+        specifiedType: const FullType(InvalidInputException, [
+          FullType(InvalidInputException),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -122,10 +112,9 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
     } on LimitExceededException catch (e) {
       final body = _predictProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          LimitExceededException,
-          [FullType(LimitExceededException)],
-        ),
+        specifiedType: const FullType(LimitExceededException, [
+          FullType(LimitExceededException),
+        ]),
       );
       const statusCode = 417;
       return _i4.Response(
@@ -136,10 +125,9 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
     } on PredictorNotMountedException catch (e) {
       final body = _predictProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          PredictorNotMountedException,
-          [FullType(PredictorNotMountedException)],
-        ),
+        specifiedType: const FullType(PredictorNotMountedException, [
+          FullType(PredictorNotMountedException),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -150,10 +138,9 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
     } on ResourceNotFoundException catch (e) {
       final body = _predictProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          ResourceNotFoundException,
-          [FullType(ResourceNotFoundException)],
-        ),
+        specifiedType: const FullType(ResourceNotFoundException, [
+          FullType(ResourceNotFoundException),
+        ]),
       );
       const statusCode = 404;
       return _i4.Response(
@@ -162,10 +149,7 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 }

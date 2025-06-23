@@ -18,16 +18,10 @@ import 'package:pub_semver/pub_semver.dart';
 /// Encapsulates all repository functionality including package and Git
 /// management.
 class Repo {
-  Repo(
-    this.aftConfig,
-    this.git, {
-    AWSLogger? logger,
-  }) : logger = logger ?? AWSLogger().createChild('Repo');
+  Repo(this.aftConfig, this.git, {AWSLogger? logger})
+    : logger = logger ?? AWSLogger().createChild('Repo');
 
-  static Future<Repo> open(
-    AftConfig aftConfig, {
-    AWSLogger? logger,
-  }) async {
+  static Future<Repo> open(AftConfig aftConfig, {AWSLogger? logger}) async {
     final gitDir = await GitDir.fromExisting(
       aftConfig.rootDirectory.toFilePath(),
     );
@@ -44,8 +38,9 @@ class Repo {
   late final Directory rootDir = Directory.fromUri(aftConfig.rootDirectory);
 
   /// The current working directory.
-  late final Directory workingDirectory =
-      Directory.fromUri(aftConfig.workingDirectory);
+  late final Directory workingDirectory = Directory.fromUri(
+    aftConfig.workingDirectory,
+  );
 
   final AWSLogger logger;
 
@@ -56,13 +51,11 @@ class Repo {
   /// All packages which can be published to `pub.dev`.
   List<PackageInfo> publishablePackages([
     Map<String, PackageInfo>? allPackages,
-  ]) =>
-      UnmodifiableListView(
-        (allPackages ?? this.allPackages)
-            .values
-            .where((pkg) => pkg.isPublishable)
-            .toList(),
-      );
+  ]) => UnmodifiableListView(
+    (allPackages ?? this.allPackages).values
+        .where((pkg) => pkg.isPublishable)
+        .toList(),
+  );
 
   /// Returns the latest version bump commit for [package], or `null` if no such
   /// commit exists.
@@ -72,7 +65,8 @@ class Repo {
   /// bump.
   Future<String?> latestBumpRef(PackageInfo package) async {
     final packageName = package.name;
-    final component = components[packageName]?.name ??
+    final component =
+        components[packageName]?.name ??
         components.values
             .firstWhereOrNull(
               (component) => component.packages
@@ -102,18 +96,18 @@ class Repo {
   /// Will include dev dependencies if [includeDevDependencies] is `true`.
   Map<PackageInfo, List<PackageInfo>> getPackageGraph({
     bool includeDevDependencies = false,
-  }) =>
-      UnmodifiableMapView({
-        for (final package in allPackages.values)
-          package: [
-            ...package.pubspecInfo.pubspec.dependencies.keys,
-            if (includeDevDependencies)
-              ...package.pubspecInfo.pubspec.devDependencies.keys,
-          ]
+  }) => UnmodifiableMapView({
+    for (final package in allPackages.values)
+      package:
+          [
+                ...package.pubspecInfo.pubspec.dependencies.keys,
+                if (includeDevDependencies)
+                  ...package.pubspecInfo.pubspec.devDependencies.keys,
+              ]
               .map((packageName) => allPackages[packageName])
               .whereType<PackageInfo>()
               .toList(),
-      });
+  });
 
   /// The directed graph of packages to the packages it depends on.
   late final Map<PackageInfo, List<PackageInfo>> packageGraph =
@@ -160,12 +154,10 @@ class Repo {
     final changedPaths = await git.diffTrees(baseTree, headTree);
     final changedPackages = <PackageInfo>{};
     for (final changedPath in changedPaths) {
-      final changedPackage = allPackages.values.firstWhereOrNull(
-        (pkg) {
-          final relativePkgPath = p.relative(pkg.path, from: rootDir.path);
-          return changedPath.contains('$relativePkgPath/');
-        },
-      );
+      final changedPackage = allPackages.values.firstWhereOrNull((pkg) {
+        final relativePkgPath = p.relative(pkg.path, from: rootDir.path);
+        return changedPath.contains('$relativePkgPath/');
+      });
       if (changedPackage != null &&
           // Do not track example packages for git ops
           changedPackage.isDevelopmentPackage) {
@@ -180,10 +172,7 @@ class Repo {
     for (final package in changedPackages) {
       await for (final (sha, commit) in git.revList(baseRef, headRef)) {
         final parent = await git.commitFromRevision(commit.parents.first);
-        final commitPaths = await git.diffTrees(
-          parent.treeSha,
-          commit.treeSha,
-        );
+        final commitPaths = await git.diffTrees(parent.treeSha, commit.treeSha);
         final relativePath = p.relative(package.path, from: rootDir.path);
         final changedPath = commitPaths.firstWhereOrNull(
           (path) => path.contains('$relativePath/'),
@@ -260,9 +249,7 @@ class Repo {
   /// Otherwise, all repo packages are affected.
   ///
   /// Returns the list of packages which both had changes and were written.
-  Future<List<PackageInfo>> writeChanges({
-    List<PackageInfo>? packages,
-  }) async {
+  Future<List<PackageInfo>> writeChanges({List<PackageInfo>? packages}) async {
     final affectedPackages = <PackageInfo>[];
     for (final package in packages ?? allPackages.values.toList()) {
       final edits = package.pubspecInfo.pubspecYamlEditor.edits;
@@ -272,12 +259,14 @@ class Repo {
         continue;
       }
       affectedPackages.add(package);
-      await File(p.join(package.path, 'pubspec.yaml'))
-          .writeAsString(package.pubspecInfo.pubspecYamlEditor.toString());
+      await File(
+        p.join(package.path, 'pubspec.yaml'),
+      ).writeAsString(package.pubspecInfo.pubspecYamlEditor.toString());
       final changelogUpdate = changelogUpdates[package];
       if (changelogUpdate != null && changelogUpdate.hasUpdate) {
-        await File(p.join(package.path, 'CHANGELOG.md'))
-            .writeAsString(changelogUpdate.toString());
+        await File(
+          p.join(package.path, 'CHANGELOG.md'),
+        ).writeAsString(changelogUpdate.toString());
       }
     }
     return affectedPackages;
@@ -298,7 +287,6 @@ class Repo {
     required VersionBumpType type,
     required bool Function(PackageInfo) canBump,
     required bool includeInChangelog,
-    bool? propagateToComponent,
   }) {
     logger.verbose('bumpVersion ${package.name} $commit');
     final componentName = aftConfig.componentForPackage(package.name);
@@ -306,22 +294,18 @@ class Repo {
     final currentVersion = package.version;
     final proposedPackageVersion =
         versionChanges.proposedVersion(package.name) ?? currentVersion;
-    final proposedComponentVersion =
-        versionChanges.proposedVersion(componentName);
+    final proposedComponentVersion = versionChanges.proposedVersion(
+      componentName,
+    );
     final newProposedVersion = currentVersion.nextAmplifyVersion(type);
-    final newVersion = maxBy(
-      [
-        proposedPackageVersion,
-        if (proposedComponentVersion != null) proposedComponentVersion,
-        newProposedVersion,
-      ],
-      (version) => version,
-    )!;
-    propagateToComponent ??= component != null &&
-        component.propagate.propagateToComponent(
-          currentVersion,
-          newVersion,
-        );
+    final newVersion = maxBy([
+      proposedPackageVersion,
+      if (proposedComponentVersion != null) proposedComponentVersion,
+      newProposedVersion,
+    ], (version) => version)!;
+    final propagateToComponent =
+        component != null &&
+        component.propagate.propagateToComponent(currentVersion, newVersion);
     versionChanges.updateProposedVersion(
       package,
       newVersion,
@@ -349,21 +333,22 @@ class Repo {
         'Bumping ${package.name} from $currentVersion to $newVersion: '
         '${commit.summary}',
       );
-      package.pubspecInfo.pubspecYamlEditor.update(
-        ['version'],
-        newVersion.toString(),
-      );
+      package.pubspecInfo.pubspecYamlEditor.update([
+        'version',
+      ], newVersion.toString());
       // Packages which depend on the package being bumped.
       final packageDependents = allPackages.values.where(
         (pkg) =>
             pkg.pubspecInfo.pubspec.dependencies.keys.contains(package.name) ||
             pkg.pubspecInfo.pubspec.devDependencies.keys.contains(package.name),
       );
-      if (commit.isBreakingChange) {
-        // Back-propagate to all dependent packages for breaking changes.
+      if (commit.isBreakingChange || propagateToComponent) {
+        // Back-propagate to all dependent packages for breaking changes or
+        // changes that need to propagate to a component.
         //
-        // Since we set semantic version constraints, only a breaking change
-        // in a direct dependency necessitates a version bump.
+        // Since we set semantic version constraints, only a breaking change in
+        // a direct dependency or a change that requires propagation
+        // necessitates a version bump.
         logger.verbose(
           'Breaking change. Performing dfs on dependent packages...',
         );
@@ -378,12 +363,6 @@ class Repo {
               includeInChangelog: false,
             );
           }
-          updateConstraint(package, dependent);
-        }
-      } else if (type == VersionBumpType.nonBreaking) {
-        // For non-breaking changes, we still need to update all constraints
-        // since we "pin" to minor versions.
-        for (final dependent in packageDependents) {
           updateConstraint(package, dependent);
         }
       }
@@ -408,7 +387,6 @@ class Repo {
               type: type,
               canBump: canBump,
               includeInChangelog: false,
-              propagateToComponent: false,
             );
           },
         );
@@ -424,13 +402,10 @@ class Repo {
       );
       final packageVersion =
           versionChanges.proposedVersion(summaryPackage.name) ??
-              versionChanges.proposedVersion(componentName);
+          versionChanges.proposedVersion(componentName);
       final currentChangelogUpdate = changelogUpdates[summaryPackage];
       changelogUpdates[summaryPackage] = summaryPackage.changelog.update(
-        commits: {
-          ...?currentChangelogUpdate?.commits,
-          commit,
-        },
+        commits: {...?currentChangelogUpdate?.commits, commit},
         version: packageVersion,
       );
     }
@@ -444,10 +419,10 @@ class Repo {
     if (newVersion == null) {
       return;
     }
-    final hasDependency =
-        dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name);
-    final hasDevDependency =
-        dependent.pubspecInfo.pubspec.devDependencies.containsKey(package.name);
+    final hasDependency = dependent.pubspecInfo.pubspec.dependencies
+        .containsKey(package.name);
+    final hasDevDependency = dependent.pubspecInfo.pubspec.devDependencies
+        .containsKey(package.name);
     if (hasDependency || hasDevDependency) {
       final newConstraint = newVersion.amplifyConstraint(
         minVersion: newVersion,
@@ -456,13 +431,10 @@ class Repo {
         'Bumping dependency on ${package.name} in ${dependent.name} '
         'to $newConstraint',
       );
-      dependent.pubspecInfo.pubspecYamlEditor.update(
-        [
-          if (hasDependency) 'dependencies' else 'dev_dependencies',
-          package.name,
-        ],
-        newConstraint,
-      );
+      dependent.pubspecInfo.pubspecYamlEditor.update([
+        if (hasDependency) 'dependencies' else 'dev_dependencies',
+        package.name,
+      ], newConstraint);
     }
   }
 }

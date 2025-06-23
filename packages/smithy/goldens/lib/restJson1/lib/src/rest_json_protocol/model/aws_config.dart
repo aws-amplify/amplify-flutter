@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.aws_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,14 +14,8 @@ part 'aws_config.g.dart';
 abstract class AwsConfig
     with _i1.AWSEquatable<AwsConfig>
     implements Built<AwsConfig, AwsConfigBuilder> {
-  factory AwsConfig({
-    DateTime? clockTime,
-    ScopedConfig? scopedConfig,
-  }) {
-    return _$AwsConfig._(
-      clockTime: clockTime,
-      scopedConfig: scopedConfig,
-    );
+  factory AwsConfig({DateTime? clockTime, ScopedConfig? scopedConfig}) {
+    return _$AwsConfig._(clockTime: clockTime, scopedConfig: scopedConfig);
   }
 
   factory AwsConfig.build([void Function(AwsConfigBuilder) updates]) =
@@ -30,7 +24,7 @@ abstract class AwsConfig
   const AwsConfig._();
 
   static const List<_i2.SmithySerializer<AwsConfig>> serializers = [
-    AwsConfigRestJson1Serializer()
+    AwsConfigRestJson1Serializer(),
   ];
 
   /// This is the time that should be set during the course of the test. This is important for things like signing where the clock time impacts the result.
@@ -39,21 +33,13 @@ abstract class AwsConfig
   /// Config settings that are scoped to different sources, such as environment variables or the AWS config file.
   ScopedConfig? get scopedConfig;
   @override
-  List<Object?> get props => [
-        clockTime,
-        scopedConfig,
-      ];
+  List<Object?> get props => [clockTime, scopedConfig];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AwsConfig')
-      ..add(
-        'clockTime',
-        clockTime,
-      )
-      ..add(
-        'scopedConfig',
-        scopedConfig,
-      );
+      ..add('clockTime', clockTime)
+      ..add('scopedConfig', scopedConfig);
     return helper.toString();
   }
 }
@@ -63,17 +49,13 @@ class AwsConfigRestJson1Serializer
   const AwsConfigRestJson1Serializer() : super('AwsConfig');
 
   @override
-  Iterable<Type> get types => const [
-        AwsConfig,
-        _$AwsConfig,
-      ];
+  Iterable<Type> get types => const [AwsConfig, _$AwsConfig];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   AwsConfig deserialize(
     Serializers serializers,
@@ -91,15 +73,20 @@ class AwsConfigRestJson1Serializer
       }
       switch (key) {
         case 'clockTime':
-          result.clockTime = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.clockTime =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
         case 'scopedConfig':
-          result.scopedConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ScopedConfig),
-          ) as ScopedConfig));
+          result.scopedConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ScopedConfig),
+                )
+                as ScopedConfig),
+          );
       }
     }
 
@@ -117,18 +104,22 @@ class AwsConfigRestJson1Serializer
     if (clockTime != null) {
       result$
         ..add('clockTime')
-        ..add(serializers.serialize(
-          clockTime,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            clockTime,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     if (scopedConfig != null) {
       result$
         ..add('scopedConfig')
-        ..add(serializers.serialize(
-          scopedConfig,
-          specifiedType: const FullType(ScopedConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            scopedConfig,
+            specifiedType: const FullType(ScopedConfig),
+          ),
+        );
     }
     return result$;
   }

@@ -1,13 +1,14 @@
 name: amplify_analytics_pinpoint_example
 description: Demonstrates how to use the amplify_analytics_pinpoint plugin.
+version: 0.1.0
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=3.10.0"
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
 
 dependencies:
   amplify_analytics_pinpoint: ">=1.0.0-next.8 <1.0.0-next.9"
@@ -19,19 +20,19 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  amplify_analytics_pinpoint_dart: ">=0.2.0 <0.3.0"
+  amplify_analytics_pinpoint_dart: ">=0.4.5 <0.5.0"
   amplify_integration_test: any
   amplify_lints:
     path: ../../../amplify_lints
   aws_common: ">=0.4.0 <0.5.0"
-  build_runner: ^2.4.0
-  built_value: ">=8.6.0 <8.7.0"
+  build_runner: ^2.4.9
+  built_value: ^8.10.1
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-  json_annotation: ">=4.8.1 <4.9.0"
-  json_serializable: 6.7.1
+  json_annotation: ^4.9.0
+  json_serializable: ^6.9.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

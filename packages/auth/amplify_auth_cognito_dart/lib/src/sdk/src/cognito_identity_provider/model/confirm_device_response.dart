@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_device_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -18,13 +18,14 @@ abstract class ConfirmDeviceResponse
   factory ConfirmDeviceResponse({bool? userConfirmationNecessary}) {
     userConfirmationNecessary ??= false;
     return _$ConfirmDeviceResponse._(
-        userConfirmationNecessary: userConfirmationNecessary);
+      userConfirmationNecessary: userConfirmationNecessary,
+    );
   }
 
   /// Confirms the device response.
-  factory ConfirmDeviceResponse.build(
-          [void Function(ConfirmDeviceResponseBuilder) updates]) =
-      _$ConfirmDeviceResponse;
+  factory ConfirmDeviceResponse.build([
+    void Function(ConfirmDeviceResponseBuilder) updates,
+  ]) = _$ConfirmDeviceResponse;
 
   const ConfirmDeviceResponse._();
 
@@ -32,11 +33,10 @@ abstract class ConfirmDeviceResponse
   factory ConfirmDeviceResponse.fromResponse(
     ConfirmDeviceResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<ConfirmDeviceResponse>> serializers = [
-    ConfirmDeviceResponseAwsJson11Serializer()
+    ConfirmDeviceResponseAwsJson11Serializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -48,13 +48,11 @@ abstract class ConfirmDeviceResponse
   bool get userConfirmationNecessary;
   @override
   List<Object?> get props => [userConfirmationNecessary];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmDeviceResponse')
-      ..add(
-        'userConfirmationNecessary',
-        userConfirmationNecessary,
-      );
+      ..add('userConfirmationNecessary', userConfirmationNecessary);
     return helper.toString();
   }
 }
@@ -62,20 +60,19 @@ abstract class ConfirmDeviceResponse
 class ConfirmDeviceResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ConfirmDeviceResponse> {
   const ConfirmDeviceResponseAwsJson11Serializer()
-      : super('ConfirmDeviceResponse');
+    : super('ConfirmDeviceResponse');
 
   @override
   Iterable<Type> get types => const [
-        ConfirmDeviceResponse,
-        _$ConfirmDeviceResponse,
-      ];
+    ConfirmDeviceResponse,
+    _$ConfirmDeviceResponse,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   ConfirmDeviceResponse deserialize(
     Serializers serializers,
@@ -93,10 +90,12 @@ class ConfirmDeviceResponseAwsJson11Serializer
       }
       switch (key) {
         case 'UserConfirmationNecessary':
-          result.userConfirmationNecessary = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.userConfirmationNecessary =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 

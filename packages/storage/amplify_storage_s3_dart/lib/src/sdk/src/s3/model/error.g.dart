@@ -17,16 +17,15 @@ class _$Error extends Error {
   final String? message;
 
   factory _$Error([void Function(ErrorBuilder)? updates]) =>
-      (new ErrorBuilder()..update(updates))._build();
+      (ErrorBuilder()..update(updates))._build();
 
   _$Error._({this.key, this.versionId, this.code, this.message}) : super._();
-
   @override
   Error rebuild(void Function(ErrorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ErrorBuilder toBuilder() => new ErrorBuilder()..replace(this);
+  ErrorBuilder toBuilder() => ErrorBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -85,7 +84,6 @@ class ErrorBuilder implements Builder<Error, ErrorBuilder> {
 
   @override
   void replace(Error other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Error;
   }
 
@@ -98,9 +96,9 @@ class ErrorBuilder implements Builder<Error, ErrorBuilder> {
   Error build() => _build();
 
   _$Error _build() {
-    final _$result = _$v ??
-        new _$Error._(
-            key: key, versionId: versionId, code: code, message: message);
+    final _$result =
+        _$v ??
+        _$Error._(key: key, versionId: versionId, code: code, message: message);
     replace(_$result);
     return _$result;
   }

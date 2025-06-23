@@ -11,9 +11,7 @@ part 'sig_v4_trait.g.dart';
 @ShapeIdConverter()
 @JsonSerializable()
 class SigV4Trait with AWSSerializable implements Trait<SigV4Trait> {
-  const SigV4Trait({
-    required this.name,
-  });
+  const SigV4Trait({required this.name});
 
   factory SigV4Trait.fromJson(Object? json) =>
       _$SigV4TraitFromJson((json as Map).cast<String, Object?>());

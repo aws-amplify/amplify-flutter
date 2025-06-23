@@ -6,34 +6,46 @@ part of 'oauth_parameters.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const OAuthErrorCode _$invalidRequest =
-    const OAuthErrorCode._('invalidRequest');
-const OAuthErrorCode _$unauthorizedClient =
-    const OAuthErrorCode._('unauthorizedClient');
+const OAuthErrorCode _$invalidRequest = const OAuthErrorCode._(
+  'invalidRequest',
+);
+const OAuthErrorCode _$unauthorizedClient = const OAuthErrorCode._(
+  'unauthorizedClient',
+);
 const OAuthErrorCode _$accessDenied = const OAuthErrorCode._('accessDenied');
-const OAuthErrorCode _$unsupportedResponseType =
-    const OAuthErrorCode._('unsupportedResponseType');
+const OAuthErrorCode _$unsupportedResponseType = const OAuthErrorCode._(
+  'unsupportedResponseType',
+);
 const OAuthErrorCode _$invalidScope = const OAuthErrorCode._('invalidScope');
 const OAuthErrorCode _$serverError = const OAuthErrorCode._('serverError');
-const OAuthErrorCode _$temporarilyUnavailable =
-    const OAuthErrorCode._('temporarilyUnavailable');
-const OAuthErrorCode _$interactionRequired =
-    const OAuthErrorCode._('interactionRequired');
+const OAuthErrorCode _$temporarilyUnavailable = const OAuthErrorCode._(
+  'temporarilyUnavailable',
+);
+const OAuthErrorCode _$interactionRequired = const OAuthErrorCode._(
+  'interactionRequired',
+);
 const OAuthErrorCode _$loginRequired = const OAuthErrorCode._('loginRequired');
-const OAuthErrorCode _$accountSelectionRequired =
-    const OAuthErrorCode._('accountSelectionRequired');
-const OAuthErrorCode _$consentRequired =
-    const OAuthErrorCode._('consentRequired');
-const OAuthErrorCode _$invalidRequestUri =
-    const OAuthErrorCode._('invalidRequestUri');
-const OAuthErrorCode _$invalidRequestObject =
-    const OAuthErrorCode._('invalidRequestObject');
-const OAuthErrorCode _$requestNotSupported =
-    const OAuthErrorCode._('requestNotSupported');
-const OAuthErrorCode _$requestUriNotSupported =
-    const OAuthErrorCode._('requestUriNotSupported');
-const OAuthErrorCode _$registrationUriNotSupported =
-    const OAuthErrorCode._('registrationUriNotSupported');
+const OAuthErrorCode _$accountSelectionRequired = const OAuthErrorCode._(
+  'accountSelectionRequired',
+);
+const OAuthErrorCode _$consentRequired = const OAuthErrorCode._(
+  'consentRequired',
+);
+const OAuthErrorCode _$invalidRequestUri = const OAuthErrorCode._(
+  'invalidRequestUri',
+);
+const OAuthErrorCode _$invalidRequestObject = const OAuthErrorCode._(
+  'invalidRequestObject',
+);
+const OAuthErrorCode _$requestNotSupported = const OAuthErrorCode._(
+  'requestNotSupported',
+);
+const OAuthErrorCode _$requestUriNotSupported = const OAuthErrorCode._(
+  'requestUriNotSupported',
+);
+const OAuthErrorCode _$registrationUriNotSupported = const OAuthErrorCode._(
+  'registrationUriNotSupported',
+);
 
 OAuthErrorCode _$valueOf(String name) {
   switch (name) {
@@ -70,38 +82,39 @@ OAuthErrorCode _$valueOf(String name) {
     case 'registrationUriNotSupported':
       return _$registrationUriNotSupported;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<OAuthErrorCode> _$values =
-    new BuiltSet<OAuthErrorCode>(const <OAuthErrorCode>[
-  _$invalidRequest,
-  _$unauthorizedClient,
-  _$accessDenied,
-  _$unsupportedResponseType,
-  _$invalidScope,
-  _$serverError,
-  _$temporarilyUnavailable,
-  _$interactionRequired,
-  _$loginRequired,
-  _$accountSelectionRequired,
-  _$consentRequired,
-  _$invalidRequestUri,
-  _$invalidRequestObject,
-  _$requestNotSupported,
-  _$requestUriNotSupported,
-  _$registrationUriNotSupported,
-]);
+    BuiltSet<OAuthErrorCode>(const <OAuthErrorCode>[
+      _$invalidRequest,
+      _$unauthorizedClient,
+      _$accessDenied,
+      _$unsupportedResponseType,
+      _$invalidScope,
+      _$serverError,
+      _$temporarilyUnavailable,
+      _$interactionRequired,
+      _$loginRequired,
+      _$accountSelectionRequired,
+      _$consentRequired,
+      _$invalidRequestUri,
+      _$invalidRequestObject,
+      _$requestNotSupported,
+      _$requestUriNotSupported,
+      _$registrationUriNotSupported,
+    ]);
 
-Serializers _$oauthSerializers = (new Serializers().toBuilder()
-      ..add(OAuthErrorCode.serializer)
-      ..add(OAuthParameters.serializer))
-    .build();
+Serializers _$oauthSerializers =
+    (Serializers().toBuilder()
+          ..add(OAuthErrorCode.serializer)
+          ..add(OAuthParameters.serializer))
+        .build();
 Serializer<OAuthErrorCode> _$oAuthErrorCodeSerializer =
-    new _$OAuthErrorCodeSerializer();
+    _$OAuthErrorCodeSerializer();
 Serializer<OAuthParameters> _$oAuthParametersSerializer =
-    new _$OAuthParametersSerializer();
+    _$OAuthParametersSerializer();
 
 class _$OAuthErrorCodeSerializer
     implements PrimitiveSerializer<OAuthErrorCode> {
@@ -148,15 +161,20 @@ class _$OAuthErrorCodeSerializer
   final String wireName = 'OAuthErrorCode';
 
   @override
-  Object serialize(Serializers serializers, OAuthErrorCode object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    OAuthErrorCode object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  OAuthErrorCode deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      OAuthErrorCode.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  OAuthErrorCode deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => OAuthErrorCode.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$OAuthParametersSerializer
@@ -167,50 +185,64 @@ class _$OAuthParametersSerializer
   final String wireName = 'OAuthParameters';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, OAuthParameters object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    OAuthParameters object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'state',
-      serializers.serialize(object.state,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.state,
+        specifiedType: const FullType(String),
+      ),
     ];
     Object? value;
     value = object.code;
     if (value != null) {
       result
         ..add('code')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.error;
     if (value != null) {
       result
         ..add('error')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(OAuthErrorCode)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(OAuthErrorCode),
+          ),
+        );
     }
     value = object.errorDescription;
     if (value != null) {
       result
         ..add('error_description')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.errorUri;
     if (value != null) {
       result
         ..add('error_uri')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   OAuthParameters deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new OAuthParametersBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = OAuthParametersBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -219,24 +251,44 @@ class _$OAuthParametersSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'state':
-          result.state = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.state =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'code':
-          result.code = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.code =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'error':
-          result.error = serializers.deserialize(value,
-              specifiedType: const FullType(OAuthErrorCode)) as OAuthErrorCode?;
+          result.error =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(OAuthErrorCode),
+                  )
+                  as OAuthErrorCode?;
           break;
         case 'error_description':
-          result.errorDescription = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.errorDescription =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'error_uri':
-          result.errorUri = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.errorUri =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -258,25 +310,21 @@ class _$OAuthParameters extends OAuthParameters {
   final String? errorUri;
 
   factory _$OAuthParameters([void Function(OAuthParametersBuilder)? updates]) =>
-      (new OAuthParametersBuilder()..update(updates))._build();
+      (OAuthParametersBuilder()..update(updates))._build();
 
-  _$OAuthParameters._(
-      {required this.state,
-      this.code,
-      this.error,
-      this.errorDescription,
-      this.errorUri})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(state, r'OAuthParameters', 'state');
-  }
-
+  _$OAuthParameters._({
+    required this.state,
+    this.code,
+    this.error,
+    this.errorDescription,
+    this.errorUri,
+  }) : super._();
   @override
   OAuthParameters rebuild(void Function(OAuthParametersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  OAuthParametersBuilder toBuilder() =>
-      new OAuthParametersBuilder()..replace(this);
+  OAuthParametersBuilder toBuilder() => OAuthParametersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -355,7 +403,6 @@ class OAuthParametersBuilder
 
   @override
   void replace(OAuthParameters other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OAuthParameters;
   }
 
@@ -369,14 +416,19 @@ class OAuthParametersBuilder
 
   _$OAuthParameters _build() {
     OAuthParameters._finalize(this);
-    final _$result = _$v ??
-        new _$OAuthParameters._(
-            state: BuiltValueNullFieldError.checkNotNull(
-                state, r'OAuthParameters', 'state'),
-            code: code,
-            error: error,
-            errorDescription: errorDescription,
-            errorUri: errorUri);
+    final _$result =
+        _$v ??
+        _$OAuthParameters._(
+          state: BuiltValueNullFieldError.checkNotNull(
+            state,
+            r'OAuthParameters',
+            'state',
+          ),
+          code: code,
+          error: error,
+          errorDescription: errorDescription,
+          errorUri: errorUri,
+        );
     replace(_$result);
     return _$result;
   }

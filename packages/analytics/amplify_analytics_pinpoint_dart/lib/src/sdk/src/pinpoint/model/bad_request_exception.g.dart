@@ -14,21 +14,20 @@ class _$BadRequestException extends BadRequestException {
   @override
   final Map<String, String>? headers;
 
-  factory _$BadRequestException(
-          [void Function(BadRequestExceptionBuilder)? updates]) =>
-      (new BadRequestExceptionBuilder()..update(updates))._build();
+  factory _$BadRequestException([
+    void Function(BadRequestExceptionBuilder)? updates,
+  ]) => (BadRequestExceptionBuilder()..update(updates))._build();
 
   _$BadRequestException._({this.message, this.requestId, this.headers})
-      : super._();
-
+    : super._();
   @override
   BadRequestException rebuild(
-          void Function(BadRequestExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(BadRequestExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   BadRequestExceptionBuilder toBuilder() =>
-      new BadRequestExceptionBuilder()..replace(this);
+      BadRequestExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -79,7 +78,6 @@ class BadRequestExceptionBuilder
 
   @override
   void replace(BadRequestException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BadRequestException;
   }
 
@@ -92,9 +90,13 @@ class BadRequestExceptionBuilder
   BadRequestException build() => _build();
 
   _$BadRequestException _build() {
-    final _$result = _$v ??
-        new _$BadRequestException._(
-            message: message, requestId: requestId, headers: headers);
+    final _$result =
+        _$v ??
+        _$BadRequestException._(
+          message: message,
+          requestId: requestId,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

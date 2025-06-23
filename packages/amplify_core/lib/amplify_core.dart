@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library amplify_core;
+library;
 
 import 'package:amplify_core/src/amplify_class.dart';
 
@@ -18,6 +18,7 @@ export 'src/category/amplify_categories.dart';
 
 /// Config
 export 'src/config/amplify_config.dart';
+export 'src/config/amplify_outputs/amplify_outputs.dart';
 export 'src/config/amplify_plugin_config.dart' hide UnknownPluginConfigFactory;
 export 'src/config/amplify_plugin_registry.dart';
 export 'src/config/analytics/analytics_config.dart';
@@ -63,7 +64,9 @@ export 'src/state_machine/transition.dart';
 export 'src/types/analytics/analytics_types.dart';
 
 /// API
-export 'src/types/api/api_types.dart';
+export 'src/types/api/api_types.dart' hide WebSocketOptions;
+// ignore: invalid_export_of_internal_element
+export 'src/types/api/api_types.dart' show WebSocketOptions;
 
 /// App path provider
 export 'src/types/app_path_provider/app_path_provider.dart';

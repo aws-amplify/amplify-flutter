@@ -62,7 +62,7 @@ import 'package:intl/intl.dart' as intl;
 /// property.
 abstract class AuthenticatorTitleLocalizations {
   AuthenticatorTitleLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale);
+    : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
@@ -88,16 +88,14 @@ abstract class AuthenticatorTitleLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
   /// Title of the Confirm Sign Up step and form
   ///
@@ -140,6 +138,24 @@ abstract class AuthenticatorTitleLocalizations {
   /// In en, this message translates to:
   /// **'Enter your one-time passcode'**
   String get confirmSignInWithTotpMfaCode;
+
+  /// Title of the Confirm Sign In with Email MFA Code step and form
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your one-time passcode'**
+  String get confirmSignInWithOtpCode;
+
+  /// Title of the Continue Sign In with Email MFA Setup step and form
+  ///
+  /// In en, this message translates to:
+  /// **'Add Email for Two-Factor Authentication'**
+  String get continueSignInWithEmailMfaSetup;
+
+  /// Title of the Continue Sign In with MFA Setup Selection step and form
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your preferred two-factor authentication method to set up'**
+  String get continueSignInWithMfaSetupSelection;
 
   /// Title of the Reset Password step and form
   ///
@@ -184,14 +200,15 @@ Future<AuthenticatorTitleLocalizations> lookupAuthenticatorTitleLocalizations(
   switch (locale.languageCode) {
     case 'en':
       return title_localizations_en.loadLibrary().then(
-            (dynamic _) =>
-                title_localizations_en.AuthenticatorTitleLocalizationsEn(),
-          );
+        (dynamic _) =>
+            title_localizations_en.AuthenticatorTitleLocalizationsEn(),
+      );
   }
 
   throw FlutterError(
-      'AuthenticatorTitleLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AuthenticatorTitleLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

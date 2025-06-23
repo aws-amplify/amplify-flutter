@@ -7,7 +7,7 @@ part of 'structure_shape.dart';
 // **************************************************************************
 
 Serializer<StructureShape> _$structureShapeSerializer =
-    new _$StructureShapeSerializer();
+    _$StructureShapeSerializer();
 
 class _$StructureShapeSerializer
     implements StructuredSerializer<StructureShape> {
@@ -17,15 +17,22 @@ class _$StructureShapeSerializer
   final String wireName = 'StructureShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, StructureShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    StructureShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'members',
-      serializers.serialize(object.members,
-          specifiedType: const FullType(NamedMembersMap)),
+      serializers.serialize(
+        object.members,
+        specifiedType: const FullType(NamedMembersMap),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -33,9 +40,11 @@ class _$StructureShapeSerializer
 
   @override
   StructureShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new StructureShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = StructureShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -44,13 +53,20 @@ class _$StructureShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'members':
-          result.members = serializers.deserialize(value,
-                  specifiedType: const FullType(NamedMembersMap))!
-              as NamedMembersMap;
+          result.members =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(NamedMembersMap),
+                  )!
+                  as NamedMembersMap;
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -68,25 +84,19 @@ class _$StructureShape extends StructureShape {
   final TraitMap traits;
 
   factory _$StructureShape([void Function(StructureShapeBuilder)? updates]) =>
-      (new StructureShapeBuilder()..update(updates))._build();
+      (StructureShapeBuilder()..update(updates))._build();
 
-  _$StructureShape._(
-      {required this.members, required this.shapeId, required this.traits})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        members, r'StructureShape', 'members');
-    BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'StructureShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'StructureShape', 'traits');
-  }
-
+  _$StructureShape._({
+    required this.members,
+    required this.shapeId,
+    required this.traits,
+  }) : super._();
   @override
   StructureShape rebuild(void Function(StructureShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  StructureShapeBuilder toBuilder() =>
-      new StructureShapeBuilder()..replace(this);
+  StructureShapeBuilder toBuilder() => StructureShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -152,7 +162,6 @@ class StructureShapeBuilder
 
   @override
   void replace(covariant StructureShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StructureShape;
   }
 
@@ -165,14 +174,25 @@ class StructureShapeBuilder
   StructureShape build() => _build();
 
   _$StructureShape _build() {
-    final _$result = _$v ??
-        new _$StructureShape._(
-            members: BuiltValueNullFieldError.checkNotNull(
-                members, r'StructureShape', 'members'),
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'StructureShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'StructureShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$StructureShape._(
+          members: BuiltValueNullFieldError.checkNotNull(
+            members,
+            r'StructureShape',
+            'members',
+          ),
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'StructureShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'StructureShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

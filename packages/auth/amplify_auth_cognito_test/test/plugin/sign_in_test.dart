@@ -48,10 +48,7 @@ void main() {
       stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
       await expectLater(
-        plugin.signIn(
-          username: username,
-          password: 'password',
-        ),
+        plugin.signIn(username: username, password: 'password'),
         completion(
           isA<CognitoSignInResult>().having(
             (res) => res.isSignedIn,
@@ -62,10 +59,7 @@ void main() {
       );
 
       await expectLater(
-        plugin.signIn(
-          username: username,
-          password: 'password',
-        ),
+        plugin.signIn(username: username, password: 'password'),
         throwsA(isA<InvalidStateException>()),
         reason: 'Calling signIn while authenticated should fail',
       );
@@ -73,10 +67,7 @@ void main() {
       await plugin.signOut();
 
       await expectLater(
-        plugin.signIn(
-          username: username,
-          password: 'password',
-        ),
+        plugin.signIn(username: username, password: 'password'),
         completion(
           isA<CognitoSignInResult>().having(
             (res) => res.isSignedIn,
@@ -113,10 +104,7 @@ void main() {
         final results = await Future.wait([
           for (var i = 0; i < 10; i++)
             Result.capture(
-              plugin.signIn(
-                username: username,
-                password: password,
-              ),
+              plugin.signIn(username: username, password: password),
             ),
         ]);
         results.forEachIndexed((index, result) {
@@ -133,10 +121,7 @@ void main() {
           for (var i = 0; i < 10; i++)
             Future<void>.delayed(Duration(milliseconds: i * 5)).then(
               (_) => Result.capture(
-                plugin.signIn(
-                  username: username,
-                  password: password,
-                ),
+                plugin.signIn(username: username, password: password),
               ),
             ),
         ]);
@@ -177,10 +162,7 @@ void main() {
         final results = await Future.wait([
           for (var i = 0; i < 10; i++)
             Result.capture(
-              plugin.signIn(
-                username: username,
-                password: password,
-              ),
+              plugin.signIn(username: username, password: password),
             ),
         ]);
         await expectLater(
@@ -202,10 +184,7 @@ void main() {
           for (var i = 0; i < 10; i++)
             Future<void>.delayed(Duration(milliseconds: i * 5)).then(
               (_) => Result.capture(
-                plugin.signIn(
-                  username: username,
-                  password: password,
-                ),
+                plugin.signIn(username: username, password: password),
               ),
             ),
         ]);

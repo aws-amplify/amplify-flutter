@@ -17,7 +17,7 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, override_on_non_overriding_member, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
@@ -36,7 +36,8 @@ class Tag extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -49,11 +50,14 @@ class Tag extends amplify_core.Model {
       return _label!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -69,18 +73,23 @@ class Tag extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const Tag._internal(
-      {required this.id, required label, posts, createdAt, updatedAt})
-      : _label = label,
-        _posts = posts,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const Tag._internal({
+    required this.id,
+    required label,
+    posts,
+    createdAt,
+    updatedAt,
+  }) : _label = label,
+       _posts = posts,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
   factory Tag({String? id, required String label, List<PostTags>? posts}) {
     return Tag._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        label: label,
-        posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      label: label,
+      posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts,
+    );
   }
 
   bool equals(Object other) {
@@ -106,11 +115,12 @@ class Tag extends amplify_core.Model {
     buffer.write("Tag {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("label=" + "$_label" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -118,96 +128,129 @@ class Tag extends amplify_core.Model {
 
   Tag copyWith({String? label, List<PostTags>? posts}) {
     return Tag._internal(
-        id: id, label: label ?? this.label, posts: posts ?? this.posts);
+      id: id,
+      label: label ?? this.label,
+      posts: posts ?? this.posts,
+    );
   }
 
-  Tag copyWithModelFieldValues(
-      {ModelFieldValue<String>? label,
-      ModelFieldValue<List<PostTags>?>? posts}) {
+  Tag copyWithModelFieldValues({
+    ModelFieldValue<String>? label,
+    ModelFieldValue<List<PostTags>?>? posts,
+  }) {
     return Tag._internal(
-        id: id,
-        label: label == null ? this.label : label.value,
-        posts: posts == null ? this.posts : posts.value);
+      id: id,
+      label: label == null ? this.label : label.value,
+      posts: posts == null ? this.posts : posts.value,
+    );
   }
 
   Tag.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _label = json['label'],
-        _posts = json['posts'] is List
-            ? (json['posts'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => PostTags.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _label = json['label'],
+      _posts = json['posts'] is Map
+          ? (json['posts']['items'] is List
+                ? (json['posts']['items'] as List)
+                      .where((e) => e != null)
+                      .map(
+                        (e) =>
+                            PostTags.fromJson(new Map<String, dynamic>.from(e)),
+                      )
+                      .toList()
+                : null)
+          : (json['posts'] is List
+                ? (json['posts'] as List)
+                      .where((e) => e?['serializedData'] != null)
+                      .map(
+                        (e) => PostTags.fromJson(
+                          new Map<String, dynamic>.from(e?['serializedData']),
+                        ),
+                      )
+                      .toList()
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'label': _label,
-        'posts': _posts?.map((PostTags? e) => e?.toJson()).toList(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'label': _label,
+    'posts': _posts?.map((PostTags? e) => e?.toJson()).toList(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'label': _label,
-        'posts': _posts,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'label': _label,
+    'posts': _posts,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<TagModelIdentifier>
-      MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<TagModelIdentifier>();
+  MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<TagModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final LABEL = amplify_core.QueryField(fieldName: "label");
   static final POSTS = amplify_core.QueryField(
-      fieldName: "posts",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'PostTags'));
+    fieldName: "posts",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'PostTags',
+    ),
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Tag";
-    modelSchemaDefinition.pluralName = "Tags";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "Tag";
+      modelSchemaDefinition.pluralName = "Tags";
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Tag.LABEL,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Tag.LABEL,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Tag.POSTS,
-        isRequired: false,
-        ofModelName: 'PostTags',
-        associatedKey: PostTags.TAG));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasMany(
+          key: Tag.POSTS,
+          isRequired: false,
+          ofModelName: 'PostTags',
+          associatedKey: PostTags.TAG,
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _TagModelType extends amplify_core.ModelType<Tag> {
@@ -238,8 +281,7 @@ class TagModelIdentifier implements amplify_core.ModelIdentifier<Tag> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
       .map((entry) => (<String, dynamic>{entry.key: entry.value}))
       .toList();
 

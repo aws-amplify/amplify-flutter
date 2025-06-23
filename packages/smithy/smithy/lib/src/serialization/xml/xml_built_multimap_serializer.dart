@@ -16,10 +16,10 @@ class XmlBuiltMultimapSerializer
 
   @override
   Iterable<Type> get types => [
-        BuiltListMultimap,
-        BuiltListMultimap<dynamic, dynamic>().runtimeType,
-        BuiltListMultimap<Object?, Object?>().runtimeType,
-      ];
+    BuiltListMultimap,
+    BuiltListMultimap<dynamic, dynamic>().runtimeType,
+    BuiltListMultimap<Object?, Object?>().runtimeType,
+  ];
 
   final String keyName;
   final String valueName;
@@ -98,10 +98,12 @@ class XmlBuiltMultimapSerializer
         serialized.elementAt(i),
         specifiedType: keyType,
       );
-      final values = serializers.deserialize(
-        serialized.elementAt(i + 1),
-        specifiedType: valueType,
-      ) as Iterable<dynamic>;
+      final values =
+          serializers.deserialize(
+                serialized.elementAt(i + 1),
+                specifiedType: valueType,
+              )
+              as Iterable<dynamic>;
       result.addValues(key, values);
     }
 

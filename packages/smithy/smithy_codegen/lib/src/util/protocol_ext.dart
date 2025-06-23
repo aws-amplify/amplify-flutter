@@ -21,18 +21,18 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
 
   /// The protocol class which can be instantiated.
   Reference get instantiableProtocolSymbol => switch (this) {
-        GenericJsonProtocolDefinitionTrait _ =>
-          DartTypes.smithy.genericJsonProtocol,
-        AwsJson1_0Trait _ => DartTypes.smithyAws.awsJson1_0Protocol,
-        AwsJson1_1Trait _ => DartTypes.smithyAws.awsJson1_1Protocol,
-        RestJson1Trait _ => DartTypes.smithyAws.restJson1Protocol,
-        RestXmlTrait _ => DartTypes.smithyAws.restXmlProtocol,
-        AwsQueryTrait _ => DartTypes.smithyAws.awsQueryProtocol,
-        Ec2QueryTrait _ => DartTypes.smithyAws.ec2QueryProtocol,
-        _ => throw UnsupportedError(
-            'No protocol found for $runtimeType ($shapeId)',
-          ),
-      };
+    GenericJsonProtocolDefinitionTrait _ =>
+      DartTypes.smithy.genericJsonProtocol,
+    AwsJson1_0Trait _ => DartTypes.smithyAws.awsJson1_0Protocol,
+    AwsJson1_1Trait _ => DartTypes.smithyAws.awsJson1_1Protocol,
+    RestJson1Trait _ => DartTypes.smithyAws.restJson1Protocol,
+    RestXmlTrait _ => DartTypes.smithyAws.restXmlProtocol,
+    AwsQueryTrait _ => DartTypes.smithyAws.awsQueryProtocol,
+    Ec2QueryTrait _ => DartTypes.smithyAws.ec2QueryProtocol,
+    _ => throw UnsupportedError(
+      'No protocol found for $runtimeType ($shapeId)',
+    ),
+  };
 
   /// Returns the structure generator for this protocol.
   StructureSerializerGenerator structureGenerator(
@@ -56,16 +56,14 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
   }
 
   SerializerConfig get serializerConfig => switch (this) {
-        GenericJsonProtocolDefinitionTrait _ =>
-          const SerializerConfig.genericJson(),
-        AwsJson1_0Trait _ ||
-        AwsJson1_1Trait _ =>
-          const SerializerConfig.awsJson(),
-        RestJson1Trait _ => const SerializerConfig.restJson1(),
-        AwsQueryTrait _ => const SerializerConfig.awsQuery(),
-        Ec2QueryTrait _ => const SerializerConfig.ec2Query(),
-        _ => const SerializerConfig(),
-      };
+    GenericJsonProtocolDefinitionTrait _ =>
+      const SerializerConfig.genericJson(),
+    AwsJson1_0Trait _ || AwsJson1_1Trait _ => const SerializerConfig.awsJson(),
+    RestJson1Trait _ => const SerializerConfig.restJson1(),
+    AwsQueryTrait _ => const SerializerConfig.awsQuery(),
+    Ec2QueryTrait _ => const SerializerConfig.ec2Query(),
+    _ => const SerializerConfig(),
+  };
 
   Expression serializers(CodegenContext context) {
     final additionalSerializers = <Expression>[];
@@ -98,7 +96,8 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     final payloadMember = inputPayload.member;
     if (payloadMember != null) {
       final targetShape = context.shapeFor(payloadMember.target);
-      needsContentLength = targetShape is! BlobShape ||
+      needsContentLength =
+          targetShape is! BlobShape ||
           !targetShape.isStreaming ||
           targetShape.hasTrait<RequiresLengthTrait>();
     }
@@ -123,10 +122,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
           // For example, the value for the operation `ns.example#MyOp` of the
           // service `ns.example#MyService` is MyService.MyOp.
           literalString(
-            [
-              context.service!.shapeId.shape,
-              shape.shapeId.shape,
-            ].join('.'),
+            [context.service!.shapeId.shape, shape.shapeId.shape].join('.'),
           ),
         ]);
       case RestJson1Trait _:
@@ -148,7 +144,8 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
 
     // https://awslabs.github.io/smithy/1.0/spec/core/auth-traits.html#optionalauth-trait
     final authTrait = shape.getTrait<AuthTrait>();
-    final isOptionalAuth = shape.hasTrait<OptionalAuthTrait>() ||
+    final isOptionalAuth =
+        shape.hasTrait<OptionalAuthTrait>() ||
         (authTrait != null && authTrait.values.isEmpty);
 
     // SigV4
@@ -249,9 +246,10 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         final payloadShape = inputPayload.member;
         if (payloadShape != null) {
           final targetShape = context.shapeFor(payloadShape.target);
-          mediaType = (payloadShape.getTrait<MediaTypeTrait>() ??
-                  targetShape.getTrait<MediaTypeTrait>())
-              ?.value;
+          mediaType =
+              (payloadShape.getTrait<MediaTypeTrait>() ??
+                      targetShape.getTrait<MediaTypeTrait>())
+                  ?.value;
         }
         if (mediaType != null) {
           parameters['mediaType'] = literalString(mediaType);
@@ -289,29 +287,24 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
   }
 
   RouteConfiguration get routeConfiguration => switch (this) {
-        RestJson1Trait _ ||
-        RestXmlTrait _ ||
-        GenericJsonProtocolDefinitionTrait _ =>
-          RouteConfiguration.rest,
-        AwsJson1_0Trait _ ||
-        AwsJson1_1Trait _ ||
-        AwsQueryTrait _ ||
-        Ec2QueryTrait _ =>
-          RouteConfiguration.rpc,
-        _ => throw StateError('Unknown type: $runtimeType'),
-      };
+    RestJson1Trait _ ||
+    RestXmlTrait _ ||
+    GenericJsonProtocolDefinitionTrait _ => RouteConfiguration.rest,
+    AwsJson1_0Trait _ ||
+    AwsJson1_1Trait _ ||
+    AwsQueryTrait _ ||
+    Ec2QueryTrait _ => RouteConfiguration.rpc,
+    _ => throw StateError('Unknown type: $runtimeType'),
+  };
 
-  Expression? addErrorTo(
-    Expression headersMap,
-    HttpErrorTraits error,
-  ) {
+  Expression? addErrorTo(Expression headersMap, HttpErrorTraits error) {
     switch (this) {
       case RestJson1Trait _ ||
-            RestXmlTrait _ ||
-            GenericJsonProtocolDefinitionTrait _:
-        return headersMap.index(literalString('X-Amzn-Errortype')).assign(
-              literalString(error.shapeId.shape),
-            );
+          RestXmlTrait _ ||
+          GenericJsonProtocolDefinitionTrait _:
+        return headersMap
+            .index(literalString('X-Amzn-Errortype'))
+            .assign(literalString(error.shapeId.shape));
       default:
         return null;
     }

@@ -15,16 +15,15 @@ class _$InAppMessage extends InAppMessage {
   final Layout? layout;
 
   factory _$InAppMessage([void Function(InAppMessageBuilder)? updates]) =>
-      (new InAppMessageBuilder()..update(updates))._build();
+      (InAppMessageBuilder()..update(updates))._build();
 
   _$InAppMessage._({this.content, this.customConfig, this.layout}) : super._();
-
   @override
   InAppMessage rebuild(void Function(InAppMessageBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  InAppMessageBuilder toBuilder() => new InAppMessageBuilder()..replace(this);
+  InAppMessageBuilder toBuilder() => InAppMessageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -52,13 +51,13 @@ class InAppMessageBuilder
 
   _i2.ListBuilder<InAppMessageContent>? _content;
   _i2.ListBuilder<InAppMessageContent> get content =>
-      _$this._content ??= new _i2.ListBuilder<InAppMessageContent>();
+      _$this._content ??= _i2.ListBuilder<InAppMessageContent>();
   set content(_i2.ListBuilder<InAppMessageContent>? content) =>
       _$this._content = content;
 
   _i2.MapBuilder<String, String>? _customConfig;
   _i2.MapBuilder<String, String> get customConfig =>
-      _$this._customConfig ??= new _i2.MapBuilder<String, String>();
+      _$this._customConfig ??= _i2.MapBuilder<String, String>();
   set customConfig(_i2.MapBuilder<String, String>? customConfig) =>
       _$this._customConfig = customConfig;
 
@@ -81,7 +80,6 @@ class InAppMessageBuilder
 
   @override
   void replace(InAppMessage other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppMessage;
   }
 
@@ -96,11 +94,13 @@ class InAppMessageBuilder
   _$InAppMessage _build() {
     _$InAppMessage _$result;
     try {
-      _$result = _$v ??
-          new _$InAppMessage._(
-              content: _content?.build(),
-              customConfig: _customConfig?.build(),
-              layout: layout);
+      _$result =
+          _$v ??
+          _$InAppMessage._(
+            content: _content?.build(),
+            customConfig: _customConfig?.build(),
+            layout: layout,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -109,8 +109,11 @@ class InAppMessageBuilder
         _$failedField = 'customConfig';
         _customConfig?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'InAppMessage', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'InAppMessage',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

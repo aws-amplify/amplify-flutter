@@ -22,28 +22,27 @@ class _$JsonTimestampsInputOutput extends JsonTimestampsInputOutput {
   @override
   final DateTime? httpDateOnTarget;
 
-  factory _$JsonTimestampsInputOutput(
-          [void Function(JsonTimestampsInputOutputBuilder)? updates]) =>
-      (new JsonTimestampsInputOutputBuilder()..update(updates))._build();
+  factory _$JsonTimestampsInputOutput([
+    void Function(JsonTimestampsInputOutputBuilder)? updates,
+  ]) => (JsonTimestampsInputOutputBuilder()..update(updates))._build();
 
-  _$JsonTimestampsInputOutput._(
-      {this.normal,
-      this.dateTime,
-      this.dateTimeOnTarget,
-      this.epochSeconds,
-      this.epochSecondsOnTarget,
-      this.httpDate,
-      this.httpDateOnTarget})
-      : super._();
-
+  _$JsonTimestampsInputOutput._({
+    this.normal,
+    this.dateTime,
+    this.dateTimeOnTarget,
+    this.epochSeconds,
+    this.epochSecondsOnTarget,
+    this.httpDate,
+    this.httpDateOnTarget,
+  }) : super._();
   @override
   JsonTimestampsInputOutput rebuild(
-          void Function(JsonTimestampsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(JsonTimestampsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   JsonTimestampsInputOutputBuilder toBuilder() =>
-      new JsonTimestampsInputOutputBuilder()..replace(this);
+      JsonTimestampsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -129,7 +128,6 @@ class JsonTimestampsInputOutputBuilder
 
   @override
   void replace(JsonTimestampsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$JsonTimestampsInputOutput;
   }
 
@@ -142,15 +140,17 @@ class JsonTimestampsInputOutputBuilder
   JsonTimestampsInputOutput build() => _build();
 
   _$JsonTimestampsInputOutput _build() {
-    final _$result = _$v ??
-        new _$JsonTimestampsInputOutput._(
-            normal: normal,
-            dateTime: dateTime,
-            dateTimeOnTarget: dateTimeOnTarget,
-            epochSeconds: epochSeconds,
-            epochSecondsOnTarget: epochSecondsOnTarget,
-            httpDate: httpDate,
-            httpDateOnTarget: httpDateOnTarget);
+    final _$result =
+        _$v ??
+        _$JsonTimestampsInputOutput._(
+          normal: normal,
+          dateTime: dateTime,
+          dateTimeOnTarget: dateTimeOnTarget,
+          epochSeconds: epochSeconds,
+          epochSecondsOnTarget: epochSecondsOnTarget,
+          httpDate: httpDate,
+          httpDateOnTarget: httpDateOnTarget,
+        );
     replace(_$result);
     return _$result;
   }

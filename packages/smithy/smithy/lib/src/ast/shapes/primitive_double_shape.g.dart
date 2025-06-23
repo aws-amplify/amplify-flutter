@@ -7,26 +7,30 @@ part of 'primitive_double_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveDoubleShape> _$primitiveDoubleShapeSerializer =
-    new _$PrimitiveDoubleShapeSerializer();
+    _$PrimitiveDoubleShapeSerializer();
 
 class _$PrimitiveDoubleShapeSerializer
     implements StructuredSerializer<PrimitiveDoubleShape> {
   @override
   final Iterable<Type> types = const [
     PrimitiveDoubleShape,
-    _$PrimitiveDoubleShape
+    _$PrimitiveDoubleShape,
   ];
   @override
   final String wireName = 'PrimitiveDoubleShape';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, PrimitiveDoubleShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    PrimitiveDoubleShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -34,9 +38,11 @@ class _$PrimitiveDoubleShapeSerializer
 
   @override
   PrimitiveDoubleShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new PrimitiveDoubleShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = PrimitiveDoubleShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -45,8 +51,12 @@ class _$PrimitiveDoubleShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -61,26 +71,20 @@ class _$PrimitiveDoubleShape extends PrimitiveDoubleShape {
   @override
   final TraitMap traits;
 
-  factory _$PrimitiveDoubleShape(
-          [void Function(PrimitiveDoubleShapeBuilder)? updates]) =>
-      (new PrimitiveDoubleShapeBuilder()..update(updates))._build();
+  factory _$PrimitiveDoubleShape([
+    void Function(PrimitiveDoubleShapeBuilder)? updates,
+  ]) => (PrimitiveDoubleShapeBuilder()..update(updates))._build();
 
   _$PrimitiveDoubleShape._({required this.shapeId, required this.traits})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'PrimitiveDoubleShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(
-        traits, r'PrimitiveDoubleShape', 'traits');
-  }
-
+    : super._();
   @override
   PrimitiveDoubleShape rebuild(
-          void Function(PrimitiveDoubleShapeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PrimitiveDoubleShapeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PrimitiveDoubleShapeBuilder toBuilder() =>
-      new PrimitiveDoubleShapeBuilder()..replace(this);
+      PrimitiveDoubleShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -138,7 +142,6 @@ class PrimitiveDoubleShapeBuilder
 
   @override
   void replace(covariant PrimitiveDoubleShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveDoubleShape;
   }
 
@@ -151,12 +154,20 @@ class PrimitiveDoubleShapeBuilder
   PrimitiveDoubleShape build() => _build();
 
   _$PrimitiveDoubleShape _build() {
-    final _$result = _$v ??
-        new _$PrimitiveDoubleShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'PrimitiveDoubleShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'PrimitiveDoubleShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$PrimitiveDoubleShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'PrimitiveDoubleShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'PrimitiveDoubleShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

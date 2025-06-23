@@ -49,7 +49,7 @@ abstract class Event
   const Event._();
 
   static const List<_i3.SmithySerializer<Event>> serializers = [
-    EventRestJson1Serializer()
+    EventRestJson1Serializer(),
   ];
 
   /// The package name of the app that's recording the event.
@@ -83,60 +83,30 @@ abstract class Event
   String get timestamp;
   @override
   List<Object?> get props => [
-        appPackageName,
-        appTitle,
-        appVersionCode,
-        attributes,
-        clientSdkVersion,
-        eventType,
-        metrics,
-        sdkName,
-        session,
-        timestamp,
-      ];
+    appPackageName,
+    appTitle,
+    appVersionCode,
+    attributes,
+    clientSdkVersion,
+    eventType,
+    metrics,
+    sdkName,
+    session,
+    timestamp,
+  ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Event')
-      ..add(
-        'appPackageName',
-        appPackageName,
-      )
-      ..add(
-        'appTitle',
-        appTitle,
-      )
-      ..add(
-        'appVersionCode',
-        appVersionCode,
-      )
-      ..add(
-        'attributes',
-        attributes,
-      )
-      ..add(
-        'clientSdkVersion',
-        clientSdkVersion,
-      )
-      ..add(
-        'eventType',
-        eventType,
-      )
-      ..add(
-        'metrics',
-        metrics,
-      )
-      ..add(
-        'sdkName',
-        sdkName,
-      )
-      ..add(
-        'session',
-        session,
-      )
-      ..add(
-        'timestamp',
-        timestamp,
-      );
+      ..add('appPackageName', appPackageName)
+      ..add('appTitle', appTitle)
+      ..add('appVersionCode', appVersionCode)
+      ..add('attributes', attributes)
+      ..add('clientSdkVersion', clientSdkVersion)
+      ..add('eventType', eventType)
+      ..add('metrics', metrics)
+      ..add('sdkName', sdkName)
+      ..add('session', session)
+      ..add('timestamp', timestamp);
     return helper.toString();
   }
 }
@@ -145,17 +115,11 @@ class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
   const EventRestJson1Serializer() : super('Event');
 
   @override
-  Iterable<Type> get types => const [
-        Event,
-        _$Event,
-      ];
+  Iterable<Type> get types => const [Event, _$Event];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   Event deserialize(
     Serializers serializers,
@@ -173,67 +137,84 @@ class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
       }
       switch (key) {
         case 'AppPackageName':
-          result.appPackageName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.appPackageName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AppTitle':
-          result.appTitle = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.appTitle =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AppVersionCode':
-          result.appVersionCode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.appVersionCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Attributes':
-          result.attributes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, String>));
+          result.attributes.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltMap<String, String>),
+          );
         case 'ClientSdkVersion':
-          result.clientSdkVersion = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.clientSdkVersion =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'EventType':
-          result.eventType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.eventType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Metrics':
-          result.metrics.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType(double),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, double>));
+          result.metrics.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(double),
+                  ]),
+                )
+                as _i2.BuiltMap<String, double>),
+          );
         case 'SdkName':
-          result.sdkName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.sdkName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Session':
-          result.session.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(Session),
-          ) as Session));
+          result.session.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(Session),
+                )
+                as Session),
+          );
         case 'Timestamp':
-          result.timestamp = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.timestamp =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -257,95 +238,96 @@ class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
       :metrics,
       :sdkName,
       :session,
-      :timestamp
+      :timestamp,
     ) = object;
     result$.addAll([
       'EventType',
-      serializers.serialize(
-        eventType,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(eventType, specifiedType: const FullType(String)),
       'Timestamp',
-      serializers.serialize(
-        timestamp,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(timestamp, specifiedType: const FullType(String)),
     ]);
     if (appPackageName != null) {
       result$
         ..add('AppPackageName')
-        ..add(serializers.serialize(
-          appPackageName,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            appPackageName,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (appTitle != null) {
       result$
         ..add('AppTitle')
-        ..add(serializers.serialize(
-          appTitle,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            appTitle,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (appVersionCode != null) {
       result$
         ..add('AppVersionCode')
-        ..add(serializers.serialize(
-          appVersionCode,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            appVersionCode,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (attributes != null) {
       result$
         ..add('Attributes')
-        ..add(serializers.serialize(
-          attributes,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            attributes,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (clientSdkVersion != null) {
       result$
         ..add('ClientSdkVersion')
-        ..add(serializers.serialize(
-          clientSdkVersion,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            clientSdkVersion,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (metrics != null) {
       result$
         ..add('Metrics')
-        ..add(serializers.serialize(
-          metrics,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            metrics,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(double),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (sdkName != null) {
       result$
         ..add('SdkName')
-        ..add(serializers.serialize(
-          sdkName,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(sdkName, specifiedType: const FullType(String)),
+        );
     }
     if (session != null) {
       result$
         ..add('Session')
-        ..add(serializers.serialize(
-          session,
-          specifiedType: const FullType(Session),
-        ));
+        ..add(
+          serializers.serialize(
+            session,
+            specifiedType: const FullType(Session),
+          ),
+        );
     }
     return result$;
   }

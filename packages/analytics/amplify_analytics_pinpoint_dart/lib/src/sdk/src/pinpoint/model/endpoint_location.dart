@@ -34,13 +34,14 @@ abstract class EndpointLocation
   }
 
   /// Specifies geographic information about an endpoint.
-  factory EndpointLocation.build(
-      [void Function(EndpointLocationBuilder) updates]) = _$EndpointLocation;
+  factory EndpointLocation.build([
+    void Function(EndpointLocationBuilder) updates,
+  ]) = _$EndpointLocation;
 
   const EndpointLocation._();
 
   static const List<_i2.SmithySerializer<EndpointLocation>> serializers = [
-    EndpointLocationRestJson1Serializer()
+    EndpointLocationRestJson1Serializer(),
   ];
 
   /// The name of the city where the endpoint is located.
@@ -62,40 +63,22 @@ abstract class EndpointLocation
   String? get region;
   @override
   List<Object?> get props => [
-        city,
-        country,
-        latitude,
-        longitude,
-        postalCode,
-        region,
-      ];
+    city,
+    country,
+    latitude,
+    longitude,
+    postalCode,
+    region,
+  ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndpointLocation')
-      ..add(
-        'city',
-        city,
-      )
-      ..add(
-        'country',
-        country,
-      )
-      ..add(
-        'latitude',
-        latitude,
-      )
-      ..add(
-        'longitude',
-        longitude,
-      )
-      ..add(
-        'postalCode',
-        postalCode,
-      )
-      ..add(
-        'region',
-        region,
-      );
+      ..add('city', city)
+      ..add('country', country)
+      ..add('latitude', latitude)
+      ..add('longitude', longitude)
+      ..add('postalCode', postalCode)
+      ..add('region', region);
     return helper.toString();
   }
 }
@@ -105,17 +88,11 @@ class EndpointLocationRestJson1Serializer
   const EndpointLocationRestJson1Serializer() : super('EndpointLocation');
 
   @override
-  Iterable<Type> get types => const [
-        EndpointLocation,
-        _$EndpointLocation,
-      ];
+  Iterable<Type> get types => const [EndpointLocation, _$EndpointLocation];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EndpointLocation deserialize(
     Serializers serializers,
@@ -133,35 +110,47 @@ class EndpointLocationRestJson1Serializer
       }
       switch (key) {
         case 'City':
-          result.city = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.city =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Country':
-          result.country = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.country =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Latitude':
-          result.latitude = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.latitude =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'Longitude':
-          result.longitude = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.longitude =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'PostalCode':
-          result.postalCode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.postalCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Region':
-          result.region = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.region =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -181,55 +170,58 @@ class EndpointLocationRestJson1Serializer
       :latitude,
       :longitude,
       :postalCode,
-      :region
+      :region,
     ) = object;
     if (city != null) {
       result$
         ..add('City')
-        ..add(serializers.serialize(
-          city,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(city, specifiedType: const FullType(String)),
+        );
     }
     if (country != null) {
       result$
         ..add('Country')
-        ..add(serializers.serialize(
-          country,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(country, specifiedType: const FullType(String)),
+        );
     }
     if (latitude != null) {
       result$
         ..add('Latitude')
-        ..add(serializers.serialize(
-          latitude,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            latitude,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     if (longitude != null) {
       result$
         ..add('Longitude')
-        ..add(serializers.serialize(
-          longitude,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            longitude,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     if (postalCode != null) {
       result$
         ..add('PostalCode')
-        ..add(serializers.serialize(
-          postalCode,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            postalCode,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (region != null) {
       result$
         ..add('Region')
-        ..add(serializers.serialize(
-          region,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(region, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

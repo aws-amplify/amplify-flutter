@@ -12,26 +12,20 @@ class _$CampaignEventFilter extends CampaignEventFilter {
   @override
   final FilterType filterType;
 
-  factory _$CampaignEventFilter(
-          [void Function(CampaignEventFilterBuilder)? updates]) =>
-      (new CampaignEventFilterBuilder()..update(updates))._build();
+  factory _$CampaignEventFilter([
+    void Function(CampaignEventFilterBuilder)? updates,
+  ]) => (CampaignEventFilterBuilder()..update(updates))._build();
 
   _$CampaignEventFilter._({required this.dimensions, required this.filterType})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        dimensions, r'CampaignEventFilter', 'dimensions');
-    BuiltValueNullFieldError.checkNotNull(
-        filterType, r'CampaignEventFilter', 'filterType');
-  }
-
+    : super._();
   @override
   CampaignEventFilter rebuild(
-          void Function(CampaignEventFilterBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CampaignEventFilterBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CampaignEventFilterBuilder toBuilder() =>
-      new CampaignEventFilterBuilder()..replace(this);
+      CampaignEventFilterBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -57,7 +51,7 @@ class CampaignEventFilterBuilder
 
   EventDimensionsBuilder? _dimensions;
   EventDimensionsBuilder get dimensions =>
-      _$this._dimensions ??= new EventDimensionsBuilder();
+      _$this._dimensions ??= EventDimensionsBuilder();
   set dimensions(EventDimensionsBuilder? dimensions) =>
       _$this._dimensions = dimensions;
 
@@ -79,7 +73,6 @@ class CampaignEventFilterBuilder
 
   @override
   void replace(CampaignEventFilter other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CampaignEventFilter;
   }
 
@@ -94,19 +87,27 @@ class CampaignEventFilterBuilder
   _$CampaignEventFilter _build() {
     _$CampaignEventFilter _$result;
     try {
-      _$result = _$v ??
-          new _$CampaignEventFilter._(
-              dimensions: dimensions.build(),
-              filterType: BuiltValueNullFieldError.checkNotNull(
-                  filterType, r'CampaignEventFilter', 'filterType'));
+      _$result =
+          _$v ??
+          _$CampaignEventFilter._(
+            dimensions: dimensions.build(),
+            filterType: BuiltValueNullFieldError.checkNotNull(
+              filterType,
+              r'CampaignEventFilter',
+              'filterType',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'dimensions';
         dimensions.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'CampaignEventFilter', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'CampaignEventFilter',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

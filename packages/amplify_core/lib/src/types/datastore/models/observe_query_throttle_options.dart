@@ -13,17 +13,15 @@ class ObserveQueryThrottleOptions {
 
   /// default throttle options
   const ObserveQueryThrottleOptions.defaults()
-      : maxCount = 1000,
-        maxDuration = const Duration(seconds: 2);
+    : maxCount = 1000,
+      maxDuration = const Duration(seconds: 2);
 
   /// removes all throttling options
   ///
   /// Note: during cloud sync, this will result in a new
   /// QuerySnapshot be emitted for every single item that
   /// is synced to the device that matches the query predicate
-  const ObserveQueryThrottleOptions.none()
-      : maxCount = 1,
-        maxDuration = null;
+  const ObserveQueryThrottleOptions.none() : maxCount = 1, maxDuration = null;
 
   /// During the initial sync, a [QuerySnapshot] wil be
   /// generated every [maxCount] records

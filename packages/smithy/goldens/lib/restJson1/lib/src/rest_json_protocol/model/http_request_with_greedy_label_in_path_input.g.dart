@@ -13,30 +13,23 @@ class _$HttpRequestWithGreedyLabelInPathInput
   @override
   final String baz;
 
-  factory _$HttpRequestWithGreedyLabelInPathInput(
-          [void Function(HttpRequestWithGreedyLabelInPathInputBuilder)?
-              updates]) =>
-      (new HttpRequestWithGreedyLabelInPathInputBuilder()..update(updates))
-          ._build();
+  factory _$HttpRequestWithGreedyLabelInPathInput([
+    void Function(HttpRequestWithGreedyLabelInPathInputBuilder)? updates,
+  ]) => (HttpRequestWithGreedyLabelInPathInputBuilder()..update(updates))
+      ._build();
 
-  _$HttpRequestWithGreedyLabelInPathInput._(
-      {required this.foo, required this.baz})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        foo, r'HttpRequestWithGreedyLabelInPathInput', 'foo');
-    BuiltValueNullFieldError.checkNotNull(
-        baz, r'HttpRequestWithGreedyLabelInPathInput', 'baz');
-  }
-
+  _$HttpRequestWithGreedyLabelInPathInput._({
+    required this.foo,
+    required this.baz,
+  }) : super._();
   @override
   HttpRequestWithGreedyLabelInPathInput rebuild(
-          void Function(HttpRequestWithGreedyLabelInPathInputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithGreedyLabelInPathInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithGreedyLabelInPathInputBuilder toBuilder() =>
-      new HttpRequestWithGreedyLabelInPathInputBuilder()..replace(this);
+      HttpRequestWithGreedyLabelInPathInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -58,8 +51,10 @@ class _$HttpRequestWithGreedyLabelInPathInput
 
 class HttpRequestWithGreedyLabelInPathInputBuilder
     implements
-        Builder<HttpRequestWithGreedyLabelInPathInput,
-            HttpRequestWithGreedyLabelInPathInputBuilder> {
+        Builder<
+          HttpRequestWithGreedyLabelInPathInput,
+          HttpRequestWithGreedyLabelInPathInputBuilder
+        > {
   _$HttpRequestWithGreedyLabelInPathInput? _$v;
 
   String? _foo;
@@ -84,13 +79,13 @@ class HttpRequestWithGreedyLabelInPathInputBuilder
 
   @override
   void replace(HttpRequestWithGreedyLabelInPathInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithGreedyLabelInPathInput;
   }
 
   @override
   void update(
-      void Function(HttpRequestWithGreedyLabelInPathInputBuilder)? updates) {
+    void Function(HttpRequestWithGreedyLabelInPathInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -98,12 +93,20 @@ class HttpRequestWithGreedyLabelInPathInputBuilder
   HttpRequestWithGreedyLabelInPathInput build() => _build();
 
   _$HttpRequestWithGreedyLabelInPathInput _build() {
-    final _$result = _$v ??
-        new _$HttpRequestWithGreedyLabelInPathInput._(
-            foo: BuiltValueNullFieldError.checkNotNull(
-                foo, r'HttpRequestWithGreedyLabelInPathInput', 'foo'),
-            baz: BuiltValueNullFieldError.checkNotNull(
-                baz, r'HttpRequestWithGreedyLabelInPathInput', 'baz'));
+    final _$result =
+        _$v ??
+        _$HttpRequestWithGreedyLabelInPathInput._(
+          foo: BuiltValueNullFieldError.checkNotNull(
+            foo,
+            r'HttpRequestWithGreedyLabelInPathInput',
+            'foo',
+          ),
+          baz: BuiltValueNullFieldError.checkNotNull(
+            baz,
+            r'HttpRequestWithGreedyLabelInPathInput',
+            'baz',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -111,24 +114,20 @@ class HttpRequestWithGreedyLabelInPathInputBuilder
 
 class _$HttpRequestWithGreedyLabelInPathInputPayload
     extends HttpRequestWithGreedyLabelInPathInputPayload {
-  factory _$HttpRequestWithGreedyLabelInPathInputPayload(
-          [void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)?
-              updates]) =>
-      (new HttpRequestWithGreedyLabelInPathInputPayloadBuilder()
-            ..update(updates))
-          ._build();
+  factory _$HttpRequestWithGreedyLabelInPathInputPayload([
+    void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)? updates,
+  ]) => (HttpRequestWithGreedyLabelInPathInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$HttpRequestWithGreedyLabelInPathInputPayload._() : super._();
-
   @override
   HttpRequestWithGreedyLabelInPathInputPayload rebuild(
-          void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithGreedyLabelInPathInputPayloadBuilder toBuilder() =>
-      new HttpRequestWithGreedyLabelInPathInputPayloadBuilder()..replace(this);
+      HttpRequestWithGreedyLabelInPathInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -144,22 +143,23 @@ class _$HttpRequestWithGreedyLabelInPathInputPayload
 
 class HttpRequestWithGreedyLabelInPathInputPayloadBuilder
     implements
-        Builder<HttpRequestWithGreedyLabelInPathInputPayload,
-            HttpRequestWithGreedyLabelInPathInputPayloadBuilder> {
+        Builder<
+          HttpRequestWithGreedyLabelInPathInputPayload,
+          HttpRequestWithGreedyLabelInPathInputPayloadBuilder
+        > {
   _$HttpRequestWithGreedyLabelInPathInputPayload? _$v;
 
   HttpRequestWithGreedyLabelInPathInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithGreedyLabelInPathInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithGreedyLabelInPathInputPayload;
   }
 
   @override
   void update(
-      void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)?
-          updates) {
+    void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -167,8 +167,7 @@ class HttpRequestWithGreedyLabelInPathInputPayloadBuilder
   HttpRequestWithGreedyLabelInPathInputPayload build() => _build();
 
   _$HttpRequestWithGreedyLabelInPathInputPayload _build() {
-    final _$result =
-        _$v ?? new _$HttpRequestWithGreedyLabelInPathInputPayload._();
+    final _$result = _$v ?? _$HttpRequestWithGreedyLabelInPathInputPayload._();
     replace(_$result);
     return _$result;
   }

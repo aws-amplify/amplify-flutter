@@ -59,12 +59,10 @@ class AWSProfileFileParser {
       );
     }
     final profileName = line.replaceAll(brackets, '').trim();
-    _currentProfile = _configFileBuilder
-            .build()
-            .profiles[profileName]
-            ?.toBuilder() ??
-        AWSProfileBuilder()
-      ..name = profileName;
+    _currentProfile =
+        _configFileBuilder.build().profiles[profileName]?.toBuilder() ??
+              AWSProfileBuilder()
+          ..name = profileName;
   }
 
   AWSProperty _parseProperty(String propertyDefinition) {
@@ -112,17 +110,13 @@ class AWSProfileFileParser {
     final newProperty = _parseProperty(line);
     final propertyName = newProperty.name;
     _currentProperty = propertyName;
-    currentProfile.properties.updateValue(
-      propertyName,
-      (existing) {
-        _logger.warn(
-          'Duplicate property `$propertyName` detected in profile '
-          '`${_currentProfile!.name}. The later one will be used.',
-        );
-        return newProperty;
-      },
-      ifAbsent: () => newProperty,
-    );
+    currentProfile.properties.updateValue(propertyName, (existing) {
+      _logger.warn(
+        'Duplicate property `$propertyName` detected in profile '
+        '`${_currentProfile!.name}. The later one will be used.',
+      );
+      return newProperty;
+    }, ifAbsent: () => newProperty);
   }
 
   /// PropertyContinuation = Whitespace Value

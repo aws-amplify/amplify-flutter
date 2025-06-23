@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:html';
+import 'package:web/web.dart';
 
 final RegExp _edgeRegex = RegExp(r'Edg/[\d\.]+');
 final RegExp _operaRegex = RegExp(r'OPR/[\d\.]+');
@@ -15,7 +15,8 @@ String get osIdentifier {
   // Order here is important since different browsers include each others'
   // tags in their user agents. Per MDN, this is for compatibility reasons:
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
-  var identifier = _edgeRegex.firstMatch(userAgent)?.group(0) ??
+  var identifier =
+      _edgeRegex.firstMatch(userAgent)?.group(0) ??
       _operaRegex.firstMatch(userAgent)?.group(0) ??
       _chromeRegex.firstMatch(userAgent)?.group(0) ??
       _firefoxRegex.firstMatch(userAgent)?.group(0);

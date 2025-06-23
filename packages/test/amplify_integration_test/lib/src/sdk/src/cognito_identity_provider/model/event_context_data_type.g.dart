@@ -18,22 +18,25 @@ class _$EventContextDataType extends EventContextDataType {
   @override
   final String? country;
 
-  factory _$EventContextDataType(
-          [void Function(EventContextDataTypeBuilder)? updates]) =>
-      (new EventContextDataTypeBuilder()..update(updates))._build();
+  factory _$EventContextDataType([
+    void Function(EventContextDataTypeBuilder)? updates,
+  ]) => (EventContextDataTypeBuilder()..update(updates))._build();
 
-  _$EventContextDataType._(
-      {this.ipAddress, this.deviceName, this.timezone, this.city, this.country})
-      : super._();
-
+  _$EventContextDataType._({
+    this.ipAddress,
+    this.deviceName,
+    this.timezone,
+    this.city,
+    this.country,
+  }) : super._();
   @override
   EventContextDataType rebuild(
-          void Function(EventContextDataTypeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EventContextDataTypeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EventContextDataTypeBuilder toBuilder() =>
-      new EventContextDataTypeBuilder()..replace(this);
+      EventContextDataTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -100,7 +103,6 @@ class EventContextDataTypeBuilder
 
   @override
   void replace(EventContextDataType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EventContextDataType;
   }
 
@@ -113,13 +115,15 @@ class EventContextDataTypeBuilder
   EventContextDataType build() => _build();
 
   _$EventContextDataType _build() {
-    final _$result = _$v ??
-        new _$EventContextDataType._(
-            ipAddress: ipAddress,
-            deviceName: deviceName,
-            timezone: timezone,
-            city: city,
-            country: country);
+    final _$result =
+        _$v ??
+        _$EventContextDataType._(
+          ipAddress: ipAddress,
+          deviceName: deviceName,
+          timezone: timezone,
+          city: city,
+          country: country,
+        );
     replace(_$result);
     return _$result;
   }

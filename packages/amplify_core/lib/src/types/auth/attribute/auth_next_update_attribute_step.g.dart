@@ -9,36 +9,37 @@ part of 'auth_next_update_attribute_step.dart';
 // **************************************************************************
 
 AuthNextUpdateAttributeStep _$AuthNextUpdateAttributeStepFromJson(
-        Map<String, dynamic> json) =>
-    AuthNextUpdateAttributeStep(
-      additionalInfo: (json['additionalInfo'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      codeDeliveryDetails: json['codeDeliveryDetails'] == null
+  Map<String, dynamic> json,
+) => $checkedCreate('AuthNextUpdateAttributeStep', json, ($checkedConvert) {
+  final val = AuthNextUpdateAttributeStep(
+    additionalInfo: $checkedConvert(
+      'additionalInfo',
+      (v) =>
+          (v as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as String)),
+    ),
+    codeDeliveryDetails: $checkedConvert(
+      'codeDeliveryDetails',
+      (v) => v == null
           ? null
-          : AuthCodeDeliveryDetails.fromJson(
-              json['codeDeliveryDetails'] as Map<String, dynamic>),
-      updateAttributeStep: $enumDecode(
-          _$AuthUpdateAttributeStepEnumMap, json['updateAttributeStep']),
-    );
+          : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
+    ),
+    updateAttributeStep: $checkedConvert(
+      'updateAttributeStep',
+      (v) => $enumDecode(_$AuthUpdateAttributeStepEnumMap, v),
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$AuthNextUpdateAttributeStepToJson(
-    AuthNextUpdateAttributeStep instance) {
-  final val = <String, dynamic>{
-    'additionalInfo': instance.additionalInfo,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
-  val['updateAttributeStep'] =
-      _$AuthUpdateAttributeStepEnumMap[instance.updateAttributeStep]!;
-  return val;
-}
+  AuthNextUpdateAttributeStep instance,
+) => <String, dynamic>{
+  'additionalInfo': instance.additionalInfo,
+  if (instance.codeDeliveryDetails?.toJson() case final value?)
+    'codeDeliveryDetails': value,
+  'updateAttributeStep':
+      _$AuthUpdateAttributeStepEnumMap[instance.updateAttributeStep]!,
+};
 
 const _$AuthUpdateAttributeStepEnumMap = {
   AuthUpdateAttributeStep.confirmAttributeWithCode: 'confirmAttributeWithCode',

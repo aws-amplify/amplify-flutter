@@ -11,17 +11,15 @@ class _$OperationConfig extends OperationConfig {
   final S3Config? s3;
 
   factory _$OperationConfig([void Function(OperationConfigBuilder)? updates]) =>
-      (new OperationConfigBuilder()..update(updates))._build();
+      (OperationConfigBuilder()..update(updates))._build();
 
   _$OperationConfig._({this.s3}) : super._();
-
   @override
   OperationConfig rebuild(void Function(OperationConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  OperationConfigBuilder toBuilder() =>
-      new OperationConfigBuilder()..replace(this);
+  OperationConfigBuilder toBuilder() => OperationConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -43,7 +41,7 @@ class OperationConfigBuilder
   _$OperationConfig? _$v;
 
   S3ConfigBuilder? _s3;
-  S3ConfigBuilder get s3 => _$this._s3 ??= new S3ConfigBuilder();
+  S3ConfigBuilder get s3 => _$this._s3 ??= S3ConfigBuilder();
   set s3(S3ConfigBuilder? s3) => _$this._s3 = s3;
 
   OperationConfigBuilder();
@@ -59,7 +57,6 @@ class OperationConfigBuilder
 
   @override
   void replace(OperationConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OperationConfig;
   }
 
@@ -74,15 +71,18 @@ class OperationConfigBuilder
   _$OperationConfig _build() {
     _$OperationConfig _$result;
     try {
-      _$result = _$v ?? new _$OperationConfig._(s3: _s3?.build());
+      _$result = _$v ?? _$OperationConfig._(s3: _s3?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 's3';
         _s3?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'OperationConfig', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'OperationConfig',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

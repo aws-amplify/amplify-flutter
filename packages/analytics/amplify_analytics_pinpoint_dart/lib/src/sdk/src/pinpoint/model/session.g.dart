@@ -17,25 +17,20 @@ class _$Session extends Session {
   final String? stopTimestamp;
 
   factory _$Session([void Function(SessionBuilder)? updates]) =>
-      (new SessionBuilder()..update(updates))._build();
+      (SessionBuilder()..update(updates))._build();
 
-  _$Session._(
-      {this.duration,
-      required this.id,
-      required this.startTimestamp,
-      this.stopTimestamp})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(id, r'Session', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        startTimestamp, r'Session', 'startTimestamp');
-  }
-
+  _$Session._({
+    this.duration,
+    required this.id,
+    required this.startTimestamp,
+    this.stopTimestamp,
+  }) : super._();
   @override
   Session rebuild(void Function(SessionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SessionBuilder toBuilder() => new SessionBuilder()..replace(this);
+  SessionBuilder toBuilder() => SessionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -96,7 +91,6 @@ class SessionBuilder implements Builder<Session, SessionBuilder> {
 
   @override
   void replace(Session other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Session;
   }
 
@@ -109,13 +103,18 @@ class SessionBuilder implements Builder<Session, SessionBuilder> {
   Session build() => _build();
 
   _$Session _build() {
-    final _$result = _$v ??
-        new _$Session._(
-            duration: duration,
-            id: BuiltValueNullFieldError.checkNotNull(id, r'Session', 'id'),
-            startTimestamp: BuiltValueNullFieldError.checkNotNull(
-                startTimestamp, r'Session', 'startTimestamp'),
-            stopTimestamp: stopTimestamp);
+    final _$result =
+        _$v ??
+        _$Session._(
+          duration: duration,
+          id: BuiltValueNullFieldError.checkNotNull(id, r'Session', 'id'),
+          startTimestamp: BuiltValueNullFieldError.checkNotNull(
+            startTimestamp,
+            r'Session',
+            'startTimestamp',
+          ),
+          stopTimestamp: stopTimestamp,
+        );
     replace(_$result);
     return _$result;
   }

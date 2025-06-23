@@ -17,17 +17,16 @@ class _$ComplexError extends ComplexError {
   final Map<String, String>? headers;
 
   factory _$ComplexError([void Function(ComplexErrorBuilder)? updates]) =>
-      (new ComplexErrorBuilder()..update(updates))._build();
+      (ComplexErrorBuilder()..update(updates))._build();
 
   _$ComplexError._({this.topLevel, this.nested, this.statusCode, this.headers})
-      : super._();
-
+    : super._();
   @override
   ComplexError rebuild(void Function(ComplexErrorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ComplexErrorBuilder toBuilder() => new ComplexErrorBuilder()..replace(this);
+  ComplexErrorBuilder toBuilder() => ComplexErrorBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -57,7 +56,7 @@ class ComplexErrorBuilder
 
   ComplexNestedErrorDataBuilder? _nested;
   ComplexNestedErrorDataBuilder get nested =>
-      _$this._nested ??= new ComplexNestedErrorDataBuilder();
+      _$this._nested ??= ComplexNestedErrorDataBuilder();
   set nested(ComplexNestedErrorDataBuilder? nested) => _$this._nested = nested;
 
   int? _statusCode;
@@ -84,7 +83,6 @@ class ComplexErrorBuilder
 
   @override
   void replace(ComplexError other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ComplexError;
   }
 
@@ -99,20 +97,25 @@ class ComplexErrorBuilder
   _$ComplexError _build() {
     _$ComplexError _$result;
     try {
-      _$result = _$v ??
-          new _$ComplexError._(
-              topLevel: topLevel,
-              nested: _nested?.build(),
-              statusCode: statusCode,
-              headers: headers);
+      _$result =
+          _$v ??
+          _$ComplexError._(
+            topLevel: topLevel,
+            nested: _nested?.build(),
+            statusCode: statusCode,
+            headers: headers,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ComplexError', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ComplexError',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -23,10 +23,10 @@ class XmlBuiltListSerializer
 
   @override
   Iterable<Type> get types => [
-        BuiltList,
-        BuiltList<dynamic>().runtimeType,
-        BuiltList<Object?>().runtimeType,
-      ];
+    BuiltList,
+    BuiltList<dynamic>().runtimeType,
+    BuiltList<Object?>().runtimeType,
+  ];
 
   @override
   String get wireName => 'list';
@@ -52,10 +52,7 @@ class XmlBuiltListSerializer
         value = value.children;
       }
       final elementName = indexer.elementName(memberName, index);
-      return [
-        XmlElementName(elementName, memberNamespace),
-        value,
-      ];
+      return [XmlElementName(elementName, memberNamespace), value];
     });
   }
 

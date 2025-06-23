@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v1.machine_learning.model.predict_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,11 +35,10 @@ abstract class PredictInput
     PredictInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<PredictInput>> serializers = [
-    PredictInputAwsJson11Serializer()
+    PredictInputAwsJson11Serializer(),
   ];
 
   String get mlModelId;
@@ -47,27 +46,16 @@ abstract class PredictInput
   String get predictEndpoint;
   @override
   PredictInput getPayload() => this;
+
   @override
-  List<Object?> get props => [
-        mlModelId,
-        record,
-        predictEndpoint,
-      ];
+  List<Object?> get props => [mlModelId, record, predictEndpoint];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PredictInput')
-      ..add(
-        'mlModelId',
-        mlModelId,
-      )
-      ..add(
-        'record',
-        record,
-      )
-      ..add(
-        'predictEndpoint',
-        predictEndpoint,
-      );
+      ..add('mlModelId', mlModelId)
+      ..add('record', record)
+      ..add('predictEndpoint', predictEndpoint);
     return helper.toString();
   }
 }
@@ -77,17 +65,13 @@ class PredictInputAwsJson11Serializer
   const PredictInputAwsJson11Serializer() : super('PredictInput');
 
   @override
-  Iterable<Type> get types => const [
-        PredictInput,
-        _$PredictInput,
-      ];
+  Iterable<Type> get types => const [PredictInput, _$PredictInput];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   PredictInput deserialize(
     Serializers serializers,
@@ -105,26 +89,30 @@ class PredictInputAwsJson11Serializer
       }
       switch (key) {
         case 'MLModelId':
-          result.mlModelId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.mlModelId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Record':
-          result.record.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.record.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
         case 'PredictEndpoint':
-          result.predictEndpoint = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.predictEndpoint =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -141,20 +129,14 @@ class PredictInputAwsJson11Serializer
     final PredictInput(:mlModelId, :record, :predictEndpoint) = object;
     result$.addAll([
       'MLModelId',
-      serializers.serialize(
-        mlModelId,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(mlModelId, specifiedType: const FullType(String)),
       'Record',
       serializers.serialize(
         record,
-        specifiedType: const FullType(
-          _i3.BuiltMap,
-          [
-            FullType(String),
-            FullType(String),
-          ],
-        ),
+        specifiedType: const FullType(_i3.BuiltMap, [
+          FullType(String),
+          FullType(String),
+        ]),
       ),
       'PredictEndpoint',
       serializers.serialize(

@@ -12,20 +12,19 @@ class _$PutWithContentEncodingInput extends PutWithContentEncodingInput {
   @override
   final String? data;
 
-  factory _$PutWithContentEncodingInput(
-          [void Function(PutWithContentEncodingInputBuilder)? updates]) =>
-      (new PutWithContentEncodingInputBuilder()..update(updates))._build();
+  factory _$PutWithContentEncodingInput([
+    void Function(PutWithContentEncodingInputBuilder)? updates,
+  ]) => (PutWithContentEncodingInputBuilder()..update(updates))._build();
 
   _$PutWithContentEncodingInput._({this.encoding, this.data}) : super._();
-
   @override
   PutWithContentEncodingInput rebuild(
-          void Function(PutWithContentEncodingInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PutWithContentEncodingInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PutWithContentEncodingInputBuilder toBuilder() =>
-      new PutWithContentEncodingInputBuilder()..replace(this);
+      PutWithContentEncodingInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,8 +46,10 @@ class _$PutWithContentEncodingInput extends PutWithContentEncodingInput {
 
 class PutWithContentEncodingInputBuilder
     implements
-        Builder<PutWithContentEncodingInput,
-            PutWithContentEncodingInputBuilder> {
+        Builder<
+          PutWithContentEncodingInput,
+          PutWithContentEncodingInputBuilder
+        > {
   _$PutWithContentEncodingInput? _$v;
 
   String? _encoding;
@@ -73,7 +74,6 @@ class PutWithContentEncodingInputBuilder
 
   @override
   void replace(PutWithContentEncodingInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutWithContentEncodingInput;
   }
 
@@ -86,8 +86,8 @@ class PutWithContentEncodingInputBuilder
   PutWithContentEncodingInput build() => _build();
 
   _$PutWithContentEncodingInput _build() {
-    final _$result = _$v ??
-        new _$PutWithContentEncodingInput._(encoding: encoding, data: data);
+    final _$result =
+        _$v ?? _$PutWithContentEncodingInput._(encoding: encoding, data: data);
     replace(_$result);
     return _$result;
   }
@@ -98,22 +98,19 @@ class _$PutWithContentEncodingInputPayload
   @override
   final String? data;
 
-  factory _$PutWithContentEncodingInputPayload(
-          [void Function(PutWithContentEncodingInputPayloadBuilder)?
-              updates]) =>
-      (new PutWithContentEncodingInputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$PutWithContentEncodingInputPayload([
+    void Function(PutWithContentEncodingInputPayloadBuilder)? updates,
+  ]) => (PutWithContentEncodingInputPayloadBuilder()..update(updates))._build();
 
   _$PutWithContentEncodingInputPayload._({this.data}) : super._();
-
   @override
   PutWithContentEncodingInputPayload rebuild(
-          void Function(PutWithContentEncodingInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PutWithContentEncodingInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PutWithContentEncodingInputPayloadBuilder toBuilder() =>
-      new PutWithContentEncodingInputPayloadBuilder()..replace(this);
+      PutWithContentEncodingInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -132,8 +129,10 @@ class _$PutWithContentEncodingInputPayload
 
 class PutWithContentEncodingInputPayloadBuilder
     implements
-        Builder<PutWithContentEncodingInputPayload,
-            PutWithContentEncodingInputPayloadBuilder> {
+        Builder<
+          PutWithContentEncodingInputPayload,
+          PutWithContentEncodingInputPayloadBuilder
+        > {
   _$PutWithContentEncodingInputPayload? _$v;
 
   String? _data;
@@ -153,13 +152,13 @@ class PutWithContentEncodingInputPayloadBuilder
 
   @override
   void replace(PutWithContentEncodingInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutWithContentEncodingInputPayload;
   }
 
   @override
   void update(
-      void Function(PutWithContentEncodingInputPayloadBuilder)? updates) {
+    void Function(PutWithContentEncodingInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -167,8 +166,7 @@ class PutWithContentEncodingInputPayloadBuilder
   PutWithContentEncodingInputPayload build() => _build();
 
   _$PutWithContentEncodingInputPayload _build() {
-    final _$result =
-        _$v ?? new _$PutWithContentEncodingInputPayload._(data: data);
+    final _$result = _$v ?? _$PutWithContentEncodingInputPayload._(data: data);
     replace(_$result);
     return _$result;
   }

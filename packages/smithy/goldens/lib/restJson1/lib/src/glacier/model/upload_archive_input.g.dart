@@ -18,31 +18,25 @@ class _$UploadArchiveInput extends UploadArchiveInput {
   @override
   final _i2.Stream<List<int>>? body;
 
-  factory _$UploadArchiveInput(
-          [void Function(UploadArchiveInputBuilder)? updates]) =>
-      (new UploadArchiveInputBuilder()..update(updates))._build();
+  factory _$UploadArchiveInput([
+    void Function(UploadArchiveInputBuilder)? updates,
+  ]) => (UploadArchiveInputBuilder()..update(updates))._build();
 
-  _$UploadArchiveInput._(
-      {required this.vaultName,
-      required this.accountId,
-      this.archiveDescription,
-      this.checksum,
-      this.body})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        vaultName, r'UploadArchiveInput', 'vaultName');
-    BuiltValueNullFieldError.checkNotNull(
-        accountId, r'UploadArchiveInput', 'accountId');
-  }
-
+  _$UploadArchiveInput._({
+    required this.vaultName,
+    required this.accountId,
+    this.archiveDescription,
+    this.checksum,
+    this.body,
+  }) : super._();
   @override
   UploadArchiveInput rebuild(
-          void Function(UploadArchiveInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UploadArchiveInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UploadArchiveInputBuilder toBuilder() =>
-      new UploadArchiveInputBuilder()..replace(this);
+      UploadArchiveInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -110,7 +104,6 @@ class UploadArchiveInputBuilder
 
   @override
   void replace(UploadArchiveInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadArchiveInput;
   }
 
@@ -123,15 +116,23 @@ class UploadArchiveInputBuilder
   UploadArchiveInput build() => _build();
 
   _$UploadArchiveInput _build() {
-    final _$result = _$v ??
-        new _$UploadArchiveInput._(
-            vaultName: BuiltValueNullFieldError.checkNotNull(
-                vaultName, r'UploadArchiveInput', 'vaultName'),
-            accountId: BuiltValueNullFieldError.checkNotNull(
-                accountId, r'UploadArchiveInput', 'accountId'),
-            archiveDescription: archiveDescription,
-            checksum: checksum,
-            body: body);
+    final _$result =
+        _$v ??
+        _$UploadArchiveInput._(
+          vaultName: BuiltValueNullFieldError.checkNotNull(
+            vaultName,
+            r'UploadArchiveInput',
+            'vaultName',
+          ),
+          accountId: BuiltValueNullFieldError.checkNotNull(
+            accountId,
+            r'UploadArchiveInput',
+            'accountId',
+          ),
+          archiveDescription: archiveDescription,
+          checksum: checksum,
+          body: body,
+        );
     replace(_$result);
     return _$result;
   }

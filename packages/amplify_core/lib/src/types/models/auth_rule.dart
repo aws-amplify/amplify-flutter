@@ -19,7 +19,7 @@ enum ModelOperation {
   LIST,
   SYNC,
   LISTEN,
-  SEARCH
+  SEARCH,
 }
 
 enum AuthRuleProvider { APIKEY, OIDC, IAM, USERPOOLS, FUNCTION }
@@ -76,7 +76,7 @@ class AuthRule {
       'groupClaim': groupClaim,
       'groups': groups,
       'groupsField': groupsField,
-      'provider': provider != null ? provider!.name : null,
+      'provider': provider?.name,
       'operations': operations?.map((op) => op.name).toList(),
     };
     return Map<String, dynamic>.from(map)

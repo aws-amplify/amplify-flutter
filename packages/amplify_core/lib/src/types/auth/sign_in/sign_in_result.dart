@@ -12,10 +12,7 @@ class SignInResult
         AWSEquatable<SignInResult>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
-  const SignInResult({
-    required this.isSignedIn,
-    required this.nextStep,
-  });
+  const SignInResult({required this.isSignedIn, required this.nextStep});
 
   factory SignInResult.fromJson(Map<String, Object?> json) =>
       _$SignInResultFromJson(json);

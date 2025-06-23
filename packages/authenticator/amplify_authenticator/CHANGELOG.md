@@ -1,3 +1,108 @@
+## 2.3.5
+
+- Minor bug fixes and improvements
+
+## 2.3.4
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 2.3.3
+
+- Minor bug fixes and improvements
+
+## 2.3.2
+
+- Minor bug fixes and improvements
+
+## 2.3.1
+
+### Fixes
+- fix(authenticator): recover from exceptions during reset password flow ([#5672](https://github.com/aws-amplify/amplify-flutter/pull/5672))
+
+## 2.3.0
+
+### Features
+- feat(auth, authenticator): Add support for Email OTP MFA ([#5449](https://github.com/aws-amplify/amplify-flutter/pull/5449)) (#5472)
+
+## 2.2.0
+
+### Features
+- feat(authenticator): export unmet password requirements ([#5437](https://github.com/aws-amplify/amplify-flutter/pull/5437))
+
+## 2.1.3
+
+- Minor bug fixes and improvements
+
+## 2.1.2
+
+### Fixes
+- fix(authenticator): Export InstructionsResolver ([#5169](https://github.com/aws-amplify/amplify-flutter/pull/5169))
+- Minor bug fixes and improvements
+
+## 2.1.1
+
+- Minor bug fixes and improvements
+
+## 2.1.0
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
+## 2.0.1
+
+- Minor bug fixes and improvements
+
+## 2.0.0
+
+We are thrilled to release version 2.0 of the Amplify Flutter libraries to add support for Amplify Gen 2. Learn more about Amplify Gen 2 at [https://docs.amplify.aws](https://docs.amplify.aws).
+
+If you are upgrading an existing project using Amplify Flutter v1 (created with Amplify Gen 1 CLI or a custom pipeline) please see the [upgrade guide](https://docs.amplify.aws/gen1/flutter/start/project-setup/upgrade-guide/).
+
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and [Discord](https://discord.gg/jWVbPfC) to answer any questions.
+
+### Breaking Changes
+- chore!: remove deprecated apis
+
+## 1.6.0
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 1.5.5
+
+### Fixes
+- fix: correct `package_info_plus` version constraint ([#4583](https://github.com/aws-amplify/amplify-flutter/pull/4583))
+
+## 1.5.4
+
+- Minor bug fixes and improvements## 1.5.3
+
+## 1.5.3
+
+### Fixes
+- fix: Bumped package_info_plus to ">=4.0.1 <=6.0.0"
+
+## 1.5.2
+
+### Fixes
+- fix(authenticator): required phone number validator ([#4106](https://github.com/aws-amplify/amplify-flutter/pull/4106))
+
+## 1.5.1
+
+- Minor bug fixes and improvements
+
+## 1.5.0
+
+### Fixes
+- fix(authenticator): Beta channel fixes ([#3835](https://github.com/aws-amplify/amplify-flutter/pull/3835))
+- fix(authenticator): fix validate before trim bug ([#3809](https://github.com/aws-amplify/amplify-flutter/pull/3809))
+- fix(authenticator): use getCurrentUser to check sign in state
+
+## 1.4.3
+
+- Minor bug fixes and improvements
+
 ## 1.4.2
 
 ### Fixes

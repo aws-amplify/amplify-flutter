@@ -18,22 +18,25 @@ class _$MalformedPatternInput extends MalformedPatternInput {
   @override
   final PatternUnion? union;
 
-  factory _$MalformedPatternInput(
-          [void Function(MalformedPatternInputBuilder)? updates]) =>
-      (new MalformedPatternInputBuilder()..update(updates))._build();
+  factory _$MalformedPatternInput([
+    void Function(MalformedPatternInputBuilder)? updates,
+  ]) => (MalformedPatternInputBuilder()..update(updates))._build();
 
-  _$MalformedPatternInput._(
-      {this.string, this.evilString, this.list, this.map, this.union})
-      : super._();
-
+  _$MalformedPatternInput._({
+    this.string,
+    this.evilString,
+    this.list,
+    this.map,
+    this.union,
+  }) : super._();
   @override
   MalformedPatternInput rebuild(
-          void Function(MalformedPatternInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedPatternInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedPatternInputBuilder toBuilder() =>
-      new MalformedPatternInputBuilder()..replace(this);
+      MalformedPatternInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -73,12 +76,12 @@ class MalformedPatternInputBuilder
 
   _i3.ListBuilder<String>? _list;
   _i3.ListBuilder<String> get list =>
-      _$this._list ??= new _i3.ListBuilder<String>();
+      _$this._list ??= _i3.ListBuilder<String>();
   set list(_i3.ListBuilder<String>? list) => _$this._list = list;
 
   _i3.MapBuilder<String, String>? _map;
   _i3.MapBuilder<String, String> get map =>
-      _$this._map ??= new _i3.MapBuilder<String, String>();
+      _$this._map ??= _i3.MapBuilder<String, String>();
   set map(_i3.MapBuilder<String, String>? map) => _$this._map = map;
 
   PatternUnion? _union;
@@ -102,7 +105,6 @@ class MalformedPatternInputBuilder
 
   @override
   void replace(MalformedPatternInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedPatternInput;
   }
 
@@ -117,13 +119,15 @@ class MalformedPatternInputBuilder
   _$MalformedPatternInput _build() {
     _$MalformedPatternInput _$result;
     try {
-      _$result = _$v ??
-          new _$MalformedPatternInput._(
-              string: string,
-              evilString: evilString,
-              list: _list?.build(),
-              map: _map?.build(),
-              union: union);
+      _$result =
+          _$v ??
+          _$MalformedPatternInput._(
+            string: string,
+            evilString: evilString,
+            list: _list?.build(),
+            map: _map?.build(),
+            union: union,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -132,8 +136,11 @@ class MalformedPatternInputBuilder
         _$failedField = 'map';
         _map?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'MalformedPatternInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'MalformedPatternInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

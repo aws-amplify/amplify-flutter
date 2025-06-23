@@ -12,20 +12,19 @@ class _$CodeDeliveryFailureException extends CodeDeliveryFailureException {
   @override
   final Map<String, String>? headers;
 
-  factory _$CodeDeliveryFailureException(
-          [void Function(CodeDeliveryFailureExceptionBuilder)? updates]) =>
-      (new CodeDeliveryFailureExceptionBuilder()..update(updates))._build();
+  factory _$CodeDeliveryFailureException([
+    void Function(CodeDeliveryFailureExceptionBuilder)? updates,
+  ]) => (CodeDeliveryFailureExceptionBuilder()..update(updates))._build();
 
   _$CodeDeliveryFailureException._({this.message, this.headers}) : super._();
-
   @override
   CodeDeliveryFailureException rebuild(
-          void Function(CodeDeliveryFailureExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CodeDeliveryFailureExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CodeDeliveryFailureExceptionBuilder toBuilder() =>
-      new CodeDeliveryFailureExceptionBuilder()..replace(this);
+      CodeDeliveryFailureExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -44,8 +43,10 @@ class _$CodeDeliveryFailureException extends CodeDeliveryFailureException {
 
 class CodeDeliveryFailureExceptionBuilder
     implements
-        Builder<CodeDeliveryFailureException,
-            CodeDeliveryFailureExceptionBuilder> {
+        Builder<
+          CodeDeliveryFailureException,
+          CodeDeliveryFailureExceptionBuilder
+        > {
   _$CodeDeliveryFailureException? _$v;
 
   String? _message;
@@ -70,7 +71,6 @@ class CodeDeliveryFailureExceptionBuilder
 
   @override
   void replace(CodeDeliveryFailureException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CodeDeliveryFailureException;
   }
 
@@ -83,9 +83,9 @@ class CodeDeliveryFailureExceptionBuilder
   CodeDeliveryFailureException build() => _build();
 
   _$CodeDeliveryFailureException _build() {
-    final _$result = _$v ??
-        new _$CodeDeliveryFailureException._(
-            message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$CodeDeliveryFailureException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.http_request_with_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,9 +42,9 @@ abstract class HttpRequestWithLabelsInput
     );
   }
 
-  factory HttpRequestWithLabelsInput.build(
-          [void Function(HttpRequestWithLabelsInputBuilder) updates]) =
-      _$HttpRequestWithLabelsInput;
+  factory HttpRequestWithLabelsInput.build([
+    void Function(HttpRequestWithLabelsInputBuilder) updates,
+  ]) = _$HttpRequestWithLabelsInput;
 
   const HttpRequestWithLabelsInput._();
 
@@ -52,39 +52,38 @@ abstract class HttpRequestWithLabelsInput
     HttpRequestWithLabelsInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpRequestWithLabelsInput.build((b) {
-        if (labels['string'] != null) {
-          b.string = labels['string']!;
-        }
-        if (labels['short'] != null) {
-          b.short = int.parse(labels['short']!);
-        }
-        if (labels['integer'] != null) {
-          b.integer = int.parse(labels['integer']!);
-        }
-        if (labels['long'] != null) {
-          b.long = _i3.Int64.parseInt(labels['long']!);
-        }
-        if (labels['float'] != null) {
-          b.float = double.parse(labels['float']!);
-        }
-        if (labels['double_'] != null) {
-          b.double_ = double.parse(labels['double_']!);
-        }
-        if (labels['boolean'] != null) {
-          b.boolean = labels['boolean']! == 'true';
-        }
-        if (labels['timestamp'] != null) {
-          b.timestamp = _i1.Timestamp.parse(
-            labels['timestamp']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
-        }
-      });
+  }) => HttpRequestWithLabelsInput.build((b) {
+    if (labels['string'] != null) {
+      b.string = labels['string']!;
+    }
+    if (labels['short'] != null) {
+      b.short = int.parse(labels['short']!);
+    }
+    if (labels['integer'] != null) {
+      b.integer = int.parse(labels['integer']!);
+    }
+    if (labels['long'] != null) {
+      b.long = _i3.Int64.parseInt(labels['long']!);
+    }
+    if (labels['float'] != null) {
+      b.float = double.parse(labels['float']!);
+    }
+    if (labels['double_'] != null) {
+      b.double_ = double.parse(labels['double_']!);
+    }
+    if (labels['boolean'] != null) {
+      b.boolean = labels['boolean']! == 'true';
+    }
+    if (labels['timestamp'] != null) {
+      b.timestamp = _i1.Timestamp.parse(
+        labels['timestamp']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
+    }
+  });
 
   static const List<_i1.SmithySerializer<HttpRequestWithLabelsInputPayload>>
-      serializers = [HttpRequestWithLabelsInputRestJson1Serializer()];
+  serializers = [HttpRequestWithLabelsInputRestJson1Serializer()];
 
   String get string;
   int get short;
@@ -116,89 +115,67 @@ abstract class HttpRequestWithLabelsInput
       case 'boolean':
         return boolean.toString();
       case 'timestamp':
-        return _i1.Timestamp(timestamp)
-            .format(_i1.TimestampFormat.dateTime)
-            .toString();
+        return _i1.Timestamp(
+          timestamp,
+        ).format(_i1.TimestampFormat.dateTime).toString();
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   HttpRequestWithLabelsInputPayload getPayload() =>
       HttpRequestWithLabelsInputPayload();
+
   @override
   List<Object?> get props => [
-        string,
-        short,
-        integer,
-        long,
-        float,
-        double_,
-        boolean,
-        timestamp,
-      ];
+    string,
+    short,
+    integer,
+    long,
+    float,
+    double_,
+    boolean,
+    timestamp,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpRequestWithLabelsInput')
-      ..add(
-        'string',
-        string,
-      )
-      ..add(
-        'short',
-        short,
-      )
-      ..add(
-        'integer',
-        integer,
-      )
-      ..add(
-        'long',
-        long,
-      )
-      ..add(
-        'float',
-        float,
-      )
-      ..add(
-        'double_',
-        double_,
-      )
-      ..add(
-        'boolean',
-        boolean,
-      )
-      ..add(
-        'timestamp',
-        timestamp,
-      );
+      ..add('string', string)
+      ..add('short', short)
+      ..add('integer', integer)
+      ..add('long', long)
+      ..add('float', float)
+      ..add('double_', double_)
+      ..add('boolean', boolean)
+      ..add('timestamp', timestamp);
     return helper.toString();
   }
 }
 
 @_i4.internal
 abstract class HttpRequestWithLabelsInputPayload
-    with
-        _i2.AWSEquatable<HttpRequestWithLabelsInputPayload>
+    with _i2.AWSEquatable<HttpRequestWithLabelsInputPayload>
     implements
-        Built<HttpRequestWithLabelsInputPayload,
-            HttpRequestWithLabelsInputPayloadBuilder>,
+        Built<
+          HttpRequestWithLabelsInputPayload,
+          HttpRequestWithLabelsInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory HttpRequestWithLabelsInputPayload(
-          [void Function(HttpRequestWithLabelsInputPayloadBuilder) updates]) =
-      _$HttpRequestWithLabelsInputPayload;
+  factory HttpRequestWithLabelsInputPayload([
+    void Function(HttpRequestWithLabelsInputPayloadBuilder) updates,
+  ]) = _$HttpRequestWithLabelsInputPayload;
 
   const HttpRequestWithLabelsInputPayload._();
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpRequestWithLabelsInputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'HttpRequestWithLabelsInputPayload',
+    );
     return helper.toString();
   }
 }
@@ -206,22 +183,21 @@ abstract class HttpRequestWithLabelsInputPayload
 class HttpRequestWithLabelsInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<HttpRequestWithLabelsInputPayload> {
   const HttpRequestWithLabelsInputRestJson1Serializer()
-      : super('HttpRequestWithLabelsInput');
+    : super('HttpRequestWithLabelsInput');
 
   @override
   Iterable<Type> get types => const [
-        HttpRequestWithLabelsInput,
-        _$HttpRequestWithLabelsInput,
-        HttpRequestWithLabelsInputPayload,
-        _$HttpRequestWithLabelsInputPayload,
-      ];
+    HttpRequestWithLabelsInput,
+    _$HttpRequestWithLabelsInput,
+    HttpRequestWithLabelsInputPayload,
+    _$HttpRequestWithLabelsInputPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   HttpRequestWithLabelsInputPayload deserialize(
     Serializers serializers,
@@ -236,6 +212,5 @@ class HttpRequestWithLabelsInputRestJson1Serializer
     Serializers serializers,
     HttpRequestWithLabelsInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

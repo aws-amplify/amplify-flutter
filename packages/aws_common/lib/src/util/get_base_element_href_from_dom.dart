@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:html';
+import 'package:web/web.dart';
 
 /// Returns the href attribute of the base element if it is present.
 ///

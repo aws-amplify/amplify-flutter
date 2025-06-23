@@ -30,14 +30,14 @@ abstract class InAppCampaignSchedule
   }
 
   /// Schedule of the campaign.
-  factory InAppCampaignSchedule.build(
-          [void Function(InAppCampaignScheduleBuilder) updates]) =
-      _$InAppCampaignSchedule;
+  factory InAppCampaignSchedule.build([
+    void Function(InAppCampaignScheduleBuilder) updates,
+  ]) = _$InAppCampaignSchedule;
 
   const InAppCampaignSchedule._();
 
   static const List<_i2.SmithySerializer<InAppCampaignSchedule>> serializers = [
-    InAppCampaignScheduleRestJson1Serializer()
+    InAppCampaignScheduleRestJson1Serializer(),
   ];
 
   /// The scheduled time after which the in-app message should not be shown. Timestamp is in ISO 8601 format.
@@ -49,26 +49,13 @@ abstract class InAppCampaignSchedule
   /// Time during which the in-app message should not be shown to the user.
   QuietTime? get quietTime;
   @override
-  List<Object?> get props => [
-        endDate,
-        eventFilter,
-        quietTime,
-      ];
+  List<Object?> get props => [endDate, eventFilter, quietTime];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InAppCampaignSchedule')
-      ..add(
-        'endDate',
-        endDate,
-      )
-      ..add(
-        'eventFilter',
-        eventFilter,
-      )
-      ..add(
-        'quietTime',
-        quietTime,
-      );
+      ..add('endDate', endDate)
+      ..add('eventFilter', eventFilter)
+      ..add('quietTime', quietTime);
     return helper.toString();
   }
 }
@@ -76,20 +63,17 @@ abstract class InAppCampaignSchedule
 class InAppCampaignScheduleRestJson1Serializer
     extends _i2.StructuredSmithySerializer<InAppCampaignSchedule> {
   const InAppCampaignScheduleRestJson1Serializer()
-      : super('InAppCampaignSchedule');
+    : super('InAppCampaignSchedule');
 
   @override
   Iterable<Type> get types => const [
-        InAppCampaignSchedule,
-        _$InAppCampaignSchedule,
-      ];
+    InAppCampaignSchedule,
+    _$InAppCampaignSchedule,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppCampaignSchedule deserialize(
     Serializers serializers,
@@ -107,20 +91,28 @@ class InAppCampaignScheduleRestJson1Serializer
       }
       switch (key) {
         case 'EndDate':
-          result.endDate = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.endDate =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'EventFilter':
-          result.eventFilter.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CampaignEventFilter),
-          ) as CampaignEventFilter));
+          result.eventFilter.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CampaignEventFilter),
+                )
+                as CampaignEventFilter),
+          );
         case 'QuietTime':
-          result.quietTime.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(QuietTime),
-          ) as QuietTime));
+          result.quietTime.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(QuietTime),
+                )
+                as QuietTime),
+          );
       }
     }
 
@@ -138,26 +130,29 @@ class InAppCampaignScheduleRestJson1Serializer
     if (endDate != null) {
       result$
         ..add('EndDate')
-        ..add(serializers.serialize(
-          endDate,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(endDate, specifiedType: const FullType(String)),
+        );
     }
     if (eventFilter != null) {
       result$
         ..add('EventFilter')
-        ..add(serializers.serialize(
-          eventFilter,
-          specifiedType: const FullType(CampaignEventFilter),
-        ));
+        ..add(
+          serializers.serialize(
+            eventFilter,
+            specifiedType: const FullType(CampaignEventFilter),
+          ),
+        );
     }
     if (quietTime != null) {
       result$
         ..add('QuietTime')
-        ..add(serializers.serialize(
-          quietTime,
-          specifiedType: const FullType(QuietTime),
-        ));
+        ..add(
+          serializers.serialize(
+            quietTime,
+            specifiedType: const FullType(QuietTime),
+          ),
+        );
     }
     return result$;
   }

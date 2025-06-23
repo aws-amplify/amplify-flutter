@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('mac-os || ios')
+library;
 
 import 'dart:io';
 

@@ -26,7 +26,7 @@ void main() {
     setUp(() async {
       secureStorage = MockSecureStorage();
       dependencyManager = DependencyManager()
-        ..addInstance(hostedUiConfig)
+        ..addInstance(mockConfig.auth!)
         ..addInstance<SecureStorageInterface>(secureStorage)
         ..addInstance<NativeAuthBridge>(ThrowingNativeBridge());
       plugin = AmplifyAuthCognito()
@@ -50,13 +50,12 @@ void main() {
       addTearDown(() => debugDefaultTargetPlatformOverride = null);
 
       final expectation = expectLater(
-        plugin.signInWithWebUI(
-          provider: AuthProvider.cognito,
-        ),
+        plugin.signInWithWebUI(provider: AuthProvider.cognito),
         throwsA(isA<UserCancelledException>()),
       );
-      final hostedUiMachine =
-          plugin.stateMachine.expect(HostedUiStateMachine.type);
+      final hostedUiMachine = plugin.stateMachine.expect(
+        HostedUiStateMachine.type,
+      );
       expect(
         hostedUiMachine.stream,
         emitsInOrder([
@@ -79,7 +78,7 @@ void main() {
 
 final class ThrowingNativeBridge extends Fake implements NativeAuthBridge {
   @override
-  Future<Map<String?, String?>> signInWithUrl(
+  Future<Map<String, String>> signInWithUrl(
     String arg_url,
     String arg_callbackUrlScheme,
     bool arg_preferPrivateSession,

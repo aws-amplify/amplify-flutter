@@ -26,13 +26,14 @@ abstract class MetricDimension
   }
 
   /// Specifies metric-based criteria for including or excluding endpoints from a segment. These criteria derive from custom metrics that you define for endpoints.
-  factory MetricDimension.build(
-      [void Function(MetricDimensionBuilder) updates]) = _$MetricDimension;
+  factory MetricDimension.build([
+    void Function(MetricDimensionBuilder) updates,
+  ]) = _$MetricDimension;
 
   const MetricDimension._();
 
   static const List<_i2.SmithySerializer<MetricDimension>> serializers = [
-    MetricDimensionRestJson1Serializer()
+    MetricDimensionRestJson1Serializer(),
   ];
 
   /// The operator to use when comparing metric values. Valid values are: GREATER\_THAN, LESS\_THAN, GREATER\_THAN\_OR\_EQUAL, LESS\_THAN\_OR\_EQUAL, and EQUAL.
@@ -41,21 +42,12 @@ abstract class MetricDimension
   /// The value to compare.
   double get value;
   @override
-  List<Object?> get props => [
-        comparisonOperator,
-        value,
-      ];
+  List<Object?> get props => [comparisonOperator, value];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MetricDimension')
-      ..add(
-        'comparisonOperator',
-        comparisonOperator,
-      )
-      ..add(
-        'value',
-        value,
-      );
+      ..add('comparisonOperator', comparisonOperator)
+      ..add('value', value);
     return helper.toString();
   }
 }
@@ -65,17 +57,11 @@ class MetricDimensionRestJson1Serializer
   const MetricDimensionRestJson1Serializer() : super('MetricDimension');
 
   @override
-  Iterable<Type> get types => const [
-        MetricDimension,
-        _$MetricDimension,
-      ];
+  Iterable<Type> get types => const [MetricDimension, _$MetricDimension];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   MetricDimension deserialize(
     Serializers serializers,
@@ -93,15 +79,19 @@ class MetricDimensionRestJson1Serializer
       }
       switch (key) {
         case 'ComparisonOperator':
-          result.comparisonOperator = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.comparisonOperator =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Value':
-          result.value = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.value =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
       }
     }
 
@@ -123,10 +113,7 @@ class MetricDimensionRestJson1Serializer
         specifiedType: const FullType(String),
       ),
       'Value',
-      serializers.serialize(
-        value,
-        specifiedType: const FullType(double),
-      ),
+      serializers.serialize(value, specifiedType: const FullType(double)),
     ]);
     return result$;
   }

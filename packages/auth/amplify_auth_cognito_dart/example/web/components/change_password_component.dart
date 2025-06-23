@@ -30,10 +30,7 @@ class ChangePasswordComponent extends StatefulComponent {
     }
 
     try {
-      await changePassword(
-        oldPassword: oldPassword,
-        newPassword: newPassword,
-      );
+      await changePassword(oldPassword: oldPassword, newPassword: newPassword);
       onSuccess();
     } on AmplifyException catch (e) {
       setState(() {

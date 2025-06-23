@@ -8,7 +8,8 @@ part of 'aws_json_1_0_trait.dart';
 
 AwsJson1_0Trait _$AwsJson1_0TraitFromJson(Map<String, dynamic> json) =>
     AwsJson1_0Trait(
-      http: (json['http'] as List<dynamic>?)
+      http:
+          (json['http'] as List<dynamic>?)
               ?.map((e) => $enumDecode(_$AlpnProtocolEnumMap, e))
               .toList() ??
           AWSProtocolTrait.defaultHttpProtocols,

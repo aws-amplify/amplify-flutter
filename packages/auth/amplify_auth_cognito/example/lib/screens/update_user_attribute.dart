@@ -31,28 +31,19 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
 
   void _showSuccess(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.green[800],
-        content: Text(message),
-      ),
+      SnackBar(backgroundColor: Colors.green[800], content: Text(message)),
     );
   }
 
   void _showInfo(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.blue[800],
-        content: Text(message),
-      ),
+      SnackBar(backgroundColor: Colors.blue[800], content: Text(message)),
     );
   }
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.red[900],
-        content: Text(message),
-      ),
+      SnackBar(backgroundColor: Colors.red[900], content: Text(message)),
     );
   }
 
@@ -90,9 +81,7 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update Attribute'),
-      ),
+      appBar: AppBar(title: const Text('Update Attribute')),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -101,15 +90,11 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
             TextFormField(
               controller: _keyController,
               enabled: _isNewAttribute,
-              decoration: const InputDecoration(
-                labelText: 'Attribute Name',
-              ),
+              decoration: const InputDecoration(labelText: 'Attribute Name'),
             ),
             TextFormField(
               controller: _valueController,
-              decoration: const InputDecoration(
-                labelText: 'Attribute Value',
-              ),
+              decoration: const InputDecoration(labelText: 'Attribute Value'),
             ),
             const SizedBox(height: 12),
             ElevatedButton(

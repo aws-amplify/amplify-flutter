@@ -1,19 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:html';
-
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:cognito_example/common.dart';
 import 'package:example_common/example_common.dart';
+import 'package:web/web.dart';
 
 import 'app_component.dart';
 
 class UserComponent extends StatefulComponent {
-  UserComponent({
-    required this.navigateTo,
-  });
+  UserComponent({required this.navigateTo});
 
   static final logger = AWSLogger().createChild('UserComponent');
 
@@ -41,7 +38,9 @@ class UserComponent extends StatefulComponent {
           'credential session',
           session.credentialsResult.value.sessionToken ?? 'null',
         ],
-        ...devices.map((device) => device.asCognitoDevice).map(
+        ...devices
+            .map((device) => device.asCognitoDevice)
+            .map(
               (device) => [
                 'Device: ${device.id}',
                 device.attributes.toString(),
@@ -61,14 +60,8 @@ class UserComponent extends StatefulComponent {
       alignItems: AlignItems.center,
       children: [
         TextComponent('You are logged in!'),
-        ButtonComponent(
-          innerHtml: 'Remember Device',
-          onClick: rememberDevice,
-        ),
-        ButtonComponent(
-          innerHtml: 'Forget Device',
-          onClick: forgetDevice,
-        ),
+        ButtonComponent(innerHtml: 'Remember Device', onClick: rememberDevice),
+        ButtonComponent(innerHtml: 'Forget Device', onClick: forgetDevice),
         ButtonComponent(
           innerHtml: 'Manage Attributes',
           onClick: () => navigateTo(AuthState.manageAttributes),
@@ -79,10 +72,7 @@ class UserComponent extends StatefulComponent {
             onClick: _fetchAuthSession,
           ),
         if (_showSession) ...[
-          ButtonComponent(
-            innerHtml: 'Hide Session',
-            onClick: _hideSession,
-          ),
+          ButtonComponent(innerHtml: 'Hide Session', onClick: _hideSession),
           TableComponent(
             tableDefinition: TableDefinition(
               headers: ['Key', 'Value'],

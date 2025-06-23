@@ -10,20 +10,19 @@ class _$NestedStructWithMap extends NestedStructWithMap {
   @override
   final _i2.BuiltMap<String, String>? mapArg;
 
-  factory _$NestedStructWithMap(
-          [void Function(NestedStructWithMapBuilder)? updates]) =>
-      (new NestedStructWithMapBuilder()..update(updates))._build();
+  factory _$NestedStructWithMap([
+    void Function(NestedStructWithMapBuilder)? updates,
+  ]) => (NestedStructWithMapBuilder()..update(updates))._build();
 
   _$NestedStructWithMap._({this.mapArg}) : super._();
-
   @override
   NestedStructWithMap rebuild(
-          void Function(NestedStructWithMapBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NestedStructWithMapBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NestedStructWithMapBuilder toBuilder() =>
-      new NestedStructWithMapBuilder()..replace(this);
+      NestedStructWithMapBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,7 +45,7 @@ class NestedStructWithMapBuilder
 
   _i2.MapBuilder<String, String>? _mapArg;
   _i2.MapBuilder<String, String> get mapArg =>
-      _$this._mapArg ??= new _i2.MapBuilder<String, String>();
+      _$this._mapArg ??= _i2.MapBuilder<String, String>();
   set mapArg(_i2.MapBuilder<String, String>? mapArg) => _$this._mapArg = mapArg;
 
   NestedStructWithMapBuilder();
@@ -62,7 +61,6 @@ class NestedStructWithMapBuilder
 
   @override
   void replace(NestedStructWithMap other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NestedStructWithMap;
   }
 
@@ -77,15 +75,18 @@ class NestedStructWithMapBuilder
   _$NestedStructWithMap _build() {
     _$NestedStructWithMap _$result;
     try {
-      _$result = _$v ?? new _$NestedStructWithMap._(mapArg: _mapArg?.build());
+      _$result = _$v ?? _$NestedStructWithMap._(mapArg: _mapArg?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'mapArg';
         _mapArg?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'NestedStructWithMap', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'NestedStructWithMap',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

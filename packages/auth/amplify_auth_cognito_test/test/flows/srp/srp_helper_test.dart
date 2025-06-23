@@ -140,8 +140,8 @@ void main() {
     'AuthenticationHelper',
     skip: zIsWeb && zDebugMode
         ? 'Running SRP ops on the main thread in DDC Web tests causes flaky behavior. '
-            'These operations are tested elsewhere including via the worker tests and '
-            'E2E tests which all benefit from offloading the computations.'
+              'These operations are tested elsewhere including via the worker tests and '
+              'E2E tests which all benefit from offloading the computations.'
         : null,
     () {
       group('createPasswordClaim', () {
@@ -245,11 +245,7 @@ void main() {
       });
 
       test('computeSecretHash', () {
-        final hash = computeSecretHash(
-          'Mess',
-          'age',
-          'secret',
-        );
+        final hash = computeSecretHash('Mess', 'age', 'secret');
         const expectedHash = 'qnR8UCqJggD55PohusaBNviGoOJ67HC6Btry4qXLVZc=';
 
         expect(hash, equals(expectedHash));

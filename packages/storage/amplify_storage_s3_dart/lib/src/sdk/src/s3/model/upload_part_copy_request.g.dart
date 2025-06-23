@@ -46,48 +46,39 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
   @override
   final String? expectedSourceBucketOwner;
 
-  factory _$UploadPartCopyRequest(
-          [void Function(UploadPartCopyRequestBuilder)? updates]) =>
-      (new UploadPartCopyRequestBuilder()..update(updates))._build();
+  factory _$UploadPartCopyRequest([
+    void Function(UploadPartCopyRequestBuilder)? updates,
+  ]) => (UploadPartCopyRequestBuilder()..update(updates))._build();
 
-  _$UploadPartCopyRequest._(
-      {required this.bucket,
-      required this.copySource,
-      this.copySourceIfMatch,
-      this.copySourceIfModifiedSince,
-      this.copySourceIfNoneMatch,
-      this.copySourceIfUnmodifiedSince,
-      this.copySourceRange,
-      required this.key,
-      this.partNumber,
-      required this.uploadId,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5,
-      this.copySourceSseCustomerAlgorithm,
-      this.copySourceSseCustomerKey,
-      this.copySourceSseCustomerKeyMd5,
-      this.requestPayer,
-      this.expectedBucketOwner,
-      this.expectedSourceBucketOwner})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'UploadPartCopyRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
-        copySource, r'UploadPartCopyRequest', 'copySource');
-    BuiltValueNullFieldError.checkNotNull(key, r'UploadPartCopyRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        uploadId, r'UploadPartCopyRequest', 'uploadId');
-  }
-
+  _$UploadPartCopyRequest._({
+    required this.bucket,
+    required this.copySource,
+    this.copySourceIfMatch,
+    this.copySourceIfModifiedSince,
+    this.copySourceIfNoneMatch,
+    this.copySourceIfUnmodifiedSince,
+    this.copySourceRange,
+    required this.key,
+    this.partNumber,
+    required this.uploadId,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+    this.copySourceSseCustomerAlgorithm,
+    this.copySourceSseCustomerKey,
+    this.copySourceSseCustomerKeyMd5,
+    this.requestPayer,
+    this.expectedBucketOwner,
+    this.expectedSourceBucketOwner,
+  }) : super._();
   @override
   UploadPartCopyRequest rebuild(
-          void Function(UploadPartCopyRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UploadPartCopyRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UploadPartCopyRequestBuilder toBuilder() =>
-      new UploadPartCopyRequestBuilder()..replace(this);
+      UploadPartCopyRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -270,7 +261,6 @@ class UploadPartCopyRequestBuilder
 
   @override
   void replace(UploadPartCopyRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadPartCopyRequest;
   }
 
@@ -283,51 +273,64 @@ class UploadPartCopyRequestBuilder
   UploadPartCopyRequest build() => _build();
 
   _$UploadPartCopyRequest _build() {
-    final _$result = _$v ??
-        new _$UploadPartCopyRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'UploadPartCopyRequest', 'bucket'),
-            copySource: BuiltValueNullFieldError.checkNotNull(
-                copySource, r'UploadPartCopyRequest', 'copySource'),
-            copySourceIfMatch: copySourceIfMatch,
-            copySourceIfModifiedSince: copySourceIfModifiedSince,
-            copySourceIfNoneMatch: copySourceIfNoneMatch,
-            copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
-            copySourceRange: copySourceRange,
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'UploadPartCopyRequest', 'key'),
-            partNumber: partNumber,
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'UploadPartCopyRequest', 'uploadId'),
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKey: sseCustomerKey,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
-            copySourceSseCustomerKey: copySourceSseCustomerKey,
-            copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
-            requestPayer: requestPayer,
-            expectedBucketOwner: expectedBucketOwner,
-            expectedSourceBucketOwner: expectedSourceBucketOwner);
+    final _$result =
+        _$v ??
+        _$UploadPartCopyRequest._(
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'UploadPartCopyRequest',
+            'bucket',
+          ),
+          copySource: BuiltValueNullFieldError.checkNotNull(
+            copySource,
+            r'UploadPartCopyRequest',
+            'copySource',
+          ),
+          copySourceIfMatch: copySourceIfMatch,
+          copySourceIfModifiedSince: copySourceIfModifiedSince,
+          copySourceIfNoneMatch: copySourceIfNoneMatch,
+          copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
+          copySourceRange: copySourceRange,
+          key: BuiltValueNullFieldError.checkNotNull(
+            key,
+            r'UploadPartCopyRequest',
+            'key',
+          ),
+          partNumber: partNumber,
+          uploadId: BuiltValueNullFieldError.checkNotNull(
+            uploadId,
+            r'UploadPartCopyRequest',
+            'uploadId',
+          ),
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKey: sseCustomerKey,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
+          copySourceSseCustomerKey: copySourceSseCustomerKey,
+          copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
+          requestPayer: requestPayer,
+          expectedBucketOwner: expectedBucketOwner,
+          expectedSourceBucketOwner: expectedSourceBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$UploadPartCopyRequestPayload extends UploadPartCopyRequestPayload {
-  factory _$UploadPartCopyRequestPayload(
-          [void Function(UploadPartCopyRequestPayloadBuilder)? updates]) =>
-      (new UploadPartCopyRequestPayloadBuilder()..update(updates))._build();
+  factory _$UploadPartCopyRequestPayload([
+    void Function(UploadPartCopyRequestPayloadBuilder)? updates,
+  ]) => (UploadPartCopyRequestPayloadBuilder()..update(updates))._build();
 
   _$UploadPartCopyRequestPayload._() : super._();
-
   @override
   UploadPartCopyRequestPayload rebuild(
-          void Function(UploadPartCopyRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UploadPartCopyRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UploadPartCopyRequestPayloadBuilder toBuilder() =>
-      new UploadPartCopyRequestPayloadBuilder()..replace(this);
+      UploadPartCopyRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -343,15 +346,16 @@ class _$UploadPartCopyRequestPayload extends UploadPartCopyRequestPayload {
 
 class UploadPartCopyRequestPayloadBuilder
     implements
-        Builder<UploadPartCopyRequestPayload,
-            UploadPartCopyRequestPayloadBuilder> {
+        Builder<
+          UploadPartCopyRequestPayload,
+          UploadPartCopyRequestPayloadBuilder
+        > {
   _$UploadPartCopyRequestPayload? _$v;
 
   UploadPartCopyRequestPayloadBuilder();
 
   @override
   void replace(UploadPartCopyRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadPartCopyRequestPayload;
   }
 
@@ -364,7 +368,7 @@ class UploadPartCopyRequestPayloadBuilder
   UploadPartCopyRequestPayload build() => _build();
 
   _$UploadPartCopyRequestPayload _build() {
-    final _$result = _$v ?? new _$UploadPartCopyRequestPayload._();
+    final _$result = _$v ?? _$UploadPartCopyRequestPayload._();
     replace(_$result);
     return _$result;
   }

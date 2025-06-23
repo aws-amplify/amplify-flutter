@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.custom.model.http_checksum_required_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,9 +23,9 @@ abstract class HttpChecksumRequiredInput
     return _$HttpChecksumRequiredInput._(content: content);
   }
 
-  factory HttpChecksumRequiredInput.build(
-          [void Function(HttpChecksumRequiredInputBuilder) updates]) =
-      _$HttpChecksumRequiredInput;
+  factory HttpChecksumRequiredInput.build([
+    void Function(HttpChecksumRequiredInputBuilder) updates,
+  ]) = _$HttpChecksumRequiredInput;
 
   const HttpChecksumRequiredInput._();
 
@@ -33,27 +33,25 @@ abstract class HttpChecksumRequiredInput
     _i2.Uint8List? payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpChecksumRequiredInput.build((b) {
-        b.content = payload;
-      });
+  }) => HttpChecksumRequiredInput.build((b) {
+    b.content = payload;
+  });
 
   static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
-    HttpChecksumRequiredInputRestJson1Serializer()
+    HttpChecksumRequiredInputRestJson1Serializer(),
   ];
 
   _i2.Uint8List? get content;
   @override
   _i2.Uint8List? getPayload() => content;
+
   @override
   List<Object?> get props => [content];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpChecksumRequiredInput')
-      ..add(
-        'content',
-        content,
-      );
+      ..add('content', content);
     return helper.toString();
   }
 }
@@ -61,20 +59,19 @@ abstract class HttpChecksumRequiredInput
 class HttpChecksumRequiredInputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<_i2.Uint8List> {
   const HttpChecksumRequiredInputRestJson1Serializer()
-      : super('HttpChecksumRequiredInput');
+    : super('HttpChecksumRequiredInput');
 
   @override
   Iterable<Type> get types => const [
-        HttpChecksumRequiredInput,
-        _$HttpChecksumRequiredInput,
-      ];
+    HttpChecksumRequiredInput,
+    _$HttpChecksumRequiredInput,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   _i2.Uint8List deserialize(
     Serializers serializers,
@@ -82,9 +79,10 @@ class HttpChecksumRequiredInputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(_i2.Uint8List),
-    ) as _i2.Uint8List);
+          serialized,
+          specifiedType: const FullType(_i2.Uint8List),
+        )
+        as _i2.Uint8List);
   }
 
   @override

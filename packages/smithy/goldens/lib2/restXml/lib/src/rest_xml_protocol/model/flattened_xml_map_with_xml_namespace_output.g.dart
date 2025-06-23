@@ -11,23 +11,20 @@ class _$FlattenedXmlMapWithXmlNamespaceOutput
   @override
   final _i2.BuiltMap<String, String>? myMap;
 
-  factory _$FlattenedXmlMapWithXmlNamespaceOutput(
-          [void Function(FlattenedXmlMapWithXmlNamespaceOutputBuilder)?
-              updates]) =>
-      (new FlattenedXmlMapWithXmlNamespaceOutputBuilder()..update(updates))
-          ._build();
+  factory _$FlattenedXmlMapWithXmlNamespaceOutput([
+    void Function(FlattenedXmlMapWithXmlNamespaceOutputBuilder)? updates,
+  ]) => (FlattenedXmlMapWithXmlNamespaceOutputBuilder()..update(updates))
+      ._build();
 
   _$FlattenedXmlMapWithXmlNamespaceOutput._({this.myMap}) : super._();
-
   @override
   FlattenedXmlMapWithXmlNamespaceOutput rebuild(
-          void Function(FlattenedXmlMapWithXmlNamespaceOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(FlattenedXmlMapWithXmlNamespaceOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   FlattenedXmlMapWithXmlNamespaceOutputBuilder toBuilder() =>
-      new FlattenedXmlMapWithXmlNamespaceOutputBuilder()..replace(this);
+      FlattenedXmlMapWithXmlNamespaceOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,13 +44,15 @@ class _$FlattenedXmlMapWithXmlNamespaceOutput
 
 class FlattenedXmlMapWithXmlNamespaceOutputBuilder
     implements
-        Builder<FlattenedXmlMapWithXmlNamespaceOutput,
-            FlattenedXmlMapWithXmlNamespaceOutputBuilder> {
+        Builder<
+          FlattenedXmlMapWithXmlNamespaceOutput,
+          FlattenedXmlMapWithXmlNamespaceOutputBuilder
+        > {
   _$FlattenedXmlMapWithXmlNamespaceOutput? _$v;
 
   _i2.MapBuilder<String, String>? _myMap;
   _i2.MapBuilder<String, String> get myMap =>
-      _$this._myMap ??= new _i2.MapBuilder<String, String>();
+      _$this._myMap ??= _i2.MapBuilder<String, String>();
   set myMap(_i2.MapBuilder<String, String>? myMap) => _$this._myMap = myMap;
 
   FlattenedXmlMapWithXmlNamespaceOutputBuilder();
@@ -69,13 +68,13 @@ class FlattenedXmlMapWithXmlNamespaceOutputBuilder
 
   @override
   void replace(FlattenedXmlMapWithXmlNamespaceOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$FlattenedXmlMapWithXmlNamespaceOutput;
   }
 
   @override
   void update(
-      void Function(FlattenedXmlMapWithXmlNamespaceOutputBuilder)? updates) {
+    void Function(FlattenedXmlMapWithXmlNamespaceOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -85,18 +84,20 @@ class FlattenedXmlMapWithXmlNamespaceOutputBuilder
   _$FlattenedXmlMapWithXmlNamespaceOutput _build() {
     _$FlattenedXmlMapWithXmlNamespaceOutput _$result;
     try {
-      _$result = _$v ??
-          new _$FlattenedXmlMapWithXmlNamespaceOutput._(myMap: _myMap?.build());
+      _$result =
+          _$v ??
+          _$FlattenedXmlMapWithXmlNamespaceOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'myMap';
         _myMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'FlattenedXmlMapWithXmlNamespaceOutput',
-            _$failedField,
-            e.toString());
+        throw BuiltValueNestedFieldError(
+          r'FlattenedXmlMapWithXmlNamespaceOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

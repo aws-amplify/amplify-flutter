@@ -12,20 +12,19 @@ class _$UsernameExistsException extends UsernameExistsException {
   @override
   final Map<String, String>? headers;
 
-  factory _$UsernameExistsException(
-          [void Function(UsernameExistsExceptionBuilder)? updates]) =>
-      (new UsernameExistsExceptionBuilder()..update(updates))._build();
+  factory _$UsernameExistsException([
+    void Function(UsernameExistsExceptionBuilder)? updates,
+  ]) => (UsernameExistsExceptionBuilder()..update(updates))._build();
 
   _$UsernameExistsException._({this.message, this.headers}) : super._();
-
   @override
   UsernameExistsException rebuild(
-          void Function(UsernameExistsExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UsernameExistsExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UsernameExistsExceptionBuilder toBuilder() =>
-      new UsernameExistsExceptionBuilder()..replace(this);
+      UsernameExistsExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class UsernameExistsExceptionBuilder
 
   @override
   void replace(UsernameExistsException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UsernameExistsException;
   }
 
@@ -82,8 +80,8 @@ class UsernameExistsExceptionBuilder
   UsernameExistsException build() => _build();
 
   _$UsernameExistsException _build() {
-    final _$result = _$v ??
-        new _$UsernameExistsException._(message: message, headers: headers);
+    final _$result =
+        _$v ?? _$UsernameExistsException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

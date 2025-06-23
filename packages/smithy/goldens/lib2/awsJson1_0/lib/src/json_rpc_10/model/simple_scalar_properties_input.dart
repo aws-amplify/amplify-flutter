@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_0_v2.json_rpc_10.model.simple_scalar_properties_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,9 +26,9 @@ abstract class SimpleScalarPropertiesInput
     );
   }
 
-  factory SimpleScalarPropertiesInput.build(
-          [void Function(SimpleScalarPropertiesInputBuilder) updates]) =
-      _$SimpleScalarPropertiesInput;
+  factory SimpleScalarPropertiesInput.build([
+    void Function(SimpleScalarPropertiesInputBuilder) updates,
+  ]) = _$SimpleScalarPropertiesInput;
 
   const SimpleScalarPropertiesInput._();
 
@@ -36,32 +36,24 @@ abstract class SimpleScalarPropertiesInput
     SimpleScalarPropertiesInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<SimpleScalarPropertiesInput>>
-      serializers = [SimpleScalarPropertiesInputAwsJson10Serializer()];
+  serializers = [SimpleScalarPropertiesInputAwsJson10Serializer()];
 
   double? get floatValue;
   double? get doubleValue;
   @override
   SimpleScalarPropertiesInput getPayload() => this;
+
   @override
-  List<Object?> get props => [
-        floatValue,
-        doubleValue,
-      ];
+  List<Object?> get props => [floatValue, doubleValue];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SimpleScalarPropertiesInput')
-      ..add(
-        'floatValue',
-        floatValue,
-      )
-      ..add(
-        'doubleValue',
-        doubleValue,
-      );
+      ..add('floatValue', floatValue)
+      ..add('doubleValue', doubleValue);
     return helper.toString();
   }
 }
@@ -69,20 +61,19 @@ abstract class SimpleScalarPropertiesInput
 class SimpleScalarPropertiesInputAwsJson10Serializer
     extends _i1.StructuredSmithySerializer<SimpleScalarPropertiesInput> {
   const SimpleScalarPropertiesInputAwsJson10Serializer()
-      : super('SimpleScalarPropertiesInput');
+    : super('SimpleScalarPropertiesInput');
 
   @override
   Iterable<Type> get types => const [
-        SimpleScalarPropertiesInput,
-        _$SimpleScalarPropertiesInput,
-      ];
+    SimpleScalarPropertiesInput,
+    _$SimpleScalarPropertiesInput,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
+
   @override
   SimpleScalarPropertiesInput deserialize(
     Serializers serializers,
@@ -100,15 +91,19 @@ class SimpleScalarPropertiesInputAwsJson10Serializer
       }
       switch (key) {
         case 'floatValue':
-          result.floatValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.floatValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'doubleValue':
-          result.doubleValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.doubleValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
       }
     }
 
@@ -126,18 +121,22 @@ class SimpleScalarPropertiesInputAwsJson10Serializer
     if (floatValue != null) {
       result$
         ..add('floatValue')
-        ..add(serializers.serialize(
-          floatValue,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            floatValue,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     if (doubleValue != null) {
       result$
         ..add('doubleValue')
-        ..add(serializers.serialize(
-          doubleValue,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            doubleValue,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     return result$;
   }

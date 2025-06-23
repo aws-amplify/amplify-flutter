@@ -7,15 +7,16 @@ part of 'rest_xml_trait.dart';
 // **************************************************************************
 
 RestXmlTrait _$RestXmlTraitFromJson(Map<String, dynamic> json) => RestXmlTrait(
-      noErrorWrapping: json['noErrorWrapping'] as bool? ?? false,
-      http: (json['http'] as List<dynamic>?)
-              ?.map((e) => $enumDecode(_$AlpnProtocolEnumMap, e))
-              .toList() ??
-          AWSProtocolTrait.defaultHttpProtocols,
-      eventStreamHttp: (json['eventStreamHttp'] as List<dynamic>?)
+  noErrorWrapping: json['noErrorWrapping'] as bool? ?? false,
+  http:
+      (json['http'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$AlpnProtocolEnumMap, e))
-          .toList(),
-    );
+          .toList() ??
+      AWSProtocolTrait.defaultHttpProtocols,
+  eventStreamHttp: (json['eventStreamHttp'] as List<dynamic>?)
+      ?.map((e) => $enumDecode(_$AlpnProtocolEnumMap, e))
+      .toList(),
+);
 
 Map<String, dynamic> _$RestXmlTraitToJson(RestXmlTrait instance) =>
     <String, dynamic>{

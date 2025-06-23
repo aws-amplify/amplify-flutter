@@ -19,28 +19,21 @@ class _$GetUserResponse extends GetUserResponse {
   final _i2.BuiltList<String>? userMfaSettingList;
 
   factory _$GetUserResponse([void Function(GetUserResponseBuilder)? updates]) =>
-      (new GetUserResponseBuilder()..update(updates))._build();
+      (GetUserResponseBuilder()..update(updates))._build();
 
-  _$GetUserResponse._(
-      {required this.username,
-      required this.userAttributes,
-      this.mfaOptions,
-      this.preferredMfaSetting,
-      this.userMfaSettingList})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        username, r'GetUserResponse', 'username');
-    BuiltValueNullFieldError.checkNotNull(
-        userAttributes, r'GetUserResponse', 'userAttributes');
-  }
-
+  _$GetUserResponse._({
+    required this.username,
+    required this.userAttributes,
+    this.mfaOptions,
+    this.preferredMfaSetting,
+    this.userMfaSettingList,
+  }) : super._();
   @override
   GetUserResponse rebuild(void Function(GetUserResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GetUserResponseBuilder toBuilder() =>
-      new GetUserResponseBuilder()..replace(this);
+  GetUserResponseBuilder toBuilder() => GetUserResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -76,13 +69,13 @@ class GetUserResponseBuilder
 
   _i2.ListBuilder<AttributeType>? _userAttributes;
   _i2.ListBuilder<AttributeType> get userAttributes =>
-      _$this._userAttributes ??= new _i2.ListBuilder<AttributeType>();
+      _$this._userAttributes ??= _i2.ListBuilder<AttributeType>();
   set userAttributes(_i2.ListBuilder<AttributeType>? userAttributes) =>
       _$this._userAttributes = userAttributes;
 
   _i2.ListBuilder<MfaOptionType>? _mfaOptions;
   _i2.ListBuilder<MfaOptionType> get mfaOptions =>
-      _$this._mfaOptions ??= new _i2.ListBuilder<MfaOptionType>();
+      _$this._mfaOptions ??= _i2.ListBuilder<MfaOptionType>();
   set mfaOptions(_i2.ListBuilder<MfaOptionType>? mfaOptions) =>
       _$this._mfaOptions = mfaOptions;
 
@@ -93,7 +86,7 @@ class GetUserResponseBuilder
 
   _i2.ListBuilder<String>? _userMfaSettingList;
   _i2.ListBuilder<String> get userMfaSettingList =>
-      _$this._userMfaSettingList ??= new _i2.ListBuilder<String>();
+      _$this._userMfaSettingList ??= _i2.ListBuilder<String>();
   set userMfaSettingList(_i2.ListBuilder<String>? userMfaSettingList) =>
       _$this._userMfaSettingList = userMfaSettingList;
 
@@ -114,7 +107,6 @@ class GetUserResponseBuilder
 
   @override
   void replace(GetUserResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserResponse;
   }
 
@@ -129,14 +121,19 @@ class GetUserResponseBuilder
   _$GetUserResponse _build() {
     _$GetUserResponse _$result;
     try {
-      _$result = _$v ??
-          new _$GetUserResponse._(
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'GetUserResponse', 'username'),
-              userAttributes: userAttributes.build(),
-              mfaOptions: _mfaOptions?.build(),
-              preferredMfaSetting: preferredMfaSetting,
-              userMfaSettingList: _userMfaSettingList?.build());
+      _$result =
+          _$v ??
+          _$GetUserResponse._(
+            username: BuiltValueNullFieldError.checkNotNull(
+              username,
+              r'GetUserResponse',
+              'username',
+            ),
+            userAttributes: userAttributes.build(),
+            mfaOptions: _mfaOptions?.build(),
+            preferredMfaSetting: preferredMfaSetting,
+            userMfaSettingList: _userMfaSettingList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -148,8 +145,11 @@ class GetUserResponseBuilder
         _$failedField = 'userMfaSettingList';
         _userMfaSettingList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GetUserResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GetUserResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

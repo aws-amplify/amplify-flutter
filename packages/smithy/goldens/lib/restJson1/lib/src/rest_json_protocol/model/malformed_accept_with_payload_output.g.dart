@@ -11,20 +11,19 @@ class _$MalformedAcceptWithPayloadOutput
   @override
   final _i3.Uint8List? payload;
 
-  factory _$MalformedAcceptWithPayloadOutput(
-          [void Function(MalformedAcceptWithPayloadOutputBuilder)? updates]) =>
-      (new MalformedAcceptWithPayloadOutputBuilder()..update(updates))._build();
+  factory _$MalformedAcceptWithPayloadOutput([
+    void Function(MalformedAcceptWithPayloadOutputBuilder)? updates,
+  ]) => (MalformedAcceptWithPayloadOutputBuilder()..update(updates))._build();
 
   _$MalformedAcceptWithPayloadOutput._({this.payload}) : super._();
-
   @override
   MalformedAcceptWithPayloadOutput rebuild(
-          void Function(MalformedAcceptWithPayloadOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedAcceptWithPayloadOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedAcceptWithPayloadOutputBuilder toBuilder() =>
-      new MalformedAcceptWithPayloadOutputBuilder()..replace(this);
+      MalformedAcceptWithPayloadOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -44,8 +43,10 @@ class _$MalformedAcceptWithPayloadOutput
 
 class MalformedAcceptWithPayloadOutputBuilder
     implements
-        Builder<MalformedAcceptWithPayloadOutput,
-            MalformedAcceptWithPayloadOutputBuilder> {
+        Builder<
+          MalformedAcceptWithPayloadOutput,
+          MalformedAcceptWithPayloadOutputBuilder
+        > {
   _$MalformedAcceptWithPayloadOutput? _$v;
 
   _i3.Uint8List? _payload;
@@ -65,7 +66,6 @@ class MalformedAcceptWithPayloadOutputBuilder
 
   @override
   void replace(MalformedAcceptWithPayloadOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedAcceptWithPayloadOutput;
   }
 
@@ -79,7 +79,7 @@ class MalformedAcceptWithPayloadOutputBuilder
 
   _$MalformedAcceptWithPayloadOutput _build() {
     final _$result =
-        _$v ?? new _$MalformedAcceptWithPayloadOutput._(payload: payload);
+        _$v ?? _$MalformedAcceptWithPayloadOutput._(payload: payload);
     replace(_$result);
     return _$result;
   }

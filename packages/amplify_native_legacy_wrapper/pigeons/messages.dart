@@ -6,16 +6,14 @@
     copyrightHeader: '../../tool/license.txt',
     dartOut: './lib/amplify_native_legacy_plugin.g.dart',
     swiftOut: './ios/Classes/Pigeons/AmplifyNativeLegacyPlugin.swift',
-    javaOptions: JavaOptions(
-      className: 'LegacyNativePluginPigeon',
-      package: 'com.amazonaws.amplify.amplify_native_legacy_wrapper',
+    kotlinOptions: KotlinOptions(
+      package: 'com.amazonaws.amplify.amplify_native_legacy_wrapper.pigeons',
     ),
-    javaOut:
-        './android/src/main/kotlin/com/amazonaws/amplify/amplify_native_legacy_wrapper/LegacyNativePluginPigeon.java',
+    kotlinOut:
+        './android/src/main/kotlin/com/amazonaws/amplify/amplify_native_legacy_wrapper/pigeons/LegacyNativePluginPigeon.kt',
   ),
 )
-
-library legacy_native_plugin;
+library;
 
 import 'package:pigeon/pigeon.dart';
 
@@ -29,4 +27,7 @@ abstract class LegacyNativePlugin {
 
   @async
   void signIn(String username, String password);
+
+  @async
+  void rememberDevice();
 }

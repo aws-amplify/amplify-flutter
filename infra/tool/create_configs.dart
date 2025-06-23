@@ -41,10 +41,10 @@ late final Directory repoRoot = () {
 
 void main() {
   final <String, dynamic>{
-    'AmplifyFlutterIntegStack': {
-      'Categories': String categoriesJson,
-    }
-  } = jsonDecode(File('outputs.json').readAsStringSync());
+    'AmplifyFlutterIntegStack': {'Categories': String categoriesJson},
+  } = jsonDecode(
+    File('outputs.json').readAsStringSync(),
+  );
   final categories = jsonDecode(categoriesJson) as Map<String, dynamic>;
   for (final MapEntry(key: categoryName, value: categoryInfo)
       in categories.entries) {

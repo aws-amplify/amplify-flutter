@@ -1,3 +1,105 @@
+## 2.6.3
+
+- Minor bug fixes and improvements
+
+## 2.6.2
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 2.6.1
+
+- Minor bug fixes and improvements
+
+## 2.6.0
+
+- Minor bug fixes and improvements
+
+## 2.5.0
+
+### Features
+- feat(auth, authenticator): Add support for Email OTP MFA ([#5449](https://github.com/aws-amplify/amplify-flutter/pull/5449)) (#5472)
+
+## 2.4.2
+
+- Minor bug fixes and improvements
+
+## 2.4.1
+
+- Minor bug fixes and improvements
+
+## 2.4.0
+
+### Features
+- feat(Auth): Add fetchCurrentDevice API ([#5251](https://github.com/aws-amplify/amplify-flutter/pull/5251))
+
+## 2.3.0
+
+- Minor bug fixes and improvements
+
+## 2.2.0
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
+## 2.1.0
+
+- Minor bug fixes and improvements
+
+## 2.0.0
+
+We are thrilled to release version 2.0 of the Amplify Flutter libraries to add support for Amplify Gen 2. Learn more about Amplify Gen 2 at [https://docs.amplify.aws](https://docs.amplify.aws).
+
+If you are upgrading an existing project using Amplify Flutter v1 (created with Amplify Gen 1 CLI or a custom pipeline) please see the [upgrade guide](https://docs.amplify.aws/gen1/flutter/start/project-setup/upgrade-guide/).
+
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and [Discord](https://discord.gg/jWVbPfC) to answer any questions.
+
+### Breaking Changes
+- chore!: remove deprecated auth types ([#4764](https://github.com/aws-amplify/amplify-flutter/pull/4764))
+- fix!: regenerate cognito sdks to update signup operation for adding limit exceeded exception ([#4781](https://github.com/aws-amplify/amplify-flutter/pull/4781))
+
+### Fixes
+- fix: Android Intent URI Query Parameter Parsing ([#4546](https://github.com/aws-amplify/amplify-flutter/pull/4546))
+- fix: map Lambda exceptions correctly ([#4804](https://github.com/aws-amplify/amplify-flutter/pull/4804))
+
+## 1.8.0
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 1.7.2
+
+### Fixes
+- fix(auth): Allow retries with verifyTotpSetup() ([#4532](https://github.com/aws-amplify/amplify-flutter/pull/4532))
+- fix(auth): device metadata migration ([#4503](https://github.com/aws-amplify/amplify-flutter/pull/4503))
+- fix(auth): verifyTotp throw EnableSoftwareTokenMfaException ([#4558](https://github.com/aws-amplify/amplify-flutter/pull/4558))
+
+## 1.7.1
+
+- This version was retracted to avoid a breaking change introduced in ([#4532](https://github.com/aws-amplify/amplify-flutter/pull/4532))
+
+## 1.7.0
+
+- Minor bug fixes and improvements
+
+## 1.6.2
+
+### Fixes
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
+## 1.6.1
+
+- Minor bug fixes and improvements
+
+## 1.6.0
+
+### Features
+- feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
+
+## 1.5.0
+
+- Minor bug fixes and improvements
+
 ## 1.4.2
 
 ### Fixes

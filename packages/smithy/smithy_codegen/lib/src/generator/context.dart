@@ -30,17 +30,18 @@ class CodegenContext {
     Iterable<ShapeId> additionalShapes = const {},
     this.generateServer = false,
     Map<ShapeId, ShapeOverrides>? shapeOverrides,
-  })  : _shapes = shapes,
-        _serviceName = serviceName,
-        serviceShapeId = serviceShapeId ??
-            shapes.entries.singleWhereOrNull((entry) {
-              return entry.value is ServiceShape;
-            })?.key,
-        _additionalShapes = additionalShapes.toSet(),
-        shapeOverrides = {
-          Shape.unit: ShapeOverrides(DartTypes.smithy.unit),
-          ...?shapeOverrides,
-        } {
+  }) : _shapes = shapes,
+       _serviceName = serviceName,
+       serviceShapeId =
+           serviceShapeId ??
+           shapes.entries.singleWhereOrNull((entry) {
+             return entry.value is ServiceShape;
+           })?.key,
+       _additionalShapes = additionalShapes.toSet(),
+       shapeOverrides = {
+         Shape.unit: ShapeOverrides(DartTypes.smithy.unit),
+         ...?shapeOverrides,
+       } {
     if (serviceShapeId == null && serviceName == null) {
       throw ArgumentError(
         'Either serviceShapeId or serviceName must be provided.',
@@ -92,7 +93,7 @@ class CodegenContext {
   /// The name of the service being generated.
   String get serviceName {
     if (_serviceName != null) {
-      return _serviceName!;
+      return _serviceName;
     }
     final sdkId = service?.getTrait<ServiceTrait>()?.sdkId;
     if (sdkId != null) {
@@ -112,13 +113,15 @@ class CodegenContext {
   final Map<(ShapeId, Shape? parent), Reference> _symbolCache = {};
 
   /// The service shape being generated.
-  late final ServiceShape? service =
-      serviceShapeId == null ? null : shapeFor(serviceShapeId!) as ServiceShape;
+  late final ServiceShape? service = serviceShapeId == null
+      ? null
+      : shapeFor(serviceShapeId!) as ServiceShape;
 
   /// The protocol for this service.
   late final List<ProtocolDefinitionTrait> serviceProtocols = () {
-    final protocols =
-        service?.traits.values.whereType<ProtocolDefinitionTrait>().toList();
+    final protocols = service?.traits.values
+        .whereType<ProtocolDefinitionTrait>()
+        .toList();
     if (protocols == null || protocols.isEmpty) {
       return const [GenericJsonProtocolDefinitionTrait()];
     }
@@ -137,8 +140,10 @@ class CodegenContext {
   /// Returns the symbol or [Reference] for [shapeId].
   Reference symbolFor(ShapeId shapeId, [Shape? parent]) {
     final shape = shapeFor(shapeId);
-    return _symbolCache[(shapeId, parent)] ??=
-        shape.accept(SymbolVisitor(this), parent);
+    return _symbolCache[(shapeId, parent)] ??= shape.accept(
+      SymbolVisitor(this),
+      parent,
+    );
   }
 
   /// The service's serializers library.
@@ -160,12 +165,16 @@ class CodegenContext {
   );
 
   /// The service's serializers reference.
-  late final Reference serializersRef =
-      Reference('serializers', serviceSerializersLibrary.libraryUrl);
+  late final Reference serializersRef = Reference(
+    'serializers',
+    serviceSerializersLibrary.libraryUrl,
+  );
 
   /// The service's builder factories reference.
-  late final Reference builderFactoriesRef =
-      Reference('builderFactories', serviceSerializersLibrary.libraryUrl);
+  late final Reference builderFactoriesRef = Reference(
+    'builderFactories',
+    serviceSerializersLibrary.libraryUrl,
+  );
 
   /// The service's client library.
   late final SmithyLibrary serviceClientLibrary = SmithyLibraryX.create(
@@ -193,8 +202,9 @@ class CodegenContext {
   // service and api suffixes from sdkId when generating a client name.
   //
   // https://awslabs.github.io/smithy/1.0/spec/aws/aws-core.html#using-sdk-service-id-for-client-naming
-  late final String _serviceCommonName =
-      serviceName.replaceAll(RegExp(r'(API|Client|Service)$'), '').pascalCase;
+  late final String _serviceCommonName = serviceName
+      .replaceAll(RegExp(r'(API|Client|Service)$'), '')
+      .pascalCase;
 
   late final String serviceServerName = '${_serviceCommonName}Server';
 

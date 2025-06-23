@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.global_sign_out_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -22,9 +22,9 @@ abstract class GlobalSignOutResponse
   }
 
   /// The response to the request to sign out all devices.
-  factory GlobalSignOutResponse.build(
-          [void Function(GlobalSignOutResponseBuilder) updates]) =
-      _$GlobalSignOutResponse;
+  factory GlobalSignOutResponse.build([
+    void Function(GlobalSignOutResponseBuilder) updates,
+  ]) = _$GlobalSignOutResponse;
 
   const GlobalSignOutResponse._();
 
@@ -32,15 +32,15 @@ abstract class GlobalSignOutResponse
   factory GlobalSignOutResponse.fromResponse(
     GlobalSignOutResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<GlobalSignOutResponse>> serializers = [
-    GlobalSignOutResponseAwsJson11Serializer()
+    GlobalSignOutResponseAwsJson11Serializer(),
   ];
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GlobalSignOutResponse');
@@ -51,20 +51,19 @@ abstract class GlobalSignOutResponse
 class GlobalSignOutResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<GlobalSignOutResponse> {
   const GlobalSignOutResponseAwsJson11Serializer()
-      : super('GlobalSignOutResponse');
+    : super('GlobalSignOutResponse');
 
   @override
   Iterable<Type> get types => const [
-        GlobalSignOutResponse,
-        _$GlobalSignOutResponse,
-      ];
+    GlobalSignOutResponse,
+    _$GlobalSignOutResponse,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   GlobalSignOutResponse deserialize(
     Serializers serializers,
@@ -79,6 +78,5 @@ class GlobalSignOutResponseAwsJson11Serializer
     Serializers serializers,
     GlobalSignOutResponse object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

@@ -23,24 +23,23 @@ class _$CsvInput extends CsvInput {
   final bool? allowQuotedRecordDelimiter;
 
   factory _$CsvInput([void Function(CsvInputBuilder)? updates]) =>
-      (new CsvInputBuilder()..update(updates))._build();
+      (CsvInputBuilder()..update(updates))._build();
 
-  _$CsvInput._(
-      {this.fileHeaderInfo,
-      this.comments,
-      this.quoteEscapeCharacter,
-      this.recordDelimiter,
-      this.fieldDelimiter,
-      this.quoteCharacter,
-      this.allowQuotedRecordDelimiter})
-      : super._();
-
+  _$CsvInput._({
+    this.fileHeaderInfo,
+    this.comments,
+    this.quoteEscapeCharacter,
+    this.recordDelimiter,
+    this.fieldDelimiter,
+    this.quoteCharacter,
+    this.allowQuotedRecordDelimiter,
+  }) : super._();
   @override
   CsvInput rebuild(void Function(CsvInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CsvInputBuilder toBuilder() => new CsvInputBuilder()..replace(this);
+  CsvInputBuilder toBuilder() => CsvInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -126,7 +125,6 @@ class CsvInputBuilder implements Builder<CsvInput, CsvInputBuilder> {
 
   @override
   void replace(CsvInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CsvInput;
   }
 
@@ -139,15 +137,17 @@ class CsvInputBuilder implements Builder<CsvInput, CsvInputBuilder> {
   CsvInput build() => _build();
 
   _$CsvInput _build() {
-    final _$result = _$v ??
-        new _$CsvInput._(
-            fileHeaderInfo: fileHeaderInfo,
-            comments: comments,
-            quoteEscapeCharacter: quoteEscapeCharacter,
-            recordDelimiter: recordDelimiter,
-            fieldDelimiter: fieldDelimiter,
-            quoteCharacter: quoteCharacter,
-            allowQuotedRecordDelimiter: allowQuotedRecordDelimiter);
+    final _$result =
+        _$v ??
+        _$CsvInput._(
+          fileHeaderInfo: fileHeaderInfo,
+          comments: comments,
+          quoteEscapeCharacter: quoteEscapeCharacter,
+          recordDelimiter: recordDelimiter,
+          fieldDelimiter: fieldDelimiter,
+          quoteCharacter: quoteCharacter,
+          allowQuotedRecordDelimiter: allowQuotedRecordDelimiter,
+        );
     replace(_$result);
     return _$result;
   }

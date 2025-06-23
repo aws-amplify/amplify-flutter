@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v2.json_protocol.model.put_with_content_encoding_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,19 +16,13 @@ abstract class PutWithContentEncodingInput
         _i2.AWSEquatable<PutWithContentEncodingInput>
     implements
         Built<PutWithContentEncodingInput, PutWithContentEncodingInputBuilder> {
-  factory PutWithContentEncodingInput({
-    String? encoding,
-    String? data,
-  }) {
-    return _$PutWithContentEncodingInput._(
-      encoding: encoding,
-      data: data,
-    );
+  factory PutWithContentEncodingInput({String? encoding, String? data}) {
+    return _$PutWithContentEncodingInput._(encoding: encoding, data: data);
   }
 
-  factory PutWithContentEncodingInput.build(
-          [void Function(PutWithContentEncodingInputBuilder) updates]) =
-      _$PutWithContentEncodingInput;
+  factory PutWithContentEncodingInput.build([
+    void Function(PutWithContentEncodingInputBuilder) updates,
+  ]) = _$PutWithContentEncodingInput;
 
   const PutWithContentEncodingInput._();
 
@@ -36,32 +30,24 @@ abstract class PutWithContentEncodingInput
     PutWithContentEncodingInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<PutWithContentEncodingInput>>
-      serializers = [PutWithContentEncodingInputAwsJson11Serializer()];
+  serializers = [PutWithContentEncodingInputAwsJson11Serializer()];
 
   String? get encoding;
   String? get data;
   @override
   PutWithContentEncodingInput getPayload() => this;
+
   @override
-  List<Object?> get props => [
-        encoding,
-        data,
-      ];
+  List<Object?> get props => [encoding, data];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutWithContentEncodingInput')
-      ..add(
-        'encoding',
-        encoding,
-      )
-      ..add(
-        'data',
-        data,
-      );
+      ..add('encoding', encoding)
+      ..add('data', data);
     return helper.toString();
   }
 }
@@ -69,20 +55,19 @@ abstract class PutWithContentEncodingInput
 class PutWithContentEncodingInputAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<PutWithContentEncodingInput> {
   const PutWithContentEncodingInputAwsJson11Serializer()
-      : super('PutWithContentEncodingInput');
+    : super('PutWithContentEncodingInput');
 
   @override
   Iterable<Type> get types => const [
-        PutWithContentEncodingInput,
-        _$PutWithContentEncodingInput,
-      ];
+    PutWithContentEncodingInput,
+    _$PutWithContentEncodingInput,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   PutWithContentEncodingInput deserialize(
     Serializers serializers,
@@ -100,15 +85,19 @@ class PutWithContentEncodingInputAwsJson11Serializer
       }
       switch (key) {
         case 'encoding':
-          result.encoding = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.encoding =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -126,18 +115,19 @@ class PutWithContentEncodingInputAwsJson11Serializer
     if (encoding != null) {
       result$
         ..add('encoding')
-        ..add(serializers.serialize(
-          encoding,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            encoding,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (data != null) {
       result$
         ..add('data')
-        ..add(serializers.serialize(
-          data,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(data, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

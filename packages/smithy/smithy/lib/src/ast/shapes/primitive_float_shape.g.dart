@@ -7,26 +7,30 @@ part of 'primitive_float_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveFloatShape> _$primitiveFloatShapeSerializer =
-    new _$PrimitiveFloatShapeSerializer();
+    _$PrimitiveFloatShapeSerializer();
 
 class _$PrimitiveFloatShapeSerializer
     implements StructuredSerializer<PrimitiveFloatShape> {
   @override
   final Iterable<Type> types = const [
     PrimitiveFloatShape,
-    _$PrimitiveFloatShape
+    _$PrimitiveFloatShape,
   ];
   @override
   final String wireName = 'PrimitiveFloatShape';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, PrimitiveFloatShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    PrimitiveFloatShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -34,9 +38,11 @@ class _$PrimitiveFloatShapeSerializer
 
   @override
   PrimitiveFloatShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new PrimitiveFloatShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = PrimitiveFloatShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -45,8 +51,12 @@ class _$PrimitiveFloatShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -61,26 +71,20 @@ class _$PrimitiveFloatShape extends PrimitiveFloatShape {
   @override
   final TraitMap traits;
 
-  factory _$PrimitiveFloatShape(
-          [void Function(PrimitiveFloatShapeBuilder)? updates]) =>
-      (new PrimitiveFloatShapeBuilder()..update(updates))._build();
+  factory _$PrimitiveFloatShape([
+    void Function(PrimitiveFloatShapeBuilder)? updates,
+  ]) => (PrimitiveFloatShapeBuilder()..update(updates))._build();
 
   _$PrimitiveFloatShape._({required this.shapeId, required this.traits})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'PrimitiveFloatShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(
-        traits, r'PrimitiveFloatShape', 'traits');
-  }
-
+    : super._();
   @override
   PrimitiveFloatShape rebuild(
-          void Function(PrimitiveFloatShapeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PrimitiveFloatShapeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PrimitiveFloatShapeBuilder toBuilder() =>
-      new PrimitiveFloatShapeBuilder()..replace(this);
+      PrimitiveFloatShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -138,7 +142,6 @@ class PrimitiveFloatShapeBuilder
 
   @override
   void replace(covariant PrimitiveFloatShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveFloatShape;
   }
 
@@ -151,12 +154,20 @@ class PrimitiveFloatShapeBuilder
   PrimitiveFloatShape build() => _build();
 
   _$PrimitiveFloatShape _build() {
-    final _$result = _$v ??
-        new _$PrimitiveFloatShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'PrimitiveFloatShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'PrimitiveFloatShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$PrimitiveFloatShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'PrimitiveFloatShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'PrimitiveFloatShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

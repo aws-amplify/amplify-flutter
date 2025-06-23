@@ -33,19 +33,19 @@ class _MyAppState extends State<MyApp> {
     routes: [
       GoRoute(
         path: '/',
-        builder: (BuildContext _, GoRouterState __) => const HomeScreen(),
+        builder: (BuildContext _, GoRouterState _) => const HomeScreen(),
       ),
       GoRoute(
         path: '/view-user-attributes',
-        builder: (BuildContext _, GoRouterState __) =>
+        builder: (BuildContext _, GoRouterState _) =>
             const ViewUserAttributesScreen(),
       ),
       GoRoute(
         path: '/update-user-attribute',
         builder: (BuildContext _, GoRouterState state) =>
             UpdateUserAttributeScreen(
-          userAttributeKey: state.extra as CognitoUserAttributeKey?,
-        ),
+              userAttributeKey: state.extra as CognitoUserAttributeKey?,
+            ),
       ),
       GoRoute(
         path: '/update-user-attributes',
@@ -56,15 +56,15 @@ class _MyAppState extends State<MyApp> {
         path: '/confirm-user-attribute/email',
         builder: (BuildContext _, GoRouterState state) =>
             const ConfirmUserAttributeScreen(
-          userAttributeKey: CognitoUserAttributeKey.email,
-        ),
+              userAttributeKey: CognitoUserAttributeKey.email,
+            ),
       ),
       GoRoute(
         path: '/confirm-user-attribute/phone_number',
         builder: (BuildContext _, GoRouterState state) =>
             const ConfirmUserAttributeScreen(
-          userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-        ),
+              userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            ),
       ),
     ],
   );
@@ -161,9 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _fetchAuthSession() async {
     final authSession = await Amplify.Auth.fetchAuthSession();
-    _logger.info(
-      prettyPrintJson(authSession.toJson()),
-    );
+    _logger.info(prettyPrintJson(authSession.toJson()));
   }
 
   Future<void> _requestGreeting() async {
@@ -172,10 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     try {
       final response = await Amplify.API
-          .post(
-            '/hello',
-            body: HttpPayload.string(_controller.text),
-          )
+          .post('/hello', body: HttpPayload.string(_controller.text))
           .response;
       final decodedBody = response.decodeBody();
       setState(() {
@@ -195,9 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Amplify Auth Example'),
-      ),
+      appBar: AppBar(title: const Text('Amplify Auth Example')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

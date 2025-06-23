@@ -15,14 +15,8 @@ abstract class Initiator
     with _i1.AWSEquatable<Initiator>
     implements Built<Initiator, InitiatorBuilder> {
   /// Container element that identifies who initiated the multipart upload.
-  factory Initiator({
-    String? id,
-    String? displayName,
-  }) {
-    return _$Initiator._(
-      id: id,
-      displayName: displayName,
-    );
+  factory Initiator({String? id, String? displayName}) {
+    return _$Initiator._(id: id, displayName: displayName);
   }
 
   /// Container element that identifies who initiated the multipart upload.
@@ -32,30 +26,26 @@ abstract class Initiator
   const Initiator._();
 
   static const List<_i2.SmithySerializer<Initiator>> serializers = [
-    InitiatorRestXmlSerializer()
+    InitiatorRestXmlSerializer(),
   ];
 
   /// If the principal is an Amazon Web Services account, it provides the Canonical User ID. If the principal is an IAM User, it provides a user ARN value.
+  ///
+  /// **Directory buckets** \- If the principal is an Amazon Web Services account, it provides the Amazon Web Services account ID. If the principal is an IAM User, it provides a user ARN value.
   String? get id;
 
   /// Name of the Principal.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get displayName;
   @override
-  List<Object?> get props => [
-        id,
-        displayName,
-      ];
+  List<Object?> get props => [id, displayName];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Initiator')
-      ..add(
-        'id',
-        id,
-      )
-      ..add(
-        'displayName',
-        displayName,
-      );
+      ..add('id', id)
+      ..add('displayName', displayName);
     return helper.toString();
   }
 }
@@ -65,17 +55,13 @@ class InitiatorRestXmlSerializer
   const InitiatorRestXmlSerializer() : super('Initiator');
 
   @override
-  Iterable<Type> get types => const [
-        Initiator,
-        _$Initiator,
-      ];
+  Iterable<Type> get types => const [Initiator, _$Initiator];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   Initiator deserialize(
     Serializers serializers,
@@ -93,15 +79,19 @@ class InitiatorRestXmlSerializer
       }
       switch (key) {
         case 'DisplayName':
-          result.displayName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.displayName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ID':
-          result.id = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.id =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -118,24 +108,23 @@ class InitiatorRestXmlSerializer
       const _i2.XmlElementName(
         'Initiator',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final Initiator(:displayName, :id) = object;
     if (displayName != null) {
       result$
         ..add(const _i2.XmlElementName('DisplayName'))
-        ..add(serializers.serialize(
-          displayName,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            displayName,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (id != null) {
       result$
         ..add(const _i2.XmlElementName('ID'))
-        ..add(serializers.serialize(
-          id,
-          specifiedType: const FullType(String),
-        ));
+        ..add(serializers.serialize(id, specifiedType: const FullType(String)));
     }
     return result$;
   }

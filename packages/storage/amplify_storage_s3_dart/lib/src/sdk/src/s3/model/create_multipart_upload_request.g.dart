@@ -68,56 +68,50 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
   @override
   final ChecksumAlgorithm? checksumAlgorithm;
 
-  factory _$CreateMultipartUploadRequest(
-          [void Function(CreateMultipartUploadRequestBuilder)? updates]) =>
-      (new CreateMultipartUploadRequestBuilder()..update(updates))._build();
+  factory _$CreateMultipartUploadRequest([
+    void Function(CreateMultipartUploadRequestBuilder)? updates,
+  ]) => (CreateMultipartUploadRequestBuilder()..update(updates))._build();
 
-  _$CreateMultipartUploadRequest._(
-      {this.acl,
-      required this.bucket,
-      this.cacheControl,
-      this.contentDisposition,
-      this.contentEncoding,
-      this.contentLanguage,
-      this.contentType,
-      this.expires,
-      this.grantFullControl,
-      this.grantRead,
-      this.grantReadAcp,
-      this.grantWriteAcp,
-      required this.key,
-      this.metadata,
-      this.serverSideEncryption,
-      this.storageClass,
-      this.websiteRedirectLocation,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.ssekmsEncryptionContext,
-      this.bucketKeyEnabled,
-      this.requestPayer,
-      this.tagging,
-      this.objectLockMode,
-      this.objectLockRetainUntilDate,
-      this.objectLockLegalHoldStatus,
-      this.expectedBucketOwner,
-      this.checksumAlgorithm})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'CreateMultipartUploadRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
-        key, r'CreateMultipartUploadRequest', 'key');
-  }
-
+  _$CreateMultipartUploadRequest._({
+    this.acl,
+    required this.bucket,
+    this.cacheControl,
+    this.contentDisposition,
+    this.contentEncoding,
+    this.contentLanguage,
+    this.contentType,
+    this.expires,
+    this.grantFullControl,
+    this.grantRead,
+    this.grantReadAcp,
+    this.grantWriteAcp,
+    required this.key,
+    this.metadata,
+    this.serverSideEncryption,
+    this.storageClass,
+    this.websiteRedirectLocation,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.bucketKeyEnabled,
+    this.requestPayer,
+    this.tagging,
+    this.objectLockMode,
+    this.objectLockRetainUntilDate,
+    this.objectLockLegalHoldStatus,
+    this.expectedBucketOwner,
+    this.checksumAlgorithm,
+  }) : super._();
   @override
   CreateMultipartUploadRequest rebuild(
-          void Function(CreateMultipartUploadRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateMultipartUploadRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateMultipartUploadRequestBuilder toBuilder() =>
-      new CreateMultipartUploadRequestBuilder()..replace(this);
+      CreateMultipartUploadRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -195,8 +189,10 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
 
 class CreateMultipartUploadRequestBuilder
     implements
-        Builder<CreateMultipartUploadRequest,
-            CreateMultipartUploadRequestBuilder> {
+        Builder<
+          CreateMultipartUploadRequest,
+          CreateMultipartUploadRequestBuilder
+        > {
   _$CreateMultipartUploadRequest? _$v;
 
   ObjectCannedAcl? _acl;
@@ -258,7 +254,7 @@ class CreateMultipartUploadRequestBuilder
 
   _i3.MapBuilder<String, String>? _metadata;
   _i3.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i3.MapBuilder<String, String>();
+      _$this._metadata ??= _i3.MapBuilder<String, String>();
   set metadata(_i3.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
@@ -330,8 +326,8 @@ class CreateMultipartUploadRequestBuilder
   ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
-      _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
+    ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+  ) => _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
@@ -385,7 +381,6 @@ class CreateMultipartUploadRequestBuilder
 
   @override
   void replace(CreateMultipartUploadRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateMultipartUploadRequest;
   }
 
@@ -400,48 +395,59 @@ class CreateMultipartUploadRequestBuilder
   _$CreateMultipartUploadRequest _build() {
     _$CreateMultipartUploadRequest _$result;
     try {
-      _$result = _$v ??
-          new _$CreateMultipartUploadRequest._(
-              acl: acl,
-              bucket: BuiltValueNullFieldError.checkNotNull(
-                  bucket, r'CreateMultipartUploadRequest', 'bucket'),
-              cacheControl: cacheControl,
-              contentDisposition: contentDisposition,
-              contentEncoding: contentEncoding,
-              contentLanguage: contentLanguage,
-              contentType: contentType,
-              expires: expires,
-              grantFullControl: grantFullControl,
-              grantRead: grantRead,
-              grantReadAcp: grantReadAcp,
-              grantWriteAcp: grantWriteAcp,
-              key: BuiltValueNullFieldError.checkNotNull(
-                  key, r'CreateMultipartUploadRequest', 'key'),
-              metadata: _metadata?.build(),
-              serverSideEncryption: serverSideEncryption,
-              storageClass: storageClass,
-              websiteRedirectLocation: websiteRedirectLocation,
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKey: sseCustomerKey,
-              sseCustomerKeyMd5: sseCustomerKeyMd5,
-              ssekmsKeyId: ssekmsKeyId,
-              ssekmsEncryptionContext: ssekmsEncryptionContext,
-              bucketKeyEnabled: bucketKeyEnabled,
-              requestPayer: requestPayer,
-              tagging: tagging,
-              objectLockMode: objectLockMode,
-              objectLockRetainUntilDate: objectLockRetainUntilDate,
-              objectLockLegalHoldStatus: objectLockLegalHoldStatus,
-              expectedBucketOwner: expectedBucketOwner,
-              checksumAlgorithm: checksumAlgorithm);
+      _$result =
+          _$v ??
+          _$CreateMultipartUploadRequest._(
+            acl: acl,
+            bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket,
+              r'CreateMultipartUploadRequest',
+              'bucket',
+            ),
+            cacheControl: cacheControl,
+            contentDisposition: contentDisposition,
+            contentEncoding: contentEncoding,
+            contentLanguage: contentLanguage,
+            contentType: contentType,
+            expires: expires,
+            grantFullControl: grantFullControl,
+            grantRead: grantRead,
+            grantReadAcp: grantReadAcp,
+            grantWriteAcp: grantWriteAcp,
+            key: BuiltValueNullFieldError.checkNotNull(
+              key,
+              r'CreateMultipartUploadRequest',
+              'key',
+            ),
+            metadata: _metadata?.build(),
+            serverSideEncryption: serverSideEncryption,
+            storageClass: storageClass,
+            websiteRedirectLocation: websiteRedirectLocation,
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKey: sseCustomerKey,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+            ssekmsKeyId: ssekmsKeyId,
+            ssekmsEncryptionContext: ssekmsEncryptionContext,
+            bucketKeyEnabled: bucketKeyEnabled,
+            requestPayer: requestPayer,
+            tagging: tagging,
+            objectLockMode: objectLockMode,
+            objectLockRetainUntilDate: objectLockRetainUntilDate,
+            objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+            expectedBucketOwner: expectedBucketOwner,
+            checksumAlgorithm: checksumAlgorithm,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'metadata';
         _metadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'CreateMultipartUploadRequest', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'CreateMultipartUploadRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -452,22 +458,20 @@ class CreateMultipartUploadRequestBuilder
 
 class _$CreateMultipartUploadRequestPayload
     extends CreateMultipartUploadRequestPayload {
-  factory _$CreateMultipartUploadRequestPayload(
-          [void Function(CreateMultipartUploadRequestPayloadBuilder)?
-              updates]) =>
-      (new CreateMultipartUploadRequestPayloadBuilder()..update(updates))
-          ._build();
+  factory _$CreateMultipartUploadRequestPayload([
+    void Function(CreateMultipartUploadRequestPayloadBuilder)? updates,
+  ]) =>
+      (CreateMultipartUploadRequestPayloadBuilder()..update(updates))._build();
 
   _$CreateMultipartUploadRequestPayload._() : super._();
-
   @override
   CreateMultipartUploadRequestPayload rebuild(
-          void Function(CreateMultipartUploadRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateMultipartUploadRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateMultipartUploadRequestPayloadBuilder toBuilder() =>
-      new CreateMultipartUploadRequestPayloadBuilder()..replace(this);
+      CreateMultipartUploadRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -483,21 +487,23 @@ class _$CreateMultipartUploadRequestPayload
 
 class CreateMultipartUploadRequestPayloadBuilder
     implements
-        Builder<CreateMultipartUploadRequestPayload,
-            CreateMultipartUploadRequestPayloadBuilder> {
+        Builder<
+          CreateMultipartUploadRequestPayload,
+          CreateMultipartUploadRequestPayloadBuilder
+        > {
   _$CreateMultipartUploadRequestPayload? _$v;
 
   CreateMultipartUploadRequestPayloadBuilder();
 
   @override
   void replace(CreateMultipartUploadRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateMultipartUploadRequestPayload;
   }
 
   @override
   void update(
-      void Function(CreateMultipartUploadRequestPayloadBuilder)? updates) {
+    void Function(CreateMultipartUploadRequestPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -505,7 +511,7 @@ class CreateMultipartUploadRequestPayloadBuilder
   CreateMultipartUploadRequestPayload build() => _build();
 
   _$CreateMultipartUploadRequestPayload _build() {
-    final _$result = _$v ?? new _$CreateMultipartUploadRequestPayload._();
+    final _$result = _$v ?? _$CreateMultipartUploadRequestPayload._();
     replace(_$result);
     return _$result;
   }

@@ -23,47 +23,28 @@ class _$HttpRequestWithLabelsAndTimestampFormatInput
   @override
   final DateTime targetDateTime;
 
-  factory _$HttpRequestWithLabelsAndTimestampFormatInput(
-          [void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder)?
-              updates]) =>
-      (new HttpRequestWithLabelsAndTimestampFormatInputBuilder()
-            ..update(updates))
-          ._build();
+  factory _$HttpRequestWithLabelsAndTimestampFormatInput([
+    void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder)? updates,
+  ]) => (HttpRequestWithLabelsAndTimestampFormatInputBuilder()..update(updates))
+      ._build();
 
-  _$HttpRequestWithLabelsAndTimestampFormatInput._(
-      {required this.memberEpochSeconds,
-      required this.memberHttpDate,
-      required this.memberDateTime,
-      required this.defaultFormat,
-      required this.targetEpochSeconds,
-      required this.targetHttpDate,
-      required this.targetDateTime})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(memberEpochSeconds,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberEpochSeconds');
-    BuiltValueNullFieldError.checkNotNull(memberHttpDate,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberHttpDate');
-    BuiltValueNullFieldError.checkNotNull(memberDateTime,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberDateTime');
-    BuiltValueNullFieldError.checkNotNull(defaultFormat,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'defaultFormat');
-    BuiltValueNullFieldError.checkNotNull(targetEpochSeconds,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetEpochSeconds');
-    BuiltValueNullFieldError.checkNotNull(targetHttpDate,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetHttpDate');
-    BuiltValueNullFieldError.checkNotNull(targetDateTime,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetDateTime');
-  }
-
+  _$HttpRequestWithLabelsAndTimestampFormatInput._({
+    required this.memberEpochSeconds,
+    required this.memberHttpDate,
+    required this.memberDateTime,
+    required this.defaultFormat,
+    required this.targetEpochSeconds,
+    required this.targetHttpDate,
+    required this.targetDateTime,
+  }) : super._();
   @override
   HttpRequestWithLabelsAndTimestampFormatInput rebuild(
-          void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithLabelsAndTimestampFormatInputBuilder toBuilder() =>
-      new HttpRequestWithLabelsAndTimestampFormatInputBuilder()..replace(this);
+      HttpRequestWithLabelsAndTimestampFormatInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -95,8 +76,10 @@ class _$HttpRequestWithLabelsAndTimestampFormatInput
 
 class HttpRequestWithLabelsAndTimestampFormatInputBuilder
     implements
-        Builder<HttpRequestWithLabelsAndTimestampFormatInput,
-            HttpRequestWithLabelsAndTimestampFormatInputBuilder> {
+        Builder<
+          HttpRequestWithLabelsAndTimestampFormatInput,
+          HttpRequestWithLabelsAndTimestampFormatInputBuilder
+        > {
   _$HttpRequestWithLabelsAndTimestampFormatInput? _$v;
 
   DateTime? _memberEpochSeconds;
@@ -153,14 +136,13 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
 
   @override
   void replace(HttpRequestWithLabelsAndTimestampFormatInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithLabelsAndTimestampFormatInput;
   }
 
   @override
   void update(
-      void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder)?
-          updates) {
+    void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -168,25 +150,45 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
   HttpRequestWithLabelsAndTimestampFormatInput build() => _build();
 
   _$HttpRequestWithLabelsAndTimestampFormatInput _build() {
-    final _$result = _$v ??
-        new _$HttpRequestWithLabelsAndTimestampFormatInput._(
-            memberEpochSeconds: BuiltValueNullFieldError.checkNotNull(
-                memberEpochSeconds,
-                r'HttpRequestWithLabelsAndTimestampFormatInput',
-                'memberEpochSeconds'),
-            memberHttpDate: BuiltValueNullFieldError.checkNotNull(
-                memberHttpDate, r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberHttpDate'),
-            memberDateTime: BuiltValueNullFieldError.checkNotNull(
-                memberDateTime, r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberDateTime'),
-            defaultFormat: BuiltValueNullFieldError.checkNotNull(
-                defaultFormat, r'HttpRequestWithLabelsAndTimestampFormatInput', 'defaultFormat'),
-            targetEpochSeconds: BuiltValueNullFieldError.checkNotNull(
-                targetEpochSeconds,
-                r'HttpRequestWithLabelsAndTimestampFormatInput',
-                'targetEpochSeconds'),
-            targetHttpDate: BuiltValueNullFieldError.checkNotNull(
-                targetHttpDate, r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetHttpDate'),
-            targetDateTime: BuiltValueNullFieldError.checkNotNull(targetDateTime, r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetDateTime'));
+    final _$result =
+        _$v ??
+        _$HttpRequestWithLabelsAndTimestampFormatInput._(
+          memberEpochSeconds: BuiltValueNullFieldError.checkNotNull(
+            memberEpochSeconds,
+            r'HttpRequestWithLabelsAndTimestampFormatInput',
+            'memberEpochSeconds',
+          ),
+          memberHttpDate: BuiltValueNullFieldError.checkNotNull(
+            memberHttpDate,
+            r'HttpRequestWithLabelsAndTimestampFormatInput',
+            'memberHttpDate',
+          ),
+          memberDateTime: BuiltValueNullFieldError.checkNotNull(
+            memberDateTime,
+            r'HttpRequestWithLabelsAndTimestampFormatInput',
+            'memberDateTime',
+          ),
+          defaultFormat: BuiltValueNullFieldError.checkNotNull(
+            defaultFormat,
+            r'HttpRequestWithLabelsAndTimestampFormatInput',
+            'defaultFormat',
+          ),
+          targetEpochSeconds: BuiltValueNullFieldError.checkNotNull(
+            targetEpochSeconds,
+            r'HttpRequestWithLabelsAndTimestampFormatInput',
+            'targetEpochSeconds',
+          ),
+          targetHttpDate: BuiltValueNullFieldError.checkNotNull(
+            targetHttpDate,
+            r'HttpRequestWithLabelsAndTimestampFormatInput',
+            'targetHttpDate',
+          ),
+          targetDateTime: BuiltValueNullFieldError.checkNotNull(
+            targetDateTime,
+            r'HttpRequestWithLabelsAndTimestampFormatInput',
+            'targetDateTime',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -194,26 +196,24 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
 
 class _$HttpRequestWithLabelsAndTimestampFormatInputPayload
     extends HttpRequestWithLabelsAndTimestampFormatInputPayload {
-  factory _$HttpRequestWithLabelsAndTimestampFormatInputPayload(
-          [void Function(
-                  HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder)?
-              updates]) =>
-      (new HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder()
+  factory _$HttpRequestWithLabelsAndTimestampFormatInputPayload([
+    void Function(HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder)?
+    updates,
+  ]) =>
+      (HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder()
             ..update(updates))
           ._build();
 
   _$HttpRequestWithLabelsAndTimestampFormatInputPayload._() : super._();
-
   @override
   HttpRequestWithLabelsAndTimestampFormatInputPayload rebuild(
-          void Function(
-                  HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder toBuilder() =>
-      new HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder()
+      HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder()
         ..replace(this);
 
   @override
@@ -230,22 +230,24 @@ class _$HttpRequestWithLabelsAndTimestampFormatInputPayload
 
 class HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder
     implements
-        Builder<HttpRequestWithLabelsAndTimestampFormatInputPayload,
-            HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder> {
+        Builder<
+          HttpRequestWithLabelsAndTimestampFormatInputPayload,
+          HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder
+        > {
   _$HttpRequestWithLabelsAndTimestampFormatInputPayload? _$v;
 
   HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithLabelsAndTimestampFormatInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithLabelsAndTimestampFormatInputPayload;
   }
 
   @override
   void update(
-      void Function(HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder)?
-          updates) {
+    void Function(HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -254,7 +256,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder
 
   _$HttpRequestWithLabelsAndTimestampFormatInputPayload _build() {
     final _$result =
-        _$v ?? new _$HttpRequestWithLabelsAndTimestampFormatInputPayload._();
+        _$v ?? _$HttpRequestWithLabelsAndTimestampFormatInputPayload._();
     replace(_$result);
     return _$result;
   }

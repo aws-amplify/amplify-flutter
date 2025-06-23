@@ -97,11 +97,9 @@ $ aft bootstrap
 
 #### Packages inside Amplify Flutter
 
-- [amplify_flutter](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_flutter)
-- [amplify_auth_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_auth_plugin_interface)
-- [amplify_auth_cognito](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_auth_cognito)
-- [amplify_analytics_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_analytics_plugin_interface)
-- [amplify_analytics_pinpoint](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_analytics_pinpoint)
+- [amplify_flutter](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify/amplify_flutter)
+- [amplify_auth_cognito](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/auth/amplify_auth_cognito)
+- [amplify_analytics_pinpoint](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/analytics/amplify_analytics_pinpoint)
 
 ### Platform Setup
 
@@ -112,9 +110,13 @@ Some platforms require additional setup. See below for details.
 `libsecret` and `glib` are required for some plugins. They can be installed on Debian based linux distributions such as Ubuntu by running the command below.
 
 ```sh
-sudo apt-get update && sudo apt-get install libsecret-1-dev libglib2.0-dev
+sudo apt update && sudo apt install libsecret-1-dev libglib2.0-dev
 ```
+For RPM-based Linux distributions such as Fedora, CentOS, or RHEL, you can install `libsecret` and `glib` by running the following command:
 
+```sh
+sudo dnf update && sudo dnf install libsecret-devel glib2-devel
+```
 **VS Code Remote Container**
 
 [VS Code Remote Containers](https://code.visualstudio.com/docs/remote/containers) can be used for linux development. `/devcontainer` contains a Dockerfile that will install the required dependencies.

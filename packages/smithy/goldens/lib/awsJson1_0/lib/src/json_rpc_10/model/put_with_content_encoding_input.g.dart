@@ -12,20 +12,19 @@ class _$PutWithContentEncodingInput extends PutWithContentEncodingInput {
   @override
   final String? data;
 
-  factory _$PutWithContentEncodingInput(
-          [void Function(PutWithContentEncodingInputBuilder)? updates]) =>
-      (new PutWithContentEncodingInputBuilder()..update(updates))._build();
+  factory _$PutWithContentEncodingInput([
+    void Function(PutWithContentEncodingInputBuilder)? updates,
+  ]) => (PutWithContentEncodingInputBuilder()..update(updates))._build();
 
   _$PutWithContentEncodingInput._({this.encoding, this.data}) : super._();
-
   @override
   PutWithContentEncodingInput rebuild(
-          void Function(PutWithContentEncodingInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PutWithContentEncodingInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PutWithContentEncodingInputBuilder toBuilder() =>
-      new PutWithContentEncodingInputBuilder()..replace(this);
+      PutWithContentEncodingInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,8 +46,10 @@ class _$PutWithContentEncodingInput extends PutWithContentEncodingInput {
 
 class PutWithContentEncodingInputBuilder
     implements
-        Builder<PutWithContentEncodingInput,
-            PutWithContentEncodingInputBuilder> {
+        Builder<
+          PutWithContentEncodingInput,
+          PutWithContentEncodingInputBuilder
+        > {
   _$PutWithContentEncodingInput? _$v;
 
   String? _encoding;
@@ -73,7 +74,6 @@ class PutWithContentEncodingInputBuilder
 
   @override
   void replace(PutWithContentEncodingInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutWithContentEncodingInput;
   }
 
@@ -86,8 +86,8 @@ class PutWithContentEncodingInputBuilder
   PutWithContentEncodingInput build() => _build();
 
   _$PutWithContentEncodingInput _build() {
-    final _$result = _$v ??
-        new _$PutWithContentEncodingInput._(encoding: encoding, data: data);
+    final _$result =
+        _$v ?? _$PutWithContentEncodingInput._(encoding: encoding, data: data);
     replace(_$result);
     return _$result;
   }

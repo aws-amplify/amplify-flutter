@@ -17,18 +17,20 @@ class _$Credentials extends Credentials {
   final DateTime? expiration;
 
   factory _$Credentials([void Function(CredentialsBuilder)? updates]) =>
-      (new CredentialsBuilder()..update(updates))._build();
+      (CredentialsBuilder()..update(updates))._build();
 
-  _$Credentials._(
-      {this.accessKeyId, this.secretKey, this.sessionToken, this.expiration})
-      : super._();
-
+  _$Credentials._({
+    this.accessKeyId,
+    this.secretKey,
+    this.sessionToken,
+    this.expiration,
+  }) : super._();
   @override
   Credentials rebuild(void Function(CredentialsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CredentialsBuilder toBuilder() => new CredentialsBuilder()..replace(this);
+  CredentialsBuilder toBuilder() => CredentialsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,7 +89,6 @@ class CredentialsBuilder implements Builder<Credentials, CredentialsBuilder> {
 
   @override
   void replace(Credentials other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Credentials;
   }
 
@@ -100,12 +101,14 @@ class CredentialsBuilder implements Builder<Credentials, CredentialsBuilder> {
   Credentials build() => _build();
 
   _$Credentials _build() {
-    final _$result = _$v ??
-        new _$Credentials._(
-            accessKeyId: accessKeyId,
-            secretKey: secretKey,
-            sessionToken: sessionToken,
-            expiration: expiration);
+    final _$result =
+        _$v ??
+        _$Credentials._(
+          accessKeyId: accessKeyId,
+          secretKey: secretKey,
+          sessionToken: sessionToken,
+          expiration: expiration,
+        );
     replace(_$result);
     return _$result;
   }

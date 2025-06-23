@@ -25,25 +25,24 @@ class _$AuthEventType extends AuthEventType {
   final EventFeedbackType? eventFeedback;
 
   factory _$AuthEventType([void Function(AuthEventTypeBuilder)? updates]) =>
-      (new AuthEventTypeBuilder()..update(updates))._build();
+      (AuthEventTypeBuilder()..update(updates))._build();
 
-  _$AuthEventType._(
-      {this.eventId,
-      this.eventType,
-      this.creationDate,
-      this.eventResponse,
-      this.eventRisk,
-      this.challengeResponses,
-      this.eventContextData,
-      this.eventFeedback})
-      : super._();
-
+  _$AuthEventType._({
+    this.eventId,
+    this.eventType,
+    this.creationDate,
+    this.eventResponse,
+    this.eventRisk,
+    this.challengeResponses,
+    this.eventContextData,
+    this.eventFeedback,
+  }) : super._();
   @override
   AuthEventType rebuild(void Function(AuthEventTypeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AuthEventTypeBuilder toBuilder() => new AuthEventTypeBuilder()..replace(this);
+  AuthEventTypeBuilder toBuilder() => AuthEventTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -99,27 +98,26 @@ class AuthEventTypeBuilder
 
   EventRiskTypeBuilder? _eventRisk;
   EventRiskTypeBuilder get eventRisk =>
-      _$this._eventRisk ??= new EventRiskTypeBuilder();
+      _$this._eventRisk ??= EventRiskTypeBuilder();
   set eventRisk(EventRiskTypeBuilder? eventRisk) =>
       _$this._eventRisk = eventRisk;
 
   _i2.ListBuilder<ChallengeResponseType>? _challengeResponses;
   _i2.ListBuilder<ChallengeResponseType> get challengeResponses =>
-      _$this._challengeResponses ??=
-          new _i2.ListBuilder<ChallengeResponseType>();
+      _$this._challengeResponses ??= _i2.ListBuilder<ChallengeResponseType>();
   set challengeResponses(
-          _i2.ListBuilder<ChallengeResponseType>? challengeResponses) =>
-      _$this._challengeResponses = challengeResponses;
+    _i2.ListBuilder<ChallengeResponseType>? challengeResponses,
+  ) => _$this._challengeResponses = challengeResponses;
 
   EventContextDataTypeBuilder? _eventContextData;
   EventContextDataTypeBuilder get eventContextData =>
-      _$this._eventContextData ??= new EventContextDataTypeBuilder();
+      _$this._eventContextData ??= EventContextDataTypeBuilder();
   set eventContextData(EventContextDataTypeBuilder? eventContextData) =>
       _$this._eventContextData = eventContextData;
 
   EventFeedbackTypeBuilder? _eventFeedback;
   EventFeedbackTypeBuilder get eventFeedback =>
-      _$this._eventFeedback ??= new EventFeedbackTypeBuilder();
+      _$this._eventFeedback ??= EventFeedbackTypeBuilder();
   set eventFeedback(EventFeedbackTypeBuilder? eventFeedback) =>
       _$this._eventFeedback = eventFeedback;
 
@@ -143,7 +141,6 @@ class AuthEventTypeBuilder
 
   @override
   void replace(AuthEventType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AuthEventType;
   }
 
@@ -158,16 +155,18 @@ class AuthEventTypeBuilder
   _$AuthEventType _build() {
     _$AuthEventType _$result;
     try {
-      _$result = _$v ??
-          new _$AuthEventType._(
-              eventId: eventId,
-              eventType: eventType,
-              creationDate: creationDate,
-              eventResponse: eventResponse,
-              eventRisk: _eventRisk?.build(),
-              challengeResponses: _challengeResponses?.build(),
-              eventContextData: _eventContextData?.build(),
-              eventFeedback: _eventFeedback?.build());
+      _$result =
+          _$v ??
+          _$AuthEventType._(
+            eventId: eventId,
+            eventType: eventType,
+            creationDate: creationDate,
+            eventResponse: eventResponse,
+            eventRisk: _eventRisk?.build(),
+            challengeResponses: _challengeResponses?.build(),
+            eventContextData: _eventContextData?.build(),
+            eventFeedback: _eventFeedback?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -180,8 +179,11 @@ class AuthEventTypeBuilder
         _$failedField = 'eventFeedback';
         _eventFeedback?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'AuthEventType', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'AuthEventType',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

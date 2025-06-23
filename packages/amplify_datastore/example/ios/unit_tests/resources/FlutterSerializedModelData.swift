@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import Amplify
-@testable import AmplifyPlugins
 @testable import amplify_datastore
 
 struct FlutterSerializedModelData {
@@ -10,6 +8,12 @@ struct FlutterSerializedModelData {
         .init(map: [
             "id": JSONValue.string("999"),
             "name": JSONValue.string("blog name"),
+        ], modelName: "Blog")
+    static var BlogWithNullSerializedModel: FlutterSerializedModel =
+        .init(map: [
+            "id": JSONValue.string("999"),
+            "name": JSONValue.string("blog name"),
+            "post": JSONValue.null,
         ], modelName: "Blog")
     static var CommentSerializedModel: FlutterSerializedModel =
         .init(map: [
@@ -75,7 +79,7 @@ struct FlutterSerializedModelData {
                             "postalCode": "94115"
                         ]),
                         JSONValue.object([
-                            "line1": "000 Somewhere close",
+                            "line1": "111 Somewhere close",
                             "line2": JSONValue.null,
                             "city": "Seattle",
                             "state": "WA",

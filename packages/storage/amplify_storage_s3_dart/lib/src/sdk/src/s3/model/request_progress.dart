@@ -20,26 +20,25 @@ abstract class RequestProgress
   }
 
   /// Container for specifying if periodic `QueryProgress` messages should be sent.
-  factory RequestProgress.build(
-      [void Function(RequestProgressBuilder) updates]) = _$RequestProgress;
+  factory RequestProgress.build([
+    void Function(RequestProgressBuilder) updates,
+  ]) = _$RequestProgress;
 
   const RequestProgress._();
 
   static const List<_i2.SmithySerializer<RequestProgress>> serializers = [
-    RequestProgressRestXmlSerializer()
+    RequestProgressRestXmlSerializer(),
   ];
 
   /// Specifies whether periodic QueryProgress frames should be sent. Valid values: TRUE, FALSE. Default value: FALSE.
   bool? get enabled;
   @override
   List<Object?> get props => [enabled];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RequestProgress')
-      ..add(
-        'enabled',
-        enabled,
-      );
+      ..add('enabled', enabled);
     return helper.toString();
   }
 }
@@ -49,17 +48,13 @@ class RequestProgressRestXmlSerializer
   const RequestProgressRestXmlSerializer() : super('RequestProgress');
 
   @override
-  Iterable<Type> get types => const [
-        RequestProgress,
-        _$RequestProgress,
-      ];
+  Iterable<Type> get types => const [RequestProgress, _$RequestProgress];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   RequestProgress deserialize(
     Serializers serializers,
@@ -77,10 +72,12 @@ class RequestProgressRestXmlSerializer
       }
       switch (key) {
         case 'Enabled':
-          result.enabled = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.enabled =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 
@@ -97,16 +94,15 @@ class RequestProgressRestXmlSerializer
       const _i2.XmlElementName(
         'RequestProgress',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final RequestProgress(:enabled) = object;
     if (enabled != null) {
       result$
         ..add(const _i2.XmlElementName('Enabled'))
-        ..add(serializers.serialize(
-          enabled,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(enabled, specifiedType: const FullType(bool)),
+        );
     }
     return result$;
   }

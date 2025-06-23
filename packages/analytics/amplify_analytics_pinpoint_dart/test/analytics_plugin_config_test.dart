@@ -1,4 +1,5 @@
 import 'package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/analytics_plugin_options.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
@@ -6,6 +7,8 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/session.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/analytics/amazon_pinpoint_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/analytics/analytics_outputs.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -64,12 +67,19 @@ void main() {
 
     const appId = 'appId';
     const region = 'region';
+    // ignore: invalid_use_of_internal_member
+    const config = AmplifyOutputs(
+      version: '1',
+      analytics: AnalyticsOutputs(
+        amazonPinpoint: AmazonPinpointOutputs(awsRegion: region, appId: appId),
+      ),
+    );
 
     setUpAll(() async {
       mockPathProvider = MockPathProvider();
-      when(mockPathProvider.getApplicationSupportPath).thenAnswer(
-        (_) async => '/tmp',
-      );
+      when(
+        mockPathProvider.getApplicationSupportPath,
+      ).thenAnswer((_) async => '/tmp');
 
       mockAuthProvider = MockIamAuthProvider();
       when(mockAuthProvider.retrieve).thenAnswer(
@@ -79,32 +89,40 @@ void main() {
       Amplify.dependencies.addInstance<AnalyticsClient>(MockAnalyticsClient());
     });
 
-    test('throws ConfigurationError when negative', () async {
-      const autoFlushInterval = -1;
+    test(
+      'throws ConfigurationError when no analytics config is provided',
+      () async {
+        final plugin = AmplifyAnalyticsPinpointDart(
+          secureStorageFactory: (_) => MockSecureStorage(),
+        );
 
+        await expectLater(
+          plugin.configure(
+            // ignore: invalid_use_of_internal_member
+            config: const AmplifyOutputs(version: '1'),
+            authProviderRepo: AmplifyAuthProviderRepository()
+              ..registerAuthProvider(
+                APIAuthorizationType.iam.authProviderToken,
+                mockAuthProvider,
+              ),
+          ),
+          throwsA(isA<ConfigurationError>()),
+        );
+      },
+    );
+    test('throws ConfigurationError when negative', () async {
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
         secureStorageFactory: (_) => MockSecureStorage(),
+        options: const AnalyticsPinpointPluginOptions(
+          autoFlushEventsInterval: Duration(seconds: -1),
+        ),
       );
 
       await expectLater(
         plugin.configure(
-          config: const AmplifyConfig(
-            analytics: AnalyticsConfig(
-              plugins: {
-                PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                  pinpointAnalytics: PinpointAnalytics(
-                    appId: appId,
-                    region: region,
-                  ),
-                  pinpointTargeting: PinpointTargeting(
-                    region: region,
-                  ),
-                  autoFlushEventsInterval: autoFlushInterval,
-                ),
-              },
-            ),
-          ),
+          // ignore: invalid_use_of_internal_member
+          config: config,
           authProviderRepo: AmplifyAuthProviderRepository()
             ..registerAuthProvider(
               APIAuthorizationType.iam.authProviderToken,
@@ -116,30 +134,16 @@ void main() {
     });
 
     test('disables autoFlush when 0', () async {
-      const autoFlushInterval = 0;
-
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
         secureStorageFactory: (_) => MockSecureStorage(),
+        options: const AnalyticsPinpointPluginOptions(
+          autoFlushEventsInterval: Duration.zero,
+        ),
       );
 
       await plugin.configure(
-        config: const AmplifyConfig(
-          analytics: AnalyticsConfig(
-            plugins: {
-              PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                pinpointAnalytics: PinpointAnalytics(
-                  appId: appId,
-                  region: region,
-                ),
-                pinpointTargeting: PinpointTargeting(
-                  region: region,
-                ),
-                autoFlushEventsInterval: autoFlushInterval,
-              ),
-            },
-          ),
-        ),
+        config: config,
         authProviderRepo: AmplifyAuthProviderRepository()
           ..registerAuthProvider(
             APIAuthorizationType.iam.authProviderToken,
@@ -156,25 +160,13 @@ void main() {
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
         secureStorageFactory: (_) => MockSecureStorage(),
+        options: const AnalyticsPinpointPluginOptions(
+          autoFlushEventsInterval: Duration(seconds: autoFlushInterval),
+        ),
       );
 
       await plugin.configure(
-        config: const AmplifyConfig(
-          analytics: AnalyticsConfig(
-            plugins: {
-              PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                pinpointAnalytics: PinpointAnalytics(
-                  appId: appId,
-                  region: region,
-                ),
-                pinpointTargeting: PinpointTargeting(
-                  region: region,
-                ),
-                autoFlushEventsInterval: autoFlushInterval,
-              ),
-            },
-          ),
-        ),
+        config: config,
         authProviderRepo: AmplifyAuthProviderRepository()
           ..registerAuthProvider(
             APIAuthorizationType.iam.authProviderToken,

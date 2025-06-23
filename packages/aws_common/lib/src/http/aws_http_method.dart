@@ -1,10 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/// Helpers for [AWSHttpMethod].
-@Deprecated('Use AWSHttpMethod instead')
-typedef AWSHttpMethodHelper = AWSHttpMethod;
-
 /// Valid HTTP methods for AWS requests.
 enum AWSHttpMethod {
   /// HTTP GET

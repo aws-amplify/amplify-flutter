@@ -14,12 +14,13 @@ import 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.wind
 abstract base class ASFDeviceInfoPlatform extends NativeASFDeviceInfoCollector {
   /// {@macro amplify_auth_cognito_dart.asf.asf_device_info_vm}
   factory ASFDeviceInfoPlatform() => switch (Platform.operatingSystem) {
-        _ when Platform.isMacOS => ASFDeviceInfoMacOS(),
-        _ when Platform.isLinux => ASFDeviceInfoLinux(),
-        _ when Platform.isWindows => ASFDeviceInfoWindows(),
-        final unsupportedOs =>
-          throw UnsupportedError('Unsupported platform: $unsupportedOs'),
-      };
+    _ when Platform.isMacOS => ASFDeviceInfoMacOS(),
+    _ when Platform.isLinux => ASFDeviceInfoLinux(),
+    _ when Platform.isWindows => ASFDeviceInfoWindows(),
+    final unsupportedOs => throw UnsupportedError(
+      'Unsupported platform: $unsupportedOs',
+    ),
+  };
 
   /// {@macro amplify_auth_cognito_dart.asf.asf_device_info_vm}
   const ASFDeviceInfoPlatform.base();

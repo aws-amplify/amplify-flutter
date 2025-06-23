@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v2.json_protocol.model.put_and_get_inline_documents_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,21 @@ abstract class PutAndGetInlineDocumentsInputOutput
         _i1.HttpInput<PutAndGetInlineDocumentsInputOutput>,
         _i2.AWSEquatable<PutAndGetInlineDocumentsInputOutput>
     implements
-        Built<PutAndGetInlineDocumentsInputOutput,
-            PutAndGetInlineDocumentsInputOutputBuilder> {
+        Built<
+          PutAndGetInlineDocumentsInputOutput,
+          PutAndGetInlineDocumentsInputOutputBuilder
+        > {
   factory PutAndGetInlineDocumentsInputOutput({Object? inlineDocument}) {
     return _$PutAndGetInlineDocumentsInputOutput._(
-        inlineDocument:
-            inlineDocument == null ? null : _i3.JsonObject(inlineDocument));
+      inlineDocument: inlineDocument == null
+          ? null
+          : _i3.JsonObject(inlineDocument),
+    );
   }
 
-  factory PutAndGetInlineDocumentsInputOutput.build(
-          [void Function(PutAndGetInlineDocumentsInputOutputBuilder) updates]) =
-      _$PutAndGetInlineDocumentsInputOutput;
+  factory PutAndGetInlineDocumentsInputOutput.build([
+    void Function(PutAndGetInlineDocumentsInputOutputBuilder) updates,
+  ]) = _$PutAndGetInlineDocumentsInputOutput;
 
   const PutAndGetInlineDocumentsInputOutput._();
 
@@ -34,53 +38,50 @@ abstract class PutAndGetInlineDocumentsInputOutput
     PutAndGetInlineDocumentsInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [PutAndGetInlineDocumentsInputOutput] from a [payload] and [response].
   factory PutAndGetInlineDocumentsInputOutput.fromResponse(
     PutAndGetInlineDocumentsInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<PutAndGetInlineDocumentsInputOutput>>
-      serializers = [PutAndGetInlineDocumentsInputOutputAwsJson11Serializer()];
+  serializers = [PutAndGetInlineDocumentsInputOutputAwsJson11Serializer()];
 
   _i3.JsonObject? get inlineDocument;
   @override
   PutAndGetInlineDocumentsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [inlineDocument];
+
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PutAndGetInlineDocumentsInputOutput')
-          ..add(
-            'inlineDocument',
-            inlineDocument,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'PutAndGetInlineDocumentsInputOutput',
+    )..add('inlineDocument', inlineDocument);
     return helper.toString();
   }
 }
 
-class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
-    .StructuredSmithySerializer<PutAndGetInlineDocumentsInputOutput> {
+class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer
+    extends
+        _i1.StructuredSmithySerializer<PutAndGetInlineDocumentsInputOutput> {
   const PutAndGetInlineDocumentsInputOutputAwsJson11Serializer()
-      : super('PutAndGetInlineDocumentsInputOutput');
+    : super('PutAndGetInlineDocumentsInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        PutAndGetInlineDocumentsInputOutput,
-        _$PutAndGetInlineDocumentsInputOutput,
-      ];
+    PutAndGetInlineDocumentsInputOutput,
+    _$PutAndGetInlineDocumentsInputOutput,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   PutAndGetInlineDocumentsInputOutput deserialize(
     Serializers serializers,
@@ -98,10 +99,12 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
       }
       switch (key) {
         case 'inlineDocument':
-          result.inlineDocument = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i3.JsonObject),
-          ) as _i3.JsonObject);
+          result.inlineDocument =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i3.JsonObject),
+                  )
+                  as _i3.JsonObject);
       }
     }
 
@@ -119,10 +122,12 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
     if (inlineDocument != null) {
       result$
         ..add('inlineDocument')
-        ..add(serializers.serialize(
-          inlineDocument,
-          specifiedType: const FullType(_i3.JsonObject),
-        ));
+        ..add(
+          serializers.serialize(
+            inlineDocument,
+            specifiedType: const FullType(_i3.JsonObject),
+          ),
+        );
     }
     return result$;
   }

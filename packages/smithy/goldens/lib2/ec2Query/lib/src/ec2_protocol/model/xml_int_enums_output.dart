@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v2.ec2_protocol.model.xml_int_enums_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,8 +33,9 @@ abstract class XmlIntEnumsOutput
     );
   }
 
-  factory XmlIntEnumsOutput.build(
-      [void Function(XmlIntEnumsOutputBuilder) updates]) = _$XmlIntEnumsOutput;
+  factory XmlIntEnumsOutput.build([
+    void Function(XmlIntEnumsOutputBuilder) updates,
+  ]) = _$XmlIntEnumsOutput;
 
   const XmlIntEnumsOutput._();
 
@@ -42,11 +43,10 @@ abstract class XmlIntEnumsOutput
   factory XmlIntEnumsOutput.fromResponse(
     XmlIntEnumsOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<XmlIntEnumsOutput>> serializers = [
-    XmlIntEnumsOutputEc2QuerySerializer()
+    XmlIntEnumsOutputEc2QuerySerializer(),
   ];
 
   IntegerEnum? get intEnum1;
@@ -57,40 +57,23 @@ abstract class XmlIntEnumsOutput
   _i2.BuiltMap<String, IntegerEnum>? get intEnumMap;
   @override
   List<Object?> get props => [
-        intEnum1,
-        intEnum2,
-        intEnum3,
-        intEnumList,
-        intEnumSet,
-        intEnumMap,
-      ];
+    intEnum1,
+    intEnum2,
+    intEnum3,
+    intEnumList,
+    intEnumSet,
+    intEnumMap,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlIntEnumsOutput')
-      ..add(
-        'intEnum1',
-        intEnum1,
-      )
-      ..add(
-        'intEnum2',
-        intEnum2,
-      )
-      ..add(
-        'intEnum3',
-        intEnum3,
-      )
-      ..add(
-        'intEnumList',
-        intEnumList,
-      )
-      ..add(
-        'intEnumSet',
-        intEnumSet,
-      )
-      ..add(
-        'intEnumMap',
-        intEnumMap,
-      );
+      ..add('intEnum1', intEnum1)
+      ..add('intEnum2', intEnum2)
+      ..add('intEnum3', intEnum3)
+      ..add('intEnumList', intEnumList)
+      ..add('intEnumSet', intEnumSet)
+      ..add('intEnumMap', intEnumMap);
     return helper.toString();
   }
 }
@@ -100,17 +83,13 @@ class XmlIntEnumsOutputEc2QuerySerializer
   const XmlIntEnumsOutputEc2QuerySerializer() : super('XmlIntEnumsOutput');
 
   @override
-  Iterable<Type> get types => const [
-        XmlIntEnumsOutput,
-        _$XmlIntEnumsOutput,
-      ];
+  Iterable<Type> get types => const [XmlIntEnumsOutput, _$XmlIntEnumsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
+
   @override
   XmlIntEnumsOutput deserialize(
     Serializers serializers,
@@ -128,55 +107,63 @@ class XmlIntEnumsOutputEc2QuerySerializer
       }
       switch (key) {
         case 'intEnum1':
-          result.intEnum1 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(IntegerEnum),
-          ) as IntegerEnum);
+          result.intEnum1 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(IntegerEnum),
+                  )
+                  as IntegerEnum);
         case 'intEnum2':
-          result.intEnum2 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(IntegerEnum),
-          ) as IntegerEnum);
+          result.intEnum2 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(IntegerEnum),
+                  )
+                  as IntegerEnum);
         case 'intEnum3':
-          result.intEnum3 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(IntegerEnum),
-          ) as IntegerEnum);
+          result.intEnum3 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(IntegerEnum),
+                  )
+                  as IntegerEnum);
         case 'intEnumList':
-          result.intEnumList.replace((const _i3.XmlBuiltListSerializer(
-                  indexer: _i3.XmlIndexer.ec2QueryList)
-              .deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(IntegerEnum)],
-            ),
-          ) as _i2.BuiltList<IntegerEnum>));
+          result.intEnumList.replace(
+            (const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.ec2QueryList,
+                ).deserialize(
+                  serializers,
+                  value is String ? const [] : (value as Iterable<Object?>),
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(IntegerEnum),
+                  ]),
+                )
+                as _i2.BuiltList<IntegerEnum>),
+          );
         case 'intEnumSet':
-          result.intEnumSet.replace((const _i3.XmlBuiltSetSerializer(
-                  indexer: _i3.XmlIndexer.ec2QueryList)
-              .deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltSet,
-              [FullType(IntegerEnum)],
-            ),
-          ) as _i2.BuiltSet<IntegerEnum>));
+          result.intEnumSet.replace(
+            (const _i3.XmlBuiltSetSerializer(
+                  indexer: _i3.XmlIndexer.ec2QueryList,
+                ).deserialize(
+                  serializers,
+                  value is String ? const [] : (value as Iterable<Object?>),
+                  specifiedType: const FullType(_i2.BuiltSet, [
+                    FullType(IntegerEnum),
+                  ]),
+                )
+                as _i2.BuiltSet<IntegerEnum>),
+          );
         case 'intEnumMap':
-          result.intEnumMap
-              .replace(const _i3.XmlBuiltMapSerializer().deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
+          result.intEnumMap.replace(
+            const _i3.XmlBuiltMapSerializer().deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i2.BuiltMap, [
                 FullType(String),
                 FullType(IntegerEnum),
-              ],
+              ]),
             ),
-          ));
+          );
       }
     }
 
@@ -193,7 +180,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
       const _i3.XmlElementName(
         'XmlIntEnumsOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final XmlIntEnumsOutput(
       :intEnum1,
@@ -201,74 +188,81 @@ class XmlIntEnumsOutputEc2QuerySerializer
       :intEnum3,
       :intEnumList,
       :intEnumSet,
-      :intEnumMap
+      :intEnumMap,
     ) = object;
     if (intEnum1 != null) {
       result$
         ..add(const _i3.XmlElementName('IntEnum1'))
-        ..add(serializers.serialize(
-          intEnum1,
-          specifiedType: const FullType.nullable(IntegerEnum),
-        ));
+        ..add(
+          serializers.serialize(
+            intEnum1,
+            specifiedType: const FullType(IntegerEnum),
+          ),
+        );
     }
     if (intEnum2 != null) {
       result$
         ..add(const _i3.XmlElementName('IntEnum2'))
-        ..add(serializers.serialize(
-          intEnum2,
-          specifiedType: const FullType.nullable(IntegerEnum),
-        ));
+        ..add(
+          serializers.serialize(
+            intEnum2,
+            specifiedType: const FullType(IntegerEnum),
+          ),
+        );
     }
     if (intEnum3 != null) {
       result$
         ..add(const _i3.XmlElementName('IntEnum3'))
-        ..add(serializers.serialize(
-          intEnum3,
-          specifiedType: const FullType.nullable(IntegerEnum),
-        ));
+        ..add(
+          serializers.serialize(
+            intEnum3,
+            specifiedType: const FullType(IntegerEnum),
+          ),
+        );
     }
     if (intEnumList != null) {
       result$
         ..add(const _i3.XmlElementName('IntEnumList'))
-        ..add(const _i3.XmlBuiltListSerializer(
-                indexer: _i3.XmlIndexer.ec2QueryList)
-            .serialize(
-          serializers,
-          intEnumList,
-          specifiedType: const FullType.nullable(
-            _i2.BuiltList,
-            [FullType(IntegerEnum)],
+        ..add(
+          const _i3.XmlBuiltListSerializer(
+            indexer: _i3.XmlIndexer.ec2QueryList,
+          ).serialize(
+            serializers,
+            intEnumList,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(IntegerEnum),
+            ]),
           ),
-        ));
+        );
     }
     if (intEnumSet != null) {
       result$
         ..add(const _i3.XmlElementName('IntEnumSet'))
-        ..add(const _i3.XmlBuiltSetSerializer(
-                indexer: _i3.XmlIndexer.ec2QueryList)
-            .serialize(
-          serializers,
-          intEnumSet,
-          specifiedType: const FullType.nullable(
-            _i2.BuiltSet,
-            [FullType(IntegerEnum)],
+        ..add(
+          const _i3.XmlBuiltSetSerializer(
+            indexer: _i3.XmlIndexer.ec2QueryList,
+          ).serialize(
+            serializers,
+            intEnumSet,
+            specifiedType: const FullType(_i2.BuiltSet, [
+              FullType(IntegerEnum),
+            ]),
           ),
-        ));
+        );
     }
     if (intEnumMap != null) {
       result$
         ..add(const _i3.XmlElementName('IntEnumMap'))
-        ..add(const _i3.XmlBuiltMapSerializer().serialize(
-          serializers,
-          intEnumMap,
-          specifiedType: const FullType.nullable(
-            _i2.BuiltMap,
-            [
+        ..add(
+          const _i3.XmlBuiltMapSerializer().serialize(
+            serializers,
+            intEnumMap,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(IntegerEnum),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

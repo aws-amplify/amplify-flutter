@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.challenge_name_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -6,11 +6,7 @@ library amplify_auth_cognito_dart.cognito_identity_provider.model.challenge_name
 import 'package:smithy/smithy.dart' as _i1;
 
 class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
-  const ChallengeNameType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ChallengeNameType._(super.index, super.name, super.value);
 
   const ChallengeNameType._sdkUnknown(super.value) : super.sdkUnknown();
 
@@ -38,38 +34,32 @@ class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
     'DEVICE_SRP_AUTH',
   );
 
-  static const mfaSetup = ChallengeNameType._(
-    4,
-    'MFA_SETUP',
-    'MFA_SETUP',
-  );
+  static const emailOtp = ChallengeNameType._(4, 'EMAIL_OTP', 'EMAIL_OTP');
+
+  static const mfaSetup = ChallengeNameType._(5, 'MFA_SETUP', 'MFA_SETUP');
 
   static const newPasswordRequired = ChallengeNameType._(
-    5,
+    6,
     'NEW_PASSWORD_REQUIRED',
     'NEW_PASSWORD_REQUIRED',
   );
 
   static const passwordVerifier = ChallengeNameType._(
-    6,
+    7,
     'PASSWORD_VERIFIER',
     'PASSWORD_VERIFIER',
   );
 
   static const selectMfaType = ChallengeNameType._(
-    7,
+    8,
     'SELECT_MFA_TYPE',
     'SELECT_MFA_TYPE',
   );
 
-  static const smsMfa = ChallengeNameType._(
-    8,
-    'SMS_MFA',
-    'SMS_MFA',
-  );
+  static const smsMfa = ChallengeNameType._(9, 'SMS_MFA', 'SMS_MFA');
 
   static const softwareTokenMfa = ChallengeNameType._(
-    9,
+    10,
     'SOFTWARE_TOKEN_MFA',
     'SOFTWARE_TOKEN_MFA',
   );
@@ -80,6 +70,7 @@ class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
     ChallengeNameType.customChallenge,
     ChallengeNameType.devicePasswordVerifier,
     ChallengeNameType.deviceSrpAuth,
+    ChallengeNameType.emailOtp,
     ChallengeNameType.mfaSetup,
     ChallengeNameType.newPasswordRequired,
     ChallengeNameType.passwordVerifier,
@@ -94,12 +85,9 @@ class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
       values: values,
       sdkUnknown: ChallengeNameType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

@@ -30,8 +30,10 @@ void main() {
 
     // models used for all tests
     var models = dates
-        .map((date) =>
-            ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(date)))
+        .map(
+          (date) =>
+              ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(date)),
+        )
         .toList();
 
     // distinct list of values in the test models
@@ -47,8 +49,9 @@ void main() {
     testWidgets('eq()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models.where((model) => model.awsTimeValue == value).toList();
+        var expectedModels = models
+            .where((model) => model.awsTimeValue == value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMEVALUE.eq(value),
           expectedModels: expectedModels,
@@ -59,8 +62,9 @@ void main() {
     testWidgets('ne()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models.where((model) => model.awsTimeValue != value).toList();
+        var expectedModels = models
+            .where((model) => model.awsTimeValue != value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMEVALUE.ne(value),
           expectedModels: expectedModels,
@@ -126,14 +130,17 @@ void main() {
       var partialMatchEnd = models[2].awsTimeValue!;
       var rangeMatchModels = models
           .where(
-              (model) => model.awsTimeValue!.compareTo(partialMatchStart) >= 0)
+            (model) => model.awsTimeValue!.compareTo(partialMatchStart) >= 0,
+          )
           .where((model) => model.awsTimeValue!.compareTo(partialMatchEnd) <= 0)
           .toList();
       // verify that the test is testing a partial match
       expect(rangeMatchModels.length, greaterThanOrEqualTo(1));
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMEVALUE
-            .between(partialMatchStart, partialMatchEnd),
+        queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMEVALUE.between(
+          partialMatchStart,
+          partialMatchEnd,
+        ),
         expectedModels: rangeMatchModels,
       );
     });

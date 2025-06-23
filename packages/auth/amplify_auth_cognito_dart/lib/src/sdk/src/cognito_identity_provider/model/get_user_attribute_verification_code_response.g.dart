@@ -11,24 +11,21 @@ class _$GetUserAttributeVerificationCodeResponse
   @override
   final CodeDeliveryDetailsType? codeDeliveryDetails;
 
-  factory _$GetUserAttributeVerificationCodeResponse(
-          [void Function(GetUserAttributeVerificationCodeResponseBuilder)?
-              updates]) =>
-      (new GetUserAttributeVerificationCodeResponseBuilder()..update(updates))
-          ._build();
+  factory _$GetUserAttributeVerificationCodeResponse([
+    void Function(GetUserAttributeVerificationCodeResponseBuilder)? updates,
+  ]) => (GetUserAttributeVerificationCodeResponseBuilder()..update(updates))
+      ._build();
 
   _$GetUserAttributeVerificationCodeResponse._({this.codeDeliveryDetails})
-      : super._();
-
+    : super._();
   @override
   GetUserAttributeVerificationCodeResponse rebuild(
-          void Function(GetUserAttributeVerificationCodeResponseBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetUserAttributeVerificationCodeResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetUserAttributeVerificationCodeResponseBuilder toBuilder() =>
-      new GetUserAttributeVerificationCodeResponseBuilder()..replace(this);
+      GetUserAttributeVerificationCodeResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,16 +45,18 @@ class _$GetUserAttributeVerificationCodeResponse
 
 class GetUserAttributeVerificationCodeResponseBuilder
     implements
-        Builder<GetUserAttributeVerificationCodeResponse,
-            GetUserAttributeVerificationCodeResponseBuilder> {
+        Builder<
+          GetUserAttributeVerificationCodeResponse,
+          GetUserAttributeVerificationCodeResponseBuilder
+        > {
   _$GetUserAttributeVerificationCodeResponse? _$v;
 
   CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
   CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
+      _$this._codeDeliveryDetails ??= CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
-          CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
-      _$this._codeDeliveryDetails = codeDeliveryDetails;
+    CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
+  ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   GetUserAttributeVerificationCodeResponseBuilder();
 
@@ -72,13 +71,13 @@ class GetUserAttributeVerificationCodeResponseBuilder
 
   @override
   void replace(GetUserAttributeVerificationCodeResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserAttributeVerificationCodeResponse;
   }
 
   @override
   void update(
-      void Function(GetUserAttributeVerificationCodeResponseBuilder)? updates) {
+    void Function(GetUserAttributeVerificationCodeResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -88,19 +87,22 @@ class GetUserAttributeVerificationCodeResponseBuilder
   _$GetUserAttributeVerificationCodeResponse _build() {
     _$GetUserAttributeVerificationCodeResponse _$result;
     try {
-      _$result = _$v ??
-          new _$GetUserAttributeVerificationCodeResponse._(
-              codeDeliveryDetails: _codeDeliveryDetails?.build());
+      _$result =
+          _$v ??
+          _$GetUserAttributeVerificationCodeResponse._(
+            codeDeliveryDetails: _codeDeliveryDetails?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'codeDeliveryDetails';
         _codeDeliveryDetails?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GetUserAttributeVerificationCodeResponse',
-            _$failedField,
-            e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GetUserAttributeVerificationCodeResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

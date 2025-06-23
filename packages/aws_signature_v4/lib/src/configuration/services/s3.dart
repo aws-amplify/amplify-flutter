@@ -36,17 +36,17 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     this.chunked = false,
     int chunkSize = _defaultChunkSize,
     this.encoding = S3PayloadEncoding.none,
-  })  : assert(
-          signPayload || !chunked,
-          'S3 does not accept unsigned, chunked payloads',
-        ),
-        chunkSize = max(chunkSize, _minChunkSize),
-        super(
-          normalizePath: false,
-          omitSessionToken: false,
-          doubleEncodePathSegments: false,
-          signBody: signPayload,
-        );
+  }) : assert(
+         signPayload || !chunked,
+         'S3 does not accept unsigned, chunked payloads',
+       ),
+       chunkSize = max(chunkSize, _minChunkSize),
+       super(
+         normalizePath: false,
+         omitSessionToken: false,
+         doubleEncodePathSegments: false,
+         signBody: signPayload,
+       );
 
   // 8 KB is the minimum chunk size.
   static const int _minChunkSize = 8 * 1024;
@@ -79,7 +79,8 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     final hashLength = sha256.blockSize;
     for (var i = 0; i < numChunks; i++) {
       final chunkLength = min(decodedLength - chunkedLength, chunkSize);
-      metadataLength += chunkLength.toRadixString(16).codeUnits.length +
+      metadataLength +=
+          chunkLength.toRadixString(16).codeUnits.length +
           _sigSep.length +
           (2 * _sep.length) +
           hashLength;
@@ -96,7 +97,8 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
       // Browser APIs (XMLHttpRequest, fetch) disallow sending bodies for these
       // methods and, thus, chunked requests are not possible and we should not
       // try.
-      isChunkableMethod = request.method != AWSHttpMethod.get &&
+      isChunkableMethod =
+          request.method != AWSHttpMethod.get &&
           request.method != AWSHttpMethod.head;
     }
     return chunked && isChunkableMethod;
@@ -127,8 +129,9 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
 
       if (encoding == S3PayloadEncoding.none) {
         headers[AWSHeaders.contentEncoding] = 'aws-chunked';
-        headers[AWSHeaders.contentLength] =
-            _calculateContentLength(contentLength).toString();
+        headers[AWSHeaders.contentLength] = _calculateContentLength(
+          contentLength,
+        ).toString();
       } else {
         headers[AWSHeaders.contentEncoding] = 'aws-chunked,${encoding.name}';
       }

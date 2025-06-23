@@ -10,22 +10,18 @@ class _$DeleteUserRequest extends DeleteUserRequest {
   @override
   final String accessToken;
 
-  factory _$DeleteUserRequest(
-          [void Function(DeleteUserRequestBuilder)? updates]) =>
-      (new DeleteUserRequestBuilder()..update(updates))._build();
+  factory _$DeleteUserRequest([
+    void Function(DeleteUserRequestBuilder)? updates,
+  ]) => (DeleteUserRequestBuilder()..update(updates))._build();
 
-  _$DeleteUserRequest._({required this.accessToken}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'DeleteUserRequest', 'accessToken');
-  }
-
+  _$DeleteUserRequest._({required this.accessToken}) : super._();
   @override
   DeleteUserRequest rebuild(void Function(DeleteUserRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   DeleteUserRequestBuilder toBuilder() =>
-      new DeleteUserRequestBuilder()..replace(this);
+      DeleteUserRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -63,7 +59,6 @@ class DeleteUserRequestBuilder
 
   @override
   void replace(DeleteUserRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteUserRequest;
   }
 
@@ -76,10 +71,15 @@ class DeleteUserRequestBuilder
   DeleteUserRequest build() => _build();
 
   _$DeleteUserRequest _build() {
-    final _$result = _$v ??
-        new _$DeleteUserRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'DeleteUserRequest', 'accessToken'));
+    final _$result =
+        _$v ??
+        _$DeleteUserRequest._(
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+            accessToken,
+            r'DeleteUserRequest',
+            'accessToken',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

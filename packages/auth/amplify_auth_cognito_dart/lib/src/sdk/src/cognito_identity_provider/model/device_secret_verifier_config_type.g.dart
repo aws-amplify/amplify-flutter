@@ -12,21 +12,20 @@ class _$DeviceSecretVerifierConfigType extends DeviceSecretVerifierConfigType {
   @override
   final String? salt;
 
-  factory _$DeviceSecretVerifierConfigType(
-          [void Function(DeviceSecretVerifierConfigTypeBuilder)? updates]) =>
-      (new DeviceSecretVerifierConfigTypeBuilder()..update(updates))._build();
+  factory _$DeviceSecretVerifierConfigType([
+    void Function(DeviceSecretVerifierConfigTypeBuilder)? updates,
+  ]) => (DeviceSecretVerifierConfigTypeBuilder()..update(updates))._build();
 
   _$DeviceSecretVerifierConfigType._({this.passwordVerifier, this.salt})
-      : super._();
-
+    : super._();
   @override
   DeviceSecretVerifierConfigType rebuild(
-          void Function(DeviceSecretVerifierConfigTypeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeviceSecretVerifierConfigTypeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeviceSecretVerifierConfigTypeBuilder toBuilder() =>
-      new DeviceSecretVerifierConfigTypeBuilder()..replace(this);
+      DeviceSecretVerifierConfigTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,8 +47,10 @@ class _$DeviceSecretVerifierConfigType extends DeviceSecretVerifierConfigType {
 
 class DeviceSecretVerifierConfigTypeBuilder
     implements
-        Builder<DeviceSecretVerifierConfigType,
-            DeviceSecretVerifierConfigTypeBuilder> {
+        Builder<
+          DeviceSecretVerifierConfigType,
+          DeviceSecretVerifierConfigTypeBuilder
+        > {
   _$DeviceSecretVerifierConfigType? _$v;
 
   String? _passwordVerifier;
@@ -75,7 +76,6 @@ class DeviceSecretVerifierConfigTypeBuilder
 
   @override
   void replace(DeviceSecretVerifierConfigType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeviceSecretVerifierConfigType;
   }
 
@@ -88,9 +88,12 @@ class DeviceSecretVerifierConfigTypeBuilder
   DeviceSecretVerifierConfigType build() => _build();
 
   _$DeviceSecretVerifierConfigType _build() {
-    final _$result = _$v ??
-        new _$DeviceSecretVerifierConfigType._(
-            passwordVerifier: passwordVerifier, salt: salt);
+    final _$result =
+        _$v ??
+        _$DeviceSecretVerifierConfigType._(
+          passwordVerifier: passwordVerifier,
+          salt: salt,
+        );
     replace(_$result);
     return _$result;
   }

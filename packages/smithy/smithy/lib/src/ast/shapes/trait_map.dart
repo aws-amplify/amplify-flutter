@@ -27,7 +27,7 @@ class TraitMap extends DelegatingMap<ShapeId, Trait> {
   T expectTrait<T extends Trait>() => values.firstWhere((t) => t is T) as T;
 
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       other is TraitMap &&
           const MapEquality<ShapeId, Trait>().equals(this, other);
@@ -46,10 +46,12 @@ class TraitMapSerializer extends StructuredSerializer<TraitMap> {
     final traitMap = TraitMap({});
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final shapeId = serializers.deserializeWith(
-        ShapeId.serializer,
-        iterator.current as String,
-      ) as ShapeId;
+      final shapeId =
+          serializers.deserializeWith(
+                ShapeId.serializer,
+                iterator.current as String,
+              )
+              as ShapeId;
       iterator.moveNext();
       final value = iterator.current;
       traitMap[shapeId] = Trait.fromJson(shapeId, value);

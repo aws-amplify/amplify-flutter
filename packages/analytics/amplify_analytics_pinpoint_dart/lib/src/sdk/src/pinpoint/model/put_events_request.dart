@@ -26,8 +26,9 @@ abstract class PutEventsRequest
     );
   }
 
-  factory PutEventsRequest.build(
-      [void Function(PutEventsRequestBuilder) updates]) = _$PutEventsRequest;
+  factory PutEventsRequest.build([
+    void Function(PutEventsRequestBuilder) updates,
+  ]) = _$PutEventsRequest;
 
   const PutEventsRequest._();
 
@@ -35,16 +36,15 @@ abstract class PutEventsRequest
     EventsRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      PutEventsRequest.build((b) {
-        b.eventsRequest.replace(payload);
-        if (labels['applicationId'] != null) {
-          b.applicationId = labels['applicationId']!;
-        }
-      });
+  }) => PutEventsRequest.build((b) {
+    b.eventsRequest.replace(payload);
+    if (labels['applicationId'] != null) {
+      b.applicationId = labels['applicationId']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<EventsRequest>> serializers = [
-    PutEventsRequestRestJson1Serializer()
+    PutEventsRequestRestJson1Serializer(),
   ];
 
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
@@ -58,30 +58,18 @@ abstract class PutEventsRequest
       case 'ApplicationId':
         return applicationId;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   EventsRequest getPayload() => eventsRequest;
   @override
-  List<Object?> get props => [
-        applicationId,
-        eventsRequest,
-      ];
+  List<Object?> get props => [applicationId, eventsRequest];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutEventsRequest')
-      ..add(
-        'applicationId',
-        applicationId,
-      )
-      ..add(
-        'eventsRequest',
-        eventsRequest,
-      );
+      ..add('applicationId', applicationId)
+      ..add('eventsRequest', eventsRequest);
     return helper.toString();
   }
 }
@@ -91,17 +79,11 @@ class PutEventsRequestRestJson1Serializer
   const PutEventsRequestRestJson1Serializer() : super('PutEventsRequest');
 
   @override
-  Iterable<Type> get types => const [
-        PutEventsRequest,
-        _$PutEventsRequest,
-      ];
+  Iterable<Type> get types => const [PutEventsRequest, _$PutEventsRequest];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EventsRequest deserialize(
     Serializers serializers,
@@ -109,9 +91,10 @@ class PutEventsRequestRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(EventsRequest),
-    ) as EventsRequest);
+          serialized,
+          specifiedType: const FullType(EventsRequest),
+        )
+        as EventsRequest);
   }
 
   @override

@@ -31,29 +31,27 @@ class _$PublicEndpoint extends PublicEndpoint {
   final EndpointUser? user;
 
   factory _$PublicEndpoint([void Function(PublicEndpointBuilder)? updates]) =>
-      (new PublicEndpointBuilder()..update(updates))._build();
+      (PublicEndpointBuilder()..update(updates))._build();
 
-  _$PublicEndpoint._(
-      {this.address,
-      this.attributes,
-      this.channelType,
-      this.demographic,
-      this.effectiveDate,
-      this.endpointStatus,
-      this.location,
-      this.metrics,
-      this.optOut,
-      this.requestId,
-      this.user})
-      : super._();
-
+  _$PublicEndpoint._({
+    this.address,
+    this.attributes,
+    this.channelType,
+    this.demographic,
+    this.effectiveDate,
+    this.endpointStatus,
+    this.location,
+    this.metrics,
+    this.optOut,
+    this.requestId,
+    this.user,
+  }) : super._();
   @override
   PublicEndpoint rebuild(void Function(PublicEndpointBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PublicEndpointBuilder toBuilder() =>
-      new PublicEndpointBuilder()..replace(this);
+  PublicEndpointBuilder toBuilder() => PublicEndpointBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,7 +99,7 @@ class PublicEndpointBuilder
 
   _i2.ListMultimapBuilder<String, String>? _attributes;
   _i2.ListMultimapBuilder<String, String> get attributes =>
-      _$this._attributes ??= new _i2.ListMultimapBuilder<String, String>();
+      _$this._attributes ??= _i2.ListMultimapBuilder<String, String>();
   set attributes(_i2.ListMultimapBuilder<String, String>? attributes) =>
       _$this._attributes = attributes;
 
@@ -112,7 +110,7 @@ class PublicEndpointBuilder
 
   EndpointDemographicBuilder? _demographic;
   EndpointDemographicBuilder get demographic =>
-      _$this._demographic ??= new EndpointDemographicBuilder();
+      _$this._demographic ??= EndpointDemographicBuilder();
   set demographic(EndpointDemographicBuilder? demographic) =>
       _$this._demographic = demographic;
 
@@ -128,13 +126,13 @@ class PublicEndpointBuilder
 
   EndpointLocationBuilder? _location;
   EndpointLocationBuilder get location =>
-      _$this._location ??= new EndpointLocationBuilder();
+      _$this._location ??= EndpointLocationBuilder();
   set location(EndpointLocationBuilder? location) =>
       _$this._location = location;
 
   _i2.MapBuilder<String, double>? _metrics;
   _i2.MapBuilder<String, double> get metrics =>
-      _$this._metrics ??= new _i2.MapBuilder<String, double>();
+      _$this._metrics ??= _i2.MapBuilder<String, double>();
   set metrics(_i2.MapBuilder<String, double>? metrics) =>
       _$this._metrics = metrics;
 
@@ -147,7 +145,7 @@ class PublicEndpointBuilder
   set requestId(String? requestId) => _$this._requestId = requestId;
 
   EndpointUserBuilder? _user;
-  EndpointUserBuilder get user => _$this._user ??= new EndpointUserBuilder();
+  EndpointUserBuilder get user => _$this._user ??= EndpointUserBuilder();
   set user(EndpointUserBuilder? user) => _$this._user = user;
 
   PublicEndpointBuilder();
@@ -173,7 +171,6 @@ class PublicEndpointBuilder
 
   @override
   void replace(PublicEndpoint other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PublicEndpoint;
   }
 
@@ -188,19 +185,21 @@ class PublicEndpointBuilder
   _$PublicEndpoint _build() {
     _$PublicEndpoint _$result;
     try {
-      _$result = _$v ??
-          new _$PublicEndpoint._(
-              address: address,
-              attributes: _attributes?.build(),
-              channelType: channelType,
-              demographic: _demographic?.build(),
-              effectiveDate: effectiveDate,
-              endpointStatus: endpointStatus,
-              location: _location?.build(),
-              metrics: _metrics?.build(),
-              optOut: optOut,
-              requestId: requestId,
-              user: _user?.build());
+      _$result =
+          _$v ??
+          _$PublicEndpoint._(
+            address: address,
+            attributes: _attributes?.build(),
+            channelType: channelType,
+            demographic: _demographic?.build(),
+            effectiveDate: effectiveDate,
+            endpointStatus: endpointStatus,
+            location: _location?.build(),
+            metrics: _metrics?.build(),
+            optOut: optOut,
+            requestId: requestId,
+            user: _user?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -218,8 +217,11 @@ class PublicEndpointBuilder
         _$failedField = 'user';
         _user?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'PublicEndpoint', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'PublicEndpoint',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

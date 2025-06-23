@@ -1,8 +1,9 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.set_user_mfa_preference_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/email_mfa_settings_type.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sms_mfa_settings_type.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/software_token_mfa_settings_type.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
@@ -21,18 +22,20 @@ abstract class SetUserMfaPreferenceRequest
   factory SetUserMfaPreferenceRequest({
     SmsMfaSettingsType? smsMfaSettings,
     SoftwareTokenMfaSettingsType? softwareTokenMfaSettings,
+    EmailMfaSettingsType? emailMfaSettings,
     required String accessToken,
   }) {
     return _$SetUserMfaPreferenceRequest._(
       smsMfaSettings: smsMfaSettings,
       softwareTokenMfaSettings: softwareTokenMfaSettings,
+      emailMfaSettings: emailMfaSettings,
       accessToken: accessToken,
     );
   }
 
-  factory SetUserMfaPreferenceRequest.build(
-          [void Function(SetUserMfaPreferenceRequestBuilder) updates]) =
-      _$SetUserMfaPreferenceRequest;
+  factory SetUserMfaPreferenceRequest.build([
+    void Function(SetUserMfaPreferenceRequestBuilder) updates,
+  ]) = _$SetUserMfaPreferenceRequest;
 
   const SetUserMfaPreferenceRequest._();
 
@@ -40,43 +43,40 @@ abstract class SetUserMfaPreferenceRequest
     SetUserMfaPreferenceRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<SetUserMfaPreferenceRequest>>
-      serializers = [SetUserMfaPreferenceRequestAwsJson11Serializer()];
+  serializers = [SetUserMfaPreferenceRequestAwsJson11Serializer()];
 
-  /// The SMS text message multi-factor authentication (MFA) settings.
+  /// User preferences for SMS message MFA. Activates or deactivates SMS MFA and sets it as the preferred MFA method when multiple methods are available.
   SmsMfaSettingsType? get smsMfaSettings;
 
-  /// The time-based one-time password (TOTP) software token MFA settings.
+  /// User preferences for time-based one-time password (TOTP) MFA. Activates or deactivates TOTP MFA and sets it as the preferred MFA method when multiple methods are available.
   SoftwareTokenMfaSettingsType? get softwareTokenMfaSettings;
+
+  /// User preferences for email message MFA. Activates or deactivates email MFA and sets it as the preferred MFA method when multiple methods are available. To activate this setting, [advanced security features](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html) must be active in your user pool.
+  EmailMfaSettingsType? get emailMfaSettings;
 
   /// A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
   String get accessToken;
   @override
   SetUserMfaPreferenceRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
-        smsMfaSettings,
-        softwareTokenMfaSettings,
-        accessToken,
-      ];
+    smsMfaSettings,
+    softwareTokenMfaSettings,
+    emailMfaSettings,
+    accessToken,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SetUserMfaPreferenceRequest')
-      ..add(
-        'smsMfaSettings',
-        smsMfaSettings,
-      )
-      ..add(
-        'softwareTokenMfaSettings',
-        softwareTokenMfaSettings,
-      )
-      ..add(
-        'accessToken',
-        '***SENSITIVE***',
-      );
+      ..add('smsMfaSettings', smsMfaSettings)
+      ..add('softwareTokenMfaSettings', softwareTokenMfaSettings)
+      ..add('emailMfaSettings', emailMfaSettings)
+      ..add('accessToken', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -84,20 +84,19 @@ abstract class SetUserMfaPreferenceRequest
 class SetUserMfaPreferenceRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<SetUserMfaPreferenceRequest> {
   const SetUserMfaPreferenceRequestAwsJson11Serializer()
-      : super('SetUserMfaPreferenceRequest');
+    : super('SetUserMfaPreferenceRequest');
 
   @override
   Iterable<Type> get types => const [
-        SetUserMfaPreferenceRequest,
-        _$SetUserMfaPreferenceRequest,
-      ];
+    SetUserMfaPreferenceRequest,
+    _$SetUserMfaPreferenceRequest,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   SetUserMfaPreferenceRequest deserialize(
     Serializers serializers,
@@ -115,20 +114,36 @@ class SetUserMfaPreferenceRequestAwsJson11Serializer
       }
       switch (key) {
         case 'SMSMfaSettings':
-          result.smsMfaSettings.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(SmsMfaSettingsType),
-          ) as SmsMfaSettingsType));
+          result.smsMfaSettings.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(SmsMfaSettingsType),
+                )
+                as SmsMfaSettingsType),
+          );
         case 'SoftwareTokenMfaSettings':
-          result.softwareTokenMfaSettings.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(SoftwareTokenMfaSettingsType),
-          ) as SoftwareTokenMfaSettingsType));
+          result.softwareTokenMfaSettings.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(SoftwareTokenMfaSettingsType),
+                )
+                as SoftwareTokenMfaSettingsType),
+          );
+        case 'EmailMfaSettings':
+          result.emailMfaSettings.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(EmailMfaSettingsType),
+                )
+                as EmailMfaSettingsType),
+          );
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accessToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -145,30 +160,42 @@ class SetUserMfaPreferenceRequestAwsJson11Serializer
     final SetUserMfaPreferenceRequest(
       :smsMfaSettings,
       :softwareTokenMfaSettings,
-      :accessToken
+      :emailMfaSettings,
+      :accessToken,
     ) = object;
     result$.addAll([
       'AccessToken',
-      serializers.serialize(
-        accessToken,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(accessToken, specifiedType: const FullType(String)),
     ]);
     if (smsMfaSettings != null) {
       result$
         ..add('SMSMfaSettings')
-        ..add(serializers.serialize(
-          smsMfaSettings,
-          specifiedType: const FullType(SmsMfaSettingsType),
-        ));
+        ..add(
+          serializers.serialize(
+            smsMfaSettings,
+            specifiedType: const FullType(SmsMfaSettingsType),
+          ),
+        );
     }
     if (softwareTokenMfaSettings != null) {
       result$
         ..add('SoftwareTokenMfaSettings')
-        ..add(serializers.serialize(
-          softwareTokenMfaSettings,
-          specifiedType: const FullType(SoftwareTokenMfaSettingsType),
-        ));
+        ..add(
+          serializers.serialize(
+            softwareTokenMfaSettings,
+            specifiedType: const FullType(SoftwareTokenMfaSettingsType),
+          ),
+        );
+    }
+    if (emailMfaSettings != null) {
+      result$
+        ..add('EmailMfaSettings')
+        ..add(
+          serializers.serialize(
+            emailMfaSettings,
+            specifiedType: const FullType(EmailMfaSettingsType),
+          ),
+        );
     }
     return result$;
   }

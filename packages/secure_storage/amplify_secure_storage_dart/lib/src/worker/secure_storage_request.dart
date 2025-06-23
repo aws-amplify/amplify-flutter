@@ -33,9 +33,7 @@ abstract class SecureStorageRequest
   }
 
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.read}
-  factory SecureStorageRequest.read({
-    required String key,
-  }) {
+  factory SecureStorageRequest.read({required String key}) {
     return SecureStorageRequest(
       (b) => b
         ..action = SecureStorageAction.read
@@ -57,9 +55,7 @@ abstract class SecureStorageRequest
   }
 
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.delete}
-  factory SecureStorageRequest.delete({
-    required String key,
-  }) {
+  factory SecureStorageRequest.delete({required String key}) {
     return SecureStorageRequest(
       (b) => b
         ..action = SecureStorageAction.delete

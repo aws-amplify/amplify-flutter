@@ -88,10 +88,7 @@ class AWSRetryer implements Retryer {
 
   /// Returns a retry token to the [retryQuota].
   void _returnRetryToken(int token) {
-    _retryQuota = min(
-      _maxCapacity,
-      _retryQuota + token,
-    );
+    _retryQuota = min(_maxCapacity, _retryQuota + token);
   }
 
   @override
@@ -109,7 +106,8 @@ class AWSRetryer implements Retryer {
     }
     final retryConfig = exception.retryConfig;
     final shape = exception.shapeId?.shape;
-    final isRetryable = retryConfig != null ||
+    final isRetryable =
+        retryConfig != null ||
         _transientErrors.contains(shape) ||
         _throttlingErrors.contains(shape);
     if (!isRetryable) {
@@ -145,11 +143,11 @@ class AWSRetryer implements Retryer {
 
   /// Calculates the exponential backoff delay for the given [attempt].
   Duration _exponentialBackoff(int attempt) => Duration(
-        seconds: min(
-          exponentialBase * pow(exponentialPower, attempt),
-          maxBackoffTime.inSeconds,
-        ).toInt(),
-      );
+    seconds: min(
+      exponentialBase * pow(exponentialPower, attempt),
+      maxBackoffTime.inSeconds,
+    ).toInt(),
+  );
 
   @override
   CancelableOperation<R> retry<R>(
@@ -172,16 +170,10 @@ class AWSRetryer implements Retryer {
           return;
         }
         try {
-          final result = await runZoned(
-            () {
-              currentOperation = f();
-              return currentOperation!.valueOrCancellation();
-            },
-            zoneValues: {
-              zRetryAttempt: attempts,
-              zMaxAttempts: _maxAttempts,
-            },
-          );
+          final result = await runZoned(() {
+            currentOperation = f();
+            return currentOperation!.valueOrCancellation();
+          }, zoneValues: {zRetryAttempt: attempts, zMaxAttempts: _maxAttempts});
           if (result is! R || currentOperation!.isCanceled) {
             return;
           }
@@ -193,21 +185,21 @@ class AWSRetryer implements Retryer {
           return completer.complete(result);
         } on Exception catch (e) {
           if (!isRetryable(e)) {
-            rethrow;
+            return completer.completeError(e);
           }
           retryToken = _retrieveRetryToken(e);
           if (retryToken == null) {
-            rethrow;
+            return completer.completeError(e);
           }
           final delay = _delayFor(e, attempts);
           if (++attempts >= _maxAttempts) {
-            rethrow;
+            return completer.completeError(e);
           }
           await onRetry?.call(e, delay);
           await Future<void>.delayed(delay);
         }
       }
-    }).catchError(completer.completeError);
+    });
     return completer.operation;
   }
 }

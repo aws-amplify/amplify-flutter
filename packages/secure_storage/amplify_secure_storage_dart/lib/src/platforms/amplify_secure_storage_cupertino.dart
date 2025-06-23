@@ -30,9 +30,7 @@ import 'package:meta/meta.dart';
 /// - [Service Attribute](https://developer.apple.com/documentation/security/kSecAttrService?language=objc)
 class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_cupertino}
-  const AmplifySecureStorageCupertino({
-    required super.config,
-  });
+  const AmplifySecureStorageCupertino({required super.config});
 
   /// The value of the service name attribute for all keychain items.
   String get _serviceName => config.defaultNamespace;
@@ -144,15 +142,9 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   /// Removes an item from the keychain.
   ///
   /// throws [ItemNotFoundException] if the item is not in the keychain.
-  void _remove({
-    required String key,
-    required Arena arena,
-  }) {
+  void _remove({required String key, required Arena arena}) {
     final baseQueryAttributes = _getBaseAttributes(key: key, arena: arena);
-    final query = _createCFDictionary(
-      map: baseQueryAttributes,
-      arena: arena,
-    );
+    final query = _createCFDictionary(map: baseQueryAttributes, arena: arena);
     final status = security.SecItemDelete(query);
     if (status != errSecSuccess) {
       throw _getExceptionFromResultCode(status);
@@ -162,9 +154,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   /// Removes all items from the keychain.
   ///
   /// throws [ItemNotFoundException] if no items are found in the keychain.
-  void _removeAll({
-    required Arena arena,
-  }) {
+  void _removeAll({required Arena arena}) {
     final baseQueryAttributes = _getBaseAttributes(arena: arena);
     final query = _createCFDictionary(
       map: {
@@ -246,7 +236,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   /// allocations.
   ///
   /// The attributes keys & values should be a pointer to a CF type such
-  /// as Pointer<CFString> or Pointer<CFData>
+  /// as Pointer CFString or PointerCFData
   Pointer<CFDictionary> _createCFDictionary({
     required Map<Pointer, Pointer> map,
     required Arena arena,
@@ -294,10 +284,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   /// Creates a CFData Pointer from a Dart String and registers
   /// a callback to release it from memory when the arena frees
   /// allocations.
-  Pointer<CFData> _createCFData({
-    required String value,
-    required Arena arena,
-  }) {
+  Pointer<CFData> _createCFData({required String value, required Arena arena}) {
     final valuePtr = value.toNativeUtf8(allocator: arena);
     final length = valuePtr.length;
     final bytes = valuePtr.cast<UnsignedChar>();
@@ -328,10 +315,7 @@ class SecurityFrameworkError {
   factory SecurityFrameworkError.fromCode(int code) {
     final cfString = security.SecCopyErrorMessageString(code, nullptr);
     if (cfString == nullptr) {
-      return SecurityFrameworkError(
-        code: code,
-        message: _noErrorStringMessage,
-      );
+      return SecurityFrameworkError(code: code, message: _noErrorStringMessage);
     }
     try {
       final message = cfString.toDartString() ?? _noErrorStringMessage;

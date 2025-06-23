@@ -7,6 +7,7 @@ import 'package:e2e/e2e_worker_no_result.dart';
 class E2EWorkerNoResultImpl extends E2EWorkerNoResult {
   @override
   String get name => 'E2EWorkerNoResult';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.
@@ -37,9 +38,6 @@ class E2EWorkerNoResultImpl extends E2EWorkerNoResult {
       port: baseUri.port,
       path: '$basePath/test/$relativePath',
     ).toString();
-    return [
-      relativePath,
-      testRelativePath,
-    ];
+    return [relativePath, testRelativePath];
   }
 }

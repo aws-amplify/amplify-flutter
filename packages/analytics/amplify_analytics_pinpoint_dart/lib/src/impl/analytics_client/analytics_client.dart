@@ -33,8 +33,8 @@ class AnalyticsClient {
   AnalyticsClient._(
     DeviceContextInfoProvider? deviceContextInfoProvider,
     EndpointInfoStoreManager endpointInfoStoreManager,
-  )   : _deviceContextInfoProvider = deviceContextInfoProvider,
-        _endpointInfoStoreManager = endpointInfoStoreManager;
+  ) : _deviceContextInfoProvider = deviceContextInfoProvider,
+      _endpointInfoStoreManager = endpointInfoStoreManager;
 
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
   final EndpointInfoStoreManager _endpointInfoStoreManager;
@@ -52,8 +52,8 @@ class AnalyticsClient {
       credentialsProvider: authProvider,
     );
 
-    final deviceContextInfo =
-        await _deviceContextInfoProvider?.getDeviceInfoDetails();
+    final deviceContextInfo = await _deviceContextInfoProvider
+        ?.getDeviceInfoDetails();
 
     await _endpointInfoStoreManager.init(pinpointAppId: pinpointAppId);
 

@@ -12,20 +12,19 @@ class _$EndpointConfiguration extends EndpointConfiguration {
   @override
   final _i2.BuiltList<String>? vpcEndpointIds;
 
-  factory _$EndpointConfiguration(
-          [void Function(EndpointConfigurationBuilder)? updates]) =>
-      (new EndpointConfigurationBuilder()..update(updates))._build();
+  factory _$EndpointConfiguration([
+    void Function(EndpointConfigurationBuilder)? updates,
+  ]) => (EndpointConfigurationBuilder()..update(updates))._build();
 
   _$EndpointConfiguration._({this.types, this.vpcEndpointIds}) : super._();
-
   @override
   EndpointConfiguration rebuild(
-          void Function(EndpointConfigurationBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EndpointConfigurationBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EndpointConfigurationBuilder toBuilder() =>
-      new EndpointConfigurationBuilder()..replace(this);
+      EndpointConfigurationBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -51,12 +50,12 @@ class EndpointConfigurationBuilder
 
   _i2.ListBuilder<EndpointType>? _types;
   _i2.ListBuilder<EndpointType> get types =>
-      _$this._types ??= new _i2.ListBuilder<EndpointType>();
+      _$this._types ??= _i2.ListBuilder<EndpointType>();
   set types(_i2.ListBuilder<EndpointType>? types) => _$this._types = types;
 
   _i2.ListBuilder<String>? _vpcEndpointIds;
   _i2.ListBuilder<String> get vpcEndpointIds =>
-      _$this._vpcEndpointIds ??= new _i2.ListBuilder<String>();
+      _$this._vpcEndpointIds ??= _i2.ListBuilder<String>();
   set vpcEndpointIds(_i2.ListBuilder<String>? vpcEndpointIds) =>
       _$this._vpcEndpointIds = vpcEndpointIds;
 
@@ -74,7 +73,6 @@ class EndpointConfigurationBuilder
 
   @override
   void replace(EndpointConfiguration other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointConfiguration;
   }
 
@@ -89,9 +87,12 @@ class EndpointConfigurationBuilder
   _$EndpointConfiguration _build() {
     _$EndpointConfiguration _$result;
     try {
-      _$result = _$v ??
-          new _$EndpointConfiguration._(
-              types: _types?.build(), vpcEndpointIds: _vpcEndpointIds?.build());
+      _$result =
+          _$v ??
+          _$EndpointConfiguration._(
+            types: _types?.build(),
+            vpcEndpointIds: _vpcEndpointIds?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -100,8 +101,11 @@ class EndpointConfigurationBuilder
         _$failedField = 'vpcEndpointIds';
         _vpcEndpointIds?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'EndpointConfiguration', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'EndpointConfiguration',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

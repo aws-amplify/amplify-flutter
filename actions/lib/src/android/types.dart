@@ -14,18 +14,18 @@ enum AndroidAbi {
   const AndroidAbi(this.abi);
 
   static AndroidAbi parse(String value) => values.firstWhere(
-        (el) => el.name == value || el.abi == value,
-        orElse: () => throw ArgumentError.value(
-          value,
-          'value',
-          'Invalid Android ABI. Expected one of: [${allAbis.join(', ')}]',
-        ),
-      );
+    (el) => el.name == value || el.abi == value,
+    orElse: () => throw ArgumentError.value(
+      value,
+      'value',
+      'Invalid Android ABI. Expected one of: [${allAbis.join(', ')}]',
+    ),
+  );
 
   static AndroidAbi forArch(Arch arch) => switch (arch) {
-        Arch.x64 => x86_64,
-        Arch.arm64 => arm64,
-      };
+    Arch.x64 => x86_64,
+    Arch.arm64 => arm64,
+  };
 
   static List<String> get allAbis => values.map((el) => el.abi).toList();
 
@@ -39,6 +39,7 @@ enum AndroidAbi {
 ///
 /// See: https://apilevels.com/
 enum AndroidApiLevel {
+  api_35(35),
   api_34(34),
   api_33(33),
   api_32(32),
@@ -90,14 +91,14 @@ enum AndroidSystemImageTarget {
   const AndroidSystemImageTarget(this.tag);
 
   static AndroidSystemImageTarget parse(String target) => values.firstWhere(
-        (el) => el.tag == target,
-        orElse: () => throw ArgumentError.value(
-          target,
-          'target',
-          'Invalid Android system image taget. '
-              'Expected one of: [${allTags.join(', ')}]',
-        ),
-      );
+    (el) => el.tag == target,
+    orElse: () => throw ArgumentError.value(
+      target,
+      'target',
+      'Invalid Android system image taget. '
+          'Expected one of: [${allTags.join(', ')}]',
+    ),
+  );
 
   static List<String> get allTags => values.map((el) => el.tag).toList();
 

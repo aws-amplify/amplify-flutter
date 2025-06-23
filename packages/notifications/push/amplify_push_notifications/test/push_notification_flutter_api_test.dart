@@ -13,12 +13,11 @@ import 'amplify_push_notifications_impl_test.mocks.dart';
 import 'test_data/fake_notification_messges.dart';
 import 'test_data/test_amplify_push_notifications_impl.dart';
 
+@pragma('vm:entry-point')
 void testGlobalCallbackFunction(PushNotificationMessage pushMessage) {
   expect(
     pushMessage.title,
-    PushNotificationMessage.fromJson(
-      standardAndroidPushMessage.cast(),
-    ).title,
+    PushNotificationMessage.fromJson(standardAndroidPushMessage.cast()).title,
   );
 }
 
@@ -50,9 +49,7 @@ void main() {
         eventType: anyNamed('eventType'),
         notification: anyNamed('notification'),
       ),
-    ).thenAnswer(
-      (_) async {},
-    );
+    ).thenAnswer((_) async {});
     flutterApi.serviceProviderClient = mockServiceClient;
     await Future.delayed(const Duration(microseconds: 1), () {});
     expect(flutterApi.eventQueue.length, 0);
@@ -77,18 +74,14 @@ void main() {
   });
 
   test(
-      'should invoke the top-level or static external callback function on Android',
-      () async {
-    await overrideOperatingSystem(
-      const OperatingSystem('android', ''),
-      () async {
+    'should invoke the top-level or static external callback function on Android',
+    () async {
+      await overrideOperatingSystem(OperatingSystem('android', ''), () async {
         final pref = await SharedPreferences.getInstance();
         TestAmplifyPushNotifications(
           serviceProviderClient: MockServiceProviderClient(),
           backgroundProcessor: () async => {},
-        ).onNotificationReceivedInBackground(
-          testGlobalCallbackFunction,
-        );
+        ).onNotificationReceivedInBackground(testGlobalCallbackFunction);
 
         // TODO(Samaritan1011001): Remove the wait time here by using expectAsync and completer if possible
         await Future.delayed(const Duration(microseconds: 1), () {});
@@ -97,7 +90,7 @@ void main() {
         await flutterApi.onNotificationReceivedInBackground(
           standardAndroidPushMessage.cast(),
         );
-      },
-    );
-  });
+      });
+    },
+  );
 }

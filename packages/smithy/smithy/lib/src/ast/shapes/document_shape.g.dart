@@ -7,7 +7,7 @@ part of 'document_shape.dart';
 // **************************************************************************
 
 Serializer<DocumentShape> _$documentShapeSerializer =
-    new _$DocumentShapeSerializer();
+    _$DocumentShapeSerializer();
 
 class _$DocumentShapeSerializer implements StructuredSerializer<DocumentShape> {
   @override
@@ -16,12 +16,17 @@ class _$DocumentShapeSerializer implements StructuredSerializer<DocumentShape> {
   final String wireName = 'DocumentShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, DocumentShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    DocumentShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -29,9 +34,11 @@ class _$DocumentShapeSerializer implements StructuredSerializer<DocumentShape> {
 
   @override
   DocumentShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new DocumentShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = DocumentShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -40,8 +47,12 @@ class _$DocumentShapeSerializer implements StructuredSerializer<DocumentShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -57,19 +68,15 @@ class _$DocumentShape extends DocumentShape {
   final TraitMap traits;
 
   factory _$DocumentShape([void Function(DocumentShapeBuilder)? updates]) =>
-      (new DocumentShapeBuilder()..update(updates))._build();
+      (DocumentShapeBuilder()..update(updates))._build();
 
-  _$DocumentShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'DocumentShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'DocumentShape', 'traits');
-  }
-
+  _$DocumentShape._({required this.shapeId, required this.traits}) : super._();
   @override
   DocumentShape rebuild(void Function(DocumentShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  DocumentShapeBuilder toBuilder() => new DocumentShapeBuilder()..replace(this);
+  DocumentShapeBuilder toBuilder() => DocumentShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -127,7 +134,6 @@ class DocumentShapeBuilder
 
   @override
   void replace(covariant DocumentShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DocumentShape;
   }
 
@@ -140,12 +146,20 @@ class DocumentShapeBuilder
   DocumentShape build() => _build();
 
   _$DocumentShape _build() {
-    final _$result = _$v ??
-        new _$DocumentShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'DocumentShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'DocumentShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$DocumentShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'DocumentShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'DocumentShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

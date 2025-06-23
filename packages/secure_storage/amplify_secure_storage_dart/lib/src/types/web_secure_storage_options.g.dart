@@ -6,10 +6,12 @@ part of 'web_secure_storage_options.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const WebPersistenceOption _$inMemory =
-    const WebPersistenceOption._('inMemory');
-const WebPersistenceOption _$indexedDB =
-    const WebPersistenceOption._('indexedDB');
+const WebPersistenceOption _$inMemory = const WebPersistenceOption._(
+  'inMemory',
+);
+const WebPersistenceOption _$indexedDB = const WebPersistenceOption._(
+  'indexedDB',
+);
 
 WebPersistenceOption _$WebPersistenceOptionValueOf(String name) {
   switch (name) {
@@ -18,56 +20,63 @@ WebPersistenceOption _$WebPersistenceOptionValueOf(String name) {
     case 'indexedDB':
       return _$indexedDB;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<WebPersistenceOption> _$WebPersistenceOptionValues =
-    new BuiltSet<WebPersistenceOption>(const <WebPersistenceOption>[
-  _$inMemory,
-  _$indexedDB,
-]);
+    BuiltSet<WebPersistenceOption>(const <WebPersistenceOption>[
+      _$inMemory,
+      _$indexedDB,
+    ]);
 
 Serializer<WebSecureStorageOptions> _$webSecureStorageOptionsSerializer =
-    new _$WebSecureStorageOptionsSerializer();
+    _$WebSecureStorageOptionsSerializer();
 Serializer<WebPersistenceOption> _$webPersistenceOptionSerializer =
-    new _$WebPersistenceOptionSerializer();
+    _$WebPersistenceOptionSerializer();
 
 class _$WebSecureStorageOptionsSerializer
     implements StructuredSerializer<WebSecureStorageOptions> {
   @override
   final Iterable<Type> types = const [
     WebSecureStorageOptions,
-    _$WebSecureStorageOptions
+    _$WebSecureStorageOptions,
   ];
   @override
   final String wireName = 'WebSecureStorageOptions';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, WebSecureStorageOptions object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    WebSecureStorageOptions object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'persistenceOption',
-      serializers.serialize(object.persistenceOption,
-          specifiedType: const FullType(WebPersistenceOption)),
+      serializers.serialize(
+        object.persistenceOption,
+        specifiedType: const FullType(WebPersistenceOption),
+      ),
     ];
     Object? value;
     value = object.databaseName;
     if (value != null) {
       result
         ..add('databaseName')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   WebSecureStorageOptions deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new WebSecureStorageOptionsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = WebSecureStorageOptionsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -76,13 +85,20 @@ class _$WebSecureStorageOptionsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'databaseName':
-          result.databaseName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.databaseName =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'persistenceOption':
-          result.persistenceOption = serializers.deserialize(value,
-                  specifiedType: const FullType(WebPersistenceOption))!
-              as WebPersistenceOption;
+          result.persistenceOption =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(WebPersistenceOption),
+                  )!
+                  as WebPersistenceOption;
           break;
       }
     }
@@ -99,14 +115,18 @@ class _$WebPersistenceOptionSerializer
   final String wireName = 'WebPersistenceOption';
 
   @override
-  Object serialize(Serializers serializers, WebPersistenceOption object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
+  Object serialize(
+    Serializers serializers,
+    WebPersistenceOption object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => object.name;
 
   @override
-  WebPersistenceOption deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      WebPersistenceOption.valueOf(serialized as String);
+  WebPersistenceOption deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => WebPersistenceOption.valueOf(serialized as String);
 }
 
 class _$WebSecureStorageOptions extends WebSecureStorageOptions {
@@ -115,25 +135,22 @@ class _$WebSecureStorageOptions extends WebSecureStorageOptions {
   @override
   final WebPersistenceOption persistenceOption;
 
-  factory _$WebSecureStorageOptions(
-          [void Function(WebSecureStorageOptionsBuilder)? updates]) =>
-      (new WebSecureStorageOptionsBuilder()..update(updates))._build();
+  factory _$WebSecureStorageOptions([
+    void Function(WebSecureStorageOptionsBuilder)? updates,
+  ]) => (WebSecureStorageOptionsBuilder()..update(updates))._build();
 
-  _$WebSecureStorageOptions._(
-      {this.databaseName, required this.persistenceOption})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        persistenceOption, r'WebSecureStorageOptions', 'persistenceOption');
-  }
-
+  _$WebSecureStorageOptions._({
+    this.databaseName,
+    required this.persistenceOption,
+  }) : super._();
   @override
   WebSecureStorageOptions rebuild(
-          void Function(WebSecureStorageOptionsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(WebSecureStorageOptionsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   WebSecureStorageOptionsBuilder toBuilder() =>
-      new WebSecureStorageOptionsBuilder()..replace(this);
+      WebSecureStorageOptionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -189,7 +206,6 @@ class WebSecureStorageOptionsBuilder
 
   @override
   void replace(WebSecureStorageOptions other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WebSecureStorageOptions;
   }
 
@@ -202,13 +218,16 @@ class WebSecureStorageOptionsBuilder
   WebSecureStorageOptions build() => _build();
 
   _$WebSecureStorageOptions _build() {
-    final _$result = _$v ??
-        new _$WebSecureStorageOptions._(
-            databaseName: databaseName,
-            persistenceOption: BuiltValueNullFieldError.checkNotNull(
-                persistenceOption,
-                r'WebSecureStorageOptions',
-                'persistenceOption'));
+    final _$result =
+        _$v ??
+        _$WebSecureStorageOptions._(
+          databaseName: databaseName,
+          persistenceOption: BuiltValueNullFieldError.checkNotNull(
+            persistenceOption,
+            r'WebSecureStorageOptions',
+            'persistenceOption',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

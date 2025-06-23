@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Common types and utilities used across AWS and Amplify packages.
-library aws_common;
+library;
 
 // External types used in our public APIs
 export 'package:async/async.dart' show CancelableOperation, CancelableCompleter;
@@ -42,7 +42,6 @@ export 'src/operation/aws_operation.dart';
 export 'src/operation/aws_progress_operation.dart';
 // Result
 export 'src/result/aws_result.dart';
-export 'src/result/aws_result_type.dart';
 // Utils
 export 'src/util/cancelable.dart';
 export 'src/util/closeable.dart';
@@ -53,5 +52,6 @@ export 'src/util/json.dart';
 export 'src/util/print.dart';
 export 'src/util/recase.dart';
 export 'src/util/serializable.dart';
+export 'src/util/stoppable_timer.dart';
 export 'src/util/stream.dart';
 export 'src/util/uuid.dart';

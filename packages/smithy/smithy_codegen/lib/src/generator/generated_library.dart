@@ -7,11 +7,7 @@ import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:smithy_codegen/src/generator/allocator.dart';
 
 class GeneratedLibrary with AWSEquatable<GeneratedLibrary> {
-  GeneratedLibrary(
-    this.smithyLibrary,
-    this.library, {
-    this.libraryDocs,
-  });
+  GeneratedLibrary(this.smithyLibrary, this.library, {this.libraryDocs});
 
   final SmithyLibrary smithyLibrary;
   final Library library;

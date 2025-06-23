@@ -14,20 +14,19 @@ class _$NullAndEmptyHeadersIo extends NullAndEmptyHeadersIo {
   @override
   final _i3.BuiltList<String>? c;
 
-  factory _$NullAndEmptyHeadersIo(
-          [void Function(NullAndEmptyHeadersIoBuilder)? updates]) =>
-      (new NullAndEmptyHeadersIoBuilder()..update(updates))._build();
+  factory _$NullAndEmptyHeadersIo([
+    void Function(NullAndEmptyHeadersIoBuilder)? updates,
+  ]) => (NullAndEmptyHeadersIoBuilder()..update(updates))._build();
 
   _$NullAndEmptyHeadersIo._({this.a, this.b, this.c}) : super._();
-
   @override
   NullAndEmptyHeadersIo rebuild(
-          void Function(NullAndEmptyHeadersIoBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NullAndEmptyHeadersIoBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NullAndEmptyHeadersIoBuilder toBuilder() =>
-      new NullAndEmptyHeadersIoBuilder()..replace(this);
+      NullAndEmptyHeadersIoBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,7 @@ class NullAndEmptyHeadersIoBuilder
   set b(String? b) => _$this._b = b;
 
   _i3.ListBuilder<String>? _c;
-  _i3.ListBuilder<String> get c => _$this._c ??= new _i3.ListBuilder<String>();
+  _i3.ListBuilder<String> get c => _$this._c ??= _i3.ListBuilder<String>();
   set c(_i3.ListBuilder<String>? c) => _$this._c = c;
 
   NullAndEmptyHeadersIoBuilder();
@@ -80,7 +79,6 @@ class NullAndEmptyHeadersIoBuilder
 
   @override
   void replace(NullAndEmptyHeadersIo other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NullAndEmptyHeadersIo;
   }
 
@@ -95,16 +93,18 @@ class NullAndEmptyHeadersIoBuilder
   _$NullAndEmptyHeadersIo _build() {
     _$NullAndEmptyHeadersIo _$result;
     try {
-      _$result =
-          _$v ?? new _$NullAndEmptyHeadersIo._(a: a, b: b, c: _c?.build());
+      _$result = _$v ?? _$NullAndEmptyHeadersIo._(a: a, b: b, c: _c?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'c';
         _c?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'NullAndEmptyHeadersIo', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'NullAndEmptyHeadersIo',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -114,20 +114,19 @@ class NullAndEmptyHeadersIoBuilder
 }
 
 class _$NullAndEmptyHeadersIoPayload extends NullAndEmptyHeadersIoPayload {
-  factory _$NullAndEmptyHeadersIoPayload(
-          [void Function(NullAndEmptyHeadersIoPayloadBuilder)? updates]) =>
-      (new NullAndEmptyHeadersIoPayloadBuilder()..update(updates))._build();
+  factory _$NullAndEmptyHeadersIoPayload([
+    void Function(NullAndEmptyHeadersIoPayloadBuilder)? updates,
+  ]) => (NullAndEmptyHeadersIoPayloadBuilder()..update(updates))._build();
 
   _$NullAndEmptyHeadersIoPayload._() : super._();
-
   @override
   NullAndEmptyHeadersIoPayload rebuild(
-          void Function(NullAndEmptyHeadersIoPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NullAndEmptyHeadersIoPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NullAndEmptyHeadersIoPayloadBuilder toBuilder() =>
-      new NullAndEmptyHeadersIoPayloadBuilder()..replace(this);
+      NullAndEmptyHeadersIoPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -143,15 +142,16 @@ class _$NullAndEmptyHeadersIoPayload extends NullAndEmptyHeadersIoPayload {
 
 class NullAndEmptyHeadersIoPayloadBuilder
     implements
-        Builder<NullAndEmptyHeadersIoPayload,
-            NullAndEmptyHeadersIoPayloadBuilder> {
+        Builder<
+          NullAndEmptyHeadersIoPayload,
+          NullAndEmptyHeadersIoPayloadBuilder
+        > {
   _$NullAndEmptyHeadersIoPayload? _$v;
 
   NullAndEmptyHeadersIoPayloadBuilder();
 
   @override
   void replace(NullAndEmptyHeadersIoPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NullAndEmptyHeadersIoPayload;
   }
 
@@ -164,7 +164,7 @@ class NullAndEmptyHeadersIoPayloadBuilder
   NullAndEmptyHeadersIoPayload build() => _build();
 
   _$NullAndEmptyHeadersIoPayload _build() {
-    final _$result = _$v ?? new _$NullAndEmptyHeadersIoPayload._();
+    final _$result = _$v ?? _$NullAndEmptyHeadersIoPayload._();
     replace(_$result);
     return _$result;
   }

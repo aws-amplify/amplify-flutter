@@ -13,21 +13,20 @@ class _$AdminListUserAuthEventsResponse
   @override
   final String? nextToken;
 
-  factory _$AdminListUserAuthEventsResponse(
-          [void Function(AdminListUserAuthEventsResponseBuilder)? updates]) =>
-      (new AdminListUserAuthEventsResponseBuilder()..update(updates))._build();
+  factory _$AdminListUserAuthEventsResponse([
+    void Function(AdminListUserAuthEventsResponseBuilder)? updates,
+  ]) => (AdminListUserAuthEventsResponseBuilder()..update(updates))._build();
 
   _$AdminListUserAuthEventsResponse._({this.authEvents, this.nextToken})
-      : super._();
-
+    : super._();
   @override
   AdminListUserAuthEventsResponse rebuild(
-          void Function(AdminListUserAuthEventsResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AdminListUserAuthEventsResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AdminListUserAuthEventsResponseBuilder toBuilder() =>
-      new AdminListUserAuthEventsResponseBuilder()..replace(this);
+      AdminListUserAuthEventsResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -49,13 +48,15 @@ class _$AdminListUserAuthEventsResponse
 
 class AdminListUserAuthEventsResponseBuilder
     implements
-        Builder<AdminListUserAuthEventsResponse,
-            AdminListUserAuthEventsResponseBuilder> {
+        Builder<
+          AdminListUserAuthEventsResponse,
+          AdminListUserAuthEventsResponseBuilder
+        > {
   _$AdminListUserAuthEventsResponse? _$v;
 
   _i2.ListBuilder<AuthEventType>? _authEvents;
   _i2.ListBuilder<AuthEventType> get authEvents =>
-      _$this._authEvents ??= new _i2.ListBuilder<AuthEventType>();
+      _$this._authEvents ??= _i2.ListBuilder<AuthEventType>();
   set authEvents(_i2.ListBuilder<AuthEventType>? authEvents) =>
       _$this._authEvents = authEvents;
 
@@ -77,7 +78,6 @@ class AdminListUserAuthEventsResponseBuilder
 
   @override
   void replace(AdminListUserAuthEventsResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AdminListUserAuthEventsResponse;
   }
 
@@ -92,17 +92,23 @@ class AdminListUserAuthEventsResponseBuilder
   _$AdminListUserAuthEventsResponse _build() {
     _$AdminListUserAuthEventsResponse _$result;
     try {
-      _$result = _$v ??
-          new _$AdminListUserAuthEventsResponse._(
-              authEvents: _authEvents?.build(), nextToken: nextToken);
+      _$result =
+          _$v ??
+          _$AdminListUserAuthEventsResponse._(
+            authEvents: _authEvents?.build(),
+            nextToken: nextToken,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'authEvents';
         _authEvents?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'AdminListUserAuthEventsResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'AdminListUserAuthEventsResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

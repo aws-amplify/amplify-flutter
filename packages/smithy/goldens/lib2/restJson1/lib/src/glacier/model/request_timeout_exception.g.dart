@@ -16,22 +16,24 @@ class _$RequestTimeoutException extends RequestTimeoutException {
   @override
   final Map<String, String>? headers;
 
-  factory _$RequestTimeoutException(
-          [void Function(RequestTimeoutExceptionBuilder)? updates]) =>
-      (new RequestTimeoutExceptionBuilder()..update(updates))._build();
+  factory _$RequestTimeoutException([
+    void Function(RequestTimeoutExceptionBuilder)? updates,
+  ]) => (RequestTimeoutExceptionBuilder()..update(updates))._build();
 
-  _$RequestTimeoutException._(
-      {this.type, this.code, this.message, this.headers})
-      : super._();
-
+  _$RequestTimeoutException._({
+    this.type,
+    this.code,
+    this.message,
+    this.headers,
+  }) : super._();
   @override
   RequestTimeoutException rebuild(
-          void Function(RequestTimeoutExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RequestTimeoutExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RequestTimeoutExceptionBuilder toBuilder() =>
-      new RequestTimeoutExceptionBuilder()..replace(this);
+      RequestTimeoutExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -90,7 +92,6 @@ class RequestTimeoutExceptionBuilder
 
   @override
   void replace(RequestTimeoutException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RequestTimeoutException;
   }
 
@@ -103,9 +104,14 @@ class RequestTimeoutExceptionBuilder
   RequestTimeoutException build() => _build();
 
   _$RequestTimeoutException _build() {
-    final _$result = _$v ??
-        new _$RequestTimeoutException._(
-            type: type, code: code, message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$RequestTimeoutException._(
+          type: type,
+          code: code,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

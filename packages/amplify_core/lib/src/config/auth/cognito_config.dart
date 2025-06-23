@@ -83,17 +83,17 @@ class CognitoPluginConfig
 
   @override
   List<Object?> get props => [
-        userAgent,
-        version,
-        identityManager,
-        credentialsProvider,
-        cognitoUserPool,
-        auth,
-        appSync,
-        pinpointAnalytics,
-        pinpointTargeting,
-        s3TransferUtility,
-      ];
+    userAgent,
+    version,
+    identityManager,
+    credentialsProvider,
+    cognitoUserPool,
+    auth,
+    appSync,
+    pinpointAnalytics,
+    pinpointTargeting,
+    s3TransferUtility,
+  ];
 
   CognitoPluginConfig copyWith({
     String? userAgent,

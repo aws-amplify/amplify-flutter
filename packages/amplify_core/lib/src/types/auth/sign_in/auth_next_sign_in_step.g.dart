@@ -8,58 +8,79 @@ part of 'auth_next_sign_in_step.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AuthNextSignInStep _$AuthNextSignInStepFromJson(Map<String, dynamic> json) =>
-    AuthNextSignInStep(
-      additionalInfo: (json['additionalInfo'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      codeDeliveryDetails: json['codeDeliveryDetails'] == null
+AuthNextSignInStep _$AuthNextSignInStepFromJson(
+  Map<String, dynamic> json,
+) => $checkedCreate('AuthNextSignInStep', json, ($checkedConvert) {
+  final val = AuthNextSignInStep(
+    additionalInfo: $checkedConvert(
+      'additionalInfo',
+      (v) =>
+          (v as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as String)),
+    ),
+    codeDeliveryDetails: $checkedConvert(
+      'codeDeliveryDetails',
+      (v) => v == null
           ? null
-          : AuthCodeDeliveryDetails.fromJson(
-              json['codeDeliveryDetails'] as Map<String, dynamic>),
-      signInStep: $enumDecode(_$AuthSignInStepEnumMap, json['signInStep']),
-      missingAttributes: (json['missingAttributes'] as List<dynamic>?)
-              ?.map((e) =>
-                  const AuthUserAttributeKeyConverter().fromJson(e as String))
+          : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
+    ),
+    signInStep: $checkedConvert(
+      'signInStep',
+      (v) => $enumDecode(_$AuthSignInStepEnumMap, v),
+    ),
+    missingAttributes: $checkedConvert(
+      'missingAttributes',
+      (v) =>
+          (v as List<dynamic>?)
+              ?.map(
+                (e) =>
+                    const AuthUserAttributeKeyConverter().fromJson(e as String),
+              )
               .toList() ??
           const [],
-      allowedMfaTypes: (json['allowedMfaTypes'] as List<dynamic>?)
+    ),
+    allowedMfaTypes: $checkedConvert(
+      'allowedMfaTypes',
+      (v) => (v as List<dynamic>?)
           ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
           .toSet(),
-      totpSetupDetails: json['totpSetupDetails'] == null
+    ),
+    totpSetupDetails: $checkedConvert(
+      'totpSetupDetails',
+      (v) => v == null
           ? null
-          : TotpSetupDetails.fromJson(
-              json['totpSetupDetails'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) {
-  final val = <String, dynamic>{
-    'additionalInfo': instance.additionalInfo,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
-  val['signInStep'] = _$AuthSignInStepEnumMap[instance.signInStep]!;
-  val['missingAttributes'] = instance.missingAttributes
-      .map(const AuthUserAttributeKeyConverter().toJson)
-      .toList();
-  writeNotNull('allowedMfaTypes',
-      instance.allowedMfaTypes?.map((e) => _$MfaTypeEnumMap[e]!).toList());
-  writeNotNull('totpSetupDetails', instance.totpSetupDetails?.toJson());
+          : TotpSetupDetails.fromJson(v as Map<String, dynamic>),
+    ),
+  );
   return val;
-}
+});
+
+Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) =>
+    <String, dynamic>{
+      'additionalInfo': instance.additionalInfo,
+      if (instance.codeDeliveryDetails?.toJson() case final value?)
+        'codeDeliveryDetails': value,
+      'signInStep': _$AuthSignInStepEnumMap[instance.signInStep]!,
+      'missingAttributes': instance.missingAttributes
+          .map(const AuthUserAttributeKeyConverter().toJson)
+          .toList(),
+      if (instance.allowedMfaTypes?.map((e) => _$MfaTypeEnumMap[e]!).toList()
+          case final value?)
+        'allowedMfaTypes': value,
+      if (instance.totpSetupDetails?.toJson() case final value?)
+        'totpSetupDetails': value,
+    };
 
 const _$AuthSignInStepEnumMap = {
   AuthSignInStep.continueSignInWithMfaSelection:
       'continueSignInWithMfaSelection',
+  AuthSignInStep.continueSignInWithMfaSetupSelection:
+      'continueSignInWithMfaSetupSelection',
   AuthSignInStep.continueSignInWithTotpSetup: 'continueSignInWithTotpSetup',
+  AuthSignInStep.continueSignInWithEmailMfaSetup:
+      'continueSignInWithEmailMfaSetup',
   AuthSignInStep.confirmSignInWithSmsMfaCode: 'confirmSignInWithSmsMfaCode',
   AuthSignInStep.confirmSignInWithTotpMfaCode: 'confirmSignInWithTotpMfaCode',
+  AuthSignInStep.confirmSignInWithOtpCode: 'confirmSignInWithOtpCode',
   AuthSignInStep.confirmSignInWithNewPassword: 'confirmSignInWithNewPassword',
   AuthSignInStep.confirmSignInWithCustomChallenge:
       'confirmSignInWithCustomChallenge',
@@ -71,4 +92,5 @@ const _$AuthSignInStepEnumMap = {
 const _$MfaTypeEnumMap = {
   MfaType.sms: 'SMS',
   MfaType.totp: 'TOTP',
+  MfaType.email: 'EMAIL',
 };

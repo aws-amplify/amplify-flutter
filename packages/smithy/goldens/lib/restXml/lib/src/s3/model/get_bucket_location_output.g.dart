@@ -10,20 +10,19 @@ class _$GetBucketLocationOutput extends GetBucketLocationOutput {
   @override
   final BucketLocationConstraint? locationConstraint;
 
-  factory _$GetBucketLocationOutput(
-          [void Function(GetBucketLocationOutputBuilder)? updates]) =>
-      (new GetBucketLocationOutputBuilder()..update(updates))._build();
+  factory _$GetBucketLocationOutput([
+    void Function(GetBucketLocationOutputBuilder)? updates,
+  ]) => (GetBucketLocationOutputBuilder()..update(updates))._build();
 
   _$GetBucketLocationOutput._({this.locationConstraint}) : super._();
-
   @override
   GetBucketLocationOutput rebuild(
-          void Function(GetBucketLocationOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetBucketLocationOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetBucketLocationOutputBuilder toBuilder() =>
-      new GetBucketLocationOutputBuilder()..replace(this);
+      GetBucketLocationOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -65,7 +64,6 @@ class GetBucketLocationOutputBuilder
 
   @override
   void replace(GetBucketLocationOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetBucketLocationOutput;
   }
 
@@ -78,8 +76,9 @@ class GetBucketLocationOutputBuilder
   GetBucketLocationOutput build() => _build();
 
   _$GetBucketLocationOutput _build() {
-    final _$result = _$v ??
-        new _$GetBucketLocationOutput._(locationConstraint: locationConstraint);
+    final _$result =
+        _$v ??
+        _$GetBucketLocationOutput._(locationConstraint: locationConstraint);
     replace(_$result);
     return _$result;
   }

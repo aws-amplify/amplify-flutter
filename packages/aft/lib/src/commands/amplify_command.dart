@@ -91,8 +91,8 @@ abstract class AmplifyCommand extends Command<void>
   late final Directory rootDir = Directory.fromUri(aftConfig.rootDirectory);
 
   /// All packages in the Amplify Flutter repo.
-  late final Map<String, PackageInfo> repoPackages =
-      aftConfig.allPackages.toMap();
+  late final Map<String, PackageInfo> repoPackages = aftConfig.allPackages
+      .toMap();
 
   /// All packages included in this command's operation.
   ///
@@ -121,10 +121,7 @@ abstract class AmplifyCommand extends Command<void>
   late final Repo repo;
 
   /// Runs `git` with the given [args] from the repo's root directory.
-  Future<void> runGit(
-    List<String> args, {
-    bool echoOutput = false,
-  }) =>
+  Future<void> runGit(List<String> args, {bool echoOutput = false}) =>
       git.runGit(
         args,
         processWorkingDir: rootDir.path,

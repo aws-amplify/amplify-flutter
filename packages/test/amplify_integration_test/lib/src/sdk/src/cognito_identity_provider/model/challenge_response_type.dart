@@ -28,14 +28,14 @@ abstract class ChallengeResponseType
   }
 
   /// The challenge response type.
-  factory ChallengeResponseType.build(
-          [void Function(ChallengeResponseTypeBuilder) updates]) =
-      _$ChallengeResponseType;
+  factory ChallengeResponseType.build([
+    void Function(ChallengeResponseTypeBuilder) updates,
+  ]) = _$ChallengeResponseType;
 
   const ChallengeResponseType._();
 
   static const List<_i2.SmithySerializer<ChallengeResponseType>> serializers = [
-    ChallengeResponseTypeAwsJson11Serializer()
+    ChallengeResponseTypeAwsJson11Serializer(),
   ];
 
   /// The challenge name.
@@ -44,21 +44,12 @@ abstract class ChallengeResponseType
   /// The challenge response.
   ChallengeResponse? get challengeResponse;
   @override
-  List<Object?> get props => [
-        challengeName,
-        challengeResponse,
-      ];
+  List<Object?> get props => [challengeName, challengeResponse];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ChallengeResponseType')
-      ..add(
-        'challengeName',
-        challengeName,
-      )
-      ..add(
-        'challengeResponse',
-        challengeResponse,
-      );
+      ..add('challengeName', challengeName)
+      ..add('challengeResponse', challengeResponse);
     return helper.toString();
   }
 }
@@ -66,20 +57,17 @@ abstract class ChallengeResponseType
 class ChallengeResponseTypeAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ChallengeResponseType> {
   const ChallengeResponseTypeAwsJson11Serializer()
-      : super('ChallengeResponseType');
+    : super('ChallengeResponseType');
 
   @override
   Iterable<Type> get types => const [
-        ChallengeResponseType,
-        _$ChallengeResponseType,
-      ];
+    ChallengeResponseType,
+    _$ChallengeResponseType,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
   @override
   ChallengeResponseType deserialize(
     Serializers serializers,
@@ -97,15 +85,19 @@ class ChallengeResponseTypeAwsJson11Serializer
       }
       switch (key) {
         case 'ChallengeName':
-          result.challengeName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ChallengeName),
-          ) as ChallengeName);
+          result.challengeName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ChallengeName),
+                  )
+                  as ChallengeName);
         case 'ChallengeResponse':
-          result.challengeResponse = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ChallengeResponse),
-          ) as ChallengeResponse);
+          result.challengeResponse =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ChallengeResponse),
+                  )
+                  as ChallengeResponse);
       }
     }
 
@@ -123,18 +115,22 @@ class ChallengeResponseTypeAwsJson11Serializer
     if (challengeName != null) {
       result$
         ..add('ChallengeName')
-        ..add(serializers.serialize(
-          challengeName,
-          specifiedType: const FullType(ChallengeName),
-        ));
+        ..add(
+          serializers.serialize(
+            challengeName,
+            specifiedType: const FullType(ChallengeName),
+          ),
+        );
     }
     if (challengeResponse != null) {
       result$
         ..add('ChallengeResponse')
-        ..add(serializers.serialize(
-          challengeResponse,
-          specifiedType: const FullType(ChallengeResponse),
-        ));
+        ..add(
+          serializers.serialize(
+            challengeResponse,
+            specifiedType: const FullType(ChallengeResponse),
+          ),
+        );
     }
     return result$;
   }

@@ -22,32 +22,27 @@ class _$DeleteObjectRequest extends DeleteObjectRequest {
   @override
   final String? expectedBucketOwner;
 
-  factory _$DeleteObjectRequest(
-          [void Function(DeleteObjectRequestBuilder)? updates]) =>
-      (new DeleteObjectRequestBuilder()..update(updates))._build();
+  factory _$DeleteObjectRequest([
+    void Function(DeleteObjectRequestBuilder)? updates,
+  ]) => (DeleteObjectRequestBuilder()..update(updates))._build();
 
-  _$DeleteObjectRequest._(
-      {required this.bucket,
-      required this.key,
-      this.mfa,
-      this.versionId,
-      this.requestPayer,
-      this.bypassGovernanceRetention,
-      this.expectedBucketOwner})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'DeleteObjectRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(key, r'DeleteObjectRequest', 'key');
-  }
-
+  _$DeleteObjectRequest._({
+    required this.bucket,
+    required this.key,
+    this.mfa,
+    this.versionId,
+    this.requestPayer,
+    this.bypassGovernanceRetention,
+    this.expectedBucketOwner,
+  }) : super._();
   @override
   DeleteObjectRequest rebuild(
-          void Function(DeleteObjectRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectRequestBuilder toBuilder() =>
-      new DeleteObjectRequestBuilder()..replace(this);
+      DeleteObjectRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -131,7 +126,6 @@ class DeleteObjectRequestBuilder
 
   @override
   void replace(DeleteObjectRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectRequest;
   }
 
@@ -144,37 +138,44 @@ class DeleteObjectRequestBuilder
   DeleteObjectRequest build() => _build();
 
   _$DeleteObjectRequest _build() {
-    final _$result = _$v ??
-        new _$DeleteObjectRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'DeleteObjectRequest', 'bucket'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'DeleteObjectRequest', 'key'),
-            mfa: mfa,
-            versionId: versionId,
-            requestPayer: requestPayer,
-            bypassGovernanceRetention: bypassGovernanceRetention,
-            expectedBucketOwner: expectedBucketOwner);
+    final _$result =
+        _$v ??
+        _$DeleteObjectRequest._(
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'DeleteObjectRequest',
+            'bucket',
+          ),
+          key: BuiltValueNullFieldError.checkNotNull(
+            key,
+            r'DeleteObjectRequest',
+            'key',
+          ),
+          mfa: mfa,
+          versionId: versionId,
+          requestPayer: requestPayer,
+          bypassGovernanceRetention: bypassGovernanceRetention,
+          expectedBucketOwner: expectedBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$DeleteObjectRequestPayload extends DeleteObjectRequestPayload {
-  factory _$DeleteObjectRequestPayload(
-          [void Function(DeleteObjectRequestPayloadBuilder)? updates]) =>
-      (new DeleteObjectRequestPayloadBuilder()..update(updates))._build();
+  factory _$DeleteObjectRequestPayload([
+    void Function(DeleteObjectRequestPayloadBuilder)? updates,
+  ]) => (DeleteObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$DeleteObjectRequestPayload._() : super._();
-
   @override
   DeleteObjectRequestPayload rebuild(
-          void Function(DeleteObjectRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectRequestPayloadBuilder toBuilder() =>
-      new DeleteObjectRequestPayloadBuilder()..replace(this);
+      DeleteObjectRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -197,7 +198,6 @@ class DeleteObjectRequestPayloadBuilder
 
   @override
   void replace(DeleteObjectRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectRequestPayload;
   }
 
@@ -210,7 +210,7 @@ class DeleteObjectRequestPayloadBuilder
   DeleteObjectRequestPayload build() => _build();
 
   _$DeleteObjectRequestPayload _build() {
-    final _$result = _$v ?? new _$DeleteObjectRequestPayload._();
+    final _$result = _$v ?? _$DeleteObjectRequestPayload._();
     replace(_$result);
     return _$result;
   }

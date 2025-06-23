@@ -6,12 +6,16 @@ import 'package:test/test.dart';
 
 import '../http_common.dart';
 import 'server_errors_server_vm.dart'
-    if (dart.library.js) 'server_errors_server_web.dart';
+    if (dart.library.js_interop) 'server_errors_server_web.dart';
 
 /// Tests that the [AWSHttpClient] correctly handles server errors.
 void main() {
-  clientTest('server errors', startServer,
-      (client, httpServerQueue, httpServerChannel, createUri) {
+  clientTest('server errors', startServer, (
+    client,
+    httpServerQueue,
+    httpServerChannel,
+    createUri,
+  ) {
     test('no such host', () async {
       expect(
         client()
@@ -46,11 +50,7 @@ void main() {
       expect(
         client().send(AWSHttpRequest.get(createUri(''))).response,
         throwsA(
-          isA<AWSHttpException>().having(
-            (e) => e.uri,
-            'uri',
-            createUri(''),
-          ),
+          isA<AWSHttpException>().having((e) => e.uri, 'uri', createUri('')),
         ),
       );
     });

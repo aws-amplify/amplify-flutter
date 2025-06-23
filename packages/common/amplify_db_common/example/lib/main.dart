@@ -53,9 +53,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('DB Example'),
-        ),
+        appBar: AppBar(title: const Text('DB Example')),
         body: Center(
           child: _initialized
               ? Text('Count: $_count')

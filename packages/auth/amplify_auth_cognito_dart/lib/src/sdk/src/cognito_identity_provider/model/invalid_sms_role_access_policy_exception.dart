@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_sms_role_access_policy_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -12,11 +12,12 @@ part 'invalid_sms_role_access_policy_exception.g.dart';
 
 /// This exception is returned when the role provided for SMS configuration doesn't have permission to publish using Amazon SNS.
 abstract class InvalidSmsRoleAccessPolicyException
-    with
-        _i1.AWSEquatable<InvalidSmsRoleAccessPolicyException>
+    with _i1.AWSEquatable<InvalidSmsRoleAccessPolicyException>
     implements
-        Built<InvalidSmsRoleAccessPolicyException,
-            InvalidSmsRoleAccessPolicyExceptionBuilder>,
+        Built<
+          InvalidSmsRoleAccessPolicyException,
+          InvalidSmsRoleAccessPolicyExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   /// This exception is returned when the role provided for SMS configuration doesn't have permission to publish using Amazon SNS.
   factory InvalidSmsRoleAccessPolicyException({String? message}) {
@@ -24,9 +25,9 @@ abstract class InvalidSmsRoleAccessPolicyException
   }
 
   /// This exception is returned when the role provided for SMS configuration doesn't have permission to publish using Amazon SNS.
-  factory InvalidSmsRoleAccessPolicyException.build(
-          [void Function(InvalidSmsRoleAccessPolicyExceptionBuilder) updates]) =
-      _$InvalidSmsRoleAccessPolicyException;
+  factory InvalidSmsRoleAccessPolicyException.build([
+    void Function(InvalidSmsRoleAccessPolicyExceptionBuilder) updates,
+  ]) = _$InvalidSmsRoleAccessPolicyException;
 
   const InvalidSmsRoleAccessPolicyException._();
 
@@ -34,63 +35,64 @@ abstract class InvalidSmsRoleAccessPolicyException
   factory InvalidSmsRoleAccessPolicyException.fromResponse(
     InvalidSmsRoleAccessPolicyException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<InvalidSmsRoleAccessPolicyException>>
-      serializers = [InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer()];
+  serializers = [InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer()];
 
   /// The message returned when the invalid SMS role access policy exception is thrown.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'InvalidSmsRoleAccessPolicyException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'InvalidSmsRoleAccessPolicyException',
+  );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InvalidSmsRoleAccessPolicyException')
-          ..add(
-            'message',
-            message,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'InvalidSmsRoleAccessPolicyException',
+    )..add('message', message);
     return helper.toString();
   }
 }
 
-class InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer extends _i2
-    .StructuredSmithySerializer<InvalidSmsRoleAccessPolicyException> {
+class InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer
+    extends
+        _i2.StructuredSmithySerializer<InvalidSmsRoleAccessPolicyException> {
   const InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer()
-      : super('InvalidSmsRoleAccessPolicyException');
+    : super('InvalidSmsRoleAccessPolicyException');
 
   @override
   Iterable<Type> get types => const [
-        InvalidSmsRoleAccessPolicyException,
-        _$InvalidSmsRoleAccessPolicyException,
-      ];
+    InvalidSmsRoleAccessPolicyException,
+    _$InvalidSmsRoleAccessPolicyException,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   InvalidSmsRoleAccessPolicyException deserialize(
     Serializers serializers,
@@ -108,10 +110,12 @@ class InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer extends _i2
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -129,10 +133,9 @@ class InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer extends _i2
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

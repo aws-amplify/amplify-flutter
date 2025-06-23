@@ -7,7 +7,7 @@ part of 'resource_shape.dart';
 // **************************************************************************
 
 Serializer<ResourceShape> _$resourceShapeSerializer =
-    new _$ResourceShapeSerializer();
+    _$ResourceShapeSerializer();
 
 class _$ResourceShapeSerializer implements StructuredSerializer<ResourceShape> {
   @override
@@ -16,80 +16,106 @@ class _$ResourceShapeSerializer implements StructuredSerializer<ResourceShape> {
   final String wireName = 'ResourceShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ResourceShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ResourceShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'identifiers',
-      serializers.serialize(object.identifiers,
-          specifiedType: const FullType(BuiltMap,
-              const [const FullType(String), const FullType(ShapeRef)])),
+      serializers.serialize(
+        object.identifiers,
+        specifiedType: const FullType(BuiltMap, const [
+          const FullType(String),
+          const FullType(ShapeRef),
+        ]),
+      ),
       'collectionOperations',
-      serializers.serialize(object.collectionOperations,
-          specifiedType:
-              const FullType(BuiltSet, const [const FullType(ShapeRef)])),
+      serializers.serialize(
+        object.collectionOperations,
+        specifiedType: const FullType(BuiltSet, const [
+          const FullType(ShapeRef),
+        ]),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
       'resources',
-      serializers.serialize(object.resources,
-          specifiedType:
-              const FullType(BuiltSet, const [const FullType(ShapeRef)])),
+      serializers.serialize(
+        object.resources,
+        specifiedType: const FullType(BuiltSet, const [
+          const FullType(ShapeRef),
+        ]),
+      ),
       'operations',
-      serializers.serialize(object.operations,
-          specifiedType:
-              const FullType(BuiltSet, const [const FullType(ShapeRef)])),
+      serializers.serialize(
+        object.operations,
+        specifiedType: const FullType(BuiltSet, const [
+          const FullType(ShapeRef),
+        ]),
+      ),
     ];
     Object? value;
     value = object.put;
     if (value != null) {
       result
         ..add('put')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(ShapeRef)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(ShapeRef)),
+        );
     }
     value = object.create;
     if (value != null) {
       result
         ..add('create')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(ShapeRef)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(ShapeRef)),
+        );
     }
     value = object.read;
     if (value != null) {
       result
         ..add('read')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(ShapeRef)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(ShapeRef)),
+        );
     }
     value = object.update_;
     if (value != null) {
       result
         ..add('update')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(ShapeRef)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(ShapeRef)),
+        );
     }
     value = object.delete;
     if (value != null) {
       result
         ..add('delete')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(ShapeRef)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(ShapeRef)),
+        );
     }
     value = object.list;
     if (value != null) {
       result
         ..add('list')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(ShapeRef)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(ShapeRef)),
+        );
     }
     return result;
   }
 
   @override
   ResourceShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new ResourceShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = ResourceShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -98,55 +124,110 @@ class _$ResourceShapeSerializer implements StructuredSerializer<ResourceShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'identifiers':
-          result.identifiers.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(ShapeRef)]))!);
+          result.identifiers.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(BuiltMap, const [
+                const FullType(String),
+                const FullType(ShapeRef),
+              ]),
+            )!,
+          );
           break;
         case 'put':
-          result.put.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.put.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'create':
-          result.create.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.create.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'read':
-          result.read.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.read.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'update':
-          result.update_.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.update_.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'delete':
-          result.delete.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.delete.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'list':
-          result.list.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.list.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'collectionOperations':
-          result.collectionOperations.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltSet, const [const FullType(ShapeRef)]))!
-              as BuiltSet<Object?>);
+          result.collectionOperations.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltSet, const [
+                    const FullType(ShapeRef),
+                  ]),
+                )!
+                as BuiltSet<Object?>,
+          );
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
         case 'resources':
-          result.resources.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltSet, const [const FullType(ShapeRef)]))!
-              as BuiltSet<Object?>);
+          result.resources.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltSet, const [
+                    const FullType(ShapeRef),
+                  ]),
+                )!
+                as BuiltSet<Object?>,
+          );
           break;
         case 'operations':
-          result.operations.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltSet, const [const FullType(ShapeRef)]))!
-              as BuiltSet<Object?>);
+          result.operations.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltSet, const [
+                    const FullType(ShapeRef),
+                  ]),
+                )!
+                as BuiltSet<Object?>,
+          );
           break;
       }
     }
@@ -182,40 +263,28 @@ class _$ResourceShape extends ResourceShape {
   final BuiltSet<ShapeRef> operations;
 
   factory _$ResourceShape([void Function(ResourceShapeBuilder)? updates]) =>
-      (new ResourceShapeBuilder()..update(updates))._build();
+      (ResourceShapeBuilder()..update(updates))._build();
 
-  _$ResourceShape._(
-      {required this.identifiers,
-      this.put,
-      this.create,
-      this.read,
-      this.update_,
-      this.delete,
-      this.list,
-      required this.collectionOperations,
-      required this.shapeId,
-      required this.traits,
-      required this.resources,
-      required this.operations})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        identifiers, r'ResourceShape', 'identifiers');
-    BuiltValueNullFieldError.checkNotNull(
-        collectionOperations, r'ResourceShape', 'collectionOperations');
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'ResourceShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'ResourceShape', 'traits');
-    BuiltValueNullFieldError.checkNotNull(
-        resources, r'ResourceShape', 'resources');
-    BuiltValueNullFieldError.checkNotNull(
-        operations, r'ResourceShape', 'operations');
-  }
-
+  _$ResourceShape._({
+    required this.identifiers,
+    this.put,
+    this.create,
+    this.read,
+    this.update_,
+    this.delete,
+    this.list,
+    required this.collectionOperations,
+    required this.shapeId,
+    required this.traits,
+    required this.resources,
+    required this.operations,
+  }) : super._();
   @override
   ResourceShape rebuild(void Function(ResourceShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ResourceShapeBuilder toBuilder() => new ResourceShapeBuilder()..replace(this);
+  ResourceShapeBuilder toBuilder() => ResourceShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -279,40 +348,40 @@ class ResourceShapeBuilder
 
   MapBuilder<String, ShapeRef>? _identifiers;
   MapBuilder<String, ShapeRef> get identifiers =>
-      _$this._identifiers ??= new MapBuilder<String, ShapeRef>();
+      _$this._identifiers ??= MapBuilder<String, ShapeRef>();
   set identifiers(covariant MapBuilder<String, ShapeRef>? identifiers) =>
       _$this._identifiers = identifiers;
 
   ShapeRefBuilder? _put;
-  ShapeRefBuilder get put => _$this._put ??= new ShapeRefBuilder();
+  ShapeRefBuilder get put => _$this._put ??= ShapeRefBuilder();
   set put(covariant ShapeRefBuilder? put) => _$this._put = put;
 
   ShapeRefBuilder? _create;
-  ShapeRefBuilder get create => _$this._create ??= new ShapeRefBuilder();
+  ShapeRefBuilder get create => _$this._create ??= ShapeRefBuilder();
   set create(covariant ShapeRefBuilder? create) => _$this._create = create;
 
   ShapeRefBuilder? _read;
-  ShapeRefBuilder get read => _$this._read ??= new ShapeRefBuilder();
+  ShapeRefBuilder get read => _$this._read ??= ShapeRefBuilder();
   set read(covariant ShapeRefBuilder? read) => _$this._read = read;
 
   ShapeRefBuilder? _update_;
-  ShapeRefBuilder get update_ => _$this._update_ ??= new ShapeRefBuilder();
+  ShapeRefBuilder get update_ => _$this._update_ ??= ShapeRefBuilder();
   set update_(covariant ShapeRefBuilder? update_) => _$this._update_ = update_;
 
   ShapeRefBuilder? _delete;
-  ShapeRefBuilder get delete => _$this._delete ??= new ShapeRefBuilder();
+  ShapeRefBuilder get delete => _$this._delete ??= ShapeRefBuilder();
   set delete(covariant ShapeRefBuilder? delete) => _$this._delete = delete;
 
   ShapeRefBuilder? _list;
-  ShapeRefBuilder get list => _$this._list ??= new ShapeRefBuilder();
+  ShapeRefBuilder get list => _$this._list ??= ShapeRefBuilder();
   set list(covariant ShapeRefBuilder? list) => _$this._list = list;
 
   SetBuilder<ShapeRef>? _collectionOperations;
   SetBuilder<ShapeRef> get collectionOperations =>
-      _$this._collectionOperations ??= new SetBuilder<ShapeRef>();
+      _$this._collectionOperations ??= SetBuilder<ShapeRef>();
   set collectionOperations(
-          covariant SetBuilder<ShapeRef>? collectionOperations) =>
-      _$this._collectionOperations = collectionOperations;
+    covariant SetBuilder<ShapeRef>? collectionOperations,
+  ) => _$this._collectionOperations = collectionOperations;
 
   ShapeId? _shapeId;
   ShapeId? get shapeId => _$this._shapeId;
@@ -324,13 +393,13 @@ class ResourceShapeBuilder
 
   SetBuilder<ShapeRef>? _resources;
   SetBuilder<ShapeRef> get resources =>
-      _$this._resources ??= new SetBuilder<ShapeRef>();
+      _$this._resources ??= SetBuilder<ShapeRef>();
   set resources(covariant SetBuilder<ShapeRef>? resources) =>
       _$this._resources = resources;
 
   SetBuilder<ShapeRef>? _operations;
   SetBuilder<ShapeRef> get operations =>
-      _$this._operations ??= new SetBuilder<ShapeRef>();
+      _$this._operations ??= SetBuilder<ShapeRef>();
   set operations(covariant SetBuilder<ShapeRef>? operations) =>
       _$this._operations = operations;
 
@@ -360,7 +429,6 @@ class ResourceShapeBuilder
 
   @override
   void replace(covariant ResourceShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResourceShape;
   }
 
@@ -375,22 +443,30 @@ class ResourceShapeBuilder
   _$ResourceShape _build() {
     _$ResourceShape _$result;
     try {
-      _$result = _$v ??
-          new _$ResourceShape._(
-              identifiers: identifiers.build(),
-              put: _put?.build(),
-              create: _create?.build(),
-              read: _read?.build(),
-              update_: _update_?.build(),
-              delete: _delete?.build(),
-              list: _list?.build(),
-              collectionOperations: collectionOperations.build(),
-              shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, r'ResourceShape', 'shapeId'),
-              traits: BuiltValueNullFieldError.checkNotNull(
-                  traits, r'ResourceShape', 'traits'),
-              resources: resources.build(),
-              operations: operations.build());
+      _$result =
+          _$v ??
+          _$ResourceShape._(
+            identifiers: identifiers.build(),
+            put: _put?.build(),
+            create: _create?.build(),
+            read: _read?.build(),
+            update_: _update_?.build(),
+            delete: _delete?.build(),
+            list: _list?.build(),
+            collectionOperations: collectionOperations.build(),
+            shapeId: BuiltValueNullFieldError.checkNotNull(
+              shapeId,
+              r'ResourceShape',
+              'shapeId',
+            ),
+            traits: BuiltValueNullFieldError.checkNotNull(
+              traits,
+              r'ResourceShape',
+              'traits',
+            ),
+            resources: resources.build(),
+            operations: operations.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -416,8 +492,11 @@ class ResourceShapeBuilder
         _$failedField = 'operations';
         operations.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ResourceShape', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ResourceShape',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

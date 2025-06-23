@@ -13,9 +13,7 @@ class ConfirmSignInOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.confirm_sign_in_options}
-  const ConfirmSignInOptions({
-    this.pluginOptions,
-  });
+  const ConfirmSignInOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.confirm_sign_in_plugin_options}
   final ConfirmSignInPluginOptions? pluginOptions;
@@ -26,14 +24,8 @@ class ConfirmSignInOptions
   @override
   String get runtimeTypeName => 'ConfirmSignInOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

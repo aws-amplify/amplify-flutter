@@ -10,19 +10,18 @@ class _$UnionInputOutput extends UnionInputOutput {
   @override
   final MyUnion? contents;
 
-  factory _$UnionInputOutput(
-          [void Function(UnionInputOutputBuilder)? updates]) =>
-      (new UnionInputOutputBuilder()..update(updates))._build();
+  factory _$UnionInputOutput([
+    void Function(UnionInputOutputBuilder)? updates,
+  ]) => (UnionInputOutputBuilder()..update(updates))._build();
 
   _$UnionInputOutput._({this.contents}) : super._();
-
   @override
   UnionInputOutput rebuild(void Function(UnionInputOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   UnionInputOutputBuilder toBuilder() =>
-      new UnionInputOutputBuilder()..replace(this);
+      UnionInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -60,7 +59,6 @@ class UnionInputOutputBuilder
 
   @override
   void replace(UnionInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UnionInputOutput;
   }
 
@@ -73,7 +71,7 @@ class UnionInputOutputBuilder
   UnionInputOutput build() => _build();
 
   _$UnionInputOutput _build() {
-    final _$result = _$v ?? new _$UnionInputOutput._(contents: contents);
+    final _$result = _$v ?? _$UnionInputOutput._(contents: contents);
     replace(_$result);
     return _$result;
   }

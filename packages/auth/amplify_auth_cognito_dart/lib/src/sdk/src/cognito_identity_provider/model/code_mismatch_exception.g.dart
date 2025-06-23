@@ -12,20 +12,19 @@ class _$CodeMismatchException extends CodeMismatchException {
   @override
   final Map<String, String>? headers;
 
-  factory _$CodeMismatchException(
-          [void Function(CodeMismatchExceptionBuilder)? updates]) =>
-      (new CodeMismatchExceptionBuilder()..update(updates))._build();
+  factory _$CodeMismatchException([
+    void Function(CodeMismatchExceptionBuilder)? updates,
+  ]) => (CodeMismatchExceptionBuilder()..update(updates))._build();
 
   _$CodeMismatchException._({this.message, this.headers}) : super._();
-
   @override
   CodeMismatchException rebuild(
-          void Function(CodeMismatchExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CodeMismatchExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CodeMismatchExceptionBuilder toBuilder() =>
-      new CodeMismatchExceptionBuilder()..replace(this);
+      CodeMismatchExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +67,6 @@ class CodeMismatchExceptionBuilder
 
   @override
   void replace(CodeMismatchException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CodeMismatchException;
   }
 
@@ -81,8 +79,8 @@ class CodeMismatchExceptionBuilder
   CodeMismatchException build() => _build();
 
   _$CodeMismatchException _build() {
-    final _$result = _$v ??
-        new _$CodeMismatchException._(message: message, headers: headers);
+    final _$result =
+        _$v ?? _$CodeMismatchException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

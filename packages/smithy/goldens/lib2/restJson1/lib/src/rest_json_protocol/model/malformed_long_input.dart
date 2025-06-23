@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.malformed_long_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,9 +33,9 @@ abstract class MalformedLongInput
     );
   }
 
-  factory MalformedLongInput.build(
-          [void Function(MalformedLongInputBuilder) updates]) =
-      _$MalformedLongInput;
+  factory MalformedLongInput.build([
+    void Function(MalformedLongInputBuilder) updates,
+  ]) = _$MalformedLongInput;
 
   const MalformedLongInput._();
 
@@ -43,23 +43,23 @@ abstract class MalformedLongInput
     MalformedLongInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedLongInput.build((b) {
-        b.longInBody = payload.longInBody;
-        if (request.headers['longInHeader'] != null) {
-          b.longInHeader = _i3.Int64.parseInt(request.headers['longInHeader']!);
-        }
-        if (request.queryParameters['longInQuery'] != null) {
-          b.longInQuery =
-              _i3.Int64.parseInt(request.queryParameters['longInQuery']!);
-        }
-        if (labels['longInPath'] != null) {
-          b.longInPath = _i3.Int64.parseInt(labels['longInPath']!);
-        }
-      });
+  }) => MalformedLongInput.build((b) {
+    b.longInBody = payload.longInBody;
+    if (request.headers['longInHeader'] != null) {
+      b.longInHeader = _i3.Int64.parseInt(request.headers['longInHeader']!);
+    }
+    if (request.queryParameters['longInQuery'] != null) {
+      b.longInQuery = _i3.Int64.parseInt(
+        request.queryParameters['longInQuery']!,
+      );
+    }
+    if (labels['longInPath'] != null) {
+      b.longInPath = _i3.Int64.parseInt(labels['longInPath']!);
+    }
+  });
 
   static const List<_i1.SmithySerializer<MalformedLongInputPayload>>
-      serializers = [MalformedLongInputRestJson1Serializer()];
+  serializers = [MalformedLongInputRestJson1Serializer()];
 
   _i3.Int64? get longInBody;
   _i3.Int64 get longInPath;
@@ -71,42 +71,29 @@ abstract class MalformedLongInput
       case 'longInPath':
         return longInPath.toString();
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   MalformedLongInputPayload getPayload() => MalformedLongInputPayload((b) {
-        b.longInBody = longInBody;
-      });
+    b.longInBody = longInBody;
+  });
+
   @override
   List<Object?> get props => [
-        longInBody,
-        longInPath,
-        longInQuery,
-        longInHeader,
-      ];
+    longInBody,
+    longInPath,
+    longInQuery,
+    longInHeader,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedLongInput')
-      ..add(
-        'longInBody',
-        longInBody,
-      )
-      ..add(
-        'longInPath',
-        longInPath,
-      )
-      ..add(
-        'longInQuery',
-        longInQuery,
-      )
-      ..add(
-        'longInHeader',
-        longInHeader,
-      );
+      ..add('longInBody', longInBody)
+      ..add('longInPath', longInPath)
+      ..add('longInQuery', longInQuery)
+      ..add('longInHeader', longInHeader);
     return helper.toString();
   }
 }
@@ -116,22 +103,20 @@ abstract class MalformedLongInputPayload
     with _i2.AWSEquatable<MalformedLongInputPayload>
     implements
         Built<MalformedLongInputPayload, MalformedLongInputPayloadBuilder> {
-  factory MalformedLongInputPayload(
-          [void Function(MalformedLongInputPayloadBuilder) updates]) =
-      _$MalformedLongInputPayload;
+  factory MalformedLongInputPayload([
+    void Function(MalformedLongInputPayloadBuilder) updates,
+  ]) = _$MalformedLongInputPayload;
 
   const MalformedLongInputPayload._();
 
   _i3.Int64? get longInBody;
   @override
   List<Object?> get props => [longInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedLongInputPayload')
-      ..add(
-        'longInBody',
-        longInBody,
-      );
+      ..add('longInBody', longInBody);
     return helper.toString();
   }
 }
@@ -142,18 +127,17 @@ class MalformedLongInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        MalformedLongInput,
-        _$MalformedLongInput,
-        MalformedLongInputPayload,
-        _$MalformedLongInputPayload,
-      ];
+    MalformedLongInput,
+    _$MalformedLongInput,
+    MalformedLongInputPayload,
+    _$MalformedLongInputPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   MalformedLongInputPayload deserialize(
     Serializers serializers,
@@ -171,10 +155,12 @@ class MalformedLongInputRestJson1Serializer
       }
       switch (key) {
         case 'longInBody':
-          result.longInBody = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+          result.longInBody =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i3.Int64),
+                  )
+                  as _i3.Int64);
       }
     }
 
@@ -192,10 +178,12 @@ class MalformedLongInputRestJson1Serializer
     if (longInBody != null) {
       result$
         ..add('longInBody')
-        ..add(serializers.serialize(
-          longInBody,
-          specifiedType: const FullType(_i3.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            longInBody,
+            specifiedType: const FullType(_i3.Int64),
+          ),
+        );
     }
     return result$;
   }

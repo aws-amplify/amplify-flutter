@@ -21,23 +21,22 @@ class _$CompletedPart extends CompletedPart {
   final int? partNumber;
 
   factory _$CompletedPart([void Function(CompletedPartBuilder)? updates]) =>
-      (new CompletedPartBuilder()..update(updates))._build();
+      (CompletedPartBuilder()..update(updates))._build();
 
-  _$CompletedPart._(
-      {this.eTag,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.partNumber})
-      : super._();
-
+  _$CompletedPart._({
+    this.eTag,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.partNumber,
+  }) : super._();
   @override
   CompletedPart rebuild(void Function(CompletedPartBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CompletedPartBuilder toBuilder() => new CompletedPartBuilder()..replace(this);
+  CompletedPartBuilder toBuilder() => CompletedPartBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -114,7 +113,6 @@ class CompletedPartBuilder
 
   @override
   void replace(CompletedPart other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CompletedPart;
   }
 
@@ -127,14 +125,16 @@ class CompletedPartBuilder
   CompletedPart build() => _build();
 
   _$CompletedPart _build() {
-    final _$result = _$v ??
-        new _$CompletedPart._(
-            eTag: eTag,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            partNumber: partNumber);
+    final _$result =
+        _$v ??
+        _$CompletedPart._(
+          eTag: eTag,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+          partNumber: partNumber,
+        );
     replace(_$result);
     return _$result;
   }

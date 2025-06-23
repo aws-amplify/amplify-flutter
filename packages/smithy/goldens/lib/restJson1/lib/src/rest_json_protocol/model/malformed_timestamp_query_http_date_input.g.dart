@@ -11,26 +11,21 @@ class _$MalformedTimestampQueryHttpDateInput
   @override
   final DateTime timestamp;
 
-  factory _$MalformedTimestampQueryHttpDateInput(
-          [void Function(MalformedTimestampQueryHttpDateInputBuilder)?
-              updates]) =>
-      (new MalformedTimestampQueryHttpDateInputBuilder()..update(updates))
-          ._build();
+  factory _$MalformedTimestampQueryHttpDateInput([
+    void Function(MalformedTimestampQueryHttpDateInputBuilder)? updates,
+  ]) =>
+      (MalformedTimestampQueryHttpDateInputBuilder()..update(updates))._build();
 
   _$MalformedTimestampQueryHttpDateInput._({required this.timestamp})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        timestamp, r'MalformedTimestampQueryHttpDateInput', 'timestamp');
-  }
-
+    : super._();
   @override
   MalformedTimestampQueryHttpDateInput rebuild(
-          void Function(MalformedTimestampQueryHttpDateInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedTimestampQueryHttpDateInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedTimestampQueryHttpDateInputBuilder toBuilder() =>
-      new MalformedTimestampQueryHttpDateInputBuilder()..replace(this);
+      MalformedTimestampQueryHttpDateInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -50,8 +45,10 @@ class _$MalformedTimestampQueryHttpDateInput
 
 class MalformedTimestampQueryHttpDateInputBuilder
     implements
-        Builder<MalformedTimestampQueryHttpDateInput,
-            MalformedTimestampQueryHttpDateInputBuilder> {
+        Builder<
+          MalformedTimestampQueryHttpDateInput,
+          MalformedTimestampQueryHttpDateInputBuilder
+        > {
   _$MalformedTimestampQueryHttpDateInput? _$v;
 
   DateTime? _timestamp;
@@ -71,13 +68,13 @@ class MalformedTimestampQueryHttpDateInputBuilder
 
   @override
   void replace(MalformedTimestampQueryHttpDateInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedTimestampQueryHttpDateInput;
   }
 
   @override
   void update(
-      void Function(MalformedTimestampQueryHttpDateInputBuilder)? updates) {
+    void Function(MalformedTimestampQueryHttpDateInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -85,10 +82,15 @@ class MalformedTimestampQueryHttpDateInputBuilder
   MalformedTimestampQueryHttpDateInput build() => _build();
 
   _$MalformedTimestampQueryHttpDateInput _build() {
-    final _$result = _$v ??
-        new _$MalformedTimestampQueryHttpDateInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(timestamp,
-                r'MalformedTimestampQueryHttpDateInput', 'timestamp'));
+    final _$result =
+        _$v ??
+        _$MalformedTimestampQueryHttpDateInput._(
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+            timestamp,
+            r'MalformedTimestampQueryHttpDateInput',
+            'timestamp',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -96,24 +98,20 @@ class MalformedTimestampQueryHttpDateInputBuilder
 
 class _$MalformedTimestampQueryHttpDateInputPayload
     extends MalformedTimestampQueryHttpDateInputPayload {
-  factory _$MalformedTimestampQueryHttpDateInputPayload(
-          [void Function(MalformedTimestampQueryHttpDateInputPayloadBuilder)?
-              updates]) =>
-      (new MalformedTimestampQueryHttpDateInputPayloadBuilder()
-            ..update(updates))
-          ._build();
+  factory _$MalformedTimestampQueryHttpDateInputPayload([
+    void Function(MalformedTimestampQueryHttpDateInputPayloadBuilder)? updates,
+  ]) => (MalformedTimestampQueryHttpDateInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampQueryHttpDateInputPayload._() : super._();
-
   @override
   MalformedTimestampQueryHttpDateInputPayload rebuild(
-          void Function(MalformedTimestampQueryHttpDateInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedTimestampQueryHttpDateInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedTimestampQueryHttpDateInputPayloadBuilder toBuilder() =>
-      new MalformedTimestampQueryHttpDateInputPayloadBuilder()..replace(this);
+      MalformedTimestampQueryHttpDateInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -129,22 +127,23 @@ class _$MalformedTimestampQueryHttpDateInputPayload
 
 class MalformedTimestampQueryHttpDateInputPayloadBuilder
     implements
-        Builder<MalformedTimestampQueryHttpDateInputPayload,
-            MalformedTimestampQueryHttpDateInputPayloadBuilder> {
+        Builder<
+          MalformedTimestampQueryHttpDateInputPayload,
+          MalformedTimestampQueryHttpDateInputPayloadBuilder
+        > {
   _$MalformedTimestampQueryHttpDateInputPayload? _$v;
 
   MalformedTimestampQueryHttpDateInputPayloadBuilder();
 
   @override
   void replace(MalformedTimestampQueryHttpDateInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedTimestampQueryHttpDateInputPayload;
   }
 
   @override
   void update(
-      void Function(MalformedTimestampQueryHttpDateInputPayloadBuilder)?
-          updates) {
+    void Function(MalformedTimestampQueryHttpDateInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -152,8 +151,7 @@ class MalformedTimestampQueryHttpDateInputPayloadBuilder
   MalformedTimestampQueryHttpDateInputPayload build() => _build();
 
   _$MalformedTimestampQueryHttpDateInputPayload _build() {
-    final _$result =
-        _$v ?? new _$MalformedTimestampQueryHttpDateInputPayload._();
+    final _$result = _$v ?? _$MalformedTimestampQueryHttpDateInputPayload._();
     replace(_$result);
     return _$result;
   }

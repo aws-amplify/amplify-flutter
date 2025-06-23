@@ -13,21 +13,20 @@ class _$UserPoolAddOnNotEnabledException
   @override
   final Map<String, String>? headers;
 
-  factory _$UserPoolAddOnNotEnabledException(
-          [void Function(UserPoolAddOnNotEnabledExceptionBuilder)? updates]) =>
-      (new UserPoolAddOnNotEnabledExceptionBuilder()..update(updates))._build();
+  factory _$UserPoolAddOnNotEnabledException([
+    void Function(UserPoolAddOnNotEnabledExceptionBuilder)? updates,
+  ]) => (UserPoolAddOnNotEnabledExceptionBuilder()..update(updates))._build();
 
   _$UserPoolAddOnNotEnabledException._({this.message, this.headers})
-      : super._();
-
+    : super._();
   @override
   UserPoolAddOnNotEnabledException rebuild(
-          void Function(UserPoolAddOnNotEnabledExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UserPoolAddOnNotEnabledExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UserPoolAddOnNotEnabledExceptionBuilder toBuilder() =>
-      new UserPoolAddOnNotEnabledExceptionBuilder()..replace(this);
+      UserPoolAddOnNotEnabledExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,8 +46,10 @@ class _$UserPoolAddOnNotEnabledException
 
 class UserPoolAddOnNotEnabledExceptionBuilder
     implements
-        Builder<UserPoolAddOnNotEnabledException,
-            UserPoolAddOnNotEnabledExceptionBuilder> {
+        Builder<
+          UserPoolAddOnNotEnabledException,
+          UserPoolAddOnNotEnabledExceptionBuilder
+        > {
   _$UserPoolAddOnNotEnabledException? _$v;
 
   String? _message;
@@ -73,7 +74,6 @@ class UserPoolAddOnNotEnabledExceptionBuilder
 
   @override
   void replace(UserPoolAddOnNotEnabledException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UserPoolAddOnNotEnabledException;
   }
 
@@ -86,9 +86,12 @@ class UserPoolAddOnNotEnabledExceptionBuilder
   UserPoolAddOnNotEnabledException build() => _build();
 
   _$UserPoolAddOnNotEnabledException _build() {
-    final _$result = _$v ??
-        new _$UserPoolAddOnNotEnabledException._(
-            message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$UserPoolAddOnNotEnabledException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

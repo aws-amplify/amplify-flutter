@@ -11,25 +11,23 @@ class _$MalformedContentTypeWithoutBodyEmptyInputInput
   @override
   final String? header;
 
-  factory _$MalformedContentTypeWithoutBodyEmptyInputInput(
-          [void Function(MalformedContentTypeWithoutBodyEmptyInputInputBuilder)?
-              updates]) =>
-      (new MalformedContentTypeWithoutBodyEmptyInputInputBuilder()
-            ..update(updates))
+  factory _$MalformedContentTypeWithoutBodyEmptyInputInput([
+    void Function(MalformedContentTypeWithoutBodyEmptyInputInputBuilder)?
+    updates,
+  ]) =>
+      (MalformedContentTypeWithoutBodyEmptyInputInputBuilder()..update(updates))
           ._build();
 
   _$MalformedContentTypeWithoutBodyEmptyInputInput._({this.header}) : super._();
-
   @override
   MalformedContentTypeWithoutBodyEmptyInputInput rebuild(
-          void Function(MalformedContentTypeWithoutBodyEmptyInputInputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedContentTypeWithoutBodyEmptyInputInputBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedContentTypeWithoutBodyEmptyInputInputBuilder toBuilder() =>
-      new MalformedContentTypeWithoutBodyEmptyInputInputBuilder()
-        ..replace(this);
+      MalformedContentTypeWithoutBodyEmptyInputInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -49,8 +47,10 @@ class _$MalformedContentTypeWithoutBodyEmptyInputInput
 
 class MalformedContentTypeWithoutBodyEmptyInputInputBuilder
     implements
-        Builder<MalformedContentTypeWithoutBodyEmptyInputInput,
-            MalformedContentTypeWithoutBodyEmptyInputInputBuilder> {
+        Builder<
+          MalformedContentTypeWithoutBodyEmptyInputInput,
+          MalformedContentTypeWithoutBodyEmptyInputInputBuilder
+        > {
   _$MalformedContentTypeWithoutBodyEmptyInputInput? _$v;
 
   String? _header;
@@ -70,14 +70,14 @@ class MalformedContentTypeWithoutBodyEmptyInputInputBuilder
 
   @override
   void replace(MalformedContentTypeWithoutBodyEmptyInputInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedContentTypeWithoutBodyEmptyInputInput;
   }
 
   @override
   void update(
-      void Function(MalformedContentTypeWithoutBodyEmptyInputInputBuilder)?
-          updates) {
+    void Function(MalformedContentTypeWithoutBodyEmptyInputInputBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -85,8 +85,9 @@ class MalformedContentTypeWithoutBodyEmptyInputInputBuilder
   MalformedContentTypeWithoutBodyEmptyInputInput build() => _build();
 
   _$MalformedContentTypeWithoutBodyEmptyInputInput _build() {
-    final _$result = _$v ??
-        new _$MalformedContentTypeWithoutBodyEmptyInputInput._(header: header);
+    final _$result =
+        _$v ??
+        _$MalformedContentTypeWithoutBodyEmptyInputInput._(header: header);
     replace(_$result);
     return _$result;
   }
@@ -94,26 +95,24 @@ class MalformedContentTypeWithoutBodyEmptyInputInputBuilder
 
 class _$MalformedContentTypeWithoutBodyEmptyInputInputPayload
     extends MalformedContentTypeWithoutBodyEmptyInputInputPayload {
-  factory _$MalformedContentTypeWithoutBodyEmptyInputInputPayload(
-          [void Function(
-                  MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder)?
-              updates]) =>
-      (new MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder()
+  factory _$MalformedContentTypeWithoutBodyEmptyInputInputPayload([
+    void Function(MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder)?
+    updates,
+  ]) =>
+      (MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder()
             ..update(updates))
           ._build();
 
   _$MalformedContentTypeWithoutBodyEmptyInputInputPayload._() : super._();
-
   @override
   MalformedContentTypeWithoutBodyEmptyInputInputPayload rebuild(
-          void Function(
-                  MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder toBuilder() =>
-      new MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder()
+      MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder()
         ..replace(this);
 
   @override
@@ -130,23 +129,24 @@ class _$MalformedContentTypeWithoutBodyEmptyInputInputPayload
 
 class MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder
     implements
-        Builder<MalformedContentTypeWithoutBodyEmptyInputInputPayload,
-            MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder> {
+        Builder<
+          MalformedContentTypeWithoutBodyEmptyInputInputPayload,
+          MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder
+        > {
   _$MalformedContentTypeWithoutBodyEmptyInputInputPayload? _$v;
 
   MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder();
 
   @override
   void replace(MalformedContentTypeWithoutBodyEmptyInputInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedContentTypeWithoutBodyEmptyInputInputPayload;
   }
 
   @override
   void update(
-      void Function(
-              MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder)?
-          updates) {
+    void Function(MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -155,7 +155,7 @@ class MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder
 
   _$MalformedContentTypeWithoutBodyEmptyInputInputPayload _build() {
     final _$result =
-        _$v ?? new _$MalformedContentTypeWithoutBodyEmptyInputInputPayload._();
+        _$v ?? _$MalformedContentTypeWithoutBodyEmptyInputInputPayload._();
     replace(_$result);
     return _$result;
   }

@@ -53,8 +53,9 @@ void main() {
     testWidgets('eq()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models.where((model) => model.stringValue == value).toList();
+        var expectedModels = models
+            .where((model) => model.stringValue == value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.eq(value),
           expectedModels: expectedModels,
@@ -73,8 +74,9 @@ void main() {
       for (var value in values) {
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
-        var expectedModels =
-            nonNullModels.where((model) => model.stringValue != value).toList();
+        var expectedModels = nonNullModels
+            .where((model) => model.stringValue != value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.ne(value),
           expectedModels: expectedModels,
@@ -104,15 +106,17 @@ void main() {
 
       // test with no matches
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.STRINGVALUE.lt(minStringValue),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.lt(
+          minStringValue,
+        ),
         expectedModels: [],
       );
 
       // test with match all models
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.STRINGVALUE.lt(maxStringValue),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.lt(
+          maxStringValue,
+        ),
         expectedModels: nonNullModels,
       );
     });
@@ -131,8 +135,9 @@ void main() {
 
       // test with match all models
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.STRINGVALUE.le(maxStringValue),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.le(
+          maxStringValue,
+        ),
         expectedModels: nonNullModels,
       );
     });
@@ -151,8 +156,9 @@ void main() {
 
       // test with match all models
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.STRINGVALUE.gt(maxStringValue),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.gt(
+          maxStringValue,
+        ),
         expectedModels: [],
       );
     });
@@ -171,15 +177,17 @@ void main() {
 
       // test with no matches
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.STRINGVALUE.ge(maxStringValue),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.ge(
+          maxStringValue,
+        ),
         expectedModels: [],
       );
 
       // test with match all models
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.STRINGVALUE.ge(minStringValue),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.ge(
+          minStringValue,
+        ),
         expectedModels: nonNullModels,
       );
     });
@@ -191,8 +199,9 @@ void main() {
           .where((model) => model.stringValue!.startsWith(exactMatchPattern))
           .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
-            .beginsWith(exactMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.beginsWith(
+          exactMatchPattern,
+        ),
         expectedModels: exactMatchModels,
       );
 
@@ -202,16 +211,18 @@ void main() {
           .where((model) => model.stringValue!.startsWith(partialMatchPattern))
           .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
-            .beginsWith(partialMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.beginsWith(
+          partialMatchPattern,
+        ),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = 'foobar';
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.STRINGVALUE.beginsWith(noMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.beginsWith(
+          noMatchPattern,
+        ),
         expectedModels: [],
       );
     });
@@ -223,8 +234,9 @@ void main() {
           .where((model) => model.stringValue!.contains(exactMatchPattern))
           .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.STRINGVALUE.contains(exactMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.contains(
+          exactMatchPattern,
+        ),
         expectedModels: exactMatchModels,
       );
 
@@ -234,16 +246,18 @@ void main() {
           .where((model) => model.stringValue!.contains(partialMatchPattern))
           .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
-            .contains(partialMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.contains(
+          partialMatchPattern,
+        ),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = 'foobar';
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.STRINGVALUE.contains(noMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.contains(
+          noMatchPattern,
+        ),
         expectedModels: [],
       );
     });
@@ -255,8 +269,10 @@ void main() {
           .where((model) => model.stringValue == exactMatchPattern)
           .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
-            .between(exactMatchPattern, exactMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.between(
+          exactMatchPattern,
+          exactMatchPattern,
+        ),
         expectedModels: exactMatchModels,
       );
 
@@ -265,14 +281,17 @@ void main() {
       var partialMatchEnd = 'abcf';
       var rangeMatchModels = nonNullModels
           .where(
-              (model) => model.stringValue!.compareTo(partialMatchStart) >= 0)
+            (model) => model.stringValue!.compareTo(partialMatchStart) >= 0,
+          )
           .where((model) => model.stringValue!.compareTo(partialMatchEnd) <= 0)
           .toList();
       // verify that the test is testing a partial match
       expect(rangeMatchModels.length, greaterThanOrEqualTo(1));
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
-            .between(partialMatchStart, partialMatchEnd),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.between(
+          partialMatchStart,
+          partialMatchEnd,
+        ),
         expectedModels: rangeMatchModels,
       );
 
@@ -280,8 +299,10 @@ void main() {
       var noMatchStart = 'foobar';
       var noMatchEnd = 'foobuzz';
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
-            .between(noMatchStart, noMatchEnd),
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.between(
+          noMatchStart,
+          noMatchEnd,
+        ),
         expectedModels: [],
       );
     });

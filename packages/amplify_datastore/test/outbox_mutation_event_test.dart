@@ -44,10 +44,7 @@ void main() async {
       var enqueuedHubEventElement = outboxMutationEnqueuedEvent.element;
 
       test('is HubEventElement', () {
-        expect(
-          enqueuedHubEventElement,
-          isA<HubEventElement>(),
-        );
+        expect(enqueuedHubEventElement, isA<HubEventElement>());
         expect(
           enqueuedHubEventElement,
           isNot(isA<HubEventElementWithMetadata>()),
@@ -70,8 +67,9 @@ void main() async {
 
       group('fromMap', () {
         test('all fields', () {
-          var processedHubEventElement = outboxMutationProcessedEvent.element
-              as HubEventElementWithMetadata;
+          var processedHubEventElement =
+              outboxMutationProcessedEvent.element
+                  as HubEventElementWithMetadata;
           expect(
             processedHubEventElement.model,
             expectedProcessedHubEvent.model,
@@ -92,15 +90,13 @@ void main() async {
 
         test('_deleted = null', () {
           var outboxMutationProcessedEvent = OutboxMutationEvent(
-            {
-              ...outboxMutationProcessedEventJson,
-              '_deleted': null,
-            },
+            {...outboxMutationProcessedEventJson, '_deleted': null},
             modelProvider,
             'outboxMutationProcessed',
           );
-          var processedHubEventElement = outboxMutationProcessedEvent.element
-              as HubEventElementWithMetadata;
+          var processedHubEventElement =
+              outboxMutationProcessedEvent.element
+                  as HubEventElementWithMetadata;
           expect(processedHubEventElement.deleted, false);
         });
       });

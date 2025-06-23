@@ -18,18 +18,15 @@ void main() {
       initialRoute: '/routeA',
       routes: {
         '/routeA': (BuildContext context) => const RouteA(),
-        '/routeB': (BuildContext context) => const AuthenticatedView(
-              child: RouteB(),
-            ),
+        '/routeB': (BuildContext context) =>
+            const AuthenticatedView(child: RouteB()),
       },
     ),
   );
 
   group('unprotected routes', () {
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-username',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-username');
     });
 
     // Scenario: Sign in then sign out
@@ -103,9 +100,7 @@ class RouteA extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: routeAKey,
-      appBar: AppBar(
-        title: const Text('Route A'),
-      ),
+      appBar: AppBar(title: const Text('Route A')),
       body: Center(
         child: ElevatedButton(
           key: navToRouteBButtonKey,
@@ -125,12 +120,8 @@ class RouteB extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: routeBKey,
-      appBar: AppBar(
-        title: const Text('Route B'),
-      ),
-      body: const Center(
-        child: SignOutButton(),
-      ),
+      appBar: AppBar(title: const Text('Route B')),
+      body: const Center(child: SignOutButton()),
     );
   }
 }

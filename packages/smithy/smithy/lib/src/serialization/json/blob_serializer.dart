@@ -10,16 +10,17 @@ import 'package:smithy/smithy.dart';
 /// Serializer for the [Uint8List] (Blob) type.
 class BlobSerializer extends PrimitiveSmithySerializer<Uint8List> {
   const BlobSerializer([this.mediaType = 'application/octet-stream'])
-      : super('Blob');
+    : super('Blob');
 
   final String mediaType;
 
   @override
   Iterable<Type> get types => [
-        Uint8List,
-        Uint8List(0).runtimeType,
-        List<int>,
-      ];
+    Uint8List,
+    Uint8List(0).runtimeType,
+    List<int>,
+    List<dynamic>,
+  ];
 
   @override
   Uint8List deserialize(
@@ -35,8 +36,7 @@ class BlobSerializer extends PrimitiveSmithySerializer<Uint8List> {
     serialized as String;
     return switch (mediaType) {
       'text/plain' ||
-      'application/octet-stream' =>
-        Uint8List.fromList(utf8.encode(serialized)),
+      'application/octet-stream' => Uint8List.fromList(utf8.encode(serialized)),
       _ => base64Decode(serialized),
     };
   }

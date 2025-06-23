@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_user_attribute_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -22,9 +22,9 @@ abstract class VerifyUserAttributeResponse
   }
 
   /// A container representing the response from the server from the request to verify user attributes.
-  factory VerifyUserAttributeResponse.build(
-          [void Function(VerifyUserAttributeResponseBuilder) updates]) =
-      _$VerifyUserAttributeResponse;
+  factory VerifyUserAttributeResponse.build([
+    void Function(VerifyUserAttributeResponseBuilder) updates,
+  ]) = _$VerifyUserAttributeResponse;
 
   const VerifyUserAttributeResponse._();
 
@@ -32,14 +32,14 @@ abstract class VerifyUserAttributeResponse
   factory VerifyUserAttributeResponse.fromResponse(
     VerifyUserAttributeResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<VerifyUserAttributeResponse>>
-      serializers = [VerifyUserAttributeResponseAwsJson11Serializer()];
+  serializers = [VerifyUserAttributeResponseAwsJson11Serializer()];
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('VerifyUserAttributeResponse');
@@ -50,20 +50,19 @@ abstract class VerifyUserAttributeResponse
 class VerifyUserAttributeResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<VerifyUserAttributeResponse> {
   const VerifyUserAttributeResponseAwsJson11Serializer()
-      : super('VerifyUserAttributeResponse');
+    : super('VerifyUserAttributeResponse');
 
   @override
   Iterable<Type> get types => const [
-        VerifyUserAttributeResponse,
-        _$VerifyUserAttributeResponse,
-      ];
+    VerifyUserAttributeResponse,
+    _$VerifyUserAttributeResponse,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   VerifyUserAttributeResponse deserialize(
     Serializers serializers,
@@ -78,6 +77,5 @@ class VerifyUserAttributeResponseAwsJson11Serializer
     Serializers serializers,
     VerifyUserAttributeResponse object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

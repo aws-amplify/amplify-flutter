@@ -15,17 +15,16 @@ class _$Stats extends Stats {
   final _i2.Int64? bytesReturned;
 
   factory _$Stats([void Function(StatsBuilder)? updates]) =>
-      (new StatsBuilder()..update(updates))._build();
+      (StatsBuilder()..update(updates))._build();
 
   _$Stats._({this.bytesScanned, this.bytesProcessed, this.bytesReturned})
-      : super._();
-
+    : super._();
   @override
   Stats rebuild(void Function(StatsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  StatsBuilder toBuilder() => new StatsBuilder()..replace(this);
+  StatsBuilder toBuilder() => StatsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -80,7 +79,6 @@ class StatsBuilder implements Builder<Stats, StatsBuilder> {
 
   @override
   void replace(Stats other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Stats;
   }
 
@@ -93,11 +91,13 @@ class StatsBuilder implements Builder<Stats, StatsBuilder> {
   Stats build() => _build();
 
   _$Stats _build() {
-    final _$result = _$v ??
-        new _$Stats._(
-            bytesScanned: bytesScanned,
-            bytesProcessed: bytesProcessed,
-            bytesReturned: bytesReturned);
+    final _$result =
+        _$v ??
+        _$Stats._(
+          bytesScanned: bytesScanned,
+          bytesProcessed: bytesProcessed,
+          bytesReturned: bytesReturned,
+        );
     replace(_$result);
     return _$result;
   }

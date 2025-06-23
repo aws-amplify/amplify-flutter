@@ -18,9 +18,7 @@ import 'package:flutter/material.dart';
 abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
     extends AuthenticatorComponent<T> {
   /// {@macro amplify_authenticator.authenticator_button}
-  const AuthenticatorButton({
-    super.key,
-  });
+  const AuthenticatorButton({super.key});
 
   /// The button's `onPressed` callback.
   void onPressed(BuildContext context, AuthenticatorState state);
@@ -43,16 +41,20 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<ButtonResolverKey>('labelKey', labelKey));
+    properties.add(
+      DiagnosticsProperty<ButtonResolverKey>('labelKey', labelKey),
+    );
   }
 }
 
 abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
-    extends AuthenticatorComponentState<T> with MaterialStateMixin<T> {
+    extends AuthenticatorComponentState<T>
+    with MaterialStateMixin<T> {
   final focusNode = FocusNode();
 
   late final ValueChanged<bool> focusChanged =
+      // TODO(Jordan-Nelson): Update to `WidgetState` when min Flutter version is 3.22 or higher
+      // ignore: deprecated_member_use
       updateMaterialState(MaterialState.focused);
 
   @override
@@ -105,8 +107,9 @@ class _AmplifyElevatedButtonState
   Widget build(BuildContext context) {
     final buttonResolver = stringResolver.buttons;
     final loadingIndicator = widget.loadingIndicator;
-    final onPressed =
-        state.isBusy ? null : () => widget.onPressed(context, state);
+    final onPressed = state.isBusy
+        ? null
+        : () => widget.onPressed(context, state);
     final child = state.isBusy && loadingIndicator != null
         ? loadingIndicator
         : Row(
@@ -117,10 +120,7 @@ class _AmplifyElevatedButtonState
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    buttonResolver.resolve(
-                      context,
-                      widget.labelKey,
-                    ),
+                    buttonResolver.resolve(context, widget.labelKey),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -154,10 +154,7 @@ class _AmplifyElevatedButtonState
 /// {@endtemplate}
 class SignUpButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.sign_up_button}
-  const SignUpButton({Key? key})
-      : super(
-          key: key ?? keySignUpButton,
-        );
+  const SignUpButton({Key? key}) : super(key: key ?? keySignUpButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.signUp;
@@ -175,10 +172,7 @@ class SignUpButton extends AuthenticatorElevatedButton {
 /// {@endtemplate}
 class SignInButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.sign_in_button}
-  const SignInButton({Key? key})
-      : super(
-          key: key ?? keySignInButton,
-        );
+  const SignInButton({Key? key}) : super(key: key ?? keySignInButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.signIn;
@@ -197,9 +191,7 @@ class SignInButton extends AuthenticatorElevatedButton {
 class ConfirmSignUpButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.confirm_sign_up_button}
   const ConfirmSignUpButton({Key? key})
-      : super(
-          key: key ?? keyConfirmSignUpButton,
-        );
+    : super(key: key ?? keyConfirmSignUpButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
@@ -218,9 +210,7 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
 class ConfirmSignInCustomButton extends ConfirmSignInMFAButton {
   /// {@macro amplify_authenticator.confirm_sign_in_custom_button}
   const ConfirmSignInCustomButton({Key? key})
-      : super(
-          key: key ?? keyConfirmSignInCustomButton,
-        );
+    : super(key: key ?? keyConfirmSignInCustomButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
@@ -239,9 +229,7 @@ class ConfirmSignInCustomButton extends ConfirmSignInMFAButton {
 class ContinueSignInMFASelectionButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.continue_sign_in_mfa_selection_button}
   const ContinueSignInMFASelectionButton({Key? key})
-      : super(
-          key: key ?? keyConfirmSignInMfaSelectionButton,
-        );
+    : super(key: key ?? keyConfirmSignInMfaSelectionButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.continueLabel;
@@ -249,6 +237,46 @@ class ContinueSignInMFASelectionButton extends AuthenticatorElevatedButton {
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
       state.continueSignInWithMfaSelection();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_mfa_setup_selection_button}
+/// A prebuilt button for Sign In with MFA setup selection.
+///
+/// Uses [ButtonResolverKey.continueLabel] for localization
+/// {@endtemplate}
+class ContinueSignInMFASetupSelectionButton
+    extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.continue_sign_in_mfa_setup_selection_button}
+  const ContinueSignInMFASetupSelectionButton({Key? key})
+    : super(key: key ?? keyConfirmSignInMfaSetupSelectionButton);
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.continueLabel;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.continueSignInWithMfaSetupSelection();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_with_email_mfa_setup_button}
+/// A prebuilt button for Sign In with Email MFA setup.
+///
+/// Uses [ButtonResolverKey.continueLabel] for localization
+/// {@endtemplate}
+class ContinueSignInWithEmailMfaSetupButton
+    extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.continue_sign_in_with_email_mfa_setup_button}
+  const ContinueSignInWithEmailMfaSetupButton({Key? key})
+    : super(key: key ?? keyConfirmSignInWithEmailMfaSetupButton);
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.continueLabel;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.continueEmailMfaSetup();
 }
 
 /// {@category Prebuilt Widgets}
@@ -260,9 +288,7 @@ class ContinueSignInMFASelectionButton extends AuthenticatorElevatedButton {
 class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.confirm_sign_in_mfa_button}
   const ConfirmSignInMFAButton({Key? key})
-      : super(
-          key: key ?? keyConfirmSignInButton,
-        );
+    : super(key: key ?? keyConfirmSignInButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
@@ -292,9 +318,7 @@ class SignOutButton extends StatelessAuthenticatorComponent {
 
     return ElevatedButton(
       onPressed: state.signOut,
-      child: Text(
-        buttonResolver.signout(context),
-      ),
+      child: Text(buttonResolver.signout(context)),
     );
   }
 }
@@ -323,9 +347,7 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
       ),
       onPressed: () {
         if (!abortSignIn) {
-          state.changeStep(
-            AuthenticatorStep.signIn,
-          );
+          state.changeStep(AuthenticatorStep.signIn);
         } else {
           state.abortSignIn();
         }
@@ -365,9 +387,9 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
           Expanded(
             child: Text(
               buttonResolver.lostCode(context),
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    fontSize: fontSize,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.labelLarge?.copyWith(fontSize: fontSize),
             ),
           ),
           TextButton(
@@ -399,12 +421,8 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
   ) {
     return TextButton(
       key: keyForgotPasswordButton,
-      child: Text(
-        stringResolver.buttons.forgotPassword(context),
-      ),
-      onPressed: () => state.changeStep(
-        AuthenticatorStep.resetPassword,
-      ),
+      child: Text(stringResolver.buttons.forgotPassword(context)),
+      onPressed: () => state.changeStep(AuthenticatorStep.resetPassword),
     );
   }
 }
@@ -417,10 +435,7 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
 /// {@endtemplate}
 class ResetPasswordButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.reset_password_button}
-  const ResetPasswordButton({Key? key})
-      : super(
-          key: key ?? keySendCodeButton,
-        );
+  const ResetPasswordButton({Key? key}) : super(key: key ?? keySendCodeButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.submit;
@@ -439,9 +454,7 @@ class ResetPasswordButton extends AuthenticatorElevatedButton {
 class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.confirm_reset_password_button}
   const ConfirmResetPasswordButton({Key? key})
-      : super(
-          key: key ?? keySendCodeButton,
-        );
+    : super(key: key ?? keySendCodeButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.submit;
@@ -460,9 +473,7 @@ class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
 class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.confirm_sign_in_new_password}
   const ConfirmSignInNewPasswordButton({Key? key})
-      : super(
-          key: key ?? keyConfirmSignInButton,
-        );
+    : super(key: key ?? keyConfirmSignInButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.changePassword;
@@ -481,9 +492,7 @@ class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
 class VerifyUserButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.verify_user_button}
   const VerifyUserButton({Key? key})
-      : super(
-          key: key ?? keySubmitVerifyUserButton,
-        );
+    : super(key: key ?? keySubmitVerifyUserButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.verify;
@@ -503,9 +512,7 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
 class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.confirm_verify_user_button}
   const ConfirmVerifyUserButton({Key? key})
-      : super(
-          key: key ?? keySubmitConfirmVerifyUserButton,
-        );
+    : super(key: key ?? keySubmitConfirmVerifyUserButton);
 
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.submit;

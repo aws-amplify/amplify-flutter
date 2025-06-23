@@ -8,11 +8,7 @@ import 'package:collection/collection.dart';
 import 'package:mason/mason.dart';
 import 'package:path/path.dart' as p;
 
-enum CreateTemplate {
-  dartPackage,
-  flutterPackage,
-  flutterPlugin,
-}
+enum CreateTemplate { dartPackage, flutterPackage, flutterPlugin }
 
 /// Command to create new Amplify packages.
 class CreateCommand extends AmplifyCommand {
@@ -21,9 +17,7 @@ class CreateCommand extends AmplifyCommand {
       'template',
       abbr: 't',
       help: 'The template to use (defaults to `dart`)',
-      allowed: CreateTemplate.values.map(
-        (template) => template.name.paramCase,
-      ),
+      allowed: CreateTemplate.values.map((template) => template.name.paramCase),
       defaultsTo: CreateTemplate.dartPackage.name.paramCase,
     );
   }
@@ -41,13 +35,7 @@ class CreateCommand extends AmplifyCommand {
   @override
   Future<void> run() async {
     await super.run();
-    final brick = Brick.path(
-      p.join(
-        rootDir.path,
-        'templates',
-        template,
-      ),
-    );
+    final brick = Brick.path(p.join(rootDir.path, 'templates', template));
     final name = argResults!.rest.singleOrNull;
     if (name == null) {
       usageException(
@@ -62,19 +50,17 @@ class CreateCommand extends AmplifyCommand {
 
     // Collect brick variables
     final path = p.relative(outputDir.path, from: rootDir.path);
-    final amplifyCoreConstraint =
-        repoPackages['amplify_core']!.version.amplifyConstraint();
-    final amplifyFlutterConstraint =
-        repoPackages['amplify_flutter']!.version.amplifyConstraint();
+    final amplifyCoreConstraint = repoPackages['amplify_core']!.version
+        .amplifyConstraint();
+    final amplifyFlutterConstraint = repoPackages['amplify_flutter']!.version
+        .amplifyConstraint();
     final dartSdkConstraint = aftConfig.environment.sdk.toString();
     final flutterSdkConstraint = aftConfig.environment.flutter.toString();
     final androidMinSdkVersion = aftConfig.platforms!.android.minSdkVersion;
     final iosMinOsVersion = aftConfig.platforms!.ios.minOSVersion;
     final macosMinOsVersion = aftConfig.platforms!.macOS.minOSVersion;
 
-    await generator.hooks.preGen(
-      workingDirectory: outputDir.path,
-    );
+    await generator.hooks.preGen(workingDirectory: outputDir.path);
     await generator.generate(
       target,
       vars: {
@@ -89,8 +75,6 @@ class CreateCommand extends AmplifyCommand {
         'macosMinOsVersion': macosMinOsVersion,
       },
     );
-    await generator.hooks.postGen(
-      workingDirectory: outputDir.path,
-    );
+    await generator.hooks.postGen(workingDirectory: outputDir.path);
   }
 }

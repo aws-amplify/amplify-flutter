@@ -70,5 +70,4 @@ abstract class SecureStorageWorker
   SecureStorageAction,
   SecureStorageRequest,
 ])
-final Serializers serializers =
-    _$serializers; // TODO(dnys1): https://github.com/google/built_value.dart/pull/1202
+final Serializers serializers = _$serializers; // TODO(dnys1): https://github.com/google/built_value.dart/pull/1202

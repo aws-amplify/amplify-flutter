@@ -9,7 +9,5 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 /// {@endtemplate}
 class S3GetPropertiesResult extends StorageGetPropertiesResult<S3Item> {
   /// {@macro storage.amplify_storage_s3.get_properties_result}
-  const S3GetPropertiesResult({
-    required super.storageItem,
-  });
+  const S3GetPropertiesResult({required super.storageItem});
 }

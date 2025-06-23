@@ -2,14 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_common/src/js/abort.dart';
 import 'package:aws_common/src/js/fetch.dart';
+import 'package:aws_common/src/js/readable_stream.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
+import 'package:web/web.dart';
 
 /// {@macro aws_common.http.http_client_impl}
 class AWSHttpClientImpl extends AWSHttpClient {
@@ -46,12 +49,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
     final RequestRedirect redirect;
     if (request.followRedirects) {
       if (request.maxRedirects == 0) {
-        redirect = RequestRedirect.error;
+        redirect = RequestRedirectValues.error.jsValue!;
       } else {
-        redirect = RequestRedirect.follow;
+        redirect = RequestRedirectValues.follow.jsValue!;
       }
     } else {
-      redirect = RequestRedirect.manual;
+      redirect = RequestRedirectValues.manual.jsValue!;
     }
     try {
       // ReadableStream bodies are only supported in fetch on HTTPS calls to
@@ -59,37 +62,52 @@ class AWSHttpClientImpl extends AWSHttpClient {
       // - https://developer.chrome.com/articles/fetch-streaming-requests/#doesnt-work-on-http1x
       // - https://developer.chrome.com/articles/fetch-streaming-requests/#incompatibility-outside-of-your-control
       var requestBytesRead = 0;
-      final stream = request.body.tap(
-        (chunk) {
-          requestBytesRead += chunk.length;
-          requestProgressController.add(requestBytesRead);
-        },
-        onDone: () {
-          if (!cancelTrigger.isCompleted) {
-            logger.verbose('Request sent');
-          }
-          requestProgressController.close();
-        },
-      ).takeUntil(cancelTrigger.future);
-      Object body;
-      if (request.scheme == 'http' ||
-          supportedProtocols.supports(AlpnProtocol.http1_1)) {
-        body = Uint8List.fromList(await collectBytes(stream));
-      } else {
-        body = stream;
+      final stream = request.body
+          .tap(
+            (chunk) {
+              requestBytesRead += chunk.length;
+              requestProgressController.add(requestBytesRead);
+            },
+            onDone: () {
+              if (!cancelTrigger.isCompleted) {
+                logger.verbose('Request sent');
+              }
+              requestProgressController.close();
+            },
+          )
+          .takeUntil(cancelTrigger.future);
+      JSAny? body;
+      // `fetch` does not allow bodies for these methods.
+      if (request.method != AWSHttpMethod.get &&
+          request.method != AWSHttpMethod.head) {
+        if (request.scheme == 'http' ||
+            supportedProtocols.supports(AlpnProtocol.http1_1)) {
+          body = Uint8List.fromList(await collectBytes(stream)).toJS;
+        } else {
+          body = stream.asReadableStream();
+        }
       }
 
       if (completer.isCanceled) return;
-      final resp = await fetch(
-        request.uri.toString(),
-        RequestInit(
-          method: request.method,
-          headers: request.headers,
-          body: body,
-          signal: abortController.signal,
-          redirect: redirect,
-        ),
-      );
+
+      final requestHeaders = Headers();
+      for (final entry in request.headers.entries) {
+        requestHeaders.append(entry.key, entry.value);
+      }
+
+      final resp = await window
+          .fetch(
+            request.uri.toString().toJS,
+            RequestInit(
+              method: request.method.value,
+              headers: requestHeaders,
+              body: body,
+              signal: abortController.signal,
+              redirect: redirect,
+              duplex: 'half',
+            ),
+          )
+          .toDart;
 
       final streamView = resp.body;
       final bodyController = StreamController<List<int>>(
@@ -109,20 +127,34 @@ class AWSHttpClientImpl extends AWSHttpClient {
             ..addError(const CancellationException())
             ..close();
         }
-        responseProgressController.close();
+        if (!responseProgressController.isClosed) {
+          responseProgressController.close();
+        }
+        if (!requestProgressController.isClosed) {
+          requestProgressController.close();
+        }
       };
+
       unawaited(
-        streamView.progress.forward(
+        streamView?.progress.forward(
           responseProgressController,
           cancelOnError: true,
         ),
       );
       unawaited(
-        streamView.forward(bodyController, cancelOnError: true),
+        streamView?.stream.forward(bodyController, cancelOnError: true),
       );
+
+      final responseHeaders = <String, String>{};
+      void headerBuilder(JSString value, JSString key, JSAny object) {
+        responseHeaders[key.toDart] = value.toDart;
+      }
+
+      resp.headers.callMethod('forEach'.toJS, headerBuilder.toJS);
+
       final streamedResponse = AWSStreamedHttpResponse(
         statusCode: resp.status,
-        headers: resp.headers,
+        headers: responseHeaders,
         body: bodyController.stream.tap(
           null,
           onDone: () {
@@ -136,10 +168,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       );
       completer.complete(streamedResponse);
     } on Object catch (e, st) {
-      completer.completeError(
-        AWSHttpException(request, e),
-        st,
-      );
+      completer.completeError(AWSHttpException(request, e), st);
     }
   }
 
@@ -184,9 +213,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       completer: completer,
       cancelTrigger: cancelTrigger,
     ).catchError(
-      (Object e, st) => completer.completeError(
-        AWSHttpException(request, e),
-      ),
+      (Object e, st) => completer.completeError(AWSHttpException(request, e)),
     );
     _openConnections.add(WeakReference(operation));
     return operation;

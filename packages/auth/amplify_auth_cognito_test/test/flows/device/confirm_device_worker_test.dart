@@ -27,10 +27,7 @@ void main() {
       );
       worker.add(message);
 
-      expect(
-        worker.stream,
-        emits(isA<ConfirmDeviceResponse>()),
-      );
+      expect(worker.stream, emits(isA<ConfirmDeviceResponse>()));
     });
 
     test('failure', () async {
@@ -44,14 +41,8 @@ void main() {
       );
       worker.add(message);
 
-      expect(
-        worker.result,
-        completion(isA<ErrorResult>()),
-      );
-      await expectLater(
-        worker.stream,
-        emitsError(isA<WorkerBeeException>()),
-      );
+      expect(worker.result, completion(isA<ErrorResult>()));
+      await expectLater(worker.stream, emitsError(isA<WorkerBeeException>()));
       unawaited(worker.close());
     });
   });

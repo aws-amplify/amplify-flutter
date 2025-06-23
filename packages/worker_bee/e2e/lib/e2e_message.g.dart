@@ -6,32 +6,44 @@ part of 'e2e_message.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(CustomType.serializer)
-      ..add(E2EMessage.serializer)
-      ..add(E2EResult.serializer)
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltListMultimap,
-              const [const FullType(String), const FullType(String)]),
-          () => new ListMultimapBuilder<String, String>())
-      ..addBuilderFactory(
-          const FullType(
-              BuiltMap, const [const FullType(String), const FullType(String)]),
-          () => new MapBuilder<String, String>())
-      ..addBuilderFactory(
-          const FullType(BuiltSet, const [const FullType(String)]),
-          () => new SetBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltSetMultimap,
-              const [const FullType(String), const FullType(String)]),
-          () => new SetMultimapBuilder<String, String>()))
-    .build();
-Serializer<CustomType> _$customTypeSerializer = new _$CustomTypeSerializer();
-Serializer<E2EMessage> _$e2EMessageSerializer = new _$E2EMessageSerializer();
-Serializer<E2EResult> _$e2EResultSerializer = new _$E2EResultSerializer();
+Serializers _$serializers =
+    (Serializers().toBuilder()
+          ..add(CustomType.serializer)
+          ..add(E2EMessage.serializer)
+          ..add(E2EResult.serializer)
+          ..addBuilderFactory(
+            const FullType(BuiltList, const [const FullType(String)]),
+            () => ListBuilder<String>(),
+          )
+          ..addBuilderFactory(
+            const FullType(BuiltListMultimap, const [
+              const FullType(String),
+              const FullType(String),
+            ]),
+            () => ListMultimapBuilder<String, String>(),
+          )
+          ..addBuilderFactory(
+            const FullType(BuiltMap, const [
+              const FullType(String),
+              const FullType(String),
+            ]),
+            () => MapBuilder<String, String>(),
+          )
+          ..addBuilderFactory(
+            const FullType(BuiltSet, const [const FullType(String)]),
+            () => SetBuilder<String>(),
+          )
+          ..addBuilderFactory(
+            const FullType(BuiltSetMultimap, const [
+              const FullType(String),
+              const FullType(String),
+            ]),
+            () => SetMultimapBuilder<String, String>(),
+          ))
+        .build();
+Serializer<CustomType> _$customTypeSerializer = _$CustomTypeSerializer();
+Serializer<E2EMessage> _$e2EMessageSerializer = _$E2EMessageSerializer();
+Serializer<E2EResult> _$e2EResultSerializer = _$E2EResultSerializer();
 
 class _$CustomTypeSerializer implements StructuredSerializer<CustomType> {
   @override
@@ -40,21 +52,29 @@ class _$CustomTypeSerializer implements StructuredSerializer<CustomType> {
   final String wireName = 'CustomType';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, CustomType object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    CustomType object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'customField',
-      serializers.serialize(object.customField,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.customField,
+        specifiedType: const FullType(String),
+      ),
     ];
 
     return result;
   }
 
   @override
-  CustomType deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new CustomTypeBuilder();
+  CustomType deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = CustomTypeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -63,8 +83,12 @@ class _$CustomTypeSerializer implements StructuredSerializer<CustomType> {
       final Object? value = iterator.current;
       switch (key) {
         case 'customField':
-          result.customField = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.customField =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
       }
     }
@@ -80,58 +104,91 @@ class _$E2EMessageSerializer implements StructuredSerializer<E2EMessage> {
   final String wireName = 'E2EMessage';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, E2EMessage object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    E2EMessage object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'bigInt',
-      serializers.serialize(object.bigInt,
-          specifiedType: const FullType(BigInt)),
+      serializers.serialize(
+        object.bigInt,
+        specifiedType: const FullType(BigInt),
+      ),
       'bool_',
       serializers.serialize(object.bool_, specifiedType: const FullType(bool)),
       'builtList',
-      serializers.serialize(object.builtList,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(String)])),
+      serializers.serialize(
+        object.builtList,
+        specifiedType: const FullType(BuiltList, const [
+          const FullType(String),
+        ]),
+      ),
       'builtListMultimap',
-      serializers.serialize(object.builtListMultimap,
-          specifiedType: const FullType(BuiltListMultimap,
-              const [const FullType(String), const FullType(String)])),
+      serializers.serialize(
+        object.builtListMultimap,
+        specifiedType: const FullType(BuiltListMultimap, const [
+          const FullType(String),
+          const FullType(String),
+        ]),
+      ),
       'builtMap',
-      serializers.serialize(object.builtMap,
-          specifiedType: const FullType(BuiltMap,
-              const [const FullType(String), const FullType(String)])),
+      serializers.serialize(
+        object.builtMap,
+        specifiedType: const FullType(BuiltMap, const [
+          const FullType(String),
+          const FullType(String),
+        ]),
+      ),
       'builtSet',
-      serializers.serialize(object.builtSet,
-          specifiedType:
-              const FullType(BuiltSet, const [const FullType(String)])),
+      serializers.serialize(
+        object.builtSet,
+        specifiedType: const FullType(BuiltSet, const [const FullType(String)]),
+      ),
       'builtSetMultimap',
-      serializers.serialize(object.builtSetMultimap,
-          specifiedType: const FullType(BuiltSetMultimap,
-              const [const FullType(String), const FullType(String)])),
+      serializers.serialize(
+        object.builtSetMultimap,
+        specifiedType: const FullType(BuiltSetMultimap, const [
+          const FullType(String),
+          const FullType(String),
+        ]),
+      ),
       'dateTime',
-      serializers.serialize(object.dateTime,
-          specifiedType: const FullType(DateTime)),
+      serializers.serialize(
+        object.dateTime,
+        specifiedType: const FullType(DateTime),
+      ),
       'double_',
-      serializers.serialize(object.double_,
-          specifiedType: const FullType(double)),
+      serializers.serialize(
+        object.double_,
+        specifiedType: const FullType(double),
+      ),
       'duration',
-      serializers.serialize(object.duration,
-          specifiedType: const FullType(Duration)),
+      serializers.serialize(
+        object.duration,
+        specifiedType: const FullType(Duration),
+      ),
       'int_',
       serializers.serialize(object.int_, specifiedType: const FullType(int)),
       'int64',
       serializers.serialize(object.int64, specifiedType: const FullType(Int64)),
       'jsonObject',
-      serializers.serialize(object.jsonObject,
-          specifiedType: const FullType(JsonObject)),
+      serializers.serialize(
+        object.jsonObject,
+        specifiedType: const FullType(JsonObject),
+      ),
       'num_',
       serializers.serialize(object.num_, specifiedType: const FullType(num)),
       'regExp',
-      serializers.serialize(object.regExp,
-          specifiedType: const FullType(RegExp)),
+      serializers.serialize(
+        object.regExp,
+        specifiedType: const FullType(RegExp),
+      ),
       'string',
-      serializers.serialize(object.string,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.string,
+        specifiedType: const FullType(String),
+      ),
       'uri',
       serializers.serialize(object.uri, specifiedType: const FullType(Uri)),
     ];
@@ -140,9 +197,12 @@ class _$E2EMessageSerializer implements StructuredSerializer<E2EMessage> {
   }
 
   @override
-  E2EMessage deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new E2EMessageBuilder();
+  E2EMessage deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = E2EMessageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -151,79 +211,155 @@ class _$E2EMessageSerializer implements StructuredSerializer<E2EMessage> {
       final Object? value = iterator.current;
       switch (key) {
         case 'bigInt':
-          result.bigInt = serializers.deserialize(value,
-              specifiedType: const FullType(BigInt))! as BigInt;
+          result.bigInt =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BigInt),
+                  )!
+                  as BigInt;
           break;
         case 'bool_':
-          result.bool_ = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
+          result.bool_ =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )!
+                  as bool;
           break;
         case 'builtList':
-          result.builtList.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
+          result.builtList.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltList, const [
+                    const FullType(String),
+                  ]),
+                )!
+                as BuiltList<Object?>,
+          );
           break;
         case 'builtListMultimap':
-          result.builtListMultimap.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltListMultimap,
-                  const [const FullType(String), const FullType(String)]))!);
+          result.builtListMultimap.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(BuiltListMultimap, const [
+                const FullType(String),
+                const FullType(String),
+              ]),
+            )!,
+          );
           break;
         case 'builtMap':
-          result.builtMap.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)]))!);
+          result.builtMap.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(BuiltMap, const [
+                const FullType(String),
+                const FullType(String),
+              ]),
+            )!,
+          );
           break;
         case 'builtSet':
-          result.builtSet.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltSet, const [const FullType(String)]))!
-              as BuiltSet<Object?>);
+          result.builtSet.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltSet, const [
+                    const FullType(String),
+                  ]),
+                )!
+                as BuiltSet<Object?>,
+          );
           break;
         case 'builtSetMultimap':
-          result.builtSetMultimap.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltSetMultimap,
-                  const [const FullType(String), const FullType(String)]))!);
+          result.builtSetMultimap.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(BuiltSetMultimap, const [
+                const FullType(String),
+                const FullType(String),
+              ]),
+            )!,
+          );
           break;
         case 'dateTime':
-          result.dateTime = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime))! as DateTime;
+          result.dateTime =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )!
+                  as DateTime;
           break;
         case 'double_':
-          result.double_ = serializers.deserialize(value,
-              specifiedType: const FullType(double))! as double;
+          result.double_ =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )!
+                  as double;
           break;
         case 'duration':
-          result.duration = serializers.deserialize(value,
-              specifiedType: const FullType(Duration))! as Duration;
+          result.duration =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Duration),
+                  )!
+                  as Duration;
           break;
         case 'int_':
-          result.int_ = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
+          result.int_ =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'int64':
-          result.int64 = serializers.deserialize(value,
-              specifiedType: const FullType(Int64))! as Int64;
+          result.int64 =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Int64),
+                  )!
+                  as Int64;
           break;
         case 'jsonObject':
-          result.jsonObject = serializers.deserialize(value,
-              specifiedType: const FullType(JsonObject))! as JsonObject;
+          result.jsonObject =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(JsonObject),
+                  )!
+                  as JsonObject;
           break;
         case 'num_':
-          result.num_ = serializers.deserialize(value,
-              specifiedType: const FullType(num))! as num;
+          result.num_ =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )!
+                  as num;
           break;
         case 'regExp':
-          result.regExp = serializers.deserialize(value,
-              specifiedType: const FullType(RegExp))! as RegExp;
+          result.regExp =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RegExp),
+                  )!
+                  as RegExp;
           break;
         case 'string':
-          result.string = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.string =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'uri':
-          result.uri = serializers.deserialize(value,
-              specifiedType: const FullType(Uri))! as Uri;
+          result.uri =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Uri),
+                  )!
+                  as Uri;
           break;
       }
     }
@@ -239,21 +375,29 @@ class _$E2EResultSerializer implements StructuredSerializer<E2EResult> {
   final String wireName = 'E2EResult';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, E2EResult object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    E2EResult object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'message',
-      serializers.serialize(object.message,
-          specifiedType: const FullType(E2EMessage)),
+      serializers.serialize(
+        object.message,
+        specifiedType: const FullType(E2EMessage),
+      ),
     ];
 
     return result;
   }
 
   @override
-  E2EResult deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new E2EResultBuilder();
+  E2EResult deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = E2EResultBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -262,8 +406,13 @@ class _$E2EResultSerializer implements StructuredSerializer<E2EResult> {
       final Object? value = iterator.current;
       switch (key) {
         case 'message':
-          result.message.replace(serializers.deserialize(value,
-              specifiedType: const FullType(E2EMessage))! as E2EMessage);
+          result.message.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(E2EMessage),
+                )!
+                as E2EMessage,
+          );
           break;
       }
     }
@@ -277,19 +426,15 @@ class _$CustomType extends CustomType {
   final String customField;
 
   factory _$CustomType([void Function(CustomTypeBuilder)? updates]) =>
-      (new CustomTypeBuilder()..update(updates))._build();
+      (CustomTypeBuilder()..update(updates))._build();
 
-  _$CustomType._({required this.customField}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        customField, r'CustomType', 'customField');
-  }
-
+  _$CustomType._({required this.customField}) : super._();
   @override
   CustomType rebuild(void Function(CustomTypeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CustomTypeBuilder toBuilder() => new CustomTypeBuilder()..replace(this);
+  CustomTypeBuilder toBuilder() => CustomTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -307,9 +452,9 @@ class _$CustomType extends CustomType {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'CustomType')
-          ..add('customField', customField))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'CustomType',
+    )..add('customField', customField)).toString();
   }
 }
 
@@ -333,7 +478,6 @@ class CustomTypeBuilder implements Builder<CustomType, CustomTypeBuilder> {
 
   @override
   void replace(CustomType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CustomType;
   }
 
@@ -346,10 +490,15 @@ class CustomTypeBuilder implements Builder<CustomType, CustomTypeBuilder> {
   CustomType build() => _build();
 
   _$CustomType _build() {
-    final _$result = _$v ??
-        new _$CustomType._(
-            customField: BuiltValueNullFieldError.checkNotNull(
-                customField, r'CustomType', 'customField'));
+    final _$result =
+        _$v ??
+        _$CustomType._(
+          customField: BuiltValueNullFieldError.checkNotNull(
+            customField,
+            r'CustomType',
+            'customField',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -392,56 +541,33 @@ class _$E2EMessage extends E2EMessage {
   final Uri uri;
 
   factory _$E2EMessage([void Function(E2EMessageBuilder)? updates]) =>
-      (new E2EMessageBuilder()..update(updates))._build();
+      (E2EMessageBuilder()..update(updates))._build();
 
-  _$E2EMessage._(
-      {required this.bigInt,
-      required this.bool_,
-      required this.builtList,
-      required this.builtListMultimap,
-      required this.builtMap,
-      required this.builtSet,
-      required this.builtSetMultimap,
-      required this.dateTime,
-      required this.double_,
-      required this.duration,
-      required this.int_,
-      required this.int64,
-      required this.jsonObject,
-      required this.num_,
-      required this.regExp,
-      required this.string,
-      required this.uri})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(bigInt, r'E2EMessage', 'bigInt');
-    BuiltValueNullFieldError.checkNotNull(bool_, r'E2EMessage', 'bool_');
-    BuiltValueNullFieldError.checkNotNull(
-        builtList, r'E2EMessage', 'builtList');
-    BuiltValueNullFieldError.checkNotNull(
-        builtListMultimap, r'E2EMessage', 'builtListMultimap');
-    BuiltValueNullFieldError.checkNotNull(builtMap, r'E2EMessage', 'builtMap');
-    BuiltValueNullFieldError.checkNotNull(builtSet, r'E2EMessage', 'builtSet');
-    BuiltValueNullFieldError.checkNotNull(
-        builtSetMultimap, r'E2EMessage', 'builtSetMultimap');
-    BuiltValueNullFieldError.checkNotNull(dateTime, r'E2EMessage', 'dateTime');
-    BuiltValueNullFieldError.checkNotNull(double_, r'E2EMessage', 'double_');
-    BuiltValueNullFieldError.checkNotNull(duration, r'E2EMessage', 'duration');
-    BuiltValueNullFieldError.checkNotNull(int_, r'E2EMessage', 'int_');
-    BuiltValueNullFieldError.checkNotNull(int64, r'E2EMessage', 'int64');
-    BuiltValueNullFieldError.checkNotNull(
-        jsonObject, r'E2EMessage', 'jsonObject');
-    BuiltValueNullFieldError.checkNotNull(num_, r'E2EMessage', 'num_');
-    BuiltValueNullFieldError.checkNotNull(regExp, r'E2EMessage', 'regExp');
-    BuiltValueNullFieldError.checkNotNull(string, r'E2EMessage', 'string');
-    BuiltValueNullFieldError.checkNotNull(uri, r'E2EMessage', 'uri');
-  }
-
+  _$E2EMessage._({
+    required this.bigInt,
+    required this.bool_,
+    required this.builtList,
+    required this.builtListMultimap,
+    required this.builtMap,
+    required this.builtSet,
+    required this.builtSetMultimap,
+    required this.dateTime,
+    required this.double_,
+    required this.duration,
+    required this.int_,
+    required this.int64,
+    required this.jsonObject,
+    required this.num_,
+    required this.regExp,
+    required this.string,
+    required this.uri,
+  }) : super._();
   @override
   E2EMessage rebuild(void Function(E2EMessageBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  E2EMessageBuilder toBuilder() => new E2EMessageBuilder()..replace(this);
+  E2EMessageBuilder toBuilder() => E2EMessageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -527,31 +653,30 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
 
   ListBuilder<String>? _builtList;
   ListBuilder<String> get builtList =>
-      _$this._builtList ??= new ListBuilder<String>();
+      _$this._builtList ??= ListBuilder<String>();
   set builtList(ListBuilder<String>? builtList) =>
       _$this._builtList = builtList;
 
   ListMultimapBuilder<String, String>? _builtListMultimap;
   ListMultimapBuilder<String, String> get builtListMultimap =>
-      _$this._builtListMultimap ??= new ListMultimapBuilder<String, String>();
+      _$this._builtListMultimap ??= ListMultimapBuilder<String, String>();
   set builtListMultimap(
-          ListMultimapBuilder<String, String>? builtListMultimap) =>
-      _$this._builtListMultimap = builtListMultimap;
+    ListMultimapBuilder<String, String>? builtListMultimap,
+  ) => _$this._builtListMultimap = builtListMultimap;
 
   MapBuilder<String, String>? _builtMap;
   MapBuilder<String, String> get builtMap =>
-      _$this._builtMap ??= new MapBuilder<String, String>();
+      _$this._builtMap ??= MapBuilder<String, String>();
   set builtMap(MapBuilder<String, String>? builtMap) =>
       _$this._builtMap = builtMap;
 
   SetBuilder<String>? _builtSet;
-  SetBuilder<String> get builtSet =>
-      _$this._builtSet ??= new SetBuilder<String>();
+  SetBuilder<String> get builtSet => _$this._builtSet ??= SetBuilder<String>();
   set builtSet(SetBuilder<String>? builtSet) => _$this._builtSet = builtSet;
 
   SetMultimapBuilder<String, String>? _builtSetMultimap;
   SetMultimapBuilder<String, String> get builtSetMultimap =>
-      _$this._builtSetMultimap ??= new SetMultimapBuilder<String, String>();
+      _$this._builtSetMultimap ??= SetMultimapBuilder<String, String>();
   set builtSetMultimap(SetMultimapBuilder<String, String>? builtSetMultimap) =>
       _$this._builtSetMultimap = builtSetMultimap;
 
@@ -624,7 +749,6 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
 
   @override
   void replace(E2EMessage other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$E2EMessage;
   }
 
@@ -639,35 +763,75 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
   _$E2EMessage _build() {
     _$E2EMessage _$result;
     try {
-      _$result = _$v ??
-          new _$E2EMessage._(
-              bigInt: BuiltValueNullFieldError.checkNotNull(
-                  bigInt, r'E2EMessage', 'bigInt'),
-              bool_: BuiltValueNullFieldError.checkNotNull(
-                  bool_, r'E2EMessage', 'bool_'),
-              builtList: builtList.build(),
-              builtListMultimap: builtListMultimap.build(),
-              builtMap: builtMap.build(),
-              builtSet: builtSet.build(),
-              builtSetMultimap: builtSetMultimap.build(),
-              dateTime: BuiltValueNullFieldError.checkNotNull(
-                  dateTime, r'E2EMessage', 'dateTime'),
-              double_: BuiltValueNullFieldError.checkNotNull(
-                  double_, r'E2EMessage', 'double_'),
-              duration: BuiltValueNullFieldError.checkNotNull(
-                  duration, r'E2EMessage', 'duration'),
-              int_: BuiltValueNullFieldError.checkNotNull(
-                  int_, r'E2EMessage', 'int_'),
-              int64: BuiltValueNullFieldError.checkNotNull(
-                  int64, r'E2EMessage', 'int64'),
-              jsonObject: BuiltValueNullFieldError.checkNotNull(
-                  jsonObject, r'E2EMessage', 'jsonObject'),
-              num_: BuiltValueNullFieldError.checkNotNull(
-                  num_, r'E2EMessage', 'num_'),
-              regExp: BuiltValueNullFieldError.checkNotNull(
-                  regExp, r'E2EMessage', 'regExp'),
-              string: BuiltValueNullFieldError.checkNotNull(string, r'E2EMessage', 'string'),
-              uri: BuiltValueNullFieldError.checkNotNull(uri, r'E2EMessage', 'uri'));
+      _$result =
+          _$v ??
+          _$E2EMessage._(
+            bigInt: BuiltValueNullFieldError.checkNotNull(
+              bigInt,
+              r'E2EMessage',
+              'bigInt',
+            ),
+            bool_: BuiltValueNullFieldError.checkNotNull(
+              bool_,
+              r'E2EMessage',
+              'bool_',
+            ),
+            builtList: builtList.build(),
+            builtListMultimap: builtListMultimap.build(),
+            builtMap: builtMap.build(),
+            builtSet: builtSet.build(),
+            builtSetMultimap: builtSetMultimap.build(),
+            dateTime: BuiltValueNullFieldError.checkNotNull(
+              dateTime,
+              r'E2EMessage',
+              'dateTime',
+            ),
+            double_: BuiltValueNullFieldError.checkNotNull(
+              double_,
+              r'E2EMessage',
+              'double_',
+            ),
+            duration: BuiltValueNullFieldError.checkNotNull(
+              duration,
+              r'E2EMessage',
+              'duration',
+            ),
+            int_: BuiltValueNullFieldError.checkNotNull(
+              int_,
+              r'E2EMessage',
+              'int_',
+            ),
+            int64: BuiltValueNullFieldError.checkNotNull(
+              int64,
+              r'E2EMessage',
+              'int64',
+            ),
+            jsonObject: BuiltValueNullFieldError.checkNotNull(
+              jsonObject,
+              r'E2EMessage',
+              'jsonObject',
+            ),
+            num_: BuiltValueNullFieldError.checkNotNull(
+              num_,
+              r'E2EMessage',
+              'num_',
+            ),
+            regExp: BuiltValueNullFieldError.checkNotNull(
+              regExp,
+              r'E2EMessage',
+              'regExp',
+            ),
+            string: BuiltValueNullFieldError.checkNotNull(
+              string,
+              r'E2EMessage',
+              'string',
+            ),
+            uri: BuiltValueNullFieldError.checkNotNull(
+              uri,
+              r'E2EMessage',
+              'uri',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -682,8 +846,11 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
         _$failedField = 'builtSetMultimap';
         builtSetMultimap.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'E2EMessage', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'E2EMessage',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -697,18 +864,15 @@ class _$E2EResult extends E2EResult {
   final E2EMessage message;
 
   factory _$E2EResult([void Function(E2EResultBuilder)? updates]) =>
-      (new E2EResultBuilder()..update(updates))._build();
+      (E2EResultBuilder()..update(updates))._build();
 
-  _$E2EResult._({required this.message}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(message, r'E2EResult', 'message');
-  }
-
+  _$E2EResult._({required this.message}) : super._();
   @override
   E2EResult rebuild(void Function(E2EResultBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  E2EResultBuilder toBuilder() => new E2EResultBuilder()..replace(this);
+  E2EResultBuilder toBuilder() => E2EResultBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -726,8 +890,9 @@ class _$E2EResult extends E2EResult {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'E2EResult')..add('message', message))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'E2EResult',
+    )..add('message', message)).toString();
   }
 }
 
@@ -735,7 +900,7 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
   _$E2EResult? _$v;
 
   E2EMessageBuilder? _message;
-  E2EMessageBuilder get message => _$this._message ??= new E2EMessageBuilder();
+  E2EMessageBuilder get message => _$this._message ??= E2EMessageBuilder();
   set message(E2EMessageBuilder? message) => _$this._message = message;
 
   E2EResultBuilder();
@@ -751,7 +916,6 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
 
   @override
   void replace(E2EResult other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$E2EResult;
   }
 
@@ -766,15 +930,18 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
   _$E2EResult _build() {
     _$E2EResult _$result;
     try {
-      _$result = _$v ?? new _$E2EResult._(message: message.build());
+      _$result = _$v ?? _$E2EResult._(message: message.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'message';
         message.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'E2EResult', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'E2EResult',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -72,24 +72,19 @@ final class NodeProcessManager implements Closeable, ProcessManager {
         .transform(stdoutEncoding.decoder)
         .transform(const LineSplitter())
         .listen((line) {
-      if (echoOutput) core.info(line);
-      stdout.writeln(line);
-    });
+          if (echoOutput) core.info(line);
+          stdout.writeln(line);
+        });
     final stderrSub = process.stderr
         .transform(stderrEncoding.decoder)
         .transform(const LineSplitter())
         .listen((line) {
-      if (echoOutput) core.info(line);
-      stderr.writeln(line);
-    });
+          if (echoOutput) core.info(line);
+          stderr.writeln(line);
+        });
     try {
       final exitCode = await process.exitCode;
-      return ProcessResult(
-        pid,
-        exitCode,
-        stdout.toString(),
-        stderr.toString(),
-      );
+      return ProcessResult(pid, exitCode, stdout.toString(), stderr.toString());
     } finally {
       stdoutSub.cancel().ignore();
       stderrSub.cancel().ignore();
@@ -167,11 +162,7 @@ final class NodeProcessManager implements Closeable, ProcessManager {
 }
 
 final class NodeProcess implements Process, Closeable {
-  NodeProcess(
-    this.executable,
-    this.arguments,
-    this._jsProcess,
-  );
+  NodeProcess(this.executable, this.arguments, this._jsProcess);
 
   final String executable;
   final List<String> arguments;

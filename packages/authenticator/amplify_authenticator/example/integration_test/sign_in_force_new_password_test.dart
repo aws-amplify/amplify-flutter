@@ -24,9 +24,7 @@ void main() {
     setUp(() async {
       // Given I'm running the example
       // "ui/components/authenticator/sign-in-with-phone"
-      await testRunner.configure(
-        environmentName: 'sign-in-with-phone',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-phone');
 
       phoneNumber = generateUSPhoneNumber();
       password = generatePassword();
@@ -34,9 +32,7 @@ void main() {
         phoneNumber.toE164(),
         password,
         verifyAttributes: true,
-        attributes: {
-          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-        },
+        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
       );
     });
 
@@ -58,10 +54,7 @@ void main() {
           ]),
         );
 
-        // When I select my country code with status "FORCE_CHANGE_PASSWORD"
-        await po.selectCountryCode();
-
-        // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+        // When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
         await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password
@@ -95,10 +88,7 @@ void main() {
           ]),
         );
 
-        // When I select my country code with status "FORCE_CHANGE_PASSWORD"
-        await po.selectCountryCode();
-
-        // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+        // When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
         await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password
@@ -148,10 +138,7 @@ void main() {
           ]),
         );
 
-        // When I select my country code with status "FORCE_CHANGE_PASSWORD"
-        await po.selectCountryCode();
-
-        // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+        // When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
         await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password

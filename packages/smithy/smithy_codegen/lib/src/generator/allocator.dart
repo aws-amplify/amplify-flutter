@@ -101,19 +101,21 @@ class SmithyAllocator implements Allocator {
         switch (withPrefixing) {
           PrefixStrategy.always => true,
           PrefixStrategy.never => false,
-          PrefixStrategy.runtimeOnly =>
-            !url.startsWith('package:${smithyLibrary.packageName}'),
+          PrefixStrategy.runtimeOnly => !url.startsWith(
+            'package:${smithyLibrary.packageName}',
+          ),
         };
   }
 
   int _nextKey() => _keys++;
 
   @override
-  Iterable<Directive> get imports =>
-      _imports.keys.where((key) => key != 'dart:core').map(
-            (u) => Directive.import(
-              u,
-              as: shouldPrefix(u) ? '_i${_imports[u]}' : null,
-            ),
-          );
+  Iterable<Directive> get imports => _imports.keys
+      .where((key) => key != 'dart:core')
+      .map(
+        (u) => Directive.import(
+          u,
+          as: shouldPrefix(u) ? '_i${_imports[u]}' : null,
+        ),
+      );
 }

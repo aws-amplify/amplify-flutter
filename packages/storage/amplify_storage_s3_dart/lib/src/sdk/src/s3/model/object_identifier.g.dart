@@ -12,21 +12,18 @@ class _$ObjectIdentifier extends ObjectIdentifier {
   @override
   final String? versionId;
 
-  factory _$ObjectIdentifier(
-          [void Function(ObjectIdentifierBuilder)? updates]) =>
-      (new ObjectIdentifierBuilder()..update(updates))._build();
+  factory _$ObjectIdentifier([
+    void Function(ObjectIdentifierBuilder)? updates,
+  ]) => (ObjectIdentifierBuilder()..update(updates))._build();
 
-  _$ObjectIdentifier._({required this.key, this.versionId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(key, r'ObjectIdentifier', 'key');
-  }
-
+  _$ObjectIdentifier._({required this.key, this.versionId}) : super._();
   @override
   ObjectIdentifier rebuild(void Function(ObjectIdentifierBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   ObjectIdentifierBuilder toBuilder() =>
-      new ObjectIdentifierBuilder()..replace(this);
+      ObjectIdentifierBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +69,6 @@ class ObjectIdentifierBuilder
 
   @override
   void replace(ObjectIdentifier other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ObjectIdentifier;
   }
 
@@ -85,11 +81,16 @@ class ObjectIdentifierBuilder
   ObjectIdentifier build() => _build();
 
   _$ObjectIdentifier _build() {
-    final _$result = _$v ??
-        new _$ObjectIdentifier._(
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'ObjectIdentifier', 'key'),
-            versionId: versionId);
+    final _$result =
+        _$v ??
+        _$ObjectIdentifier._(
+          key: BuiltValueNullFieldError.checkNotNull(
+            key,
+            r'ObjectIdentifier',
+            'key',
+          ),
+          versionId: versionId,
+        );
     replace(_$result);
     return _$result;
   }

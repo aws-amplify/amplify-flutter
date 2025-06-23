@@ -37,19 +37,30 @@ class UnauthenticatedState extends AuthState
 
   static const signUp = UnauthenticatedState(step: AuthenticatorStep.signUp);
   static const signIn = UnauthenticatedState(step: AuthenticatorStep.signIn);
-  static const confirmSignUp =
-      UnauthenticatedState(step: AuthenticatorStep.confirmSignUp);
-  static const confirmSignInMfa =
-      UnauthenticatedState(step: AuthenticatorStep.confirmSignInMfa);
-  static const confirmSignInNewPassword =
-      UnauthenticatedState(step: AuthenticatorStep.confirmSignInNewPassword);
+  static const confirmSignUp = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignUp,
+  );
+  static const confirmSignInMfa = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignInMfa,
+  );
+  static const confirmSignInNewPassword = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignInNewPassword,
+  );
   static const confirmSignInWithTotpMfaCode = UnauthenticatedState(
     step: AuthenticatorStep.confirmSignInWithTotpMfaCode,
   );
-  static const resetPassword =
-      UnauthenticatedState(step: AuthenticatorStep.resetPassword);
-  static const confirmResetPassword =
-      UnauthenticatedState(step: AuthenticatorStep.confirmResetPassword);
+  static const continueSignInWithEmailMfaSetup = UnauthenticatedState(
+    step: AuthenticatorStep.continueSignInWithEmailMfaSetup,
+  );
+  static const confirmSignInWithOtpCode = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignInWithOtpCode,
+  );
+  static const resetPassword = UnauthenticatedState(
+    step: AuthenticatorStep.resetPassword,
+  );
+  static const confirmResetPassword = UnauthenticatedState(
+    step: AuthenticatorStep.confirmResetPassword,
+  );
 
   @override
   List<Object?> get props => [step];
@@ -60,7 +71,7 @@ class UnauthenticatedState extends AuthState
 
 class AttributeVerificationSent extends UnauthenticatedState {
   const AttributeVerificationSent(this.userAttributeKey)
-      : super(step: AuthenticatorStep.confirmVerifyUser);
+    : super(step: AuthenticatorStep.confirmVerifyUser);
 
   final CognitoUserAttributeKey userAttributeKey;
 
@@ -73,7 +84,7 @@ class AttributeVerificationSent extends UnauthenticatedState {
 
 class VerifyUserFlow extends UnauthenticatedState {
   const VerifyUserFlow({required this.unverifiedAttributeKeys})
-      : super(step: AuthenticatorStep.verifyUser);
+    : super(step: AuthenticatorStep.verifyUser);
   final List<CognitoUserAttributeKey> unverifiedAttributeKeys;
 
   @override
@@ -84,9 +95,8 @@ class VerifyUserFlow extends UnauthenticatedState {
 }
 
 class ConfirmSignInCustom extends UnauthenticatedState {
-  const ConfirmSignInCustom({
-    this.publicParameters = const <String, String>{},
-  }) : super(step: AuthenticatorStep.confirmSignInCustomAuth);
+  const ConfirmSignInCustom({this.publicParameters = const <String, String>{}})
+    : super(step: AuthenticatorStep.confirmSignInCustomAuth);
   final Map<String, String> publicParameters;
 
   @override
@@ -97,10 +107,9 @@ class ConfirmSignInCustom extends UnauthenticatedState {
 }
 
 class ContinueSignInWithMfaSelection extends UnauthenticatedState {
-  const ContinueSignInWithMfaSelection({
-    Set<MfaType>? allowedMfaTypes,
-  })  : allowedMfaTypes = allowedMfaTypes ?? const {},
-        super(step: AuthenticatorStep.continueSignInWithMfaSelection);
+  const ContinueSignInWithMfaSelection({Set<MfaType>? allowedMfaTypes})
+    : allowedMfaTypes = allowedMfaTypes ?? const {},
+      super(step: AuthenticatorStep.continueSignInWithMfaSelection);
 
   final Set<MfaType> allowedMfaTypes;
 
@@ -111,24 +120,36 @@ class ContinueSignInWithMfaSelection extends UnauthenticatedState {
   String get runtimeTypeName => 'ContinueSignInWithMfaSelection';
 }
 
+class ContinueSignInWithMfaSetupSelection extends UnauthenticatedState {
+  const ContinueSignInWithMfaSetupSelection({Set<MfaType>? allowedMfaTypes})
+    : allowedMfaTypes = allowedMfaTypes ?? const {},
+      super(step: AuthenticatorStep.continueSignInWithMfaSetupSelection);
+
+  final Set<MfaType> allowedMfaTypes;
+
+  @override
+  List<Object?> get props => [step, allowedMfaTypes];
+
+  @override
+  String get runtimeTypeName => 'ContinueSignInWithMfaSetupSelection';
+}
+
 class ContinueSignInTotpSetup extends UnauthenticatedState {
   const ContinueSignInTotpSetup(this.totpSetupDetails, this.totpSetupUri)
-      : super(step: AuthenticatorStep.continueSignInWithTotpSetup);
+    : super(step: AuthenticatorStep.continueSignInWithTotpSetup);
 
   static Future<ContinueSignInTotpSetup> setupURI(
     TotpSetupDetails totpSetupDetails,
     TotpOptions? totpOptions,
   ) async {
     final setupUri = totpSetupDetails.getSetupUri(
-      appName: totpOptions?.issuer ??
+      appName:
+          totpOptions?.issuer ??
           // TODO(equartey): Update this once we have our own method of getting the app name
           (await PackageInfo.fromPlatform()).appName,
     );
 
-    return ContinueSignInTotpSetup(
-      totpSetupDetails,
-      setupUri,
-    );
+    return ContinueSignInTotpSetup(totpSetupDetails, setupUri);
   }
 
   final TotpSetupDetails totpSetupDetails;

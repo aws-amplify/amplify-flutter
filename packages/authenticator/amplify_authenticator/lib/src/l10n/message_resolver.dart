@@ -5,20 +5,13 @@ import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart'
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
 import 'package:flutter/material.dart';
 
-enum MessageResolverKeyType {
-  codeSent,
-  copySucceeded,
-  copyFailed,
-}
+enum MessageResolverKeyType { codeSent, copySucceeded, copyFailed }
 
 class MessageResolverKey {
   const MessageResolverKey._(this.type, this.destination);
 
   const MessageResolverKey.codeSent(String? destination)
-      : this._(
-          MessageResolverKeyType.codeSent,
-          destination,
-        );
+    : this._(MessageResolverKeyType.codeSent, destination);
   final MessageResolverKeyType type;
   final String? destination;
 }

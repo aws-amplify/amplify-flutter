@@ -8,7 +8,6 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_test/common/matchers.dart';
@@ -20,11 +19,10 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final authConfig = AuthConfiguration.fromConfig(mockConfig.auth!.awsPlugin!);
-  final userPoolConfig = authConfig.userPoolConfig!;
-  final identityPoolConfig = authConfig.identityPoolConfig!;
-  final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
-  final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
+  final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
+  final identityPoolKeys = CognitoIdentityPoolKeys(
+    mockConfig.auth!.identityPoolId!,
+  );
 
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;

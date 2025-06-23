@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
+library;
 
 // ignore_for_file: deprecated_member_use_from_same_package
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -13,6 +13,7 @@ import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
 
 import 'testdata/test_values.dart';
+import 'utils/remove_deprecated_key.dart';
 
 void main() {
   group('Config', () {
@@ -24,6 +25,7 @@ void main() {
           test(name, () {
             final json = File(file.path).readAsStringSync();
             final configJson = jsonDecode(json) as Map<String, Object?>;
+            final expectedJson = removeDeprecatedKeys(configJson);
             final config = AmplifyConfig.fromJson(configJson);
             final expectedConfig = expected[name]!;
             final cognitoConfig = config.auth!.awsPlugin!.auth!.default$!;
@@ -32,8 +34,8 @@ void main() {
               expectedConfig.toJson(),
               equals(
                 // ignore: avoid_dynamic_calls
-                (configJson['auth'] as Map)['plugins']['awsCognitoAuthPlugin']
-                    ['Auth']['Default'],
+                (expectedJson['auth']
+                    as Map)['plugins']['awsCognitoAuthPlugin']['Auth']['Default'],
               ),
             );
           });
@@ -53,7 +55,6 @@ void main() {
 
 const expected = <String, CognitoAuthConfig>{
   'auth_with_all_attributes': CognitoAuthConfig(
-    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
     signupAttributes: [
       CognitoUserAttributeKey.address,
       CognitoUserAttributeKey.birthdate,
@@ -77,20 +78,13 @@ const expected = <String, CognitoAuthConfig>{
       passwordPolicyMinLength: 8,
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
     socialProviders: [],
     usernameAttributes: [],
   ),
   'auth_with_email': CognitoAuthConfig(
-    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
-    signupAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
+    signupAttributes: [CognitoUserAttributeKey.email],
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
       passwordPolicyCharacters: [
@@ -101,19 +95,12 @@ const expected = <String, CognitoAuthConfig>{
       ],
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
     socialProviders: [],
-    usernameAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
+    usernameAttributes: [CognitoUserAttributeKey.email],
   ),
   'auth_with_multi_alias': CognitoAuthConfig(
-    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
     signupAttributes: [
       CognitoUserAttributeKey.email,
       CognitoUserAttributeKey.phoneNumber,
@@ -122,35 +109,23 @@ const expected = <String, CognitoAuthConfig>{
       passwordPolicyMinLength: 8,
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
+    mfaTypes: [MfaType.sms],
     socialProviders: [],
     usernameAttributes: [],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
   ),
   'auth_with_username_no_attributes': CognitoAuthConfig(
-    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
-    signupAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
+    signupAttributes: [CognitoUserAttributeKey.email],
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
     socialProviders: [],
     usernameAttributes: [],
   ),
   'auth_with_email_or_phone': CognitoAuthConfig(
-    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
     socialProviders: [],
     usernameAttributes: [
       CognitoUserAttributeKey.email,
@@ -164,12 +139,8 @@ const expected = <String, CognitoAuthConfig>{
       passwordPolicyMinLength: 8,
     ),
     mfaConfiguration: MfaConfiguration.on,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
   ),
   'auth_with_federated': CognitoAuthConfig(
     oAuth: CognitoOAuthConfig(
@@ -185,18 +156,13 @@ const expected = <String, CognitoAuthConfig>{
       signOutRedirectUri: OAUTH_SIGNOUT,
       webDomain: OAUTH_DOMAIN,
     ),
-    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
     socialProviders: [
       SocialProvider.facebook,
       SocialProvider.google,
       SocialProvider.amazon,
     ],
-    usernameAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
-    signupAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
+    usernameAttributes: [CognitoUserAttributeKey.email],
+    signupAttributes: [CognitoUserAttributeKey.email],
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
       passwordPolicyCharacters: [
@@ -207,20 +173,13 @@ const expected = <String, CognitoAuthConfig>{
       ],
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
   ),
   'auth_with_username': CognitoAuthConfig(
-    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
     socialProviders: [],
     usernameAttributes: [],
-    signupAttributes: [
-      CognitoUserAttributeKey.preferredUsername,
-    ],
+    signupAttributes: [CognitoUserAttributeKey.preferredUsername],
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
       passwordPolicyCharacters: [
@@ -231,11 +190,7 @@ const expected = <String, CognitoAuthConfig>{
       ],
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
   ),
 };

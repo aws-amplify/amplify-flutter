@@ -16,28 +16,24 @@ class _$MalformedLongInput extends MalformedLongInput {
   @override
   final _i3.Int64? longInHeader;
 
-  factory _$MalformedLongInput(
-          [void Function(MalformedLongInputBuilder)? updates]) =>
-      (new MalformedLongInputBuilder()..update(updates))._build();
+  factory _$MalformedLongInput([
+    void Function(MalformedLongInputBuilder)? updates,
+  ]) => (MalformedLongInputBuilder()..update(updates))._build();
 
-  _$MalformedLongInput._(
-      {this.longInBody,
-      required this.longInPath,
-      this.longInQuery,
-      this.longInHeader})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        longInPath, r'MalformedLongInput', 'longInPath');
-  }
-
+  _$MalformedLongInput._({
+    this.longInBody,
+    required this.longInPath,
+    this.longInQuery,
+    this.longInHeader,
+  }) : super._();
   @override
   MalformedLongInput rebuild(
-          void Function(MalformedLongInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLongInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLongInputBuilder toBuilder() =>
-      new MalformedLongInputBuilder()..replace(this);
+      MalformedLongInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -98,7 +94,6 @@ class MalformedLongInputBuilder
 
   @override
   void replace(MalformedLongInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedLongInput;
   }
 
@@ -111,13 +106,18 @@ class MalformedLongInputBuilder
   MalformedLongInput build() => _build();
 
   _$MalformedLongInput _build() {
-    final _$result = _$v ??
-        new _$MalformedLongInput._(
-            longInBody: longInBody,
-            longInPath: BuiltValueNullFieldError.checkNotNull(
-                longInPath, r'MalformedLongInput', 'longInPath'),
-            longInQuery: longInQuery,
-            longInHeader: longInHeader);
+    final _$result =
+        _$v ??
+        _$MalformedLongInput._(
+          longInBody: longInBody,
+          longInPath: BuiltValueNullFieldError.checkNotNull(
+            longInPath,
+            r'MalformedLongInput',
+            'longInPath',
+          ),
+          longInQuery: longInQuery,
+          longInHeader: longInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -127,20 +127,19 @@ class _$MalformedLongInputPayload extends MalformedLongInputPayload {
   @override
   final _i3.Int64? longInBody;
 
-  factory _$MalformedLongInputPayload(
-          [void Function(MalformedLongInputPayloadBuilder)? updates]) =>
-      (new MalformedLongInputPayloadBuilder()..update(updates))._build();
+  factory _$MalformedLongInputPayload([
+    void Function(MalformedLongInputPayloadBuilder)? updates,
+  ]) => (MalformedLongInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedLongInputPayload._({this.longInBody}) : super._();
-
   @override
   MalformedLongInputPayload rebuild(
-          void Function(MalformedLongInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLongInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLongInputPayloadBuilder toBuilder() =>
-      new MalformedLongInputPayloadBuilder()..replace(this);
+      MalformedLongInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -179,7 +178,6 @@ class MalformedLongInputPayloadBuilder
 
   @override
   void replace(MalformedLongInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedLongInputPayload;
   }
 
@@ -193,7 +191,7 @@ class MalformedLongInputPayloadBuilder
 
   _$MalformedLongInputPayload _build() {
     final _$result =
-        _$v ?? new _$MalformedLongInputPayload._(longInBody: longInBody);
+        _$v ?? _$MalformedLongInputPayload._(longInBody: longInBody);
     replace(_$result);
     return _$result;
   }

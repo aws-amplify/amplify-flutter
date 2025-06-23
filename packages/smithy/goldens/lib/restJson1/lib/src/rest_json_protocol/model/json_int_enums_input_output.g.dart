@@ -20,27 +20,26 @@ class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
   @override
   final _i3.BuiltMap<String, int>? integerEnumMap;
 
-  factory _$JsonIntEnumsInputOutput(
-          [void Function(JsonIntEnumsInputOutputBuilder)? updates]) =>
-      (new JsonIntEnumsInputOutputBuilder()..update(updates))._build();
+  factory _$JsonIntEnumsInputOutput([
+    void Function(JsonIntEnumsInputOutputBuilder)? updates,
+  ]) => (JsonIntEnumsInputOutputBuilder()..update(updates))._build();
 
-  _$JsonIntEnumsInputOutput._(
-      {this.integerEnum1,
-      this.integerEnum2,
-      this.integerEnum3,
-      this.integerEnumList,
-      this.integerEnumSet,
-      this.integerEnumMap})
-      : super._();
-
+  _$JsonIntEnumsInputOutput._({
+    this.integerEnum1,
+    this.integerEnum2,
+    this.integerEnum3,
+    this.integerEnumList,
+    this.integerEnumSet,
+    this.integerEnumMap,
+  }) : super._();
   @override
   JsonIntEnumsInputOutput rebuild(
-          void Function(JsonIntEnumsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(JsonIntEnumsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   JsonIntEnumsInputOutputBuilder toBuilder() =>
-      new JsonIntEnumsInputOutputBuilder()..replace(this);
+      JsonIntEnumsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,19 +86,19 @@ class JsonIntEnumsInputOutputBuilder
 
   _i3.ListBuilder<int>? _integerEnumList;
   _i3.ListBuilder<int> get integerEnumList =>
-      _$this._integerEnumList ??= new _i3.ListBuilder<int>();
+      _$this._integerEnumList ??= _i3.ListBuilder<int>();
   set integerEnumList(_i3.ListBuilder<int>? integerEnumList) =>
       _$this._integerEnumList = integerEnumList;
 
   _i3.SetBuilder<int>? _integerEnumSet;
   _i3.SetBuilder<int> get integerEnumSet =>
-      _$this._integerEnumSet ??= new _i3.SetBuilder<int>();
+      _$this._integerEnumSet ??= _i3.SetBuilder<int>();
   set integerEnumSet(_i3.SetBuilder<int>? integerEnumSet) =>
       _$this._integerEnumSet = integerEnumSet;
 
   _i3.MapBuilder<String, int>? _integerEnumMap;
   _i3.MapBuilder<String, int> get integerEnumMap =>
-      _$this._integerEnumMap ??= new _i3.MapBuilder<String, int>();
+      _$this._integerEnumMap ??= _i3.MapBuilder<String, int>();
   set integerEnumMap(_i3.MapBuilder<String, int>? integerEnumMap) =>
       _$this._integerEnumMap = integerEnumMap;
 
@@ -121,7 +120,6 @@ class JsonIntEnumsInputOutputBuilder
 
   @override
   void replace(JsonIntEnumsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$JsonIntEnumsInputOutput;
   }
 
@@ -136,14 +134,16 @@ class JsonIntEnumsInputOutputBuilder
   _$JsonIntEnumsInputOutput _build() {
     _$JsonIntEnumsInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$JsonIntEnumsInputOutput._(
-              integerEnum1: integerEnum1,
-              integerEnum2: integerEnum2,
-              integerEnum3: integerEnum3,
-              integerEnumList: _integerEnumList?.build(),
-              integerEnumSet: _integerEnumSet?.build(),
-              integerEnumMap: _integerEnumMap?.build());
+      _$result =
+          _$v ??
+          _$JsonIntEnumsInputOutput._(
+            integerEnum1: integerEnum1,
+            integerEnum2: integerEnum2,
+            integerEnum3: integerEnum3,
+            integerEnumList: _integerEnumList?.build(),
+            integerEnumSet: _integerEnumSet?.build(),
+            integerEnumMap: _integerEnumMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -154,8 +154,11 @@ class JsonIntEnumsInputOutputBuilder
         _$failedField = 'integerEnumMap';
         _integerEnumMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'JsonIntEnumsInputOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'JsonIntEnumsInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

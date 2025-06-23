@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_0_v1.json_rpc_10.model.simple_scalar_properties_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -11,11 +11,12 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'simple_scalar_properties_output.g.dart';
 
 abstract class SimpleScalarPropertiesOutput
-    with
-        _i1.AWSEquatable<SimpleScalarPropertiesOutput>
+    with _i1.AWSEquatable<SimpleScalarPropertiesOutput>
     implements
-        Built<SimpleScalarPropertiesOutput,
-            SimpleScalarPropertiesOutputBuilder> {
+        Built<
+          SimpleScalarPropertiesOutput,
+          SimpleScalarPropertiesOutputBuilder
+        > {
   factory SimpleScalarPropertiesOutput({
     double? floatValue,
     double? doubleValue,
@@ -26,9 +27,9 @@ abstract class SimpleScalarPropertiesOutput
     );
   }
 
-  factory SimpleScalarPropertiesOutput.build(
-          [void Function(SimpleScalarPropertiesOutputBuilder) updates]) =
-      _$SimpleScalarPropertiesOutput;
+  factory SimpleScalarPropertiesOutput.build([
+    void Function(SimpleScalarPropertiesOutputBuilder) updates,
+  ]) = _$SimpleScalarPropertiesOutput;
 
   const SimpleScalarPropertiesOutput._();
 
@@ -36,30 +37,21 @@ abstract class SimpleScalarPropertiesOutput
   factory SimpleScalarPropertiesOutput.fromResponse(
     SimpleScalarPropertiesOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<SimpleScalarPropertiesOutput>>
-      serializers = [SimpleScalarPropertiesOutputAwsJson10Serializer()];
+  serializers = [SimpleScalarPropertiesOutputAwsJson10Serializer()];
 
   double? get floatValue;
   double? get doubleValue;
   @override
-  List<Object?> get props => [
-        floatValue,
-        doubleValue,
-      ];
+  List<Object?> get props => [floatValue, doubleValue];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SimpleScalarPropertiesOutput')
-      ..add(
-        'floatValue',
-        floatValue,
-      )
-      ..add(
-        'doubleValue',
-        doubleValue,
-      );
+      ..add('floatValue', floatValue)
+      ..add('doubleValue', doubleValue);
     return helper.toString();
   }
 }
@@ -67,20 +59,19 @@ abstract class SimpleScalarPropertiesOutput
 class SimpleScalarPropertiesOutputAwsJson10Serializer
     extends _i2.StructuredSmithySerializer<SimpleScalarPropertiesOutput> {
   const SimpleScalarPropertiesOutputAwsJson10Serializer()
-      : super('SimpleScalarPropertiesOutput');
+    : super('SimpleScalarPropertiesOutput');
 
   @override
   Iterable<Type> get types => const [
-        SimpleScalarPropertiesOutput,
-        _$SimpleScalarPropertiesOutput,
-      ];
+    SimpleScalarPropertiesOutput,
+    _$SimpleScalarPropertiesOutput,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
+
   @override
   SimpleScalarPropertiesOutput deserialize(
     Serializers serializers,
@@ -98,15 +89,19 @@ class SimpleScalarPropertiesOutputAwsJson10Serializer
       }
       switch (key) {
         case 'floatValue':
-          result.floatValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.floatValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'doubleValue':
-          result.doubleValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.doubleValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
       }
     }
 
@@ -124,18 +119,22 @@ class SimpleScalarPropertiesOutputAwsJson10Serializer
     if (floatValue != null) {
       result$
         ..add('floatValue')
-        ..add(serializers.serialize(
-          floatValue,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            floatValue,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     if (doubleValue != null) {
       result$
         ..add('doubleValue')
-        ..add(serializers.serialize(
-          doubleValue,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            doubleValue,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     return result$;
   }

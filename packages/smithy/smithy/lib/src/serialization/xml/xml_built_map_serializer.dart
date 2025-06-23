@@ -16,10 +16,10 @@ class XmlBuiltMapSerializer
 
   @override
   Iterable<Type> get types => [
-        BuiltMap,
-        BuiltMap<dynamic, dynamic>().runtimeType,
-        BuiltMap<Object?, Object?>().runtimeType,
-      ];
+    BuiltMap,
+    BuiltMap<dynamic, dynamic>().runtimeType,
+    BuiltMap<Object?, Object?>().runtimeType,
+  ];
 
   final String keyName;
   final String valueName;
@@ -55,8 +55,10 @@ class XmlBuiltMapSerializer
         ..add(XmlElementName(elementKeyName))
         ..add(serializers.serialize(key, specifiedType: keyType));
       final elementValueName = indexer.elementName(valueName, index);
-      final serializedValue =
-          serializers.serialize(value, specifiedType: valueType);
+      final serializedValue = serializers.serialize(
+        value,
+        specifiedType: valueType,
+      );
       innerResult
         ..add(XmlElementName(elementValueName))
         ..add(serializedValue);

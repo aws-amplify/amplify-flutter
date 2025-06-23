@@ -1,3 +1,46 @@
+## 0.6.6
+
+- Minor bug fixes and improvements
+
+## 0.6.5
+
+### Fixes
+- fix(sigv4): Convert empty query parameters to null ([#6082](https://github.com/aws-amplify/amplify-flutter/pull/6082))
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 0.6.4
+
+- Minor bug fixes and improvements
+
+## 0.6.3
+
+- Minor bug fixes and improvements
+
+## 0.6.2
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
+## 0.6.1
+
+- Minor bug fixes and improvements
+
+## 0.6.0
+
+- Minor bug fixes and improvements
+
+## 0.5.2
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 0.5.1
+
+### Fixes
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
 ## 0.5.0
 
 ### Breaking Changes

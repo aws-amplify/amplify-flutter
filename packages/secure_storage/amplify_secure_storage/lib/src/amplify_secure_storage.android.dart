@@ -7,9 +7,7 @@ import 'package:amplify_secure_storage/src/pigeons/amplify_secure_storage_pigeon
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {
-  const AmplifySecureStorageAndroid({
-    required super.config,
-  });
+  const AmplifySecureStorageAndroid({required super.config});
 
   static final _pigeon = AmplifySecureStoragePigeon();
 
@@ -32,4 +30,7 @@ class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {
   Future<void> removeAll() {
     return _pigeon.removeAll(config.defaultNamespace);
   }
+
+  // no-op
+  static void registerWith() {}
 }

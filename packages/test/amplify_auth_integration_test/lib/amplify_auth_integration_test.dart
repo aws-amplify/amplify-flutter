@@ -3,10 +3,11 @@
 
 /// Integration test utilities for Auth packages (e.g. `amplify_auth_cognito`
 /// and `amplify_authenticator`).
-library amplify_auth_integration_test;
+library;
 
 export 'src/async_test.dart';
-export 'src/mfa_environments.dart';
+export 'src/email_utils.dart';
+export 'src/environments.dart';
 export 'src/test_auth_plugin.dart';
 export 'src/test_runner.dart';
 export 'src/totp_utils.dart';

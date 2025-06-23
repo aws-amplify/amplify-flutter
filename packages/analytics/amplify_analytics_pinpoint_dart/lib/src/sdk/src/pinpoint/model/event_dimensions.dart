@@ -32,13 +32,14 @@ abstract class EventDimensions
   }
 
   /// Specifies the dimensions for an event filter that determines when a campaign is sent or a journey activity is performed.
-  factory EventDimensions.build(
-      [void Function(EventDimensionsBuilder) updates]) = _$EventDimensions;
+  factory EventDimensions.build([
+    void Function(EventDimensionsBuilder) updates,
+  ]) = _$EventDimensions;
 
   const EventDimensions._();
 
   static const List<_i3.SmithySerializer<EventDimensions>> serializers = [
-    EventDimensionsRestJson1Serializer()
+    EventDimensionsRestJson1Serializer(),
   ];
 
   /// One or more custom attributes that your application reports to Amazon Pinpoint. You can use these attributes as selection criteria when you create an event filter.
@@ -50,26 +51,13 @@ abstract class EventDimensions
   /// One or more custom metrics that your application reports to Amazon Pinpoint. You can use these metrics as selection criteria when you create an event filter.
   _i2.BuiltMap<String, MetricDimension>? get metrics;
   @override
-  List<Object?> get props => [
-        attributes,
-        eventType,
-        metrics,
-      ];
+  List<Object?> get props => [attributes, eventType, metrics];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EventDimensions')
-      ..add(
-        'attributes',
-        attributes,
-      )
-      ..add(
-        'eventType',
-        eventType,
-      )
-      ..add(
-        'metrics',
-        metrics,
-      );
+      ..add('attributes', attributes)
+      ..add('eventType', eventType)
+      ..add('metrics', metrics);
     return helper.toString();
   }
 }
@@ -79,17 +67,11 @@ class EventDimensionsRestJson1Serializer
   const EventDimensionsRestJson1Serializer() : super('EventDimensions');
 
   @override
-  Iterable<Type> get types => const [
-        EventDimensions,
-        _$EventDimensions,
-      ];
+  Iterable<Type> get types => const [EventDimensions, _$EventDimensions];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EventDimensions deserialize(
     Serializers serializers,
@@ -107,32 +89,35 @@ class EventDimensionsRestJson1Serializer
       }
       switch (key) {
         case 'Attributes':
-          result.attributes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType(AttributeDimension),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, AttributeDimension>));
+          result.attributes.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(AttributeDimension),
+                  ]),
+                )
+                as _i2.BuiltMap<String, AttributeDimension>),
+          );
         case 'EventType':
-          result.eventType.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(SetDimension),
-          ) as SetDimension));
+          result.eventType.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(SetDimension),
+                )
+                as SetDimension),
+          );
         case 'Metrics':
-          result.metrics.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType(MetricDimension),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, MetricDimension>));
+          result.metrics.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(MetricDimension),
+                  ]),
+                )
+                as _i2.BuiltMap<String, MetricDimension>),
+          );
       }
     }
 
@@ -150,38 +135,38 @@ class EventDimensionsRestJson1Serializer
     if (attributes != null) {
       result$
         ..add('Attributes')
-        ..add(serializers.serialize(
-          attributes,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            attributes,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(AttributeDimension),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (eventType != null) {
       result$
         ..add('EventType')
-        ..add(serializers.serialize(
-          eventType,
-          specifiedType: const FullType(SetDimension),
-        ));
+        ..add(
+          serializers.serialize(
+            eventType,
+            specifiedType: const FullType(SetDimension),
+          ),
+        );
     }
     if (metrics != null) {
       result$
         ..add('Metrics')
-        ..add(serializers.serialize(
-          metrics,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            metrics,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(MetricDimension),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

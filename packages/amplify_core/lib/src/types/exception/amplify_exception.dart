@@ -21,9 +21,11 @@ part 'network_exception.dart';
 part 'push/push_notification_exception.dart';
 part 'storage/access_denied_exception.dart';
 part 'storage/http_status_exception.dart';
-part 'storage/key_not_found_exception.dart';
+part 'storage/invalid_storage_bucket_exception.dart';
 part 'storage/local_file_not_found_exception.dart';
+part 'storage/not_found_exception.dart';
 part 'storage/operation_canceled_exception.dart';
+part 'storage/path_validation_exception.dart';
 part 'storage/storage_exception.dart';
 part 'unknown_exception.dart';
 
@@ -71,23 +73,18 @@ abstract class AmplifyException
   final Object? underlyingException;
 
   @override
-  List<Object?> get props => [
-        message,
-        recoverySuggestion,
-        underlyingException,
-      ];
+  List<Object?> get props => [message, recoverySuggestion, underlyingException];
 
   @override
   String get runtimeTypeName => 'AmplifyException';
 
   @override
   Map<String, Object?> toJson() => {
-        'message': message,
-        if (recoverySuggestion != null)
-          'recoverySuggestion': recoverySuggestion,
-        if (underlyingException != null)
-          'underlyingException': underlyingException.toString(),
-      };
+    'message': message,
+    if (recoverySuggestion != null) 'recoverySuggestion': recoverySuggestion,
+    if (underlyingException != null)
+      'underlyingException': underlyingException.toString(),
+  };
 }
 
 class _AmplifyException extends AmplifyException {

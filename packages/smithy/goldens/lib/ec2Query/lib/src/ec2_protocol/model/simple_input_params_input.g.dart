@@ -30,32 +30,31 @@ class _$SimpleInputParamsInput extends SimpleInputParamsInput {
   @override
   final String? usesXmlName;
 
-  factory _$SimpleInputParamsInput(
-          [void Function(SimpleInputParamsInputBuilder)? updates]) =>
-      (new SimpleInputParamsInputBuilder()..update(updates))._build();
+  factory _$SimpleInputParamsInput([
+    void Function(SimpleInputParamsInputBuilder)? updates,
+  ]) => (SimpleInputParamsInputBuilder()..update(updates))._build();
 
-  _$SimpleInputParamsInput._(
-      {this.foo,
-      this.bar,
-      this.baz,
-      this.bam,
-      this.floatValue,
-      this.boo,
-      this.qux,
-      this.fooEnum,
-      this.hasQueryName,
-      this.hasQueryAndXmlName,
-      this.usesXmlName})
-      : super._();
-
+  _$SimpleInputParamsInput._({
+    this.foo,
+    this.bar,
+    this.baz,
+    this.bam,
+    this.floatValue,
+    this.boo,
+    this.qux,
+    this.fooEnum,
+    this.hasQueryName,
+    this.hasQueryAndXmlName,
+    this.usesXmlName,
+  }) : super._();
   @override
   SimpleInputParamsInput rebuild(
-          void Function(SimpleInputParamsInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SimpleInputParamsInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SimpleInputParamsInputBuilder toBuilder() =>
-      new SimpleInputParamsInputBuilder()..replace(this);
+      SimpleInputParamsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -165,7 +164,6 @@ class SimpleInputParamsInputBuilder
 
   @override
   void replace(SimpleInputParamsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleInputParamsInput;
   }
 
@@ -178,19 +176,21 @@ class SimpleInputParamsInputBuilder
   SimpleInputParamsInput build() => _build();
 
   _$SimpleInputParamsInput _build() {
-    final _$result = _$v ??
-        new _$SimpleInputParamsInput._(
-            foo: foo,
-            bar: bar,
-            baz: baz,
-            bam: bam,
-            floatValue: floatValue,
-            boo: boo,
-            qux: qux,
-            fooEnum: fooEnum,
-            hasQueryName: hasQueryName,
-            hasQueryAndXmlName: hasQueryAndXmlName,
-            usesXmlName: usesXmlName);
+    final _$result =
+        _$v ??
+        _$SimpleInputParamsInput._(
+          foo: foo,
+          bar: bar,
+          baz: baz,
+          bam: bam,
+          floatValue: floatValue,
+          boo: boo,
+          qux: qux,
+          fooEnum: fooEnum,
+          hasQueryName: hasQueryName,
+          hasQueryAndXmlName: hasQueryAndXmlName,
+          usesXmlName: usesXmlName,
+        );
     replace(_$result);
     return _$result;
   }

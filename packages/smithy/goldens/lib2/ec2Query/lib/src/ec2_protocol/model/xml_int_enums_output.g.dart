@@ -20,26 +20,25 @@ class _$XmlIntEnumsOutput extends XmlIntEnumsOutput {
   @override
   final _i2.BuiltMap<String, IntegerEnum>? intEnumMap;
 
-  factory _$XmlIntEnumsOutput(
-          [void Function(XmlIntEnumsOutputBuilder)? updates]) =>
-      (new XmlIntEnumsOutputBuilder()..update(updates))._build();
+  factory _$XmlIntEnumsOutput([
+    void Function(XmlIntEnumsOutputBuilder)? updates,
+  ]) => (XmlIntEnumsOutputBuilder()..update(updates))._build();
 
-  _$XmlIntEnumsOutput._(
-      {this.intEnum1,
-      this.intEnum2,
-      this.intEnum3,
-      this.intEnumList,
-      this.intEnumSet,
-      this.intEnumMap})
-      : super._();
-
+  _$XmlIntEnumsOutput._({
+    this.intEnum1,
+    this.intEnum2,
+    this.intEnum3,
+    this.intEnumList,
+    this.intEnumSet,
+    this.intEnumMap,
+  }) : super._();
   @override
   XmlIntEnumsOutput rebuild(void Function(XmlIntEnumsOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   XmlIntEnumsOutputBuilder toBuilder() =>
-      new XmlIntEnumsOutputBuilder()..replace(this);
+      XmlIntEnumsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -85,19 +84,19 @@ class XmlIntEnumsOutputBuilder
 
   _i2.ListBuilder<IntegerEnum>? _intEnumList;
   _i2.ListBuilder<IntegerEnum> get intEnumList =>
-      _$this._intEnumList ??= new _i2.ListBuilder<IntegerEnum>();
+      _$this._intEnumList ??= _i2.ListBuilder<IntegerEnum>();
   set intEnumList(_i2.ListBuilder<IntegerEnum>? intEnumList) =>
       _$this._intEnumList = intEnumList;
 
   _i2.SetBuilder<IntegerEnum>? _intEnumSet;
   _i2.SetBuilder<IntegerEnum> get intEnumSet =>
-      _$this._intEnumSet ??= new _i2.SetBuilder<IntegerEnum>();
+      _$this._intEnumSet ??= _i2.SetBuilder<IntegerEnum>();
   set intEnumSet(_i2.SetBuilder<IntegerEnum>? intEnumSet) =>
       _$this._intEnumSet = intEnumSet;
 
   _i2.MapBuilder<String, IntegerEnum>? _intEnumMap;
   _i2.MapBuilder<String, IntegerEnum> get intEnumMap =>
-      _$this._intEnumMap ??= new _i2.MapBuilder<String, IntegerEnum>();
+      _$this._intEnumMap ??= _i2.MapBuilder<String, IntegerEnum>();
   set intEnumMap(_i2.MapBuilder<String, IntegerEnum>? intEnumMap) =>
       _$this._intEnumMap = intEnumMap;
 
@@ -119,7 +118,6 @@ class XmlIntEnumsOutputBuilder
 
   @override
   void replace(XmlIntEnumsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlIntEnumsOutput;
   }
 
@@ -134,14 +132,16 @@ class XmlIntEnumsOutputBuilder
   _$XmlIntEnumsOutput _build() {
     _$XmlIntEnumsOutput _$result;
     try {
-      _$result = _$v ??
-          new _$XmlIntEnumsOutput._(
-              intEnum1: intEnum1,
-              intEnum2: intEnum2,
-              intEnum3: intEnum3,
-              intEnumList: _intEnumList?.build(),
-              intEnumSet: _intEnumSet?.build(),
-              intEnumMap: _intEnumMap?.build());
+      _$result =
+          _$v ??
+          _$XmlIntEnumsOutput._(
+            intEnum1: intEnum1,
+            intEnum2: intEnum2,
+            intEnum3: intEnum3,
+            intEnumList: _intEnumList?.build(),
+            intEnumSet: _intEnumSet?.build(),
+            intEnumMap: _intEnumMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -152,8 +152,11 @@ class XmlIntEnumsOutputBuilder
         _$failedField = 'intEnumMap';
         _intEnumMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'XmlIntEnumsOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'XmlIntEnumsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

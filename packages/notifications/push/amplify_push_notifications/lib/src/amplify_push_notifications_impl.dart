@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library amplify_push_notifications;
+library;
 
 import 'dart:async';
 import 'dart:convert';
@@ -60,8 +60,9 @@ final _needsConfigurationException = ConfigurationError(
   recoverySuggestion: 'Configure Amplify first.',
 );
 
-final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
-    .createChild('AmplifyPushNotification');
+final AmplifyLogger _logger = AmplifyLogger.category(
+  Category.pushNotifications,
+).createChild('AmplifyPushNotification');
 
 /// {@template amplify_push_notifications.amplify_push_notifications}
 /// Implementation of the Amplify Push Notifications category.
@@ -76,8 +77,8 @@ abstract class AmplifyPushNotifications
     required ServiceProviderClient serviceProviderClient,
     required Future<void> Function() backgroundProcessor,
     @visibleForTesting DependencyManager? dependencyManager,
-  })  : _serviceProviderClient = serviceProviderClient,
-        _backgroundProcessor = backgroundProcessor {
+  }) : _serviceProviderClient = serviceProviderClient,
+       _backgroundProcessor = backgroundProcessor {
     if (dependencyManager == null) {
       _dependencyManager = DependencyManager();
       _dependencyManager
@@ -98,8 +99,9 @@ abstract class AmplifyPushNotifications
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((payload) {
-      return payload['token'] as String;
-    }).distinct();
+          return payload['token'] as String;
+        })
+        .distinct();
     _bufferedTokenStream = StreamQueue(_onTokenReceived);
     _onForegroundNotificationReceived = foregroundNotificationEventChannel
         .receiveBroadcastStream()
@@ -163,9 +165,7 @@ abstract class AmplifyPushNotifications
   }
 
   @override
-  void onNotificationReceivedInBackground(
-    OnRemoteMessageCallback callback,
-  ) {
+  void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
     if (os.isAndroid) {
       final callbackHandle = PluginUtilities.getCallbackHandle(callback);
       if (callbackHandle == null) {
@@ -205,10 +205,10 @@ abstract class AmplifyPushNotifications
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final notificationsConfig = config?.notifications?.awsPlugin;
+    final notificationsConfig = config?.notifications;
     if (notificationsConfig == null) {
       throw const PushNotificationException(
         'No Pinpoint plugin config available',
@@ -244,8 +244,9 @@ abstract class AmplifyPushNotifications
 
     final rawLaunchNotification = await _hostApi.getLaunchNotification();
     if (rawLaunchNotification != null) {
-      final launchNotification =
-          PushNotificationMessage.fromJson(rawLaunchNotification.cast());
+      final launchNotification = PushNotificationMessage.fromJson(
+        rawLaunchNotification.cast(),
+      );
       _launchNotification = launchNotification;
       _flutterApi.onNullifyLaunchNotificationCallback = () {
         _launchNotification = null;
@@ -274,11 +275,7 @@ abstract class AmplifyPushNotifications
       throw _needsConfigurationException;
     }
     return _hostApi.requestPermissions(
-      PermissionsOptions(
-        alert: alert,
-        sound: badge,
-        badge: sound,
-      ),
+      PermissionsOptions(alert: alert, sound: badge, badge: sound),
     );
   }
 
@@ -325,8 +322,9 @@ abstract class AmplifyPushNotifications
   }
 
   Future<void> _registerBackgroundProcessorForAndroid() async {
-    final callbackHandle =
-        PluginUtilities.getCallbackHandle(_backgroundProcessor);
+    final callbackHandle = PluginUtilities.getCallbackHandle(
+      _backgroundProcessor,
+    );
     if (callbackHandle == null) {
       throw const PushNotificationException(
         'Callback is not a global or static function',
@@ -334,19 +332,17 @@ abstract class AmplifyPushNotifications
             'Make the function a top-level or a static function.',
       );
     }
-    await _hostApi.registerCallbackFunction(
-      callbackHandle.toRawHandle(),
-    );
+    await _hostApi.registerCallbackFunction(callbackHandle.toRawHandle());
     _logger.debug('Successfully registered callback');
   }
 
   Future<void> _registerDeviceWhenConfigure() async {
-    late String deviceToken;
-
     try {
       await _hostApi.requestInitialToken();
-      deviceToken =
-          await _bufferedTokenStream.peek.timeout(const Duration(seconds: 5));
+      final deviceToken = await _bufferedTokenStream.peek.timeout(
+        const Duration(seconds: 5),
+      );
+      await _registerDevice(deviceToken);
     } on PlatformException catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -355,40 +351,35 @@ abstract class AmplifyPushNotifications
         recoverySuggestion: 'Review the underlying exception.',
         underlyingException: error,
       );
-    } on TimeoutException catch (error) {
-      throw PushNotificationException(
-        'Timed out awaiting for device token.',
-        recoverySuggestion:
-            'This may happen when the native apps have not been correctly configured'
-            ' for push notifications, review push notification configurations'
-            ' of the native iOS and Android apps of your Flutter project.',
-        underlyingException: error,
+    } on TimeoutException {
+      _logger.error(
+        'Timed out awaiting for device token.'
+        ' This may happen when the native app has not been correctly configured'
+        ' for push notifications. Review push notification configurations'
+        ' of the native iOS and Android apps of your Flutter project.',
       );
     }
-    await _registerDevice(deviceToken);
   }
 
   void _foregroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
-  ) =>
-      identifyCall(
-        PushNotificationsCategoryMethod.foregroundMessageReceived,
-        () => _serviceProviderClient.recordNotificationEvent(
-          eventType: PinpointEventType.foregroundMessageReceived,
-          notification: pushNotificationMessage,
-        ),
-      );
+  ) => identifyCall(
+    PushNotificationsCategoryMethod.foregroundMessageReceived,
+    () => _serviceProviderClient.recordNotificationEvent(
+      eventType: PinpointEventType.foregroundMessageReceived,
+      notification: pushNotificationMessage,
+    ),
+  );
 
   void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
-  ) =>
-      identifyCall(
-        PushNotificationsCategoryMethod.notificationOpened,
-        () => _serviceProviderClient.recordNotificationEvent(
-          eventType: PinpointEventType.notificationOpened,
-          notification: pushNotificationMessage,
-        ),
-      );
+  ) => identifyCall(
+    PushNotificationsCategoryMethod.notificationOpened,
+    () => _serviceProviderClient.recordNotificationEvent(
+      eventType: PinpointEventType.notificationOpened,
+      notification: pushNotificationMessage,
+    ),
+  );
 
   void _tokenReceivedListener(String deviceToken) {
     unawaited(_registerDevice(deviceToken));
@@ -416,40 +407,41 @@ abstract class AmplifyPushNotifications
     // Initialize listeners
     _eventChannelListeners
       ..add(
-        _onTokenReceived.listen(_tokenReceivedListener)
-          ..onError((Object error) {
-            _logger.error(
-              'Unexpected error $error received from onTokenReceived event channel.',
-            );
-          }),
+        _onTokenReceived.listen(_tokenReceivedListener)..onError((
+          Object error,
+        ) {
+          _logger.error(
+            'Unexpected error $error received from onTokenReceived event channel.',
+          );
+        }),
       )
       ..add(
-        _onForegroundNotificationReceived
-            .listen(_foregroundNotificationListener)
-          ..onError((Object error) {
-            _logger.error(
-              'Unexpected error $error received from onNotificationReceivedInForeground event channel.',
-            );
-          }),
+        _onForegroundNotificationReceived.listen(
+          _foregroundNotificationListener,
+        )..onError((Object error) {
+          _logger.error(
+            'Unexpected error $error received from onNotificationReceivedInForeground event channel.',
+          );
+        }),
       )
       ..add(
-        _onNotificationOpened.listen(_notificationOpenedListener)
-          ..onError((Object error) {
-            _logger.error(
-              'Unexpected error $error received from onNotificationOpened event channel.',
-            );
-          }),
+        _onNotificationOpened.listen(_notificationOpenedListener)..onError((
+          Object error,
+        ) {
+          _logger.error(
+            'Unexpected error $error received from onNotificationOpened event channel.',
+          );
+        }),
       );
   }
 
   void _recordAnalyticsForLaunchNotification(
     PushNotificationMessage launchNotification,
-  ) =>
-      identifyCall(
-        PushNotificationsCategoryMethod.launchNotification,
-        () => _serviceProviderClient.recordNotificationEvent(
-          eventType: PinpointEventType.notificationOpened,
-          notification: launchNotification,
-        ),
-      );
+  ) => identifyCall(
+    PushNotificationsCategoryMethod.launchNotification,
+    () => _serviceProviderClient.recordNotificationEvent(
+      eventType: PinpointEventType.notificationOpened,
+      notification: launchNotification,
+    ),
+  );
 }

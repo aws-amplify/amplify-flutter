@@ -9,15 +9,17 @@ part of 'notifications_pinpoint_config.dart';
 // **************************************************************************
 
 NotificationsPinpointPluginConfig _$NotificationsPinpointPluginConfigFromJson(
-        Map<String, dynamic> json) =>
-    NotificationsPinpointPluginConfig(
-      appId: json['appId'] as String,
-      region: json['region'] as String,
-    );
+  Map<String, dynamic> json,
+) => $checkedCreate('NotificationsPinpointPluginConfig', json, (
+  $checkedConvert,
+) {
+  final val = NotificationsPinpointPluginConfig(
+    appId: $checkedConvert('appId', (v) => v as String),
+    region: $checkedConvert('region', (v) => v as String),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$NotificationsPinpointPluginConfigToJson(
-        NotificationsPinpointPluginConfig instance) =>
-    <String, dynamic>{
-      'appId': instance.appId,
-      'region': instance.region,
-    };
+  NotificationsPinpointPluginConfig instance,
+) => <String, dynamic>{'appId': instance.appId, 'region': instance.region};

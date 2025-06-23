@@ -2,16 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/dom_helper.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 
 /// The html implementation of `downloadFile` API.
 S3DownloadFileOperation downloadFile({
-  required String key,
+  required StoragePath path,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
-  required S3PluginConfig s3pluginConfig,
+  required StorageOutputs storageOutputs,
   required StorageS3Service storageS3Service,
   required AppPathProvider appPathProvider,
   void Function(S3TransferProgress)? onProgress,
@@ -20,15 +22,15 @@ S3DownloadFileOperation downloadFile({
 
   return S3DownloadFileOperation(
     request: StorageDownloadFileRequest(
-      key: key,
+      path: path,
       localFile: localFile,
       options: options,
     ),
     result: _downloadFromUrl(
-      key: key,
+      path: path,
       localFile: localFile,
       options: options,
-      s3pluginConfig: s3pluginConfig,
+      storageOutputs: storageOutputs,
       storageS3Service: storageS3Service,
     ),
     // In Web the download process is managed by the browser so the operation
@@ -40,14 +42,13 @@ S3DownloadFileOperation downloadFile({
 }
 
 Future<S3DownloadFileResult> _downloadFromUrl({
-  required String key,
+  required StoragePath path,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
-  required S3PluginConfig s3pluginConfig,
+  required StorageOutputs storageOutputs,
   required StorageS3Service storageS3Service,
 }) async {
   final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
-  final targetIdentityId = s3PluginOptions.targetIdentityId;
   // Calling the `getProperties` by default to verify the existence of the object
   // before downloading from the presigned URL, as the 404 or 403 should be
   // handled by the plugin but not be thrown to an end user in browser.
@@ -56,40 +57,22 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   // Exception thrown from the getProperties will be thrown as download
   // operation.
   final downloadedItem = (await storageS3Service.getProperties(
-    key: key,
-    options: targetIdentityId == null
-        ? StorageGetPropertiesOptions(
-            accessLevel: options.accessLevel,
-          )
-        : StorageGetPropertiesOptions(
-            accessLevel: options.accessLevel,
-            pluginOptions:
-                S3GetPropertiesPluginOptions.forIdentity(targetIdentityId),
-          ),
-  ))
-      .storageItem;
+    path: path,
+    options: StorageGetPropertiesOptions(bucket: options.bucket),
+  )).storageItem;
 
   // A download url expires in 15 mins by default, see [S3GetUrlPluginOptions].
   // We are not setting validateObjectExistence to true here as we are not
   // able to directly get the result of underlying HeadObject result.
   final url = (await storageS3Service.getUrl(
-    key: key,
-    options: targetIdentityId == null
-        ? StorageGetUrlOptions(
-            accessLevel: options.accessLevel,
-            pluginOptions: S3GetUrlPluginOptions(
-              useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-            ),
-          )
-        : StorageGetUrlOptions(
-            accessLevel: options.accessLevel,
-            pluginOptions: S3GetUrlPluginOptions.forIdentity(
-              targetIdentityId,
-              useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-            ),
-          ),
-  ))
-      .url;
+    path: path,
+    options: StorageGetUrlOptions(
+      pluginOptions: S3GetUrlPluginOptions(
+        useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+      ),
+      bucket: options.bucket,
+    ),
+  )).url;
 
   // Trigger a browser download on the presigned url.
   DomHelper.instance.download(
@@ -100,8 +83,9 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   );
 
   return S3DownloadFileResult(
-    downloadedItem:
-        s3PluginOptions.getProperties ? downloadedItem : S3Item(key: key),
+    downloadedItem: s3PluginOptions.getProperties
+        ? downloadedItem
+        : S3Item(path: downloadedItem.path),
     localFile: localFile,
   );
 }

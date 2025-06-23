@@ -29,9 +29,9 @@ abstract class GetInAppMessagesRequest
     );
   }
 
-  factory GetInAppMessagesRequest.build(
-          [void Function(GetInAppMessagesRequestBuilder) updates]) =
-      _$GetInAppMessagesRequest;
+  factory GetInAppMessagesRequest.build([
+    void Function(GetInAppMessagesRequestBuilder) updates,
+  ]) = _$GetInAppMessagesRequest;
 
   const GetInAppMessagesRequest._();
 
@@ -39,18 +39,17 @@ abstract class GetInAppMessagesRequest
     GetInAppMessagesRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      GetInAppMessagesRequest.build((b) {
-        if (labels['applicationId'] != null) {
-          b.applicationId = labels['applicationId']!;
-        }
-        if (labels['endpointId'] != null) {
-          b.endpointId = labels['endpointId']!;
-        }
-      });
+  }) => GetInAppMessagesRequest.build((b) {
+    if (labels['applicationId'] != null) {
+      b.applicationId = labels['applicationId']!;
+    }
+    if (labels['endpointId'] != null) {
+      b.endpointId = labels['endpointId']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<GetInAppMessagesRequestPayload>>
-      serializers = [GetInAppMessagesRequestRestJson1Serializer()];
+  serializers = [GetInAppMessagesRequestRestJson1Serializer()];
 
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
   String get applicationId;
@@ -65,46 +64,35 @@ abstract class GetInAppMessagesRequest
       case 'EndpointId':
         return endpointId;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   GetInAppMessagesRequestPayload getPayload() =>
       GetInAppMessagesRequestPayload();
   @override
-  List<Object?> get props => [
-        applicationId,
-        endpointId,
-      ];
+  List<Object?> get props => [applicationId, endpointId];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetInAppMessagesRequest')
-      ..add(
-        'applicationId',
-        applicationId,
-      )
-      ..add(
-        'endpointId',
-        endpointId,
-      );
+      ..add('applicationId', applicationId)
+      ..add('endpointId', endpointId);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class GetInAppMessagesRequestPayload
-    with
-        _i2.AWSEquatable<GetInAppMessagesRequestPayload>
+    with _i2.AWSEquatable<GetInAppMessagesRequestPayload>
     implements
-        Built<GetInAppMessagesRequestPayload,
-            GetInAppMessagesRequestPayloadBuilder>,
+        Built<
+          GetInAppMessagesRequestPayload,
+          GetInAppMessagesRequestPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory GetInAppMessagesRequestPayload(
-          [void Function(GetInAppMessagesRequestPayloadBuilder) updates]) =
-      _$GetInAppMessagesRequestPayload;
+  factory GetInAppMessagesRequestPayload([
+    void Function(GetInAppMessagesRequestPayloadBuilder) updates,
+  ]) = _$GetInAppMessagesRequestPayload;
 
   const GetInAppMessagesRequestPayload._();
 
@@ -112,8 +100,9 @@ abstract class GetInAppMessagesRequestPayload
   List<Object?> get props => [];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetInAppMessagesRequestPayload');
+    final helper = newBuiltValueToStringHelper(
+      'GetInAppMessagesRequestPayload',
+    );
     return helper.toString();
   }
 }
@@ -121,22 +110,19 @@ abstract class GetInAppMessagesRequestPayload
 class GetInAppMessagesRequestRestJson1Serializer
     extends _i1.StructuredSmithySerializer<GetInAppMessagesRequestPayload> {
   const GetInAppMessagesRequestRestJson1Serializer()
-      : super('GetInAppMessagesRequest');
+    : super('GetInAppMessagesRequest');
 
   @override
   Iterable<Type> get types => const [
-        GetInAppMessagesRequest,
-        _$GetInAppMessagesRequest,
-        GetInAppMessagesRequestPayload,
-        _$GetInAppMessagesRequestPayload,
-      ];
+    GetInAppMessagesRequest,
+    _$GetInAppMessagesRequest,
+    GetInAppMessagesRequestPayload,
+    _$GetInAppMessagesRequestPayload,
+  ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   GetInAppMessagesRequestPayload deserialize(
     Serializers serializers,
@@ -151,6 +137,5 @@ class GetInAppMessagesRequestRestJson1Serializer
     Serializers serializers,
     GetInAppMessagesRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

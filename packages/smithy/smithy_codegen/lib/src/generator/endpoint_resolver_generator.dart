@@ -30,43 +30,40 @@ class EndpointResolverGenerator extends ShapeGenerator<ServiceShape, Library?> {
     );
   }
 
-  Expression _buildEndpointDefinition(EndpointDefinition definition) =>
-      DartTypes.smithyAws.endpointDefinition.constInstance([], {
-        if (definition.hostname != null)
-          'hostname': literal(definition.hostname),
-        if (definition.protocols.isNotEmpty)
-          'protocols': literalList(definition.protocols.map(literalString)),
-        if (definition.signatureVersions.isNotEmpty)
-          'signatureVersions': literalList(
-            definition.signatureVersions.map(
-              (version) => DartTypes.smithyAws.awsSignatureVersion
-                  .property(version.name),
-            ),
-          ),
-        if (definition.credentialScope != null)
-          'credentialScope':
-              DartTypes.smithyAws.credentialScope.constInstance([], {
-            if (definition.credentialScope?.region != null)
-              'region': literal(definition.credentialScope?.region),
-            if (definition.credentialScope?.service != null)
-              'service': literal(definition.credentialScope?.service),
-          }),
-        'variants': literalConstList([
-          for (final variant in definition.variants)
-            _buildEndpointDefinitionVariant(variant),
-        ]),
-      });
+  Expression _buildEndpointDefinition(
+    EndpointDefinition definition,
+  ) => DartTypes.smithyAws.endpointDefinition.constInstance([], {
+    if (definition.hostname != null) 'hostname': literal(definition.hostname),
+    if (definition.protocols.isNotEmpty)
+      'protocols': literalList(definition.protocols.map(literalString)),
+    if (definition.signatureVersions.isNotEmpty)
+      'signatureVersions': literalList(
+        definition.signatureVersions.map(
+          (version) =>
+              DartTypes.smithyAws.awsSignatureVersion.property(version.name),
+        ),
+      ),
+    if (definition.credentialScope != null)
+      'credentialScope': DartTypes.smithyAws.credentialScope.constInstance([], {
+        if (definition.credentialScope?.region != null)
+          'region': literal(definition.credentialScope?.region),
+        if (definition.credentialScope?.service != null)
+          'service': literal(definition.credentialScope?.service),
+      }),
+    'variants': literalConstList([
+      for (final variant in definition.variants)
+        _buildEndpointDefinitionVariant(variant),
+    ]),
+  });
 
   Expression _buildEndpointDefinitionVariant(
     EndpointDefinitionVariant variant,
-  ) =>
-      DartTypes.smithyAws.endpointDefinitionVariant.constInstance([], {
-        if (variant.dnsSuffix != null)
-          'dnsSuffix': literalString(variant.dnsSuffix!),
-        if (variant.hostname != null)
-          'hostname': literalString(variant.hostname!),
-        'tags': literalConstList(variant.tags.map(literalString).toList()),
-      });
+  ) => DartTypes.smithyAws.endpointDefinitionVariant.constInstance([], {
+    if (variant.dnsSuffix != null)
+      'dnsSuffix': literalString(variant.dnsSuffix!),
+    if (variant.hostname != null) 'hostname': literalString(variant.hostname!),
+    'tags': literalConstList(variant.tags.map(literalString).toList()),
+  });
 
   Expression _buildPartition(Partition partition) {
     return DartTypes.smithyAws.partition.newInstance([], {
@@ -99,8 +96,9 @@ class EndpointResolverGenerator extends ShapeGenerator<ServiceShape, Library?> {
         ..assignment = literalList([
           for (final partitionName in sortedPartitions)
             _buildPartition(
-              awsPartitions[partitionName]!
-                  .toPartition(resolvedService.endpointPrefix),
+              awsPartitions[partitionName]!.toPartition(
+                resolvedService.endpointPrefix,
+              ),
             ),
         ]).code,
     );

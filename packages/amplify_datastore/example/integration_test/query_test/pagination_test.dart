@@ -21,8 +21,9 @@ void main() {
         await Amplify.DataStore.save(model);
       }
     });
-    testWidgets('should return the models for the given page and limit',
-        (WidgetTester tester) async {
+    testWidgets('should return the models for the given page and limit', (
+      WidgetTester tester,
+    ) async {
       // page 0
       var pageZeroBlogs = await Amplify.DataStore.query(
         Blog.classType,
@@ -54,22 +55,28 @@ void main() {
       expect(finalPageBlogs, orderedEquals(expectedFinalPageBlogs));
     });
 
-    testWidgets('should return no models for an out of range page/limit combo',
-        (WidgetTester tester) async {
-      var blogs = await Amplify.DataStore.query(Blog.classType,
-          pagination: QueryPagination(page: 1000, limit: 10));
-      expect(blogs, isEmpty);
-    });
+    testWidgets(
+      'should return no models for an out of range page/limit combo',
+      (WidgetTester tester) async {
+        var blogs = await Amplify.DataStore.query(
+          Blog.classType,
+          pagination: QueryPagination(page: 1000, limit: 10),
+        );
+        expect(blogs, isEmpty);
+      },
+    );
 
-    testWidgets('should default to no pagination if none is provided',
-        (WidgetTester tester) async {
+    testWidgets('should default to no pagination if none is provided', (
+      WidgetTester tester,
+    ) async {
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, models.length);
       expect(blogs, unorderedEquals(models));
     });
 
-    testWidgets('should default to a page size of 100',
-        (WidgetTester tester) async {
+    testWidgets('should default to a page size of 100', (
+      WidgetTester tester,
+    ) async {
       var blogs = await Amplify.DataStore.query(
         Blog.classType,
         pagination: QueryPagination(page: 0),
@@ -80,8 +87,9 @@ void main() {
       expect(blogs, orderedEquals(expectedBlogs));
     });
 
-    testWidgets('should work with a descending sort order',
-        (WidgetTester tester) async {
+    testWidgets('should work with a descending sort order', (
+      WidgetTester tester,
+    ) async {
       var blogs = await Amplify.DataStore.query(
         Blog.classType,
         pagination: QueryPagination(page: 0, limit: 10),
@@ -92,8 +100,9 @@ void main() {
       expect(blogs, orderedEquals(expectedBlogs));
     });
 
-    testWidgets('should work with a query predicate',
-        (WidgetTester tester) async {
+    testWidgets('should work with a query predicate', (
+      WidgetTester tester,
+    ) async {
       var blogs = await Amplify.DataStore.query(
         Blog.classType,
         pagination: QueryPagination(page: 0, limit: 10),

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v2.machine_learning.machine_learning_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,12 +19,12 @@ class MachineLearningClient {
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -49,9 +49,6 @@ class MachineLearningClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 }

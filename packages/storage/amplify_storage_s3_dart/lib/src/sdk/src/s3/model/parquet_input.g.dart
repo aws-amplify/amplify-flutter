@@ -8,16 +8,15 @@ part of 'parquet_input.dart';
 
 class _$ParquetInput extends ParquetInput {
   factory _$ParquetInput([void Function(ParquetInputBuilder)? updates]) =>
-      (new ParquetInputBuilder()..update(updates))._build();
+      (ParquetInputBuilder()..update(updates))._build();
 
   _$ParquetInput._() : super._();
-
   @override
   ParquetInput rebuild(void Function(ParquetInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ParquetInputBuilder toBuilder() => new ParquetInputBuilder()..replace(this);
+  ParquetInputBuilder toBuilder() => ParquetInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -39,7 +38,6 @@ class ParquetInputBuilder
 
   @override
   void replace(ParquetInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ParquetInput;
   }
 
@@ -52,7 +50,7 @@ class ParquetInputBuilder
   ParquetInput build() => _build();
 
   _$ParquetInput _build() {
-    final _$result = _$v ?? new _$ParquetInput._();
+    final _$result = _$v ?? _$ParquetInput._();
     replace(_$result);
     return _$result;
   }

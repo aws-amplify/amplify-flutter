@@ -5,15 +5,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
-/// @nodoc
-@Deprecated('Use AuthUserAttributeKey instead')
-typedef UserAttributeKey = AuthUserAttributeKey;
-
 /// {@category Auth}
 /// {@template amplify_core.auth_user_attribute_key}
 /// A user attribute identifier.
 /// {@endtemplate}
-/// {@hideConstantImplementations}
 @immutable
 abstract class AuthUserAttributeKey
     with
@@ -35,8 +30,9 @@ abstract class AuthUserAttributeKey
   /// {@template amplify_core.user_attribute.birthdate}
   /// The user's birthday, represented as an ISO 8601 YYYY-MM-DD format.
   /// {@endtemplate}
-  static const AuthUserAttributeKey birthdate =
-      _AuthUserAttributeKey('birthdate');
+  static const AuthUserAttributeKey birthdate = _AuthUserAttributeKey(
+    'birthdate',
+  );
 
   /// {@template amplify_core.user_attribute.email}
   /// The user's preferred e-mail address.
@@ -46,14 +42,16 @@ abstract class AuthUserAttributeKey
   /// {@template amplify_core.user_attribute.email_verified}
   /// Whether the user's preferred e-mail address has been verified.
   /// {@endtemplate}
-  static const AuthUserAttributeKey emailVerified =
-      _AuthUserAttributeKey('email_verified');
+  static const AuthUserAttributeKey emailVerified = _AuthUserAttributeKey(
+    'email_verified',
+  );
 
   /// {@template amplify_core.user_attribute.family_name}
   /// Surname(s) or last name(s) of the user.
   /// {@endtemplate}
-  static const AuthUserAttributeKey familyName =
-      _AuthUserAttributeKey('family_name');
+  static const AuthUserAttributeKey familyName = _AuthUserAttributeKey(
+    'family_name',
+  );
 
   /// {@template amplify_core.user_attribute.gender}
   /// The user's gender.
@@ -63,8 +61,9 @@ abstract class AuthUserAttributeKey
   /// {@template amplify_core.user_attribute.given_name}
   /// Given name(s) or first name(s) of the user.
   /// {@endtemplate}
-  static const AuthUserAttributeKey givenName =
-      _AuthUserAttributeKey('given_name');
+  static const AuthUserAttributeKey givenName = _AuthUserAttributeKey(
+    'given_name',
+  );
 
   /// {@template amplify_core.user_attribute.locale}
   /// The user's locale, represented as a BCP47 language tag, e.g. `en-US`.
@@ -74,8 +73,9 @@ abstract class AuthUserAttributeKey
   /// {@template amplify_core.user_attribute.middle_name}
   /// Middle name(s) of the user.
   /// {@endtemplate}
-  static const AuthUserAttributeKey middleName =
-      _AuthUserAttributeKey('middle_name');
+  static const AuthUserAttributeKey middleName = _AuthUserAttributeKey(
+    'middle_name',
+  );
 
   /// {@template amplify_core.user_attribute.name}
   /// The user's full name in displayable form including all name parts,
@@ -88,20 +88,23 @@ abstract class AuthUserAttributeKey
   /// Casual name of the user that may or may not be the same as their given
   /// name.
   /// {@endtemplate}
-  static const AuthUserAttributeKey nickname =
-      _AuthUserAttributeKey('nickname');
+  static const AuthUserAttributeKey nickname = _AuthUserAttributeKey(
+    'nickname',
+  );
 
   /// {@template amplify_core.user_attribute.phone_number}
   /// The user's preferred telephone number.
   /// {@endtemplate}
-  static const AuthUserAttributeKey phoneNumber =
-      _AuthUserAttributeKey('phone_number');
+  static const AuthUserAttributeKey phoneNumber = _AuthUserAttributeKey(
+    'phone_number',
+  );
 
   /// {@template amplify_core.user_attribute.phone_number_verified}
   /// Whether the user's preferred telephone number has been verified.
   /// {@endtemplate}
-  static const AuthUserAttributeKey phoneNumberVerified =
-      _AuthUserAttributeKey('phone_number_verified');
+  static const AuthUserAttributeKey phoneNumberVerified = _AuthUserAttributeKey(
+    'phone_number_verified',
+  );
 
   /// {@template amplify_core.user_attribute.picture}
   /// URL of the user's profile picture.
@@ -111,8 +114,9 @@ abstract class AuthUserAttributeKey
   /// {@template amplify_core.user_attribute.preferred_username}
   /// The username by which the user wishes to be referred to.
   /// {@endtemplate}
-  static const AuthUserAttributeKey preferredUsername =
-      _AuthUserAttributeKey('preferred_username');
+  static const AuthUserAttributeKey preferredUsername = _AuthUserAttributeKey(
+    'preferred_username',
+  );
 
   /// {@template amplify_core.user_attribute.profile}
   /// URL of the user's profile page.
@@ -127,8 +131,9 @@ abstract class AuthUserAttributeKey
   /// {@template amplify_core.user_attribute.updated_at}
   /// The time the user's information was last updated.
   /// {@endtemplate}
-  static const AuthUserAttributeKey updatedAt =
-      _AuthUserAttributeKey('updated_at');
+  static const AuthUserAttributeKey updatedAt = _AuthUserAttributeKey(
+    'updated_at',
+  );
 
   /// {@template amplify_core.user_attribute.website}
   /// URL of the user's Web page or blog.
@@ -139,8 +144,9 @@ abstract class AuthUserAttributeKey
   /// A string from the [zoneinfo](https://www.iana.org/time-zones) time zone
   /// database representing the user's time zone, e.g. `America/Los_Angeles`.
   /// {@endtemplate}
-  static const AuthUserAttributeKey zoneinfo =
-      _AuthUserAttributeKey('zoneinfo');
+  static const AuthUserAttributeKey zoneinfo = _AuthUserAttributeKey(
+    'zoneinfo',
+  );
 
   @override
   String toJson() => key;

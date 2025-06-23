@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-part of authenticator.form_field;
+part of '../form_field.dart';
 
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.mfa_selection_form_field}
@@ -9,10 +9,7 @@ part of authenticator.form_field;
 /// {@endtemplate}
 
 class _MfaMethodRadioField extends ConfirmSignInFormField<MfaType> {
-  const _MfaMethodRadioField({
-    super.key,
-    required super.field,
-  }) : super._();
+  const _MfaMethodRadioField({super.key, required super.field}) : super._();
 
   @override
   _MfaSelectionFieldState createState() => _MfaSelectionFieldState();
@@ -31,17 +28,22 @@ class _MfaSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
 
   @override
   List<InputSelection<InputResolverKey, MfaType>> get selections => [
-        if (_allowedMfaTypes.contains(MfaType.totp))
-          const InputSelection<InputResolverKey, MfaType>(
-            label: InputResolverKey.selectTotp,
-            value: MfaType.totp,
-          ),
-        if (_allowedMfaTypes.contains(MfaType.sms))
-          const InputSelection<InputResolverKey, MfaType>(
-            label: InputResolverKey.selectSms,
-            value: MfaType.sms,
-          ),
-      ];
+    if (_allowedMfaTypes.contains(MfaType.totp))
+      const InputSelection<InputResolverKey, MfaType>(
+        label: InputResolverKey.selectTotp,
+        value: MfaType.totp,
+      ),
+    if (_allowedMfaTypes.contains(MfaType.sms))
+      const InputSelection<InputResolverKey, MfaType>(
+        label: InputResolverKey.selectSms,
+        value: MfaType.sms,
+      ),
+    if (_allowedMfaTypes.contains(MfaType.email))
+      const InputSelection<InputResolverKey, MfaType>(
+        label: InputResolverKey.selectEmail,
+        value: MfaType.email,
+      ),
+  ];
 
   @override
   MfaType get initialValue => selections.first.value;

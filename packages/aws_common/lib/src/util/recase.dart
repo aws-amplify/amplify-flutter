@@ -14,9 +14,9 @@ extension StringRecase on String {
 
   /// The `camelCase` version of `this`.
   String get camelCase => groupIntoWords().mapIndexed((index, word) {
-        if (index == 0) return word.toLowerCase();
-        return word.capitalized;
-      }).join();
+    if (index == 0) return word.toLowerCase();
+    return word.capitalized;
+  }).join();
 
   /// The `param-case` version of `this`.
   String get paramCase =>
@@ -27,11 +27,11 @@ extension StringRecase on String {
 
   /// The `PascalCase` version of `this`.
   String get pascalCase => groupIntoWords().map((word) {
-        if (_maintainCase.contains(word)) {
-          return word;
-        }
-        return word.capitalized;
-      }).join();
+    if (_maintainCase.contains(word)) {
+      return word;
+    }
+    return word.capitalized;
+  }).join();
 
   /// The `snake_case` version of `this`.
   String get snakeCase =>
@@ -71,7 +71,6 @@ extension StringRecase on String {
           _standaloneVLower,
           (m) => '${m.group(1)} v${m.group(2)}',
         )
-
         // TestV4 -> "Test V4"
         .replaceAllMapped(
           _standaloneVUpper,
@@ -90,8 +89,7 @@ extension StringRecase on String {
         return substr;
       });
       yield result.substring(start);
-    }()
-        .join(' ');
+    }().join(' ');
 
     // add a space after acronyms: "ACMSuccess" -> "ACM Success"
     result = result.replaceAllMapped(

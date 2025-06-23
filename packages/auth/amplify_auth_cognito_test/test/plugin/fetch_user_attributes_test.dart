@@ -70,9 +70,7 @@ final _userPoolTokens = CognitoUserPoolTokens.build(
   (b) => b
     ..accessToken = JsonWebToken(
       header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),
-      claims: JsonWebClaims(
-        customClaims: claims,
-      ),
+      claims: JsonWebClaims(customClaims: claims),
       signature: const [],
     )
     ..refreshToken = refreshToken
@@ -202,27 +200,20 @@ void main() {
       stateMachine = CognitoAuthStateMachine()
         ..addInstance<CognitoIdentityProviderClient>(
           MockCognitoIdentityProviderClient(
-            getUser: () async => GetUserResponse(
-              userAttributes: [],
-              username: username,
-            ),
+            getUser: () async =>
+                GetUserResponse(userAttributes: [], username: username),
           ),
         );
 
       final secureStorage = MockSecureStorage();
       SecureStorageInterface storageFactory(scope) => secureStorage;
-      seedStorage(
-        secureStorage,
-        userPoolKeys: userPoolKeys,
-      );
+      seedStorage(secureStorage, userPoolKeys: userPoolKeys);
       // Write an expired token to storage.
       secureStorage.write(
         key: userPoolKeys[CognitoUserPoolKey.accessToken],
         value: JsonWebToken(
           header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),
-          claims: JsonWebClaims(
-            expiration: DateTime.now(),
-          ),
+          claims: JsonWebClaims(expiration: DateTime.now()),
           signature: const [],
         ).raw,
       );
@@ -239,17 +230,14 @@ void main() {
       //
       // [Future.ignore] is not working in DDC, possibly due to this issue:
       // https://github.com/dart-lang/sdk/issues/50619
-      unawaited(
-        plugin.fetchUserAttributes().then((_) {}).onError((_, __) {}),
-      );
+      unawaited(plugin.fetchUserAttributes().then((_) {}).onError((_, _) {}));
 
-      final fetchAuthSessionMachine =
-          stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
+      final fetchAuthSessionMachine = stateMachine.getOrCreate(
+        FetchAuthSessionStateMachine.type,
+      );
       await expectLater(
         fetchAuthSessionMachine.stream,
-        emitsThrough(
-          const FetchAuthSessionState.refreshing(),
-        ),
+        emitsThrough(const FetchAuthSessionState.refreshing()),
       ).timeout(const Duration(seconds: 2));
     });
   });

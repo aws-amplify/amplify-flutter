@@ -82,62 +82,56 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String? expectedBucketOwner;
 
-  factory _$PutObjectRequest(
-          [void Function(PutObjectRequestBuilder)? updates]) =>
-      (new PutObjectRequestBuilder()..update(updates))._build();
+  factory _$PutObjectRequest([
+    void Function(PutObjectRequestBuilder)? updates,
+  ]) => (PutObjectRequestBuilder()..update(updates))._build();
 
-  _$PutObjectRequest._(
-      {this.acl,
-      required this.body,
-      required this.bucket,
-      this.cacheControl,
-      this.contentDisposition,
-      this.contentEncoding,
-      this.contentLanguage,
-      this.contentLength,
-      this.contentMd5,
-      this.contentType,
-      this.checksumAlgorithm,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.expires,
-      this.grantFullControl,
-      this.grantRead,
-      this.grantReadAcp,
-      this.grantWriteAcp,
-      required this.key,
-      this.metadata,
-      this.serverSideEncryption,
-      this.storageClass,
-      this.websiteRedirectLocation,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.ssekmsEncryptionContext,
-      this.bucketKeyEnabled,
-      this.requestPayer,
-      this.tagging,
-      this.objectLockMode,
-      this.objectLockRetainUntilDate,
-      this.objectLockLegalHoldStatus,
-      this.expectedBucketOwner})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(body, r'PutObjectRequest', 'body');
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'PutObjectRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(key, r'PutObjectRequest', 'key');
-  }
-
+  _$PutObjectRequest._({
+    this.acl,
+    required this.body,
+    required this.bucket,
+    this.cacheControl,
+    this.contentDisposition,
+    this.contentEncoding,
+    this.contentLanguage,
+    this.contentLength,
+    this.contentMd5,
+    this.contentType,
+    this.checksumAlgorithm,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.expires,
+    this.grantFullControl,
+    this.grantRead,
+    this.grantReadAcp,
+    this.grantWriteAcp,
+    required this.key,
+    this.metadata,
+    this.serverSideEncryption,
+    this.storageClass,
+    this.websiteRedirectLocation,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.bucketKeyEnabled,
+    this.requestPayer,
+    this.tagging,
+    this.objectLockMode,
+    this.objectLockRetainUntilDate,
+    this.objectLockLegalHoldStatus,
+    this.expectedBucketOwner,
+  }) : super._();
   @override
   PutObjectRequest rebuild(void Function(PutObjectRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   PutObjectRequestBuilder toBuilder() =>
-      new PutObjectRequestBuilder()..replace(this);
+      PutObjectRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -327,7 +321,7 @@ class PutObjectRequestBuilder
 
   _i5.MapBuilder<String, String>? _metadata;
   _i5.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i5.MapBuilder<String, String>();
+      _$this._metadata ??= _i5.MapBuilder<String, String>();
   set metadata(_i5.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
@@ -399,8 +393,8 @@ class PutObjectRequestBuilder
   ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
-      _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
+    ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+  ) => _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
@@ -458,7 +452,6 @@ class PutObjectRequestBuilder
 
   @override
   void replace(PutObjectRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutObjectRequest;
   }
 
@@ -473,56 +466,70 @@ class PutObjectRequestBuilder
   _$PutObjectRequest _build() {
     _$PutObjectRequest _$result;
     try {
-      _$result = _$v ??
-          new _$PutObjectRequest._(
-              acl: acl,
-              body: BuiltValueNullFieldError.checkNotNull(
-                  body, r'PutObjectRequest', 'body'),
-              bucket: BuiltValueNullFieldError.checkNotNull(
-                  bucket, r'PutObjectRequest', 'bucket'),
-              cacheControl: cacheControl,
-              contentDisposition: contentDisposition,
-              contentEncoding: contentEncoding,
-              contentLanguage: contentLanguage,
-              contentLength: contentLength,
-              contentMd5: contentMd5,
-              contentType: contentType,
-              checksumAlgorithm: checksumAlgorithm,
-              checksumCrc32: checksumCrc32,
-              checksumCrc32C: checksumCrc32C,
-              checksumSha1: checksumSha1,
-              checksumSha256: checksumSha256,
-              expires: expires,
-              grantFullControl: grantFullControl,
-              grantRead: grantRead,
-              grantReadAcp: grantReadAcp,
-              grantWriteAcp: grantWriteAcp,
-              key: BuiltValueNullFieldError.checkNotNull(
-                  key, r'PutObjectRequest', 'key'),
-              metadata: _metadata?.build(),
-              serverSideEncryption: serverSideEncryption,
-              storageClass: storageClass,
-              websiteRedirectLocation: websiteRedirectLocation,
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKey: sseCustomerKey,
-              sseCustomerKeyMd5: sseCustomerKeyMd5,
-              ssekmsKeyId: ssekmsKeyId,
-              ssekmsEncryptionContext: ssekmsEncryptionContext,
-              bucketKeyEnabled: bucketKeyEnabled,
-              requestPayer: requestPayer,
-              tagging: tagging,
-              objectLockMode: objectLockMode,
-              objectLockRetainUntilDate: objectLockRetainUntilDate,
-              objectLockLegalHoldStatus: objectLockLegalHoldStatus,
-              expectedBucketOwner: expectedBucketOwner);
+      _$result =
+          _$v ??
+          _$PutObjectRequest._(
+            acl: acl,
+            body: BuiltValueNullFieldError.checkNotNull(
+              body,
+              r'PutObjectRequest',
+              'body',
+            ),
+            bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket,
+              r'PutObjectRequest',
+              'bucket',
+            ),
+            cacheControl: cacheControl,
+            contentDisposition: contentDisposition,
+            contentEncoding: contentEncoding,
+            contentLanguage: contentLanguage,
+            contentLength: contentLength,
+            contentMd5: contentMd5,
+            contentType: contentType,
+            checksumAlgorithm: checksumAlgorithm,
+            checksumCrc32: checksumCrc32,
+            checksumCrc32C: checksumCrc32C,
+            checksumSha1: checksumSha1,
+            checksumSha256: checksumSha256,
+            expires: expires,
+            grantFullControl: grantFullControl,
+            grantRead: grantRead,
+            grantReadAcp: grantReadAcp,
+            grantWriteAcp: grantWriteAcp,
+            key: BuiltValueNullFieldError.checkNotNull(
+              key,
+              r'PutObjectRequest',
+              'key',
+            ),
+            metadata: _metadata?.build(),
+            serverSideEncryption: serverSideEncryption,
+            storageClass: storageClass,
+            websiteRedirectLocation: websiteRedirectLocation,
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKey: sseCustomerKey,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+            ssekmsKeyId: ssekmsKeyId,
+            ssekmsEncryptionContext: ssekmsEncryptionContext,
+            bucketKeyEnabled: bucketKeyEnabled,
+            requestPayer: requestPayer,
+            tagging: tagging,
+            objectLockMode: objectLockMode,
+            objectLockRetainUntilDate: objectLockRetainUntilDate,
+            objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+            expectedBucketOwner: expectedBucketOwner,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'metadata';
         _metadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'PutObjectRequest', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'PutObjectRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

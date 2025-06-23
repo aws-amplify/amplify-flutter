@@ -11,21 +11,22 @@ const List<String> _ignoredRules = [
   'avoid_unused_constructor_parameters',
   'deprecated_member_use_from_same_package',
   'non_constant_identifier_names',
-  'require_trailing_commas',
+  'unnecessary_library_name',
 ];
 
 /// Header which prefixes all generated files.
-final String header = '''
+final String header =
+    '''
 // Generated with smithy-dart $packageVersion. DO NOT MODIFY.
 // ignore_for_file: ${_ignoredRules.join(',')}
 ''';
 
 /// The default emitter for codegen operations.
 DartEmitter buildEmitter(Allocator allocator) => DartEmitter(
-      allocator: allocator,
-      orderDirectives: true,
-      useNullSafetySyntax: true,
-    );
+  allocator: allocator,
+  orderDirectives: true,
+  useNullSafetySyntax: true,
+);
 
 /// Builds a service closure for a [ServiceShape].
 CodegenContext buildContext(
@@ -65,10 +66,7 @@ CodegenContext buildContext(
 }
 
 class GeneratedOutput {
-  const GeneratedOutput({
-    required this.context,
-    required this.libraries,
-  });
+  const GeneratedOutput({required this.context, required this.libraries});
 
   /// The contexts used to generate [libraries].
   final CodegenContext context;
@@ -90,9 +88,7 @@ Map<ShapeId, GeneratedOutput> generateForAst(
   bool generateServer = false,
   Map<ShapeId, ShapeOverrides>? shapeOverrides,
 }) {
-  const transformers = <ShapeVisitor<Shape>>[
-    _CognitoWorkaroundVisitor(),
-  ];
+  const transformers = <ShapeVisitor<Shape>>[_CognitoWorkaroundVisitor()];
   for (final transformer in transformers) {
     ast = ast.rebuild((ast) {
       ast.shapes!.updateAll((_, shape) => shape.accept(transformer));

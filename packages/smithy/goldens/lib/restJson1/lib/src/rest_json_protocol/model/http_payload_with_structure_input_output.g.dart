@@ -11,22 +11,20 @@ class _$HttpPayloadWithStructureInputOutput
   @override
   final NestedPayload? nested;
 
-  factory _$HttpPayloadWithStructureInputOutput(
-          [void Function(HttpPayloadWithStructureInputOutputBuilder)?
-              updates]) =>
-      (new HttpPayloadWithStructureInputOutputBuilder()..update(updates))
-          ._build();
+  factory _$HttpPayloadWithStructureInputOutput([
+    void Function(HttpPayloadWithStructureInputOutputBuilder)? updates,
+  ]) =>
+      (HttpPayloadWithStructureInputOutputBuilder()..update(updates))._build();
 
   _$HttpPayloadWithStructureInputOutput._({this.nested}) : super._();
-
   @override
   HttpPayloadWithStructureInputOutput rebuild(
-          void Function(HttpPayloadWithStructureInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPayloadWithStructureInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPayloadWithStructureInputOutputBuilder toBuilder() =>
-      new HttpPayloadWithStructureInputOutputBuilder()..replace(this);
+      HttpPayloadWithStructureInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,13 +44,14 @@ class _$HttpPayloadWithStructureInputOutput
 
 class HttpPayloadWithStructureInputOutputBuilder
     implements
-        Builder<HttpPayloadWithStructureInputOutput,
-            HttpPayloadWithStructureInputOutputBuilder> {
+        Builder<
+          HttpPayloadWithStructureInputOutput,
+          HttpPayloadWithStructureInputOutputBuilder
+        > {
   _$HttpPayloadWithStructureInputOutput? _$v;
 
   NestedPayloadBuilder? _nested;
-  NestedPayloadBuilder get nested =>
-      _$this._nested ??= new NestedPayloadBuilder();
+  NestedPayloadBuilder get nested => _$this._nested ??= NestedPayloadBuilder();
   set nested(NestedPayloadBuilder? nested) => _$this._nested = nested;
 
   HttpPayloadWithStructureInputOutputBuilder();
@@ -68,13 +67,13 @@ class HttpPayloadWithStructureInputOutputBuilder
 
   @override
   void replace(HttpPayloadWithStructureInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPayloadWithStructureInputOutput;
   }
 
   @override
   void update(
-      void Function(HttpPayloadWithStructureInputOutputBuilder)? updates) {
+    void Function(HttpPayloadWithStructureInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -84,18 +83,20 @@ class HttpPayloadWithStructureInputOutputBuilder
   _$HttpPayloadWithStructureInputOutput _build() {
     _$HttpPayloadWithStructureInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$HttpPayloadWithStructureInputOutput._(nested: _nested?.build());
+      _$result =
+          _$v ??
+          _$HttpPayloadWithStructureInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpPayloadWithStructureInputOutput',
-            _$failedField,
-            e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpPayloadWithStructureInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

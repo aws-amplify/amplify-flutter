@@ -6,7 +6,7 @@ part of 'double_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<DoubleShape> _$doubleShapeSerializer = new _$DoubleShapeSerializer();
+Serializer<DoubleShape> _$doubleShapeSerializer = _$DoubleShapeSerializer();
 
 class _$DoubleShapeSerializer implements StructuredSerializer<DoubleShape> {
   @override
@@ -15,21 +15,29 @@ class _$DoubleShapeSerializer implements StructuredSerializer<DoubleShape> {
   final String wireName = 'DoubleShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, DoubleShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    DoubleShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  DoubleShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new DoubleShapeBuilder();
+  DoubleShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = DoubleShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -38,8 +46,12 @@ class _$DoubleShapeSerializer implements StructuredSerializer<DoubleShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -55,19 +67,15 @@ class _$DoubleShape extends DoubleShape {
   final TraitMap traits;
 
   factory _$DoubleShape([void Function(DoubleShapeBuilder)? updates]) =>
-      (new DoubleShapeBuilder()..update(updates))._build();
+      (DoubleShapeBuilder()..update(updates))._build();
 
-  _$DoubleShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'DoubleShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'DoubleShape', 'traits');
-  }
-
+  _$DoubleShape._({required this.shapeId, required this.traits}) : super._();
   @override
   DoubleShape rebuild(void Function(DoubleShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  DoubleShapeBuilder toBuilder() => new DoubleShapeBuilder()..replace(this);
+  DoubleShapeBuilder toBuilder() => DoubleShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -123,7 +131,6 @@ class DoubleShapeBuilder
 
   @override
   void replace(covariant DoubleShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DoubleShape;
   }
 
@@ -136,12 +143,20 @@ class DoubleShapeBuilder
   DoubleShape build() => _build();
 
   _$DoubleShape _build() {
-    final _$result = _$v ??
-        new _$DoubleShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'DoubleShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'DoubleShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$DoubleShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'DoubleShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'DoubleShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_required_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,9 +30,9 @@ abstract class MalformedRequiredInput
     );
   }
 
-  factory MalformedRequiredInput.build(
-          [void Function(MalformedRequiredInputBuilder) updates]) =
-      _$MalformedRequiredInput;
+  factory MalformedRequiredInput.build([
+    void Function(MalformedRequiredInputBuilder) updates,
+  ]) = _$MalformedRequiredInput;
 
   const MalformedRequiredInput._();
 
@@ -40,19 +40,18 @@ abstract class MalformedRequiredInput
     MalformedRequiredInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedRequiredInput.build((b) {
-        b.string = payload.string;
-        if (request.headers['string-in-headers'] != null) {
-          b.stringInHeader = request.headers['string-in-headers']!;
-        }
-        if (request.queryParameters['stringInQuery'] != null) {
-          b.stringInQuery = request.queryParameters['stringInQuery']!;
-        }
-      });
+  }) => MalformedRequiredInput.build((b) {
+    b.string = payload.string;
+    if (request.headers['string-in-headers'] != null) {
+      b.stringInHeader = request.headers['string-in-headers']!;
+    }
+    if (request.queryParameters['stringInQuery'] != null) {
+      b.stringInQuery = request.queryParameters['stringInQuery']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<MalformedRequiredInputPayload>>
-      serializers = [MalformedRequiredInputRestJson1Serializer()];
+  serializers = [MalformedRequiredInputRestJson1Serializer()];
 
   String get string;
   String get stringInQuery;
@@ -62,54 +61,42 @@ abstract class MalformedRequiredInput
       MalformedRequiredInputPayload((b) {
         b.string = string;
       });
+
   @override
-  List<Object?> get props => [
-        string,
-        stringInQuery,
-        stringInHeader,
-      ];
+  List<Object?> get props => [string, stringInQuery, stringInHeader];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedRequiredInput')
-      ..add(
-        'string',
-        string,
-      )
-      ..add(
-        'stringInQuery',
-        stringInQuery,
-      )
-      ..add(
-        'stringInHeader',
-        stringInHeader,
-      );
+      ..add('string', string)
+      ..add('stringInQuery', stringInQuery)
+      ..add('stringInHeader', stringInHeader);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class MalformedRequiredInputPayload
-    with
-        _i2.AWSEquatable<MalformedRequiredInputPayload>
+    with _i2.AWSEquatable<MalformedRequiredInputPayload>
     implements
-        Built<MalformedRequiredInputPayload,
-            MalformedRequiredInputPayloadBuilder> {
-  factory MalformedRequiredInputPayload(
-          [void Function(MalformedRequiredInputPayloadBuilder) updates]) =
-      _$MalformedRequiredInputPayload;
+        Built<
+          MalformedRequiredInputPayload,
+          MalformedRequiredInputPayloadBuilder
+        > {
+  factory MalformedRequiredInputPayload([
+    void Function(MalformedRequiredInputPayloadBuilder) updates,
+  ]) = _$MalformedRequiredInputPayload;
 
   const MalformedRequiredInputPayload._();
 
   String get string;
   @override
   List<Object?> get props => [string];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedRequiredInputPayload')
-      ..add(
-        'string',
-        string,
-      );
+      ..add('string', string);
     return helper.toString();
   }
 }
@@ -117,22 +104,21 @@ abstract class MalformedRequiredInputPayload
 class MalformedRequiredInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<MalformedRequiredInputPayload> {
   const MalformedRequiredInputRestJson1Serializer()
-      : super('MalformedRequiredInput');
+    : super('MalformedRequiredInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedRequiredInput,
-        _$MalformedRequiredInput,
-        MalformedRequiredInputPayload,
-        _$MalformedRequiredInputPayload,
-      ];
+    MalformedRequiredInput,
+    _$MalformedRequiredInput,
+    MalformedRequiredInputPayload,
+    _$MalformedRequiredInputPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   MalformedRequiredInputPayload deserialize(
     Serializers serializers,
@@ -150,10 +136,12 @@ class MalformedRequiredInputRestJson1Serializer
       }
       switch (key) {
         case 'string':
-          result.string = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.string =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -170,10 +158,7 @@ class MalformedRequiredInputRestJson1Serializer
     final MalformedRequiredInputPayload(:string) = object;
     result$.addAll([
       'string',
-      serializers.serialize(
-        string,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(string, specifiedType: const FullType(String)),
     ]);
     return result$;
   }

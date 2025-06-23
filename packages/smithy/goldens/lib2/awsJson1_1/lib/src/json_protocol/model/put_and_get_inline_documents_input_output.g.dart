@@ -11,22 +11,20 @@ class _$PutAndGetInlineDocumentsInputOutput
   @override
   final _i3.JsonObject? inlineDocument;
 
-  factory _$PutAndGetInlineDocumentsInputOutput(
-          [void Function(PutAndGetInlineDocumentsInputOutputBuilder)?
-              updates]) =>
-      (new PutAndGetInlineDocumentsInputOutputBuilder()..update(updates))
-          ._build();
+  factory _$PutAndGetInlineDocumentsInputOutput([
+    void Function(PutAndGetInlineDocumentsInputOutputBuilder)? updates,
+  ]) =>
+      (PutAndGetInlineDocumentsInputOutputBuilder()..update(updates))._build();
 
   _$PutAndGetInlineDocumentsInputOutput._({this.inlineDocument}) : super._();
-
   @override
   PutAndGetInlineDocumentsInputOutput rebuild(
-          void Function(PutAndGetInlineDocumentsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PutAndGetInlineDocumentsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PutAndGetInlineDocumentsInputOutputBuilder toBuilder() =>
-      new PutAndGetInlineDocumentsInputOutputBuilder()..replace(this);
+      PutAndGetInlineDocumentsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,8 +44,10 @@ class _$PutAndGetInlineDocumentsInputOutput
 
 class PutAndGetInlineDocumentsInputOutputBuilder
     implements
-        Builder<PutAndGetInlineDocumentsInputOutput,
-            PutAndGetInlineDocumentsInputOutputBuilder> {
+        Builder<
+          PutAndGetInlineDocumentsInputOutput,
+          PutAndGetInlineDocumentsInputOutputBuilder
+        > {
   _$PutAndGetInlineDocumentsInputOutput? _$v;
 
   _i3.JsonObject? _inlineDocument;
@@ -68,13 +68,13 @@ class PutAndGetInlineDocumentsInputOutputBuilder
 
   @override
   void replace(PutAndGetInlineDocumentsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutAndGetInlineDocumentsInputOutput;
   }
 
   @override
   void update(
-      void Function(PutAndGetInlineDocumentsInputOutputBuilder)? updates) {
+    void Function(PutAndGetInlineDocumentsInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -82,9 +82,9 @@ class PutAndGetInlineDocumentsInputOutputBuilder
   PutAndGetInlineDocumentsInputOutput build() => _build();
 
   _$PutAndGetInlineDocumentsInputOutput _build() {
-    final _$result = _$v ??
-        new _$PutAndGetInlineDocumentsInputOutput._(
-            inlineDocument: inlineDocument);
+    final _$result =
+        _$v ??
+        _$PutAndGetInlineDocumentsInputOutput._(inlineDocument: inlineDocument);
     replace(_$result);
     return _$result;
   }

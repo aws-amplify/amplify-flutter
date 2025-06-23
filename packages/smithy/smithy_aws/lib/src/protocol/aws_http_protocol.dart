@@ -12,8 +12,8 @@ abstract class AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>
     required Map<FullType, Function> builderFactories,
     required this.requestInterceptors,
     this.responseInterceptors = const [],
-  })  : _userSerializers = serializers,
-        _builderFactories = builderFactories;
+  }) : _userSerializers = serializers,
+       _builderFactories = builderFactories;
 
   final Serializers _coreSerializers;
   final List<SmithySerializer<dynamic>> _userSerializers;

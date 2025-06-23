@@ -7,50 +7,61 @@ part of 'macos_secure_storage_options.dart';
 // **************************************************************************
 
 Serializer<MacOSSecureStorageOptions> _$macOSSecureStorageOptionsSerializer =
-    new _$MacOSSecureStorageOptionsSerializer();
+    _$MacOSSecureStorageOptionsSerializer();
 
 class _$MacOSSecureStorageOptionsSerializer
     implements StructuredSerializer<MacOSSecureStorageOptions> {
   @override
   final Iterable<Type> types = const [
     MacOSSecureStorageOptions,
-    _$MacOSSecureStorageOptions
+    _$MacOSSecureStorageOptions,
   ];
   @override
   final String wireName = 'MacOSSecureStorageOptions';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, MacOSSecureStorageOptions object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    MacOSSecureStorageOptions object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'useDataProtection',
-      serializers.serialize(object.useDataProtection,
-          specifiedType: const FullType(bool)),
+      serializers.serialize(
+        object.useDataProtection,
+        specifiedType: const FullType(bool),
+      ),
     ];
     Object? value;
     value = object.accessGroup;
     if (value != null) {
       result
         ..add('accessGroup')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.accessible;
     if (value != null) {
       result
         ..add('accessible')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(KeychainAttributeAccessible)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(KeychainAttributeAccessible),
+          ),
+        );
     }
     return result;
   }
 
   @override
   MacOSSecureStorageOptions deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new MacOSSecureStorageOptionsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = MacOSSecureStorageOptionsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -59,17 +70,28 @@ class _$MacOSSecureStorageOptionsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'useDataProtection':
-          result.useDataProtection = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
+          result.useDataProtection =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )!
+                  as bool;
           break;
         case 'accessGroup':
-          result.accessGroup = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.accessGroup =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'accessible':
-          result.accessible = serializers.deserialize(value,
-                  specifiedType: const FullType(KeychainAttributeAccessible))
-              as KeychainAttributeAccessible?;
+          result.accessible =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(KeychainAttributeAccessible),
+                  )
+                  as KeychainAttributeAccessible?;
           break;
       }
     }
@@ -86,25 +108,23 @@ class _$MacOSSecureStorageOptions extends MacOSSecureStorageOptions {
   @override
   final KeychainAttributeAccessible? accessible;
 
-  factory _$MacOSSecureStorageOptions(
-          [void Function(MacOSSecureStorageOptionsBuilder)? updates]) =>
-      (new MacOSSecureStorageOptionsBuilder()..update(updates))._build();
+  factory _$MacOSSecureStorageOptions([
+    void Function(MacOSSecureStorageOptionsBuilder)? updates,
+  ]) => (MacOSSecureStorageOptionsBuilder()..update(updates))._build();
 
-  _$MacOSSecureStorageOptions._(
-      {required this.useDataProtection, this.accessGroup, this.accessible})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        useDataProtection, r'MacOSSecureStorageOptions', 'useDataProtection');
-  }
-
+  _$MacOSSecureStorageOptions._({
+    required this.useDataProtection,
+    this.accessGroup,
+    this.accessible,
+  }) : super._();
   @override
   MacOSSecureStorageOptions rebuild(
-          void Function(MacOSSecureStorageOptionsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MacOSSecureStorageOptionsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MacOSSecureStorageOptionsBuilder toBuilder() =>
-      new MacOSSecureStorageOptionsBuilder()..replace(this);
+      MacOSSecureStorageOptionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -169,7 +189,6 @@ class MacOSSecureStorageOptionsBuilder
 
   @override
   void replace(MacOSSecureStorageOptions other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MacOSSecureStorageOptions;
   }
 
@@ -182,14 +201,17 @@ class MacOSSecureStorageOptionsBuilder
   MacOSSecureStorageOptions build() => _build();
 
   _$MacOSSecureStorageOptions _build() {
-    final _$result = _$v ??
-        new _$MacOSSecureStorageOptions._(
-            useDataProtection: BuiltValueNullFieldError.checkNotNull(
-                useDataProtection,
-                r'MacOSSecureStorageOptions',
-                'useDataProtection'),
-            accessGroup: accessGroup,
-            accessible: accessible);
+    final _$result =
+        _$v ??
+        _$MacOSSecureStorageOptions._(
+          useDataProtection: BuiltValueNullFieldError.checkNotNull(
+            useDataProtection,
+            r'MacOSSecureStorageOptions',
+            'useDataProtection',
+          ),
+          accessGroup: accessGroup,
+          accessible: accessible,
+        );
     replace(_$result);
     return _$result;
   }

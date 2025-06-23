@@ -6,6 +6,8 @@ import 'package:amplify_auth_cognito_dart/src/asf/asf_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:async/async.dart';
 
@@ -22,14 +24,14 @@ final class ASFContextDataProvider with AWSDebuggable, AWSLoggerMixin {
   /// Retrieves context data as required for advanced security features (ASF).
   ASFDeviceInfoCollector get _platform => _dependencyManager.getOrCreate();
 
-  /// The Cognito user pool configuration.
-  CognitoUserPoolConfig? get _userPoolConfig => _dependencyManager.get();
+  /// The Auth configuration.
+  AuthOutputs? get _authOutputs => _dependencyManager.get();
 
   SecureStorageInterface get _secureStorage => _dependencyManager.expect();
 
   /// The unique device ID (`DeviceID`).
   Future<String> get _deviceId async {
-    final userPoolKeys = CognitoUserPoolKeys(_userPoolConfig!);
+    final userPoolKeys = CognitoUserPoolKeys(_authOutputs!.userPoolClientId!);
     var deviceId = await _secureStorage.read(
       key: userPoolKeys[CognitoUserPoolKey.asfDeviceId],
     );
@@ -73,15 +75,16 @@ final class ASFContextDataProvider with AWSDebuggable, AWSLoggerMixin {
   /// Builds the [UserContextDataType] object which can be attached to SDK
   /// calls.
   Future<UserContextDataType?> buildRequestData(String username) async {
-    final userPoolConfig = _userPoolConfig;
-    if (userPoolConfig == null) {
+    if (_authOutputs == null ||
+        _authOutputs?.userPoolClientId == null ||
+        _authOutputs?.userPoolId == null) {
       return null;
     }
     final nativeContextData = await _platform.getNativeContextData();
     logger.verbose('Got native context data: $nativeContextData');
     final deviceId = await _deviceId;
-    final userPoolId = userPoolConfig.poolId;
-    final clientId = userPoolConfig.appClientId;
+    final userPoolId = _authOutputs!.userPoolId!;
+    final clientId = _authOutputs!.userPoolClientId!;
 
     final request = ASFWorkerRequest(
       userPoolId: userPoolId,

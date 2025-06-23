@@ -13,17 +13,16 @@ class _$RestoreStatus extends RestoreStatus {
   final DateTime? restoreExpiryDate;
 
   factory _$RestoreStatus([void Function(RestoreStatusBuilder)? updates]) =>
-      (new RestoreStatusBuilder()..update(updates))._build();
+      (RestoreStatusBuilder()..update(updates))._build();
 
   _$RestoreStatus._({this.isRestoreInProgress, this.restoreExpiryDate})
-      : super._();
-
+    : super._();
   @override
   RestoreStatus rebuild(void Function(RestoreStatusBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  RestoreStatusBuilder toBuilder() => new RestoreStatusBuilder()..replace(this);
+  RestoreStatusBuilder toBuilder() => RestoreStatusBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -71,7 +70,6 @@ class RestoreStatusBuilder
 
   @override
   void replace(RestoreStatus other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RestoreStatus;
   }
 
@@ -84,10 +82,12 @@ class RestoreStatusBuilder
   RestoreStatus build() => _build();
 
   _$RestoreStatus _build() {
-    final _$result = _$v ??
-        new _$RestoreStatus._(
-            isRestoreInProgress: isRestoreInProgress,
-            restoreExpiryDate: restoreExpiryDate);
+    final _$result =
+        _$v ??
+        _$RestoreStatus._(
+          isRestoreInProgress: isRestoreInProgress,
+          restoreExpiryDate: restoreExpiryDate,
+        );
     replace(_$result);
     return _$result;
   }

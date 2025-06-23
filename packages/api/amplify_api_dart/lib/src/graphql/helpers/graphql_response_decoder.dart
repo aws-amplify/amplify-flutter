@@ -5,7 +5,6 @@
 
 import 'dart:convert';
 
-import 'package:amplify_api_dart/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 const _nextToken = 'nextToken';
@@ -64,7 +63,8 @@ class GraphQLResponseDecoder {
       if (!dataJson!.containsKey(element)) {
         throw const ApiOperationException(
           'decodePath did not match the structure of the JSON response',
-          recoverySuggestion: 'Include decodePath when creating a request '
+          recoverySuggestion:
+              'Include decodePath when creating a request '
               'that includes a modelType.',
         );
       }
@@ -76,12 +76,7 @@ class GraphQLResponseDecoder {
 
     // Found a JSON object to represent the model, parse it using model's fromJSON.
     T decodedData;
-    final modelSchema = getModelSchemaByModelName(modelType.modelName(), null);
-    dataJson = transformAppSyncJsonToModelJson(
-      dataJson!,
-      modelSchema,
-      isPaginated: modelType is PaginatedModelType,
-    );
+
     if (modelType is PaginatedModelType) {
       final filter = request.variables['filter'] as Map<String, dynamic>?;
       final limit = request.variables['limit'] as int?;
@@ -99,15 +94,20 @@ class GraphQLResponseDecoder {
           decodePath: request.decodePath,
           variables: variablesWithNextToken,
           modelType: request.modelType,
+          authorizationMode: request.authorizationMode,
+          apiName: request.apiName,
         );
       }
-      decodedData = modelType.fromJson(
-        dataJson!,
-        limit: limit,
-        filter: filter,
-        requestForNextResult:
-            requestForNextResult as GraphQLRequest<PaginatedResult<Model>>?,
-      ) as T;
+      decodedData =
+          modelType.fromJson(
+                dataJson!,
+                limit: limit,
+                filter: filter,
+                requestForNextResult:
+                    requestForNextResult
+                        as GraphQLRequest<PaginatedResult<Model>>?,
+              )
+              as T;
     } else {
       decodedData = modelType.fromJson(dataJson!) as T;
     }

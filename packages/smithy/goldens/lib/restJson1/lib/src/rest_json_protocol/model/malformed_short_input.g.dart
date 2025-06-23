@@ -16,28 +16,24 @@ class _$MalformedShortInput extends MalformedShortInput {
   @override
   final int? shortInHeader;
 
-  factory _$MalformedShortInput(
-          [void Function(MalformedShortInputBuilder)? updates]) =>
-      (new MalformedShortInputBuilder()..update(updates))._build();
+  factory _$MalformedShortInput([
+    void Function(MalformedShortInputBuilder)? updates,
+  ]) => (MalformedShortInputBuilder()..update(updates))._build();
 
-  _$MalformedShortInput._(
-      {this.shortInBody,
-      required this.shortInPath,
-      this.shortInQuery,
-      this.shortInHeader})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        shortInPath, r'MalformedShortInput', 'shortInPath');
-  }
-
+  _$MalformedShortInput._({
+    this.shortInBody,
+    required this.shortInPath,
+    this.shortInQuery,
+    this.shortInHeader,
+  }) : super._();
   @override
   MalformedShortInput rebuild(
-          void Function(MalformedShortInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedShortInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedShortInputBuilder toBuilder() =>
-      new MalformedShortInputBuilder()..replace(this);
+      MalformedShortInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -98,7 +94,6 @@ class MalformedShortInputBuilder
 
   @override
   void replace(MalformedShortInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedShortInput;
   }
 
@@ -111,13 +106,18 @@ class MalformedShortInputBuilder
   MalformedShortInput build() => _build();
 
   _$MalformedShortInput _build() {
-    final _$result = _$v ??
-        new _$MalformedShortInput._(
-            shortInBody: shortInBody,
-            shortInPath: BuiltValueNullFieldError.checkNotNull(
-                shortInPath, r'MalformedShortInput', 'shortInPath'),
-            shortInQuery: shortInQuery,
-            shortInHeader: shortInHeader);
+    final _$result =
+        _$v ??
+        _$MalformedShortInput._(
+          shortInBody: shortInBody,
+          shortInPath: BuiltValueNullFieldError.checkNotNull(
+            shortInPath,
+            r'MalformedShortInput',
+            'shortInPath',
+          ),
+          shortInQuery: shortInQuery,
+          shortInHeader: shortInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -127,20 +127,19 @@ class _$MalformedShortInputPayload extends MalformedShortInputPayload {
   @override
   final int? shortInBody;
 
-  factory _$MalformedShortInputPayload(
-          [void Function(MalformedShortInputPayloadBuilder)? updates]) =>
-      (new MalformedShortInputPayloadBuilder()..update(updates))._build();
+  factory _$MalformedShortInputPayload([
+    void Function(MalformedShortInputPayloadBuilder)? updates,
+  ]) => (MalformedShortInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedShortInputPayload._({this.shortInBody}) : super._();
-
   @override
   MalformedShortInputPayload rebuild(
-          void Function(MalformedShortInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedShortInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedShortInputPayloadBuilder toBuilder() =>
-      new MalformedShortInputPayloadBuilder()..replace(this);
+      MalformedShortInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -180,7 +179,6 @@ class MalformedShortInputPayloadBuilder
 
   @override
   void replace(MalformedShortInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedShortInputPayload;
   }
 
@@ -194,7 +192,7 @@ class MalformedShortInputPayloadBuilder
 
   _$MalformedShortInputPayload _build() {
     final _$result =
-        _$v ?? new _$MalformedShortInputPayload._(shortInBody: shortInBody);
+        _$v ?? _$MalformedShortInputPayload._(shortInBody: shortInBody);
     replace(_$result);
     return _$result;
   }

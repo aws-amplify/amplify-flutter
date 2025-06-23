@@ -16,8 +16,8 @@ void main() {
       'indexes': [
         {
           'name': null,
-          'fields': ['id']
-        }
+          'fields': ['id'],
+        },
       ],
       'fields': {
         'id': {
@@ -39,17 +39,17 @@ void main() {
           'type': {'fieldType': 'embedded', 'ofCustomTypeName': 'S3Object'},
           'isRequired': false,
           'isArray': false,
-          'isReadOnly': false
+          'isReadOnly': false,
         },
         'files': {
           'name': 'files',
           'type': {
             'fieldType': 'embeddedCollection',
-            'ofCustomTypeName': 'S3Object'
+            'ofCustomTypeName': 'S3Object',
           },
           'isRequired': false,
           'isArray': true,
-          'isReadOnly': false
+          'isReadOnly': false,
         },
         'posts': {
           'name': "posts",
@@ -60,8 +60,8 @@ void main() {
           'association': const {
             'associationType': 'HasMany',
             'associatedName': "blog",
-            'associatedType': "Post"
-          }
+            'associatedType': "Post",
+          },
         },
         'createdAt': {
           'name': 'createdAt',
@@ -69,77 +69,79 @@ void main() {
           'isRequired': false,
           'isArray': false,
           // Note that the testing overrides the readonly field createdAt
-          'isReadOnly': false
+          'isReadOnly': false,
         },
         'updatedAt': {
           'name': 'updatedAt',
           'type': {'fieldType': 'dateTime'},
           'isRequired': false,
           'isArray': false,
-          'isReadOnly': true
-        }
-      }
+          'isReadOnly': true,
+        },
+      },
     });
   });
 
-  test('Comment codegen model generates modelschema with proper fields',
-      () async {
-    ModelSchema commentSchema = Comment.schema;
-    Map<String, dynamic> map = commentSchema.toMap();
+  test(
+    'Comment codegen model generates modelschema with proper fields',
+    () async {
+      ModelSchema commentSchema = Comment.schema;
+      Map<String, dynamic> map = commentSchema.toMap();
 
-    expect(map, {
-      'name': 'Comment',
-      'pluralName': 'Comments',
-      'indexes': [
-        {
-          'name': 'byPost',
-          'fields': ['postID', 'content']
-        }
-      ],
-      'fields': {
-        'id': {
-          'name': 'id',
-          'type': {'fieldType': 'string'},
-          'isRequired': true,
-          'isArray': false,
-          'isReadOnly': false,
-        },
-        'post': {
-          'name': 'post',
-          'type': {'fieldType': 'model', 'ofModelName': 'Post'},
-          'isRequired': false,
-          'isArray': false,
-          'isReadOnly': false,
-          'association': {
-            'associationType': 'BelongsTo',
-            'targetNames': ['postID'],
-            'associatedType': 'Post'
+      expect(map, {
+        'name': 'Comment',
+        'pluralName': 'Comments',
+        'indexes': [
+          {
+            'name': 'byPost',
+            'fields': ['postID', 'content'],
+          },
+        ],
+        'fields': {
+          'id': {
+            'name': 'id',
+            'type': {'fieldType': 'string'},
+            'isRequired': true,
+            'isArray': false,
+            'isReadOnly': false,
+          },
+          'post': {
+            'name': 'post',
+            'type': {'fieldType': 'model', 'ofModelName': 'Post'},
+            'isRequired': false,
+            'isArray': false,
+            'isReadOnly': false,
+            'association': {
+              'associationType': 'BelongsTo',
+              'targetNames': ['postID'],
+              'associatedType': 'Post',
+            },
+          },
+          'content': {
+            'name': 'content',
+            'type': {'fieldType': 'string'},
+            'isRequired': true,
+            'isArray': false,
+            'isReadOnly': false,
+          },
+          'createdAt': {
+            'name': 'createdAt',
+            'type': {'fieldType': 'dateTime'},
+            'isRequired': false,
+            'isArray': false,
+            'isReadOnly': true,
+          },
+          'updatedAt': {
+            'name': 'updatedAt',
+            'type': {'fieldType': 'dateTime'},
+            'isRequired': false,
+            'isArray': false,
+            'isReadOnly': true,
           },
         },
-        'content': {
-          'name': 'content',
-          'type': {'fieldType': 'string'},
-          'isRequired': true,
-          'isArray': false,
-          'isReadOnly': false,
-        },
-        'createdAt': {
-          'name': 'createdAt',
-          'type': {'fieldType': 'dateTime'},
-          'isRequired': false,
-          'isArray': false,
-          'isReadOnly': true
-        },
-        'updatedAt': {
-          'name': 'updatedAt',
-          'type': {'fieldType': 'dateTime'},
-          'isRequired': false,
-          'isArray': false,
-          'isReadOnly': true
-        }
-      }
-    });
-  });
+      });
+    },
+  );
 
   test('Post codegen model generates modelschema with proper fields', () async {
     ModelSchema postSchema = Post.schema;
@@ -151,8 +153,8 @@ void main() {
       'indexes': [
         {
           'name': 'byBlog',
-          'fields': ['blogID']
-        }
+          'fields': ['blogID'],
+        },
       ],
       'fields': {
         'id': {
@@ -160,35 +162,35 @@ void main() {
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
-          'isReadOnly': false
+          'isReadOnly': false,
         },
         'title': {
           'name': 'title',
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
-          'isReadOnly': false
+          'isReadOnly': false,
         },
         'rating': {
           'name': 'rating',
           'type': {'fieldType': 'int'},
           'isRequired': true,
           'isArray': false,
-          'isReadOnly': false
+          'isReadOnly': false,
         },
         'created': {
           'name': 'created',
           'type': {'fieldType': 'dateTime'},
           'isRequired': false,
           'isArray': false,
-          'isReadOnly': false
+          'isReadOnly': false,
         },
         'likeCount': {
           'name': 'likeCount',
           'type': {'fieldType': 'int'},
           'isRequired': false,
           'isArray': false,
-          'isReadOnly': false
+          'isReadOnly': false,
         },
         'blog': {
           'name': 'blog',
@@ -199,8 +201,8 @@ void main() {
           'association': {
             'associationType': 'BelongsTo',
             'targetNames': ['blogID'],
-            'associatedType': 'Blog'
-          }
+            'associatedType': 'Blog',
+          },
         },
         'comments': {
           'name': 'comments',
@@ -211,81 +213,83 @@ void main() {
           'association': {
             'associationType': 'HasMany',
             'associatedName': 'post',
-            'associatedType': 'Comment'
-          }
+            'associatedType': 'Comment',
+          },
         },
         'createdAt': {
           'name': 'createdAt',
           'type': {'fieldType': 'dateTime'},
           'isRequired': false,
           'isArray': false,
-          'isReadOnly': true
+          'isReadOnly': true,
         },
         'updatedAt': {
           'name': 'updatedAt',
           'type': {'fieldType': 'dateTime'},
           'isRequired': false,
           'isArray': false,
-          'isReadOnly': true
-        }
-      }
+          'isReadOnly': true,
+        },
+      },
     });
   });
 
-  test('PostAuthComplex codegen model generates modelschema with proper fields',
-      () async {
-    ModelSchema postAuthComplexSchema = PostWithAuthRules.schema;
-    Map<String, dynamic> map = postAuthComplexSchema.toMap();
+  test(
+    'PostAuthComplex codegen model generates modelschema with proper fields',
+    () async {
+      ModelSchema postAuthComplexSchema = PostWithAuthRules.schema;
+      Map<String, dynamic> map = postAuthComplexSchema.toMap();
 
-    expect(map, {
-      'name': 'PostWithAuthRules',
-      'pluralName': 'PostWithAuthRules',
-      'authRules': [
-        {
-          'authStrategy': 'OWNER',
-          'ownerField': 'owner',
-          'identityClaim': 'cognito:username',
-          'provider': 'USERPOOLS',
-          'operations': ['CREATE', 'UPDATE', 'DELETE', 'READ']
-        }
-      ],
-      'fields': {
-        'id': {
-          'name': 'id',
-          'type': {'fieldType': 'string'},
-          'isRequired': true,
-          'isArray': false,
-          'isReadOnly': false,
+      expect(map, {
+        'name': 'PostWithAuthRules',
+        'pluralName': 'PostWithAuthRules',
+        'authRules': [
+          {
+            'authStrategy': 'OWNER',
+            'ownerField': 'owner',
+            'identityClaim': 'cognito:username',
+            'provider': 'USERPOOLS',
+            'operations': ['CREATE', 'UPDATE', 'DELETE', 'READ'],
+          },
+        ],
+        'fields': {
+          'id': {
+            'name': 'id',
+            'type': {'fieldType': 'string'},
+            'isRequired': true,
+            'isArray': false,
+            'isReadOnly': false,
+          },
+          'title': {
+            'name': 'title',
+            'type': {'fieldType': 'string'},
+            'isRequired': true,
+            'isArray': false,
+            'isReadOnly': false,
+          },
+          'owner': {
+            'name': 'owner',
+            'type': {'fieldType': 'string'},
+            'isRequired': false,
+            'isArray': false,
+            'isReadOnly': false,
+          },
+          'createdAt': {
+            'name': 'createdAt',
+            'type': {'fieldType': 'dateTime'},
+            'isRequired': false,
+            'isArray': false,
+            'isReadOnly': true,
+          },
+          'updatedAt': {
+            'name': 'updatedAt',
+            'type': {'fieldType': 'dateTime'},
+            'isRequired': false,
+            'isArray': false,
+            'isReadOnly': true,
+          },
         },
-        'title': {
-          'name': 'title',
-          'type': {'fieldType': 'string'},
-          'isRequired': true,
-          'isArray': false,
-          'isReadOnly': false,
-        },
-        'owner': {
-          'name': 'owner',
-          'type': {'fieldType': 'string'},
-          'isRequired': false,
-          'isArray': false,
-          'isReadOnly': false,
-        },
-        'createdAt': {
-          'name': 'createdAt',
-          'type': {'fieldType': 'dateTime'},
-          'isRequired': false,
-          'isArray': false,
-          'isReadOnly': true
-        },
-        'updatedAt': {
-          'name': 'updatedAt',
-          'type': {'fieldType': 'dateTime'},
-          'isRequired': false,
-          'isArray': false,
-          'isReadOnly': true
-        }
-      }
-    });
-  });
+      });
+    },
+  );
 }

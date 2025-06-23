@@ -20,34 +20,26 @@ class _$UploadMultipartPartInput extends UploadMultipartPartInput {
   @override
   final _i2.Stream<List<int>>? body;
 
-  factory _$UploadMultipartPartInput(
-          [void Function(UploadMultipartPartInputBuilder)? updates]) =>
-      (new UploadMultipartPartInputBuilder()..update(updates))._build();
+  factory _$UploadMultipartPartInput([
+    void Function(UploadMultipartPartInputBuilder)? updates,
+  ]) => (UploadMultipartPartInputBuilder()..update(updates))._build();
 
-  _$UploadMultipartPartInput._(
-      {required this.accountId,
-      required this.vaultName,
-      required this.uploadId,
-      this.checksum,
-      this.range,
-      this.body})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        accountId, r'UploadMultipartPartInput', 'accountId');
-    BuiltValueNullFieldError.checkNotNull(
-        vaultName, r'UploadMultipartPartInput', 'vaultName');
-    BuiltValueNullFieldError.checkNotNull(
-        uploadId, r'UploadMultipartPartInput', 'uploadId');
-  }
-
+  _$UploadMultipartPartInput._({
+    required this.accountId,
+    required this.vaultName,
+    required this.uploadId,
+    this.checksum,
+    this.range,
+    this.body,
+  }) : super._();
   @override
   UploadMultipartPartInput rebuild(
-          void Function(UploadMultipartPartInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UploadMultipartPartInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UploadMultipartPartInputBuilder toBuilder() =>
-      new UploadMultipartPartInputBuilder()..replace(this);
+      UploadMultipartPartInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -122,7 +114,6 @@ class UploadMultipartPartInputBuilder
 
   @override
   void replace(UploadMultipartPartInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadMultipartPartInput;
   }
 
@@ -135,17 +126,28 @@ class UploadMultipartPartInputBuilder
   UploadMultipartPartInput build() => _build();
 
   _$UploadMultipartPartInput _build() {
-    final _$result = _$v ??
-        new _$UploadMultipartPartInput._(
-            accountId: BuiltValueNullFieldError.checkNotNull(
-                accountId, r'UploadMultipartPartInput', 'accountId'),
-            vaultName: BuiltValueNullFieldError.checkNotNull(
-                vaultName, r'UploadMultipartPartInput', 'vaultName'),
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'UploadMultipartPartInput', 'uploadId'),
-            checksum: checksum,
-            range: range,
-            body: body);
+    final _$result =
+        _$v ??
+        _$UploadMultipartPartInput._(
+          accountId: BuiltValueNullFieldError.checkNotNull(
+            accountId,
+            r'UploadMultipartPartInput',
+            'accountId',
+          ),
+          vaultName: BuiltValueNullFieldError.checkNotNull(
+            vaultName,
+            r'UploadMultipartPartInput',
+            'vaultName',
+          ),
+          uploadId: BuiltValueNullFieldError.checkNotNull(
+            uploadId,
+            r'UploadMultipartPartInput',
+            'uploadId',
+          ),
+          checksum: checksum,
+          range: range,
+          body: body,
+        );
     replace(_$result);
     return _$result;
   }

@@ -4,7 +4,7 @@
 /// A prebuilt sign in/sign up experience for Amplify Auth.
 ///
 /// See [Authenticator] for an overview on getting started.
-library amplify_authenticator;
+library;
 
 import 'dart:async';
 
@@ -41,8 +41,6 @@ export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
 export 'package:amplify_authenticator/src/utils/dial_code.dart' show DialCode;
 export 'package:amplify_authenticator/src/utils/dial_code_options.dart'
     show DialCodeOptions;
-export 'package:amplify_flutter/amplify_flutter.dart'
-    show PasswordProtectionSettings, PasswordPolicyCharacters;
 
 export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
@@ -51,6 +49,7 @@ export 'src/models/totp_options.dart';
 export 'src/models/username_input.dart'
     show UsernameType, UsernameInput, UsernameSelection;
 export 'src/state/authenticator_state.dart';
+export 'src/utils/unmet_password_requirements.dart';
 export 'src/widgets/button.dart'
     show
         SignUpButton,
@@ -77,7 +76,9 @@ export 'src/widgets/form.dart'
         ConfirmSignInMFAForm,
         ConfirmSignInNewPasswordForm,
         ContinueSignInWithMfaSelectionForm,
+        ContinueSignInWithMfaSetupSelectionForm,
         ContinueSignInWithTotpSetupForm,
+        ContinueSignInWithEmailMfaSetupForm,
         ConfirmSignUpForm,
         ResetPasswordForm,
         ConfirmResetPasswordForm,
@@ -107,7 +108,7 @@ export 'src/widgets/form_field.dart'
 /// import 'package:amplify_flutter/amplify_flutter.dart';
 /// import 'package:flutter/material.dart';
 ///
-/// import 'amplifyconfiguration.dart';
+/// import 'amplify_outputs.dart';
 ///
 /// void main() {
 ///   runApp(const MyApp());
@@ -130,7 +131,7 @@ export 'src/widgets/form_field.dart'
 ///   Future<void> _configureAmplify() async {
 ///     try {
 ///       await Amplify.addPlugin(AmplifyAuthCognito());
-///       await Amplify.configure(amplifyconfig);
+///       await Amplify.configure(amplifyConfig);
 ///     } on Exception catch (e) {
 ///       print('Could not configure Amplify: $e');
 ///     }
@@ -177,7 +178,7 @@ export 'src/widgets/form_field.dart'
 /// ### Forms
 ///
 /// The Authenticator uses your app's Cognito configuration (as defined in your
-/// `amplifyconfiguration.dart` file) to determine which fields are required.
+/// `amplify_outputs.dart` file) to determine which fields are required.
 /// However, you may optionally add on additional fields using a custom form
 /// component. For example, to collect your user's address information on the s
 /// ign up form, use the [SignUpForm.custom] constructor:
@@ -316,19 +317,16 @@ class Authenticator extends StatefulWidget {
     this.dialCodeOptions = const DialCodeOptions(),
     this.totpOptions,
     @visibleForTesting this.authBlocOverride,
-  }) :
-        // ignore: prefer_asserts_with_message
-        assert(() {
-          if (!validInitialAuthenticatorSteps.contains(initialStep)) {
-            throw FlutterError.fromParts([
-              ErrorSummary('Invalid initialStep'),
-              ErrorDescription(
-                'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
-              ),
-            ]);
-          }
-          return true;
-        }());
+  }) {
+    if (!validInitialAuthenticatorSteps.contains(initialStep)) {
+      throw FlutterError.fromParts([
+        ErrorSummary('Invalid initialStep'),
+        ErrorDescription(
+          'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
+        ),
+      ]);
+    }
+  }
 
   /// Wraps user-defined navigators for integration with [MaterialApp] and
   /// [Navigator].
@@ -342,18 +340,18 @@ class Authenticator extends StatefulWidget {
   /// );
   /// ```
   static TransitionBuilder builder() => (BuildContext context, Widget? child) {
-        if (child == null) {
-          throw FlutterError.fromParts([
-            ErrorSummary('No Navigator or Router provided.'),
-            ErrorSpacer(),
-            ErrorDescription(
-              'Did you include a home Widget or provide routes to your MaterialApp?',
-            ),
-            ErrorSpacer(),
-          ]);
-        }
-        return _AuthenticatorBody(child: child);
-      };
+    if (child == null) {
+      throw FlutterError.fromParts([
+        ErrorSummary('No Navigator or Router provided.'),
+        ErrorSpacer(),
+        ErrorDescription(
+          'Did you include a home Widget or provide routes to your MaterialApp?',
+        ),
+        ErrorSpacer(),
+      ]);
+    }
+    return _AuthenticatorBody(child: child);
+  };
 
   // Padding around each authenticator view
   final EdgeInsets padding;
@@ -464,10 +462,7 @@ class Authenticator extends StatefulWidget {
         ),
       )
       ..add(
-        DiagnosticsProperty<bool>(
-          'preferPrivateSession',
-          preferPrivateSession,
-        ),
+        DiagnosticsProperty<bool>('preferPrivateSession', preferPrivateSession),
       )
       ..add(EnumProperty<AuthenticatorStep>('initialStep', initialStep))
       ..add(
@@ -510,7 +505,7 @@ class _AuthenticatorState extends State<Authenticator> {
   late final StreamSubscription<MessageResolverKey> _infoSub;
   late final StreamSubscription<AuthState> _successSub;
 
-  AmplifyConfig? _config;
+  AmplifyOutputs? _config;
   late List<String> _missingConfigValues;
   bool _configInitialized = false;
 
@@ -518,7 +513,8 @@ class _AuthenticatorState extends State<Authenticator> {
   void initState() {
     super.initState();
     // ignore: invalid_use_of_visible_for_testing_member
-    _stateMachineBloc = widget.authBlocOverride ??
+    _stateMachineBloc =
+        widget.authBlocOverride ??
         (StateMachineBloc(
           authService: _authService,
           preferPrivateSession: widget.preferPrivateSession,
@@ -556,13 +552,10 @@ class _AuthenticatorState extends State<Authenticator> {
     final resolver = widget.stringResolver.messages;
     _infoSub = _stateMachineBloc.infoMessages.listen((key) {
       final context = scaffoldMessengerKey.currentContext;
-      if (mounted && context != null) {
+      if (context != null && context.mounted) {
         final message = resolver.resolve(context, key);
         _logger.info(message);
-        _showExceptionBanner(
-          type: StatusType.info,
-          message: message,
-        );
+        _showExceptionBanner(type: StatusType.info, message: message);
       } else {
         _logger.info('Could not show banner for key: $key');
       }
@@ -633,6 +626,7 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   Future<void> _waitForConfiguration() async {
+    // ignore: invalid_use_of_internal_member
     final config = await Amplify.asyncConfig;
     if (!mounted) return;
     setState(() {
@@ -642,20 +636,20 @@ class _AuthenticatorState extends State<Authenticator> {
     });
   }
 
-  List<String> missingConfigValues(AmplifyConfig? config) {
+  List<String> missingConfigValues(AmplifyOutputs? config) {
     final missingValues = <String>[];
-    final cognitoPlugin = config?.auth?.awsPlugin?.auth?.default$;
+    final cognitoPlugin = config?.auth;
     if (cognitoPlugin == null) {
-      return const ['auth.plugins.Auth.Default'];
+      return const ['auth'];
     }
     if (cognitoPlugin.usernameAttributes == null) {
-      missingValues.add('usernameAttributes');
+      missingValues.add('username_attributes');
     }
-    if (cognitoPlugin.signupAttributes == null) {
-      missingValues.add('signupAttributes');
+    if (cognitoPlugin.standardRequiredAttributes == null) {
+      missingValues.add('standard_required_attributes');
     }
-    if (cognitoPlugin.passwordProtectionSettings == null) {
-      missingValues.add('passwordProtectionSettings');
+    if (cognitoPlugin.passwordPolicy == null) {
+      missingValues.add('password_policy');
     }
     return missingValues;
   }
@@ -668,7 +662,7 @@ class _AuthenticatorState extends State<Authenticator> {
           'Encountered problem(s) building the Authenticator due to an invalid config. See below for more info.',
         ),
         ErrorDescription(
-          '\nYour amplifyconfiguration.dart file is missing the following required attributes:'
+          '\nYour amplifyconfiguration.dart or amplify_outputs.dart file is missing the following required attributes:'
           '\n - ${_missingConfigValues.join('\n - ')}',
         ),
         ErrorDescription(
@@ -679,7 +673,7 @@ class _AuthenticatorState extends State<Authenticator> {
           '\nPlease refer to the amplify flutter documentation for more info on how to resolve this and the full list of required attributes.',
         ),
         ErrorDescription(
-          '\nOnce you have added the missing values to your amplifyconfiguration.dart file, you will need to restart your app.',
+          '\nOnce you have added the missing values to your amplifyconfiguration.dart or amplify_outputs.dart file, you will need to restart your app.',
         ),
       ]);
     }
@@ -688,7 +682,7 @@ class _AuthenticatorState extends State<Authenticator> {
       key: keyInheritedAuthBloc,
       authBloc: _stateMachineBloc,
       child: InheritedConfig(
-        amplifyConfig: _config,
+        amplifyOutputs: _config,
         padding: widget.padding,
         child: InheritedAuthenticatorState(
           key: keyInheritedAuthenticatorState,
@@ -700,7 +694,7 @@ class _AuthenticatorState extends State<Authenticator> {
               child: InheritedForms(
                 confirmSignInNewPasswordForm:
                     widget.confirmSignInNewPasswordForm ??
-                        ConfirmSignInNewPasswordForm(),
+                    ConfirmSignInNewPasswordForm(),
                 resetPasswordForm: ResetPasswordForm(),
                 confirmResetPasswordForm: const ConfirmResetPasswordForm(),
                 signInForm: widget.signInForm ?? SignInForm(),
@@ -710,9 +704,14 @@ class _AuthenticatorState extends State<Authenticator> {
                 confirmSignInMFAForm: ConfirmSignInMFAForm(),
                 continueSignInWithMfaSelectionForm:
                     ContinueSignInWithMfaSelectionForm(),
+                continueSignInWithMfaSetupSelectionForm:
+                    ContinueSignInWithMfaSetupSelectionForm(),
                 continueSignInWithTotpSetupForm:
                     ContinueSignInWithTotpSetupForm(),
+                continueSignInWithEmailMfaSetupForm:
+                    ContinueSignInWithEmailMfaSetupForm(),
                 confirmSignInWithTotpMfaCodeForm: ConfirmSignInMFAForm(),
+                confirmSignInWithOtpCodeForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
                 child: widget.child,
@@ -729,10 +728,7 @@ class _AuthenticatorState extends State<Authenticator> {
 // and rebuilds based on the provided builder, which accepts the current
 // AuthState.
 class _AuthStateBuilder extends StatelessWidget {
-  const _AuthStateBuilder({
-    required this.child,
-    required this.builder,
-  });
+  const _AuthStateBuilder({required this.child, required this.builder});
 
   final Widget child;
   final Widget Function(AuthState, Widget) builder;
@@ -809,9 +805,7 @@ class _AuthStateBuilder extends StatelessWidget {
 /// All routes are wrapped with a Navigator which allows for separation between the
 /// the user's navigation and the Authenticator's.
 class _AuthenticatorBody extends StatelessWidget {
-  const _AuthenticatorBody({
-    required this.child,
-  });
+  const _AuthenticatorBody({required this.child});
 
   final Widget child;
 
@@ -822,16 +816,14 @@ class _AuthenticatorBody extends StatelessWidget {
       builder: (state, child) {
         if (state is AuthenticatedState) return child;
         return Navigator(
-          onPopPage: (_, dynamic __) => true,
+          // TODO(hahnand): onPopupPage to use onDidRemovePage
+          // ignore: deprecated_member_use
+          onPopPage: (_, dynamic _) => true,
           pages: [
             MaterialPage<void>(
               child: ScaffoldMessenger(
                 key: _AuthenticatorState.scaffoldMessengerKey,
-                child: Scaffold(
-                  body: SizedBox.expand(
-                    child: child,
-                  ),
-                ),
+                child: Scaffold(body: SizedBox.expand(child: child)),
               ),
             ),
           ],
@@ -848,10 +840,7 @@ class _AuthenticatorBody extends StatelessWidget {
 
 class AuthenticatedView extends StatelessWidget {
   /// {@macro amplify_authenticator.authenticated_view}
-  const AuthenticatedView({
-    super.key,
-    required this.child,
-  });
+  const AuthenticatedView({super.key, required this.child});
 
   final Widget child;
 

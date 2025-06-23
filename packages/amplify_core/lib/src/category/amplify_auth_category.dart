@@ -45,11 +45,11 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     AuthPluginKey<Plugin> pluginKey,
   ) =>
       plugins.singleWhere(
-        (p) => p is Plugin,
-        orElse: () => throw PluginError(
-          'No plugin registered for $pluginKey',
-        ),
-      ) as Plugin;
+            (p) => p is Plugin,
+            orElse: () =>
+                throw PluginError('No plugin registered for $pluginKey'),
+          )
+          as Plugin;
 
   /// {@template amplify_core.amplify_auth_category.sign_up}
   /// Create a new user with the given [username] and [password].
@@ -132,15 +132,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String username,
     required String password,
     SignUpOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.signUp,
-        () => defaultPlugin.signUp(
-          username: username,
-          password: password,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.signUp,
+    () => defaultPlugin.signUp(
+      username: username,
+      password: password,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.confirm_sign_up}
   /// Confirm the current sign up for [username] with the [confirmationCode]
@@ -211,15 +210,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String username,
     required String confirmationCode,
     ConfirmSignUpOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.confirmSignUp,
-        () => defaultPlugin.confirmSignUp(
-          username: username,
-          confirmationCode: confirmationCode,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.confirmSignUp,
+    () => defaultPlugin.confirmSignUp(
+      username: username,
+      confirmationCode: confirmationCode,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.resend_sign_up_code}
   /// Resends the code that is used to confirm the user's account after sign up.
@@ -270,14 +268,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   Future<ResendSignUpCodeResult> resendSignUpCode({
     required String username,
     ResendSignUpCodeOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.resendSignUpCode,
-        () => defaultPlugin.resendSignUpCode(
-          username: username,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.resendSignUpCode,
+    () => defaultPlugin.resendSignUpCode(username: username, options: options),
+  );
 
   /// {@template amplify_core.amplify_auth_category.sign_in}
   /// Initiate sign in for user with [username] and optional [password].
@@ -535,15 +529,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String username,
     String? password,
     SignInOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.signIn,
-        () => defaultPlugin.signIn(
-          username: username,
-          password: password,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.signIn,
+    () => defaultPlugin.signIn(
+      username: username,
+      password: password,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.confirm_sign_in}
   /// Confirm the current sign in with the [confirmationValue] provided by the
@@ -593,14 +586,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   Future<SignInResult> confirmSignIn({
     required String confirmationValue,
     ConfirmSignInOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.confirmSignIn,
-        () => defaultPlugin.confirmSignIn(
-          confirmationValue: confirmationValue,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.confirmSignIn,
+    () => defaultPlugin.confirmSignIn(
+      confirmationValue: confirmationValue,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.sign_out}
   /// Sign the user out of the current device.
@@ -661,13 +653,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<SignOutResult> signOut({
-    SignOutOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.signOut,
-        () => defaultPlugin.signOut(options: options),
-      );
+  Future<SignOutResult> signOut({SignOutOptions? options}) => identifyCall(
+    AuthCategoryMethod.signOut,
+    () => defaultPlugin.signOut(options: options),
+  );
 
   /// {@template amplify_core.amplify_auth_category.update_password}
   /// Update the password of the current user.
@@ -709,15 +698,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String oldPassword,
     required String newPassword,
     UpdatePasswordOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.updatePassword,
-        () => defaultPlugin.updatePassword(
-          oldPassword: oldPassword,
-          newPassword: newPassword,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.updatePassword,
+    () => defaultPlugin.updatePassword(
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.reset_password}
   /// Initiates a password reset for the user with the given username.
@@ -807,14 +795,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   Future<ResetPasswordResult> resetPassword({
     required String username,
     ResetPasswordOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.resetPassword,
-        () => defaultPlugin.resetPassword(
-          username: username,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.resetPassword,
+    () => defaultPlugin.resetPassword(username: username, options: options),
+  );
 
   /// {@template amplify_core.amplify_auth_category.confirm_reset_password}
   /// Completes the password reset process given a username, new password,
@@ -863,16 +847,15 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String newPassword,
     required String confirmationCode,
     ConfirmResetPasswordOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.confirmResetPassword,
-        () => defaultPlugin.confirmResetPassword(
-          username: username,
-          newPassword: newPassword,
-          confirmationCode: confirmationCode,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.confirmResetPassword,
+    () => defaultPlugin.confirmResetPassword(
+      username: username,
+      newPassword: newPassword,
+      confirmationCode: confirmationCode,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.get_current_user}
   /// Retrieves the current active user.
@@ -904,9 +887,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<AuthUser> getCurrentUser({
-    GetCurrentUserOptions? options,
-  }) =>
+  Future<AuthUser> getCurrentUser({GetCurrentUserOptions? options}) =>
       identifyCall(
         AuthCategoryMethod.getCurrentUser,
         () => defaultPlugin.getCurrentUser(options: options),
@@ -945,11 +926,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// {@endtemplate}
   Future<List<AuthUserAttribute>> fetchUserAttributes({
     FetchUserAttributesOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.fetchUserAttributes,
-        () => defaultPlugin.fetchUserAttributes(options: options),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.fetchUserAttributes,
+    () => defaultPlugin.fetchUserAttributes(options: options),
+  );
 
   /// {@template amplify_core.amplify_auth_category.fetch_auth_session}
   /// Fetch the current auth session.
@@ -999,9 +979,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<AuthSession> fetchAuthSession({
-    FetchAuthSessionOptions? options,
-  }) =>
+  Future<AuthSession> fetchAuthSession({FetchAuthSessionOptions? options}) =>
       identifyCall(
         AuthCategoryMethod.fetchAuthSession,
         () => defaultPlugin.fetchAuthSession(options: options),
@@ -1046,14 +1024,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   Future<SignInResult> signInWithWebUI({
     AuthProvider? provider,
     SignInWithWebUIOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.signInWithWebUI,
-        () => defaultPlugin.signInWithWebUI(
-          provider: provider,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.signInWithWebUI,
+    () => defaultPlugin.signInWithWebUI(provider: provider, options: options),
+  );
 
   /// {@template amplify_core.amplify_auth_category.update_user_attribute}
   /// Updates a single user attribute.
@@ -1115,15 +1089,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required AuthUserAttributeKey userAttributeKey,
     required String value,
     UpdateUserAttributeOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.updateUserAttribute,
-        () => defaultPlugin.updateUserAttribute(
-          userAttributeKey: userAttributeKey,
-          value: value,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.updateUserAttribute,
+    () => defaultPlugin.updateUserAttribute(
+      userAttributeKey: userAttributeKey,
+      value: value,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.update_user_attributes}
   /// Updates multiple user attributes at once.
@@ -1175,17 +1148,16 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// ```
   /// {@endtemplate}
   Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
-      updateUserAttributes({
+  updateUserAttributes({
     required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
-  }) =>
-          identifyCall(
-            AuthCategoryMethod.updateUserAttributes,
-            () => defaultPlugin.updateUserAttributes(
-              attributes: attributes,
-              options: options,
-            ),
-          );
+  }) => identifyCall(
+    AuthCategoryMethod.updateUserAttributes,
+    () => defaultPlugin.updateUserAttributes(
+      attributes: attributes,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.confirm_user_attribute}
   /// Confirms a user attribute update initiated with either [updateUserAttribute]
@@ -1223,15 +1195,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required AuthUserAttributeKey userAttributeKey,
     required String confirmationCode,
     ConfirmUserAttributeOptions? options,
-  }) =>
-      identifyCall(
-        AuthCategoryMethod.confirmUserAttribute,
-        () => defaultPlugin.confirmUserAttribute(
-          userAttributeKey: userAttributeKey,
-          confirmationCode: confirmationCode,
-          options: options,
-        ),
-      );
+  }) => identifyCall(
+    AuthCategoryMethod.confirmUserAttribute,
+    () => defaultPlugin.confirmUserAttribute(
+      userAttributeKey: userAttributeKey,
+      confirmationCode: confirmationCode,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.send_attribute_verification_code}
   /// Sends a confirmation code for the existing value for the given
@@ -1280,32 +1251,16 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// ```
   /// {@endtemplate}
   Future<SendUserAttributeVerificationCodeResult>
-      sendUserAttributeVerificationCode({
+  sendUserAttributeVerificationCode({
     required AuthUserAttributeKey userAttributeKey,
     SendUserAttributeVerificationCodeOptions? options,
-  }) =>
-          identifyCall(
-            AuthCategoryMethod.sendUserAttributeVerificationCode,
-            () => defaultPlugin.sendUserAttributeVerificationCode(
-              userAttributeKey: userAttributeKey,
-              options: options,
-            ),
-          );
-
-  /// {@macro amplify_core.amplify_auth_category.send_attribute_verification_code}
-  @Deprecated('Use sendUserAttributeVerificationCode.')
-  Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({
-    required AuthUserAttributeKey userAttributeKey,
-    ResendUserAttributeConfirmationCodeOptions? options,
-  }) =>
-          identifyCall(
-            AuthCategoryMethod.sendUserAttributeVerificationCode,
-            () => defaultPlugin.sendUserAttributeVerificationCode(
-              userAttributeKey: userAttributeKey,
-              options: options,
-            ),
-          );
+  }) => identifyCall(
+    AuthCategoryMethod.sendUserAttributeVerificationCode,
+    () => defaultPlugin.sendUserAttributeVerificationCode(
+      userAttributeKey: userAttributeKey,
+      options: options,
+    ),
+  );
 
   /// {@template amplify_core.amplify_auth_category.set_up_totp}
   /// Initiates setup of a time-based one-time passcode (TOTP) MFA method for the
@@ -1319,9 +1274,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// complete on the user's end, call [verifyTotpSetup] with a one-time code to
   /// complete registration.
   /// {@endtemplate}
-  Future<TotpSetupDetails> setUpTotp({
-    TotpSetupOptions? options,
-  }) =>
+  Future<TotpSetupDetails> setUpTotp({TotpSetupOptions? options}) =>
       defaultPlugin.setUpTotp(options: options);
 
   /// {@template amplify_core.amplify_auth_category.verify_totp_setup}
@@ -1333,11 +1286,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   Future<void> verifyTotpSetup(
     String totpCode, {
     VerifyTotpSetupOptions? options,
-  }) =>
-      defaultPlugin.verifyTotpSetup(
-        totpCode,
-        options: options,
-      );
+  }) => defaultPlugin.verifyTotpSetup(totpCode, options: options);
 
   /// {@template amplify_core.amplify_auth_category.remember_device}
   /// Remembers the current device.
@@ -1366,9 +1315,40 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// ```
   /// {@endtemplate}
   Future<void> rememberDevice() => identifyCall(
-        AuthCategoryMethod.rememberDevice,
-        () => defaultPlugin.rememberDevice(),
-      );
+    AuthCategoryMethod.rememberDevice,
+    () => defaultPlugin.rememberDevice(),
+  );
+
+  /// {@template amplify_core.amplify_auth_category.fetch_current_device}
+  /// Retrieves the current device.
+  ///
+  /// For more information about device tracking, see the
+  /// [Amplify docs](https://docs.amplify.aws/flutter/build-a-backend/auth/manage-users/manage-devices/#fetch-current-device).
+  ///
+  /// ## Examples
+  ///
+  /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
+  /// ```dart
+  /// import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+  /// import 'package:amplify_flutter/amplify_flutter.dart';
+  /// ```
+  ///
+  /// <?code-excerpt "doc/lib/auth.dart" region="fetch-current-device"?>
+  /// ```dart
+  /// Future<AuthDevice> getCurrentUserDevice() async {
+  ///   try {
+  ///     final device = await Amplify.Auth.fetchCurrentDevice();
+  ///     safePrint('Device: $device');
+  ///   } on AuthException catch (e) {
+  ///     safePrint('Fetch current device failed with error: $e');
+  ///   }
+  /// }
+  /// ```
+  /// {@endtemplate}
+  Future<AuthDevice> fetchCurrentDevice() => identifyCall(
+    AuthCategoryMethod.fetchCurrentDevice,
+    () => defaultPlugin.fetchCurrentDevice(),
+  );
 
   /// {@template amplify_core.amplify_auth_category.forget_device}
   /// Forgets the current device.
@@ -1412,9 +1392,9 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// ```
   /// {@endtemplate}
   Future<void> forgetDevice([AuthDevice? device]) => identifyCall(
-        AuthCategoryMethod.forgetDevice,
-        () => defaultPlugin.forgetDevice(device),
-      );
+    AuthCategoryMethod.forgetDevice,
+    () => defaultPlugin.forgetDevice(device),
+  );
 
   /// {@template amplify_core.amplify_auth_category.fetch_devices}
   /// Retrieves all tracked devices for the current user.
@@ -1445,9 +1425,9 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// ```
   /// {@endtemplate}
   Future<List<AuthDevice>> fetchDevices() => identifyCall(
-        AuthCategoryMethod.fetchDevices,
-        () => defaultPlugin.fetchDevices(),
-      );
+    AuthCategoryMethod.fetchDevices,
+    () => defaultPlugin.fetchDevices(),
+  );
 
   /// {@template amplify_core.amplify_auth_category.delete_user}
   /// Deletes the current authenticated user.
@@ -1476,7 +1456,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// ```
   /// {@endtemplate}
   Future<void> deleteUser() => identifyCall(
-        AuthCategoryMethod.deleteUser,
-        () => defaultPlugin.deleteUser(),
-      );
+    AuthCategoryMethod.deleteUser,
+    () => defaultPlugin.deleteUser(),
+  );
 }

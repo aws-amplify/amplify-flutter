@@ -7,7 +7,7 @@ part of 'operation_shape.dart';
 // **************************************************************************
 
 Serializer<OperationShape> _$operationShapeSerializer =
-    new _$OperationShapeSerializer();
+    _$OperationShapeSerializer();
 
 class _$OperationShapeSerializer
     implements StructuredSerializer<OperationShape> {
@@ -17,40 +17,52 @@ class _$OperationShapeSerializer
   final String wireName = 'OperationShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, OperationShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    OperationShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'errors',
-      serializers.serialize(object.errors,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(ShapeRef)])),
+      serializers.serialize(
+        object.errors,
+        specifiedType: const FullType(BuiltList, const [
+          const FullType(ShapeRef),
+        ]),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
     Object? value;
     value = object.input;
     if (value != null) {
       result
         ..add('input')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(ShapeRef)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(ShapeRef)),
+        );
     }
     value = object.output;
     if (value != null) {
       result
         ..add('output')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(ShapeRef)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(ShapeRef)),
+        );
     }
     return result;
   }
 
   @override
   OperationShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new OperationShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = OperationShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -59,22 +71,41 @@ class _$OperationShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'input':
-          result.input.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.input.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'output':
-          result.output.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.output.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'errors':
-          result.errors.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(ShapeRef)]))!
-              as BuiltList<Object?>);
+          result.errors.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltList, const [
+                    const FullType(ShapeRef),
+                  ]),
+                )!
+                as BuiltList<Object?>,
+          );
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -96,28 +127,21 @@ class _$OperationShape extends OperationShape {
   final TraitMap traits;
 
   factory _$OperationShape([void Function(OperationShapeBuilder)? updates]) =>
-      (new OperationShapeBuilder()..update(updates))._build();
+      (OperationShapeBuilder()..update(updates))._build();
 
-  _$OperationShape._(
-      {this.input,
-      this.output,
-      required this.errors,
-      required this.shapeId,
-      required this.traits})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(errors, r'OperationShape', 'errors');
-    BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'OperationShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'OperationShape', 'traits');
-  }
-
+  _$OperationShape._({
+    this.input,
+    this.output,
+    required this.errors,
+    required this.shapeId,
+    required this.traits,
+  }) : super._();
   @override
   OperationShape rebuild(void Function(OperationShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  OperationShapeBuilder toBuilder() =>
-      new OperationShapeBuilder()..replace(this);
+  OperationShapeBuilder toBuilder() => OperationShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -159,16 +183,16 @@ class OperationShapeBuilder
   _$OperationShape? _$v;
 
   ShapeRefBuilder? _input;
-  ShapeRefBuilder get input => _$this._input ??= new ShapeRefBuilder();
+  ShapeRefBuilder get input => _$this._input ??= ShapeRefBuilder();
   set input(covariant ShapeRefBuilder? input) => _$this._input = input;
 
   ShapeRefBuilder? _output;
-  ShapeRefBuilder get output => _$this._output ??= new ShapeRefBuilder();
+  ShapeRefBuilder get output => _$this._output ??= ShapeRefBuilder();
   set output(covariant ShapeRefBuilder? output) => _$this._output = output;
 
   ListBuilder<ShapeRef>? _errors;
   ListBuilder<ShapeRef> get errors =>
-      _$this._errors ??= new ListBuilder<ShapeRef>();
+      _$this._errors ??= ListBuilder<ShapeRef>();
   set errors(covariant ListBuilder<ShapeRef>? errors) =>
       _$this._errors = errors;
 
@@ -199,7 +223,6 @@ class OperationShapeBuilder
 
   @override
   void replace(covariant OperationShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OperationShape;
   }
 
@@ -214,15 +237,23 @@ class OperationShapeBuilder
   _$OperationShape _build() {
     _$OperationShape _$result;
     try {
-      _$result = _$v ??
-          new _$OperationShape._(
-              input: _input?.build(),
-              output: _output?.build(),
-              errors: errors.build(),
-              shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, r'OperationShape', 'shapeId'),
-              traits: BuiltValueNullFieldError.checkNotNull(
-                  traits, r'OperationShape', 'traits'));
+      _$result =
+          _$v ??
+          _$OperationShape._(
+            input: _input?.build(),
+            output: _output?.build(),
+            errors: errors.build(),
+            shapeId: BuiltValueNullFieldError.checkNotNull(
+              shapeId,
+              r'OperationShape',
+              'shapeId',
+            ),
+            traits: BuiltValueNullFieldError.checkNotNull(
+              traits,
+              r'OperationShape',
+              'traits',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -233,8 +264,11 @@ class OperationShapeBuilder
         _$failedField = 'errors';
         errors.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'OperationShape', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'OperationShape',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

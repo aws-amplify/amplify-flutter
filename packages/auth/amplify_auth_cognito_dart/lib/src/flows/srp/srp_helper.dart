@@ -157,9 +157,7 @@ class SrpHelper {
 
     // The user will abort if he receives B == 0 (mod N) or u == 0.
     if (u == BigInt.zero) {
-      throw SrpError(
-        'Hash of A and B cannot be zero',
-      );
+      throw SrpError('Hash of A and B cannot be zero');
     }
 
     // x = H(salt | H(poolName | userId | ":" | password))
@@ -180,14 +178,8 @@ class SrpHelper {
 
     // Use HKDF to get final password authentication key
     // K = H(S)
-    final hkdf = HkdfSha256(
-      encodeBigInt(u),
-      encodeBigInt(second),
-    );
-    return hkdf.expand(
-      utf8.encode(_derivedKeyInfo),
-      _derivedKeySizeBytes,
-    );
+    final hkdf = HkdfSha256(encodeBigInt(u), encodeBigInt(second));
+    return hkdf.expand(utf8.encode(_derivedKeyInfo), _derivedKeySizeBytes);
   }
 
   /// Creates the device password verifier claim, or signature, for the SRP
@@ -238,9 +230,7 @@ class SrpHelper {
 
     // The user will abort if he receives B == 0 (mod N) or u == 0.
     if (publicB % N == BigInt.zero) {
-      throw SrpError(
-        'Hash of A and B cannot be zero',
-      );
+      throw SrpError('Hash of A and B cannot be zero');
     }
 
     return authenticateUser(

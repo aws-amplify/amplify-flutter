@@ -10,20 +10,19 @@ class _$PayloadWithXmlName extends PayloadWithXmlName {
   @override
   final String? name;
 
-  factory _$PayloadWithXmlName(
-          [void Function(PayloadWithXmlNameBuilder)? updates]) =>
-      (new PayloadWithXmlNameBuilder()..update(updates))._build();
+  factory _$PayloadWithXmlName([
+    void Function(PayloadWithXmlNameBuilder)? updates,
+  ]) => (PayloadWithXmlNameBuilder()..update(updates))._build();
 
   _$PayloadWithXmlName._({this.name}) : super._();
-
   @override
   PayloadWithXmlName rebuild(
-          void Function(PayloadWithXmlNameBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PayloadWithXmlNameBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PayloadWithXmlNameBuilder toBuilder() =>
-      new PayloadWithXmlNameBuilder()..replace(this);
+      PayloadWithXmlNameBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +60,6 @@ class PayloadWithXmlNameBuilder
 
   @override
   void replace(PayloadWithXmlName other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PayloadWithXmlName;
   }
 
@@ -74,7 +72,7 @@ class PayloadWithXmlNameBuilder
   PayloadWithXmlName build() => _build();
 
   _$PayloadWithXmlName _build() {
-    final _$result = _$v ?? new _$PayloadWithXmlName._(name: name);
+    final _$result = _$v ?? _$PayloadWithXmlName._(name: name);
     replace(_$result);
     return _$result;
   }

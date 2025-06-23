@@ -10,19 +10,18 @@ class _$EnumPayloadInput extends EnumPayloadInput {
   @override
   final StringEnum? payload;
 
-  factory _$EnumPayloadInput(
-          [void Function(EnumPayloadInputBuilder)? updates]) =>
-      (new EnumPayloadInputBuilder()..update(updates))._build();
+  factory _$EnumPayloadInput([
+    void Function(EnumPayloadInputBuilder)? updates,
+  ]) => (EnumPayloadInputBuilder()..update(updates))._build();
 
   _$EnumPayloadInput._({this.payload}) : super._();
-
   @override
   EnumPayloadInput rebuild(void Function(EnumPayloadInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   EnumPayloadInputBuilder toBuilder() =>
-      new EnumPayloadInputBuilder()..replace(this);
+      EnumPayloadInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -60,7 +59,6 @@ class EnumPayloadInputBuilder
 
   @override
   void replace(EnumPayloadInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EnumPayloadInput;
   }
 
@@ -73,7 +71,7 @@ class EnumPayloadInputBuilder
   EnumPayloadInput build() => _build();
 
   _$EnumPayloadInput _build() {
-    final _$result = _$v ?? new _$EnumPayloadInput._(payload: payload);
+    final _$result = _$v ?? _$EnumPayloadInput._(payload: payload);
     replace(_$result);
     return _$result;
   }

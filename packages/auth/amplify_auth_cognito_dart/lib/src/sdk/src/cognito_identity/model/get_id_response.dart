@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity.model.get_id_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -29,24 +29,21 @@ abstract class GetIdResponse
   factory GetIdResponse.fromResponse(
     GetIdResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<GetIdResponse>> serializers = [
-    GetIdResponseAwsJson11Serializer()
+    GetIdResponseAwsJson11Serializer(),
   ];
 
   /// A unique identifier in the format REGION:GUID.
   String? get identityId;
   @override
   List<Object?> get props => [identityId];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetIdResponse')
-      ..add(
-        'identityId',
-        identityId,
-      );
+      ..add('identityId', identityId);
     return helper.toString();
   }
 }
@@ -56,17 +53,13 @@ class GetIdResponseAwsJson11Serializer
   const GetIdResponseAwsJson11Serializer() : super('GetIdResponse');
 
   @override
-  Iterable<Type> get types => const [
-        GetIdResponse,
-        _$GetIdResponse,
-      ];
+  Iterable<Type> get types => const [GetIdResponse, _$GetIdResponse];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   GetIdResponse deserialize(
     Serializers serializers,
@@ -84,10 +77,12 @@ class GetIdResponseAwsJson11Serializer
       }
       switch (key) {
         case 'IdentityId':
-          result.identityId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.identityId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -105,10 +100,12 @@ class GetIdResponseAwsJson11Serializer
     if (identityId != null) {
       result$
         ..add('IdentityId')
-        ..add(serializers.serialize(
-          identityId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            identityId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

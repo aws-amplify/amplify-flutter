@@ -11,25 +11,20 @@ import 'package:path/path.dart' as p;
 // using the accompanying `.yaml` file as the GH action descriptor.
 Future<void> main() async {
   final rootDir = Directory.fromUri(Platform.script.resolve('..'));
-  final binDir = Directory.fromUri(
-    Platform.script.resolve('../bin'),
-  );
+  final binDir = Directory.fromUri(Platform.script.resolve('../bin'));
   final actions = binDir
       .listSync()
       .whereType<File>()
       .where((f) => f.path.endsWith('.dart'))
       .map((f) {
-    final yaml = File(
-      p.join(
-        binDir.path,
-        '${p.basenameWithoutExtension(f.path)}.yaml',
-      ),
-    );
-    if (!yaml.existsSync()) {
-      throw Exception('No YAML found for entrypoint: ${f.path}');
-    }
-    return (entrypoint: f, yaml: yaml);
-  });
+        final yaml = File(
+          p.join(binDir.path, '${p.basenameWithoutExtension(f.path)}.yaml'),
+        );
+        if (!yaml.existsSync()) {
+          throw Exception('No YAML found for entrypoint: ${f.path}');
+        }
+        return (entrypoint: f, yaml: yaml);
+      });
 
   final actionsDir = Directory.fromUri(
     Platform.script.resolve('../../.github/composite_actions'),
@@ -49,36 +44,34 @@ Future<void> main() async {
 
       stdout.writeln('Compiling ${entrypoint.path}...');
       final compiledJs = p.join(distDir.path, 'main.cjs');
-      final compileRes = runProcess(
-        'dart',
-        [
-          'compile',
-          'js',
-          '--enable-experiment=inline-class',
-          '--server-mode',
-          '-o',
-          compiledJs,
-          entrypoint.path,
-        ],
-        workingDirectory: rootDir.path,
-      );
+      final compileRes = runProcess('dart', [
+        'compile',
+        'js',
+        '--server-mode',
+        '-o',
+        compiledJs,
+        entrypoint.path,
+      ], workingDirectory: rootDir.path);
       if (!compileRes) {
         throw Exception('Failed to compile ${entrypoint.path}');
       }
       stdout.writeln('Successfully compiled ${entrypoint.path} to $compiledJs');
 
       // Copy over NPM project and init.
-      File(p.join(rootDir.path, 'package.json'))
-          .copySync(p.join(temp.path, 'package.json'));
-      File(p.join(rootDir.path, 'pnpm-lock.yaml'))
-          .copySync(p.join(temp.path, 'pnpm-lock.yaml'));
+      File(
+        p.join(rootDir.path, 'package.json'),
+      ).copySync(p.join(temp.path, 'package.json'));
+      File(
+        p.join(rootDir.path, 'pnpm-lock.yaml'),
+      ).copySync(p.join(temp.path, 'pnpm-lock.yaml'));
       if (!runProcess('pnpm', ['install'], workingDirectory: temp.path)) {
         throw Exception('Could not install NPM modules');
       }
 
       // Build project using `ncc`
-      File(p.join(rootDir.path, 'lib', 'bootstrap.mjs'))
-          .copySync(p.join(temp.path, 'main.mjs'));
+      File(
+        p.join(rootDir.path, 'lib', 'bootstrap.mjs'),
+      ).copySync(p.join(temp.path, 'main.mjs'));
       if (!runProcess('pnpm', ['run', 'build'], workingDirectory: temp.path)) {
         throw Exception('Could not bundle project');
       }

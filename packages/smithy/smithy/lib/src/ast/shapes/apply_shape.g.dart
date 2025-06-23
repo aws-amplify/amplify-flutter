@@ -6,7 +6,7 @@ part of 'apply_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ApplyShape> _$applyShapeSerializer = new _$ApplyShapeSerializer();
+Serializer<ApplyShape> _$applyShapeSerializer = _$ApplyShapeSerializer();
 
 class _$ApplyShapeSerializer implements StructuredSerializer<ApplyShape> {
   @override
@@ -15,21 +15,29 @@ class _$ApplyShapeSerializer implements StructuredSerializer<ApplyShape> {
   final String wireName = 'ApplyShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ApplyShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ApplyShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  ApplyShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new ApplyShapeBuilder();
+  ApplyShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = ApplyShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -38,8 +46,12 @@ class _$ApplyShapeSerializer implements StructuredSerializer<ApplyShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -55,19 +67,15 @@ class _$ApplyShape extends ApplyShape {
   final TraitMap traits;
 
   factory _$ApplyShape([void Function(ApplyShapeBuilder)? updates]) =>
-      (new ApplyShapeBuilder()..update(updates))._build();
+      (ApplyShapeBuilder()..update(updates))._build();
 
-  _$ApplyShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'ApplyShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'ApplyShape', 'traits');
-  }
-
+  _$ApplyShape._({required this.shapeId, required this.traits}) : super._();
   @override
   ApplyShape rebuild(void Function(ApplyShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ApplyShapeBuilder toBuilder() => new ApplyShapeBuilder()..replace(this);
+  ApplyShapeBuilder toBuilder() => ApplyShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -123,7 +131,6 @@ class ApplyShapeBuilder
 
   @override
   void replace(covariant ApplyShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ApplyShape;
   }
 
@@ -136,12 +143,20 @@ class ApplyShapeBuilder
   ApplyShape build() => _build();
 
   _$ApplyShape _build() {
-    final _$result = _$v ??
-        new _$ApplyShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'ApplyShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'ApplyShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$ApplyShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'ApplyShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'ApplyShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

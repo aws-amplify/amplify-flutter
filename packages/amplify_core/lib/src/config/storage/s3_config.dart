@@ -31,11 +31,7 @@ class S3PluginConfig
     with AWSEquatable<S3PluginConfig>, AWSSerializable
     implements AmplifyPluginConfig {
   /// {@macro amplify_core.s3_plugin_config}
-  const S3PluginConfig({
-    required this.bucket,
-    required this.region,
-    this.defaultAccessLevel = StorageAccessLevel.guest,
-  });
+  const S3PluginConfig({required this.bucket, required this.region});
 
   factory S3PluginConfig.fromJson(Map<String, Object?> json) =>
       _$S3PluginConfigFromJson(json);
@@ -48,24 +44,14 @@ class S3PluginConfig
 
   final String bucket;
   final String region;
-  final StorageAccessLevel defaultAccessLevel;
 
   @override
-  List<Object?> get props => [
-        bucket,
-        region,
-        defaultAccessLevel,
-      ];
+  List<Object?> get props => [bucket, region];
 
-  S3PluginConfig copyWith({
-    String? bucket,
-    String? region,
-    StorageAccessLevel? defaultAccessLevel,
-  }) {
+  S3PluginConfig copyWith({String? bucket, String? region}) {
     return S3PluginConfig(
       bucket: bucket ?? this.bucket,
       region: region ?? this.region,
-      defaultAccessLevel: defaultAccessLevel ?? this.defaultAccessLevel,
     );
   }
 

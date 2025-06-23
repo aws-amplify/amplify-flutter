@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v1.api_gateway.test.get_rest_apis_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -22,50 +22,42 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'ApiGatewayAccept (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: GetRestApisOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
+  _i1.test('ApiGatewayAccept (request)', () async {
+    await _i2.httpRequestTest(
+      operation: GetRestApisOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'ApiGatewayAccept',
-          documentation:
-              'API Gateway requires that this Accept header is set on all requests.',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Accept': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/restapis',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [GetRestApisRequestRestJson1Serializer()],
-      );
-    },
-  );
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'ApiGatewayAccept',
+        documentation:
+            'API Gateway requires that this Accept header is set on all requests.',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Accept': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/restapis',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [GetRestApisRequestRestJson1Serializer()],
+    );
+  });
 }
 
 class GetRestApisRequestRestJson1Serializer
@@ -74,13 +66,12 @@ class GetRestApisRequestRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [GetRestApisRequest];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   GetRestApisRequest deserialize(
     Serializers serializers,
@@ -98,15 +89,19 @@ class GetRestApisRequestRestJson1Serializer
       }
       switch (key) {
         case 'position':
-          result.position = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.position =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'limit':
-          result.limit = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.limit =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -129,13 +124,12 @@ class RestApisRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [RestApis];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   RestApis deserialize(
     Serializers serializers,
@@ -153,18 +147,22 @@ class RestApisRestJson1Serializer
       }
       switch (key) {
         case 'items':
-          result.items.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(RestApi)],
-            ),
-          ) as _i5.BuiltList<RestApi>));
+          result.items.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltList, [
+                    FullType(RestApi),
+                  ]),
+                )
+                as _i5.BuiltList<RestApi>),
+          );
         case 'position':
-          result.position = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.position =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -187,13 +185,12 @@ class RestApiRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [RestApi];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   RestApi deserialize(
     Serializers serializers,
@@ -211,82 +208,105 @@ class RestApiRestJson1Serializer
       }
       switch (key) {
         case 'id':
-          result.id = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.id =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'description':
-          result.description = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.description =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'createdDate':
           result.createdDate = _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'version':
-          result.version = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.version =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'warnings':
-          result.warnings.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i5.BuiltList<String>));
+          result.warnings.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i5.BuiltList<String>),
+          );
         case 'binaryMediaTypes':
-          result.binaryMediaTypes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i5.BuiltList<String>));
+          result.binaryMediaTypes.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i5.BuiltList<String>),
+          );
         case 'minimumCompressionSize':
-          result.minimumCompressionSize = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.minimumCompressionSize =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'apiKeySource':
-          result.apiKeySource = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ApiKeySourceType),
-          ) as ApiKeySourceType);
+          result.apiKeySource =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ApiKeySourceType),
+                  )
+                  as ApiKeySourceType);
         case 'endpointConfiguration':
-          result.endpointConfiguration.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(EndpointConfiguration),
-          ) as EndpointConfiguration));
+          result.endpointConfiguration.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(EndpointConfiguration),
+                )
+                as EndpointConfiguration),
+          );
         case 'policy':
-          result.policy = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.policy =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'tags':
-          result.tags.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i5.BuiltMap<String, String>));
+          result.tags.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i5.BuiltMap<String, String>),
+          );
         case 'disableExecuteApiEndpoint':
-          result.disableExecuteApiEndpoint = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.disableExecuteApiEndpoint =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 
@@ -306,17 +326,16 @@ class RestApiRestJson1Serializer
 class EndpointConfigurationRestJson1Serializer
     extends _i4.StructuredSmithySerializer<EndpointConfiguration> {
   const EndpointConfigurationRestJson1Serializer()
-      : super('EndpointConfiguration');
+    : super('EndpointConfiguration');
 
   @override
   Iterable<Type> get types => const [EndpointConfiguration];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   EndpointConfiguration deserialize(
     Serializers serializers,
@@ -334,21 +353,25 @@ class EndpointConfigurationRestJson1Serializer
       }
       switch (key) {
         case 'types':
-          result.types.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(EndpointType)],
-            ),
-          ) as _i5.BuiltList<EndpointType>));
+          result.types.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltList, [
+                    FullType(EndpointType),
+                  ]),
+                )
+                as _i5.BuiltList<EndpointType>),
+          );
         case 'vpcEndpointIds':
-          result.vpcEndpointIds.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i5.BuiltList<String>));
+          result.vpcEndpointIds.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i5.BuiltList<String>),
+          );
       }
     }
 
@@ -371,13 +394,12 @@ class BadRequestExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [BadRequestException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   BadRequestException deserialize(
     Serializers serializers,
@@ -395,10 +417,12 @@ class BadRequestExceptionRestJson1Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -418,17 +442,16 @@ class BadRequestExceptionRestJson1Serializer
 class TooManyRequestsExceptionRestJson1Serializer
     extends _i4.StructuredSmithySerializer<TooManyRequestsException> {
   const TooManyRequestsExceptionRestJson1Serializer()
-      : super('TooManyRequestsException');
+    : super('TooManyRequestsException');
 
   @override
   Iterable<Type> get types => const [TooManyRequestsException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   TooManyRequestsException deserialize(
     Serializers serializers,
@@ -446,15 +469,19 @@ class TooManyRequestsExceptionRestJson1Serializer
       }
       switch (key) {
         case 'retryAfterSeconds':
-          result.retryAfterSeconds = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.retryAfterSeconds =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -474,17 +501,16 @@ class TooManyRequestsExceptionRestJson1Serializer
 class UnauthorizedExceptionRestJson1Serializer
     extends _i4.StructuredSmithySerializer<UnauthorizedException> {
   const UnauthorizedExceptionRestJson1Serializer()
-      : super('UnauthorizedException');
+    : super('UnauthorizedException');
 
   @override
   Iterable<Type> get types => const [UnauthorizedException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   UnauthorizedException deserialize(
     Serializers serializers,
@@ -502,10 +528,12 @@ class UnauthorizedExceptionRestJson1Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

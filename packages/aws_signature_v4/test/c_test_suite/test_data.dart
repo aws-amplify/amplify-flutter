@@ -31,8 +31,9 @@ class SignerTestMethodData {
       canonicalRequest: json['canonicalRequest'] as String,
       stringToSign: json['stringToSign'] as String,
       signature: json['signature'] as String,
-      signedRequest:
-          AWSHttpRequestX.fromJson((json['signedRequest'] as Map).cast()),
+      signedRequest: AWSHttpRequestX.fromJson(
+        (json['signedRequest'] as Map).cast(),
+      ),
     );
   }
 
@@ -43,12 +44,12 @@ class SignerTestMethodData {
   final AWSBaseHttpRequest signedRequest;
 
   Future<Map<String, Object?>> toJson() async => {
-        'method': method.name,
-        'canonicalRequest': canonicalRequest,
-        'stringToSign': stringToSign,
-        'signature': signature,
-        'signedRequest': await signedRequest.toJson(),
-      };
+    'method': method.name,
+    'canonicalRequest': canonicalRequest,
+    'stringToSign': stringToSign,
+    'signature': signature,
+    'signedRequest': await signedRequest.toJson(),
+  };
 }
 
 /// Builder class to make it easy to lazily create a [SignerTest].
@@ -103,26 +104,27 @@ class SignerTest {
     this.headerTestData,
     this.queryTestData,
     ServiceConfiguration? serviceConfiguration,
-  })  : signer = AWSSigV4Signer(
-          credentialsProvider: AWSCredentialsProvider(context.credentials),
-          algorithm: algorithm,
-        ),
-        credentialScope = AWSCredentialScope.raw(
-          dateTime: context.awsDateTime,
-          region: context.region,
-          service: context.service,
-        ),
-        serviceConfiguration = serviceConfiguration ??
-            BaseServiceConfiguration(
-              normalizePath: context.normalize,
-              omitSessionToken: context.omitSessionToken,
+  }) : signer = AWSSigV4Signer(
+         credentialsProvider: AWSCredentialsProvider(context.credentials),
+         algorithm: algorithm,
+       ),
+       credentialScope = AWSCredentialScope.raw(
+         dateTime: context.awsDateTime,
+         region: context.region,
+         service: context.service,
+       ),
+       serviceConfiguration =
+           serviceConfiguration ??
+           BaseServiceConfiguration(
+             normalizePath: context.normalize,
+             omitSessionToken: context.omitSessionToken,
 
-              // Although most SigV4 services expect double encoding, the C
-              // tests expect single encoding like S3.
-              // https://github.com/awslabs/aws-c-auth/issues/162
-              doubleEncodePathSegments: false,
-              signBody: context.signBody,
-            );
+             // Although most SigV4 services expect double encoding, the C
+             // tests expect single encoding like S3.
+             // https://github.com/awslabs/aws-c-auth/issues/162
+             doubleEncodePathSegments: false,
+             signBody: context.signBody,
+           );
 
   factory SignerTest.fromJson(Map<String, Object?> json) {
     return SignerTest(
@@ -156,8 +158,9 @@ class SignerTest {
   final AWSCredentialScope credentialScope;
 
   Future<void> _runMethod(SignerTestMethod method, {required bool sync}) async {
-    final testMethodData =
-        method == SignerTestMethod.header ? headerTestData : queryTestData;
+    final testMethodData = method == SignerTestMethod.header
+        ? headerTestData
+        : queryTestData;
     if (testMethodData == null) {
       return;
     }
@@ -275,11 +278,7 @@ class SignerTest {
       final body = await collectBytes(signedRequest.split());
       final expectedRequest = testMethodData.signedRequest;
       final expected = await collectBytes(expectedRequest.split());
-      expect(
-        body,
-        orderedEquals(expected),
-        reason: 'Bodies must be identical',
-      );
+      expect(body, orderedEquals(expected), reason: 'Bodies must be identical');
     }
   }
 
@@ -291,14 +290,15 @@ class SignerTest {
   }
 
   Future<Map<String, Object?>> toJson() async => {
-        'name': name,
-        'context': context.toJson(),
-        'request': await request.toJson(),
-        'headerTestData': await headerTestData?.toJson(),
-        'queryTestData': await queryTestData?.toJson(),
-        'serviceConfiguration':
-            serviceConfiguration is S3ServiceConfiguration ? 's3' : null,
-      };
+    'name': name,
+    'context': context.toJson(),
+    'request': await request.toJson(),
+    'headerTestData': await headerTestData?.toJson(),
+    'queryTestData': await queryTestData?.toJson(),
+    'serviceConfiguration': serviceConfiguration is S3ServiceConfiguration
+        ? 's3'
+        : null,
+  };
 }
 
 extension AWSHttpRequestX on AWSBaseHttpRequest {
@@ -314,11 +314,11 @@ extension AWSHttpRequestX on AWSBaseHttpRequest {
   }
 
   Future<Map<String, Object>> toJson() async => {
-        'method': method.value,
-        'host': host,
-        'path': path,
-        'queryParameters': queryParametersAll,
-        'headers': headers,
-        'body': await body.first.catchError((Object _) => const <int>[]),
-      };
+    'method': method.value,
+    'host': host,
+    'path': path,
+    'queryParameters': queryParametersAll,
+    'headers': headers,
+    'body': await body.first.catchError((Object _) => const <int>[]),
+  };
 }

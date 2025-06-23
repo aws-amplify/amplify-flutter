@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.update_device_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -22,9 +22,9 @@ abstract class UpdateDeviceStatusResponse
   }
 
   /// The response to the request to update the device status.
-  factory UpdateDeviceStatusResponse.build(
-          [void Function(UpdateDeviceStatusResponseBuilder) updates]) =
-      _$UpdateDeviceStatusResponse;
+  factory UpdateDeviceStatusResponse.build([
+    void Function(UpdateDeviceStatusResponseBuilder) updates,
+  ]) = _$UpdateDeviceStatusResponse;
 
   const UpdateDeviceStatusResponse._();
 
@@ -32,14 +32,14 @@ abstract class UpdateDeviceStatusResponse
   factory UpdateDeviceStatusResponse.fromResponse(
     UpdateDeviceStatusResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<UpdateDeviceStatusResponse>>
-      serializers = [UpdateDeviceStatusResponseAwsJson11Serializer()];
+  serializers = [UpdateDeviceStatusResponseAwsJson11Serializer()];
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateDeviceStatusResponse');
@@ -50,20 +50,19 @@ abstract class UpdateDeviceStatusResponse
 class UpdateDeviceStatusResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UpdateDeviceStatusResponse> {
   const UpdateDeviceStatusResponseAwsJson11Serializer()
-      : super('UpdateDeviceStatusResponse');
+    : super('UpdateDeviceStatusResponse');
 
   @override
   Iterable<Type> get types => const [
-        UpdateDeviceStatusResponse,
-        _$UpdateDeviceStatusResponse,
-      ];
+    UpdateDeviceStatusResponse,
+    _$UpdateDeviceStatusResponse,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   UpdateDeviceStatusResponse deserialize(
     Serializers serializers,
@@ -78,6 +77,5 @@ class UpdateDeviceStatusResponseAwsJson11Serializer
     Serializers serializers,
     UpdateDeviceStatusResponse object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

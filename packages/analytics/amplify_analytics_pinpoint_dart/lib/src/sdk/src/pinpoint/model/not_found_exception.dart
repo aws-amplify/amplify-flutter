@@ -17,19 +17,14 @@ abstract class NotFoundException
         Built<NotFoundException, NotFoundExceptionBuilder>,
         _i2.SmithyHttpException {
   /// Provides information about an API request or response.
-  factory NotFoundException({
-    String? message,
-    String? requestId,
-  }) {
-    return _$NotFoundException._(
-      message: message,
-      requestId: requestId,
-    );
+  factory NotFoundException({String? message, String? requestId}) {
+    return _$NotFoundException._(message: message, requestId: requestId);
   }
 
   /// Provides information about an API request or response.
-  factory NotFoundException.build(
-      [void Function(NotFoundExceptionBuilder) updates]) = _$NotFoundException;
+  factory NotFoundException.build([
+    void Function(NotFoundExceptionBuilder) updates,
+  ]) = _$NotFoundException;
 
   const NotFoundException._();
 
@@ -37,13 +32,12 @@ abstract class NotFoundException
   factory NotFoundException.fromResponse(
     NotFoundException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<NotFoundException>> serializers = [
-    NotFoundExceptionRestJson1Serializer()
+    NotFoundExceptionRestJson1Serializer(),
   ];
 
   /// The message that's returned from the API.
@@ -54,9 +48,9 @@ abstract class NotFoundException
   String? get requestId;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.pinpoint',
-        shape: 'NotFoundException',
-      );
+    namespace: 'com.amazonaws.pinpoint',
+    shape: 'NotFoundException',
+  );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -68,21 +62,12 @@ abstract class NotFoundException
   @override
   Exception? get underlyingException => null;
   @override
-  List<Object?> get props => [
-        message,
-        requestId,
-      ];
+  List<Object?> get props => [message, requestId];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NotFoundException')
-      ..add(
-        'message',
-        message,
-      )
-      ..add(
-        'requestId',
-        requestId,
-      );
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }
@@ -92,17 +77,11 @@ class NotFoundExceptionRestJson1Serializer
   const NotFoundExceptionRestJson1Serializer() : super('NotFoundException');
 
   @override
-  Iterable<Type> get types => const [
-        NotFoundException,
-        _$NotFoundException,
-      ];
+  Iterable<Type> get types => const [NotFoundException, _$NotFoundException];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   NotFoundException deserialize(
     Serializers serializers,
@@ -120,15 +99,19 @@ class NotFoundExceptionRestJson1Serializer
       }
       switch (key) {
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'RequestID':
-          result.requestId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.requestId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -146,18 +129,19 @@ class NotFoundExceptionRestJson1Serializer
     if (message != null) {
       result$
         ..add('Message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (requestId != null) {
       result$
         ..add('RequestID')
-        ..add(serializers.serialize(
-          requestId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            requestId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

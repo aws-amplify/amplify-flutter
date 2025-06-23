@@ -76,54 +76,53 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
 
-  factory _$HeadObjectOutput(
-          [void Function(HeadObjectOutputBuilder)? updates]) =>
-      (new HeadObjectOutputBuilder()..update(updates))._build();
+  factory _$HeadObjectOutput([
+    void Function(HeadObjectOutputBuilder)? updates,
+  ]) => (HeadObjectOutputBuilder()..update(updates))._build();
 
-  _$HeadObjectOutput._(
-      {this.deleteMarker,
-      this.acceptRanges,
-      this.expiration,
-      this.restore,
-      this.archiveStatus,
-      this.lastModified,
-      this.contentLength,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.eTag,
-      this.missingMeta,
-      this.versionId,
-      this.cacheControl,
-      this.contentDisposition,
-      this.contentEncoding,
-      this.contentLanguage,
-      this.contentType,
-      this.expires,
-      this.websiteRedirectLocation,
-      this.serverSideEncryption,
-      this.metadata,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.bucketKeyEnabled,
-      this.storageClass,
-      this.requestCharged,
-      this.replicationStatus,
-      this.partsCount,
-      this.objectLockMode,
-      this.objectLockRetainUntilDate,
-      this.objectLockLegalHoldStatus})
-      : super._();
-
+  _$HeadObjectOutput._({
+    this.deleteMarker,
+    this.acceptRanges,
+    this.expiration,
+    this.restore,
+    this.archiveStatus,
+    this.lastModified,
+    this.contentLength,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.eTag,
+    this.missingMeta,
+    this.versionId,
+    this.cacheControl,
+    this.contentDisposition,
+    this.contentEncoding,
+    this.contentLanguage,
+    this.contentType,
+    this.expires,
+    this.websiteRedirectLocation,
+    this.serverSideEncryption,
+    this.metadata,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.bucketKeyEnabled,
+    this.storageClass,
+    this.requestCharged,
+    this.replicationStatus,
+    this.partsCount,
+    this.objectLockMode,
+    this.objectLockRetainUntilDate,
+    this.objectLockLegalHoldStatus,
+  }) : super._();
   @override
   HeadObjectOutput rebuild(void Function(HeadObjectOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   HeadObjectOutputBuilder toBuilder() =>
-      new HeadObjectOutputBuilder()..replace(this);
+      HeadObjectOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -313,7 +312,7 @@ class HeadObjectOutputBuilder
 
   _i4.MapBuilder<String, String>? _metadata;
   _i4.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i4.MapBuilder<String, String>();
+      _$this._metadata ??= _i4.MapBuilder<String, String>();
   set metadata(_i4.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
@@ -369,8 +368,8 @@ class HeadObjectOutputBuilder
   ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
-      _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
+    ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+  ) => _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   HeadObjectOutputBuilder();
 
@@ -418,7 +417,6 @@ class HeadObjectOutputBuilder
 
   @override
   void replace(HeadObjectOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HeadObjectOutput;
   }
 
@@ -433,50 +431,55 @@ class HeadObjectOutputBuilder
   _$HeadObjectOutput _build() {
     _$HeadObjectOutput _$result;
     try {
-      _$result = _$v ??
-          new _$HeadObjectOutput._(
-              deleteMarker: deleteMarker,
-              acceptRanges: acceptRanges,
-              expiration: expiration,
-              restore: restore,
-              archiveStatus: archiveStatus,
-              lastModified: lastModified,
-              contentLength: contentLength,
-              checksumCrc32: checksumCrc32,
-              checksumCrc32C: checksumCrc32C,
-              checksumSha1: checksumSha1,
-              checksumSha256: checksumSha256,
-              eTag: eTag,
-              missingMeta: missingMeta,
-              versionId: versionId,
-              cacheControl: cacheControl,
-              contentDisposition: contentDisposition,
-              contentEncoding: contentEncoding,
-              contentLanguage: contentLanguage,
-              contentType: contentType,
-              expires: expires,
-              websiteRedirectLocation: websiteRedirectLocation,
-              serverSideEncryption: serverSideEncryption,
-              metadata: _metadata?.build(),
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKeyMd5: sseCustomerKeyMd5,
-              ssekmsKeyId: ssekmsKeyId,
-              bucketKeyEnabled: bucketKeyEnabled,
-              storageClass: storageClass,
-              requestCharged: requestCharged,
-              replicationStatus: replicationStatus,
-              partsCount: partsCount,
-              objectLockMode: objectLockMode,
-              objectLockRetainUntilDate: objectLockRetainUntilDate,
-              objectLockLegalHoldStatus: objectLockLegalHoldStatus);
+      _$result =
+          _$v ??
+          _$HeadObjectOutput._(
+            deleteMarker: deleteMarker,
+            acceptRanges: acceptRanges,
+            expiration: expiration,
+            restore: restore,
+            archiveStatus: archiveStatus,
+            lastModified: lastModified,
+            contentLength: contentLength,
+            checksumCrc32: checksumCrc32,
+            checksumCrc32C: checksumCrc32C,
+            checksumSha1: checksumSha1,
+            checksumSha256: checksumSha256,
+            eTag: eTag,
+            missingMeta: missingMeta,
+            versionId: versionId,
+            cacheControl: cacheControl,
+            contentDisposition: contentDisposition,
+            contentEncoding: contentEncoding,
+            contentLanguage: contentLanguage,
+            contentType: contentType,
+            expires: expires,
+            websiteRedirectLocation: websiteRedirectLocation,
+            serverSideEncryption: serverSideEncryption,
+            metadata: _metadata?.build(),
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+            ssekmsKeyId: ssekmsKeyId,
+            bucketKeyEnabled: bucketKeyEnabled,
+            storageClass: storageClass,
+            requestCharged: requestCharged,
+            replicationStatus: replicationStatus,
+            partsCount: partsCount,
+            objectLockMode: objectLockMode,
+            objectLockRetainUntilDate: objectLockRetainUntilDate,
+            objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'metadata';
         _metadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HeadObjectOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HeadObjectOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -486,20 +489,19 @@ class HeadObjectOutputBuilder
 }
 
 class _$HeadObjectOutputPayload extends HeadObjectOutputPayload {
-  factory _$HeadObjectOutputPayload(
-          [void Function(HeadObjectOutputPayloadBuilder)? updates]) =>
-      (new HeadObjectOutputPayloadBuilder()..update(updates))._build();
+  factory _$HeadObjectOutputPayload([
+    void Function(HeadObjectOutputPayloadBuilder)? updates,
+  ]) => (HeadObjectOutputPayloadBuilder()..update(updates))._build();
 
   _$HeadObjectOutputPayload._() : super._();
-
   @override
   HeadObjectOutputPayload rebuild(
-          void Function(HeadObjectOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HeadObjectOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HeadObjectOutputPayloadBuilder toBuilder() =>
-      new HeadObjectOutputPayloadBuilder()..replace(this);
+      HeadObjectOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -522,7 +524,6 @@ class HeadObjectOutputPayloadBuilder
 
   @override
   void replace(HeadObjectOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HeadObjectOutputPayload;
   }
 
@@ -535,7 +536,7 @@ class HeadObjectOutputPayloadBuilder
   HeadObjectOutputPayload build() => _build();
 
   _$HeadObjectOutputPayload _build() {
-    final _$result = _$v ?? new _$HeadObjectOutputPayload._();
+    final _$result = _$v ?? _$HeadObjectOutputPayload._();
     replace(_$result);
     return _$result;
   }

@@ -13,17 +13,18 @@ void main() {
   testRunner.setupTests();
 
   group('updatePassword', () {
-    for (final environmentName in userPoolEnvironments) {
-      group(environmentName, () {
+    for (final environment in userPoolEnvironments) {
+      group(environment.name, () {
         late String username;
         late String password;
 
         setUp(() async {
           await testRunner.configure(
-            environmentName: environmentName,
+            environmentName: environment.name,
+            useAmplifyOutputs: environment.useAmplifyOutputs,
           );
 
-          username = generateUsername();
+          username = environment.generateUsername();
           password = generatePassword();
 
           await adminCreateUser(
@@ -31,6 +32,7 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
           );
 
           await signOutUser();
@@ -60,21 +62,18 @@ void main() {
           expect(res.isSignedIn, isTrue);
         });
 
-        asyncTest(
-          'should throw a NotAuthorizedException for an incorrect '
-          'current password',
-          (_) async {
-            final incorrectPassword = generatePassword();
-            final newPassword = generatePassword();
-            await expectLater(
-              Amplify.Auth.updatePassword(
-                oldPassword: incorrectPassword,
-                newPassword: newPassword,
-              ),
-              throwsA(isA<AuthNotAuthorizedException>()),
-            );
-          },
-        );
+        asyncTest('should throw a NotAuthorizedException for an incorrect '
+            'current password', (_) async {
+          final incorrectPassword = generatePassword();
+          final newPassword = generatePassword();
+          await expectLater(
+            Amplify.Auth.updatePassword(
+              oldPassword: incorrectPassword,
+              newPassword: newPassword,
+            ),
+            throwsA(isA<AuthNotAuthorizedException>()),
+          );
+        });
 
         asyncTest(
           'should throw an InvalidPasswordException for a new password that '

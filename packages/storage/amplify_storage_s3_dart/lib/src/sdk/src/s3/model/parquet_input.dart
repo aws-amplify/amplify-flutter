@@ -26,11 +26,12 @@ abstract class ParquetInput
   const ParquetInput._();
 
   static const List<_i2.SmithySerializer<ParquetInput>> serializers = [
-    ParquetInputRestXmlSerializer()
+    ParquetInputRestXmlSerializer(),
   ];
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ParquetInput');
@@ -43,17 +44,13 @@ class ParquetInputRestXmlSerializer
   const ParquetInputRestXmlSerializer() : super('ParquetInput');
 
   @override
-  Iterable<Type> get types => const [
-        ParquetInput,
-        _$ParquetInput,
-      ];
+  Iterable<Type> get types => const [ParquetInput, _$ParquetInput];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   ParquetInput deserialize(
     Serializers serializers,
@@ -73,7 +70,7 @@ class ParquetInputRestXmlSerializer
       const _i2.XmlElementName(
         'ParquetInput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('windows || mac-os || linux')
+library;
 
 import 'dart:async';
 import 'dart:io';
@@ -9,10 +10,7 @@ import 'dart:io';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_auth_cognito_test/common/mock_config.dart';
-import 'package:amplify_auth_cognito_test/common/mock_dispatcher.dart';
-import 'package:amplify_auth_cognito_test/common/mock_hosted_ui.dart';
-import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
+import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -58,8 +56,8 @@ void main() {
       test('selects from multiple URIs when a port is blocked', () async {
         final platform = createHostedUiFactory(
           signIn: expectAsync3((platform, options, provider) async {
-            final boundServer =
-                await (platform as HostedUiPlatformImpl).localConnect(uris);
+            final boundServer = await (platform as HostedUiPlatformImpl)
+                .localConnect(uris);
             addTearDown(() => boundServer.server.close(force: true));
             expect(boundServer.uri, equals(uris[1]));
           }),
@@ -71,34 +69,31 @@ void main() {
           uris[0].port,
         );
         addTearDown(() => server.close(force: true));
-        await platform(dependencyManager).signIn(
-          options: const CognitoSignInWithWebUIPluginOptions(),
-        );
+        await platform(
+          dependencyManager,
+        ).signIn(options: const CognitoSignInWithWebUIPluginOptions());
       });
 
       test('multiple calls do not fail', () async {
         final platform = createHostedUiFactory(
-          signIn: expectAsync3(
-            count: 2,
-            (platform, options, provider) async {
-              final boundServer =
-                  await (platform as HostedUiPlatformImpl).localConnect(uris);
-              addTearDown(() => boundServer.server.close(force: true));
-            },
-          ),
+          signIn: expectAsync3(count: 2, (platform, options, provider) async {
+            final boundServer = await (platform as HostedUiPlatformImpl)
+                .localConnect(uris);
+            addTearDown(() => boundServer.server.close(force: true));
+          }),
           signOut: (platform, options) => throw UnimplementedError(),
         );
 
         await expectLater(
-          platform(dependencyManager).signIn(
-            options: const CognitoSignInWithWebUIPluginOptions(),
-          ),
+          platform(
+            dependencyManager,
+          ).signIn(options: const CognitoSignInWithWebUIPluginOptions()),
           completes,
         );
         await expectLater(
-          platform(dependencyManager).signIn(
-            options: const CognitoSignInWithWebUIPluginOptions(),
-          ),
+          platform(
+            dependencyManager,
+          ).signIn(options: const CognitoSignInWithWebUIPluginOptions()),
           completes,
         );
       });
@@ -121,9 +116,9 @@ void main() {
           );
           addTearDown(() => server.close(force: true));
         }
-        await platform(dependencyManager).signIn(
-          options: const CognitoSignInWithWebUIPluginOptions(),
-        );
+        await platform(
+          dependencyManager,
+        ).signIn(options: const CognitoSignInWithWebUIPluginOptions());
       });
     });
 
@@ -138,13 +133,14 @@ void main() {
         );
         dependencyManager
           ..addInstance(client)
-          ..addInstance(mockConfig)
-          ..addInstance(hostedUiConfig)
+          ..addInstance(mockConfig.auth!)
           ..addInstance<Dispatcher<AuthEvent, AuthState>>(dispatcher);
         final hostedUiPlatform = MockHostedUiPlatform(dependencyManager);
 
         final redirect = Uri.parse(
-          redirectUri.split(',').firstWhere((uri) => uri.contains('localhost')),
+          mockConfig.auth!.oauth!.redirectSignInUri.firstWhere(
+            (uri) => uri.contains('localhost'),
+          ),
         );
         expect(hostedUiPlatform.signInRedirectUri, redirect);
         expect(hostedUiPlatform.signOutRedirectUri, redirect);
@@ -161,10 +157,14 @@ void main() {
         await expectLater(
           client.get(redirect),
           completion(
-            isA<http.Response>()
-                .having((res) => res.statusCode, 'statusCode', isNot(200)),
+            isA<http.Response>().having(
+              (res) => res.statusCode,
+              'statusCode',
+              isNot(200),
+            ),
           ),
-          reason: 'Local server should be running and able to accept '
+          reason:
+              'Local server should be running and able to accept '
               'requests. Should return 4xx for anything but a success/error '
               'redirect.',
         );
@@ -175,8 +175,11 @@ void main() {
         await expectLater(
           client.get(successRedirect),
           completion(
-            isA<http.Response>()
-                .having((res) => res.statusCode, 'statusCode', 200),
+            isA<http.Response>().having(
+              (res) => res.statusCode,
+              'statusCode',
+              200,
+            ),
           ),
           reason: "Server won't close until a valid redirect is performed",
         );

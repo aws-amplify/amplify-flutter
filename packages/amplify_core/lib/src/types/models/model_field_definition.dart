@@ -132,8 +132,10 @@ class ModelFieldDefinition {
     return field(
       key: key,
       isRequired: isRequired,
-      ofType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
+      ofType: ModelFieldType(
+        ModelFieldTypeEnum.model,
+        ofModelName: ofModelName,
+      ),
       association: ModelAssociation(
         associationType: ModelAssociationEnum.HasOne,
         associatedName: associatedKey.fieldName,
@@ -147,10 +149,6 @@ class ModelFieldDefinition {
     bool isRequired = true,
     required String ofModelName,
     QueryField<Object?>? associatedKey,
-    @Deprecated(
-      'Please use the latest version of Amplify CLI to regenerate models',
-    )
-    String? targetName,
     List<String>? targetNames,
   }) {
     // Extra code needed due to lack of nullability support
@@ -163,13 +161,12 @@ class ModelFieldDefinition {
     return field(
       key: key,
       isRequired: isRequired,
-      ofType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
+      ofType: ModelFieldType(
+        ModelFieldTypeEnum.model,
+        ofModelName: ofModelName,
+      ),
       association: ModelAssociation(
         associationType: ModelAssociationEnum.BelongsTo,
-        // Allow support for old schemas
-        // ignore: deprecated_member_use_from_same_package
-        targetName: targetName,
         targetNames: targetNames,
         associatedName: associatedName,
         associatedType: associatedType,

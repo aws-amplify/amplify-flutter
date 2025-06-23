@@ -18,33 +18,25 @@ class _$AbortMultipartUploadRequest extends AbortMultipartUploadRequest {
   @override
   final String? expectedBucketOwner;
 
-  factory _$AbortMultipartUploadRequest(
-          [void Function(AbortMultipartUploadRequestBuilder)? updates]) =>
-      (new AbortMultipartUploadRequestBuilder()..update(updates))._build();
+  factory _$AbortMultipartUploadRequest([
+    void Function(AbortMultipartUploadRequestBuilder)? updates,
+  ]) => (AbortMultipartUploadRequestBuilder()..update(updates))._build();
 
-  _$AbortMultipartUploadRequest._(
-      {required this.bucket,
-      required this.key,
-      required this.uploadId,
-      this.requestPayer,
-      this.expectedBucketOwner})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'AbortMultipartUploadRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
-        key, r'AbortMultipartUploadRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        uploadId, r'AbortMultipartUploadRequest', 'uploadId');
-  }
-
+  _$AbortMultipartUploadRequest._({
+    required this.bucket,
+    required this.key,
+    required this.uploadId,
+    this.requestPayer,
+    this.expectedBucketOwner,
+  }) : super._();
   @override
   AbortMultipartUploadRequest rebuild(
-          void Function(AbortMultipartUploadRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AbortMultipartUploadRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AbortMultipartUploadRequestBuilder toBuilder() =>
-      new AbortMultipartUploadRequestBuilder()..replace(this);
+      AbortMultipartUploadRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,8 +64,10 @@ class _$AbortMultipartUploadRequest extends AbortMultipartUploadRequest {
 
 class AbortMultipartUploadRequestBuilder
     implements
-        Builder<AbortMultipartUploadRequest,
-            AbortMultipartUploadRequestBuilder> {
+        Builder<
+          AbortMultipartUploadRequest,
+          AbortMultipartUploadRequestBuilder
+        > {
   _$AbortMultipartUploadRequest? _$v;
 
   String? _bucket;
@@ -115,7 +109,6 @@ class AbortMultipartUploadRequestBuilder
 
   @override
   void replace(AbortMultipartUploadRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AbortMultipartUploadRequest;
   }
 
@@ -128,16 +121,27 @@ class AbortMultipartUploadRequestBuilder
   AbortMultipartUploadRequest build() => _build();
 
   _$AbortMultipartUploadRequest _build() {
-    final _$result = _$v ??
-        new _$AbortMultipartUploadRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'AbortMultipartUploadRequest', 'bucket'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'AbortMultipartUploadRequest', 'key'),
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'AbortMultipartUploadRequest', 'uploadId'),
-            requestPayer: requestPayer,
-            expectedBucketOwner: expectedBucketOwner);
+    final _$result =
+        _$v ??
+        _$AbortMultipartUploadRequest._(
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'AbortMultipartUploadRequest',
+            'bucket',
+          ),
+          key: BuiltValueNullFieldError.checkNotNull(
+            key,
+            r'AbortMultipartUploadRequest',
+            'key',
+          ),
+          uploadId: BuiltValueNullFieldError.checkNotNull(
+            uploadId,
+            r'AbortMultipartUploadRequest',
+            'uploadId',
+          ),
+          requestPayer: requestPayer,
+          expectedBucketOwner: expectedBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }
@@ -145,22 +149,19 @@ class AbortMultipartUploadRequestBuilder
 
 class _$AbortMultipartUploadRequestPayload
     extends AbortMultipartUploadRequestPayload {
-  factory _$AbortMultipartUploadRequestPayload(
-          [void Function(AbortMultipartUploadRequestPayloadBuilder)?
-              updates]) =>
-      (new AbortMultipartUploadRequestPayloadBuilder()..update(updates))
-          ._build();
+  factory _$AbortMultipartUploadRequestPayload([
+    void Function(AbortMultipartUploadRequestPayloadBuilder)? updates,
+  ]) => (AbortMultipartUploadRequestPayloadBuilder()..update(updates))._build();
 
   _$AbortMultipartUploadRequestPayload._() : super._();
-
   @override
   AbortMultipartUploadRequestPayload rebuild(
-          void Function(AbortMultipartUploadRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AbortMultipartUploadRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AbortMultipartUploadRequestPayloadBuilder toBuilder() =>
-      new AbortMultipartUploadRequestPayloadBuilder()..replace(this);
+      AbortMultipartUploadRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -176,21 +177,23 @@ class _$AbortMultipartUploadRequestPayload
 
 class AbortMultipartUploadRequestPayloadBuilder
     implements
-        Builder<AbortMultipartUploadRequestPayload,
-            AbortMultipartUploadRequestPayloadBuilder> {
+        Builder<
+          AbortMultipartUploadRequestPayload,
+          AbortMultipartUploadRequestPayloadBuilder
+        > {
   _$AbortMultipartUploadRequestPayload? _$v;
 
   AbortMultipartUploadRequestPayloadBuilder();
 
   @override
   void replace(AbortMultipartUploadRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AbortMultipartUploadRequestPayload;
   }
 
   @override
   void update(
-      void Function(AbortMultipartUploadRequestPayloadBuilder)? updates) {
+    void Function(AbortMultipartUploadRequestPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -198,7 +201,7 @@ class AbortMultipartUploadRequestPayloadBuilder
   AbortMultipartUploadRequestPayload build() => _build();
 
   _$AbortMultipartUploadRequestPayload _build() {
-    final _$result = _$v ?? new _$AbortMultipartUploadRequestPayload._();
+    final _$result = _$v ?? _$AbortMultipartUploadRequestPayload._();
     replace(_$result);
     return _$result;
   }

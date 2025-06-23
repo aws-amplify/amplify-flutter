@@ -11,22 +11,19 @@ class _$QueryIdempotencyTokenAutoFillInput
   @override
   final String? token;
 
-  factory _$QueryIdempotencyTokenAutoFillInput(
-          [void Function(QueryIdempotencyTokenAutoFillInputBuilder)?
-              updates]) =>
-      (new QueryIdempotencyTokenAutoFillInputBuilder()..update(updates))
-          ._build();
+  factory _$QueryIdempotencyTokenAutoFillInput([
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder)? updates,
+  ]) => (QueryIdempotencyTokenAutoFillInputBuilder()..update(updates))._build();
 
   _$QueryIdempotencyTokenAutoFillInput._({this.token}) : super._();
-
   @override
   QueryIdempotencyTokenAutoFillInput rebuild(
-          void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryIdempotencyTokenAutoFillInputBuilder toBuilder() =>
-      new QueryIdempotencyTokenAutoFillInputBuilder()..replace(this);
+      QueryIdempotencyTokenAutoFillInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -45,8 +42,10 @@ class _$QueryIdempotencyTokenAutoFillInput
 
 class QueryIdempotencyTokenAutoFillInputBuilder
     implements
-        Builder<QueryIdempotencyTokenAutoFillInput,
-            QueryIdempotencyTokenAutoFillInputBuilder> {
+        Builder<
+          QueryIdempotencyTokenAutoFillInput,
+          QueryIdempotencyTokenAutoFillInputBuilder
+        > {
   _$QueryIdempotencyTokenAutoFillInput? _$v;
 
   String? _token;
@@ -68,13 +67,13 @@ class QueryIdempotencyTokenAutoFillInputBuilder
 
   @override
   void replace(QueryIdempotencyTokenAutoFillInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$QueryIdempotencyTokenAutoFillInput;
   }
 
   @override
   void update(
-      void Function(QueryIdempotencyTokenAutoFillInputBuilder)? updates) {
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -83,7 +82,7 @@ class QueryIdempotencyTokenAutoFillInputBuilder
 
   _$QueryIdempotencyTokenAutoFillInput _build() {
     final _$result =
-        _$v ?? new _$QueryIdempotencyTokenAutoFillInput._(token: token);
+        _$v ?? _$QueryIdempotencyTokenAutoFillInput._(token: token);
     replace(_$result);
     return _$result;
   }

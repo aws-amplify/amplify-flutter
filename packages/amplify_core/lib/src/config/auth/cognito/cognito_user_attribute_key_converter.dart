@@ -4,9 +4,9 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-class CognitoUserAttributeKeyConverter
+class CognitoUserAttributeKeyToUpperCaseConverter
     extends JsonConverter<CognitoUserAttributeKey, String> {
-  const CognitoUserAttributeKeyConverter();
+  const CognitoUserAttributeKeyToUpperCaseConverter();
 
   @override
   CognitoUserAttributeKey fromJson(String json) {
@@ -19,10 +19,27 @@ class CognitoUserAttributeKeyConverter
   }
 }
 
+class CognitoUserAttributeKeyConverter
+    extends JsonConverter<CognitoUserAttributeKey, String> {
+  const CognitoUserAttributeKeyConverter();
+
+  @override
+  CognitoUserAttributeKey fromJson(String json) {
+    return CognitoUserAttributeKey.parse(json);
+  }
+
+  @override
+  String toJson(CognitoUserAttributeKey object) {
+    return object.key;
+  }
+}
+
 class CognitoUserAttributeMapConverter
     implements
-        JsonConverter<Map<CognitoUserAttributeKey, String>,
-            Map<String, String>> {
+        JsonConverter<
+          Map<CognitoUserAttributeKey, String>,
+          Map<String, String>
+        > {
   const CognitoUserAttributeMapConverter();
 
   @override
@@ -33,7 +50,5 @@ class CognitoUserAttributeMapConverter
 
   @override
   Map<String, String> toJson(Map<CognitoUserAttributeKey, String> object) =>
-      object.map(
-        (key, value) => MapEntry(key.toJson(), value),
-      );
+      object.map((key, value) => MapEntry(key.toJson(), value));
 }

@@ -10,20 +10,19 @@ class _$UpdateUserAttributesResponse extends UpdateUserAttributesResponse {
   @override
   final _i2.BuiltList<CodeDeliveryDetailsType>? codeDeliveryDetailsList;
 
-  factory _$UpdateUserAttributesResponse(
-          [void Function(UpdateUserAttributesResponseBuilder)? updates]) =>
-      (new UpdateUserAttributesResponseBuilder()..update(updates))._build();
+  factory _$UpdateUserAttributesResponse([
+    void Function(UpdateUserAttributesResponseBuilder)? updates,
+  ]) => (UpdateUserAttributesResponseBuilder()..update(updates))._build();
 
   _$UpdateUserAttributesResponse._({this.codeDeliveryDetailsList}) : super._();
-
   @override
   UpdateUserAttributesResponse rebuild(
-          void Function(UpdateUserAttributesResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateUserAttributesResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateUserAttributesResponseBuilder toBuilder() =>
-      new UpdateUserAttributesResponseBuilder()..replace(this);
+      UpdateUserAttributesResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -43,17 +42,19 @@ class _$UpdateUserAttributesResponse extends UpdateUserAttributesResponse {
 
 class UpdateUserAttributesResponseBuilder
     implements
-        Builder<UpdateUserAttributesResponse,
-            UpdateUserAttributesResponseBuilder> {
+        Builder<
+          UpdateUserAttributesResponse,
+          UpdateUserAttributesResponseBuilder
+        > {
   _$UpdateUserAttributesResponse? _$v;
 
   _i2.ListBuilder<CodeDeliveryDetailsType>? _codeDeliveryDetailsList;
   _i2.ListBuilder<CodeDeliveryDetailsType> get codeDeliveryDetailsList =>
       _$this._codeDeliveryDetailsList ??=
-          new _i2.ListBuilder<CodeDeliveryDetailsType>();
+          _i2.ListBuilder<CodeDeliveryDetailsType>();
   set codeDeliveryDetailsList(
-          _i2.ListBuilder<CodeDeliveryDetailsType>? codeDeliveryDetailsList) =>
-      _$this._codeDeliveryDetailsList = codeDeliveryDetailsList;
+    _i2.ListBuilder<CodeDeliveryDetailsType>? codeDeliveryDetailsList,
+  ) => _$this._codeDeliveryDetailsList = codeDeliveryDetailsList;
 
   UpdateUserAttributesResponseBuilder();
 
@@ -68,7 +69,6 @@ class UpdateUserAttributesResponseBuilder
 
   @override
   void replace(UpdateUserAttributesResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateUserAttributesResponse;
   }
 
@@ -83,17 +83,22 @@ class UpdateUserAttributesResponseBuilder
   _$UpdateUserAttributesResponse _build() {
     _$UpdateUserAttributesResponse _$result;
     try {
-      _$result = _$v ??
-          new _$UpdateUserAttributesResponse._(
-              codeDeliveryDetailsList: _codeDeliveryDetailsList?.build());
+      _$result =
+          _$v ??
+          _$UpdateUserAttributesResponse._(
+            codeDeliveryDetailsList: _codeDeliveryDetailsList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'codeDeliveryDetailsList';
         _codeDeliveryDetailsList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'UpdateUserAttributesResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'UpdateUserAttributesResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

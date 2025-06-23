@@ -49,10 +49,7 @@ void seedStorage(
   }
   if (deviceKeys != null) {
     secureStorage
-      ..write(
-        key: deviceKeys[CognitoDeviceKey.deviceKey],
-        value: deviceKey,
-      )
+      ..write(key: deviceKeys[CognitoDeviceKey.deviceKey], value: deviceKey)
       ..write(
         key: deviceKeys[CognitoDeviceKey.deviceGroupKey],
         value: deviceGroupKey,
@@ -91,14 +88,8 @@ void seedStorage(
         key: hostedUiKeys[HostedUiKey.accessToken],
         value: accessToken.raw,
       )
-      ..write(
-        key: hostedUiKeys[HostedUiKey.refreshToken],
-        value: refreshToken,
-      )
-      ..write(
-        key: hostedUiKeys[HostedUiKey.idToken],
-        value: idToken.raw,
-      );
+      ..write(key: hostedUiKeys[HostedUiKey.refreshToken], value: refreshToken)
+      ..write(key: hostedUiKeys[HostedUiKey.idToken], value: idToken.raw);
   }
   if (version != null) {
     secureStorage.write(

@@ -17,7 +17,19 @@ on:
 
 jobs:
   e2e-test-ios:
-    runs-on: macos-latest-xl
+    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
+    runs-on: macos-14-xlarge
+    strategy:
+      # Allows other matrix items to run if one fails
+      fail-fast: false
+      matrix:
+        channel:
+          - beta
+          - stable
+        # Skips e2e tests against beta on PRs
+        exclude:
+          - channel: ${{ (github.event_name == 'pull_request' && 'beta') || 'NONE' }}
+
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -30,6 +42,8 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+        with:
+          channel: ${{ matrix.channel }}
 
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator

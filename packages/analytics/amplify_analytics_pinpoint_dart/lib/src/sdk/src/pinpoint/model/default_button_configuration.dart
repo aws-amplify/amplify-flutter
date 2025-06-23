@@ -36,14 +36,14 @@ abstract class DefaultButtonConfiguration
   }
 
   /// Default button configuration.
-  factory DefaultButtonConfiguration.build(
-          [void Function(DefaultButtonConfigurationBuilder) updates]) =
-      _$DefaultButtonConfiguration;
+  factory DefaultButtonConfiguration.build([
+    void Function(DefaultButtonConfigurationBuilder) updates,
+  ]) = _$DefaultButtonConfiguration;
 
   const DefaultButtonConfiguration._();
 
   static const List<_i2.SmithySerializer<DefaultButtonConfiguration>>
-      serializers = [DefaultButtonConfigurationRestJson1Serializer()];
+  serializers = [DefaultButtonConfigurationRestJson1Serializer()];
 
   /// The background color of the button.
   String? get backgroundColor;
@@ -64,40 +64,22 @@ abstract class DefaultButtonConfiguration
   String? get textColor;
   @override
   List<Object?> get props => [
-        backgroundColor,
-        borderRadius,
-        buttonAction,
-        link,
-        text,
-        textColor,
-      ];
+    backgroundColor,
+    borderRadius,
+    buttonAction,
+    link,
+    text,
+    textColor,
+  ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DefaultButtonConfiguration')
-      ..add(
-        'backgroundColor',
-        backgroundColor,
-      )
-      ..add(
-        'borderRadius',
-        borderRadius,
-      )
-      ..add(
-        'buttonAction',
-        buttonAction,
-      )
-      ..add(
-        'link',
-        link,
-      )
-      ..add(
-        'text',
-        text,
-      )
-      ..add(
-        'textColor',
-        textColor,
-      );
+      ..add('backgroundColor', backgroundColor)
+      ..add('borderRadius', borderRadius)
+      ..add('buttonAction', buttonAction)
+      ..add('link', link)
+      ..add('text', text)
+      ..add('textColor', textColor);
     return helper.toString();
   }
 }
@@ -105,20 +87,17 @@ abstract class DefaultButtonConfiguration
 class DefaultButtonConfigurationRestJson1Serializer
     extends _i2.StructuredSmithySerializer<DefaultButtonConfiguration> {
   const DefaultButtonConfigurationRestJson1Serializer()
-      : super('DefaultButtonConfiguration');
+    : super('DefaultButtonConfiguration');
 
   @override
   Iterable<Type> get types => const [
-        DefaultButtonConfiguration,
-        _$DefaultButtonConfiguration,
-      ];
+    DefaultButtonConfiguration,
+    _$DefaultButtonConfiguration,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   DefaultButtonConfiguration deserialize(
     Serializers serializers,
@@ -136,35 +115,47 @@ class DefaultButtonConfigurationRestJson1Serializer
       }
       switch (key) {
         case 'BackgroundColor':
-          result.backgroundColor = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.backgroundColor =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'BorderRadius':
-          result.borderRadius = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.borderRadius =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'ButtonAction':
-          result.buttonAction = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ButtonAction),
-          ) as ButtonAction);
+          result.buttonAction =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ButtonAction),
+                  )
+                  as ButtonAction);
         case 'Link':
-          result.link = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.link =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Text':
-          result.text = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.text =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'TextColor':
-          result.textColor = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.textColor =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -184,7 +175,7 @@ class DefaultButtonConfigurationRestJson1Serializer
       :buttonAction,
       :link,
       :text,
-      :textColor
+      :textColor,
     ) = object;
     result$.addAll([
       'ButtonAction',
@@ -193,42 +184,44 @@ class DefaultButtonConfigurationRestJson1Serializer
         specifiedType: const FullType(ButtonAction),
       ),
       'Text',
-      serializers.serialize(
-        text,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(text, specifiedType: const FullType(String)),
     ]);
     if (backgroundColor != null) {
       result$
         ..add('BackgroundColor')
-        ..add(serializers.serialize(
-          backgroundColor,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            backgroundColor,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (borderRadius != null) {
       result$
         ..add('BorderRadius')
-        ..add(serializers.serialize(
-          borderRadius,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(
+            borderRadius,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     if (link != null) {
       result$
         ..add('Link')
-        ..add(serializers.serialize(
-          link,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(link, specifiedType: const FullType(String)),
+        );
     }
     if (textColor != null) {
       result$
         ..add('TextColor')
-        ..add(serializers.serialize(
-          textColor,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            textColor,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

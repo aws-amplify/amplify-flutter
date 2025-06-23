@@ -30,14 +30,14 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   const data = 'hello, world';
-  const dataKey = 'hello';
+  const path = StoragePath.fromString('public/hello');
   final event = AnalyticsEvent('hello');
 
   Future<void> performUnauthenticatedActions() async {
     // Upload data to Storage
     await Amplify.Storage.uploadData(
-      data: HttpPayload.string(data),
-      key: dataKey,
+      data: StorageDataPayload.string(data),
+      path: path,
     ).result;
 
     // Record Analytics event
@@ -54,28 +54,19 @@ void main() {
 
     // Perform DataStore operation (local save)
     final dsTodo = Todo(name: 'test', owner: 'test');
-    await expectLater(
-      Amplify.DataStore.save(dsTodo),
-      completes,
-    );
+    await expectLater(Amplify.DataStore.save(dsTodo), completes);
   }
 
   Future<void> performAuthenticatedActions() async {
     // Retrieve guest data
-    final guestData = await Amplify.Storage.downloadData(
-      key: dataKey,
-      options: const StorageDownloadDataOptions(
-        accessLevel: StorageAccessLevel.guest,
-      ),
-    ).result;
+    final guestData = await Amplify.Storage.downloadData(path: path).result;
     expect(utf8.decode(guestData.bytes), data);
 
     // Upload data to Storage
     await Amplify.Storage.uploadData(
-      data: HttpPayload.string(data),
-      key: dataKey,
-      options: const StorageUploadDataOptions(
-        accessLevel: StorageAccessLevel.private,
+      data: StorageDataPayload.string(data),
+      path: StoragePath.fromIdentityId(
+        (String identityId) => 'private/$identityId/hello',
       ),
     ).result;
 
@@ -97,8 +88,11 @@ void main() {
     final expectation = expectLater(
       subscription,
       emitsThrough(
-        isA<SubscriptionEvent<Todo>>()
-            .having((event) => event.item.name, 'name', 'test'),
+        isA<SubscriptionEvent<Todo>>().having(
+          (event) => event.item.name,
+          'name',
+          'test',
+        ),
       ),
     );
     await Amplify.DataStore.save(dsTodo);
@@ -137,8 +131,9 @@ void main() {
     final passwordField = find.byKey(keys.keyPasswordSignUpFormField);
     await tester.ensureVisible(passwordField);
     await tester.enterText(passwordField, password);
-    final confirmPasswordField =
-        find.byKey(keys.keyPasswordConfirmationSignUpFormField);
+    final confirmPasswordField = find.byKey(
+      keys.keyPasswordConfirmationSignUpFormField,
+    );
     await tester.ensureVisible(confirmPasswordField);
     await tester.enterText(confirmPasswordField, password);
 

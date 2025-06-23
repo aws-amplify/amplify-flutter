@@ -11,12 +11,15 @@ import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
 import 'test_runner.dart';
+
+const testUrlScheme = 'authtest';
 
 void main() {
   testRunner.setupTests();
@@ -32,7 +35,7 @@ void main() {
 
       setUp(() async {
         dependencyManager = DependencyManager()
-          ..addInstance<CognitoOAuthConfig>(hostedUiConfig)
+          ..addInstance<AuthOutputs>(mockConfig.auth!)
           ..addInstance<SecureStorageInterface>(MockSecureStorage())
           ..addInstance<http.Client>(
             MockClient((request) {
@@ -56,7 +59,7 @@ void main() {
                 argPreferprivatesession,
                 argBrowserpackagename,
               ) async {
-                expect(argUrl, contains(hostedUiConfig.webDomain));
+                expect(argUrl, contains(mockConfig.auth?.oauth?.domain));
                 expect(argCallbackurlscheme, testUrlScheme);
                 expect(argPreferprivatesession, isFalse);
                 expect(argBrowserpackagename, browserPackage);
@@ -84,7 +87,7 @@ void main() {
                 argPreferprivatesession,
                 argBrowserpackagename,
               ) async {
-                expect(argUrl, contains(hostedUiConfig.webDomain));
+                expect(argUrl, contains(mockConfig.auth?.oauth?.domain));
                 expect(argCallbackurlscheme, testUrlScheme);
                 expect(argPreferprivatesession, isFalse);
                 expect(argBrowserpackagename, browserPackage);
@@ -94,33 +97,32 @@ void main() {
           ..addInstance<Dispatcher<AuthEvent, AuthState>>(
             const MockDispatcher(),
           );
-        await platform.signOut(
-          options: options,
-        );
+        await platform.signOut(options: options);
       });
     },
   );
 }
 
-typedef SignInOutFn<T> = Future<T> Function(
-  String argUrl,
-  String argCallbackurlscheme,
-  bool argPreferprivatesession,
-  String? argBrowserpackagename,
-);
+typedef SignInOutFn<T> =
+    Future<T> Function(
+      String argUrl,
+      String argCallbackurlscheme,
+      bool argPreferprivatesession,
+      String? argBrowserpackagename,
+    );
 
 class MockNativeAuthBridge extends Fake implements NativeAuthBridge {
   MockNativeAuthBridge({
-    SignInOutFn<Map<String?, String?>>? signInWithUrl,
+    SignInOutFn<Map<String, String>>? signInWithUrl,
     SignInOutFn<void>? signOutWithUrl,
-  })  : _signInWithUrl = signInWithUrl,
-        _signOutWithUrl = signOutWithUrl;
+  }) : _signInWithUrl = signInWithUrl,
+       _signOutWithUrl = signOutWithUrl;
 
-  final SignInOutFn<Map<String?, String?>>? _signInWithUrl;
+  final SignInOutFn<Map<String, String>>? _signInWithUrl;
   final SignInOutFn<void>? _signOutWithUrl;
 
   @override
-  Future<Map<String?, String?>> signInWithUrl(
+  Future<Map<String, String>> signInWithUrl(
     String argUrl,
     String argCallbackurlscheme,
     bool argPreferprivatesession,

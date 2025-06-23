@@ -8,10 +8,10 @@ class OutboxMutationEvent extends DataStoreHubEventPayload {
     Map<String, Object?> serializedData,
     ModelProviderInterface provider,
     String eventName,
-  )   : element = eventName == 'outboxMutationEnqueued'
-            ? HubEventElement.fromMap(serializedData, provider)
-            : HubEventElementWithMetadata.fromMap(serializedData, provider),
-        modelName = serializedData['modelName'] as String;
+  ) : element = eventName == 'outboxMutationEnqueued'
+          ? HubEventElement.fromMap(serializedData, provider)
+          : HubEventElementWithMetadata.fromMap(serializedData, provider),
+      modelName = serializedData['modelName'] as String;
 
   final HubEventElement element;
   final String modelName;

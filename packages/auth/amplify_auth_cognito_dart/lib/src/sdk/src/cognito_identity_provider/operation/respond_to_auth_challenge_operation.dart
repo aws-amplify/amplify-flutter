@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.respond_to_auth_challenge_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -12,6 +12,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/expired_code_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forbidden_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/internal_error_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_email_role_access_policy_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_lambda_response_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_parameter_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_password_exception.dart';
@@ -20,6 +21,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_user_pool_configuration_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/mfa_method_not_found_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/not_authorized_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/password_history_policy_violation_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/password_reset_required_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resource_not_found_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/respond_to_auth_challenge_request.dart';
@@ -35,25 +37,32 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-/// Responds to the authentication challenge.
+/// Some API operations in a user pool generate a challenge, like a prompt for an MFA code, for device authentication that bypasses MFA, or for a custom authentication challenge. A `RespondToAuthChallenge` API request provides the answer to that challenge, like a code or a secure remote password (SRP). The parameters of a response to an authentication challenge vary with the type of challenge.
 ///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// For more information about custom authentication challenges, see [Custom authentication challenge Lambda triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html).
+///
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 ///
 /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
 ///
-/// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html) in the _Amazon Cognito Developer Guide_.
-class RespondToAuthChallengeOperation extends _i1.HttpOperation<
-    RespondToAuthChallengeRequest,
-    RespondToAuthChallengeRequest,
-    RespondToAuthChallengeResponse,
-    RespondToAuthChallengeResponse> {
-  /// Responds to the authentication challenge.
+/// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Servicesservice, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html) in the _Amazon Cognito Developer Guide_.
+class RespondToAuthChallengeOperation
+    extends
+        _i1.HttpOperation<
+          RespondToAuthChallengeRequest,
+          RespondToAuthChallengeRequest,
+          RespondToAuthChallengeResponse,
+          RespondToAuthChallengeResponse
+        > {
+  /// Some API operations in a user pool generate a challenge, like a prompt for an MFA code, for device authentication that bypasses MFA, or for a custom authentication challenge. A `RespondToAuthChallenge` API request provides the answer to that challenge, like a code or a secure remote password (SRP). The parameters of a response to an authentication challenge vary with the type of challenge.
   ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// For more information about custom authentication challenges, see [Custom authentication challenge Lambda triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html).
+  ///
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   ///
   /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
   ///
-  /// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html) in the _Amazon Cognito Developer Guide_.
+  /// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Servicesservice, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html) in the _Amazon Cognito Developer Guide_.
   RespondToAuthChallengeOperation({
     required String region,
     Uri? baseUri,
@@ -61,23 +70,27 @@ class RespondToAuthChallengeOperation extends _i1.HttpOperation<
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          RespondToAuthChallengeRequest,
-          RespondToAuthChallengeRequest,
-          RespondToAuthChallengeResponse,
-          RespondToAuthChallengeResponse>> protocols = [
+    _i1.HttpProtocol<
+      RespondToAuthChallengeRequest,
+      RespondToAuthChallengeRequest,
+      RespondToAuthChallengeResponse,
+      RespondToAuthChallengeResponse
+    >
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithHeader(
@@ -90,14 +103,14 @@ class RespondToAuthChallengeOperation extends _i1.HttpOperation<
               credentialsProvider: _credentialsProvider,
               isOptional: true,
             ),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i3.WithSdkInvocationId(),
             const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -121,244 +134,288 @@ class RespondToAuthChallengeOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([RespondToAuthChallengeResponse? output]) => 200;
+
   @override
   RespondToAuthChallengeResponse buildOutput(
     RespondToAuthChallengeResponse payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      RespondToAuthChallengeResponse.fromResponse(
-        payload,
-        response,
-      );
+  ) => RespondToAuthChallengeResponse.fromResponse(payload, response);
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<AliasExistsException, AliasExistsException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'AliasExistsException',
-          ),
-          _i1.ErrorKind.client,
-          AliasExistsException,
-          statusCode: 400,
-          builder: AliasExistsException.fromResponse,
-        ),
-        _i1.SmithyError<CodeMismatchException, CodeMismatchException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'CodeMismatchException',
-          ),
-          _i1.ErrorKind.client,
-          CodeMismatchException,
-          statusCode: 400,
-          builder: CodeMismatchException.fromResponse,
-        ),
-        _i1.SmithyError<ExpiredCodeException, ExpiredCodeException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'ExpiredCodeException',
-          ),
-          _i1.ErrorKind.client,
-          ExpiredCodeException,
-          statusCode: 400,
-          builder: ExpiredCodeException.fromResponse,
-        ),
-        _i1.SmithyError<ForbiddenException, ForbiddenException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'ForbiddenException',
-          ),
-          _i1.ErrorKind.client,
-          ForbiddenException,
-          statusCode: 403,
-          builder: ForbiddenException.fromResponse,
-        ),
-        _i1.SmithyError<InternalErrorException, InternalErrorException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InternalErrorException',
-          ),
-          _i1.ErrorKind.server,
-          InternalErrorException,
-          builder: InternalErrorException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidLambdaResponseException,
-            InvalidLambdaResponseException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InvalidLambdaResponseException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidLambdaResponseException,
-          statusCode: 400,
-          builder: InvalidLambdaResponseException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InvalidParameterException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidParameterException,
-          statusCode: 400,
-          builder: InvalidParameterException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidPasswordException, InvalidPasswordException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InvalidPasswordException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidPasswordException,
-          statusCode: 400,
-          builder: InvalidPasswordException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidSmsRoleAccessPolicyException,
-            InvalidSmsRoleAccessPolicyException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InvalidSmsRoleAccessPolicyException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidSmsRoleAccessPolicyException,
-          statusCode: 400,
-          builder: InvalidSmsRoleAccessPolicyException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidSmsRoleTrustRelationshipException,
-            InvalidSmsRoleTrustRelationshipException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InvalidSmsRoleTrustRelationshipException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidSmsRoleTrustRelationshipException,
-          statusCode: 400,
-          builder: InvalidSmsRoleTrustRelationshipException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidUserPoolConfigurationException,
-            InvalidUserPoolConfigurationException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InvalidUserPoolConfigurationException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidUserPoolConfigurationException,
-          statusCode: 400,
-          builder: InvalidUserPoolConfigurationException.fromResponse,
-        ),
-        _i1.SmithyError<MfaMethodNotFoundException, MfaMethodNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'MFAMethodNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          MfaMethodNotFoundException,
-          statusCode: 400,
-          builder: MfaMethodNotFoundException.fromResponse,
-        ),
-        _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'NotAuthorizedException',
-          ),
-          _i1.ErrorKind.client,
-          NotAuthorizedException,
-          statusCode: 403,
-          builder: NotAuthorizedException.fromResponse,
-        ),
-        _i1.SmithyError<PasswordResetRequiredException,
-            PasswordResetRequiredException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'PasswordResetRequiredException',
-          ),
-          _i1.ErrorKind.client,
-          PasswordResetRequiredException,
-          statusCode: 400,
-          builder: PasswordResetRequiredException.fromResponse,
-        ),
-        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'ResourceNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          ResourceNotFoundException,
-          statusCode: 404,
-          builder: ResourceNotFoundException.fromResponse,
-        ),
-        _i1.SmithyError<SoftwareTokenMfaNotFoundException,
-            SoftwareTokenMfaNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'SoftwareTokenMFANotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          SoftwareTokenMfaNotFoundException,
-          statusCode: 400,
-          builder: SoftwareTokenMfaNotFoundException.fromResponse,
-        ),
-        _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'TooManyRequestsException',
-          ),
-          _i1.ErrorKind.client,
-          TooManyRequestsException,
-          statusCode: 429,
-          builder: TooManyRequestsException.fromResponse,
-        ),
-        _i1.SmithyError<UnexpectedLambdaException, UnexpectedLambdaException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'UnexpectedLambdaException',
-          ),
-          _i1.ErrorKind.client,
-          UnexpectedLambdaException,
-          statusCode: 400,
-          builder: UnexpectedLambdaException.fromResponse,
-        ),
-        _i1.SmithyError<UserLambdaValidationException,
-            UserLambdaValidationException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'UserLambdaValidationException',
-          ),
-          _i1.ErrorKind.client,
-          UserLambdaValidationException,
-          statusCode: 400,
-          builder: UserLambdaValidationException.fromResponse,
-        ),
-        _i1.SmithyError<UserNotConfirmedException, UserNotConfirmedException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'UserNotConfirmedException',
-          ),
-          _i1.ErrorKind.client,
-          UserNotConfirmedException,
-          statusCode: 400,
-          builder: UserNotConfirmedException.fromResponse,
-        ),
-        _i1.SmithyError<UserNotFoundException, UserNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'UserNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          UserNotFoundException,
-          statusCode: 404,
-          builder: UserNotFoundException.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<AliasExistsException, AliasExistsException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'AliasExistsException',
+      ),
+      _i1.ErrorKind.client,
+      AliasExistsException,
+      statusCode: 400,
+      builder: AliasExistsException.fromResponse,
+    ),
+    _i1.SmithyError<CodeMismatchException, CodeMismatchException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'CodeMismatchException',
+      ),
+      _i1.ErrorKind.client,
+      CodeMismatchException,
+      statusCode: 400,
+      builder: CodeMismatchException.fromResponse,
+    ),
+    _i1.SmithyError<ExpiredCodeException, ExpiredCodeException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'ExpiredCodeException',
+      ),
+      _i1.ErrorKind.client,
+      ExpiredCodeException,
+      statusCode: 400,
+      builder: ExpiredCodeException.fromResponse,
+    ),
+    _i1.SmithyError<ForbiddenException, ForbiddenException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'ForbiddenException',
+      ),
+      _i1.ErrorKind.client,
+      ForbiddenException,
+      statusCode: 403,
+      builder: ForbiddenException.fromResponse,
+    ),
+    _i1.SmithyError<InternalErrorException, InternalErrorException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InternalErrorException',
+      ),
+      _i1.ErrorKind.server,
+      InternalErrorException,
+      builder: InternalErrorException.fromResponse,
+    ),
+    _i1.SmithyError<
+      InvalidEmailRoleAccessPolicyException,
+      InvalidEmailRoleAccessPolicyException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidEmailRoleAccessPolicyException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidEmailRoleAccessPolicyException,
+      statusCode: 400,
+      builder: InvalidEmailRoleAccessPolicyException.fromResponse,
+    ),
+    _i1.SmithyError<
+      InvalidLambdaResponseException,
+      InvalidLambdaResponseException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidLambdaResponseException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidLambdaResponseException,
+      statusCode: 400,
+      builder: InvalidLambdaResponseException.fromResponse,
+    ),
+    _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidParameterException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidParameterException,
+      statusCode: 400,
+      builder: InvalidParameterException.fromResponse,
+    ),
+    _i1.SmithyError<InvalidPasswordException, InvalidPasswordException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidPasswordException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidPasswordException,
+      statusCode: 400,
+      builder: InvalidPasswordException.fromResponse,
+    ),
+    _i1.SmithyError<
+      InvalidSmsRoleAccessPolicyException,
+      InvalidSmsRoleAccessPolicyException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidSmsRoleAccessPolicyException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidSmsRoleAccessPolicyException,
+      statusCode: 400,
+      builder: InvalidSmsRoleAccessPolicyException.fromResponse,
+    ),
+    _i1.SmithyError<
+      InvalidSmsRoleTrustRelationshipException,
+      InvalidSmsRoleTrustRelationshipException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidSmsRoleTrustRelationshipException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidSmsRoleTrustRelationshipException,
+      statusCode: 400,
+      builder: InvalidSmsRoleTrustRelationshipException.fromResponse,
+    ),
+    _i1.SmithyError<
+      InvalidUserPoolConfigurationException,
+      InvalidUserPoolConfigurationException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidUserPoolConfigurationException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidUserPoolConfigurationException,
+      statusCode: 400,
+      builder: InvalidUserPoolConfigurationException.fromResponse,
+    ),
+    _i1.SmithyError<MfaMethodNotFoundException, MfaMethodNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'MFAMethodNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      MfaMethodNotFoundException,
+      statusCode: 400,
+      builder: MfaMethodNotFoundException.fromResponse,
+    ),
+    _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'NotAuthorizedException',
+      ),
+      _i1.ErrorKind.client,
+      NotAuthorizedException,
+      statusCode: 403,
+      builder: NotAuthorizedException.fromResponse,
+    ),
+    _i1.SmithyError<
+      PasswordHistoryPolicyViolationException,
+      PasswordHistoryPolicyViolationException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'PasswordHistoryPolicyViolationException',
+      ),
+      _i1.ErrorKind.client,
+      PasswordHistoryPolicyViolationException,
+      statusCode: 400,
+      builder: PasswordHistoryPolicyViolationException.fromResponse,
+    ),
+    _i1.SmithyError<
+      PasswordResetRequiredException,
+      PasswordResetRequiredException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'PasswordResetRequiredException',
+      ),
+      _i1.ErrorKind.client,
+      PasswordResetRequiredException,
+      statusCode: 400,
+      builder: PasswordResetRequiredException.fromResponse,
+    ),
+    _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'ResourceNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      ResourceNotFoundException,
+      statusCode: 404,
+      builder: ResourceNotFoundException.fromResponse,
+    ),
+    _i1.SmithyError<
+      SoftwareTokenMfaNotFoundException,
+      SoftwareTokenMfaNotFoundException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'SoftwareTokenMFANotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      SoftwareTokenMfaNotFoundException,
+      statusCode: 400,
+      builder: SoftwareTokenMfaNotFoundException.fromResponse,
+    ),
+    _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'TooManyRequestsException',
+      ),
+      _i1.ErrorKind.client,
+      TooManyRequestsException,
+      statusCode: 429,
+      builder: TooManyRequestsException.fromResponse,
+    ),
+    _i1.SmithyError<UnexpectedLambdaException, UnexpectedLambdaException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UnexpectedLambdaException',
+      ),
+      _i1.ErrorKind.client,
+      UnexpectedLambdaException,
+      statusCode: 400,
+      builder: UnexpectedLambdaException.fromResponse,
+    ),
+    _i1.SmithyError<
+      UserLambdaValidationException,
+      UserLambdaValidationException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UserLambdaValidationException',
+      ),
+      _i1.ErrorKind.client,
+      UserLambdaValidationException,
+      statusCode: 400,
+      builder: UserLambdaValidationException.fromResponse,
+    ),
+    _i1.SmithyError<UserNotConfirmedException, UserNotConfirmedException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UserNotConfirmedException',
+      ),
+      _i1.ErrorKind.client,
+      UserNotConfirmedException,
+      statusCode: 400,
+      builder: UserNotConfirmedException.fromResponse,
+    ),
+    _i1.SmithyError<UserNotFoundException, UserNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UserNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      UserNotFoundException,
+      statusCode: 404,
+      builder: UserNotFoundException.fromResponse,
+    ),
+  ];
+
   @override
   String get runtimeTypeName => 'RespondToAuthChallenge';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<RespondToAuthChallengeResponse> run(
     RespondToAuthChallengeRequest input, {
@@ -366,11 +423,7 @@ class RespondToAuthChallengeOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

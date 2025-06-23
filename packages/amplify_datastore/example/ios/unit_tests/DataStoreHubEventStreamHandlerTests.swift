@@ -1,11 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import Flutter
 import XCTest
-import Amplify
 import Combine
-@testable import AmplifyPlugins
-@testable import AWSPluginsCore
 @testable import amplify_datastore
 
 let testHubSchema: ModelSchema = SchemaData.PostSchema
@@ -63,7 +61,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         waitForExpectations(timeout: 1.0)
         // cancellation needed to make sure that Hub token is invalidated to
         // prevent collisions between tests
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_readyEvent_success() throws {
@@ -88,7 +86,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let readyEventPayload = HubPayload(eventName: HubPayload.EventName.DataStore.ready)
         Amplify.Hub.dispatch(to: .dataStore, payload: readyEventPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_subscriptionEstablishedEvent_success() throws {
@@ -113,7 +111,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let subscriptionEstablishedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.subscriptionsEstablished)
         Amplify.Hub.dispatch(to: .dataStore, payload: subscriptionEstablishedPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_syncQueriesReadyEvent_success() throws {
@@ -138,7 +136,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let syncQueriesReadyPayload = HubPayload(eventName: HubPayload.EventName.DataStore.syncQueriesReady)
         Amplify.Hub.dispatch(to: .dataStore, payload: syncQueriesReadyPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_networkStatusEvent_success() throws {
@@ -166,7 +164,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let networkStatusPayload = HubPayload(eventName: HubPayload.EventName.DataStore.networkStatus, data: networkStatusEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: networkStatusPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_outboxStatusEvent_success() throws {
@@ -194,7 +192,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let outboxStatusPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxStatus, data: outboxStatusEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: outboxStatusPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_syncQueriesStartedEvent_success() throws {
@@ -221,7 +219,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let syncQueriesStartedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.syncQueriesStarted, data: syncQueriesStartedEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: syncQueriesStartedPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_outboxMutationEnqueued_success() throws {
@@ -236,14 +234,13 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 let element = flutterEvent["element"] as! [String: Any]
                 let model = element["model"] as! [String: Any]
                 let syncMetaData = element["syncMetadata"] as! [String: Any]
-                let serializedData = model["serializedData"] as! [String: Any]
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "outboxMutationEnqueued")
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Post")
                 XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int, nil)
                 XCTAssertEqual(syncMetaData["_version"] as? Int, nil)
                 XCTAssertEqual(syncMetaData["_deleted"] as? Bool, false)
-                XCTAssertEqual(model["modelName"] as! String, "Post")
-                XCTAssertEqual(serializedData["title"] as! String, "Title 1")
+                XCTAssertEqual(model["__modelName"] as! String, "Post")
+                XCTAssertEqual(model["title"] as! String, "Title 1")
                 innerExpect?.fulfill()
             }
         }
@@ -265,7 +262,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let outboxMutationEnqueuedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxMutationEnqueued, data: outboxMutationEnqueuedEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: outboxMutationEnqueuedPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_outboxMutationProcessedEvent_success() throws {
@@ -279,30 +276,30 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             override func sendEvent(flutterEvent: [String: Any]) {
                 let element = flutterEvent["element"] as! [String: Any]
                 let model = element["model"] as! [String: Any]
-                let serializedData = model["serializedData"] as! [String: Any]
                 let syncMetaData = element["syncMetadata"] as! [String: Any]
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "outboxMutationProcessed")
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Post")
-                XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int, 123)
+                XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int64, 123)
                 XCTAssertEqual(syncMetaData["_version"] as? Int, 1)
                 XCTAssertEqual(syncMetaData["_deleted"] as? Bool, false)
-                XCTAssertEqual(model["modelName"] as! String, "Post")
-                XCTAssertEqual(model["modelName"] as! String, "Post")
-                XCTAssertEqual(serializedData["title"] as! String, "Title 1")
+                XCTAssertEqual(model["__modelName"] as! String, "Post")
+                XCTAssertEqual(model["__modelName"] as! String, "Post")
+                XCTAssertEqual(model["title"] as! String, "Title 1")
                 innerExpect?.fulfill()
             }
         }
 
         let uuid = UUID().uuidString
         let modelMap = [
-            "modelName": "Post",
+            "__modelName": "Post",
             "id": uuid,
             "title": "Title 1"
         ]
 
         let serializedModel = FlutterSerializedModel(map: try FlutterDataStoreRequestUtils.getJSONValue(modelMap), modelName: "Post")
 
-        let syncMetadata = MutationSyncMetadata(id: uuid,
+        let syncMetadata = MutationSyncMetadata(modelId: uuid,
+                                                modelName: "MutationSync",
                                                 deleted: false,
                                                 lastChangedAt: 123,
                                                 version: 1)
@@ -323,7 +320,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             expect.fulfill()
         }
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hot_restart_replays_sync_and_ready_events() {

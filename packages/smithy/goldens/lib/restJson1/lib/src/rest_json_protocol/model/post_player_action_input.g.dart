@@ -10,20 +10,19 @@ class _$PostPlayerActionInput extends PostPlayerActionInput {
   @override
   final PlayerAction? action;
 
-  factory _$PostPlayerActionInput(
-          [void Function(PostPlayerActionInputBuilder)? updates]) =>
-      (new PostPlayerActionInputBuilder()..update(updates))._build();
+  factory _$PostPlayerActionInput([
+    void Function(PostPlayerActionInputBuilder)? updates,
+  ]) => (PostPlayerActionInputBuilder()..update(updates))._build();
 
   _$PostPlayerActionInput._({this.action}) : super._();
-
   @override
   PostPlayerActionInput rebuild(
-          void Function(PostPlayerActionInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PostPlayerActionInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PostPlayerActionInputBuilder toBuilder() =>
-      new PostPlayerActionInputBuilder()..replace(this);
+      PostPlayerActionInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +60,6 @@ class PostPlayerActionInputBuilder
 
   @override
   void replace(PostPlayerActionInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PostPlayerActionInput;
   }
 
@@ -74,7 +72,7 @@ class PostPlayerActionInputBuilder
   PostPlayerActionInput build() => _build();
 
   _$PostPlayerActionInput _build() {
-    final _$result = _$v ?? new _$PostPlayerActionInput._(action: action);
+    final _$result = _$v ?? _$PostPlayerActionInput._(action: action);
     replace(_$result);
     return _$result;
   }

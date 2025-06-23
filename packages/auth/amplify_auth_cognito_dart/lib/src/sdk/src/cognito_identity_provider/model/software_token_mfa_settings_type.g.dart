@@ -12,27 +12,22 @@ class _$SoftwareTokenMfaSettingsType extends SoftwareTokenMfaSettingsType {
   @override
   final bool preferredMfa;
 
-  factory _$SoftwareTokenMfaSettingsType(
-          [void Function(SoftwareTokenMfaSettingsTypeBuilder)? updates]) =>
-      (new SoftwareTokenMfaSettingsTypeBuilder()..update(updates))._build();
+  factory _$SoftwareTokenMfaSettingsType([
+    void Function(SoftwareTokenMfaSettingsTypeBuilder)? updates,
+  ]) => (SoftwareTokenMfaSettingsTypeBuilder()..update(updates))._build();
 
-  _$SoftwareTokenMfaSettingsType._(
-      {required this.enabled, required this.preferredMfa})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        enabled, r'SoftwareTokenMfaSettingsType', 'enabled');
-    BuiltValueNullFieldError.checkNotNull(
-        preferredMfa, r'SoftwareTokenMfaSettingsType', 'preferredMfa');
-  }
-
+  _$SoftwareTokenMfaSettingsType._({
+    required this.enabled,
+    required this.preferredMfa,
+  }) : super._();
   @override
   SoftwareTokenMfaSettingsType rebuild(
-          void Function(SoftwareTokenMfaSettingsTypeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SoftwareTokenMfaSettingsTypeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SoftwareTokenMfaSettingsTypeBuilder toBuilder() =>
-      new SoftwareTokenMfaSettingsTypeBuilder()..replace(this);
+      SoftwareTokenMfaSettingsTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -54,8 +49,10 @@ class _$SoftwareTokenMfaSettingsType extends SoftwareTokenMfaSettingsType {
 
 class SoftwareTokenMfaSettingsTypeBuilder
     implements
-        Builder<SoftwareTokenMfaSettingsType,
-            SoftwareTokenMfaSettingsTypeBuilder> {
+        Builder<
+          SoftwareTokenMfaSettingsType,
+          SoftwareTokenMfaSettingsTypeBuilder
+        > {
   _$SoftwareTokenMfaSettingsType? _$v;
 
   bool? _enabled;
@@ -82,7 +79,6 @@ class SoftwareTokenMfaSettingsTypeBuilder
 
   @override
   void replace(SoftwareTokenMfaSettingsType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SoftwareTokenMfaSettingsType;
   }
 
@@ -95,12 +91,20 @@ class SoftwareTokenMfaSettingsTypeBuilder
   SoftwareTokenMfaSettingsType build() => _build();
 
   _$SoftwareTokenMfaSettingsType _build() {
-    final _$result = _$v ??
-        new _$SoftwareTokenMfaSettingsType._(
-            enabled: BuiltValueNullFieldError.checkNotNull(
-                enabled, r'SoftwareTokenMfaSettingsType', 'enabled'),
-            preferredMfa: BuiltValueNullFieldError.checkNotNull(
-                preferredMfa, r'SoftwareTokenMfaSettingsType', 'preferredMfa'));
+    final _$result =
+        _$v ??
+        _$SoftwareTokenMfaSettingsType._(
+          enabled: BuiltValueNullFieldError.checkNotNull(
+            enabled,
+            r'SoftwareTokenMfaSettingsType',
+            'enabled',
+          ),
+          preferredMfa: BuiltValueNullFieldError.checkNotNull(
+            preferredMfa,
+            r'SoftwareTokenMfaSettingsType',
+            'preferredMfa',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

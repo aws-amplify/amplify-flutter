@@ -28,14 +28,14 @@ abstract class AttributeDimension
   }
 
   /// Specifies attribute-based criteria for including or excluding endpoints from a segment.
-  factory AttributeDimension.build(
-          [void Function(AttributeDimensionBuilder) updates]) =
-      _$AttributeDimension;
+  factory AttributeDimension.build([
+    void Function(AttributeDimensionBuilder) updates,
+  ]) = _$AttributeDimension;
 
   const AttributeDimension._();
 
   static const List<_i3.SmithySerializer<AttributeDimension>> serializers = [
-    AttributeDimensionRestJson1Serializer()
+    AttributeDimensionRestJson1Serializer(),
   ];
 
   /// The type of segment dimension to use. Valid values are:
@@ -52,21 +52,12 @@ abstract class AttributeDimension
   /// The criteria values to use for the segment dimension. Depending on the value of the AttributeType property, endpoints are included or excluded from the segment if their attribute values match the criteria values.
   _i2.BuiltList<String> get values;
   @override
-  List<Object?> get props => [
-        attributeType,
-        values,
-      ];
+  List<Object?> get props => [attributeType, values];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AttributeDimension')
-      ..add(
-        'attributeType',
-        attributeType,
-      )
-      ..add(
-        'values',
-        values,
-      );
+      ..add('attributeType', attributeType)
+      ..add('values', values);
     return helper.toString();
   }
 }
@@ -76,17 +67,11 @@ class AttributeDimensionRestJson1Serializer
   const AttributeDimensionRestJson1Serializer() : super('AttributeDimension');
 
   @override
-  Iterable<Type> get types => const [
-        AttributeDimension,
-        _$AttributeDimension,
-      ];
+  Iterable<Type> get types => const [AttributeDimension, _$AttributeDimension];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   AttributeDimension deserialize(
     Serializers serializers,
@@ -104,18 +89,22 @@ class AttributeDimensionRestJson1Serializer
       }
       switch (key) {
         case 'AttributeType':
-          result.attributeType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(AttributeType),
-          ) as AttributeType);
+          result.attributeType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(AttributeType),
+                  )
+                  as AttributeType);
         case 'Values':
-          result.values.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i2.BuiltList<String>));
+          result.values.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltList<String>),
+          );
       }
     }
 
@@ -134,19 +123,18 @@ class AttributeDimensionRestJson1Serializer
       'Values',
       serializers.serialize(
         values,
-        specifiedType: const FullType(
-          _i2.BuiltList,
-          [FullType(String)],
-        ),
+        specifiedType: const FullType(_i2.BuiltList, [FullType(String)]),
       ),
     ]);
     if (attributeType != null) {
       result$
         ..add('AttributeType')
-        ..add(serializers.serialize(
-          attributeType,
-          specifiedType: const FullType(AttributeType),
-        ));
+        ..add(
+          serializers.serialize(
+            attributeType,
+            specifiedType: const FullType(AttributeType),
+          ),
+        );
     }
     return result$;
   }

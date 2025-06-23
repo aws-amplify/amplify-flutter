@@ -11,22 +11,20 @@ class _$MalformedContentTypeWithPayloadInput
   @override
   final _i2.Uint8List? payload;
 
-  factory _$MalformedContentTypeWithPayloadInput(
-          [void Function(MalformedContentTypeWithPayloadInputBuilder)?
-              updates]) =>
-      (new MalformedContentTypeWithPayloadInputBuilder()..update(updates))
-          ._build();
+  factory _$MalformedContentTypeWithPayloadInput([
+    void Function(MalformedContentTypeWithPayloadInputBuilder)? updates,
+  ]) =>
+      (MalformedContentTypeWithPayloadInputBuilder()..update(updates))._build();
 
   _$MalformedContentTypeWithPayloadInput._({this.payload}) : super._();
-
   @override
   MalformedContentTypeWithPayloadInput rebuild(
-          void Function(MalformedContentTypeWithPayloadInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedContentTypeWithPayloadInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedContentTypeWithPayloadInputBuilder toBuilder() =>
-      new MalformedContentTypeWithPayloadInputBuilder()..replace(this);
+      MalformedContentTypeWithPayloadInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,8 +44,10 @@ class _$MalformedContentTypeWithPayloadInput
 
 class MalformedContentTypeWithPayloadInputBuilder
     implements
-        Builder<MalformedContentTypeWithPayloadInput,
-            MalformedContentTypeWithPayloadInputBuilder> {
+        Builder<
+          MalformedContentTypeWithPayloadInput,
+          MalformedContentTypeWithPayloadInputBuilder
+        > {
   _$MalformedContentTypeWithPayloadInput? _$v;
 
   _i2.Uint8List? _payload;
@@ -67,13 +67,13 @@ class MalformedContentTypeWithPayloadInputBuilder
 
   @override
   void replace(MalformedContentTypeWithPayloadInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedContentTypeWithPayloadInput;
   }
 
   @override
   void update(
-      void Function(MalformedContentTypeWithPayloadInputBuilder)? updates) {
+    void Function(MalformedContentTypeWithPayloadInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -82,7 +82,7 @@ class MalformedContentTypeWithPayloadInputBuilder
 
   _$MalformedContentTypeWithPayloadInput _build() {
     final _$result =
-        _$v ?? new _$MalformedContentTypeWithPayloadInput._(payload: payload);
+        _$v ?? _$MalformedContentTypeWithPayloadInput._(payload: payload);
     replace(_$result);
     return _$result;
   }

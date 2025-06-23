@@ -11,26 +11,19 @@ class _$MalformedTimestampHeaderEpochInput
   @override
   final DateTime timestamp;
 
-  factory _$MalformedTimestampHeaderEpochInput(
-          [void Function(MalformedTimestampHeaderEpochInputBuilder)?
-              updates]) =>
-      (new MalformedTimestampHeaderEpochInputBuilder()..update(updates))
-          ._build();
+  factory _$MalformedTimestampHeaderEpochInput([
+    void Function(MalformedTimestampHeaderEpochInputBuilder)? updates,
+  ]) => (MalformedTimestampHeaderEpochInputBuilder()..update(updates))._build();
 
-  _$MalformedTimestampHeaderEpochInput._({required this.timestamp})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        timestamp, r'MalformedTimestampHeaderEpochInput', 'timestamp');
-  }
-
+  _$MalformedTimestampHeaderEpochInput._({required this.timestamp}) : super._();
   @override
   MalformedTimestampHeaderEpochInput rebuild(
-          void Function(MalformedTimestampHeaderEpochInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedTimestampHeaderEpochInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedTimestampHeaderEpochInputBuilder toBuilder() =>
-      new MalformedTimestampHeaderEpochInputBuilder()..replace(this);
+      MalformedTimestampHeaderEpochInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -50,8 +43,10 @@ class _$MalformedTimestampHeaderEpochInput
 
 class MalformedTimestampHeaderEpochInputBuilder
     implements
-        Builder<MalformedTimestampHeaderEpochInput,
-            MalformedTimestampHeaderEpochInputBuilder> {
+        Builder<
+          MalformedTimestampHeaderEpochInput,
+          MalformedTimestampHeaderEpochInputBuilder
+        > {
   _$MalformedTimestampHeaderEpochInput? _$v;
 
   DateTime? _timestamp;
@@ -71,13 +66,13 @@ class MalformedTimestampHeaderEpochInputBuilder
 
   @override
   void replace(MalformedTimestampHeaderEpochInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedTimestampHeaderEpochInput;
   }
 
   @override
   void update(
-      void Function(MalformedTimestampHeaderEpochInputBuilder)? updates) {
+    void Function(MalformedTimestampHeaderEpochInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -85,10 +80,15 @@ class MalformedTimestampHeaderEpochInputBuilder
   MalformedTimestampHeaderEpochInput build() => _build();
 
   _$MalformedTimestampHeaderEpochInput _build() {
-    final _$result = _$v ??
-        new _$MalformedTimestampHeaderEpochInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'MalformedTimestampHeaderEpochInput', 'timestamp'));
+    final _$result =
+        _$v ??
+        _$MalformedTimestampHeaderEpochInput._(
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+            timestamp,
+            r'MalformedTimestampHeaderEpochInput',
+            'timestamp',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -96,23 +96,20 @@ class MalformedTimestampHeaderEpochInputBuilder
 
 class _$MalformedTimestampHeaderEpochInputPayload
     extends MalformedTimestampHeaderEpochInputPayload {
-  factory _$MalformedTimestampHeaderEpochInputPayload(
-          [void Function(MalformedTimestampHeaderEpochInputPayloadBuilder)?
-              updates]) =>
-      (new MalformedTimestampHeaderEpochInputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$MalformedTimestampHeaderEpochInputPayload([
+    void Function(MalformedTimestampHeaderEpochInputPayloadBuilder)? updates,
+  ]) => (MalformedTimestampHeaderEpochInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampHeaderEpochInputPayload._() : super._();
-
   @override
   MalformedTimestampHeaderEpochInputPayload rebuild(
-          void Function(MalformedTimestampHeaderEpochInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedTimestampHeaderEpochInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedTimestampHeaderEpochInputPayloadBuilder toBuilder() =>
-      new MalformedTimestampHeaderEpochInputPayloadBuilder()..replace(this);
+      MalformedTimestampHeaderEpochInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -128,22 +125,23 @@ class _$MalformedTimestampHeaderEpochInputPayload
 
 class MalformedTimestampHeaderEpochInputPayloadBuilder
     implements
-        Builder<MalformedTimestampHeaderEpochInputPayload,
-            MalformedTimestampHeaderEpochInputPayloadBuilder> {
+        Builder<
+          MalformedTimestampHeaderEpochInputPayload,
+          MalformedTimestampHeaderEpochInputPayloadBuilder
+        > {
   _$MalformedTimestampHeaderEpochInputPayload? _$v;
 
   MalformedTimestampHeaderEpochInputPayloadBuilder();
 
   @override
   void replace(MalformedTimestampHeaderEpochInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedTimestampHeaderEpochInputPayload;
   }
 
   @override
   void update(
-      void Function(MalformedTimestampHeaderEpochInputPayloadBuilder)?
-          updates) {
+    void Function(MalformedTimestampHeaderEpochInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -151,7 +149,7 @@ class MalformedTimestampHeaderEpochInputPayloadBuilder
   MalformedTimestampHeaderEpochInputPayload build() => _build();
 
   _$MalformedTimestampHeaderEpochInputPayload _build() {
-    final _$result = _$v ?? new _$MalformedTimestampHeaderEpochInputPayload._();
+    final _$result = _$v ?? _$MalformedTimestampHeaderEpochInputPayload._();
     replace(_$result);
     return _$result;
   }

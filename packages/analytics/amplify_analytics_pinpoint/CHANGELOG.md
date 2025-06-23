@@ -1,3 +1,102 @@
+## 2.6.3
+
+- Minor bug fixes and improvements
+
+## 2.6.2
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 2.6.1
+
+- Minor bug fixes and improvements
+
+## 2.6.0
+
+- Minor bug fixes and improvements
+
+## 2.5.1
+
+- Minor bug fixes and improvements
+
+## 2.5.0
+
+- Minor bug fixes and improvements
+
+## 2.4.1
+
+- Minor bug fixes and improvements
+
+## 2.4.0
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
+## 2.3.0
+
+- Minor bug fixes and improvements
+
+## 2.2.0
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
+## 2.1.0
+
+- Minor bug fixes and improvements
+
+## 2.0.0
+
+We are thrilled to release version 2.0 of the Amplify Flutter libraries to add support for Amplify Gen 2. Learn more about Amplify Gen 2 at [https://docs.amplify.aws](https://docs.amplify.aws).
+
+If you are upgrading an existing project using Amplify Flutter v1 (created with Amplify Gen 1 CLI or a custom pipeline) please see the [upgrade guide](https://docs.amplify.aws/gen1/flutter/start/project-setup/upgrade-guide/).
+
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and [Discord](https://discord.gg/jWVbPfC) to answer any questions.
+
+### Breaking Changes
+- feat!: use plugin options for optional plugin parameters ([#4762](https://github.com/aws-amplify/amplify-flutter/pull/4762))
+
+## 1.8.0
+
+### Features
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 1.7.1
+
+### Fixes
+- fix: correct `package_info_plus` version constraint ([#4583](https://github.com/aws-amplify/amplify-flutter/pull/4583))
+
+## 1.7.0
+
+- Minor bug fixes and improvements
+
+## 1.6.3
+
+### Fixes
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+- fix: Bumped package_info_plus to ">=4.0.1 <=6.0.0"
+
+## 1.6.2
+
+- Minor bug fixes and improvements
+
+## 1.6.1
+
+- Minor bug fixes and improvements
+
+## 1.6.0
+
+### Fixes
+- fix(analytics): allow nullable userProfile
+
+## 1.5.0
+
+### Fixes
+
+- fix(analytics): event client flush events to do not discard events from cache on auth exception ([#3999](https://github.com/aws-amplify/amplify-flutter/pull/3999))
+- fix: catch and log updateEndpoint error during configure ([#3985](https://github.com/aws-amplify/amplify-flutter/pull/3985))
+
 ## 1.4.1
 
 - Minor bug fixes and improvements

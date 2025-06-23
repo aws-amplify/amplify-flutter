@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
-import AmplifyPlugins
-import AWSPluginsCore
 import Flutter
 
 /// A factory of [FlutterAuthProvider] instances. Manages shared state for all providers.
@@ -33,19 +30,30 @@ class FlutterAuthProviders: APIAuthProviderFactory {
             let completer = DispatchSemaphore(value: 0)
 
             DispatchQueue.main.async {
-                self.nativeApiPlugin.getLatestAuthToken(providerName: type.rawValue) { resultToken in
-                    defer { completer.signal() }
+                self.nativeApiPlugin.getLatestAuthToken(providerName: type.rawValue) { result in
+                    switch result {
+                        case .success(let resultToken):
+                            defer { completer.signal() }
                     
-                    if let resultToken = resultToken {
-                        token = .success(resultToken)
-                    } else {
-                        token = .failure(APIError.operationError(
-                            "Unable to retrieve token for \(type)",
-                            """
-                            Make sure you register your auth providers in the addPlugin call and \
-                            that getLatestAuthToken returns a value.
-                            """
-                            ))
+                            if let resultToken = resultToken {
+                                token = .success(resultToken)
+                            } else {
+                                token = .failure(APIError.operationError(
+                                    "Unable to retrieve token for \(type)",
+                                    """
+                                    Make sure you register your auth providers in the addPlugin call and \
+                                    that getLatestAuthToken returns a value.
+                                    """
+                                    ))
+                            }
+                        case .failure(let error): 
+                            token = .failure(APIError.operationError(
+                                    "Unable to retrieve token for \(type)",
+                                    """
+                                    Make sure you register your auth providers in the addPlugin call and \
+                                    that getLatestAuthToken returns a value.
+                                    """
+                                    ))
                     }
                 }
             }
@@ -90,8 +98,14 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 struct FlutterAuthProvider: AmplifyOIDCAuthProvider, AmplifyFunctionAuthProvider {
     let flutterAuthProviders: FlutterAuthProviders
     let type: AWSAuthorizationType
-
-    func getLatestAuthToken() -> Result<String, Error> {
-        return flutterAuthProviders.getToken(for: type)
+    
+    func getLatestAuthToken() async throws -> String {
+           let result = flutterAuthProviders.getToken(for: type)
+           switch result {
+               case .success(let token):
+                   return token
+               case .failure(let error):
+                   throw error
+           }
     }
 }

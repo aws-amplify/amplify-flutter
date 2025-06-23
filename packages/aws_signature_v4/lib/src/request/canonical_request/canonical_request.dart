@@ -132,9 +132,9 @@ class CanonicalRequest {
     required this.presignedUrl,
     this.algorithm,
     Duration? expiresIn,
-  })  : normalizePath = serviceConfiguration.normalizePath,
-        omitSessionTokenFromSigning = serviceConfiguration.omitSessionToken,
-        expiresIn = expiresIn?.inSeconds;
+  }) : normalizePath = serviceConfiguration.normalizePath,
+       omitSessionTokenFromSigning = serviceConfiguration.omitSessionToken,
+       expiresIn = expiresIn?.inSeconds;
 
   /// The original HTTP request.
   final AWSBaseHttpRequest request;

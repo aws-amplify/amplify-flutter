@@ -11,23 +11,20 @@ class _$HttpPayloadWithMemberXmlNameInputOutput
   @override
   final PayloadWithXmlName? nested;
 
-  factory _$HttpPayloadWithMemberXmlNameInputOutput(
-          [void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder)?
-              updates]) =>
-      (new HttpPayloadWithMemberXmlNameInputOutputBuilder()..update(updates))
-          ._build();
+  factory _$HttpPayloadWithMemberXmlNameInputOutput([
+    void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder)? updates,
+  ]) => (HttpPayloadWithMemberXmlNameInputOutputBuilder()..update(updates))
+      ._build();
 
   _$HttpPayloadWithMemberXmlNameInputOutput._({this.nested}) : super._();
-
   @override
   HttpPayloadWithMemberXmlNameInputOutput rebuild(
-          void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPayloadWithMemberXmlNameInputOutputBuilder toBuilder() =>
-      new HttpPayloadWithMemberXmlNameInputOutputBuilder()..replace(this);
+      HttpPayloadWithMemberXmlNameInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,13 +44,15 @@ class _$HttpPayloadWithMemberXmlNameInputOutput
 
 class HttpPayloadWithMemberXmlNameInputOutputBuilder
     implements
-        Builder<HttpPayloadWithMemberXmlNameInputOutput,
-            HttpPayloadWithMemberXmlNameInputOutputBuilder> {
+        Builder<
+          HttpPayloadWithMemberXmlNameInputOutput,
+          HttpPayloadWithMemberXmlNameInputOutputBuilder
+        > {
   _$HttpPayloadWithMemberXmlNameInputOutput? _$v;
 
   PayloadWithXmlNameBuilder? _nested;
   PayloadWithXmlNameBuilder get nested =>
-      _$this._nested ??= new PayloadWithXmlNameBuilder();
+      _$this._nested ??= PayloadWithXmlNameBuilder();
   set nested(PayloadWithXmlNameBuilder? nested) => _$this._nested = nested;
 
   HttpPayloadWithMemberXmlNameInputOutputBuilder();
@@ -69,13 +68,13 @@ class HttpPayloadWithMemberXmlNameInputOutputBuilder
 
   @override
   void replace(HttpPayloadWithMemberXmlNameInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPayloadWithMemberXmlNameInputOutput;
   }
 
   @override
   void update(
-      void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder)? updates) {
+    void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -85,19 +84,20 @@ class HttpPayloadWithMemberXmlNameInputOutputBuilder
   _$HttpPayloadWithMemberXmlNameInputOutput _build() {
     _$HttpPayloadWithMemberXmlNameInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$HttpPayloadWithMemberXmlNameInputOutput._(
-              nested: _nested?.build());
+      _$result =
+          _$v ??
+          _$HttpPayloadWithMemberXmlNameInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpPayloadWithMemberXmlNameInputOutput',
-            _$failedField,
-            e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpPayloadWithMemberXmlNameInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

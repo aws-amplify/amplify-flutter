@@ -93,8 +93,8 @@ class _ViewUserAttributesScreenState extends State<ViewUserAttributesScreen> {
                 itemCount: _userAttributes.length,
                 itemBuilder: (context, index) {
                   final attribute = _userAttributes[index];
-                  final userAttributeKey =
-                      attribute.userAttributeKey.toCognitoUserAttributeKey();
+                  final userAttributeKey = attribute.userAttributeKey
+                      .toCognitoUserAttributeKey();
                   final value = attribute.value;
                   return ListTile(
                     title: Text(userAttributeKey.key),

@@ -31,7 +31,8 @@ class ServeCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
   bool get dryRun => false;
 
   @override
-  String get description => 'Serves all packages in the Amplify Flutter repo '
+  String get description =>
+      'Serves all packages in the Amplify Flutter repo '
       'on a local pub server.';
 
   @override
@@ -62,8 +63,9 @@ class ServeCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     final publishablePackages = repo.publishablePackages(commandPackages);
 
     // Publish packages to local pub server.
-    final packagesNeedingPublish =
-        await unpublishedPackages(publishablePackages);
+    final packagesNeedingPublish = await unpublishedPackages(
+      publishablePackages,
+    );
     final launcherPackages = packagesNeedingPublish
         .map(
           (pkg) => LocalPackage(

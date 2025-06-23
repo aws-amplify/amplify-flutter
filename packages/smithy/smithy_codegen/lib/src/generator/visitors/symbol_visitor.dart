@@ -47,20 +47,28 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
         final valueSymbol = context
             .symbolFor(listShape.member.target, listShape)
             .withBoxed(listShape.member.isNullable(context, listShape));
-        final type =
-            DartTypes.builtValue.builtListMultimap(keySymbol, valueSymbol);
-        final builder =
-            DartTypes.builtValue.listMultimapBuilder(keySymbol, valueSymbol);
+        final type = DartTypes.builtValue.builtListMultimap(
+          keySymbol,
+          valueSymbol,
+        );
+        final builder = DartTypes.builtValue.listMultimapBuilder(
+          keySymbol,
+          valueSymbol,
+        );
         context.builderFactories[type.unboxed] = builder.property('new');
         return type;
       case ShapeType.set:
         final valueSymbol = context
             .symbolFor((valueShape as SetShape).member.target, valueShape)
             .unboxed; // Sets cannot have nullable values
-        final type =
-            DartTypes.builtValue.builtSetMultimap(keySymbol, valueSymbol);
-        final builder =
-            DartTypes.builtValue.setMultimapBuilder(keySymbol, valueSymbol);
+        final type = DartTypes.builtValue.builtSetMultimap(
+          keySymbol,
+          valueSymbol,
+        );
+        final builder = DartTypes.builtValue.setMultimapBuilder(
+          keySymbol,
+          valueSymbol,
+        );
         context.builderFactories[type.unboxed] = builder.property('new');
         return type;
       default:

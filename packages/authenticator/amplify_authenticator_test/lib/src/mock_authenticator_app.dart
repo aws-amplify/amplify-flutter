@@ -7,7 +7,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
-import 'package:amplify_authenticator_test/src/configs/email_config.dart';
+import 'package:amplify_authenticator_test/src/amplify_outputs/email_config.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter/material.dart';
@@ -69,10 +69,7 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
       case AuthenticatorStep.continueSignInWithMfaSelection:
         baseBloc.setState(
           const ContinueSignInWithMfaSelection(
-            allowedMfaTypes: {
-              MfaType.totp,
-              MfaType.sms,
-            },
+            allowedMfaTypes: {MfaType.totp, MfaType.sms, MfaType.email},
           ),
         );
       case AuthenticatorStep.continueSignInWithTotpSetup:
@@ -87,9 +84,14 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
             ),
           ),
         );
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
+        baseBloc.setState(
+          const ContinueSignInWithMfaSetupSelection(
+            allowedMfaTypes: {MfaType.sms, MfaType.totp, MfaType.email},
+          ),
+        );
       default:
         baseBloc.add(const AuthLoad());
-        break;
     }
 
     return baseBloc;
@@ -108,7 +110,8 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
       authBlocOverride: _authBloc,
       signInForm: widget.signInForm,
       signUpForm: widget.signUpForm,
-      child: widget.child ??
+      child:
+          widget.child ??
           MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: widget.lightTheme,
@@ -117,9 +120,7 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
             builder: Authenticator.builder(),
             home: const Scaffold(
               key: authenticatedAppKey,
-              body: Center(
-                child: SignOutButton(),
-              ),
+              body: Center(child: SignOutButton()),
             ),
           ),
     );

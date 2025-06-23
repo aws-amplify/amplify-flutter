@@ -56,9 +56,9 @@ abstract class SelectObjectContentRequest
   }
 
   /// Request to filter the contents of an Amazon S3 object based on a simple Structured Query Language (SQL) statement. In the request, along with the SQL expression, you must specify a data serialization format (JSON or CSV) of the object. Amazon S3 uses this to parse object data into records. It returns only records that match the specified SQL expression. You must also specify the data serialization format for the response. For more information, see [S3Select API Documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectSELECTContent.html).
-  factory SelectObjectContentRequest.build(
-          [void Function(SelectObjectContentRequestBuilder) updates]) =
-      _$SelectObjectContentRequest;
+  factory SelectObjectContentRequest.build([
+    void Function(SelectObjectContentRequestBuilder) updates,
+  ]) = _$SelectObjectContentRequest;
 
   const SelectObjectContentRequest._();
 
@@ -66,48 +66,44 @@ abstract class SelectObjectContentRequest
     SelectObjectContentRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      SelectObjectContentRequest.build((b) {
-        b.expression = payload.expression;
-        b.expressionType = payload.expressionType;
-        b.inputSerialization.replace(payload.inputSerialization);
-        b.outputSerialization.replace(payload.outputSerialization);
-        if (payload.requestProgress != null) {
-          b.requestProgress.replace(payload.requestProgress!);
-        }
-        if (payload.scanRange != null) {
-          b.scanRange.replace(payload.scanRange!);
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = request
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key'] !=
-            null) {
-          b.sseCustomerKey =
-              request.headers['x-amz-server-side-encryption-customer-key']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 =
-              request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+  }) => SelectObjectContentRequest.build((b) {
+    b.expression = payload.expression;
+    b.expressionType = payload.expressionType;
+    b.inputSerialization.replace(payload.inputSerialization);
+    b.outputSerialization.replace(payload.outputSerialization);
+    if (payload.requestProgress != null) {
+      b.requestProgress.replace(payload.requestProgress!);
+    }
+    if (payload.scanRange != null) {
+      b.scanRange.replace(payload.scanRange!);
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          request.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key'] != null) {
+      b.sseCustomerKey =
+          request.headers['x-amz-server-side-encryption-customer-key']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<SelectObjectContentRequestPayload>>
-      serializers = [SelectObjectContentRequestRestXmlSerializer()];
+  serializers = [SelectObjectContentRequestRestXmlSerializer()];
 
   /// The S3 bucket.
   String get bucket;
@@ -150,7 +146,7 @@ abstract class SelectObjectContentRequest
   /// *   `50` \- process only the records within the last 50 bytes of the file.
   ScanRange? get scanRange;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  /// The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
@@ -160,10 +156,7 @@ abstract class SelectObjectContentRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -180,86 +173,53 @@ abstract class SelectObjectContentRequest
           b.scanRange.replace(scanRange!);
         }
       });
+
   @override
   List<Object?> get props => [
-        bucket,
-        key,
-        sseCustomerAlgorithm,
-        sseCustomerKey,
-        sseCustomerKeyMd5,
-        expression,
-        expressionType,
-        requestProgress,
-        inputSerialization,
-        outputSerialization,
-        scanRange,
-        expectedBucketOwner,
-      ];
+    bucket,
+    key,
+    sseCustomerAlgorithm,
+    sseCustomerKey,
+    sseCustomerKeyMd5,
+    expression,
+    expressionType,
+    requestProgress,
+    inputSerialization,
+    outputSerialization,
+    scanRange,
+    expectedBucketOwner,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SelectObjectContentRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'expression',
-        expression,
-      )
-      ..add(
-        'expressionType',
-        expressionType,
-      )
-      ..add(
-        'requestProgress',
-        requestProgress,
-      )
-      ..add(
-        'inputSerialization',
-        inputSerialization,
-      )
-      ..add(
-        'outputSerialization',
-        outputSerialization,
-      )
-      ..add(
-        'scanRange',
-        scanRange,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      );
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKey', '***SENSITIVE***')
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('expression', expression)
+      ..add('expressionType', expressionType)
+      ..add('requestProgress', requestProgress)
+      ..add('inputSerialization', inputSerialization)
+      ..add('outputSerialization', outputSerialization)
+      ..add('scanRange', scanRange)
+      ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class SelectObjectContentRequestPayload
-    with
-        _i2.AWSEquatable<SelectObjectContentRequestPayload>
+    with _i2.AWSEquatable<SelectObjectContentRequestPayload>
     implements
-        Built<SelectObjectContentRequestPayload,
-            SelectObjectContentRequestPayloadBuilder> {
-  factory SelectObjectContentRequestPayload(
-          [void Function(SelectObjectContentRequestPayloadBuilder) updates]) =
-      _$SelectObjectContentRequestPayload;
+        Built<
+          SelectObjectContentRequestPayload,
+          SelectObjectContentRequestPayloadBuilder
+        > {
+  factory SelectObjectContentRequestPayload([
+    void Function(SelectObjectContentRequestPayloadBuilder) updates,
+  ]) = _$SelectObjectContentRequestPayload;
 
   const SelectObjectContentRequestPayload._();
 
@@ -290,41 +250,24 @@ abstract class SelectObjectContentRequestPayload
   ScanRange? get scanRange;
   @override
   List<Object?> get props => [
-        expression,
-        expressionType,
-        inputSerialization,
-        outputSerialization,
-        requestProgress,
-        scanRange,
-      ];
+    expression,
+    expressionType,
+    inputSerialization,
+    outputSerialization,
+    requestProgress,
+    scanRange,
+  ];
+
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('SelectObjectContentRequestPayload')
-          ..add(
-            'expression',
-            expression,
-          )
-          ..add(
-            'expressionType',
-            expressionType,
-          )
-          ..add(
-            'inputSerialization',
-            inputSerialization,
-          )
-          ..add(
-            'outputSerialization',
-            outputSerialization,
-          )
-          ..add(
-            'requestProgress',
-            requestProgress,
-          )
-          ..add(
-            'scanRange',
-            scanRange,
-          );
+          ..add('expression', expression)
+          ..add('expressionType', expressionType)
+          ..add('inputSerialization', inputSerialization)
+          ..add('outputSerialization', outputSerialization)
+          ..add('requestProgress', requestProgress)
+          ..add('scanRange', scanRange);
     return helper.toString();
   }
 }
@@ -332,22 +275,21 @@ abstract class SelectObjectContentRequestPayload
 class SelectObjectContentRequestRestXmlSerializer
     extends _i1.StructuredSmithySerializer<SelectObjectContentRequestPayload> {
   const SelectObjectContentRequestRestXmlSerializer()
-      : super('SelectObjectContentRequest');
+    : super('SelectObjectContentRequest');
 
   @override
   Iterable<Type> get types => const [
-        SelectObjectContentRequest,
-        _$SelectObjectContentRequest,
-        SelectObjectContentRequestPayload,
-        _$SelectObjectContentRequestPayload,
-      ];
+    SelectObjectContentRequest,
+    _$SelectObjectContentRequest,
+    SelectObjectContentRequestPayload,
+    _$SelectObjectContentRequestPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   SelectObjectContentRequestPayload deserialize(
     Serializers serializers,
@@ -365,35 +307,51 @@ class SelectObjectContentRequestRestXmlSerializer
       }
       switch (key) {
         case 'Expression':
-          result.expression = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.expression =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ExpressionType':
-          result.expressionType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ExpressionType),
-          ) as ExpressionType);
+          result.expressionType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ExpressionType),
+                  )
+                  as ExpressionType);
         case 'InputSerialization':
-          result.inputSerialization.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(InputSerialization),
-          ) as InputSerialization));
+          result.inputSerialization.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(InputSerialization),
+                )
+                as InputSerialization),
+          );
         case 'OutputSerialization':
-          result.outputSerialization.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(OutputSerialization),
-          ) as OutputSerialization));
+          result.outputSerialization.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(OutputSerialization),
+                )
+                as OutputSerialization),
+          );
         case 'RequestProgress':
-          result.requestProgress.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(RequestProgress),
-          ) as RequestProgress));
+          result.requestProgress.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(RequestProgress),
+                )
+                as RequestProgress),
+          );
         case 'ScanRange':
-          result.scanRange.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ScanRange),
-          ) as ScanRange));
+          result.scanRange.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ScanRange),
+                )
+                as ScanRange),
+          );
       }
     }
 
@@ -410,7 +368,7 @@ class SelectObjectContentRequestRestXmlSerializer
       const _i1.XmlElementName(
         'SelectObjectContentRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final SelectObjectContentRequestPayload(
       :expression,
@@ -418,47 +376,59 @@ class SelectObjectContentRequestRestXmlSerializer
       :inputSerialization,
       :outputSerialization,
       :requestProgress,
-      :scanRange
+      :scanRange,
     ) = object;
     result$
       ..add(const _i1.XmlElementName('Expression'))
-      ..add(serializers.serialize(
-        expression,
-        specifiedType: const FullType(String),
-      ));
+      ..add(
+        serializers.serialize(
+          expression,
+          specifiedType: const FullType(String),
+        ),
+      );
     result$
       ..add(const _i1.XmlElementName('ExpressionType'))
-      ..add(serializers.serialize(
-        expressionType,
-        specifiedType: const FullType(ExpressionType),
-      ));
+      ..add(
+        serializers.serialize(
+          expressionType,
+          specifiedType: const FullType(ExpressionType),
+        ),
+      );
     result$
       ..add(const _i1.XmlElementName('InputSerialization'))
-      ..add(serializers.serialize(
-        inputSerialization,
-        specifiedType: const FullType(InputSerialization),
-      ));
+      ..add(
+        serializers.serialize(
+          inputSerialization,
+          specifiedType: const FullType(InputSerialization),
+        ),
+      );
     result$
       ..add(const _i1.XmlElementName('OutputSerialization'))
-      ..add(serializers.serialize(
-        outputSerialization,
-        specifiedType: const FullType(OutputSerialization),
-      ));
+      ..add(
+        serializers.serialize(
+          outputSerialization,
+          specifiedType: const FullType(OutputSerialization),
+        ),
+      );
     if (requestProgress != null) {
       result$
         ..add(const _i1.XmlElementName('RequestProgress'))
-        ..add(serializers.serialize(
-          requestProgress,
-          specifiedType: const FullType(RequestProgress),
-        ));
+        ..add(
+          serializers.serialize(
+            requestProgress,
+            specifiedType: const FullType(RequestProgress),
+          ),
+        );
     }
     if (scanRange != null) {
       result$
         ..add(const _i1.XmlElementName('ScanRange'))
-        ..add(serializers.serialize(
-          scanRange,
-          specifiedType: const FullType(ScanRange),
-        ));
+        ..add(
+          serializers.serialize(
+            scanRange,
+            specifiedType: const FullType(ScanRange),
+          ),
+        );
     }
     return result$;
   }

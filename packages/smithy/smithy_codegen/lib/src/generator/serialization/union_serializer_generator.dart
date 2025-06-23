@@ -63,20 +63,18 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
 
   /// The `types` getter.
   Method get _typesGetter => Method(
-        (m) => m
-          ..annotations.add(DartTypes.core.override)
-          ..returns = DartTypes.core.iterable(DartTypes.core.type)
-          ..type = MethodType.getter
-          ..name = 'types'
-          ..lambda = true
-          ..body = literalConstList([
-            symbol,
-            // Variant class types
-            ...members.map(
-              (member) => refer(variantClassName(member)),
-            ),
-          ]).code,
-      );
+    (m) => m
+      ..annotations.add(DartTypes.core.override)
+      ..returns = DartTypes.core.iterable(DartTypes.core.type)
+      ..type = MethodType.getter
+      ..name = 'types'
+      ..lambda = true
+      ..body = literalConstList([
+        symbol,
+        // Variant class types
+        ...members.map((member) => refer(variantClassName(member))),
+      ]).code,
+  );
 
   @override
   Code get deserializeCode {
@@ -102,16 +100,13 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
       } else if (member.target == Shape.unit) {
         constructor = (_) => variantClass.constInstance([]);
       } else {
-        constructor =
-            (deserialized) => variantClass.newInstance([deserialized]);
+        constructor = (deserialized) =>
+            variantClass.newInstance([deserialized]);
       }
       builder.statements.addAll([
         Code("case '$memberWireName':"),
         constructor(
-          deserializerFor(
-            member,
-            memberSymbol: memberSymbol,
-          ),
+          deserializerFor(member, memberSymbol: memberSymbol),
         ).returned.statement,
       ]);
     }
@@ -160,9 +155,9 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
     builder.statements.addAll([
       literalList([
         if (hasRenames)
-          refer('renames')
-              .index(object.property('name'))
-              .ifNullThen(object.property('name'))
+          refer(
+            'renames',
+          ).index(object.property('name')).ifNullThen(object.property('name'))
         else
           object.property('name'),
         Block((b) {

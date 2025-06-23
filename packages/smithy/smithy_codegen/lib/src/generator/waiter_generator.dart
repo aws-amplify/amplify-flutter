@@ -15,10 +15,7 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 class WaiterGenerator extends LibraryGenerator<OperationShape>
     with OperationGenerationContext {
-  WaiterGenerator(
-    super.shape, {
-    required super.context,
-  });
+  WaiterGenerator(super.shape, {required super.context});
 
   late final WaitableTrait trait = shape.expectTrait();
 
@@ -44,10 +41,7 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
       yield Class(
         (c) => c
           ..name = '${waiterName.pascalCase}Waiter'
-          ..extend = DartTypes.smithy.waiter(
-            inputSymbol,
-            outputSymbol,
-          )
+          ..extend = DartTypes.smithy.waiter(inputSymbol, outputSymbol)
           ..methods.addAll(waiterMethods(waiter, acceptors))
           ..constructors.add(
             Constructor(
@@ -89,10 +83,7 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
         ..annotations.add(DartTypes.core.override)
         ..type = MethodType.getter
         ..returns = DartTypes.core.list(
-          DartTypes.smithy.acceptor(
-            inputSymbol,
-            outputSymbol,
-          ),
+          DartTypes.smithy.acceptor(inputSymbol, outputSymbol),
         )
         ..lambda = true
         ..body = literalConstList([
@@ -140,9 +131,7 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
           context: context,
           input: inputShape,
           output: outputShape,
-        ).visit(
-          parse(matcher.path),
-        );
+        ).visit(parse(matcher.path));
       case MatcherType.output:
         matcher = acceptor.matcher.output!;
         valueExpression = JmespathExpressionVisitor(
@@ -150,9 +139,7 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
           input: inputShape,
           output: outputShape,
           base: output,
-        ).visit(
-          parse(matcher.path),
-        );
+        ).visit(parse(matcher.path));
     }
 
     final builder = BlockBuilder();
@@ -177,15 +164,18 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
           value
               .isA(DartTypes.core.list(DartTypes.core.string))
               .and(
-                value.property('isNotEmpty').and(
+                value
+                    .property('isNotEmpty')
+                    .and(
                       value.property(comparator).call([
                         Method(
                           (m) => m
-                            ..requiredParameters
-                                .add(Parameter((p) => p..name = 'el'))
-                            ..body = refer('el')
-                                .equalTo(literalString(matcher.expected))
-                                .code,
+                            ..requiredParameters.add(
+                              Parameter((p) => p..name = 'el'),
+                            )
+                            ..body = refer(
+                              'el',
+                            ).equalTo(literalString(matcher.expected)).code,
                         ).closure,
                       ]),
                     ),

@@ -1,13 +1,13 @@
 name: amplify_storage_s3
 description: The Amplify Flutter Storage category plugin using the AWS S3 provider.
-version: 1.4.0
+version: 2.6.3
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/storage/amplify_storage_s3
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=3.10.0"
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:
@@ -19,20 +19,20 @@ platforms:
   web:
 
 dependencies:
-  amplify_core: ">=1.4.0 <1.5.0"
-  amplify_db_common: ">=0.3.0+6 <0.4.0"
-  amplify_storage_s3_dart: ">=0.3.3 <0.4.0"
-  aws_common: ">=0.6.0 <0.7.0"
+  amplify_core: ">=2.6.3 <2.7.0"
+  amplify_db_common: ">=0.4.11 <0.5.0"
+  amplify_storage_s3_dart: ">=0.4.11 <0.5.0"
+  aws_common: ">=0.7.8 <0.8.0"
   flutter:
     sdk: flutter
-  meta: ^1.7.0
-  path_provider: ^2.0.0
+  meta: ^1.16.0
+  path_provider: ^2.0.11
 
 dev_dependencies:
-  amplify_lints: ">=3.0.0 <3.1.0"
+  amplify_lints: ">=3.1.2 <3.2.0"
   amplify_test:
     path: ../../test/amplify_test
-  aws_signature_v4: ">=0.5.0 <0.6.0"
+  aws_signature_v4: ">=0.6.6 <0.7.0"
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.0

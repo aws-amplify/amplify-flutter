@@ -6,8 +6,10 @@ import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-mixin AuthenticatorTextField<FieldType extends Enum,
-        T extends AuthenticatorFormField<FieldType, String>>
+mixin AuthenticatorTextField<
+  FieldType extends Enum,
+  T extends AuthenticatorFormField<FieldType, String>
+>
     on AuthenticatorFormFieldState<FieldType, String, T> {
   @override
   Widget buildFormField(BuildContext context) {
@@ -16,8 +18,9 @@ mixin AuthenticatorTextField<FieldType extends Enum,
         ? widget.hintTextKey?.resolve(context, inputResolver)
         : widget.hintText!;
     return ValueListenableBuilder<bool>(
-      valueListenable:
-          AuthenticatorFormState.of(context).obscureTextToggleValue,
+      valueListenable: AuthenticatorFormState.of(
+        context,
+      ).obscureTextToggleValue,
       builder: (BuildContext context, bool toggleObscureText, Widget? _) {
         final obscureText = this.obscureText && toggleObscureText;
         return TextFormField(

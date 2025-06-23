@@ -11,27 +11,25 @@ class _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput
   @override
   final PayloadWithXmlNamespaceAndPrefix? nested;
 
-  factory _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput(
-          [void Function(
-                  HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)?
-              updates]) =>
-      (new HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder()
+  factory _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput([
+    void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)?
+    updates,
+  ]) =>
+      (HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder()
             ..update(updates))
           ._build();
 
   _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput._({this.nested})
-      : super._();
-
+    : super._();
   @override
   HttpPayloadWithXmlNamespaceAndPrefixInputOutput rebuild(
-          void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder toBuilder() =>
-      new HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder()
-        ..replace(this);
+      HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -51,13 +49,15 @@ class _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput
 
 class HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
     implements
-        Builder<HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
-            HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder> {
+        Builder<
+          HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
+          HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
+        > {
   _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput? _$v;
 
   PayloadWithXmlNamespaceAndPrefixBuilder? _nested;
   PayloadWithXmlNamespaceAndPrefixBuilder get nested =>
-      _$this._nested ??= new PayloadWithXmlNamespaceAndPrefixBuilder();
+      _$this._nested ??= PayloadWithXmlNamespaceAndPrefixBuilder();
   set nested(PayloadWithXmlNamespaceAndPrefixBuilder? nested) =>
       _$this._nested = nested;
 
@@ -74,14 +74,14 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
 
   @override
   void replace(HttpPayloadWithXmlNamespaceAndPrefixInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput;
   }
 
   @override
   void update(
-      void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)?
-          updates) {
+    void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -91,19 +91,22 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
   _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput _build() {
     _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput._(
-              nested: _nested?.build());
+      _$result =
+          _$v ??
+          _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput._(
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpPayloadWithXmlNamespaceAndPrefixInputOutput',
-            _$failedField,
-            e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpPayloadWithXmlNamespaceAndPrefixInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

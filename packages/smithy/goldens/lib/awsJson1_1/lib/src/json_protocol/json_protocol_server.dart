@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v1.json_protocol.json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,30 +44,27 @@ abstract class JsonProtocolServerBase extends _i1.HttpServerBase {
     router.add(
       'POST',
       '/',
-      _i1.RpcRouter(
-        'X-Amz-Target',
-        {
-          'JsonProtocol.DatetimeOffsets': service.datetimeOffsets,
-          'JsonProtocol.EmptyOperation': service.emptyOperation,
-          'JsonProtocol.EndpointOperation': service.endpointOperation,
-          'JsonProtocol.EndpointWithHostLabelOperation':
-              service.endpointWithHostLabelOperation,
-          'JsonProtocol.FractionalSeconds': service.fractionalSeconds,
-          'JsonProtocol.GreetingWithErrors': service.greetingWithErrors,
-          'JsonProtocol.HostWithPathOperation': service.hostWithPathOperation,
-          'JsonProtocol.JsonEnums': service.jsonEnums,
-          'JsonProtocol.JsonIntEnums': service.jsonIntEnums,
-          'JsonProtocol.JsonUnions': service.jsonUnions,
-          'JsonProtocol.KitchenSinkOperation': service.kitchenSinkOperation,
-          'JsonProtocol.NullOperation': service.nullOperation,
-          'JsonProtocol.OperationWithOptionalInputOutput':
-              service.operationWithOptionalInputOutput,
-          'JsonProtocol.PutAndGetInlineDocuments':
-              service.putAndGetInlineDocuments,
-          'JsonProtocol.PutWithContentEncoding': service.putWithContentEncoding,
-          'JsonProtocol.SimpleScalarProperties': service.simpleScalarProperties,
-        },
-      ),
+      _i1.RpcRouter('X-Amz-Target', {
+        'JsonProtocol.DatetimeOffsets': service.datetimeOffsets,
+        'JsonProtocol.EmptyOperation': service.emptyOperation,
+        'JsonProtocol.EndpointOperation': service.endpointOperation,
+        'JsonProtocol.EndpointWithHostLabelOperation':
+            service.endpointWithHostLabelOperation,
+        'JsonProtocol.FractionalSeconds': service.fractionalSeconds,
+        'JsonProtocol.GreetingWithErrors': service.greetingWithErrors,
+        'JsonProtocol.HostWithPathOperation': service.hostWithPathOperation,
+        'JsonProtocol.JsonEnums': service.jsonEnums,
+        'JsonProtocol.JsonIntEnums': service.jsonIntEnums,
+        'JsonProtocol.JsonUnions': service.jsonUnions,
+        'JsonProtocol.KitchenSinkOperation': service.kitchenSinkOperation,
+        'JsonProtocol.NullOperation': service.nullOperation,
+        'JsonProtocol.OperationWithOptionalInputOutput':
+            service.operationWithOptionalInputOutput,
+        'JsonProtocol.PutAndGetInlineDocuments':
+            service.putAndGetInlineDocuments,
+        'JsonProtocol.PutWithContentEncoding': service.putWithContentEncoding,
+        'JsonProtocol.SimpleScalarProperties': service.simpleScalarProperties,
+      }).call,
     );
     return router;
   }();
@@ -76,14 +73,8 @@ abstract class JsonProtocolServerBase extends _i1.HttpServerBase {
     _i1.Unit input,
     _i1.Context context,
   );
-  _i3.Future<_i1.Unit> emptyOperation(
-    _i1.Unit input,
-    _i1.Context context,
-  );
-  _i3.Future<_i1.Unit> endpointOperation(
-    _i1.Unit input,
-    _i1.Context context,
-  );
+  _i3.Future<_i1.Unit> emptyOperation(_i1.Unit input, _i1.Context context);
+  _i3.Future<_i1.Unit> endpointOperation(_i1.Unit input, _i1.Context context);
   _i3.Future<_i1.Unit> endpointWithHostLabelOperation(
     HostLabelInput input,
     _i1.Context context,
@@ -121,7 +112,7 @@ abstract class JsonProtocolServerBase extends _i1.HttpServerBase {
     _i1.Context context,
   );
   _i3.Future<OperationWithOptionalInputOutputOutput>
-      operationWithOptionalInputOutput(
+  operationWithOptionalInputOutput(
     OperationWithOptionalInputOutputInput input,
     _i1.Context context,
   );
@@ -146,129 +137,163 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
   @override
   final JsonProtocolServerBase service;
 
-  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, DatetimeOffsetsOutput,
-      DatetimeOffsetsOutput> _datetimeOffsetsProtocol = _i2.AwsJson1_1Protocol(
+  late final _i1.HttpProtocol<
+    _i1.Unit,
+    _i1.Unit,
+    DatetimeOffsetsOutput,
+    DatetimeOffsetsOutput
+  >
+  _datetimeOffsetsProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>
-      _emptyOperationProtocol = _i2.AwsJson1_1Protocol(
+  _emptyOperationProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>
-      _endpointOperationProtocol = _i2.AwsJson1_1Protocol(
+  _endpointOperationProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
-  late final _i1
-      .HttpProtocol<HostLabelInput, HostLabelInput, _i1.Unit, _i1.Unit>
-      _endpointWithHostLabelOperationProtocol = _i2.AwsJson1_1Protocol(
+  late final _i1.HttpProtocol<
+    HostLabelInput,
+    HostLabelInput,
+    _i1.Unit,
+    _i1.Unit
+  >
+  _endpointWithHostLabelOperationProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, FractionalSecondsOutput,
-          FractionalSecondsOutput> _fractionalSecondsProtocol =
-      _i2.AwsJson1_1Protocol(
+  late final _i1.HttpProtocol<
+    _i1.Unit,
+    _i1.Unit,
+    FractionalSecondsOutput,
+    FractionalSecondsOutput
+  >
+  _fractionalSecondsProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput> _greetingWithErrorsProtocol =
-      _i2.AwsJson1_1Protocol(
+  late final _i1.HttpProtocol<
+    _i1.Unit,
+    _i1.Unit,
+    GreetingWithErrorsOutput,
+    GreetingWithErrorsOutput
+  >
+  _greetingWithErrorsProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>
-      _hostWithPathOperationProtocol = _i2.AwsJson1_1Protocol(
+  _hostWithPathOperationProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      JsonEnumsInputOutput,
-      JsonEnumsInputOutput,
-      JsonEnumsInputOutput,
-      JsonEnumsInputOutput> _jsonEnumsProtocol = _i2.AwsJson1_1Protocol(
+    JsonEnumsInputOutput,
+    JsonEnumsInputOutput,
+    JsonEnumsInputOutput,
+    JsonEnumsInputOutput
+  >
+  _jsonEnumsProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      JsonIntEnumsInputOutput,
-      JsonIntEnumsInputOutput,
-      JsonIntEnumsInputOutput,
-      JsonIntEnumsInputOutput> _jsonIntEnumsProtocol = _i2.AwsJson1_1Protocol(
+    JsonIntEnumsInputOutput,
+    JsonIntEnumsInputOutput,
+    JsonIntEnumsInputOutput,
+    JsonIntEnumsInputOutput
+  >
+  _jsonIntEnumsProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      UnionInputOutput,
-      UnionInputOutput,
-      UnionInputOutput,
-      UnionInputOutput> _jsonUnionsProtocol = _i2.AwsJson1_1Protocol(
-    serializers: serializers,
-    builderFactories: builderFactories,
-  );
-
-  late final _i1
-      .HttpProtocol<KitchenSink, KitchenSink, KitchenSink, KitchenSink>
-      _kitchenSinkOperationProtocol = _i2.AwsJson1_1Protocol(
+    UnionInputOutput,
+    UnionInputOutput,
+    UnionInputOutput,
+    UnionInputOutput
+  >
+  _jsonUnionsProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      NullOperationInputOutput,
-      NullOperationInputOutput,
-      NullOperationInputOutput,
-      NullOperationInputOutput> _nullOperationProtocol = _i2.AwsJson1_1Protocol(
+    KitchenSink,
+    KitchenSink,
+    KitchenSink,
+    KitchenSink
+  >
+  _kitchenSinkOperationProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          OperationWithOptionalInputOutputInput,
-          OperationWithOptionalInputOutputInput,
-          OperationWithOptionalInputOutputOutput,
-          OperationWithOptionalInputOutputOutput>
-      _operationWithOptionalInputOutputProtocol = _i2.AwsJson1_1Protocol(
+    NullOperationInputOutput,
+    NullOperationInputOutput,
+    NullOperationInputOutput,
+    NullOperationInputOutput
+  >
+  _nullOperationProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          PutAndGetInlineDocumentsInputOutput,
-          PutAndGetInlineDocumentsInputOutput,
-          PutAndGetInlineDocumentsInputOutput,
-          PutAndGetInlineDocumentsInputOutput>
-      _putAndGetInlineDocumentsProtocol = _i2.AwsJson1_1Protocol(
+    OperationWithOptionalInputOutputInput,
+    OperationWithOptionalInputOutputInput,
+    OperationWithOptionalInputOutputOutput,
+    OperationWithOptionalInputOutputOutput
+  >
+  _operationWithOptionalInputOutputProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      PutWithContentEncodingInput,
-      PutWithContentEncodingInput,
-      _i1.Unit,
-      _i1.Unit> _putWithContentEncodingProtocol = _i2.AwsJson1_1Protocol(
+    PutAndGetInlineDocumentsInputOutput,
+    PutAndGetInlineDocumentsInputOutput,
+    PutAndGetInlineDocumentsInputOutput,
+    PutAndGetInlineDocumentsInputOutput
+  >
+  _putAndGetInlineDocumentsProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          SimpleScalarPropertiesInputOutput,
-          SimpleScalarPropertiesInputOutput,
-          SimpleScalarPropertiesInputOutput,
-          SimpleScalarPropertiesInputOutput> _simpleScalarPropertiesProtocol =
-      _i2.AwsJson1_1Protocol(
+    PutWithContentEncodingInput,
+    PutWithContentEncodingInput,
+    _i1.Unit,
+    _i1.Unit
+  >
+  _putWithContentEncodingProtocol = _i2.AwsJson1_1Protocol(
+    serializers: serializers,
+    builderFactories: builderFactories,
+  );
+
+  late final _i1.HttpProtocol<
+    SimpleScalarPropertiesInputOutput,
+    SimpleScalarPropertiesInputOutput,
+    SimpleScalarPropertiesInputOutput,
+    SimpleScalarPropertiesInputOutput
+  >
+  _simpleScalarPropertiesProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
@@ -281,21 +306,18 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     try {
       final payload =
           (await _datetimeOffsetsProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.datetimeOffsets(
-        input,
-        context,
-      );
+      final output = await service.datetimeOffsets(input, context);
       const statusCode = 200;
       final body = await _datetimeOffsetsProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          DatetimeOffsetsOutput,
-          [FullType(DatetimeOffsetsOutput)],
-        ),
+        specifiedType: const FullType(DatetimeOffsetsOutput, [
+          FullType(DatetimeOffsetsOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -303,10 +325,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -316,22 +335,18 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _emptyOperationProtocol.contentType;
     try {
-      final payload = (await _emptyOperationProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+      final payload =
+          (await _emptyOperationProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.emptyOperation(
-        input,
-        context,
-      );
+      final output = await service.emptyOperation(input, context);
       const statusCode = 200;
       final body = await _emptyOperationProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
+        specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
       );
       return _i4.Response(
         statusCode,
@@ -339,10 +354,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -354,21 +366,16 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     try {
       final payload =
           (await _endpointOperationProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.endpointOperation(
-        input,
-        context,
-      );
+      final output = await service.endpointOperation(input, context);
       const statusCode = 200;
       final body = await _endpointOperationProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
+        specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
       );
       return _i4.Response(
         statusCode,
@@ -376,31 +383,26 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
   _i3.Future<_i4.Response> endpointWithHostLabelOperation(
-      _i4.Request request) async {
+    _i4.Request request,
+  ) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
         _endpointWithHostLabelOperationProtocol.contentType;
     try {
-      final payload = (await _endpointWithHostLabelOperationProtocol
-          .wireSerializer
-          .deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(HostLabelInput),
-      ) as HostLabelInput);
-      final input = HostLabelInput.fromRequest(
-        payload,
-        awsRequest,
-        labels: {},
-      );
+      final payload =
+          (await _endpointWithHostLabelOperationProtocol.wireSerializer
+                  .deserialize(
+                    await awsRequest.bodyBytes,
+                    specifiedType: const FullType(HostLabelInput),
+                  )
+              as HostLabelInput);
+      final input = HostLabelInput.fromRequest(payload, awsRequest, labels: {});
       final output = await service.endpointWithHostLabelOperation(
         input,
         context,
@@ -408,22 +410,16 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
       const statusCode = 200;
       final body = await _endpointWithHostLabelOperationProtocol.wireSerializer
           .serialize(
-        output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
-      );
+            output,
+            specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -435,21 +431,18 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     try {
       final payload =
           (await _fractionalSecondsProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.fractionalSeconds(
-        input,
-        context,
-      );
+      final output = await service.fractionalSeconds(input, context);
       const statusCode = 200;
       final body = await _fractionalSecondsProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          FractionalSecondsOutput,
-          [FullType(FractionalSecondsOutput)],
-        ),
+        specifiedType: const FullType(FractionalSecondsOutput, [
+          FullType(FractionalSecondsOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -457,10 +450,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -472,21 +462,18 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     try {
       final payload =
           (await _greetingWithErrorsProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.greetingWithErrors(
-        input,
-        context,
-      );
+      final output = await service.greetingWithErrors(input, context);
       const statusCode = 200;
       final body = await _greetingWithErrorsProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          GreetingWithErrorsOutput,
-          [FullType(GreetingWithErrorsOutput)],
-        ),
+        specifiedType: const FullType(GreetingWithErrorsOutput, [
+          FullType(GreetingWithErrorsOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -496,10 +483,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     } on ComplexError catch (e) {
       final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          ComplexError,
-          [FullType(ComplexError)],
-        ),
+        specifiedType: const FullType(ComplexError, [FullType(ComplexError)]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -510,10 +494,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     } on FooError catch (e) {
       final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          FooError,
-          [FullType(FooError)],
-        ),
+        specifiedType: const FullType(FooError, [FullType(FooError)]),
       );
       const statusCode = 500;
       return _i4.Response(
@@ -524,10 +505,9 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     } on InvalidGreeting catch (e) {
       final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          InvalidGreeting,
-          [FullType(InvalidGreeting)],
-        ),
+        specifiedType: const FullType(InvalidGreeting, [
+          FullType(InvalidGreeting),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -536,10 +516,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -551,33 +528,25 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     try {
       final payload =
           (await _hostWithPathOperationProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.hostWithPathOperation(
-        input,
-        context,
-      );
+      final output = await service.hostWithPathOperation(input, context);
       const statusCode = 200;
-      final body =
-          await _hostWithPathOperationProtocol.wireSerializer.serialize(
-        output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
-      );
+      final body = await _hostWithPathOperationProtocol.wireSerializer
+          .serialize(
+            output,
+            specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -586,26 +555,24 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonEnumsProtocol.contentType;
     try {
-      final payload = (await _jsonEnumsProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(JsonEnumsInputOutput),
-      ) as JsonEnumsInputOutput);
+      final payload =
+          (await _jsonEnumsProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(JsonEnumsInputOutput),
+              )
+              as JsonEnumsInputOutput);
       final input = JsonEnumsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.jsonEnums(
-        input,
-        context,
-      );
+      final output = await service.jsonEnums(input, context);
       const statusCode = 200;
       final body = await _jsonEnumsProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          JsonEnumsInputOutput,
-          [FullType(JsonEnumsInputOutput)],
-        ),
+        specifiedType: const FullType(JsonEnumsInputOutput, [
+          FullType(JsonEnumsInputOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -613,10 +580,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -626,26 +590,24 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _jsonIntEnumsProtocol.contentType;
     try {
-      final payload = (await _jsonIntEnumsProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(JsonIntEnumsInputOutput),
-      ) as JsonIntEnumsInputOutput);
+      final payload =
+          (await _jsonIntEnumsProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(JsonIntEnumsInputOutput),
+              )
+              as JsonIntEnumsInputOutput);
       final input = JsonIntEnumsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.jsonIntEnums(
-        input,
-        context,
-      );
+      final output = await service.jsonIntEnums(input, context);
       const statusCode = 200;
       final body = await _jsonIntEnumsProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          JsonIntEnumsInputOutput,
-          [FullType(JsonIntEnumsInputOutput)],
-        ),
+        specifiedType: const FullType(JsonIntEnumsInputOutput, [
+          FullType(JsonIntEnumsInputOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -653,10 +615,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -665,26 +624,24 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonUnionsProtocol.contentType;
     try {
-      final payload = (await _jsonUnionsProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(UnionInputOutput),
-      ) as UnionInputOutput);
+      final payload =
+          (await _jsonUnionsProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(UnionInputOutput),
+              )
+              as UnionInputOutput);
       final input = UnionInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.jsonUnions(
-        input,
-        context,
-      );
+      final output = await service.jsonUnions(input, context);
       const statusCode = 200;
       final body = await _jsonUnionsProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          UnionInputOutput,
-          [FullType(UnionInputOutput)],
-        ),
+        specifiedType: const FullType(UnionInputOutput, [
+          FullType(UnionInputOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -692,10 +649,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -707,25 +661,16 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     try {
       final payload =
           (await _kitchenSinkOperationProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(KitchenSink),
-      ) as KitchenSink);
-      final input = KitchenSink.fromRequest(
-        payload,
-        awsRequest,
-        labels: {},
-      );
-      final output = await service.kitchenSinkOperation(
-        input,
-        context,
-      );
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(KitchenSink),
+              )
+              as KitchenSink);
+      final input = KitchenSink.fromRequest(payload, awsRequest, labels: {});
+      final output = await service.kitchenSinkOperation(input, context);
       const statusCode = 200;
       final body = await _kitchenSinkOperationProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          KitchenSink,
-          [FullType(KitchenSink)],
-        ),
+        specifiedType: const FullType(KitchenSink, [FullType(KitchenSink)]),
       );
       return _i4.Response(
         statusCode,
@@ -735,10 +680,9 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     } on ErrorWithMembers catch (e) {
       final body = _kitchenSinkOperationProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          ErrorWithMembers,
-          [FullType(ErrorWithMembers)],
-        ),
+        specifiedType: const FullType(ErrorWithMembers, [
+          FullType(ErrorWithMembers),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -749,10 +693,9 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     } on ErrorWithoutMembers catch (e) {
       final body = _kitchenSinkOperationProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          ErrorWithoutMembers,
-          [FullType(ErrorWithoutMembers)],
-        ),
+        specifiedType: const FullType(ErrorWithoutMembers, [
+          FullType(ErrorWithoutMembers),
+        ]),
       );
       const statusCode = 500;
       return _i4.Response(
@@ -761,10 +704,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -774,26 +714,24 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _nullOperationProtocol.contentType;
     try {
-      final payload = (await _nullOperationProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(NullOperationInputOutput),
-      ) as NullOperationInputOutput);
+      final payload =
+          (await _nullOperationProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(NullOperationInputOutput),
+              )
+              as NullOperationInputOutput);
       final input = NullOperationInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.nullOperation(
-        input,
-        context,
-      );
+      final output = await service.nullOperation(input, context);
       const statusCode = 200;
       final body = await _nullOperationProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          NullOperationInputOutput,
-          [FullType(NullOperationInputOutput)],
-        ),
+        specifiedType: const FullType(NullOperationInputOutput, [
+          FullType(NullOperationInputOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -801,26 +739,27 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
   _i3.Future<_i4.Response> operationWithOptionalInputOutput(
-      _i4.Request request) async {
+    _i4.Request request,
+  ) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
         _operationWithOptionalInputOutputProtocol.contentType;
     try {
-      final payload = (await _operationWithOptionalInputOutputProtocol
-          .wireSerializer
-          .deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(OperationWithOptionalInputOutputInput),
-      ) as OperationWithOptionalInputOutputInput);
+      final payload =
+          (await _operationWithOptionalInputOutputProtocol.wireSerializer
+                  .deserialize(
+                    await awsRequest.bodyBytes,
+                    specifiedType: const FullType(
+                      OperationWithOptionalInputOutputInput,
+                    ),
+                  )
+              as OperationWithOptionalInputOutputInput);
       final input = OperationWithOptionalInputOutputInput.fromRequest(
         payload,
         awsRequest,
@@ -834,22 +773,19 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
       final body = await _operationWithOptionalInputOutputProtocol
           .wireSerializer
           .serialize(
-        output,
-        specifiedType: const FullType(
-          OperationWithOptionalInputOutputOutput,
-          [FullType(OperationWithOptionalInputOutputOutput)],
-        ),
-      );
+            output,
+            specifiedType: const FullType(
+              OperationWithOptionalInputOutputOutput,
+              [FullType(OperationWithOptionalInputOutputOutput)],
+            ),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -861,37 +797,33 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     try {
       final payload =
           (await _putAndGetInlineDocumentsProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(PutAndGetInlineDocumentsInputOutput),
-      ) as PutAndGetInlineDocumentsInputOutput);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(
+                  PutAndGetInlineDocumentsInputOutput,
+                ),
+              )
+              as PutAndGetInlineDocumentsInputOutput);
       final input = PutAndGetInlineDocumentsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.putAndGetInlineDocuments(
-        input,
-        context,
-      );
+      final output = await service.putAndGetInlineDocuments(input, context);
       const statusCode = 200;
-      final body =
-          await _putAndGetInlineDocumentsProtocol.wireSerializer.serialize(
-        output,
-        specifiedType: const FullType(
-          PutAndGetInlineDocumentsInputOutput,
-          [FullType(PutAndGetInlineDocumentsInputOutput)],
-        ),
-      );
+      final body = await _putAndGetInlineDocumentsProtocol.wireSerializer
+          .serialize(
+            output,
+            specifiedType: const FullType(PutAndGetInlineDocumentsInputOutput, [
+              FullType(PutAndGetInlineDocumentsInputOutput),
+            ]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -903,37 +835,29 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     try {
       final payload =
           (await _putWithContentEncodingProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(PutWithContentEncodingInput),
-      ) as PutWithContentEncodingInput);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(PutWithContentEncodingInput),
+              )
+              as PutWithContentEncodingInput);
       final input = PutWithContentEncodingInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.putWithContentEncoding(
-        input,
-        context,
-      );
+      final output = await service.putWithContentEncoding(input, context);
       const statusCode = 200;
-      final body =
-          await _putWithContentEncodingProtocol.wireSerializer.serialize(
-        output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
-      );
+      final body = await _putWithContentEncodingProtocol.wireSerializer
+          .serialize(
+            output,
+            specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -945,37 +869,33 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
     try {
       final payload =
           (await _simpleScalarPropertiesProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(SimpleScalarPropertiesInputOutput),
-      ) as SimpleScalarPropertiesInputOutput);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(
+                  SimpleScalarPropertiesInputOutput,
+                ),
+              )
+              as SimpleScalarPropertiesInputOutput);
       final input = SimpleScalarPropertiesInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.simpleScalarProperties(
-        input,
-        context,
-      );
+      final output = await service.simpleScalarProperties(input, context);
       const statusCode = 200;
-      final body =
-          await _simpleScalarPropertiesProtocol.wireSerializer.serialize(
-        output,
-        specifiedType: const FullType(
-          SimpleScalarPropertiesInputOutput,
-          [FullType(SimpleScalarPropertiesInputOutput)],
-        ),
-      );
+      final body = await _simpleScalarPropertiesProtocol.wireSerializer
+          .serialize(
+            output,
+            specifiedType: const FullType(SimpleScalarPropertiesInputOutput, [
+              FullType(SimpleScalarPropertiesInputOutput),
+            ]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 }

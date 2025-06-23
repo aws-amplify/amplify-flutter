@@ -23,8 +23,10 @@ void main() {
     ];
 
     // distinct list of values in the test models
-    final listOfStringValues =
-        models.map((e) => e.listOfStringValue).toSet().toList();
+    final listOfStringValues = models
+        .map((e) => e.listOfStringValue)
+        .toSet()
+        .toList();
 
     setUpAll(() async {
       await configureDataStore();
@@ -48,16 +50,17 @@ void main() {
             .where((model) => model.listOfStringValue!.contains(value))
             .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-          queryPredicate:
-              ModelWithAppsyncScalarTypes.LISTOFSTRINGVALUE.contains(value),
+          queryPredicate: ModelWithAppsyncScalarTypes.LISTOFSTRINGVALUE
+              .contains(value),
           expectedModels: exactMatchModels,
         );
       }
 
       // test against a non existing value
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.LISTOFSTRINGVALUE.contains('foobar'),
+        queryPredicate: ModelWithAppsyncScalarTypes.LISTOFSTRINGVALUE.contains(
+          'foobar',
+        ),
         expectedModels: [],
       );
     });

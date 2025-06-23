@@ -24,9 +24,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
     super.shape,
     CodegenContext context, {
     super.smithyLibrary,
-  }) : super(
-          context: context,
-        );
+  }) : super(context: context);
 
   /// Test cases which should be skipped right now and the reasons why.
   static const Map<String, String> _skip = {
@@ -81,19 +79,19 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
   late final Map<String, Expression> _testValues = {
     'region':
         (context.service?.isAwsService ?? false) && vendorSerializers.isNotEmpty
-            ? refer('config')
-                .property('scopedConfig')
-                .nullSafeProperty('client')
-                .nullSafeProperty('region')
-                .ifNullThen(literalString('us-east-1'))
-            : literalString('us-east-1'),
-    'credentialsProvider':
-        DartTypes.awsSigV4.awsCredentialsProvider.constInstance([
-      DartTypes.awsSigV4.awsCredentials.constInstance([
-        literalString('DUMMY-ACCESS-KEY-ID'),
-        literalString('DUMMY-SECRET-ACCESS-KEY'),
-      ]),
-    ]),
+        ? refer('config')
+              .property('scopedConfig')
+              .nullSafeProperty('client')
+              .nullSafeProperty('region')
+              .ifNullThen(literalString('us-east-1'))
+        : literalString('us-east-1'),
+    'credentialsProvider': DartTypes.awsSigV4.awsCredentialsProvider
+        .constInstance([
+          DartTypes.awsSigV4.awsCredentials.constInstance([
+            literalString('DUMMY-ACCESS-KEY-ID'),
+            literalString('DUMMY-SECRET-ACCESS-KEY'),
+          ]),
+        ]),
     'baseUri': DartTypes.core.uri.newInstanceNamed('parse', [
       literalString('https://example.com'),
     ]),
@@ -116,15 +114,15 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
   /// on the contents of the test case.
   final Set<String> _skipOnWeb = {};
 
-  late final httpRequestTestCases = shape
-          .getTrait<HttpRequestTestsTrait>()
-          ?.testCases
-          .where((t) => t.appliesTo != AppliesTo.server) ??
+  late final httpRequestTestCases =
+      shape.getTrait<HttpRequestTestsTrait>()?.testCases.where(
+        (t) => t.appliesTo != AppliesTo.server,
+      ) ??
       const [];
-  late final httpResponseTestCases = shape
-          .getTrait<HttpResponseTestsTrait>()
-          ?.testCases
-          .where((t) => t.appliesTo != AppliesTo.server) ??
+  late final httpResponseTestCases =
+      shape.getTrait<HttpResponseTestsTrait>()?.testCases.where(
+        (t) => t.appliesTo != AppliesTo.server,
+      ) ??
       const [];
   late final errorShapes = shape.errors
       .map((err) => context.shapeFor(err.target))
@@ -132,25 +130,27 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
       .toList();
   late final httpErrorResponseTestCases = {
     for (final shape in errorShapes)
-      shape: shape
-              .getTrait<HttpResponseTestsTrait>()
-              ?.testCases
-              .where((t) => t.appliesTo != AppliesTo.server) ??
+      shape:
+          shape.getTrait<HttpResponseTestsTrait>()?.testCases.where(
+            (t) => t.appliesTo != AppliesTo.server,
+          ) ??
           const [],
   };
 
-  late final testProtocols = {
-    ...httpRequestTestCases.map((t) => t.protocol),
-    ...httpResponseTestCases.map((t) => t.protocol),
-    ...httpErrorResponseTestCases.values
-        .expand((el) => el)
-        .map((t) => t.protocol),
-  }
-      .map(
-        (protocol) =>
-            context.serviceProtocols.firstWhere((p) => p.shapeId == protocol),
-      )
-      .toList();
+  late final testProtocols =
+      {
+            ...httpRequestTestCases.map((t) => t.protocol),
+            ...httpResponseTestCases.map((t) => t.protocol),
+            ...httpErrorResponseTestCases.values
+                .expand((el) => el)
+                .map((t) => t.protocol),
+          }
+          .map(
+            (protocol) => context.serviceProtocols.firstWhere(
+              (p) => p.shapeId == protocol,
+            ),
+          )
+          .toList();
 
   /// When deserializing the `params` of a test case, we need to consider not
   /// only the input type but also any generated types it references, either in
@@ -164,11 +164,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
     for (final member in shape.members.values) {
       var targetShape = context.shapeFor(member.target);
       var targetType = targetShape.getType();
-      const collectionTypes = [
-        ShapeType.map,
-        ShapeType.list,
-        ShapeType.set,
-      ];
+      const collectionTypes = [ShapeType.map, ShapeType.list, ShapeType.set];
       while (collectionTypes.contains(targetType)) {
         if (targetShape is CollectionShape) {
           targetShape = context.shapeFor(targetShape.member.target);
@@ -286,7 +282,8 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
           ..body = Block.of([
             if (vendorSerializers.isNotEmpty)
               Code.scope(
-                (allocate) => '''
+                (allocate) =>
+                    '''
   final vendorSerializers = (${allocate(DartTypes.smithyTest.testSerializers)}.toBuilder()..addAll(const [
     ${_uniqueSerializers(vendorSerializers).map((serializer) => '${serializer.name}(),').join()}
     ${_vendorEnums.map((e) => '...${allocate(e)}.serializers,').join()}
@@ -334,8 +331,9 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
           'tags': literal(testCase.tags),
           'appliesTo': testCase.appliesTo == null
               ? literalNull
-              : DartTypes.smithyTest.appliesTo
-                  .property(testCase.appliesTo!.name),
+              : DartTypes.smithyTest.appliesTo.property(
+                  testCase.appliesTo!.name,
+                ),
           'method': literal(testCase.method),
           'uri': literal(testCase.uri),
           'host': literal(testCase.host),
@@ -380,20 +378,24 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
       for (final testCase in testCases) {
         final serializers =
             errorSerializers[errorShape]![testCase.protocol] ?? const [];
-        final testCall = DartTypes.smithyTest.httpErrorResponseTest.call([], {
-          'operation': _operationInstance(testCase),
-          'testCase': _buildResponseTestCase(testCase),
-          'errorSerializers': literalConstList([
-            for (final serializer in _uniqueSerializers(serializers))
-              refer(serializer.name).constInstance([]),
-          ]),
-        }, [
-          inputPayload.symbol,
-          inputSymbol,
-          outputPayload.symbol,
-          outputSymbol,
-          context.symbolFor(errorShape.shapeId),
-        ]);
+        final testCall = DartTypes.smithyTest.httpErrorResponseTest.call(
+          [],
+          {
+            'operation': _operationInstance(testCase),
+            'testCase': _buildResponseTestCase(testCase),
+            'errorSerializers': literalConstList([
+              for (final serializer in _uniqueSerializers(serializers))
+                refer(serializer.name).constInstance([]),
+            ]),
+          },
+          [
+            inputPayload.symbol,
+            inputSymbol,
+            outputPayload.symbol,
+            outputSymbol,
+            context.symbolFor(errorShape.shapeId),
+          ],
+        );
         yield _buildTest(testCase, testCall, type: TestType.error);
       }
     }
@@ -412,11 +414,13 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
       final vendorParamsSymbol = context.symbolFor(testCase.vendorParamsShape!);
       initBlock.addExpression(
         declareFinal('config').assign(
-          refer('vendorSerializers').property('deserialize').call([
-            literalMap(testCase.vendorParams),
-          ], {
-            'specifiedType': vendorParamsSymbol.fullType(),
-          }).asA(vendorParamsSymbol),
+          refer('vendorSerializers')
+              .property('deserialize')
+              .call(
+                [literalMap(testCase.vendorParams)],
+                {'specifiedType': vendorParamsSymbol.fullType()},
+              )
+              .asA(vendorParamsSymbol),
         ),
       );
     }
@@ -451,53 +455,55 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
                         .nullSafeProperty('useDualstackEndpoint'),
                   )
                   .ifNullThen(literalFalse),
-              'usePathStyle': CodeExpression(
-                Block.of([
-                  const Code('('),
-                  refer('config')
-                      .property('scopedConfig')
-                      .nullSafeProperty('operation')
-                      .nullSafeProperty('s3')
-                      .nullSafeProperty('addressingStyle')
-                      .ifNullThen(
-                        refer('config')
-                            .property('scopedConfig')
-                            .nullSafeProperty('client')
-                            .nullSafeProperty('s3')
-                            .nullSafeProperty('addressingStyle'),
-                      )
-                      .code,
-                  const Code(')'),
-                ]),
-              ).equalTo(
-                context
-                    .symbolFor(
-                      const ShapeId(
-                        namespace: 'aws.protocoltests.config',
-                        shape: 'S3AddressingStyle',
-                      ),
-                    )
-                    .property('path'),
-              ),
-              'signerConfiguration':
-                  DartTypes.awsSigV4.s3ServiceConfiguration.newInstance([], {
-                'signPayload': literalFalse,
-                'chunked': literalFalse,
-              }),
+              'usePathStyle':
+                  CodeExpression(
+                    Block.of([
+                      const Code('('),
+                      refer('config')
+                          .property('scopedConfig')
+                          .nullSafeProperty('operation')
+                          .nullSafeProperty('s3')
+                          .nullSafeProperty('addressingStyle')
+                          .ifNullThen(
+                            refer('config')
+                                .property('scopedConfig')
+                                .nullSafeProperty('client')
+                                .nullSafeProperty('s3')
+                                .nullSafeProperty('addressingStyle'),
+                          )
+                          .code,
+                      const Code(')'),
+                    ]),
+                  ).equalTo(
+                    context
+                        .symbolFor(
+                          const ShapeId(
+                            namespace: 'aws.protocoltests.config',
+                            shape: 'S3AddressingStyle',
+                          ),
+                        )
+                        .property('path'),
+                  ),
+              'signerConfiguration': DartTypes.awsSigV4.s3ServiceConfiguration
+                  .newInstance([], {
+                    'signPayload': literalFalse,
+                    'chunked': literalFalse,
+                  }),
             }),
           ),
         );
       } else {
         initBlock.addExpression(
-          declareConst('s3ClientConfig').assign(
-            DartTypes.smithyAws.s3ClientConfig.constInstance([]),
-          ),
+          declareConst(
+            's3ClientConfig',
+          ).assign(DartTypes.smithyAws.s3ClientConfig.constInstance([])),
         );
       }
     }
     return Block.of([
       Code.scope(
-        (allocate) => '${allocate(DartTypes.test.test)}'
+        (allocate) =>
+            '${allocate(DartTypes.test.test)}'
             "('${testCase.id} (${type.name})', () async {",
       ),
       initBlock.build(),
@@ -567,18 +573,16 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
   Map<String, Object?> _escapeParams(
     HttpMessageTestCase testCase,
     Map<String, Object?> params,
-  ) =>
-      {...params}..updateAll((key, value) {
-          if (value is List) {
-            return value
-                .map((value) => _escapeLiteral(testCase, value))
-                .toList();
-          }
-          if (value is Map) {
-            return _escapeParams(testCase, value.cast());
-          }
-          return _escapeLiteral(testCase, value);
-        });
+  ) => {...params}
+    ..updateAll((key, value) {
+      if (value is List) {
+        return value.map((value) => _escapeLiteral(testCase, value)).toList();
+      }
+      if (value is Map) {
+        return _escapeParams(testCase, value.cast());
+      }
+      return _escapeLiteral(testCase, value);
+    });
 
   /// JS can handle int values up to 2^53 - 1.
   static const int _maxSafeJsInt = (1 << 53) - 1;

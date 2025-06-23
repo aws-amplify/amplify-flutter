@@ -21,19 +21,11 @@ const _testCaseSerializable = JsonSerializable(
 );
 
 @JsonEnum(fieldRename: FieldRename.snake)
-enum Outcome {
-  success,
-  retryRequest,
-  maxAttemptsExceeded,
-  retryQuotaExceeded,
-}
+enum Outcome { success, retryRequest, maxAttemptsExceeded, retryQuotaExceeded }
 
 @_testCaseSerializable
 class TestSuite {
-  const TestSuite({
-    required this.given,
-    required this.responses,
-  });
+  const TestSuite({required this.given, required this.responses});
 
   factory TestSuite.fromJson(Map<String, Object?> json) =>
       _$TestSuiteFromJson(json);
@@ -63,20 +55,17 @@ class TestSuiteGiven {
 
   @override
   String toString() => [
-        maxAttempts,
-        initialRetryTokens,
-        exponentialBase,
-        exponentialPower,
-        maxBackoffTime,
-      ].join('|');
+    maxAttempts,
+    initialRetryTokens,
+    exponentialBase,
+    exponentialPower,
+    maxBackoffTime,
+  ].join('|');
 }
 
 @_testCaseSerializable
 class TestCase {
-  const TestCase({
-    required this.response,
-    required this.expected,
-  });
+  const TestCase({required this.response, required this.expected});
 
   factory TestCase.fromJson(Map<String, Object?> json) =>
       _$TestCaseFromJson(json);
@@ -87,9 +76,7 @@ class TestCase {
 
 @_testCaseSerializable
 class TestCaseResponse {
-  const TestCaseResponse({
-    required this.statusCode,
-  });
+  const TestCaseResponse({required this.statusCode});
 
   factory TestCaseResponse.fromJson(Map<String, Object?> json) =>
       _$TestCaseResponseFromJson(json);
@@ -134,60 +121,56 @@ void main() {
           maxBackoffTime: Duration(seconds: testSuite.given.maxBackoffTime),
         );
         test('${testSuite.given}', () {
-          runZoned(
-            () async {
-              final outcome = testSuite.responses.last;
-              final Matcher expectation;
-              switch (outcome.expected.outcome) {
-                case Outcome.success:
-                case Outcome.retryRequest:
-                  expectation = completes;
-                case Outcome.maxAttemptsExceeded:
-                case Outcome.retryQuotaExceeded:
-                  expectation = throwsA(isA<_TransientSmithyException>());
-              }
+          runZoned(() async {
+            final outcome = testSuite.responses.last;
+            final Matcher expectation;
+            switch (outcome.expected.outcome) {
+              case Outcome.success:
+              case Outcome.retryRequest:
+                expectation = completes;
+              case Outcome.maxAttemptsExceeded:
+              case Outcome.retryQuotaExceeded:
+                expectation = throwsA(isA<_TransientSmithyException>());
+            }
 
-              // TODO(dnys1): Try to get fake_async to work properly to avoid
-              /// unnecessary test delays.
-              var retry = 0;
-              TestCase testCase() => testSuite.responses[retry];
-              await expectLater(
-                retryer.retry<void>(
-                  () {
-                    final completer = CancelableCompleter<void>();
-                    final response = testCase().response;
-                    if (response.statusCode == 200) {
-                      completer.complete();
-                    } else {
-                      completer
-                          .completeError(const _TransientSmithyException());
-                    }
-                    return completer.operation;
-                  },
-                  onRetry: (e, [delay]) {
-                    final expectedDelay = testCase().expected.delay;
-                    expect(delay?.inSeconds, equals(expectedDelay));
-                    expect(
-                      retryer.retryQuota,
-                      equals(testCase().expected.retryQuota),
-                    );
-                    retry++;
-                  },
-                ).valueOrCancellation(),
-                expectation,
-              );
-
-              final expectedRetries = testSuite.responses
-                  .where(
-                    (resp) => resp.expected.outcome == Outcome.retryRequest,
+            // TODO(dnys1): Try to get fake_async to work properly to avoid
+            /// unnecessary test delays.
+            var retry = 0;
+            TestCase testCase() => testSuite.responses[retry];
+            await expectLater(
+              retryer
+                  .retry<void>(
+                    () {
+                      final completer = CancelableCompleter<void>();
+                      final response = testCase().response;
+                      if (response.statusCode == 200) {
+                        completer.complete();
+                      } else {
+                        completer.completeError(
+                          const _TransientSmithyException(),
+                        );
+                      }
+                      return completer.operation;
+                    },
+                    onRetry: (e, [delay]) {
+                      final expectedDelay = testCase().expected.delay;
+                      expect(delay?.inSeconds, equals(expectedDelay));
+                      expect(
+                        retryer.retryQuota,
+                        equals(testCase().expected.retryQuota),
+                      );
+                      retry++;
+                    },
                   )
-                  .length;
-              expect(retry, equals(expectedRetries));
-            },
-            zoneValues: {
-              AWSConfigValue.maxAttempts: maxAttempts,
-            },
-          );
+                  .valueOrCancellation(),
+              expectation,
+            );
+
+            final expectedRetries = testSuite.responses
+                .where((resp) => resp.expected.outcome == Outcome.retryRequest)
+                .length;
+            expect(retry, equals(expectedRetries));
+          }, zoneValues: {AWSConfigValue.maxAttempts: maxAttempts});
         });
       }
     });

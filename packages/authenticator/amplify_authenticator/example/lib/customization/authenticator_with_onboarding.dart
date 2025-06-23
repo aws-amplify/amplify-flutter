@@ -25,12 +25,10 @@ class AuthenticatorWithOnboarding extends StatelessWidget {
         switch (state.currentStep) {
           case AuthenticatorStep.onboarding:
             return OnboardingView(
-              navigateToSignIn: () => state.changeStep(
-                AuthenticatorStep.signIn,
-              ),
-              navigateToSignUp: () => state.changeStep(
-                AuthenticatorStep.signUp,
-              ),
+              navigateToSignIn: () =>
+                  state.changeStep(AuthenticatorStep.signIn),
+              navigateToSignUp: () =>
+                  state.changeStep(AuthenticatorStep.signUp),
             );
           default:
             // returning null will default to the prebuilt authenticator for

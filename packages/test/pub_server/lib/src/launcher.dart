@@ -14,10 +14,7 @@ import 'package:pubspec_parse/pubspec_parse.dart';
 ///
 /// Use [PubLauncher.git] or [PubLauncher.local] to create a launcher.
 class PubLauncher {
-  const PubLauncher(
-    this.pubServerUri,
-    this.packages,
-  );
+  const PubLauncher(this.pubServerUri, this.packages);
 
   static final _logger = AWSLogger().createChild('PubLauncher');
 
@@ -52,11 +49,7 @@ class PubLauncher {
       );
       if (isPublishable) {
         packages.add(
-          LocalPackage(
-            name: pubspec.name,
-            pubspec: pubspec,
-            path: path,
-          ),
+          LocalPackage(name: pubspec.name, pubspec: pubspec, path: path),
         );
       }
     }
@@ -81,13 +74,7 @@ class PubLauncher {
 
     // Clone repository
     _logger.info('Cloning $gitUrl@$gitRef to ${tmpDir.path}...');
-    await runGit([
-      'clone',
-      '--depth=1',
-      '--no-checkout',
-      gitUrl,
-      tmpDir.path,
-    ]);
+    await runGit(['clone', '--depth=1', '--no-checkout', gitUrl, tmpDir.path]);
     final gitDir = await GitDir.fromExisting(tmpDir.path);
 
     // Fetch PRs
@@ -139,16 +126,10 @@ class PubLauncher {
     _logger.info('Publishing ${package.name}...');
     final result = await Process.run(
       package.flavor == PackageFlavor.flutter ? 'flutter' : 'dart',
-      [
-        'pub',
-        'publish',
-        '--force',
-      ],
+      ['pub', 'publish', '--force'],
       runInShell: true,
       workingDirectory: package.path,
-      environment: {
-        'PUB_HOSTED_URL': pubServerUri.toString(),
-      },
+      environment: {'PUB_HOSTED_URL': pubServerUri.toString()},
       stdoutEncoding: utf8,
       stderrEncoding: utf8,
     );

@@ -30,31 +30,30 @@ class _$CopyObjectOutput extends CopyObjectOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$CopyObjectOutput(
-          [void Function(CopyObjectOutputBuilder)? updates]) =>
-      (new CopyObjectOutputBuilder()..update(updates))._build();
+  factory _$CopyObjectOutput([
+    void Function(CopyObjectOutputBuilder)? updates,
+  ]) => (CopyObjectOutputBuilder()..update(updates))._build();
 
-  _$CopyObjectOutput._(
-      {this.copyObjectResult,
-      this.expiration,
-      this.copySourceVersionId,
-      this.versionId,
-      this.serverSideEncryption,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.ssekmsEncryptionContext,
-      this.bucketKeyEnabled,
-      this.requestCharged})
-      : super._();
-
+  _$CopyObjectOutput._({
+    this.copyObjectResult,
+    this.expiration,
+    this.copySourceVersionId,
+    this.versionId,
+    this.serverSideEncryption,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.bucketKeyEnabled,
+    this.requestCharged,
+  }) : super._();
   @override
   CopyObjectOutput rebuild(void Function(CopyObjectOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   CopyObjectOutputBuilder toBuilder() =>
-      new CopyObjectOutputBuilder()..replace(this);
+      CopyObjectOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -98,7 +97,7 @@ class CopyObjectOutputBuilder
 
   CopyObjectResultBuilder? _copyObjectResult;
   CopyObjectResultBuilder get copyObjectResult =>
-      _$this._copyObjectResult ??= new CopyObjectResultBuilder();
+      _$this._copyObjectResult ??= CopyObjectResultBuilder();
   set copyObjectResult(CopyObjectResultBuilder? copyObjectResult) =>
       _$this._copyObjectResult = copyObjectResult;
 
@@ -173,7 +172,6 @@ class CopyObjectOutputBuilder
 
   @override
   void replace(CopyObjectOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyObjectOutput;
   }
 
@@ -188,27 +186,32 @@ class CopyObjectOutputBuilder
   _$CopyObjectOutput _build() {
     _$CopyObjectOutput _$result;
     try {
-      _$result = _$v ??
-          new _$CopyObjectOutput._(
-              copyObjectResult: _copyObjectResult?.build(),
-              expiration: expiration,
-              copySourceVersionId: copySourceVersionId,
-              versionId: versionId,
-              serverSideEncryption: serverSideEncryption,
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKeyMd5: sseCustomerKeyMd5,
-              ssekmsKeyId: ssekmsKeyId,
-              ssekmsEncryptionContext: ssekmsEncryptionContext,
-              bucketKeyEnabled: bucketKeyEnabled,
-              requestCharged: requestCharged);
+      _$result =
+          _$v ??
+          _$CopyObjectOutput._(
+            copyObjectResult: _copyObjectResult?.build(),
+            expiration: expiration,
+            copySourceVersionId: copySourceVersionId,
+            versionId: versionId,
+            serverSideEncryption: serverSideEncryption,
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+            ssekmsKeyId: ssekmsKeyId,
+            ssekmsEncryptionContext: ssekmsEncryptionContext,
+            bucketKeyEnabled: bucketKeyEnabled,
+            requestCharged: requestCharged,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'copyObjectResult';
         _copyObjectResult?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'CopyObjectOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'CopyObjectOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

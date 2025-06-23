@@ -24,8 +24,8 @@ final class ASFDeviceInfoMacOS extends ASFDeviceInfoPlatform {
 
   final _native = NativeMacOsFramework(DynamicLibrary.process());
 
-  late final _kCFBundleShortVersionString =
-      'CFBundleShortVersionString'.toNSString(_native);
+  late final _kCFBundleShortVersionString = 'CFBundleShortVersionString'
+      .toNSString(_native);
   late final _kCFBundleVersionKey = NSString.castFromPointer(
     _native,
     _native.kCFBundleVersionKey.cast(),
@@ -44,14 +44,16 @@ final class ASFDeviceInfoMacOS extends ASFDeviceInfoPlatform {
 
   @override
   Future<String?> get applicationVersion async {
-    final nsAppVersion =
-        _bundle?.objectForInfoDictionaryKey_(_kCFBundleShortVersionString);
+    final nsAppVersion = _bundle?.objectForInfoDictionaryKey_(
+      _kCFBundleShortVersionString,
+    );
     if (nsAppVersion == null || !NSString.isInstance(nsAppVersion)) {
       return null;
     }
     final appVersion = NSString.castFrom(nsAppVersion).toString();
-    final nsAppBuild =
-        _bundle?.objectForInfoDictionaryKey_(_kCFBundleVersionKey);
+    final nsAppBuild = _bundle?.objectForInfoDictionaryKey_(
+      _kCFBundleVersionKey,
+    );
     final appBuild = nsAppBuild != null && NSString.isInstance(nsAppBuild)
         ? NSString.castFrom(nsAppBuild).toString()
         : null;
@@ -62,28 +64,29 @@ final class ASFDeviceInfoMacOS extends ASFDeviceInfoPlatform {
 
   @override
   Future<String?> get deviceFingerprint async => using((arena) {
-        final model = _ioValueFor<CFData>('model');
-        final systemInfo = arena<utsname>();
-        var type = '';
-        if (_native.uname(systemInfo) == 0) {
-          final sysname = systemInfo.ref.sysname;
-          final bytes = <int>[];
-          for (var i = 0;; i++) {
-            final byte = sysname[i];
-            if (byte == 0) break;
-            bytes.add(byte);
-          }
-          type = utf8.decode(bytes);
-        }
-        const build = zDebugMode ? 'debug' : 'release';
+    final model = _ioValueFor<CFData>('model');
+    final systemInfo = arena<utsname>();
+    var type = '';
+    if (_native.uname(systemInfo) == 0) {
+      final sysname = systemInfo.ref.sysname;
+      final bytes = <int>[];
+      for (var i = 0; ; i++) {
+        final byte = sysname[i];
+        if (byte == 0) break;
+        bytes.add(byte);
+      }
+      type = utf8.decode(bytes);
+    }
+    const build = zDebugMode ? 'debug' : 'release';
 
-        return 'Apple/$model/$type/-:$_osVersion/-/-:-/$build';
-      });
+    return 'Apple/$model/$type/-:$_osVersion/-/-:-/$build';
+  });
 
   @override
   Future<String?> get deviceLanguage async {
-    final nsDeviceLanguage =
-        NSLocale.getPreferredLanguages(_native)?.objectAtIndex_(0);
+    final nsDeviceLanguage = NSLocale.getPreferredLanguages(
+      _native,
+    )?.objectAtIndex_(0);
     return nsDeviceLanguage == null || !NSString.isInstance(nsDeviceLanguage)
         ? null
         : NSString.castFrom(nsDeviceLanguage).toString();
@@ -111,35 +114,35 @@ final class ASFDeviceInfoMacOS extends ASFDeviceInfoPlatform {
       _mainScreen?.visibleFrame.size.width.toInt() ?? 0;
 
   String? _ioValueFor<CFType>(String key) => using((arena) {
-        const serviceName = 'IOPlatformExpertDevice';
-        final service = _native.IOServiceGetMatchingService(
-          _native.kIOMasterPortDefault,
-          _native.IOServiceMatching(
-            serviceName.toNativeUtf8(allocator: arena).cast(),
-          ),
-        );
-        logger.verbose('Found service matching $serviceName: $service');
-        if (service == IO_OBJECT_NULL) {
-          return null;
-        }
-        arena.onReleaseAll(() => _native.IOObjectRelease(service));
-        final data = _native.IORegistryEntryCreateCFProperty(
-          service,
-          key.toCFString(lib: _native, arena: arena).cast(),
-          _native.kCFAllocatorDefault,
-          0,
-        );
-        logger.verbose('Got data for $key: $data');
-        if (data == nullptr) {
-          return null;
-        }
-        arena.onReleaseAll(() => _native.CFRelease(data));
-        return switch (CFType) {
-          const (CFData) => data.cast<CFData>().toDartString(_native),
-          const (CFString) => data.cast<CFString>().toDartString(_native),
-          _ => null,
-        };
-      });
+    const serviceName = 'IOPlatformExpertDevice';
+    final service = _native.IOServiceGetMatchingService(
+      _native.kIOMasterPortDefault,
+      _native.IOServiceMatching(
+        serviceName.toNativeUtf8(allocator: arena).cast(),
+      ),
+    );
+    logger.verbose('Found service matching $serviceName: $service');
+    if (service == IO_OBJECT_NULL) {
+      return null;
+    }
+    arena.onReleaseAll(() => _native.IOObjectRelease(service));
+    final data = _native.IORegistryEntryCreateCFProperty(
+      service,
+      key.toCFString(lib: _native, arena: arena).cast(),
+      _native.kCFAllocatorDefault,
+      0,
+    );
+    logger.verbose('Got data for $key: $data');
+    if (data == nullptr) {
+      return null;
+    }
+    arena.onReleaseAll(() => _native.CFRelease(data));
+    return switch (CFType) {
+      const (CFData) => data.cast<CFData>().toDartString(_native),
+      const (CFString) => data.cast<CFString>().toDartString(_native),
+      _ => null,
+    };
+  });
 
   @override
   Future<String?> get thirdPartyDeviceId async =>

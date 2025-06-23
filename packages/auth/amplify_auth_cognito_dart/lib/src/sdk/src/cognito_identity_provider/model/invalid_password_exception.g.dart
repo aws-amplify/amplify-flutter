@@ -12,20 +12,19 @@ class _$InvalidPasswordException extends InvalidPasswordException {
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidPasswordException(
-          [void Function(InvalidPasswordExceptionBuilder)? updates]) =>
-      (new InvalidPasswordExceptionBuilder()..update(updates))._build();
+  factory _$InvalidPasswordException([
+    void Function(InvalidPasswordExceptionBuilder)? updates,
+  ]) => (InvalidPasswordExceptionBuilder()..update(updates))._build();
 
   _$InvalidPasswordException._({this.message, this.headers}) : super._();
-
   @override
   InvalidPasswordException rebuild(
-          void Function(InvalidPasswordExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidPasswordExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidPasswordExceptionBuilder toBuilder() =>
-      new InvalidPasswordExceptionBuilder()..replace(this);
+      InvalidPasswordExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class InvalidPasswordExceptionBuilder
 
   @override
   void replace(InvalidPasswordException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidPasswordException;
   }
 
@@ -82,8 +80,8 @@ class InvalidPasswordExceptionBuilder
   InvalidPasswordException build() => _build();
 
   _$InvalidPasswordException _build() {
-    final _$result = _$v ??
-        new _$InvalidPasswordException._(message: message, headers: headers);
+    final _$result =
+        _$v ?? _$InvalidPasswordException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

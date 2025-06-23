@@ -12,21 +12,20 @@ class _$DocumentTypeInputOutput extends DocumentTypeInputOutput {
   @override
   final _i3.JsonObject? documentValue;
 
-  factory _$DocumentTypeInputOutput(
-          [void Function(DocumentTypeInputOutputBuilder)? updates]) =>
-      (new DocumentTypeInputOutputBuilder()..update(updates))._build();
+  factory _$DocumentTypeInputOutput([
+    void Function(DocumentTypeInputOutputBuilder)? updates,
+  ]) => (DocumentTypeInputOutputBuilder()..update(updates))._build();
 
   _$DocumentTypeInputOutput._({this.stringValue, this.documentValue})
-      : super._();
-
+    : super._();
   @override
   DocumentTypeInputOutput rebuild(
-          void Function(DocumentTypeInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DocumentTypeInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DocumentTypeInputOutputBuilder toBuilder() =>
-      new DocumentTypeInputOutputBuilder()..replace(this);
+      DocumentTypeInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +73,6 @@ class DocumentTypeInputOutputBuilder
 
   @override
   void replace(DocumentTypeInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DocumentTypeInputOutput;
   }
 
@@ -87,9 +85,12 @@ class DocumentTypeInputOutputBuilder
   DocumentTypeInputOutput build() => _build();
 
   _$DocumentTypeInputOutput _build() {
-    final _$result = _$v ??
-        new _$DocumentTypeInputOutput._(
-            stringValue: stringValue, documentValue: documentValue);
+    final _$result =
+        _$v ??
+        _$DocumentTypeInputOutput._(
+          stringValue: stringValue,
+          documentValue: documentValue,
+        );
     replace(_$result);
     return _$result;
   }

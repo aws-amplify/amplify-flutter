@@ -11,11 +11,10 @@ import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 class DataProviderIos implements LegacyNativeDataProvider {
   /// {@macro amplify_analytics_pinpoint.flutter_legacy_native_data_provider}
   DataProviderIos()
-
-      // ignore: invalid_use_of_internal_member
-      : _keyValueStore = AmplifySecureStorage(
-          config: AmplifySecureStorageConfig.byNamespace(namespace: _context),
-        );
+    // ignore: invalid_use_of_internal_member
+    : _keyValueStore = AmplifySecureStorage(
+        config: AmplifySecureStorageConfig.byNamespace(namespace: _context),
+      );
 
   static const _context = 'com.amazonaws.AWSPinpointContext';
   static const _key = 'com.amazonaws.AWSPinpointContextKeychainUniqueIdKey';

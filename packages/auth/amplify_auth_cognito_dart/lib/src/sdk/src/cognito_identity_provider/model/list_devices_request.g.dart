@@ -14,25 +14,23 @@ class _$ListDevicesRequest extends ListDevicesRequest {
   @override
   final String? paginationToken;
 
-  factory _$ListDevicesRequest(
-          [void Function(ListDevicesRequestBuilder)? updates]) =>
-      (new ListDevicesRequestBuilder()..update(updates))._build();
+  factory _$ListDevicesRequest([
+    void Function(ListDevicesRequestBuilder)? updates,
+  ]) => (ListDevicesRequestBuilder()..update(updates))._build();
 
-  _$ListDevicesRequest._(
-      {required this.accessToken, this.limit, this.paginationToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'ListDevicesRequest', 'accessToken');
-  }
-
+  _$ListDevicesRequest._({
+    required this.accessToken,
+    this.limit,
+    this.paginationToken,
+  }) : super._();
   @override
   ListDevicesRequest rebuild(
-          void Function(ListDevicesRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListDevicesRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListDevicesRequestBuilder toBuilder() =>
-      new ListDevicesRequestBuilder()..replace(this);
+      ListDevicesRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -86,7 +84,6 @@ class ListDevicesRequestBuilder
 
   @override
   void replace(ListDevicesRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListDevicesRequest;
   }
 
@@ -99,12 +96,17 @@ class ListDevicesRequestBuilder
   ListDevicesRequest build() => _build();
 
   _$ListDevicesRequest _build() {
-    final _$result = _$v ??
-        new _$ListDevicesRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'ListDevicesRequest', 'accessToken'),
-            limit: limit,
-            paginationToken: paginationToken);
+    final _$result =
+        _$v ??
+        _$ListDevicesRequest._(
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+            accessToken,
+            r'ListDevicesRequest',
+            'accessToken',
+          ),
+          limit: limit,
+          paginationToken: paginationToken,
+        );
     replace(_$result);
     return _$result;
   }

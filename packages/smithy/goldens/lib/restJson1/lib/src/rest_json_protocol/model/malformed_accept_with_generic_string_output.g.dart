@@ -11,23 +11,20 @@ class _$MalformedAcceptWithGenericStringOutput
   @override
   final String? payload;
 
-  factory _$MalformedAcceptWithGenericStringOutput(
-          [void Function(MalformedAcceptWithGenericStringOutputBuilder)?
-              updates]) =>
-      (new MalformedAcceptWithGenericStringOutputBuilder()..update(updates))
-          ._build();
+  factory _$MalformedAcceptWithGenericStringOutput([
+    void Function(MalformedAcceptWithGenericStringOutputBuilder)? updates,
+  ]) => (MalformedAcceptWithGenericStringOutputBuilder()..update(updates))
+      ._build();
 
   _$MalformedAcceptWithGenericStringOutput._({this.payload}) : super._();
-
   @override
   MalformedAcceptWithGenericStringOutput rebuild(
-          void Function(MalformedAcceptWithGenericStringOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedAcceptWithGenericStringOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedAcceptWithGenericStringOutputBuilder toBuilder() =>
-      new MalformedAcceptWithGenericStringOutputBuilder()..replace(this);
+      MalformedAcceptWithGenericStringOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,8 +44,10 @@ class _$MalformedAcceptWithGenericStringOutput
 
 class MalformedAcceptWithGenericStringOutputBuilder
     implements
-        Builder<MalformedAcceptWithGenericStringOutput,
-            MalformedAcceptWithGenericStringOutputBuilder> {
+        Builder<
+          MalformedAcceptWithGenericStringOutput,
+          MalformedAcceptWithGenericStringOutputBuilder
+        > {
   _$MalformedAcceptWithGenericStringOutput? _$v;
 
   String? _payload;
@@ -68,13 +67,13 @@ class MalformedAcceptWithGenericStringOutputBuilder
 
   @override
   void replace(MalformedAcceptWithGenericStringOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedAcceptWithGenericStringOutput;
   }
 
   @override
   void update(
-      void Function(MalformedAcceptWithGenericStringOutputBuilder)? updates) {
+    void Function(MalformedAcceptWithGenericStringOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -83,7 +82,7 @@ class MalformedAcceptWithGenericStringOutputBuilder
 
   _$MalformedAcceptWithGenericStringOutput _build() {
     final _$result =
-        _$v ?? new _$MalformedAcceptWithGenericStringOutput._(payload: payload);
+        _$v ?? _$MalformedAcceptWithGenericStringOutput._(payload: payload);
     replace(_$result);
     return _$result;
   }

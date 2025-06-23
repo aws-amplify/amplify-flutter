@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -39,10 +42,7 @@ FormFieldValidator<String> usernameValidator({
 }) {
   return (String? input) {
     if (input == null || input.isEmpty) {
-      return inputResolver.resolve(
-        context,
-        InputResolverKey.usernameEmpty,
-      );
+      return inputResolver.resolve(context, InputResolverKey.usernameEmpty);
     }
     input = input.trim();
     if (!usernameRegex.hasMatch(input)) {
@@ -56,66 +56,60 @@ FormFieldValidator<String> usernameValidator({
   };
 }
 
-extension PasswordPolicyCharactersX on PasswordPolicyCharacters {
-  @visibleForTesting
-  bool meetsRequirement(String value) {
-    switch (this) {
-      case PasswordPolicyCharacters.requiresLowercase:
-        return value.contains(_lowercase);
-      case PasswordPolicyCharacters.requiresUppercase:
-        return value.contains(_uppercase);
-      case PasswordPolicyCharacters.requiresNumbers:
-        return value.contains(_numeric);
-      case PasswordPolicyCharacters.requiresSymbols:
-        return value.contains(_symbols);
-    }
-  }
-}
-
 FormFieldValidator<String> Function(BuildContext) validateNewPassword({
-  required AmplifyConfig? amplifyConfig,
+  required AmplifyOutputs? amplifyOutputs,
   required InputResolver inputResolver,
 }) {
-  final passwordProtectionSettings = amplifyConfig
-      ?.auth?.awsPlugin?.auth?.default$?.passwordProtectionSettings;
+  final passwordPolicies = amplifyOutputs?.auth?.passwordPolicy;
   return (BuildContext context) => (String? password) {
-        if (password == null || password.isEmpty) {
-          return inputResolver.resolve(
-            context,
-            InputResolverKey.passwordEmpty,
-          );
-        }
-        password = password.trim();
-        if (passwordProtectionSettings == null) {
-          return null;
-        }
+    if (password == null || password.isEmpty) {
+      return inputResolver.resolve(context, InputResolverKey.passwordEmpty);
+    }
+    password = password.trim();
+    if (passwordPolicies == null) {
+      return null;
+    }
 
-        final unmetReqs = <PasswordPolicyCharacters>[];
+    final minLength = passwordPolicies.minLength;
+    final meetsMinLengthRequirement =
+        minLength == null || password.length >= minLength;
 
-        final minLength = passwordProtectionSettings.passwordPolicyMinLength;
-        final meetsMinLengthRequirement =
-            minLength == null || password.length >= minLength;
+    final unmetCharacterReqs = _getUnmetCharacterRequirements(
+      password,
+      passwordPolicies,
+    );
 
-        final passwordPolicies =
-            passwordProtectionSettings.passwordPolicyCharacters;
-        for (final policy in passwordPolicies) {
-          if (!policy.meetsRequirement(password)) {
-            unmetReqs.add(policy);
-          }
-        }
+    final error = inputResolver.resolve(
+      context,
+      InputResolverKey.passwordRequirementsUnmet(
+        UnmetPasswordRequirements(
+          minLength: meetsMinLengthRequirement ? null : minLength,
+          characterRequirements: unmetCharacterReqs,
+        ),
+      ),
+    );
+    return error.isEmpty ? null : error;
+  };
+}
 
-        final error = inputResolver.resolve(
-          context,
-          InputResolverKey.passwordRequirementsUnmet(
-            PasswordProtectionSettings(
-              passwordPolicyMinLength:
-                  meetsMinLengthRequirement ? null : minLength,
-              passwordPolicyCharacters: unmetReqs,
-            ),
-          ),
-        );
-        return error.isEmpty ? null : error;
-      };
+List<CharacterRequirements> _getUnmetCharacterRequirements(
+  String password,
+  PasswordPolicy? policy,
+) {
+  final unmetReqs = <CharacterRequirements>[];
+  if ((policy?.requireLowercase ?? false) && !password.contains(_lowercase)) {
+    unmetReqs.add(CharacterRequirements.requiresLowercase);
+  }
+  if ((policy?.requireUppercase ?? false) && !password.contains(_uppercase)) {
+    unmetReqs.add(CharacterRequirements.requiresUppercase);
+  }
+  if ((policy?.requireNumbers ?? false) && !password.contains(_numeric)) {
+    unmetReqs.add(CharacterRequirements.requiresNumbers);
+  }
+  if ((policy?.requireSymbols ?? false) && !password.contains(_symbols)) {
+    unmetReqs.add(CharacterRequirements.requiresSymbols);
+  }
+  return unmetReqs;
 }
 
 FormFieldValidator<String> validatePasswordConfirmation(
@@ -151,10 +145,7 @@ FormFieldValidator<String> validatePhoneNumber({
       if (isOptional) {
         return null;
       }
-      return inputResolver.resolve(
-        context,
-        InputResolverKey.phoneNumberEmpty,
-      );
+      return inputResolver.resolve(context, InputResolverKey.phoneNumberEmpty);
     }
     phoneNumber = phoneNumber.trim();
     if (!phoneNumberRegex.hasMatch(phoneNumber)) {
@@ -174,10 +165,7 @@ FormFieldValidator<String> validateEmail({
       if (isOptional) {
         return null;
       }
-      return inputResolver.resolve(
-        context,
-        InputResolverKey.emailEmpty,
-      );
+      return inputResolver.resolve(context, InputResolverKey.emailEmpty);
     }
     email = email.trim();
     if (!emailRegex.hasMatch(email)) {

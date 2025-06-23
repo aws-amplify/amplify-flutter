@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.nested_payload; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,14 +13,8 @@ part 'nested_payload.g.dart';
 abstract class NestedPayload
     with _i1.AWSEquatable<NestedPayload>
     implements Built<NestedPayload, NestedPayloadBuilder> {
-  factory NestedPayload({
-    String? greeting,
-    String? name,
-  }) {
-    return _$NestedPayload._(
-      greeting: greeting,
-      name: name,
-    );
+  factory NestedPayload({String? greeting, String? name}) {
+    return _$NestedPayload._(greeting: greeting, name: name);
   }
 
   factory NestedPayload.build([void Function(NestedPayloadBuilder) updates]) =
@@ -29,27 +23,19 @@ abstract class NestedPayload
   const NestedPayload._();
 
   static const List<_i2.SmithySerializer<NestedPayload>> serializers = [
-    NestedPayloadRestJson1Serializer()
+    NestedPayloadRestJson1Serializer(),
   ];
 
   String? get greeting;
   String? get name;
   @override
-  List<Object?> get props => [
-        greeting,
-        name,
-      ];
+  List<Object?> get props => [greeting, name];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedPayload')
-      ..add(
-        'greeting',
-        greeting,
-      )
-      ..add(
-        'name',
-        name,
-      );
+      ..add('greeting', greeting)
+      ..add('name', name);
     return helper.toString();
   }
 }
@@ -59,17 +45,13 @@ class NestedPayloadRestJson1Serializer
   const NestedPayloadRestJson1Serializer() : super('NestedPayload');
 
   @override
-  Iterable<Type> get types => const [
-        NestedPayload,
-        _$NestedPayload,
-      ];
+  Iterable<Type> get types => const [NestedPayload, _$NestedPayload];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   NestedPayload deserialize(
     Serializers serializers,
@@ -87,15 +69,19 @@ class NestedPayloadRestJson1Serializer
       }
       switch (key) {
         case 'greeting':
-          result.greeting = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.greeting =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -113,18 +99,19 @@ class NestedPayloadRestJson1Serializer
     if (greeting != null) {
       result$
         ..add('greeting')
-        ..add(serializers.serialize(
-          greeting,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            greeting,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (name != null) {
       result$
         ..add('name')
-        ..add(serializers.serialize(
-          name,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(name, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

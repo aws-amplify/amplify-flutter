@@ -6,41 +6,24 @@ library amplify_storage_s3_dart.s3.model.replication_status; // ignore_for_file:
 import 'package:smithy/smithy.dart' as _i1;
 
 class ReplicationStatus extends _i1.SmithyEnum<ReplicationStatus> {
-  const ReplicationStatus._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ReplicationStatus._(super.index, super.name, super.value);
 
   const ReplicationStatus._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const complete = ReplicationStatus._(
-    0,
-    'COMPLETE',
-    'COMPLETE',
-  );
+  static const complete = ReplicationStatus._(0, 'COMPLETE', 'COMPLETE');
 
-  static const failed = ReplicationStatus._(
-    1,
-    'FAILED',
-    'FAILED',
-  );
+  static const completed = ReplicationStatus._(1, 'COMPLETED', 'COMPLETED');
 
-  static const pending = ReplicationStatus._(
-    2,
-    'PENDING',
-    'PENDING',
-  );
+  static const failed = ReplicationStatus._(2, 'FAILED', 'FAILED');
 
-  static const replica = ReplicationStatus._(
-    3,
-    'REPLICA',
-    'REPLICA',
-  );
+  static const pending = ReplicationStatus._(3, 'PENDING', 'PENDING');
+
+  static const replica = ReplicationStatus._(4, 'REPLICA', 'REPLICA');
 
   /// All values of [ReplicationStatus].
   static const values = <ReplicationStatus>[
     ReplicationStatus.complete,
+    ReplicationStatus.completed,
     ReplicationStatus.failed,
     ReplicationStatus.pending,
     ReplicationStatus.replica,
@@ -52,12 +35,9 @@ class ReplicationStatus extends _i1.SmithyEnum<ReplicationStatus> {
       values: values,
       sdkUnknown: ReplicationStatus._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

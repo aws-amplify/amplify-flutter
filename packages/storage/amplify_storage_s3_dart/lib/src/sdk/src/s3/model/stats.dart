@@ -34,7 +34,7 @@ abstract class Stats
   const Stats._();
 
   static const List<_i3.SmithySerializer<Stats>> serializers = [
-    StatsRestXmlSerializer()
+    StatsRestXmlSerializer(),
   ];
 
   /// The total number of object bytes scanned.
@@ -46,26 +46,14 @@ abstract class Stats
   /// The total number of bytes of records payload data returned.
   _i2.Int64? get bytesReturned;
   @override
-  List<Object?> get props => [
-        bytesScanned,
-        bytesProcessed,
-        bytesReturned,
-      ];
+  List<Object?> get props => [bytesScanned, bytesProcessed, bytesReturned];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Stats')
-      ..add(
-        'bytesScanned',
-        bytesScanned,
-      )
-      ..add(
-        'bytesProcessed',
-        bytesProcessed,
-      )
-      ..add(
-        'bytesReturned',
-        bytesReturned,
-      );
+      ..add('bytesScanned', bytesScanned)
+      ..add('bytesProcessed', bytesProcessed)
+      ..add('bytesReturned', bytesReturned);
     return helper.toString();
   }
 }
@@ -74,17 +62,13 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
   const StatsRestXmlSerializer() : super('Stats');
 
   @override
-  Iterable<Type> get types => const [
-        Stats,
-        _$Stats,
-      ];
+  Iterable<Type> get types => const [Stats, _$Stats];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   Stats deserialize(
     Serializers serializers,
@@ -102,20 +86,26 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
       }
       switch (key) {
         case 'BytesProcessed':
-          result.bytesProcessed = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.bytesProcessed =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
         case 'BytesReturned':
-          result.bytesReturned = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.bytesReturned =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
         case 'BytesScanned':
-          result.bytesScanned = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.bytesScanned =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
       }
     }
 
@@ -132,32 +122,38 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
       const _i3.XmlElementName(
         'Stats',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final Stats(:bytesProcessed, :bytesReturned, :bytesScanned) = object;
     if (bytesProcessed != null) {
       result$
         ..add(const _i3.XmlElementName('BytesProcessed'))
-        ..add(serializers.serialize(
-          bytesProcessed,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            bytesProcessed,
+            specifiedType: const FullType(_i2.Int64),
+          ),
+        );
     }
     if (bytesReturned != null) {
       result$
         ..add(const _i3.XmlElementName('BytesReturned'))
-        ..add(serializers.serialize(
-          bytesReturned,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            bytesReturned,
+            specifiedType: const FullType(_i2.Int64),
+          ),
+        );
     }
     if (bytesScanned != null) {
       result$
         ..add(const _i3.XmlElementName('BytesScanned'))
-        ..add(serializers.serialize(
-          bytesScanned,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            bytesScanned,
+            specifiedType: const FullType(_i2.Int64),
+          ),
+        );
     }
     return result$;
   }

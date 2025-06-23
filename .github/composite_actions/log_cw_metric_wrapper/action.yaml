@@ -53,14 +53,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Exit if not scheduled
-      shell: bash
-      run: |
-        if [ "${{ github.event_name }}" != "schedule" ]; then
-          echo "This was not triggered by a schedule, skipping."
-          echo "SKIP_CW=true" >> $GITHUB_ENV
-        fi
-
     - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
       if: env.SKIP_CW != 'true'
       with:
@@ -83,7 +75,7 @@ runs:
         job-status: ${{ inputs.job-status }}
         github-token: ${{ inputs.github-token }}
 
-        metric-name: "github_metric_2.0"
+        metric-name: "github_metric_2.1"
         test-type: ${{ inputs.test-type }}
         working-directory: ${{ inputs.working-directory }}
 

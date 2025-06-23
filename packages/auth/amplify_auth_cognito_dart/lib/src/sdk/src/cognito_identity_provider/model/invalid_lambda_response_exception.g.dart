@@ -12,20 +12,19 @@ class _$InvalidLambdaResponseException extends InvalidLambdaResponseException {
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidLambdaResponseException(
-          [void Function(InvalidLambdaResponseExceptionBuilder)? updates]) =>
-      (new InvalidLambdaResponseExceptionBuilder()..update(updates))._build();
+  factory _$InvalidLambdaResponseException([
+    void Function(InvalidLambdaResponseExceptionBuilder)? updates,
+  ]) => (InvalidLambdaResponseExceptionBuilder()..update(updates))._build();
 
   _$InvalidLambdaResponseException._({this.message, this.headers}) : super._();
-
   @override
   InvalidLambdaResponseException rebuild(
-          void Function(InvalidLambdaResponseExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidLambdaResponseExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidLambdaResponseExceptionBuilder toBuilder() =>
-      new InvalidLambdaResponseExceptionBuilder()..replace(this);
+      InvalidLambdaResponseExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -44,8 +43,10 @@ class _$InvalidLambdaResponseException extends InvalidLambdaResponseException {
 
 class InvalidLambdaResponseExceptionBuilder
     implements
-        Builder<InvalidLambdaResponseException,
-            InvalidLambdaResponseExceptionBuilder> {
+        Builder<
+          InvalidLambdaResponseException,
+          InvalidLambdaResponseExceptionBuilder
+        > {
   _$InvalidLambdaResponseException? _$v;
 
   String? _message;
@@ -70,7 +71,6 @@ class InvalidLambdaResponseExceptionBuilder
 
   @override
   void replace(InvalidLambdaResponseException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidLambdaResponseException;
   }
 
@@ -83,9 +83,9 @@ class InvalidLambdaResponseExceptionBuilder
   InvalidLambdaResponseException build() => _build();
 
   _$InvalidLambdaResponseException _build() {
-    final _$result = _$v ??
-        new _$InvalidLambdaResponseException._(
-            message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$InvalidLambdaResponseException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

@@ -22,10 +22,10 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet<Object?>> {
 
   @override
   Iterable<Type> get types => [
-        BuiltSet,
-        BuiltSet<dynamic>().runtimeType,
-        BuiltSet<Object?>().runtimeType,
-      ];
+    BuiltSet,
+    BuiltSet<dynamic>().runtimeType,
+    BuiltSet<Object?>().runtimeType,
+  ];
 
   @override
   String get wireName => 'set';
@@ -51,10 +51,7 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet<Object?>> {
         value = value.children;
       }
       final elementName = indexer.elementName(memberName, index);
-      return [
-        XmlElementName(elementName, memberNamespace),
-        value,
-      ];
+      return [XmlElementName(elementName, memberNamespace), value];
     });
   }
 

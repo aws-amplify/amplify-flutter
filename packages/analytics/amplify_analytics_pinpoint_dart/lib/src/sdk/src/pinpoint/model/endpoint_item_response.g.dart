@@ -12,20 +12,19 @@ class _$EndpointItemResponse extends EndpointItemResponse {
   @override
   final int? statusCode;
 
-  factory _$EndpointItemResponse(
-          [void Function(EndpointItemResponseBuilder)? updates]) =>
-      (new EndpointItemResponseBuilder()..update(updates))._build();
+  factory _$EndpointItemResponse([
+    void Function(EndpointItemResponseBuilder)? updates,
+  ]) => (EndpointItemResponseBuilder()..update(updates))._build();
 
   _$EndpointItemResponse._({this.message, this.statusCode}) : super._();
-
   @override
   EndpointItemResponse rebuild(
-          void Function(EndpointItemResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EndpointItemResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EndpointItemResponseBuilder toBuilder() =>
-      new EndpointItemResponseBuilder()..replace(this);
+      EndpointItemResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -71,7 +70,6 @@ class EndpointItemResponseBuilder
 
   @override
   void replace(EndpointItemResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointItemResponse;
   }
 
@@ -84,8 +82,9 @@ class EndpointItemResponseBuilder
   EndpointItemResponse build() => _build();
 
   _$EndpointItemResponse _build() {
-    final _$result = _$v ??
-        new _$EndpointItemResponse._(message: message, statusCode: statusCode);
+    final _$result =
+        _$v ??
+        _$EndpointItemResponse._(message: message, statusCode: statusCode);
     replace(_$result);
     return _$result;
   }

@@ -12,20 +12,19 @@ class _$QueryPrecedenceInput extends QueryPrecedenceInput {
   @override
   final _i3.BuiltMap<String, String>? baz;
 
-  factory _$QueryPrecedenceInput(
-          [void Function(QueryPrecedenceInputBuilder)? updates]) =>
-      (new QueryPrecedenceInputBuilder()..update(updates))._build();
+  factory _$QueryPrecedenceInput([
+    void Function(QueryPrecedenceInputBuilder)? updates,
+  ]) => (QueryPrecedenceInputBuilder()..update(updates))._build();
 
   _$QueryPrecedenceInput._({this.foo, this.baz}) : super._();
-
   @override
   QueryPrecedenceInput rebuild(
-          void Function(QueryPrecedenceInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryPrecedenceInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryPrecedenceInputBuilder toBuilder() =>
-      new QueryPrecedenceInputBuilder()..replace(this);
+      QueryPrecedenceInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -55,7 +54,7 @@ class QueryPrecedenceInputBuilder
 
   _i3.MapBuilder<String, String>? _baz;
   _i3.MapBuilder<String, String> get baz =>
-      _$this._baz ??= new _i3.MapBuilder<String, String>();
+      _$this._baz ??= _i3.MapBuilder<String, String>();
   set baz(_i3.MapBuilder<String, String>? baz) => _$this._baz = baz;
 
   QueryPrecedenceInputBuilder();
@@ -72,7 +71,6 @@ class QueryPrecedenceInputBuilder
 
   @override
   void replace(QueryPrecedenceInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$QueryPrecedenceInput;
   }
 
@@ -87,16 +85,18 @@ class QueryPrecedenceInputBuilder
   _$QueryPrecedenceInput _build() {
     _$QueryPrecedenceInput _$result;
     try {
-      _$result =
-          _$v ?? new _$QueryPrecedenceInput._(foo: foo, baz: _baz?.build());
+      _$result = _$v ?? _$QueryPrecedenceInput._(foo: foo, baz: _baz?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'baz';
         _baz?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'QueryPrecedenceInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'QueryPrecedenceInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -106,20 +106,19 @@ class QueryPrecedenceInputBuilder
 }
 
 class _$QueryPrecedenceInputPayload extends QueryPrecedenceInputPayload {
-  factory _$QueryPrecedenceInputPayload(
-          [void Function(QueryPrecedenceInputPayloadBuilder)? updates]) =>
-      (new QueryPrecedenceInputPayloadBuilder()..update(updates))._build();
+  factory _$QueryPrecedenceInputPayload([
+    void Function(QueryPrecedenceInputPayloadBuilder)? updates,
+  ]) => (QueryPrecedenceInputPayloadBuilder()..update(updates))._build();
 
   _$QueryPrecedenceInputPayload._() : super._();
-
   @override
   QueryPrecedenceInputPayload rebuild(
-          void Function(QueryPrecedenceInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryPrecedenceInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryPrecedenceInputPayloadBuilder toBuilder() =>
-      new QueryPrecedenceInputPayloadBuilder()..replace(this);
+      QueryPrecedenceInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,15 +134,16 @@ class _$QueryPrecedenceInputPayload extends QueryPrecedenceInputPayload {
 
 class QueryPrecedenceInputPayloadBuilder
     implements
-        Builder<QueryPrecedenceInputPayload,
-            QueryPrecedenceInputPayloadBuilder> {
+        Builder<
+          QueryPrecedenceInputPayload,
+          QueryPrecedenceInputPayloadBuilder
+        > {
   _$QueryPrecedenceInputPayload? _$v;
 
   QueryPrecedenceInputPayloadBuilder();
 
   @override
   void replace(QueryPrecedenceInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$QueryPrecedenceInputPayload;
   }
 
@@ -156,7 +156,7 @@ class QueryPrecedenceInputPayloadBuilder
   QueryPrecedenceInputPayload build() => _build();
 
   _$QueryPrecedenceInputPayload _build() {
-    final _$result = _$v ?? new _$QueryPrecedenceInputPayload._();
+    final _$result = _$v ?? _$QueryPrecedenceInputPayload._();
     replace(_$result);
     return _$result;
   }

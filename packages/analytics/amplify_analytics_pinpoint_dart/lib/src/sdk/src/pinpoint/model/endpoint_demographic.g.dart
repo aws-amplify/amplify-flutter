@@ -24,29 +24,28 @@ class _$EndpointDemographic extends EndpointDemographic {
   @override
   final String? timezone;
 
-  factory _$EndpointDemographic(
-          [void Function(EndpointDemographicBuilder)? updates]) =>
-      (new EndpointDemographicBuilder()..update(updates))._build();
+  factory _$EndpointDemographic([
+    void Function(EndpointDemographicBuilder)? updates,
+  ]) => (EndpointDemographicBuilder()..update(updates))._build();
 
-  _$EndpointDemographic._(
-      {this.appVersion,
-      this.locale,
-      this.make,
-      this.model,
-      this.modelVersion,
-      this.platform,
-      this.platformVersion,
-      this.timezone})
-      : super._();
-
+  _$EndpointDemographic._({
+    this.appVersion,
+    this.locale,
+    this.make,
+    this.model,
+    this.modelVersion,
+    this.platform,
+    this.platformVersion,
+    this.timezone,
+  }) : super._();
   @override
   EndpointDemographic rebuild(
-          void Function(EndpointDemographicBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EndpointDemographicBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EndpointDemographicBuilder toBuilder() =>
-      new EndpointDemographicBuilder()..replace(this);
+      EndpointDemographicBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,7 +134,6 @@ class EndpointDemographicBuilder
 
   @override
   void replace(EndpointDemographic other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointDemographic;
   }
 
@@ -148,16 +146,18 @@ class EndpointDemographicBuilder
   EndpointDemographic build() => _build();
 
   _$EndpointDemographic _build() {
-    final _$result = _$v ??
-        new _$EndpointDemographic._(
-            appVersion: appVersion,
-            locale: locale,
-            make: make,
-            model: model,
-            modelVersion: modelVersion,
-            platform: platform,
-            platformVersion: platformVersion,
-            timezone: timezone);
+    final _$result =
+        _$v ??
+        _$EndpointDemographic._(
+          appVersion: appVersion,
+          locale: locale,
+          make: make,
+          model: model,
+          modelVersion: modelVersion,
+          platform: platform,
+          platformVersion: platformVersion,
+          timezone: timezone,
+        );
     replace(_$result);
     return _$result;
   }

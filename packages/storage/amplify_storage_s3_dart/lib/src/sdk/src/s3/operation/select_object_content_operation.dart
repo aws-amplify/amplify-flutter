@@ -15,15 +15,17 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
+/// This operation is not supported by directory buckets.
+///
 /// This action filters the contents of an Amazon S3 object based on a simple structured query language (SQL) statement. In the request, along with the SQL expression, you must also specify a data serialization format (JSON, CSV, or Apache Parquet) of the object. Amazon S3 uses this format to parse object data into records, and returns only records that match the specified SQL expression. You must also specify the data serialization format for the response.
 ///
-/// This action is not supported by Amazon S3 on Outposts.
+/// This functionality is not supported for Amazon S3 on Outposts.
 ///
 /// For more information about Amazon S3 Select, see [Selecting Content from Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/selecting-content-from-objects.html) and [SELECT Command](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-glacier-select-sql-reference-select.html) in the _Amazon S3 User Guide_.
 ///
 /// Permissions
 ///
-/// You must have `s3:GetObject` permission for this operation. Amazon S3 Select does not support anonymous access. For more information about permissions, see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html) in the _Amazon S3 User Guide_.
+/// You must have the `s3:GetObject` permission for this operation. Amazon S3 Select does not support anonymous access. For more information about permissions, see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html) in the _Amazon S3 User Guide_.
 ///
 /// Object Data Formats
 ///
@@ -66,20 +68,25 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   [GetBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html)
 ///
 /// *   [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)
-class SelectObjectContentOperation extends _i1.HttpOperation<
-    SelectObjectContentRequestPayload,
-    SelectObjectContentRequest,
-    SelectObjectContentEventStream,
-    SelectObjectContentOutput> {
+class SelectObjectContentOperation
+    extends
+        _i1.HttpOperation<
+          SelectObjectContentRequestPayload,
+          SelectObjectContentRequest,
+          SelectObjectContentEventStream,
+          SelectObjectContentOutput
+        > {
+  /// This operation is not supported by directory buckets.
+  ///
   /// This action filters the contents of an Amazon S3 object based on a simple structured query language (SQL) statement. In the request, along with the SQL expression, you must also specify a data serialization format (JSON, CSV, or Apache Parquet) of the object. Amazon S3 uses this format to parse object data into records, and returns only records that match the specified SQL expression. You must also specify the data serialization format for the response.
   ///
-  /// This action is not supported by Amazon S3 on Outposts.
+  /// This functionality is not supported for Amazon S3 on Outposts.
   ///
   /// For more information about Amazon S3 Select, see [Selecting Content from Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/selecting-content-from-objects.html) and [SELECT Command](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-glacier-select-sql-reference-select.html) in the _Amazon S3 User Guide_.
   ///
   /// Permissions
   ///
-  /// You must have `s3:GetObject` permission for this operation. Amazon S3 Select does not support anonymous access. For more information about permissions, see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html) in the _Amazon S3 User Guide_.
+  /// You must have the `s3:GetObject` permission for this operation. Amazon S3 Select does not support anonymous access. For more information about permissions, see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html) in the _Amazon S3 User Guide_.
   ///
   /// Object Data Formats
   ///
@@ -130,31 +137,36 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          SelectObjectContentRequestPayload,
-          SelectObjectContentRequest,
-          SelectObjectContentEventStream,
-          SelectObjectContentOutput>> protocols = [
+    _i1.HttpProtocol<
+      SelectObjectContentRequestPayload,
+      SelectObjectContentRequest,
+      SelectObjectContentEventStream,
+      SelectObjectContentOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -165,7 +177,7 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -218,23 +230,25 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
           }
         }
       });
+
   @override
   int successCode([SelectObjectContentOutput? output]) => 200;
+
   @override
   SelectObjectContentOutput buildOutput(
     SelectObjectContentEventStream? payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      SelectObjectContentOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => SelectObjectContentOutput.fromResponse(payload, response);
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'SelectObjectContent';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -255,6 +269,7 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
 
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<SelectObjectContentOutput> run(
     SelectObjectContentRequest input, {
@@ -262,11 +277,7 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

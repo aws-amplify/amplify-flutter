@@ -7,7 +7,7 @@ part of 'timestamp_shape.dart';
 // **************************************************************************
 
 Serializer<TimestampShape> _$timestampShapeSerializer =
-    new _$TimestampShapeSerializer();
+    _$TimestampShapeSerializer();
 
 class _$TimestampShapeSerializer
     implements StructuredSerializer<TimestampShape> {
@@ -17,12 +17,17 @@ class _$TimestampShapeSerializer
   final String wireName = 'TimestampShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, TimestampShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    TimestampShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -30,9 +35,11 @@ class _$TimestampShapeSerializer
 
   @override
   TimestampShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new TimestampShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = TimestampShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -41,8 +48,12 @@ class _$TimestampShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -58,22 +69,15 @@ class _$TimestampShape extends TimestampShape {
   final TraitMap traits;
 
   factory _$TimestampShape([void Function(TimestampShapeBuilder)? updates]) =>
-      (new TimestampShapeBuilder()..update(updates))._build();
+      (TimestampShapeBuilder()..update(updates))._build();
 
-  _$TimestampShape._({required this.shapeId, required this.traits})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'TimestampShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'TimestampShape', 'traits');
-  }
-
+  _$TimestampShape._({required this.shapeId, required this.traits}) : super._();
   @override
   TimestampShape rebuild(void Function(TimestampShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  TimestampShapeBuilder toBuilder() =>
-      new TimestampShapeBuilder()..replace(this);
+  TimestampShapeBuilder toBuilder() => TimestampShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -131,7 +135,6 @@ class TimestampShapeBuilder
 
   @override
   void replace(covariant TimestampShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TimestampShape;
   }
 
@@ -144,12 +147,20 @@ class TimestampShapeBuilder
   TimestampShape build() => _build();
 
   _$TimestampShape _build() {
-    final _$result = _$v ??
-        new _$TimestampShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'TimestampShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'TimestampShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$TimestampShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'TimestampShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'TimestampShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

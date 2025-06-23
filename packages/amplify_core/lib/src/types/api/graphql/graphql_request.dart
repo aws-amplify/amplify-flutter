@@ -59,19 +59,50 @@ class GraphQLRequest<T> with AWSSerializable<Map<String, Object?>> {
   /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.
   final ModelType? modelType;
 
-  @Deprecated('Use toJson instead')
-  Map<String, dynamic> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
-        'id': id,
-        'document': document,
-        'variables': variables,
-        'headers': headers,
-        'cancelToken': id,
-        if (apiName != null) 'apiName': apiName,
-        if (authorizationMode != null)
-          'authorizationMode': authorizationMode!.name,
-        if (decodePath != null) 'decodePath': decodePath,
-      };
+    'id': id,
+    'document': document,
+    'variables': variables,
+    'headers': headers,
+    'cancelToken': id,
+    if (apiName != null) 'apiName': apiName,
+    if (authorizationMode != null) 'authorizationMode': authorizationMode!.name,
+    if (decodePath != null) 'decodePath': decodePath,
+  };
+
+  /// Creates a copy of this request with the given fields replaced with the new values.
+  /// If no new value is given, the old value is used.
+  ///
+  /// ```dart
+  /// final original = ModelQueries.list(
+  ///   Blog.classType,
+  /// );
+  /// final modified = original.copyWith(
+  ///   document: yourCustomQuery,
+  /// );
+  /// ```
+  ///
+  /// Useful in advanced scenarios where you want to modify the request before sending it.
+  ///
+  /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.
+  GraphQLRequest<T> copyWith({
+    String? document,
+    String? apiName,
+    Map<String, String>? headers,
+    APIAuthorizationType? authorizationMode,
+    Map<String, dynamic>? variables,
+    String? decodePath,
+    ModelType? modelType,
+  }) {
+    return GraphQLRequest<T>(
+      document: document ?? this.document,
+      apiName: apiName ?? this.apiName,
+      headers: headers ?? this.headers,
+      authorizationMode: authorizationMode ?? this.authorizationMode,
+      variables: variables ?? this.variables,
+      decodePath: decodePath ?? this.decodePath,
+      modelType: modelType ?? this.modelType,
+    );
+  }
 }

@@ -29,7 +29,7 @@ void main() {
     // }
     final enableCloudSync = shouldEnableCloudSync();
     var rootModels = [
-      HasManyParentBiDirectionalExplicit(name: 'has many parent (explicit)')
+      HasManyParentBiDirectionalExplicit(name: 'has many parent (explicit)'),
     ];
     var associatedModels = List.generate(
       5,

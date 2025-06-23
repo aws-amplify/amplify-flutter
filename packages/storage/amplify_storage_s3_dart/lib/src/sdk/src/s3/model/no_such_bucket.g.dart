@@ -8,21 +8,18 @@ part of 'no_such_bucket.dart';
 
 class _$NoSuchBucket extends NoSuchBucket {
   @override
-  final int? statusCode;
-  @override
   final Map<String, String>? headers;
 
   factory _$NoSuchBucket([void Function(NoSuchBucketBuilder)? updates]) =>
-      (new NoSuchBucketBuilder()..update(updates))._build();
+      (NoSuchBucketBuilder()..update(updates))._build();
 
-  _$NoSuchBucket._({this.statusCode, this.headers}) : super._();
-
+  _$NoSuchBucket._({this.headers}) : super._();
   @override
   NoSuchBucket rebuild(void Function(NoSuchBucketBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  NoSuchBucketBuilder toBuilder() => new NoSuchBucketBuilder()..replace(this);
+  NoSuchBucketBuilder toBuilder() => NoSuchBucketBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -40,10 +37,6 @@ class NoSuchBucketBuilder
     implements Builder<NoSuchBucket, NoSuchBucketBuilder> {
   _$NoSuchBucket? _$v;
 
-  int? _statusCode;
-  int? get statusCode => _$this._statusCode;
-  set statusCode(int? statusCode) => _$this._statusCode = statusCode;
-
   Map<String, String>? _headers;
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
@@ -53,7 +46,6 @@ class NoSuchBucketBuilder
   NoSuchBucketBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _statusCode = $v.statusCode;
       _headers = $v.headers;
       _$v = null;
     }
@@ -62,7 +54,6 @@ class NoSuchBucketBuilder
 
   @override
   void replace(NoSuchBucket other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoSuchBucket;
   }
 
@@ -75,8 +66,7 @@ class NoSuchBucketBuilder
   NoSuchBucket build() => _build();
 
   _$NoSuchBucket _build() {
-    final _$result =
-        _$v ?? new _$NoSuchBucket._(statusCode: statusCode, headers: headers);
+    final _$result = _$v ?? _$NoSuchBucket._(headers: headers);
     replace(_$result);
     return _$result;
   }

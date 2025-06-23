@@ -33,8 +33,9 @@ class DocsCommand extends AmplifyCommand {
 
 abstract class _DocsSubcommand extends AmplifyCommand
     with FailFastOption, GlobOptions {
-  late final Logger mLogger =
-      Logger(level: verbose ? Level.verbose : Level.info);
+  late final Logger mLogger = Logger(
+    level: verbose ? Level.verbose : Level.info,
+  );
 
   @override
   PackageSelector get basePackageSelector {
@@ -77,10 +78,7 @@ abstract class _DocsSubcommand extends AmplifyCommand
         continue;
       }
       final toFile = File(
-        p.join(
-          to.path,
-          p.relative(fromFile.path, from: from.path),
-        ),
+        p.join(to.path, p.relative(fromFile.path, from: from.path)),
       );
       await toFile.create(recursive: true);
       await fromFile.copy(toFile.path);
@@ -89,10 +87,7 @@ abstract class _DocsSubcommand extends AmplifyCommand
 
   /// Runs pre-build commands if a package uses `code_excerpter` to
   /// separate code snippets from docs.
-  Future<void> _prebuildDocs(
-    PackageInfo package, {
-    Progress? progress,
-  }) async {
+  Future<void> _prebuildDocs(PackageInfo package, {Progress? progress}) async {
     final log = progress?.update ?? mLogger.detail;
     final docsPackageDir = Directory(p.join(package.path, 'doc'));
     final docsPackage = PackageInfo.fromDirectory(docsPackageDir);
@@ -139,9 +134,7 @@ abstract class _DocsSubcommand extends AmplifyCommand
     await _prebuildDocs(package, progress: progress);
     progress.update('Running `dart doc` for ${package.name}');
     final buildDir = await _dartDoc(package);
-    final packageOutputDir = Directory(
-      p.join(outputDir, package.name),
-    );
+    final packageOutputDir = Directory(p.join(outputDir, package.name));
     progress.update('Copying docs to root dir');
     await _copyDir(buildDir, packageOutputDir);
     progress.complete(
@@ -163,8 +156,9 @@ abstract class _DocsSubcommand extends AmplifyCommand
       buildOutputs.add(
         failFast
             ? buildFuture.then((res) => (package, progress, ValueResult(res)))
-            : Result.capture(buildFuture)
-                .then((res) => (package, progress, res)),
+            : Result.capture(
+                buildFuture,
+              ).then((res) => (package, progress, res)),
       );
     }
     buildOutputs.close();
@@ -185,9 +179,9 @@ abstract class _DocsSubcommand extends AmplifyCommand
             ..err(stackTrace.toString());
       }
     }
-    final renderedHtml = Template(_indexTmpl).renderString({
-      'packages': packageOutputs,
-    });
+    final renderedHtml = Template(
+      _indexTmpl,
+    ).renderString({'packages': packageOutputs});
     final indexFile = File(p.join(outputDir, 'index.html'));
     await indexFile.create();
     await indexFile.writeAsString(renderedHtml);
@@ -242,7 +236,8 @@ class _DocsServeSubcommand extends _DocsSubcommand {
   String get name => 'serve';
 
   @override
-  String get description => 'Serves API documentation locally, automatically '
+  String get description =>
+      'Serves API documentation locally, automatically '
       'rebuilding when files have changed';
 
   @override
@@ -305,15 +300,10 @@ class _PackageWatcher implements Closeable {
   late final StreamSubscription<FileSystemEvent> _subscription;
 
   void _listenForEvents() {
-    final entitiesToWatch = const [
-      'doc/*.yaml',
-      'doc/lib/',
-      'doc/static/',
-      'lib/',
-      '*.yaml',
-    ]
-        .map((path) => p.join(package.path, path))
-        .expand((subpath) => Glob(subpath).listSync());
+    final entitiesToWatch =
+        const ['doc/*.yaml', 'doc/lib/', 'doc/static/', 'lib/', '*.yaml']
+            .map((path) => p.join(package.path, path))
+            .expand((subpath) => Glob(subpath).listSync());
     final eventStream = StreamGroup.merge([
       for (final entity in entitiesToWatch)
         entity.watch(events: FileSystemEvent.all, recursive: true),

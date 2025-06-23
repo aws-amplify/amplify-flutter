@@ -53,10 +53,14 @@ void main() {
           }
         }''';
 
-        const serviceId =
-            ShapeId(namespace: 'smithy.example', shape: 'Service');
-        const operationId =
-            ShapeId(namespace: 'smithy.example', shape: 'Operation');
+        const serviceId = ShapeId(
+          namespace: 'smithy.example',
+          shape: 'Service',
+        );
+        const operationId = ShapeId(
+          namespace: 'smithy.example',
+          shape: 'Operation',
+        );
 
         final expected = SmithyAst(
           (b) => b
@@ -70,8 +74,9 @@ void main() {
               operationId: OperationShape((b) => b.shapeId = operationId),
             }),
         );
-        final decoded =
-            SmithyAst.fromJson(jsonDecode(json) as Map<String, Object?>);
+        final decoded = SmithyAst.fromJson(
+          jsonDecode(json) as Map<String, Object?>,
+        );
         expect(decoded, equals(expected));
       });
 
@@ -100,8 +105,9 @@ void main() {
             ..shapeId = listId.replace(member: 'member')
             ..memberName = 'member'
             ..traits = TraitMap({
-              DocumentationTrait.id:
-                  const DocumentationTrait('Member documentation'),
+              DocumentationTrait.id: const DocumentationTrait(
+                'Member documentation',
+              ),
             });
         });
 
@@ -157,8 +163,9 @@ void main() {
             }),
         );
 
-        final decoded =
-            SmithyAst.fromJson(jsonDecode(json) as Map<String, Object?>);
+        final decoded = SmithyAst.fromJson(
+          jsonDecode(json) as Map<String, Object?>,
+        );
         expect(decoded, equals(expected));
       });
 
@@ -184,8 +191,10 @@ void main() {
           }
       }''';
 
-        const structureId =
-            ShapeId(namespace: 'smithy.example', shape: 'MyStructure');
+        const structureId = ShapeId(
+          namespace: 'smithy.example',
+          shape: 'MyStructure',
+        );
         const stringId = ShapeId(namespace: 'smithy.api', shape: 'String');
         const integerId = ShapeId(namespace: 'smithy.api', shape: 'Integer');
         const requiredId = ShapeId(namespace: 'smithy.api', shape: 'required');
@@ -218,8 +227,9 @@ void main() {
             }),
         );
 
-        final decoded =
-            SmithyAst.fromJson(jsonDecode(json) as Map<String, Object?>);
+        final decoded = SmithyAst.fromJson(
+          jsonDecode(json) as Map<String, Object?>,
+        );
         expect(decoded, equals(expected));
       });
 

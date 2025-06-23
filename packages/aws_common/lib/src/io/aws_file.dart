@@ -4,7 +4,7 @@
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/io/aws_file_platform.dart'
-    if (dart.library.html) 'aws_file_platform_html.dart'
+    if (dart.library.js_interop) 'aws_file_platform_html.dart'
     if (dart.library.io) 'aws_file_platform_io.dart';
 import 'package:meta/meta.dart';
 
@@ -87,11 +87,8 @@ abstract class AWSFile {
   /// Throws [InvalidFileException] if cannot get a file content stream from the
   /// [path].
   /// {@endtemplate}
-  factory AWSFile.fromPath(
-    String path, {
-    String? name,
-    String? contentType,
-  }) = AWSFilePlatform.fromPath;
+  factory AWSFile.fromPath(String path, {String? name, String? contentType}) =
+      AWSFilePlatform.fromPath;
 
   /// {@template amplify_core.io.aws_file.from_data}
   /// Create an [AWSFile] from a list of bytes.
@@ -104,12 +101,8 @@ abstract class AWSFile {
 
   /// Protected constructor of [AWSFile].
   @protected
-  AWSFile.protected({
-    this.path,
-    this.bytes,
-    this.name,
-    String? contentType,
-  }) : _contentType = contentType;
+  AWSFile.protected({this.path, this.bytes, this.name, String? contentType})
+    : _contentType = contentType;
 
   /// Stream of the file content.
   Stream<List<int>> get stream;

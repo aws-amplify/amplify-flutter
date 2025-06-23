@@ -1,7 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:html';
+import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/html_amplify_storage_downloader.dart';
+import 'package:web/web.dart';
 
 /// {@template amplify_storage_s3_dart.dom_helper}
 /// Helper to insert a hidden DOM element into the Web page to trigger
@@ -20,25 +21,22 @@ class DomHelper {
   static DomHelper get instance => _instance;
 
   void _initializeContainerElement(String containerId) {
-    final container = Element.tag('amplify_storage_downloader')
+    final container = HTMLAmplifyStorageDownloader()
       ..id = containerId
       ..style.display = 'none';
 
-    querySelector('body')!.children.add(container);
+    document.querySelector('body')!.appendChild(container);
     _container = container;
   }
 
   /// Triggers browser download for the `url` with `name`.
-  void download({
-    required String url,
-    String? name = '',
-  }) {
-    final anchor = AnchorElement()
+  void download({required String url, String? name = ''}) {
+    final anchor = HTMLAnchorElement()
       ..href = url
-      ..download = name;
+      ..download = name ?? '';
 
-    _container.children.add(anchor);
+    _container.appendChild(anchor);
     anchor.click();
-    _container.children.remove(anchor);
+    _container.removeChild(anchor);
   }
 }

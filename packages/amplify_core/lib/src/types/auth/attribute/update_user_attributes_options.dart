@@ -13,9 +13,7 @@ class UpdateUserAttributesOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.update_user_attributes_options}
-  const UpdateUserAttributesOptions({
-    this.pluginOptions,
-  });
+  const UpdateUserAttributesOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.update_user_attributes_plugin_options}
   final UpdateUserAttributesPluginOptions? pluginOptions;
@@ -26,14 +24,8 @@ class UpdateUserAttributesOptions
   @override
   String get runtimeTypeName => 'UpdateUserAttributesOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

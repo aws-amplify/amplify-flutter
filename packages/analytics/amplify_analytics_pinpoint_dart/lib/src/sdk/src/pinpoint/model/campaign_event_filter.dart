@@ -28,14 +28,14 @@ abstract class CampaignEventFilter
   }
 
   /// Specifies the settings for events that cause a campaign to be sent.
-  factory CampaignEventFilter.build(
-          [void Function(CampaignEventFilterBuilder) updates]) =
-      _$CampaignEventFilter;
+  factory CampaignEventFilter.build([
+    void Function(CampaignEventFilterBuilder) updates,
+  ]) = _$CampaignEventFilter;
 
   const CampaignEventFilter._();
 
   static const List<_i2.SmithySerializer<CampaignEventFilter>> serializers = [
-    CampaignEventFilterRestJson1Serializer()
+    CampaignEventFilterRestJson1Serializer(),
   ];
 
   /// The dimension settings of the event filter for the campaign.
@@ -44,21 +44,12 @@ abstract class CampaignEventFilter
   /// The type of event that causes the campaign to be sent. Valid values are: SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT, sends the campaign when an endpoint event (Events resource) occurs.
   FilterType get filterType;
   @override
-  List<Object?> get props => [
-        dimensions,
-        filterType,
-      ];
+  List<Object?> get props => [dimensions, filterType];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CampaignEventFilter')
-      ..add(
-        'dimensions',
-        dimensions,
-      )
-      ..add(
-        'filterType',
-        filterType,
-      );
+      ..add('dimensions', dimensions)
+      ..add('filterType', filterType);
     return helper.toString();
   }
 }
@@ -69,16 +60,13 @@ class CampaignEventFilterRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        CampaignEventFilter,
-        _$CampaignEventFilter,
-      ];
+    CampaignEventFilter,
+    _$CampaignEventFilter,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   CampaignEventFilter deserialize(
     Serializers serializers,
@@ -96,15 +84,20 @@ class CampaignEventFilterRestJson1Serializer
       }
       switch (key) {
         case 'Dimensions':
-          result.dimensions.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(EventDimensions),
-          ) as EventDimensions));
+          result.dimensions.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(EventDimensions),
+                )
+                as EventDimensions),
+          );
         case 'FilterType':
-          result.filterType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(FilterType),
-          ) as FilterType);
+          result.filterType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(FilterType),
+                  )
+                  as FilterType);
       }
     }
 

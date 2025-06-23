@@ -14,9 +14,7 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 abstract class StatelessAuthenticatorComponent extends StatelessWidget {
   /// {@macro amplify_authenticator.stateless_authenticator_component}
-  const StatelessAuthenticatorComponent({
-    super.key,
-  });
+  const StatelessAuthenticatorComponent({super.key});
 
   /// A [StatelessWidget.build] replacement which injects inherited Authenticator
   /// components.
@@ -82,7 +80,7 @@ abstract class AuthenticatorComponentState<T extends StatefulWidget>
         ),
       )
       ..add(
-        DiagnosticsProperty<AmplifyConfig>('config', config.amplifyConfig),
+        DiagnosticsProperty<AmplifyOutputs>('config', config.amplifyOutputs),
       );
   }
 }

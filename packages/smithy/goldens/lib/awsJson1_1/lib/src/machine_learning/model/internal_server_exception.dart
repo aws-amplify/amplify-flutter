@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v1.machine_learning.model.internal_server_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,19 +15,13 @@ abstract class InternalServerException
     implements
         Built<InternalServerException, InternalServerExceptionBuilder>,
         _i2.SmithyHttpException {
-  factory InternalServerException({
-    String? message,
-    int? code,
-  }) {
-    return _$InternalServerException._(
-      message: message,
-      code: code,
-    );
+  factory InternalServerException({String? message, int? code}) {
+    return _$InternalServerException._(message: message, code: code);
   }
 
-  factory InternalServerException.build(
-          [void Function(InternalServerExceptionBuilder) updates]) =
-      _$InternalServerException;
+  factory InternalServerException.build([
+    void Function(InternalServerExceptionBuilder) updates,
+  ]) = _$InternalServerException;
 
   const InternalServerException._();
 
@@ -35,10 +29,9 @@ abstract class InternalServerException
   factory InternalServerException.fromResponse(
     InternalServerException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<InternalServerException>> serializers =
       [InternalServerExceptionAwsJson11Serializer()];
@@ -48,35 +41,31 @@ abstract class InternalServerException
   int? get code;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.machinelearning',
-        shape: 'InternalServerException',
-      );
+    namespace: 'com.amazonaws.machinelearning',
+    shape: 'InternalServerException',
+  );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 500;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
-  List<Object?> get props => [
-        message,
-        code,
-      ];
+  List<Object?> get props => [message, code];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InternalServerException')
-      ..add(
-        'message',
-        message,
-      )
-      ..add(
-        'code',
-        code,
-      );
+      ..add('message', message)
+      ..add('code', code);
     return helper.toString();
   }
 }
@@ -84,20 +73,19 @@ abstract class InternalServerException
 class InternalServerExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<InternalServerException> {
   const InternalServerExceptionAwsJson11Serializer()
-      : super('InternalServerException');
+    : super('InternalServerException');
 
   @override
   Iterable<Type> get types => const [
-        InternalServerException,
-        _$InternalServerException,
-      ];
+    InternalServerException,
+    _$InternalServerException,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   InternalServerException deserialize(
     Serializers serializers,
@@ -115,15 +103,19 @@ class InternalServerExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -141,18 +133,14 @@ class InternalServerExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (code != null) {
       result$
         ..add('code')
-        ..add(serializers.serialize(
-          code,
-          specifiedType: const FullType(int),
-        ));
+        ..add(serializers.serialize(code, specifiedType: const FullType(int)));
     }
     return result$;
   }

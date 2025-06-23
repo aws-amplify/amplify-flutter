@@ -28,9 +28,9 @@ abstract class UpdateEndpointRequest
     );
   }
 
-  factory UpdateEndpointRequest.build(
-          [void Function(UpdateEndpointRequestBuilder) updates]) =
-      _$UpdateEndpointRequest;
+  factory UpdateEndpointRequest.build([
+    void Function(UpdateEndpointRequestBuilder) updates,
+  ]) = _$UpdateEndpointRequest;
 
   const UpdateEndpointRequest._();
 
@@ -38,19 +38,18 @@ abstract class UpdateEndpointRequest
     EndpointRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      UpdateEndpointRequest.build((b) {
-        b.endpointRequest.replace(payload);
-        if (labels['applicationId'] != null) {
-          b.applicationId = labels['applicationId']!;
-        }
-        if (labels['endpointId'] != null) {
-          b.endpointId = labels['endpointId']!;
-        }
-      });
+  }) => UpdateEndpointRequest.build((b) {
+    b.endpointRequest.replace(payload);
+    if (labels['applicationId'] != null) {
+      b.applicationId = labels['applicationId']!;
+    }
+    if (labels['endpointId'] != null) {
+      b.endpointId = labels['endpointId']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<EndpointRequest>> serializers = [
-    UpdateEndpointRequestRestJson1Serializer()
+    UpdateEndpointRequestRestJson1Serializer(),
   ];
 
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
@@ -69,35 +68,19 @@ abstract class UpdateEndpointRequest
       case 'EndpointId':
         return endpointId;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   EndpointRequest getPayload() => endpointRequest;
   @override
-  List<Object?> get props => [
-        applicationId,
-        endpointId,
-        endpointRequest,
-      ];
+  List<Object?> get props => [applicationId, endpointId, endpointRequest];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateEndpointRequest')
-      ..add(
-        'applicationId',
-        applicationId,
-      )
-      ..add(
-        'endpointId',
-        endpointId,
-      )
-      ..add(
-        'endpointRequest',
-        endpointRequest,
-      );
+      ..add('applicationId', applicationId)
+      ..add('endpointId', endpointId)
+      ..add('endpointRequest', endpointRequest);
     return helper.toString();
   }
 }
@@ -105,20 +88,17 @@ abstract class UpdateEndpointRequest
 class UpdateEndpointRequestRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<EndpointRequest> {
   const UpdateEndpointRequestRestJson1Serializer()
-      : super('UpdateEndpointRequest');
+    : super('UpdateEndpointRequest');
 
   @override
   Iterable<Type> get types => const [
-        UpdateEndpointRequest,
-        _$UpdateEndpointRequest,
-      ];
+    UpdateEndpointRequest,
+    _$UpdateEndpointRequest,
+  ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EndpointRequest deserialize(
     Serializers serializers,
@@ -126,9 +106,10 @@ class UpdateEndpointRequestRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(EndpointRequest),
-    ) as EndpointRequest);
+          serialized,
+          specifiedType: const FullType(EndpointRequest),
+        )
+        as EndpointRequest);
   }
 
   @override

@@ -10,20 +10,19 @@ class _$AbortMultipartUploadOutput extends AbortMultipartUploadOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$AbortMultipartUploadOutput(
-          [void Function(AbortMultipartUploadOutputBuilder)? updates]) =>
-      (new AbortMultipartUploadOutputBuilder()..update(updates))._build();
+  factory _$AbortMultipartUploadOutput([
+    void Function(AbortMultipartUploadOutputBuilder)? updates,
+  ]) => (AbortMultipartUploadOutputBuilder()..update(updates))._build();
 
   _$AbortMultipartUploadOutput._({this.requestCharged}) : super._();
-
   @override
   AbortMultipartUploadOutput rebuild(
-          void Function(AbortMultipartUploadOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AbortMultipartUploadOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AbortMultipartUploadOutputBuilder toBuilder() =>
-      new AbortMultipartUploadOutputBuilder()..replace(this);
+      AbortMultipartUploadOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -64,7 +63,6 @@ class AbortMultipartUploadOutputBuilder
 
   @override
   void replace(AbortMultipartUploadOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AbortMultipartUploadOutput;
   }
 
@@ -77,8 +75,8 @@ class AbortMultipartUploadOutputBuilder
   AbortMultipartUploadOutput build() => _build();
 
   _$AbortMultipartUploadOutput _build() {
-    final _$result = _$v ??
-        new _$AbortMultipartUploadOutput._(requestCharged: requestCharged);
+    final _$result =
+        _$v ?? _$AbortMultipartUploadOutput._(requestCharged: requestCharged);
     replace(_$result);
     return _$result;
   }
@@ -86,21 +84,19 @@ class AbortMultipartUploadOutputBuilder
 
 class _$AbortMultipartUploadOutputPayload
     extends AbortMultipartUploadOutputPayload {
-  factory _$AbortMultipartUploadOutputPayload(
-          [void Function(AbortMultipartUploadOutputPayloadBuilder)? updates]) =>
-      (new AbortMultipartUploadOutputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$AbortMultipartUploadOutputPayload([
+    void Function(AbortMultipartUploadOutputPayloadBuilder)? updates,
+  ]) => (AbortMultipartUploadOutputPayloadBuilder()..update(updates))._build();
 
   _$AbortMultipartUploadOutputPayload._() : super._();
-
   @override
   AbortMultipartUploadOutputPayload rebuild(
-          void Function(AbortMultipartUploadOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AbortMultipartUploadOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AbortMultipartUploadOutputPayloadBuilder toBuilder() =>
-      new AbortMultipartUploadOutputPayloadBuilder()..replace(this);
+      AbortMultipartUploadOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -116,21 +112,23 @@ class _$AbortMultipartUploadOutputPayload
 
 class AbortMultipartUploadOutputPayloadBuilder
     implements
-        Builder<AbortMultipartUploadOutputPayload,
-            AbortMultipartUploadOutputPayloadBuilder> {
+        Builder<
+          AbortMultipartUploadOutputPayload,
+          AbortMultipartUploadOutputPayloadBuilder
+        > {
   _$AbortMultipartUploadOutputPayload? _$v;
 
   AbortMultipartUploadOutputPayloadBuilder();
 
   @override
   void replace(AbortMultipartUploadOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AbortMultipartUploadOutputPayload;
   }
 
   @override
   void update(
-      void Function(AbortMultipartUploadOutputPayloadBuilder)? updates) {
+    void Function(AbortMultipartUploadOutputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -138,7 +136,7 @@ class AbortMultipartUploadOutputPayloadBuilder
   AbortMultipartUploadOutputPayload build() => _build();
 
   _$AbortMultipartUploadOutputPayload _build() {
-    final _$result = _$v ?? new _$AbortMultipartUploadOutputPayload._();
+    final _$result = _$v ?? _$AbortMultipartUploadOutputPayload._();
     replace(_$result);
     return _$result;
   }

@@ -5,6 +5,8 @@ import 'dart:async';
 
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:meta/meta.dart';
 
 /// Transforms an HTTP request according to auth providers that match the endpoint
@@ -12,7 +14,7 @@ import 'package:meta/meta.dart';
 @internal
 Future<AWSBaseHttpRequest> authorizeHttpRequest(
   AWSBaseHttpRequest request, {
-  required AWSApiConfig endpointConfig,
+  required ApiOutputs endpointConfig,
   required AmplifyAuthProviderRepository authProviderRepo,
   APIAuthorizationType? authorizationMode,
 }) async {
@@ -45,22 +47,24 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
       return authorizedRequest;
     case APIAuthorizationType.iam:
       final authProvider = _validateAuthProvider(
-        authProviderRepo
-            .getAuthProvider(APIAuthorizationType.iam.authProviderToken),
+        authProviderRepo.getAuthProvider(
+          APIAuthorizationType.iam.authProviderToken,
+        ),
         authType,
       );
-      final isGraphQL = endpointConfig.endpointType == EndpointType.graphQL;
+      final isGraphQL = endpointConfig.apiType == ApiType.graphQL;
       final service = isGraphQL
           ? AWSService.appSync
           : AWSService.apiGatewayManagementApi; // resolves to "execute-api"
       // Do not sign body for REST to avoid CORS issue on web.
-      final serviceConfiguration =
-          isGraphQL ? null : const ServiceConfiguration(signBody: false);
+      final serviceConfiguration = isGraphQL
+          ? null
+          : const ServiceConfiguration(signBody: false);
 
       final authorizedRequest = await authProvider.authorizeRequest(
         request,
         options: IamAuthProviderOptions(
-          region: endpointConfig.region,
+          region: endpointConfig.awsRegion,
           service: service,
           serviceConfiguration: serviceConfiguration,
         ),

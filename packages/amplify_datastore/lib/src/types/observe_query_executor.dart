@@ -2,33 +2,33 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library amplify_datastore.observe_query_executor;
+library;
 
 import 'package:amplify_datastore/src/stream_utils/throttle.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 
-typedef Query<T extends Model> = Future<List<T>> Function(
-  ModelType<T> modelType, {
-  QueryPredicate? where,
-  QueryPagination? pagination,
-  List<QuerySortBy>? sortBy,
-});
+typedef Query<T extends Model> =
+    Future<List<T>> Function(
+      ModelType<T> modelType, {
+      QueryPredicate? where,
+      QueryPagination? pagination,
+      List<QuerySortBy>? sortBy,
+    });
 
-typedef Observe<T extends Model> = Stream<SubscriptionEvent<T>> Function(
-    ModelType<T> modelType);
+typedef Observe<T extends Model> =
+    Stream<SubscriptionEvent<T>> Function(ModelType<T> modelType);
 
 /// A class for handling observeQuery operations
 class ObserveQueryExecutor {
   final Stream<dynamic> dataStoreEventStream;
 
-  ObserveQueryExecutor({
-    required this.dataStoreEventStream,
-  }) : _dataStoreHubEventStream = dataStoreEventStream
-            .where((event) => event is DataStoreHubEvent)
-            .cast<DataStoreHubEvent>()
-            .asBroadcastStream() {
+  ObserveQueryExecutor({required this.dataStoreEventStream})
+    : _dataStoreHubEventStream = dataStoreEventStream
+          .where((event) => event is DataStoreHubEvent)
+          .cast<DataStoreHubEvent>()
+          .asBroadcastStream() {
     _initModelSyncCache();
   }
 
@@ -59,9 +59,9 @@ class ObserveQueryExecutor {
         .skipWhile((element) => querySnapshot == null)
         .where((event) => event != querySnapshot!.isSynced)
         .map<QuerySnapshot<T>>((value) {
-      querySnapshot = querySnapshot!.withSyncStatus(value);
-      return querySnapshot!;
-    });
+          querySnapshot = querySnapshot!.withSyncStatus(value);
+          return querySnapshot!;
+        });
 
     Stream<QuerySnapshot<T>> observeStream = observe(modelType)
         .map<QuerySnapshot<T>?>((event) {
@@ -89,27 +89,24 @@ class ObserveQueryExecutor {
         .where((event) => event != null)
         .cast<QuerySnapshot<T>>();
 
-    Future<QuerySnapshot<T>> queryFuture = query(
-      modelType,
-      where: where,
-      sortBy: sortBy,
-    ).then((value) {
-      // create & cache the intitial QuerySnapshot
-      querySnapshot = QuerySnapshot(
-        items: value,
-        isSynced: _isModelSyncComplete(modelType),
-        where: where,
-        sortBy: sortBy,
-      );
+    Future<QuerySnapshot<T>> queryFuture =
+        query(modelType, where: where, sortBy: sortBy).then((value) {
+          // create & cache the intitial QuerySnapshot
+          querySnapshot = QuerySnapshot(
+            items: value,
+            isSynced: _isModelSyncComplete(modelType),
+            where: where,
+            sortBy: sortBy,
+          );
 
-      // apply any cached subscription events
-      for (var event in subscriptionEvents) {
-        querySnapshot = querySnapshot!.withSubscriptionEvent(event: event);
-      }
+          // apply any cached subscription events
+          for (var event in subscriptionEvents) {
+            querySnapshot = querySnapshot!.withSubscriptionEvent(event: event);
+          }
 
-      // return the QuerySnapshot
-      return querySnapshot!;
-    });
+          // return the QuerySnapshot
+          return querySnapshot!;
+        });
 
     final queryStream = Stream.fromFuture(queryFuture);
 
@@ -147,10 +144,9 @@ class ObserveQueryExecutor {
   }
 
   void _initModelSyncCache() {
-    this
-        ._dataStoreHubEventStream
-        .map((event) => event.payload)
-        .listen((payload) {
+    this._dataStoreHubEventStream.map((event) => event.payload).listen((
+      payload,
+    ) {
       if (payload is ModelSyncedEvent) {
         _modelSyncCache[payload.modelName] = _ModelSyncStatus.complete;
       } else if (payload is SyncQueriesStartedEvent) {

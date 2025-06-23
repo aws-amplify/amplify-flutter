@@ -45,6 +45,9 @@
 		4B4F4F612982D1E100204FE6 /* model_name_with_all_query_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F472982D1E000204FE6 /* model_name_with_all_query_parameters.json */; };
 		4B4F4F622982D1E100204FE6 /* 1_result.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F482982D1E000204FE6 /* 1_result.json */; };
 		4B4F4F632982D1E100204FE6 /* instance_without_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F4A2982D1E000204FE6 /* instance_without_predicate.json */; };
+		600B4A792BED53E4007AA1EA /* GraphQLResponse+DecodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600B4A782BED53E4007AA1EA /* GraphQLResponse+DecodeTests.swift */; };
+		60A82D5C2BF52FCC003065FC /* GraphQLRequestExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A82D5B2BF52FCC003065FC /* GraphQLRequestExtensionTests.swift */; };
+		60A82D5E2BF5348F003065FC /* PublisherExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A82D5D2BF5348F003065FC /* PublisherExtensionTests.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -118,6 +121,9 @@
 		4B4F4F482982D1E000204FE6 /* 1_result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1_result.json; sourceTree = "<group>"; };
 		4B4F4F4A2982D1E000204FE6 /* instance_without_predicate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instance_without_predicate.json; sourceTree = "<group>"; };
 		513D66DA8B182E3FFDF8750D /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
+		600B4A782BED53E4007AA1EA /* GraphQLResponse+DecodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLResponse+DecodeTests.swift"; sourceTree = "<group>"; };
+		60A82D5B2BF52FCC003065FC /* GraphQLRequestExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLRequestExtensionTests.swift; sourceTree = "<group>"; };
+		60A82D5D2BF5348F003065FC /* PublisherExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherExtensionTests.swift; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A205B25C076AD0D2D0AEBA9 /* Pods-unit_tests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.profile.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.profile.xcconfig"; sourceTree = "<group>"; };
@@ -171,6 +177,9 @@
 				4B4F4F1E2982D0CA00204FE6 /* QuerySortBuilderUnitTests.swift */,
 				4B4F4F162982D0C400204FE6 /* unit_tests-Bridging-Header.h */,
 				119A9D2529F997A6008BD2A8 /* NativeAuthPluginTests.swift */,
+				600B4A782BED53E4007AA1EA /* GraphQLResponse+DecodeTests.swift */,
+				60A82D5B2BF52FCC003065FC /* GraphQLRequestExtensionTests.swift */,
+				60A82D5D2BF5348F003065FC /* PublisherExtensionTests.swift */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -376,7 +385,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					4B4F4F0B2982D06800204FE6 = {
@@ -461,6 +470,7 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Thin Binary";
 			outputPaths = (
@@ -575,9 +585,12 @@
 				4B4F4F502982D1E000204FE6 /* FlutterSerializedModelData.swift in Sources */,
 				4B4F4F282982D0CB00204FE6 /* DataStorePluginUnitTests.swift in Sources */,
 				119A9D2629F997A6008BD2A8 /* NativeAuthPluginTests.swift in Sources */,
+				600B4A792BED53E4007AA1EA /* GraphQLResponse+DecodeTests.swift in Sources */,
+				60A82D5E2BF5348F003065FC /* PublisherExtensionTests.swift in Sources */,
 				4B4F4F272982D0CB00204FE6 /* QuerySortBuilderUnitTests.swift in Sources */,
 				4B4F4F202982D0CB00204FE6 /* DataStoreHubEventStreamHandlerTests.swift in Sources */,
 				4B4F4F242982D0CB00204FE6 /* GetJsonFromFileUtil.swift in Sources */,
+				60A82D5C2BF52FCC003065FC /* GraphQLRequestExtensionTests.swift in Sources */,
 				4B4F4F222982D0CB00204FE6 /* AmplifySerializedModelUnitTests.swift in Sources */,
 				4B4F4F252982D0CB00204FE6 /* QueryPredicateBuilderUnitTests.swift in Sources */,
 				4B4F4F212982D0CB00204FE6 /* ModelSchemaEquatableExtensions.swift in Sources */,

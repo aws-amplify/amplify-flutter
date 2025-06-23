@@ -1,9 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-@Deprecated('Use UserProfileLocation instead')
-typedef AnalyticsUserProfileLocation = UserProfileLocation;
-
 /// Location data of a user.
 class UserProfileLocation {
   const UserProfileLocation({
@@ -23,11 +20,11 @@ class UserProfileLocation {
   final String? country;
 
   Map<String, Object?> getAllProperties() => {
-        if (latitude != null) 'latitude': latitude,
-        if (longitude != null) 'longitude': longitude,
-        if (postalCode != null) 'postalCode': postalCode,
-        if (city != null) 'city': city,
-        if (region != null) 'region': region,
-        if (country != null) 'country': country,
-      };
+    if (latitude != null) 'latitude': latitude,
+    if (longitude != null) 'longitude': longitude,
+    if (postalCode != null) 'postalCode': postalCode,
+    if (city != null) 'city': city,
+    if (region != null) 'region': region,
+    if (country != null) 'country': country,
+  };
 }

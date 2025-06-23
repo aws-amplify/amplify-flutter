@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 
 part 'amplify_config.g.dart';
 
@@ -47,14 +48,14 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
 
   @override
   List<Object?> get props => [
-        userAgent,
-        version,
-        api,
-        analytics,
-        auth,
-        notifications,
-        storage,
-      ];
+    userAgent,
+    version,
+    api,
+    analytics,
+    auth,
+    notifications,
+    storage,
+  ];
 
   AmplifyConfig copyWith({
     ApiConfig? api,
@@ -71,6 +72,20 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
       auth: auth ?? this.auth,
       notifications: notifications ?? this.notifications,
       storage: storage ?? this.storage,
+    );
+  }
+
+  @internal
+  AmplifyOutputs toAmplifyOutputs() {
+    final appSync = auth?.awsPlugin?.appSync;
+    return AmplifyOutputs(
+      version: '1',
+      auth: auth?.toAuthOutputs(),
+      data: api?.toDataOutputs(appSync: appSync),
+      restApi: api?.toRestApiOutputs(),
+      analytics: analytics?.toAnalyticsOutputs(),
+      notifications: notifications?.toNotificationsOutputs(),
+      storage: storage?.toStorageOutputs(),
     );
   }
 

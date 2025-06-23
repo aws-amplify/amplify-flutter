@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Multi-platform workers for Dart (Web, VM).
-library worker_bee;
+library;
 
 import 'dart:async';
 
@@ -10,7 +10,7 @@ import 'package:async/async.dart';
 import 'package:worker_bee/src/common.dart';
 import 'package:worker_bee/src/preamble.dart';
 import 'package:worker_bee/src/vm/impl.dart'
-    if (dart.library.js) 'package:worker_bee/src/js/impl.dart';
+    if (dart.library.js_interop) 'package:worker_bee/src/js/impl.dart';
 
 export 'package:async/async.dart';
 export 'package:aws_common/aws_common.dart'
@@ -21,7 +21,7 @@ export 'package:worker_bee/src/exception/worker_bee_exception.dart'
 export 'package:worker_bee/src/logging/worker_log_entry.dart';
 export 'package:worker_bee/src/preamble.dart' hide runTraced;
 export 'package:worker_bee/src/worker_bee_vm.dart'
-    if (dart.library.js) 'package:worker_bee/src/worker_bee_js.dart';
+    if (dart.library.js_interop) 'package:worker_bee/src/worker_bee_js.dart';
 
 /// {@template worker_bee.worker_bee}
 /// Annotation class for marking worker bees.
@@ -74,9 +74,7 @@ abstract class WorkerBeeBase<Request extends Object, Response>
     extends WorkerBeeCommon<Request, Response>
     with WorkerBeeImpl<Request, Response> {
   /// {@macro worker_bee.worker_bee_base}
-  WorkerBeeBase({
-    super.serializers,
-  });
+  WorkerBeeBase({super.serializers});
 }
 
 /// Helper for casting [StreamSink]s.

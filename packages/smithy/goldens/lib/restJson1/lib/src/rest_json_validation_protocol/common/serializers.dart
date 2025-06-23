@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_validation_protocol.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -85,93 +85,40 @@ const List<_i1.SmithySerializer> serializers = [
   ...AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(
-    _i2.BuiltList,
-    [FullType(EnumString)],
-  ): _i2.ListBuilder<EnumString>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(EnumString),
-      FullType(EnumString),
-    ],
-  ): _i2.MapBuilder<EnumString, EnumString>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(ValidationExceptionField)],
-  ): _i2.ListBuilder<ValidationExceptionField>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(String)],
-  ): _i2.ListBuilder<String>.new,
-  const FullType(
-    _i2.BuiltListMultimap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i2.ListMultimapBuilder<String, String>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i2.MapBuilder<String, String>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(_i3.Uint8List)],
-  ): _i2.SetBuilder<_i3.Uint8List>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(bool)],
-  ): _i2.SetBuilder<bool>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(String)],
-  ): _i2.SetBuilder<String>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(int)],
-  ): _i2.SetBuilder<int>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(_i4.Int64)],
-  ): _i2.SetBuilder<_i4.Int64>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(DateTime)],
-  ): _i2.SetBuilder<DateTime>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(FooEnum)],
-  ): _i2.SetBuilder<FooEnum>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [
-      FullType(
-        _i2.BuiltList,
-        [FullType(String)],
-      )
-    ],
-  ): _i2.SetBuilder<_i2.BuiltList<String>>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(GreetingStruct)],
-  ): _i2.SetBuilder<GreetingStruct>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(MissingKeyStructure)],
-  ): _i2.SetBuilder<MissingKeyStructure>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(FooUnion)],
-  ): _i2.SetBuilder<FooUnion>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(FileConfigSettings),
-    ],
-  ): _i2.MapBuilder<String, FileConfigSettings>.new,
+  const FullType(_i2.BuiltList, [FullType(EnumString)]):
+      _i2.ListBuilder<EnumString>.new,
+  const FullType(_i2.BuiltMap, [FullType(EnumString), FullType(EnumString)]):
+      _i2.MapBuilder<EnumString, EnumString>.new,
+  const FullType(_i2.BuiltList, [FullType(ValidationExceptionField)]):
+      _i2.ListBuilder<ValidationExceptionField>.new,
+  const FullType(_i2.BuiltList, [FullType(String)]):
+      _i2.ListBuilder<String>.new,
+  const FullType(_i2.BuiltListMultimap, [FullType(String), FullType(String)]):
+      _i2.ListMultimapBuilder<String, String>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(String)]):
+      _i2.MapBuilder<String, String>.new,
+  const FullType(_i2.BuiltSet, [FullType(_i3.Uint8List)]):
+      _i2.SetBuilder<_i3.Uint8List>.new,
+  const FullType(_i2.BuiltSet, [FullType(bool)]): _i2.SetBuilder<bool>.new,
+  const FullType(_i2.BuiltSet, [FullType(String)]): _i2.SetBuilder<String>.new,
+  const FullType(_i2.BuiltSet, [FullType(int)]): _i2.SetBuilder<int>.new,
+  const FullType(_i2.BuiltSet, [FullType(_i4.Int64)]):
+      _i2.SetBuilder<_i4.Int64>.new,
+  const FullType(_i2.BuiltSet, [FullType(DateTime)]):
+      _i2.SetBuilder<DateTime>.new,
+  const FullType(_i2.BuiltSet, [FullType(FooEnum)]):
+      _i2.SetBuilder<FooEnum>.new,
+  const FullType(_i2.BuiltSet, [
+    FullType(_i2.BuiltList, [FullType(String)]),
+  ]): _i2.SetBuilder<_i2.BuiltList<String>>.new,
+  const FullType(_i2.BuiltSet, [FullType(GreetingStruct)]):
+      _i2.SetBuilder<GreetingStruct>.new,
+  const FullType(_i2.BuiltSet, [FullType(MissingKeyStructure)]):
+      _i2.SetBuilder<MissingKeyStructure>.new,
+  const FullType(_i2.BuiltSet, [FullType(FooUnion)]):
+      _i2.SetBuilder<FooUnion>.new,
+  const FullType(_i2.BuiltMap, [
+    FullType(String),
+    FullType(FileConfigSettings),
+  ]): _i2.MapBuilder<String, FileConfigSettings>.new,
 };

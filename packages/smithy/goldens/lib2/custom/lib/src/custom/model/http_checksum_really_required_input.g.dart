@@ -13,21 +13,20 @@ class _$HttpChecksumReallyRequiredInput
   @override
   final _i2.Uint8List? content;
 
-  factory _$HttpChecksumReallyRequiredInput(
-          [void Function(HttpChecksumReallyRequiredInputBuilder)? updates]) =>
-      (new HttpChecksumReallyRequiredInputBuilder()..update(updates))._build();
+  factory _$HttpChecksumReallyRequiredInput([
+    void Function(HttpChecksumReallyRequiredInputBuilder)? updates,
+  ]) => (HttpChecksumReallyRequiredInputBuilder()..update(updates))._build();
 
   _$HttpChecksumReallyRequiredInput._({this.checksumAlgorithm, this.content})
-      : super._();
-
+    : super._();
   @override
   HttpChecksumReallyRequiredInput rebuild(
-          void Function(HttpChecksumReallyRequiredInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpChecksumReallyRequiredInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpChecksumReallyRequiredInputBuilder toBuilder() =>
-      new HttpChecksumReallyRequiredInputBuilder()..replace(this);
+      HttpChecksumReallyRequiredInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -49,8 +48,10 @@ class _$HttpChecksumReallyRequiredInput
 
 class HttpChecksumReallyRequiredInputBuilder
     implements
-        Builder<HttpChecksumReallyRequiredInput,
-            HttpChecksumReallyRequiredInputBuilder> {
+        Builder<
+          HttpChecksumReallyRequiredInput,
+          HttpChecksumReallyRequiredInputBuilder
+        > {
   _$HttpChecksumReallyRequiredInput? _$v;
 
   ChecksumAlgorithm? _checksumAlgorithm;
@@ -76,7 +77,6 @@ class HttpChecksumReallyRequiredInputBuilder
 
   @override
   void replace(HttpChecksumReallyRequiredInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpChecksumReallyRequiredInput;
   }
 
@@ -89,9 +89,12 @@ class HttpChecksumReallyRequiredInputBuilder
   HttpChecksumReallyRequiredInput build() => _build();
 
   _$HttpChecksumReallyRequiredInput _build() {
-    final _$result = _$v ??
-        new _$HttpChecksumReallyRequiredInput._(
-            checksumAlgorithm: checksumAlgorithm, content: content);
+    final _$result =
+        _$v ??
+        _$HttpChecksumReallyRequiredInput._(
+          checksumAlgorithm: checksumAlgorithm,
+          content: content,
+        );
     replace(_$result);
     return _$result;
   }

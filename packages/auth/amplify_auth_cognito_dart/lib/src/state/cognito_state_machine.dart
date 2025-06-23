@@ -15,17 +15,20 @@ import 'package:meta/meta.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
 @visibleForTesting
-final stateMachineBuilders = <StateMachineToken,
-    StateMachineBuilder<AuthEvent, AuthState, CognitoAuthStateMachine>>{
-  ConfigurationStateMachine.type: ConfigurationStateMachine.new,
-  CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
-  FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
-  HostedUiStateMachine.type: HostedUiStateMachine.new,
-  SignInStateMachine.type: SignInStateMachine.new,
-  SignOutStateMachine.type: SignOutStateMachine.new,
-  SignUpStateMachine.type: SignUpStateMachine.new,
-  TotpSetupStateMachine.type: TotpSetupStateMachine.new,
-};
+final stateMachineBuilders =
+    <
+      StateMachineToken,
+      StateMachineBuilder<AuthEvent, AuthState, CognitoAuthStateMachine>
+    >{
+      ConfigurationStateMachine.type: ConfigurationStateMachine.new,
+      CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
+      FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
+      HostedUiStateMachine.type: HostedUiStateMachine.new,
+      SignInStateMachine.type: SignInStateMachine.new,
+      SignOutStateMachine.type: SignOutStateMachine.new,
+      SignUpStateMachine.type: SignUpStateMachine.new,
+      TotpSetupStateMachine.type: TotpSetupStateMachine.new,
+    };
 
 /// Default defaultDependencies for [CognitoAuthStateMachine].
 @visibleForTesting
@@ -46,12 +49,11 @@ final defaultDependencies = <Token, DependencyBuilder>{
 class CognitoAuthStateMachine
     extends StateMachineManager<AuthEvent, AuthState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.cognito_auth_state_machine}
-  CognitoAuthStateMachine({
-    DependencyManager? dependencyManager,
-  }) : super(
-          stateMachineBuilders,
-          dependencyManager ?? AmplifyDependencyManager(),
-        ) {
+  CognitoAuthStateMachine({DependencyManager? dependencyManager})
+    : super(
+        stateMachineBuilders,
+        dependencyManager ?? AmplifyDependencyManager(),
+      ) {
     defaultDependencies.forEach((token, builder) {
       addBuilder(builder, token);
     });
@@ -60,15 +62,16 @@ class CognitoAuthStateMachine
   @override
   StateMachineToken mapEventToMachine(AuthEvent event) {
     return switch (event) {
-      ConfigurationEvent _ => ConfigurationStateMachine.type,
-      CredentialStoreEvent _ => CredentialStoreStateMachine.type,
-      FetchAuthSessionEvent _ => FetchAuthSessionStateMachine.type,
-      HostedUiEvent _ => HostedUiStateMachine.type,
-      SignInEvent _ => SignInStateMachine.type,
-      SignOutEvent _ => SignOutStateMachine.type,
-      SignUpEvent _ => SignUpStateMachine.type,
-      TotpSetupEvent _ => TotpSetupStateMachine.type,
-    } as StateMachineToken;
+          ConfigurationEvent _ => ConfigurationStateMachine.type,
+          CredentialStoreEvent _ => CredentialStoreStateMachine.type,
+          FetchAuthSessionEvent _ => FetchAuthSessionStateMachine.type,
+          HostedUiEvent _ => HostedUiStateMachine.type,
+          SignInEvent _ => SignInStateMachine.type,
+          SignOutEvent _ => SignOutStateMachine.type,
+          SignUpEvent _ => SignUpStateMachine.type,
+          TotpSetupEvent _ => TotpSetupStateMachine.type,
+        }
+        as StateMachineToken;
   }
 
   /// Loads credentials from the credential store (which may be

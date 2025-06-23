@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v1.glacier.test.upload_multipart_part_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -26,20 +26,15 @@ void main() {
       operation: UploadMultipartPartOperation(
         region: 'us-east-1',
         baseUri: Uri.parse('https://example.com'),
-        credentialsProvider:
-            const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-          'DUMMY-ACCESS-KEY-ID',
-          'DUMMY-SECRET-ACCESS-KEY',
-        )),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
       ),
       testCase: const _i2.HttpRequestTestCase(
         id: 'GlacierMultipartChecksums',
         documentation:
             'Glacier requires checksum headers that are cumbersome to provide.',
-        protocol: _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        ),
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
         authScheme: null,
         body: 'hello world',
         bodyMediaType: null,
@@ -78,17 +73,16 @@ void main() {
 class UploadMultipartPartInputRestJson1Serializer
     extends _i4.StructuredSmithySerializer<UploadMultipartPartInput> {
   const UploadMultipartPartInputRestJson1Serializer()
-      : super('UploadMultipartPartInput');
+    : super('UploadMultipartPartInput');
 
   @override
   Iterable<Type> get types => const [UploadMultipartPartInput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   UploadMultipartPartInput deserialize(
     Serializers serializers,
@@ -106,43 +100,49 @@ class UploadMultipartPartInputRestJson1Serializer
       }
       switch (key) {
         case 'accountId':
-          result.accountId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accountId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'vaultName':
-          result.vaultName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.vaultName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'uploadId':
-          result.uploadId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.uploadId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'checksum':
-          result.checksum = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksum =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'range':
-          result.range = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.range =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'body':
-          result.body = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.Stream,
-              [
-                FullType(
-                  List,
-                  [FullType(int)],
-                )
-              ],
-            ),
-          ) as _i5.Stream<List<int>>);
+          result.body =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i5.Stream, [
+                      FullType(List, [FullType(int)]),
+                    ]),
+                  )
+                  as _i5.Stream<List<int>>);
       }
     }
 
@@ -163,17 +163,16 @@ class UploadMultipartPartInputRestJson1Serializer
 class UploadMultipartPartOutputRestJson1Serializer
     extends _i4.StructuredSmithySerializer<UploadMultipartPartOutput> {
   const UploadMultipartPartOutputRestJson1Serializer()
-      : super('UploadMultipartPartOutput');
+    : super('UploadMultipartPartOutput');
 
   @override
   Iterable<Type> get types => const [UploadMultipartPartOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   UploadMultipartPartOutput deserialize(
     Serializers serializers,
@@ -191,10 +190,12 @@ class UploadMultipartPartOutputRestJson1Serializer
       }
       switch (key) {
         case 'checksum':
-          result.checksum = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksum =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -214,17 +215,16 @@ class UploadMultipartPartOutputRestJson1Serializer
 class InvalidParameterValueExceptionRestJson1Serializer
     extends _i4.StructuredSmithySerializer<InvalidParameterValueException> {
   const InvalidParameterValueExceptionRestJson1Serializer()
-      : super('InvalidParameterValueException');
+    : super('InvalidParameterValueException');
 
   @override
   Iterable<Type> get types => const [InvalidParameterValueException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   InvalidParameterValueException deserialize(
     Serializers serializers,
@@ -242,20 +242,26 @@ class InvalidParameterValueExceptionRestJson1Serializer
       }
       switch (key) {
         case 'type':
-          result.type = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.type =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -275,17 +281,16 @@ class InvalidParameterValueExceptionRestJson1Serializer
 class MissingParameterValueExceptionRestJson1Serializer
     extends _i4.StructuredSmithySerializer<MissingParameterValueException> {
   const MissingParameterValueExceptionRestJson1Serializer()
-      : super('MissingParameterValueException');
+    : super('MissingParameterValueException');
 
   @override
   Iterable<Type> get types => const [MissingParameterValueException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   MissingParameterValueException deserialize(
     Serializers serializers,
@@ -303,20 +308,26 @@ class MissingParameterValueExceptionRestJson1Serializer
       }
       switch (key) {
         case 'type':
-          result.type = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.type =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -336,17 +347,16 @@ class MissingParameterValueExceptionRestJson1Serializer
 class RequestTimeoutExceptionRestJson1Serializer
     extends _i4.StructuredSmithySerializer<RequestTimeoutException> {
   const RequestTimeoutExceptionRestJson1Serializer()
-      : super('RequestTimeoutException');
+    : super('RequestTimeoutException');
 
   @override
   Iterable<Type> get types => const [RequestTimeoutException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   RequestTimeoutException deserialize(
     Serializers serializers,
@@ -364,20 +374,26 @@ class RequestTimeoutExceptionRestJson1Serializer
       }
       switch (key) {
         case 'type':
-          result.type = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.type =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -397,17 +413,16 @@ class RequestTimeoutExceptionRestJson1Serializer
 class ResourceNotFoundExceptionRestJson1Serializer
     extends _i4.StructuredSmithySerializer<ResourceNotFoundException> {
   const ResourceNotFoundExceptionRestJson1Serializer()
-      : super('ResourceNotFoundException');
+    : super('ResourceNotFoundException');
 
   @override
   Iterable<Type> get types => const [ResourceNotFoundException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   ResourceNotFoundException deserialize(
     Serializers serializers,
@@ -425,20 +440,26 @@ class ResourceNotFoundExceptionRestJson1Serializer
       }
       switch (key) {
         case 'type':
-          result.type = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.type =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -458,17 +479,16 @@ class ResourceNotFoundExceptionRestJson1Serializer
 class ServiceUnavailableExceptionRestJson1Serializer
     extends _i4.StructuredSmithySerializer<ServiceUnavailableException> {
   const ServiceUnavailableExceptionRestJson1Serializer()
-      : super('ServiceUnavailableException');
+    : super('ServiceUnavailableException');
 
   @override
   Iterable<Type> get types => const [ServiceUnavailableException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   ServiceUnavailableException deserialize(
     Serializers serializers,
@@ -486,20 +506,26 @@ class ServiceUnavailableExceptionRestJson1Serializer
       }
       switch (key) {
         case 'type':
-          result.type = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.type =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

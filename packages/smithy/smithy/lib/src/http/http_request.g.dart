@@ -23,34 +23,23 @@ class _$HttpRequest extends HttpRequest {
   final BuiltList<HttpResponseInterceptor> responseInterceptors;
 
   factory _$HttpRequest([void Function(HttpRequestBuilder)? updates]) =>
-      (new HttpRequestBuilder()..update(updates))._build();
+      (HttpRequestBuilder()..update(updates))._build();
 
-  _$HttpRequest._(
-      {this.hostPrefix,
-      required this.method,
-      required this.path,
-      required this.headers,
-      required this.queryParameters,
-      required this.requestInterceptors,
-      required this.responseInterceptors})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(method, r'HttpRequest', 'method');
-    BuiltValueNullFieldError.checkNotNull(path, r'HttpRequest', 'path');
-    BuiltValueNullFieldError.checkNotNull(headers, r'HttpRequest', 'headers');
-    BuiltValueNullFieldError.checkNotNull(
-        queryParameters, r'HttpRequest', 'queryParameters');
-    BuiltValueNullFieldError.checkNotNull(
-        requestInterceptors, r'HttpRequest', 'requestInterceptors');
-    BuiltValueNullFieldError.checkNotNull(
-        responseInterceptors, r'HttpRequest', 'responseInterceptors');
-  }
-
+  _$HttpRequest._({
+    this.hostPrefix,
+    required this.method,
+    required this.path,
+    required this.headers,
+    required this.queryParameters,
+    required this.requestInterceptors,
+    required this.responseInterceptors,
+  }) : super._();
   @override
   HttpRequest rebuild(void Function(HttpRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  HttpRequestBuilder toBuilder() => new HttpRequestBuilder()..replace(this);
+  HttpRequestBuilder toBuilder() => HttpRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -110,29 +99,28 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
 
   MapBuilder<String, String>? _headers;
   MapBuilder<String, String> get headers =>
-      _$this._headers ??= new MapBuilder<String, String>();
+      _$this._headers ??= MapBuilder<String, String>();
   set headers(MapBuilder<String, String>? headers) => _$this._headers = headers;
 
   ListMultimapBuilder<String, String>? _queryParameters;
   ListMultimapBuilder<String, String> get queryParameters =>
-      _$this._queryParameters ??= new ListMultimapBuilder<String, String>();
+      _$this._queryParameters ??= ListMultimapBuilder<String, String>();
   set queryParameters(ListMultimapBuilder<String, String>? queryParameters) =>
       _$this._queryParameters = queryParameters;
 
   ListBuilder<HttpRequestInterceptor>? _requestInterceptors;
   ListBuilder<HttpRequestInterceptor> get requestInterceptors =>
-      _$this._requestInterceptors ??= new ListBuilder<HttpRequestInterceptor>();
+      _$this._requestInterceptors ??= ListBuilder<HttpRequestInterceptor>();
   set requestInterceptors(
-          ListBuilder<HttpRequestInterceptor>? requestInterceptors) =>
-      _$this._requestInterceptors = requestInterceptors;
+    ListBuilder<HttpRequestInterceptor>? requestInterceptors,
+  ) => _$this._requestInterceptors = requestInterceptors;
 
   ListBuilder<HttpResponseInterceptor>? _responseInterceptors;
   ListBuilder<HttpResponseInterceptor> get responseInterceptors =>
-      _$this._responseInterceptors ??=
-          new ListBuilder<HttpResponseInterceptor>();
+      _$this._responseInterceptors ??= ListBuilder<HttpResponseInterceptor>();
   set responseInterceptors(
-          ListBuilder<HttpResponseInterceptor>? responseInterceptors) =>
-      _$this._responseInterceptors = responseInterceptors;
+    ListBuilder<HttpResponseInterceptor>? responseInterceptors,
+  ) => _$this._responseInterceptors = responseInterceptors;
 
   HttpRequestBuilder();
 
@@ -153,7 +141,6 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
 
   @override
   void replace(HttpRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequest;
   }
 
@@ -168,17 +155,25 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   _$HttpRequest _build() {
     _$HttpRequest _$result;
     try {
-      _$result = _$v ??
-          new _$HttpRequest._(
-              hostPrefix: hostPrefix,
-              method: BuiltValueNullFieldError.checkNotNull(
-                  method, r'HttpRequest', 'method'),
-              path: BuiltValueNullFieldError.checkNotNull(
-                  path, r'HttpRequest', 'path'),
-              headers: headers.build(),
-              queryParameters: queryParameters.build(),
-              requestInterceptors: requestInterceptors.build(),
-              responseInterceptors: responseInterceptors.build());
+      _$result =
+          _$v ??
+          _$HttpRequest._(
+            hostPrefix: hostPrefix,
+            method: BuiltValueNullFieldError.checkNotNull(
+              method,
+              r'HttpRequest',
+              'method',
+            ),
+            path: BuiltValueNullFieldError.checkNotNull(
+              path,
+              r'HttpRequest',
+              'path',
+            ),
+            headers: headers.build(),
+            queryParameters: queryParameters.build(),
+            requestInterceptors: requestInterceptors.build(),
+            responseInterceptors: responseInterceptors.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -191,8 +186,11 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
         _$failedField = 'responseInterceptors';
         responseInterceptors.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpRequest', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -206,18 +204,15 @@ class _$HttpResponse extends HttpResponse {
   final BuiltMap<String, String> headers;
 
   factory _$HttpResponse([void Function(HttpResponseBuilder)? updates]) =>
-      (new HttpResponseBuilder()..update(updates))._build();
+      (HttpResponseBuilder()..update(updates))._build();
 
-  _$HttpResponse._({required this.headers}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(headers, r'HttpResponse', 'headers');
-  }
-
+  _$HttpResponse._({required this.headers}) : super._();
   @override
   HttpResponse rebuild(void Function(HttpResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  HttpResponseBuilder toBuilder() => new HttpResponseBuilder()..replace(this);
+  HttpResponseBuilder toBuilder() => HttpResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -235,9 +230,9 @@ class _$HttpResponse extends HttpResponse {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'HttpResponse')
-          ..add('headers', headers))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'HttpResponse',
+    )..add('headers', headers)).toString();
   }
 }
 
@@ -247,7 +242,7 @@ class HttpResponseBuilder
 
   MapBuilder<String, String>? _headers;
   MapBuilder<String, String> get headers =>
-      _$this._headers ??= new MapBuilder<String, String>();
+      _$this._headers ??= MapBuilder<String, String>();
   set headers(MapBuilder<String, String>? headers) => _$this._headers = headers;
 
   HttpResponseBuilder();
@@ -263,7 +258,6 @@ class HttpResponseBuilder
 
   @override
   void replace(HttpResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpResponse;
   }
 
@@ -278,15 +272,18 @@ class HttpResponseBuilder
   _$HttpResponse _build() {
     _$HttpResponse _$result;
     try {
-      _$result = _$v ?? new _$HttpResponse._(headers: headers.build());
+      _$result = _$v ?? _$HttpResponse._(headers: headers.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'headers';
         headers.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -301,21 +298,20 @@ class _$HttpRequestContext extends HttpRequestContext {
   @override
   final String? awsSigningRegion;
 
-  factory _$HttpRequestContext(
-          [void Function(HttpRequestContextBuilder)? updates]) =>
-      (new HttpRequestContextBuilder()..update(updates))._build();
+  factory _$HttpRequestContext([
+    void Function(HttpRequestContextBuilder)? updates,
+  ]) => (HttpRequestContextBuilder()..update(updates))._build();
 
   _$HttpRequestContext._({this.awsSigningService, this.awsSigningRegion})
-      : super._();
-
+    : super._();
   @override
   HttpRequestContext rebuild(
-          void Function(HttpRequestContextBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestContextBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestContextBuilder toBuilder() =>
-      new HttpRequestContextBuilder()..replace(this);
+      HttpRequestContextBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -371,7 +367,6 @@ class HttpRequestContextBuilder
 
   @override
   void replace(HttpRequestContext other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestContext;
   }
 
@@ -384,10 +379,12 @@ class HttpRequestContextBuilder
   HttpRequestContext build() => _build();
 
   _$HttpRequestContext _build() {
-    final _$result = _$v ??
-        new _$HttpRequestContext._(
-            awsSigningService: awsSigningService,
-            awsSigningRegion: awsSigningRegion);
+    final _$result =
+        _$v ??
+        _$HttpRequestContext._(
+          awsSigningService: awsSigningService,
+          awsSigningRegion: awsSigningRegion,
+        );
     replace(_$result);
     return _$result;
   }

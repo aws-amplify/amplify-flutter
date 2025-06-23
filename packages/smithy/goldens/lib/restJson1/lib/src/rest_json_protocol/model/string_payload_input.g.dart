@@ -10,20 +10,19 @@ class _$StringPayloadInput extends StringPayloadInput {
   @override
   final String? payload;
 
-  factory _$StringPayloadInput(
-          [void Function(StringPayloadInputBuilder)? updates]) =>
-      (new StringPayloadInputBuilder()..update(updates))._build();
+  factory _$StringPayloadInput([
+    void Function(StringPayloadInputBuilder)? updates,
+  ]) => (StringPayloadInputBuilder()..update(updates))._build();
 
   _$StringPayloadInput._({this.payload}) : super._();
-
   @override
   StringPayloadInput rebuild(
-          void Function(StringPayloadInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(StringPayloadInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   StringPayloadInputBuilder toBuilder() =>
-      new StringPayloadInputBuilder()..replace(this);
+      StringPayloadInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +60,6 @@ class StringPayloadInputBuilder
 
   @override
   void replace(StringPayloadInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StringPayloadInput;
   }
 
@@ -74,7 +72,7 @@ class StringPayloadInputBuilder
   StringPayloadInput build() => _build();
 
   _$StringPayloadInput _build() {
-    final _$result = _$v ?? new _$StringPayloadInput._(payload: payload);
+    final _$result = _$v ?? _$StringPayloadInput._(payload: payload);
     replace(_$result);
     return _$result;
   }

@@ -6,8 +6,7 @@ part of 'service_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ServiceShape> _$serviceShapeSerializer =
-    new _$ServiceShapeSerializer();
+Serializer<ServiceShape> _$serviceShapeSerializer = _$ServiceShapeSerializer();
 
 class _$ServiceShapeSerializer implements StructuredSerializer<ServiceShape> {
   @override
@@ -16,45 +15,66 @@ class _$ServiceShapeSerializer implements StructuredSerializer<ServiceShape> {
   final String wireName = 'ServiceShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ServiceShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ServiceShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'rename',
-      serializers.serialize(object.rename,
-          specifiedType: const FullType(BuiltMap,
-              const [const FullType(String), const FullType(String)])),
+      serializers.serialize(
+        object.rename,
+        specifiedType: const FullType(BuiltMap, const [
+          const FullType(String),
+          const FullType(String),
+        ]),
+      ),
       'errors',
-      serializers.serialize(object.errors,
-          specifiedType:
-              const FullType(BuiltSet, const [const FullType(ShapeRef)])),
+      serializers.serialize(
+        object.errors,
+        specifiedType: const FullType(BuiltSet, const [
+          const FullType(ShapeRef),
+        ]),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
       'resources',
-      serializers.serialize(object.resources,
-          specifiedType:
-              const FullType(BuiltSet, const [const FullType(ShapeRef)])),
+      serializers.serialize(
+        object.resources,
+        specifiedType: const FullType(BuiltSet, const [
+          const FullType(ShapeRef),
+        ]),
+      ),
       'operations',
-      serializers.serialize(object.operations,
-          specifiedType:
-              const FullType(BuiltSet, const [const FullType(ShapeRef)])),
+      serializers.serialize(
+        object.operations,
+        specifiedType: const FullType(BuiltSet, const [
+          const FullType(ShapeRef),
+        ]),
+      ),
     ];
     Object? value;
     value = object.version;
     if (value != null) {
       result
         ..add('version')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   ServiceShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new ServiceShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = ServiceShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -63,35 +83,64 @@ class _$ServiceShapeSerializer implements StructuredSerializer<ServiceShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'version':
-          result.version = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.version =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'rename':
-          result.rename.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)]))!);
+          result.rename.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(BuiltMap, const [
+                const FullType(String),
+                const FullType(String),
+              ]),
+            )!,
+          );
           break;
         case 'errors':
-          result.errors.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltSet, const [const FullType(ShapeRef)]))!
-              as BuiltSet<Object?>);
+          result.errors.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltSet, const [
+                    const FullType(ShapeRef),
+                  ]),
+                )!
+                as BuiltSet<Object?>,
+          );
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
         case 'resources':
-          result.resources.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltSet, const [const FullType(ShapeRef)]))!
-              as BuiltSet<Object?>);
+          result.resources.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltSet, const [
+                    const FullType(ShapeRef),
+                  ]),
+                )!
+                as BuiltSet<Object?>,
+          );
           break;
         case 'operations':
-          result.operations.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltSet, const [const FullType(ShapeRef)]))!
-              as BuiltSet<Object?>);
+          result.operations.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltSet, const [
+                    const FullType(ShapeRef),
+                  ]),
+                )!
+                as BuiltSet<Object?>,
+          );
           break;
       }
     }
@@ -117,33 +166,23 @@ class _$ServiceShape extends ServiceShape {
   final BuiltSet<ShapeRef> operations;
 
   factory _$ServiceShape([void Function(ServiceShapeBuilder)? updates]) =>
-      (new ServiceShapeBuilder()..update(updates))._build();
+      (ServiceShapeBuilder()..update(updates))._build();
 
-  _$ServiceShape._(
-      {this.version,
-      required this.rename,
-      required this.errors,
-      required this.shapeId,
-      required this.traits,
-      required this.resources,
-      required this.operations})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(rename, r'ServiceShape', 'rename');
-    BuiltValueNullFieldError.checkNotNull(errors, r'ServiceShape', 'errors');
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'ServiceShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'ServiceShape', 'traits');
-    BuiltValueNullFieldError.checkNotNull(
-        resources, r'ServiceShape', 'resources');
-    BuiltValueNullFieldError.checkNotNull(
-        operations, r'ServiceShape', 'operations');
-  }
-
+  _$ServiceShape._({
+    this.version,
+    required this.rename,
+    required this.errors,
+    required this.shapeId,
+    required this.traits,
+    required this.resources,
+    required this.operations,
+  }) : super._();
   @override
   ServiceShape rebuild(void Function(ServiceShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ServiceShapeBuilder toBuilder() => new ServiceShapeBuilder()..replace(this);
+  ServiceShapeBuilder toBuilder() => ServiceShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -196,13 +235,12 @@ class ServiceShapeBuilder
 
   MapBuilder<String, String>? _rename;
   MapBuilder<String, String> get rename =>
-      _$this._rename ??= new MapBuilder<String, String>();
+      _$this._rename ??= MapBuilder<String, String>();
   set rename(covariant MapBuilder<String, String>? rename) =>
       _$this._rename = rename;
 
   SetBuilder<ShapeRef>? _errors;
-  SetBuilder<ShapeRef> get errors =>
-      _$this._errors ??= new SetBuilder<ShapeRef>();
+  SetBuilder<ShapeRef> get errors => _$this._errors ??= SetBuilder<ShapeRef>();
   set errors(covariant SetBuilder<ShapeRef>? errors) => _$this._errors = errors;
 
   ShapeId? _shapeId;
@@ -215,13 +253,13 @@ class ServiceShapeBuilder
 
   SetBuilder<ShapeRef>? _resources;
   SetBuilder<ShapeRef> get resources =>
-      _$this._resources ??= new SetBuilder<ShapeRef>();
+      _$this._resources ??= SetBuilder<ShapeRef>();
   set resources(covariant SetBuilder<ShapeRef>? resources) =>
       _$this._resources = resources;
 
   SetBuilder<ShapeRef>? _operations;
   SetBuilder<ShapeRef> get operations =>
-      _$this._operations ??= new SetBuilder<ShapeRef>();
+      _$this._operations ??= SetBuilder<ShapeRef>();
   set operations(covariant SetBuilder<ShapeRef>? operations) =>
       _$this._operations = operations;
 
@@ -246,7 +284,6 @@ class ServiceShapeBuilder
 
   @override
   void replace(covariant ServiceShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ServiceShape;
   }
 
@@ -261,17 +298,25 @@ class ServiceShapeBuilder
   _$ServiceShape _build() {
     _$ServiceShape _$result;
     try {
-      _$result = _$v ??
-          new _$ServiceShape._(
-              version: version,
-              rename: rename.build(),
-              errors: errors.build(),
-              shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, r'ServiceShape', 'shapeId'),
-              traits: BuiltValueNullFieldError.checkNotNull(
-                  traits, r'ServiceShape', 'traits'),
-              resources: resources.build(),
-              operations: operations.build());
+      _$result =
+          _$v ??
+          _$ServiceShape._(
+            version: version,
+            rename: rename.build(),
+            errors: errors.build(),
+            shapeId: BuiltValueNullFieldError.checkNotNull(
+              shapeId,
+              r'ServiceShape',
+              'shapeId',
+            ),
+            traits: BuiltValueNullFieldError.checkNotNull(
+              traits,
+              r'ServiceShape',
+              'traits',
+            ),
+            resources: resources.build(),
+            operations: operations.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -285,8 +330,11 @@ class ServiceShapeBuilder
         _$failedField = 'operations';
         operations.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ServiceShape', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ServiceShape',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

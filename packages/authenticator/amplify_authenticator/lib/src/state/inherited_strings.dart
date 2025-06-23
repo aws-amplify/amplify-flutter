@@ -15,8 +15,8 @@ class InheritedStrings extends InheritedWidget {
   final AuthStringResolver resolver;
 
   static AuthStringResolver of(BuildContext context) {
-    final strings =
-        context.dependOnInheritedWidgetOfExactType<InheritedStrings>();
+    final strings = context
+        .dependOnInheritedWidgetOfExactType<InheritedStrings>();
     assert(() {
       if (strings == null) {
         throw FlutterError.fromParts([
@@ -39,8 +39,9 @@ class InheritedStrings extends InheritedWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<AuthStringResolver>('resolver', resolver));
+    properties.add(
+      DiagnosticsProperty<AuthStringResolver>('resolver', resolver),
+    );
   }
 }
 

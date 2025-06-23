@@ -14,37 +14,32 @@ JsonWebHeader _$JsonWebHeaderFromJson(Map<String, dynamic> json) =>
           ? null
           : JsonWebKey.fromJson(json['jwk'] as Map<String, dynamic>),
       keyId: json['kid'] as String?,
-      x509CertChain:
-          (json['x5c'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      x509sha1Thumbprint:
-          (json['x5t'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      x509CertChain: (json['x5c'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      x509sha1Thumbprint: (json['x5t'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       x509sha256Thumbprint: json['x5t#S256'] as String?,
       x509Uri: json['x5u'] == null ? null : Uri.parse(json['x5u'] as String),
       type: json['typ'] as String?,
       contentType: json['cty'] as String?,
-      critical:
-          (json['crit'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      critical: (json['crit'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
-Map<String, dynamic> _$JsonWebHeaderToJson(JsonWebHeader instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('alg', AlgorithmX.toJson(instance.algorithm));
-  writeNotNull('jku', instance.jwkSetUri?.toString());
-  writeNotNull('jwk', instance.jwk?.toJson());
-  writeNotNull('kid', instance.keyId);
-  writeNotNull('x5u', instance.x509Uri?.toString());
-  writeNotNull('x5c', instance.x509CertChain);
-  writeNotNull('x5t', instance.x509sha1Thumbprint);
-  writeNotNull('x5t#S256', instance.x509sha256Thumbprint);
-  writeNotNull('typ', instance.type);
-  writeNotNull('cty', instance.contentType);
-  writeNotNull('crit', instance.critical);
-  return val;
-}
+Map<String, dynamic> _$JsonWebHeaderToJson(JsonWebHeader instance) =>
+    <String, dynamic>{
+      if (AlgorithmX.toJson(instance.algorithm) case final value?) 'alg': value,
+      if (instance.jwkSetUri?.toString() case final value?) 'jku': value,
+      if (instance.jwk?.toJson() case final value?) 'jwk': value,
+      if (instance.keyId case final value?) 'kid': value,
+      if (instance.x509Uri?.toString() case final value?) 'x5u': value,
+      if (instance.x509CertChain case final value?) 'x5c': value,
+      if (instance.x509sha1Thumbprint case final value?) 'x5t': value,
+      if (instance.x509sha256Thumbprint case final value?) 'x5t#S256': value,
+      if (instance.type case final value?) 'typ': value,
+      if (instance.contentType case final value?) 'cty': value,
+      if (instance.critical case final value?) 'crit': value,
+    };

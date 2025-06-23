@@ -20,9 +20,10 @@ const key1 = 'key_1';
 // ignore: invalid_use_of_visible_for_testing_member
 final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
 
-typedef SecureStorageFactory = AmplifySecureStorageInterface Function({
-  required AmplifySecureStorageConfig config,
-});
+typedef SecureStorageFactory =
+    AmplifySecureStorageInterface Function({
+      required AmplifySecureStorageConfig config,
+    });
 
 /// A common set of integration-style tests that can be shared across
 /// amplify_secure_storage & amplify_secure_storage_dart.

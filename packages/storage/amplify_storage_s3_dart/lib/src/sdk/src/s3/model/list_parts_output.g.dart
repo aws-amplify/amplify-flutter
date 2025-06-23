@@ -39,33 +39,31 @@ class _$ListPartsOutput extends ListPartsOutput {
   final ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$ListPartsOutput([void Function(ListPartsOutputBuilder)? updates]) =>
-      (new ListPartsOutputBuilder()..update(updates))._build();
+      (ListPartsOutputBuilder()..update(updates))._build();
 
-  _$ListPartsOutput._(
-      {this.abortDate,
-      this.abortRuleId,
-      this.bucket,
-      this.key,
-      this.uploadId,
-      this.partNumberMarker,
-      this.nextPartNumberMarker,
-      this.maxParts,
-      this.isTruncated,
-      this.parts,
-      this.initiator,
-      this.owner,
-      this.storageClass,
-      this.requestCharged,
-      this.checksumAlgorithm})
-      : super._();
-
+  _$ListPartsOutput._({
+    this.abortDate,
+    this.abortRuleId,
+    this.bucket,
+    this.key,
+    this.uploadId,
+    this.partNumberMarker,
+    this.nextPartNumberMarker,
+    this.maxParts,
+    this.isTruncated,
+    this.parts,
+    this.initiator,
+    this.owner,
+    this.storageClass,
+    this.requestCharged,
+    this.checksumAlgorithm,
+  }) : super._();
   @override
   ListPartsOutput rebuild(void Function(ListPartsOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ListPartsOutputBuilder toBuilder() =>
-      new ListPartsOutputBuilder()..replace(this);
+  ListPartsOutputBuilder toBuilder() => ListPartsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -154,17 +152,15 @@ class ListPartsOutputBuilder
   set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
 
   _i3.ListBuilder<Part>? _parts;
-  _i3.ListBuilder<Part> get parts =>
-      _$this._parts ??= new _i3.ListBuilder<Part>();
+  _i3.ListBuilder<Part> get parts => _$this._parts ??= _i3.ListBuilder<Part>();
   set parts(_i3.ListBuilder<Part>? parts) => _$this._parts = parts;
 
   InitiatorBuilder? _initiator;
-  InitiatorBuilder get initiator =>
-      _$this._initiator ??= new InitiatorBuilder();
+  InitiatorBuilder get initiator => _$this._initiator ??= InitiatorBuilder();
   set initiator(InitiatorBuilder? initiator) => _$this._initiator = initiator;
 
   OwnerBuilder? _owner;
-  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  OwnerBuilder get owner => _$this._owner ??= OwnerBuilder();
   set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   StorageClass? _storageClass;
@@ -209,7 +205,6 @@ class ListPartsOutputBuilder
 
   @override
   void replace(ListPartsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListPartsOutput;
   }
 
@@ -224,23 +219,25 @@ class ListPartsOutputBuilder
   _$ListPartsOutput _build() {
     _$ListPartsOutput _$result;
     try {
-      _$result = _$v ??
-          new _$ListPartsOutput._(
-              abortDate: abortDate,
-              abortRuleId: abortRuleId,
-              bucket: bucket,
-              key: key,
-              uploadId: uploadId,
-              partNumberMarker: partNumberMarker,
-              nextPartNumberMarker: nextPartNumberMarker,
-              maxParts: maxParts,
-              isTruncated: isTruncated,
-              parts: _parts?.build(),
-              initiator: _initiator?.build(),
-              owner: _owner?.build(),
-              storageClass: storageClass,
-              requestCharged: requestCharged,
-              checksumAlgorithm: checksumAlgorithm);
+      _$result =
+          _$v ??
+          _$ListPartsOutput._(
+            abortDate: abortDate,
+            abortRuleId: abortRuleId,
+            bucket: bucket,
+            key: key,
+            uploadId: uploadId,
+            partNumberMarker: partNumberMarker,
+            nextPartNumberMarker: nextPartNumberMarker,
+            maxParts: maxParts,
+            isTruncated: isTruncated,
+            parts: _parts?.build(),
+            initiator: _initiator?.build(),
+            owner: _owner?.build(),
+            storageClass: storageClass,
+            requestCharged: requestCharged,
+            checksumAlgorithm: checksumAlgorithm,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -251,8 +248,11 @@ class ListPartsOutputBuilder
         _$failedField = 'owner';
         _owner?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ListPartsOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ListPartsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -287,33 +287,32 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final String? uploadId;
 
-  factory _$ListPartsOutputPayload(
-          [void Function(ListPartsOutputPayloadBuilder)? updates]) =>
-      (new ListPartsOutputPayloadBuilder()..update(updates))._build();
+  factory _$ListPartsOutputPayload([
+    void Function(ListPartsOutputPayloadBuilder)? updates,
+  ]) => (ListPartsOutputPayloadBuilder()..update(updates))._build();
 
-  _$ListPartsOutputPayload._(
-      {this.bucket,
-      this.checksumAlgorithm,
-      this.initiator,
-      this.isTruncated,
-      this.key,
-      this.maxParts,
-      this.nextPartNumberMarker,
-      this.owner,
-      this.partNumberMarker,
-      this.parts,
-      this.storageClass,
-      this.uploadId})
-      : super._();
-
+  _$ListPartsOutputPayload._({
+    this.bucket,
+    this.checksumAlgorithm,
+    this.initiator,
+    this.isTruncated,
+    this.key,
+    this.maxParts,
+    this.nextPartNumberMarker,
+    this.owner,
+    this.partNumberMarker,
+    this.parts,
+    this.storageClass,
+    this.uploadId,
+  }) : super._();
   @override
   ListPartsOutputPayload rebuild(
-          void Function(ListPartsOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListPartsOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListPartsOutputPayloadBuilder toBuilder() =>
-      new ListPartsOutputPayloadBuilder()..replace(this);
+      ListPartsOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -367,8 +366,7 @@ class ListPartsOutputPayloadBuilder
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   InitiatorBuilder? _initiator;
-  InitiatorBuilder get initiator =>
-      _$this._initiator ??= new InitiatorBuilder();
+  InitiatorBuilder get initiator => _$this._initiator ??= InitiatorBuilder();
   set initiator(InitiatorBuilder? initiator) => _$this._initiator = initiator;
 
   bool? _isTruncated;
@@ -389,7 +387,7 @@ class ListPartsOutputPayloadBuilder
       _$this._nextPartNumberMarker = nextPartNumberMarker;
 
   OwnerBuilder? _owner;
-  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  OwnerBuilder get owner => _$this._owner ??= OwnerBuilder();
   set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   String? _partNumberMarker;
@@ -398,8 +396,7 @@ class ListPartsOutputPayloadBuilder
       _$this._partNumberMarker = partNumberMarker;
 
   _i3.ListBuilder<Part>? _parts;
-  _i3.ListBuilder<Part> get parts =>
-      _$this._parts ??= new _i3.ListBuilder<Part>();
+  _i3.ListBuilder<Part> get parts => _$this._parts ??= _i3.ListBuilder<Part>();
   set parts(_i3.ListBuilder<Part>? parts) => _$this._parts = parts;
 
   StorageClass? _storageClass;
@@ -435,7 +432,6 @@ class ListPartsOutputPayloadBuilder
 
   @override
   void replace(ListPartsOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListPartsOutputPayload;
   }
 
@@ -450,20 +446,22 @@ class ListPartsOutputPayloadBuilder
   _$ListPartsOutputPayload _build() {
     _$ListPartsOutputPayload _$result;
     try {
-      _$result = _$v ??
-          new _$ListPartsOutputPayload._(
-              bucket: bucket,
-              checksumAlgorithm: checksumAlgorithm,
-              initiator: _initiator?.build(),
-              isTruncated: isTruncated,
-              key: key,
-              maxParts: maxParts,
-              nextPartNumberMarker: nextPartNumberMarker,
-              owner: _owner?.build(),
-              partNumberMarker: partNumberMarker,
-              parts: _parts?.build(),
-              storageClass: storageClass,
-              uploadId: uploadId);
+      _$result =
+          _$v ??
+          _$ListPartsOutputPayload._(
+            bucket: bucket,
+            checksumAlgorithm: checksumAlgorithm,
+            initiator: _initiator?.build(),
+            isTruncated: isTruncated,
+            key: key,
+            maxParts: maxParts,
+            nextPartNumberMarker: nextPartNumberMarker,
+            owner: _owner?.build(),
+            partNumberMarker: partNumberMarker,
+            parts: _parts?.build(),
+            storageClass: storageClass,
+            uploadId: uploadId,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -476,8 +474,11 @@ class ListPartsOutputPayloadBuilder
         _$failedField = 'parts';
         _parts?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ListPartsOutputPayload', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ListPartsOutputPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

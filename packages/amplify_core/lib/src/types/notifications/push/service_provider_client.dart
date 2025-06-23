@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
 
 /// {@template amplify_core.push.service_provider_client}
 /// A base class for new service providers to implement and add functionality
@@ -11,7 +12,7 @@ import 'package:amplify_core/amplify_core.dart';
 abstract class ServiceProviderClient {
   /// Initialize this client, used by the plugin during configuration.
   Future<void> init({
-    required NotificationsPinpointPluginConfig config,
+    required NotificationsOutputs config,
     required AmplifyAuthProviderRepository authProviderRepo,
   });
 
@@ -25,8 +26,5 @@ abstract class ServiceProviderClient {
   });
 
   /// Link the user details to the service provider so messages can be targeted on a user level.
-  Future<void> identifyUser({
-    required String userId,
-    UserProfile? userProfile,
-  });
+  Future<void> identifyUser({required String userId, UserProfile? userProfile});
 }

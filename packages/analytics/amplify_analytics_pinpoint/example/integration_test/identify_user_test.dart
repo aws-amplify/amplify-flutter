@@ -123,12 +123,7 @@ void main() {
                 .having(
                   (e) => e.endpoint.metrics?.toMap() ?? const {},
                   'Metrics',
-                  equals(
-                    Map.fromEntries([
-                      lossyDoubleProperty,
-                      intProperty,
-                    ]),
-                  ),
+                  equals(Map.fromEntries([lossyDoubleProperty, intProperty])),
                 ),
           ),
         );

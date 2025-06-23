@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:html';
-
 import 'package:example_common/src/components/component.dart';
+import 'package:web/web.dart';
 
 /// {@template example_common.center_component}
 /// A component that centers the provided child
@@ -17,7 +16,7 @@ class CenterComponent extends Component {
 
   @override
   Component render() {
-    final container = Element.div();
+    final container = HTMLDivElement();
     container.style.display = 'flex';
     container.style.alignItems = 'center';
     container.style.justifyContent = 'center';

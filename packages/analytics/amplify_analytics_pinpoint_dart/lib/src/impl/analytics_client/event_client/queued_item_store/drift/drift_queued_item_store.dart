@@ -54,8 +54,9 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
   @override
   Future<void> addItem(String value) async {
-    await into(driftQueuedItems)
-        .insert(DriftQueuedItemsCompanion(value: Value(value)));
+    await into(
+      driftQueuedItems,
+    ).insert(DriftQueuedItemsCompanion(value: Value(value)));
   }
 
   @override
@@ -66,10 +67,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
     final retrievedItems = await statement.get();
     return retrievedItems.map(
-      (item) => QueuedItem(
-        id: item.id,
-        value: item.value,
-      ),
+      (item) => QueuedItem(id: item.id, value: item.value),
     );
   }
 

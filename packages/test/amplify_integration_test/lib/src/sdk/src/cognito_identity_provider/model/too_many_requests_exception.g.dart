@@ -12,20 +12,19 @@ class _$TooManyRequestsException extends TooManyRequestsException {
   @override
   final Map<String, String>? headers;
 
-  factory _$TooManyRequestsException(
-          [void Function(TooManyRequestsExceptionBuilder)? updates]) =>
-      (new TooManyRequestsExceptionBuilder()..update(updates))._build();
+  factory _$TooManyRequestsException([
+    void Function(TooManyRequestsExceptionBuilder)? updates,
+  ]) => (TooManyRequestsExceptionBuilder()..update(updates))._build();
 
   _$TooManyRequestsException._({this.message, this.headers}) : super._();
-
   @override
   TooManyRequestsException rebuild(
-          void Function(TooManyRequestsExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TooManyRequestsExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TooManyRequestsExceptionBuilder toBuilder() =>
-      new TooManyRequestsExceptionBuilder()..replace(this);
+      TooManyRequestsExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class TooManyRequestsExceptionBuilder
 
   @override
   void replace(TooManyRequestsException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TooManyRequestsException;
   }
 
@@ -82,8 +80,8 @@ class TooManyRequestsExceptionBuilder
   TooManyRequestsException build() => _build();
 
   _$TooManyRequestsException _build() {
-    final _$result = _$v ??
-        new _$TooManyRequestsException._(message: message, headers: headers);
+    final _$result =
+        _$v ?? _$TooManyRequestsException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

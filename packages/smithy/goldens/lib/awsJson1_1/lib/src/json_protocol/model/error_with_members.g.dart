@@ -26,29 +26,28 @@ class _$ErrorWithMembers extends ErrorWithMembers {
   @override
   final Map<String, String>? headers;
 
-  factory _$ErrorWithMembers(
-          [void Function(ErrorWithMembersBuilder)? updates]) =>
-      (new ErrorWithMembersBuilder()..update(updates))._build();
+  factory _$ErrorWithMembers([
+    void Function(ErrorWithMembersBuilder)? updates,
+  ]) => (ErrorWithMembersBuilder()..update(updates))._build();
 
-  _$ErrorWithMembers._(
-      {this.code,
-      this.complexData,
-      this.integerField,
-      this.listField,
-      this.mapField,
-      this.message,
-      this.stringField,
-      this.statusCode,
-      this.headers})
-      : super._();
-
+  _$ErrorWithMembers._({
+    this.code,
+    this.complexData,
+    this.integerField,
+    this.listField,
+    this.mapField,
+    this.message,
+    this.stringField,
+    this.statusCode,
+    this.headers,
+  }) : super._();
   @override
   ErrorWithMembers rebuild(void Function(ErrorWithMembersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   ErrorWithMembersBuilder toBuilder() =>
-      new ErrorWithMembersBuilder()..replace(this);
+      ErrorWithMembersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -88,7 +87,7 @@ class ErrorWithMembersBuilder
 
   KitchenSinkBuilder? _complexData;
   KitchenSinkBuilder get complexData =>
-      _$this._complexData ??= new KitchenSinkBuilder();
+      _$this._complexData ??= KitchenSinkBuilder();
   set complexData(KitchenSinkBuilder? complexData) =>
       _$this._complexData = complexData;
 
@@ -98,13 +97,13 @@ class ErrorWithMembersBuilder
 
   _i3.ListBuilder<String>? _listField;
   _i3.ListBuilder<String> get listField =>
-      _$this._listField ??= new _i3.ListBuilder<String>();
+      _$this._listField ??= _i3.ListBuilder<String>();
   set listField(_i3.ListBuilder<String>? listField) =>
       _$this._listField = listField;
 
   _i3.MapBuilder<String, String>? _mapField;
   _i3.MapBuilder<String, String> get mapField =>
-      _$this._mapField ??= new _i3.MapBuilder<String, String>();
+      _$this._mapField ??= _i3.MapBuilder<String, String>();
   set mapField(_i3.MapBuilder<String, String>? mapField) =>
       _$this._mapField = mapField;
 
@@ -145,7 +144,6 @@ class ErrorWithMembersBuilder
 
   @override
   void replace(ErrorWithMembers other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ErrorWithMembers;
   }
 
@@ -160,17 +158,19 @@ class ErrorWithMembersBuilder
   _$ErrorWithMembers _build() {
     _$ErrorWithMembers _$result;
     try {
-      _$result = _$v ??
-          new _$ErrorWithMembers._(
-              code: code,
-              complexData: _complexData?.build(),
-              integerField: integerField,
-              listField: _listField?.build(),
-              mapField: _mapField?.build(),
-              message: message,
-              stringField: stringField,
-              statusCode: statusCode,
-              headers: headers);
+      _$result =
+          _$v ??
+          _$ErrorWithMembers._(
+            code: code,
+            complexData: _complexData?.build(),
+            integerField: integerField,
+            listField: _listField?.build(),
+            mapField: _mapField?.build(),
+            message: message,
+            stringField: stringField,
+            statusCode: statusCode,
+            headers: headers,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -182,8 +182,11 @@ class ErrorWithMembersBuilder
         _$failedField = 'mapField';
         _mapField?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ErrorWithMembers', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ErrorWithMembers',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

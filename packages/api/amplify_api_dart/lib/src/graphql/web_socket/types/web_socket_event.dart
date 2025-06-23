@@ -34,9 +34,7 @@ class ConnectionAckMessageEvent extends WebSocketEvent {
   String get runtimeTypeName => 'ConnectionAckMessageEvent';
 
   @override
-  Map<String, Object?> toJson() => {
-        'payload': payload.toJson(),
-      };
+  Map<String, Object?> toJson() => {'payload': payload.toJson()};
 }
 
 /// Shut down web socket channel
@@ -63,9 +61,7 @@ class NetworkEvent extends WebSocketEvent {
   String get runtimeTypeName => 'NetworkEvent';
 
   @override
-  Map<String, Object?> toJson() => {
-        'networkState': networkState.name,
-      };
+  Map<String, Object?> toJson() => {'networkState': networkState.name};
 }
 
 /// Discrete class for when the network is connected.
@@ -86,6 +82,19 @@ class NetworkLossEvent extends NetworkEvent {
 
   @override
   String get runtimeTypeName => 'NetworkLossEvent';
+}
+
+/// Discrete class for when the process is resumed
+/// Triggers when AppLifecycleListener detects the process has been resumed.
+class ProcessResumeEvent extends WebSocketEvent {
+  /// Create a process resumed event
+  const ProcessResumeEvent();
+
+  @override
+  String get runtimeTypeName => 'ProcessResumeEvent';
+
+  @override
+  Map<String, Object?> toJson() => const {};
 }
 
 /// Triggers when a successful ping to AppSync is made
@@ -112,9 +121,7 @@ class PollFailedEvent extends WebSocketEvent {
   String get runtimeTypeName => 'PollFailedEvent';
 
   @override
-  Map<String, Object?> toJson() => {
-        'exception': exception.toString(),
-      };
+  Map<String, Object?> toJson() => {'exception': exception.toString()};
 }
 
 /// Trigger reconnection of web socket channel and underlying subscriptions
@@ -153,9 +160,7 @@ class WsErrorEvent extends WebSocketEvent {
   String get runtimeTypeName => 'WsErrorEvent';
 
   @override
-  Map<String, Object?> toJson() => {
-        'exception': exception.toString(),
-      };
+  Map<String, Object?> toJson() => {'exception': exception.toString()};
 }
 
 /// Connection Error while setting up web socket connection
@@ -186,9 +191,7 @@ class SubscribeEvent<T> extends WebSocketEvent {
   String get runtimeTypeName => 'SubscribeEvent<$T>';
 
   @override
-  Map<String, Object?> toJson() => {
-        'request': request.toJson(),
-      };
+  Map<String, Object?> toJson() => {'request': request.toJson()};
 }
 
 /// Unsubscribe event to remove registration from AppSync and remove from bloc
@@ -203,7 +206,5 @@ class UnsubscribeEvent extends WebSocketEvent {
   String get runtimeTypeName => 'UnsubscribeEvent';
 
   @override
-  Map<String, Object?> toJson() => {
-        'request': request.toJson(),
-      };
+  Map<String, Object?> toJson() => {'request': request.toJson()};
 }

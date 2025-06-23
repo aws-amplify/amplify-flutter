@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
+library;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database_html.dart';
@@ -12,12 +13,16 @@ void main() {
   group('TransferDatabase for web', () {
     const testUploadId = 'test-upload-Id';
     const testObjectKey = 'test-object-Key';
+    const testBucketName = 'test-bucket-name';
+    const testAwsRegion = 'test-aws-region';
     final testCreatedAt = DateTime(2022, 1, 1);
 
     final testTransferRecord = TransferRecord(
       uploadId: testUploadId,
       objectKey: testObjectKey,
       createdAt: testCreatedAt,
+      bucketName: testBucketName,
+      awsRegion: testAwsRegion,
     );
 
     final testTransferRecordJsonString = testTransferRecord.toJsonString();
@@ -30,32 +35,35 @@ void main() {
     });
 
     test('insert and deleteTransferRecords from local storage', () async {
-      final recordId =
-          await transferDatabase.insertTransferRecord(testTransferRecord);
+      final recordId = await transferDatabase.insertTransferRecord(
+        testTransferRecord,
+      );
       expect(recordId, isNotNull);
       final actual = await transferDatabase.deleteTransferRecords(testUploadId);
       expect(actual, 1);
     });
 
-    test('getMultipartUploadRecordsCreatedBefore should return one item',
-        () async {
-      await transferDatabase.insertTransferRecord(testTransferRecord);
-      final actual =
-          await transferDatabase.getMultipartUploadRecordsCreatedBefore(
-        testCreatedAt.add(const Duration(days: 1)),
-      );
-      expect(actual.length, 1);
-      expect(actual.first.toJsonString(), testTransferRecordJsonString);
-    });
+    test(
+      'getMultipartUploadRecordsCreatedBefore should return one item',
+      () async {
+        await transferDatabase.insertTransferRecord(testTransferRecord);
+        final actual = await transferDatabase
+            .getMultipartUploadRecordsCreatedBefore(
+              testCreatedAt.add(const Duration(days: 1)),
+            );
+        expect(actual.length, 1);
+        expect(actual.first.toJsonString(), testTransferRecordJsonString);
+      },
+    );
 
-    test('getMultipartUploadRecordsCreatedBefore should return empty list',
-        () async {
-      await transferDatabase.insertTransferRecord(testTransferRecord);
-      final actual =
-          await transferDatabase.getMultipartUploadRecordsCreatedBefore(
-        testCreatedAt,
-      );
-      expect(actual.length, 0);
-    });
+    test(
+      'getMultipartUploadRecordsCreatedBefore should return empty list',
+      () async {
+        await transferDatabase.insertTransferRecord(testTransferRecord);
+        final actual = await transferDatabase
+            .getMultipartUploadRecordsCreatedBefore(testCreatedAt);
+        expect(actual.length, 0);
+      },
+    );
   });
 }

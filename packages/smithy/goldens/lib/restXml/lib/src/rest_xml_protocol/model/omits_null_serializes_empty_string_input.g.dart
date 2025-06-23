@@ -13,23 +13,21 @@ class _$OmitsNullSerializesEmptyStringInput
   @override
   final String? emptyString;
 
-  factory _$OmitsNullSerializesEmptyStringInput(
-          [void Function(OmitsNullSerializesEmptyStringInputBuilder)?
-              updates]) =>
-      (new OmitsNullSerializesEmptyStringInputBuilder()..update(updates))
-          ._build();
+  factory _$OmitsNullSerializesEmptyStringInput([
+    void Function(OmitsNullSerializesEmptyStringInputBuilder)? updates,
+  ]) =>
+      (OmitsNullSerializesEmptyStringInputBuilder()..update(updates))._build();
 
   _$OmitsNullSerializesEmptyStringInput._({this.nullValue, this.emptyString})
-      : super._();
-
+    : super._();
   @override
   OmitsNullSerializesEmptyStringInput rebuild(
-          void Function(OmitsNullSerializesEmptyStringInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OmitsNullSerializesEmptyStringInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OmitsNullSerializesEmptyStringInputBuilder toBuilder() =>
-      new OmitsNullSerializesEmptyStringInputBuilder()..replace(this);
+      OmitsNullSerializesEmptyStringInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -51,8 +49,10 @@ class _$OmitsNullSerializesEmptyStringInput
 
 class OmitsNullSerializesEmptyStringInputBuilder
     implements
-        Builder<OmitsNullSerializesEmptyStringInput,
-            OmitsNullSerializesEmptyStringInputBuilder> {
+        Builder<
+          OmitsNullSerializesEmptyStringInput,
+          OmitsNullSerializesEmptyStringInputBuilder
+        > {
   _$OmitsNullSerializesEmptyStringInput? _$v;
 
   String? _nullValue;
@@ -77,13 +77,13 @@ class OmitsNullSerializesEmptyStringInputBuilder
 
   @override
   void replace(OmitsNullSerializesEmptyStringInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OmitsNullSerializesEmptyStringInput;
   }
 
   @override
   void update(
-      void Function(OmitsNullSerializesEmptyStringInputBuilder)? updates) {
+    void Function(OmitsNullSerializesEmptyStringInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -91,9 +91,12 @@ class OmitsNullSerializesEmptyStringInputBuilder
   OmitsNullSerializesEmptyStringInput build() => _build();
 
   _$OmitsNullSerializesEmptyStringInput _build() {
-    final _$result = _$v ??
-        new _$OmitsNullSerializesEmptyStringInput._(
-            nullValue: nullValue, emptyString: emptyString);
+    final _$result =
+        _$v ??
+        _$OmitsNullSerializesEmptyStringInput._(
+          nullValue: nullValue,
+          emptyString: emptyString,
+        );
     replace(_$result);
     return _$result;
   }
@@ -101,23 +104,20 @@ class OmitsNullSerializesEmptyStringInputBuilder
 
 class _$OmitsNullSerializesEmptyStringInputPayload
     extends OmitsNullSerializesEmptyStringInputPayload {
-  factory _$OmitsNullSerializesEmptyStringInputPayload(
-          [void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)?
-              updates]) =>
-      (new OmitsNullSerializesEmptyStringInputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$OmitsNullSerializesEmptyStringInputPayload([
+    void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)? updates,
+  ]) => (OmitsNullSerializesEmptyStringInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$OmitsNullSerializesEmptyStringInputPayload._() : super._();
-
   @override
   OmitsNullSerializesEmptyStringInputPayload rebuild(
-          void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OmitsNullSerializesEmptyStringInputPayloadBuilder toBuilder() =>
-      new OmitsNullSerializesEmptyStringInputPayloadBuilder()..replace(this);
+      OmitsNullSerializesEmptyStringInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -133,22 +133,23 @@ class _$OmitsNullSerializesEmptyStringInputPayload
 
 class OmitsNullSerializesEmptyStringInputPayloadBuilder
     implements
-        Builder<OmitsNullSerializesEmptyStringInputPayload,
-            OmitsNullSerializesEmptyStringInputPayloadBuilder> {
+        Builder<
+          OmitsNullSerializesEmptyStringInputPayload,
+          OmitsNullSerializesEmptyStringInputPayloadBuilder
+        > {
   _$OmitsNullSerializesEmptyStringInputPayload? _$v;
 
   OmitsNullSerializesEmptyStringInputPayloadBuilder();
 
   @override
   void replace(OmitsNullSerializesEmptyStringInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OmitsNullSerializesEmptyStringInputPayload;
   }
 
   @override
   void update(
-      void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)?
-          updates) {
+    void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -156,8 +157,7 @@ class OmitsNullSerializesEmptyStringInputPayloadBuilder
   OmitsNullSerializesEmptyStringInputPayload build() => _build();
 
   _$OmitsNullSerializesEmptyStringInputPayload _build() {
-    final _$result =
-        _$v ?? new _$OmitsNullSerializesEmptyStringInputPayload._();
+    final _$result = _$v ?? _$OmitsNullSerializesEmptyStringInputPayload._();
     replace(_$result);
     return _$result;
   }

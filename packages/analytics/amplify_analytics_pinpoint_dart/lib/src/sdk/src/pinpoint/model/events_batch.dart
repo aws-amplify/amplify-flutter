@@ -22,10 +22,7 @@ abstract class EventsBatch
     required PublicEndpoint endpoint,
     required Map<String, Event> events,
   }) {
-    return _$EventsBatch._(
-      endpoint: endpoint,
-      events: _i2.BuiltMap(events),
-    );
+    return _$EventsBatch._(endpoint: endpoint, events: _i2.BuiltMap(events));
   }
 
   /// Specifies a batch of endpoints and events to process.
@@ -35,7 +32,7 @@ abstract class EventsBatch
   const EventsBatch._();
 
   static const List<_i3.SmithySerializer<EventsBatch>> serializers = [
-    EventsBatchRestJson1Serializer()
+    EventsBatchRestJson1Serializer(),
   ];
 
   /// A set of properties and attributes that are associated with the endpoint.
@@ -44,21 +41,12 @@ abstract class EventsBatch
   /// A set of properties that are associated with the event.
   _i2.BuiltMap<String, Event> get events;
   @override
-  List<Object?> get props => [
-        endpoint,
-        events,
-      ];
+  List<Object?> get props => [endpoint, events];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EventsBatch')
-      ..add(
-        'endpoint',
-        endpoint,
-      )
-      ..add(
-        'events',
-        events,
-      );
+      ..add('endpoint', endpoint)
+      ..add('events', events);
     return helper.toString();
   }
 }
@@ -68,17 +56,11 @@ class EventsBatchRestJson1Serializer
   const EventsBatchRestJson1Serializer() : super('EventsBatch');
 
   @override
-  Iterable<Type> get types => const [
-        EventsBatch,
-        _$EventsBatch,
-      ];
+  Iterable<Type> get types => const [EventsBatch, _$EventsBatch];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EventsBatch deserialize(
     Serializers serializers,
@@ -96,21 +78,24 @@ class EventsBatchRestJson1Serializer
       }
       switch (key) {
         case 'Endpoint':
-          result.endpoint.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(PublicEndpoint),
-          ) as PublicEndpoint));
+          result.endpoint.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(PublicEndpoint),
+                )
+                as PublicEndpoint),
+          );
         case 'Events':
-          result.events.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType(Event),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, Event>));
+          result.events.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(Event),
+                  ]),
+                )
+                as _i2.BuiltMap<String, Event>),
+          );
       }
     }
 
@@ -134,13 +119,10 @@ class EventsBatchRestJson1Serializer
       'Events',
       serializers.serialize(
         events,
-        specifiedType: const FullType(
-          _i2.BuiltMap,
-          [
-            FullType(String),
-            FullType(Event),
-          ],
-        ),
+        specifiedType: const FullType(_i2.BuiltMap, [
+          FullType(String),
+          FullType(Event),
+        ]),
       ),
     ]);
     return result$;

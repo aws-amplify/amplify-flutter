@@ -15,8 +15,10 @@ abstract class AdminListUserAuthEventsRequest
         _i1.HttpInput<AdminListUserAuthEventsRequest>,
         _i2.AWSEquatable<AdminListUserAuthEventsRequest>
     implements
-        Built<AdminListUserAuthEventsRequest,
-            AdminListUserAuthEventsRequestBuilder> {
+        Built<
+          AdminListUserAuthEventsRequest,
+          AdminListUserAuthEventsRequestBuilder
+        > {
   factory AdminListUserAuthEventsRequest({
     required String userPoolId,
     required String username,
@@ -31,9 +33,9 @@ abstract class AdminListUserAuthEventsRequest
     );
   }
 
-  factory AdminListUserAuthEventsRequest.build(
-          [void Function(AdminListUserAuthEventsRequestBuilder) updates]) =
-      _$AdminListUserAuthEventsRequest;
+  factory AdminListUserAuthEventsRequest.build([
+    void Function(AdminListUserAuthEventsRequestBuilder) updates,
+  ]) = _$AdminListUserAuthEventsRequest;
 
   const AdminListUserAuthEventsRequest._();
 
@@ -41,11 +43,10 @@ abstract class AdminListUserAuthEventsRequest
     AdminListUserAuthEventsRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<AdminListUserAuthEventsRequest>>
-      serializers = [AdminListUserAuthEventsRequestAwsJson11Serializer()];
+  serializers = [AdminListUserAuthEventsRequestAwsJson11Serializer()];
 
   /// The user pool ID.
   String get userPoolId;
@@ -61,31 +62,14 @@ abstract class AdminListUserAuthEventsRequest
   @override
   AdminListUserAuthEventsRequest getPayload() => this;
   @override
-  List<Object?> get props => [
-        userPoolId,
-        username,
-        maxResults,
-        nextToken,
-      ];
+  List<Object?> get props => [userPoolId, username, maxResults, nextToken];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AdminListUserAuthEventsRequest')
-      ..add(
-        'userPoolId',
-        userPoolId,
-      )
-      ..add(
-        'username',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'maxResults',
-        maxResults,
-      )
-      ..add(
-        'nextToken',
-        nextToken,
-      );
+      ..add('userPoolId', userPoolId)
+      ..add('username', '***SENSITIVE***')
+      ..add('maxResults', maxResults)
+      ..add('nextToken', nextToken);
     return helper.toString();
   }
 }
@@ -93,20 +77,17 @@ abstract class AdminListUserAuthEventsRequest
 class AdminListUserAuthEventsRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<AdminListUserAuthEventsRequest> {
   const AdminListUserAuthEventsRequestAwsJson11Serializer()
-      : super('AdminListUserAuthEventsRequest');
+    : super('AdminListUserAuthEventsRequest');
 
   @override
   Iterable<Type> get types => const [
-        AdminListUserAuthEventsRequest,
-        _$AdminListUserAuthEventsRequest,
-      ];
+    AdminListUserAuthEventsRequest,
+    _$AdminListUserAuthEventsRequest,
+  ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
   @override
   AdminListUserAuthEventsRequest deserialize(
     Serializers serializers,
@@ -124,25 +105,33 @@ class AdminListUserAuthEventsRequestAwsJson11Serializer
       }
       switch (key) {
         case 'UserPoolId':
-          result.userPoolId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.userPoolId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Username':
-          result.username = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.username =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'MaxResults':
-          result.maxResults = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxResults =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'NextToken':
-          result.nextToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.nextToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -160,35 +149,30 @@ class AdminListUserAuthEventsRequestAwsJson11Serializer
       :userPoolId,
       :username,
       :maxResults,
-      :nextToken
+      :nextToken,
     ) = object;
     result$.addAll([
       'UserPoolId',
-      serializers.serialize(
-        userPoolId,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(userPoolId, specifiedType: const FullType(String)),
       'Username',
-      serializers.serialize(
-        username,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(username, specifiedType: const FullType(String)),
     ]);
     if (maxResults != null) {
       result$
         ..add('MaxResults')
-        ..add(serializers.serialize(
-          maxResults,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(maxResults, specifiedType: const FullType(int)),
+        );
     }
     if (nextToken != null) {
       result$
         ..add('NextToken')
-        ..add(serializers.serialize(
-          nextToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            nextToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

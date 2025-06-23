@@ -15,9 +15,7 @@ final _exampleUri = Uri.parse('https://example.com');
 
 /// Mock client to test successfully transforming request/response.
 class SuccessfulTransformClient extends AWSBaseHttpClient {
-  SuccessfulTransformClient({
-    required this.baseClient,
-  });
+  SuccessfulTransformClient({required this.baseClient});
 
   @override
   final AWSHttpClient baseClient;
@@ -76,39 +74,42 @@ void main() {
 
   group('AWSHttpClient', () {
     test(
-        'transformRequest/Response will add a header to a request and response',
-        () async {
-      final transformerClient = SuccessfulTransformClient(
-        baseClient: mockBaseClient,
-      );
-      final response = await transformerClient
-          .send(AWSHttpRequest.post(_exampleUri))
-          .response;
-      expect(response.headers[_responseHeaderKey], _responseHeaderValue);
-    });
+      'transformRequest/Response will add a header to a request and response',
+      () async {
+        final transformerClient = SuccessfulTransformClient(
+          baseClient: mockBaseClient,
+        );
+        final response = await transformerClient
+            .send(AWSHttpRequest.post(_exampleUri))
+            .response;
+        expect(response.headers[_responseHeaderKey], _responseHeaderValue);
+      },
+    );
 
     test(
-        'exception thrown in transformRequest can be caught in response future',
-        () async {
-      final transformerClient = UnsuccessfulRequestTransformClient(
-        baseClient: mockBaseClient,
-      );
-      await expectLater(
-        transformerClient.send(AWSHttpRequest.post(_exampleUri)).response,
-        throwsA(isA<TransformRequestException>()),
-      );
-    });
+      'exception thrown in transformRequest can be caught in response future',
+      () async {
+        final transformerClient = UnsuccessfulRequestTransformClient(
+          baseClient: mockBaseClient,
+        );
+        await expectLater(
+          transformerClient.send(AWSHttpRequest.post(_exampleUri)).response,
+          throwsA(isA<TransformRequestException>()),
+        );
+      },
+    );
 
     test(
-        'exception thrown in transformResponse can be caught in response future',
-        () async {
-      final transformerClient = UnsuccessfulResponseTransformClient(
-        baseClient: mockBaseClient,
-      );
-      await expectLater(
-        transformerClient.send(AWSHttpRequest.post(_exampleUri)).response,
-        throwsA(isA<TransformResponseException>()),
-      );
-    });
+      'exception thrown in transformResponse can be caught in response future',
+      () async {
+        final transformerClient = UnsuccessfulResponseTransformClient(
+          baseClient: mockBaseClient,
+        );
+        await expectLater(
+          transformerClient.send(AWSHttpRequest.post(_exampleUri)).response,
+          throwsA(isA<TransformResponseException>()),
+        );
+      },
+    );
   });
 }

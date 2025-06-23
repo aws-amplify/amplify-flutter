@@ -1,0 +1,166 @@
+name: amplify_flutter_repo
+publish_to: none
+
+# The current constraints for Dart and Flutter SDKs.
+environment:
+  sdk: ^3.3.0
+  flutter: ">=3.19.0"
+
+# Global dependency versions for third-party dependencies of
+# Amplify Flutter projects. These represent the values which
+# have been vetted by manual review and should be used consistently
+# across all packages.
+#
+# Application of these values can be verified/updated with the `aft`
+# tool.
+dependencies:
+  async: ^2.10.0
+  build_runner: ^2.4.9
+  build_web_compilers: ^4.0.0
+  built_value: "^8.6.0"
+  built_value_generator: 8.8.1
+  code_builder: 4.10.0
+  connectivity_plus: ^6.0.1
+  # This must roughly match what's included in `dart format`
+  # on stable so that CI checks pass for generated code.
+  dart_style: ^2.3.2
+  device_info_plus: ^10.0.1
+  drift: ">=2.18.0 <2.19.0"
+  drift_dev: ">=2.18.0 <2.19.0"
+  ffigen: ^9.0.0
+  file: ">=6.0.0 <8.0.0"
+  flutter_plugin_android_lifecycle: ^2.0.9
+  graphs: ^2.1.0
+  http: ">=0.13.0 <2.0.0"
+  intl: ">=0.18.0 <1.0.0"
+  json_annotation: ">=4.9.0 <4.10.0"
+  json_serializable: 6.8.0
+  mime: ">=1.0.0 <3.0.0"
+  oauth2: ^2.0.2
+  package_info_plus: ^8.0.0
+  pigeon: ^11.0.0
+  sqlite3: ">=2.0.0 <2.7.0"
+  source_gen: ^1.3.2
+  stack_trace: ^1.10.0
+  uuid: ">=3.0.6 <5.0.0"
+  win32: ">=4.1.2 <6.0.0"
+  xml: ">=6.3.0 <=6.5.0"
+  test: ^1.22.1
+
+aft:
+  # The current constraints for platform SDKs and OSs.
+  platforms:
+    android:
+      minSdkVersion: "24"
+    ios:
+      minOSVersion: "13.0"
+    macOS:
+      minOSVersion: "10.15"
+
+  # Packages to ignore in all repo operations.
+  ignore:
+    - synthetic_package
+
+  # Strongly connected components which should have version bumps happen
+  # in unison, i.e. a version bump to one package cascades to all.
+  #
+  # By default, this happens only for minor version bumps. However, this
+  # can be modified on a per-component basis using the `propagate` flag.
+  components:
+    - name: Amplify Flutter
+      summary: amplify_flutter
+      packages:
+        - amplify_flutter
+        - amplify_core
+        - amplify_datastore
+        - amplify_datastore_plugin_interface
+        - amplify_analytics_pinpoint
+        - amplify_api
+        - amplify_auth_cognito
+        - amplify_storage_s3
+        - amplify_push_notifications
+        - amplify_push_notifications_pinpoint
+    - name: Amplify Dart
+      summary: amplify_core
+      propagate: none
+      packages:
+        - amplify_analytics_pinpoint_dart
+        - amplify_api_dart
+        - amplify_auth_cognito_dart
+        - amplify_storage_s3_dart
+    - name: Amplify UI
+      packages:
+        - amplify_authenticator
+    - name: DB Common
+      summary: amplify_db_common
+      packages:
+        - amplify_db_common
+        - amplify_db_common_dart
+    - name: Secure Storage
+      summary: amplify_secure_storage
+      packages:
+        - amplify_secure_storage
+        - amplify_secure_storage_dart
+    - name: AWS Common
+      summary: aws_common
+      propagate: none
+      packages:
+        - aws_common
+        - aws_signature_v4
+    - name: Smithy
+      summary: smithy
+      packages:
+        - smithy
+        - smithy_aws
+    - name: Worker Bee
+      summary: worker_bee
+      packages:
+        - worker_bee
+        - worker_bee_builder
+
+  # Scripts which are runnable via `aft run <script-name>`.
+  scripts:
+    license:
+      description: Adds license headers recursively in the current directory
+      from: current
+      run: $AFT_ROOT/tool/license.sh $@
+    format:
+      description: Checks formatting for all packages
+      from: all
+      run: aft format --set-exit-if-changed .
+    analyze:
+      description: Runs Dart analysis in all packages
+      from: all
+      run: aft analyze $@
+    test:unit:flutter:
+      description: Runs unit tests for all Flutter packages
+      from: flutter
+      run: $AFT_ROOT/tool/test_all_plugins.sh flutter {{ package.name }}
+    test:unit:ios:
+      description: Runs unit tests for all iOS plugins
+      from: flutter
+      run: $AFT_ROOT/tool/test_all_plugins.sh ios {{ package.name }} {{{ package.example.path }}}
+    test:unit:android:
+      description: Runs unit tests for all Android plugins
+      from: flutter
+      run: $AFT_ROOT/tool/test_all_plugins.sh android {{ package.name }} {{{ package.example.path }}}
+    build:example:ios:
+      description: Builds all example apps for iOS
+      from:
+        and:
+          - flutter
+          - example
+      run: |
+        if [ -d ios ]; then
+          flutter build ios --simulator
+        fi
+    build:example:android:
+      description: Builds all example apps for Android
+      from:
+        and:
+          - flutter
+          - example
+      run: |
+        if [ -d android ]; then
+          flutter build apk --debug
+        fi

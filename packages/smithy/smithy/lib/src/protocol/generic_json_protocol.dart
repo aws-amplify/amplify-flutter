@@ -48,8 +48,8 @@ class GenericJsonProtocol<InputPayload, Input, OutputPayload, Output>
     this.responseInterceptors = const [],
     List<SmithySerializer<dynamic>> serializers = const [],
     Map<FullType, Function> builderFactories = const {},
-  })  : _userSerializers = serializers,
-        _builderFactories = builderFactories;
+  }) : _userSerializers = serializers,
+       _builderFactories = builderFactories;
 
   @override
   final List<HttpRequestInterceptor> requestInterceptors;
@@ -60,15 +60,16 @@ class GenericJsonProtocol<InputPayload, Input, OutputPayload, Output>
   final List<SmithySerializer<dynamic>> _userSerializers;
   final Map<FullType, Function> _builderFactories;
 
-  static final _coreSerializers = (Serializers().toBuilder()
-        ..addPlugin(SmithyJsonPlugin())
-        ..addAll([
-          BigIntSerializer.asString,
-          Int64Serializer.asString,
-          TimestampSerializer.dateTime,
-          const UnitSerializer(),
-        ]))
-      .build();
+  static final _coreSerializers =
+      (Serializers().toBuilder()
+            ..addPlugin(SmithyJsonPlugin())
+            ..addAll([
+              BigIntSerializer.asString,
+              Int64Serializer.asString,
+              TimestampSerializer.dateTime,
+              const UnitSerializer(),
+            ]))
+          .build();
 
   @override
   late final Serializers serializers = () {
@@ -103,8 +104,10 @@ class GenericJsonProtocol<InputPayload, Input, OutputPayload, Output>
       'application/json';
 
   @override
-  late final JsonSerializer wireSerializer =
-      JsonSerializer(serializers, EmptyPayloadType.object);
+  late final JsonSerializer wireSerializer = JsonSerializer(
+    serializers,
+    EmptyPayloadType.object,
+  );
 
   @override
   Future<String?> resolveErrorType(AWSBaseHttpResponse response) async => null;

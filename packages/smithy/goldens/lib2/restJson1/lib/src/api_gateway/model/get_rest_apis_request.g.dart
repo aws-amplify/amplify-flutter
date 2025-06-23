@@ -12,20 +12,19 @@ class _$GetRestApisRequest extends GetRestApisRequest {
   @override
   final int? limit;
 
-  factory _$GetRestApisRequest(
-          [void Function(GetRestApisRequestBuilder)? updates]) =>
-      (new GetRestApisRequestBuilder()..update(updates))._build();
+  factory _$GetRestApisRequest([
+    void Function(GetRestApisRequestBuilder)? updates,
+  ]) => (GetRestApisRequestBuilder()..update(updates))._build();
 
   _$GetRestApisRequest._({this.position, this.limit}) : super._();
-
   @override
   GetRestApisRequest rebuild(
-          void Function(GetRestApisRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetRestApisRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetRestApisRequestBuilder toBuilder() =>
-      new GetRestApisRequestBuilder()..replace(this);
+      GetRestApisRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -71,7 +70,6 @@ class GetRestApisRequestBuilder
 
   @override
   void replace(GetRestApisRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetRestApisRequest;
   }
 
@@ -85,27 +83,26 @@ class GetRestApisRequestBuilder
 
   _$GetRestApisRequest _build() {
     final _$result =
-        _$v ?? new _$GetRestApisRequest._(position: position, limit: limit);
+        _$v ?? _$GetRestApisRequest._(position: position, limit: limit);
     replace(_$result);
     return _$result;
   }
 }
 
 class _$GetRestApisRequestPayload extends GetRestApisRequestPayload {
-  factory _$GetRestApisRequestPayload(
-          [void Function(GetRestApisRequestPayloadBuilder)? updates]) =>
-      (new GetRestApisRequestPayloadBuilder()..update(updates))._build();
+  factory _$GetRestApisRequestPayload([
+    void Function(GetRestApisRequestPayloadBuilder)? updates,
+  ]) => (GetRestApisRequestPayloadBuilder()..update(updates))._build();
 
   _$GetRestApisRequestPayload._() : super._();
-
   @override
   GetRestApisRequestPayload rebuild(
-          void Function(GetRestApisRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetRestApisRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetRestApisRequestPayloadBuilder toBuilder() =>
-      new GetRestApisRequestPayloadBuilder()..replace(this);
+      GetRestApisRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -128,7 +125,6 @@ class GetRestApisRequestPayloadBuilder
 
   @override
   void replace(GetRestApisRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetRestApisRequestPayload;
   }
 
@@ -141,7 +137,7 @@ class GetRestApisRequestPayloadBuilder
   GetRestApisRequestPayload build() => _build();
 
   _$GetRestApisRequestPayload _build() {
-    final _$result = _$v ?? new _$GetRestApisRequestPayload._();
+    final _$result = _$v ?? _$GetRestApisRequestPayload._();
     replace(_$result);
     return _$result;
   }

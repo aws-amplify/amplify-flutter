@@ -1,0 +1,69 @@
+# A Graphql Schema for creating users and sending verification and MFA codes.
+
+type Query {
+  listMFACodes: [MFACode] @aws_api_key
+  listAuthEvents(username: String): AWSJSON @aws_api_key
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): CreateUserResponse @aws_api_key
+  enableSmsMfa(username: String!): EnableSmsMfaResponse @aws_api_key
+  deleteUser(username: String!): DeleteUserResponse @aws_api_key
+  deleteDevice(input: DeleteDeviceInput!): DeleteDeviceResponse @aws_api_key
+  createMFACode(input: CreateMFACodeInput!): MFACode @aws_api_key
+}
+
+type Subscription {
+  onCreateMFACode(username: String): MFACode
+    @aws_subscribe(mutations: ["createMFACode"])
+}
+
+input CreateUserInput {
+  username: String!
+  password: String!
+  autoConfirm: Boolean
+  enableMFA: Boolean
+  verifyAttributes: Boolean
+  email: String
+  phoneNumber: String
+  name: String
+  givenName: String
+}
+
+type CreateUserResponse {
+  success: Boolean!
+  cognitoUsername: String
+  error: String
+}
+
+type EnableSmsMfaResponse {
+  success: Boolean!
+  error: String
+}
+
+type DeleteUserResponse {
+  success: Boolean!
+  error: String
+}
+
+input CreateMFACodeInput {
+  username: String!
+  code: String!
+  userAttributes: AWSJSON!
+}
+
+type MFACode {
+  username: String!
+  code: String!
+  userAttributes: AWSJSON!
+}
+
+input DeleteDeviceInput {
+  username: String!
+  deviceKey: String!
+}
+
+type DeleteDeviceResponse {
+  success: Boolean!
+  error: String
+}

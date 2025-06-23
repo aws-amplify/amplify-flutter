@@ -24,9 +24,7 @@ mixin PublishHelpers on AmplifyCommand {
   ) async {
     final unpublishedPackages = (await Future.wait([
       for (final package in publishablePackages) checkPublishable(package),
-    ]))
-        .whereType<PackageInfo>()
-        .toList();
+    ])).whereType<PackageInfo>().toList();
 
     final constraintsChecker = PublishConstraintsChecker(
       dryRun ? ConstraintsAction.update : ConstraintsAction.check,
@@ -80,14 +78,11 @@ mixin PublishHelpers on AmplifyCommand {
 
     try {
       final versionInfo = await resolveVersionInfo(package.name);
-      final publishedVersion = maxBy(
-        [
-          if (versionInfo?.latestPrerelease != null)
-            versionInfo!.latestPrerelease!,
-          if (versionInfo?.latestVersion != null) versionInfo!.latestVersion!,
-        ],
-        (v) => v,
-      );
+      final publishedVersion = maxBy([
+        if (versionInfo?.latestPrerelease != null)
+          versionInfo!.latestPrerelease!,
+        if (versionInfo?.latestVersion != null) versionInfo!.latestVersion!,
+      ], (v) => v);
       if (publishedVersion == null) {
         logger.info('No published info for package ${package.name}');
         return package;
@@ -162,11 +157,7 @@ mixin PublishHelpers on AmplifyCommand {
     logger.info('Publishing ${package.name}${dryRun ? ' (dry run)' : ''}...');
     final publishCmd = await Process.start(
       package.flavor.entrypoint,
-      [
-        'pub',
-        'publish',
-        if (dryRun) '--dry-run',
-      ],
+      ['pub', 'publish', if (dryRun) '--dry-run'],
       workingDirectory: package.path,
       runInShell: true,
     );
@@ -212,7 +203,8 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
       ..addFlag(
         'force',
         abbr: 'f',
-        help: 'Ignores errors in pre-publishing commands and publishes '
+        help:
+            'Ignores errors in pre-publishing commands and publishes '
             'without prompt',
         negatable: false,
       )
@@ -244,8 +236,9 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     final publishablePackages = repo.publishablePackages(commandPackages);
 
     // Gather packages which need to be published.
-    final packagesNeedingPublish =
-        await unpublishedPackages(publishablePackages);
+    final packagesNeedingPublish = await unpublishedPackages(
+      publishablePackages,
+    );
 
     // Publishable packages which are being held back.
     final unpublishablePackages = publishablePackages.where(
@@ -309,12 +302,7 @@ Future<void> runBuildRunner(
     return;
   }
   // Run `pub get` to ensure `build_runner` is available.
-  await runPub(
-    package.flavor,
-    ['get'],
-    package,
-    verbose: verbose,
-  );
+  await runPub(package.flavor, ['get'], package, verbose: verbose);
   logger.debug('Running build_runner for ${package.name}...');
   final buildRunnerCmd = await Process.start(
     package.flavor.entrypoint,

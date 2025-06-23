@@ -7,20 +7,19 @@ part of 'change_password_response.dart';
 // **************************************************************************
 
 class _$ChangePasswordResponse extends ChangePasswordResponse {
-  factory _$ChangePasswordResponse(
-          [void Function(ChangePasswordResponseBuilder)? updates]) =>
-      (new ChangePasswordResponseBuilder()..update(updates))._build();
+  factory _$ChangePasswordResponse([
+    void Function(ChangePasswordResponseBuilder)? updates,
+  ]) => (ChangePasswordResponseBuilder()..update(updates))._build();
 
   _$ChangePasswordResponse._() : super._();
-
   @override
   ChangePasswordResponse rebuild(
-          void Function(ChangePasswordResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ChangePasswordResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ChangePasswordResponseBuilder toBuilder() =>
-      new ChangePasswordResponseBuilder()..replace(this);
+      ChangePasswordResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -42,7 +41,6 @@ class ChangePasswordResponseBuilder
 
   @override
   void replace(ChangePasswordResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ChangePasswordResponse;
   }
 
@@ -55,7 +53,7 @@ class ChangePasswordResponseBuilder
   ChangePasswordResponse build() => _build();
 
   _$ChangePasswordResponse _build() {
-    final _$result = _$v ?? new _$ChangePasswordResponse._();
+    final _$result = _$v ?? _$ChangePasswordResponse._();
     replace(_$result);
     return _$result;
   }

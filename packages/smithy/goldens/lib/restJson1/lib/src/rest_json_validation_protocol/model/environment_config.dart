@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_validation_protocol.model.environment_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,13 +35,14 @@ abstract class EnvironmentConfig
   }
 
   /// Config settings that can be set as environment variables.
-  factory EnvironmentConfig.build(
-      [void Function(EnvironmentConfigBuilder) updates]) = _$EnvironmentConfig;
+  factory EnvironmentConfig.build([
+    void Function(EnvironmentConfigBuilder) updates,
+  ]) = _$EnvironmentConfig;
 
   const EnvironmentConfig._();
 
   static const List<_i2.SmithySerializer<EnvironmentConfig>> serializers = [
-    EnvironmentConfigRestJson1Serializer()
+    EnvironmentConfigRestJson1Serializer(),
   ];
 
   String? get awsAccessKeyId;
@@ -54,40 +55,23 @@ abstract class EnvironmentConfig
   String? get awsProfile;
   @override
   List<Object?> get props => [
-        awsAccessKeyId,
-        awsSecretAccessKey,
-        awsDefaultRegion,
-        awsRetryMode,
-        awsSessionToken,
-        awsProfile,
-      ];
+    awsAccessKeyId,
+    awsSecretAccessKey,
+    awsDefaultRegion,
+    awsRetryMode,
+    awsSessionToken,
+    awsProfile,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EnvironmentConfig')
-      ..add(
-        'awsAccessKeyId',
-        awsAccessKeyId,
-      )
-      ..add(
-        'awsSecretAccessKey',
-        awsSecretAccessKey,
-      )
-      ..add(
-        'awsDefaultRegion',
-        awsDefaultRegion,
-      )
-      ..add(
-        'awsRetryMode',
-        awsRetryMode,
-      )
-      ..add(
-        'awsSessionToken',
-        awsSessionToken,
-      )
-      ..add(
-        'awsProfile',
-        awsProfile,
-      );
+      ..add('awsAccessKeyId', awsAccessKeyId)
+      ..add('awsSecretAccessKey', awsSecretAccessKey)
+      ..add('awsDefaultRegion', awsDefaultRegion)
+      ..add('awsRetryMode', awsRetryMode)
+      ..add('awsSessionToken', awsSessionToken)
+      ..add('awsProfile', awsProfile);
     return helper.toString();
   }
 }
@@ -97,17 +81,13 @@ class EnvironmentConfigRestJson1Serializer
   const EnvironmentConfigRestJson1Serializer() : super('EnvironmentConfig');
 
   @override
-  Iterable<Type> get types => const [
-        EnvironmentConfig,
-        _$EnvironmentConfig,
-      ];
+  Iterable<Type> get types => const [EnvironmentConfig, _$EnvironmentConfig];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   EnvironmentConfig deserialize(
     Serializers serializers,
@@ -125,35 +105,47 @@ class EnvironmentConfigRestJson1Serializer
       }
       switch (key) {
         case 'AWS_ACCESS_KEY_ID':
-          result.awsAccessKeyId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsAccessKeyId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_DEFAULT_REGION':
-          result.awsDefaultRegion = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsDefaultRegion =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_PROFILE':
-          result.awsProfile = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsProfile =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_RETRY_MODE':
-          result.awsRetryMode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.awsRetryMode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 'AWS_SECRET_ACCESS_KEY':
-          result.awsSecretAccessKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSecretAccessKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_SESSION_TOKEN':
-          result.awsSessionToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSessionToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -173,55 +165,67 @@ class EnvironmentConfigRestJson1Serializer
       :awsProfile,
       :awsRetryMode,
       :awsSecretAccessKey,
-      :awsSessionToken
+      :awsSessionToken,
     ) = object;
     if (awsAccessKeyId != null) {
       result$
         ..add('AWS_ACCESS_KEY_ID')
-        ..add(serializers.serialize(
-          awsAccessKeyId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsAccessKeyId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (awsDefaultRegion != null) {
       result$
         ..add('AWS_DEFAULT_REGION')
-        ..add(serializers.serialize(
-          awsDefaultRegion,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsDefaultRegion,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (awsProfile != null) {
       result$
         ..add('AWS_PROFILE')
-        ..add(serializers.serialize(
-          awsProfile,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsProfile,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (awsRetryMode != null) {
       result$
         ..add('AWS_RETRY_MODE')
-        ..add(serializers.serialize(
-          awsRetryMode,
-          specifiedType: const FullType(RetryMode),
-        ));
+        ..add(
+          serializers.serialize(
+            awsRetryMode,
+            specifiedType: const FullType(RetryMode),
+          ),
+        );
     }
     if (awsSecretAccessKey != null) {
       result$
         ..add('AWS_SECRET_ACCESS_KEY')
-        ..add(serializers.serialize(
-          awsSecretAccessKey,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsSecretAccessKey,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (awsSessionToken != null) {
       result$
         ..add('AWS_SESSION_TOKEN')
-        ..add(serializers.serialize(
-          awsSessionToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsSessionToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

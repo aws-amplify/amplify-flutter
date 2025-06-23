@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.document_type_as_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,18 +16,22 @@ abstract class DocumentTypeAsPayloadInputOutput
         _i1.HttpInput<_i2.JsonObject>,
         _i3.AWSEquatable<DocumentTypeAsPayloadInputOutput>
     implements
-        Built<DocumentTypeAsPayloadInputOutput,
-            DocumentTypeAsPayloadInputOutputBuilder>,
+        Built<
+          DocumentTypeAsPayloadInputOutput,
+          DocumentTypeAsPayloadInputOutputBuilder
+        >,
         _i1.HasPayload<_i2.JsonObject> {
   factory DocumentTypeAsPayloadInputOutput({Object? documentValue}) {
     return _$DocumentTypeAsPayloadInputOutput._(
-        documentValue:
-            documentValue == null ? null : _i2.JsonObject(documentValue));
+      documentValue: documentValue == null
+          ? null
+          : _i2.JsonObject(documentValue),
+    );
   }
 
-  factory DocumentTypeAsPayloadInputOutput.build(
-          [void Function(DocumentTypeAsPayloadInputOutputBuilder) updates]) =
-      _$DocumentTypeAsPayloadInputOutput;
+  factory DocumentTypeAsPayloadInputOutput.build([
+    void Function(DocumentTypeAsPayloadInputOutputBuilder) updates,
+  ]) = _$DocumentTypeAsPayloadInputOutput;
 
   const DocumentTypeAsPayloadInputOutput._();
 
@@ -35,37 +39,34 @@ abstract class DocumentTypeAsPayloadInputOutput
     _i2.JsonObject? payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      DocumentTypeAsPayloadInputOutput.build((b) {
-        b.documentValue = payload;
-      });
+  }) => DocumentTypeAsPayloadInputOutput.build((b) {
+    b.documentValue = payload;
+  });
 
   /// Constructs a [DocumentTypeAsPayloadInputOutput] from a [payload] and [response].
   factory DocumentTypeAsPayloadInputOutput.fromResponse(
     _i2.JsonObject? payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      DocumentTypeAsPayloadInputOutput.build((b) {
-        b.documentValue = payload;
-      });
+  ) => DocumentTypeAsPayloadInputOutput.build((b) {
+    b.documentValue = payload;
+  });
 
   static const List<_i1.SmithySerializer<_i2.JsonObject?>> serializers = [
-    DocumentTypeAsPayloadInputOutputRestJson1Serializer()
+    DocumentTypeAsPayloadInputOutputRestJson1Serializer(),
   ];
 
   _i2.JsonObject? get documentValue;
   @override
   _i2.JsonObject? getPayload() => documentValue;
+
   @override
   List<Object?> get props => [documentValue];
+
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DocumentTypeAsPayloadInputOutput')
-          ..add(
-            'documentValue',
-            documentValue,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'DocumentTypeAsPayloadInputOutput',
+    )..add('documentValue', documentValue);
     return helper.toString();
   }
 }
@@ -73,20 +74,19 @@ abstract class DocumentTypeAsPayloadInputOutput
 class DocumentTypeAsPayloadInputOutputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<_i2.JsonObject> {
   const DocumentTypeAsPayloadInputOutputRestJson1Serializer()
-      : super('DocumentTypeAsPayloadInputOutput');
+    : super('DocumentTypeAsPayloadInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        DocumentTypeAsPayloadInputOutput,
-        _$DocumentTypeAsPayloadInputOutput,
-      ];
+    DocumentTypeAsPayloadInputOutput,
+    _$DocumentTypeAsPayloadInputOutput,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   _i2.JsonObject deserialize(
     Serializers serializers,
@@ -94,9 +94,10 @@ class DocumentTypeAsPayloadInputOutputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(_i2.JsonObject),
-    ) as _i2.JsonObject);
+          serialized,
+          specifiedType: const FullType(_i2.JsonObject),
+        )
+        as _i2.JsonObject);
   }
 
   @override

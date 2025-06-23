@@ -15,18 +15,16 @@ class _$CustomCodeError extends CustomCodeError {
   final Map<String, String>? headers;
 
   factory _$CustomCodeError([void Function(CustomCodeErrorBuilder)? updates]) =>
-      (new CustomCodeErrorBuilder()..update(updates))._build();
+      (CustomCodeErrorBuilder()..update(updates))._build();
 
   _$CustomCodeError._({this.message, this.statusCode, this.headers})
-      : super._();
-
+    : super._();
   @override
   CustomCodeError rebuild(void Function(CustomCodeErrorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CustomCodeErrorBuilder toBuilder() =>
-      new CustomCodeErrorBuilder()..replace(this);
+  CustomCodeErrorBuilder toBuilder() => CustomCodeErrorBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +72,6 @@ class CustomCodeErrorBuilder
 
   @override
   void replace(CustomCodeError other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CustomCodeError;
   }
 
@@ -87,9 +84,13 @@ class CustomCodeErrorBuilder
   CustomCodeError build() => _build();
 
   _$CustomCodeError _build() {
-    final _$result = _$v ??
-        new _$CustomCodeError._(
-            message: message, statusCode: statusCode, headers: headers);
+    final _$result =
+        _$v ??
+        _$CustomCodeError._(
+          message: message,
+          statusCode: statusCode,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

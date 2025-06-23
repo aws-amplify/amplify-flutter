@@ -58,8 +58,9 @@ class UriPattern extends SmithyPattern {
             'Literal query parameters must not be repeated: $uri',
           );
         }
-        queryLiterals[actualKey] =
-            parameterParts.length == 2 ? parameterParts[1] : '';
+        queryLiterals[actualKey] = parameterParts.length == 2
+            ? parameterParts[1]
+            : '';
       }
     }
 
@@ -76,10 +77,7 @@ class UriPattern extends SmithyPattern {
   final Map<String, String> queryLiterals;
 
   @override
-  List<Object> get props => [
-        queryLiterals,
-        ...super.props,
-      ];
+  List<Object> get props => [queryLiterals, ...super.props];
 
   Map<String, Object?> toJson() => _$UriPatternToJson(this);
 }

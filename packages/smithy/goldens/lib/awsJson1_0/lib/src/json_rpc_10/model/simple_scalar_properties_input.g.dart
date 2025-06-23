@@ -12,21 +12,20 @@ class _$SimpleScalarPropertiesInput extends SimpleScalarPropertiesInput {
   @override
   final double? doubleValue;
 
-  factory _$SimpleScalarPropertiesInput(
-          [void Function(SimpleScalarPropertiesInputBuilder)? updates]) =>
-      (new SimpleScalarPropertiesInputBuilder()..update(updates))._build();
+  factory _$SimpleScalarPropertiesInput([
+    void Function(SimpleScalarPropertiesInputBuilder)? updates,
+  ]) => (SimpleScalarPropertiesInputBuilder()..update(updates))._build();
 
   _$SimpleScalarPropertiesInput._({this.floatValue, this.doubleValue})
-      : super._();
-
+    : super._();
   @override
   SimpleScalarPropertiesInput rebuild(
-          void Function(SimpleScalarPropertiesInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SimpleScalarPropertiesInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SimpleScalarPropertiesInputBuilder toBuilder() =>
-      new SimpleScalarPropertiesInputBuilder()..replace(this);
+      SimpleScalarPropertiesInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,8 +47,10 @@ class _$SimpleScalarPropertiesInput extends SimpleScalarPropertiesInput {
 
 class SimpleScalarPropertiesInputBuilder
     implements
-        Builder<SimpleScalarPropertiesInput,
-            SimpleScalarPropertiesInputBuilder> {
+        Builder<
+          SimpleScalarPropertiesInput,
+          SimpleScalarPropertiesInputBuilder
+        > {
   _$SimpleScalarPropertiesInput? _$v;
 
   double? _floatValue;
@@ -74,7 +75,6 @@ class SimpleScalarPropertiesInputBuilder
 
   @override
   void replace(SimpleScalarPropertiesInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleScalarPropertiesInput;
   }
 
@@ -87,9 +87,12 @@ class SimpleScalarPropertiesInputBuilder
   SimpleScalarPropertiesInput build() => _build();
 
   _$SimpleScalarPropertiesInput _build() {
-    final _$result = _$v ??
-        new _$SimpleScalarPropertiesInput._(
-            floatValue: floatValue, doubleValue: doubleValue);
+    final _$result =
+        _$v ??
+        _$SimpleScalarPropertiesInput._(
+          floatValue: floatValue,
+          doubleValue: doubleValue,
+        );
     replace(_$result);
     return _$result;
   }

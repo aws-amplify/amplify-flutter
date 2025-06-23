@@ -13,27 +13,22 @@ class _$HttpRequestWithFloatLabelsInput
   @override
   final double double_;
 
-  factory _$HttpRequestWithFloatLabelsInput(
-          [void Function(HttpRequestWithFloatLabelsInputBuilder)? updates]) =>
-      (new HttpRequestWithFloatLabelsInputBuilder()..update(updates))._build();
+  factory _$HttpRequestWithFloatLabelsInput([
+    void Function(HttpRequestWithFloatLabelsInputBuilder)? updates,
+  ]) => (HttpRequestWithFloatLabelsInputBuilder()..update(updates))._build();
 
-  _$HttpRequestWithFloatLabelsInput._(
-      {required this.float, required this.double_})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        float, r'HttpRequestWithFloatLabelsInput', 'float');
-    BuiltValueNullFieldError.checkNotNull(
-        double_, r'HttpRequestWithFloatLabelsInput', 'double_');
-  }
-
+  _$HttpRequestWithFloatLabelsInput._({
+    required this.float,
+    required this.double_,
+  }) : super._();
   @override
   HttpRequestWithFloatLabelsInput rebuild(
-          void Function(HttpRequestWithFloatLabelsInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithFloatLabelsInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithFloatLabelsInputBuilder toBuilder() =>
-      new HttpRequestWithFloatLabelsInputBuilder()..replace(this);
+      HttpRequestWithFloatLabelsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -55,8 +50,10 @@ class _$HttpRequestWithFloatLabelsInput
 
 class HttpRequestWithFloatLabelsInputBuilder
     implements
-        Builder<HttpRequestWithFloatLabelsInput,
-            HttpRequestWithFloatLabelsInputBuilder> {
+        Builder<
+          HttpRequestWithFloatLabelsInput,
+          HttpRequestWithFloatLabelsInputBuilder
+        > {
   _$HttpRequestWithFloatLabelsInput? _$v;
 
   double? _float;
@@ -81,7 +78,6 @@ class HttpRequestWithFloatLabelsInputBuilder
 
   @override
   void replace(HttpRequestWithFloatLabelsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithFloatLabelsInput;
   }
 
@@ -94,12 +90,20 @@ class HttpRequestWithFloatLabelsInputBuilder
   HttpRequestWithFloatLabelsInput build() => _build();
 
   _$HttpRequestWithFloatLabelsInput _build() {
-    final _$result = _$v ??
-        new _$HttpRequestWithFloatLabelsInput._(
-            float: BuiltValueNullFieldError.checkNotNull(
-                float, r'HttpRequestWithFloatLabelsInput', 'float'),
-            double_: BuiltValueNullFieldError.checkNotNull(
-                double_, r'HttpRequestWithFloatLabelsInput', 'double_'));
+    final _$result =
+        _$v ??
+        _$HttpRequestWithFloatLabelsInput._(
+          float: BuiltValueNullFieldError.checkNotNull(
+            float,
+            r'HttpRequestWithFloatLabelsInput',
+            'float',
+          ),
+          double_: BuiltValueNullFieldError.checkNotNull(
+            double_,
+            r'HttpRequestWithFloatLabelsInput',
+            'double_',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -107,23 +111,20 @@ class HttpRequestWithFloatLabelsInputBuilder
 
 class _$HttpRequestWithFloatLabelsInputPayload
     extends HttpRequestWithFloatLabelsInputPayload {
-  factory _$HttpRequestWithFloatLabelsInputPayload(
-          [void Function(HttpRequestWithFloatLabelsInputPayloadBuilder)?
-              updates]) =>
-      (new HttpRequestWithFloatLabelsInputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$HttpRequestWithFloatLabelsInputPayload([
+    void Function(HttpRequestWithFloatLabelsInputPayloadBuilder)? updates,
+  ]) => (HttpRequestWithFloatLabelsInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$HttpRequestWithFloatLabelsInputPayload._() : super._();
-
   @override
   HttpRequestWithFloatLabelsInputPayload rebuild(
-          void Function(HttpRequestWithFloatLabelsInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithFloatLabelsInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithFloatLabelsInputPayloadBuilder toBuilder() =>
-      new HttpRequestWithFloatLabelsInputPayloadBuilder()..replace(this);
+      HttpRequestWithFloatLabelsInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -139,21 +140,23 @@ class _$HttpRequestWithFloatLabelsInputPayload
 
 class HttpRequestWithFloatLabelsInputPayloadBuilder
     implements
-        Builder<HttpRequestWithFloatLabelsInputPayload,
-            HttpRequestWithFloatLabelsInputPayloadBuilder> {
+        Builder<
+          HttpRequestWithFloatLabelsInputPayload,
+          HttpRequestWithFloatLabelsInputPayloadBuilder
+        > {
   _$HttpRequestWithFloatLabelsInputPayload? _$v;
 
   HttpRequestWithFloatLabelsInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithFloatLabelsInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithFloatLabelsInputPayload;
   }
 
   @override
   void update(
-      void Function(HttpRequestWithFloatLabelsInputPayloadBuilder)? updates) {
+    void Function(HttpRequestWithFloatLabelsInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -161,7 +164,7 @@ class HttpRequestWithFloatLabelsInputPayloadBuilder
   HttpRequestWithFloatLabelsInputPayload build() => _build();
 
   _$HttpRequestWithFloatLabelsInputPayload _build() {
-    final _$result = _$v ?? new _$HttpRequestWithFloatLabelsInputPayload._();
+    final _$result = _$v ?? _$HttpRequestWithFloatLabelsInputPayload._();
     replace(_$result);
     return _$result;
   }

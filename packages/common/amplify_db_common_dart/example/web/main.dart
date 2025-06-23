@@ -81,18 +81,12 @@ class AppComponent extends StatefulComponent {
                   _content = value ?? '';
                 },
               ),
-              ButtonComponent(
-                innerHtml: 'Add',
-                onClick: _insert,
-              ),
+              ButtonComponent(innerHtml: 'Add', onClick: _insert),
             ],
           ),
           RowComponent(
             children: [
-              ButtonComponent(
-                innerHtml: 'Re-query Database',
-                onClick: _query,
-              ),
+              ButtonComponent(innerHtml: 'Re-query Database', onClick: _query),
             ],
           ),
           if (_loading) TextComponent('Loading ...'),

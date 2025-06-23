@@ -37,32 +37,30 @@ class _$PutObjectOutput extends PutObjectOutput {
   final RequestCharged? requestCharged;
 
   factory _$PutObjectOutput([void Function(PutObjectOutputBuilder)? updates]) =>
-      (new PutObjectOutputBuilder()..update(updates))._build();
+      (PutObjectOutputBuilder()..update(updates))._build();
 
-  _$PutObjectOutput._(
-      {this.expiration,
-      this.eTag,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.serverSideEncryption,
-      this.versionId,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.ssekmsEncryptionContext,
-      this.bucketKeyEnabled,
-      this.requestCharged})
-      : super._();
-
+  _$PutObjectOutput._({
+    this.expiration,
+    this.eTag,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.serverSideEncryption,
+    this.versionId,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.bucketKeyEnabled,
+    this.requestCharged,
+  }) : super._();
   @override
   PutObjectOutput rebuild(void Function(PutObjectOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PutObjectOutputBuilder toBuilder() =>
-      new PutObjectOutputBuilder()..replace(this);
+  PutObjectOutputBuilder toBuilder() => PutObjectOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -202,7 +200,6 @@ class PutObjectOutputBuilder
 
   @override
   void replace(PutObjectOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutObjectOutput;
   }
 
@@ -215,42 +212,43 @@ class PutObjectOutputBuilder
   PutObjectOutput build() => _build();
 
   _$PutObjectOutput _build() {
-    final _$result = _$v ??
-        new _$PutObjectOutput._(
-            expiration: expiration,
-            eTag: eTag,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            serverSideEncryption: serverSideEncryption,
-            versionId: versionId,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            ssekmsKeyId: ssekmsKeyId,
-            ssekmsEncryptionContext: ssekmsEncryptionContext,
-            bucketKeyEnabled: bucketKeyEnabled,
-            requestCharged: requestCharged);
+    final _$result =
+        _$v ??
+        _$PutObjectOutput._(
+          expiration: expiration,
+          eTag: eTag,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+          serverSideEncryption: serverSideEncryption,
+          versionId: versionId,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          ssekmsKeyId: ssekmsKeyId,
+          ssekmsEncryptionContext: ssekmsEncryptionContext,
+          bucketKeyEnabled: bucketKeyEnabled,
+          requestCharged: requestCharged,
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$PutObjectOutputPayload extends PutObjectOutputPayload {
-  factory _$PutObjectOutputPayload(
-          [void Function(PutObjectOutputPayloadBuilder)? updates]) =>
-      (new PutObjectOutputPayloadBuilder()..update(updates))._build();
+  factory _$PutObjectOutputPayload([
+    void Function(PutObjectOutputPayloadBuilder)? updates,
+  ]) => (PutObjectOutputPayloadBuilder()..update(updates))._build();
 
   _$PutObjectOutputPayload._() : super._();
-
   @override
   PutObjectOutputPayload rebuild(
-          void Function(PutObjectOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PutObjectOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PutObjectOutputPayloadBuilder toBuilder() =>
-      new PutObjectOutputPayloadBuilder()..replace(this);
+      PutObjectOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -272,7 +270,6 @@ class PutObjectOutputPayloadBuilder
 
   @override
   void replace(PutObjectOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutObjectOutputPayload;
   }
 
@@ -285,7 +282,7 @@ class PutObjectOutputPayloadBuilder
   PutObjectOutputPayload build() => _build();
 
   _$PutObjectOutputPayload _build() {
-    final _$result = _$v ?? new _$PutObjectOutputPayload._();
+    final _$result = _$v ?? _$PutObjectOutputPayload._();
     replace(_$result);
     return _$result;
   }

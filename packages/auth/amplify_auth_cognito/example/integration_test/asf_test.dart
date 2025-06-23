@@ -21,9 +21,7 @@ void main() {
     late String phoneNumber;
 
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'asf-audit',
-      );
+      await testRunner.configure(environmentName: 'asf-audit');
       username = generateUsername();
       password = generatePassword();
       email = generateEmail();
@@ -42,14 +40,16 @@ void main() {
         expect(
           event.eventContextData?.deviceName,
           isNot('Other, Other'),
-          reason: 'When no `DeviceName` is provided, Cognito defaults to '
+          reason:
+              'When no `DeviceName` is provided, Cognito defaults to '
               '"Other, Other"',
         );
         expect(event.eventRisk, isNotNull);
         expect(
           event.eventRisk!.riskDecision,
           RiskDecisionType.noRisk,
-          reason: 'When the signature algorithm is performed correctly, '
+          reason:
+              'When the signature algorithm is performed correctly, '
               'Cognito should return a `NoRisk` decision',
         );
       }
@@ -114,9 +114,7 @@ void main() {
         },
       );
 
-      final signInCode = await getOtpCode(
-        UserAttribute.phone(phoneNumber),
-      );
+      final signInCode = await getOtpCode(UserAttribute.phone(phoneNumber));
       final signInResult = await Amplify.Auth.signIn(
         username: username,
         password: password,
@@ -129,10 +127,7 @@ void main() {
       final confirmSignInResult = await Amplify.Auth.confirmSignIn(
         confirmationValue: await signInCode.code,
       );
-      expect(
-        confirmSignInResult.nextStep.signInStep,
-        AuthSignInStep.done,
-      );
+      expect(confirmSignInResult.nextStep.signInStep, AuthSignInStep.done);
 
       final authEvents = await adminListAuthEvents(username);
       validateEvents(authEvents, EventType.signIn);
@@ -167,24 +162,23 @@ void main() {
         AuthResetPasswordStep.confirmResetPasswordWithCode,
       );
 
-      final forgotPasswordEvents = (await adminListAuthEvents(username))
-          .toSet()
-          .difference(signInEvents);
+      final forgotPasswordEvents = (await adminListAuthEvents(
+        username,
+      )).toSet().difference(signInEvents);
       validateEvents(forgotPasswordEvents, EventType.forgotPassword);
 
       password = generatePassword();
       final confirmForgotPasswordResult =
           await Amplify.Auth.confirmResetPassword(
-        username: username,
-        newPassword: password,
-        confirmationCode: await resetCode.code,
-      );
+            username: username,
+            newPassword: password,
+            confirmationCode: await resetCode.code,
+          );
       expect(confirmForgotPasswordResult.isPasswordReset, isTrue);
 
-      final confirmForgotPasswordEvents = (await adminListAuthEvents(username))
-          .toSet()
-          .difference(signInEvents)
-          .difference(forgotPasswordEvents);
+      final confirmForgotPasswordEvents = (await adminListAuthEvents(
+        username,
+      )).toSet().difference(signInEvents).difference(forgotPasswordEvents);
       validateEvents(confirmForgotPasswordEvents, EventType.forgotPassword);
     });
 
@@ -208,9 +202,9 @@ void main() {
       final resendSignUpCode = await getOtpCode(UserAttribute.email(email));
       await Amplify.Auth.resendSignUpCode(username: username);
 
-      final resendEvents = (await adminListAuthEvents(username))
-          .toSet()
-          .difference(signUpEvents);
+      final resendEvents = (await adminListAuthEvents(
+        username,
+      )).toSet().difference(signUpEvents);
       validateEvents(resendEvents, EventType.resendCode);
 
       final confirmSignUpResult = await Amplify.Auth.confirmSignUp(
@@ -219,10 +213,9 @@ void main() {
       );
       expect(confirmSignUpResult.nextStep.signUpStep, AuthSignUpStep.done);
 
-      final confirmEvents = (await adminListAuthEvents(username))
-          .toSet()
-          .difference(signUpEvents)
-          .difference(resendEvents);
+      final confirmEvents = (await adminListAuthEvents(
+        username,
+      )).toSet().difference(signUpEvents).difference(resendEvents);
       validateEvents(confirmEvents, EventType.signUp);
     });
   });

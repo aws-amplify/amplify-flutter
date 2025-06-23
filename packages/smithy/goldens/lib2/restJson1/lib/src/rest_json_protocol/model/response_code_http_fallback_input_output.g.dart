@@ -8,22 +8,20 @@ part of 'response_code_http_fallback_input_output.dart';
 
 class _$ResponseCodeHttpFallbackInputOutput
     extends ResponseCodeHttpFallbackInputOutput {
-  factory _$ResponseCodeHttpFallbackInputOutput(
-          [void Function(ResponseCodeHttpFallbackInputOutputBuilder)?
-              updates]) =>
-      (new ResponseCodeHttpFallbackInputOutputBuilder()..update(updates))
-          ._build();
+  factory _$ResponseCodeHttpFallbackInputOutput([
+    void Function(ResponseCodeHttpFallbackInputOutputBuilder)? updates,
+  ]) =>
+      (ResponseCodeHttpFallbackInputOutputBuilder()..update(updates))._build();
 
   _$ResponseCodeHttpFallbackInputOutput._() : super._();
-
   @override
   ResponseCodeHttpFallbackInputOutput rebuild(
-          void Function(ResponseCodeHttpFallbackInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ResponseCodeHttpFallbackInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResponseCodeHttpFallbackInputOutputBuilder toBuilder() =>
-      new ResponseCodeHttpFallbackInputOutputBuilder()..replace(this);
+      ResponseCodeHttpFallbackInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -39,21 +37,23 @@ class _$ResponseCodeHttpFallbackInputOutput
 
 class ResponseCodeHttpFallbackInputOutputBuilder
     implements
-        Builder<ResponseCodeHttpFallbackInputOutput,
-            ResponseCodeHttpFallbackInputOutputBuilder> {
+        Builder<
+          ResponseCodeHttpFallbackInputOutput,
+          ResponseCodeHttpFallbackInputOutputBuilder
+        > {
   _$ResponseCodeHttpFallbackInputOutput? _$v;
 
   ResponseCodeHttpFallbackInputOutputBuilder();
 
   @override
   void replace(ResponseCodeHttpFallbackInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResponseCodeHttpFallbackInputOutput;
   }
 
   @override
   void update(
-      void Function(ResponseCodeHttpFallbackInputOutputBuilder)? updates) {
+    void Function(ResponseCodeHttpFallbackInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -61,7 +61,7 @@ class ResponseCodeHttpFallbackInputOutputBuilder
   ResponseCodeHttpFallbackInputOutput build() => _build();
 
   _$ResponseCodeHttpFallbackInputOutput _build() {
-    final _$result = _$v ?? new _$ResponseCodeHttpFallbackInputOutput._();
+    final _$result = _$v ?? _$ResponseCodeHttpFallbackInputOutput._();
     replace(_$result);
     return _$result;
   }

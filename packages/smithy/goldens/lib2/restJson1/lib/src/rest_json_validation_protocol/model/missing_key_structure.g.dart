@@ -10,22 +10,19 @@ class _$MissingKeyStructure extends MissingKeyStructure {
   @override
   final String hi;
 
-  factory _$MissingKeyStructure(
-          [void Function(MissingKeyStructureBuilder)? updates]) =>
-      (new MissingKeyStructureBuilder()..update(updates))._build();
+  factory _$MissingKeyStructure([
+    void Function(MissingKeyStructureBuilder)? updates,
+  ]) => (MissingKeyStructureBuilder()..update(updates))._build();
 
-  _$MissingKeyStructure._({required this.hi}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(hi, r'MissingKeyStructure', 'hi');
-  }
-
+  _$MissingKeyStructure._({required this.hi}) : super._();
   @override
   MissingKeyStructure rebuild(
-          void Function(MissingKeyStructureBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MissingKeyStructureBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MissingKeyStructureBuilder toBuilder() =>
-      new MissingKeyStructureBuilder()..replace(this);
+      MissingKeyStructureBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -63,7 +60,6 @@ class MissingKeyStructureBuilder
 
   @override
   void replace(MissingKeyStructure other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MissingKeyStructure;
   }
 
@@ -76,10 +72,15 @@ class MissingKeyStructureBuilder
   MissingKeyStructure build() => _build();
 
   _$MissingKeyStructure _build() {
-    final _$result = _$v ??
-        new _$MissingKeyStructure._(
-            hi: BuiltValueNullFieldError.checkNotNull(
-                hi, r'MissingKeyStructure', 'hi'));
+    final _$result =
+        _$v ??
+        _$MissingKeyStructure._(
+          hi: BuiltValueNullFieldError.checkNotNull(
+            hi,
+            r'MissingKeyStructure',
+            'hi',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

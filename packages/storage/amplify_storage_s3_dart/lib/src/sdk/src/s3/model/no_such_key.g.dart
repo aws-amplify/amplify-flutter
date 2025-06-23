@@ -8,21 +8,18 @@ part of 'no_such_key.dart';
 
 class _$NoSuchKey extends NoSuchKey {
   @override
-  final int? statusCode;
-  @override
   final Map<String, String>? headers;
 
   factory _$NoSuchKey([void Function(NoSuchKeyBuilder)? updates]) =>
-      (new NoSuchKeyBuilder()..update(updates))._build();
+      (NoSuchKeyBuilder()..update(updates))._build();
 
-  _$NoSuchKey._({this.statusCode, this.headers}) : super._();
-
+  _$NoSuchKey._({this.headers}) : super._();
   @override
   NoSuchKey rebuild(void Function(NoSuchKeyBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  NoSuchKeyBuilder toBuilder() => new NoSuchKeyBuilder()..replace(this);
+  NoSuchKeyBuilder toBuilder() => NoSuchKeyBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -39,10 +36,6 @@ class _$NoSuchKey extends NoSuchKey {
 class NoSuchKeyBuilder implements Builder<NoSuchKey, NoSuchKeyBuilder> {
   _$NoSuchKey? _$v;
 
-  int? _statusCode;
-  int? get statusCode => _$this._statusCode;
-  set statusCode(int? statusCode) => _$this._statusCode = statusCode;
-
   Map<String, String>? _headers;
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
@@ -52,7 +45,6 @@ class NoSuchKeyBuilder implements Builder<NoSuchKey, NoSuchKeyBuilder> {
   NoSuchKeyBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _statusCode = $v.statusCode;
       _headers = $v.headers;
       _$v = null;
     }
@@ -61,7 +53,6 @@ class NoSuchKeyBuilder implements Builder<NoSuchKey, NoSuchKeyBuilder> {
 
   @override
   void replace(NoSuchKey other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoSuchKey;
   }
 
@@ -74,8 +65,7 @@ class NoSuchKeyBuilder implements Builder<NoSuchKey, NoSuchKeyBuilder> {
   NoSuchKey build() => _build();
 
   _$NoSuchKey _build() {
-    final _$result =
-        _$v ?? new _$NoSuchKey._(statusCode: statusCode, headers: headers);
+    final _$result = _$v ?? _$NoSuchKey._(headers: headers);
     replace(_$result);
     return _$result;
   }

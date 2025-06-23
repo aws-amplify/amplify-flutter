@@ -10,24 +10,19 @@ import 'dart:ffi' as ffi;
 class CoreFoundation {
   /// Holds the symbol lookup function.
   final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-      _lookup;
+  _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
   CoreFoundation(ffi.DynamicLibrary dynamicLibrary)
-      : _lookup = dynamicLibrary.lookup;
+    : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
   CoreFoundation.fromLookup(
-      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-          lookup)
-      : _lookup = lookup;
+    ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup,
+  ) : _lookup = lookup;
 
-  void CFRelease(
-    CFTypeRef cf,
-  ) {
-    return _CFRelease(
-      cf,
-    );
+  void CFRelease(CFTypeRef cf) {
+    return _CFRelease(cf);
   }
 
   late final _CFReleasePtr =
@@ -52,54 +47,58 @@ class CoreFoundation {
     );
   }
 
-  late final _CFDictionaryCreatePtr = _lookup<
-      ffi.NativeFunction<
+  late final _CFDictionaryCreatePtr =
+      _lookup<
+        ffi.NativeFunction<
           CFDictionaryRef Function(
-              CFAllocatorRef,
-              ffi.Pointer<ffi.Pointer<ffi.Void>>,
-              ffi.Pointer<ffi.Pointer<ffi.Void>>,
-              CFIndex,
-              ffi.Pointer<CFDictionaryKeyCallBacks>,
-              ffi.Pointer<CFDictionaryValueCallBacks>)>>('CFDictionaryCreate');
-  late final _CFDictionaryCreate = _CFDictionaryCreatePtr.asFunction<
-      CFDictionaryRef Function(
+            CFAllocatorRef,
+            ffi.Pointer<ffi.Pointer<ffi.Void>>,
+            ffi.Pointer<ffi.Pointer<ffi.Void>>,
+            CFIndex,
+            ffi.Pointer<CFDictionaryKeyCallBacks>,
+            ffi.Pointer<CFDictionaryValueCallBacks>,
+          )
+        >
+      >('CFDictionaryCreate');
+  late final _CFDictionaryCreate =
+      _CFDictionaryCreatePtr.asFunction<
+        CFDictionaryRef Function(
           CFAllocatorRef,
           ffi.Pointer<ffi.Pointer<ffi.Void>>,
           ffi.Pointer<ffi.Pointer<ffi.Void>>,
           int,
           ffi.Pointer<CFDictionaryKeyCallBacks>,
-          ffi.Pointer<CFDictionaryValueCallBacks>)>();
+          ffi.Pointer<CFDictionaryValueCallBacks>,
+        )
+      >();
 
   CFDataRef CFDataCreate(
     CFAllocatorRef allocator,
     ffi.Pointer<UInt8> bytes,
     int length,
   ) {
-    return _CFDataCreate(
-      allocator,
-      bytes,
-      length,
-    );
+    return _CFDataCreate(allocator, bytes, length);
   }
 
-  late final _CFDataCreatePtr = _lookup<
-      ffi.NativeFunction<
-          CFDataRef Function(
-              CFAllocatorRef, ffi.Pointer<UInt8>, CFIndex)>>('CFDataCreate');
-  late final _CFDataCreate = _CFDataCreatePtr.asFunction<
-      CFDataRef Function(CFAllocatorRef, ffi.Pointer<UInt8>, int)>();
+  late final _CFDataCreatePtr =
+      _lookup<
+        ffi.NativeFunction<
+          CFDataRef Function(CFAllocatorRef, ffi.Pointer<UInt8>, CFIndex)
+        >
+      >('CFDataCreate');
+  late final _CFDataCreate =
+      _CFDataCreatePtr.asFunction<
+        CFDataRef Function(CFAllocatorRef, ffi.Pointer<UInt8>, int)
+      >();
 
-  ffi.Pointer<UInt8> CFDataGetBytePtr(
-    CFDataRef theData,
-  ) {
-    return _CFDataGetBytePtr(
-      theData,
-    );
+  ffi.Pointer<UInt8> CFDataGetBytePtr(CFDataRef theData) {
+    return _CFDataGetBytePtr(theData);
   }
 
   late final _CFDataGetBytePtrPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<UInt8> Function(CFDataRef)>>(
-          'CFDataGetBytePtr');
+        'CFDataGetBytePtr',
+      );
   late final _CFDataGetBytePtr =
       _CFDataGetBytePtrPtr.asFunction<ffi.Pointer<UInt8> Function(CFDataRef)>();
 
@@ -108,32 +107,32 @@ class CoreFoundation {
     ffi.Pointer<ffi.Char> cStr,
     int encoding,
   ) {
-    return _CFStringCreateWithCString(
-      alloc,
-      cStr,
-      encoding,
-    );
+    return _CFStringCreateWithCString(alloc, cStr, encoding);
   }
 
-  late final _CFStringCreateWithCStringPtr = _lookup<
-      ffi.NativeFunction<
-          CFStringRef Function(CFAllocatorRef, ffi.Pointer<ffi.Char>,
-              CFStringEncoding)>>('CFStringCreateWithCString');
+  late final _CFStringCreateWithCStringPtr =
+      _lookup<
+        ffi.NativeFunction<
+          CFStringRef Function(
+            CFAllocatorRef,
+            ffi.Pointer<ffi.Char>,
+            CFStringEncoding,
+          )
+        >
+      >('CFStringCreateWithCString');
   late final _CFStringCreateWithCString =
       _CFStringCreateWithCStringPtr.asFunction<
-          CFStringRef Function(CFAllocatorRef, ffi.Pointer<ffi.Char>, int)>();
+        CFStringRef Function(CFAllocatorRef, ffi.Pointer<ffi.Char>, int)
+      >();
 
-  int CFStringGetLength(
-    CFStringRef theString,
-  ) {
-    return _CFStringGetLength(
-      theString,
-    );
+  int CFStringGetLength(CFStringRef theString) {
+    return _CFStringGetLength(theString);
   }
 
   late final _CFStringGetLengthPtr =
       _lookup<ffi.NativeFunction<CFIndex Function(CFStringRef)>>(
-          'CFStringGetLength');
+        'CFStringGetLength',
+      );
   late final _CFStringGetLength =
       _CFStringGetLengthPtr.asFunction<int Function(CFStringRef)>();
 
@@ -143,54 +142,55 @@ class CoreFoundation {
     int bufferSize,
     int encoding,
   ) {
-    return _CFStringGetCString(
-      theString,
-      buffer,
-      bufferSize,
-      encoding,
-    );
+    return _CFStringGetCString(theString, buffer, bufferSize, encoding);
   }
 
-  late final _CFStringGetCStringPtr = _lookup<
-      ffi.NativeFunction<
-          Boolean Function(CFStringRef, ffi.Pointer<ffi.Char>, CFIndex,
-              CFStringEncoding)>>('CFStringGetCString');
-  late final _CFStringGetCString = _CFStringGetCStringPtr.asFunction<
-      int Function(CFStringRef, ffi.Pointer<ffi.Char>, int, int)>();
+  late final _CFStringGetCStringPtr =
+      _lookup<
+        ffi.NativeFunction<
+          Boolean Function(
+            CFStringRef,
+            ffi.Pointer<ffi.Char>,
+            CFIndex,
+            CFStringEncoding,
+          )
+        >
+      >('CFStringGetCString');
+  late final _CFStringGetCString =
+      _CFStringGetCStringPtr.asFunction<
+        int Function(CFStringRef, ffi.Pointer<ffi.Char>, int, int)
+      >();
 
   ffi.Pointer<ffi.Char> CFStringGetCStringPtr(
     CFStringRef theString,
     int encoding,
   ) {
-    return _CFStringGetCStringPtr1(
-      theString,
-      encoding,
-    );
+    return _CFStringGetCStringPtr1(theString, encoding);
   }
 
-  late final _CFStringGetCStringPtrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              CFStringRef, CFStringEncoding)>>('CFStringGetCStringPtr');
-  late final _CFStringGetCStringPtr1 = _CFStringGetCStringPtrPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(CFStringRef, int)>();
+  late final _CFStringGetCStringPtrPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(CFStringRef, CFStringEncoding)
+        >
+      >('CFStringGetCStringPtr');
+  late final _CFStringGetCStringPtr1 =
+      _CFStringGetCStringPtrPtr.asFunction<
+        ffi.Pointer<ffi.Char> Function(CFStringRef, int)
+      >();
 
-  int CFStringGetMaximumSizeForEncoding(
-    int length,
-    int encoding,
-  ) {
-    return _CFStringGetMaximumSizeForEncoding(
-      length,
-      encoding,
-    );
+  int CFStringGetMaximumSizeForEncoding(int length, int encoding) {
+    return _CFStringGetMaximumSizeForEncoding(length, encoding);
   }
 
   late final _CFStringGetMaximumSizeForEncodingPtr =
       _lookup<ffi.NativeFunction<CFIndex Function(CFIndex, CFStringEncoding)>>(
-          'CFStringGetMaximumSizeForEncoding');
+        'CFStringGetMaximumSizeForEncoding',
+      );
   late final _CFStringGetMaximumSizeForEncoding =
       _CFStringGetMaximumSizeForEncodingPtr.asFunction<
-          int Function(int, int)>();
+        int Function(int, int)
+      >();
 }
 
 typedef CFTypeRef = ffi.Pointer<ffi.Void>;
@@ -219,27 +219,43 @@ final class CFDictionaryKeyCallBacks extends ffi.Struct {
   external CFDictionaryHashCallBack hash;
 }
 
-typedef CFDictionaryRetainCallBack = ffi.Pointer<
-    ffi.NativeFunction<
+typedef CFDictionaryRetainCallBack =
+    ffi.Pointer<
+      ffi.NativeFunction<
         ffi.Pointer<ffi.Void> Function(
-            CFAllocatorRef allocator, ffi.Pointer<ffi.Void> value)>>;
-typedef CFDictionaryReleaseCallBack = ffi.Pointer<
-    ffi.NativeFunction<
-        ffi.Void Function(
-            CFAllocatorRef allocator, ffi.Pointer<ffi.Void> value)>>;
-typedef CFDictionaryCopyDescriptionCallBack = ffi.Pointer<
-    ffi.NativeFunction<CFStringRef Function(ffi.Pointer<ffi.Void> value)>>;
+          CFAllocatorRef allocator,
+          ffi.Pointer<ffi.Void> value,
+        )
+      >
+    >;
+typedef CFDictionaryReleaseCallBack =
+    ffi.Pointer<
+      ffi.NativeFunction<
+        ffi.Void Function(CFAllocatorRef allocator, ffi.Pointer<ffi.Void> value)
+      >
+    >;
+typedef CFDictionaryCopyDescriptionCallBack =
+    ffi.Pointer<
+      ffi.NativeFunction<CFStringRef Function(ffi.Pointer<ffi.Void> value)>
+    >;
 typedef CFStringRef = ffi.Pointer<CFString>;
 
 final class CFString extends ffi.Opaque {}
 
-typedef CFDictionaryEqualCallBack = ffi.Pointer<
-    ffi.NativeFunction<
+typedef CFDictionaryEqualCallBack =
+    ffi.Pointer<
+      ffi.NativeFunction<
         Boolean Function(
-            ffi.Pointer<ffi.Void> value1, ffi.Pointer<ffi.Void> value2)>>;
+          ffi.Pointer<ffi.Void> value1,
+          ffi.Pointer<ffi.Void> value2,
+        )
+      >
+    >;
 typedef Boolean = ffi.UnsignedChar;
-typedef CFDictionaryHashCallBack = ffi.Pointer<
-    ffi.NativeFunction<CFHashCode Function(ffi.Pointer<ffi.Void> value)>>;
+typedef CFDictionaryHashCallBack =
+    ffi.Pointer<
+      ffi.NativeFunction<CFHashCode Function(ffi.Pointer<ffi.Void> value)>
+    >;
 typedef CFHashCode = ffi.UnsignedLong;
 
 final class CFDictionaryValueCallBacks extends ffi.Struct {

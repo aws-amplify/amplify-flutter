@@ -240,8 +240,7 @@ void main() {
       expect(childLogger.getPlugin<MockLoggerPlugin>(), plugin);
     });
 
-    test(
-        'registerPlugin handles registering one plugin per type'
+    test('registerPlugin handles registering one plugin per type'
         ' in the logger hierarchy', () {
       final plugin = MockLoggerPlugin();
       final childLogger = AWSLogger()

@@ -12,25 +12,19 @@ class _$SignUpParameters extends SignUpParameters {
   @override
   final String password;
 
-  factory _$SignUpParameters(
-          [void Function(SignUpParametersBuilder)? updates]) =>
-      (new SignUpParametersBuilder()..update(updates))._build();
+  factory _$SignUpParameters([
+    void Function(SignUpParametersBuilder)? updates,
+  ]) => (SignUpParametersBuilder()..update(updates))._build();
 
   _$SignUpParameters._({required this.username, required this.password})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        username, r'SignUpParameters', 'username');
-    BuiltValueNullFieldError.checkNotNull(
-        password, r'SignUpParameters', 'password');
-  }
-
+    : super._();
   @override
   SignUpParameters rebuild(void Function(SignUpParametersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   SignUpParametersBuilder toBuilder() =>
-      new SignUpParametersBuilder()..replace(this);
+      SignUpParametersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -84,7 +78,6 @@ class SignUpParametersBuilder
 
   @override
   void replace(SignUpParameters other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignUpParameters;
   }
 
@@ -97,12 +90,20 @@ class SignUpParametersBuilder
   SignUpParameters build() => _build();
 
   _$SignUpParameters _build() {
-    final _$result = _$v ??
-        new _$SignUpParameters._(
-            username: BuiltValueNullFieldError.checkNotNull(
-                username, r'SignUpParameters', 'username'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'SignUpParameters', 'password'));
+    final _$result =
+        _$v ??
+        _$SignUpParameters._(
+          username: BuiltValueNullFieldError.checkNotNull(
+            username,
+            r'SignUpParameters',
+            'username',
+          ),
+          password: BuiltValueNullFieldError.checkNotNull(
+            password,
+            r'SignUpParameters',
+            'password',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

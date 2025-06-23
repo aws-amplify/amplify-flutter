@@ -17,10 +17,7 @@ abstract class MethodNotAllowedException
         Built<MethodNotAllowedException, MethodNotAllowedExceptionBuilder>,
         _i2.SmithyHttpException {
   /// Provides information about an API request or response.
-  factory MethodNotAllowedException({
-    String? message,
-    String? requestId,
-  }) {
+  factory MethodNotAllowedException({String? message, String? requestId}) {
     return _$MethodNotAllowedException._(
       message: message,
       requestId: requestId,
@@ -28,9 +25,9 @@ abstract class MethodNotAllowedException
   }
 
   /// Provides information about an API request or response.
-  factory MethodNotAllowedException.build(
-          [void Function(MethodNotAllowedExceptionBuilder) updates]) =
-      _$MethodNotAllowedException;
+  factory MethodNotAllowedException.build([
+    void Function(MethodNotAllowedExceptionBuilder) updates,
+  ]) = _$MethodNotAllowedException;
 
   const MethodNotAllowedException._();
 
@@ -38,13 +35,12 @@ abstract class MethodNotAllowedException
   factory MethodNotAllowedException.fromResponse(
     MethodNotAllowedException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<MethodNotAllowedException>>
-      serializers = [MethodNotAllowedExceptionRestJson1Serializer()];
+  serializers = [MethodNotAllowedExceptionRestJson1Serializer()];
 
   /// The message that's returned from the API.
   @override
@@ -54,9 +50,9 @@ abstract class MethodNotAllowedException
   String? get requestId;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.pinpoint',
-        shape: 'MethodNotAllowedException',
-      );
+    namespace: 'com.amazonaws.pinpoint',
+    shape: 'MethodNotAllowedException',
+  );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -68,21 +64,12 @@ abstract class MethodNotAllowedException
   @override
   Exception? get underlyingException => null;
   @override
-  List<Object?> get props => [
-        message,
-        requestId,
-      ];
+  List<Object?> get props => [message, requestId];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MethodNotAllowedException')
-      ..add(
-        'message',
-        message,
-      )
-      ..add(
-        'requestId',
-        requestId,
-      );
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }
@@ -90,20 +77,17 @@ abstract class MethodNotAllowedException
 class MethodNotAllowedExceptionRestJson1Serializer
     extends _i2.StructuredSmithySerializer<MethodNotAllowedException> {
   const MethodNotAllowedExceptionRestJson1Serializer()
-      : super('MethodNotAllowedException');
+    : super('MethodNotAllowedException');
 
   @override
   Iterable<Type> get types => const [
-        MethodNotAllowedException,
-        _$MethodNotAllowedException,
-      ];
+    MethodNotAllowedException,
+    _$MethodNotAllowedException,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   MethodNotAllowedException deserialize(
     Serializers serializers,
@@ -121,15 +105,19 @@ class MethodNotAllowedExceptionRestJson1Serializer
       }
       switch (key) {
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'RequestID':
-          result.requestId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.requestId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -147,18 +135,19 @@ class MethodNotAllowedExceptionRestJson1Serializer
     if (message != null) {
       result$
         ..add('Message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (requestId != null) {
       result$
         ..add('RequestID')
-        ..add(serializers.serialize(
-          requestId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            requestId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

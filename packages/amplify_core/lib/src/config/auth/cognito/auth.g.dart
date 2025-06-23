@@ -9,86 +9,96 @@ part of 'auth.dart';
 // **************************************************************************
 
 CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
-    CognitoAuthConfig(
-      oAuth: json['OAuth'] == null
-          ? null
-          : CognitoOAuthConfig.fromJson(json['OAuth'] as Map<String, dynamic>),
-      authenticationFlowType: $enumDecodeNullable(
-          _$AuthenticationFlowTypeEnumMap, json['authenticationFlowType'],
-          unknownValue: JsonKey.nullForUndefinedEnumValue),
-      socialProviders: (json['socialProviders'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$SocialProviderEnumMap, e))
-          .toList(),
-      usernameAttributes: (json['usernameAttributes'] as List<dynamic>?)
-          ?.map((e) =>
-              const CognitoUserAttributeKeyConverter().fromJson(e as String))
-          .toList(),
-      signupAttributes: (json['signupAttributes'] as List<dynamic>?)
-          ?.map((e) =>
-              const CognitoUserAttributeKeyConverter().fromJson(e as String))
-          .toList(),
-      passwordProtectionSettings: json['passwordProtectionSettings'] == null
-          ? null
-          : PasswordProtectionSettings.fromJson(
-              json['passwordProtectionSettings'] as Map<String, dynamic>),
-      mfaConfiguration: $enumDecodeNullable(
-          _$MfaConfigurationEnumMap, json['mfaConfiguration']),
-      mfaTypes: (json['mfaTypes'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
-          .toList(),
-      verificationMechanisms: (json['verificationMechanisms'] as List<dynamic>?)
-          ?.map((e) =>
-              const CognitoUserAttributeKeyConverter().fromJson(e as String))
-          .toList(),
-    );
+    $checkedCreate('CognitoAuthConfig', json, ($checkedConvert) {
+      final val = CognitoAuthConfig(
+        oAuth: $checkedConvert(
+          'OAuth',
+          (v) => v == null
+              ? null
+              : CognitoOAuthConfig.fromJson(v as Map<String, dynamic>),
+        ),
+        socialProviders: $checkedConvert(
+          'socialProviders',
+          (v) => (v as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$SocialProviderEnumMap, e))
+              .toList(),
+        ),
+        usernameAttributes: $checkedConvert(
+          'usernameAttributes',
+          (v) => (v as List<dynamic>?)
+              ?.map(
+                (e) => const CognitoUserAttributeKeyToUpperCaseConverter()
+                    .fromJson(e as String),
+              )
+              .toList(),
+        ),
+        signupAttributes: $checkedConvert(
+          'signupAttributes',
+          (v) => (v as List<dynamic>?)
+              ?.map(
+                (e) => const CognitoUserAttributeKeyToUpperCaseConverter()
+                    .fromJson(e as String),
+              )
+              .toList(),
+        ),
+        passwordProtectionSettings: $checkedConvert(
+          'passwordProtectionSettings',
+          (v) => v == null
+              ? null
+              : PasswordProtectionSettings.fromJson(v as Map<String, dynamic>),
+        ),
+        mfaConfiguration: $checkedConvert(
+          'mfaConfiguration',
+          (v) => $enumDecodeNullable(_$MfaConfigurationEnumMap, v),
+        ),
+        mfaTypes: $checkedConvert(
+          'mfaTypes',
+          (v) => (v as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
+              .toList(),
+        ),
+        verificationMechanisms: $checkedConvert(
+          'verificationMechanisms',
+          (v) => (v as List<dynamic>?)
+              ?.map(
+                (e) => const CognitoUserAttributeKeyToUpperCaseConverter()
+                    .fromJson(e as String),
+              )
+              .toList(),
+        ),
+      );
+      return val;
+    }, fieldKeyMap: const {'oAuth': 'OAuth'});
 
-Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('OAuth', instance.oAuth?.toJson());
-  writeNotNull('authenticationFlowType',
-      _$AuthenticationFlowTypeEnumMap[instance.authenticationFlowType]);
-  writeNotNull(
-      'socialProviders',
-      instance.socialProviders
-          ?.map((e) => _$SocialProviderEnumMap[e]!)
-          .toList());
-  writeNotNull(
-      'usernameAttributes',
-      instance.usernameAttributes
-          ?.map(const CognitoUserAttributeKeyConverter().toJson)
-          .toList());
-  writeNotNull(
-      'signupAttributes',
-      instance.signupAttributes
-          ?.map(const CognitoUserAttributeKeyConverter().toJson)
-          .toList());
-  writeNotNull('passwordProtectionSettings',
-      instance.passwordProtectionSettings?.toJson());
-  writeNotNull(
-      'mfaConfiguration', _$MfaConfigurationEnumMap[instance.mfaConfiguration]);
-  writeNotNull(
-      'mfaTypes', instance.mfaTypes?.map((e) => _$MfaTypeEnumMap[e]!).toList());
-  writeNotNull(
-      'verificationMechanisms',
-      instance.verificationMechanisms
-          ?.map(const CognitoUserAttributeKeyConverter().toJson)
-          .toList());
-  return val;
-}
-
-const _$AuthenticationFlowTypeEnumMap = {
-  AuthenticationFlowType.userSrpAuth: 'USER_SRP_AUTH',
-  AuthenticationFlowType.userPasswordAuth: 'USER_PASSWORD_AUTH',
-  AuthenticationFlowType.customAuth: 'CUSTOM_AUTH',
-  AuthenticationFlowType.customAuthWithSrp: 'CUSTOM_AUTH_WITH_SRP',
-  AuthenticationFlowType.customAuthWithoutSrp: 'CUSTOM_AUTH_WITHOUT_SRP',
+Map<String, dynamic> _$CognitoAuthConfigToJson(
+  CognitoAuthConfig instance,
+) => <String, dynamic>{
+  if (instance.oAuth?.toJson() case final value?) 'OAuth': value,
+  if (instance.socialProviders?.map((e) => _$SocialProviderEnumMap[e]!).toList()
+      case final value?)
+    'socialProviders': value,
+  if (instance.usernameAttributes
+          ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
+          .toList()
+      case final value?)
+    'usernameAttributes': value,
+  if (instance.signupAttributes
+          ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
+          .toList()
+      case final value?)
+    'signupAttributes': value,
+  if (instance.passwordProtectionSettings?.toJson() case final value?)
+    'passwordProtectionSettings': value,
+  if (_$MfaConfigurationEnumMap[instance.mfaConfiguration] case final value?)
+    'mfaConfiguration': value,
+  if (instance.mfaTypes?.map((e) => _$MfaTypeEnumMap[e]!).toList()
+      case final value?)
+    'mfaTypes': value,
+  if (instance.verificationMechanisms
+          ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
+          .toList()
+      case final value?)
+    'verificationMechanisms': value,
 };
 
 const _$SocialProviderEnumMap = {
@@ -107,4 +117,5 @@ const _$MfaConfigurationEnumMap = {
 const _$MfaTypeEnumMap = {
   MfaType.sms: 'SMS',
   MfaType.totp: 'TOTP',
+  MfaType.email: 'EMAIL',
 };

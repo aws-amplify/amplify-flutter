@@ -109,32 +109,28 @@ class _Core {
 
   /// Creates a [core.Iterable] reference.
   Reference iterable([Reference? ref]) => TypeReference(
-        (t) => t
-          ..symbol = 'Iterable'
-          ..url = _url
-          ..types.addAll([
-            if (ref != null) ref,
-          ]),
-      );
+    (t) => t
+      ..symbol = 'Iterable'
+      ..url = _url
+      ..types.addAll([if (ref != null) ref]),
+  );
 
   /// Creates a [core.List] reference.
   Reference list([Reference? ref]) => TypeReference(
-        (t) => t
-          ..symbol = 'List'
-          ..url = _url
-          ..types.addAll([
-            if (ref != null) ref,
-          ]),
-      );
+    (t) => t
+      ..symbol = 'List'
+      ..url = _url
+      ..types.addAll([if (ref != null) ref]),
+  );
 
   /// Creates a [core.Map] reference.
   Reference map(Reference key, Reference value) => TypeReference(
-        (t) => t
-          ..symbol = 'Map'
-          ..url = _url
-          ..types.add(key)
-          ..types.add(value),
-      );
+    (t) => t
+      ..symbol = 'Map'
+      ..url = _url
+      ..types.add(key)
+      ..types.add(value),
+  );
 
   /// Creates an [core.MapEntry] reference.
   Reference get mapEntry => const Reference('MapEntry', _url);
@@ -153,11 +149,11 @@ class _Core {
 
   /// Creates a [core.Set] reference.
   Reference set(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'Set'
-          ..url = _url
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'Set'
+      ..url = _url
+      ..types.add(ref),
+  );
 
   /// Create a [core.StateError] reference.
   Reference get stateError => const Reference('StateError', _url);
@@ -183,21 +179,19 @@ class _Async {
 
   /// Creates a [Future] reference.
   Reference future(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'Future'
-          ..url = _url
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'Future'
+      ..url = _url
+      ..types.add(ref),
+  );
 
   /// Creates a [Stream] reference.
   Reference stream([Reference? ref]) => TypeReference(
-        (t) => t
-          ..symbol = 'Stream'
-          ..url = _url
-          ..types.addAll([
-            if (ref != null) ref,
-          ]),
-      );
+    (t) => t
+      ..symbol = 'Stream'
+      ..url = _url
+      ..types.addAll([if (ref != null) ref]),
+  );
 
   /// Creates a `runZoned` refererence.
   Reference get runZoned => const Reference('runZoned', _url);
@@ -211,11 +205,11 @@ class _AwsCommon {
 
   /// Creates an [aws_common.AWSEquatable] reference.
   Reference awsEquatable(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'AWSEquatable'
-          ..url = _url
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'AWSEquatable'
+      ..url = _url
+      ..types.add(ref),
+  );
 
   /// Creates an [aws_common.AWSHeaders] reference.
   Reference get awsHeaders => const Reference('AWSHeaders', _url);
@@ -248,9 +242,8 @@ class _AwsCommon {
       const Reference('AWSStreamedHttpRequest', _url);
 
   /// Creates a secure [aws_common.uuid] instance.
-  Expression uuid() => const Reference('uuid', _url).call([], {
-        'secure': literalTrue,
-      });
+  Expression uuid() =>
+      const Reference('uuid', _url).call([], {'secure': literalTrue});
 }
 
 /// `package:aws_signature_v4` types.
@@ -292,19 +285,19 @@ class BuiltValueType {
   /// Creates a [built_value.Built] reference for [ref] and its builder class,
   /// [builderRef].
   Reference built(Reference ref, Reference builderRef) => TypeReference(
-        (t) => t
-          ..symbol = 'Built'
-          ..url = mainUrl
-          ..types.addAll([ref, builderRef]),
-      );
+    (t) => t
+      ..symbol = 'Built'
+      ..url = mainUrl
+      ..types.addAll([ref, builderRef]),
+  );
 
   /// Creates a [built_collection.BuiltList] reference for generic type [ref].
   Reference builtList(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'BuiltList'
-          ..url = collectionUrl
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'BuiltList'
+      ..url = collectionUrl
+      ..types.add(ref),
+  );
 
   /// Creates a [built_collection.BuiltListMultimap] reference with key [key]
   /// and [value] generic types.
@@ -313,29 +306,29 @@ class BuiltValueType {
   /// a `BuiltListMultimap<String, String>` which is the same a
   /// `Map<String, List<String>>` when built.
   Reference builtListMultimap(Reference key, Reference value) => TypeReference(
-        (t) => t
-          ..symbol = 'BuiltListMultimap'
-          ..url = collectionUrl
-          ..types.addAll([key, value]),
-      );
+    (t) => t
+      ..symbol = 'BuiltListMultimap'
+      ..url = collectionUrl
+      ..types.addAll([key, value]),
+  );
 
   /// Creates a [built_collection.BuiltMap] reference with [key] and [value]
   /// generic types.
   Reference builtMap(Reference key, Reference value) => TypeReference(
-        (t) => t
-          ..symbol = 'BuiltMap'
-          ..url = collectionUrl
-          ..types.add(key)
-          ..types.add(value),
-      );
+    (t) => t
+      ..symbol = 'BuiltMap'
+      ..url = collectionUrl
+      ..types.add(key)
+      ..types.add(value),
+  );
 
   /// Creates a [built_collection.BuiltSet] reference for generic type [ref].
   Reference builtSet(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'BuiltSet'
-          ..url = collectionUrl
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'BuiltSet'
+      ..url = collectionUrl
+      ..types.add(ref),
+  );
 
   /// Creates a [built_collection.BuiltSetMultimap] reference with key [key]
   /// and [value] generic types.
@@ -344,11 +337,11 @@ class BuiltValueType {
   /// a `BuiltSetMultimap<String, String>` which is the same a
   /// `Map<String, Set<String>>` when built.
   Reference builtSetMultimap(Reference key, Reference value) => TypeReference(
-        (t) => t
-          ..symbol = 'BuiltSetMultimap'
-          ..url = collectionUrl
-          ..types.addAll([key, value]),
-      );
+    (t) => t
+      ..symbol = 'BuiltSetMultimap'
+      ..url = collectionUrl
+      ..types.addAll([key, value]),
+  );
 
   /// Creates a [built_value_serializer.FullType] reference.
   Reference get fullType => const Reference('FullType', serializerUrl);
@@ -358,11 +351,11 @@ class BuiltValueType {
 
   /// The builder for [built_collection.ListBuilder].
   Reference listBuilder(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'ListBuilder'
-          ..url = collectionUrl
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'ListBuilder'
+      ..url = collectionUrl
+      ..types.add(ref),
+  );
 
   /// The builder for [built_collection.BuiltListMultimap].
   Reference listMultimapBuilder(Reference key, Reference value) =>
@@ -375,11 +368,11 @@ class BuiltValueType {
 
   /// The builder for [built_collection.MapBuilder].
   Reference mapBuilder(Reference key, Reference value) => TypeReference(
-        (t) => t
-          ..symbol = 'MapBuilder'
-          ..url = collectionUrl
-          ..types.addAll([key, value]),
-      );
+    (t) => t
+      ..symbol = 'MapBuilder'
+      ..url = collectionUrl
+      ..types.addAll([key, value]),
+  );
 
   /// Creates a [built_value.newBuiltValueToStringHelper] reference.
   Reference get newBuiltValueToStringHelper =>
@@ -388,27 +381,27 @@ class BuiltValueType {
   /// Creates a [built_value_serializer.PrimitiveSerializer] reference for
   /// generic type [ref].
   Reference primitiveSerializer(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'PrimitiveSerializer'
-          ..url = serializerUrl
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'PrimitiveSerializer'
+      ..url = serializerUrl
+      ..types.add(ref),
+  );
 
   /// The builder for [built_collection.SetBuilder].
   Reference setBuilder(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'SetBuilder'
-          ..url = collectionUrl
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'SetBuilder'
+      ..url = collectionUrl
+      ..types.add(ref),
+  );
 
   /// The builder for [built_collection.BuiltSetMultimap].
   Reference setMultimapBuilder(Reference key, Reference value) => TypeReference(
-        (t) => t
-          ..symbol = 'SetMultimapBuilder'
-          ..url = collectionUrl
-          ..types.addAll([key, value]),
-      );
+    (t) => t
+      ..symbol = 'SetMultimapBuilder'
+      ..url = collectionUrl
+      ..types.addAll([key, value]),
+  );
 
   /// Creates a [built_value_serializer.Serializers] reference.
   Reference get serializers => const Reference('Serializers', serializerUrl);
@@ -496,11 +489,11 @@ class _Smithy {
 
   /// Creates a `smithy.Acceptor` reference.
   Reference acceptor(Reference input, Reference output) => TypeReference(
-        (t) => t
-          ..symbol = 'Acceptor'
-          ..types.addAll([input, output])
-          ..url = _url,
-      );
+    (t) => t
+      ..symbol = 'Acceptor'
+      ..types.addAll([input, output])
+      ..url = _url,
+  );
 
   /// Creates a [smithy.AcceptorState] reference.
   Reference get acceptorState => const Reference('AcceptorState', _url);
@@ -527,11 +520,11 @@ class _Smithy {
 
   /// Creates a [smithy.HasPayload] reference for [ref], the payload type.
   Reference hasPayload(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'HasPayload'
-          ..url = _url
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'HasPayload'
+      ..url = _url
+      ..types.add(ref),
+  );
 
   /// Creates a [smithy.HttpServerBase] refererence.
   Reference get httpServerBase => const Reference('HttpServerBase', _url);
@@ -555,19 +548,19 @@ class _Smithy {
 
   /// Creates a [smithy.HttpServer] refererence.
   Reference httpServer(Reference baseService) => TypeReference(
-        (t) => t
-          ..symbol = 'HttpServer'
-          ..url = _url
-          ..types.add(baseService),
-      );
+    (t) => t
+      ..symbol = 'HttpServer'
+      ..url = _url
+      ..types.add(baseService),
+  );
 
   /// Creates a [smithy.HttpInput] reference for [ref], the input type.
   Reference httpInput(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'HttpInput'
-          ..url = _url
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'HttpInput'
+      ..url = _url
+      ..types.add(ref),
+  );
 
   /// Creates a [smithy.HttpOperation] reference for an operation with input
   /// payload type [inputPayload], input type [input], and output type [output].
@@ -576,13 +569,12 @@ class _Smithy {
     Reference input,
     Reference outputPayload,
     Reference output,
-  ) =>
-      TypeReference(
-        (t) => t
-          ..symbol = 'HttpOperation'
-          ..url = _url
-          ..types.addAll([inputPayload, input, outputPayload, output]),
-      );
+  ) => TypeReference(
+    (t) => t
+      ..symbol = 'HttpOperation'
+      ..url = _url
+      ..types.addAll([inputPayload, input, outputPayload, output]),
+  );
 
   /// Creates a [smithy.HttpProtocol] reference for an operation with input
   /// payload type [inputPayload], input type [input], and output type [output].
@@ -591,18 +583,17 @@ class _Smithy {
     Reference? input,
     Reference? outputPayload,
     Reference? output,
-  ]) =>
-      TypeReference(
-        (t) => t
-          ..symbol = 'HttpProtocol'
-          ..url = _url
-          ..types.addAll([
-            if (inputPayload != null) inputPayload,
-            if (input != null) input,
-            if (outputPayload != null) outputPayload,
-            if (output != null) output,
-          ]),
-      );
+  ]) => TypeReference(
+    (t) => t
+      ..symbol = 'HttpProtocol'
+      ..url = _url
+      ..types.addAll([
+        if (inputPayload != null) inputPayload,
+        if (input != null) input,
+        if (outputPayload != null) outputPayload,
+        if (output != null) output,
+      ]),
+  );
 
   /// Creates a [smithy.HttpRequest] AST reference.
   Reference get httpRequest => const Reference('HttpRequest', _url);
@@ -629,34 +620,32 @@ class _Smithy {
     Reference tokenSymbol,
     Reference pageSizeSymbol,
     Reference itemsSymbol,
-  ) =>
-      TypeReference(
-        (t) => t
-          ..symbol = 'PaginatedHttpOperation'
-          ..url = _url
-          ..types.addAll([
-            inputPayload,
-            input,
-            outputPayload,
-            output,
-            tokenSymbol,
-            pageSizeSymbol,
-            itemsSymbol,
-          ]),
-      );
+  ) => TypeReference(
+    (t) => t
+      ..symbol = 'PaginatedHttpOperation'
+      ..url = _url
+      ..types.addAll([
+        inputPayload,
+        input,
+        outputPayload,
+        output,
+        tokenSymbol,
+        pageSizeSymbol,
+        itemsSymbol,
+      ]),
+  );
 
   /// Creates a [smithy.PaginatedResult] reference.
   Reference paginatedResult(
     Reference itemsRef,
     Reference pageSizeRef,
     Reference tokenRef,
-  ) =>
-      TypeReference(
-        (t) => t
-          ..url = _url
-          ..symbol = 'PaginatedResult'
-          ..types.addAll([itemsRef, pageSizeRef, tokenRef]),
-      );
+  ) => TypeReference(
+    (t) => t
+      ..url = _url
+      ..symbol = 'PaginatedResult'
+      ..types.addAll([itemsRef, pageSizeRef, tokenRef]),
+  );
 
   /// Creates a [smithy.parseHeader] reference.
   Reference get parseHeader => const Reference('parseHeader', _url);
@@ -664,13 +653,11 @@ class _Smithy {
   /// Creates a [smithy.PrimitiveSmithySerializer] reference for [ref], the
   /// class being serialized.
   Reference primitiveSmithySerializer([Reference? ref]) => TypeReference(
-        (t) => t
-          ..symbol = 'PrimitiveSmithySerializer'
-          ..url = _url
-          ..types.addAll([
-            if (ref != null) ref,
-          ]),
-      );
+    (t) => t
+      ..symbol = 'PrimitiveSmithySerializer'
+      ..url = _url
+      ..types.addAll([if (ref != null) ref]),
+  );
 
   /// Creates a [smithy.RpcRouter] reference.
   Reference get rpcRouter => const Reference('RpcRouter', _url);
@@ -686,19 +673,19 @@ class _Smithy {
 
   /// Creates a [smithy.SmithyEnum] reference for [ref], the enum class.
   Reference smithyEnum(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'SmithyEnum'
-          ..url = _url
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'SmithyEnum'
+      ..url = _url
+      ..types.add(ref),
+  );
 
   /// Creates a [smithy.SmithyIntEnum] reference for [ref], the enum class.
   Reference smithyIntEnum(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'SmithyIntEnum'
-          ..url = _url
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'SmithyIntEnum'
+      ..url = _url
+      ..types.add(ref),
+  );
 
   /// Creates a [smithy.SmithyEnumSerializer] reference.
   Reference get smithyEnumSerializer =>
@@ -721,41 +708,37 @@ class _Smithy {
   /// Creates a [smithy.SmithyOperation] reference for an operation with output
   /// type [output].
   Reference smithyOperation(Reference output) => TypeReference(
-        (t) => t
-          ..symbol = 'SmithyOperation'
-          ..url = _url
-          ..types.add(output),
-      );
+    (t) => t
+      ..symbol = 'SmithyOperation'
+      ..url = _url
+      ..types.add(output),
+  );
 
   /// Creates a [smithy.SmithyUnion] reference for [ref], the union class.
   Reference smithyUnion(Reference ref) => TypeReference(
-        (t) => t
-          ..symbol = 'SmithyUnion'
-          ..url = _url
-          ..types.add(ref),
-      );
+    (t) => t
+      ..symbol = 'SmithyUnion'
+      ..url = _url
+      ..types.add(ref),
+  );
 
   /// Creates a [smithy.SmithySerializer] reference for [ref], the class being
   /// serialized.
   Reference smithySerializer([Reference? ref]) => TypeReference(
-        (t) => t
-          ..symbol = 'SmithySerializer'
-          ..url = _url
-          ..types.addAll([
-            if (ref != null) ref,
-          ]),
-      );
+    (t) => t
+      ..symbol = 'SmithySerializer'
+      ..url = _url
+      ..types.addAll([if (ref != null) ref]),
+  );
 
   /// Creates a [smithy.StructuredSmithySerializer] reference for [ref], the
   /// class being serialized.
   Reference structuredSmithySerializer([Reference? ref]) => TypeReference(
-        (t) => t
-          ..symbol = 'StructuredSmithySerializer'
-          ..url = _url
-          ..types.addAll([
-            if (ref != null) ref,
-          ]),
-      );
+    (t) => t
+      ..symbol = 'StructuredSmithySerializer'
+      ..url = _url
+      ..types.addAll([if (ref != null) ref]),
+  );
 
   /// Creates a [smithy.Timestamp] reference.
   Reference get timestamp => const Reference('Timestamp', _url);
@@ -775,11 +758,11 @@ class _Smithy {
 
   /// Creates a `smithy.Waiter` reference.
   Reference waiter(Reference inputType, Reference outputType) => TypeReference(
-        (t) => t
-          ..symbol = 'Waiter'
-          ..types.addAll([inputType, outputType])
-          ..url = _url,
-      );
+    (t) => t
+      ..symbol = 'Waiter'
+      ..types.addAll([inputType, outputType])
+      ..url = _url,
+  );
 
   /// Creates a [smithy.WithChecksum] reference.
   Reference get withChecksum => const Reference('WithChecksum', _url);

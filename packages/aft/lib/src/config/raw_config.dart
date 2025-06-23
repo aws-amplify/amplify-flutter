@@ -120,15 +120,11 @@ abstract class Environment
     required VersionConstraint sdk,
     VersionConstraint? flutter,
   }) {
-    return _$Environment._(
-      sdk: sdk,
-      flutter: flutter ?? VersionConstraint.any,
-    );
+    return _$Environment._(sdk: sdk, flutter: flutter ?? VersionConstraint.any);
   }
 
-  factory Environment.build(
-    void Function(EnvironmentBuilder) updates,
-  ) = _$Environment;
+  factory Environment.build(void Function(EnvironmentBuilder) updates) =
+      _$Environment;
 
   factory Environment.fromJson(Map<String, Object?> json) {
     return aftSerializers.deserializeWith(serializer, json)!;
@@ -190,9 +186,8 @@ abstract class PlatformEnvironment
 abstract class AndroidEnvironment
     with AWSSerializable<Map<String, Object?>>, AWSDebuggable
     implements Built<AndroidEnvironment, AndroidEnvironmentBuilder> {
-  factory AndroidEnvironment({
-    required String minSdkVersion,
-  }) = _$AndroidEnvironment._;
+  factory AndroidEnvironment({required String minSdkVersion}) =
+      _$AndroidEnvironment._;
 
   factory AndroidEnvironment.build(
     void Function(AndroidEnvironmentBuilder) updates,
@@ -219,9 +214,7 @@ abstract class AndroidEnvironment
 abstract class IosEnvironment
     with AWSSerializable<Map<String, Object?>>, AWSDebuggable
     implements Built<IosEnvironment, IosEnvironmentBuilder> {
-  factory IosEnvironment({
-    required String minOSVersion,
-  }) = _$IosEnvironment._;
+  factory IosEnvironment({required String minOSVersion}) = _$IosEnvironment._;
 
   factory IosEnvironment.build(void Function(IosEnvironmentBuilder) updates) =
       _$IosEnvironment;
@@ -247,9 +240,8 @@ abstract class IosEnvironment
 abstract class MacOSEnvironment
     with AWSSerializable<Map<String, Object?>>, AWSDebuggable
     implements Built<MacOSEnvironment, MacOSEnvironmentBuilder> {
-  factory MacOSEnvironment({
-    required String minOSVersion,
-  }) = _$MacOSEnvironment._;
+  factory MacOSEnvironment({required String minOSVersion}) =
+      _$MacOSEnvironment._;
 
   factory MacOSEnvironment.build(
     void Function(MacOSEnvironmentBuilder) updates,
@@ -276,9 +268,7 @@ abstract class MacOSEnvironment
 abstract class GitHubPackageConfig
     with AWSSerializable<Map<String, Object?>>, AWSDebuggable
     implements Built<GitHubPackageConfig, GitHubPackageConfigBuilder> {
-  factory GitHubPackageConfig({
-    bool custom = false,
-  }) =>
+  factory GitHubPackageConfig({bool custom = false}) =>
       _$GitHubPackageConfig._(custom: custom);
 
   factory GitHubPackageConfig.build(
@@ -558,9 +548,7 @@ extension on Dependency {
     final dependency = this;
     var dependencyJson = <String, Object?>{};
     if (dependency is HostedDependency) {
-      dependencyJson = {
-        'version': dependency.version.toString(),
-      };
+      dependencyJson = {'version': dependency.version.toString()};
       final details = dependency.hosted;
       if (details != null && details.url != null) {
         dependencyJson['hosted'] = details.url!.toString();
@@ -579,9 +567,7 @@ extension on Dependency {
         },
       };
     } else if (dependency is PathDependency) {
-      dependencyJson = {
-        'path': dependency.path,
-      };
+      dependencyJson = {'path': dependency.path};
     }
     return dependencyJson;
   }
@@ -589,26 +575,25 @@ extension on Dependency {
 
 extension on Pubspec {
   Map<String, Object?> toJson() => {
-        'name': name,
-        if (version != null) 'version': version!.toString(),
-        if (publishTo != null) 'publishTo': publishTo,
-        if (environment != null)
-          'environment': environment!.map((key, constraint) {
-            return MapEntry(key, constraint?.toString());
-          }),
-        if (homepage != null) 'homepage': homepage,
-        if (repository != null) 'repository': repository!.toString(),
-        if (issueTracker != null) 'issueTracker': issueTracker!.toString(),
-        if (description != null) 'description': description,
-        'dependencies': dependencies.map((name, dependency) {
-          return MapEntry(name, dependency.toJson());
-        }),
-        'dependencyOverrides': dependencyOverrides.map((name, dependency) {
-          return MapEntry(name, dependency.toJson());
-        }),
-        'devDependencies': devDependencies.map((name, dependency) {
-          return MapEntry(name, dependency.toJson());
-        }),
-        if (flutter != null) 'flutter': flutter,
-      };
+    'name': name,
+    if (version != null) 'version': version!.toString(),
+    if (publishTo != null) 'publishTo': publishTo,
+    'environment': environment.map((key, constraint) {
+      return MapEntry(key, constraint?.toString());
+    }),
+    if (homepage != null) 'homepage': homepage,
+    if (repository != null) 'repository': repository!.toString(),
+    if (issueTracker != null) 'issueTracker': issueTracker!.toString(),
+    if (description != null) 'description': description,
+    'dependencies': dependencies.map((name, dependency) {
+      return MapEntry(name, dependency.toJson());
+    }),
+    'dependencyOverrides': dependencyOverrides.map((name, dependency) {
+      return MapEntry(name, dependency.toJson());
+    }),
+    'devDependencies': devDependencies.map((name, dependency) {
+      return MapEntry(name, dependency.toJson());
+    }),
+    if (flutter != null) 'flutter': flutter,
+  };
 }

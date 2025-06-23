@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_validation_protocol.model.pattern_union_override; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,33 +17,28 @@ sealed class PatternUnionOverride
   const factory PatternUnionOverride.second(String second) =
       PatternUnionOverrideSecond$;
 
-  const factory PatternUnionOverride.sdkUnknown(
-    String name,
-    Object value,
-  ) = PatternUnionOverrideSdkUnknown$;
+  const factory PatternUnionOverride.sdkUnknown(String name, Object value) =
+      PatternUnionOverrideSdkUnknown$;
 
   static const List<_i1.SmithySerializer<PatternUnionOverride>> serializers = [
-    PatternUnionOverrideRestJson1Serializer()
+    PatternUnionOverrideRestJson1Serializer(),
   ];
 
   String? get first => null;
+
   String? get second => null;
+
   @override
   Object get value => (first ?? second)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'PatternUnionOverride');
     if (first != null) {
-      helper.add(
-        r'first',
-        first,
-      );
+      helper.add(r'first', first);
     }
     if (second != null) {
-      helper.add(
-        r'second',
-        second,
-      );
+      helper.add(r'second', second);
     }
     return helper.toString();
   }
@@ -70,10 +65,7 @@ final class PatternUnionOverrideSecond$ extends PatternUnionOverride {
 }
 
 final class PatternUnionOverrideSdkUnknown$ extends PatternUnionOverride {
-  const PatternUnionOverrideSdkUnknown$(
-    this.name,
-    this.value,
-  ) : super._();
+  const PatternUnionOverrideSdkUnknown$(this.name, this.value) : super._();
 
   @override
   final String name;
@@ -85,21 +77,20 @@ final class PatternUnionOverrideSdkUnknown$ extends PatternUnionOverride {
 class PatternUnionOverrideRestJson1Serializer
     extends _i1.StructuredSmithySerializer<PatternUnionOverride> {
   const PatternUnionOverrideRestJson1Serializer()
-      : super('PatternUnionOverride');
+    : super('PatternUnionOverride');
 
   @override
   Iterable<Type> get types => const [
-        PatternUnionOverride,
-        PatternUnionOverrideFirst$,
-        PatternUnionOverrideSecond$,
-      ];
+    PatternUnionOverride,
+    PatternUnionOverrideFirst$,
+    PatternUnionOverrideSecond$,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   PatternUnionOverride deserialize(
     Serializers serializers,
@@ -109,20 +100,17 @@ class PatternUnionOverrideRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'first':
-        return PatternUnionOverrideFirst$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
+        return PatternUnionOverrideFirst$(
+          (serializers.deserialize(value, specifiedType: const FullType(String))
+              as String),
+        );
       case 'second':
-        return PatternUnionOverrideSecond$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
+        return PatternUnionOverrideSecond$(
+          (serializers.deserialize(value, specifiedType: const FullType(String))
+              as String),
+        );
     }
-    return PatternUnionOverride.sdkUnknown(
-      key,
-      value,
-    );
+    return PatternUnionOverride.sdkUnknown(key, value);
   }
 
   @override
@@ -135,13 +123,13 @@ class PatternUnionOverrideRestJson1Serializer
       object.name,
       switch (object) {
         PatternUnionOverrideFirst$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(String),
-          ),
+          value,
+          specifiedType: const FullType(String),
+        ),
         PatternUnionOverrideSecond$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(String),
-          ),
+          value,
+          specifiedType: const FullType(String),
+        ),
         PatternUnionOverrideSdkUnknown$(:final value) => value,
       },
     ];

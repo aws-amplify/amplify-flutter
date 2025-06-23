@@ -2,13 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library amplify_api.decorators.web_socket_auth_utils;
+library;
 
 import 'dart:convert';
 
 import 'package:amplify_api_dart/src/decorators/authorize_http_request.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:meta/meta.dart';
 
 const _appSyncHostPortion = 'appsync-api';
@@ -24,31 +26,21 @@ const _requiredHeaders = {
   AWSHeaders.contentType: 'application/json; charset=utf-8',
 };
 
-// AppSync expects "{}" encoded in the URI as the payload during handshake.
-const _emptyBody = <String, dynamic>{};
+/// The default payload to include to AppSync.
+///
+/// AppSync expects "{}" encoded in the URI as the payload during handshake.
+@internal
+const appSyncDefaultPayload = <String, dynamic>{};
 
 /// Generate a URI for the connection and all subscriptions.
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection=
-Future<Uri> generateConnectionUri(
-  AWSApiConfig config,
-  AmplifyAuthProviderRepository authRepo,
-) async {
-  // First, generate auth query parameters.
-  final authorizationHeaders = await _generateAuthorizationHeaders(
-    config,
-    isConnectionInit: true,
-    authRepo: authRepo,
-    body: _emptyBody,
-  );
-  final encodedAuthHeaders =
-      base64.encode(json.encode(authorizationHeaders).codeUnits);
+Future<Uri> generateConnectionUri(ApiOutputs config) async {
   final authQueryParameters = {
-    'header': encodedAuthHeaders,
-    'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
+    'payload': base64.encode(utf8.encode(json.encode(appSyncDefaultPayload))),
   };
   // Conditionally format the URI for a) AppSync domain b) custom domain.
-  var endpointUriHost = Uri.parse(config.endpoint).host;
+  var endpointUriHost = Uri.parse(config.url).host;
   String path;
   if (endpointUriHost.contains(_appSyncHostPortion) &&
       endpointUriHost.endsWith(_appSyncHostSuffix)) {
@@ -68,23 +60,21 @@ Future<Uri> generateConnectionUri(
     scheme: 'wss',
     host: endpointUriHost,
     path: path,
-  ).replace(
-    queryParameters: authQueryParameters,
-  );
+  ).replace(queryParameters: authQueryParameters);
 }
 
 /// Generate websocket message with authorized payload to register subscription.
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#subscription-registration-message
 Future<WebSocketSubscriptionRegistrationMessage>
-    generateSubscriptionRegistrationMessage<T>(
-  AWSApiConfig config, {
+generateSubscriptionRegistrationMessage<T>(
+  ApiOutputs config, {
   required String id,
   required AmplifyAuthProviderRepository authRepo,
   required GraphQLRequest<T> request,
 }) async {
   final body = {'variables': request.variables, 'query': request.document};
-  final authorizationHeaders = await _generateAuthorizationHeaders(
+  final authorizationHeaders = await generateAuthorizationHeaders(
     config,
     isConnectionInit: false,
     authRepo: authRepo,
@@ -112,26 +102,24 @@ Future<WebSocketSubscriptionRegistrationMessage>
 /// a canonical HTTP request that is authorized but never sent. The headers from
 /// the HTTP request are reformatted and returned. This logic applies for all auth
 /// modes as determined by [authRepo] parameter.
-Future<Map<String, String>> _generateAuthorizationHeaders(
-  AWSApiConfig config, {
+@internal
+Future<Map<String, String>> generateAuthorizationHeaders(
+  ApiOutputs config, {
   required bool isConnectionInit,
   required AmplifyAuthProviderRepository authRepo,
   required Map<String, dynamic> body,
   APIAuthorizationType? authorizationMode,
   Map<String, String>? customHeaders,
 }) async {
-  final endpointHost = Uri.parse(config.endpoint).host;
+  final endpointHost = Uri.parse(config.url).host;
   // Create canonical HTTP request to authorize but never send.
   //
   // The canonical request URL is a little different depending on if authorizing
   // connection URI or start message (subscription registration).
   final maybeConnect = isConnectionInit ? '/connect' : '';
   final canonicalHttpRequest = AWSStreamedHttpRequest.post(
-    Uri.parse('${config.endpoint}$maybeConnect'),
-    headers: {
-      ...?customHeaders,
-      ..._requiredHeaders,
-    },
+    Uri.parse('${config.url}$maybeConnect'),
+    headers: {...?customHeaders, ..._requiredHeaders},
     body: HttpPayload.json(body),
   );
   final authorizedHttpRequest = await authorizeHttpRequest(
@@ -142,8 +130,5 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   );
 
   // Take authorized HTTP headers as map with "host" value added.
-  return {
-    ...authorizedHttpRequest.headers,
-    AWSHeaders.host: endpointHost,
-  };
+  return {...authorizedHttpRequest.headers, AWSHeaders.host: endpointHost};
 }

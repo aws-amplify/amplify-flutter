@@ -16,22 +16,24 @@ class _$MalformedPatternOverrideInput extends MalformedPatternOverrideInput {
   @override
   final PatternUnionOverride? union;
 
-  factory _$MalformedPatternOverrideInput(
-          [void Function(MalformedPatternOverrideInputBuilder)? updates]) =>
-      (new MalformedPatternOverrideInputBuilder()..update(updates))._build();
+  factory _$MalformedPatternOverrideInput([
+    void Function(MalformedPatternOverrideInputBuilder)? updates,
+  ]) => (MalformedPatternOverrideInputBuilder()..update(updates))._build();
 
-  _$MalformedPatternOverrideInput._(
-      {this.string, this.list, this.map, this.union})
-      : super._();
-
+  _$MalformedPatternOverrideInput._({
+    this.string,
+    this.list,
+    this.map,
+    this.union,
+  }) : super._();
   @override
   MalformedPatternOverrideInput rebuild(
-          void Function(MalformedPatternOverrideInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedPatternOverrideInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedPatternOverrideInputBuilder toBuilder() =>
-      new MalformedPatternOverrideInputBuilder()..replace(this);
+      MalformedPatternOverrideInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -57,8 +59,10 @@ class _$MalformedPatternOverrideInput extends MalformedPatternOverrideInput {
 
 class MalformedPatternOverrideInputBuilder
     implements
-        Builder<MalformedPatternOverrideInput,
-            MalformedPatternOverrideInputBuilder> {
+        Builder<
+          MalformedPatternOverrideInput,
+          MalformedPatternOverrideInputBuilder
+        > {
   _$MalformedPatternOverrideInput? _$v;
 
   String? _string;
@@ -67,12 +71,12 @@ class MalformedPatternOverrideInputBuilder
 
   _i3.ListBuilder<String>? _list;
   _i3.ListBuilder<String> get list =>
-      _$this._list ??= new _i3.ListBuilder<String>();
+      _$this._list ??= _i3.ListBuilder<String>();
   set list(_i3.ListBuilder<String>? list) => _$this._list = list;
 
   _i3.MapBuilder<String, String>? _map;
   _i3.MapBuilder<String, String> get map =>
-      _$this._map ??= new _i3.MapBuilder<String, String>();
+      _$this._map ??= _i3.MapBuilder<String, String>();
   set map(_i3.MapBuilder<String, String>? map) => _$this._map = map;
 
   PatternUnionOverride? _union;
@@ -95,7 +99,6 @@ class MalformedPatternOverrideInputBuilder
 
   @override
   void replace(MalformedPatternOverrideInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedPatternOverrideInput;
   }
 
@@ -110,12 +113,14 @@ class MalformedPatternOverrideInputBuilder
   _$MalformedPatternOverrideInput _build() {
     _$MalformedPatternOverrideInput _$result;
     try {
-      _$result = _$v ??
-          new _$MalformedPatternOverrideInput._(
-              string: string,
-              list: _list?.build(),
-              map: _map?.build(),
-              union: union);
+      _$result =
+          _$v ??
+          _$MalformedPatternOverrideInput._(
+            string: string,
+            list: _list?.build(),
+            map: _map?.build(),
+            union: union,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -124,8 +129,11 @@ class MalformedPatternOverrideInputBuilder
         _$failedField = 'map';
         _map?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'MalformedPatternOverrideInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'MalformedPatternOverrideInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

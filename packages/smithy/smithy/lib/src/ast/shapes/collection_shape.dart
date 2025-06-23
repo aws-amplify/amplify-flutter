@@ -23,7 +23,7 @@ class NamedMembersMap extends DelegatingMap<String, MemberShape> {
   NamedMembersMap(super.members);
 
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       other is NamedMembersMap &&
           const MapEquality<String, MemberShape>().equals(this, other);
@@ -49,8 +49,10 @@ class NamedMembersMapSerializer extends StructuredSerializer<NamedMembersMap> {
       membersMap[memberName] = serializers
           .deserializeWith(
             MemberShape.serializer,
-            StandardJsonPlugin()
-                .beforeDeserialize(value, const FullType(MemberShape)),
+            StandardJsonPlugin().beforeDeserialize(
+              value,
+              const FullType(MemberShape),
+            ),
           )!
           .rebuild(
             (b) => b

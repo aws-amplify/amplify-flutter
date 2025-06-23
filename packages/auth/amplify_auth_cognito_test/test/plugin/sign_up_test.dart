@@ -42,10 +42,8 @@ void main() {
         );
 
         final mockIdp = MockCognitoIdentityProviderClient(
-          signUp: () async => SignUpResponse(
-            userConfirmed: true,
-            userSub: userSub,
-          ),
+          signUp: () async =>
+              SignUpResponse(userConfirmed: true, userSub: userSub),
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 

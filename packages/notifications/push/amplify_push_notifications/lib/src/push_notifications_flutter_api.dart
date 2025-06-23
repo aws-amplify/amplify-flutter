@@ -11,8 +11,9 @@ import 'package:amplify_push_notifications/src/native_push_notifications_plugin.
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
-    .createChild('AmplifyPushNotificationsFlutterApi');
+final AmplifyLogger _logger = AmplifyLogger.category(
+  Category.pushNotifications,
+).createChild('AmplifyPushNotificationsFlutterApi');
 
 /// {@template amplify_push_notifications.amplify_push_notifications_flutter_api}
 /// Internal Platform check exposed for testing purposes only.
@@ -21,14 +22,14 @@ class AmplifyPushNotificationsFlutterApi
     implements PushNotificationsFlutterApi {
   /// {@macro amplify_push_notifications.amplify_push_notifications_flutter_api}
   AmplifyPushNotificationsFlutterApi._constructor() {
-    PushNotificationsFlutterApi.setup(this);
+    PushNotificationsFlutterApi.setUp(this);
   }
 
   /// {@template amplify_push_notifications.amplify_push_notifications_flutter_api.reset}
   /// Ability to reset the singleton only used for resetting between tests.
   /// {@endtemplate}
   static void reset() {
-    PushNotificationsFlutterApi.setup(null);
+    PushNotificationsFlutterApi.setUp(null);
     _instance = AmplifyPushNotificationsFlutterApi._constructor();
   }
 
@@ -67,9 +68,7 @@ class AmplifyPushNotificationsFlutterApi
   /// Set a callback that to be called when [nullifyLaunchNotification] is
   /// called from the native implementation.
   /// {@endtemplate}
-  set onNullifyLaunchNotificationCallback(
-    void Function() callback,
-  ) {
+  set onNullifyLaunchNotificationCallback(void Function() callback) {
     _onNullifyLaunchNotificationCallback = callback;
   }
 
@@ -88,9 +87,7 @@ class AmplifyPushNotificationsFlutterApi
     final prefs = await SharedPreferences.getInstance();
     final externalHandle = prefs.getInt(externalHandleKey);
     if (externalHandle == null) {
-      _logger.debug(
-        'Could not locate stored external handle',
-      );
+      _logger.debug('Could not locate stored external handle');
       return;
     }
     final externalCallback = PluginUtilities.getCallbackFromHandle(
@@ -135,11 +132,11 @@ class AmplifyPushNotificationsFlutterApi
     if (_serviceProviderClient != null) {
       await Future.wait<void>(
         [..._eventQueue, withItem].whereType<PushNotificationMessage>().map(
-              (notification) => _serviceProviderClient!.recordNotificationEvent(
-                eventType: PinpointEventType.backgroundMessageReceived,
-                notification: notification,
-              ),
-            ),
+          (notification) => _serviceProviderClient!.recordNotificationEvent(
+            eventType: PinpointEventType.backgroundMessageReceived,
+            notification: notification,
+          ),
+        ),
       );
       _eventQueue.clear();
     }

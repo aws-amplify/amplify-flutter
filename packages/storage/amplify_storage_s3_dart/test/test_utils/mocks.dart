@@ -27,3 +27,7 @@ class MockS3UploadTask extends Mock implements S3UploadTask {}
 class MockTransferDatabase extends Mock implements TransferDatabase {}
 
 class MockSmithyOperation<T> extends Mock implements SmithyOperation<T> {}
+
+class MockAmplifyUserAgent extends Mock implements AmplifyUserAgent {}
+
+class MockAWSHttpClient extends Mock implements AWSHttpClient {}

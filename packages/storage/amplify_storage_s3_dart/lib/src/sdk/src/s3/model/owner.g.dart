@@ -13,16 +13,15 @@ class _$Owner extends Owner {
   final String? id;
 
   factory _$Owner([void Function(OwnerBuilder)? updates]) =>
-      (new OwnerBuilder()..update(updates))._build();
+      (OwnerBuilder()..update(updates))._build();
 
   _$Owner._({this.displayName, this.id}) : super._();
-
   @override
   Owner rebuild(void Function(OwnerBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  OwnerBuilder toBuilder() => new OwnerBuilder()..replace(this);
+  OwnerBuilder toBuilder() => OwnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -65,7 +64,6 @@ class OwnerBuilder implements Builder<Owner, OwnerBuilder> {
 
   @override
   void replace(Owner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Owner;
   }
 
@@ -78,7 +76,7 @@ class OwnerBuilder implements Builder<Owner, OwnerBuilder> {
   Owner build() => _build();
 
   _$Owner _build() {
-    final _$result = _$v ?? new _$Owner._(displayName: displayName, id: id);
+    final _$result = _$v ?? _$Owner._(displayName: displayName, id: id);
     replace(_$result);
     return _$result;
   }

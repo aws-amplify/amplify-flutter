@@ -10,23 +10,19 @@ class _$GlobalSignOutRequest extends GlobalSignOutRequest {
   @override
   final String accessToken;
 
-  factory _$GlobalSignOutRequest(
-          [void Function(GlobalSignOutRequestBuilder)? updates]) =>
-      (new GlobalSignOutRequestBuilder()..update(updates))._build();
+  factory _$GlobalSignOutRequest([
+    void Function(GlobalSignOutRequestBuilder)? updates,
+  ]) => (GlobalSignOutRequestBuilder()..update(updates))._build();
 
-  _$GlobalSignOutRequest._({required this.accessToken}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'GlobalSignOutRequest', 'accessToken');
-  }
-
+  _$GlobalSignOutRequest._({required this.accessToken}) : super._();
   @override
   GlobalSignOutRequest rebuild(
-          void Function(GlobalSignOutRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GlobalSignOutRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GlobalSignOutRequestBuilder toBuilder() =>
-      new GlobalSignOutRequestBuilder()..replace(this);
+      GlobalSignOutRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -64,7 +60,6 @@ class GlobalSignOutRequestBuilder
 
   @override
   void replace(GlobalSignOutRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GlobalSignOutRequest;
   }
 
@@ -77,10 +72,15 @@ class GlobalSignOutRequestBuilder
   GlobalSignOutRequest build() => _build();
 
   _$GlobalSignOutRequest _build() {
-    final _$result = _$v ??
-        new _$GlobalSignOutRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'GlobalSignOutRequest', 'accessToken'));
+    final _$result =
+        _$v ??
+        _$GlobalSignOutRequest._(
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+            accessToken,
+            r'GlobalSignOutRequest',
+            'accessToken',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

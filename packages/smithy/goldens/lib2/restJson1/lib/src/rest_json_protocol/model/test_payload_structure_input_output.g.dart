@@ -13,21 +13,20 @@ class _$TestPayloadStructureInputOutput
   @override
   final PayloadConfig? payloadConfig;
 
-  factory _$TestPayloadStructureInputOutput(
-          [void Function(TestPayloadStructureInputOutputBuilder)? updates]) =>
-      (new TestPayloadStructureInputOutputBuilder()..update(updates))._build();
+  factory _$TestPayloadStructureInputOutput([
+    void Function(TestPayloadStructureInputOutputBuilder)? updates,
+  ]) => (TestPayloadStructureInputOutputBuilder()..update(updates))._build();
 
   _$TestPayloadStructureInputOutput._({this.testId, this.payloadConfig})
-      : super._();
-
+    : super._();
   @override
   TestPayloadStructureInputOutput rebuild(
-          void Function(TestPayloadStructureInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TestPayloadStructureInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TestPayloadStructureInputOutputBuilder toBuilder() =>
-      new TestPayloadStructureInputOutputBuilder()..replace(this);
+      TestPayloadStructureInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -49,8 +48,10 @@ class _$TestPayloadStructureInputOutput
 
 class TestPayloadStructureInputOutputBuilder
     implements
-        Builder<TestPayloadStructureInputOutput,
-            TestPayloadStructureInputOutputBuilder> {
+        Builder<
+          TestPayloadStructureInputOutput,
+          TestPayloadStructureInputOutputBuilder
+        > {
   _$TestPayloadStructureInputOutput? _$v;
 
   String? _testId;
@@ -59,7 +60,7 @@ class TestPayloadStructureInputOutputBuilder
 
   PayloadConfigBuilder? _payloadConfig;
   PayloadConfigBuilder get payloadConfig =>
-      _$this._payloadConfig ??= new PayloadConfigBuilder();
+      _$this._payloadConfig ??= PayloadConfigBuilder();
   set payloadConfig(PayloadConfigBuilder? payloadConfig) =>
       _$this._payloadConfig = payloadConfig;
 
@@ -77,7 +78,6 @@ class TestPayloadStructureInputOutputBuilder
 
   @override
   void replace(TestPayloadStructureInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TestPayloadStructureInputOutput;
   }
 
@@ -92,17 +92,23 @@ class TestPayloadStructureInputOutputBuilder
   _$TestPayloadStructureInputOutput _build() {
     _$TestPayloadStructureInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$TestPayloadStructureInputOutput._(
-              testId: testId, payloadConfig: _payloadConfig?.build());
+      _$result =
+          _$v ??
+          _$TestPayloadStructureInputOutput._(
+            testId: testId,
+            payloadConfig: _payloadConfig?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'payloadConfig';
         _payloadConfig?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'TestPayloadStructureInputOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'TestPayloadStructureInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-part of amplify_interface;
+part of 'amplify_categories.dart';
 
 /// Interface for DataStore category. This expose all the APIs that
 /// are supported by this category's plugins. This class will accept plugins to
@@ -38,7 +38,7 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
           throw AmplifyException.fromMap(
             Map<String, String>.from(
               // ignore: avoid_dynamic_calls
-              (e as dynamic /* PlatformException */).details as Map,
+              (e as dynamic /* PlatformException */ ).details as Map,
             ),
           );
         } on NoSuchMethodError {

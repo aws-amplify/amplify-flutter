@@ -38,35 +38,34 @@ class _$EndpointResponse extends EndpointResponse {
   @override
   final EndpointUser? user;
 
-  factory _$EndpointResponse(
-          [void Function(EndpointResponseBuilder)? updates]) =>
-      (new EndpointResponseBuilder()..update(updates))._build();
+  factory _$EndpointResponse([
+    void Function(EndpointResponseBuilder)? updates,
+  ]) => (EndpointResponseBuilder()..update(updates))._build();
 
-  _$EndpointResponse._(
-      {this.address,
-      this.applicationId,
-      this.attributes,
-      this.channelType,
-      this.cohortId,
-      this.creationDate,
-      this.demographic,
-      this.effectiveDate,
-      this.endpointStatus,
-      this.id,
-      this.location,
-      this.metrics,
-      this.optOut,
-      this.requestId,
-      this.user})
-      : super._();
-
+  _$EndpointResponse._({
+    this.address,
+    this.applicationId,
+    this.attributes,
+    this.channelType,
+    this.cohortId,
+    this.creationDate,
+    this.demographic,
+    this.effectiveDate,
+    this.endpointStatus,
+    this.id,
+    this.location,
+    this.metrics,
+    this.optOut,
+    this.requestId,
+    this.user,
+  }) : super._();
   @override
   EndpointResponse rebuild(void Function(EndpointResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   EndpointResponseBuilder toBuilder() =>
-      new EndpointResponseBuilder()..replace(this);
+      EndpointResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -127,7 +126,7 @@ class EndpointResponseBuilder
 
   _i2.ListMultimapBuilder<String, String>? _attributes;
   _i2.ListMultimapBuilder<String, String> get attributes =>
-      _$this._attributes ??= new _i2.ListMultimapBuilder<String, String>();
+      _$this._attributes ??= _i2.ListMultimapBuilder<String, String>();
   set attributes(_i2.ListMultimapBuilder<String, String>? attributes) =>
       _$this._attributes = attributes;
 
@@ -146,7 +145,7 @@ class EndpointResponseBuilder
 
   EndpointDemographicBuilder? _demographic;
   EndpointDemographicBuilder get demographic =>
-      _$this._demographic ??= new EndpointDemographicBuilder();
+      _$this._demographic ??= EndpointDemographicBuilder();
   set demographic(EndpointDemographicBuilder? demographic) =>
       _$this._demographic = demographic;
 
@@ -166,13 +165,13 @@ class EndpointResponseBuilder
 
   EndpointLocationBuilder? _location;
   EndpointLocationBuilder get location =>
-      _$this._location ??= new EndpointLocationBuilder();
+      _$this._location ??= EndpointLocationBuilder();
   set location(EndpointLocationBuilder? location) =>
       _$this._location = location;
 
   _i2.MapBuilder<String, double>? _metrics;
   _i2.MapBuilder<String, double> get metrics =>
-      _$this._metrics ??= new _i2.MapBuilder<String, double>();
+      _$this._metrics ??= _i2.MapBuilder<String, double>();
   set metrics(_i2.MapBuilder<String, double>? metrics) =>
       _$this._metrics = metrics;
 
@@ -185,7 +184,7 @@ class EndpointResponseBuilder
   set requestId(String? requestId) => _$this._requestId = requestId;
 
   EndpointUserBuilder? _user;
-  EndpointUserBuilder get user => _$this._user ??= new EndpointUserBuilder();
+  EndpointUserBuilder get user => _$this._user ??= EndpointUserBuilder();
   set user(EndpointUserBuilder? user) => _$this._user = user;
 
   EndpointResponseBuilder();
@@ -215,7 +214,6 @@ class EndpointResponseBuilder
 
   @override
   void replace(EndpointResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointResponse;
   }
 
@@ -230,23 +228,25 @@ class EndpointResponseBuilder
   _$EndpointResponse _build() {
     _$EndpointResponse _$result;
     try {
-      _$result = _$v ??
-          new _$EndpointResponse._(
-              address: address,
-              applicationId: applicationId,
-              attributes: _attributes?.build(),
-              channelType: channelType,
-              cohortId: cohortId,
-              creationDate: creationDate,
-              demographic: _demographic?.build(),
-              effectiveDate: effectiveDate,
-              endpointStatus: endpointStatus,
-              id: id,
-              location: _location?.build(),
-              metrics: _metrics?.build(),
-              optOut: optOut,
-              requestId: requestId,
-              user: _user?.build());
+      _$result =
+          _$v ??
+          _$EndpointResponse._(
+            address: address,
+            applicationId: applicationId,
+            attributes: _attributes?.build(),
+            channelType: channelType,
+            cohortId: cohortId,
+            creationDate: creationDate,
+            demographic: _demographic?.build(),
+            effectiveDate: effectiveDate,
+            endpointStatus: endpointStatus,
+            id: id,
+            location: _location?.build(),
+            metrics: _metrics?.build(),
+            optOut: optOut,
+            requestId: requestId,
+            user: _user?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -264,8 +264,11 @@ class EndpointResponseBuilder
         _$failedField = 'user';
         _user?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'EndpointResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'EndpointResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

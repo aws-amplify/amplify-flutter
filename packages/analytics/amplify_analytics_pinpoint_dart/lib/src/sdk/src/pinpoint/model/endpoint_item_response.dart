@@ -15,25 +15,19 @@ abstract class EndpointItemResponse
     with _i1.AWSEquatable<EndpointItemResponse>
     implements Built<EndpointItemResponse, EndpointItemResponseBuilder> {
   /// Provides the status code and message that result from processing data for an endpoint.
-  factory EndpointItemResponse({
-    String? message,
-    int? statusCode,
-  }) {
-    return _$EndpointItemResponse._(
-      message: message,
-      statusCode: statusCode,
-    );
+  factory EndpointItemResponse({String? message, int? statusCode}) {
+    return _$EndpointItemResponse._(message: message, statusCode: statusCode);
   }
 
   /// Provides the status code and message that result from processing data for an endpoint.
-  factory EndpointItemResponse.build(
-          [void Function(EndpointItemResponseBuilder) updates]) =
-      _$EndpointItemResponse;
+  factory EndpointItemResponse.build([
+    void Function(EndpointItemResponseBuilder) updates,
+  ]) = _$EndpointItemResponse;
 
   const EndpointItemResponse._();
 
   static const List<_i2.SmithySerializer<EndpointItemResponse>> serializers = [
-    EndpointItemResponseRestJson1Serializer()
+    EndpointItemResponseRestJson1Serializer(),
   ];
 
   /// The custom message that's returned in the response as a result of processing the endpoint data.
@@ -42,21 +36,12 @@ abstract class EndpointItemResponse
   /// The status code that's returned in the response as a result of processing the endpoint data.
   int? get statusCode;
   @override
-  List<Object?> get props => [
-        message,
-        statusCode,
-      ];
+  List<Object?> get props => [message, statusCode];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndpointItemResponse')
-      ..add(
-        'message',
-        message,
-      )
-      ..add(
-        'statusCode',
-        statusCode,
-      );
+      ..add('message', message)
+      ..add('statusCode', statusCode);
     return helper.toString();
   }
 }
@@ -64,20 +49,17 @@ abstract class EndpointItemResponse
 class EndpointItemResponseRestJson1Serializer
     extends _i2.StructuredSmithySerializer<EndpointItemResponse> {
   const EndpointItemResponseRestJson1Serializer()
-      : super('EndpointItemResponse');
+    : super('EndpointItemResponse');
 
   @override
   Iterable<Type> get types => const [
-        EndpointItemResponse,
-        _$EndpointItemResponse,
-      ];
+    EndpointItemResponse,
+    _$EndpointItemResponse,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EndpointItemResponse deserialize(
     Serializers serializers,
@@ -95,15 +77,19 @@ class EndpointItemResponseRestJson1Serializer
       }
       switch (key) {
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'StatusCode':
-          result.statusCode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.statusCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -121,18 +107,16 @@ class EndpointItemResponseRestJson1Serializer
     if (message != null) {
       result$
         ..add('Message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (statusCode != null) {
       result$
         ..add('StatusCode')
-        ..add(serializers.serialize(
-          statusCode,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(statusCode, specifiedType: const FullType(int)),
+        );
     }
     return result$;
   }

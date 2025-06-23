@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
-
-import 'dart:html';
+library;
 
 import 'package:example_common/example_common.dart';
 import 'package:test/test.dart';
+import 'package:web/web.dart';
 
 void main() {
   test('Can create a component and insert it into the DOM', () {

@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/l10n/instructions_resolver.dart';
 import 'package:flutter/material.dart';
 
 export 'button_resolver.dart';
 export 'dial_code_resolver.dart';
 export 'input_resolver.dart';
+export 'instructions_resolver.dart';
 export 'message_resolver.dart';
 export 'title_resolver.dart';
 
@@ -22,29 +22,23 @@ class AuthStringResolver {
   /// {@macro amplify_authenticator.auth_string_resolver}
   const AuthStringResolver({
     ButtonResolver? buttons,
-    // ignore: deprecated_member_use_from_same_package
-    @Deprecated('Use dialCodes instead') CountryResolver? countries,
     DialCodeResolver? dialCodes,
     InputResolver? inputs,
+    InstructionsResolver? instructions,
     MessageResolver? messages,
     TitleResolver? titles,
-    InstructionsResolver? instructions,
-  })  : buttons = buttons ?? const ButtonResolver(),
-        dialCodes = dialCodes ?? countries ?? const DialCodeResolver(),
-        inputs = inputs ?? const InputResolver(),
-        titles = titles ?? const TitleResolver(),
-        messages = messages ?? const MessageResolver(),
-        instruction = instructions ?? const InstructionsResolver();
+  }) : buttons = buttons ?? const ButtonResolver(),
+       dialCodes = dialCodes ?? const DialCodeResolver(),
+       inputs = inputs ?? const InputResolver(),
+       instruction = instructions ?? const InstructionsResolver(),
+       titles = titles ?? const TitleResolver(),
+       messages = messages ?? const MessageResolver();
 
   /// The resolver class for shared button Widgets
   final ButtonResolver buttons;
 
   /// The resolver class for area codes
   final DialCodeResolver dialCodes;
-
-  /// The resolver class for area codes
-  @Deprecated('Use dialCodes instead')
-  DialCodeResolver get countries => dialCodes;
 
   /// The resolver class for shared input Widgets
   final InputResolver inputs;

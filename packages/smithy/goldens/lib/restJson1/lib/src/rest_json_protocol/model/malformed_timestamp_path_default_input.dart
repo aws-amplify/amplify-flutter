@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.malformed_timestamp_path_default_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,19 @@ abstract class MalformedTimestampPathDefaultInput
         _i1.HttpInput<MalformedTimestampPathDefaultInputPayload>,
         _i2.AWSEquatable<MalformedTimestampPathDefaultInput>
     implements
-        Built<MalformedTimestampPathDefaultInput,
-            MalformedTimestampPathDefaultInputBuilder>,
+        Built<
+          MalformedTimestampPathDefaultInput,
+          MalformedTimestampPathDefaultInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<MalformedTimestampPathDefaultInputPayload> {
   factory MalformedTimestampPathDefaultInput({required DateTime timestamp}) {
     return _$MalformedTimestampPathDefaultInput._(timestamp: timestamp);
   }
 
-  factory MalformedTimestampPathDefaultInput.build(
-          [void Function(MalformedTimestampPathDefaultInputBuilder) updates]) =
-      _$MalformedTimestampPathDefaultInput;
+  factory MalformedTimestampPathDefaultInput.build([
+    void Function(MalformedTimestampPathDefaultInputBuilder) updates,
+  ]) = _$MalformedTimestampPathDefaultInput;
 
   const MalformedTimestampPathDefaultInput._();
 
@@ -34,95 +36,96 @@ abstract class MalformedTimestampPathDefaultInput
     MalformedTimestampPathDefaultInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedTimestampPathDefaultInput.build((b) {
-        if (labels['timestamp'] != null) {
-          b.timestamp = _i1.Timestamp.parse(
-            labels['timestamp']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
-        }
-      });
+  }) => MalformedTimestampPathDefaultInput.build((b) {
+    if (labels['timestamp'] != null) {
+      b.timestamp = _i1.Timestamp.parse(
+        labels['timestamp']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<MalformedTimestampPathDefaultInputPayload>>
-      serializers = [MalformedTimestampPathDefaultInputRestJson1Serializer()];
+    _i1.SmithySerializer<MalformedTimestampPathDefaultInputPayload>
+  >
+  serializers = [MalformedTimestampPathDefaultInputRestJson1Serializer()];
 
   DateTime get timestamp;
   @override
   String labelFor(String key) {
     switch (key) {
       case 'timestamp':
-        return _i1.Timestamp(timestamp)
-            .format(_i1.TimestampFormat.dateTime)
-            .toString();
+        return _i1.Timestamp(
+          timestamp,
+        ).format(_i1.TimestampFormat.dateTime).toString();
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   MalformedTimestampPathDefaultInputPayload getPayload() =>
       MalformedTimestampPathDefaultInputPayload();
+
   @override
   List<Object?> get props => [timestamp];
+
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedTimestampPathDefaultInput')
-          ..add(
-            'timestamp',
-            timestamp,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'MalformedTimestampPathDefaultInput',
+    )..add('timestamp', timestamp);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class MalformedTimestampPathDefaultInputPayload
-    with
-        _i2.AWSEquatable<MalformedTimestampPathDefaultInputPayload>
+    with _i2.AWSEquatable<MalformedTimestampPathDefaultInputPayload>
     implements
-        Built<MalformedTimestampPathDefaultInputPayload,
-            MalformedTimestampPathDefaultInputPayloadBuilder>,
+        Built<
+          MalformedTimestampPathDefaultInputPayload,
+          MalformedTimestampPathDefaultInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory MalformedTimestampPathDefaultInputPayload(
-      [void Function(MalformedTimestampPathDefaultInputPayloadBuilder)
-          updates]) = _$MalformedTimestampPathDefaultInputPayload;
+  factory MalformedTimestampPathDefaultInputPayload([
+    void Function(MalformedTimestampPathDefaultInputPayloadBuilder) updates,
+  ]) = _$MalformedTimestampPathDefaultInputPayload;
 
   const MalformedTimestampPathDefaultInputPayload._();
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MalformedTimestampPathDefaultInputPayload');
+      'MalformedTimestampPathDefaultInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class MalformedTimestampPathDefaultInputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<MalformedTimestampPathDefaultInputPayload> {
+class MalformedTimestampPathDefaultInputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<
+          MalformedTimestampPathDefaultInputPayload
+        > {
   const MalformedTimestampPathDefaultInputRestJson1Serializer()
-      : super('MalformedTimestampPathDefaultInput');
+    : super('MalformedTimestampPathDefaultInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedTimestampPathDefaultInput,
-        _$MalformedTimestampPathDefaultInput,
-        MalformedTimestampPathDefaultInputPayload,
-        _$MalformedTimestampPathDefaultInputPayload,
-      ];
+    MalformedTimestampPathDefaultInput,
+    _$MalformedTimestampPathDefaultInput,
+    MalformedTimestampPathDefaultInputPayload,
+    _$MalformedTimestampPathDefaultInputPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   MalformedTimestampPathDefaultInputPayload deserialize(
     Serializers serializers,
@@ -137,6 +140,5 @@ class MalformedTimestampPathDefaultInputRestJson1Serializer extends _i1
     Serializers serializers,
     MalformedTimestampPathDefaultInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

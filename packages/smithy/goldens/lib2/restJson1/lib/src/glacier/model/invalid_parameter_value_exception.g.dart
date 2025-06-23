@@ -16,22 +16,24 @@ class _$InvalidParameterValueException extends InvalidParameterValueException {
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidParameterValueException(
-          [void Function(InvalidParameterValueExceptionBuilder)? updates]) =>
-      (new InvalidParameterValueExceptionBuilder()..update(updates))._build();
+  factory _$InvalidParameterValueException([
+    void Function(InvalidParameterValueExceptionBuilder)? updates,
+  ]) => (InvalidParameterValueExceptionBuilder()..update(updates))._build();
 
-  _$InvalidParameterValueException._(
-      {this.type, this.code, this.message, this.headers})
-      : super._();
-
+  _$InvalidParameterValueException._({
+    this.type,
+    this.code,
+    this.message,
+    this.headers,
+  }) : super._();
   @override
   InvalidParameterValueException rebuild(
-          void Function(InvalidParameterValueExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidParameterValueExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidParameterValueExceptionBuilder toBuilder() =>
-      new InvalidParameterValueExceptionBuilder()..replace(this);
+      InvalidParameterValueExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -55,8 +57,10 @@ class _$InvalidParameterValueException extends InvalidParameterValueException {
 
 class InvalidParameterValueExceptionBuilder
     implements
-        Builder<InvalidParameterValueException,
-            InvalidParameterValueExceptionBuilder> {
+        Builder<
+          InvalidParameterValueException,
+          InvalidParameterValueExceptionBuilder
+        > {
   _$InvalidParameterValueException? _$v;
 
   String? _type;
@@ -91,7 +95,6 @@ class InvalidParameterValueExceptionBuilder
 
   @override
   void replace(InvalidParameterValueException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidParameterValueException;
   }
 
@@ -104,9 +107,14 @@ class InvalidParameterValueExceptionBuilder
   InvalidParameterValueException build() => _build();
 
   _$InvalidParameterValueException _build() {
-    final _$result = _$v ??
-        new _$InvalidParameterValueException._(
-            type: type, code: code, message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$InvalidParameterValueException._(
+          type: type,
+          code: code,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

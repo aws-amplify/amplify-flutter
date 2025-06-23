@@ -27,10 +27,6 @@ sealed class AWSResult<V extends Object?, E extends Exception>
   /// The original stack trace of [exception], if provided.
   StackTrace? get stackTrace;
 
-  /// Indicates if the result was a success.
-  @Deprecated('Use pattern matching instead')
-  AWSResultType get type;
-
   /// The value of the result, if the result was successful.
   ///
   /// If an exception was thrown while retrieving the value, this will throw.
@@ -47,7 +43,8 @@ sealed class AWSResult<V extends Object?, E extends Exception>
 /// For successful results, [value] is guaranteed to not throw.
 /// {@endtemplate}
 final class AWSSuccessResult<V extends Object?, E extends Exception>
-    extends AWSResult<V, E> with AWSEquatable<AWSSuccessResult<V, E>> {
+    extends AWSResult<V, E>
+    with AWSEquatable<AWSSuccessResult<V, E>> {
   /// {@macro aws_common.aws_success_result}
   const AWSSuccessResult(this.value) : super._();
 
@@ -56,9 +53,6 @@ final class AWSSuccessResult<V extends Object?, E extends Exception>
 
   @override
   V get valueOrNull => value;
-
-  @override
-  AWSResultType get type => AWSResultType.success;
 
   @override
   E? get exception => null;
@@ -72,23 +66,21 @@ final class AWSSuccessResult<V extends Object?, E extends Exception>
   @override
   String get runtimeTypeName {
     final typeName = StringBuffer('AWSSuccessResult<')
-      ..write(
-        switch (value) {
-          AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
-          _ => V,
-        },
-      )
+      ..write(switch (value) {
+        AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
+        _ => V,
+      })
       ..write(', $E>');
     return typeName.toString();
   }
 
   @override
   Map<String, Object?> toJson() => {
-        'value': switch (value) {
-          final AWSSerializable serializable => serializable.toJson(),
-          _ => value.toString(),
-        },
-      };
+    'value': switch (value) {
+      final AWSSerializable serializable => serializable.toJson(),
+      _ => value.toString(),
+    },
+  };
 }
 
 /// {@template aws_common.aws_error_result}
@@ -98,7 +90,8 @@ final class AWSSuccessResult<V extends Object?, E extends Exception>
 /// to not be `null`.
 /// {@endtemplate}
 final class AWSErrorResult<V extends Object?, E extends Exception>
-    extends AWSResult<V, E> with AWSEquatable<AWSErrorResult<V, E>> {
+    extends AWSResult<V, E>
+    with AWSEquatable<AWSErrorResult<V, E>> {
   /// {@macro aws_common.aws_error_result}
   const AWSErrorResult(this.exception, [this.stackTrace]) : super._();
 
@@ -121,30 +114,25 @@ final class AWSErrorResult<V extends Object?, E extends Exception>
   V? get valueOrNull => null;
 
   @override
-  AWSResultType get type => AWSResultType.error;
-
-  @override
   List<Object?> get props => [exception, stackTrace];
 
   @override
   String get runtimeTypeName {
     final typeName = StringBuffer('AWSErrorResult<$V, ')
-      ..write(
-        switch (exception) {
-          AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
-          _ => E,
-        },
-      )
+      ..write(switch (exception) {
+        AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
+        _ => E,
+      })
       ..write('>');
     return typeName.toString();
   }
 
   @override
   Map<String, Object?> toJson() => {
-        'exception': switch (exception) {
-          final AWSSerializable serializable => serializable.toJson(),
-          _ => exception.toString(),
-        },
-        'stackTrace': stackTrace?.toString(),
-      };
+    'exception': switch (exception) {
+      final AWSSerializable serializable => serializable.toJson(),
+      _ => exception.toString(),
+    },
+    'stackTrace': stackTrace?.toString(),
+  };
 }

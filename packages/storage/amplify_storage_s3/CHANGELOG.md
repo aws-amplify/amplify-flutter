@@ -1,3 +1,96 @@
+## 2.6.3
+
+- Minor bug fixes and improvements
+
+## 2.6.2
+
+### Chores
+- chore(all): Bump Dart SDK to 3.7.0 ([#6026](https://github.com/aws-amplify/amplify-flutter/pull/6026))
+
+## 2.6.1
+
+- Minor bug fixes and improvements
+
+## 2.6.0
+
+### Features
+- feat(storage): add multi-bucket feature support  ([#5681](https://github.com/aws-amplify/amplify-flutter/pull/5681))
+
+## 2.5.1
+
+- Minor bug fixes and improvements
+
+## 2.5.0
+
+- Minor bug fixes and improvements
+
+## 2.4.1
+
+- Minor bug fixes and improvements
+
+## 2.4.0
+
+- Minor bug fixes and improvements
+
+## 2.3.0
+
+- Minor bug fixes and improvements
+
+## 2.2.0
+
+### Fixes
+- fix: wait for in progress multi part uploads to cancel for `pause` and `cancel`
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
+## 2.1.0
+
+- Minor bug fixes and improvements
+
+## 2.0.0
+
+We are thrilled to release version 2.0 of the Amplify Flutter libraries to add support for Amplify Gen 2. Learn more about Amplify Gen 2 at [https://docs.amplify.aws](https://docs.amplify.aws).
+
+This release enables flexible storage paths when using Amplify Gen 2 Storage. This release also addresses several bugs that required breaking changes to resolve. See the change log below for the full list of updates.
+
+If you are upgrading an existing project using Amplify Flutter v1 (created with Amplify Gen 1 CLI or a custom pipeline) please see the [upgrade guide](https://docs.amplify.aws/gen1/flutter/start/project-setup/upgrade-guide/).
+
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and [Discord](https://discord.gg/jWVbPfC) to answer any questions.
+
+### Breaking Changes
+- chore!: rename StorageNotFoundException ([#4770](https://github.com/aws-amplify/amplify-flutter/pull/4770))
+- feat!: Update storage APIs to accept `StoragePath` ([#4713](https://github.com/aws-amplify/amplify-flutter/pull/4713))
+- feat!: remove error match on http status code ([#4750](https://github.com/aws-amplify/amplify-flutter/pull/4750))
+- feat!: move `delimiter` to `S3ListPluginOptions` ([#4773](https://github.com/aws-amplify/amplify-flutter/pull/4773))
+
+## 1.8.0
+
+### Features
+- feat: deprecate `Storage.move()` API ([#4638](https://github.com/aws-amplify/amplify-flutter/pull/4638))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 1.7.0
+
+- Minor bug fixes and improvements
+
+## 1.6.2
+
+### Fixes
+- fix: Bumped drift to ">=2.14.0 <2.15.0" and drift_dev to ">=2.14.0 <2.15.0".
+
+## 1.6.1
+
+- Minor bug fixes and improvements
+
+## 1.6.0
+
+- Minor bug fixes and improvements
+
+## 1.5.0
+
+- Minor bug fixes and improvements
+
 ## 1.4.0
 
 - Minor bug fixes and improvements

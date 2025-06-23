@@ -13,24 +13,21 @@ class _$StreamingTraitsWithMediaTypeInputOutput
   @override
   final _i2.Stream<List<int>>? blob;
 
-  factory _$StreamingTraitsWithMediaTypeInputOutput(
-          [void Function(StreamingTraitsWithMediaTypeInputOutputBuilder)?
-              updates]) =>
-      (new StreamingTraitsWithMediaTypeInputOutputBuilder()..update(updates))
-          ._build();
+  factory _$StreamingTraitsWithMediaTypeInputOutput([
+    void Function(StreamingTraitsWithMediaTypeInputOutputBuilder)? updates,
+  ]) => (StreamingTraitsWithMediaTypeInputOutputBuilder()..update(updates))
+      ._build();
 
   _$StreamingTraitsWithMediaTypeInputOutput._({this.foo, this.blob})
-      : super._();
-
+    : super._();
   @override
   StreamingTraitsWithMediaTypeInputOutput rebuild(
-          void Function(StreamingTraitsWithMediaTypeInputOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(StreamingTraitsWithMediaTypeInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   StreamingTraitsWithMediaTypeInputOutputBuilder toBuilder() =>
-      new StreamingTraitsWithMediaTypeInputOutputBuilder()..replace(this);
+      StreamingTraitsWithMediaTypeInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -52,8 +49,10 @@ class _$StreamingTraitsWithMediaTypeInputOutput
 
 class StreamingTraitsWithMediaTypeInputOutputBuilder
     implements
-        Builder<StreamingTraitsWithMediaTypeInputOutput,
-            StreamingTraitsWithMediaTypeInputOutputBuilder> {
+        Builder<
+          StreamingTraitsWithMediaTypeInputOutput,
+          StreamingTraitsWithMediaTypeInputOutputBuilder
+        > {
   _$StreamingTraitsWithMediaTypeInputOutput? _$v;
 
   String? _foo;
@@ -78,13 +77,13 @@ class StreamingTraitsWithMediaTypeInputOutputBuilder
 
   @override
   void replace(StreamingTraitsWithMediaTypeInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StreamingTraitsWithMediaTypeInputOutput;
   }
 
   @override
   void update(
-      void Function(StreamingTraitsWithMediaTypeInputOutputBuilder)? updates) {
+    void Function(StreamingTraitsWithMediaTypeInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -92,8 +91,9 @@ class StreamingTraitsWithMediaTypeInputOutputBuilder
   StreamingTraitsWithMediaTypeInputOutput build() => _build();
 
   _$StreamingTraitsWithMediaTypeInputOutput _build() {
-    final _$result = _$v ??
-        new _$StreamingTraitsWithMediaTypeInputOutput._(foo: foo, blob: blob);
+    final _$result =
+        _$v ??
+        _$StreamingTraitsWithMediaTypeInputOutput._(foo: foo, blob: blob);
     replace(_$result);
     return _$result;
   }

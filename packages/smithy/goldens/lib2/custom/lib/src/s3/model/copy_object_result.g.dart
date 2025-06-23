@@ -10,19 +10,18 @@ class _$CopyObjectResult extends CopyObjectResult {
   @override
   final String? eTag;
 
-  factory _$CopyObjectResult(
-          [void Function(CopyObjectResultBuilder)? updates]) =>
-      (new CopyObjectResultBuilder()..update(updates))._build();
+  factory _$CopyObjectResult([
+    void Function(CopyObjectResultBuilder)? updates,
+  ]) => (CopyObjectResultBuilder()..update(updates))._build();
 
   _$CopyObjectResult._({this.eTag}) : super._();
-
   @override
   CopyObjectResult rebuild(void Function(CopyObjectResultBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   CopyObjectResultBuilder toBuilder() =>
-      new CopyObjectResultBuilder()..replace(this);
+      CopyObjectResultBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -60,7 +59,6 @@ class CopyObjectResultBuilder
 
   @override
   void replace(CopyObjectResult other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyObjectResult;
   }
 
@@ -73,7 +71,7 @@ class CopyObjectResultBuilder
   CopyObjectResult build() => _build();
 
   _$CopyObjectResult _build() {
-    final _$result = _$v ?? new _$CopyObjectResult._(eTag: eTag);
+    final _$result = _$v ?? _$CopyObjectResult._(eTag: eTag);
     replace(_$result);
     return _$result;
   }

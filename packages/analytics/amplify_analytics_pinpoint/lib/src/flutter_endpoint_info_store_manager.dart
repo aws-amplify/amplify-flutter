@@ -13,10 +13,10 @@ import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 class FlutterEndpointInfoStoreManager extends EndpointInfoStoreManager {
   /// {@macro amplify_analytics_pinpoint.flutter_endpoint_store_manager}
   FlutterEndpointInfoStoreManager()
-      : super(
-          store: AmplifySecureStorage.factoryFrom()(
-            AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
-          ),
-          legacyNativeDataProvider: FlutterLegacyNativeDataProvider(),
-        );
+    : super(
+        store: AmplifySecureStorage.factoryFrom()(
+          AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
+        ),
+        legacyNativeDataProvider: FlutterLegacyNativeDataProvider(),
+      );
 }

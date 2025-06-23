@@ -24,46 +24,28 @@ class _$HttpRequestWithLabelsInput extends HttpRequestWithLabelsInput {
   @override
   final DateTime timestamp;
 
-  factory _$HttpRequestWithLabelsInput(
-          [void Function(HttpRequestWithLabelsInputBuilder)? updates]) =>
-      (new HttpRequestWithLabelsInputBuilder()..update(updates))._build();
+  factory _$HttpRequestWithLabelsInput([
+    void Function(HttpRequestWithLabelsInputBuilder)? updates,
+  ]) => (HttpRequestWithLabelsInputBuilder()..update(updates))._build();
 
-  _$HttpRequestWithLabelsInput._(
-      {required this.string,
-      required this.short,
-      required this.integer,
-      required this.long,
-      required this.float,
-      required this.double_,
-      required this.boolean,
-      required this.timestamp})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        string, r'HttpRequestWithLabelsInput', 'string');
-    BuiltValueNullFieldError.checkNotNull(
-        short, r'HttpRequestWithLabelsInput', 'short');
-    BuiltValueNullFieldError.checkNotNull(
-        integer, r'HttpRequestWithLabelsInput', 'integer');
-    BuiltValueNullFieldError.checkNotNull(
-        long, r'HttpRequestWithLabelsInput', 'long');
-    BuiltValueNullFieldError.checkNotNull(
-        float, r'HttpRequestWithLabelsInput', 'float');
-    BuiltValueNullFieldError.checkNotNull(
-        double_, r'HttpRequestWithLabelsInput', 'double_');
-    BuiltValueNullFieldError.checkNotNull(
-        boolean, r'HttpRequestWithLabelsInput', 'boolean');
-    BuiltValueNullFieldError.checkNotNull(
-        timestamp, r'HttpRequestWithLabelsInput', 'timestamp');
-  }
-
+  _$HttpRequestWithLabelsInput._({
+    required this.string,
+    required this.short,
+    required this.integer,
+    required this.long,
+    required this.float,
+    required this.double_,
+    required this.boolean,
+    required this.timestamp,
+  }) : super._();
   @override
   HttpRequestWithLabelsInput rebuild(
-          void Function(HttpRequestWithLabelsInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithLabelsInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithLabelsInputBuilder toBuilder() =>
-      new HttpRequestWithLabelsInputBuilder()..replace(this);
+      HttpRequestWithLabelsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -152,7 +134,6 @@ class HttpRequestWithLabelsInputBuilder
 
   @override
   void replace(HttpRequestWithLabelsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithLabelsInput;
   }
 
@@ -165,24 +146,50 @@ class HttpRequestWithLabelsInputBuilder
   HttpRequestWithLabelsInput build() => _build();
 
   _$HttpRequestWithLabelsInput _build() {
-    final _$result = _$v ??
-        new _$HttpRequestWithLabelsInput._(
-            string: BuiltValueNullFieldError.checkNotNull(
-                string, r'HttpRequestWithLabelsInput', 'string'),
-            short: BuiltValueNullFieldError.checkNotNull(
-                short, r'HttpRequestWithLabelsInput', 'short'),
-            integer: BuiltValueNullFieldError.checkNotNull(
-                integer, r'HttpRequestWithLabelsInput', 'integer'),
-            long: BuiltValueNullFieldError.checkNotNull(
-                long, r'HttpRequestWithLabelsInput', 'long'),
-            float: BuiltValueNullFieldError.checkNotNull(
-                float, r'HttpRequestWithLabelsInput', 'float'),
-            double_: BuiltValueNullFieldError.checkNotNull(
-                double_, r'HttpRequestWithLabelsInput', 'double_'),
-            boolean: BuiltValueNullFieldError.checkNotNull(
-                boolean, r'HttpRequestWithLabelsInput', 'boolean'),
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'HttpRequestWithLabelsInput', 'timestamp'));
+    final _$result =
+        _$v ??
+        _$HttpRequestWithLabelsInput._(
+          string: BuiltValueNullFieldError.checkNotNull(
+            string,
+            r'HttpRequestWithLabelsInput',
+            'string',
+          ),
+          short: BuiltValueNullFieldError.checkNotNull(
+            short,
+            r'HttpRequestWithLabelsInput',
+            'short',
+          ),
+          integer: BuiltValueNullFieldError.checkNotNull(
+            integer,
+            r'HttpRequestWithLabelsInput',
+            'integer',
+          ),
+          long: BuiltValueNullFieldError.checkNotNull(
+            long,
+            r'HttpRequestWithLabelsInput',
+            'long',
+          ),
+          float: BuiltValueNullFieldError.checkNotNull(
+            float,
+            r'HttpRequestWithLabelsInput',
+            'float',
+          ),
+          double_: BuiltValueNullFieldError.checkNotNull(
+            double_,
+            r'HttpRequestWithLabelsInput',
+            'double_',
+          ),
+          boolean: BuiltValueNullFieldError.checkNotNull(
+            boolean,
+            r'HttpRequestWithLabelsInput',
+            'boolean',
+          ),
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+            timestamp,
+            r'HttpRequestWithLabelsInput',
+            'timestamp',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -190,21 +197,19 @@ class HttpRequestWithLabelsInputBuilder
 
 class _$HttpRequestWithLabelsInputPayload
     extends HttpRequestWithLabelsInputPayload {
-  factory _$HttpRequestWithLabelsInputPayload(
-          [void Function(HttpRequestWithLabelsInputPayloadBuilder)? updates]) =>
-      (new HttpRequestWithLabelsInputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$HttpRequestWithLabelsInputPayload([
+    void Function(HttpRequestWithLabelsInputPayloadBuilder)? updates,
+  ]) => (HttpRequestWithLabelsInputPayloadBuilder()..update(updates))._build();
 
   _$HttpRequestWithLabelsInputPayload._() : super._();
-
   @override
   HttpRequestWithLabelsInputPayload rebuild(
-          void Function(HttpRequestWithLabelsInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithLabelsInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithLabelsInputPayloadBuilder toBuilder() =>
-      new HttpRequestWithLabelsInputPayloadBuilder()..replace(this);
+      HttpRequestWithLabelsInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -220,21 +225,23 @@ class _$HttpRequestWithLabelsInputPayload
 
 class HttpRequestWithLabelsInputPayloadBuilder
     implements
-        Builder<HttpRequestWithLabelsInputPayload,
-            HttpRequestWithLabelsInputPayloadBuilder> {
+        Builder<
+          HttpRequestWithLabelsInputPayload,
+          HttpRequestWithLabelsInputPayloadBuilder
+        > {
   _$HttpRequestWithLabelsInputPayload? _$v;
 
   HttpRequestWithLabelsInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithLabelsInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithLabelsInputPayload;
   }
 
   @override
   void update(
-      void Function(HttpRequestWithLabelsInputPayloadBuilder)? updates) {
+    void Function(HttpRequestWithLabelsInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -242,7 +249,7 @@ class HttpRequestWithLabelsInputPayloadBuilder
   HttpRequestWithLabelsInputPayload build() => _build();
 
   _$HttpRequestWithLabelsInputPayload _build() {
-    final _$result = _$v ?? new _$HttpRequestWithLabelsInputPayload._();
+    final _$result = _$v ?? _$HttpRequestWithLabelsInputPayload._();
     replace(_$result);
     return _$result;
   }

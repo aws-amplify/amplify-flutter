@@ -134,8 +134,9 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
         intent.extras?.let { bundle ->
             bundle.getNotificationPayload()?.let {
                 AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
-                    it.toWritableMap()
-                ) {}
+                    it.toWritableMap(),
+                    NoOpVoidResult()
+                )
             }
         }
     }

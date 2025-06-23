@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-part of authenticator.form_field;
+part of '../form_field.dart';
 
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.confirm_sign_up_form_field}
@@ -28,30 +28,28 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
-  }) =>
-      _ConfirmSignUpUsernameField(
-        key: key ?? keyUsernameConfirmSignUpFormField,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
-        field: ConfirmSignUpField.username,
-        validator: validator,
-        autofillHints: autofillHints,
-      );
+  }) => _ConfirmSignUpUsernameField(
+    key: key ?? keyUsernameConfirmSignUpFormField,
+    titleKey: InputResolverKey.usernameTitle,
+    hintTextKey: InputResolverKey.usernameHint,
+    field: ConfirmSignUpField.username,
+    validator: validator,
+    autofillHints: autofillHints,
+  );
 
   /// Creates a verificationCode component.
   static ConfirmSignUpFormField<String> verificationCode({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-  }) =>
-      _ConfirmSignUpTextField(
-        key: key ?? keyCodeConfirmSignUpFormField,
-        titleKey: InputResolverKey.verificationCodeTitle,
-        hintTextKey: InputResolverKey.verificationCodeHint,
-        field: ConfirmSignUpField.code,
-        validator: validator,
-        autofillHints: autofillHints,
-      );
+  }) => _ConfirmSignUpTextField(
+    key: key ?? keyCodeConfirmSignUpFormField,
+    titleKey: InputResolverKey.verificationCodeTitle,
+    hintTextKey: InputResolverKey.verificationCodeHint,
+    field: ConfirmSignUpField.code,
+    validator: validator,
+    autofillHints: autofillHints,
+  );
 
   @override
   int get displayPriority {
@@ -74,8 +72,12 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
 }
 
 abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
-    extends AuthenticatorFormFieldState<ConfirmSignUpField, FieldValue,
-        ConfirmSignUpFormField<FieldValue>> {
+    extends
+        AuthenticatorFormFieldState<
+          ConfirmSignUpField,
+          FieldValue,
+          ConfirmSignUpFormField<FieldValue>
+        > {
   @override
   TextInputType get keyboardType {
     switch (widget.field) {
@@ -100,8 +102,9 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
   Widget? get companionWidget {
     switch (widget.field) {
       case ConfirmSignUpField.code:
-        final resendCodeButton =
-            InheritedForms.of(context).confirmSignUpForm.resendCodeButton;
+        final resendCodeButton = InheritedForms.of(
+          context,
+        ).confirmSignUpForm.resendCodeButton;
         return resendCodeButton ?? const LostCodeButton(key: keyLostCodeButton);
       default:
         return null;
@@ -113,13 +116,9 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
     if (widget.autofillHints != null) return widget.autofillHints;
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return const [
-          AutofillHints.newUsername,
-        ];
+        return const [AutofillHints.newUsername];
       case ConfirmSignUpField.code:
-        return const [
-          AutofillHints.oneTimeCode,
-        ];
+        return const [AutofillHints.oneTimeCode];
     }
   }
 }
@@ -210,8 +209,10 @@ class _ConfirmSignUpUsernameField
 class _ConfirmSignUpUsernameFieldState
     extends _ConfirmSignUpFormFieldState<UsernameInput>
     with
-        AuthenticatorUsernameField<ConfirmSignUpField,
-            ConfirmSignUpFormField<UsernameInput>> {
+        AuthenticatorUsernameField<
+          ConfirmSignUpField,
+          ConfirmSignUpFormField<UsernameInput>
+        > {
   @override
   Widget? get surlabel => null;
 }

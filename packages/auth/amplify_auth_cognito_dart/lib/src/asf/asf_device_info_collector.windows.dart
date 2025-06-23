@@ -20,10 +20,7 @@ final class _LANGANDCODEPAGE extends Struct {
   external int wCodepage;
 }
 
-typedef _WindowsDeviceInfo = ({
-  String? osVersion,
-  String? deviceId,
-});
+typedef _WindowsDeviceInfo = ({String? osVersion, String? deviceId});
 
 /// {@template amplify_auth_cognito_dart.asf.asf_device_info_windows}
 /// The Windows implementation of [NativeASFDeviceInfoCollector].
@@ -43,9 +40,7 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
   late final PackageInfo? _packageInfo = using((arena) {
     final lptstrFilename = wsalloc(MAX_PATH);
     arena.onReleaseAll(() => free(lptstrFilename));
-    if (FAILED(
-      GetModuleFileName(0, lptstrFilename, MAX_PATH),
-    )) {
+    if (FAILED(GetModuleFileName(0, lptstrFilename, MAX_PATH))) {
       logger.error('Could not retrieve filename', _lastException);
       return null;
     }
@@ -55,9 +50,7 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
       return null;
     }
     final verData = arena<BYTE>(verSize);
-    if (FAILED(
-      GetFileVersionInfo(lptstrFilename, NULL, verSize, verData),
-    )) {
+    if (FAILED(GetFileVersionInfo(lptstrFilename, NULL, verSize, verData))) {
       logger.error('Could not retrieve file info', _lastException);
       return null;
     }
@@ -66,9 +59,7 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
     final lenFileInfo = arena<UINT>();
     final lpSubBlock = TEXT(r'\');
     arena.onReleaseAll(() => free(lpSubBlock));
-    if (FAILED(
-      VerQueryValue(verData, lpSubBlock, fileInfoPtr, lenFileInfo),
-    )) {
+    if (FAILED(VerQueryValue(verData, lpSubBlock, fileInfoPtr, lenFileInfo))) {
       logger.error('Could not query file info', _lastException);
       return null;
     }
@@ -86,12 +77,7 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
     final lpTranslateSubBlock = TEXT(r'\VarFileInfo\Translation');
     arena.onReleaseAll(() => free(lpTranslateSubBlock));
     if (FAILED(
-      VerQueryValue(
-        verData,
-        lpTranslateSubBlock,
-        lpTranslate,
-        lenTranslate,
-      ),
+      VerQueryValue(verData, lpTranslateSubBlock, lpTranslate, lenTranslate),
     )) {
       logger.error('Could not retrieve translation info', _lastException);
     }
@@ -102,6 +88,8 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
       final langCodepageArr = lpTranslate.value;
       final n = lenTranslate.value / sizeOf<_LANGANDCODEPAGE>();
       final langCodepages = [
+        // TODO(equartey): `.elementAt(i)` is depreciated in Dart 3.3.0. Use `(langCodepageArr + i).ref` when min Dart version is 3.3.0 or higher
+        // ignore: deprecated_member_use
         for (var i = 0; i < n; i++) langCodepageArr.elementAt(i).ref,
       ];
       for (final _LANGANDCODEPAGE(:wLanguage, :wCodepage) in langCodepages) {
@@ -112,12 +100,7 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
         final lpSubBlock = TEXT('\\StringFileInfo\\$lang$codepage\\$name');
         arena.onReleaseAll(() => free(lpSubBlock));
         if (SUCCEEDED(
-          VerQueryValue(
-            lpTranslateSubBlock,
-            lpSubBlock,
-            lpBuffer,
-            puLen,
-          ),
+          VerQueryValue(lpTranslateSubBlock, lpSubBlock, lpBuffer, puLen),
         )) {
           if (lpBuffer != nullptr && puLen.value > 0) {
             return lpBuffer.value.toDartString(length: puLen.value);
@@ -141,11 +124,11 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
 
   @override
   Future<String?> get applicationVersion async => switch (_packageInfo) {
-        PackageInfo(:final version?, :final buildNumber?) =>
-          '$version($buildNumber)',
-        PackageInfo(:final version?) => version,
-        _ => null,
-      };
+    PackageInfo(:final version?, :final buildNumber?) =>
+      '$version($buildNumber)',
+    PackageInfo(:final version?) => version,
+    _ => null,
+  };
 
   // Device methods adapted from `device_info_plus`:
   // https://github.com/fluttercommunity/plus_plugins/blob/e8d3b445ce52012456126a3844ddb49b92c5c850/packages/device_info_plus/device_info_plus/lib/src/device_info_plus_windows.dart
@@ -176,7 +159,7 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
       RegistryHive.localMachine,
       path: r'SOFTWARE\Microsoft\SQMClient',
     );
-    final deviceId = sqmClientKey.getValueAsString('MachineId');
+    final deviceId = sqmClientKey.getStringValue('MachineId');
     return (osVersion: osVersion, deviceId: deviceId);
   });
 
@@ -212,9 +195,15 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
   });
 
   @override
+  // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
+  // higher
+  // ignore: deprecated_member_use
   Future<int?> get screenHeightPixels async => GetSystemMetrics(SM_CYSCREEN);
 
   @override
+  // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
+  // higher
+  // ignore: deprecated_member_use
   Future<int?> get screenWidthPixels async => GetSystemMetrics(SM_CXSCREEN);
 
   @override

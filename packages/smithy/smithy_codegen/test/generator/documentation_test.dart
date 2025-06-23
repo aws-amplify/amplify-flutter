@@ -60,14 +60,16 @@ void main() {
 
         final ctor = generator.factoryConstructor;
         expect(ctor.docs, isNotEmpty);
-        final ctorOutput =
-            emitter.visitConstructor(ctor, generator.className).toString();
+        final ctorOutput = emitter
+            .visitConstructor(ctor, generator.className)
+            .toString();
         expect(ctorOutput, contains(docs));
 
         final response = generator.fromResponseConstructor;
         expect(ctor.docs, isNotEmpty);
-        final responseOutput =
-            emitter.visitConstructor(response, generator.className).toString();
+        final responseOutput = emitter
+            .visitConstructor(response, generator.className)
+            .toString();
         expect(responseOutput, startsWith('/// '));
       });
     });

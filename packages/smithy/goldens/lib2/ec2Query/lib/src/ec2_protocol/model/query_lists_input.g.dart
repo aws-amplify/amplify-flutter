@@ -19,23 +19,21 @@ class _$QueryListsInput extends QueryListsInput {
   final NestedStructWithList? nestedWithList;
 
   factory _$QueryListsInput([void Function(QueryListsInputBuilder)? updates]) =>
-      (new QueryListsInputBuilder()..update(updates))._build();
+      (QueryListsInputBuilder()..update(updates))._build();
 
-  _$QueryListsInput._(
-      {this.listArg,
-      this.complexListArg,
-      this.listArgWithXmlNameMember,
-      this.listArgWithXmlName,
-      this.nestedWithList})
-      : super._();
-
+  _$QueryListsInput._({
+    this.listArg,
+    this.complexListArg,
+    this.listArgWithXmlNameMember,
+    this.listArgWithXmlName,
+    this.nestedWithList,
+  }) : super._();
   @override
   QueryListsInput rebuild(void Function(QueryListsInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  QueryListsInputBuilder toBuilder() =>
-      new QueryListsInputBuilder()..replace(this);
+  QueryListsInputBuilder toBuilder() => QueryListsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,31 +65,31 @@ class QueryListsInputBuilder
 
   _i3.ListBuilder<String>? _listArg;
   _i3.ListBuilder<String> get listArg =>
-      _$this._listArg ??= new _i3.ListBuilder<String>();
+      _$this._listArg ??= _i3.ListBuilder<String>();
   set listArg(_i3.ListBuilder<String>? listArg) => _$this._listArg = listArg;
 
   _i3.ListBuilder<GreetingStruct>? _complexListArg;
   _i3.ListBuilder<GreetingStruct> get complexListArg =>
-      _$this._complexListArg ??= new _i3.ListBuilder<GreetingStruct>();
+      _$this._complexListArg ??= _i3.ListBuilder<GreetingStruct>();
   set complexListArg(_i3.ListBuilder<GreetingStruct>? complexListArg) =>
       _$this._complexListArg = complexListArg;
 
   _i3.ListBuilder<String>? _listArgWithXmlNameMember;
   _i3.ListBuilder<String> get listArgWithXmlNameMember =>
-      _$this._listArgWithXmlNameMember ??= new _i3.ListBuilder<String>();
+      _$this._listArgWithXmlNameMember ??= _i3.ListBuilder<String>();
   set listArgWithXmlNameMember(
-          _i3.ListBuilder<String>? listArgWithXmlNameMember) =>
-      _$this._listArgWithXmlNameMember = listArgWithXmlNameMember;
+    _i3.ListBuilder<String>? listArgWithXmlNameMember,
+  ) => _$this._listArgWithXmlNameMember = listArgWithXmlNameMember;
 
   _i3.ListBuilder<String>? _listArgWithXmlName;
   _i3.ListBuilder<String> get listArgWithXmlName =>
-      _$this._listArgWithXmlName ??= new _i3.ListBuilder<String>();
+      _$this._listArgWithXmlName ??= _i3.ListBuilder<String>();
   set listArgWithXmlName(_i3.ListBuilder<String>? listArgWithXmlName) =>
       _$this._listArgWithXmlName = listArgWithXmlName;
 
   NestedStructWithListBuilder? _nestedWithList;
   NestedStructWithListBuilder get nestedWithList =>
-      _$this._nestedWithList ??= new NestedStructWithListBuilder();
+      _$this._nestedWithList ??= NestedStructWithListBuilder();
   set nestedWithList(NestedStructWithListBuilder? nestedWithList) =>
       _$this._nestedWithList = nestedWithList;
 
@@ -112,7 +110,6 @@ class QueryListsInputBuilder
 
   @override
   void replace(QueryListsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$QueryListsInput;
   }
 
@@ -127,13 +124,15 @@ class QueryListsInputBuilder
   _$QueryListsInput _build() {
     _$QueryListsInput _$result;
     try {
-      _$result = _$v ??
-          new _$QueryListsInput._(
-              listArg: _listArg?.build(),
-              complexListArg: _complexListArg?.build(),
-              listArgWithXmlNameMember: _listArgWithXmlNameMember?.build(),
-              listArgWithXmlName: _listArgWithXmlName?.build(),
-              nestedWithList: _nestedWithList?.build());
+      _$result =
+          _$v ??
+          _$QueryListsInput._(
+            listArg: _listArg?.build(),
+            complexListArg: _complexListArg?.build(),
+            listArgWithXmlNameMember: _listArgWithXmlNameMember?.build(),
+            listArgWithXmlName: _listArgWithXmlName?.build(),
+            nestedWithList: _nestedWithList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -148,8 +147,11 @@ class QueryListsInputBuilder
         _$failedField = 'nestedWithList';
         _nestedWithList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'QueryListsInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'QueryListsInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

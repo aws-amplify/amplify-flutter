@@ -47,20 +47,17 @@ void main() {
   }
 
   group('generateConnectionUri', () {
-    test('should generate authorized connection URI', () async {
-      final actualConnectionUri =
-          await generateConnectionUri(testApiKeyConfig, authProviderRepo);
+    test('should generate connection URI', () async {
+      final actualConnectionUri = await generateConnectionUri(testApiKeyConfig);
       expect(
         actualConnectionUri.toString(),
         expectedApiKeyWebSocketConnectionUrl,
       );
     });
 
-    test('should generate authorized connection URI with a custom domain',
-        () async {
+    test('should generate connection URI with a custom domain', () async {
       final actualConnectionUri = await generateConnectionUri(
         testApiKeyConfigCustomDomain,
-        authProviderRepo,
       );
       expect(
         actualConnectionUri.toString(),
@@ -81,38 +78,34 @@ void main() {
           authorizedMessage.payload as SubscriptionRegistrationPayload;
 
       assertBasicSubscriptionPayloadHeaders(payload);
-      expect(
-        payload.authorizationHeaders[xApiKey],
-        testApiKeyConfig.apiKey,
-      );
+      expect(payload.authorizationHeaders[xApiKey], testApiKeyConfig.apiKey);
     });
 
-    test('should generate an authorized message with custom authorizationMode',
-        () async {
-      final subscriptionRequestUserPools = GraphQLRequest<String>(
-        document: graphQLDocument,
-        authorizationMode: APIAuthorizationType.userPools,
-      );
+    test(
+      'should generate an authorized message with custom authorizationMode',
+      () async {
+        final subscriptionRequestUserPools = GraphQLRequest<String>(
+          document: graphQLDocument,
+          authorizationMode: APIAuthorizationType.userPools,
+        );
 
-      final authorizedMessage = await generateSubscriptionRegistrationMessage(
-        testApiKeyConfig,
-        id: 'abc123',
-        authRepo: authProviderRepo,
-        request: subscriptionRequestUserPools,
-      );
-      final payload =
-          authorizedMessage.payload as SubscriptionRegistrationPayload;
+        final authorizedMessage = await generateSubscriptionRegistrationMessage(
+          testApiKeyConfig,
+          id: 'abc123',
+          authRepo: authProviderRepo,
+          request: subscriptionRequestUserPools,
+        );
+        final payload =
+            authorizedMessage.payload as SubscriptionRegistrationPayload;
 
-      assertBasicSubscriptionPayloadHeaders(payload);
-      expect(
-        payload.authorizationHeaders[xApiKey],
-        isNull,
-      );
-      expect(
-        payload.authorizationHeaders[AWSHeaders.authorization],
-        testAccessToken,
-      );
-    });
+        assertBasicSubscriptionPayloadHeaders(payload);
+        expect(payload.authorizationHeaders[xApiKey], isNull);
+        expect(
+          payload.authorizationHeaders[AWSHeaders.authorization],
+          testAccessToken,
+        );
+      },
+    );
 
     test('should generate an authorized message with custom headers', () async {
       const testCustomToken = 'xyz567';
@@ -131,14 +124,75 @@ void main() {
           authorizedMessage.payload as SubscriptionRegistrationPayload;
 
       assertBasicSubscriptionPayloadHeaders(payload);
-      expect(
-        payload.authorizationHeaders[xApiKey],
-        isNull,
-      );
+      expect(payload.authorizationHeaders[xApiKey], isNull);
       expect(
         payload.authorizationHeaders[AWSHeaders.authorization],
         testCustomToken,
       );
+    });
+  });
+
+  group('generateAuthorizationHeaders', () {
+    const apiKey = 'fake-key';
+
+    test('should generate headers for API key Authorization', () async {
+      final (outputs, repo) = createOutputsAndRepo(
+        AppSyncApiKeyAuthProvider(),
+        APIAuthorizationType.apiKey,
+        apiKey,
+      );
+      final headers = await generateAuthorizationHeaders(
+        outputs,
+        isConnectionInit: true,
+        authRepo: repo,
+        body: {},
+      );
+      expect(headers[xApiKey], apiKey);
+      expect(headers.containsKey(AWSHeaders.accept), true);
+      expect(headers.containsKey(AWSHeaders.contentEncoding), true);
+      expect(headers.containsKey(AWSHeaders.contentType), true);
+      expect(headers.containsKey(AWSHeaders.host), true);
+    });
+
+    test('should generate headers for IAM Authorization', () async {
+      final (outputs, repo) = createOutputsAndRepo(
+        TestIamAuthProvider(),
+        APIAuthorizationType.iam,
+      );
+      final headers = await generateAuthorizationHeaders(
+        outputs,
+        isConnectionInit: true,
+        authRepo: repo,
+        body: {},
+      );
+      expect(
+        headers['Authorization']!.contains('Credential=fake-access-key-123'),
+        true,
+      );
+      expect(headers.containsKey(AWSHeaders.date), true);
+      expect(headers.containsKey(AWSHeaders.contentSHA256), true);
+      expect(headers.containsKey(AWSHeaders.accept), true);
+      expect(headers.containsKey(AWSHeaders.contentEncoding), true);
+      expect(headers.containsKey(AWSHeaders.contentType), true);
+      expect(headers.containsKey(AWSHeaders.host), true);
+    });
+
+    test('should generate headers for user pool Authorization', () async {
+      final (outputs, repo) = createOutputsAndRepo(
+        TestTokenAuthProvider(),
+        APIAuthorizationType.userPools,
+      );
+      final headers = await generateAuthorizationHeaders(
+        outputs,
+        isConnectionInit: true,
+        authRepo: repo,
+        body: {},
+      );
+      expect(headers[AWSHeaders.authorization], 'test-access-token-123');
+      expect(headers.containsKey(AWSHeaders.accept), true);
+      expect(headers.containsKey(AWSHeaders.contentEncoding), true);
+      expect(headers.containsKey(AWSHeaders.contentType), true);
+      expect(headers.containsKey(AWSHeaders.host), true);
     });
   });
 }

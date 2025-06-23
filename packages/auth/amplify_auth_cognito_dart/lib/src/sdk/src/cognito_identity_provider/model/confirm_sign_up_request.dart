@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_sign_up_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -39,15 +39,16 @@ abstract class ConfirmSignUpRequest
       forceAliasCreation: forceAliasCreation,
       analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 
   /// Represents the request to confirm registration of a user.
-  factory ConfirmSignUpRequest.build(
-          [void Function(ConfirmSignUpRequestBuilder) updates]) =
-      _$ConfirmSignUpRequest;
+  factory ConfirmSignUpRequest.build([
+    void Function(ConfirmSignUpRequestBuilder) updates,
+  ]) = _$ConfirmSignUpRequest;
 
   const ConfirmSignUpRequest._();
 
@@ -55,11 +56,10 @@ abstract class ConfirmSignUpRequest
     ConfirmSignUpRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<ConfirmSignUpRequest>> serializers = [
-    ConfirmSignUpRequestAwsJson11Serializer()
+    ConfirmSignUpRequestAwsJson11Serializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -73,7 +73,7 @@ abstract class ConfirmSignUpRequest
   /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
   String? get secretHash;
 
-  /// The user name of the user whose registration you want to confirm.
+  /// The username of the user that you want to query or modify. The value of this parameter is typically your user's username, but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this value must be the `sub` of a local user or the username of a user from a third-party IdP.
   String get username;
 
   /// The confirmation code sent by a user's request to confirm registration.
@@ -104,52 +104,30 @@ abstract class ConfirmSignUpRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   ConfirmSignUpRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
-        clientId,
-        secretHash,
-        username,
-        confirmationCode,
-        forceAliasCreation,
-        analyticsMetadata,
-        userContextData,
-        clientMetadata,
-      ];
+    clientId,
+    secretHash,
+    username,
+    confirmationCode,
+    forceAliasCreation,
+    analyticsMetadata,
+    userContextData,
+    clientMetadata,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmSignUpRequest')
-      ..add(
-        'clientId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'secretHash',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'username',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'confirmationCode',
-        confirmationCode,
-      )
-      ..add(
-        'forceAliasCreation',
-        forceAliasCreation,
-      )
-      ..add(
-        'analyticsMetadata',
-        analyticsMetadata,
-      )
-      ..add(
-        'userContextData',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'clientMetadata',
-        clientMetadata,
-      );
+      ..add('clientId', '***SENSITIVE***')
+      ..add('secretHash', '***SENSITIVE***')
+      ..add('username', '***SENSITIVE***')
+      ..add('confirmationCode', confirmationCode)
+      ..add('forceAliasCreation', forceAliasCreation)
+      ..add('analyticsMetadata', analyticsMetadata)
+      ..add('userContextData', '***SENSITIVE***')
+      ..add('clientMetadata', clientMetadata);
     return helper.toString();
   }
 }
@@ -157,20 +135,19 @@ abstract class ConfirmSignUpRequest
 class ConfirmSignUpRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<ConfirmSignUpRequest> {
   const ConfirmSignUpRequestAwsJson11Serializer()
-      : super('ConfirmSignUpRequest');
+    : super('ConfirmSignUpRequest');
 
   @override
   Iterable<Type> get types => const [
-        ConfirmSignUpRequest,
-        _$ConfirmSignUpRequest,
-      ];
+    ConfirmSignUpRequest,
+    _$ConfirmSignUpRequest,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   ConfirmSignUpRequest deserialize(
     Serializers serializers,
@@ -188,51 +165,67 @@ class ConfirmSignUpRequestAwsJson11Serializer
       }
       switch (key) {
         case 'ClientId':
-          result.clientId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.clientId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'SecretHash':
-          result.secretHash = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.secretHash =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Username':
-          result.username = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.username =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ConfirmationCode':
-          result.confirmationCode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.confirmationCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ForceAliasCreation':
-          result.forceAliasCreation = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.forceAliasCreation =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'AnalyticsMetadata':
-          result.analyticsMetadata.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(AnalyticsMetadataType),
-          ) as AnalyticsMetadataType));
+          result.analyticsMetadata.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(AnalyticsMetadataType),
+                )
+                as AnalyticsMetadataType),
+          );
         case 'UserContextData':
-          result.userContextData.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(UserContextDataType),
-          ) as UserContextDataType));
+          result.userContextData.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(UserContextDataType),
+                )
+                as UserContextDataType),
+          );
         case 'ClientMetadata':
-          result.clientMetadata.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.clientMetadata.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
       }
     }
 
@@ -254,19 +247,13 @@ class ConfirmSignUpRequestAwsJson11Serializer
       :forceAliasCreation,
       :analyticsMetadata,
       :userContextData,
-      :clientMetadata
+      :clientMetadata,
     ) = object;
     result$.addAll([
       'ClientId',
-      serializers.serialize(
-        clientId,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(clientId, specifiedType: const FullType(String)),
       'Username',
-      serializers.serialize(
-        username,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(username, specifiedType: const FullType(String)),
       'ConfirmationCode',
       serializers.serialize(
         confirmationCode,
@@ -281,40 +268,45 @@ class ConfirmSignUpRequestAwsJson11Serializer
     if (secretHash != null) {
       result$
         ..add('SecretHash')
-        ..add(serializers.serialize(
-          secretHash,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            secretHash,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (analyticsMetadata != null) {
       result$
         ..add('AnalyticsMetadata')
-        ..add(serializers.serialize(
-          analyticsMetadata,
-          specifiedType: const FullType(AnalyticsMetadataType),
-        ));
+        ..add(
+          serializers.serialize(
+            analyticsMetadata,
+            specifiedType: const FullType(AnalyticsMetadataType),
+          ),
+        );
     }
     if (userContextData != null) {
       result$
         ..add('UserContextData')
-        ..add(serializers.serialize(
-          userContextData,
-          specifiedType: const FullType(UserContextDataType),
-        ));
+        ..add(
+          serializers.serialize(
+            userContextData,
+            specifiedType: const FullType(UserContextDataType),
+          ),
+        );
     }
     if (clientMetadata != null) {
       result$
         ..add('ClientMetadata')
-        ..add(serializers.serialize(
-          clientMetadata,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            clientMetadata,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

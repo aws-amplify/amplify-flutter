@@ -21,8 +21,9 @@ abstract class EndpointUser
     String? userId,
   }) {
     return _$EndpointUser._(
-      userAttributes:
-          userAttributes == null ? null : _i2.BuiltListMultimap(userAttributes),
+      userAttributes: userAttributes == null
+          ? null
+          : _i2.BuiltListMultimap(userAttributes),
       userId: userId,
     );
   }
@@ -34,7 +35,7 @@ abstract class EndpointUser
   const EndpointUser._();
 
   static const List<_i3.SmithySerializer<EndpointUser>> serializers = [
-    EndpointUserRestJson1Serializer()
+    EndpointUserRestJson1Serializer(),
   ];
 
   /// One or more custom attributes that describe the user by associating a name with an array of values. For example, the value of an attribute named Interests might be: \["Science", "Music", "Travel"\]. You can use these attributes as filter criteria when you create segments. Attribute names are case sensitive.
@@ -45,21 +46,12 @@ abstract class EndpointUser
   /// The unique identifier for the user.
   String? get userId;
   @override
-  List<Object?> get props => [
-        userAttributes,
-        userId,
-      ];
+  List<Object?> get props => [userAttributes, userId];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndpointUser')
-      ..add(
-        'userAttributes',
-        userAttributes,
-      )
-      ..add(
-        'userId',
-        userId,
-      );
+      ..add('userAttributes', userAttributes)
+      ..add('userId', userId);
     return helper.toString();
   }
 }
@@ -69,17 +61,11 @@ class EndpointUserRestJson1Serializer
   const EndpointUserRestJson1Serializer() : super('EndpointUser');
 
   @override
-  Iterable<Type> get types => const [
-        EndpointUser,
-        _$EndpointUser,
-      ];
+  Iterable<Type> get types => const [EndpointUser, _$EndpointUser];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EndpointUser deserialize(
     Serializers serializers,
@@ -97,21 +83,23 @@ class EndpointUserRestJson1Serializer
       }
       switch (key) {
         case 'UserAttributes':
-          result.userAttributes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltListMultimap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i2.BuiltListMultimap<String, String>));
+          result.userAttributes.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltListMultimap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltListMultimap<String, String>),
+          );
         case 'UserId':
-          result.userId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.userId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -129,24 +117,22 @@ class EndpointUserRestJson1Serializer
     if (userAttributes != null) {
       result$
         ..add('UserAttributes')
-        ..add(serializers.serialize(
-          userAttributes,
-          specifiedType: const FullType(
-            _i2.BuiltListMultimap,
-            [
+        ..add(
+          serializers.serialize(
+            userAttributes,
+            specifiedType: const FullType(_i2.BuiltListMultimap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (userId != null) {
       result$
         ..add('UserId')
-        ..add(serializers.serialize(
-          userId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(userId, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

@@ -36,7 +36,7 @@ abstract class EventRiskType
   const EventRiskType._();
 
   static const List<_i2.SmithySerializer<EventRiskType>> serializers = [
-    EventRiskTypeAwsJson11Serializer()
+    EventRiskTypeAwsJson11Serializer(),
   ];
 
   /// The risk decision.
@@ -49,25 +49,16 @@ abstract class EventRiskType
   bool? get compromisedCredentialsDetected;
   @override
   List<Object?> get props => [
-        riskDecision,
-        riskLevel,
-        compromisedCredentialsDetected,
-      ];
+    riskDecision,
+    riskLevel,
+    compromisedCredentialsDetected,
+  ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EventRiskType')
-      ..add(
-        'riskDecision',
-        riskDecision,
-      )
-      ..add(
-        'riskLevel',
-        riskLevel,
-      )
-      ..add(
-        'compromisedCredentialsDetected',
-        compromisedCredentialsDetected,
-      );
+      ..add('riskDecision', riskDecision)
+      ..add('riskLevel', riskLevel)
+      ..add('compromisedCredentialsDetected', compromisedCredentialsDetected);
     return helper.toString();
   }
 }
@@ -77,17 +68,11 @@ class EventRiskTypeAwsJson11Serializer
   const EventRiskTypeAwsJson11Serializer() : super('EventRiskType');
 
   @override
-  Iterable<Type> get types => const [
-        EventRiskType,
-        _$EventRiskType,
-      ];
+  Iterable<Type> get types => const [EventRiskType, _$EventRiskType];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
   @override
   EventRiskType deserialize(
     Serializers serializers,
@@ -105,20 +90,26 @@ class EventRiskTypeAwsJson11Serializer
       }
       switch (key) {
         case 'RiskDecision':
-          result.riskDecision = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RiskDecisionType),
-          ) as RiskDecisionType);
+          result.riskDecision =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RiskDecisionType),
+                  )
+                  as RiskDecisionType);
         case 'RiskLevel':
-          result.riskLevel = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RiskLevelType),
-          ) as RiskLevelType);
+          result.riskLevel =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RiskLevelType),
+                  )
+                  as RiskLevelType);
         case 'CompromisedCredentialsDetected':
-          result.compromisedCredentialsDetected = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.compromisedCredentialsDetected =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 
@@ -135,31 +126,37 @@ class EventRiskTypeAwsJson11Serializer
     final EventRiskType(
       :riskDecision,
       :riskLevel,
-      :compromisedCredentialsDetected
+      :compromisedCredentialsDetected,
     ) = object;
     if (riskDecision != null) {
       result$
         ..add('RiskDecision')
-        ..add(serializers.serialize(
-          riskDecision,
-          specifiedType: const FullType(RiskDecisionType),
-        ));
+        ..add(
+          serializers.serialize(
+            riskDecision,
+            specifiedType: const FullType(RiskDecisionType),
+          ),
+        );
     }
     if (riskLevel != null) {
       result$
         ..add('RiskLevel')
-        ..add(serializers.serialize(
-          riskLevel,
-          specifiedType: const FullType(RiskLevelType),
-        ));
+        ..add(
+          serializers.serialize(
+            riskLevel,
+            specifiedType: const FullType(RiskLevelType),
+          ),
+        );
     }
     if (compromisedCredentialsDetected != null) {
       result$
         ..add('CompromisedCredentialsDetected')
-        ..add(serializers.serialize(
-          compromisedCredentialsDetected,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(
+            compromisedCredentialsDetected,
+            specifiedType: const FullType(bool),
+          ),
+        );
     }
     return result$;
   }

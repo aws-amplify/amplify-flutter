@@ -10,22 +10,18 @@ class _$PutEventsResponse extends PutEventsResponse {
   @override
   final EventsResponse eventsResponse;
 
-  factory _$PutEventsResponse(
-          [void Function(PutEventsResponseBuilder)? updates]) =>
-      (new PutEventsResponseBuilder()..update(updates))._build();
+  factory _$PutEventsResponse([
+    void Function(PutEventsResponseBuilder)? updates,
+  ]) => (PutEventsResponseBuilder()..update(updates))._build();
 
-  _$PutEventsResponse._({required this.eventsResponse}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        eventsResponse, r'PutEventsResponse', 'eventsResponse');
-  }
-
+  _$PutEventsResponse._({required this.eventsResponse}) : super._();
   @override
   PutEventsResponse rebuild(void Function(PutEventsResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   PutEventsResponseBuilder toBuilder() =>
-      new PutEventsResponseBuilder()..replace(this);
+      PutEventsResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,7 +44,7 @@ class PutEventsResponseBuilder
 
   EventsResponseBuilder? _eventsResponse;
   EventsResponseBuilder get eventsResponse =>
-      _$this._eventsResponse ??= new EventsResponseBuilder();
+      _$this._eventsResponse ??= EventsResponseBuilder();
   set eventsResponse(EventsResponseBuilder? eventsResponse) =>
       _$this._eventsResponse = eventsResponse;
 
@@ -65,7 +61,6 @@ class PutEventsResponseBuilder
 
   @override
   void replace(PutEventsResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutEventsResponse;
   }
 
@@ -80,16 +75,19 @@ class PutEventsResponseBuilder
   _$PutEventsResponse _build() {
     _$PutEventsResponse _$result;
     try {
-      _$result = _$v ??
-          new _$PutEventsResponse._(eventsResponse: eventsResponse.build());
+      _$result =
+          _$v ?? _$PutEventsResponse._(eventsResponse: eventsResponse.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'eventsResponse';
         eventsResponse.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'PutEventsResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'PutEventsResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

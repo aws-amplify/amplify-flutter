@@ -12,20 +12,19 @@ class _$XmlNamespaceNested extends XmlNamespaceNested {
   @override
   final _i2.BuiltList<String>? values;
 
-  factory _$XmlNamespaceNested(
-          [void Function(XmlNamespaceNestedBuilder)? updates]) =>
-      (new XmlNamespaceNestedBuilder()..update(updates))._build();
+  factory _$XmlNamespaceNested([
+    void Function(XmlNamespaceNestedBuilder)? updates,
+  ]) => (XmlNamespaceNestedBuilder()..update(updates))._build();
 
   _$XmlNamespaceNested._({this.foo, this.values}) : super._();
-
   @override
   XmlNamespaceNested rebuild(
-          void Function(XmlNamespaceNestedBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlNamespaceNestedBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlNamespaceNestedBuilder toBuilder() =>
-      new XmlNamespaceNestedBuilder()..replace(this);
+      XmlNamespaceNestedBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -55,7 +54,7 @@ class XmlNamespaceNestedBuilder
 
   _i2.ListBuilder<String>? _values;
   _i2.ListBuilder<String> get values =>
-      _$this._values ??= new _i2.ListBuilder<String>();
+      _$this._values ??= _i2.ListBuilder<String>();
   set values(_i2.ListBuilder<String>? values) => _$this._values = values;
 
   XmlNamespaceNestedBuilder();
@@ -72,7 +71,6 @@ class XmlNamespaceNestedBuilder
 
   @override
   void replace(XmlNamespaceNested other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlNamespaceNested;
   }
 
@@ -88,15 +86,18 @@ class XmlNamespaceNestedBuilder
     _$XmlNamespaceNested _$result;
     try {
       _$result =
-          _$v ?? new _$XmlNamespaceNested._(foo: foo, values: _values?.build());
+          _$v ?? _$XmlNamespaceNested._(foo: foo, values: _values?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'values';
         _values?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'XmlNamespaceNested', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'XmlNamespaceNested',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

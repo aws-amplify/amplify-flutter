@@ -21,33 +21,22 @@ class _$ProtocolTraits extends ProtocolTraits {
   final BuiltMap<MemberShape, String> memberWireNames;
 
   factory _$ProtocolTraits([void Function(ProtocolTraitsBuilder)? updates]) =>
-      (new ProtocolTraitsBuilder()..update(updates))._build();
+      (ProtocolTraitsBuilder()..update(updates))._build();
 
-  _$ProtocolTraits._(
-      {this.wireName,
-      this.namespace,
-      required this.attributeMembers,
-      required this.flattenedMembers,
-      required this.memberNamespaces,
-      required this.memberWireNames})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        attributeMembers, r'ProtocolTraits', 'attributeMembers');
-    BuiltValueNullFieldError.checkNotNull(
-        flattenedMembers, r'ProtocolTraits', 'flattenedMembers');
-    BuiltValueNullFieldError.checkNotNull(
-        memberNamespaces, r'ProtocolTraits', 'memberNamespaces');
-    BuiltValueNullFieldError.checkNotNull(
-        memberWireNames, r'ProtocolTraits', 'memberWireNames');
-  }
-
+  _$ProtocolTraits._({
+    this.wireName,
+    this.namespace,
+    required this.attributeMembers,
+    required this.flattenedMembers,
+    required this.memberNamespaces,
+    required this.memberWireNames,
+  }) : super._();
   @override
   ProtocolTraits rebuild(void Function(ProtocolTraitsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ProtocolTraitsBuilder toBuilder() =>
-      new ProtocolTraitsBuilder()..replace(this);
+  ProtocolTraitsBuilder toBuilder() => ProtocolTraitsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,27 +90,26 @@ class ProtocolTraitsBuilder
 
   SetBuilder<MemberShape>? _attributeMembers;
   SetBuilder<MemberShape> get attributeMembers =>
-      _$this._attributeMembers ??= new SetBuilder<MemberShape>();
+      _$this._attributeMembers ??= SetBuilder<MemberShape>();
   set attributeMembers(SetBuilder<MemberShape>? attributeMembers) =>
       _$this._attributeMembers = attributeMembers;
 
   SetBuilder<MemberShape>? _flattenedMembers;
   SetBuilder<MemberShape> get flattenedMembers =>
-      _$this._flattenedMembers ??= new SetBuilder<MemberShape>();
+      _$this._flattenedMembers ??= SetBuilder<MemberShape>();
   set flattenedMembers(SetBuilder<MemberShape>? flattenedMembers) =>
       _$this._flattenedMembers = flattenedMembers;
 
   MapBuilder<MemberShape, XmlNamespaceTrait>? _memberNamespaces;
   MapBuilder<MemberShape, XmlNamespaceTrait> get memberNamespaces =>
-      _$this._memberNamespaces ??=
-          new MapBuilder<MemberShape, XmlNamespaceTrait>();
+      _$this._memberNamespaces ??= MapBuilder<MemberShape, XmlNamespaceTrait>();
   set memberNamespaces(
-          MapBuilder<MemberShape, XmlNamespaceTrait>? memberNamespaces) =>
-      _$this._memberNamespaces = memberNamespaces;
+    MapBuilder<MemberShape, XmlNamespaceTrait>? memberNamespaces,
+  ) => _$this._memberNamespaces = memberNamespaces;
 
   MapBuilder<MemberShape, String>? _memberWireNames;
   MapBuilder<MemberShape, String> get memberWireNames =>
-      _$this._memberWireNames ??= new MapBuilder<MemberShape, String>();
+      _$this._memberWireNames ??= MapBuilder<MemberShape, String>();
   set memberWireNames(MapBuilder<MemberShape, String>? memberWireNames) =>
       _$this._memberWireNames = memberWireNames;
 
@@ -143,7 +131,6 @@ class ProtocolTraitsBuilder
 
   @override
   void replace(ProtocolTraits other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProtocolTraits;
   }
 
@@ -158,14 +145,16 @@ class ProtocolTraitsBuilder
   _$ProtocolTraits _build() {
     _$ProtocolTraits _$result;
     try {
-      _$result = _$v ??
-          new _$ProtocolTraits._(
-              wireName: wireName,
-              namespace: namespace,
-              attributeMembers: attributeMembers.build(),
-              flattenedMembers: flattenedMembers.build(),
-              memberNamespaces: memberNamespaces.build(),
-              memberWireNames: memberWireNames.build());
+      _$result =
+          _$v ??
+          _$ProtocolTraits._(
+            wireName: wireName,
+            namespace: namespace,
+            attributeMembers: attributeMembers.build(),
+            flattenedMembers: flattenedMembers.build(),
+            memberNamespaces: memberNamespaces.build(),
+            memberWireNames: memberWireNames.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -178,8 +167,11 @@ class ProtocolTraitsBuilder
         _$failedField = 'memberWireNames';
         memberWireNames.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ProtocolTraits', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ProtocolTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -195,18 +187,15 @@ class _$HttpPayload extends HttpPayload {
   final MemberShape? member;
 
   factory _$HttpPayload([void Function(HttpPayloadBuilder)? updates]) =>
-      (new HttpPayloadBuilder()..update(updates))._build();
+      (HttpPayloadBuilder()..update(updates))._build();
 
-  _$HttpPayload._({required this.symbol, this.member}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(symbol, r'HttpPayload', 'symbol');
-  }
-
+  _$HttpPayload._({required this.symbol, this.member}) : super._();
   @override
   HttpPayload rebuild(void Function(HttpPayloadBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  HttpPayloadBuilder toBuilder() => new HttpPayloadBuilder()..replace(this);
+  HttpPayloadBuilder toBuilder() => HttpPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -242,7 +231,7 @@ class HttpPayloadBuilder implements Builder<HttpPayload, HttpPayloadBuilder> {
   set symbol(Reference? symbol) => _$this._symbol = symbol;
 
   MemberShapeBuilder? _member;
-  MemberShapeBuilder get member => _$this._member ??= new MemberShapeBuilder();
+  MemberShapeBuilder get member => _$this._member ??= MemberShapeBuilder();
   set member(MemberShapeBuilder? member) => _$this._member = member;
 
   HttpPayloadBuilder();
@@ -259,7 +248,6 @@ class HttpPayloadBuilder implements Builder<HttpPayload, HttpPayloadBuilder> {
 
   @override
   void replace(HttpPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPayload;
   }
 
@@ -274,19 +262,27 @@ class HttpPayloadBuilder implements Builder<HttpPayload, HttpPayloadBuilder> {
   _$HttpPayload _build() {
     _$HttpPayload _$result;
     try {
-      _$result = _$v ??
-          new _$HttpPayload._(
-              symbol: BuiltValueNullFieldError.checkNotNull(
-                  symbol, r'HttpPayload', 'symbol'),
-              member: _member?.build());
+      _$result =
+          _$v ??
+          _$HttpPayload._(
+            symbol: BuiltValueNullFieldError.checkNotNull(
+              symbol,
+              r'HttpPayload',
+              'symbol',
+            ),
+            member: _member?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'member';
         _member?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpPayload', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -301,24 +297,19 @@ class _$HttpPrefixHeaders extends HttpPrefixHeaders {
   @override
   final MemberShape member;
 
-  factory _$HttpPrefixHeaders(
-          [void Function(HttpPrefixHeadersBuilder)? updates]) =>
-      (new HttpPrefixHeadersBuilder()..update(updates))._build();
+  factory _$HttpPrefixHeaders([
+    void Function(HttpPrefixHeadersBuilder)? updates,
+  ]) => (HttpPrefixHeadersBuilder()..update(updates))._build();
 
   _$HttpPrefixHeaders._({required this.trait, required this.member})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(trait, r'HttpPrefixHeaders', 'trait');
-    BuiltValueNullFieldError.checkNotNull(
-        member, r'HttpPrefixHeaders', 'member');
-  }
-
+    : super._();
   @override
   HttpPrefixHeaders rebuild(void Function(HttpPrefixHeadersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   HttpPrefixHeadersBuilder toBuilder() =>
-      new HttpPrefixHeadersBuilder()..replace(this);
+      HttpPrefixHeadersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -355,7 +346,7 @@ class HttpPrefixHeadersBuilder
   set trait(HttpPrefixHeadersTrait? trait) => _$this._trait = trait;
 
   MemberShapeBuilder? _member;
-  MemberShapeBuilder get member => _$this._member ??= new MemberShapeBuilder();
+  MemberShapeBuilder get member => _$this._member ??= MemberShapeBuilder();
   set member(MemberShapeBuilder? member) => _$this._member = member;
 
   HttpPrefixHeadersBuilder();
@@ -372,7 +363,6 @@ class HttpPrefixHeadersBuilder
 
   @override
   void replace(HttpPrefixHeaders other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPrefixHeaders;
   }
 
@@ -387,19 +377,27 @@ class HttpPrefixHeadersBuilder
   _$HttpPrefixHeaders _build() {
     _$HttpPrefixHeaders _$result;
     try {
-      _$result = _$v ??
-          new _$HttpPrefixHeaders._(
-              trait: BuiltValueNullFieldError.checkNotNull(
-                  trait, r'HttpPrefixHeaders', 'trait'),
-              member: member.build());
+      _$result =
+          _$v ??
+          _$HttpPrefixHeaders._(
+            trait: BuiltValueNullFieldError.checkNotNull(
+              trait,
+              r'HttpPrefixHeaders',
+              'trait',
+            ),
+            member: member.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'member';
         member.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpPrefixHeaders', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpPrefixHeaders',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -433,31 +431,22 @@ class _$HttpInputTraits extends HttpInputTraits {
   final HttpPrefixHeaders? httpPrefixHeaders;
 
   factory _$HttpInputTraits([void Function(HttpInputTraitsBuilder)? updates]) =>
-      (new HttpInputTraitsBuilder()..update(updates))._build();
+      (HttpInputTraitsBuilder()..update(updates))._build();
 
-  _$HttpInputTraits._(
-      {required this.httpLabels,
-      this.hostLabel,
-      required this.httpQuery,
-      this.httpQueryParams,
-      required this.httpHeaders,
-      this.httpPrefixHeaders})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        httpLabels, r'HttpInputTraits', 'httpLabels');
-    BuiltValueNullFieldError.checkNotNull(
-        httpQuery, r'HttpInputTraits', 'httpQuery');
-    BuiltValueNullFieldError.checkNotNull(
-        httpHeaders, r'HttpInputTraits', 'httpHeaders');
-  }
-
+  _$HttpInputTraits._({
+    required this.httpLabels,
+    this.hostLabel,
+    required this.httpQuery,
+    this.httpQueryParams,
+    required this.httpHeaders,
+    this.httpPrefixHeaders,
+  }) : super._();
   @override
   HttpInputTraits rebuild(void Function(HttpInputTraitsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  HttpInputTraitsBuilder toBuilder() =>
-      new HttpInputTraitsBuilder()..replace(this);
+  HttpInputTraitsBuilder toBuilder() => HttpInputTraitsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -505,40 +494,40 @@ class HttpInputTraitsBuilder
 
   SetBuilder<MemberShape>? _httpLabels;
   SetBuilder<MemberShape> get httpLabels =>
-      _$this._httpLabels ??= new SetBuilder<MemberShape>();
+      _$this._httpLabels ??= SetBuilder<MemberShape>();
   set httpLabels(covariant SetBuilder<MemberShape>? httpLabels) =>
       _$this._httpLabels = httpLabels;
 
   MemberShapeBuilder? _hostLabel;
   MemberShapeBuilder get hostLabel =>
-      _$this._hostLabel ??= new MemberShapeBuilder();
+      _$this._hostLabel ??= MemberShapeBuilder();
   set hostLabel(covariant MemberShapeBuilder? hostLabel) =>
       _$this._hostLabel = hostLabel;
 
   MapBuilder<String, MemberShape>? _httpQuery;
   MapBuilder<String, MemberShape> get httpQuery =>
-      _$this._httpQuery ??= new MapBuilder<String, MemberShape>();
+      _$this._httpQuery ??= MapBuilder<String, MemberShape>();
   set httpQuery(covariant MapBuilder<String, MemberShape>? httpQuery) =>
       _$this._httpQuery = httpQuery;
 
   MemberShapeBuilder? _httpQueryParams;
   MemberShapeBuilder get httpQueryParams =>
-      _$this._httpQueryParams ??= new MemberShapeBuilder();
+      _$this._httpQueryParams ??= MemberShapeBuilder();
   set httpQueryParams(covariant MemberShapeBuilder? httpQueryParams) =>
       _$this._httpQueryParams = httpQueryParams;
 
   MapBuilder<String, MemberShape>? _httpHeaders;
   MapBuilder<String, MemberShape> get httpHeaders =>
-      _$this._httpHeaders ??= new MapBuilder<String, MemberShape>();
+      _$this._httpHeaders ??= MapBuilder<String, MemberShape>();
   set httpHeaders(covariant MapBuilder<String, MemberShape>? httpHeaders) =>
       _$this._httpHeaders = httpHeaders;
 
   HttpPrefixHeadersBuilder? _httpPrefixHeaders;
   HttpPrefixHeadersBuilder get httpPrefixHeaders =>
-      _$this._httpPrefixHeaders ??= new HttpPrefixHeadersBuilder();
+      _$this._httpPrefixHeaders ??= HttpPrefixHeadersBuilder();
   set httpPrefixHeaders(
-          covariant HttpPrefixHeadersBuilder? httpPrefixHeaders) =>
-      _$this._httpPrefixHeaders = httpPrefixHeaders;
+    covariant HttpPrefixHeadersBuilder? httpPrefixHeaders,
+  ) => _$this._httpPrefixHeaders = httpPrefixHeaders;
 
   HttpInputTraitsBuilder();
 
@@ -558,7 +547,6 @@ class HttpInputTraitsBuilder
 
   @override
   void replace(covariant HttpInputTraits other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpInputTraits;
   }
 
@@ -573,14 +561,16 @@ class HttpInputTraitsBuilder
   _$HttpInputTraits _build() {
     _$HttpInputTraits _$result;
     try {
-      _$result = _$v ??
-          new _$HttpInputTraits._(
-              httpLabels: httpLabels.build(),
-              hostLabel: _hostLabel?.build(),
-              httpQuery: httpQuery.build(),
-              httpQueryParams: _httpQueryParams?.build(),
-              httpHeaders: httpHeaders.build(),
-              httpPrefixHeaders: _httpPrefixHeaders?.build());
+      _$result =
+          _$v ??
+          _$HttpInputTraits._(
+            httpLabels: httpLabels.build(),
+            hostLabel: _hostLabel?.build(),
+            httpQuery: httpQuery.build(),
+            httpQueryParams: _httpQueryParams?.build(),
+            httpHeaders: httpHeaders.build(),
+            httpPrefixHeaders: _httpPrefixHeaders?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -597,8 +587,11 @@ class HttpInputTraitsBuilder
         _$failedField = 'httpPrefixHeaders';
         _httpPrefixHeaders?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpInputTraits', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpInputTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -615,26 +608,22 @@ class _$HttpOutputTraits extends HttpOutputTraits {
   @override
   final HttpPrefixHeaders? httpPrefixHeaders;
 
-  factory _$HttpOutputTraits(
-          [void Function(HttpOutputTraitsBuilder)? updates]) =>
-      (new HttpOutputTraitsBuilder()..update(updates))._build();
+  factory _$HttpOutputTraits([
+    void Function(HttpOutputTraitsBuilder)? updates,
+  ]) => (HttpOutputTraitsBuilder()..update(updates))._build();
 
-  _$HttpOutputTraits._(
-      {this.httpResponseCode,
-      required this.httpHeaders,
-      this.httpPrefixHeaders})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        httpHeaders, r'HttpOutputTraits', 'httpHeaders');
-  }
-
+  _$HttpOutputTraits._({
+    this.httpResponseCode,
+    required this.httpHeaders,
+    this.httpPrefixHeaders,
+  }) : super._();
   @override
   HttpOutputTraits rebuild(void Function(HttpOutputTraitsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   HttpOutputTraitsBuilder toBuilder() =>
-      new HttpOutputTraitsBuilder()..replace(this);
+      HttpOutputTraitsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -673,22 +662,22 @@ class HttpOutputTraitsBuilder
 
   MemberShapeBuilder? _httpResponseCode;
   MemberShapeBuilder get httpResponseCode =>
-      _$this._httpResponseCode ??= new MemberShapeBuilder();
+      _$this._httpResponseCode ??= MemberShapeBuilder();
   set httpResponseCode(covariant MemberShapeBuilder? httpResponseCode) =>
       _$this._httpResponseCode = httpResponseCode;
 
   MapBuilder<String, MemberShape>? _httpHeaders;
   MapBuilder<String, MemberShape> get httpHeaders =>
-      _$this._httpHeaders ??= new MapBuilder<String, MemberShape>();
+      _$this._httpHeaders ??= MapBuilder<String, MemberShape>();
   set httpHeaders(covariant MapBuilder<String, MemberShape>? httpHeaders) =>
       _$this._httpHeaders = httpHeaders;
 
   HttpPrefixHeadersBuilder? _httpPrefixHeaders;
   HttpPrefixHeadersBuilder get httpPrefixHeaders =>
-      _$this._httpPrefixHeaders ??= new HttpPrefixHeadersBuilder();
+      _$this._httpPrefixHeaders ??= HttpPrefixHeadersBuilder();
   set httpPrefixHeaders(
-          covariant HttpPrefixHeadersBuilder? httpPrefixHeaders) =>
-      _$this._httpPrefixHeaders = httpPrefixHeaders;
+    covariant HttpPrefixHeadersBuilder? httpPrefixHeaders,
+  ) => _$this._httpPrefixHeaders = httpPrefixHeaders;
 
   HttpOutputTraitsBuilder();
 
@@ -705,7 +694,6 @@ class HttpOutputTraitsBuilder
 
   @override
   void replace(covariant HttpOutputTraits other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpOutputTraits;
   }
 
@@ -720,11 +708,13 @@ class HttpOutputTraitsBuilder
   _$HttpOutputTraits _build() {
     _$HttpOutputTraits _$result;
     try {
-      _$result = _$v ??
-          new _$HttpOutputTraits._(
-              httpResponseCode: _httpResponseCode?.build(),
-              httpHeaders: httpHeaders.build(),
-              httpPrefixHeaders: _httpPrefixHeaders?.build());
+      _$result =
+          _$v ??
+          _$HttpOutputTraits._(
+            httpResponseCode: _httpResponseCode?.build(),
+            httpHeaders: httpHeaders.build(),
+            httpPrefixHeaders: _httpPrefixHeaders?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -735,8 +725,11 @@ class HttpOutputTraitsBuilder
         _$failedField = 'httpPrefixHeaders';
         _httpPrefixHeaders?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpOutputTraits', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpOutputTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -764,33 +757,24 @@ class _$HttpErrorTraits extends HttpErrorTraits {
   final HttpPrefixHeaders? httpPrefixHeaders;
 
   factory _$HttpErrorTraits([void Function(HttpErrorTraitsBuilder)? updates]) =>
-      (new HttpErrorTraitsBuilder()..update(updates))._build();
+      (HttpErrorTraitsBuilder()..update(updates))._build();
 
-  _$HttpErrorTraits._(
-      {required this.shapeId,
-      required this.kind,
-      required this.symbol,
-      this.payloadSymbol,
-      this.retryConfig,
-      this.statusCode,
-      required this.httpHeaders,
-      this.httpPrefixHeaders})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'HttpErrorTraits', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(kind, r'HttpErrorTraits', 'kind');
-    BuiltValueNullFieldError.checkNotNull(symbol, r'HttpErrorTraits', 'symbol');
-    BuiltValueNullFieldError.checkNotNull(
-        httpHeaders, r'HttpErrorTraits', 'httpHeaders');
-  }
-
+  _$HttpErrorTraits._({
+    required this.shapeId,
+    required this.kind,
+    required this.symbol,
+    this.payloadSymbol,
+    this.retryConfig,
+    this.statusCode,
+    required this.httpHeaders,
+    this.httpPrefixHeaders,
+  }) : super._();
   @override
   HttpErrorTraits rebuild(void Function(HttpErrorTraitsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  HttpErrorTraitsBuilder toBuilder() =>
-      new HttpErrorTraitsBuilder()..replace(this);
+  HttpErrorTraitsBuilder toBuilder() => HttpErrorTraitsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -870,16 +854,16 @@ class HttpErrorTraitsBuilder
 
   MapBuilder<String, MemberShape>? _httpHeaders;
   MapBuilder<String, MemberShape> get httpHeaders =>
-      _$this._httpHeaders ??= new MapBuilder<String, MemberShape>();
+      _$this._httpHeaders ??= MapBuilder<String, MemberShape>();
   set httpHeaders(covariant MapBuilder<String, MemberShape>? httpHeaders) =>
       _$this._httpHeaders = httpHeaders;
 
   HttpPrefixHeadersBuilder? _httpPrefixHeaders;
   HttpPrefixHeadersBuilder get httpPrefixHeaders =>
-      _$this._httpPrefixHeaders ??= new HttpPrefixHeadersBuilder();
+      _$this._httpPrefixHeaders ??= HttpPrefixHeadersBuilder();
   set httpPrefixHeaders(
-          covariant HttpPrefixHeadersBuilder? httpPrefixHeaders) =>
-      _$this._httpPrefixHeaders = httpPrefixHeaders;
+    covariant HttpPrefixHeadersBuilder? httpPrefixHeaders,
+  ) => _$this._httpPrefixHeaders = httpPrefixHeaders;
 
   HttpErrorTraitsBuilder();
 
@@ -901,7 +885,6 @@ class HttpErrorTraitsBuilder
 
   @override
   void replace(covariant HttpErrorTraits other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpErrorTraits;
   }
 
@@ -916,19 +899,30 @@ class HttpErrorTraitsBuilder
   _$HttpErrorTraits _build() {
     _$HttpErrorTraits _$result;
     try {
-      _$result = _$v ??
-          new _$HttpErrorTraits._(
-              shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, r'HttpErrorTraits', 'shapeId'),
-              kind: BuiltValueNullFieldError.checkNotNull(
-                  kind, r'HttpErrorTraits', 'kind'),
-              symbol: BuiltValueNullFieldError.checkNotNull(
-                  symbol, r'HttpErrorTraits', 'symbol'),
-              payloadSymbol: payloadSymbol,
-              retryConfig: retryConfig,
-              statusCode: statusCode,
-              httpHeaders: httpHeaders.build(),
-              httpPrefixHeaders: _httpPrefixHeaders?.build());
+      _$result =
+          _$v ??
+          _$HttpErrorTraits._(
+            shapeId: BuiltValueNullFieldError.checkNotNull(
+              shapeId,
+              r'HttpErrorTraits',
+              'shapeId',
+            ),
+            kind: BuiltValueNullFieldError.checkNotNull(
+              kind,
+              r'HttpErrorTraits',
+              'kind',
+            ),
+            symbol: BuiltValueNullFieldError.checkNotNull(
+              symbol,
+              r'HttpErrorTraits',
+              'symbol',
+            ),
+            payloadSymbol: payloadSymbol,
+            retryConfig: retryConfig,
+            statusCode: statusCode,
+            httpHeaders: httpHeaders.build(),
+            httpPrefixHeaders: _httpPrefixHeaders?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -937,8 +931,11 @@ class HttpErrorTraitsBuilder
         _$failedField = 'httpPrefixHeaders';
         _httpPrefixHeaders?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'HttpErrorTraits', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'HttpErrorTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -958,29 +955,20 @@ class _$PaginationItem extends PaginationItem {
   final Reference symbol;
 
   factory _$PaginationItem([void Function(PaginationItemBuilder)? updates]) =>
-      (new PaginationItemBuilder()..update(updates))._build();
+      (PaginationItemBuilder()..update(updates))._build();
 
-  _$PaginationItem._(
-      {required this.member,
-      required this.isNullable,
-      required this.buildExpression,
-      required this.symbol})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(member, r'PaginationItem', 'member');
-    BuiltValueNullFieldError.checkNotNull(
-        isNullable, r'PaginationItem', 'isNullable');
-    BuiltValueNullFieldError.checkNotNull(
-        buildExpression, r'PaginationItem', 'buildExpression');
-    BuiltValueNullFieldError.checkNotNull(symbol, r'PaginationItem', 'symbol');
-  }
-
+  _$PaginationItem._({
+    required this.member,
+    required this.isNullable,
+    required this.buildExpression,
+    required this.symbol,
+  }) : super._();
   @override
   PaginationItem rebuild(void Function(PaginationItemBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PaginationItemBuilder toBuilder() =>
-      new PaginationItemBuilder()..replace(this);
+  PaginationItemBuilder toBuilder() => PaginationItemBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -1020,7 +1008,7 @@ class PaginationItemBuilder
   _$PaginationItem? _$v;
 
   MemberShapeBuilder? _member;
-  MemberShapeBuilder get member => _$this._member ??= new MemberShapeBuilder();
+  MemberShapeBuilder get member => _$this._member ??= MemberShapeBuilder();
   set member(MemberShapeBuilder? member) => _$this._member = member;
 
   bool? _isNullable;
@@ -1053,7 +1041,6 @@ class PaginationItemBuilder
 
   @override
   void replace(PaginationItem other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PaginationItem;
   }
 
@@ -1068,23 +1055,37 @@ class PaginationItemBuilder
   _$PaginationItem _build() {
     _$PaginationItem _$result;
     try {
-      _$result = _$v ??
-          new _$PaginationItem._(
-              member: member.build(),
-              isNullable: BuiltValueNullFieldError.checkNotNull(
-                  isNullable, r'PaginationItem', 'isNullable'),
-              buildExpression: BuiltValueNullFieldError.checkNotNull(
-                  buildExpression, r'PaginationItem', 'buildExpression'),
-              symbol: BuiltValueNullFieldError.checkNotNull(
-                  symbol, r'PaginationItem', 'symbol'));
+      _$result =
+          _$v ??
+          _$PaginationItem._(
+            member: member.build(),
+            isNullable: BuiltValueNullFieldError.checkNotNull(
+              isNullable,
+              r'PaginationItem',
+              'isNullable',
+            ),
+            buildExpression: BuiltValueNullFieldError.checkNotNull(
+              buildExpression,
+              r'PaginationItem',
+              'buildExpression',
+            ),
+            symbol: BuiltValueNullFieldError.checkNotNull(
+              symbol,
+              r'PaginationItem',
+              'symbol',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'member';
         member.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'PaginationItem', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'PaginationItem',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -1112,26 +1113,24 @@ class _$PaginatedTraits extends PaginatedTraits {
   final PaginationItem? items;
 
   factory _$PaginatedTraits([void Function(PaginatedTraitsBuilder)? updates]) =>
-      (new PaginatedTraitsBuilder()..update(updates))._build();
+      (PaginatedTraitsBuilder()..update(updates))._build();
 
-  _$PaginatedTraits._(
-      {this.inputTokenPath,
-      this.inputToken,
-      this.outputTokenPath,
-      this.outputToken,
-      this.pageSizePath,
-      this.pageSize,
-      this.itemsPath,
-      this.items})
-      : super._();
-
+  _$PaginatedTraits._({
+    this.inputTokenPath,
+    this.inputToken,
+    this.outputTokenPath,
+    this.outputToken,
+    this.pageSizePath,
+    this.pageSize,
+    this.itemsPath,
+    this.items,
+  }) : super._();
   @override
   PaginatedTraits rebuild(void Function(PaginatedTraitsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PaginatedTraitsBuilder toBuilder() =>
-      new PaginatedTraitsBuilder()..replace(this);
+  PaginatedTraitsBuilder toBuilder() => PaginatedTraitsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -1188,7 +1187,7 @@ class PaginatedTraitsBuilder
 
   PaginationItemBuilder? _inputToken;
   PaginationItemBuilder get inputToken =>
-      _$this._inputToken ??= new PaginationItemBuilder();
+      _$this._inputToken ??= PaginationItemBuilder();
   set inputToken(PaginationItemBuilder? inputToken) =>
       _$this._inputToken = inputToken;
 
@@ -1199,7 +1198,7 @@ class PaginatedTraitsBuilder
 
   PaginationItemBuilder? _outputToken;
   PaginationItemBuilder get outputToken =>
-      _$this._outputToken ??= new PaginationItemBuilder();
+      _$this._outputToken ??= PaginationItemBuilder();
   set outputToken(PaginationItemBuilder? outputToken) =>
       _$this._outputToken = outputToken;
 
@@ -1209,7 +1208,7 @@ class PaginatedTraitsBuilder
 
   PaginationItemBuilder? _pageSize;
   PaginationItemBuilder get pageSize =>
-      _$this._pageSize ??= new PaginationItemBuilder();
+      _$this._pageSize ??= PaginationItemBuilder();
   set pageSize(PaginationItemBuilder? pageSize) => _$this._pageSize = pageSize;
 
   String? _itemsPath;
@@ -1217,8 +1216,7 @@ class PaginatedTraitsBuilder
   set itemsPath(String? itemsPath) => _$this._itemsPath = itemsPath;
 
   PaginationItemBuilder? _items;
-  PaginationItemBuilder get items =>
-      _$this._items ??= new PaginationItemBuilder();
+  PaginationItemBuilder get items => _$this._items ??= PaginationItemBuilder();
   set items(PaginationItemBuilder? items) => _$this._items = items;
 
   PaginatedTraitsBuilder();
@@ -1241,7 +1239,6 @@ class PaginatedTraitsBuilder
 
   @override
   void replace(PaginatedTraits other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PaginatedTraits;
   }
 
@@ -1256,16 +1253,18 @@ class PaginatedTraitsBuilder
   _$PaginatedTraits _build() {
     _$PaginatedTraits _$result;
     try {
-      _$result = _$v ??
-          new _$PaginatedTraits._(
-              inputTokenPath: inputTokenPath,
-              inputToken: _inputToken?.build(),
-              outputTokenPath: outputTokenPath,
-              outputToken: _outputToken?.build(),
-              pageSizePath: pageSizePath,
-              pageSize: _pageSize?.build(),
-              itemsPath: itemsPath,
-              items: _items?.build());
+      _$result =
+          _$v ??
+          _$PaginatedTraits._(
+            inputTokenPath: inputTokenPath,
+            inputToken: _inputToken?.build(),
+            outputTokenPath: outputTokenPath,
+            outputToken: _outputToken?.build(),
+            pageSizePath: pageSizePath,
+            pageSize: _pageSize?.build(),
+            itemsPath: itemsPath,
+            items: _items?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -1281,8 +1280,11 @@ class PaginatedTraitsBuilder
         _$failedField = 'items';
         _items?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'PaginatedTraits', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'PaginatedTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

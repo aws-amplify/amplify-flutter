@@ -12,20 +12,19 @@ class _$TestPayloadBlobInputOutput extends TestPayloadBlobInputOutput {
   @override
   final _i2.Uint8List? data;
 
-  factory _$TestPayloadBlobInputOutput(
-          [void Function(TestPayloadBlobInputOutputBuilder)? updates]) =>
-      (new TestPayloadBlobInputOutputBuilder()..update(updates))._build();
+  factory _$TestPayloadBlobInputOutput([
+    void Function(TestPayloadBlobInputOutputBuilder)? updates,
+  ]) => (TestPayloadBlobInputOutputBuilder()..update(updates))._build();
 
   _$TestPayloadBlobInputOutput._({this.contentType, this.data}) : super._();
-
   @override
   TestPayloadBlobInputOutput rebuild(
-          void Function(TestPayloadBlobInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TestPayloadBlobInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TestPayloadBlobInputOutputBuilder toBuilder() =>
-      new TestPayloadBlobInputOutputBuilder()..replace(this);
+      TestPayloadBlobInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class TestPayloadBlobInputOutputBuilder
 
   @override
   void replace(TestPayloadBlobInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TestPayloadBlobInputOutput;
   }
 
@@ -85,9 +83,9 @@ class TestPayloadBlobInputOutputBuilder
   TestPayloadBlobInputOutput build() => _build();
 
   _$TestPayloadBlobInputOutput _build() {
-    final _$result = _$v ??
-        new _$TestPayloadBlobInputOutput._(
-            contentType: contentType, data: data);
+    final _$result =
+        _$v ??
+        _$TestPayloadBlobInputOutput._(contentType: contentType, data: data);
     replace(_$result);
     return _$result;
   }

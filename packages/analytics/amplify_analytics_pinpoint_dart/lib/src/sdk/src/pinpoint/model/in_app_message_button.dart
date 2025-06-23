@@ -32,14 +32,14 @@ abstract class InAppMessageButton
   }
 
   /// Button Config for an in-app message.
-  factory InAppMessageButton.build(
-          [void Function(InAppMessageButtonBuilder) updates]) =
-      _$InAppMessageButton;
+  factory InAppMessageButton.build([
+    void Function(InAppMessageButtonBuilder) updates,
+  ]) = _$InAppMessageButton;
 
   const InAppMessageButton._();
 
   static const List<_i2.SmithySerializer<InAppMessageButton>> serializers = [
-    InAppMessageButtonRestJson1Serializer()
+    InAppMessageButtonRestJson1Serializer(),
   ];
 
   /// Default button content.
@@ -54,31 +54,14 @@ abstract class InAppMessageButton
   /// Default button content.
   OverrideButtonConfiguration? get web;
   @override
-  List<Object?> get props => [
-        android,
-        defaultConfig,
-        ios,
-        web,
-      ];
+  List<Object?> get props => [android, defaultConfig, ios, web];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InAppMessageButton')
-      ..add(
-        'android',
-        android,
-      )
-      ..add(
-        'defaultConfig',
-        defaultConfig,
-      )
-      ..add(
-        'ios',
-        ios,
-      )
-      ..add(
-        'web',
-        web,
-      );
+      ..add('android', android)
+      ..add('defaultConfig', defaultConfig)
+      ..add('ios', ios)
+      ..add('web', web);
     return helper.toString();
   }
 }
@@ -88,17 +71,11 @@ class InAppMessageButtonRestJson1Serializer
   const InAppMessageButtonRestJson1Serializer() : super('InAppMessageButton');
 
   @override
-  Iterable<Type> get types => const [
-        InAppMessageButton,
-        _$InAppMessageButton,
-      ];
+  Iterable<Type> get types => const [InAppMessageButton, _$InAppMessageButton];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppMessageButton deserialize(
     Serializers serializers,
@@ -116,25 +93,37 @@ class InAppMessageButtonRestJson1Serializer
       }
       switch (key) {
         case 'Android':
-          result.android.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(OverrideButtonConfiguration),
-          ) as OverrideButtonConfiguration));
+          result.android.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(OverrideButtonConfiguration),
+                )
+                as OverrideButtonConfiguration),
+          );
         case 'DefaultConfig':
-          result.defaultConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(DefaultButtonConfiguration),
-          ) as DefaultButtonConfiguration));
+          result.defaultConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(DefaultButtonConfiguration),
+                )
+                as DefaultButtonConfiguration),
+          );
         case 'IOS':
-          result.ios.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(OverrideButtonConfiguration),
-          ) as OverrideButtonConfiguration));
+          result.ios.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(OverrideButtonConfiguration),
+                )
+                as OverrideButtonConfiguration),
+          );
         case 'Web':
-          result.web.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(OverrideButtonConfiguration),
-          ) as OverrideButtonConfiguration));
+          result.web.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(OverrideButtonConfiguration),
+                )
+                as OverrideButtonConfiguration),
+          );
       }
     }
 
@@ -152,34 +141,42 @@ class InAppMessageButtonRestJson1Serializer
     if (android != null) {
       result$
         ..add('Android')
-        ..add(serializers.serialize(
-          android,
-          specifiedType: const FullType(OverrideButtonConfiguration),
-        ));
+        ..add(
+          serializers.serialize(
+            android,
+            specifiedType: const FullType(OverrideButtonConfiguration),
+          ),
+        );
     }
     if (defaultConfig != null) {
       result$
         ..add('DefaultConfig')
-        ..add(serializers.serialize(
-          defaultConfig,
-          specifiedType: const FullType(DefaultButtonConfiguration),
-        ));
+        ..add(
+          serializers.serialize(
+            defaultConfig,
+            specifiedType: const FullType(DefaultButtonConfiguration),
+          ),
+        );
     }
     if (ios != null) {
       result$
         ..add('IOS')
-        ..add(serializers.serialize(
-          ios,
-          specifiedType: const FullType(OverrideButtonConfiguration),
-        ));
+        ..add(
+          serializers.serialize(
+            ios,
+            specifiedType: const FullType(OverrideButtonConfiguration),
+          ),
+        );
     }
     if (web != null) {
       result$
         ..add('Web')
-        ..add(serializers.serialize(
-          web,
-          specifiedType: const FullType(OverrideButtonConfiguration),
-        ));
+        ..add(
+          serializers.serialize(
+            web,
+            specifiedType: const FullType(OverrideButtonConfiguration),
+          ),
+        );
     }
     return result$;
   }

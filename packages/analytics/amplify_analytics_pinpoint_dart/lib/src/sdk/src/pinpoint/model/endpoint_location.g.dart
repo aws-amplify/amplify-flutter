@@ -20,26 +20,25 @@ class _$EndpointLocation extends EndpointLocation {
   @override
   final String? region;
 
-  factory _$EndpointLocation(
-          [void Function(EndpointLocationBuilder)? updates]) =>
-      (new EndpointLocationBuilder()..update(updates))._build();
+  factory _$EndpointLocation([
+    void Function(EndpointLocationBuilder)? updates,
+  ]) => (EndpointLocationBuilder()..update(updates))._build();
 
-  _$EndpointLocation._(
-      {this.city,
-      this.country,
-      this.latitude,
-      this.longitude,
-      this.postalCode,
-      this.region})
-      : super._();
-
+  _$EndpointLocation._({
+    this.city,
+    this.country,
+    this.latitude,
+    this.longitude,
+    this.postalCode,
+    this.region,
+  }) : super._();
   @override
   EndpointLocation rebuild(void Function(EndpointLocationBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   EndpointLocationBuilder toBuilder() =>
-      new EndpointLocationBuilder()..replace(this);
+      EndpointLocationBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -113,7 +112,6 @@ class EndpointLocationBuilder
 
   @override
   void replace(EndpointLocation other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointLocation;
   }
 
@@ -126,14 +124,16 @@ class EndpointLocationBuilder
   EndpointLocation build() => _build();
 
   _$EndpointLocation _build() {
-    final _$result = _$v ??
-        new _$EndpointLocation._(
-            city: city,
-            country: country,
-            latitude: latitude,
-            longitude: longitude,
-            postalCode: postalCode,
-            region: region);
+    final _$result =
+        _$v ??
+        _$EndpointLocation._(
+          city: city,
+          country: country,
+          latitude: latitude,
+          longitude: longitude,
+          postalCode: postalCode,
+          region: region,
+        );
     replace(_$result);
     return _$result;
   }

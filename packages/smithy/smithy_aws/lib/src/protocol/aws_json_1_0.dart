@@ -16,23 +16,24 @@ class AwsJson1_0Protocol<InputPayload, Input, OutputPayload, Output>
     List<SmithySerializer<dynamic>> serializers = const [],
     Map<FullType, Function> builderFactories = const {},
   }) : super(
-          _coreSerializers,
-          serializers: serializers,
-          builderFactories: builderFactories,
-          requestInterceptors: requestInterceptors,
-          responseInterceptors: responseInterceptors,
-        );
+         _coreSerializers,
+         serializers: serializers,
+         builderFactories: builderFactories,
+         requestInterceptors: requestInterceptors,
+         responseInterceptors: responseInterceptors,
+       );
 
-  static final _coreSerializers = (Serializers().toBuilder()
-        ..addPlugin(SmithyJsonPlugin())
-        ..addAll(const [
-          BigIntSerializer.asNum,
-          DoubleSerializer(),
-          Int64Serializer.asNum,
-          TimestampSerializer.epochSeconds,
-          UnitSerializer(),
-        ]))
-      .build();
+  static final _coreSerializers =
+      (Serializers().toBuilder()
+            ..addPlugin(SmithyJsonPlugin())
+            ..addAll(const [
+              BigIntSerializer.asNum,
+              DoubleSerializer(),
+              Int64Serializer.asNum,
+              TimestampSerializer.epochSeconds,
+              UnitSerializer(),
+            ]))
+          .build();
 
   @override
   ShapeId get protocolId => AwsJson1_0Trait.id;
@@ -41,8 +42,10 @@ class AwsJson1_0Protocol<InputPayload, Input, OutputPayload, Output>
   String get contentType => 'application/x-amz-json-1.0';
 
   @override
-  late final JsonSerializer wireSerializer =
-      JsonSerializer(serializers, EmptyPayloadType.object);
+  late final JsonSerializer wireSerializer = JsonSerializer(
+    serializers,
+    EmptyPayloadType.object,
+  );
 }
 
 // ignore_for_file: camel_case_types

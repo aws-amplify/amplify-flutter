@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.null_and_empty_headers_io; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,11 +20,7 @@ abstract class NullAndEmptyHeadersIo
         Built<NullAndEmptyHeadersIo, NullAndEmptyHeadersIoBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<NullAndEmptyHeadersIoPayload> {
-  factory NullAndEmptyHeadersIo({
-    String? a,
-    String? b,
-    List<String>? c,
-  }) {
+  factory NullAndEmptyHeadersIo({String? a, String? b, List<String>? c}) {
     return _$NullAndEmptyHeadersIo._(
       a: a,
       b: b,
@@ -32,9 +28,9 @@ abstract class NullAndEmptyHeadersIo
     );
   }
 
-  factory NullAndEmptyHeadersIo.build(
-          [void Function(NullAndEmptyHeadersIoBuilder) updates]) =
-      _$NullAndEmptyHeadersIo;
+  factory NullAndEmptyHeadersIo.build([
+    void Function(NullAndEmptyHeadersIoBuilder) updates,
+  ]) = _$NullAndEmptyHeadersIo;
 
   const NullAndEmptyHeadersIo._();
 
@@ -42,87 +38,78 @@ abstract class NullAndEmptyHeadersIo
     NullAndEmptyHeadersIoPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      NullAndEmptyHeadersIo.build((b) {
-        if (request.headers['X-A'] != null) {
-          b.a = request.headers['X-A']!;
-        }
-        if (request.headers['X-B'] != null) {
-          b.b = request.headers['X-B']!;
-        }
-        if (request.headers['X-C'] != null) {
-          b.c.addAll(
-              _i1.parseHeader(request.headers['X-C']!).map((el) => el.trim()));
-        }
-      });
+  }) => NullAndEmptyHeadersIo.build((b) {
+    if (request.headers['X-A'] != null) {
+      b.a = request.headers['X-A']!;
+    }
+    if (request.headers['X-B'] != null) {
+      b.b = request.headers['X-B']!;
+    }
+    if (request.headers['X-C'] != null) {
+      b.c.addAll(
+        _i1.parseHeader(request.headers['X-C']!).map((el) => el.trim()),
+      );
+    }
+  });
 
   /// Constructs a [NullAndEmptyHeadersIo] from a [payload] and [response].
   factory NullAndEmptyHeadersIo.fromResponse(
     NullAndEmptyHeadersIoPayload payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      NullAndEmptyHeadersIo.build((b) {
-        if (response.headers['X-A'] != null) {
-          b.a = response.headers['X-A']!;
-        }
-        if (response.headers['X-B'] != null) {
-          b.b = response.headers['X-B']!;
-        }
-        if (response.headers['X-C'] != null) {
-          b.c.addAll(
-              _i1.parseHeader(response.headers['X-C']!).map((el) => el.trim()));
-        }
-      });
+  ) => NullAndEmptyHeadersIo.build((b) {
+    if (response.headers['X-A'] != null) {
+      b.a = response.headers['X-A']!;
+    }
+    if (response.headers['X-B'] != null) {
+      b.b = response.headers['X-B']!;
+    }
+    if (response.headers['X-C'] != null) {
+      b.c.addAll(
+        _i1.parseHeader(response.headers['X-C']!).map((el) => el.trim()),
+      );
+    }
+  });
 
   static const List<_i1.SmithySerializer<NullAndEmptyHeadersIoPayload>>
-      serializers = [NullAndEmptyHeadersIoRestJson1Serializer()];
+  serializers = [NullAndEmptyHeadersIoRestJson1Serializer()];
 
   String? get a;
   String? get b;
   _i3.BuiltList<String>? get c;
   @override
   NullAndEmptyHeadersIoPayload getPayload() => NullAndEmptyHeadersIoPayload();
+
   @override
-  List<Object?> get props => [
-        a,
-        b,
-        c,
-      ];
+  List<Object?> get props => [a, b, c];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NullAndEmptyHeadersIo')
-      ..add(
-        'a',
-        a,
-      )
-      ..add(
-        'b',
-        b,
-      )
-      ..add(
-        'c',
-        c,
-      );
+      ..add('a', a)
+      ..add('b', b)
+      ..add('c', c);
     return helper.toString();
   }
 }
 
 @_i4.internal
 abstract class NullAndEmptyHeadersIoPayload
-    with
-        _i2.AWSEquatable<NullAndEmptyHeadersIoPayload>
+    with _i2.AWSEquatable<NullAndEmptyHeadersIoPayload>
     implements
-        Built<NullAndEmptyHeadersIoPayload,
-            NullAndEmptyHeadersIoPayloadBuilder>,
+        Built<
+          NullAndEmptyHeadersIoPayload,
+          NullAndEmptyHeadersIoPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory NullAndEmptyHeadersIoPayload(
-          [void Function(NullAndEmptyHeadersIoPayloadBuilder) updates]) =
-      _$NullAndEmptyHeadersIoPayload;
+  factory NullAndEmptyHeadersIoPayload([
+    void Function(NullAndEmptyHeadersIoPayloadBuilder) updates,
+  ]) = _$NullAndEmptyHeadersIoPayload;
 
   const NullAndEmptyHeadersIoPayload._();
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NullAndEmptyHeadersIoPayload');
@@ -133,22 +120,21 @@ abstract class NullAndEmptyHeadersIoPayload
 class NullAndEmptyHeadersIoRestJson1Serializer
     extends _i1.StructuredSmithySerializer<NullAndEmptyHeadersIoPayload> {
   const NullAndEmptyHeadersIoRestJson1Serializer()
-      : super('NullAndEmptyHeadersIo');
+    : super('NullAndEmptyHeadersIo');
 
   @override
   Iterable<Type> get types => const [
-        NullAndEmptyHeadersIo,
-        _$NullAndEmptyHeadersIo,
-        NullAndEmptyHeadersIoPayload,
-        _$NullAndEmptyHeadersIoPayload,
-      ];
+    NullAndEmptyHeadersIo,
+    _$NullAndEmptyHeadersIo,
+    NullAndEmptyHeadersIoPayload,
+    _$NullAndEmptyHeadersIoPayload,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
+
   @override
   NullAndEmptyHeadersIoPayload deserialize(
     Serializers serializers,
@@ -163,6 +149,5 @@ class NullAndEmptyHeadersIoRestJson1Serializer
     Serializers serializers,
     NullAndEmptyHeadersIoPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

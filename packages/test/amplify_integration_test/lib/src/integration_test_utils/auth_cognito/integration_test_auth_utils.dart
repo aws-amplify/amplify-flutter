@@ -26,8 +26,9 @@ export 'package:amplify_integration_test/src/sdk/cognito_identity_provider.dart'
         RiskDecisionType,
         RiskDecisionTypeHelpers;
 
-final _logger =
-    AmplifyLogger.category(Category.auth).createChild('IntegrationTestUtils');
+final _logger = AmplifyLogger.category(
+  Category.auth,
+).createChild('IntegrationTestUtils');
 
 Future<Map<String, Object?>> _graphQL(
   String document, {
@@ -70,19 +71,19 @@ query ListAuthEvents($username: String!) {
   listAuthEvents(username: $username)
 }
 ''',
-    variables: <String, dynamic>{
-      'username': username,
-    },
+    variables: <String, dynamic>{'username': username},
   );
 
   final eventsJson =
       jsonDecode(result['listAuthEvents'] as String) as List<Object?>;
   final events = <AuthEventType>[];
   for (final eventJson in eventsJson) {
-    final event = _serializers.deserialize(
-      eventJson,
-      specifiedType: const FullType(AuthEventType),
-    ) as AuthEventType;
+    final event =
+        _serializers.deserialize(
+              eventJson,
+              specifiedType: const FullType(AuthEventType),
+            )
+            as AuthEventType;
     events.add(event);
   }
   return events;
@@ -98,9 +99,7 @@ mutation EnableSmsMfa($username: String!) {
     success
   }
 }''',
-    variables: <String, dynamic>{
-      'username': username,
-    },
+    variables: <String, dynamic>{'username': username},
   );
   _logger.debug('Got enableSmsMfa result: $result');
 
@@ -125,9 +124,7 @@ mutation DeleteUser($username: String!) {
     success
   }
 }''',
-    variables: <String, dynamic>{
-      'username': username,
-    },
+    variables: <String, dynamic>{'username': username},
   );
   _logger.debug('Got deleteUser result: $result');
 
@@ -151,10 +148,7 @@ mutation DeleteDevice($input: DeleteDeviceInput!) {
 }
 ''',
     variables: <String, dynamic>{
-      'input': {
-        'username': username,
-        'deviceKey': deviceKey,
-      },
+      'input': {'username': username, 'deviceKey': deviceKey},
     },
   );
 
@@ -196,23 +190,26 @@ Future<String> adminCreateUser(
   final attributeMap = attributes.map(
     (name, value) => MapEntry(name.key, value),
   );
-  final email = attributeMap.remove(AuthUserAttributeKey.email.key) ??
+  final email =
+      attributeMap.remove(AuthUserAttributeKey.email.key) ??
       (autoFillAttributes ? generateEmail() : null);
   if (email != null) {
     createUserParams['email'] = email;
   }
   final phoneNumber =
       attributeMap.remove(AuthUserAttributeKey.phoneNumber.key) ??
-          (autoFillAttributes ? generatePhoneNumber() : null);
+      (autoFillAttributes ? generatePhoneNumber() : null);
   if (phoneNumber != null) {
     createUserParams['phoneNumber'] = phoneNumber;
   }
-  final name = attributeMap.remove(AuthUserAttributeKey.name.key) ??
+  final name =
+      attributeMap.remove(AuthUserAttributeKey.name.key) ??
       (autoFillAttributes ? 'default_name' : null);
   if (name != null) {
     createUserParams['name'] = name;
   }
-  final givenName = attributeMap.remove(AuthUserAttributeKey.givenName.key) ??
+  final givenName =
+      attributeMap.remove(AuthUserAttributeKey.givenName.key) ??
       (autoFillAttributes ? 'default_given_name' : null);
   if (givenName != null) {
     createUserParams['givenName'] = name;
@@ -231,10 +228,7 @@ Future<String> adminCreateUser(
           }
       ''',
     variables: {
-      'input': {
-        ...createUserParams,
-        'password': password,
-      },
+      'input': {...createUserParams, 'password': password},
     },
   );
   _logger.debug('Got createUser result: $result');
@@ -285,18 +279,18 @@ enum _UserAttributeType { username, email, phone }
 class UserAttribute {
   /// Identifies a user by their username.
   const UserAttribute.username(String username)
-      : _value = username,
-        _type = _UserAttributeType.username;
+    : _value = username,
+      _type = _UserAttributeType.username;
 
   /// Identifies a user by their email.
   const UserAttribute.email(String email)
-      : _value = email,
-        _type = _UserAttributeType.email;
+    : _value = email,
+      _type = _UserAttributeType.email;
 
   /// Identifies a user by their phone number.
   const UserAttribute.phone(String phoneNumber)
-      : _value = phoneNumber,
-        _type = _UserAttributeType.phone;
+    : _value = phoneNumber,
+      _type = _UserAttributeType.phone;
 
   final _UserAttributeType _type;
   final String _value;
@@ -307,9 +301,7 @@ class UserAttribute {
 /// Must be called before the network call generating the OTP code.
 Future<OtpResult> getOtpCode(UserAttribute userAttribute) async {
   final establishedCompleter = Completer<void>();
-  final otpCodes = getOtpCodes(
-    onEstablished: establishedCompleter.complete,
-  );
+  final otpCodes = getOtpCodes(onEstablished: establishedCompleter.complete);
 
   // Collect code delivered via Lambda
   final code = otpCodes
@@ -347,9 +339,7 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
     }''';
 
   final operation = Amplify.API.subscribe(
-    GraphQLRequest<String>(
-      document: subscriptionDocument,
-    ),
+    GraphQLRequest<String>(document: subscriptionDocument),
     onEstablished: () {
       onEstablished?.call();
       _logger.debug('Established connection');
@@ -359,17 +349,16 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
   // Collect code delivered via Lambda
   return operation
       .tap(
-    (event) => _logger.debug(
-      'Got event: ${event.data}, errors: ${event.errors}',
-    ),
-  )
+        (event) =>
+            _logger.debug('Got event: ${event.data}, errors: ${event.errors}'),
+      )
       .map((event) {
-    if (event.hasErrors) {
-      throw Exception(event.errors);
-    }
-    final json = (jsonDecode(event.data!) as Map)['onCreateMFACode'] as Map;
-    return CreateMFACodeResponse.fromJson(json.cast());
-  });
+        if (event.hasErrors) {
+          throw Exception(event.errors);
+        }
+        final json = (jsonDecode(event.data!) as Map)['onCreateMFACode'] as Map;
+        return CreateMFACodeResponse.fromJson(json.cast());
+      });
 }
 
 /// Completes if one of the [futures] completes successfully.

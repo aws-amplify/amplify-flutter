@@ -12,20 +12,19 @@ class _$TooManyFailedAttemptsException extends TooManyFailedAttemptsException {
   @override
   final Map<String, String>? headers;
 
-  factory _$TooManyFailedAttemptsException(
-          [void Function(TooManyFailedAttemptsExceptionBuilder)? updates]) =>
-      (new TooManyFailedAttemptsExceptionBuilder()..update(updates))._build();
+  factory _$TooManyFailedAttemptsException([
+    void Function(TooManyFailedAttemptsExceptionBuilder)? updates,
+  ]) => (TooManyFailedAttemptsExceptionBuilder()..update(updates))._build();
 
   _$TooManyFailedAttemptsException._({this.message, this.headers}) : super._();
-
   @override
   TooManyFailedAttemptsException rebuild(
-          void Function(TooManyFailedAttemptsExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TooManyFailedAttemptsExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TooManyFailedAttemptsExceptionBuilder toBuilder() =>
-      new TooManyFailedAttemptsExceptionBuilder()..replace(this);
+      TooManyFailedAttemptsExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -44,8 +43,10 @@ class _$TooManyFailedAttemptsException extends TooManyFailedAttemptsException {
 
 class TooManyFailedAttemptsExceptionBuilder
     implements
-        Builder<TooManyFailedAttemptsException,
-            TooManyFailedAttemptsExceptionBuilder> {
+        Builder<
+          TooManyFailedAttemptsException,
+          TooManyFailedAttemptsExceptionBuilder
+        > {
   _$TooManyFailedAttemptsException? _$v;
 
   String? _message;
@@ -70,7 +71,6 @@ class TooManyFailedAttemptsExceptionBuilder
 
   @override
   void replace(TooManyFailedAttemptsException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TooManyFailedAttemptsException;
   }
 
@@ -83,9 +83,9 @@ class TooManyFailedAttemptsExceptionBuilder
   TooManyFailedAttemptsException build() => _build();
 
   _$TooManyFailedAttemptsException _build() {
-    final _$result = _$v ??
-        new _$TooManyFailedAttemptsException._(
-            message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$TooManyFailedAttemptsException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

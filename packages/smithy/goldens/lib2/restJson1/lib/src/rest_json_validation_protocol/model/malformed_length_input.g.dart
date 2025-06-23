@@ -20,27 +20,26 @@ class _$MalformedLengthInput extends MalformedLengthInput {
   @override
   final _i4.BuiltListMultimap<String, String>? map;
 
-  factory _$MalformedLengthInput(
-          [void Function(MalformedLengthInputBuilder)? updates]) =>
-      (new MalformedLengthInputBuilder()..update(updates))._build();
+  factory _$MalformedLengthInput([
+    void Function(MalformedLengthInputBuilder)? updates,
+  ]) => (MalformedLengthInputBuilder()..update(updates))._build();
 
-  _$MalformedLengthInput._(
-      {this.blob,
-      this.string,
-      this.minString,
-      this.maxString,
-      this.list,
-      this.map})
-      : super._();
-
+  _$MalformedLengthInput._({
+    this.blob,
+    this.string,
+    this.minString,
+    this.maxString,
+    this.list,
+    this.map,
+  }) : super._();
   @override
   MalformedLengthInput rebuild(
-          void Function(MalformedLengthInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLengthInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLengthInputBuilder toBuilder() =>
-      new MalformedLengthInputBuilder()..replace(this);
+      MalformedLengthInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -90,12 +89,12 @@ class MalformedLengthInputBuilder
 
   _i4.ListBuilder<String>? _list;
   _i4.ListBuilder<String> get list =>
-      _$this._list ??= new _i4.ListBuilder<String>();
+      _$this._list ??= _i4.ListBuilder<String>();
   set list(_i4.ListBuilder<String>? list) => _$this._list = list;
 
   _i4.ListMultimapBuilder<String, String>? _map;
   _i4.ListMultimapBuilder<String, String> get map =>
-      _$this._map ??= new _i4.ListMultimapBuilder<String, String>();
+      _$this._map ??= _i4.ListMultimapBuilder<String, String>();
   set map(_i4.ListMultimapBuilder<String, String>? map) => _$this._map = map;
 
   MalformedLengthInputBuilder();
@@ -116,7 +115,6 @@ class MalformedLengthInputBuilder
 
   @override
   void replace(MalformedLengthInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedLengthInput;
   }
 
@@ -131,14 +129,16 @@ class MalformedLengthInputBuilder
   _$MalformedLengthInput _build() {
     _$MalformedLengthInput _$result;
     try {
-      _$result = _$v ??
-          new _$MalformedLengthInput._(
-              blob: blob,
-              string: string,
-              minString: minString,
-              maxString: maxString,
-              list: _list?.build(),
-              map: _map?.build());
+      _$result =
+          _$v ??
+          _$MalformedLengthInput._(
+            blob: blob,
+            string: string,
+            minString: minString,
+            maxString: maxString,
+            list: _list?.build(),
+            map: _map?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -147,8 +147,11 @@ class MalformedLengthInputBuilder
         _$failedField = 'map';
         _map?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'MalformedLengthInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'MalformedLengthInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

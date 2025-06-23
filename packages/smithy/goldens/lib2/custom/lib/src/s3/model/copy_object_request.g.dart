@@ -14,27 +14,22 @@ class _$CopyObjectRequest extends CopyObjectRequest {
   @override
   final String key;
 
-  factory _$CopyObjectRequest(
-          [void Function(CopyObjectRequestBuilder)? updates]) =>
-      (new CopyObjectRequestBuilder()..update(updates))._build();
+  factory _$CopyObjectRequest([
+    void Function(CopyObjectRequestBuilder)? updates,
+  ]) => (CopyObjectRequestBuilder()..update(updates))._build();
 
-  _$CopyObjectRequest._(
-      {required this.bucket, required this.copySource, required this.key})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'CopyObjectRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
-        copySource, r'CopyObjectRequest', 'copySource');
-    BuiltValueNullFieldError.checkNotNull(key, r'CopyObjectRequest', 'key');
-  }
-
+  _$CopyObjectRequest._({
+    required this.bucket,
+    required this.copySource,
+    required this.key,
+  }) : super._();
   @override
   CopyObjectRequest rebuild(void Function(CopyObjectRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   CopyObjectRequestBuilder toBuilder() =>
-      new CopyObjectRequestBuilder()..replace(this);
+      CopyObjectRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,7 +82,6 @@ class CopyObjectRequestBuilder
 
   @override
   void replace(CopyObjectRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyObjectRequest;
   }
 
@@ -100,34 +94,44 @@ class CopyObjectRequestBuilder
   CopyObjectRequest build() => _build();
 
   _$CopyObjectRequest _build() {
-    final _$result = _$v ??
-        new _$CopyObjectRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'CopyObjectRequest', 'bucket'),
-            copySource: BuiltValueNullFieldError.checkNotNull(
-                copySource, r'CopyObjectRequest', 'copySource'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'CopyObjectRequest', 'key'));
+    final _$result =
+        _$v ??
+        _$CopyObjectRequest._(
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'CopyObjectRequest',
+            'bucket',
+          ),
+          copySource: BuiltValueNullFieldError.checkNotNull(
+            copySource,
+            r'CopyObjectRequest',
+            'copySource',
+          ),
+          key: BuiltValueNullFieldError.checkNotNull(
+            key,
+            r'CopyObjectRequest',
+            'key',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$CopyObjectRequestPayload extends CopyObjectRequestPayload {
-  factory _$CopyObjectRequestPayload(
-          [void Function(CopyObjectRequestPayloadBuilder)? updates]) =>
-      (new CopyObjectRequestPayloadBuilder()..update(updates))._build();
+  factory _$CopyObjectRequestPayload([
+    void Function(CopyObjectRequestPayloadBuilder)? updates,
+  ]) => (CopyObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$CopyObjectRequestPayload._() : super._();
-
   @override
   CopyObjectRequestPayload rebuild(
-          void Function(CopyObjectRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CopyObjectRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CopyObjectRequestPayloadBuilder toBuilder() =>
-      new CopyObjectRequestPayloadBuilder()..replace(this);
+      CopyObjectRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -150,7 +154,6 @@ class CopyObjectRequestPayloadBuilder
 
   @override
   void replace(CopyObjectRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyObjectRequestPayload;
   }
 
@@ -163,7 +166,7 @@ class CopyObjectRequestPayloadBuilder
   CopyObjectRequestPayload build() => _build();
 
   _$CopyObjectRequestPayload _build() {
-    final _$result = _$v ?? new _$CopyObjectRequestPayload._();
+    final _$result = _$v ?? _$CopyObjectRequestPayload._();
     replace(_$result);
     return _$result;
   }

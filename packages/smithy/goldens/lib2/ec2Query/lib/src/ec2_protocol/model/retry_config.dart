@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v2.ec2_protocol.model.retry_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,14 +16,8 @@ abstract class RetryConfig
     with _i1.AWSEquatable<RetryConfig>
     implements Built<RetryConfig, RetryConfigBuilder> {
   /// Configuration specific to retries.
-  factory RetryConfig({
-    RetryMode? mode,
-    int? maxAttempts,
-  }) {
-    return _$RetryConfig._(
-      mode: mode,
-      maxAttempts: maxAttempts,
-    );
+  factory RetryConfig({RetryMode? mode, int? maxAttempts}) {
+    return _$RetryConfig._(mode: mode, maxAttempts: maxAttempts);
   }
 
   /// Configuration specific to retries.
@@ -33,28 +27,20 @@ abstract class RetryConfig
   const RetryConfig._();
 
   static const List<_i2.SmithySerializer<RetryConfig>> serializers = [
-    RetryConfigEc2QuerySerializer()
+    RetryConfigEc2QuerySerializer(),
   ];
 
   /// Controls the strategy used for retries.
   RetryMode? get mode;
   int? get maxAttempts;
   @override
-  List<Object?> get props => [
-        mode,
-        maxAttempts,
-      ];
+  List<Object?> get props => [mode, maxAttempts];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RetryConfig')
-      ..add(
-        'mode',
-        mode,
-      )
-      ..add(
-        'maxAttempts',
-        maxAttempts,
-      );
+      ..add('mode', mode)
+      ..add('maxAttempts', maxAttempts);
     return helper.toString();
   }
 }
@@ -64,17 +50,13 @@ class RetryConfigEc2QuerySerializer
   const RetryConfigEc2QuerySerializer() : super('RetryConfig');
 
   @override
-  Iterable<Type> get types => const [
-        RetryConfig,
-        _$RetryConfig,
-      ];
+  Iterable<Type> get types => const [RetryConfig, _$RetryConfig];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
+
   @override
   RetryConfig deserialize(
     Serializers serializers,
@@ -92,15 +74,19 @@ class RetryConfigEc2QuerySerializer
       }
       switch (key) {
         case 'mode':
-          result.mode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.mode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 'max_attempts':
-          result.maxAttempts = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxAttempts =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -117,24 +103,25 @@ class RetryConfigEc2QuerySerializer
       const _i2.XmlElementName(
         'RetryConfigResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final RetryConfig(:mode, :maxAttempts) = object;
     if (mode != null) {
       result$
         ..add(const _i2.XmlElementName('Mode'))
-        ..add(serializers.serialize(
-          mode,
-          specifiedType: const FullType.nullable(RetryMode),
-        ));
+        ..add(
+          serializers.serialize(mode, specifiedType: const FullType(RetryMode)),
+        );
     }
     if (maxAttempts != null) {
       result$
         ..add(const _i2.XmlElementName('Max_attempts'))
-        ..add(serializers.serialize(
-          maxAttempts,
-          specifiedType: const FullType.nullable(int),
-        ));
+        ..add(
+          serializers.serialize(
+            maxAttempts,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     return result$;
   }

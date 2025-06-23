@@ -11,20 +11,19 @@ class _$DocumentTypeAsPayloadInputOutput
   @override
   final _i2.JsonObject? documentValue;
 
-  factory _$DocumentTypeAsPayloadInputOutput(
-          [void Function(DocumentTypeAsPayloadInputOutputBuilder)? updates]) =>
-      (new DocumentTypeAsPayloadInputOutputBuilder()..update(updates))._build();
+  factory _$DocumentTypeAsPayloadInputOutput([
+    void Function(DocumentTypeAsPayloadInputOutputBuilder)? updates,
+  ]) => (DocumentTypeAsPayloadInputOutputBuilder()..update(updates))._build();
 
   _$DocumentTypeAsPayloadInputOutput._({this.documentValue}) : super._();
-
   @override
   DocumentTypeAsPayloadInputOutput rebuild(
-          void Function(DocumentTypeAsPayloadInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DocumentTypeAsPayloadInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DocumentTypeAsPayloadInputOutputBuilder toBuilder() =>
-      new DocumentTypeAsPayloadInputOutputBuilder()..replace(this);
+      DocumentTypeAsPayloadInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -44,8 +43,10 @@ class _$DocumentTypeAsPayloadInputOutput
 
 class DocumentTypeAsPayloadInputOutputBuilder
     implements
-        Builder<DocumentTypeAsPayloadInputOutput,
-            DocumentTypeAsPayloadInputOutputBuilder> {
+        Builder<
+          DocumentTypeAsPayloadInputOutput,
+          DocumentTypeAsPayloadInputOutputBuilder
+        > {
   _$DocumentTypeAsPayloadInputOutput? _$v;
 
   _i2.JsonObject? _documentValue;
@@ -66,7 +67,6 @@ class DocumentTypeAsPayloadInputOutputBuilder
 
   @override
   void replace(DocumentTypeAsPayloadInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DocumentTypeAsPayloadInputOutput;
   }
 
@@ -79,8 +79,9 @@ class DocumentTypeAsPayloadInputOutputBuilder
   DocumentTypeAsPayloadInputOutput build() => _build();
 
   _$DocumentTypeAsPayloadInputOutput _build() {
-    final _$result = _$v ??
-        new _$DocumentTypeAsPayloadInputOutput._(documentValue: documentValue);
+    final _$result =
+        _$v ??
+        _$DocumentTypeAsPayloadInputOutput._(documentValue: documentValue);
     replace(_$result);
     return _$result;
   }

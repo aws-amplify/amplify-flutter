@@ -15,20 +15,19 @@ class _$S3Config extends S3Config {
   final bool? useDualstackEndpoint;
 
   factory _$S3Config([void Function(S3ConfigBuilder)? updates]) =>
-      (new S3ConfigBuilder()..update(updates))._build();
+      (S3ConfigBuilder()..update(updates))._build();
 
-  _$S3Config._(
-      {this.addressingStyle,
-      this.useAccelerateEndpoint,
-      this.useDualstackEndpoint})
-      : super._();
-
+  _$S3Config._({
+    this.addressingStyle,
+    this.useAccelerateEndpoint,
+    this.useDualstackEndpoint,
+  }) : super._();
   @override
   S3Config rebuild(void Function(S3ConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  S3ConfigBuilder toBuilder() => new S3ConfigBuilder()..replace(this);
+  S3ConfigBuilder toBuilder() => S3ConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -83,7 +82,6 @@ class S3ConfigBuilder implements Builder<S3Config, S3ConfigBuilder> {
 
   @override
   void replace(S3Config other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$S3Config;
   }
 
@@ -96,11 +94,13 @@ class S3ConfigBuilder implements Builder<S3Config, S3ConfigBuilder> {
   S3Config build() => _build();
 
   _$S3Config _build() {
-    final _$result = _$v ??
-        new _$S3Config._(
-            addressingStyle: addressingStyle,
-            useAccelerateEndpoint: useAccelerateEndpoint,
-            useDualstackEndpoint: useDualstackEndpoint);
+    final _$result =
+        _$v ??
+        _$S3Config._(
+          addressingStyle: addressingStyle,
+          useAccelerateEndpoint: useAccelerateEndpoint,
+          useDualstackEndpoint: useDualstackEndpoint,
+        );
     replace(_$result);
     return _$result;
   }

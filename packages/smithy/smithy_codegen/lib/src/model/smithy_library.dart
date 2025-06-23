@@ -13,34 +13,24 @@ extension SmithyLibraryX on SmithyLibrary {
     required SmithyLibrary_LibraryType libraryType,
     required String filename,
     String? basePath,
-  }) =>
-      SmithyLibrary(
-        packageName: _sanitize(packageName),
-        serviceName: _sanitize(serviceName),
-        libraryType: libraryType,
-        filename: _sanitizeFilename(libraryType, filename),
-        basePath: basePath != null && !basePath.endsWith('/')
-            ? '$basePath/'
-            : basePath,
-      );
+  }) => SmithyLibrary(
+    packageName: _sanitize(packageName),
+    serviceName: _sanitize(serviceName),
+    libraryType: libraryType,
+    filename: _sanitizeFilename(libraryType, filename),
+    basePath: basePath != null && !basePath.endsWith('/')
+        ? '$basePath/'
+        : basePath,
+  );
 
   /// Creates a [SmithyLibrary] from a [libraryName].
-  static SmithyLibrary fromLibraryName(
-    String libraryName, {
-    String? basePath,
-  }) {
+  static SmithyLibrary fromLibraryName(String libraryName, {String? basePath}) {
     final parts = libraryName.split('.');
-    return fromParts(
-      parts,
-      basePath: basePath,
-    );
+    return fromParts(parts, basePath: basePath);
   }
 
   /// Creates a [SmithyLibrary] from the segments of its library name.
-  static SmithyLibrary fromParts(
-    List<String> parts, {
-    String? basePath,
-  }) {
+  static SmithyLibrary fromParts(List<String> parts, {String? basePath}) {
     switch (parts.length) {
       case 2:
         const libraryType = SmithyLibrary_LibraryType.SERVICE;
@@ -63,8 +53,9 @@ extension SmithyLibraryX on SmithyLibrary {
           basePath: basePath,
         );
       case 4:
-        var libraryType = SmithyLibrary_LibraryType.values
-            .firstWhere((el) => _sanitize(el.name) == _sanitize(parts[2]));
+        var libraryType = SmithyLibrary_LibraryType.values.firstWhere(
+          (el) => _sanitize(el.name) == _sanitize(parts[2]),
+        );
         final filename = _sanitizeFilename(libraryType, parts[3]);
         if (libraryType == SmithyLibrary_LibraryType.OPERATION &&
             filename.contains('waiters')) {
@@ -83,8 +74,10 @@ extension SmithyLibraryX on SmithyLibrary {
   }
 
   // Used to match client filenames and library names.
-  static final _clientRegex =
-      RegExp(r'client(?:\.dart)?$', caseSensitive: false);
+  static final _clientRegex = RegExp(
+    r'client(?:\.dart)?$',
+    caseSensitive: false,
+  );
 
   /// Creates a [SmithyLibrary] from a `lib/`-relative [path].
   static SmithyLibrary fromPath(
@@ -104,15 +97,12 @@ extension SmithyLibraryX on SmithyLibrary {
     }
 
     final basePathLength = (basePath ?? '').split('/').length;
-    return fromParts(
-      [
-        packageName,
-        ...parts.whereIndexed((index, part) {
-          return index > basePathLength || part != 'src';
-        }),
-      ],
-      basePath: basePath,
-    );
+    return fromParts([
+      packageName,
+      ...parts.whereIndexed((index, part) {
+        return index > basePathLength || part != 'src';
+      }),
+    ], basePath: basePath);
   }
 
   static String _sanitizeFilename(

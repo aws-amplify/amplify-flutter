@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_0_v2.json_rpc_10.json_rpc10_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,23 +39,19 @@ abstract class JsonRpc10ServerBase extends _i1.HttpServerBase {
     router.add(
       'POST',
       '/',
-      _i1.RpcRouter(
-        'X-Amz-Target',
-        {
-          'JsonRpc10.EmptyInputAndEmptyOutput':
-              service.emptyInputAndEmptyOutput,
-          'JsonRpc10.EndpointOperation': service.endpointOperation,
-          'JsonRpc10.EndpointWithHostLabelOperation':
-              service.endpointWithHostLabelOperation,
-          'JsonRpc10.GreetingWithErrors': service.greetingWithErrors,
-          'JsonRpc10.HostWithPathOperation': service.hostWithPathOperation,
-          'JsonRpc10.JsonUnions': service.jsonUnions,
-          'JsonRpc10.NoInputAndNoOutput': service.noInputAndNoOutput,
-          'JsonRpc10.NoInputAndOutput': service.noInputAndOutput,
-          'JsonRpc10.PutWithContentEncoding': service.putWithContentEncoding,
-          'JsonRpc10.SimpleScalarProperties': service.simpleScalarProperties,
-        },
-      ),
+      _i1.RpcRouter('X-Amz-Target', {
+        'JsonRpc10.EmptyInputAndEmptyOutput': service.emptyInputAndEmptyOutput,
+        'JsonRpc10.EndpointOperation': service.endpointOperation,
+        'JsonRpc10.EndpointWithHostLabelOperation':
+            service.endpointWithHostLabelOperation,
+        'JsonRpc10.GreetingWithErrors': service.greetingWithErrors,
+        'JsonRpc10.HostWithPathOperation': service.hostWithPathOperation,
+        'JsonRpc10.JsonUnions': service.jsonUnions,
+        'JsonRpc10.NoInputAndNoOutput': service.noInputAndNoOutput,
+        'JsonRpc10.NoInputAndOutput': service.noInputAndOutput,
+        'JsonRpc10.PutWithContentEncoding': service.putWithContentEncoding,
+        'JsonRpc10.SimpleScalarProperties': service.simpleScalarProperties,
+      }).call,
     );
     return router;
   }();
@@ -64,10 +60,7 @@ abstract class JsonRpc10ServerBase extends _i1.HttpServerBase {
     EmptyInputAndEmptyOutputInput input,
     _i1.Context context,
   );
-  _i3.Future<_i1.Unit> endpointOperation(
-    _i1.Unit input,
-    _i1.Context context,
-  );
+  _i3.Future<_i1.Unit> endpointOperation(_i1.Unit input, _i1.Context context);
   _i3.Future<_i1.Unit> endpointWithHostLabelOperation(
     EndpointWithHostLabelOperationInput input,
     _i1.Context context,
@@ -84,10 +77,7 @@ abstract class JsonRpc10ServerBase extends _i1.HttpServerBase {
     JsonUnionsInput input,
     _i1.Context context,
   );
-  _i3.Future<_i1.Unit> noInputAndNoOutput(
-    _i1.Unit input,
-    _i1.Context context,
-  );
+  _i3.Future<_i1.Unit> noInputAndNoOutput(_i1.Unit input, _i1.Context context);
   _i3.Future<NoInputAndOutputOutput> noInputAndOutput(
     _i1.Unit input,
     _i1.Context context,
@@ -110,78 +100,96 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
   final JsonRpc10ServerBase service;
 
   late final _i1.HttpProtocol<
-          EmptyInputAndEmptyOutputInput,
-          EmptyInputAndEmptyOutputInput,
-          EmptyInputAndEmptyOutputOutput,
-          EmptyInputAndEmptyOutputOutput> _emptyInputAndEmptyOutputProtocol =
-      _i2.AwsJson1_0Protocol(
+    EmptyInputAndEmptyOutputInput,
+    EmptyInputAndEmptyOutputInput,
+    EmptyInputAndEmptyOutputOutput,
+    EmptyInputAndEmptyOutputOutput
+  >
+  _emptyInputAndEmptyOutputProtocol = _i2.AwsJson1_0Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>
-      _endpointOperationProtocol = _i2.AwsJson1_0Protocol(
+  _endpointOperationProtocol = _i2.AwsJson1_0Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
-  late final _i1.HttpProtocol<EndpointWithHostLabelOperationInput,
-          EndpointWithHostLabelOperationInput, _i1.Unit, _i1.Unit>
-      _endpointWithHostLabelOperationProtocol = _i2.AwsJson1_0Protocol(
+  late final _i1.HttpProtocol<
+    EndpointWithHostLabelOperationInput,
+    EndpointWithHostLabelOperationInput,
+    _i1.Unit,
+    _i1.Unit
+  >
+  _endpointWithHostLabelOperationProtocol = _i2.AwsJson1_0Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
-  late final _i1.HttpProtocol<GreetingWithErrorsInput, GreetingWithErrorsInput,
-          GreetingWithErrorsOutput, GreetingWithErrorsOutput>
-      _greetingWithErrorsProtocol = _i2.AwsJson1_0Protocol(
+  late final _i1.HttpProtocol<
+    GreetingWithErrorsInput,
+    GreetingWithErrorsInput,
+    GreetingWithErrorsOutput,
+    GreetingWithErrorsOutput
+  >
+  _greetingWithErrorsProtocol = _i2.AwsJson1_0Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>
-      _hostWithPathOperationProtocol = _i2.AwsJson1_0Protocol(
+  _hostWithPathOperationProtocol = _i2.AwsJson1_0Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      JsonUnionsInput,
-      JsonUnionsInput,
-      JsonUnionsOutput,
-      JsonUnionsOutput> _jsonUnionsProtocol = _i2.AwsJson1_0Protocol(
+    JsonUnionsInput,
+    JsonUnionsInput,
+    JsonUnionsOutput,
+    JsonUnionsOutput
+  >
+  _jsonUnionsProtocol = _i2.AwsJson1_0Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>
-      _noInputAndNoOutputProtocol = _i2.AwsJson1_0Protocol(
-    serializers: serializers,
-    builderFactories: builderFactories,
-  );
-
-  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, NoInputAndOutputOutput,
-          NoInputAndOutputOutput> _noInputAndOutputProtocol =
-      _i2.AwsJson1_0Protocol(
+  _noInputAndNoOutputProtocol = _i2.AwsJson1_0Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      PutWithContentEncodingInput,
-      PutWithContentEncodingInput,
-      _i1.Unit,
-      _i1.Unit> _putWithContentEncodingProtocol = _i2.AwsJson1_0Protocol(
+    _i1.Unit,
+    _i1.Unit,
+    NoInputAndOutputOutput,
+    NoInputAndOutputOutput
+  >
+  _noInputAndOutputProtocol = _i2.AwsJson1_0Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          SimpleScalarPropertiesInput,
-          SimpleScalarPropertiesInput,
-          SimpleScalarPropertiesOutput,
-          SimpleScalarPropertiesOutput> _simpleScalarPropertiesProtocol =
-      _i2.AwsJson1_0Protocol(
+    PutWithContentEncodingInput,
+    PutWithContentEncodingInput,
+    _i1.Unit,
+    _i1.Unit
+  >
+  _putWithContentEncodingProtocol = _i2.AwsJson1_0Protocol(
+    serializers: serializers,
+    builderFactories: builderFactories,
+  );
+
+  late final _i1.HttpProtocol<
+    SimpleScalarPropertiesInput,
+    SimpleScalarPropertiesInput,
+    SimpleScalarPropertiesOutput,
+    SimpleScalarPropertiesOutput
+  >
+  _simpleScalarPropertiesProtocol = _i2.AwsJson1_0Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
@@ -194,37 +202,31 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     try {
       final payload =
           (await _emptyInputAndEmptyOutputProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(EmptyInputAndEmptyOutputInput),
-      ) as EmptyInputAndEmptyOutputInput);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(EmptyInputAndEmptyOutputInput),
+              )
+              as EmptyInputAndEmptyOutputInput);
       final input = EmptyInputAndEmptyOutputInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.emptyInputAndEmptyOutput(
-        input,
-        context,
-      );
+      final output = await service.emptyInputAndEmptyOutput(input, context);
       const statusCode = 200;
-      final body =
-          await _emptyInputAndEmptyOutputProtocol.wireSerializer.serialize(
-        output,
-        specifiedType: const FullType(
-          EmptyInputAndEmptyOutputOutput,
-          [FullType(EmptyInputAndEmptyOutputOutput)],
-        ),
-      );
+      final body = await _emptyInputAndEmptyOutputProtocol.wireSerializer
+          .serialize(
+            output,
+            specifiedType: const FullType(EmptyInputAndEmptyOutputOutput, [
+              FullType(EmptyInputAndEmptyOutputOutput),
+            ]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -236,21 +238,16 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     try {
       final payload =
           (await _endpointOperationProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.endpointOperation(
-        input,
-        context,
-      );
+      final output = await service.endpointOperation(input, context);
       const statusCode = 200;
       final body = await _endpointOperationProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
+        specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
       );
       return _i4.Response(
         statusCode,
@@ -258,26 +255,27 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
   _i3.Future<_i4.Response> endpointWithHostLabelOperation(
-      _i4.Request request) async {
+    _i4.Request request,
+  ) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
         _endpointWithHostLabelOperationProtocol.contentType;
     try {
-      final payload = (await _endpointWithHostLabelOperationProtocol
-          .wireSerializer
-          .deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(EndpointWithHostLabelOperationInput),
-      ) as EndpointWithHostLabelOperationInput);
+      final payload =
+          (await _endpointWithHostLabelOperationProtocol.wireSerializer
+                  .deserialize(
+                    await awsRequest.bodyBytes,
+                    specifiedType: const FullType(
+                      EndpointWithHostLabelOperationInput,
+                    ),
+                  )
+              as EndpointWithHostLabelOperationInput);
       final input = EndpointWithHostLabelOperationInput.fromRequest(
         payload,
         awsRequest,
@@ -290,22 +288,16 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
       const statusCode = 200;
       final body = await _endpointWithHostLabelOperationProtocol.wireSerializer
           .serialize(
-        output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
-      );
+            output,
+            specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -317,25 +309,22 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     try {
       final payload =
           (await _greetingWithErrorsProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(GreetingWithErrorsInput),
-      ) as GreetingWithErrorsInput);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(GreetingWithErrorsInput),
+              )
+              as GreetingWithErrorsInput);
       final input = GreetingWithErrorsInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.greetingWithErrors(
-        input,
-        context,
-      );
+      final output = await service.greetingWithErrors(input, context);
       const statusCode = 200;
       final body = await _greetingWithErrorsProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          GreetingWithErrorsOutput,
-          [FullType(GreetingWithErrorsOutput)],
-        ),
+        specifiedType: const FullType(GreetingWithErrorsOutput, [
+          FullType(GreetingWithErrorsOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -345,10 +334,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     } on ComplexError catch (e) {
       final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          ComplexError,
-          [FullType(ComplexError)],
-        ),
+        specifiedType: const FullType(ComplexError, [FullType(ComplexError)]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -359,10 +345,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     } on FooError catch (e) {
       final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          FooError,
-          [FullType(FooError)],
-        ),
+        specifiedType: const FullType(FooError, [FullType(FooError)]),
       );
       const statusCode = 500;
       return _i4.Response(
@@ -373,10 +356,9 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     } on InvalidGreeting catch (e) {
       final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          InvalidGreeting,
-          [FullType(InvalidGreeting)],
-        ),
+        specifiedType: const FullType(InvalidGreeting, [
+          FullType(InvalidGreeting),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -385,10 +367,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -400,33 +379,25 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     try {
       final payload =
           (await _hostWithPathOperationProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.hostWithPathOperation(
-        input,
-        context,
-      );
+      final output = await service.hostWithPathOperation(input, context);
       const statusCode = 200;
-      final body =
-          await _hostWithPathOperationProtocol.wireSerializer.serialize(
-        output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
-      );
+      final body = await _hostWithPathOperationProtocol.wireSerializer
+          .serialize(
+            output,
+            specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -435,26 +406,24 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonUnionsProtocol.contentType;
     try {
-      final payload = (await _jsonUnionsProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(JsonUnionsInput),
-      ) as JsonUnionsInput);
+      final payload =
+          (await _jsonUnionsProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(JsonUnionsInput),
+              )
+              as JsonUnionsInput);
       final input = JsonUnionsInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.jsonUnions(
-        input,
-        context,
-      );
+      final output = await service.jsonUnions(input, context);
       const statusCode = 200;
       final body = await _jsonUnionsProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          JsonUnionsOutput,
-          [FullType(JsonUnionsOutput)],
-        ),
+        specifiedType: const FullType(JsonUnionsOutput, [
+          FullType(JsonUnionsOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -462,10 +431,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -477,21 +443,16 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     try {
       final payload =
           (await _noInputAndNoOutputProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.noInputAndNoOutput(
-        input,
-        context,
-      );
+      final output = await service.noInputAndNoOutput(input, context);
       const statusCode = 200;
       final body = await _noInputAndNoOutputProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
+        specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
       );
       return _i4.Response(
         statusCode,
@@ -499,10 +460,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -514,21 +472,18 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     try {
       final payload =
           (await _noInputAndOutputProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(_i1.Unit),
-      ) as _i1.Unit);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(_i1.Unit),
+              )
+              as _i1.Unit);
       final input = payload;
-      final output = await service.noInputAndOutput(
-        input,
-        context,
-      );
+      final output = await service.noInputAndOutput(input, context);
       const statusCode = 200;
       final body = await _noInputAndOutputProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          NoInputAndOutputOutput,
-          [FullType(NoInputAndOutputOutput)],
-        ),
+        specifiedType: const FullType(NoInputAndOutputOutput, [
+          FullType(NoInputAndOutputOutput),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -536,10 +491,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -551,37 +503,29 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     try {
       final payload =
           (await _putWithContentEncodingProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(PutWithContentEncodingInput),
-      ) as PutWithContentEncodingInput);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(PutWithContentEncodingInput),
+              )
+              as PutWithContentEncodingInput);
       final input = PutWithContentEncodingInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.putWithContentEncoding(
-        input,
-        context,
-      );
+      final output = await service.putWithContentEncoding(input, context);
       const statusCode = 200;
-      final body =
-          await _putWithContentEncodingProtocol.wireSerializer.serialize(
-        output,
-        specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
-        ),
-      );
+      final body = await _putWithContentEncodingProtocol.wireSerializer
+          .serialize(
+            output,
+            specifiedType: const FullType(_i1.Unit, [FullType(_i1.Unit)]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -593,37 +537,31 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     try {
       final payload =
           (await _simpleScalarPropertiesProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(SimpleScalarPropertiesInput),
-      ) as SimpleScalarPropertiesInput);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(SimpleScalarPropertiesInput),
+              )
+              as SimpleScalarPropertiesInput);
       final input = SimpleScalarPropertiesInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.simpleScalarProperties(
-        input,
-        context,
-      );
+      final output = await service.simpleScalarProperties(input, context);
       const statusCode = 200;
-      final body =
-          await _simpleScalarPropertiesProtocol.wireSerializer.serialize(
-        output,
-        specifiedType: const FullType(
-          SimpleScalarPropertiesOutput,
-          [FullType(SimpleScalarPropertiesOutput)],
-        ),
-      );
+      final body = await _simpleScalarPropertiesProtocol.wireSerializer
+          .serialize(
+            output,
+            specifiedType: const FullType(SimpleScalarPropertiesOutput, [
+              FullType(SimpleScalarPropertiesOutput),
+            ]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 }

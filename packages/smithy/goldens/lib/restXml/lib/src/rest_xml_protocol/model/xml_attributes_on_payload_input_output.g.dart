@@ -11,21 +11,19 @@ class _$XmlAttributesOnPayloadInputOutput
   @override
   final XmlAttributesInputOutput? payload;
 
-  factory _$XmlAttributesOnPayloadInputOutput(
-          [void Function(XmlAttributesOnPayloadInputOutputBuilder)? updates]) =>
-      (new XmlAttributesOnPayloadInputOutputBuilder()..update(updates))
-          ._build();
+  factory _$XmlAttributesOnPayloadInputOutput([
+    void Function(XmlAttributesOnPayloadInputOutputBuilder)? updates,
+  ]) => (XmlAttributesOnPayloadInputOutputBuilder()..update(updates))._build();
 
   _$XmlAttributesOnPayloadInputOutput._({this.payload}) : super._();
-
   @override
   XmlAttributesOnPayloadInputOutput rebuild(
-          void Function(XmlAttributesOnPayloadInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlAttributesOnPayloadInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlAttributesOnPayloadInputOutputBuilder toBuilder() =>
-      new XmlAttributesOnPayloadInputOutputBuilder()..replace(this);
+      XmlAttributesOnPayloadInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -45,13 +43,15 @@ class _$XmlAttributesOnPayloadInputOutput
 
 class XmlAttributesOnPayloadInputOutputBuilder
     implements
-        Builder<XmlAttributesOnPayloadInputOutput,
-            XmlAttributesOnPayloadInputOutputBuilder> {
+        Builder<
+          XmlAttributesOnPayloadInputOutput,
+          XmlAttributesOnPayloadInputOutputBuilder
+        > {
   _$XmlAttributesOnPayloadInputOutput? _$v;
 
   XmlAttributesInputOutputBuilder? _payload;
   XmlAttributesInputOutputBuilder get payload =>
-      _$this._payload ??= new XmlAttributesInputOutputBuilder();
+      _$this._payload ??= XmlAttributesInputOutputBuilder();
   set payload(XmlAttributesInputOutputBuilder? payload) =>
       _$this._payload = payload;
 
@@ -68,13 +68,13 @@ class XmlAttributesOnPayloadInputOutputBuilder
 
   @override
   void replace(XmlAttributesOnPayloadInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlAttributesOnPayloadInputOutput;
   }
 
   @override
   void update(
-      void Function(XmlAttributesOnPayloadInputOutputBuilder)? updates) {
+    void Function(XmlAttributesOnPayloadInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -84,16 +84,20 @@ class XmlAttributesOnPayloadInputOutputBuilder
   _$XmlAttributesOnPayloadInputOutput _build() {
     _$XmlAttributesOnPayloadInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$XmlAttributesOnPayloadInputOutput._(payload: _payload?.build());
+      _$result =
+          _$v ??
+          _$XmlAttributesOnPayloadInputOutput._(payload: _payload?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'payload';
         _payload?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'XmlAttributesOnPayloadInputOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'XmlAttributesOnPayloadInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

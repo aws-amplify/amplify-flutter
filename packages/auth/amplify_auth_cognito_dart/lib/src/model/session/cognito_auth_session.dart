@@ -33,45 +33,29 @@ class CognitoAuthSession extends AuthSession
   /// The AWS identity ID Result.
   final AuthResult<String> identityIdResult;
 
-  /// The AWS credentials.
-  @Deprecated('Use `credentialsResult.value` instead')
-  AWSCredentials? get credentials => credentialsResult.valueOrNull;
-
-  /// The User Pool tokens.
-  @Deprecated('Use `userPoolTokensResult.value` instead')
-  CognitoUserPoolTokens? get userPoolTokens => userPoolTokensResult.valueOrNull;
-
-  /// The user ID (subject).
-  @Deprecated('Use `userSubResult.value` instead')
-  String? get userSub => userSubResult.valueOrNull;
-
-  /// The AWS identity ID.
-  @Deprecated('Use `identityIdResult.value` instead')
-  String? get identityId => identityIdResult.valueOrNull;
-
   @override
   List<Object?> get props => [
-        userPoolTokensResult,
-        userSubResult,
-        credentialsResult,
-        identityIdResult,
-      ];
+    userPoolTokensResult,
+    userSubResult,
+    credentialsResult,
+    identityIdResult,
+  ];
 
   @override
   Map<String, Object?> toJson() => <String, dynamic>{
-        'isSignedIn': isSignedIn,
-        'userSub': userSubResult.valueOrNull,
-        'userPoolTokens': userPoolTokensResult.valueOrNull,
-        'credentials': credentialsResult.valueOrNull,
-        'identityId': identityIdResult.valueOrNull,
-      };
+    'isSignedIn': isSignedIn,
+    'userSub': userSubResult.valueOrNull,
+    'userPoolTokens': userPoolTokensResult.valueOrNull,
+    'credentials': credentialsResult.valueOrNull,
+    'identityId': identityIdResult.valueOrNull,
+  };
 
   @override
   String toString() => prettyPrintJson({
-        'isSignedIn': isSignedIn,
-        'userSub': userSubResult.toString(),
-        'userPoolTokens': userPoolTokensResult.toString(),
-        'credentials': credentialsResult.toString(),
-        'identityId': identityIdResult.toString(),
-      });
+    'isSignedIn': isSignedIn,
+    'userSub': userSubResult.toString(),
+    'userPoolTokens': userPoolTokensResult.toString(),
+    'credentials': credentialsResult.toString(),
+    'identityId': identityIdResult.toString(),
+  });
 }

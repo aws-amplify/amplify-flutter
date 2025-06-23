@@ -13,20 +13,19 @@ class _$ConcurrentModificationException
   @override
   final Map<String, String>? headers;
 
-  factory _$ConcurrentModificationException(
-          [void Function(ConcurrentModificationExceptionBuilder)? updates]) =>
-      (new ConcurrentModificationExceptionBuilder()..update(updates))._build();
+  factory _$ConcurrentModificationException([
+    void Function(ConcurrentModificationExceptionBuilder)? updates,
+  ]) => (ConcurrentModificationExceptionBuilder()..update(updates))._build();
 
   _$ConcurrentModificationException._({this.message, this.headers}) : super._();
-
   @override
   ConcurrentModificationException rebuild(
-          void Function(ConcurrentModificationExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConcurrentModificationExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConcurrentModificationExceptionBuilder toBuilder() =>
-      new ConcurrentModificationExceptionBuilder()..replace(this);
+      ConcurrentModificationExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -45,8 +44,10 @@ class _$ConcurrentModificationException
 
 class ConcurrentModificationExceptionBuilder
     implements
-        Builder<ConcurrentModificationException,
-            ConcurrentModificationExceptionBuilder> {
+        Builder<
+          ConcurrentModificationException,
+          ConcurrentModificationExceptionBuilder
+        > {
   _$ConcurrentModificationException? _$v;
 
   String? _message;
@@ -71,7 +72,6 @@ class ConcurrentModificationExceptionBuilder
 
   @override
   void replace(ConcurrentModificationException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConcurrentModificationException;
   }
 
@@ -84,9 +84,9 @@ class ConcurrentModificationExceptionBuilder
   ConcurrentModificationException build() => _build();
 
   _$ConcurrentModificationException _build() {
-    final _$result = _$v ??
-        new _$ConcurrentModificationException._(
-            message: message, headers: headers);
+    final _$result =
+        _$v ??
+        _$ConcurrentModificationException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

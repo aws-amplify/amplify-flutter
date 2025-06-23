@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v1.ec2_protocol.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,14 +18,8 @@ abstract class ComplexError
         Built<ComplexError, ComplexErrorBuilder>,
         _i2.SmithyHttpException {
   /// This error is thrown when a request is invalid.
-  factory ComplexError({
-    String? topLevel,
-    ComplexNestedErrorData? nested,
-  }) {
-    return _$ComplexError._(
-      topLevel: topLevel,
-      nested: nested,
-    );
+  factory ComplexError({String? topLevel, ComplexNestedErrorData? nested}) {
+    return _$ComplexError._(topLevel: topLevel, nested: nested);
   }
 
   /// This error is thrown when a request is invalid.
@@ -38,27 +32,29 @@ abstract class ComplexError
   factory ComplexError.fromResponse(
     ComplexError payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<ComplexError>> serializers = [
-    ComplexErrorEc2QuerySerializer()
+    ComplexErrorEc2QuerySerializer(),
   ];
 
   String? get topLevel;
   ComplexNestedErrorData? get nested;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'aws.protocoltests.ec2',
-        shape: 'ComplexError',
-      );
+    namespace: 'aws.protocoltests.ec2',
+    shape: 'ComplexError',
+  );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -67,22 +63,15 @@ abstract class ComplexError
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
-  List<Object?> get props => [
-        topLevel,
-        nested,
-      ];
+  List<Object?> get props => [topLevel, nested];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexError')
-      ..add(
-        'topLevel',
-        topLevel,
-      )
-      ..add(
-        'nested',
-        nested,
-      );
+      ..add('topLevel', topLevel)
+      ..add('nested', nested);
     return helper.toString();
   }
 }
@@ -92,17 +81,13 @@ class ComplexErrorEc2QuerySerializer
   const ComplexErrorEc2QuerySerializer() : super('ComplexError');
 
   @override
-  Iterable<Type> get types => const [
-        ComplexError,
-        _$ComplexError,
-      ];
+  Iterable<Type> get types => const [ComplexError, _$ComplexError];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
+
   @override
   ComplexError deserialize(
     Serializers serializers,
@@ -136,15 +121,20 @@ class ComplexErrorEc2QuerySerializer
       }
       switch (key) {
         case 'TopLevel':
-          result.topLevel = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.topLevel =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ComplexNestedErrorData),
-          ) as ComplexNestedErrorData));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ComplexNestedErrorData),
+                )
+                as ComplexNestedErrorData),
+          );
       }
     }
 
@@ -161,24 +151,28 @@ class ComplexErrorEc2QuerySerializer
       const _i2.XmlElementName(
         'ComplexErrorResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final ComplexError(:topLevel, :nested) = object;
     if (topLevel != null) {
       result$
         ..add(const _i2.XmlElementName('TopLevel'))
-        ..add(serializers.serialize(
-          topLevel,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            topLevel,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (nested != null) {
       result$
         ..add(const _i2.XmlElementName('Nested'))
-        ..add(serializers.serialize(
-          nested,
-          specifiedType: const FullType(ComplexNestedErrorData),
-        ));
+        ..add(
+          serializers.serialize(
+            nested,
+            specifiedType: const FullType(ComplexNestedErrorData),
+          ),
+        );
     }
     return result$;
   }

@@ -6,7 +6,7 @@ part of 'shape_ref.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ShapeRef> _$shapeRefSerializer = new _$ShapeRefSerializer();
+Serializer<ShapeRef> _$shapeRefSerializer = _$ShapeRefSerializer();
 
 class _$ShapeRefSerializer implements StructuredSerializer<ShapeRef> {
   @override
@@ -15,24 +15,34 @@ class _$ShapeRefSerializer implements StructuredSerializer<ShapeRef> {
   final String wireName = 'ShapeRef';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ShapeRef object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ShapeRef object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
       'target',
-      serializers.serialize(object.target,
-          specifiedType: const FullType(ShapeId)),
+      serializers.serialize(
+        object.target,
+        specifiedType: const FullType(ShapeId),
+      ),
     ];
 
     return result;
   }
 
   @override
-  ShapeRef deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new ShapeRefBuilder();
+  ShapeRef deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = ShapeRefBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -41,12 +51,20 @@ class _$ShapeRefSerializer implements StructuredSerializer<ShapeRef> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
         case 'target':
-          result.target = serializers.deserialize(value,
-              specifiedType: const FullType(ShapeId))! as ShapeId;
+          result.target =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ShapeId),
+                  )!
+                  as ShapeId;
           break;
       }
     }
@@ -62,19 +80,15 @@ class _$ShapeRef extends ShapeRef {
   final ShapeId target;
 
   factory _$ShapeRef([void Function(ShapeRefBuilder)? updates]) =>
-      (new ShapeRefBuilder()..update(updates))._build();
+      (ShapeRefBuilder()..update(updates))._build();
 
-  _$ShapeRef._({required this.traits, required this.target}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(traits, r'ShapeRef', 'traits');
-    BuiltValueNullFieldError.checkNotNull(target, r'ShapeRef', 'target');
-  }
-
+  _$ShapeRef._({required this.traits, required this.target}) : super._();
   @override
   ShapeRef rebuild(void Function(ShapeRefBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ShapeRefBuilder toBuilder() => new ShapeRefBuilder()..replace(this);
+  ShapeRefBuilder toBuilder() => ShapeRefBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -129,7 +143,6 @@ class ShapeRefBuilder implements Builder<ShapeRef, ShapeRefBuilder> {
 
   @override
   void replace(ShapeRef other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ShapeRef;
   }
 
@@ -142,12 +155,20 @@ class ShapeRefBuilder implements Builder<ShapeRef, ShapeRefBuilder> {
   ShapeRef build() => _build();
 
   _$ShapeRef _build() {
-    final _$result = _$v ??
-        new _$ShapeRef._(
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'ShapeRef', 'traits'),
-            target: BuiltValueNullFieldError.checkNotNull(
-                target, r'ShapeRef', 'target'));
+    final _$result =
+        _$v ??
+        _$ShapeRef._(
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'ShapeRef',
+            'traits',
+          ),
+          target: BuiltValueNullFieldError.checkNotNull(
+            target,
+            r'ShapeRef',
+            'target',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

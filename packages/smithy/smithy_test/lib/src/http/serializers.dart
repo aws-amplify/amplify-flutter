@@ -13,10 +13,11 @@ import 'package:smithy/smithy.dart' hide Serializer;
 
 /// Built [Serializers] used when running Smithy tests, normalizing all types
 /// to JSON which is the format in which the Smithy team defines the test input.
-final testSerializers = (Serializers().toBuilder()
-      ..addPlugin(SmithyJsonPlugin())
-      ..addAll(_testSerializers))
-    .build();
+final testSerializers =
+    (Serializers().toBuilder()
+          ..addPlugin(SmithyJsonPlugin())
+          ..addAll(_testSerializers))
+        .build();
 
 final _testSerializers = <Serializer<dynamic>>[
   const _BinaryTestSerializer(),

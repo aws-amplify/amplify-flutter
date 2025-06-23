@@ -11,16 +11,15 @@ class _$PredictOutput extends PredictOutput {
   final Prediction? prediction;
 
   factory _$PredictOutput([void Function(PredictOutputBuilder)? updates]) =>
-      (new PredictOutputBuilder()..update(updates))._build();
+      (PredictOutputBuilder()..update(updates))._build();
 
   _$PredictOutput._({this.prediction}) : super._();
-
   @override
   PredictOutput rebuild(void Function(PredictOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PredictOutputBuilder toBuilder() => new PredictOutputBuilder()..replace(this);
+  PredictOutputBuilder toBuilder() => PredictOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -43,7 +42,7 @@ class PredictOutputBuilder
 
   PredictionBuilder? _prediction;
   PredictionBuilder get prediction =>
-      _$this._prediction ??= new PredictionBuilder();
+      _$this._prediction ??= PredictionBuilder();
   set prediction(PredictionBuilder? prediction) =>
       _$this._prediction = prediction;
 
@@ -60,7 +59,6 @@ class PredictOutputBuilder
 
   @override
   void replace(PredictOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PredictOutput;
   }
 
@@ -75,15 +73,18 @@ class PredictOutputBuilder
   _$PredictOutput _build() {
     _$PredictOutput _$result;
     try {
-      _$result = _$v ?? new _$PredictOutput._(prediction: _prediction?.build());
+      _$result = _$v ?? _$PredictOutput._(prediction: _prediction?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'prediction';
         _prediction?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'PredictOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'PredictOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

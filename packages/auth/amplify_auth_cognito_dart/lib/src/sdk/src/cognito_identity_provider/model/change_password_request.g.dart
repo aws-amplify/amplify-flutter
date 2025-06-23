@@ -14,31 +14,23 @@ class _$ChangePasswordRequest extends ChangePasswordRequest {
   @override
   final String accessToken;
 
-  factory _$ChangePasswordRequest(
-          [void Function(ChangePasswordRequestBuilder)? updates]) =>
-      (new ChangePasswordRequestBuilder()..update(updates))._build();
+  factory _$ChangePasswordRequest([
+    void Function(ChangePasswordRequestBuilder)? updates,
+  ]) => (ChangePasswordRequestBuilder()..update(updates))._build();
 
-  _$ChangePasswordRequest._(
-      {required this.previousPassword,
-      required this.proposedPassword,
-      required this.accessToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        previousPassword, r'ChangePasswordRequest', 'previousPassword');
-    BuiltValueNullFieldError.checkNotNull(
-        proposedPassword, r'ChangePasswordRequest', 'proposedPassword');
-    BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'ChangePasswordRequest', 'accessToken');
-  }
-
+  _$ChangePasswordRequest._({
+    required this.previousPassword,
+    required this.proposedPassword,
+    required this.accessToken,
+  }) : super._();
   @override
   ChangePasswordRequest rebuild(
-          void Function(ChangePasswordRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ChangePasswordRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ChangePasswordRequestBuilder toBuilder() =>
-      new ChangePasswordRequestBuilder()..replace(this);
+      ChangePasswordRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,7 +85,6 @@ class ChangePasswordRequestBuilder
 
   @override
   void replace(ChangePasswordRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ChangePasswordRequest;
   }
 
@@ -106,14 +97,25 @@ class ChangePasswordRequestBuilder
   ChangePasswordRequest build() => _build();
 
   _$ChangePasswordRequest _build() {
-    final _$result = _$v ??
-        new _$ChangePasswordRequest._(
-            previousPassword: BuiltValueNullFieldError.checkNotNull(
-                previousPassword, r'ChangePasswordRequest', 'previousPassword'),
-            proposedPassword: BuiltValueNullFieldError.checkNotNull(
-                proposedPassword, r'ChangePasswordRequest', 'proposedPassword'),
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'ChangePasswordRequest', 'accessToken'));
+    final _$result =
+        _$v ??
+        _$ChangePasswordRequest._(
+          previousPassword: BuiltValueNullFieldError.checkNotNull(
+            previousPassword,
+            r'ChangePasswordRequest',
+            'previousPassword',
+          ),
+          proposedPassword: BuiltValueNullFieldError.checkNotNull(
+            proposedPassword,
+            r'ChangePasswordRequest',
+            'proposedPassword',
+          ),
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+            accessToken,
+            r'ChangePasswordRequest',
+            'accessToken',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

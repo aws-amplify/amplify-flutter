@@ -11,24 +11,19 @@ class _$MalformedTimestampQueryEpochInput
   @override
   final DateTime timestamp;
 
-  factory _$MalformedTimestampQueryEpochInput(
-          [void Function(MalformedTimestampQueryEpochInputBuilder)? updates]) =>
-      (new MalformedTimestampQueryEpochInputBuilder()..update(updates))
-          ._build();
+  factory _$MalformedTimestampQueryEpochInput([
+    void Function(MalformedTimestampQueryEpochInputBuilder)? updates,
+  ]) => (MalformedTimestampQueryEpochInputBuilder()..update(updates))._build();
 
-  _$MalformedTimestampQueryEpochInput._({required this.timestamp}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        timestamp, r'MalformedTimestampQueryEpochInput', 'timestamp');
-  }
-
+  _$MalformedTimestampQueryEpochInput._({required this.timestamp}) : super._();
   @override
   MalformedTimestampQueryEpochInput rebuild(
-          void Function(MalformedTimestampQueryEpochInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedTimestampQueryEpochInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedTimestampQueryEpochInputBuilder toBuilder() =>
-      new MalformedTimestampQueryEpochInputBuilder()..replace(this);
+      MalformedTimestampQueryEpochInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,8 +43,10 @@ class _$MalformedTimestampQueryEpochInput
 
 class MalformedTimestampQueryEpochInputBuilder
     implements
-        Builder<MalformedTimestampQueryEpochInput,
-            MalformedTimestampQueryEpochInputBuilder> {
+        Builder<
+          MalformedTimestampQueryEpochInput,
+          MalformedTimestampQueryEpochInputBuilder
+        > {
   _$MalformedTimestampQueryEpochInput? _$v;
 
   DateTime? _timestamp;
@@ -69,13 +66,13 @@ class MalformedTimestampQueryEpochInputBuilder
 
   @override
   void replace(MalformedTimestampQueryEpochInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedTimestampQueryEpochInput;
   }
 
   @override
   void update(
-      void Function(MalformedTimestampQueryEpochInputBuilder)? updates) {
+    void Function(MalformedTimestampQueryEpochInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -83,10 +80,15 @@ class MalformedTimestampQueryEpochInputBuilder
   MalformedTimestampQueryEpochInput build() => _build();
 
   _$MalformedTimestampQueryEpochInput _build() {
-    final _$result = _$v ??
-        new _$MalformedTimestampQueryEpochInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'MalformedTimestampQueryEpochInput', 'timestamp'));
+    final _$result =
+        _$v ??
+        _$MalformedTimestampQueryEpochInput._(
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+            timestamp,
+            r'MalformedTimestampQueryEpochInput',
+            'timestamp',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -94,23 +96,20 @@ class MalformedTimestampQueryEpochInputBuilder
 
 class _$MalformedTimestampQueryEpochInputPayload
     extends MalformedTimestampQueryEpochInputPayload {
-  factory _$MalformedTimestampQueryEpochInputPayload(
-          [void Function(MalformedTimestampQueryEpochInputPayloadBuilder)?
-              updates]) =>
-      (new MalformedTimestampQueryEpochInputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$MalformedTimestampQueryEpochInputPayload([
+    void Function(MalformedTimestampQueryEpochInputPayloadBuilder)? updates,
+  ]) => (MalformedTimestampQueryEpochInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampQueryEpochInputPayload._() : super._();
-
   @override
   MalformedTimestampQueryEpochInputPayload rebuild(
-          void Function(MalformedTimestampQueryEpochInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedTimestampQueryEpochInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedTimestampQueryEpochInputPayloadBuilder toBuilder() =>
-      new MalformedTimestampQueryEpochInputPayloadBuilder()..replace(this);
+      MalformedTimestampQueryEpochInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -126,21 +125,23 @@ class _$MalformedTimestampQueryEpochInputPayload
 
 class MalformedTimestampQueryEpochInputPayloadBuilder
     implements
-        Builder<MalformedTimestampQueryEpochInputPayload,
-            MalformedTimestampQueryEpochInputPayloadBuilder> {
+        Builder<
+          MalformedTimestampQueryEpochInputPayload,
+          MalformedTimestampQueryEpochInputPayloadBuilder
+        > {
   _$MalformedTimestampQueryEpochInputPayload? _$v;
 
   MalformedTimestampQueryEpochInputPayloadBuilder();
 
   @override
   void replace(MalformedTimestampQueryEpochInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedTimestampQueryEpochInputPayload;
   }
 
   @override
   void update(
-      void Function(MalformedTimestampQueryEpochInputPayloadBuilder)? updates) {
+    void Function(MalformedTimestampQueryEpochInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -148,7 +149,7 @@ class MalformedTimestampQueryEpochInputPayloadBuilder
   MalformedTimestampQueryEpochInputPayload build() => _build();
 
   _$MalformedTimestampQueryEpochInputPayload _build() {
-    final _$result = _$v ?? new _$MalformedTimestampQueryEpochInputPayload._();
+    final _$result = _$v ?? _$MalformedTimestampQueryEpochInputPayload._();
     replace(_$result);
     return _$result;
   }

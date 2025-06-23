@@ -12,32 +12,33 @@ import '../glib/glib.dart' as glib;
 class Gio {
   /// Holds the symbol lookup function.
   final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-      _lookup;
+  _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
   Gio(ffi.DynamicLibrary dynamicLibrary) : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
   Gio.fromLookup(
-      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-          lookup)
-      : _lookup = lookup;
+    ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup,
+  ) : _lookup = lookup;
 
   ffi.Pointer<pkg_ffi.Utf8> g_application_get_application_id(
     ffi.Pointer<GApplication> application,
   ) {
-    return _g_application_get_application_id(
-      application,
-    );
+    return _g_application_get_application_id(application);
   }
 
-  late final _g_application_get_application_idPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<pkg_ffi.Utf8> Function(
-              ffi.Pointer<GApplication>)>>('g_application_get_application_id');
+  late final _g_application_get_application_idPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<pkg_ffi.Utf8> Function(ffi.Pointer<GApplication>)
+        >
+      >('g_application_get_application_id');
   late final _g_application_get_application_id =
-      _g_application_get_application_idPtr.asFunction<
-          ffi.Pointer<pkg_ffi.Utf8> Function(ffi.Pointer<GApplication>)>();
+      _g_application_get_application_idPtr
+          .asFunction<
+            ffi.Pointer<pkg_ffi.Utf8> Function(ffi.Pointer<GApplication>)
+          >();
 
   ffi.Pointer<GApplication> g_application_get_default() {
     return _g_application_get_default();
@@ -45,7 +46,8 @@ class Gio {
 
   late final _g_application_get_defaultPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<GApplication> Function()>>(
-          'g_application_get_default');
+        'g_application_get_default',
+      );
   late final _g_application_get_default = _g_application_get_defaultPtr
       .asFunction<ffi.Pointer<GApplication> Function()>();
 }

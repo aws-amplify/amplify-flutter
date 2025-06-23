@@ -14,29 +14,23 @@ class _$InAppMessageHeaderConfig extends InAppMessageHeaderConfig {
   @override
   final String textColor;
 
-  factory _$InAppMessageHeaderConfig(
-          [void Function(InAppMessageHeaderConfigBuilder)? updates]) =>
-      (new InAppMessageHeaderConfigBuilder()..update(updates))._build();
+  factory _$InAppMessageHeaderConfig([
+    void Function(InAppMessageHeaderConfigBuilder)? updates,
+  ]) => (InAppMessageHeaderConfigBuilder()..update(updates))._build();
 
-  _$InAppMessageHeaderConfig._(
-      {required this.alignment, required this.header, required this.textColor})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        alignment, r'InAppMessageHeaderConfig', 'alignment');
-    BuiltValueNullFieldError.checkNotNull(
-        header, r'InAppMessageHeaderConfig', 'header');
-    BuiltValueNullFieldError.checkNotNull(
-        textColor, r'InAppMessageHeaderConfig', 'textColor');
-  }
-
+  _$InAppMessageHeaderConfig._({
+    required this.alignment,
+    required this.header,
+    required this.textColor,
+  }) : super._();
   @override
   InAppMessageHeaderConfig rebuild(
-          void Function(InAppMessageHeaderConfigBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InAppMessageHeaderConfigBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageHeaderConfigBuilder toBuilder() =>
-      new InAppMessageHeaderConfigBuilder()..replace(this);
+      InAppMessageHeaderConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -90,7 +84,6 @@ class InAppMessageHeaderConfigBuilder
 
   @override
   void replace(InAppMessageHeaderConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppMessageHeaderConfig;
   }
 
@@ -103,14 +96,25 @@ class InAppMessageHeaderConfigBuilder
   InAppMessageHeaderConfig build() => _build();
 
   _$InAppMessageHeaderConfig _build() {
-    final _$result = _$v ??
-        new _$InAppMessageHeaderConfig._(
-            alignment: BuiltValueNullFieldError.checkNotNull(
-                alignment, r'InAppMessageHeaderConfig', 'alignment'),
-            header: BuiltValueNullFieldError.checkNotNull(
-                header, r'InAppMessageHeaderConfig', 'header'),
-            textColor: BuiltValueNullFieldError.checkNotNull(
-                textColor, r'InAppMessageHeaderConfig', 'textColor'));
+    final _$result =
+        _$v ??
+        _$InAppMessageHeaderConfig._(
+          alignment: BuiltValueNullFieldError.checkNotNull(
+            alignment,
+            r'InAppMessageHeaderConfig',
+            'alignment',
+          ),
+          header: BuiltValueNullFieldError.checkNotNull(
+            header,
+            r'InAppMessageHeaderConfig',
+            'header',
+          ),
+          textColor: BuiltValueNullFieldError.checkNotNull(
+            textColor,
+            r'InAppMessageHeaderConfig',
+            'textColor',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

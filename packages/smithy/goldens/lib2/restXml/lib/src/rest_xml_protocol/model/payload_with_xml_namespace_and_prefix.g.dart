@@ -11,20 +11,19 @@ class _$PayloadWithXmlNamespaceAndPrefix
   @override
   final String? name;
 
-  factory _$PayloadWithXmlNamespaceAndPrefix(
-          [void Function(PayloadWithXmlNamespaceAndPrefixBuilder)? updates]) =>
-      (new PayloadWithXmlNamespaceAndPrefixBuilder()..update(updates))._build();
+  factory _$PayloadWithXmlNamespaceAndPrefix([
+    void Function(PayloadWithXmlNamespaceAndPrefixBuilder)? updates,
+  ]) => (PayloadWithXmlNamespaceAndPrefixBuilder()..update(updates))._build();
 
   _$PayloadWithXmlNamespaceAndPrefix._({this.name}) : super._();
-
   @override
   PayloadWithXmlNamespaceAndPrefix rebuild(
-          void Function(PayloadWithXmlNamespaceAndPrefixBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PayloadWithXmlNamespaceAndPrefixBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PayloadWithXmlNamespaceAndPrefixBuilder toBuilder() =>
-      new PayloadWithXmlNamespaceAndPrefixBuilder()..replace(this);
+      PayloadWithXmlNamespaceAndPrefixBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -43,8 +42,10 @@ class _$PayloadWithXmlNamespaceAndPrefix
 
 class PayloadWithXmlNamespaceAndPrefixBuilder
     implements
-        Builder<PayloadWithXmlNamespaceAndPrefix,
-            PayloadWithXmlNamespaceAndPrefixBuilder> {
+        Builder<
+          PayloadWithXmlNamespaceAndPrefix,
+          PayloadWithXmlNamespaceAndPrefixBuilder
+        > {
   _$PayloadWithXmlNamespaceAndPrefix? _$v;
 
   String? _name;
@@ -64,7 +65,6 @@ class PayloadWithXmlNamespaceAndPrefixBuilder
 
   @override
   void replace(PayloadWithXmlNamespaceAndPrefix other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PayloadWithXmlNamespaceAndPrefix;
   }
 
@@ -77,8 +77,7 @@ class PayloadWithXmlNamespaceAndPrefixBuilder
   PayloadWithXmlNamespaceAndPrefix build() => _build();
 
   _$PayloadWithXmlNamespaceAndPrefix _build() {
-    final _$result =
-        _$v ?? new _$PayloadWithXmlNamespaceAndPrefix._(name: name);
+    final _$result = _$v ?? _$PayloadWithXmlNamespaceAndPrefix._(name: name);
     replace(_$result);
     return _$result;
   }

@@ -34,41 +34,33 @@ class _$CompleteMultipartUploadRequest extends CompleteMultipartUploadRequest {
   @override
   final String? sseCustomerKeyMd5;
 
-  factory _$CompleteMultipartUploadRequest(
-          [void Function(CompleteMultipartUploadRequestBuilder)? updates]) =>
-      (new CompleteMultipartUploadRequestBuilder()..update(updates))._build();
+  factory _$CompleteMultipartUploadRequest([
+    void Function(CompleteMultipartUploadRequestBuilder)? updates,
+  ]) => (CompleteMultipartUploadRequestBuilder()..update(updates))._build();
 
-  _$CompleteMultipartUploadRequest._(
-      {required this.bucket,
-      required this.key,
-      this.multipartUpload,
-      required this.uploadId,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.requestPayer,
-      this.expectedBucketOwner,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucket, r'CompleteMultipartUploadRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
-        key, r'CompleteMultipartUploadRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        uploadId, r'CompleteMultipartUploadRequest', 'uploadId');
-  }
-
+  _$CompleteMultipartUploadRequest._({
+    required this.bucket,
+    required this.key,
+    this.multipartUpload,
+    required this.uploadId,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.requestPayer,
+    this.expectedBucketOwner,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+  }) : super._();
   @override
   CompleteMultipartUploadRequest rebuild(
-          void Function(CompleteMultipartUploadRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CompleteMultipartUploadRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CompleteMultipartUploadRequestBuilder toBuilder() =>
-      new CompleteMultipartUploadRequestBuilder()..replace(this);
+      CompleteMultipartUploadRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -112,8 +104,10 @@ class _$CompleteMultipartUploadRequest extends CompleteMultipartUploadRequest {
 
 class CompleteMultipartUploadRequestBuilder
     implements
-        Builder<CompleteMultipartUploadRequest,
-            CompleteMultipartUploadRequestBuilder> {
+        Builder<
+          CompleteMultipartUploadRequest,
+          CompleteMultipartUploadRequestBuilder
+        > {
   _$CompleteMultipartUploadRequest? _$v;
 
   String? _bucket;
@@ -126,7 +120,7 @@ class CompleteMultipartUploadRequestBuilder
 
   CompletedMultipartUploadBuilder? _multipartUpload;
   CompletedMultipartUploadBuilder get multipartUpload =>
-      _$this._multipartUpload ??= new CompletedMultipartUploadBuilder();
+      _$this._multipartUpload ??= CompletedMultipartUploadBuilder();
   set multipartUpload(CompletedMultipartUploadBuilder? multipartUpload) =>
       _$this._multipartUpload = multipartUpload;
 
@@ -203,7 +197,6 @@ class CompleteMultipartUploadRequestBuilder
 
   @override
   void replace(CompleteMultipartUploadRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CompleteMultipartUploadRequest;
   }
 
@@ -218,32 +211,46 @@ class CompleteMultipartUploadRequestBuilder
   _$CompleteMultipartUploadRequest _build() {
     _$CompleteMultipartUploadRequest _$result;
     try {
-      _$result = _$v ??
-          new _$CompleteMultipartUploadRequest._(
-              bucket: BuiltValueNullFieldError.checkNotNull(
-                  bucket, r'CompleteMultipartUploadRequest', 'bucket'),
-              key: BuiltValueNullFieldError.checkNotNull(
-                  key, r'CompleteMultipartUploadRequest', 'key'),
-              multipartUpload: _multipartUpload?.build(),
-              uploadId: BuiltValueNullFieldError.checkNotNull(
-                  uploadId, r'CompleteMultipartUploadRequest', 'uploadId'),
-              checksumCrc32: checksumCrc32,
-              checksumCrc32C: checksumCrc32C,
-              checksumSha1: checksumSha1,
-              checksumSha256: checksumSha256,
-              requestPayer: requestPayer,
-              expectedBucketOwner: expectedBucketOwner,
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKey: sseCustomerKey,
-              sseCustomerKeyMd5: sseCustomerKeyMd5);
+      _$result =
+          _$v ??
+          _$CompleteMultipartUploadRequest._(
+            bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket,
+              r'CompleteMultipartUploadRequest',
+              'bucket',
+            ),
+            key: BuiltValueNullFieldError.checkNotNull(
+              key,
+              r'CompleteMultipartUploadRequest',
+              'key',
+            ),
+            multipartUpload: _multipartUpload?.build(),
+            uploadId: BuiltValueNullFieldError.checkNotNull(
+              uploadId,
+              r'CompleteMultipartUploadRequest',
+              'uploadId',
+            ),
+            checksumCrc32: checksumCrc32,
+            checksumCrc32C: checksumCrc32C,
+            checksumSha1: checksumSha1,
+            checksumSha256: checksumSha256,
+            requestPayer: requestPayer,
+            expectedBucketOwner: expectedBucketOwner,
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKey: sseCustomerKey,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'multipartUpload';
         _multipartUpload?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'CompleteMultipartUploadRequest', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'CompleteMultipartUploadRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

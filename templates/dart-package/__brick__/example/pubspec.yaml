@@ -10,6 +10,6 @@ dependencies:
     path: ../
 
 dev_dependencies:
-  amplify_lints: ^2.0.0
+  amplify_lints: ^3.1.0
   build_runner: ^2.1.4
-  build_web_compilers: ^3.2.1
+  build_web_compilers: ^4.0.0

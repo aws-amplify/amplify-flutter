@@ -10,19 +10,18 @@ class _$MalformedMapInput extends MalformedMapInput {
   @override
   final _i3.BuiltMap<String, String>? bodyMap;
 
-  factory _$MalformedMapInput(
-          [void Function(MalformedMapInputBuilder)? updates]) =>
-      (new MalformedMapInputBuilder()..update(updates))._build();
+  factory _$MalformedMapInput([
+    void Function(MalformedMapInputBuilder)? updates,
+  ]) => (MalformedMapInputBuilder()..update(updates))._build();
 
   _$MalformedMapInput._({this.bodyMap}) : super._();
-
   @override
   MalformedMapInput rebuild(void Function(MalformedMapInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   MalformedMapInputBuilder toBuilder() =>
-      new MalformedMapInputBuilder()..replace(this);
+      MalformedMapInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -45,7 +44,7 @@ class MalformedMapInputBuilder
 
   _i3.MapBuilder<String, String>? _bodyMap;
   _i3.MapBuilder<String, String> get bodyMap =>
-      _$this._bodyMap ??= new _i3.MapBuilder<String, String>();
+      _$this._bodyMap ??= _i3.MapBuilder<String, String>();
   set bodyMap(_i3.MapBuilder<String, String>? bodyMap) =>
       _$this._bodyMap = bodyMap;
 
@@ -62,7 +61,6 @@ class MalformedMapInputBuilder
 
   @override
   void replace(MalformedMapInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedMapInput;
   }
 
@@ -77,15 +75,18 @@ class MalformedMapInputBuilder
   _$MalformedMapInput _build() {
     _$MalformedMapInput _$result;
     try {
-      _$result = _$v ?? new _$MalformedMapInput._(bodyMap: _bodyMap?.build());
+      _$result = _$v ?? _$MalformedMapInput._(bodyMap: _bodyMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'bodyMap';
         _bodyMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'MalformedMapInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'MalformedMapInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

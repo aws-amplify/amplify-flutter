@@ -15,37 +15,26 @@ class ModelAssociation with AWSEquatable<ModelAssociation>, AWSSerializable {
 
   const ModelAssociation({
     required this.associationType,
-    @Deprecated(
-      'Please use the latest version of Amplify CLI to regenerate models',
-    )
-    this.targetName,
     this.targetNames,
     this.associatedName,
     this.associatedType,
   });
-  final ModelAssociationEnum associationType;
 
-  @Deprecated(
-    'Please use the latest version of Amplify CLI to regenerate models',
-  )
-  final String? targetName; // used in belongsTo
+  final ModelAssociationEnum associationType;
   final List<String>? targetNames; // used in belongsTo
   final String? associatedName; // used in hasMany/hasOne
   final String? associatedType;
 
   @override
   List<Object?> get props => [
-        associationType,
-        // ignore: deprecated_member_use_from_same_package
-        targetName,
-        targetNames,
-        associatedName,
-        associatedType,
-      ];
+    associationType,
+    targetNames,
+    associatedName,
+    associatedType,
+  ];
 
   ModelAssociation copyWith({
     ModelAssociationEnum? associationType,
-    String? targetName,
     List<String>? targetNames,
     String? associatedName,
     String? associatedType,
@@ -61,8 +50,6 @@ class ModelAssociation with AWSEquatable<ModelAssociation>, AWSSerializable {
   Map<String, dynamic> toMap() {
     final map = {
       'associationType': associationType.name,
-      // ignore: deprecated_member_use_from_same_package
-      'targetName': targetName,
       'targetNames': targetNames,
       'associatedName': associatedName,
       'associatedType': associatedType,

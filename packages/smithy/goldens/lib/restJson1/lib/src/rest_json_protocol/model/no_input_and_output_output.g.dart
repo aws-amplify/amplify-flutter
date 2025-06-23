@@ -7,20 +7,19 @@ part of 'no_input_and_output_output.dart';
 // **************************************************************************
 
 class _$NoInputAndOutputOutput extends NoInputAndOutputOutput {
-  factory _$NoInputAndOutputOutput(
-          [void Function(NoInputAndOutputOutputBuilder)? updates]) =>
-      (new NoInputAndOutputOutputBuilder()..update(updates))._build();
+  factory _$NoInputAndOutputOutput([
+    void Function(NoInputAndOutputOutputBuilder)? updates,
+  ]) => (NoInputAndOutputOutputBuilder()..update(updates))._build();
 
   _$NoInputAndOutputOutput._() : super._();
-
   @override
   NoInputAndOutputOutput rebuild(
-          void Function(NoInputAndOutputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NoInputAndOutputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NoInputAndOutputOutputBuilder toBuilder() =>
-      new NoInputAndOutputOutputBuilder()..replace(this);
+      NoInputAndOutputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -42,7 +41,6 @@ class NoInputAndOutputOutputBuilder
 
   @override
   void replace(NoInputAndOutputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoInputAndOutputOutput;
   }
 
@@ -55,7 +53,7 @@ class NoInputAndOutputOutputBuilder
   NoInputAndOutputOutput build() => _build();
 
   _$NoInputAndOutputOutput _build() {
-    final _$result = _$v ?? new _$NoInputAndOutputOutput._();
+    final _$result = _$v ?? _$NoInputAndOutputOutput._();
     replace(_$result);
     return _$result;
   }

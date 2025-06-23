@@ -71,9 +71,10 @@ class ShapeSerializer extends StructuredSerializer<Shape> {
       if (key == 'type') {
         final type = ShapeType.deserialize(value as String);
         return serializers.deserialize(
-          serialized,
-          specifiedType: FullType(type.type),
-        ) as Shape;
+              serialized,
+              specifiedType: FullType(type.type),
+            )
+            as Shape;
       }
     }
     throw ArgumentError('Unknown shape type');
@@ -85,10 +86,12 @@ class ShapeSerializer extends StructuredSerializer<Shape> {
     Shape object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final map = serializers.serialize(
-      object,
-      specifiedType: FullType(object.getType().type),
-    ) as Map<String, Object?>;
+    final map =
+        serializers.serialize(
+              object,
+              specifiedType: FullType(object.getType().type),
+            )
+            as Map<String, Object?>;
     map['type'] = object.getType().name;
     map.removeWhere(
       (key, value) =>
@@ -96,12 +99,7 @@ class ShapeSerializer extends StructuredSerializer<Shape> {
           (value is Map && value.isEmpty) ||
           (value is List && value.isEmpty),
     );
-    return map.entries.expand(
-      (entry) => [
-        entry.key,
-        entry.value,
-      ],
-    );
+    return map.entries.expand((entry) => [entry.key, entry.value]);
   }
 
   @override

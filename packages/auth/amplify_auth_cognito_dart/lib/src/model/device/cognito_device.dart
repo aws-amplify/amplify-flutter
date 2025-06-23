@@ -36,8 +36,9 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
     return CognitoDevice(
       id: json['id'] as String,
       name: json['name'] as String?,
-      attributes:
-          attributes == null ? null : Map<String, String>.from(attributes),
+      attributes: attributes == null
+          ? null
+          : Map<String, String>.from(attributes),
       createdDate: createdDate == null
           ? null
           : DateTime.fromMillisecondsSinceEpoch(createdDate),
@@ -76,25 +77,23 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
 
   @override
   Map<String, Object?> toJson() => {
-        'id': id,
-        'name': name,
-        if (attributes != null) 'attributes': attributes,
-        if (createdDate != null)
-          'createdDate': createdDate!.millisecondsSinceEpoch,
-        if (lastAuthenticatedDate != null)
-          'lastAuthenticatedDate':
-              lastAuthenticatedDate!.millisecondsSinceEpoch,
-        if (lastModifiedDate != null)
-          'lastModifiedDate': lastModifiedDate!.millisecondsSinceEpoch,
-      };
+    'id': id,
+    'name': name,
+    if (attributes != null) 'attributes': attributes,
+    if (createdDate != null) 'createdDate': createdDate!.millisecondsSinceEpoch,
+    if (lastAuthenticatedDate != null)
+      'lastAuthenticatedDate': lastAuthenticatedDate!.millisecondsSinceEpoch,
+    if (lastModifiedDate != null)
+      'lastModifiedDate': lastModifiedDate!.millisecondsSinceEpoch,
+  };
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        attributes,
-        createdDate,
-        lastAuthenticatedDate,
-        lastModifiedDate,
-      ];
+    id,
+    name,
+    attributes,
+    createdDate,
+    lastAuthenticatedDate,
+    lastModifiedDate,
+  ];
 }

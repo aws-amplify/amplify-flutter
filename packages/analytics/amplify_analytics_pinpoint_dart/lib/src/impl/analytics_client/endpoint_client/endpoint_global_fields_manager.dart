@@ -19,9 +19,7 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class EndpointGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
-  EndpointGlobalFieldsManager._(
-    this._endpointInfoStore,
-  );
+  EndpointGlobalFieldsManager._(this._endpointInfoStore);
 
   /// Create and initialize an [EndpointGlobalFieldsManager].
   static Future<EndpointGlobalFieldsManager> create(
@@ -47,9 +45,9 @@ class EndpointGlobalFieldsManager {
   late final Map<String, double> _globalMetrics;
 
   // Internal variables
-  static final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.analytics)
-          .createChild('EndpointGlobalFieldsManager');
+  static final AmplifyLogger _logger = AmplifyLogger.category(
+    Category.analytics,
+  ).createChild('EndpointGlobalFieldsManager');
 
   /// Get GlobalAttributes managed by this instance.
   UnmodifiableMapView<String, String> get globalAttributes =>
@@ -76,22 +74,24 @@ class EndpointGlobalFieldsManager {
 
   String _processKey(String key) {
     if (key.length > maxKeyLength) {
+      final trimmedKey = key.substring(0, maxKeyLength);
       _logger.warn(
-        'The key: "$key" ',
+        'The key beginning with: "$trimmedKey" ',
         'has been trimmed to a length of $maxKeyLength characters.',
       );
-      return key.substring(0, maxKeyLength);
+      return trimmedKey;
     }
     return key;
   }
 
   String _processAttributeValue(String value) {
     if (value.length > maxAttributeValueLength) {
+      final trimmedValue = value.substring(0, maxAttributeValueLength);
       _logger.warn(
-        'The attribute value: "$value" ',
+        'The attribute value beginning with: "$trimmedValue" ',
         'has been trimmed to a length of $maxAttributeValueLength characters.',
       );
-      return value.substring(0, maxAttributeValueLength);
+      return trimmedValue;
     }
     return value;
   }
@@ -186,7 +186,7 @@ class EndpointGlobalFieldsManager {
     return cachedAttributes == null
         ? <String, String>{}
         : (jsonDecode(cachedAttributes) as Map<String, Object?>)
-            .cast<String, String>();
+              .cast<String, String>();
   }
 
   /// Retrieve metrics map stored as json in [storage].
@@ -200,6 +200,6 @@ class EndpointGlobalFieldsManager {
     return cachedMetrics == null
         ? <String, double>{}
         : (jsonDecode(cachedMetrics) as Map<String, Object?>)
-            .cast<String, double>();
+              .cast<String, double>();
   }
 }

@@ -43,8 +43,8 @@ final class _PubspecMatcher extends Matcher {
       String _ => loadYaml(item) as YamlMap,
       Map<Object?, Object?> _ => item,
       _ => throw ArgumentError(
-          'Invalid pubspec. Expected String or Map, got ${item.runtimeType}',
-        ),
+        'Invalid pubspec. Expected String or Map, got ${item.runtimeType}',
+      ),
     };
     return _equalsMatcher.matches(pubspecMap, matchState);
   }

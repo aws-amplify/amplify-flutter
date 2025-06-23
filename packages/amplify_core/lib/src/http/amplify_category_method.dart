@@ -52,7 +52,8 @@ enum AuthCategoryMethod with AmplifyCategoryMethod {
   setMfaPreference('49'),
   getMfaPreference('50'),
   setUpTotp('51'),
-  verifyTotpSetup('52');
+  verifyTotpSetup('52'),
+  fetchCurrentDevice('59');
 
   const AuthCategoryMethod(this.method);
 
@@ -140,10 +141,7 @@ enum PushNotificationsCategoryMethod with AmplifyCategoryMethod {
 }
 
 /// Identifies [fn] as originating from a call to [categoryMethod].
-R identifyCall<R>(
-  AmplifyCategoryMethod categoryMethod,
-  R Function() fn,
-) {
+R identifyCall<R>(AmplifyCategoryMethod categoryMethod, R Function() fn) {
   return runZoned(
     fn,
     zoneValues: {

@@ -13,16 +13,15 @@ class _$EndpointUser extends EndpointUser {
   final String? userId;
 
   factory _$EndpointUser([void Function(EndpointUserBuilder)? updates]) =>
-      (new EndpointUserBuilder()..update(updates))._build();
+      (EndpointUserBuilder()..update(updates))._build();
 
   _$EndpointUser._({this.userAttributes, this.userId}) : super._();
-
   @override
   EndpointUser rebuild(void Function(EndpointUserBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EndpointUserBuilder toBuilder() => new EndpointUserBuilder()..replace(this);
+  EndpointUserBuilder toBuilder() => EndpointUserBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,7 +47,7 @@ class EndpointUserBuilder
 
   _i2.ListMultimapBuilder<String, String>? _userAttributes;
   _i2.ListMultimapBuilder<String, String> get userAttributes =>
-      _$this._userAttributes ??= new _i2.ListMultimapBuilder<String, String>();
+      _$this._userAttributes ??= _i2.ListMultimapBuilder<String, String>();
   set userAttributes(_i2.ListMultimapBuilder<String, String>? userAttributes) =>
       _$this._userAttributes = userAttributes;
 
@@ -70,7 +69,6 @@ class EndpointUserBuilder
 
   @override
   void replace(EndpointUser other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointUser;
   }
 
@@ -85,17 +83,23 @@ class EndpointUserBuilder
   _$EndpointUser _build() {
     _$EndpointUser _$result;
     try {
-      _$result = _$v ??
-          new _$EndpointUser._(
-              userAttributes: _userAttributes?.build(), userId: userId);
+      _$result =
+          _$v ??
+          _$EndpointUser._(
+            userAttributes: _userAttributes?.build(),
+            userId: userId,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'userAttributes';
         _userAttributes?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'EndpointUser', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'EndpointUser',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

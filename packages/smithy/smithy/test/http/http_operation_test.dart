@@ -37,8 +37,9 @@ void main() {
 
     test('can deserialize output', () async {
       final operation = TestOp();
-      final body =
-          GenericJsonProtocol<Unit, Unit, Unit, Unit>().serialize(const Unit());
+      final body = GenericJsonProtocol<Unit, Unit, Unit, Unit>().serialize(
+        const Unit(),
+      );
       final client = MockAWSHttpClient((req, isCancelled) {
         return AWSStreamedHttpResponse(statusCode: 200, body: body);
       });
@@ -56,10 +57,7 @@ void main() {
       });
       final op = operation.run(const Unit(), client: client);
       expect(op.requestProgress, emitsThrough(emitsDone));
-      expect(
-        op.responseProgress,
-        emitsInOrder([5, emitsDone]),
-      );
+      expect(op.responseProgress, emitsInOrder([5, emitsDone]));
       expect(op.result, throwsA(isA<DeserializationError>()));
     });
 
@@ -77,13 +75,14 @@ void main() {
 
     test('can transform request/response', () async {
       final operation = TestOp();
-      final body =
-          GenericJsonProtocol<Unit, Unit, Unit, Unit>().serialize(const Unit());
+      final body = GenericJsonProtocol<Unit, Unit, Unit, Unit>().serialize(
+        const Unit(),
+      );
       final client = TransformingClient(
         onRequest: expectAsync1((_) {}),
         onResponse: expectAsync1((_) {}),
         baseClient: MockAWSHttpClient(
-          (_, __) => AWSStreamedHttpResponse(statusCode: 200, body: body),
+          (_, _) => AWSStreamedHttpResponse(statusCode: 200, body: body),
         ),
       );
       final op = operation.run(const Unit(), client: client);
@@ -95,11 +94,7 @@ void main() {
 }
 
 class TransformingClient extends AWSBaseHttpClient {
-  TransformingClient({
-    this.onRequest,
-    this.onResponse,
-    this.baseClient,
-  });
+  TransformingClient({this.onRequest, this.onResponse, this.baseClient});
 
   @override
   final AWSHttpClient? baseClient;
@@ -124,10 +119,11 @@ class TransformingClient extends AWSBaseHttpClient {
   }
 }
 
-typedef Deserialize<Output> = Future<Output> Function(
-  HttpProtocol<Unit, Unit, Unit, Unit> protocol,
-  AWSBaseHttpResponse response,
-);
+typedef Deserialize<Output> =
+    Future<Output> Function(
+      HttpProtocol<Unit, Unit, Unit, Unit> protocol,
+      AWSBaseHttpResponse response,
+    );
 
 class TestOp extends HttpOperation<Unit, Unit, Unit, Unit> {
   TestOp([this._deserializeOutput]);
@@ -138,16 +134,14 @@ class TestOp extends HttpOperation<Unit, Unit, Unit, Unit> {
   Uri get baseUri => Uri.parse('https://service.us-west-2.amazonaws.com/');
 
   @override
-  Retryer get retryer => const Retryer(
-        RetryOptions(maxAttempts: 1),
-      );
+  Retryer get retryer => const Retryer(RetryOptions(maxAttempts: 1));
 
   @override
   HttpRequest buildRequest(Unit input) => HttpRequest((b) {
-        b
-          ..method = 'GET'
-          ..path = '/';
-      });
+    b
+      ..method = 'GET'
+      ..path = '/';
+  });
 
   @override
   Future<Unit> deserializeOutput({
@@ -155,26 +149,19 @@ class TestOp extends HttpOperation<Unit, Unit, Unit, Unit> {
     required AWSBaseHttpResponse response,
   }) {
     return _deserializeOutput?.call(protocol, response) ??
-        super.deserializeOutput(
-          protocol: protocol,
-          response: response,
-        );
+        super.deserializeOutput(protocol: protocol, response: response);
   }
 
   @override
-  Unit buildOutput(
-    Unit payload,
-    AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  Unit buildOutput(Unit payload, AWSBaseHttpResponse response) => payload;
 
   @override
   List<SmithyError> get errorTypes => const [];
 
   @override
   Iterable<HttpProtocol<Unit, Unit, Unit, Unit>> get protocols => [
-        GenericJsonProtocol(),
-      ];
+    GenericJsonProtocol(),
+  ];
 
   @override
   int successCode([Unit? output]) => 200;
@@ -189,14 +176,8 @@ class TestOp extends HttpOperation<Unit, Unit, Unit, Unit> {
     ShapeId? useProtocol,
   }) {
     return runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
-      zoneValues: {
-        AWSHeaders.sdkInvocationId: uuid(secure: true),
-      },
+      () => super.run(input, client: client, useProtocol: useProtocol),
+      zoneValues: {AWSHeaders.sdkInvocationId: uuid(secure: true)},
     );
   }
 }

@@ -11,8 +11,10 @@ VersionResponse _$VersionResponseFromJson(Map<String, dynamic> json) =>
       version: const VersionSerializer().fromJson(json['version'] as String),
       archiveUrl: json['archive_url'] as String,
       pubspec: json['pubspec'] as Map<String, dynamic>,
-      published:
-          const DateTimeSerializer().fromJson(json['published'] as String),
+      published: const DateTimeSerializer().fromJson(
+        json['published'] as String,
+      ),
+      archiveSha256: json['archive_sha256'] as String,
     );
 
 Map<String, dynamic> _$VersionResponseToJson(VersionResponse instance) =>
@@ -21,13 +23,15 @@ Map<String, dynamic> _$VersionResponseToJson(VersionResponse instance) =>
       'pubspec': instance.pubspec,
       'version': const VersionSerializer().toJson(instance.version),
       'published': const DateTimeSerializer().toJson(instance.published),
+      'archive_sha256': instance.archiveSha256,
     };
 
 GetVersionResponse _$GetVersionResponseFromJson(Map<String, dynamic> json) =>
     GetVersionResponse(
       name: json['name'] as String,
-      version:
-          VersionResponse.fromJson(json['version'] as Map<String, dynamic>),
+      version: VersionResponse.fromJson(
+        json['version'] as Map<String, dynamic>,
+      ),
     );
 
 Map<String, dynamic> _$GetVersionResponseToJson(GetVersionResponse instance) =>
@@ -46,9 +50,9 @@ GetVersionsResponse _$GetVersionsResponseFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$GetVersionsResponseToJson(
-        GetVersionsResponse instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'latest': instance.latest.toJson(),
-      'versions': instance.versions.map((e) => e.toJson()).toList(),
-    };
+  GetVersionsResponse instance,
+) => <String, dynamic>{
+  'name': instance.name,
+  'latest': instance.latest.toJson(),
+  'versions': instance.versions.map((e) => e.toJson()).toList(),
+};

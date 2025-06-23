@@ -10,20 +10,19 @@ class _$XmlMapsXmlNameOutput extends XmlMapsXmlNameOutput {
   @override
   final _i2.BuiltMap<String, GreetingStruct>? myMap;
 
-  factory _$XmlMapsXmlNameOutput(
-          [void Function(XmlMapsXmlNameOutputBuilder)? updates]) =>
-      (new XmlMapsXmlNameOutputBuilder()..update(updates))._build();
+  factory _$XmlMapsXmlNameOutput([
+    void Function(XmlMapsXmlNameOutputBuilder)? updates,
+  ]) => (XmlMapsXmlNameOutputBuilder()..update(updates))._build();
 
   _$XmlMapsXmlNameOutput._({this.myMap}) : super._();
-
   @override
   XmlMapsXmlNameOutput rebuild(
-          void Function(XmlMapsXmlNameOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlMapsXmlNameOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlMapsXmlNameOutputBuilder toBuilder() =>
-      new XmlMapsXmlNameOutputBuilder()..replace(this);
+      XmlMapsXmlNameOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,7 +45,7 @@ class XmlMapsXmlNameOutputBuilder
 
   _i2.MapBuilder<String, GreetingStruct>? _myMap;
   _i2.MapBuilder<String, GreetingStruct> get myMap =>
-      _$this._myMap ??= new _i2.MapBuilder<String, GreetingStruct>();
+      _$this._myMap ??= _i2.MapBuilder<String, GreetingStruct>();
   set myMap(_i2.MapBuilder<String, GreetingStruct>? myMap) =>
       _$this._myMap = myMap;
 
@@ -63,7 +62,6 @@ class XmlMapsXmlNameOutputBuilder
 
   @override
   void replace(XmlMapsXmlNameOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlMapsXmlNameOutput;
   }
 
@@ -78,15 +76,18 @@ class XmlMapsXmlNameOutputBuilder
   _$XmlMapsXmlNameOutput _build() {
     _$XmlMapsXmlNameOutput _$result;
     try {
-      _$result = _$v ?? new _$XmlMapsXmlNameOutput._(myMap: _myMap?.build());
+      _$result = _$v ?? _$XmlMapsXmlNameOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'myMap';
         _myMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'XmlMapsXmlNameOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'XmlMapsXmlNameOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

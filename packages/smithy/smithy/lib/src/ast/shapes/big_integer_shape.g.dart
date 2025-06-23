@@ -7,7 +7,7 @@ part of 'big_integer_shape.dart';
 // **************************************************************************
 
 Serializer<BigIntegerShape> _$bigIntegerShapeSerializer =
-    new _$BigIntegerShapeSerializer();
+    _$BigIntegerShapeSerializer();
 
 class _$BigIntegerShapeSerializer
     implements StructuredSerializer<BigIntegerShape> {
@@ -17,12 +17,17 @@ class _$BigIntegerShapeSerializer
   final String wireName = 'BigIntegerShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, BigIntegerShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    BigIntegerShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -30,9 +35,11 @@ class _$BigIntegerShapeSerializer
 
   @override
   BigIntegerShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new BigIntegerShapeBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = BigIntegerShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -41,8 +48,12 @@ class _$BigIntegerShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -58,22 +69,16 @@ class _$BigIntegerShape extends BigIntegerShape {
   final TraitMap traits;
 
   factory _$BigIntegerShape([void Function(BigIntegerShapeBuilder)? updates]) =>
-      (new BigIntegerShapeBuilder()..update(updates))._build();
+      (BigIntegerShapeBuilder()..update(updates))._build();
 
   _$BigIntegerShape._({required this.shapeId, required this.traits})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'BigIntegerShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'BigIntegerShape', 'traits');
-  }
-
+    : super._();
   @override
   BigIntegerShape rebuild(void Function(BigIntegerShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BigIntegerShapeBuilder toBuilder() =>
-      new BigIntegerShapeBuilder()..replace(this);
+  BigIntegerShapeBuilder toBuilder() => BigIntegerShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -131,7 +136,6 @@ class BigIntegerShapeBuilder
 
   @override
   void replace(covariant BigIntegerShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BigIntegerShape;
   }
 
@@ -144,12 +148,20 @@ class BigIntegerShapeBuilder
   BigIntegerShape build() => _build();
 
   _$BigIntegerShape _build() {
-    final _$result = _$v ??
-        new _$BigIntegerShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'BigIntegerShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'BigIntegerShape', 'traits'));
+    final _$result =
+        _$v ??
+        _$BigIntegerShape._(
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'BigIntegerShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'BigIntegerShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

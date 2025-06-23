@@ -7,23 +7,25 @@ part of 'http_malformed_response_definition.dart';
 // **************************************************************************
 
 HttpMalformedResponseDefinition _$HttpMalformedResponseDefinitionFromJson(
-        Map<String, dynamic> json) =>
-    HttpMalformedResponseDefinition(
-      body: json['body'] == null
-          ? null
-          : HttpMalformedResponseBodyDefinition.fromJson(
-              json['body'] as Map<String, dynamic>),
-      code: json['code'] as int,
-      headers: (json['headers'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ) ??
-          const {},
-    );
+  Map<String, dynamic> json,
+) => HttpMalformedResponseDefinition(
+  body: json['body'] == null
+      ? null
+      : HttpMalformedResponseBodyDefinition.fromJson(
+          json['body'] as Map<String, dynamic>,
+        ),
+  code: (json['code'] as num).toInt(),
+  headers:
+      (json['headers'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ) ??
+      const {},
+);
 
 Map<String, dynamic> _$HttpMalformedResponseDefinitionToJson(
-        HttpMalformedResponseDefinition instance) =>
-    <String, dynamic>{
-      'body': instance.body,
-      'code': instance.code,
-      'headers': instance.headers,
-    };
+  HttpMalformedResponseDefinition instance,
+) => <String, dynamic>{
+  'body': instance.body,
+  'code': instance.code,
+  'headers': instance.headers,
+};

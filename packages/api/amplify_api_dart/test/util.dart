@@ -10,8 +10,10 @@ import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.da
 import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/testing.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
@@ -62,31 +64,28 @@ class TestTokenAuthProvider extends TokenAmplifyAuthProvider {
 }
 
 void validateSignedRequest(AWSBaseHttpRequest request) {
-  expect(
-    request.headers[AWSHeaders.platformUserAgent],
-    contains('aws-sigv4'),
-  );
+  expect(request.headers[AWSHeaders.platformUserAgent], contains('aws-sigv4'));
 }
 
-const testApiKeyConfig = AWSApiConfig(
-  endpointType: EndpointType.graphQL,
-  endpoint: 'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql',
-  region: 'us-east-1',
-  authorizationType: APIAuthorizationType.apiKey,
+const testApiKeyConfig = DataOutputs(
+  url: 'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql',
+  awsRegion: 'us-east-1',
+  defaultAuthorizationType: APIAuthorizationType.apiKey,
   apiKey: 'abc-123',
+  authorizationTypes: [APIAuthorizationType.apiKey],
 );
-const testApiKeyConfigCustomDomain = AWSApiConfig(
-  endpointType: EndpointType.graphQL,
-  endpoint: 'https://foo.bar.aws.dev/graphql ',
-  region: 'us-east-1',
-  authorizationType: APIAuthorizationType.apiKey,
+const testApiKeyConfigCustomDomain = DataOutputs(
+  url: 'https://foo.bar.aws.dev/graphql ',
+  awsRegion: 'us-east-1',
+  defaultAuthorizationType: APIAuthorizationType.apiKey,
   apiKey: 'abc-123',
+  authorizationTypes: [APIAuthorizationType.apiKey],
 );
 
 const expectedApiKeyWebSocketConnectionUrl =
-    'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=eyJBY2NlcHQiOiJhcHBsaWNhdGlvbi9qc29uLCB0ZXh0L2phdmFzY3JpcHQiLCJDb250ZW50LUVuY29kaW5nIjoiYW16LTEuMCIsIkNvbnRlbnQtVHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJYLUFwaS1LZXkiOiJhYmMtMTIzIiwiSG9zdCI6ImFiYzEyMy5hcHBzeW5jLWFwaS51cy1lYXN0LTEuYW1hem9uYXdzLmNvbSJ9&payload=e30%3D';
+    'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?payload=e30%3D';
 const expectedApiKeyWebSocketConnectionUrlCustomDomain =
-    'wss://foo.bar.aws.dev/graphql/realtime?header=eyJBY2NlcHQiOiJhcHBsaWNhdGlvbi9qc29uLCB0ZXh0L2phdmFzY3JpcHQiLCJDb250ZW50LUVuY29kaW5nIjoiYW16LTEuMCIsIkNvbnRlbnQtVHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJYLUFwaS1LZXkiOiJhYmMtMTIzIiwiSG9zdCI6ImZvby5iYXIuYXdzLmRldiJ9&payload=e30%3D';
+    'wss://foo.bar.aws.dev/graphql/realtime?payload=e30%3D';
 
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
   final testAuthProviderRepo = AmplifyAuthProviderRepository()
@@ -164,15 +163,10 @@ WebSocketChannel getMockWebSocketChannel(Uri uri) {
   return MockWebSocketChannel();
 }
 
-WebSocketMessage startAck(String subscriptionID) => WebSocketMessage(
-      messageType: MessageType.startAck,
-      id: subscriptionID,
-    );
+WebSocketMessage startAck(String subscriptionID) =>
+    WebSocketMessage(messageType: MessageType.startAck, id: subscriptionID);
 
-void sendMockConnectionAck(
-  WebSocketBloc bloc,
-  MockWebSocketService service,
-) {
+void sendMockConnectionAck(WebSocketBloc bloc, MockWebSocketService service) {
   bloc.stream.listen((event) {
     final state = event;
     if (state is ConnectingState &&
@@ -211,20 +205,40 @@ class MockWebSocketSink extends DelegatingStreamSink<dynamic>
   }
 }
 
-class MockWebSocketChannel extends WebSocketChannel {
-  MockWebSocketChannel() : super(streamChannel);
+class MockWebSocketChannel extends StreamChannelMixin<dynamic>
+    implements WebSocketChannel {
+  MockWebSocketChannel() : super();
 
   // ignore: close_sinks
   final controller = StreamController<dynamic>.broadcast();
 
-  static StreamChannel<List<int>> streamChannel =
-      StreamChannel(const Stream.empty(), NullStreamSink());
+  static StreamChannel<List<int>> streamChannel = StreamChannel(
+    const Stream.empty(),
+    NullStreamSink(),
+  );
 
   @override
   Stream<dynamic> get stream => controller.stream;
 
   @override
   WebSocketSink get sink => MockWebSocketSink(controller.sink);
+
+  @override
+  StreamChannel<S> cast<S>() {
+    throw UnimplementedError();
+  }
+
+  @override
+  int? get closeCode => throw UnimplementedError();
+
+  @override
+  String? get closeReason => throw UnimplementedError();
+
+  @override
+  String? get protocol => throw UnimplementedError();
+
+  @override
+  Future<void> get ready => throw UnimplementedError();
 }
 
 // From https://docs.amplify.aws/lib/graphqlapi/authz/q/platform/flutter/#oidc
@@ -269,13 +283,13 @@ class MockWebSocketService extends AmplifyWebSocketService {
   }
 
   @override
-  Future<void> unsubscribe(
-    String subscriptionId,
-  ) async {
+  Future<void> unsubscribe(String subscriptionId) async {
     await super.unsubscribe(subscriptionId);
 
-    final completeMessage =
-        jsonEncode({'id': subscriptionId, 'type': 'complete'});
+    final completeMessage = jsonEncode({
+      'id': subscriptionId,
+      'type': 'complete',
+    });
     channel.sink.add(completeMessage);
   }
 }
@@ -296,20 +310,14 @@ class MockPollClient {
 
     return MockAWSHttpClient((request, _) async {
       if (sendUnhealthyResponse) {
-        return AWSHttpResponse(
-          statusCode: 400,
-          body: utf8.encode('unhealthy'),
-        );
+        return AWSHttpResponse(statusCode: 400, body: utf8.encode('unhealthy'));
       }
 
       if (induceTimeout && mockPollFailCount++ <= maxFailAttempts) {
         await Future<void>.delayed(const Duration(seconds: 10));
       }
 
-      return AWSHttpResponse(
-        statusCode: 200,
-        body: utf8.encode('healthy'),
-      );
+      return AWSHttpResponse(statusCode: 200, body: utf8.encode('healthy'));
     });
   }
 }
@@ -324,6 +332,16 @@ class MockConnectivity extends ConnectivityPlatform {
       mockNetworkStreamController.stream;
 }
 
+late StreamController<ProcessStatus> mockProcessLifeCycleController;
+
+class MockProcessLifeCycle extends ProcessLifeCycle {
+  const MockProcessLifeCycle();
+
+  @override
+  Stream<ProcessStatus> get onStateChanged =>
+      mockProcessLifeCycleController.stream;
+}
+
 /// Ensures a query predicate converts to JSON correctly.
 void testQueryPredicateTranslation(
   QueryPredicate? queryPredicate,
@@ -336,3 +354,21 @@ void testQueryPredicateTranslation(
 }
 
 final deepEquals = const DeepCollectionEquality().equals;
+
+/// Creates [DataOutputs] and [AmplifyAuthProviderRepository] for use in tests.
+(DataOutputs, AmplifyAuthProviderRepository) createOutputsAndRepo(
+  AmplifyAuthProvider authProvider,
+  APIAuthorizationType type, [
+  String? apiKey,
+]) {
+  final repo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(type.authProviderToken, authProvider);
+  final outputs = DataOutputs(
+    awsRegion: 'us-east-1',
+    url: 'https://example.com/',
+    defaultAuthorizationType: type,
+    authorizationTypes: [type],
+    apiKey: type == APIAuthorizationType.apiKey ? apiKey : null,
+  );
+  return (outputs, repo);
+}

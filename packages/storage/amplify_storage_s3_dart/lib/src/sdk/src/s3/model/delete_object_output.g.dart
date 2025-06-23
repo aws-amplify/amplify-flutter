@@ -14,22 +14,23 @@ class _$DeleteObjectOutput extends DeleteObjectOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$DeleteObjectOutput(
-          [void Function(DeleteObjectOutputBuilder)? updates]) =>
-      (new DeleteObjectOutputBuilder()..update(updates))._build();
+  factory _$DeleteObjectOutput([
+    void Function(DeleteObjectOutputBuilder)? updates,
+  ]) => (DeleteObjectOutputBuilder()..update(updates))._build();
 
-  _$DeleteObjectOutput._(
-      {this.deleteMarker, this.versionId, this.requestCharged})
-      : super._();
-
+  _$DeleteObjectOutput._({
+    this.deleteMarker,
+    this.versionId,
+    this.requestCharged,
+  }) : super._();
   @override
   DeleteObjectOutput rebuild(
-          void Function(DeleteObjectOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectOutputBuilder toBuilder() =>
-      new DeleteObjectOutputBuilder()..replace(this);
+      DeleteObjectOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -83,7 +84,6 @@ class DeleteObjectOutputBuilder
 
   @override
   void replace(DeleteObjectOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectOutput;
   }
 
@@ -96,31 +96,32 @@ class DeleteObjectOutputBuilder
   DeleteObjectOutput build() => _build();
 
   _$DeleteObjectOutput _build() {
-    final _$result = _$v ??
-        new _$DeleteObjectOutput._(
-            deleteMarker: deleteMarker,
-            versionId: versionId,
-            requestCharged: requestCharged);
+    final _$result =
+        _$v ??
+        _$DeleteObjectOutput._(
+          deleteMarker: deleteMarker,
+          versionId: versionId,
+          requestCharged: requestCharged,
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$DeleteObjectOutputPayload extends DeleteObjectOutputPayload {
-  factory _$DeleteObjectOutputPayload(
-          [void Function(DeleteObjectOutputPayloadBuilder)? updates]) =>
-      (new DeleteObjectOutputPayloadBuilder()..update(updates))._build();
+  factory _$DeleteObjectOutputPayload([
+    void Function(DeleteObjectOutputPayloadBuilder)? updates,
+  ]) => (DeleteObjectOutputPayloadBuilder()..update(updates))._build();
 
   _$DeleteObjectOutputPayload._() : super._();
-
   @override
   DeleteObjectOutputPayload rebuild(
-          void Function(DeleteObjectOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectOutputPayloadBuilder toBuilder() =>
-      new DeleteObjectOutputPayloadBuilder()..replace(this);
+      DeleteObjectOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -143,7 +144,6 @@ class DeleteObjectOutputPayloadBuilder
 
   @override
   void replace(DeleteObjectOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectOutputPayload;
   }
 
@@ -156,7 +156,7 @@ class DeleteObjectOutputPayloadBuilder
   DeleteObjectOutputPayload build() => _build();
 
   _$DeleteObjectOutputPayload _build() {
-    final _$result = _$v ?? new _$DeleteObjectOutputPayload._();
+    final _$result = _$v ?? _$DeleteObjectOutputPayload._();
     replace(_$result);
     return _$result;
   }

@@ -21,9 +21,7 @@ void main() {
 
     // Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa.feature"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-phone',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-phone');
 
       phoneNumber = generateUSPhoneNumber();
       password = generatePassword();
@@ -33,15 +31,14 @@ void main() {
         autoConfirm: true,
         enableMfa: true,
         verifyAttributes: true,
-        attributes: {
-          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-        },
+        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
       );
     });
 
     // Scenario: Sign in using a valid phone number and SMS MFA
-    testWidgets('Sign in using a valid phone number and SMS MFA',
-        (tester) async {
+    testWidgets('Sign in using a valid phone number and SMS MFA', (
+      tester,
+    ) async {
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -58,10 +55,7 @@ void main() {
 
       signInPage.expectUsername(label: 'Phone Number');
 
-      // When I select my country code
-      await signInPage.selectCountryCode();
-
-      // And I type my "phone number" with status "CONFIRMED"
+      // When I type my "phone number" with status "CONFIRMED"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
@@ -95,10 +89,7 @@ void main() {
 
       signInPage.expectUsername(label: 'Phone Number');
 
-      // When I select my country code
-      await signInPage.selectCountryCode();
-
-      // And I type my "phone number" with status "CONFIRMED"
+      // When I type my "phone number" with status "CONFIRMED"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
@@ -134,10 +125,7 @@ void main() {
 
       signInPage.expectUsername(label: 'Phone Number');
 
-      // When I select my country code
-      await signInPage.selectCountryCode();
-
-      // And I type my "phone number" with status "CONFIRMED"
+      // When I type my "phone number" with status "CONFIRMED"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
@@ -166,18 +154,12 @@ void main() {
 
       expect(
         tester.bloc.stream,
-        emitsInOrder([
-          UnauthenticatedState.signIn,
-          emitsDone,
-        ]),
+        emitsInOrder([UnauthenticatedState.signIn, emitsDone]),
       );
 
       final signInPage = SignInPage(tester: tester);
 
-      // When I select my country code
-      await signInPage.selectCountryCode();
-
-      // And I type my "phone number" with status "UNKNOWN"
+      // When I type my "phone number" with status "UNKNOWN"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password

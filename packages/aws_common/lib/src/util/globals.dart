@@ -15,12 +15,10 @@ const bool zDebugMode = !zProfileMode && !zReleaseMode;
 final bool zAssertsEnabled = () {
   var assertsEnabled = false;
   // ignore: prefer_asserts_with_message
-  assert(
-    () {
-      assertsEnabled = true;
-      return true;
-    }(),
-  );
+  assert(() {
+    assertsEnabled = true;
+    return true;
+  }());
   return assertsEnabled;
 }();
 

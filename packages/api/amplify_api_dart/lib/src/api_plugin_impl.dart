@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_api_dart/src/api_plugin_options.dart';
 import 'package:amplify_api_dart/src/graphql/helpers/send_graphql_request.dart';
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api_dart/src/graphql/providers/oidc_function_api_auth_provider.dart';
@@ -10,9 +11,16 @@ import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.da
 import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart';
 import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
 import 'package:amplify_api_dart/src/util/amplify_authorization_rest_client.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/rest_api/rest_api_outputs.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_api_dart.amplify_api_dart}
@@ -21,22 +29,25 @@ import 'package:meta/meta.dart';
 class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   /// {@macro amplify_api_dart.amplify_api_dart}
   AmplifyAPIDart({
-    List<APIAuthProvider> authProviders = const [],
+    APIPluginOptions options = const APIPluginOptions(),
     ConnectivityPlatform connectivity = const ConnectivityPlatform(),
-    AWSHttpClient? baseHttpClient,
-    this.modelProvider,
-    this.subscriptionOptions,
-  })  : _baseHttpClient = baseHttpClient,
-        _connectivity = connectivity {
-    authProviders.forEach(registerAuthProvider);
+    ProcessLifeCycle processLifeCycle = const ProcessLifeCycle(),
+  }) : _options = options,
+       _connectivity = connectivity,
+       _processLifeCycle = processLifeCycle {
+    _options.authProviders.forEach(registerAuthProvider);
   }
 
-  late final AWSApiPluginConfig _apiConfig;
-  final AWSHttpClient? _baseHttpClient;
+  final APIPluginOptions _options;
+  late final Map<String, DataOutputs>? _dataConfig;
+  late final Map<String, RestApiOutputs>? _restConfig;
   late final AmplifyAuthProviderRepository _authProviderRepo;
 
   /// Creates a stream representing network connectivity at the hardware level.
   final ConnectivityPlatform _connectivity;
+
+  /// Creates a stream representing the process life cycle state.
+  final ProcessLifeCycle _processLifeCycle;
 
   /// A map of the keys from the Amplify API config with auth modes to HTTP clients
   /// to use for requests to that endpoint/auth mode. e.g. { "myEndpoint.AWS_IAM": AWSHttpClient}
@@ -48,9 +59,6 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
 
   final StreamController<ApiHubEvent> _hubEventController =
       StreamController<ApiHubEvent>.broadcast();
-
-  /// Subscription options
-  final GraphQLSubscriptionOptions? subscriptionOptions;
 
   @override
   Future<void> reset() async {
@@ -68,30 +76,50 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final apiConfig = config?.api?.awsPlugin;
-    if (apiConfig == null) {
-      throw ConfigurationError(
-        'No AWS API config found',
-        recoverySuggestion: 'Add API from the Amplify CLI. See '
-            'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
-      );
-    }
-    for (final entry in apiConfig.endpoints.entries) {
-      if (!entry.value.endpoint.startsWith('https')) {
-        throw ConfigurationError(
-          'Non-HTTPS endpoint found for ${entry.key} which is not supported.',
-          recoverySuggestion:
-              'Ensure the configured endpoint for ${entry.key} utilizes https.',
-        );
-      }
-    }
-    _apiConfig = apiConfig;
+    final dataConfig = config?.data;
+    // ignore: invalid_use_of_internal_member
+    final restApiConfig = config?.restApi;
+    _validateConfig(dataConfig, restApiConfig);
+    _dataConfig = dataConfig;
+    _restConfig = restApiConfig;
     _authProviderRepo = authProviderRepo;
     _registerApiPluginAuthProviders();
     Amplify.Hub.addChannel(HubChannel.Api, _hubEventController.stream);
+  }
+
+  void _validateConfig(
+    Map<String, DataOutputs>? dataConfig,
+    Map<String, RestApiOutputs>? restApiConfig,
+  ) {
+    if (dataConfig == null && restApiConfig == null) {
+      throw ConfigurationError(
+        'No API config found',
+        recoverySuggestion:
+            'Add API configuration to use API plugin. See '
+            'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
+      );
+    }
+    dataConfig?.forEach((key, value) {
+      if (!value.url.startsWith('https')) {
+        throw ConfigurationError(
+          'Non-HTTPS url found for $key which is not supported.',
+          recoverySuggestion:
+              'Ensure the configured url for $key utilizes https.',
+        );
+      }
+    });
+    restApiConfig?.forEach((key, value) {
+      if (!value.url.startsWith('https')) {
+        throw ConfigurationError(
+          'Non-HTTPS url found for $key which is not supported.',
+          recoverySuggestion:
+              'Ensure the configured url for $key utilizes https.',
+        );
+      }
+    });
   }
 
   /// Register AmplifyAuthProviders that are specific to API category (API key,
@@ -101,10 +129,13 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   ///
   /// Register OIDC/Lambda set to _authProviders in constructor.
   void _registerApiPluginAuthProviders() {
-    _apiConfig.endpoints.forEach((key, value) {
+    _dataConfig?.forEach((key, value) {
       // Check the presence of apiKey (not auth type) because other modes might
       // have a key if not the primary auth mode.
-      if (value.apiKey != null) {
+      if (value.defaultAuthorizationType == APIAuthorizationType.apiKey ||
+          value.authorizationTypes.any(
+            (element) => element == APIAuthorizationType.apiKey,
+          )) {
         _authProviderRepo.registerAuthProvider(
           APIAuthorizationType.apiKey.authProviderToken,
           AppSyncApiKeyAuthProvider(),
@@ -141,14 +172,11 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   /// Use [apiName] if there are multiple endpoints of the same type.
   @visibleForTesting
   AWSHttpClient getHttpClient(
-    EndpointType type, {
+    ApiType type, {
     String? apiName,
     APIAuthorizationType? authorizationMode,
   }) {
-    final endpoint = _apiConfig.getEndpoint(
-      type: type,
-      apiName: apiName,
-    );
+    final endpoint = _getEndpointConfig(type, apiName);
     final authModeForClientKey =
         authorizationMode ?? endpoint.config.authorizationType;
     final clientPoolKey = '${endpoint.name}.${authModeForClientKey.name}';
@@ -156,18 +184,71 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       dependencies,
       baseClient: AmplifyAuthorizationRestClient(
         endpointConfig: endpoint.config,
-        baseClient: _baseHttpClient ?? dependencies.getOrCreate(),
+        baseClient: _options.baseHttpClient ?? dependencies.getOrCreate(),
         authorizationMode: authorizationMode,
         authProviderRepo: _authProviderRepo,
       ),
     );
   }
 
+  EndpointConfig _getEndpointConfig(ApiType type, String? apiName) {
+    if (type == ApiType.graphQL) {
+      if (_dataConfig == null) {
+        throw ConfigurationError('No GraphQL API endpoint found.');
+      }
+      DataOutputs config;
+      if (apiName != null) {
+        config = _dataConfig.entries
+            .firstWhere(
+              (config) => config.key == apiName,
+              orElse: () => throw ConfigurationError(
+                'No GraphQL API endpoint found matching apiName $apiName.',
+              ),
+            )
+            .value;
+      } else {
+        if (_dataConfig.length > 1) {
+          throw ConfigurationError(
+            'Multiple GraphQL API endpoints defined. Pass apiName parameter to specify '
+            'which one to use.',
+          );
+        }
+        config = _dataConfig.values.first;
+        apiName = _dataConfig.keys.first;
+      }
+      return EndpointConfig(apiName, config);
+    }
+    if (type == ApiType.rest) {
+      if (_restConfig == null) {
+        throw ConfigurationError('No REST API endpoint found.');
+      }
+      RestApiOutputs config;
+      if (apiName != null) {
+        config = _restConfig.entries
+            .firstWhere(
+              (config) => config.key == apiName,
+              orElse: () => throw ConfigurationError(
+                'No REST API endpoint found matching apiName $apiName.',
+              ),
+            )
+            .value;
+      } else {
+        if (_restConfig.length > 1) {
+          throw ConfigurationError(
+            'Multiple REST API endpoints defined. Pass apiName parameter to specify '
+            'which one to use.',
+          );
+        }
+        config = _restConfig.values.first;
+        apiName = _restConfig.keys.first;
+      }
+      return EndpointConfig(apiName, config);
+    }
+    throw ConfigurationError('Endpoint type $type is not supported.');
+  }
+
   WebSocketBloc _webSocketBloc({String? apiName}) {
-    final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.graphQL,
-      apiName: apiName,
-    );
+    final endpoint = _getEndpointConfig(ApiType.graphQL, apiName);
 
     return _webSocketBlocPool[endpoint.name] ??= createWebSocketBloc(endpoint)
       ..stream.listen((event) {
@@ -187,17 +268,14 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       config: endpoint.config,
       authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
-      subscriptionOptions:
-          subscriptionOptions ?? const GraphQLSubscriptionOptions(),
+      subscriptionOptions: _options.subscriptionOptions,
       connectivity: _connectivity,
+      processLifeCycle: _processLifeCycle,
     );
   }
 
   Uri _getGraphQLUri(String? apiName) {
-    final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.graphQL,
-      apiName: apiName,
-    );
+    final endpoint = _getEndpointConfig(ApiType.graphQL, apiName);
     return endpoint.getUri();
   }
 
@@ -206,22 +284,18 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     String? apiName,
     Map<String, dynamic>? queryParameters,
   ) {
-    final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.rest,
-      apiName: apiName,
-    );
+    final endpoint = _getEndpointConfig(ApiType.rest, apiName);
     return endpoint.getUri(path: path, queryParameters: queryParameters);
   }
 
   @override
-  final ModelProviderInterface? modelProvider;
-
+  ModelProviderInterface? get modelProvider => _options.modelProvider;
   // ====== GraphQL ======
 
   @override
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     final graphQLClient = getHttpClient(
-      EndpointType.graphQL,
+      ApiType.graphQL,
       apiName: request.apiName,
       authorizationMode: request.authorizationMode,
     );
@@ -237,7 +311,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   @override
   GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
     final graphQLClient = getHttpClient(
-      EndpointType.graphQL,
+      ApiType.graphQL,
       apiName: request.apiName,
       authorizationMode: request.authorizationMode,
     );
@@ -270,7 +344,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getHttpClient(EndpointType.rest, apiName: apiName);
+    final client = getHttpClient(ApiType.rest, apiName: apiName);
     return RestOperation.fromHttpOperation(
       AWSStreamedHttpRequest.delete(
         uri,
@@ -288,12 +362,9 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getHttpClient(EndpointType.rest, apiName: apiName);
+    final client = getHttpClient(ApiType.rest, apiName: apiName);
     return RestOperation.fromHttpOperation(
-      AWSHttpRequest.get(
-        uri,
-        headers: headers,
-      ).send(client: client),
+      AWSHttpRequest.get(uri, headers: headers).send(client: client),
     );
   }
 
@@ -305,12 +376,9 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getHttpClient(EndpointType.rest, apiName: apiName);
+    final client = getHttpClient(ApiType.rest, apiName: apiName);
     return RestOperation.fromHttpOperation(
-      AWSHttpRequest.head(
-        uri,
-        headers: headers,
-      ).send(client: client),
+      AWSHttpRequest.head(uri, headers: headers).send(client: client),
     );
   }
 
@@ -323,7 +391,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getHttpClient(EndpointType.rest, apiName: apiName);
+    final client = getHttpClient(ApiType.rest, apiName: apiName);
     return RestOperation.fromHttpOperation(
       AWSStreamedHttpRequest.patch(
         uri,
@@ -342,7 +410,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getHttpClient(EndpointType.rest, apiName: apiName);
+    final client = getHttpClient(ApiType.rest, apiName: apiName);
     return RestOperation.fromHttpOperation(
       AWSStreamedHttpRequest.post(
         uri,
@@ -361,7 +429,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getHttpClient(EndpointType.rest, apiName: apiName);
+    final client = getHttpClient(ApiType.rest, apiName: apiName);
     return RestOperation.fromHttpOperation(
       AWSStreamedHttpRequest.put(
         uri,

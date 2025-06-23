@@ -28,11 +28,7 @@ extension ExpressionUtil on Expression {
 
   Code wrapWithBlockIf(Expression check, [bool performCheck = true]) {
     return Block.of([
-      if (performCheck) ...[
-        const Code('if ('),
-        check.code,
-        const Code(') {'),
-      ],
+      if (performCheck) ...[const Code('if ('), check.code, const Code(') {')],
       statement,
       if (performCheck) const Code('}'),
     ]);
@@ -42,11 +38,7 @@ extension ExpressionUtil on Expression {
 extension CodeHelpers on Code {
   Code wrapWithBlockIf(Expression check, [bool performCheck = true]) {
     return Block.of([
-      if (performCheck) ...[
-        const Code('if ('),
-        check.code,
-        const Code(') {'),
-      ],
+      if (performCheck) ...[const Code('if ('), check.code, const Code(') {')],
       this,
       if (performCheck) const Code('}'),
     ]);
@@ -77,7 +69,7 @@ extension ReferenceHelpers on Reference {
     final typeRef = this.typeRef;
     final ctor = typeRef.isNullable ?? false
         ? (Iterable<Expression> args) =>
-            DartTypes.builtValue.fullType.constInstanceNamed('nullable', args)
+              DartTypes.builtValue.fullType.constInstanceNamed('nullable', args)
         : DartTypes.builtValue.fullType.constInstance;
     if (typeRef.types.isEmpty && (parameters == null || parameters.isEmpty)) {
       return ctor([typeRef.unboxed]);
@@ -104,39 +96,30 @@ extension ReferenceHelpers on Reference {
     }
     final transformed = switch (ref.symbol) {
       'JsonObject' => DartTypes.core.object,
-      'BuiltList' => DartTypes.core.list(
-          ref.types.single.coreFriendlySymbol,
-        ),
-      'BuiltSet' => DartTypes.core.set(
-          ref.types.single.coreFriendlySymbol,
-        ),
+      'BuiltList' => DartTypes.core.list(ref.types.single.coreFriendlySymbol),
+      'BuiltSet' => DartTypes.core.set(ref.types.single.coreFriendlySymbol),
       'BuiltMap' => DartTypes.core.map(
-          ref.types[0].coreFriendlySymbol,
-          ref.types[1].coreFriendlySymbol,
-        ),
+        ref.types[0].coreFriendlySymbol,
+        ref.types[1].coreFriendlySymbol,
+      ),
       'BuiltListMultimap' => DartTypes.core.map(
-          ref.types[0].coreFriendlySymbol,
-          DartTypes.core.list(ref.types[1].coreFriendlySymbol),
-        ),
+        ref.types[0].coreFriendlySymbol,
+        DartTypes.core.list(ref.types[1].coreFriendlySymbol),
+      ),
       'BuiltSetMultimap' => DartTypes.core.map(
-          ref.types[0].coreFriendlySymbol,
-          DartTypes.core.set(ref.types[1].coreFriendlySymbol),
-        ),
+        ref.types[0].coreFriendlySymbol,
+        DartTypes.core.set(ref.types[1].coreFriendlySymbol),
+      ),
       _ => throw ArgumentError('Invalid symbol: $symbol'),
     };
-    return transformed.typeRef.rebuild(
-      (t) => t.isNullable = ref.isNullable,
-    );
+    return transformed.typeRef.rebuild((t) => t.isNullable = ref.isNullable);
   }
 
   /// Transforms `built_collection` symbols to their `dart:core` counterpart,
   /// e.g. BuiltList -> List, BuiltSet -> Set, etc for use in factory
   /// constructors so that users do not need to concern themselves with built
   /// types when constructing instances.
-  Expression transformToBuiltValue({
-    required String name,
-    bool? isNullable,
-  }) {
+  Expression transformToBuiltValue({required String name, bool? isNullable}) {
     Expression ref = refer(name);
     if (!requiresBuiltValueTransformation) {
       return ref;
@@ -170,8 +153,10 @@ extension ReferenceHelpers on Reference {
                   Parameter((p) => p.name = 'key'),
                   Parameter((p) => p.name = 'value'),
                 ])
-                ..body = DartTypes.core.mapEntry
-                    .newInstance([refer('key'), valueExpression]).code,
+                ..body = DartTypes.core.mapEntry.newInstance([
+                  refer('key'),
+                  valueExpression,
+                ]).code,
             ).closure,
           ]);
         }
@@ -179,9 +164,7 @@ extension ReferenceHelpers on Reference {
       case 'BuiltSetMultimap':
         final valueSymbol = types[1];
         if (valueSymbol.requiresBuiltValueTransformation) {
-          final childExpression = valueSymbol.transformToBuiltValue(
-            name: 'el',
-          );
+          final childExpression = valueSymbol.transformToBuiltValue(name: 'el');
           final valueExpression = refer('value').property('map').call([
             Method(
               (m) => m
@@ -196,8 +179,10 @@ extension ReferenceHelpers on Reference {
                   Parameter((p) => p.name = 'key'),
                   Parameter((p) => p.name = 'value'),
                 ])
-                ..body = DartTypes.core.mapEntry
-                    .newInstance([refer('key'), valueExpression]).code,
+                ..body = DartTypes.core.mapEntry.newInstance([
+                  refer('key'),
+                  valueExpression,
+                ]).code,
             ).closure,
           ]);
         }

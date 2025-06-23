@@ -22,33 +22,27 @@ class _$RespondToAuthChallengeRequest extends RespondToAuthChallengeRequest {
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$RespondToAuthChallengeRequest(
-          [void Function(RespondToAuthChallengeRequestBuilder)? updates]) =>
-      (new RespondToAuthChallengeRequestBuilder()..update(updates))._build();
+  factory _$RespondToAuthChallengeRequest([
+    void Function(RespondToAuthChallengeRequestBuilder)? updates,
+  ]) => (RespondToAuthChallengeRequestBuilder()..update(updates))._build();
 
-  _$RespondToAuthChallengeRequest._(
-      {required this.clientId,
-      required this.challengeName,
-      this.session,
-      this.challengeResponses,
-      this.analyticsMetadata,
-      this.userContextData,
-      this.clientMetadata})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        clientId, r'RespondToAuthChallengeRequest', 'clientId');
-    BuiltValueNullFieldError.checkNotNull(
-        challengeName, r'RespondToAuthChallengeRequest', 'challengeName');
-  }
-
+  _$RespondToAuthChallengeRequest._({
+    required this.clientId,
+    required this.challengeName,
+    this.session,
+    this.challengeResponses,
+    this.analyticsMetadata,
+    this.userContextData,
+    this.clientMetadata,
+  }) : super._();
   @override
   RespondToAuthChallengeRequest rebuild(
-          void Function(RespondToAuthChallengeRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RespondToAuthChallengeRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RespondToAuthChallengeRequestBuilder toBuilder() =>
-      new RespondToAuthChallengeRequestBuilder()..replace(this);
+      RespondToAuthChallengeRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -80,8 +74,10 @@ class _$RespondToAuthChallengeRequest extends RespondToAuthChallengeRequest {
 
 class RespondToAuthChallengeRequestBuilder
     implements
-        Builder<RespondToAuthChallengeRequest,
-            RespondToAuthChallengeRequestBuilder> {
+        Builder<
+          RespondToAuthChallengeRequest,
+          RespondToAuthChallengeRequestBuilder
+        > {
   _$RespondToAuthChallengeRequest? _$v;
 
   String? _clientId;
@@ -99,25 +95,25 @@ class RespondToAuthChallengeRequestBuilder
 
   _i3.MapBuilder<String, String>? _challengeResponses;
   _i3.MapBuilder<String, String> get challengeResponses =>
-      _$this._challengeResponses ??= new _i3.MapBuilder<String, String>();
+      _$this._challengeResponses ??= _i3.MapBuilder<String, String>();
   set challengeResponses(_i3.MapBuilder<String, String>? challengeResponses) =>
       _$this._challengeResponses = challengeResponses;
 
   AnalyticsMetadataTypeBuilder? _analyticsMetadata;
   AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+      _$this._analyticsMetadata ??= AnalyticsMetadataTypeBuilder();
   set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -140,7 +136,6 @@ class RespondToAuthChallengeRequestBuilder
 
   @override
   void replace(RespondToAuthChallengeRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RespondToAuthChallengeRequest;
   }
 
@@ -155,19 +150,25 @@ class RespondToAuthChallengeRequestBuilder
   _$RespondToAuthChallengeRequest _build() {
     _$RespondToAuthChallengeRequest _$result;
     try {
-      _$result = _$v ??
-          new _$RespondToAuthChallengeRequest._(
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'RespondToAuthChallengeRequest', 'clientId'),
-              challengeName: BuiltValueNullFieldError.checkNotNull(
-                  challengeName,
-                  r'RespondToAuthChallengeRequest',
-                  'challengeName'),
-              session: session,
-              challengeResponses: _challengeResponses?.build(),
-              analyticsMetadata: _analyticsMetadata?.build(),
-              userContextData: _userContextData?.build(),
-              clientMetadata: _clientMetadata?.build());
+      _$result =
+          _$v ??
+          _$RespondToAuthChallengeRequest._(
+            clientId: BuiltValueNullFieldError.checkNotNull(
+              clientId,
+              r'RespondToAuthChallengeRequest',
+              'clientId',
+            ),
+            challengeName: BuiltValueNullFieldError.checkNotNull(
+              challengeName,
+              r'RespondToAuthChallengeRequest',
+              'challengeName',
+            ),
+            session: session,
+            challengeResponses: _challengeResponses?.build(),
+            analyticsMetadata: _analyticsMetadata?.build(),
+            userContextData: _userContextData?.build(),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -180,8 +181,11 @@ class RespondToAuthChallengeRequestBuilder
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'RespondToAuthChallengeRequest', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'RespondToAuthChallengeRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

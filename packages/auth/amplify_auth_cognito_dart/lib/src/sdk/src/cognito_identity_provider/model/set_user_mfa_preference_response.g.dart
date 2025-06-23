@@ -7,20 +7,19 @@ part of 'set_user_mfa_preference_response.dart';
 // **************************************************************************
 
 class _$SetUserMfaPreferenceResponse extends SetUserMfaPreferenceResponse {
-  factory _$SetUserMfaPreferenceResponse(
-          [void Function(SetUserMfaPreferenceResponseBuilder)? updates]) =>
-      (new SetUserMfaPreferenceResponseBuilder()..update(updates))._build();
+  factory _$SetUserMfaPreferenceResponse([
+    void Function(SetUserMfaPreferenceResponseBuilder)? updates,
+  ]) => (SetUserMfaPreferenceResponseBuilder()..update(updates))._build();
 
   _$SetUserMfaPreferenceResponse._() : super._();
-
   @override
   SetUserMfaPreferenceResponse rebuild(
-          void Function(SetUserMfaPreferenceResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SetUserMfaPreferenceResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SetUserMfaPreferenceResponseBuilder toBuilder() =>
-      new SetUserMfaPreferenceResponseBuilder()..replace(this);
+      SetUserMfaPreferenceResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -36,15 +35,16 @@ class _$SetUserMfaPreferenceResponse extends SetUserMfaPreferenceResponse {
 
 class SetUserMfaPreferenceResponseBuilder
     implements
-        Builder<SetUserMfaPreferenceResponse,
-            SetUserMfaPreferenceResponseBuilder> {
+        Builder<
+          SetUserMfaPreferenceResponse,
+          SetUserMfaPreferenceResponseBuilder
+        > {
   _$SetUserMfaPreferenceResponse? _$v;
 
   SetUserMfaPreferenceResponseBuilder();
 
   @override
   void replace(SetUserMfaPreferenceResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SetUserMfaPreferenceResponse;
   }
 
@@ -57,7 +57,7 @@ class SetUserMfaPreferenceResponseBuilder
   SetUserMfaPreferenceResponse build() => _build();
 
   _$SetUserMfaPreferenceResponse _build() {
-    final _$result = _$v ?? new _$SetUserMfaPreferenceResponse._();
+    final _$result = _$v ?? _$SetUserMfaPreferenceResponse._();
     replace(_$result);
     return _$result;
   }

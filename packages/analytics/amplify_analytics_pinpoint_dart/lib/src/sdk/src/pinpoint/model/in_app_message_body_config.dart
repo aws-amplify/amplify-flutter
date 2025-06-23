@@ -29,9 +29,9 @@ abstract class InAppMessageBodyConfig
   }
 
   /// Text config for Message Body.
-  factory InAppMessageBodyConfig.build(
-          [void Function(InAppMessageBodyConfigBuilder) updates]) =
-      _$InAppMessageBodyConfig;
+  factory InAppMessageBodyConfig.build([
+    void Function(InAppMessageBodyConfigBuilder) updates,
+  ]) = _$InAppMessageBodyConfig;
 
   const InAppMessageBodyConfig._();
 
@@ -47,26 +47,13 @@ abstract class InAppMessageBodyConfig
   /// The text color.
   String get textColor;
   @override
-  List<Object?> get props => [
-        alignment,
-        body,
-        textColor,
-      ];
+  List<Object?> get props => [alignment, body, textColor];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InAppMessageBodyConfig')
-      ..add(
-        'alignment',
-        alignment,
-      )
-      ..add(
-        'body',
-        body,
-      )
-      ..add(
-        'textColor',
-        textColor,
-      );
+      ..add('alignment', alignment)
+      ..add('body', body)
+      ..add('textColor', textColor);
     return helper.toString();
   }
 }
@@ -74,20 +61,17 @@ abstract class InAppMessageBodyConfig
 class InAppMessageBodyConfigRestJson1Serializer
     extends _i2.StructuredSmithySerializer<InAppMessageBodyConfig> {
   const InAppMessageBodyConfigRestJson1Serializer()
-      : super('InAppMessageBodyConfig');
+    : super('InAppMessageBodyConfig');
 
   @override
   Iterable<Type> get types => const [
-        InAppMessageBodyConfig,
-        _$InAppMessageBodyConfig,
-      ];
+    InAppMessageBodyConfig,
+    _$InAppMessageBodyConfig,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppMessageBodyConfig deserialize(
     Serializers serializers,
@@ -105,20 +89,26 @@ class InAppMessageBodyConfigRestJson1Serializer
       }
       switch (key) {
         case 'Alignment':
-          result.alignment = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(Alignment),
-          ) as Alignment);
+          result.alignment =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Alignment),
+                  )
+                  as Alignment);
         case 'Body':
-          result.body = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.body =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'TextColor':
-          result.textColor = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.textColor =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -140,15 +130,9 @@ class InAppMessageBodyConfigRestJson1Serializer
         specifiedType: const FullType(Alignment),
       ),
       'Body',
-      serializers.serialize(
-        body,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(body, specifiedType: const FullType(String)),
       'TextColor',
-      serializers.serialize(
-        textColor,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(textColor, specifiedType: const FullType(String)),
     ]);
     return result$;
   }

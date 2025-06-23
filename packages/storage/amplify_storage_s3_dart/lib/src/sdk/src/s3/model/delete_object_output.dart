@@ -30,9 +30,9 @@ abstract class DeleteObjectOutput
     );
   }
 
-  factory DeleteObjectOutput.build(
-          [void Function(DeleteObjectOutputBuilder) updates]) =
-      _$DeleteObjectOutput;
+  factory DeleteObjectOutput.build([
+    void Function(DeleteObjectOutputBuilder) updates,
+  ]) = _$DeleteObjectOutput;
 
   const DeleteObjectOutput._();
 
@@ -40,54 +40,49 @@ abstract class DeleteObjectOutput
   factory DeleteObjectOutput.fromResponse(
     DeleteObjectOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      DeleteObjectOutput.build((b) {
-        if (response.headers['x-amz-delete-marker'] != null) {
-          b.deleteMarker = response.headers['x-amz-delete-marker']! == 'true';
-        }
-        if (response.headers['x-amz-version-id'] != null) {
-          b.versionId = response.headers['x-amz-version-id']!;
-        }
-        if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = RequestCharged.values
-              .byValue(response.headers['x-amz-request-charged']!);
-        }
-      });
+  ) => DeleteObjectOutput.build((b) {
+    if (response.headers['x-amz-delete-marker'] != null) {
+      b.deleteMarker = response.headers['x-amz-delete-marker']! == 'true';
+    }
+    if (response.headers['x-amz-version-id'] != null) {
+      b.versionId = response.headers['x-amz-version-id']!;
+    }
+    if (response.headers['x-amz-request-charged'] != null) {
+      b.requestCharged = RequestCharged.values.byValue(
+        response.headers['x-amz-request-charged']!,
+      );
+    }
+  });
 
   static const List<_i2.SmithySerializer<DeleteObjectOutputPayload>>
-      serializers = [DeleteObjectOutputRestXmlSerializer()];
+  serializers = [DeleteObjectOutputRestXmlSerializer()];
 
-  /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
+  /// Indicates whether the specified object version that was permanently deleted was (true) or was not (false) a delete marker before deletion. In a simple DELETE, this header indicates whether (true) or not (false) the current version of the object is a delete marker.
+  ///
+  /// This functionality is not supported for directory buckets.
   bool? get deleteMarker;
 
   /// Returns the version ID of the delete marker created as a result of the DELETE operation.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get versionId;
 
   /// If present, indicates that the requester was successfully charged for the request.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestCharged? get requestCharged;
   @override
   DeleteObjectOutputPayload getPayload() => DeleteObjectOutputPayload();
+
   @override
-  List<Object?> get props => [
-        deleteMarker,
-        versionId,
-        requestCharged,
-      ];
+  List<Object?> get props => [deleteMarker, versionId, requestCharged];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectOutput')
-      ..add(
-        'deleteMarker',
-        deleteMarker,
-      )
-      ..add(
-        'versionId',
-        versionId,
-      )
-      ..add(
-        'requestCharged',
-        requestCharged,
-      );
+      ..add('deleteMarker', deleteMarker)
+      ..add('versionId', versionId)
+      ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }
@@ -98,14 +93,15 @@ abstract class DeleteObjectOutputPayload
     implements
         Built<DeleteObjectOutputPayload, DeleteObjectOutputPayloadBuilder>,
         _i2.EmptyPayload {
-  factory DeleteObjectOutputPayload(
-          [void Function(DeleteObjectOutputPayloadBuilder) updates]) =
-      _$DeleteObjectOutputPayload;
+  factory DeleteObjectOutputPayload([
+    void Function(DeleteObjectOutputPayloadBuilder) updates,
+  ]) = _$DeleteObjectOutputPayload;
 
   const DeleteObjectOutputPayload._();
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectOutputPayload');
@@ -119,18 +115,17 @@ class DeleteObjectOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        DeleteObjectOutput,
-        _$DeleteObjectOutput,
-        DeleteObjectOutputPayload,
-        _$DeleteObjectOutputPayload,
-      ];
+    DeleteObjectOutput,
+    _$DeleteObjectOutput,
+    DeleteObjectOutputPayload,
+    _$DeleteObjectOutputPayload,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
+
   @override
   DeleteObjectOutputPayload deserialize(
     Serializers serializers,
@@ -150,7 +145,7 @@ class DeleteObjectOutputRestXmlSerializer
       const _i2.XmlElementName(
         'DeleteObjectOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

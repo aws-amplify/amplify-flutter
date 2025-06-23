@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 
 import '../http_common.dart';
 import 'request_body_server_vm.dart'
-    if (dart.library.js) 'request_body_server_web.dart';
+    if (dart.library.js_interop) 'request_body_server_web.dart';
 
 class _Plus2Decoder extends Converter<List<int>, String> {
   @override
@@ -37,8 +37,12 @@ class _Plus2Encoding extends Encoding {
 /// Tests that the [AWSHttpClient] correctly implements HTTP requests with
 /// bodies e.g. 'POST'.
 void main() {
-  clientTest('requestBody', startServer,
-      (client, httpServerQueue, httpServerChannel, createUri) {
+  clientTest('requestBody', startServer, (
+    client,
+    httpServerQueue,
+    httpServerChannel,
+    createUri,
+  ) {
     test('POST with string body', () async {
       final request = AWSStreamedHttpRequest.post(
         createUri(''),
@@ -87,10 +91,9 @@ void main() {
     test('POST with map body and encoding', () async {
       final request = AWSStreamedHttpRequest.post(
         createUri(''),
-        body: HttpPayload.formFields(
-          {'key': 'value'},
-          encoding: _Plus2Encoding(),
-        ),
+        body: HttpPayload.formFields({
+          'key': 'value',
+        }, encoding: _Plus2Encoding()),
       );
       await client().send(request).response;
 
@@ -126,9 +129,7 @@ void main() {
       final request = AWSStreamedHttpRequest.post(
         createUri(''),
         body: HttpPayload.bytes([1, 2, 3, 4, 5]),
-        headers: {
-          AWSHeaders.contentType: 'image/png',
-        },
+        headers: {AWSHeaders.contentType: 'image/png'},
       );
       await client().send(request).response;
 

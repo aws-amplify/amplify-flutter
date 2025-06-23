@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -31,10 +31,12 @@ abstract class InitiateAuthRequest
   }) {
     return _$InitiateAuthRequest._(
       authFlow: authFlow,
-      authParameters:
-          authParameters == null ? null : _i3.BuiltMap(authParameters),
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      authParameters: authParameters == null
+          ? null
+          : _i3.BuiltMap(authParameters),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
       clientId: clientId,
       analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
@@ -42,9 +44,9 @@ abstract class InitiateAuthRequest
   }
 
   /// Initiates the authentication request.
-  factory InitiateAuthRequest.build(
-          [void Function(InitiateAuthRequestBuilder) updates]) =
-      _$InitiateAuthRequest;
+  factory InitiateAuthRequest.build([
+    void Function(InitiateAuthRequestBuilder) updates,
+  ]) = _$InitiateAuthRequest;
 
   const InitiateAuthRequest._();
 
@@ -52,11 +54,10 @@ abstract class InitiateAuthRequest
     InitiateAuthRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<InitiateAuthRequest>> serializers = [
-    InitiateAuthRequestAwsJson11Serializer()
+    InitiateAuthRequestAwsJson11Serializer(),
   ];
 
   /// The authentication flow for this call to run. The API action will depend on this value. For example:
@@ -121,8 +122,6 @@ abstract class InitiateAuthRequest
   ///
   /// *   Define auth challenge
   ///
-  /// *   Verify auth challenge
-  ///
   ///
   /// For more information, see [Customizing user pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
   ///
@@ -145,42 +144,26 @@ abstract class InitiateAuthRequest
   UserContextDataType? get userContextData;
   @override
   InitiateAuthRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
-        authFlow,
-        authParameters,
-        clientMetadata,
-        clientId,
-        analyticsMetadata,
-        userContextData,
-      ];
+    authFlow,
+    authParameters,
+    clientMetadata,
+    clientId,
+    analyticsMetadata,
+    userContextData,
+  ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InitiateAuthRequest')
-      ..add(
-        'authFlow',
-        authFlow,
-      )
-      ..add(
-        'authParameters',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'clientMetadata',
-        clientMetadata,
-      )
-      ..add(
-        'clientId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'analyticsMetadata',
-        analyticsMetadata,
-      )
-      ..add(
-        'userContextData',
-        '***SENSITIVE***',
-      );
+      ..add('authFlow', authFlow)
+      ..add('authParameters', '***SENSITIVE***')
+      ..add('clientMetadata', clientMetadata)
+      ..add('clientId', '***SENSITIVE***')
+      ..add('analyticsMetadata', analyticsMetadata)
+      ..add('userContextData', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -191,16 +174,15 @@ class InitiateAuthRequestAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [
-        InitiateAuthRequest,
-        _$InitiateAuthRequest,
-      ];
+    InitiateAuthRequest,
+    _$InitiateAuthRequest,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   InitiateAuthRequest deserialize(
     Serializers serializers,
@@ -218,47 +200,57 @@ class InitiateAuthRequestAwsJson11Serializer
       }
       switch (key) {
         case 'AuthFlow':
-          result.authFlow = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(AuthFlowType),
-          ) as AuthFlowType);
+          result.authFlow =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(AuthFlowType),
+                  )
+                  as AuthFlowType);
         case 'AuthParameters':
-          result.authParameters.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.authParameters.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
         case 'ClientMetadata':
-          result.clientMetadata.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.clientMetadata.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
         case 'ClientId':
-          result.clientId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.clientId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AnalyticsMetadata':
-          result.analyticsMetadata.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(AnalyticsMetadataType),
-          ) as AnalyticsMetadataType));
+          result.analyticsMetadata.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(AnalyticsMetadataType),
+                )
+                as AnalyticsMetadataType),
+          );
         case 'UserContextData':
-          result.userContextData.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(UserContextDataType),
-          ) as UserContextDataType));
+          result.userContextData.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(UserContextDataType),
+                )
+                as UserContextDataType),
+          );
       }
     }
 
@@ -278,7 +270,7 @@ class InitiateAuthRequestAwsJson11Serializer
       :clientMetadata,
       :clientId,
       :analyticsMetadata,
-      :userContextData
+      :userContextData,
     ) = object;
     result$.addAll([
       'AuthFlow',
@@ -287,54 +279,53 @@ class InitiateAuthRequestAwsJson11Serializer
         specifiedType: const FullType(AuthFlowType),
       ),
       'ClientId',
-      serializers.serialize(
-        clientId,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(clientId, specifiedType: const FullType(String)),
     ]);
     if (authParameters != null) {
       result$
         ..add('AuthParameters')
-        ..add(serializers.serialize(
-          authParameters,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            authParameters,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (clientMetadata != null) {
       result$
         ..add('ClientMetadata')
-        ..add(serializers.serialize(
-          clientMetadata,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            clientMetadata,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (analyticsMetadata != null) {
       result$
         ..add('AnalyticsMetadata')
-        ..add(serializers.serialize(
-          analyticsMetadata,
-          specifiedType: const FullType(AnalyticsMetadataType),
-        ));
+        ..add(
+          serializers.serialize(
+            analyticsMetadata,
+            specifiedType: const FullType(AnalyticsMetadataType),
+          ),
+        );
     }
     if (userContextData != null) {
       result$
         ..add('UserContextData')
-        ..add(serializers.serialize(
-          userContextData,
-          specifiedType: const FullType(UserContextDataType),
-        ));
+        ..add(
+          serializers.serialize(
+            userContextData,
+            specifiedType: const FullType(UserContextDataType),
+          ),
+        );
     }
     return result$;
   }

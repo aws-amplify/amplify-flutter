@@ -30,31 +30,30 @@ class _$UploadPartOutput extends UploadPartOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$UploadPartOutput(
-          [void Function(UploadPartOutputBuilder)? updates]) =>
-      (new UploadPartOutputBuilder()..update(updates))._build();
+  factory _$UploadPartOutput([
+    void Function(UploadPartOutputBuilder)? updates,
+  ]) => (UploadPartOutputBuilder()..update(updates))._build();
 
-  _$UploadPartOutput._(
-      {this.serverSideEncryption,
-      this.eTag,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.bucketKeyEnabled,
-      this.requestCharged})
-      : super._();
-
+  _$UploadPartOutput._({
+    this.serverSideEncryption,
+    this.eTag,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.bucketKeyEnabled,
+    this.requestCharged,
+  }) : super._();
   @override
   UploadPartOutput rebuild(void Function(UploadPartOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   UploadPartOutputBuilder toBuilder() =>
-      new UploadPartOutputBuilder()..replace(this);
+      UploadPartOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -172,7 +171,6 @@ class UploadPartOutputBuilder
 
   @override
   void replace(UploadPartOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadPartOutput;
   }
 
@@ -185,39 +183,40 @@ class UploadPartOutputBuilder
   UploadPartOutput build() => _build();
 
   _$UploadPartOutput _build() {
-    final _$result = _$v ??
-        new _$UploadPartOutput._(
-            serverSideEncryption: serverSideEncryption,
-            eTag: eTag,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            ssekmsKeyId: ssekmsKeyId,
-            bucketKeyEnabled: bucketKeyEnabled,
-            requestCharged: requestCharged);
+    final _$result =
+        _$v ??
+        _$UploadPartOutput._(
+          serverSideEncryption: serverSideEncryption,
+          eTag: eTag,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          ssekmsKeyId: ssekmsKeyId,
+          bucketKeyEnabled: bucketKeyEnabled,
+          requestCharged: requestCharged,
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$UploadPartOutputPayload extends UploadPartOutputPayload {
-  factory _$UploadPartOutputPayload(
-          [void Function(UploadPartOutputPayloadBuilder)? updates]) =>
-      (new UploadPartOutputPayloadBuilder()..update(updates))._build();
+  factory _$UploadPartOutputPayload([
+    void Function(UploadPartOutputPayloadBuilder)? updates,
+  ]) => (UploadPartOutputPayloadBuilder()..update(updates))._build();
 
   _$UploadPartOutputPayload._() : super._();
-
   @override
   UploadPartOutputPayload rebuild(
-          void Function(UploadPartOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UploadPartOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UploadPartOutputPayloadBuilder toBuilder() =>
-      new UploadPartOutputPayloadBuilder()..replace(this);
+      UploadPartOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -240,7 +239,6 @@ class UploadPartOutputPayloadBuilder
 
   @override
   void replace(UploadPartOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadPartOutputPayload;
   }
 
@@ -253,7 +251,7 @@ class UploadPartOutputPayloadBuilder
   UploadPartOutputPayload build() => _build();
 
   _$UploadPartOutputPayload _build() {
-    final _$result = _$v ?? new _$UploadPartOutputPayload._();
+    final _$result = _$v ?? _$UploadPartOutputPayload._();
     replace(_$result);
     return _$result;
   }

@@ -61,43 +61,42 @@ class _$KitchenSink extends KitchenSink {
   final DateTime? unixTimestamp;
 
   factory _$KitchenSink([void Function(KitchenSinkBuilder)? updates]) =>
-      (new KitchenSinkBuilder()..update(updates))._build();
+      (KitchenSinkBuilder()..update(updates))._build();
 
-  _$KitchenSink._(
-      {this.blob,
-      this.boolean,
-      this.double_,
-      this.emptyStruct,
-      this.float,
-      this.httpdateTimestamp,
-      this.integer,
-      this.iso8601Timestamp,
-      this.jsonValue,
-      this.listOfLists,
-      this.listOfMapsOfStrings,
-      this.listOfStrings,
-      this.listOfStructs,
-      this.long,
-      this.mapOfListsOfStrings,
-      this.mapOfMaps,
-      this.mapOfStrings,
-      this.mapOfStructs,
-      this.recursiveList,
-      this.recursiveMap,
-      this.recursiveStruct,
-      this.simpleStruct,
-      this.string,
-      this.structWithJsonName,
-      this.timestamp,
-      this.unixTimestamp})
-      : super._();
-
+  _$KitchenSink._({
+    this.blob,
+    this.boolean,
+    this.double_,
+    this.emptyStruct,
+    this.float,
+    this.httpdateTimestamp,
+    this.integer,
+    this.iso8601Timestamp,
+    this.jsonValue,
+    this.listOfLists,
+    this.listOfMapsOfStrings,
+    this.listOfStrings,
+    this.listOfStructs,
+    this.long,
+    this.mapOfListsOfStrings,
+    this.mapOfMaps,
+    this.mapOfStrings,
+    this.mapOfStructs,
+    this.recursiveList,
+    this.recursiveMap,
+    this.recursiveStruct,
+    this.simpleStruct,
+    this.string,
+    this.structWithJsonName,
+    this.timestamp,
+    this.unixTimestamp,
+  }) : super._();
   @override
   KitchenSink rebuild(void Function(KitchenSinkBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  KitchenSinkBuilder toBuilder() => new KitchenSinkBuilder()..replace(this);
+  KitchenSinkBuilder toBuilder() => KitchenSinkBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -182,7 +181,7 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
 
   EmptyStructBuilder? _emptyStruct;
   EmptyStructBuilder get emptyStruct =>
-      _$this._emptyStruct ??= new EmptyStructBuilder();
+      _$this._emptyStruct ??= EmptyStructBuilder();
   set emptyStruct(EmptyStructBuilder? emptyStruct) =>
       _$this._emptyStruct = emptyStruct;
 
@@ -210,27 +209,27 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
 
   _i6.ListBuilder<_i6.BuiltList<String>>? _listOfLists;
   _i6.ListBuilder<_i6.BuiltList<String>> get listOfLists =>
-      _$this._listOfLists ??= new _i6.ListBuilder<_i6.BuiltList<String>>();
+      _$this._listOfLists ??= _i6.ListBuilder<_i6.BuiltList<String>>();
   set listOfLists(_i6.ListBuilder<_i6.BuiltList<String>>? listOfLists) =>
       _$this._listOfLists = listOfLists;
 
   _i6.ListBuilder<_i6.BuiltMap<String, String>>? _listOfMapsOfStrings;
   _i6.ListBuilder<_i6.BuiltMap<String, String>> get listOfMapsOfStrings =>
       _$this._listOfMapsOfStrings ??=
-          new _i6.ListBuilder<_i6.BuiltMap<String, String>>();
+          _i6.ListBuilder<_i6.BuiltMap<String, String>>();
   set listOfMapsOfStrings(
-          _i6.ListBuilder<_i6.BuiltMap<String, String>>? listOfMapsOfStrings) =>
-      _$this._listOfMapsOfStrings = listOfMapsOfStrings;
+    _i6.ListBuilder<_i6.BuiltMap<String, String>>? listOfMapsOfStrings,
+  ) => _$this._listOfMapsOfStrings = listOfMapsOfStrings;
 
   _i6.ListBuilder<String>? _listOfStrings;
   _i6.ListBuilder<String> get listOfStrings =>
-      _$this._listOfStrings ??= new _i6.ListBuilder<String>();
+      _$this._listOfStrings ??= _i6.ListBuilder<String>();
   set listOfStrings(_i6.ListBuilder<String>? listOfStrings) =>
       _$this._listOfStrings = listOfStrings;
 
   _i6.ListBuilder<SimpleStruct>? _listOfStructs;
   _i6.ListBuilder<SimpleStruct> get listOfStructs =>
-      _$this._listOfStructs ??= new _i6.ListBuilder<SimpleStruct>();
+      _$this._listOfStructs ??= _i6.ListBuilder<SimpleStruct>();
   set listOfStructs(_i6.ListBuilder<SimpleStruct>? listOfStructs) =>
       _$this._listOfStructs = listOfStructs;
 
@@ -240,53 +239,52 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
 
   _i6.ListMultimapBuilder<String, String>? _mapOfListsOfStrings;
   _i6.ListMultimapBuilder<String, String> get mapOfListsOfStrings =>
-      _$this._mapOfListsOfStrings ??=
-          new _i6.ListMultimapBuilder<String, String>();
+      _$this._mapOfListsOfStrings ??= _i6.ListMultimapBuilder<String, String>();
   set mapOfListsOfStrings(
-          _i6.ListMultimapBuilder<String, String>? mapOfListsOfStrings) =>
-      _$this._mapOfListsOfStrings = mapOfListsOfStrings;
+    _i6.ListMultimapBuilder<String, String>? mapOfListsOfStrings,
+  ) => _$this._mapOfListsOfStrings = mapOfListsOfStrings;
 
   _i6.MapBuilder<String, _i6.BuiltMap<String, String>>? _mapOfMaps;
   _i6.MapBuilder<String, _i6.BuiltMap<String, String>> get mapOfMaps =>
       _$this._mapOfMaps ??=
-          new _i6.MapBuilder<String, _i6.BuiltMap<String, String>>();
+          _i6.MapBuilder<String, _i6.BuiltMap<String, String>>();
   set mapOfMaps(
-          _i6.MapBuilder<String, _i6.BuiltMap<String, String>>? mapOfMaps) =>
-      _$this._mapOfMaps = mapOfMaps;
+    _i6.MapBuilder<String, _i6.BuiltMap<String, String>>? mapOfMaps,
+  ) => _$this._mapOfMaps = mapOfMaps;
 
   _i6.MapBuilder<String, String>? _mapOfStrings;
   _i6.MapBuilder<String, String> get mapOfStrings =>
-      _$this._mapOfStrings ??= new _i6.MapBuilder<String, String>();
+      _$this._mapOfStrings ??= _i6.MapBuilder<String, String>();
   set mapOfStrings(_i6.MapBuilder<String, String>? mapOfStrings) =>
       _$this._mapOfStrings = mapOfStrings;
 
   _i6.MapBuilder<String, SimpleStruct>? _mapOfStructs;
   _i6.MapBuilder<String, SimpleStruct> get mapOfStructs =>
-      _$this._mapOfStructs ??= new _i6.MapBuilder<String, SimpleStruct>();
+      _$this._mapOfStructs ??= _i6.MapBuilder<String, SimpleStruct>();
   set mapOfStructs(_i6.MapBuilder<String, SimpleStruct>? mapOfStructs) =>
       _$this._mapOfStructs = mapOfStructs;
 
   _i6.ListBuilder<KitchenSink>? _recursiveList;
   _i6.ListBuilder<KitchenSink> get recursiveList =>
-      _$this._recursiveList ??= new _i6.ListBuilder<KitchenSink>();
+      _$this._recursiveList ??= _i6.ListBuilder<KitchenSink>();
   set recursiveList(_i6.ListBuilder<KitchenSink>? recursiveList) =>
       _$this._recursiveList = recursiveList;
 
   _i6.MapBuilder<String, KitchenSink>? _recursiveMap;
   _i6.MapBuilder<String, KitchenSink> get recursiveMap =>
-      _$this._recursiveMap ??= new _i6.MapBuilder<String, KitchenSink>();
+      _$this._recursiveMap ??= _i6.MapBuilder<String, KitchenSink>();
   set recursiveMap(_i6.MapBuilder<String, KitchenSink>? recursiveMap) =>
       _$this._recursiveMap = recursiveMap;
 
   KitchenSinkBuilder? _recursiveStruct;
   KitchenSinkBuilder get recursiveStruct =>
-      _$this._recursiveStruct ??= new KitchenSinkBuilder();
+      _$this._recursiveStruct ??= KitchenSinkBuilder();
   set recursiveStruct(KitchenSinkBuilder? recursiveStruct) =>
       _$this._recursiveStruct = recursiveStruct;
 
   SimpleStructBuilder? _simpleStruct;
   SimpleStructBuilder get simpleStruct =>
-      _$this._simpleStruct ??= new SimpleStructBuilder();
+      _$this._simpleStruct ??= SimpleStructBuilder();
   set simpleStruct(SimpleStructBuilder? simpleStruct) =>
       _$this._simpleStruct = simpleStruct;
 
@@ -296,7 +294,7 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
 
   StructWithJsonNameBuilder? _structWithJsonName;
   StructWithJsonNameBuilder get structWithJsonName =>
-      _$this._structWithJsonName ??= new StructWithJsonNameBuilder();
+      _$this._structWithJsonName ??= StructWithJsonNameBuilder();
   set structWithJsonName(StructWithJsonNameBuilder? structWithJsonName) =>
       _$this._structWithJsonName = structWithJsonName;
 
@@ -347,7 +345,6 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
 
   @override
   void replace(KitchenSink other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$KitchenSink;
   }
 
@@ -362,34 +359,36 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
   _$KitchenSink _build() {
     _$KitchenSink _$result;
     try {
-      _$result = _$v ??
-          new _$KitchenSink._(
-              blob: blob,
-              boolean: boolean,
-              double_: double_,
-              emptyStruct: _emptyStruct?.build(),
-              float: float,
-              httpdateTimestamp: httpdateTimestamp,
-              integer: integer,
-              iso8601Timestamp: iso8601Timestamp,
-              jsonValue: jsonValue,
-              listOfLists: _listOfLists?.build(),
-              listOfMapsOfStrings: _listOfMapsOfStrings?.build(),
-              listOfStrings: _listOfStrings?.build(),
-              listOfStructs: _listOfStructs?.build(),
-              long: long,
-              mapOfListsOfStrings: _mapOfListsOfStrings?.build(),
-              mapOfMaps: _mapOfMaps?.build(),
-              mapOfStrings: _mapOfStrings?.build(),
-              mapOfStructs: _mapOfStructs?.build(),
-              recursiveList: _recursiveList?.build(),
-              recursiveMap: _recursiveMap?.build(),
-              recursiveStruct: _recursiveStruct?.build(),
-              simpleStruct: _simpleStruct?.build(),
-              string: string,
-              structWithJsonName: _structWithJsonName?.build(),
-              timestamp: timestamp,
-              unixTimestamp: unixTimestamp);
+      _$result =
+          _$v ??
+          _$KitchenSink._(
+            blob: blob,
+            boolean: boolean,
+            double_: double_,
+            emptyStruct: _emptyStruct?.build(),
+            float: float,
+            httpdateTimestamp: httpdateTimestamp,
+            integer: integer,
+            iso8601Timestamp: iso8601Timestamp,
+            jsonValue: jsonValue,
+            listOfLists: _listOfLists?.build(),
+            listOfMapsOfStrings: _listOfMapsOfStrings?.build(),
+            listOfStrings: _listOfStrings?.build(),
+            listOfStructs: _listOfStructs?.build(),
+            long: long,
+            mapOfListsOfStrings: _mapOfListsOfStrings?.build(),
+            mapOfMaps: _mapOfMaps?.build(),
+            mapOfStrings: _mapOfStrings?.build(),
+            mapOfStructs: _mapOfStructs?.build(),
+            recursiveList: _recursiveList?.build(),
+            recursiveMap: _recursiveMap?.build(),
+            recursiveStruct: _recursiveStruct?.build(),
+            simpleStruct: _simpleStruct?.build(),
+            string: string,
+            structWithJsonName: _structWithJsonName?.build(),
+            timestamp: timestamp,
+            unixTimestamp: unixTimestamp,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -425,8 +424,11 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
         _$failedField = 'structWithJsonName';
         _structWithJsonName?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'KitchenSink', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'KitchenSink',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

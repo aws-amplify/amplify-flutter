@@ -13,20 +13,19 @@ class _$QueryParamsAsStringListMapInput
   @override
   final _i3.BuiltListMultimap<String, String>? foo;
 
-  factory _$QueryParamsAsStringListMapInput(
-          [void Function(QueryParamsAsStringListMapInputBuilder)? updates]) =>
-      (new QueryParamsAsStringListMapInputBuilder()..update(updates))._build();
+  factory _$QueryParamsAsStringListMapInput([
+    void Function(QueryParamsAsStringListMapInputBuilder)? updates,
+  ]) => (QueryParamsAsStringListMapInputBuilder()..update(updates))._build();
 
   _$QueryParamsAsStringListMapInput._({this.qux, this.foo}) : super._();
-
   @override
   QueryParamsAsStringListMapInput rebuild(
-          void Function(QueryParamsAsStringListMapInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryParamsAsStringListMapInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryParamsAsStringListMapInputBuilder toBuilder() =>
-      new QueryParamsAsStringListMapInputBuilder()..replace(this);
+      QueryParamsAsStringListMapInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,8 +47,10 @@ class _$QueryParamsAsStringListMapInput
 
 class QueryParamsAsStringListMapInputBuilder
     implements
-        Builder<QueryParamsAsStringListMapInput,
-            QueryParamsAsStringListMapInputBuilder> {
+        Builder<
+          QueryParamsAsStringListMapInput,
+          QueryParamsAsStringListMapInputBuilder
+        > {
   _$QueryParamsAsStringListMapInput? _$v;
 
   String? _qux;
@@ -58,7 +59,7 @@ class QueryParamsAsStringListMapInputBuilder
 
   _i3.ListMultimapBuilder<String, String>? _foo;
   _i3.ListMultimapBuilder<String, String> get foo =>
-      _$this._foo ??= new _i3.ListMultimapBuilder<String, String>();
+      _$this._foo ??= _i3.ListMultimapBuilder<String, String>();
   set foo(_i3.ListMultimapBuilder<String, String>? foo) => _$this._foo = foo;
 
   QueryParamsAsStringListMapInputBuilder();
@@ -75,7 +76,6 @@ class QueryParamsAsStringListMapInputBuilder
 
   @override
   void replace(QueryParamsAsStringListMapInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$QueryParamsAsStringListMapInput;
   }
 
@@ -90,16 +90,20 @@ class QueryParamsAsStringListMapInputBuilder
   _$QueryParamsAsStringListMapInput _build() {
     _$QueryParamsAsStringListMapInput _$result;
     try {
-      _$result = _$v ??
-          new _$QueryParamsAsStringListMapInput._(qux: qux, foo: _foo?.build());
+      _$result =
+          _$v ??
+          _$QueryParamsAsStringListMapInput._(qux: qux, foo: _foo?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'foo';
         _foo?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'QueryParamsAsStringListMapInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'QueryParamsAsStringListMapInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -110,23 +114,20 @@ class QueryParamsAsStringListMapInputBuilder
 
 class _$QueryParamsAsStringListMapInputPayload
     extends QueryParamsAsStringListMapInputPayload {
-  factory _$QueryParamsAsStringListMapInputPayload(
-          [void Function(QueryParamsAsStringListMapInputPayloadBuilder)?
-              updates]) =>
-      (new QueryParamsAsStringListMapInputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$QueryParamsAsStringListMapInputPayload([
+    void Function(QueryParamsAsStringListMapInputPayloadBuilder)? updates,
+  ]) => (QueryParamsAsStringListMapInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$QueryParamsAsStringListMapInputPayload._() : super._();
-
   @override
   QueryParamsAsStringListMapInputPayload rebuild(
-          void Function(QueryParamsAsStringListMapInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryParamsAsStringListMapInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryParamsAsStringListMapInputPayloadBuilder toBuilder() =>
-      new QueryParamsAsStringListMapInputPayloadBuilder()..replace(this);
+      QueryParamsAsStringListMapInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -142,21 +143,23 @@ class _$QueryParamsAsStringListMapInputPayload
 
 class QueryParamsAsStringListMapInputPayloadBuilder
     implements
-        Builder<QueryParamsAsStringListMapInputPayload,
-            QueryParamsAsStringListMapInputPayloadBuilder> {
+        Builder<
+          QueryParamsAsStringListMapInputPayload,
+          QueryParamsAsStringListMapInputPayloadBuilder
+        > {
   _$QueryParamsAsStringListMapInputPayload? _$v;
 
   QueryParamsAsStringListMapInputPayloadBuilder();
 
   @override
   void replace(QueryParamsAsStringListMapInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$QueryParamsAsStringListMapInputPayload;
   }
 
   @override
   void update(
-      void Function(QueryParamsAsStringListMapInputPayloadBuilder)? updates) {
+    void Function(QueryParamsAsStringListMapInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -164,7 +167,7 @@ class QueryParamsAsStringListMapInputPayloadBuilder
   QueryParamsAsStringListMapInputPayload build() => _build();
 
   _$QueryParamsAsStringListMapInputPayload _build() {
-    final _$result = _$v ?? new _$QueryParamsAsStringListMapInputPayload._();
+    final _$result = _$v ?? _$QueryParamsAsStringListMapInputPayload._();
     replace(_$result);
     return _$result;
   }

@@ -62,7 +62,7 @@ import 'package:intl/intl.dart' as intl;
 /// property.
 abstract class AuthenticatorInputLocalizations {
   AuthenticatorInputLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale);
+    : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
@@ -88,16 +88,14 @@ abstract class AuthenticatorInputLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
   /// User's chosen username.
   ///
@@ -297,6 +295,12 @@ abstract class AuthenticatorInputLocalizations {
   /// **'Authenticator App (TOTP)'**
   String get selectTotp;
 
+  /// Label for the radio button to select email as the user's chosen MFA method.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get selectEmail;
+
   /// The instructional text for submitting a TOTP pass code
   ///
   /// In en, this message translates to:
@@ -328,14 +332,15 @@ Future<AuthenticatorInputLocalizations> lookupAuthenticatorInputLocalizations(
   switch (locale.languageCode) {
     case 'en':
       return input_localizations_en.loadLibrary().then(
-            (dynamic _) =>
-                input_localizations_en.AuthenticatorInputLocalizationsEn(),
-          );
+        (dynamic _) =>
+            input_localizations_en.AuthenticatorInputLocalizationsEn(),
+      );
   }
 
   throw FlutterError(
-      'AuthenticatorInputLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AuthenticatorInputLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

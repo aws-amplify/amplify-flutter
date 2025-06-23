@@ -25,25 +25,24 @@ class _$Part extends Part {
   final String? checksumSha256;
 
   factory _$Part([void Function(PartBuilder)? updates]) =>
-      (new PartBuilder()..update(updates))._build();
+      (PartBuilder()..update(updates))._build();
 
-  _$Part._(
-      {this.partNumber,
-      this.lastModified,
-      this.eTag,
-      this.size,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256})
-      : super._();
-
+  _$Part._({
+    this.partNumber,
+    this.lastModified,
+    this.eTag,
+    this.size,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+  }) : super._();
   @override
   Part rebuild(void Function(PartBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PartBuilder toBuilder() => new PartBuilder()..replace(this);
+  PartBuilder toBuilder() => PartBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -134,7 +133,6 @@ class PartBuilder implements Builder<Part, PartBuilder> {
 
   @override
   void replace(Part other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Part;
   }
 
@@ -147,16 +145,18 @@ class PartBuilder implements Builder<Part, PartBuilder> {
   Part build() => _build();
 
   _$Part _build() {
-    final _$result = _$v ??
-        new _$Part._(
-            partNumber: partNumber,
-            lastModified: lastModified,
-            eTag: eTag,
-            size: size,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256);
+    final _$result =
+        _$v ??
+        _$Part._(
+          partNumber: partNumber,
+          lastModified: lastModified,
+          eTag: eTag,
+          size: size,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+        );
     replace(_$result);
     return _$result;
   }

@@ -14,22 +14,23 @@ class _$NullOperationInputOutput extends NullOperationInputOutput {
   @override
   final _i3.BuiltMap<String, String?>? sparseStringMap;
 
-  factory _$NullOperationInputOutput(
-          [void Function(NullOperationInputOutputBuilder)? updates]) =>
-      (new NullOperationInputOutputBuilder()..update(updates))._build();
+  factory _$NullOperationInputOutput([
+    void Function(NullOperationInputOutputBuilder)? updates,
+  ]) => (NullOperationInputOutputBuilder()..update(updates))._build();
 
-  _$NullOperationInputOutput._(
-      {this.string, this.sparseStringList, this.sparseStringMap})
-      : super._();
-
+  _$NullOperationInputOutput._({
+    this.string,
+    this.sparseStringList,
+    this.sparseStringMap,
+  }) : super._();
   @override
   NullOperationInputOutput rebuild(
-          void Function(NullOperationInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NullOperationInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NullOperationInputOutputBuilder toBuilder() =>
-      new NullOperationInputOutputBuilder()..replace(this);
+      NullOperationInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,13 +63,13 @@ class NullOperationInputOutputBuilder
 
   _i3.ListBuilder<String?>? _sparseStringList;
   _i3.ListBuilder<String?> get sparseStringList =>
-      _$this._sparseStringList ??= new _i3.ListBuilder<String?>();
+      _$this._sparseStringList ??= _i3.ListBuilder<String?>();
   set sparseStringList(_i3.ListBuilder<String?>? sparseStringList) =>
       _$this._sparseStringList = sparseStringList;
 
   _i3.MapBuilder<String, String?>? _sparseStringMap;
   _i3.MapBuilder<String, String?> get sparseStringMap =>
-      _$this._sparseStringMap ??= new _i3.MapBuilder<String, String?>();
+      _$this._sparseStringMap ??= _i3.MapBuilder<String, String?>();
   set sparseStringMap(_i3.MapBuilder<String, String?>? sparseStringMap) =>
       _$this._sparseStringMap = sparseStringMap;
 
@@ -87,7 +88,6 @@ class NullOperationInputOutputBuilder
 
   @override
   void replace(NullOperationInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NullOperationInputOutput;
   }
 
@@ -102,11 +102,13 @@ class NullOperationInputOutputBuilder
   _$NullOperationInputOutput _build() {
     _$NullOperationInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$NullOperationInputOutput._(
-              string: string,
-              sparseStringList: _sparseStringList?.build(),
-              sparseStringMap: _sparseStringMap?.build());
+      _$result =
+          _$v ??
+          _$NullOperationInputOutput._(
+            string: string,
+            sparseStringList: _sparseStringList?.build(),
+            sparseStringMap: _sparseStringMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -115,8 +117,11 @@ class NullOperationInputOutputBuilder
         _$failedField = 'sparseStringMap';
         _sparseStringMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'NullOperationInputOutput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'NullOperationInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

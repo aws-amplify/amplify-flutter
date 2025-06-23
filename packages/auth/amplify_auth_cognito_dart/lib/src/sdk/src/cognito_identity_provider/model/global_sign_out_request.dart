@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.global_sign_out_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -22,9 +22,9 @@ abstract class GlobalSignOutRequest
   }
 
   /// Represents the request to sign out all devices.
-  factory GlobalSignOutRequest.build(
-          [void Function(GlobalSignOutRequestBuilder) updates]) =
-      _$GlobalSignOutRequest;
+  factory GlobalSignOutRequest.build([
+    void Function(GlobalSignOutRequestBuilder) updates,
+  ]) = _$GlobalSignOutRequest;
 
   const GlobalSignOutRequest._();
 
@@ -32,26 +32,24 @@ abstract class GlobalSignOutRequest
     GlobalSignOutRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<GlobalSignOutRequest>> serializers = [
-    GlobalSignOutRequestAwsJson11Serializer()
+    GlobalSignOutRequestAwsJson11Serializer(),
   ];
 
   /// A valid access token that Amazon Cognito issued to the user who you want to sign out.
   String get accessToken;
   @override
   GlobalSignOutRequest getPayload() => this;
+
   @override
   List<Object?> get props => [accessToken];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GlobalSignOutRequest')
-      ..add(
-        'accessToken',
-        '***SENSITIVE***',
-      );
+      ..add('accessToken', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -59,20 +57,19 @@ abstract class GlobalSignOutRequest
 class GlobalSignOutRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<GlobalSignOutRequest> {
   const GlobalSignOutRequestAwsJson11Serializer()
-      : super('GlobalSignOutRequest');
+    : super('GlobalSignOutRequest');
 
   @override
   Iterable<Type> get types => const [
-        GlobalSignOutRequest,
-        _$GlobalSignOutRequest,
-      ];
+    GlobalSignOutRequest,
+    _$GlobalSignOutRequest,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   GlobalSignOutRequest deserialize(
     Serializers serializers,
@@ -90,10 +87,12 @@ class GlobalSignOutRequestAwsJson11Serializer
       }
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accessToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -110,10 +109,7 @@ class GlobalSignOutRequestAwsJson11Serializer
     final GlobalSignOutRequest(:accessToken) = object;
     result$.addAll([
       'AccessToken',
-      serializers.serialize(
-        accessToken,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(accessToken, specifiedType: const FullType(String)),
     ]);
     return result$;
   }

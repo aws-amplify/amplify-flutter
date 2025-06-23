@@ -90,21 +90,23 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
     var requestBytesRead = 0;
     request.headers.forEach(ioRequest.headers.set);
-    final response = await request.body
-        .tap(
-          (chunk) {
-            requestBytesRead += chunk.length;
-            requestProgress.add(requestBytesRead);
-          },
-          onDone: () {
-            if (!cancelTrigger.isCompleted) {
-              logger.verbose('Request sent');
-            }
-            requestProgress.close();
-          },
-        )
-        .takeUntil(cancelTrigger.future)
-        .pipe(ioRequest) as HttpClientResponse;
+    final response =
+        await request.body
+                .tap(
+                  (chunk) {
+                    requestBytesRead += chunk.length;
+                    requestProgress.add(requestBytesRead);
+                  },
+                  onDone: () {
+                    if (!cancelTrigger.isCompleted) {
+                      logger.verbose('Request sent');
+                    }
+                    requestProgress.close();
+                  },
+                )
+                .takeUntil(cancelTrigger.future)
+                .pipe(ioRequest)
+            as HttpClientResponse;
 
     if (completer.isCanceled) return;
 
@@ -132,9 +134,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
         socket.destroy();
       });
     };
-    unawaited(
-      response.forward(bodyController, cancelOnError: true),
-    );
+    unawaited(response.forward(bodyController, cancelOnError: true));
 
     logger.verbose('Received headers');
     final headers = <String, String>{};
@@ -197,28 +197,27 @@ class AWSHttpClientImpl extends AWSHttpClient {
     List<_RedirectInfo> redirects,
     AWSHttpMethod method,
     Uri uri,
-  ) =>
-      [
-        Header(':method'.codeUnits, utf8.encode(method.value)),
+  ) => [
+    Header(':method'.codeUnits, utf8.encode(method.value)),
+    Header(
+      ':path'.codeUnits,
+      utf8.encode('${uri.path}${uri.hasQuery ? '?${uri.query}' : ''}'),
+    ),
+    Header(':scheme'.codeUnits, utf8.encode(uri.scheme)),
+    Header(
+      ':authority'.codeUnits,
+      utf8.encode('${uri.host}${uri.hasPort ? ':${uri.port}' : ''}'),
+    ),
+    for (final entry in request.headers.entries)
+      if (redirects.isEmpty ||
+          _shouldCopyHeaderOnRedirect(entry.key, request.uri, uri))
         Header(
-          ':path'.codeUnits,
-          utf8.encode('${uri.path}${uri.hasQuery ? '?${uri.query}' : ''}'),
+          // Lower-case headers due to:
+          // https://github.com/dart-lang/http2/issues/49
+          utf8.encode(entry.key.toLowerCase()),
+          utf8.encode(entry.value),
         ),
-        Header(':scheme'.codeUnits, utf8.encode(uri.scheme)),
-        Header(
-          ':authority'.codeUnits,
-          utf8.encode('${uri.host}${uri.hasPort ? ':${uri.port}' : ''}'),
-        ),
-        for (final entry in request.headers.entries)
-          if (redirects.isEmpty ||
-              _shouldCopyHeaderOnRedirect(entry.key, request.uri, uri))
-            Header(
-              // Lower-case headers due to:
-              // https://github.com/dart-lang/http2/issues/49
-              utf8.encode(entry.key.toLowerCase()),
-              utf8.encode(entry.value),
-            ),
-      ];
+  ];
 
   /// Sends an HTTP/2 request using `package:http2`.
   Future<void> _sendH2({

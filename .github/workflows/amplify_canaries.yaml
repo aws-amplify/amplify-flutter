@@ -16,7 +16,8 @@ concurrency:
 jobs:
   # Ensure an app pulling in published Amplify libraries can build properly
   build:
-    runs-on: macos-latest
+    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available
+    runs-on: macos-14
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -31,7 +32,7 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.10.1"
+            flutter-version: "3.32.0"
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
         with:
@@ -43,11 +44,10 @@ jobs:
           channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
-      # Flutter requires Java 11 to build android apps with Gradle.
       - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
-          java-version: "11"
+          java-version: "17"
 
       - name: Build Canary (iOS)
         run: build-support/build_canary.sh ios --no-codesign
@@ -73,8 +73,7 @@ jobs:
           flutter-version: ${{ matrix.flutter-version }}
 
   e2e-android:
-    runs-on:
-      labels: amplify-flutter_ubuntu-latest_4-core
+    runs-on: ubuntu-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -89,7 +88,7 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.10.1"
+            flutter-version: "3.32.0"
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
         with:
@@ -102,11 +101,10 @@ jobs:
           channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
-      # Flutter requires Java 11 to build android apps with Gradle.
       - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
-          java-version: "11"
+          java-version: "17"
 
       # Must be run before `fetch_backends` so that `pubspec.lock` is present.
       - name: Pub Upgrade
@@ -148,7 +146,8 @@ jobs:
           platform-version: ${{ matrix.ios-version }}
 
   e2e-ios:
-    runs-on: macos-latest-xl
+    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-availabl
+    runs-on: macos-14-xlarge
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -163,10 +162,10 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.10.1"
+            flutter-version: "3.32.0"
         ios-version:
-          - "14.5"
-          - "16"
+          - "15.0"
+          - "17.5"
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
         with:

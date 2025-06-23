@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.delivery_medium_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -6,25 +6,13 @@ library amplify_auth_cognito_dart.cognito_identity_provider.model.delivery_mediu
 import 'package:smithy/smithy.dart' as _i1;
 
 class DeliveryMediumType extends _i1.SmithyEnum<DeliveryMediumType> {
-  const DeliveryMediumType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const DeliveryMediumType._(super.index, super.name, super.value);
 
   const DeliveryMediumType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const email = DeliveryMediumType._(
-    0,
-    'EMAIL',
-    'EMAIL',
-  );
+  static const email = DeliveryMediumType._(0, 'EMAIL', 'EMAIL');
 
-  static const sms = DeliveryMediumType._(
-    1,
-    'SMS',
-    'SMS',
-  );
+  static const sms = DeliveryMediumType._(1, 'SMS', 'SMS');
 
   /// All values of [DeliveryMediumType].
   static const values = <DeliveryMediumType>[
@@ -38,12 +26,9 @@ class DeliveryMediumType extends _i1.SmithyEnum<DeliveryMediumType> {
       values: values,
       sdkUnknown: DeliveryMediumType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

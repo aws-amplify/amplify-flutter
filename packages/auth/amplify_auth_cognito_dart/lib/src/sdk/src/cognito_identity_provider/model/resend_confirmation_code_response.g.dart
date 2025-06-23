@@ -10,20 +10,19 @@ class _$ResendConfirmationCodeResponse extends ResendConfirmationCodeResponse {
   @override
   final CodeDeliveryDetailsType? codeDeliveryDetails;
 
-  factory _$ResendConfirmationCodeResponse(
-          [void Function(ResendConfirmationCodeResponseBuilder)? updates]) =>
-      (new ResendConfirmationCodeResponseBuilder()..update(updates))._build();
+  factory _$ResendConfirmationCodeResponse([
+    void Function(ResendConfirmationCodeResponseBuilder)? updates,
+  ]) => (ResendConfirmationCodeResponseBuilder()..update(updates))._build();
 
   _$ResendConfirmationCodeResponse._({this.codeDeliveryDetails}) : super._();
-
   @override
   ResendConfirmationCodeResponse rebuild(
-          void Function(ResendConfirmationCodeResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ResendConfirmationCodeResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResendConfirmationCodeResponseBuilder toBuilder() =>
-      new ResendConfirmationCodeResponseBuilder()..replace(this);
+      ResendConfirmationCodeResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -43,16 +42,18 @@ class _$ResendConfirmationCodeResponse extends ResendConfirmationCodeResponse {
 
 class ResendConfirmationCodeResponseBuilder
     implements
-        Builder<ResendConfirmationCodeResponse,
-            ResendConfirmationCodeResponseBuilder> {
+        Builder<
+          ResendConfirmationCodeResponse,
+          ResendConfirmationCodeResponseBuilder
+        > {
   _$ResendConfirmationCodeResponse? _$v;
 
   CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
   CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
+      _$this._codeDeliveryDetails ??= CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
-          CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
-      _$this._codeDeliveryDetails = codeDeliveryDetails;
+    CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
+  ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   ResendConfirmationCodeResponseBuilder();
 
@@ -67,7 +68,6 @@ class ResendConfirmationCodeResponseBuilder
 
   @override
   void replace(ResendConfirmationCodeResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResendConfirmationCodeResponse;
   }
 
@@ -82,17 +82,22 @@ class ResendConfirmationCodeResponseBuilder
   _$ResendConfirmationCodeResponse _build() {
     _$ResendConfirmationCodeResponse _$result;
     try {
-      _$result = _$v ??
-          new _$ResendConfirmationCodeResponse._(
-              codeDeliveryDetails: _codeDeliveryDetails?.build());
+      _$result =
+          _$v ??
+          _$ResendConfirmationCodeResponse._(
+            codeDeliveryDetails: _codeDeliveryDetails?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'codeDeliveryDetails';
         _codeDeliveryDetails?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'ResendConfirmationCodeResponse', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'ResendConfirmationCodeResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

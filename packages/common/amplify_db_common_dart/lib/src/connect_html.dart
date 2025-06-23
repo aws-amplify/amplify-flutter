@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:html';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
@@ -11,6 +10,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart';
 import 'package:meta/meta.dart';
 import 'package:sqlite3/wasm.dart';
+import 'package:web/web.dart';
 
 final _sqlite3Memo = AsyncMemoizer<Uint8List>();
 

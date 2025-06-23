@@ -12,20 +12,19 @@ class _$NewDeviceMetadataType extends NewDeviceMetadataType {
   @override
   final String? deviceGroupKey;
 
-  factory _$NewDeviceMetadataType(
-          [void Function(NewDeviceMetadataTypeBuilder)? updates]) =>
-      (new NewDeviceMetadataTypeBuilder()..update(updates))._build();
+  factory _$NewDeviceMetadataType([
+    void Function(NewDeviceMetadataTypeBuilder)? updates,
+  ]) => (NewDeviceMetadataTypeBuilder()..update(updates))._build();
 
   _$NewDeviceMetadataType._({this.deviceKey, this.deviceGroupKey}) : super._();
-
   @override
   NewDeviceMetadataType rebuild(
-          void Function(NewDeviceMetadataTypeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NewDeviceMetadataTypeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NewDeviceMetadataTypeBuilder toBuilder() =>
-      new NewDeviceMetadataTypeBuilder()..replace(this);
+      NewDeviceMetadataTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class NewDeviceMetadataTypeBuilder
 
   @override
   void replace(NewDeviceMetadataType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NewDeviceMetadataType;
   }
 
@@ -85,9 +83,12 @@ class NewDeviceMetadataTypeBuilder
   NewDeviceMetadataType build() => _build();
 
   _$NewDeviceMetadataType _build() {
-    final _$result = _$v ??
-        new _$NewDeviceMetadataType._(
-            deviceKey: deviceKey, deviceGroupKey: deviceGroupKey);
+    final _$result =
+        _$v ??
+        _$NewDeviceMetadataType._(
+          deviceKey: deviceKey,
+          deviceGroupKey: deviceGroupKey,
+        );
     replace(_$result);
     return _$result;
   }

@@ -11,23 +11,19 @@ class _$HttpRequestWithRegexLiteralInput
   @override
   final String str;
 
-  factory _$HttpRequestWithRegexLiteralInput(
-          [void Function(HttpRequestWithRegexLiteralInputBuilder)? updates]) =>
-      (new HttpRequestWithRegexLiteralInputBuilder()..update(updates))._build();
+  factory _$HttpRequestWithRegexLiteralInput([
+    void Function(HttpRequestWithRegexLiteralInputBuilder)? updates,
+  ]) => (HttpRequestWithRegexLiteralInputBuilder()..update(updates))._build();
 
-  _$HttpRequestWithRegexLiteralInput._({required this.str}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        str, r'HttpRequestWithRegexLiteralInput', 'str');
-  }
-
+  _$HttpRequestWithRegexLiteralInput._({required this.str}) : super._();
   @override
   HttpRequestWithRegexLiteralInput rebuild(
-          void Function(HttpRequestWithRegexLiteralInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithRegexLiteralInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithRegexLiteralInputBuilder toBuilder() =>
-      new HttpRequestWithRegexLiteralInputBuilder()..replace(this);
+      HttpRequestWithRegexLiteralInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,8 +42,10 @@ class _$HttpRequestWithRegexLiteralInput
 
 class HttpRequestWithRegexLiteralInputBuilder
     implements
-        Builder<HttpRequestWithRegexLiteralInput,
-            HttpRequestWithRegexLiteralInputBuilder> {
+        Builder<
+          HttpRequestWithRegexLiteralInput,
+          HttpRequestWithRegexLiteralInputBuilder
+        > {
   _$HttpRequestWithRegexLiteralInput? _$v;
 
   String? _str;
@@ -67,7 +65,6 @@ class HttpRequestWithRegexLiteralInputBuilder
 
   @override
   void replace(HttpRequestWithRegexLiteralInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithRegexLiteralInput;
   }
 
@@ -80,10 +77,15 @@ class HttpRequestWithRegexLiteralInputBuilder
   HttpRequestWithRegexLiteralInput build() => _build();
 
   _$HttpRequestWithRegexLiteralInput _build() {
-    final _$result = _$v ??
-        new _$HttpRequestWithRegexLiteralInput._(
-            str: BuiltValueNullFieldError.checkNotNull(
-                str, r'HttpRequestWithRegexLiteralInput', 'str'));
+    final _$result =
+        _$v ??
+        _$HttpRequestWithRegexLiteralInput._(
+          str: BuiltValueNullFieldError.checkNotNull(
+            str,
+            r'HttpRequestWithRegexLiteralInput',
+            'str',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -91,23 +93,20 @@ class HttpRequestWithRegexLiteralInputBuilder
 
 class _$HttpRequestWithRegexLiteralInputPayload
     extends HttpRequestWithRegexLiteralInputPayload {
-  factory _$HttpRequestWithRegexLiteralInputPayload(
-          [void Function(HttpRequestWithRegexLiteralInputPayloadBuilder)?
-              updates]) =>
-      (new HttpRequestWithRegexLiteralInputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$HttpRequestWithRegexLiteralInputPayload([
+    void Function(HttpRequestWithRegexLiteralInputPayloadBuilder)? updates,
+  ]) => (HttpRequestWithRegexLiteralInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$HttpRequestWithRegexLiteralInputPayload._() : super._();
-
   @override
   HttpRequestWithRegexLiteralInputPayload rebuild(
-          void Function(HttpRequestWithRegexLiteralInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithRegexLiteralInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithRegexLiteralInputPayloadBuilder toBuilder() =>
-      new HttpRequestWithRegexLiteralInputPayloadBuilder()..replace(this);
+      HttpRequestWithRegexLiteralInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -123,21 +122,23 @@ class _$HttpRequestWithRegexLiteralInputPayload
 
 class HttpRequestWithRegexLiteralInputPayloadBuilder
     implements
-        Builder<HttpRequestWithRegexLiteralInputPayload,
-            HttpRequestWithRegexLiteralInputPayloadBuilder> {
+        Builder<
+          HttpRequestWithRegexLiteralInputPayload,
+          HttpRequestWithRegexLiteralInputPayloadBuilder
+        > {
   _$HttpRequestWithRegexLiteralInputPayload? _$v;
 
   HttpRequestWithRegexLiteralInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithRegexLiteralInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithRegexLiteralInputPayload;
   }
 
   @override
   void update(
-      void Function(HttpRequestWithRegexLiteralInputPayloadBuilder)? updates) {
+    void Function(HttpRequestWithRegexLiteralInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -145,7 +146,7 @@ class HttpRequestWithRegexLiteralInputPayloadBuilder
   HttpRequestWithRegexLiteralInputPayload build() => _build();
 
   _$HttpRequestWithRegexLiteralInputPayload _build() {
-    final _$result = _$v ?? new _$HttpRequestWithRegexLiteralInputPayload._();
+    final _$result = _$v ?? _$HttpRequestWithRegexLiteralInputPayload._();
     replace(_$result);
     return _$result;
   }

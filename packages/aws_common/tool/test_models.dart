@@ -12,10 +12,7 @@ const serializable = JsonSerializable(
   includeIfNull: false,
 );
 
-enum TestPlatform {
-  linux,
-  windows,
-}
+enum TestPlatform { linux, windows }
 
 @serializable
 class FileLocationTest with AWSSerializable<Map<String, Object?>> {
@@ -65,10 +62,7 @@ class ParserTest with AWSSerializable<Map<String, Object?>> {
 
 @serializable
 class ParserTestInput with AWSSerializable<Map<String, Object?>> {
-  const ParserTestInput({
-    this.configFile,
-    this.credentialsFile,
-  });
+  const ParserTestInput({this.configFile, this.credentialsFile});
 
   factory ParserTestInput.fromJson(Map<String, Object?> json) =>
       _$ParserTestInputFromJson(json);
@@ -83,10 +77,7 @@ class ParserTestInput with AWSSerializable<Map<String, Object?>> {
 @serializable
 @NullableAWSProfileFileConverter()
 class ParserTestOutput with AWSSerializable<Map<String, Object?>> {
-  const ParserTestOutput({
-    this.errorContaining,
-    this.profiles,
-  });
+  const ParserTestOutput({this.errorContaining, this.profiles});
 
   factory ParserTestOutput.fromJson(Map<String, Object?> json) =>
       _$ParserTestOutputFromJson(json);
@@ -139,18 +130,11 @@ class ProfileTestCase {
   Map<String, Object?> toJson() => _$ProfileTestCaseToJson(this);
 }
 
-enum AWSCredentialsType {
-  assumeRole,
-  session,
-  basic,
-}
+enum AWSCredentialsType { assumeRole, session, basic }
 
 @serializable
 class ProfileTestOutput {
-  const ProfileTestOutput({
-    this.region,
-    this.credentialType,
-  });
+  const ProfileTestOutput({this.region, this.credentialType});
 
   factory ProfileTestOutput.fromJson(Map<String, Object?> json) =>
       _$ProfileTestOutputFromJson(json);
@@ -184,10 +168,7 @@ class AWSProfileFileConverter
                   final name = propLine.split('=')[0].trim();
                   final value = propLine.split('=')[1].trim();
                   b.value = '';
-                  b.subProperties[name] = AWSProperty(
-                    name: name,
-                    value: value,
-                  );
+                  b.subProperties[name] = AWSProperty(name: name, value: value);
                 }
               } else {
                 b.value = propertyValue;

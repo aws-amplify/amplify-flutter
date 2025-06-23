@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.concurrent_modification_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -12,11 +12,12 @@ part 'concurrent_modification_exception.g.dart';
 
 /// This exception is thrown if two or more modifications are happening concurrently.
 abstract class ConcurrentModificationException
-    with
-        _i1.AWSEquatable<ConcurrentModificationException>
+    with _i1.AWSEquatable<ConcurrentModificationException>
     implements
-        Built<ConcurrentModificationException,
-            ConcurrentModificationExceptionBuilder>,
+        Built<
+          ConcurrentModificationException,
+          ConcurrentModificationExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   /// This exception is thrown if two or more modifications are happening concurrently.
   factory ConcurrentModificationException({String? message}) {
@@ -24,9 +25,9 @@ abstract class ConcurrentModificationException
   }
 
   /// This exception is thrown if two or more modifications are happening concurrently.
-  factory ConcurrentModificationException.build(
-          [void Function(ConcurrentModificationExceptionBuilder) updates]) =
-      _$ConcurrentModificationException;
+  factory ConcurrentModificationException.build([
+    void Function(ConcurrentModificationExceptionBuilder) updates,
+  ]) = _$ConcurrentModificationException;
 
   const ConcurrentModificationException._();
 
@@ -34,42 +35,43 @@ abstract class ConcurrentModificationException
   factory ConcurrentModificationException.fromResponse(
     ConcurrentModificationException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<ConcurrentModificationException>>
-      serializers = [ConcurrentModificationExceptionAwsJson11Serializer()];
+  serializers = [ConcurrentModificationExceptionAwsJson11Serializer()];
 
   /// The message provided when the concurrent exception is thrown.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'ConcurrentModificationException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'ConcurrentModificationException',
+  );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ConcurrentModificationException')
-          ..add(
-            'message',
-            message,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'ConcurrentModificationException',
+    )..add('message', message);
     return helper.toString();
   }
 }
@@ -77,20 +79,19 @@ abstract class ConcurrentModificationException
 class ConcurrentModificationExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ConcurrentModificationException> {
   const ConcurrentModificationExceptionAwsJson11Serializer()
-      : super('ConcurrentModificationException');
+    : super('ConcurrentModificationException');
 
   @override
   Iterable<Type> get types => const [
-        ConcurrentModificationException,
-        _$ConcurrentModificationException,
-      ];
+    ConcurrentModificationException,
+    _$ConcurrentModificationException,
+  ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   ConcurrentModificationException deserialize(
     Serializers serializers,
@@ -108,10 +109,12 @@ class ConcurrentModificationExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -129,10 +132,9 @@ class ConcurrentModificationExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

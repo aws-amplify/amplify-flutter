@@ -7,20 +7,19 @@ part of 'update_device_status_response.dart';
 // **************************************************************************
 
 class _$UpdateDeviceStatusResponse extends UpdateDeviceStatusResponse {
-  factory _$UpdateDeviceStatusResponse(
-          [void Function(UpdateDeviceStatusResponseBuilder)? updates]) =>
-      (new UpdateDeviceStatusResponseBuilder()..update(updates))._build();
+  factory _$UpdateDeviceStatusResponse([
+    void Function(UpdateDeviceStatusResponseBuilder)? updates,
+  ]) => (UpdateDeviceStatusResponseBuilder()..update(updates))._build();
 
   _$UpdateDeviceStatusResponse._() : super._();
-
   @override
   UpdateDeviceStatusResponse rebuild(
-          void Function(UpdateDeviceStatusResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateDeviceStatusResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateDeviceStatusResponseBuilder toBuilder() =>
-      new UpdateDeviceStatusResponseBuilder()..replace(this);
+      UpdateDeviceStatusResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -43,7 +42,6 @@ class UpdateDeviceStatusResponseBuilder
 
   @override
   void replace(UpdateDeviceStatusResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateDeviceStatusResponse;
   }
 
@@ -56,7 +54,7 @@ class UpdateDeviceStatusResponseBuilder
   UpdateDeviceStatusResponse build() => _build();
 
   _$UpdateDeviceStatusResponse _build() {
-    final _$result = _$v ?? new _$UpdateDeviceStatusResponse._();
+    final _$result = _$v ?? _$UpdateDeviceStatusResponse._();
     replace(_$result);
     return _$result;
   }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v1.ec2_protocol.model.struct_arg; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,33 +31,21 @@ abstract class StructArg
   const StructArg._();
 
   static const List<_i2.SmithySerializer<StructArg>> serializers = [
-    StructArgEc2QuerySerializer()
+    StructArgEc2QuerySerializer(),
   ];
 
   String? get stringArg;
   bool? get otherArg;
   StructArg? get recursiveArg;
   @override
-  List<Object?> get props => [
-        stringArg,
-        otherArg,
-        recursiveArg,
-      ];
+  List<Object?> get props => [stringArg, otherArg, recursiveArg];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StructArg')
-      ..add(
-        'stringArg',
-        stringArg,
-      )
-      ..add(
-        'otherArg',
-        otherArg,
-      )
-      ..add(
-        'recursiveArg',
-        recursiveArg,
-      );
+      ..add('stringArg', stringArg)
+      ..add('otherArg', otherArg)
+      ..add('recursiveArg', recursiveArg);
     return helper.toString();
   }
 }
@@ -67,17 +55,13 @@ class StructArgEc2QuerySerializer
   const StructArgEc2QuerySerializer() : super('StructArg');
 
   @override
-  Iterable<Type> get types => const [
-        StructArg,
-        _$StructArg,
-      ];
+  Iterable<Type> get types => const [StructArg, _$StructArg];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
+
   @override
   StructArg deserialize(
     Serializers serializers,
@@ -95,20 +79,27 @@ class StructArgEc2QuerySerializer
       }
       switch (key) {
         case 'StringArg':
-          result.stringArg = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.stringArg =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'OtherArg':
-          result.otherArg = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.otherArg =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'RecursiveArg':
-          result.recursiveArg.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(StructArg),
-          ) as StructArg));
+          result.recursiveArg.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(StructArg),
+                )
+                as StructArg),
+          );
       }
     }
 
@@ -125,32 +116,35 @@ class StructArgEc2QuerySerializer
       const _i2.XmlElementName(
         'StructArgResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final StructArg(:stringArg, :otherArg, :recursiveArg) = object;
     if (stringArg != null) {
       result$
         ..add(const _i2.XmlElementName('StringArg'))
-        ..add(serializers.serialize(
-          stringArg,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            stringArg,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (otherArg != null) {
       result$
         ..add(const _i2.XmlElementName('OtherArg'))
-        ..add(serializers.serialize(
-          otherArg,
-          specifiedType: const FullType.nullable(bool),
-        ));
+        ..add(
+          serializers.serialize(otherArg, specifiedType: const FullType(bool)),
+        );
     }
     if (recursiveArg != null) {
       result$
         ..add(const _i2.XmlElementName('RecursiveArg'))
-        ..add(serializers.serialize(
-          recursiveArg,
-          specifiedType: const FullType(StructArg),
-        ));
+        ..add(
+          serializers.serialize(
+            recursiveArg,
+            specifiedType: const FullType(StructArg),
+          ),
+        );
     }
     return result$;
   }

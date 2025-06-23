@@ -21,9 +21,7 @@ void main() {
 
     // Given I'm running the example "ui/components/authenticator/sign-in-with-phone.feature"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-phone',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-phone');
       phoneNumber = generateUSPhoneNumber();
       password = generatePassword();
     });
@@ -35,18 +33,12 @@ void main() {
 
       expect(
         tester.bloc.stream,
-        emitsInOrder([
-          UnauthenticatedState.signIn,
-          emitsDone,
-        ]),
+        emitsInOrder([UnauthenticatedState.signIn, emitsDone]),
       );
 
       final signInPage = SignInPage(tester: tester);
 
-      // When I select my country code
-      await signInPage.selectCountryCode();
-
-      // And I type my "phone number" with status "UNKNOWN"
+      // When I type my "phone number" with status "UNKNOWN"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
@@ -70,9 +62,7 @@ void main() {
         username: phoneNumber.toE164(),
         password: password,
         options: SignUpOptions(
-          userAttributes: {
-            AuthUserAttributeKey.email: email,
-          },
+          userAttributes: {AuthUserAttributeKey.email: email},
         ),
       );
 
@@ -92,9 +82,6 @@ void main() {
 
       signInPage.expectUsername(label: 'Phone Number');
 
-      // When I select my country code
-      await signInPage.selectCountryCode();
-
       // When I type my "username" with status "unconfirmed"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
@@ -111,16 +98,15 @@ void main() {
     });
 
     // Scenario: Sign in with confirmed credentials then sign out
-    testWidgets('Sign in with confirmed credentials then sign out',
-        (tester) async {
+    testWidgets('Sign in with confirmed credentials then sign out', (
+      tester,
+    ) async {
       await adminCreateUser(
         phoneNumber.toE164(),
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: {
-          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-        },
+        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
       );
 
       await loadAuthenticator(tester: tester);
@@ -160,14 +146,13 @@ void main() {
     });
 
     // Scenario: Sign in with force change password credentials
-    testWidgets('Sign in with force change password credentials',
-        (tester) async {
+    testWidgets('Sign in with force change password credentials', (
+      tester,
+    ) async {
       await adminCreateUser(
         phoneNumber.toE164(),
         password,
-        attributes: {
-          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-        },
+        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
       );
 
       await loadAuthenticator(tester: tester);

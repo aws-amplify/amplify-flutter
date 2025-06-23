@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_core.storage.copy_options}
 /// Configurable options for `Amplify.Storage.copy`.
@@ -12,21 +12,25 @@ class StorageCopyOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.copy_options}
-  const StorageCopyOptions({this.pluginOptions});
+  const StorageCopyOptions({this.pluginOptions, this.buckets});
 
   /// plugin specific options for `Amplify.Storage.copy`.
   final StorageCopyPluginOptions? pluginOptions;
 
+  /// Optionally specify which buckets to target
+  final CopyBuckets? buckets;
+
   @override
-  List<Object?> get props => [pluginOptions];
+  List<Object?> get props => [pluginOptions, buckets];
 
   @override
   String get runtimeTypeName => 'StorageCopyOptions';
 
   @override
   Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+    'pluginOptions': pluginOptions?.toJson(),
+    'buckets': buckets?.toJson(),
+  };
 }
 
 /// {@template amplify_core.storage.copy_plugin_options}

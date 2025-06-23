@@ -12,6 +12,6 @@ dependencies:
   amplify_flutter: "{{{amplifyFlutterConstraint}}}"
 
 dev_dependencies:
-  amplify_lints: ^2.0.0
+  amplify_lints: ^3.1.0
   flutter_test:
     sdk: flutter

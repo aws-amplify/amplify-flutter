@@ -19,22 +19,21 @@ class _$DeviceType extends DeviceType {
   final DateTime? deviceLastAuthenticatedDate;
 
   factory _$DeviceType([void Function(DeviceTypeBuilder)? updates]) =>
-      (new DeviceTypeBuilder()..update(updates))._build();
+      (DeviceTypeBuilder()..update(updates))._build();
 
-  _$DeviceType._(
-      {this.deviceKey,
-      this.deviceAttributes,
-      this.deviceCreateDate,
-      this.deviceLastModifiedDate,
-      this.deviceLastAuthenticatedDate})
-      : super._();
-
+  _$DeviceType._({
+    this.deviceKey,
+    this.deviceAttributes,
+    this.deviceCreateDate,
+    this.deviceLastModifiedDate,
+    this.deviceLastAuthenticatedDate,
+  }) : super._();
   @override
   DeviceType rebuild(void Function(DeviceTypeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  DeviceTypeBuilder toBuilder() => new DeviceTypeBuilder()..replace(this);
+  DeviceTypeBuilder toBuilder() => DeviceTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,7 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
 
   _i2.ListBuilder<AttributeType>? _deviceAttributes;
   _i2.ListBuilder<AttributeType> get deviceAttributes =>
-      _$this._deviceAttributes ??= new _i2.ListBuilder<AttributeType>();
+      _$this._deviceAttributes ??= _i2.ListBuilder<AttributeType>();
   set deviceAttributes(_i2.ListBuilder<AttributeType>? deviceAttributes) =>
       _$this._deviceAttributes = deviceAttributes;
 
@@ -106,7 +105,6 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
 
   @override
   void replace(DeviceType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeviceType;
   }
 
@@ -121,21 +119,26 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   _$DeviceType _build() {
     _$DeviceType _$result;
     try {
-      _$result = _$v ??
-          new _$DeviceType._(
-              deviceKey: deviceKey,
-              deviceAttributes: _deviceAttributes?.build(),
-              deviceCreateDate: deviceCreateDate,
-              deviceLastModifiedDate: deviceLastModifiedDate,
-              deviceLastAuthenticatedDate: deviceLastAuthenticatedDate);
+      _$result =
+          _$v ??
+          _$DeviceType._(
+            deviceKey: deviceKey,
+            deviceAttributes: _deviceAttributes?.build(),
+            deviceCreateDate: deviceCreateDate,
+            deviceLastModifiedDate: deviceLastModifiedDate,
+            deviceLastAuthenticatedDate: deviceLastAuthenticatedDate,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'deviceAttributes';
         _deviceAttributes?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'DeviceType', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'DeviceType',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

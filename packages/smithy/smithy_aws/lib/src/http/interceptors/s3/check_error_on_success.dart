@@ -42,17 +42,17 @@ class CheckErrorOnSuccess extends HttpResponseInterceptor {
     }
     return switch (response) {
       AWSHttpResponse _ => AWSHttpResponse(
-          // According to https://aws.amazon.com/premiumsupport/knowledge-center/s3-resolve-200-internalerror/
-          // 200 error responses are similar to 5xx errors.
-          statusCode: 500,
-          headers: response.headers,
-          body: response.bodyBytes,
-        ),
+        // According to https://aws.amazon.com/premiumsupport/knowledge-center/s3-resolve-200-internalerror/
+        // 200 error responses are similar to 5xx errors.
+        statusCode: 500,
+        headers: response.headers,
+        body: response.bodyBytes,
+      ),
       AWSStreamedHttpResponse _ => AWSStreamedHttpResponse(
-          statusCode: 500,
-          headers: response.headers,
-          body: response.body,
-        )
+        statusCode: 500,
+        headers: response.headers,
+        body: response.body,
+      ),
     };
   }
 }

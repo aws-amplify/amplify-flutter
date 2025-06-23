@@ -160,6 +160,18 @@ class AuthenticatorState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// The value for the email MFA setup form field
+  ///
+  /// This value will be used during continue email MFA setup
+  String get mfaEmail => _mfaEmail;
+
+  set mfaEmail(String value) {
+    _mfaEmail = value.trim();
+    notifyListeners();
+  }
+
+  String _mfaEmail = '';
+
   MfaType? _selectedMfaMethod;
 
   TotpSetupDetails? get totpSetupDetails {
@@ -223,11 +235,8 @@ class AuthenticatorState extends ChangeNotifier {
     final currentPhoneNumber =
         authAttributes[CognitoUserAttributeKey.phoneNumber];
     if (currentPhoneNumber != null) {
-      authAttributes[CognitoUserAttributeKey.phoneNumber] =
-          currentPhoneNumber.replaceFirst(
-        oldDialCode.value,
-        newDialCode.value,
-      );
+      authAttributes[CognitoUserAttributeKey.phoneNumber] = currentPhoneNumber
+          .replaceFirst(oldDialCode.value, newDialCode.value);
     }
     _dialCode = newDialCode;
     notifyListeners();
@@ -295,10 +304,7 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   set preferredUsername(String preferredUsername) {
-    _setAttribute(
-      CognitoUserAttributeKey.preferredUsername,
-      preferredUsername,
-    );
+    _setAttribute(CognitoUserAttributeKey.preferredUsername, preferredUsername);
   }
 
   set profile(String profile) {
@@ -395,6 +401,23 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(false);
   }
 
+  /// Select MFA setup preference using the values for [selectedMfaMethod]
+  Future<void> continueSignInWithMfaSetupSelection() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    _setIsBusy(true);
+
+    final confirm = AuthConfirmSignInData(
+      confirmationValue: _selectedMfaMethod!.name,
+    );
+
+    _authBloc.add(AuthConfirmSignIn(confirm));
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
   /// Complete TOTP setup using the values for [confirmationCode]
   /// and any user attributes.
   Future<void> confirmTotp() async {
@@ -408,6 +431,38 @@ class AuthenticatorState extends ChangeNotifier {
       confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
     );
+
+    _authBloc.add(AuthConfirmSignIn(confirm));
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
+  /// complete Email MFA setup using the values for [confirmationCode]
+  Future<void> confirmEmailMfa() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    _setIsBusy(true);
+
+    final confirm = AuthConfirmSignInData(
+      confirmationValue: _confirmationCode.trim(),
+    );
+
+    _authBloc.add(AuthConfirmSignIn(confirm));
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
+  /// Complete MFA setup using the values for [confirmationCode]
+  Future<void> continueEmailMfaSetup() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    _setIsBusy(true);
+
+    final confirm = AuthConfirmSignInData(confirmationValue: _mfaEmail.trim());
 
     _authBloc.add(AuthConfirmSignIn(confirm));
     await nextBlocEvent();
@@ -500,9 +555,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     final resetPasswordData = AuthResetPasswordData(username: _username.trim());
     _authBloc.add(AuthResetPassword(resetPasswordData));
-    await nextBlocEvent(
-      where: (state) => state is UnauthenticatedState,
-    );
+    await nextBlocEvent(where: (state) => state is UnauthenticatedState);
     _setIsBusy(false);
   }
 
@@ -523,9 +576,7 @@ class AuthenticatorState extends ChangeNotifier {
       newPassword: _newPassword.trim(),
     );
     _authBloc.add(AuthConfirmResetPassword(confirmResetPasswordData));
-    await nextBlocEvent(
-      where: (state) => state is UnauthenticatedState,
-    );
+    await nextBlocEvent(where: (state) => state is UnauthenticatedState);
     _setIsBusy(false);
   }
 
@@ -591,9 +642,7 @@ class AuthenticatorState extends ChangeNotifier {
     );
 
     _authBloc.add(AuthVerifyUser(authVerifyUserData));
-    await nextBlocEvent(
-      where: (state) => state is! LoadingState,
-    );
+    await nextBlocEvent(where: (state) => state is! LoadingState);
     _setIsBusy(false);
   }
 
@@ -617,10 +666,7 @@ class AuthenticatorState extends ChangeNotifier {
   ///
   /// If [reset] is `true`, clears temporary form data including username,
   /// password, and user attributes.
-  void changeStep(
-    AuthenticatorStep step, {
-    bool reset = true,
-  }) {
+  void changeStep(AuthenticatorStep step, {bool reset = true}) {
     _authBloc.add(AuthChangeScreen(step));
 
     /// Clean [ViewModel] when user manually navigates widgets
@@ -644,6 +690,7 @@ class AuthenticatorState extends ChangeNotifier {
     authAttributes.clear();
     _publicChallengeParams.clear();
     _selectedMfaMethod = null;
+    _mfaEmail = '';
   }
 
   void _resetFormKey() {

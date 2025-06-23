@@ -14,25 +14,23 @@ class _$GetCredentialsForIdentityInput extends GetCredentialsForIdentityInput {
   @override
   final String? customRoleArn;
 
-  factory _$GetCredentialsForIdentityInput(
-          [void Function(GetCredentialsForIdentityInputBuilder)? updates]) =>
-      (new GetCredentialsForIdentityInputBuilder()..update(updates))._build();
+  factory _$GetCredentialsForIdentityInput([
+    void Function(GetCredentialsForIdentityInputBuilder)? updates,
+  ]) => (GetCredentialsForIdentityInputBuilder()..update(updates))._build();
 
-  _$GetCredentialsForIdentityInput._(
-      {required this.identityId, this.logins, this.customRoleArn})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        identityId, r'GetCredentialsForIdentityInput', 'identityId');
-  }
-
+  _$GetCredentialsForIdentityInput._({
+    required this.identityId,
+    this.logins,
+    this.customRoleArn,
+  }) : super._();
   @override
   GetCredentialsForIdentityInput rebuild(
-          void Function(GetCredentialsForIdentityInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetCredentialsForIdentityInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetCredentialsForIdentityInputBuilder toBuilder() =>
-      new GetCredentialsForIdentityInputBuilder()..replace(this);
+      GetCredentialsForIdentityInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -56,8 +54,10 @@ class _$GetCredentialsForIdentityInput extends GetCredentialsForIdentityInput {
 
 class GetCredentialsForIdentityInputBuilder
     implements
-        Builder<GetCredentialsForIdentityInput,
-            GetCredentialsForIdentityInputBuilder> {
+        Builder<
+          GetCredentialsForIdentityInput,
+          GetCredentialsForIdentityInputBuilder
+        > {
   _$GetCredentialsForIdentityInput? _$v;
 
   String? _identityId;
@@ -66,7 +66,7 @@ class GetCredentialsForIdentityInputBuilder
 
   _i3.MapBuilder<String, String>? _logins;
   _i3.MapBuilder<String, String> get logins =>
-      _$this._logins ??= new _i3.MapBuilder<String, String>();
+      _$this._logins ??= _i3.MapBuilder<String, String>();
   set logins(_i3.MapBuilder<String, String>? logins) => _$this._logins = logins;
 
   String? _customRoleArn;
@@ -89,7 +89,6 @@ class GetCredentialsForIdentityInputBuilder
 
   @override
   void replace(GetCredentialsForIdentityInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetCredentialsForIdentityInput;
   }
 
@@ -104,20 +103,28 @@ class GetCredentialsForIdentityInputBuilder
   _$GetCredentialsForIdentityInput _build() {
     _$GetCredentialsForIdentityInput _$result;
     try {
-      _$result = _$v ??
-          new _$GetCredentialsForIdentityInput._(
-              identityId: BuiltValueNullFieldError.checkNotNull(
-                  identityId, r'GetCredentialsForIdentityInput', 'identityId'),
-              logins: _logins?.build(),
-              customRoleArn: customRoleArn);
+      _$result =
+          _$v ??
+          _$GetCredentialsForIdentityInput._(
+            identityId: BuiltValueNullFieldError.checkNotNull(
+              identityId,
+              r'GetCredentialsForIdentityInput',
+              'identityId',
+            ),
+            logins: _logins?.build(),
+            customRoleArn: customRoleArn,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'logins';
         _logins?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GetCredentialsForIdentityInput', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GetCredentialsForIdentityInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -20,7 +20,7 @@ abstract class AmplifyPluginConfig with AWSSerializable {
 
 /// {@template amplify_core.unknown_plugin_config_factory}
 /// A plugin factory for unknown plugin configs.
-/// @{endtemplate}
+/// {@endtemplate}
 @internal
 class UnknownPluginConfigFactory
     extends AmplifyPluginConfigFactory<UnknownPluginConfig> {
@@ -44,7 +44,7 @@ class UnknownPluginConfig extends DelegatingMap<String, Object?>
     implements AmplifyPluginConfig {
   /// {@macro amplify_core.unknown_plugin_config}
   const UnknownPluginConfig(this.name, Map<String, Object?> plugin)
-      : super(plugin);
+    : super(plugin);
 
   factory UnknownPluginConfig.fromJson(String name, Map<String, Object?> json) {
     return UnknownPluginConfig(name, json);

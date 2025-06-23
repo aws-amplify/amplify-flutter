@@ -1,18 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import Flutter
 import XCTest
-import Amplify
 import Combine
-@testable import AmplifyPlugins
 @testable import amplify_datastore
 
 let testSchema: ModelSchema = SchemaData.PostSchema
 let amplifySuccessResults: [FlutterSerializedModel] =
     (try! readJsonArray(filePath: "2_results") as! [[String: Any]]).map { serializedModel in
         FlutterSerializedModel.init(
-            map: try! getJSONValue(serializedModel["serializedData"] as! [String: Any]),
-            modelName: serializedModel["modelName"] as! String
+            map: try! getJSONValue(serializedModel),
+            modelName: serializedModel["__modelName"] as! String
         )
     }
 
@@ -70,16 +69,16 @@ class DataStorePluginUnitTests: XCTestCase {
             flutterResult: { results in
                 if let results = results as? [[String: Any]] {
                     // Result #1 (Any/AnyObject is not equatable so we iterate over fields we know)
-                    XCTAssertEqual("Post", results[0]["modelName"] as! String)
-                    XCTAssertEqual("4281dfba-96c8-4a38-9a8e-35c7e893ea47", (results[0]["serializedData"] as! [String: Any])["id"] as! String)
-                    XCTAssertEqual("Title 1", (results[0]["serializedData"] as! [String: Any])["title"] as! String)
-                    XCTAssertEqual(4, (results[0]["serializedData"] as! [String: Any])["rating"] as? Int) // Fixme, manually testing results in int
+                    XCTAssertEqual("Post", results[0]["__modelName"] as! String)
+                    XCTAssertEqual("4281dfba-96c8-4a38-9a8e-35c7e893ea47", (results[0])["id"] as! String)
+                    XCTAssertEqual("Title 1", (results[0])["title"] as! String)
+                    XCTAssertEqual(4, (results[0])["rating"] as? Int) // Fixme, manually testing results in int
 
                     // Result #2
-                    XCTAssertEqual("Post", results[1]["modelName"] as! String)
-                    XCTAssertEqual("43036c6b-8044-4309-bddc-262b6c686026", (results[1]["serializedData"] as! [String: Any])["id"] as! String)
-                    XCTAssertEqual("Title 2", (results[1]["serializedData"] as! [String: Any])["title"] as! String)
-                    XCTAssertEqual("2020-02-20T20:20:20-08:00", (results[1]["serializedData"] as! [String: Any])["created"] as! String)
+                    XCTAssertEqual("Post", results[1]["__modelName"] as! String)
+                    XCTAssertEqual("43036c6b-8044-4309-bddc-262b6c686026", (results[1])["id"] as! String)
+                    XCTAssertEqual("Title 2", (results[1])["title"] as! String)
+                    XCTAssertEqual("2020-02-20T20:20:20-08:00", (results[1])["created"] as! String)
                 } else {
                     XCTFail()
                 }
@@ -201,10 +200,10 @@ class DataStorePluginUnitTests: XCTestCase {
                 XCTAssertEqual("create", flutterEvent["eventType"] as! String)
 
                 let item = flutterEvent["item"] as! [String: Any]
-                XCTAssertEqual("Post", item["modelName"] as! String)
-                XCTAssertEqual("4281dfba-96c8-4a38-9a8e-35c7e893ea47", (item["serializedData"] as! [String: Any])["id"] as! String)
-                XCTAssertEqual("Title 1", (item["serializedData"] as! [String: Any])["title"] as! String)
-                XCTAssertEqual(4, (item["serializedData"] as! [String: Any])["rating"] as? Int) // Fixme, manually testing results in int
+                XCTAssertEqual("Post", item["__modelName"] as! String)
+                XCTAssertEqual("4281dfba-96c8-4a38-9a8e-35c7e893ea47", (item)["id"] as! String)
+                XCTAssertEqual("Title 1", (item)["title"] as! String)
+                XCTAssertEqual(4, (item)["rating"] as? Int) // Fixme, manually testing results in int
             }
         }
 

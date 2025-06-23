@@ -12,21 +12,20 @@ class _$SimpleScalarPropertiesOutput extends SimpleScalarPropertiesOutput {
   @override
   final double? doubleValue;
 
-  factory _$SimpleScalarPropertiesOutput(
-          [void Function(SimpleScalarPropertiesOutputBuilder)? updates]) =>
-      (new SimpleScalarPropertiesOutputBuilder()..update(updates))._build();
+  factory _$SimpleScalarPropertiesOutput([
+    void Function(SimpleScalarPropertiesOutputBuilder)? updates,
+  ]) => (SimpleScalarPropertiesOutputBuilder()..update(updates))._build();
 
   _$SimpleScalarPropertiesOutput._({this.floatValue, this.doubleValue})
-      : super._();
-
+    : super._();
   @override
   SimpleScalarPropertiesOutput rebuild(
-          void Function(SimpleScalarPropertiesOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SimpleScalarPropertiesOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SimpleScalarPropertiesOutputBuilder toBuilder() =>
-      new SimpleScalarPropertiesOutputBuilder()..replace(this);
+      SimpleScalarPropertiesOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,8 +47,10 @@ class _$SimpleScalarPropertiesOutput extends SimpleScalarPropertiesOutput {
 
 class SimpleScalarPropertiesOutputBuilder
     implements
-        Builder<SimpleScalarPropertiesOutput,
-            SimpleScalarPropertiesOutputBuilder> {
+        Builder<
+          SimpleScalarPropertiesOutput,
+          SimpleScalarPropertiesOutputBuilder
+        > {
   _$SimpleScalarPropertiesOutput? _$v;
 
   double? _floatValue;
@@ -74,7 +75,6 @@ class SimpleScalarPropertiesOutputBuilder
 
   @override
   void replace(SimpleScalarPropertiesOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleScalarPropertiesOutput;
   }
 
@@ -87,9 +87,12 @@ class SimpleScalarPropertiesOutputBuilder
   SimpleScalarPropertiesOutput build() => _build();
 
   _$SimpleScalarPropertiesOutput _build() {
-    final _$result = _$v ??
-        new _$SimpleScalarPropertiesOutput._(
-            floatValue: floatValue, doubleValue: doubleValue);
+    final _$result =
+        _$v ??
+        _$SimpleScalarPropertiesOutput._(
+          floatValue: floatValue,
+          doubleValue: doubleValue,
+        );
     replace(_$result);
     return _$result;
   }

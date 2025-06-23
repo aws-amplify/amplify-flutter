@@ -13,23 +13,21 @@ class _$ConstantAndVariableQueryStringInput
   @override
   final String? maybeSet;
 
-  factory _$ConstantAndVariableQueryStringInput(
-          [void Function(ConstantAndVariableQueryStringInputBuilder)?
-              updates]) =>
-      (new ConstantAndVariableQueryStringInputBuilder()..update(updates))
-          ._build();
+  factory _$ConstantAndVariableQueryStringInput([
+    void Function(ConstantAndVariableQueryStringInputBuilder)? updates,
+  ]) =>
+      (ConstantAndVariableQueryStringInputBuilder()..update(updates))._build();
 
   _$ConstantAndVariableQueryStringInput._({this.baz, this.maybeSet})
-      : super._();
-
+    : super._();
   @override
   ConstantAndVariableQueryStringInput rebuild(
-          void Function(ConstantAndVariableQueryStringInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConstantAndVariableQueryStringInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConstantAndVariableQueryStringInputBuilder toBuilder() =>
-      new ConstantAndVariableQueryStringInputBuilder()..replace(this);
+      ConstantAndVariableQueryStringInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -51,8 +49,10 @@ class _$ConstantAndVariableQueryStringInput
 
 class ConstantAndVariableQueryStringInputBuilder
     implements
-        Builder<ConstantAndVariableQueryStringInput,
-            ConstantAndVariableQueryStringInputBuilder> {
+        Builder<
+          ConstantAndVariableQueryStringInput,
+          ConstantAndVariableQueryStringInputBuilder
+        > {
   _$ConstantAndVariableQueryStringInput? _$v;
 
   String? _baz;
@@ -77,13 +77,13 @@ class ConstantAndVariableQueryStringInputBuilder
 
   @override
   void replace(ConstantAndVariableQueryStringInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConstantAndVariableQueryStringInput;
   }
 
   @override
   void update(
-      void Function(ConstantAndVariableQueryStringInputBuilder)? updates) {
+    void Function(ConstantAndVariableQueryStringInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -91,9 +91,9 @@ class ConstantAndVariableQueryStringInputBuilder
   ConstantAndVariableQueryStringInput build() => _build();
 
   _$ConstantAndVariableQueryStringInput _build() {
-    final _$result = _$v ??
-        new _$ConstantAndVariableQueryStringInput._(
-            baz: baz, maybeSet: maybeSet);
+    final _$result =
+        _$v ??
+        _$ConstantAndVariableQueryStringInput._(baz: baz, maybeSet: maybeSet);
     replace(_$result);
     return _$result;
   }
@@ -101,23 +101,20 @@ class ConstantAndVariableQueryStringInputBuilder
 
 class _$ConstantAndVariableQueryStringInputPayload
     extends ConstantAndVariableQueryStringInputPayload {
-  factory _$ConstantAndVariableQueryStringInputPayload(
-          [void Function(ConstantAndVariableQueryStringInputPayloadBuilder)?
-              updates]) =>
-      (new ConstantAndVariableQueryStringInputPayloadBuilder()..update(updates))
-          ._build();
+  factory _$ConstantAndVariableQueryStringInputPayload([
+    void Function(ConstantAndVariableQueryStringInputPayloadBuilder)? updates,
+  ]) => (ConstantAndVariableQueryStringInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$ConstantAndVariableQueryStringInputPayload._() : super._();
-
   @override
   ConstantAndVariableQueryStringInputPayload rebuild(
-          void Function(ConstantAndVariableQueryStringInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConstantAndVariableQueryStringInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConstantAndVariableQueryStringInputPayloadBuilder toBuilder() =>
-      new ConstantAndVariableQueryStringInputPayloadBuilder()..replace(this);
+      ConstantAndVariableQueryStringInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -133,22 +130,23 @@ class _$ConstantAndVariableQueryStringInputPayload
 
 class ConstantAndVariableQueryStringInputPayloadBuilder
     implements
-        Builder<ConstantAndVariableQueryStringInputPayload,
-            ConstantAndVariableQueryStringInputPayloadBuilder> {
+        Builder<
+          ConstantAndVariableQueryStringInputPayload,
+          ConstantAndVariableQueryStringInputPayloadBuilder
+        > {
   _$ConstantAndVariableQueryStringInputPayload? _$v;
 
   ConstantAndVariableQueryStringInputPayloadBuilder();
 
   @override
   void replace(ConstantAndVariableQueryStringInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConstantAndVariableQueryStringInputPayload;
   }
 
   @override
   void update(
-      void Function(ConstantAndVariableQueryStringInputPayloadBuilder)?
-          updates) {
+    void Function(ConstantAndVariableQueryStringInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -156,8 +154,7 @@ class ConstantAndVariableQueryStringInputPayloadBuilder
   ConstantAndVariableQueryStringInputPayload build() => _build();
 
   _$ConstantAndVariableQueryStringInputPayload _build() {
-    final _$result =
-        _$v ?? new _$ConstantAndVariableQueryStringInputPayload._();
+    final _$result = _$v ?? _$ConstantAndVariableQueryStringInputPayload._();
     replace(_$result);
     return _$result;
   }

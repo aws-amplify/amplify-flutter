@@ -1,9 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:html';
+import 'dart:js_interop';
 
 import 'package:example_common/src/components/component.dart';
+import 'package:web/web.dart';
 
 /// {@template example_common.text_component}
 /// a component that displays text
@@ -17,6 +18,6 @@ class TextComponent extends Component {
 
   @override
   Component render() {
-    return Component.fromElement(Element.p()..innerHtml = text);
+    return Component.fromElement(HTMLParagraphElement()..innerHTML = text.toJS);
   }
 }

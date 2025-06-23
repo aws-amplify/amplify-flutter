@@ -14,7 +14,8 @@ enum QueryFieldOperatorType {
   greater_than,
   contains,
   between,
-  begins_with
+  begins_with,
+  attribute_exists,
 }
 
 extension QueryFieldOperatorTypeExtension on QueryFieldOperatorType {
@@ -32,15 +33,6 @@ abstract class QueryFieldOperator<T> {
   /// where [other] is a field on the model.
   bool evaluate(T? other);
 
-  /// Similar to `evaluate`, except `other` should be the
-  /// *serialized* value of a field on the model.
-  ///
-  /// This should be used to support comparisons with models
-  /// that were generated prior to `toMap()` being added.
-  // TODO(Jordan-Nelson): remove at next major version bump
-  @Deprecated('Regenerate models with latest CLI and use `evaluate` instead.')
-  bool evaluateSerialized(T? other);
-
   Map<String, dynamic> serializeAsMap();
 
   Map<String, dynamic> serializeAsMapWithOperator(
@@ -55,16 +47,7 @@ abstract class QueryFieldOperator<T> {
 
   /// check the type of [value] and invoke corresponding serialize method
   dynamic serializeDynamicValue(dynamic value) {
-    // DateTime is deprecated and will be removed in the next major version
-    if (value is DateTime) {
-      if (zDebugMode) {
-        safePrint(
-          'WARNING: Using DateTime types in a QueryPredicate is deprecated. '
-          'Use a Temporal Date/Time Type instead.',
-        );
-      }
-      return value.toDateTimeIso8601String();
-    } else if (value is TemporalDate) {
+    if (value is TemporalDate) {
       return value.format();
     } else if (value is TemporalDateTime) {
       return value.format();
@@ -85,7 +68,7 @@ abstract class QueryFieldOperator<T> {
 
 abstract class QueryFieldOperatorSingleValue<T> extends QueryFieldOperator<T> {
   const QueryFieldOperatorSingleValue(this.value, QueryFieldOperatorType type)
-      : super(type);
+    : super(type);
 
   final T value;
 
@@ -97,7 +80,7 @@ abstract class QueryFieldOperatorSingleValue<T> extends QueryFieldOperator<T> {
 
 class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const EqualQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.equal);
+    : super(value, QueryFieldOperatorType.equal);
 
   @override
   bool evaluate(T? other) {
@@ -105,47 +88,21 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
     // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
     // and the value should be compared against the model ID.
     if (other is Model) {
-      // TODO(Jordan-Nelson): Update to `return value == other.modelIdentifier`
-      // when `getId()` is removed from Model.
-      if (value is ModelIdentifier) {
-        return value == other.modelIdentifier;
-      } else {
-        // ignore: deprecated_member_use_from_same_package
-        return value == other.getId();
-      }
+      return value == other.modelIdentifier;
     }
 
     return value == other;
-  }
-
-  @override
-  bool evaluateSerialized(T? other) {
-    // if `other` is a Map and has an "id" field, the query predicate is on a
-    // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
-    // and the value should be compared against the model ID.
-    if (other is Map && other['id'] != null && value is String) {
-      return value == other['id'];
-    }
-    final serializedValue = serializeDynamicValue(value);
-    return other == serializedValue;
   }
 }
 
 class EqualModelIdentifierQueryOperator<T extends ModelIdentifier>
     extends QueryFieldOperatorSingleValue<T> {
   const EqualModelIdentifierQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.equal);
+    : super(value, QueryFieldOperatorType.equal);
 
   @override
   bool evaluate(T? other) {
     return other == value;
-  }
-
-  @override
-  bool evaluateSerialized(T? other) {
-    throw UnimplementedError(
-      'evaluateSerialized is not implemented for EqualModelIdentifierQueryOperator',
-    );
   }
 
   @override
@@ -156,7 +113,7 @@ class EqualModelIdentifierQueryOperator<T extends ModelIdentifier>
 
 class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const NotEqualQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.not_equal);
+    : super(value, QueryFieldOperatorType.not_equal);
 
   @override
   bool evaluate(T? other) {
@@ -164,46 +121,20 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
     // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
     // and the value should be compared against the model ID.
     if (other is Model) {
-      // TODO(Jordan-Nelson): Update to `return value != other.modelIdentifier`
-      // when `getId()` is removed from Model.
-      if (value is ModelIdentifier) {
-        return value != other.modelIdentifier;
-      } else {
-        // ignore: deprecated_member_use_from_same_package
-        return value != other.getId();
-      }
+      return value != other.modelIdentifier;
     }
     return other != value;
-  }
-
-  @override
-  bool evaluateSerialized(T? other) {
-    // if `other` is a Map and has an "id" field, the query predicate is on a
-    // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
-    // and the value should be compared against the model ID.
-    if (other is Map && other['id'] != null && value is String) {
-      return value != other['id'];
-    }
-    final serializedValue = serializeDynamicValue(value);
-    return other != serializedValue;
   }
 }
 
 class NotEqualModelIdentifierQueryOperator<T extends ModelIdentifier>
     extends QueryFieldOperatorSingleValue<T> {
   const NotEqualModelIdentifierQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.not_equal);
+    : super(value, QueryFieldOperatorType.not_equal);
 
   @override
   bool evaluate(T? other) {
     return other != value;
-  }
-
-  @override
-  bool evaluateSerialized(T? other) {
-    throw UnimplementedError(
-      'evaluateSerialized is not implemented for NotEqualModelIdentifierQueryOperator',
-    );
   }
 
   @override
@@ -215,7 +146,7 @@ class NotEqualModelIdentifierQueryOperator<T extends ModelIdentifier>
 class LessOrEqualQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const LessOrEqualQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.less_or_equal);
+    : super(value, QueryFieldOperatorType.less_or_equal);
 
   @override
   bool evaluate(T? other) {
@@ -224,21 +155,12 @@ class LessOrEqualQueryOperator<T extends Comparable<Object?>>
     }
     return other.compareTo(value) <= 0;
   }
-
-  @override
-  bool evaluateSerialized(T? other) {
-    if (other == null) {
-      return false;
-    }
-    final serializedValue = serializeDynamicValue(value);
-    return other.compareTo(serializedValue) <= 0;
-  }
 }
 
 class LessThanQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const LessThanQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.less_than);
+    : super(value, QueryFieldOperatorType.less_than);
 
   @override
   bool evaluate(T? other) {
@@ -247,21 +169,12 @@ class LessThanQueryOperator<T extends Comparable<Object?>>
     }
     return other.compareTo(value) < 0;
   }
-
-  @override
-  bool evaluateSerialized(T? other) {
-    if (other == null) {
-      return false;
-    }
-    final serializedValue = serializeDynamicValue(value);
-    return other.compareTo(serializedValue) < 0;
-  }
 }
 
 class GreaterOrEqualQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const GreaterOrEqualQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.greater_or_equal);
+    : super(value, QueryFieldOperatorType.greater_or_equal);
 
   @override
   bool evaluate(T? other) {
@@ -270,21 +183,12 @@ class GreaterOrEqualQueryOperator<T extends Comparable<Object?>>
     }
     return other.compareTo(value) >= 0;
   }
-
-  @override
-  bool evaluateSerialized(T? other) {
-    if (other == null) {
-      return false;
-    }
-    final serializedValue = serializeDynamicValue(value);
-    return other.compareTo(serializedValue) >= 0;
-  }
 }
 
 class GreaterThanQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const GreaterThanQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.greater_than);
+    : super(value, QueryFieldOperatorType.greater_than);
 
   @override
   bool evaluate(T? other) {
@@ -293,20 +197,11 @@ class GreaterThanQueryOperator<T extends Comparable<Object?>>
     }
     return other.compareTo(value) > 0;
   }
-
-  @override
-  bool evaluateSerialized(T? other) {
-    if (other == null) {
-      return false;
-    }
-    final serializedValue = serializeDynamicValue(value);
-    return other.compareTo(serializedValue) > 0;
-  }
 }
 
 class ContainsQueryOperator extends QueryFieldOperatorSingleValue<String> {
   const ContainsQueryOperator(String value)
-      : super(value, QueryFieldOperatorType.contains);
+    : super(value, QueryFieldOperatorType.contains);
 
   @override
   bool evaluate(dynamic other) {
@@ -323,15 +218,12 @@ class ContainsQueryOperator extends QueryFieldOperatorSingleValue<String> {
       );
     }
   }
-
-  @override
-  bool evaluateSerialized(dynamic other) => evaluate(other);
 }
 
 class BetweenQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperator<T> {
   const BetweenQueryOperator(this.start, this.end)
-      : super(QueryFieldOperatorType.between);
+    : super(QueryFieldOperatorType.between);
 
   final T start;
   final T end;
@@ -342,17 +234,6 @@ class BetweenQueryOperator<T extends Comparable<Object?>>
       return false;
     }
     return other.compareTo(start) >= 0 && other.compareTo(end) <= 0;
-  }
-
-  @override
-  bool evaluateSerialized(T? other) {
-    if (other == null) {
-      return false;
-    }
-    final serializedStart = serializeDynamicValue(start);
-    final serializedEnd = serializeDynamicValue(end);
-    return other.compareTo(serializedStart) >= 0 &&
-        other.compareTo(serializedEnd) <= 0;
   }
 
   @override
@@ -367,7 +248,7 @@ class BetweenQueryOperator<T extends Comparable<Object?>>
 
 class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
   const BeginsWithQueryOperator(String value)
-      : super(value, QueryFieldOperatorType.begins_with);
+    : super(value, QueryFieldOperatorType.begins_with);
 
   @override
   bool evaluate(String? other) {
@@ -376,7 +257,27 @@ class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
     }
     return other.startsWith(value);
   }
+}
+
+class AttributeExistsQueryOperator<T> extends QueryFieldOperator<T> {
+  const AttributeExistsQueryOperator({this.exists = true})
+    : super(QueryFieldOperatorType.attribute_exists);
+
+  final bool exists;
 
   @override
-  bool evaluateSerialized(String? other) => evaluate(other);
+  bool evaluate(T? other) {
+    if (exists == true) {
+      return other != null;
+    }
+    return other == null;
+  }
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return <String, dynamic>{
+      'operatorName': QueryFieldOperatorType.attribute_exists.toShortString(),
+      'exists': this.exists,
+    };
+  }
 }

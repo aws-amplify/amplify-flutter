@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.update_user_attributes_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -28,15 +28,16 @@ abstract class UpdateUserAttributesRequest
     return _$UpdateUserAttributesRequest._(
       userAttributes: _i3.BuiltList(userAttributes),
       accessToken: accessToken,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 
   /// Represents the request to update user attributes.
-  factory UpdateUserAttributesRequest.build(
-          [void Function(UpdateUserAttributesRequestBuilder) updates]) =
-      _$UpdateUserAttributesRequest;
+  factory UpdateUserAttributesRequest.build([
+    void Function(UpdateUserAttributesRequestBuilder) updates,
+  ]) = _$UpdateUserAttributesRequest;
 
   const UpdateUserAttributesRequest._();
 
@@ -44,11 +45,10 @@ abstract class UpdateUserAttributesRequest
     UpdateUserAttributesRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<UpdateUserAttributesRequest>>
-      serializers = [UpdateUserAttributesRequestAwsJson11Serializer()];
+  serializers = [UpdateUserAttributesRequestAwsJson11Serializer()];
 
   /// An array of name-value pairs representing user attributes.
   ///
@@ -76,27 +76,16 @@ abstract class UpdateUserAttributesRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   UpdateUserAttributesRequest getPayload() => this;
+
   @override
-  List<Object?> get props => [
-        userAttributes,
-        accessToken,
-        clientMetadata,
-      ];
+  List<Object?> get props => [userAttributes, accessToken, clientMetadata];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateUserAttributesRequest')
-      ..add(
-        'userAttributes',
-        userAttributes,
-      )
-      ..add(
-        'accessToken',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'clientMetadata',
-        clientMetadata,
-      );
+      ..add('userAttributes', userAttributes)
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('clientMetadata', clientMetadata);
     return helper.toString();
   }
 }
@@ -104,20 +93,19 @@ abstract class UpdateUserAttributesRequest
 class UpdateUserAttributesRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<UpdateUserAttributesRequest> {
   const UpdateUserAttributesRequestAwsJson11Serializer()
-      : super('UpdateUserAttributesRequest');
+    : super('UpdateUserAttributesRequest');
 
   @override
   Iterable<Type> get types => const [
-        UpdateUserAttributesRequest,
-        _$UpdateUserAttributesRequest,
-      ];
+    UpdateUserAttributesRequest,
+    _$UpdateUserAttributesRequest,
+  ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
+
   @override
   UpdateUserAttributesRequest deserialize(
     Serializers serializers,
@@ -135,29 +123,33 @@ class UpdateUserAttributesRequestAwsJson11Serializer
       }
       switch (key) {
         case 'UserAttributes':
-          result.userAttributes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(AttributeType)],
-            ),
-          ) as _i3.BuiltList<AttributeType>));
+          result.userAttributes.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltList, [
+                    FullType(AttributeType),
+                  ]),
+                )
+                as _i3.BuiltList<AttributeType>),
+          );
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accessToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ClientMetadata':
-          result.clientMetadata.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.clientMetadata.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
       }
     }
 
@@ -174,36 +166,29 @@ class UpdateUserAttributesRequestAwsJson11Serializer
     final UpdateUserAttributesRequest(
       :userAttributes,
       :accessToken,
-      :clientMetadata
+      :clientMetadata,
     ) = object;
     result$.addAll([
       'UserAttributes',
       serializers.serialize(
         userAttributes,
-        specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(AttributeType)],
-        ),
+        specifiedType: const FullType(_i3.BuiltList, [FullType(AttributeType)]),
       ),
       'AccessToken',
-      serializers.serialize(
-        accessToken,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(accessToken, specifiedType: const FullType(String)),
     ]);
     if (clientMetadata != null) {
       result$
         ..add('ClientMetadata')
-        ..add(serializers.serialize(
-          clientMetadata,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            clientMetadata,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

@@ -2,34 +2,56 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
+library;
 
-import 'dart:html';
+import 'dart:async';
+import 'dart:js_interop';
 
 import 'package:test/test.dart';
+import 'package:web/web.dart';
 
 void main() {
   Future<void> badAssignmentTest(String jsEntrypoint) async {
-    final worker = Worker(jsEntrypoint);
-    worker.postMessage('NoWorker');
+    final worker = Worker(jsEntrypoint.toJS);
+    worker.postMessage('NoWorker'.toJS);
 
-    final errors = <Object>[];
-    worker.onError.listen(errors.add);
+    final errors = <MessageEvent>[];
+    worker.onerror = errors.add.toJS;
 
-    late dynamic data;
+    final firstMessageCompleter = Completer<MessageEvent>();
+    void complete(MessageEvent event) {
+      firstMessageCompleter.complete(event);
+    }
+
+    worker.onmessage = complete.toJS;
+
+    late List<JSAny?> eventData;
     await expectLater(
-      worker.onMessage.first,
+      firstMessageCompleter.future,
       completion(
         isA<MessageEvent>().having(
-          (message) => data = message.data,
+          (message) {
+            final data = message.data;
+            if (!data.isA<JSArray<JSAny?>>()) return null;
+            data as JSArray<JSAny?>;
+            eventData = data.toDart;
+            return eventData;
+          },
           'data',
-          isA<List<Object?>>(),
+          isA<List<JSAny?>>(),
         ),
       ),
     );
     worker.terminate();
 
     expect(errors, isEmpty);
-    expect((data as List<Object?>).first, 'WorkerBeeExceptionImpl');
+    final error = eventData.first;
+    if (!error.isA<JSString>()) {
+      fail('EventMessage.data.first is not an exception');
+    } else {
+      error as JSString;
+      expect(error.toDart, 'WorkerBeeExceptionImpl');
+    }
   }
 
   group('preamble', () {

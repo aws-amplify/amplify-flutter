@@ -8,14 +8,15 @@ import 'package:tuple/tuple.dart';
 import 'setup_utils.dart';
 import 'wait_for_expected_event_from_hub.dart';
 
-typedef EventsAssertor = void Function(
-    List<SubscriptionDataProcessedEvent<Model>> events);
-typedef ModelOperator = Future<void> Function<T extends Model>(T model,
-    {QueryPredicate? where});
+typedef EventsAssertor =
+    void Function(List<SubscriptionDataProcessedEvent<Model>> events);
+typedef ModelOperator =
+    Future<void> Function<T extends Model>(T model, {QueryPredicate? where});
 
 /// Check each of the [events] is presenting a deleted model.
 void modelIsDeletedAssertor<T extends Model>(
-    List<SubscriptionDataProcessedEvent<T>> events) {
+  List<SubscriptionDataProcessedEvent<T>> events,
+) {
   events.forEach((event) {
     expect(event.element.deleted, isTrue);
   });
@@ -23,7 +24,8 @@ void modelIsDeletedAssertor<T extends Model>(
 
 /// Check each of the [events] is presenting a model that is not deleted.
 void modelIsNotDeletedAssertor<T extends Model>(
-    List<SubscriptionDataProcessedEvent<T>> events) {
+  List<SubscriptionDataProcessedEvent<T>> events,
+) {
   events.forEach((event) {
     expect(event.element.deleted, isFalse);
   });
@@ -56,7 +58,8 @@ Future<void> testCloudSyncedModelOperation<R extends Model, A extends Model>({
   QueryPredicate? associatedModelOperationPredicate,
   EventsAssertor? associatedModelEventsAssertor,
 }) async {
-  final assertingAssociatedModels = associatedModels != null &&
+  final assertingAssociatedModels =
+      associatedModels != null &&
       associatedModels.isNotEmpty &&
       expectedAssociatedModelVersion != null &&
       associatedModelEventsAssertor != null;
@@ -122,21 +125,24 @@ Future<List<SubscriptionEvent<T>>> createObservedEventsGetter<T extends Model>(
   ModelType<T> modelType, {
   required int take,
   required EventType eventType,
-}) =>
-    Amplify.DataStore.observe(modelType)
-        .where((event) => event.eventType == eventType)
-        .distinct((prev, next) =>
-            prev.eventType == next.eventType &&
-            prev.item.modelIdentifier == next.item.modelIdentifier)
-        .take(take)
-        .toList();
+}) => Amplify.DataStore.observe(modelType)
+    .where((event) => event.eventType == eventType)
+    .distinct(
+      (prev, next) =>
+          prev.eventType == next.eventType &&
+          prev.item.modelIdentifier == next.item.modelIdentifier,
+    )
+    .take(take)
+    .toList();
 
 /// A util function runs [testWidgets] to validate [modelSpecs] specified
 /// models are not in local storage.
 void expectModelsNotToBeInLocalStorage<T extends Model>(
-    List<Tuple2<ModelType, List<T>>> modelSpecs) {
-  testWidgets('testing models are not in local storage',
-      (WidgetTester tester) async {
+  List<Tuple2<ModelType, List<T>>> modelSpecs,
+) {
+  testWidgets('testing models are not in local storage', (
+    WidgetTester tester,
+  ) async {
     for (var modelSpec in modelSpecs) {
       var modelsInLocalStorage = Amplify.DataStore.query(modelSpec.item1);
       expect(modelsInLocalStorage, isNot(containsAll(modelSpec.item2)));
@@ -257,8 +263,9 @@ void testRootAndAssociatedModelsRelationship<R extends Model, A extends Model>({
     for (var associatedModel in associatedModels) {
       final expectedModels = await Amplify.DataStore.query(
         associatedModelType,
-        where:
-            associatedModelQueryIdentifier.eq(associatedModel.modelIdentifier),
+        where: associatedModelQueryIdentifier.eq(
+          associatedModel.modelIdentifier,
+        ),
       );
       expect(expectedModels.length, 1);
       expect(expectedModels.first, associatedModel);
@@ -267,96 +274,109 @@ void testRootAndAssociatedModelsRelationship<R extends Model, A extends Model>({
 
   if (verifyBelongsToPopulating && associatedModelQueryPredicates != null) {
     testWidgets(
-        'query associated models can get nested belongs to model populated',
-        (WidgetTester tester) async {
-      associatedModels.asMap().forEach((index, associatedModel) async {
-        final expectedModels = await Amplify.DataStore.query(
-          associatedModelType,
-          where: associatedModelQueryPredicates[index],
-        );
-        expectSync(expectedModels.length, 1);
-        expectSync(expectedModels.first, associatedModel);
-      });
-    });
+      'query associated models can get nested belongs to model populated',
+      (WidgetTester tester) async {
+        associatedModels.asMap().forEach((index, associatedModel) async {
+          final expectedModels = await Amplify.DataStore.query(
+            associatedModelType,
+            where: associatedModelQueryPredicates[index],
+          );
+          expectSync(expectedModels.length, 1);
+          expectSync(expectedModels.first, associatedModel);
+        });
+      },
+    );
   }
 
   if (testNeOperationOnBelongsTo && associatedModelQueryNePredicates != null) {
     testWidgets(
-        'query associated model with ne operator on model identifier should exclude the model from results',
-        (WidgetTester tester) async {
-      associatedModels.asMap().forEach((index, associatedModel) async {
-        final expectedModels = await Amplify.DataStore.query(
-          associatedModelType,
-          where: associatedModelQueryNePredicates[index],
-        );
-        expectSync(expectedModels, isNot(contains(associatedModel)));
-      });
-    });
+      'query associated model with ne operator on model identifier should exclude the model from results',
+      (WidgetTester tester) async {
+        associatedModels.asMap().forEach((index, associatedModel) async {
+          final expectedModels = await Amplify.DataStore.query(
+            associatedModelType,
+            where: associatedModelQueryNePredicates[index],
+          );
+          expectSync(expectedModels, isNot(contains(associatedModel)));
+        });
+      },
+    );
   }
 
-  testWidgets('observed root models creation events',
-      (WidgetTester tester) async {
+  testWidgets('observed root models creation events', (
+    WidgetTester tester,
+  ) async {
     var events = await observedRootModelsEvents;
     expectObservedEventsToMatchModels(
-        events: events, referenceModels: rootModels);
+      events: events,
+      referenceModels: rootModels,
+    );
   });
 
-  testWidgets('observed associated models creation events',
-      (WidgetTester tester) async {
+  testWidgets('observed associated models creation events', (
+    WidgetTester tester,
+  ) async {
     var events = await observedAssociatedModelsEvents;
     expectObservedEventsToMatchModels(
-        events: events, referenceModels: associatedModels);
+      events: events,
+      referenceModels: associatedModels,
+    );
   });
 
   testWidgets(
-      'delete root models${supportCascadeDelete ? ' (cascade delete associated models)' : ''}',
-      (WidgetTester tester) async {
-    if (enableCloudSync) {
-      await testCloudSyncedModelOperation(
-        rootModels: rootModels,
-        expectedRootModelVersion: 2,
-        rootModelOperator: Amplify.DataStore.delete,
-        rootModelEventsAssertor: modelIsDeletedAssertor,
-        associatedModels: supportCascadeDelete ? associatedModels : null,
-        expectedAssociatedModelVersion: supportCascadeDelete ? 2 : null,
-        associatedModelEventsAssertor:
-            supportCascadeDelete ? modelIsDeletedAssertor : null,
-      );
-    } else {
-      for (var rootModel in rootModels) {
-        await Amplify.DataStore.delete(rootModel);
-      }
-    }
-    var queriedRootModels = await Amplify.DataStore.query(rootModelType);
-    expect(queriedRootModels, isNot(containsAll(rootModels)));
-
-    if (supportCascadeDelete) {
-      var queriedAssociatedModels =
-          await Amplify.DataStore.query(associatedModelType);
-      expect(queriedAssociatedModels, isNot(containsAll(associatedModels)));
-    }
-  });
-
-  if (!supportCascadeDelete) {
-    testWidgets(
-        'delete associated models separately as cascade delete is not support with this relationship',
-        (WidgetTester tester) async {
+    'delete root models${supportCascadeDelete ? ' (cascade delete associated models)' : ''}',
+    (WidgetTester tester) async {
       if (enableCloudSync) {
         await testCloudSyncedModelOperation(
-          rootModels: associatedModels,
+          rootModels: rootModels,
           expectedRootModelVersion: 2,
           rootModelOperator: Amplify.DataStore.delete,
           rootModelEventsAssertor: modelIsDeletedAssertor,
+          associatedModels: supportCascadeDelete ? associatedModels : null,
+          expectedAssociatedModelVersion: supportCascadeDelete ? 2 : null,
+          associatedModelEventsAssertor: supportCascadeDelete
+              ? modelIsDeletedAssertor
+              : null,
         );
       } else {
-        for (var associatedModel in associatedModels) {
-          await Amplify.DataStore.delete(associatedModel);
+        for (var rootModel in rootModels) {
+          await Amplify.DataStore.delete(rootModel);
         }
       }
+      var queriedRootModels = await Amplify.DataStore.query(rootModelType);
+      expect(queriedRootModels, isNot(containsAll(rootModels)));
 
-      var queriedAssociatedModels =
-          await Amplify.DataStore.query(associatedModelType);
-      expect(queriedAssociatedModels, isNot(containsAll(associatedModels)));
-    });
+      if (supportCascadeDelete) {
+        var queriedAssociatedModels = await Amplify.DataStore.query(
+          associatedModelType,
+        );
+        expect(queriedAssociatedModels, isNot(containsAll(associatedModels)));
+      }
+    },
+  );
+
+  if (!supportCascadeDelete) {
+    testWidgets(
+      'delete associated models separately as cascade delete is not support with this relationship',
+      (WidgetTester tester) async {
+        if (enableCloudSync) {
+          await testCloudSyncedModelOperation(
+            rootModels: associatedModels,
+            expectedRootModelVersion: 2,
+            rootModelOperator: Amplify.DataStore.delete,
+            rootModelEventsAssertor: modelIsDeletedAssertor,
+          );
+        } else {
+          for (var associatedModel in associatedModels) {
+            await Amplify.DataStore.delete(associatedModel);
+          }
+        }
+
+        var queriedAssociatedModels = await Amplify.DataStore.query(
+          associatedModelType,
+        );
+        expect(queriedAssociatedModels, isNot(containsAll(associatedModels)));
+      },
+    );
   }
 }

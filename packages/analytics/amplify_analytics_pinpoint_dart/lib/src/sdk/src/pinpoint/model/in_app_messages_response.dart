@@ -17,23 +17,25 @@ abstract class InAppMessagesResponse
     with _i1.AWSEquatable<InAppMessagesResponse>
     implements Built<InAppMessagesResponse, InAppMessagesResponseBuilder> {
   /// Get in-app messages response object.
-  factory InAppMessagesResponse(
-      {List<InAppMessageCampaign>? inAppMessageCampaigns}) {
+  factory InAppMessagesResponse({
+    List<InAppMessageCampaign>? inAppMessageCampaigns,
+  }) {
     return _$InAppMessagesResponse._(
-        inAppMessageCampaigns: inAppMessageCampaigns == null
-            ? null
-            : _i2.BuiltList(inAppMessageCampaigns));
+      inAppMessageCampaigns: inAppMessageCampaigns == null
+          ? null
+          : _i2.BuiltList(inAppMessageCampaigns),
+    );
   }
 
   /// Get in-app messages response object.
-  factory InAppMessagesResponse.build(
-          [void Function(InAppMessagesResponseBuilder) updates]) =
-      _$InAppMessagesResponse;
+  factory InAppMessagesResponse.build([
+    void Function(InAppMessagesResponseBuilder) updates,
+  ]) = _$InAppMessagesResponse;
 
   const InAppMessagesResponse._();
 
   static const List<_i3.SmithySerializer<InAppMessagesResponse>> serializers = [
-    InAppMessagesResponseRestJson1Serializer()
+    InAppMessagesResponseRestJson1Serializer(),
   ];
 
   /// List of targeted in-app message campaigns.
@@ -43,10 +45,7 @@ abstract class InAppMessagesResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InAppMessagesResponse')
-      ..add(
-        'inAppMessageCampaigns',
-        inAppMessageCampaigns,
-      );
+      ..add('inAppMessageCampaigns', inAppMessageCampaigns);
     return helper.toString();
   }
 }
@@ -54,20 +53,17 @@ abstract class InAppMessagesResponse
 class InAppMessagesResponseRestJson1Serializer
     extends _i3.StructuredSmithySerializer<InAppMessagesResponse> {
   const InAppMessagesResponseRestJson1Serializer()
-      : super('InAppMessagesResponse');
+    : super('InAppMessagesResponse');
 
   @override
   Iterable<Type> get types => const [
-        InAppMessagesResponse,
-        _$InAppMessagesResponse,
-      ];
+    InAppMessagesResponse,
+    _$InAppMessagesResponse,
+  ];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppMessagesResponse deserialize(
     Serializers serializers,
@@ -85,13 +81,15 @@ class InAppMessagesResponseRestJson1Serializer
       }
       switch (key) {
         case 'InAppMessageCampaigns':
-          result.inAppMessageCampaigns.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(InAppMessageCampaign)],
-            ),
-          ) as _i2.BuiltList<InAppMessageCampaign>));
+          result.inAppMessageCampaigns.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(InAppMessageCampaign),
+                  ]),
+                )
+                as _i2.BuiltList<InAppMessageCampaign>),
+          );
       }
     }
 
@@ -109,13 +107,14 @@ class InAppMessagesResponseRestJson1Serializer
     if (inAppMessageCampaigns != null) {
       result$
         ..add('InAppMessageCampaigns')
-        ..add(serializers.serialize(
-          inAppMessageCampaigns,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(InAppMessageCampaign)],
+        ..add(
+          serializers.serialize(
+            inAppMessageCampaigns,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(InAppMessageCampaign),
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

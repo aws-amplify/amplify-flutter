@@ -25,16 +25,13 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   /// external use.
   /// {@endtemplate}
   @internal
-  AmplifySecureStorage({
-    required super.config,
-  });
+  AmplifySecureStorage({required super.config});
 
   /// {@template amplify_secure_storage.amplify_secure_storage.factory_from}
   /// Returns a factory for creating [AmplifySecureStorage] instances.
   /// {@endtemplate}
-  static AmplifySecureStorage Function(
-    AmplifySecureStorageScope amplifyScope,
-  ) factoryFrom({
+  static AmplifySecureStorage Function(AmplifySecureStorageScope amplifyScope)
+  factoryFrom({
     WebSecureStorageOptions? webOptions,
     WindowsSecureStorageOptions? windowsOptions,
     LinuxSecureStorageOptions? linuxOptions,
@@ -67,37 +64,36 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   final _initMemo = AsyncMemoizer<void>();
 
   Future<void> _init() async {
-    await _initMemo.runOnce(
-      () async {
-        if (Platform.isAndroid) {
-          _instance = AmplifySecureStorageAndroid(config: config);
-        } else {
-          var config = this.config;
-          if (Platform.isWindows) {
-            config = config.copyWith(
-              windowsOptions: config.windowsOptions.copyWith(
-                storagePath: config.windowsOptions.storagePath ??
-                    (await getApplicationLocalSupportDirectory()).path,
-              ),
-            );
-          }
-          // ignore: invalid_use_of_internal_member
-          _instance = AmplifySecureStorageWorker(config: config);
+    await _initMemo.runOnce(() async {
+      if (Platform.isAndroid) {
+        _instance = AmplifySecureStorageAndroid(config: config);
+      } else {
+        var config = this.config;
+        if (Platform.isWindows) {
+          config = config.copyWith(
+            windowsOptions: config.windowsOptions.copyWith(
+              storagePath:
+                  config.windowsOptions.storagePath ??
+                  (await getApplicationLocalSupportDirectory()).path,
+            ),
+          );
         }
-        if (Platform.isIOS || Platform.isMacOS || Platform.isLinux) {
-          final accessGroup = Platform.isLinux
-              ? config.linuxOptions.accessGroup
-              : Platform.isIOS
-                  ? config.iOSOptions.accessGroup
-                  : config.macOSOptions.accessGroup;
-          // if accessGroup is set, do not clear data on initialization
-          // since the data can be shared across applications.
-          if (accessGroup == null) {
-            await _initializeScope();
-          }
+        // ignore: invalid_use_of_internal_member
+        _instance = AmplifySecureStorageWorker(config: config);
+      }
+      if (Platform.isIOS || Platform.isMacOS || Platform.isLinux) {
+        final accessGroup = Platform.isLinux
+            ? config.linuxOptions.accessGroup
+            : Platform.isIOS
+            ? config.iOSOptions.accessGroup
+            : config.macOSOptions.accessGroup;
+        // if accessGroup is set, do not clear data on initialization
+        // since the data can be shared across applications.
+        if (accessGroup == null) {
+          await _initializeScope();
         }
-      },
-    );
+      }
+    });
   }
 
   @override
@@ -161,4 +157,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
       }
     }
   }
+
+  // no-op
+  static void registerWith() {}
 }

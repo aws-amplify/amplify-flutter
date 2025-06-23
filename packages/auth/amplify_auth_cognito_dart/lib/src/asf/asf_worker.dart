@@ -30,15 +30,14 @@ abstract class ASFWorkerRequest
     required String username,
     required String deviceId,
     required ASFContextData nativeContextData,
-  }) =>
-      _$ASFWorkerRequest._(
-        requestId: _requestId++,
-        userPoolId: userPoolId,
-        clientId: clientId,
-        username: username,
-        deviceId: deviceId,
-        nativeContextData: nativeContextData,
-      );
+  }) => _$ASFWorkerRequest._(
+    requestId: _requestId++,
+    userPoolId: userPoolId,
+    clientId: clientId,
+    username: username,
+    deviceId: deviceId,
+    nativeContextData: nativeContextData,
+  );
 
   /// {@macro amplify_auth_cognito_dart.asf.asf_worker_request}
   factory ASFWorkerRequest.build([
@@ -144,10 +143,11 @@ abstract class ASFWorker
       final hash = Hmac(sha256, secret);
       final versionBytes = utf8.encode(_version);
       final payloadBytes = utf8.encode(payloadJson);
-      final bytes = (BytesBuilder(copy: false)
-            ..add(versionBytes)
-            ..add(payloadBytes))
-          .takeBytes();
+      final bytes =
+          (BytesBuilder(copy: false)
+                ..add(versionBytes)
+                ..add(payloadBytes))
+              .takeBytes();
       final signature = base64Encode(hash.convert(bytes).bytes);
 
       final contextData = <String, String>{
@@ -171,11 +171,7 @@ abstract class ASFWorker
   }
 }
 
-@SerializersFor([
-  ASFContextData,
-  ASFWorkerRequest,
-  ASFWorkerResponse,
-])
-final Serializers _serializers = (_$_serializers.toBuilder()
-      ..addAll(UserContextDataType.serializers))
-    .build();
+@SerializersFor([ASFContextData, ASFWorkerRequest, ASFWorkerResponse])
+final Serializers _serializers =
+    (_$_serializers.toBuilder()..addAll(UserContextDataType.serializers))
+        .build();

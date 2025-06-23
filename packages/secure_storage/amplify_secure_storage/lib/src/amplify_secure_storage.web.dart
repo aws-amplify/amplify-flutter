@@ -4,20 +4,18 @@
 import 'dart:async';
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:meta/meta.dart';
 
 /// {@macro amplify_secure_storage.amplify_secure_storage}
 class AmplifySecureStorage extends AmplifySecureStorageInterface {
   /// {@macro amplify_secure_storage.amplify_secure_storage.from_config}
   @internal
-  AmplifySecureStorage({
-    required super.config,
-  });
+  AmplifySecureStorage({required super.config});
 
   /// {@macro amplify_secure_storage.amplify_secure_storage.factory_from}
-  static AmplifySecureStorage Function(
-    AmplifySecureStorageScope amplifyScope,
-  ) factoryFrom({
+  static AmplifySecureStorage Function(AmplifySecureStorageScope amplifyScope)
+  factoryFrom({
     WebSecureStorageOptions? webOptions,
     WindowsSecureStorageOptions? windowsOptions,
     LinuxSecureStorageOptions? linuxOptions,
@@ -56,4 +54,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   FutureOr<void> write({required String key, required String value}) {
     return _instance.write(key: key, value: value);
   }
+
+  // no-op
+  static void registerWith(Registrar registrar) {}
 }

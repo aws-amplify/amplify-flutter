@@ -24,8 +24,9 @@ abstract class ItemResponse
   }) {
     return _$ItemResponse._(
       endpointItemResponse: endpointItemResponse,
-      eventsItemResponse:
-          eventsItemResponse == null ? null : _i2.BuiltMap(eventsItemResponse),
+      eventsItemResponse: eventsItemResponse == null
+          ? null
+          : _i2.BuiltMap(eventsItemResponse),
     );
   }
 
@@ -36,7 +37,7 @@ abstract class ItemResponse
   const ItemResponse._();
 
   static const List<_i3.SmithySerializer<ItemResponse>> serializers = [
-    ItemResponseRestJson1Serializer()
+    ItemResponseRestJson1Serializer(),
   ];
 
   /// The response that was received after the endpoint data was accepted.
@@ -45,21 +46,12 @@ abstract class ItemResponse
   /// A multipart response object that contains a key and a value for each event in the request. In each object, the event ID is the key and an EventItemResponse object is the value.
   _i2.BuiltMap<String, EventItemResponse>? get eventsItemResponse;
   @override
-  List<Object?> get props => [
-        endpointItemResponse,
-        eventsItemResponse,
-      ];
+  List<Object?> get props => [endpointItemResponse, eventsItemResponse];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ItemResponse')
-      ..add(
-        'endpointItemResponse',
-        endpointItemResponse,
-      )
-      ..add(
-        'eventsItemResponse',
-        eventsItemResponse,
-      );
+      ..add('endpointItemResponse', endpointItemResponse)
+      ..add('eventsItemResponse', eventsItemResponse);
     return helper.toString();
   }
 }
@@ -69,17 +61,11 @@ class ItemResponseRestJson1Serializer
   const ItemResponseRestJson1Serializer() : super('ItemResponse');
 
   @override
-  Iterable<Type> get types => const [
-        ItemResponse,
-        _$ItemResponse,
-      ];
+  Iterable<Type> get types => const [ItemResponse, _$ItemResponse];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   ItemResponse deserialize(
     Serializers serializers,
@@ -97,21 +83,24 @@ class ItemResponseRestJson1Serializer
       }
       switch (key) {
         case 'EndpointItemResponse':
-          result.endpointItemResponse.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(EndpointItemResponse),
-          ) as EndpointItemResponse));
+          result.endpointItemResponse.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(EndpointItemResponse),
+                )
+                as EndpointItemResponse),
+          );
         case 'EventsItemResponse':
-          result.eventsItemResponse.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType(EventItemResponse),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, EventItemResponse>));
+          result.eventsItemResponse.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(EventItemResponse),
+                  ]),
+                )
+                as _i2.BuiltMap<String, EventItemResponse>),
+          );
       }
     }
 
@@ -129,24 +118,25 @@ class ItemResponseRestJson1Serializer
     if (endpointItemResponse != null) {
       result$
         ..add('EndpointItemResponse')
-        ..add(serializers.serialize(
-          endpointItemResponse,
-          specifiedType: const FullType(EndpointItemResponse),
-        ));
+        ..add(
+          serializers.serialize(
+            endpointItemResponse,
+            specifiedType: const FullType(EndpointItemResponse),
+          ),
+        );
     }
     if (eventsItemResponse != null) {
       result$
         ..add('EventsItemResponse')
-        ..add(serializers.serialize(
-          eventsItemResponse,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            eventsItemResponse,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(EventItemResponse),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

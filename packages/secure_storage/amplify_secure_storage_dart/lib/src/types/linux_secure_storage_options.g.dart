@@ -7,39 +7,44 @@ part of 'linux_secure_storage_options.dart';
 // **************************************************************************
 
 Serializer<LinuxSecureStorageOptions> _$linuxSecureStorageOptionsSerializer =
-    new _$LinuxSecureStorageOptionsSerializer();
+    _$LinuxSecureStorageOptionsSerializer();
 
 class _$LinuxSecureStorageOptionsSerializer
     implements StructuredSerializer<LinuxSecureStorageOptions> {
   @override
   final Iterable<Type> types = const [
     LinuxSecureStorageOptions,
-    _$LinuxSecureStorageOptions
+    _$LinuxSecureStorageOptions,
   ];
   @override
   final String wireName = 'LinuxSecureStorageOptions';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, LinuxSecureStorageOptions object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    LinuxSecureStorageOptions object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.accessGroup;
     if (value != null) {
       result
         ..add('accessGroup')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   LinuxSecureStorageOptions deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new LinuxSecureStorageOptionsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = LinuxSecureStorageOptionsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -48,8 +53,12 @@ class _$LinuxSecureStorageOptionsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'accessGroup':
-          result.accessGroup = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.accessGroup =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -62,20 +71,19 @@ class _$LinuxSecureStorageOptions extends LinuxSecureStorageOptions {
   @override
   final String? accessGroup;
 
-  factory _$LinuxSecureStorageOptions(
-          [void Function(LinuxSecureStorageOptionsBuilder)? updates]) =>
-      (new LinuxSecureStorageOptionsBuilder()..update(updates))._build();
+  factory _$LinuxSecureStorageOptions([
+    void Function(LinuxSecureStorageOptionsBuilder)? updates,
+  ]) => (LinuxSecureStorageOptionsBuilder()..update(updates))._build();
 
   _$LinuxSecureStorageOptions._({this.accessGroup}) : super._();
-
   @override
   LinuxSecureStorageOptions rebuild(
-          void Function(LinuxSecureStorageOptionsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(LinuxSecureStorageOptionsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   LinuxSecureStorageOptionsBuilder toBuilder() =>
-      new LinuxSecureStorageOptionsBuilder()..replace(this);
+      LinuxSecureStorageOptionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -94,9 +102,9 @@ class _$LinuxSecureStorageOptions extends LinuxSecureStorageOptions {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'LinuxSecureStorageOptions')
-          ..add('accessGroup', accessGroup))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'LinuxSecureStorageOptions',
+    )..add('accessGroup', accessGroup)).toString();
   }
 }
 
@@ -122,7 +130,6 @@ class LinuxSecureStorageOptionsBuilder
 
   @override
   void replace(LinuxSecureStorageOptions other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$LinuxSecureStorageOptions;
   }
 
@@ -136,7 +143,7 @@ class LinuxSecureStorageOptionsBuilder
 
   _$LinuxSecureStorageOptions _build() {
     final _$result =
-        _$v ?? new _$LinuxSecureStorageOptions._(accessGroup: accessGroup);
+        _$v ?? _$LinuxSecureStorageOptions._(accessGroup: accessGroup);
     replace(_$result);
     return _$result;
   }

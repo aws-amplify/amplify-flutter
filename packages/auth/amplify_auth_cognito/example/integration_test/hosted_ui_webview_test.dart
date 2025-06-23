@@ -40,25 +40,16 @@ void main() {
       late String password;
 
       setUp(() async {
-        await testRunner.configure(
-          environmentName: 'hosted-ui',
-        );
+        await testRunner.configure(environmentName: 'hosted-ui');
         plugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
         stateMachine = plugin.stateMachine;
 
         username = generateUsername();
         password = generatePassword();
-        await adminCreateUser(
-          username,
-          password,
-          autoConfirm: true,
-        );
+        await adminCreateUser(username, password, autoConfirm: true);
       });
 
-      Future<void> signIn(
-        WidgetTester tester, {
-        bool cancel = false,
-      }) async {
+      Future<void> signIn(WidgetTester tester, {bool cancel = false}) async {
         stateMachine.addInstance<HostedUiPlatform>(
           HostedUiTestPlatform(
             tester,
@@ -71,13 +62,12 @@ void main() {
         _logger.debug('Signing in with Web UI');
         if (cancel) {
           final expectation = expectLater(
-            plugin.signInWithWebUI(
-              provider: AuthProvider.cognito,
-            ),
+            plugin.signInWithWebUI(provider: AuthProvider.cognito),
             throwsA(isA<UserCancelledException>()),
           );
-          final hostedUiMachine =
-              stateMachine.expect(HostedUiStateMachine.type);
+          final hostedUiMachine = stateMachine.expect(
+            HostedUiStateMachine.type,
+          );
           expect(
             hostedUiMachine.stream,
             emitsInOrder([
@@ -105,28 +95,14 @@ void main() {
 
       Future<void> signOut({required bool globalSignOut}) async {
         final result = await plugin.signOut(
-          options: SignOutOptions(
-            globalSignOut: globalSignOut,
-          ),
+          options: SignOutOptions(globalSignOut: globalSignOut),
         );
         expect(result, isA<CognitoCompleteSignOut>());
         final credentials = await stateMachine.loadCredentials();
-        expect(
-          credentials.awsCredentials,
-          isNull,
-        );
-        expect(
-          credentials.identityId,
-          isNull,
-        );
-        expect(
-          credentials.signInDetails,
-          isNull,
-        );
-        expect(
-          credentials.userPoolTokens,
-          isNull,
-        );
+        expect(credentials.awsCredentials, isNull);
+        expect(credentials.identityId, isNull);
+        expect(credentials.signInDetails, isNull);
+        expect(credentials.userPoolTokens, isNull);
         await expectLater(
           plugin.getCurrentUser(),
           throwsA(isA<SignedOutException>()),
@@ -184,12 +160,7 @@ class HostedUiTestPlatform extends HostedUiPlatformImpl {
       throw const UserCancelledException('Cancelled');
     }
     final signInUri = await getSignInUri(provider: provider);
-    await tester.pumpWidget(
-      HostedUiApp(
-        platform: this,
-        initialUri: signInUri,
-      ),
-    );
+    await tester.pumpWidget(HostedUiApp(platform: this, initialUri: signInUri));
     await tester.pumpAndSettle();
     final controller = await _controller.future;
     await tester.pump(const Duration(seconds: 2));
@@ -215,9 +186,7 @@ loginButton.click();
           '${details.code} ${details.domain} ${details.localizedDescription}',
         );
       } else {
-        _logger.error(
-          'Error running JavaScript: $details',
-        );
+        _logger.error('Error running JavaScript: $details');
       }
       rethrow;
     }
@@ -297,11 +266,7 @@ class _HostedUiAppState extends State<HostedUiApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: WebViewWidget(
-            controller: controller,
-          ),
-        ),
+        body: Center(child: WebViewWidget(controller: controller)),
       ),
     );
   }

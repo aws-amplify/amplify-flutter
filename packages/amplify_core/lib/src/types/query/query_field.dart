@@ -1,10 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library query_field;
+library;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/temporal/datetime_parse.dart';
 
 part 'query_field_operators.dart';
 part 'query_pagination.dart';
@@ -87,9 +86,9 @@ class QueryField<T> {
   /// ```
   /// {@endtemplate}
   QueryPredicateOperation le(Comparable<T> value) => QueryPredicateOperation(
-        fieldName,
-        LessOrEqualQueryOperator<Comparable<T>>(value),
-      );
+    fieldName,
+    LessOrEqualQueryOperator<Comparable<T>>(value),
+  );
 
   /// {@macro amplify_core.query_field.le}
   QueryPredicateOperation operator <=(Comparable<T> value) => le(value);
@@ -119,9 +118,9 @@ class QueryField<T> {
   /// ```
   /// {@endtemplate}
   QueryPredicateOperation lt(Comparable<T> value) => QueryPredicateOperation(
-        fieldName,
-        LessThanQueryOperator<Comparable<T>>(value),
-      );
+    fieldName,
+    LessThanQueryOperator<Comparable<T>>(value),
+  );
 
   /// {@macro amplify_core.query_field.lt}
   QueryPredicateOperation operator <(Comparable<T> value) => lt(value);
@@ -152,9 +151,9 @@ class QueryField<T> {
   /// ```
   /// {@endtemplate}
   QueryPredicateOperation ge(Comparable<T> value) => QueryPredicateOperation(
-        fieldName,
-        GreaterOrEqualQueryOperator<Comparable<T>>(value),
-      );
+    fieldName,
+    GreaterOrEqualQueryOperator<Comparable<T>>(value),
+  );
 
   /// {@macro amplify_core.query_field.ge}
   QueryPredicateOperation operator >=(Comparable<T> value) => ge(value);
@@ -184,9 +183,9 @@ class QueryField<T> {
   /// ```
   /// {@endtemplate}
   QueryPredicateOperation gt(Comparable<T> value) => QueryPredicateOperation(
-        fieldName,
-        GreaterThanQueryOperator<Comparable<T>>(value),
-      );
+    fieldName,
+    GreaterThanQueryOperator<Comparable<T>>(value),
+  );
 
   /// {@macro amplify_core.query_field.gt}
   QueryPredicateOperation operator >(Comparable<T> value) => gt(value);
@@ -196,7 +195,7 @@ class QueryField<T> {
   /// Matches models where the given field contains the provided value.
   ///
   /// This operation can be applied to fields of type String or
-  /// List<String>.
+  /// List of Strings.
   ///
   /// Example:
   /// ```dart
@@ -216,10 +215,8 @@ class QueryField<T> {
   ///   where: Blog.CATEGORIES.contains('bar'),
   /// );
   /// ```
-  QueryPredicateOperation contains(String value) => QueryPredicateOperation(
-        fieldName,
-        ContainsQueryOperator(value),
-      );
+  QueryPredicateOperation contains(String value) =>
+      QueryPredicateOperation(fieldName, ContainsQueryOperator(value));
 
   /// A **between** operation.
   ///
@@ -255,6 +252,25 @@ class QueryField<T> {
   /// ```
   QueryPredicateOperation beginsWith(String value) =>
       QueryPredicateOperation(fieldName, BeginsWithQueryOperator(value));
+
+  /// An **attribute exists** operation.
+  ///
+  /// Matches models whether the given field exists or not.
+  ///
+  /// ### Example:
+  /// The example returns Blog where the optional Author attribute exists.
+  ///
+  /// ```dart
+  /// ModelQueries.list(
+  ///  Blog.classType,
+  ///  where: Blog.AUTHOR.attributeExists(),
+  /// );
+  /// ```
+  QueryPredicateOperation attributeExists({bool exists = true}) =>
+      QueryPredicateOperation(
+        fieldName,
+        AttributeExistsQueryOperator(exists: exists),
+      );
 
   /// Sorts models by the given field in ascending order
   ///

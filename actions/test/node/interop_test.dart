@@ -39,13 +39,15 @@ void main() {
       test('execSync', () {
         check(childProcess.execSync('echo', ['Hello']))
           ..has((res) => res.exitCode, 'exitCode').equals(0)
-          ..has((res) => res.stdout as Uint8List, 'stdout')
-              .deepEquals(utf8.encode('Hello\n'));
+          ..has(
+            (res) => res.stdout as Uint8List,
+            'stdout',
+          ).deepEquals(utf8.encode('Hello\n'));
       });
 
       test('exec', () async {
         await check(childProcess.exec('echo', ['Hello'])).completes(
-          it()
+          (it) => it
             ..has((res) => res.exitCode, 'exitCode').equals(0)
             ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
         );
@@ -54,19 +56,15 @@ void main() {
       test('spawn', () async {
         final proc = childProcess.spawn('echo', ['Hello']);
         unawaited(
-          check(proc.stdout!.stream).withQueue.inOrder([
-            // ignore: unawaited_futures
-            it()..emits(it()..deepEquals(utf8.encode('Hello\n'))),
-            // ignore: unawaited_futures
-            it()..isDone(),
-          ]),
+          expectLater(
+            proc.stdout!.stream.map(String.fromCharCodes),
+            emitsInOrder(['Hello\n', emitsDone]),
+          ),
         );
-        unawaited(
-          check(proc.stderr!.stream).withQueue.isDone(),
-        );
+        unawaited(check(proc.stderr!.stream).withQueue.isDone());
         unawaited(
           check((proc.onClose, proc.onExit).wait).completes(
-            it()..has((res) => res.$2.toDartInt, 'exitCode').equals(0),
+            (it) => it..has((res) => res.$2.toDartInt, 'exitCode').equals(0),
           ),
         );
         await check(proc.onSpawn).completes();
@@ -75,28 +73,17 @@ void main() {
 
       test('spawn (pipe)', () async {
         final echo = childProcess.spawn('echo', ['Hello']);
-        final proc = childProcess.spawn(
-          'tee',
-          [],
-          stdin: echo.stdout,
-        );
+        final proc = childProcess.spawn('tee', [], stdin: echo.stdout);
         unawaited(
-          check(proc.stdout!.stream).withQueue.inOrder([
-            it()
-              // ignore: unawaited_futures
-              ..emits(
-                it()..deepEquals(utf8.encode('Hello\n')),
-              ),
-            // ignore: unawaited_futures
-            it()..isDone(),
-          ]),
+          expectLater(
+            proc.stdout!.stream.map(String.fromCharCodes),
+            emitsInOrder(['Hello\n', emitsDone]),
+          ),
         );
-        unawaited(
-          check(proc.stderr!.stream).withQueue.isDone(),
-        );
+        unawaited(check(proc.stderr!.stream).withQueue.isDone());
         unawaited(
           check((proc.onClose, proc.onExit).wait).completes(
-            it()..has((res) => res.$2.toDartInt, 'exitCode').equals(0),
+            (it) => it..has((res) => res.$2.toDartInt, 'exitCode').equals(0),
           ),
         );
         await check(proc.onSpawn).completes();

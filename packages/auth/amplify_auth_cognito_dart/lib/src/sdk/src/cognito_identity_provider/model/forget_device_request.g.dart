@@ -12,24 +12,20 @@ class _$ForgetDeviceRequest extends ForgetDeviceRequest {
   @override
   final String deviceKey;
 
-  factory _$ForgetDeviceRequest(
-          [void Function(ForgetDeviceRequestBuilder)? updates]) =>
-      (new ForgetDeviceRequestBuilder()..update(updates))._build();
+  factory _$ForgetDeviceRequest([
+    void Function(ForgetDeviceRequestBuilder)? updates,
+  ]) => (ForgetDeviceRequestBuilder()..update(updates))._build();
 
   _$ForgetDeviceRequest._({this.accessToken, required this.deviceKey})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        deviceKey, r'ForgetDeviceRequest', 'deviceKey');
-  }
-
+    : super._();
   @override
   ForgetDeviceRequest rebuild(
-          void Function(ForgetDeviceRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ForgetDeviceRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ForgetDeviceRequestBuilder toBuilder() =>
-      new ForgetDeviceRequestBuilder()..replace(this);
+      ForgetDeviceRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -75,7 +71,6 @@ class ForgetDeviceRequestBuilder
 
   @override
   void replace(ForgetDeviceRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ForgetDeviceRequest;
   }
 
@@ -88,11 +83,16 @@ class ForgetDeviceRequestBuilder
   ForgetDeviceRequest build() => _build();
 
   _$ForgetDeviceRequest _build() {
-    final _$result = _$v ??
-        new _$ForgetDeviceRequest._(
-            accessToken: accessToken,
-            deviceKey: BuiltValueNullFieldError.checkNotNull(
-                deviceKey, r'ForgetDeviceRequest', 'deviceKey'));
+    final _$result =
+        _$v ??
+        _$ForgetDeviceRequest._(
+          accessToken: accessToken,
+          deviceKey: BuiltValueNullFieldError.checkNotNull(
+            deviceKey,
+            r'ForgetDeviceRequest',
+            'deviceKey',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

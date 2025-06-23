@@ -10,20 +10,19 @@ class _$ComplexNestedErrorData extends ComplexNestedErrorData {
   @override
   final String? foo;
 
-  factory _$ComplexNestedErrorData(
-          [void Function(ComplexNestedErrorDataBuilder)? updates]) =>
-      (new ComplexNestedErrorDataBuilder()..update(updates))._build();
+  factory _$ComplexNestedErrorData([
+    void Function(ComplexNestedErrorDataBuilder)? updates,
+  ]) => (ComplexNestedErrorDataBuilder()..update(updates))._build();
 
   _$ComplexNestedErrorData._({this.foo}) : super._();
-
   @override
   ComplexNestedErrorData rebuild(
-          void Function(ComplexNestedErrorDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ComplexNestedErrorDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ComplexNestedErrorDataBuilder toBuilder() =>
-      new ComplexNestedErrorDataBuilder()..replace(this);
+      ComplexNestedErrorDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +60,6 @@ class ComplexNestedErrorDataBuilder
 
   @override
   void replace(ComplexNestedErrorData other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ComplexNestedErrorData;
   }
 
@@ -74,7 +72,7 @@ class ComplexNestedErrorDataBuilder
   ComplexNestedErrorData build() => _build();
 
   _$ComplexNestedErrorData _build() {
-    final _$result = _$v ?? new _$ComplexNestedErrorData._(foo: foo);
+    final _$result = _$v ?? _$ComplexNestedErrorData._(foo: foo);
     replace(_$result);
     return _$result;
   }
