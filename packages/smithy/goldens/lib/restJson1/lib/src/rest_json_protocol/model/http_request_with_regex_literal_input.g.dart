@@ -95,9 +95,8 @@ class _$HttpRequestWithRegexLiteralInputPayload
     extends HttpRequestWithRegexLiteralInputPayload {
   factory _$HttpRequestWithRegexLiteralInputPayload([
     void Function(HttpRequestWithRegexLiteralInputPayloadBuilder)? updates,
-  ]) =>
-      (HttpRequestWithRegexLiteralInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (HttpRequestWithRegexLiteralInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$HttpRequestWithRegexLiteralInputPayload._() : super._();
   @override

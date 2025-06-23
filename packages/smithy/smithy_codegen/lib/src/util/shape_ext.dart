@@ -37,8 +37,9 @@ extension SimpleShapeUtil on SimpleShape {
     ShapeType.short => DartTypes.core.int,
     ShapeType.string => DartTypes.core.string,
     ShapeType.timestamp => DartTypes.core.dateTime,
-    final ShapeType invalid =>
-      throw ArgumentError('Invalid simple shape: $invalid'),
+    final ShapeType invalid => throw ArgumentError(
+      'Invalid simple shape: $invalid',
+    ),
   };
 }
 
@@ -101,8 +102,8 @@ extension DartName on String {
 
     final escapeChar =
         (parentType == ShapeType.enum_ || parentType == ShapeType.union)
-            ? r'$'
-            : '_';
+        ? r'$'
+        : '_';
     var name = this;
     if (reservedWords.contains(name)) {
       name = '$name$escapeChar';
@@ -200,12 +201,11 @@ extension ShapeUtils on Shape {
           },
           _ => switch (this) {
             MemberShape _ => this,
-            _ =>
-              throw ArgumentError.value(
-                '$shapeId',
-                'shapeId',
-                'Null checks for structs should only happen on the member shape',
-              ),
+            _ => throw ArgumentError.value(
+              '$shapeId',
+              'shapeId',
+              'Null checks for structs should only happen on the member shape',
+            ),
           },
         };
         return isS3Primitive(context) || targetShape.isBoxed;
@@ -246,11 +246,10 @@ extension ShapeUtils on Shape {
     //
     // See: https://awslabs.github.io/smithy/1.0/spec/core/documentation-traits.html?highlight=sensitive#documentation-trait
     if (this is MemberShape) {
-      docs ??=
-          context
-              .shapeFor((this as MemberShape).target)
-              .getTrait<DocumentationTrait>()
-              ?.value;
+      docs ??= context
+          .shapeFor((this as MemberShape).target)
+          .getTrait<DocumentationTrait>()
+          ?.value;
     }
     if (docs != null) {
       buf.write(formatDocs(docs));
@@ -337,11 +336,9 @@ extension ShapeUtils on Shape {
         );
         final enumValue = targetShape.enumValues.singleWhere(
           (val) => val.expectTrait<EnumValueTrait>().value == defaultValue,
-          orElse:
-              () =>
-                  throw StateError(
-                    'No ${targetShape.shapeId.shape} enum value found for $defaultValue',
-                  ),
+          orElse: () => throw StateError(
+            'No ${targetShape.shapeId.shape} enum value found for $defaultValue',
+          ),
         );
         return (
           context
@@ -363,11 +360,11 @@ extension ShapeUtils on Shape {
         return defaultValue == 0
             ? (DartTypes.fixNum.int64.property('ZERO'), true)
             : (
-              DartTypes.fixNum.int64.newInstance([
-                literalNum(defaultValue as int),
-              ]),
-              false,
-            );
+                DartTypes.fixNum.int64.newInstance([
+                  literalNum(defaultValue as int),
+                ]),
+                false,
+              );
       case BooleanShape _ || PrimitiveBooleanShape _:
         return (literalBool(defaultValue as bool), true);
       case BlobShape _:
@@ -414,8 +411,9 @@ extension ShapeUtils on Shape {
     ShapeType.operation => SmithyLibrary_LibraryType.OPERATION,
     ShapeType.structure || ShapeType.union => SmithyLibrary_LibraryType.MODEL,
     ShapeType _ when isEnum => SmithyLibrary_LibraryType.MODEL,
-    final ShapeType invalid =>
-      throw ArgumentError('Invalid shape type: $invalid'),
+    final ShapeType invalid => throw ArgumentError(
+      'Invalid shape type: $invalid',
+    ),
   };
 
   /// The smithy library for this shape.
@@ -451,12 +449,11 @@ extension ShapeUtils on Shape {
       return null;
     }
     return PaginatedTraits(
-      (b) =>
-          b
-            ..inputTokenPath = trait.inputToken
-            ..outputTokenPath = trait.outputToken
-            ..itemsPath = trait.items
-            ..pageSizePath = trait.pageSize,
+      (b) => b
+        ..inputTokenPath = trait.inputToken
+        ..outputTokenPath = trait.outputToken
+        ..itemsPath = trait.items
+        ..pageSizePath = trait.pageSize,
     );
   }
 
@@ -499,12 +496,11 @@ extension NamedMembersShapeUtil on NamedMembersShape {
     Expression buildExpression(Expression exp) =>
         exps.fold(exp, (exp, el) => el(exp));
     return PaginationItem(
-      (b) =>
-          b
-            ..member.replace(member)
-            ..buildExpression = buildExpression
-            ..symbol = symbol
-            ..isNullable = isNullable,
+      (b) => b
+        ..member.replace(member)
+        ..buildExpression = buildExpression
+        ..symbol = symbol
+        ..isNullable = isNullable,
     );
   }
 }
@@ -628,114 +624,100 @@ extension OperationShapeUtil on OperationShape {
 
     // The client field
     yield ConfigParameter(
-      (p) =>
-          p
-            ..type = DartTypes.awsCommon.awsHttpClient.boxed
-            ..name = 'client'
-            ..location =
-                ParameterLocation.run |
-                ParameterLocation.clientConstructor |
-                ParameterLocation.clientMethod,
+      (p) => p
+        ..type = DartTypes.awsCommon.awsHttpClient.boxed
+        ..name = 'client'
+        ..location =
+            ParameterLocation.run |
+            ParameterLocation.clientConstructor |
+            ParameterLocation.clientMethod,
     );
 
     if (serviceShape.isAwsService) {
       yield ConfigParameter(
-        (p) =>
-            p
-              ..type = DartTypes.core.string
-              ..name = 'region'
-              ..required = true
-              ..location =
-                  ParameterLocation.constructor |
-                  ParameterLocation.clientConstructor,
+        (p) => p
+          ..type = DartTypes.core.string
+          ..name = 'region'
+          ..required = true
+          ..location =
+              ParameterLocation.constructor |
+              ParameterLocation.clientConstructor,
       );
 
       // The baseUri field
       yield ConfigParameter(
-        (p) =>
-            p
-              ..type = DartTypes.core.uri.boxed
-              ..name = 'baseUri'
-              ..location =
-                  ParameterLocation.constructor |
-                  ParameterLocation.clientConstructor,
+        (p) => p
+          ..type = DartTypes.core.uri.boxed
+          ..name = 'baseUri'
+          ..location =
+              ParameterLocation.constructor |
+              ParameterLocation.clientConstructor,
       );
     } else {
       // The baseUri override
       yield ConfigParameter(
-        (p) =>
-            p
-              ..type = DartTypes.core.uri
-              ..name = 'baseUri'
-              ..isOverride = true
-              ..required = true
-              ..location =
-                  ParameterLocation.constructor |
-                  ParameterLocation.clientConstructor,
+        (p) => p
+          ..type = DartTypes.core.uri
+          ..name = 'baseUri'
+          ..isOverride = true
+          ..required = true
+          ..location =
+              ParameterLocation.constructor |
+              ParameterLocation.clientConstructor,
       );
     }
 
     final isS3 = serviceShape.resolvedService?.sdkId == 'S3';
     if (isS3) {
       yield ConfigParameter(
-        (p) =>
-            p
-              ..type = DartTypes.smithyAws.s3ClientConfig
-              ..name = 's3ClientConfig'
-              ..required = true
-              ..location =
-                  ParameterLocation.constructor |
-                  ParameterLocation.clientConstructor |
-                  ParameterLocation.clientMethod
-              ..defaultTo =
-                  DartTypes.smithyAws.s3ClientConfig.constInstance([]).code,
+        (p) => p
+          ..type = DartTypes.smithyAws.s3ClientConfig
+          ..name = 's3ClientConfig'
+          ..required = true
+          ..location =
+              ParameterLocation.constructor |
+              ParameterLocation.clientConstructor |
+              ParameterLocation.clientMethod
+          ..defaultTo = DartTypes.smithyAws.s3ClientConfig
+              .constInstance([])
+              .code,
       );
     }
 
     if (serviceShape.hasTrait<SigV4Trait>()) {
       yield ConfigParameter(
-        (p) =>
-            p
-              ..type = DartTypes.awsSigV4.awsCredentialsProvider
-              ..name = 'credentialsProvider'
-              ..location =
-                  ParameterLocation.constructor |
-                  ParameterLocation.clientConstructor |
-                  ParameterLocation.clientMethod
-              ..required = true
-              ..defaultTo =
-                  DartTypes.awsSigV4.awsCredentialsProvider
-                      .constInstanceNamed('defaultChain', [])
-                      .code,
+        (p) => p
+          ..type = DartTypes.awsSigV4.awsCredentialsProvider
+          ..name = 'credentialsProvider'
+          ..location =
+              ParameterLocation.constructor |
+              ParameterLocation.clientConstructor |
+              ParameterLocation.clientMethod
+          ..required = true
+          ..defaultTo = DartTypes.awsSigV4.awsCredentialsProvider
+              .constInstanceNamed('defaultChain', [])
+              .code,
       );
     }
 
     // The requestInterceptors field.
     yield ConfigParameter(
-      (p) =>
-          p
-            ..type = DartTypes.core.list(
-              DartTypes.smithy.httpRequestInterceptor,
-            )
-            ..name = 'requestInterceptors'
-            ..location =
-                ParameterLocation.constructor |
-                ParameterLocation.clientConstructor
-            ..defaultTo = const Code('const []'),
+      (p) => p
+        ..type = DartTypes.core.list(DartTypes.smithy.httpRequestInterceptor)
+        ..name = 'requestInterceptors'
+        ..location =
+            ParameterLocation.constructor | ParameterLocation.clientConstructor
+        ..defaultTo = const Code('const []'),
     );
 
     // The responseInterceptors field.
     yield ConfigParameter(
-      (p) =>
-          p
-            ..type = DartTypes.core.list(
-              DartTypes.smithy.httpResponseInterceptor,
-            )
-            ..name = 'responseInterceptors'
-            ..location =
-                ParameterLocation.constructor |
-                ParameterLocation.clientConstructor
-            ..defaultTo = const Code('const []'),
+      (p) => p
+        ..type = DartTypes.core.list(DartTypes.smithy.httpResponseInterceptor)
+        ..name = 'responseInterceptors'
+        ..location =
+            ParameterLocation.constructor | ParameterLocation.clientConstructor
+        ..defaultTo = const Code('const []'),
     );
   }
 
@@ -746,15 +728,13 @@ extension OperationShapeUtil on OperationShape {
       context,
     ).where((p) => p.location.inConstructor)) {
       yield Field(
-        (f) =>
-            f
-              ..modifier = FieldModifier.final$
-              ..type = parameter.type
-              ..annotations.addAll([
-                if (parameter.isOverride) DartTypes.core.override,
-              ])
-              ..name =
-                  parameter.isOverride ? parameter.name : '_${parameter.name}',
+        (f) => f
+          ..modifier = FieldModifier.final$
+          ..type = parameter.type
+          ..annotations.addAll([
+            if (parameter.isOverride) DartTypes.core.override,
+          ])
+          ..name = parameter.isOverride ? parameter.name : '_${parameter.name}',
       );
     }
   }
@@ -819,10 +799,9 @@ extension StructureShapeUtil on StructureShape {
       return HttpPayload((b) => b.symbol = symbol);
     }
     return HttpPayload(
-      (b) =>
-          b
-            ..symbol = payloadMember!.accept(SymbolVisitor(context), this)
-            ..member.replace(payloadMember),
+      (b) => b
+        ..symbol = payloadMember!.accept(SymbolVisitor(context), this)
+        ..member.replace(payloadMember),
     );
   }
 
@@ -888,11 +867,10 @@ extension StructureShapeUtil on StructureShape {
     if (!isError) {
       return null;
     }
-    final builder =
-        HttpErrorTraitsBuilder()
-          ..symbol = context.symbolFor(shapeId)
-          ..payloadSymbol = payloadSymbol
-          ..shapeId = shapeId;
+    final builder = HttpErrorTraitsBuilder()
+      ..symbol = context.symbolFor(shapeId)
+      ..payloadSymbol = payloadSymbol
+      ..shapeId = shapeId;
     final errorTrait = expectTrait<ErrorTrait>();
     builder.kind = errorTrait.type;
     final httpErrorTrait = getTrait<HttpErrorTrait>();
@@ -929,10 +907,10 @@ extension StructureShapeUtil on StructureShape {
   };
 
   /// Members sorted by their re-cased Dart name.
-  List<MemberShape> get sortedMembers =>
-      members.values.toList()..sort((a, b) {
-        return a.dartName(getType()).compareTo(b.dartName(getType()));
-      });
+  List<MemberShape> get sortedMembers => members.values.toList()
+    ..sort((a, b) {
+      return a.dartName(getType()).compareTo(b.dartName(getType()));
+    });
 
   /// The member shape to serialize when [HttpPayloadTrait] is used.
   MemberShape? get payloadShape => httpPayload.member;
@@ -952,28 +930,26 @@ extension StructureShapeUtil on StructureShape {
     final httpErrorTraits = this.httpErrorTraits();
 
     return <MemberShape?>{
-        ...?httpInputTraits?.httpHeaders.values,
-        httpInputTraits?.httpQueryParams,
-        ...?httpInputTraits?.httpLabels,
-        httpInputTraits?.httpPrefixHeaders?.member,
-        ...?httpInputTraits?.httpQuery.values,
-        httpOutputTraits?.httpResponseCode,
-        ...?httpOutputTraits?.httpHeaders.values,
-        httpOutputTraits?.httpPrefixHeaders?.member,
-        ...?httpErrorTraits?.httpHeaders.values,
-        httpErrorTraits?.httpPrefixHeaders?.member,
-      }.whereType<MemberShape>().toList()
-      ..sorted(
-        (a, b) => a.dartName(getType()).compareTo(b.dartName(getType())),
-      );
+      ...?httpInputTraits?.httpHeaders.values,
+      httpInputTraits?.httpQueryParams,
+      ...?httpInputTraits?.httpLabels,
+      httpInputTraits?.httpPrefixHeaders?.member,
+      ...?httpInputTraits?.httpQuery.values,
+      httpOutputTraits?.httpResponseCode,
+      ...?httpOutputTraits?.httpHeaders.values,
+      httpOutputTraits?.httpPrefixHeaders?.member,
+      ...?httpErrorTraits?.httpHeaders.values,
+      httpErrorTraits?.httpPrefixHeaders?.member,
+    }.whereType<MemberShape>().toList()..sorted(
+      (a, b) => a.dartName(getType()).compareTo(b.dartName(getType())),
+    );
   }
 
   /// The list of all members which should always be included in the body of
   /// the request.
-  List<MemberShape> get payloadMembers =>
-      sortedMembers
-          .where((member) => !metadataMembers.contains(member))
-          .toList();
+  List<MemberShape> get payloadMembers => sortedMembers
+      .where((member) => !metadataMembers.contains(member))
+      .toList();
 
   /// Whether the structure has an HTTP payload.
   bool hasPayload(CodegenContext context) {

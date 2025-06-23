@@ -81,10 +81,9 @@ abstract class TooManyRequestsException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TooManyRequestsException')
-          ..add('retryAfterSeconds', retryAfterSeconds)
-          ..add('message', message);
+    final helper = newBuiltValueToStringHelper('TooManyRequestsException')
+      ..add('retryAfterSeconds', retryAfterSeconds)
+      ..add('message', message);
     return helper.toString();
   }
 }

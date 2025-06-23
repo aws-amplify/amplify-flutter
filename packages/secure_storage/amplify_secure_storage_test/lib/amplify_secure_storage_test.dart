@@ -182,10 +182,9 @@ void runStandardTests(
       await worker.spawn();
       worker.add(
         SecureStorageRequest(
-          (b) =>
-              b
-                ..action = SecureStorageAction.read
-                ..key = 'key',
+          (b) => b
+            ..action = SecureStorageAction.read
+            ..key = 'key',
         ),
       );
       expect(

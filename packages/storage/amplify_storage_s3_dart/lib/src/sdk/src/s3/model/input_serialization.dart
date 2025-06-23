@@ -60,12 +60,11 @@ abstract class InputSerialization
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InputSerialization')
-          ..add('csv', csv)
-          ..add('compressionType', compressionType)
-          ..add('json', json)
-          ..add('parquet', parquet);
+    final helper = newBuiltValueToStringHelper('InputSerialization')
+      ..add('csv', csv)
+      ..add('compressionType', compressionType)
+      ..add('json', json)
+      ..add('parquet', parquet);
     return helper.toString();
   }
 }

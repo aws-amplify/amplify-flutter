@@ -26,18 +26,18 @@ abstract class QueryListsInput
   }) {
     return _$QueryListsInput._(
       listArg: listArg == null ? null : _i3.BuiltList(listArg),
-      complexListArg:
-          complexListArg == null ? null : _i3.BuiltList(complexListArg),
-      flattenedListArg:
-          flattenedListArg == null ? null : _i3.BuiltList(flattenedListArg),
-      listArgWithXmlNameMember:
-          listArgWithXmlNameMember == null
-              ? null
-              : _i3.BuiltList(listArgWithXmlNameMember),
-      flattenedListArgWithXmlName:
-          flattenedListArgWithXmlName == null
-              ? null
-              : _i3.BuiltList(flattenedListArgWithXmlName),
+      complexListArg: complexListArg == null
+          ? null
+          : _i3.BuiltList(complexListArg),
+      flattenedListArg: flattenedListArg == null
+          ? null
+          : _i3.BuiltList(flattenedListArg),
+      listArgWithXmlNameMember: listArgWithXmlNameMember == null
+          ? null
+          : _i3.BuiltList(listArgWithXmlNameMember),
+      flattenedListArgWithXmlName: flattenedListArgWithXmlName == null
+          ? null
+          : _i3.BuiltList(flattenedListArgWithXmlName),
       nestedWithList: nestedWithList,
     );
   }
@@ -79,14 +79,13 @@ abstract class QueryListsInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QueryListsInput')
-          ..add('listArg', listArg)
-          ..add('complexListArg', complexListArg)
-          ..add('flattenedListArg', flattenedListArg)
-          ..add('listArgWithXmlNameMember', listArgWithXmlNameMember)
-          ..add('flattenedListArgWithXmlName', flattenedListArgWithXmlName)
-          ..add('nestedWithList', nestedWithList);
+    final helper = newBuiltValueToStringHelper('QueryListsInput')
+      ..add('listArg', listArg)
+      ..add('complexListArg', complexListArg)
+      ..add('flattenedListArg', flattenedListArg)
+      ..add('listArgWithXmlNameMember', listArgWithXmlNameMember)
+      ..add('flattenedListArgWithXmlName', flattenedListArgWithXmlName)
+      ..add('nestedWithList', nestedWithList);
     return helper.toString();
   }
 }

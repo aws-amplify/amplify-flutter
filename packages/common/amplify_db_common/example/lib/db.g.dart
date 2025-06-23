@@ -65,16 +65,14 @@ class $CountTableTable extends CountTable
   CountTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return CountTableData(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      count:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}count'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      count: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}count'],
+      )!,
     );
   }
 
@@ -289,12 +287,12 @@ class $$CountTableTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$CountTableTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$CountTableTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$CountTableTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$CountTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CountTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CountTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -303,16 +301,9 @@ class $$CountTableTableTableManager
           createCompanionCallback:
               ({Value<int> id = const Value.absent(), required int count}) =>
                   CountTableCompanion.insert(id: id, count: count),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );

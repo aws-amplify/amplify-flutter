@@ -66,15 +66,14 @@ class AWSHttpClientImpl extends AWSHttpClient {
     _inner ??= HttpClient();
     _setBadCertificateCallback(_inner!, onBadCertificate);
     if (completer.isCanceled) return;
-    final ioRequest =
-        (await _inner!.openUrl(request.method.value, request.uri))
-          ..followRedirects = request.followRedirects
-          ..maxRedirects = request.maxRedirects
-          // TODO(dnys1-HuiSF): follow up on the cause issue
-          //  https://github.com/flutter/flutter/issues/41573
-          //  disable this option for now to ensure stability of Storage integration
-          //  test suite.
-          ..persistentConnection = false;
+    final ioRequest = (await _inner!.openUrl(request.method.value, request.uri))
+      ..followRedirects = request.followRedirects
+      ..maxRedirects = request.maxRedirects
+      // TODO(dnys1-HuiSF): follow up on the cause issue
+      //  https://github.com/flutter/flutter/issues/41573
+      //  disable this option for now to ensure stability of Storage integration
+      //  test suite.
+      ..persistentConnection = false;
     if (request.hasContentLength) {
       ioRequest.contentLength = request.contentLength as int;
     } else {
@@ -267,15 +266,14 @@ class AWSHttpClientImpl extends AWSHttpClient {
         );
         return null;
       }
-      final transport =
-          _http2Connections[uri.authority] ??=
-              ClientTransportConnection.viaSocket(socket)
-                ..onActiveStateChanged = (isActive) {
-                  if (!isActive) {
-                    _logger.verbose('Closing transport: ${uri.authority}');
-                    _http2Connections.remove(uri.authority)?.finish();
-                  }
-                };
+      final transport = _http2Connections[uri.authority] ??=
+          ClientTransportConnection.viaSocket(socket)
+            ..onActiveStateChanged = (isActive) {
+              if (!isActive) {
+                _logger.verbose('Closing transport: ${uri.authority}');
+                _http2Connections.remove(uri.authority)?.finish();
+              }
+            };
       final stream = transport.makeRequest(
         _requiredH2Headers(request, redirects, method, uri),
       );

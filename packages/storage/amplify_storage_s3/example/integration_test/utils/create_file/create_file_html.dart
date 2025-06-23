@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // ignore: deprecated_member_use, avoid_web_libraries_in_flutter
-import 'dart:html' as html;
+import 'dart:js_interop';
+
+import 'package:web/web.dart';
 
 Future<String> createFile({
   required String path,
@@ -14,15 +16,22 @@ Future<String> createFile({
     content: content,
     contentType: contentType,
   );
-  return html.Url.createObjectUrl(file);
+  return URL.createObjectURL(file);
 }
 
-Future<html.File> createHtmlFile({
+Future<File> createHtmlFile({
   required String path,
   required String content,
   String contentType = 'text/plain',
 }) async {
-  final fileBlob = html.Blob([content], contentType);
-  final file = html.File([fileBlob], path, {'type': fileBlob.type});
+  final fileBlob = Blob(
+    [content.toJS].toJS,
+    BlobPropertyBag(type: contentType),
+  );
+  final file = File(
+    [fileBlob].toJS,
+    path,
+    FilePropertyBag(type: fileBlob.type),
+  );
   return file;
 }

@@ -39,12 +39,11 @@ class ShapeId with AWSEquatable<ShapeId>, AWSSerializable {
     return ShapeId(
       namespace: namespace ?? this.namespace,
       shape: shape ?? this.shape,
-      member:
-          member is String
-              ? member
-              : member == const Object()
-              ? this.member
-              : null,
+      member: member is String
+          ? member
+          : member == const Object()
+          ? this.member
+          : null,
     );
   }
 

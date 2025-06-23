@@ -34,22 +34,27 @@ abstract class OmitsSerializingEmptyListsInput
     List<int>? queryIntegerEnumList,
   }) {
     return _$OmitsSerializingEmptyListsInput._(
-      queryStringList:
-          queryStringList == null ? null : _i3.BuiltList(queryStringList),
-      queryIntegerList:
-          queryIntegerList == null ? null : _i3.BuiltList(queryIntegerList),
-      queryDoubleList:
-          queryDoubleList == null ? null : _i3.BuiltList(queryDoubleList),
-      queryBooleanList:
-          queryBooleanList == null ? null : _i3.BuiltList(queryBooleanList),
-      queryTimestampList:
-          queryTimestampList == null ? null : _i3.BuiltList(queryTimestampList),
-      queryEnumList:
-          queryEnumList == null ? null : _i3.BuiltList(queryEnumList),
-      queryIntegerEnumList:
-          queryIntegerEnumList == null
-              ? null
-              : _i3.BuiltList(queryIntegerEnumList),
+      queryStringList: queryStringList == null
+          ? null
+          : _i3.BuiltList(queryStringList),
+      queryIntegerList: queryIntegerList == null
+          ? null
+          : _i3.BuiltList(queryIntegerList),
+      queryDoubleList: queryDoubleList == null
+          ? null
+          : _i3.BuiltList(queryDoubleList),
+      queryBooleanList: queryBooleanList == null
+          ? null
+          : _i3.BuiltList(queryBooleanList),
+      queryTimestampList: queryTimestampList == null
+          ? null
+          : _i3.BuiltList(queryTimestampList),
+      queryEnumList: queryEnumList == null
+          ? null
+          : _i3.BuiltList(queryEnumList),
+      queryIntegerEnumList: queryIntegerEnumList == null
+          ? null
+          : _i3.BuiltList(queryIntegerEnumList),
     );
   }
 
@@ -100,11 +105,10 @@ abstract class OmitsSerializingEmptyListsInput
               isTimestampList: true,
             )
             .map(
-              (el) =>
-                  _i1.Timestamp.parse(
-                    el.trim(),
-                    format: _i1.TimestampFormat.httpDate,
-                  ).asDateTime,
+              (el) => _i1.Timestamp.parse(
+                el.trim(),
+                format: _i1.TimestampFormat.httpDate,
+              ).asDateTime,
             ),
       );
     }

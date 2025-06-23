@@ -86,12 +86,11 @@ class AwsQueryProtocol<InputPayload, Input, OutputPayload, Output>
     try {
       final body = await utf8.decodeStream(response.split());
       final el = XmlDocument.parse(body).rootElement;
-      final code =
-          el.childElements
-              .firstWhereOrNull((el) => el.name.local == 'Error')
-              ?.childElements
-              .firstWhere((el) => el.name.local == 'Code')
-              .innerText;
+      final code = el.childElements
+          .firstWhereOrNull((el) => el.name.local == 'Error')
+          ?.childElements
+          .firstWhere((el) => el.name.local == 'Code')
+          .innerText;
       final error = awsQueryErrors.firstWhereOrNull(
         (e) => e.httpResponseCode == response.statusCode,
       );

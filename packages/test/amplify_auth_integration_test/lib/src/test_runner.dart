@@ -238,18 +238,14 @@ class AuthTestRunner {
     List<APIAuthProvider> apiAuthProviders = const [],
     AWSHttpClient? baseClient,
   }) async {
-    final config =
-        useAmplifyOutputs
-            ? _amplifyOutputs[environmentName]!
-            : _amplifyConfigs[environmentName]!;
-    final outputs =
-        useAmplifyOutputs
-            ? AmplifyOutputs.fromJson(
-              jsonDecode(config) as Map<String, dynamic>,
-            )
-            : AmplifyConfig.fromJson(
-              jsonDecode(config) as Map<String, dynamic>,
-            ).toAmplifyOutputs();
+    final config = useAmplifyOutputs
+        ? _amplifyOutputs[environmentName]!
+        : _amplifyConfigs[environmentName]!;
+    final outputs = useAmplifyOutputs
+        ? AmplifyOutputs.fromJson(jsonDecode(config) as Map<String, dynamic>)
+        : AmplifyConfig.fromJson(
+            jsonDecode(config) as Map<String, dynamic>,
+          ).toAmplifyOutputs();
     final hasApiPlugin = outputs.data != null;
     final authPlugin = AmplifyAuthTestPlugin(hasApiPlugin: hasApiPlugin);
     await Amplify.addPlugins([

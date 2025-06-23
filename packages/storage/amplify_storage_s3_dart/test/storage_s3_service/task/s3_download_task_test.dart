@@ -100,13 +100,12 @@ void main() {
 
           await downloadTask.start();
 
-          final capturedRequest =
-              verify(
-                () => s3Client.getObject(
-                  captureAny<GetObjectRequest>(),
-                  s3ClientConfig: any(named: 's3ClientConfig'),
-                ),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.getObject(
+              captureAny<GetObjectRequest>(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).captured.last;
 
           expect(capturedRequest is GetObjectRequest, isTrue);
 
@@ -158,15 +157,14 @@ void main() {
 
           await downloadTask.start();
 
-          final capturedS3ClientConfig =
-              verify(
-                () => s3Client.getObject(
-                  any(),
-                  s3ClientConfig: captureAny<S3ClientConfig>(
-                    named: 's3ClientConfig',
-                  ),
-                ),
-              ).captured.last;
+          final capturedS3ClientConfig = verify(
+            () => s3Client.getObject(
+              any(),
+              s3ClientConfig: captureAny<S3ClientConfig>(
+                named: 's3ClientConfig',
+              ),
+            ),
+          ).captured.last;
 
           expect(
             capturedS3ClientConfig,
@@ -249,16 +247,17 @@ void main() {
         var bodyStreamHasBeenCanceled = false;
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
-          body: Stream<List<int>>.periodic(
-                const Duration(microseconds: 200),
-                (_) => [101],
-              )
-              .take(1024)
-              .asBroadcastStream(
-                onCancel: (StreamSubscription<List<int>> subscription) {
-                  bodyStreamHasBeenCanceled = true;
-                },
-              ),
+          body:
+              Stream<List<int>>.periodic(
+                    const Duration(microseconds: 200),
+                    (_) => [101],
+                  )
+                  .take(1024)
+                  .asBroadcastStream(
+                    onCancel: (StreamSubscription<List<int>> subscription) {
+                      bodyStreamHasBeenCanceled = true;
+                    },
+                  ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <StorageTransferState>[];
@@ -364,16 +363,17 @@ void main() {
         var bodyStreamHasBeenCanceled = false;
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
-          body: Stream<List<int>>.periodic(
-                const Duration(microseconds: 200),
-                (_) => [101],
-              )
-              .take(1024)
-              .asBroadcastStream(
-                onCancel: (StreamSubscription<List<int>> subscription) {
-                  bodyStreamHasBeenCanceled = true;
-                },
-              ),
+          body:
+              Stream<List<int>>.periodic(
+                    const Duration(microseconds: 200),
+                    (_) => [101],
+                  )
+                  .take(1024)
+                  .asBroadcastStream(
+                    onCancel: (StreamSubscription<List<int>> subscription) {
+                      bodyStreamHasBeenCanceled = true;
+                    },
+                  ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <StorageTransferState>[];

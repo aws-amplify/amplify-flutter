@@ -214,9 +214,8 @@ class Repo {
     bool canBump(PackageInfo package) => packages.containsKey(package.name);
     for (final package in sortedPackages) {
       final changes = await changesForPackage(package);
-      final commits =
-          (changes.commitsByPackage[package]?.toList() ?? const [])
-            ..sort((a, b) => a.dateTime.compareTo(b.dateTime));
+      final commits = (changes.commitsByPackage[package]?.toList() ?? const [])
+        ..sort((a, b) => a.dateTime.compareTo(b.dateTime));
       for (final commit in commits) {
         if (commit.type == CommitType.version) {
           continue;
@@ -299,12 +298,11 @@ class Repo {
       componentName,
     );
     final newProposedVersion = currentVersion.nextAmplifyVersion(type);
-    final newVersion =
-        maxBy([
-          proposedPackageVersion,
-          if (proposedComponentVersion != null) proposedComponentVersion,
-          newProposedVersion,
-        ], (version) => version)!;
+    final newVersion = maxBy([
+      proposedPackageVersion,
+      if (proposedComponentVersion != null) proposedComponentVersion,
+      newProposedVersion,
+    ], (version) => version)!;
     final propagateToComponent =
         component != null &&
         component.propagate.propagateToComponent(currentVersion, newVersion);

@@ -46,14 +46,11 @@ class ApiConfig extends AmplifyPluginConfigMap {
       final awsRegion = plugin.region;
       final url = plugin.endpoint;
       final allModes = (appSync?.all.values ?? []);
-      final authorizationTypes =
-          allModes
-              .where(
-                (plugin) => plugin.apiUrl == url && plugin.region == awsRegion,
-              )
-              .map((config) => config.authMode)
-              .where((mode) => mode != defaultAuthorizationType)
-              .toList();
+      final authorizationTypes = allModes
+          .where((plugin) => plugin.apiUrl == url && plugin.region == awsRegion)
+          .map((config) => config.authMode)
+          .where((mode) => mode != defaultAuthorizationType)
+          .toList();
       final data = DataOutputs(
         awsRegion: awsRegion,
         url: url,

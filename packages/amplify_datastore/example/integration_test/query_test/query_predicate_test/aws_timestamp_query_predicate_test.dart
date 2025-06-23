@@ -27,14 +27,13 @@ void main() {
     ];
 
     // models used for all tests
-    var models =
-        dates
-            .map(
-              (date) => ModelWithAppsyncScalarTypes(
-                awsTimestampValue: TemporalTimestamp(date),
-              ),
-            )
-            .toList();
+    var models = dates
+        .map(
+          (date) => ModelWithAppsyncScalarTypes(
+            awsTimestampValue: TemporalTimestamp(date),
+          ),
+        )
+        .toList();
 
     // distinct list of values in the test models
     var values = models.map((e) => e.awsTimestampValue!).toSet().toList();
@@ -49,8 +48,9 @@ void main() {
     testWidgets('eq()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models.where((model) => model.awsTimestampValue == value).toList();
+        var expectedModels = models
+            .where((model) => model.awsTimestampValue == value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE.eq(
             value,
@@ -63,8 +63,9 @@ void main() {
     testWidgets('ne()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models.where((model) => model.awsTimestampValue != value).toList();
+        var expectedModels = models
+            .where((model) => model.awsTimestampValue != value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE.ne(
             value,
@@ -77,10 +78,9 @@ void main() {
     testWidgets('lt()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models
-                .where((model) => model.awsTimestampValue!.compareTo(value) < 0)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.awsTimestampValue!.compareTo(value) < 0)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE.lt(
             value,
@@ -93,12 +93,9 @@ void main() {
     testWidgets('le()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models
-                .where(
-                  (model) => model.awsTimestampValue!.compareTo(value) <= 0,
-                )
-                .toList();
+        var expectedModels = models
+            .where((model) => model.awsTimestampValue!.compareTo(value) <= 0)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE.le(
             value,
@@ -111,10 +108,9 @@ void main() {
     testWidgets('gt()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models
-                .where((model) => model.awsTimestampValue!.compareTo(value) > 0)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.awsTimestampValue!.compareTo(value) > 0)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE.gt(
             value,
@@ -127,12 +123,9 @@ void main() {
     testWidgets('ge()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models
-                .where(
-                  (model) => model.awsTimestampValue!.compareTo(value) >= 0,
-                )
-                .toList();
+        var expectedModels = models
+            .where((model) => model.awsTimestampValue!.compareTo(value) >= 0)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE.ge(
             value,
@@ -146,17 +139,15 @@ void main() {
       // test with partial match
       var partialMatchStart = models[1].awsTimestampValue!;
       var partialMatchEnd = models[2].awsTimestampValue!;
-      var rangeMatchModels =
-          models
-              .where(
-                (model) =>
-                    model.awsTimestampValue!.compareTo(partialMatchStart) >= 0,
-              )
-              .where(
-                (model) =>
-                    model.awsTimestampValue!.compareTo(partialMatchEnd) <= 0,
-              )
-              .toList();
+      var rangeMatchModels = models
+          .where(
+            (model) =>
+                model.awsTimestampValue!.compareTo(partialMatchStart) >= 0,
+          )
+          .where(
+            (model) => model.awsTimestampValue!.compareTo(partialMatchEnd) <= 0,
+          )
+          .toList();
       // verify that the test is testing a partial match
       expect(rangeMatchModels.length, greaterThanOrEqualTo(1));
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(

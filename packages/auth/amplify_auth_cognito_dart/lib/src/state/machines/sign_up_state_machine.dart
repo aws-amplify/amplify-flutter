@@ -84,46 +84,43 @@ final class SignUpStateMachine
     contextData = await contextDataProvider.buildRequestData(
       event.parameters.username,
     );
-    final resp =
-        await _cognito
-            .signUp(
-              SignUpRequest.build((b) {
-                b
-                  ..clientId = _authOutputs.userPoolClientId
-                  ..username = event.parameters.username
-                  ..password = event.parameters.password
-                  ..clientMetadata.addAll(event.clientMetadata)
-                  ..userAttributes.addAll(
-                    event.userAttributes.entries.map(
-                      (attr) =>
-                          AttributeType(name: attr.key.key, value: attr.value),
-                    ),
-                  )
-                  ..validationData.addAll(
-                    event.validationData.entries.map(
-                      (attr) =>
-                          AttributeType(name: attr.key, value: attr.value),
-                    ),
-                  )
-                  ..analyticsMetadata =
-                      get<AnalyticsMetadataType>()?.toBuilder();
+    final resp = await _cognito
+        .signUp(
+          SignUpRequest.build((b) {
+            b
+              ..clientId = _authOutputs.userPoolClientId
+              ..username = event.parameters.username
+              ..password = event.parameters.password
+              ..clientMetadata.addAll(event.clientMetadata)
+              ..userAttributes.addAll(
+                event.userAttributes.entries.map(
+                  (attr) =>
+                      AttributeType(name: attr.key.key, value: attr.value),
+                ),
+              )
+              ..validationData.addAll(
+                event.validationData.entries.map(
+                  (attr) => AttributeType(name: attr.key, value: attr.value),
+                ),
+              )
+              ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
-                // ignore: invalid_use_of_internal_member
-                final clientSecret = _authOutputs.appClientSecret;
-                if (clientSecret != null) {
-                  b.secretHash = computeSecretHash(
-                    event.parameters.username,
-                    _authOutputs.userPoolClientId!,
-                    clientSecret,
-                  );
-                }
+            // ignore: invalid_use_of_internal_member
+            final clientSecret = _authOutputs.appClientSecret;
+            if (clientSecret != null) {
+              b.secretHash = computeSecretHash(
+                event.parameters.username,
+                _authOutputs.userPoolClientId!,
+                clientSecret,
+              );
+            }
 
-                if (contextData != null) {
-                  b.userContextData.replace(contextData);
-                }
-              }),
-            )
-            .result;
+            if (contextData != null) {
+              b.userContextData.replace(contextData);
+            }
+          }),
+        )
+        .result;
 
     if (resp.userConfirmed) {
       emit(SignUpState.success(userId: resp.userSub));

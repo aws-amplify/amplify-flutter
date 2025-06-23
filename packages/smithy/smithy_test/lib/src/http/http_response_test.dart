@@ -43,20 +43,18 @@ Future<void> httpResponseTest<InputPayload, Input, OutputPayload, Output>({
         body: (testCase.body ?? '').codeUnits,
       );
     });
-    final output =
-        await operation
-            // ignore: invalid_use_of_visible_for_overriding_member
-            .send(
-              client: client,
-              createRequest:
-                  () => SmithyHttpRequest(
-                    _dummyHttpRequest,
-                    requestInterceptors: protocol.requestInterceptors,
-                    responseInterceptors: protocol.responseInterceptors,
-                  ),
-              protocol: protocol,
-            )
-            .result;
+    final output = await operation
+        // ignore: invalid_use_of_visible_for_overriding_member
+        .send(
+          client: client,
+          createRequest: () => SmithyHttpRequest(
+            _dummyHttpRequest,
+            requestInterceptors: protocol.requestInterceptors,
+            responseInterceptors: protocol.responseInterceptors,
+          ),
+          protocol: protocol,
+        )
+        .result;
 
     if (output is AWSEquatable && expectedOutput is AWSEquatable) {
       expect(
@@ -64,8 +62,9 @@ Future<void> httpResponseTest<InputPayload, Input, OutputPayload, Output>({
         deepEquals(expectedOutput.props.where((el) => el is! Stream)),
       );
       final outputStreams = output.props.whereType<Stream<dynamic>>().toList();
-      final expectedOutputStreams =
-          expectedOutput.props.whereType<Stream<dynamic>>().toList();
+      final expectedOutputStreams = expectedOutput.props
+          .whereType<Stream<dynamic>>()
+          .toList();
       expect(outputStreams.length, equals(expectedOutputStreams.length));
       for (var i = 0; i < outputStreams.length; i++) {
         final outputStream = outputStreams[i];
@@ -126,12 +125,11 @@ Future<void> httpErrorResponseTest<
           // ignore: invalid_use_of_visible_for_overriding_member
           .send(
             client: client,
-            createRequest:
-                () => SmithyHttpRequest(
-                  _dummyHttpRequest,
-                  requestInterceptors: protocol.requestInterceptors,
-                  responseInterceptors: protocol.responseInterceptors,
-                ),
+            createRequest: () => SmithyHttpRequest(
+              _dummyHttpRequest,
+              requestInterceptors: protocol.requestInterceptors,
+              responseInterceptors: protocol.responseInterceptors,
+            ),
             protocol: protocol,
           )
           .result;

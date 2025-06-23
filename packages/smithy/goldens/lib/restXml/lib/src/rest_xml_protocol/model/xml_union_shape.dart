@@ -91,15 +91,15 @@ sealed class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
   @override
   Object get value =>
       (stringValue ??
-          booleanValue ??
-          byteValue ??
-          shortValue ??
-          integerValue ??
-          longValue ??
-          floatValue ??
-          doubleValue ??
-          unionValue ??
-          structValue)!;
+      booleanValue ??
+      byteValue ??
+      shortValue ??
+      integerValue ??
+      longValue ??
+      floatValue ??
+      doubleValue ??
+      unionValue ??
+      structValue)!;
 
   @override
   String toString() {

@@ -64,23 +64,22 @@ Future<void> testCloudSyncedModelOperation<R extends Model, A extends Model>({
       expectedAssociatedModelVersion != null &&
       associatedModelEventsAssertor != null;
 
-  var syncEventsGetters =
-      rootModels
-          .map(
-            (rootModel) => getExpectedSubscriptionDataProcessedEvent(
-              eventMatcher: (event) {
-                var model = event.element.model;
+  var syncEventsGetters = rootModels
+      .map(
+        (rootModel) => getExpectedSubscriptionDataProcessedEvent(
+          eventMatcher: (event) {
+            var model = event.element.model;
 
-                if (model is R) {
-                  return model.modelIdentifier == rootModel.modelIdentifier &&
-                      event.element.version == expectedRootModelVersion;
-                }
+            if (model is R) {
+              return model.modelIdentifier == rootModel.modelIdentifier &&
+                  event.element.version == expectedRootModelVersion;
+            }
 
-                return false;
-              },
-            ),
-          )
-          .toList();
+            return false;
+          },
+        ),
+      )
+      .toList();
 
   if (assertingAssociatedModels) {
     var associatedModelsSyncedEventsGetters = associatedModels.map(
@@ -126,16 +125,15 @@ Future<List<SubscriptionEvent<T>>> createObservedEventsGetter<T extends Model>(
   ModelType<T> modelType, {
   required int take,
   required EventType eventType,
-}) =>
-    Amplify.DataStore.observe(modelType)
-        .where((event) => event.eventType == eventType)
-        .distinct(
-          (prev, next) =>
-              prev.eventType == next.eventType &&
-              prev.item.modelIdentifier == next.item.modelIdentifier,
-        )
-        .take(take)
-        .toList();
+}) => Amplify.DataStore.observe(modelType)
+    .where((event) => event.eventType == eventType)
+    .distinct(
+      (prev, next) =>
+          prev.eventType == next.eventType &&
+          prev.item.modelIdentifier == next.item.modelIdentifier,
+    )
+    .take(take)
+    .toList();
 
 /// A util function runs [testWidgets] to validate [modelSpecs] specified
 /// models are not in local storage.
@@ -336,8 +334,9 @@ void testRootAndAssociatedModelsRelationship<R extends Model, A extends Model>({
           rootModelEventsAssertor: modelIsDeletedAssertor,
           associatedModels: supportCascadeDelete ? associatedModels : null,
           expectedAssociatedModelVersion: supportCascadeDelete ? 2 : null,
-          associatedModelEventsAssertor:
-              supportCascadeDelete ? modelIsDeletedAssertor : null,
+          associatedModelEventsAssertor: supportCascadeDelete
+              ? modelIsDeletedAssertor
+              : null,
         );
       } else {
         for (var rootModel in rootModels) {

@@ -4,7 +4,7 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 
 dependencies:
   amplify_auth_cognito_dart: any
@@ -13,6 +13,7 @@ dependencies:
   amplify_storage_s3_dart: any
   example_common:
     path: ../../../example_common
+  web: ^1.1.1
 
 dev_dependencies:
   amplify_lints:

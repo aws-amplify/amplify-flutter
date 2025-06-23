@@ -1,3 +1,7 @@
+## 2.6.3
+
+- Minor bug fixes and improvements
+
 ## 2.6.2
 
 ### Chores

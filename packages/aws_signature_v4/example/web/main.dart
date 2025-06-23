@@ -4,24 +4,21 @@
 // ignore_for_file: omit_local_variable_types
 
 import 'dart:async';
-//ignore: deprecated_member_use
-import 'dart:html';
-import 'dart:typed_data';
+import 'dart:js_interop';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:path/path.dart' as p;
+import 'package:web/web.dart';
 
-final TextInputElement bucketNameEl =
-    document.getElementById('bucket-name') as TextInputElement;
-final TextInputElement regionEl =
-    document.getElementById('region') as TextInputElement;
-final FileUploadInputElement fileEl =
-    document.getElementById('file') as FileUploadInputElement;
-final ButtonElement uploadBtnEl =
-    document.getElementById('upload') as ButtonElement;
-final AnchorElement downloadBtnEl =
-    document.getElementById('download') as AnchorElement;
+import './js_interop/file_upload_input_element.dart';
+import './js_interop/text_input_element.dart';
+
+final bucketNameEl = document.getElementById('bucket-name') as TextInputElement;
+final regionEl = document.getElementById('region') as TextInputElement;
+final fileEl = document.getElementById('file') as FileUploadInputElement;
+final uploadBtnEl = document.getElementById('upload') as HTMLButtonElement;
+final downloadBtnEl = document.getElementById('download') as HTMLAnchorElement;
 
 void main() {
   bucketNameEl.onChange.listen((e) {
@@ -45,7 +42,7 @@ void main() {
     try {
       await upload(bucketUpload);
     } on Exception catch (e) {
-      window.console.error(e);
+      console.error(e.toString().toJS);
     } finally {
       uploadBtnEl.setBusy(false);
     }
@@ -70,7 +67,7 @@ Future<void> upload(BucketUpload bucketUpload) async {
   final fileBlob = file.slice();
   final reader = FileReader()..readAsArrayBuffer(fileBlob);
   await reader.onLoadEnd.first;
-  final fileBytes = reader.result as Uint8List?;
+  final fileBytes = (reader.result as JSUint8Array?)?.toDart;
   if (fileBytes == null) {
     throw Exception('Cannot read bytes from Blob.');
   }
@@ -126,7 +123,7 @@ class BucketUpload {
 BucketUpload? getBucketUpload() {
   final bucketName = bucketNameEl.value;
   final region = regionEl.value;
-  final files = fileEl.files;
+  final files = fileEl.files?.toDart;
   final hasInvalidProps =
       bucketName == null ||
       bucketName.isEmpty ||
@@ -146,20 +143,20 @@ void updateState() {
   uploadBtnEl.disabled = !uploadEnabled;
 }
 
-extension on Element {
+extension on HTMLElement {
   void show() {
     style.display = 'block';
   }
 }
 
-extension on ButtonElement {
+extension on HTMLButtonElement {
   void setBusy(bool busy) {
     if (busy) {
-      setAttribute('aria-busy', true);
-      text = 'Uploading...';
+      setAttribute('aria-busy', 'true');
+      textContent = 'Uploading...';
     } else {
       removeAttribute('aria-busy');
-      text = 'Upload';
+      textContent = 'Upload';
     }
   }
 }

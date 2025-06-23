@@ -35,14 +35,17 @@ abstract class SignUpRequest
       secretHash: secretHash,
       username: username,
       password: password,
-      userAttributes:
-          userAttributes == null ? null : _i3.BuiltList(userAttributes),
-      validationData:
-          validationData == null ? null : _i3.BuiltList(validationData),
+      userAttributes: userAttributes == null
+          ? null
+          : _i3.BuiltList(userAttributes),
+      validationData: validationData == null
+          ? null
+          : _i3.BuiltList(validationData),
       analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 
@@ -124,17 +127,16 @@ abstract class SignUpRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SignUpRequest')
-          ..add('clientId', '***SENSITIVE***')
-          ..add('secretHash', '***SENSITIVE***')
-          ..add('username', '***SENSITIVE***')
-          ..add('password', '***SENSITIVE***')
-          ..add('userAttributes', userAttributes)
-          ..add('validationData', validationData)
-          ..add('analyticsMetadata', analyticsMetadata)
-          ..add('userContextData', '***SENSITIVE***')
-          ..add('clientMetadata', clientMetadata);
+    final helper = newBuiltValueToStringHelper('SignUpRequest')
+      ..add('clientId', '***SENSITIVE***')
+      ..add('secretHash', '***SENSITIVE***')
+      ..add('username', '***SENSITIVE***')
+      ..add('password', '***SENSITIVE***')
+      ..add('userAttributes', userAttributes)
+      ..add('validationData', validationData)
+      ..add('analyticsMetadata', analyticsMetadata)
+      ..add('userContextData', '***SENSITIVE***')
+      ..add('clientMetadata', clientMetadata);
     return helper.toString();
   }
 }

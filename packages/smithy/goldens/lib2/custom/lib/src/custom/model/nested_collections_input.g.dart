@@ -48,12 +48,8 @@ class NestedCollectionsInputBuilder
   _i3.ListMultimapBuilder<String, _i3.BuiltListMultimap<String, String>?>?
   _mapOfListOfMapOfLists;
   _i3.ListMultimapBuilder<String, _i3.BuiltListMultimap<String, String>?>
-  get mapOfListOfMapOfLists =>
-      _$this._mapOfListOfMapOfLists ??=
-          _i3.ListMultimapBuilder<
-            String,
-            _i3.BuiltListMultimap<String, String>?
-          >();
+  get mapOfListOfMapOfLists => _$this._mapOfListOfMapOfLists ??=
+      _i3.ListMultimapBuilder<String, _i3.BuiltListMultimap<String, String>?>();
   set mapOfListOfMapOfLists(
     _i3.ListMultimapBuilder<String, _i3.BuiltListMultimap<String, String>?>?
     mapOfListOfMapOfLists,

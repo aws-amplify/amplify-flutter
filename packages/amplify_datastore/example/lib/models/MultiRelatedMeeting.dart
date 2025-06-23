@@ -53,10 +53,9 @@ class MultiRelatedMeeting extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -93,10 +92,9 @@ class MultiRelatedMeeting extends amplify_core.Model {
     return MultiRelatedMeeting._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
-      attendees:
-          attendees != null
-              ? List<MultiRelatedRegistration>.unmodifiable(attendees)
-              : attendees,
+      attendees: attendees != null
+          ? List<MultiRelatedRegistration>.unmodifiable(attendees)
+          : attendees,
     );
   }
 
@@ -159,10 +157,9 @@ class MultiRelatedMeeting extends amplify_core.Model {
   MultiRelatedMeeting.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _title = json['title'],
-      _attendees =
-          json['attendees'] is Map
-              ? (json['attendees']['items'] is List
-                  ? (json['attendees']['items'] as List)
+      _attendees = json['attendees'] is Map
+          ? (json['attendees']['items'] is List
+                ? (json['attendees']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) => MultiRelatedRegistration.fromJson(
@@ -170,9 +167,9 @@ class MultiRelatedMeeting extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null)
-              : (json['attendees'] is List
-                  ? (json['attendees'] as List)
+                : null)
+          : (json['attendees'] is List
+                ? (json['attendees'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => MultiRelatedRegistration.fromJson(
@@ -180,21 +177,20 @@ class MultiRelatedMeeting extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'title': _title,
-    'attendees':
-        _attendees?.map((MultiRelatedRegistration? e) => e?.toJson()).toList(),
+    'attendees': _attendees
+        ?.map((MultiRelatedRegistration? e) => e?.toJson())
+        .toList(),
     'createdAt': _createdAt?.format(),
     'updatedAt': _updatedAt?.format(),
   };
@@ -306,10 +302,9 @@ class MultiRelatedMeetingModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

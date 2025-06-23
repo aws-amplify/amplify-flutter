@@ -72,11 +72,10 @@ abstract class ResourceNotFoundException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ResourceNotFoundException')
-          ..add('type', type)
-          ..add('code', code)
-          ..add('message', message);
+    final helper = newBuiltValueToStringHelper('ResourceNotFoundException')
+      ..add('type', type)
+      ..add('code', code)
+      ..add('message', message);
     return helper.toString();
   }
 }

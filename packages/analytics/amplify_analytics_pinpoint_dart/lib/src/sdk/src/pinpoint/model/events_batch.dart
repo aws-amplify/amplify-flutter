@@ -44,10 +44,9 @@ abstract class EventsBatch
   List<Object?> get props => [endpoint, events];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EventsBatch')
-          ..add('endpoint', endpoint)
-          ..add('events', events);
+    final helper = newBuiltValueToStringHelper('EventsBatch')
+      ..add('endpoint', endpoint)
+      ..add('events', events);
     return helper.toString();
   }
 }

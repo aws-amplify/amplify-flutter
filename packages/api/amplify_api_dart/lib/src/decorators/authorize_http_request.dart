@@ -53,13 +53,13 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
         authType,
       );
       final isGraphQL = endpointConfig.apiType == ApiType.graphQL;
-      final service =
-          isGraphQL
-              ? AWSService.appSync
-              : AWSService.apiGatewayManagementApi; // resolves to "execute-api"
+      final service = isGraphQL
+          ? AWSService.appSync
+          : AWSService.apiGatewayManagementApi; // resolves to "execute-api"
       // Do not sign body for REST to avoid CORS issue on web.
-      final serviceConfiguration =
-          isGraphQL ? null : const ServiceConfiguration(signBody: false);
+      final serviceConfiguration = isGraphQL
+          ? null
+          : const ServiceConfiguration(signBody: false);
 
       final authorizedRequest = await authProvider.authorizeRequest(
         request,

@@ -45,10 +45,9 @@ abstract class MalformedRequestBodyInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedRequestBodyInput')
-          ..add('int_', int_)
-          ..add('float', float);
+    final helper = newBuiltValueToStringHelper('MalformedRequestBodyInput')
+      ..add('int_', int_)
+      ..add('float', float);
     return helper.toString();
   }
 }

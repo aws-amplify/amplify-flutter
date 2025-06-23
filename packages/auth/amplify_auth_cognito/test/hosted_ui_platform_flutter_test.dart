@@ -25,16 +25,14 @@ void main() {
 
     setUp(() async {
       secureStorage = MockSecureStorage();
-      dependencyManager =
-          DependencyManager()
-            ..addInstance(mockConfig.auth!)
-            ..addInstance<SecureStorageInterface>(secureStorage)
-            ..addInstance<NativeAuthBridge>(ThrowingNativeBridge());
-      plugin =
-          AmplifyAuthCognito()
-            ..stateMachine = CognitoAuthStateMachine(
-              dependencyManager: dependencyManager,
-            );
+      dependencyManager = DependencyManager()
+        ..addInstance(mockConfig.auth!)
+        ..addInstance<SecureStorageInterface>(secureStorage)
+        ..addInstance<NativeAuthBridge>(ThrowingNativeBridge());
+      plugin = AmplifyAuthCognito()
+        ..stateMachine = CognitoAuthStateMachine(
+          dependencyManager: dependencyManager,
+        );
       plugin.stateMachine.addBuilder<HostedUiPlatform>(
         HostedUiPlatformImpl.new,
       );

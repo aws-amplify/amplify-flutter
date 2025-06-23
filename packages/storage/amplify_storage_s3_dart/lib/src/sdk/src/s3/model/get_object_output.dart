@@ -129,11 +129,10 @@ abstract class GetObjectOutput
       b.restore = response.headers['x-amz-restore']!;
     }
     if (response.headers['Last-Modified'] != null) {
-      b.lastModified =
-          _i2.Timestamp.parse(
-            response.headers['Last-Modified']!,
-            format: _i2.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.lastModified = _i2.Timestamp.parse(
+        response.headers['Last-Modified']!,
+        format: _i2.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (response.headers['Content-Length'] != null) {
       b.contentLength = _i4.Int64.parseInt(response.headers['Content-Length']!);
@@ -178,11 +177,10 @@ abstract class GetObjectOutput
       b.contentType = response.headers['Content-Type']!;
     }
     if (response.headers['Expires'] != null) {
-      b.expires =
-          _i2.Timestamp.parse(
-            response.headers['Expires']!,
-            format: _i2.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.expires = _i2.Timestamp.parse(
+        response.headers['Expires']!,
+        format: _i2.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (response.headers['x-amz-website-redirect-location'] != null) {
       b.websiteRedirectLocation =
@@ -242,11 +240,10 @@ abstract class GetObjectOutput
       );
     }
     if (response.headers['x-amz-object-lock-retain-until-date'] != null) {
-      b.objectLockRetainUntilDate =
-          _i2.Timestamp.parse(
-            response.headers['x-amz-object-lock-retain-until-date']!,
-            format: _i2.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.objectLockRetainUntilDate = _i2.Timestamp.parse(
+        response.headers['x-amz-object-lock-retain-until-date']!,
+        format: _i2.TimestampFormat.dateTime,
+      ).asDateTime;
     }
     if (response.headers['x-amz-object-lock-legal-hold'] != null) {
       b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values.byValue(
@@ -465,44 +462,43 @@ abstract class GetObjectOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetObjectOutput')
-          ..add('body', body)
-          ..add('deleteMarker', deleteMarker)
-          ..add('acceptRanges', acceptRanges)
-          ..add('expiration', expiration)
-          ..add('restore', restore)
-          ..add('lastModified', lastModified)
-          ..add('contentLength', contentLength)
-          ..add('eTag', eTag)
-          ..add('checksumCrc32', checksumCrc32)
-          ..add('checksumCrc32C', checksumCrc32C)
-          ..add('checksumSha1', checksumSha1)
-          ..add('checksumSha256', checksumSha256)
-          ..add('missingMeta', missingMeta)
-          ..add('versionId', versionId)
-          ..add('cacheControl', cacheControl)
-          ..add('contentDisposition', contentDisposition)
-          ..add('contentEncoding', contentEncoding)
-          ..add('contentLanguage', contentLanguage)
-          ..add('contentRange', contentRange)
-          ..add('contentType', contentType)
-          ..add('expires', expires)
-          ..add('websiteRedirectLocation', websiteRedirectLocation)
-          ..add('serverSideEncryption', serverSideEncryption)
-          ..add('metadata', metadata)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('ssekmsKeyId', '***SENSITIVE***')
-          ..add('bucketKeyEnabled', bucketKeyEnabled)
-          ..add('storageClass', storageClass)
-          ..add('requestCharged', requestCharged)
-          ..add('replicationStatus', replicationStatus)
-          ..add('partsCount', partsCount)
-          ..add('tagCount', tagCount)
-          ..add('objectLockMode', objectLockMode)
-          ..add('objectLockRetainUntilDate', objectLockRetainUntilDate)
-          ..add('objectLockLegalHoldStatus', objectLockLegalHoldStatus);
+    final helper = newBuiltValueToStringHelper('GetObjectOutput')
+      ..add('body', body)
+      ..add('deleteMarker', deleteMarker)
+      ..add('acceptRanges', acceptRanges)
+      ..add('expiration', expiration)
+      ..add('restore', restore)
+      ..add('lastModified', lastModified)
+      ..add('contentLength', contentLength)
+      ..add('eTag', eTag)
+      ..add('checksumCrc32', checksumCrc32)
+      ..add('checksumCrc32C', checksumCrc32C)
+      ..add('checksumSha1', checksumSha1)
+      ..add('checksumSha256', checksumSha256)
+      ..add('missingMeta', missingMeta)
+      ..add('versionId', versionId)
+      ..add('cacheControl', cacheControl)
+      ..add('contentDisposition', contentDisposition)
+      ..add('contentEncoding', contentEncoding)
+      ..add('contentLanguage', contentLanguage)
+      ..add('contentRange', contentRange)
+      ..add('contentType', contentType)
+      ..add('expires', expires)
+      ..add('websiteRedirectLocation', websiteRedirectLocation)
+      ..add('serverSideEncryption', serverSideEncryption)
+      ..add('metadata', metadata)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('ssekmsKeyId', '***SENSITIVE***')
+      ..add('bucketKeyEnabled', bucketKeyEnabled)
+      ..add('storageClass', storageClass)
+      ..add('requestCharged', requestCharged)
+      ..add('replicationStatus', replicationStatus)
+      ..add('partsCount', partsCount)
+      ..add('tagCount', tagCount)
+      ..add('objectLockMode', objectLockMode)
+      ..add('objectLockRetainUntilDate', objectLockRetainUntilDate)
+      ..add('objectLockLegalHoldStatus', objectLockLegalHoldStatus);
     return helper.toString();
   }
 }

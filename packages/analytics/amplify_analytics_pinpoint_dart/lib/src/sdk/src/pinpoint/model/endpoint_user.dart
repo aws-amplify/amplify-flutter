@@ -21,8 +21,9 @@ abstract class EndpointUser
     String? userId,
   }) {
     return _$EndpointUser._(
-      userAttributes:
-          userAttributes == null ? null : _i2.BuiltListMultimap(userAttributes),
+      userAttributes: userAttributes == null
+          ? null
+          : _i2.BuiltListMultimap(userAttributes),
       userId: userId,
     );
   }
@@ -48,10 +49,9 @@ abstract class EndpointUser
   List<Object?> get props => [userAttributes, userId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EndpointUser')
-          ..add('userAttributes', userAttributes)
-          ..add('userId', userId);
+    final helper = newBuiltValueToStringHelper('EndpointUser')
+      ..add('userAttributes', userAttributes)
+      ..add('userId', userId);
     return helper.toString();
   }
 }

@@ -51,10 +51,9 @@ abstract class SimpleScalarPropertiesInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SimpleScalarPropertiesInput')
-          ..add('floatValue', floatValue)
-          ..add('doubleValue', doubleValue);
+    final helper = newBuiltValueToStringHelper('SimpleScalarPropertiesInput')
+      ..add('floatValue', floatValue)
+      ..add('doubleValue', doubleValue);
     return helper.toString();
   }
 }

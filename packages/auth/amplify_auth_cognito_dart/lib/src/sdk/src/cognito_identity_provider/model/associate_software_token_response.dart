@@ -52,10 +52,9 @@ abstract class AssociateSoftwareTokenResponse
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AssociateSoftwareTokenResponse')
-          ..add('secretCode', '***SENSITIVE***')
-          ..add('session', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('AssociateSoftwareTokenResponse')
+      ..add('secretCode', '***SENSITIVE***')
+      ..add('session', '***SENSITIVE***');
     return helper.toString();
   }
 }

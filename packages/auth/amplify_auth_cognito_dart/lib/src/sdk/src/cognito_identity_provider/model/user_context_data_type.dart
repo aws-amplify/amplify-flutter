@@ -43,10 +43,9 @@ abstract class UserContextDataType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UserContextDataType')
-          ..add('ipAddress', '***SENSITIVE***')
-          ..add('encodedData', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('UserContextDataType')
+      ..add('ipAddress', '***SENSITIVE***')
+      ..add('encodedData', '***SENSITIVE***');
     return helper.toString();
   }
 }

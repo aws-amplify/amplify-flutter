@@ -86,12 +86,11 @@ abstract class MalformedShortInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedShortInput')
-          ..add('shortInBody', shortInBody)
-          ..add('shortInPath', shortInPath)
-          ..add('shortInQuery', shortInQuery)
-          ..add('shortInHeader', shortInHeader);
+    final helper = newBuiltValueToStringHelper('MalformedShortInput')
+      ..add('shortInBody', shortInBody)
+      ..add('shortInPath', shortInPath)
+      ..add('shortInQuery', shortInQuery)
+      ..add('shortInHeader', shortInHeader);
     return helper.toString();
   }
 }

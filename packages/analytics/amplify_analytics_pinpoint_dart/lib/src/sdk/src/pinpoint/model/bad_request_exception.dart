@@ -65,10 +65,9 @@ abstract class BadRequestException
   List<Object?> get props => [message, requestId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('BadRequestException')
-          ..add('message', message)
-          ..add('requestId', requestId);
+    final helper = newBuiltValueToStringHelper('BadRequestException')
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }

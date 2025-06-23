@@ -68,10 +68,9 @@ abstract class TestPayloadBlobInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TestPayloadBlobInputOutput')
-          ..add('contentType', contentType)
-          ..add('data', data);
+    final helper = newBuiltValueToStringHelper('TestPayloadBlobInputOutput')
+      ..add('contentType', contentType)
+      ..add('data', data);
     return helper.toString();
   }
 }

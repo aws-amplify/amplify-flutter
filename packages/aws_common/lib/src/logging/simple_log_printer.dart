@@ -14,10 +14,9 @@ class SimpleLogPrinter implements AWSLoggerPlugin {
 
   /// Formats [logEntry] using level, namespace, and message components.
   static String formatLogEntry(LogEntry logEntry) {
-    final buffer =
-        StringBuffer()
-          ..write(logEntry.level.name.toUpperCase().padRight(5))
-          ..write(' | ');
+    final buffer = StringBuffer()
+      ..write(logEntry.level.name.toUpperCase().padRight(5))
+      ..write(' | ');
 
     final namespace = logEntry.loggerName.split('.').lastOrNull;
     if (namespace != null && namespace.isNotEmpty) {

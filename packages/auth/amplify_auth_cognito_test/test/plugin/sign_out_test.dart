@@ -50,22 +50,22 @@ void main() {
     setUp(() async {
       secureStorage = MockSecureStorage();
       SecureStorageInterface storageFactory(scope) => secureStorage;
-      stateMachine =
-          CognitoAuthStateMachine()..addBuilder<HostedUiPlatform>(
-            createHostedUiFactory(
-              signIn:
-                  (
-                    HostedUiPlatform platform,
-                    CognitoSignInWithWebUIPluginOptions options,
-                    AuthProvider? provider,
-                  ) async {},
-              signOut:
-                  (
-                    HostedUiPlatform platform,
-                    CognitoSignInWithWebUIPluginOptions options,
-                  ) async {},
-            ),
-          );
+      stateMachine = CognitoAuthStateMachine()
+        ..addBuilder<HostedUiPlatform>(
+          createHostedUiFactory(
+            signIn:
+                (
+                  HostedUiPlatform platform,
+                  CognitoSignInWithWebUIPluginOptions options,
+                  AuthProvider? provider,
+                ) async {},
+            signOut:
+                (
+                  HostedUiPlatform platform,
+                  CognitoSignInWithWebUIPluginOptions options,
+                ) async {},
+          ),
+        );
 
       plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
         ..stateMachine = stateMachine;

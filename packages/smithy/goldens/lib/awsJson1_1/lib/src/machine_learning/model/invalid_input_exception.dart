@@ -64,10 +64,9 @@ abstract class InvalidInputException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InvalidInputException')
-          ..add('message', message)
-          ..add('code', code);
+    final helper = newBuiltValueToStringHelper('InvalidInputException')
+      ..add('message', message)
+      ..add('code', code);
     return helper.toString();
   }
 }

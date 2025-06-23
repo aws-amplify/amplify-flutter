@@ -51,7 +51,7 @@ abstract class JsonRpc10ServerBase extends _i1.HttpServerBase {
         'JsonRpc10.NoInputAndOutput': service.noInputAndOutput,
         'JsonRpc10.PutWithContentEncoding': service.putWithContentEncoding,
         'JsonRpc10.SimpleScalarProperties': service.simpleScalarProperties,
-      }),
+      }).call,
     );
     return router;
   }();

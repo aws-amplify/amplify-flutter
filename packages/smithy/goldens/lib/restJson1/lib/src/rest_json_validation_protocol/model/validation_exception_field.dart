@@ -43,10 +43,9 @@ abstract class ValidationExceptionField
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ValidationExceptionField')
-          ..add('path', path)
-          ..add('message', message);
+    final helper = newBuiltValueToStringHelper('ValidationExceptionField')
+      ..add('path', path)
+      ..add('message', message);
     return helper.toString();
   }
 }

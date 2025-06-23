@@ -186,7 +186,7 @@ class EndpointGlobalFieldsManager {
     return cachedAttributes == null
         ? <String, String>{}
         : (jsonDecode(cachedAttributes) as Map<String, Object?>)
-            .cast<String, String>();
+              .cast<String, String>();
   }
 
   /// Retrieve metrics map stored as json in [storage].
@@ -200,6 +200,6 @@ class EndpointGlobalFieldsManager {
     return cachedMetrics == null
         ? <String, double>{}
         : (jsonDecode(cachedMetrics) as Map<String, Object?>)
-            .cast<String, double>();
+              .cast<String, double>();
   }
 }
