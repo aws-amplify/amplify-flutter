@@ -6,8 +6,8 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/ap
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.7.0
-  flutter: ">=3.29.0"
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:
@@ -33,7 +33,7 @@ dev_dependencies:
   amplify_test:
     path: ../../test/amplify_test
   build_runner: ^2.4.9
-  connectivity_plus_platform_interface: any
+  connectivity_plus_platform_interface: ^2.0.1
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.0

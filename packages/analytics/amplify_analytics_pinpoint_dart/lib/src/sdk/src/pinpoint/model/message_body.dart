@@ -38,10 +38,9 @@ abstract class MessageBody
   List<Object?> get props => [message, requestId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MessageBody')
-          ..add('message', message)
-          ..add('requestId', requestId);
+    final helper = newBuiltValueToStringHelper('MessageBody')
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }

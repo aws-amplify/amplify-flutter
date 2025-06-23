@@ -22,10 +22,9 @@ NotificationsOutputs _$NotificationsOutputsFromJson(
       ),
       channels: $checkedConvert(
         'channels',
-        (v) =>
-            (v as List<dynamic>)
-                .map((e) => $enumDecode(_$AmazonPinpointChannelEnumMap, e))
-                .toList(),
+        (v) => (v as List<dynamic>)
+            .map((e) => $enumDecode(_$AmazonPinpointChannelEnumMap, e))
+            .toList(),
       ),
     );
     return val;
@@ -41,8 +40,9 @@ Map<String, dynamic> _$NotificationsOutputsToJson(
 ) => <String, dynamic>{
   'aws_region': instance.awsRegion,
   'amazon_pinpoint_app_id': instance.amazonPinpointAppId,
-  'channels':
-      instance.channels.map((e) => _$AmazonPinpointChannelEnumMap[e]!).toList(),
+  'channels': instance.channels
+      .map((e) => _$AmazonPinpointChannelEnumMap[e]!)
+      .toList(),
 };
 
 const _$AmazonPinpointChannelEnumMap = {

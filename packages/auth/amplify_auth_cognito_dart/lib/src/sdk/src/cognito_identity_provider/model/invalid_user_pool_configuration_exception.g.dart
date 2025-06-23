@@ -15,9 +15,8 @@ class _$InvalidUserPoolConfigurationException
 
   factory _$InvalidUserPoolConfigurationException([
     void Function(InvalidUserPoolConfigurationExceptionBuilder)? updates,
-  ]) =>
-      (InvalidUserPoolConfigurationExceptionBuilder()..update(updates))
-          ._build();
+  ]) => (InvalidUserPoolConfigurationExceptionBuilder()..update(updates))
+      ._build();
 
   _$InvalidUserPoolConfigurationException._({this.message, this.headers})
     : super._();

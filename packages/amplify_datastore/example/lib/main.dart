@@ -48,10 +48,9 @@ class _MyAppState extends State<MyApp> {
       datastorePlugin = AmplifyDataStore(
         modelProvider: ModelProvider.instance,
         options: DataStorePluginOptions(
-          errorHandler:
-              ((error) => {
-                print("Custom ErrorHandler received: " + error.toString()),
-              }),
+          errorHandler: ((error) => {
+            print("Custom ErrorHandler received: " + error.toString()),
+          }),
           authModeStrategy: AuthModeStrategy.multiAuth,
         ),
       );

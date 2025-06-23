@@ -34,7 +34,8 @@ class SaveRepoStateCommand extends AmplifyCommand with GlobOptions {
   Future<void> run() async {
     await super.run();
     final configJson = prettyPrintJson(aftConfig.toJson());
-    final configDart = '''
+    final configDart =
+        '''
 // Generated with `aft save-repo-state`.
 
 import 'dart:convert';

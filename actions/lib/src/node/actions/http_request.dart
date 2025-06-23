@@ -21,9 +21,9 @@ extension type HttpClient._(JSObject it) {
     Map<String, String> headers = const {},
   }) async {
     final jsHeaders = Headers();
-      for(final entry in headers.entries) {
-        jsHeaders.append(entry.key, entry.value);
-      }
+    for (final entry in headers.entries) {
+      jsHeaders.append(entry.key, entry.value);
+    }
 
     final response = await _getJson(requestUrl, jsHeaders).toDart;
     final result = response as TypedResponse<JSObject>;

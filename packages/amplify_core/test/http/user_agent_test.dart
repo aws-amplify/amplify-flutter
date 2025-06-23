@@ -57,11 +57,10 @@ void main() {
     dependencies.addInstance<AWSHttpClient>(httpClient);
     dependencies.getOrCreate<AmplifyUserAgent>().addComponent(myUserAgent);
 
-    final response =
-        await dependencies
-            .getOrCreate<AmplifyHttpClient>()
-            .send(AWSHttpRequest.get(Uri.parse('https://example.com')))
-            .response;
+    final response = await dependencies
+        .getOrCreate<AmplifyHttpClient>()
+        .send(AWSHttpRequest.get(Uri.parse('https://example.com')))
+        .response;
     expect(response.statusCode, 200);
   });
 

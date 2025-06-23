@@ -84,11 +84,10 @@ abstract class NullAndEmptyHeadersIo
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('NullAndEmptyHeadersIo')
-          ..add('a', a)
-          ..add('b', b)
-          ..add('c', c);
+    final helper = newBuiltValueToStringHelper('NullAndEmptyHeadersIo')
+      ..add('a', a)
+      ..add('b', b)
+      ..add('c', c);
     return helper.toString();
   }
 }

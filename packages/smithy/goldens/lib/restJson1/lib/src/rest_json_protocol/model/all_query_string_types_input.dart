@@ -47,40 +47,46 @@ abstract class AllQueryStringTypesInput
   }) {
     return _$AllQueryStringTypesInput._(
       queryString: queryString,
-      queryStringList:
-          queryStringList == null ? null : _i4.BuiltList(queryStringList),
-      queryStringSet:
-          queryStringSet == null ? null : _i4.BuiltSet(queryStringSet),
+      queryStringList: queryStringList == null
+          ? null
+          : _i4.BuiltList(queryStringList),
+      queryStringSet: queryStringSet == null
+          ? null
+          : _i4.BuiltSet(queryStringSet),
       queryByte: queryByte,
       queryShort: queryShort,
       queryInteger: queryInteger,
-      queryIntegerList:
-          queryIntegerList == null ? null : _i4.BuiltList(queryIntegerList),
-      queryIntegerSet:
-          queryIntegerSet == null ? null : _i4.BuiltSet(queryIntegerSet),
+      queryIntegerList: queryIntegerList == null
+          ? null
+          : _i4.BuiltList(queryIntegerList),
+      queryIntegerSet: queryIntegerSet == null
+          ? null
+          : _i4.BuiltSet(queryIntegerSet),
       queryLong: queryLong,
       queryFloat: queryFloat,
       queryDouble: queryDouble,
-      queryDoubleList:
-          queryDoubleList == null ? null : _i4.BuiltList(queryDoubleList),
+      queryDoubleList: queryDoubleList == null
+          ? null
+          : _i4.BuiltList(queryDoubleList),
       queryBoolean: queryBoolean,
-      queryBooleanList:
-          queryBooleanList == null ? null : _i4.BuiltList(queryBooleanList),
+      queryBooleanList: queryBooleanList == null
+          ? null
+          : _i4.BuiltList(queryBooleanList),
       queryTimestamp: queryTimestamp,
-      queryTimestampList:
-          queryTimestampList == null ? null : _i4.BuiltList(queryTimestampList),
+      queryTimestampList: queryTimestampList == null
+          ? null
+          : _i4.BuiltList(queryTimestampList),
       queryEnum: queryEnum,
-      queryEnumList:
-          queryEnumList == null ? null : _i4.BuiltList(queryEnumList),
+      queryEnumList: queryEnumList == null
+          ? null
+          : _i4.BuiltList(queryEnumList),
       queryIntegerEnum: queryIntegerEnum,
-      queryIntegerEnumList:
-          queryIntegerEnumList == null
-              ? null
-              : _i4.BuiltList(queryIntegerEnumList),
-      queryParamsMapOfStringList:
-          queryParamsMapOfStringList == null
-              ? null
-              : _i4.BuiltListMultimap(queryParamsMapOfStringList),
+      queryIntegerEnumList: queryIntegerEnumList == null
+          ? null
+          : _i4.BuiltList(queryIntegerEnumList),
+      queryParamsMapOfStringList: queryParamsMapOfStringList == null
+          ? null
+          : _i4.BuiltListMultimap(queryParamsMapOfStringList),
     );
   }
 
@@ -162,11 +168,10 @@ abstract class AllQueryStringTypesInput
       );
     }
     if (request.queryParameters['Timestamp'] != null) {
-      b.queryTimestamp =
-          _i1.Timestamp.parse(
-            request.queryParameters['Timestamp']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.queryTimestamp = _i1.Timestamp.parse(
+        request.queryParameters['Timestamp']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
     if (request.queryParameters['TimestampList'] != null) {
       b.queryTimestampList.addAll(
@@ -176,11 +181,10 @@ abstract class AllQueryStringTypesInput
               isTimestampList: true,
             )
             .map(
-              (el) =>
-                  _i1.Timestamp.parse(
-                    el.trim(),
-                    format: _i1.TimestampFormat.httpDate,
-                  ).asDateTime,
+              (el) => _i1.Timestamp.parse(
+                el.trim(),
+                format: _i1.TimestampFormat.httpDate,
+              ).asDateTime,
             ),
       );
     }
@@ -261,29 +265,28 @@ abstract class AllQueryStringTypesInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AllQueryStringTypesInput')
-          ..add('queryString', queryString)
-          ..add('queryStringList', queryStringList)
-          ..add('queryStringSet', queryStringSet)
-          ..add('queryByte', queryByte)
-          ..add('queryShort', queryShort)
-          ..add('queryInteger', queryInteger)
-          ..add('queryIntegerList', queryIntegerList)
-          ..add('queryIntegerSet', queryIntegerSet)
-          ..add('queryLong', queryLong)
-          ..add('queryFloat', queryFloat)
-          ..add('queryDouble', queryDouble)
-          ..add('queryDoubleList', queryDoubleList)
-          ..add('queryBoolean', queryBoolean)
-          ..add('queryBooleanList', queryBooleanList)
-          ..add('queryTimestamp', queryTimestamp)
-          ..add('queryTimestampList', queryTimestampList)
-          ..add('queryEnum', queryEnum)
-          ..add('queryEnumList', queryEnumList)
-          ..add('queryIntegerEnum', queryIntegerEnum)
-          ..add('queryIntegerEnumList', queryIntegerEnumList)
-          ..add('queryParamsMapOfStringList', queryParamsMapOfStringList);
+    final helper = newBuiltValueToStringHelper('AllQueryStringTypesInput')
+      ..add('queryString', queryString)
+      ..add('queryStringList', queryStringList)
+      ..add('queryStringSet', queryStringSet)
+      ..add('queryByte', queryByte)
+      ..add('queryShort', queryShort)
+      ..add('queryInteger', queryInteger)
+      ..add('queryIntegerList', queryIntegerList)
+      ..add('queryIntegerSet', queryIntegerSet)
+      ..add('queryLong', queryLong)
+      ..add('queryFloat', queryFloat)
+      ..add('queryDouble', queryDouble)
+      ..add('queryDoubleList', queryDoubleList)
+      ..add('queryBoolean', queryBoolean)
+      ..add('queryBooleanList', queryBooleanList)
+      ..add('queryTimestamp', queryTimestamp)
+      ..add('queryTimestampList', queryTimestampList)
+      ..add('queryEnum', queryEnum)
+      ..add('queryEnumList', queryEnumList)
+      ..add('queryIntegerEnum', queryIntegerEnum)
+      ..add('queryIntegerEnumList', queryIntegerEnumList)
+      ..add('queryParamsMapOfStringList', queryParamsMapOfStringList);
     return helper.toString();
   }
 }

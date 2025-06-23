@@ -94,18 +94,17 @@ class GenerateGoldensCommand extends AmplifyCommand {
       exit(1);
     }
 
-    final versions =
-        await repo.git
-            .tags()
-            .map((tag) {
-              try {
-                return Version.parse(tag.tag);
-              } on Object {
-                return null;
-              }
-            })
-            .whereNotNull()
-            .toList();
+    final versions = await repo.git
+        .tags()
+        .map((tag) {
+          try {
+            return Version.parse(tag.tag);
+          } on Object {
+            return null;
+          }
+        })
+        .whereNotNull()
+        .toList();
     versions.sort();
     final latestVersion = versions.last.toString();
     logger.info('Updating models to Smithy $latestVersion');
@@ -145,8 +144,9 @@ class GenerateGoldensCommand extends AmplifyCommand {
     }
 
     // Replace `coral` references
-    final allModelFiles =
-        Directory(modelsPath).listSync(recursive: true).whereType<File>();
+    final allModelFiles = Directory(
+      modelsPath,
+    ).listSync(recursive: true).whereType<File>();
     for (final file in allModelFiles) {
       final content = file.readAsStringSync();
       file.writeAsStringSync(content.replaceAll('coral', 'example'));
@@ -248,12 +248,11 @@ class GenerateGoldensCommand extends AmplifyCommand {
     final pubspecPath = p.join(outputPath, 'pubspec.yaml');
     final pubspec = Pubspec(packageName);
     final localSmithyPath = Directory(goldensRoot).uri.resolve('..').path;
-    final pubspecYaml =
-        PubspecGenerator(
-          pubspec,
-          dependencies,
-          smithyPath: p.relative(localSmithyPath, from: outputPath),
-        ).generate();
+    final pubspecYaml = PubspecGenerator(
+      pubspec,
+      dependencies,
+      smithyPath: p.relative(localSmithyPath, from: outputPath),
+    ).generate();
     File(pubspecPath).writeAsStringSync(pubspecYaml);
 
     // Create analysis options

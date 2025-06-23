@@ -388,8 +388,9 @@ class StateMachineBloc
               (result) => _processSignInResult(result, isSocialSignIn: true),
             )
             .onError<Exception>((error, stackTrace) {
-              final log =
-                  error is UserCancelledException ? logger.info : logger.error;
+              final log = error is UserCancelledException
+                  ? logger.info
+                  : logger.error;
               log('Error signing in', error, stackTrace);
             });
       } else {
@@ -417,8 +418,8 @@ class StateMachineBloc
 
   Stream<AuthState> _checkUserVerification() async* {
     try {
-      final attributeVerificationStatus =
-          await _authService.getAttributeVerificationStatus();
+      final attributeVerificationStatus = await _authService
+          .getAttributeVerificationStatus();
       final unverifiedAttributes =
           attributeVerificationStatus.unverifiedAttributes;
       final verifiedAttributes = attributeVerificationStatus.verifiedAttributes;

@@ -19,10 +19,9 @@ AuthNextUpdateAttributeStep _$AuthNextUpdateAttributeStepFromJson(
     ),
     codeDeliveryDetails: $checkedConvert(
       'codeDeliveryDetails',
-      (v) =>
-          v == null
-              ? null
-              : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
+      (v) => v == null
+          ? null
+          : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
     ),
     updateAttributeStep: $checkedConvert(
       'updateAttributeStep',

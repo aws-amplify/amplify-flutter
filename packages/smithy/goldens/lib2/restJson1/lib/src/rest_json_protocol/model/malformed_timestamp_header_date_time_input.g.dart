@@ -13,9 +13,8 @@ class _$MalformedTimestampHeaderDateTimeInput
 
   factory _$MalformedTimestampHeaderDateTimeInput([
     void Function(MalformedTimestampHeaderDateTimeInputBuilder)? updates,
-  ]) =>
-      (MalformedTimestampHeaderDateTimeInputBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedTimestampHeaderDateTimeInputBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampHeaderDateTimeInput._({required this.timestamp})
     : super._();
@@ -101,9 +100,8 @@ class _$MalformedTimestampHeaderDateTimeInputPayload
     extends MalformedTimestampHeaderDateTimeInputPayload {
   factory _$MalformedTimestampHeaderDateTimeInputPayload([
     void Function(MalformedTimestampHeaderDateTimeInputPayloadBuilder)? updates,
-  ]) =>
-      (MalformedTimestampHeaderDateTimeInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedTimestampHeaderDateTimeInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampHeaderDateTimeInputPayload._() : super._();
   @override

@@ -38,8 +38,9 @@ abstract class AuthEventType
       creationDate: creationDate,
       eventResponse: eventResponse,
       eventRisk: eventRisk,
-      challengeResponses:
-          challengeResponses == null ? null : _i2.BuiltList(challengeResponses),
+      challengeResponses: challengeResponses == null
+          ? null
+          : _i2.BuiltList(challengeResponses),
       eventContextData: eventContextData,
       eventFeedback: eventFeedback,
     );
@@ -91,16 +92,15 @@ abstract class AuthEventType
   ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AuthEventType')
-          ..add('eventId', eventId)
-          ..add('eventType', eventType)
-          ..add('creationDate', creationDate)
-          ..add('eventResponse', eventResponse)
-          ..add('eventRisk', eventRisk)
-          ..add('challengeResponses', challengeResponses)
-          ..add('eventContextData', eventContextData)
-          ..add('eventFeedback', eventFeedback);
+    final helper = newBuiltValueToStringHelper('AuthEventType')
+      ..add('eventId', eventId)
+      ..add('eventType', eventType)
+      ..add('creationDate', creationDate)
+      ..add('eventResponse', eventResponse)
+      ..add('eventRisk', eventRisk)
+      ..add('challengeResponses', challengeResponses)
+      ..add('eventContextData', eventContextData)
+      ..add('eventFeedback', eventFeedback);
     return helper.toString();
   }
 }

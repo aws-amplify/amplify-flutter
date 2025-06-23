@@ -107,23 +107,22 @@ abstract class MalformedRangeOverrideInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedRangeOverrideInput')
-          ..add('byte', byte)
-          ..add('minByte', minByte)
-          ..add('maxByte', maxByte)
-          ..add('short', short)
-          ..add('minShort', minShort)
-          ..add('maxShort', maxShort)
-          ..add('integer', integer)
-          ..add('minInteger', minInteger)
-          ..add('maxInteger', maxInteger)
-          ..add('long', long)
-          ..add('minLong', minLong)
-          ..add('maxLong', maxLong)
-          ..add('float', float)
-          ..add('minFloat', minFloat)
-          ..add('maxFloat', maxFloat);
+    final helper = newBuiltValueToStringHelper('MalformedRangeOverrideInput')
+      ..add('byte', byte)
+      ..add('minByte', minByte)
+      ..add('maxByte', maxByte)
+      ..add('short', short)
+      ..add('minShort', minShort)
+      ..add('maxShort', maxShort)
+      ..add('integer', integer)
+      ..add('minInteger', minInteger)
+      ..add('maxInteger', maxInteger)
+      ..add('long', long)
+      ..add('minLong', minLong)
+      ..add('maxLong', maxLong)
+      ..add('float', float)
+      ..add('minFloat', minFloat)
+      ..add('maxFloat', maxFloat);
     return helper.toString();
   }
 }

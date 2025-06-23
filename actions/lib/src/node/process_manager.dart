@@ -196,12 +196,11 @@ final class NodeProcess implements Process, Closeable {
     await Future.any([
       _jsProcess.onSpawn,
       _jsProcess.onError.then(
-        (error) =>
-            throw ProcessException(
-              executable,
-              arguments,
-              'Error spawning subprocess: $error',
-            ),
+        (error) => throw ProcessException(
+          executable,
+          arguments,
+          'Error spawning subprocess: $error',
+        ),
       ),
     ]);
   }

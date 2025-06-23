@@ -59,37 +59,32 @@ abstract class KitchenSink
       integer: integer,
       iso8601Timestamp: iso8601Timestamp,
       jsonValue: jsonValue == null ? null : _i5.JsonObject(jsonValue),
-      listOfLists:
-          listOfLists == null
-              ? null
-              : _i6.BuiltList(listOfLists.map((el) => _i6.BuiltList(el))),
-      listOfMapsOfStrings:
-          listOfMapsOfStrings == null
-              ? null
-              : _i6.BuiltList(
-                listOfMapsOfStrings.map((el) => _i6.BuiltMap(el)),
-              ),
-      listOfStrings:
-          listOfStrings == null ? null : _i6.BuiltList(listOfStrings),
-      listOfStructs:
-          listOfStructs == null ? null : _i6.BuiltList(listOfStructs),
+      listOfLists: listOfLists == null
+          ? null
+          : _i6.BuiltList(listOfLists.map((el) => _i6.BuiltList(el))),
+      listOfMapsOfStrings: listOfMapsOfStrings == null
+          ? null
+          : _i6.BuiltList(listOfMapsOfStrings.map((el) => _i6.BuiltMap(el))),
+      listOfStrings: listOfStrings == null
+          ? null
+          : _i6.BuiltList(listOfStrings),
+      listOfStructs: listOfStructs == null
+          ? null
+          : _i6.BuiltList(listOfStructs),
       long: long,
-      mapOfListsOfStrings:
-          mapOfListsOfStrings == null
-              ? null
-              : _i6.BuiltListMultimap(mapOfListsOfStrings),
-      mapOfMaps:
-          mapOfMaps == null
-              ? null
-              : _i6.BuiltMap(
-                mapOfMaps.map(
-                  (key, value) => MapEntry(key, _i6.BuiltMap(value)),
-                ),
-              ),
+      mapOfListsOfStrings: mapOfListsOfStrings == null
+          ? null
+          : _i6.BuiltListMultimap(mapOfListsOfStrings),
+      mapOfMaps: mapOfMaps == null
+          ? null
+          : _i6.BuiltMap(
+              mapOfMaps.map((key, value) => MapEntry(key, _i6.BuiltMap(value))),
+            ),
       mapOfStrings: mapOfStrings == null ? null : _i6.BuiltMap(mapOfStrings),
       mapOfStructs: mapOfStructs == null ? null : _i6.BuiltMap(mapOfStructs),
-      recursiveList:
-          recursiveList == null ? null : _i6.BuiltList(recursiveList),
+      recursiveList: recursiveList == null
+          ? null
+          : _i6.BuiltList(recursiveList),
       recursiveMap: recursiveMap == null ? null : _i6.BuiltMap(recursiveMap),
       recursiveStruct: recursiveStruct,
       simpleStruct: simpleStruct,
@@ -182,34 +177,33 @@ abstract class KitchenSink
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('KitchenSink')
-          ..add('blob', blob)
-          ..add('boolean', boolean)
-          ..add('double_', double_)
-          ..add('emptyStruct', emptyStruct)
-          ..add('float', float)
-          ..add('httpdateTimestamp', httpdateTimestamp)
-          ..add('integer', integer)
-          ..add('iso8601Timestamp', iso8601Timestamp)
-          ..add('jsonValue', jsonValue)
-          ..add('listOfLists', listOfLists)
-          ..add('listOfMapsOfStrings', listOfMapsOfStrings)
-          ..add('listOfStrings', listOfStrings)
-          ..add('listOfStructs', listOfStructs)
-          ..add('long', long)
-          ..add('mapOfListsOfStrings', mapOfListsOfStrings)
-          ..add('mapOfMaps', mapOfMaps)
-          ..add('mapOfStrings', mapOfStrings)
-          ..add('mapOfStructs', mapOfStructs)
-          ..add('recursiveList', recursiveList)
-          ..add('recursiveMap', recursiveMap)
-          ..add('recursiveStruct', recursiveStruct)
-          ..add('simpleStruct', simpleStruct)
-          ..add('string', string)
-          ..add('structWithJsonName', structWithJsonName)
-          ..add('timestamp', timestamp)
-          ..add('unixTimestamp', unixTimestamp);
+    final helper = newBuiltValueToStringHelper('KitchenSink')
+      ..add('blob', blob)
+      ..add('boolean', boolean)
+      ..add('double_', double_)
+      ..add('emptyStruct', emptyStruct)
+      ..add('float', float)
+      ..add('httpdateTimestamp', httpdateTimestamp)
+      ..add('integer', integer)
+      ..add('iso8601Timestamp', iso8601Timestamp)
+      ..add('jsonValue', jsonValue)
+      ..add('listOfLists', listOfLists)
+      ..add('listOfMapsOfStrings', listOfMapsOfStrings)
+      ..add('listOfStrings', listOfStrings)
+      ..add('listOfStructs', listOfStructs)
+      ..add('long', long)
+      ..add('mapOfListsOfStrings', mapOfListsOfStrings)
+      ..add('mapOfMaps', mapOfMaps)
+      ..add('mapOfStrings', mapOfStrings)
+      ..add('mapOfStructs', mapOfStructs)
+      ..add('recursiveList', recursiveList)
+      ..add('recursiveMap', recursiveMap)
+      ..add('recursiveStruct', recursiveStruct)
+      ..add('simpleStruct', simpleStruct)
+      ..add('string', string)
+      ..add('structWithJsonName', structWithJsonName)
+      ..add('timestamp', timestamp)
+      ..add('unixTimestamp', unixTimestamp);
     return helper.toString();
   }
 }

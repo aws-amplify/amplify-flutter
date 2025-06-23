@@ -55,8 +55,9 @@ void main() {
     testWidgets('eq()', (WidgetTester tester) async {
       // test against all values
       for (var value in nonNullValues) {
-        var expectedModels =
-            models.where((model) => model.floatValue == value).toList();
+        var expectedModels = models
+            .where((model) => model.floatValue == value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.eq(value),
           expectedModels: expectedModels,
@@ -75,8 +76,9 @@ void main() {
       for (var value in nonNullValues) {
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
-        var expectedModels =
-            nonNullModels.where((model) => model.floatValue != value).toList();
+        var expectedModels = nonNullModels
+            .where((model) => model.floatValue != value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.ne(value),
           expectedModels: expectedModels,
@@ -95,8 +97,9 @@ void main() {
     testWidgets('lt()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels =
-            nonNullModels.where((model) => model.floatValue! < value).toList();
+        var expectedModels = nonNullModels
+            .where((model) => model.floatValue! < value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.lt(value),
           expectedModels: expectedModels,
@@ -115,8 +118,9 @@ void main() {
     testWidgets('le()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels =
-            nonNullModels.where((model) => model.floatValue! <= value).toList();
+        var expectedModels = nonNullModels
+            .where((model) => model.floatValue! <= value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.le(value),
           expectedModels: expectedModels,
@@ -135,8 +139,9 @@ void main() {
     testWidgets('gt()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels =
-            nonNullModels.where((model) => model.floatValue! > value).toList();
+        var expectedModels = nonNullModels
+            .where((model) => model.floatValue! > value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.gt(value),
           expectedModels: expectedModels,
@@ -155,8 +160,9 @@ void main() {
     testWidgets('ge()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels =
-            nonNullModels.where((model) => model.floatValue! >= value).toList();
+        var expectedModels = nonNullModels
+            .where((model) => model.floatValue! >= value)
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.ge(value),
           expectedModels: expectedModels,
@@ -175,13 +181,12 @@ void main() {
     testWidgets('beginsWith()', (WidgetTester tester) async {
       // test with exact match
       var exactMatchPattern = '1000.0';
-      var exactMatchModels =
-          nonNullModels
-              .where(
-                (model) =>
-                    model.floatValue!.toString().startsWith(exactMatchPattern),
-              )
-              .toList();
+      var exactMatchModels = nonNullModels
+          .where(
+            (model) =>
+                model.floatValue!.toString().startsWith(exactMatchPattern),
+          )
+          .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
         queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.beginsWith(
           exactMatchPattern,
@@ -191,14 +196,12 @@ void main() {
 
       // test with partial match
       var partialMatchPattern = '10';
-      var partialMatchModels =
-          nonNullModels
-              .where(
-                (model) => model.floatValue!.toString().startsWith(
-                  partialMatchPattern,
-                ),
-              )
-              .toList();
+      var partialMatchModels = nonNullModels
+          .where(
+            (model) =>
+                model.floatValue!.toString().startsWith(partialMatchPattern),
+          )
+          .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
         queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.beginsWith(
           partialMatchPattern,
@@ -219,13 +222,11 @@ void main() {
     testWidgets('contains()', (WidgetTester tester) async {
       // test with exact match
       var exactMatchPattern = '1000.0';
-      var exactMatchModels =
-          nonNullModels
-              .where(
-                (model) =>
-                    model.floatValue!.toString().contains(exactMatchPattern),
-              )
-              .toList();
+      var exactMatchModels = nonNullModels
+          .where(
+            (model) => model.floatValue!.toString().contains(exactMatchPattern),
+          )
+          .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
         queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.contains(
           exactMatchPattern,
@@ -235,13 +236,12 @@ void main() {
 
       // test with partial match
       var partialMatchPattern = '10';
-      var partialMatchModels =
-          nonNullModels
-              .where(
-                (model) =>
-                    model.floatValue!.toString().contains(partialMatchPattern),
-              )
-              .toList();
+      var partialMatchModels = nonNullModels
+          .where(
+            (model) =>
+                model.floatValue!.toString().contains(partialMatchPattern),
+          )
+          .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
         queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.contains(
           partialMatchPattern,
@@ -262,10 +262,9 @@ void main() {
     testWidgets('bewtween()', (WidgetTester tester) async {
       // test with exact match
       var exactMatchPattern = 1000.0;
-      var exactMatchModels =
-          models
-              .where((model) => model.floatValue == exactMatchPattern)
-              .toList();
+      var exactMatchModels = models
+          .where((model) => model.floatValue == exactMatchPattern)
+          .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
         queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.between(
           exactMatchPattern,
@@ -277,11 +276,10 @@ void main() {
       // test with partial match
       var partialMatchStart = -1.0;
       var partialMatchEnd = 1.0;
-      var rangeMatchModels =
-          nonNullModels
-              .where((model) => model.floatValue! >= partialMatchStart)
-              .where((model) => model.floatValue! <= partialMatchEnd)
-              .toList();
+      var rangeMatchModels = nonNullModels
+          .where((model) => model.floatValue! >= partialMatchStart)
+          .where((model) => model.floatValue! <= partialMatchEnd)
+          .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
         queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.between(
           partialMatchStart,

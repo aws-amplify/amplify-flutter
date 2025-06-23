@@ -59,16 +59,14 @@ abstract class DefaultValuesInput
       nullifiedDefaultEnum: nullifiedDefaultEnum,
       requiredDefaultList: _i3.BuiltList(requiredDefaultList),
       optionalDefaultList: _i3.BuiltList(optionalDefaultList),
-      nullifiedDefaultList:
-          nullifiedDefaultList == null
-              ? null
-              : _i3.BuiltList(nullifiedDefaultList),
+      nullifiedDefaultList: nullifiedDefaultList == null
+          ? null
+          : _i3.BuiltList(nullifiedDefaultList),
       requiredDefaultMap: _i3.BuiltMap(requiredDefaultMap),
       optionalDefaultMap: _i3.BuiltMap(optionalDefaultMap),
-      nullifiedDefaultMap:
-          nullifiedDefaultMap == null
-              ? null
-              : _i3.BuiltMap(nullifiedDefaultMap),
+      nullifiedDefaultMap: nullifiedDefaultMap == null
+          ? null
+          : _i3.BuiltMap(nullifiedDefaultMap),
       requiredDefaultBool: requiredDefaultBool,
       optionalDefaultBool: optionalDefaultBool,
       nullifiedDefaultBool: nullifiedDefaultBool,
@@ -153,26 +151,25 @@ abstract class DefaultValuesInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DefaultValuesInput')
-          ..add('requiredDefaultInt', requiredDefaultInt)
-          ..add('optionalDefaultInt', optionalDefaultInt)
-          ..add('nullifiedDefaultInt', nullifiedDefaultInt)
-          ..add('requiredDefaultString', requiredDefaultString)
-          ..add('optionalDefaultString', optionalDefaultString)
-          ..add('nullifiedDefaultString', nullifiedDefaultString)
-          ..add('requiredDefaultEnum', requiredDefaultEnum)
-          ..add('optionalDefaultEnum', optionalDefaultEnum)
-          ..add('nullifiedDefaultEnum', nullifiedDefaultEnum)
-          ..add('requiredDefaultList', requiredDefaultList)
-          ..add('optionalDefaultList', optionalDefaultList)
-          ..add('nullifiedDefaultList', nullifiedDefaultList)
-          ..add('requiredDefaultMap', requiredDefaultMap)
-          ..add('optionalDefaultMap', optionalDefaultMap)
-          ..add('nullifiedDefaultMap', nullifiedDefaultMap)
-          ..add('requiredDefaultBool', requiredDefaultBool)
-          ..add('optionalDefaultBool', optionalDefaultBool)
-          ..add('nullifiedDefaultBool', nullifiedDefaultBool);
+    final helper = newBuiltValueToStringHelper('DefaultValuesInput')
+      ..add('requiredDefaultInt', requiredDefaultInt)
+      ..add('optionalDefaultInt', optionalDefaultInt)
+      ..add('nullifiedDefaultInt', nullifiedDefaultInt)
+      ..add('requiredDefaultString', requiredDefaultString)
+      ..add('optionalDefaultString', optionalDefaultString)
+      ..add('nullifiedDefaultString', nullifiedDefaultString)
+      ..add('requiredDefaultEnum', requiredDefaultEnum)
+      ..add('optionalDefaultEnum', optionalDefaultEnum)
+      ..add('nullifiedDefaultEnum', nullifiedDefaultEnum)
+      ..add('requiredDefaultList', requiredDefaultList)
+      ..add('optionalDefaultList', optionalDefaultList)
+      ..add('nullifiedDefaultList', nullifiedDefaultList)
+      ..add('requiredDefaultMap', requiredDefaultMap)
+      ..add('optionalDefaultMap', optionalDefaultMap)
+      ..add('nullifiedDefaultMap', nullifiedDefaultMap)
+      ..add('requiredDefaultBool', requiredDefaultBool)
+      ..add('optionalDefaultBool', optionalDefaultBool)
+      ..add('nullifiedDefaultBool', nullifiedDefaultBool);
     return helper.toString();
   }
 }

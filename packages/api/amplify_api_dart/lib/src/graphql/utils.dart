@@ -73,14 +73,12 @@ ModelSchema getModelSchemaByModelName(
   final schema = (provider.modelSchemas + provider.customTypeSchemas)
       .firstWhere(
         (elem) => elem.name == modelName,
-        orElse:
-            () =>
-                throw ApiOperationException(
-                  'No schema found for the ModelType provided: $modelName',
-                  recoverySuggestion:
-                      'Pass in a valid modelProvider instance while '
-                      'instantiating APIPlugin or provide a valid ModelType',
-                ),
+        orElse: () => throw ApiOperationException(
+          'No schema found for the ModelType provided: $modelName',
+          recoverySuggestion:
+              'Pass in a valid modelProvider instance while '
+              'instantiating APIPlugin or provide a valid ModelType',
+        ),
       );
 
   if (schema.fields == null) {

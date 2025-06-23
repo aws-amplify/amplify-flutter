@@ -31,10 +31,9 @@ abstract class WorkerBeeExceptionImpl
   /// {@macro worker_bee.web_worker_exception}
   factory WorkerBeeExceptionImpl(Object error, [StackTrace? stackTrace]) =>
       _$WorkerBeeExceptionImpl(
-        (b) =>
-            b
-              ..error = error.toString()
-              ..stackTrace = stackTrace,
+        (b) => b
+          ..error = error.toString()
+          ..stackTrace = stackTrace,
       );
   WorkerBeeExceptionImpl._();
 

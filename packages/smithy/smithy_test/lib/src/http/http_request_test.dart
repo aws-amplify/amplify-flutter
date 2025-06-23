@@ -32,10 +32,9 @@ Future<void> httpRequestTest<InputPayload, Input, OutputPayload, Output>({
     final input =
         serializers.deserialize(testCase.params, specifiedType: FullType(Input))
             as Input;
-    final request =
-        await operation
-            .createRequest(operation.buildRequest(input), protocol, input)
-            .transformRequest();
+    final request = await operation
+        .createRequest(operation.buildRequest(input), protocol, input)
+        .transformRequest();
 
     // The request-target of the HTTP request, not including the query string
     // (for example, "/foo/bar").
@@ -60,10 +59,9 @@ Future<void> httpRequestTest<InputPayload, Input, OutputPayload, Output>({
     for (final queryParam in testCase.queryParams) {
       final parts = queryParam.split('=');
       final key = Uri.decodeQueryComponent(parts.first);
-      final value =
-          parts.length == 1
-              ? ''
-              : Uri.decodeQueryComponent(parts.sublist(1).join(''));
+      final value = parts.length == 1
+          ? ''
+          : Uri.decodeQueryComponent(parts.sublist(1).join(''));
 
       // This kind of list is used instead of a map so that query string
       // parameter values for lists can be represented using repeated
@@ -151,19 +149,16 @@ Future<void> httpRequestTest<InputPayload, Input, OutputPayload, Output>({
           }
           expect(jsonBody, equals(expectedJsonBody));
         case 'application/xml':
-          final expectedXmlBody =
-              expectedBody.isEmpty
-                  ? const <Object?>[]
-                  : XmlDocument.parse(expectedBody).toEquatable();
+          final expectedXmlBody = expectedBody.isEmpty
+              ? const <Object?>[]
+              : XmlDocument.parse(expectedBody).toEquatable();
           final body = utf8.decode(bodyBytes);
-          final xmlBody =
-              body.isEmpty
-                  ? const <Object?>[]
-                  : XmlDocument.parse(body).toEquatable();
+          final xmlBody = body.isEmpty
+              ? const <Object?>[]
+              : XmlDocument.parse(body).toEquatable();
           expect(xmlBody, orderedEquals(expectedXmlBody));
         default:
           expectBytes(expectedBody.codeUnits);
-          break;
       }
     }
   }, zoneValues: {zSigningTest: true, zSmithyHttpTest: true});

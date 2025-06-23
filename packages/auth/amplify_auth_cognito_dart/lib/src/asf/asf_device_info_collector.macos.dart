@@ -54,10 +54,9 @@ final class ASFDeviceInfoMacOS extends ASFDeviceInfoPlatform {
     final nsAppBuild = _bundle?.objectForInfoDictionaryKey_(
       _kCFBundleVersionKey,
     );
-    final appBuild =
-        nsAppBuild != null && NSString.isInstance(nsAppBuild)
-            ? NSString.castFrom(nsAppBuild).toString()
-            : null;
+    final appBuild = nsAppBuild != null && NSString.isInstance(nsAppBuild)
+        ? NSString.castFrom(nsAppBuild).toString()
+        : null;
     return appBuild == null || appVersion == appBuild
         ? appVersion
         : '$appVersion($appBuild)';

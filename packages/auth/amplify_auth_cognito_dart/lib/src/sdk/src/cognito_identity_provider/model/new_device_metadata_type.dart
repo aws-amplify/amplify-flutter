@@ -43,10 +43,9 @@ abstract class NewDeviceMetadataType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('NewDeviceMetadataType')
-          ..add('deviceKey', deviceKey)
-          ..add('deviceGroupKey', deviceGroupKey);
+    final helper = newBuiltValueToStringHelper('NewDeviceMetadataType')
+      ..add('deviceKey', deviceKey)
+      ..add('deviceGroupKey', deviceGroupKey);
     return helper.toString();
   }
 }

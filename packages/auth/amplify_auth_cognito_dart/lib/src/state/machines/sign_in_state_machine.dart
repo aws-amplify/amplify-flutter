@@ -230,8 +230,8 @@ final class SignInStateMachine
   }
 
   Map<String, String> get _publicChallengeParameters {
-    final map =
-        _challengeParameters.toMap()..removeWhere((_, value) => value == null);
+    final map = _challengeParameters.toMap()
+      ..removeWhere((_, value) => value == null);
     return map.cast();
   }
 
@@ -358,18 +358,17 @@ final class SignInStateMachine
     SignInRespondToChallenge event,
   ) async {
     return RespondToAuthChallengeRequest.build(
-      (b) =>
-          b
-            ..challengeName = ChallengeNameType.customChallenge
-            ..challengeResponses.addAll({
-              CognitoConstants.challengeParamUsername: providedUsername,
-              CognitoConstants.challengeParamAnswer: event.answer,
-              if (_user.deviceSecrets?.deviceKey case final deviceKey?)
-                CognitoConstants.challengeParamDeviceKey: deviceKey,
-            })
-            ..clientId = _authOutputs.userPoolClientId
-            ..clientMetadata.addAll(event.clientMetadata)
-            ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
+      (b) => b
+        ..challengeName = ChallengeNameType.customChallenge
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: providedUsername,
+          CognitoConstants.challengeParamAnswer: event.answer,
+          if (_user.deviceSecrets?.deviceKey case final deviceKey?)
+            CognitoConstants.challengeParamDeviceKey: deviceKey,
+        })
+        ..clientId = _authOutputs.userPoolClientId
+        ..clientMetadata.addAll(event.clientMetadata)
+        ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
     );
   }
 
@@ -400,10 +399,9 @@ final class SignInStateMachine
         ..deviceKey = _user.deviceSecrets?.deviceKey
         ..challengeParameters = BuiltMap(_publicChallengeParameters)
         ..parameters = SignInParameters(
-          (b) =>
-              b
-                ..username = username
-                ..password = password,
+          (b) => b
+            ..username = username
+            ..password = password,
         );
     });
     worker.sink.add(workerMessage);
@@ -593,11 +591,10 @@ final class SignInStateMachine
         password != null) {
       final initRequest = await initiateSrpAuth(event);
       return initRequest.rebuild(
-        (b) =>
-            b
-              ..authFlow = AuthFlowType.customAuth
-              ..authParameters[CognitoConstants.challengeParamChallengeName] =
-                  'SRP_A',
+        (b) => b
+          ..authFlow = AuthFlowType.customAuth
+          ..authParameters[CognitoConstants.challengeParamChallengeName] =
+              'SRP_A',
       );
     }
 
@@ -621,8 +618,9 @@ final class SignInStateMachine
       accessToken: accessToken,
       session: _session,
     );
-    final response =
-        await cognitoIdentityProvider.associateSoftwareToken(request).result;
+    final response = await cognitoIdentityProvider
+        .associateSoftwareToken(request)
+        .result;
     if (response case AssociateSoftwareTokenResponse(
       :final session?,
       :final secretCode?,
@@ -648,8 +646,9 @@ final class SignInStateMachine
       session: _session,
       friendlyDeviceName: friendlyDeviceName,
     );
-    final response =
-        await cognitoIdentityProvider.verifySoftwareToken(request).result;
+    final response = await cognitoIdentityProvider
+        .verifySoftwareToken(request)
+        .result;
     switch (response) {
       case VerifySoftwareTokenResponse(:final session?):
         _session = session;
@@ -695,8 +694,8 @@ final class SignInStateMachine
       final challengeResponses = <String, String>{
         CognitoConstants.challengeParamMfasCanSetup:
             _enableMfaType == MfaType.totp
-                ? '["SOFTWARE_TOKEN_MFA"]'
-                : '["EMAIL_OTP"]',
+            ? '["SOFTWARE_TOKEN_MFA"]'
+            : '["EMAIL_OTP"]',
       };
       _challengeParameters = BuiltMap<String, String>(challengeResponses);
       await _processChallenge();
@@ -902,12 +901,12 @@ final class SignInStateMachine
 
       // ignore: invalid_use_of_internal_member
       if (_authOutputs.appClientSecret case final appClientSecret?) {
-        b.authParameters[CognitoConstants
-            .challengeParamSecretHash] = computeSecretHash(
-          providedUsername,
-          _authOutputs.userPoolClientId!,
-          appClientSecret,
-        );
+        b.authParameters[CognitoConstants.challengeParamSecretHash] =
+            computeSecretHash(
+              providedUsername,
+              _authOutputs.userPoolClientId!,
+              appClientSecret,
+            );
       }
 
       final deviceKey = _user.deviceSecrets?.deviceKey;
@@ -920,8 +919,9 @@ final class SignInStateMachine
     });
     logger.verbose('$initRequest');
 
-    final initResponse =
-        await cognitoIdentityProvider.initiateAuth(initRequest).result;
+    final initResponse = await cognitoIdentityProvider
+        .initiateAuth(initRequest)
+        .result;
     logger.verbose('$initResponse');
 
     // Current flow state
@@ -946,25 +946,22 @@ final class SignInStateMachine
     final worker = await confirmDeviceWorker;
     worker.add(
       ConfirmDeviceMessage(
-        (b) =>
-            b
-              ..accessToken = accessToken
-              ..newDeviceMetadata.replace(newDeviceMetadata),
+        (b) => b
+          ..accessToken = accessToken
+          ..newDeviceMetadata.replace(newDeviceMetadata),
       ),
     );
     final workerResult = await worker.stream.first;
-    final response =
-        await cognitoIdentityProvider
-            .confirmDevice(workerResult.request)
-            .result;
+    final response = await cognitoIdentityProvider
+        .confirmDevice(workerResult.request)
+        .result;
     final requiresConfirmation = response.userConfirmationNecessary;
 
     return (
       devicePassword: workerResult.devicePassword,
-      deviceStatus:
-          requiresConfirmation
-              ? DeviceRememberedStatusType.notRemembered
-              : DeviceRememberedStatusType.remembered,
+      deviceStatus: requiresConfirmation
+          ? DeviceRememberedStatusType.notRemembered
+          : DeviceRememberedStatusType.remembered,
     );
   }
 
@@ -980,15 +977,14 @@ final class SignInStateMachine
         await cognitoIdentityProvider
             .updateUserAttributes(
               UpdateUserAttributesRequest.build(
-                (b) =>
-                    b
-                      ..accessToken = accessToken
-                      ..clientMetadata.addAll(clientMetadata ?? const {})
-                      ..userAttributes.addAll([
-                        for (final MapEntry(:key, :value)
-                            in attributesNeedingUpdate.entries)
-                          AttributeType(name: key.key, value: value),
-                      ]),
+                (b) => b
+                  ..accessToken = accessToken
+                  ..clientMetadata.addAll(clientMetadata ?? const {})
+                  ..userAttributes.addAll([
+                    for (final MapEntry(:key, :value)
+                        in attributesNeedingUpdate.entries)
+                      AttributeType(name: key.key, value: value),
+                  ]),
               ),
             )
             .result;
@@ -1015,13 +1011,12 @@ final class SignInStateMachine
           accessToken,
           newDeviceMetadata,
         );
-        final deviceSecrets =
-            _user.deviceSecrets =
-                CognitoDeviceSecretsBuilder()
-                  ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
-                  ..deviceKey = newDeviceMetadata.deviceKey
-                  ..devicePassword = devicePassword
-                  ..deviceStatus = deviceStatus;
+        final deviceSecrets = _user.deviceSecrets =
+            CognitoDeviceSecretsBuilder()
+              ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
+              ..deviceKey = newDeviceMetadata.deviceKey
+              ..devicePassword = devicePassword
+              ..deviceStatus = deviceStatus;
 
         await deviceRepo.put(cognitoUsername, deviceSecrets.build());
       }
@@ -1043,8 +1038,9 @@ final class SignInStateMachine
             accessToken: accessToken,
             sms: enableMfaType == MfaType.sms ? MfaPreference.enabled : null,
             totp: enableMfaType == MfaType.totp ? MfaPreference.enabled : null,
-            email:
-                enableMfaType == MfaType.email ? MfaPreference.enabled : null,
+            email: enableMfaType == MfaType.email
+                ? MfaPreference.enabled
+                : null,
           );
         } on Exception catch (e, st) {
           logger.error(
@@ -1131,12 +1127,12 @@ final class SignInStateMachine
 
       // ignore: invalid_use_of_internal_member
       if (_authOutputs.appClientSecret case final appClientSecret?) {
-        b.challengeResponses[CognitoConstants
-            .challengeParamSecretHash] ??= computeSecretHash(
-          cognitoUsername,
-          _authOutputs.userPoolClientId!,
-          appClientSecret,
-        );
+        b.challengeResponses[CognitoConstants.challengeParamSecretHash] ??=
+            computeSecretHash(
+              cognitoUsername,
+              _authOutputs.userPoolClientId!,
+              appClientSecret,
+            );
       }
 
       if (userContextData != null) {
@@ -1146,10 +1142,9 @@ final class SignInStateMachine
     logger.verbose('$respondRequest');
 
     try {
-      final challengeResp =
-          await cognitoIdentityProvider
-              .respondToAuthChallenge(respondRequest)
-              .result;
+      final challengeResp = await cognitoIdentityProvider
+          .respondToAuthChallenge(respondRequest)
+          .result;
       logger.verbose('$challengeResp');
 
       // Update flow state
@@ -1241,5 +1236,7 @@ final class SignInStateMachine
   }
 }
 
-typedef _CreateDeviceResult =
-    ({String devicePassword, DeviceRememberedStatusType deviceStatus});
+typedef _CreateDeviceResult = ({
+  String devicePassword,
+  DeviceRememberedStatusType deviceStatus,
+});

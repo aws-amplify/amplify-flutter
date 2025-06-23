@@ -6,27 +6,27 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/se
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.7.0
-  flutter: ">=3.29.0"
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
 
 dependencies:
   amplify_secure_storage_dart: ">=0.5.6 <0.6.0"
   async: ^2.10.0
-  file: ">=6.0.0 <8.0.0"
+  file: ^7.0.1
   flutter:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
   meta: ^1.16.0
-  path: ">=1.8.0 <2.0.0"
-  path_provider: ^2.0.0
+  path: ^1.8.0
+  path_provider: ^2.0.11
   path_provider_windows: ^2.0.0
 
 dev_dependencies:
   amplify_lints: ">=3.1.2 <3.2.0"
   flutter_test:
     sdk: flutter
-  pigeon: ^22.6.2
+  pigeon: ^25.5.0
 
 flutter:
   plugin:

@@ -23,21 +23,16 @@ void main() {
         'handles SDK constraints for preview Dart versions (${action.name})',
         () async {
           const preReleaseConstraint = '^3.2.0-0';
-          final actions =
-              await d
-                  .package(
-                    'actions',
-                    publishable: false,
-                    sdkConstraint: preReleaseConstraint,
-                  )
-                  .create();
-          final amplifyFlutter =
-              await d
-                  .package(
-                    'amplify_flutter',
-                    sdkConstraint: preReleaseConstraint,
-                  )
-                  .create();
+          final actions = await d
+              .package(
+                'actions',
+                publishable: false,
+                sdkConstraint: preReleaseConstraint,
+              )
+              .create();
+          final amplifyFlutter = await d
+              .package('amplify_flutter', sdkConstraint: preReleaseConstraint)
+              .create();
           final checker = GlobalConstraintChecker(
             action,
             const {},
@@ -112,26 +107,25 @@ void main() {
       };
       test('$result when a direct dep and transitive dev dep conflict '
           'for a published package', () async {
-        final repo =
-            await d.repo([
-              d.package('amplify_core', version: '1.0.0'),
-              d.package(
-                'amplify_test',
-                publishable: false,
-                dependencies: {
-                  // An outdated constraint
-                  'amplify_core': '<1.0.0',
-                },
-              ),
-              d.package(
-                'amplify_flutter',
-                version: '1.0.0',
-                dependencies: {'amplify_core': '>=1.0.0 <1.1.0'},
-                devDependencies: {
-                  'amplify_test': {'path': '../amplify_test'},
-                },
-              ),
-            ]).create();
+        final repo = await d.repo([
+          d.package('amplify_core', version: '1.0.0'),
+          d.package(
+            'amplify_test',
+            publishable: false,
+            dependencies: {
+              // An outdated constraint
+              'amplify_core': '<1.0.0',
+            },
+          ),
+          d.package(
+            'amplify_flutter',
+            version: '1.0.0',
+            dependencies: {'amplify_core': '>=1.0.0 <1.1.0'},
+            devDependencies: {
+              'amplify_test': {'path': '../amplify_test'},
+            },
+          ),
+        ]).create();
         final constraintsChecker = PublishConstraintsChecker(
           action,
           repo.getPackageGraph(includeDevDependencies: true),
@@ -199,15 +193,14 @@ void main() {
 
       test('$result when a published package lists an unpublished package '
           'as a hosted dependency', () async {
-        final repo =
-            await d.repo([
-              d.package('amplify_test', publishable: false),
-              d.package(
-                'amplify_core',
-                version: '1.0.0',
-                devDependencies: {'amplify_test': 'any'},
-              ),
-            ]).create();
+        final repo = await d.repo([
+          d.package('amplify_test', publishable: false),
+          d.package(
+            'amplify_core',
+            version: '1.0.0',
+            devDependencies: {'amplify_test': 'any'},
+          ),
+        ]).create();
 
         final constraintsChecker = PublishConstraintsChecker(
           action,

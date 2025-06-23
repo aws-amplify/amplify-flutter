@@ -101,22 +101,19 @@ final Map<FullType, Function> builderFactories = {
   const FullType(_i2.BuiltMap, [FullType(String), FullType(String)]):
       _i2.MapBuilder<String, String>.new,
   const FullType(_i2.BuiltList, [
-        FullType(_i2.BuiltList, [FullType(String)]),
-      ]):
-      _i2.ListBuilder<_i2.BuiltList<String>>.new,
+    FullType(_i2.BuiltList, [FullType(String)]),
+  ]): _i2.ListBuilder<_i2.BuiltList<String>>.new,
   const FullType(_i2.BuiltList, [
-        FullType(_i2.BuiltMap, [FullType(String), FullType(String)]),
-      ]):
-      _i2.ListBuilder<_i2.BuiltMap<String, String>>.new,
+    FullType(_i2.BuiltMap, [FullType(String), FullType(String)]),
+  ]): _i2.ListBuilder<_i2.BuiltMap<String, String>>.new,
   const FullType(_i2.BuiltList, [FullType(SimpleStruct)]):
       _i2.ListBuilder<SimpleStruct>.new,
   const FullType(_i2.BuiltListMultimap, [FullType(String), FullType(String)]):
       _i2.ListMultimapBuilder<String, String>.new,
   const FullType(_i2.BuiltMap, [
-        FullType(String),
-        FullType(_i2.BuiltMap, [FullType(String), FullType(String)]),
-      ]):
-      _i2.MapBuilder<String, _i2.BuiltMap<String, String>>.new,
+    FullType(String),
+    FullType(_i2.BuiltMap, [FullType(String), FullType(String)]),
+  ]): _i2.MapBuilder<String, _i2.BuiltMap<String, String>>.new,
   const FullType(_i2.BuiltMap, [FullType(String), FullType(SimpleStruct)]):
       _i2.MapBuilder<String, SimpleStruct>.new,
   const FullType(_i2.BuiltList, [FullType(KitchenSink)]):
@@ -128,8 +125,7 @@ final Map<FullType, Function> builderFactories = {
   const FullType(_i2.BuiltMap, [FullType(String), FullType.nullable(String)]):
       _i2.MapBuilder<String, String?>.new,
   const FullType(_i2.BuiltMap, [
-        FullType(String),
-        FullType(FileConfigSettings),
-      ]):
-      _i2.MapBuilder<String, FileConfigSettings>.new,
+    FullType(String),
+    FullType(FileConfigSettings),
+  ]): _i2.MapBuilder<String, FileConfigSettings>.new,
 };

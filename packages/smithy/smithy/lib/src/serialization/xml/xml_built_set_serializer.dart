@@ -40,10 +40,9 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet<Object?>> {
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
     if (!isUnderspecified) serializers.expectBuilder(specifiedType);
 
-    final elementType =
-        specifiedType.parameters.isEmpty
-            ? FullType.unspecified
-            : specifiedType.parameters[0];
+    final elementType = specifiedType.parameters.isEmpty
+        ? FullType.unspecified
+        : specifiedType.parameters[0];
 
     return builtSet.expandIndexed((index, Object? item) {
       var value = serializers.serialize(item, specifiedType: elementType);
@@ -65,14 +64,12 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet<Object?>> {
     final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
 
-    final elementType =
-        specifiedType.parameters.isEmpty
-            ? FullType.unspecified
-            : specifiedType.parameters[0];
-    final result =
-        isUnderspecified
-            ? SetBuilder<Object>()
-            : serializers.newBuilder(specifiedType) as SetBuilder;
+    final elementType = specifiedType.parameters.isEmpty
+        ? FullType.unspecified
+        : specifiedType.parameters[0];
+    final result = isUnderspecified
+        ? SetBuilder<Object>()
+        : serializers.newBuilder(specifiedType) as SetBuilder;
 
     // ignore: cascade_invocations
     result.replace(

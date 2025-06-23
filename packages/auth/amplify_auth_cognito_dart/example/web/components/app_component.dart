@@ -167,8 +167,8 @@ class AppComponent extends StatefulComponent {
                     ButtonComponent(
                       id: 'hostedUiLogin',
                       innerHtml: 'Login with Hosted UI',
-                      onClick:
-                          () => hostedSignIn(provider: AuthProvider.cognito),
+                      onClick: () =>
+                          hostedSignIn(provider: AuthProvider.cognito),
                     ),
                   ButtonComponent(
                     innerHtml: 'Fetch Guess Token',

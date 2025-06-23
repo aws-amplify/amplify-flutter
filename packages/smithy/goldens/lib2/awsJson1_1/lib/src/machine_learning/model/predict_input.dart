@@ -52,11 +52,10 @@ abstract class PredictInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PredictInput')
-          ..add('mlModelId', mlModelId)
-          ..add('record', record)
-          ..add('predictEndpoint', predictEndpoint);
+    final helper = newBuiltValueToStringHelper('PredictInput')
+      ..add('mlModelId', mlModelId)
+      ..add('record', record)
+      ..add('predictEndpoint', predictEndpoint);
     return helper.toString();
   }
 }

@@ -9,20 +9,18 @@ class LoggingClient extends AWSBaseHttpClient {
   static final _logger = AWSLogger().createChild('HTTP');
 
   Future<void> _logRequest(AWSBaseHttpRequest request) async {
-    final sb =
-        StringBuffer()
-          ..write(request.method.value)
-          ..write(' ')
-          ..writeln(request.uri)
-          ..write(await utf8.decodeStream(request.split()));
+    final sb = StringBuffer()
+      ..write(request.method.value)
+      ..write(' ')
+      ..writeln(request.uri)
+      ..write(await utf8.decodeStream(request.split()));
     _logger.debug(sb.toString());
   }
 
   Future<void> _logResponse(AWSBaseHttpResponse response) async {
-    final sb =
-        StringBuffer()
-          ..writeln(response.statusCode)
-          ..write(await utf8.decodeStream(response.split()));
+    final sb = StringBuffer()
+      ..writeln(response.statusCode)
+      ..write(await utf8.decodeStream(response.split()));
     _logger.debug(sb.toString());
   }
 

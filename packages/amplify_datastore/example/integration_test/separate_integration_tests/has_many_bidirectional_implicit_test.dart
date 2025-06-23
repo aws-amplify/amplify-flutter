@@ -35,14 +35,12 @@ void main() {
         hasManyParent: rootModels.first,
       ),
     );
-    var associatedModelQueryPredicates =
-        associatedModels
-            .map(
-              (associatedModel) => HasManyChildBiDirectionalImplicit.NAME.eq(
-                associatedModel.name,
-              ),
-            )
-            .toList();
+    var associatedModelQueryPredicates = associatedModels
+        .map(
+          (associatedModel) =>
+              HasManyChildBiDirectionalImplicit.NAME.eq(associatedModel.name),
+        )
+        .toList();
 
     testRootAndAssociatedModelsRelationship(
       modelProvider: ModelProvider.instance,

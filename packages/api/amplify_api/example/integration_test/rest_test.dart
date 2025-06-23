@@ -49,10 +49,9 @@ void main({bool useExistingTestUser = false, TestUser? testUser}) {
         'should send GET request with a custom header',
         // Lambda looks for this header and only sets the body to expected string.
         (WidgetTester tester) async {
-          final res =
-              await Amplify.API
-                  .get(path, headers: {'test_header': 'test_value'})
-                  .response;
+          final res = await Amplify.API
+              .get(path, headers: {'test_header': 'test_value'})
+              .response;
           final body = res.decodeBody();
           expect(res.statusCode, 200);
           expect(body, 'test header set');
@@ -92,28 +91,30 @@ void main({bool useExistingTestUser = false, TestUser? testUser}) {
       });
 
       testWidgets('should send POST request', (WidgetTester tester) async {
-        final res =
-            await Amplify.API.post(path, body: generateTestPayload()).response;
+        final res = await Amplify.API
+            .post(path, body: generateTestPayload())
+            .response;
         validateRestResponse(res);
       });
 
       testWidgets('should send PUT request', (WidgetTester tester) async {
-        final res =
-            await Amplify.API.put(path, body: generateTestPayload()).response;
+        final res = await Amplify.API
+            .put(path, body: generateTestPayload())
+            .response;
         validateRestResponse(res);
       });
 
       testWidgets('should send PATCH request', (WidgetTester tester) async {
-        final res =
-            await Amplify.API.patch(path, body: generateTestPayload()).response;
+        final res = await Amplify.API
+            .patch(path, body: generateTestPayload())
+            .response;
         validateRestResponse(res);
       });
 
       testWidgets('should send DELETE request', (WidgetTester tester) async {
-        final res =
-            await Amplify.API
-                .delete(path, body: generateTestPayload())
-                .response;
+        final res = await Amplify.API
+            .delete(path, body: generateTestPayload())
+            .response;
         validateRestResponse(res);
       });
     });

@@ -42,11 +42,10 @@ abstract class StructArg
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('StructArg')
-          ..add('stringArg', stringArg)
-          ..add('otherArg', otherArg)
-          ..add('recursiveArg', recursiveArg);
+    final helper = newBuiltValueToStringHelper('StructArg')
+      ..add('stringArg', stringArg)
+      ..add('otherArg', otherArg)
+      ..add('recursiveArg', recursiveArg);
     return helper.toString();
   }
 }

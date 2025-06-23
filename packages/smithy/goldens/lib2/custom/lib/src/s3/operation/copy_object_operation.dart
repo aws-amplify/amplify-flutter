@@ -95,10 +95,9 @@ class CopyObjectOperation
   @override
   _i1.HttpRequest buildRequest(CopyObjectRequest input) => _i1.HttpRequest((b) {
     b.method = 'PUT';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?x-id=CopyObject'
-            : r'/{Key+}?x-id=CopyObject';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}/{Key+}?x-id=CopyObject'
+        : r'/{Key+}?x-id=CopyObject';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.copySource.isNotEmpty) {
       b.headers['x-amz-copy-source'] = input.copySource;

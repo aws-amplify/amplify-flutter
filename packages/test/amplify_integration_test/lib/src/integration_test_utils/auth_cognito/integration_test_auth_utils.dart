@@ -34,15 +34,14 @@ Future<Map<String, Object?>> _graphQL(
   String document, {
   Map<String, Object?> variables = const {},
 }) async {
-  final response =
-      await Amplify.API
-          .query(
-            request: GraphQLRequest<String>(
-              document: document,
-              variables: variables,
-            ),
-          )
-          .response;
+  final response = await Amplify.API
+      .query(
+        request: GraphQLRequest<String>(
+          document: document,
+          variables: variables,
+        ),
+      )
+      .response;
   if (response.hasErrors) {
     throw Exception(response.errors);
   }
@@ -305,24 +304,22 @@ Future<OtpResult> getOtpCode(UserAttribute userAttribute) async {
   final otpCodes = getOtpCodes(onEstablished: establishedCompleter.complete);
 
   // Collect code delivered via Lambda
-  final code =
-      otpCodes
-          .tap((event) => _logger.debug('Got OTP Code: $event'))
-          .where((event) {
-            switch (userAttribute._type) {
-              case _UserAttributeType.username:
-                return event.username == userAttribute._value;
-              case _UserAttributeType.email:
-                return event.userAttributes[CognitoUserAttributeKey.email] ==
-                    userAttribute._value;
-              case _UserAttributeType.phone:
-                return event.userAttributes[CognitoUserAttributeKey
-                        .phoneNumber] ==
-                    userAttribute._value;
-            }
-          })
-          .map((event) => event.code)
-          .first;
+  final code = otpCodes
+      .tap((event) => _logger.debug('Got OTP Code: $event'))
+      .where((event) {
+        switch (userAttribute._type) {
+          case _UserAttributeType.username:
+            return event.username == userAttribute._value;
+          case _UserAttributeType.email:
+            return event.userAttributes[CognitoUserAttributeKey.email] ==
+                userAttribute._value;
+          case _UserAttributeType.phone:
+            return event.userAttributes[CognitoUserAttributeKey.phoneNumber] ==
+                userAttribute._value;
+        }
+      })
+      .map((event) => event.code)
+      .first;
 
   await establishedCompleter.future;
   return OtpResult(code);

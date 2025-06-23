@@ -42,10 +42,9 @@ abstract class OutputSerialization
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('OutputSerialization')
-          ..add('csv', csv)
-          ..add('json', json);
+    final helper = newBuiltValueToStringHelper('OutputSerialization')
+      ..add('csv', csv)
+      ..add('json', json);
     return helper.toString();
   }
 }

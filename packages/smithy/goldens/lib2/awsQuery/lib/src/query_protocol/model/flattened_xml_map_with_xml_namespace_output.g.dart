@@ -13,9 +13,8 @@ class _$FlattenedXmlMapWithXmlNamespaceOutput
 
   factory _$FlattenedXmlMapWithXmlNamespaceOutput([
     void Function(FlattenedXmlMapWithXmlNamespaceOutputBuilder)? updates,
-  ]) =>
-      (FlattenedXmlMapWithXmlNamespaceOutputBuilder()..update(updates))
-          ._build();
+  ]) => (FlattenedXmlMapWithXmlNamespaceOutputBuilder()..update(updates))
+      ._build();
 
   _$FlattenedXmlMapWithXmlNamespaceOutput._({this.myMap}) : super._();
   @override

@@ -64,10 +64,9 @@ abstract class PayloadTooLargeException
   List<Object?> get props => [message, requestId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PayloadTooLargeException')
-          ..add('message', message)
-          ..add('requestId', requestId);
+    final helper = newBuiltValueToStringHelper('PayloadTooLargeException')
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }

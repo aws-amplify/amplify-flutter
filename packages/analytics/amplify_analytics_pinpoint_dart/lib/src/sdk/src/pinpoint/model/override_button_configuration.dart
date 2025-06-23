@@ -46,10 +46,9 @@ abstract class OverrideButtonConfiguration
   List<Object?> get props => [buttonAction, link];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('OverrideButtonConfiguration')
-          ..add('buttonAction', buttonAction)
-          ..add('link', link);
+    final helper = newBuiltValueToStringHelper('OverrideButtonConfiguration')
+      ..add('buttonAction', buttonAction)
+      ..add('link', link);
     return helper.toString();
   }
 }

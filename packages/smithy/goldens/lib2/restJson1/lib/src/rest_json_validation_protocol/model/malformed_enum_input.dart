@@ -62,13 +62,12 @@ abstract class MalformedEnumInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedEnumInput')
-          ..add('string', string)
-          ..add('stringWithEnumTrait', stringWithEnumTrait)
-          ..add('list', list)
-          ..add('map', map)
-          ..add('union', union);
+    final helper = newBuiltValueToStringHelper('MalformedEnumInput')
+      ..add('string', string)
+      ..add('stringWithEnumTrait', stringWithEnumTrait)
+      ..add('list', list)
+      ..add('map', map)
+      ..add('union', union);
     return helper.toString();
   }
 }

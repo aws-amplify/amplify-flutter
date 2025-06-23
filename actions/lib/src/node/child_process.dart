@@ -97,12 +97,11 @@ extension type ChildProcess(JSObject it) {
                   as JSObject,
           shell: runInShell ? '/bin/sh' : null,
           encoding: 'buffer',
-          stdio:
-              <JSAny?>[
-                null,
-                if (echoOutput) 'inherit'.toJS else null,
-                if (echoOutput) 'inherit'.toJS else null,
-              ].toJS,
+          stdio: <JSAny?>[
+            null,
+            if (echoOutput) 'inherit'.toJS else null,
+            if (echoOutput) 'inherit'.toJS else null,
+          ].toJS,
         ),
       );
       return ProcessResult(-1, 0, stdout?.toDart ?? Uint8List(0), Uint8List(0));
@@ -125,14 +124,13 @@ extension type ChildProcess(JSObject it) {
     ProcessStartMode mode = ProcessStartMode.normal,
     JSAny? stdin,
   }) {
-    final jsMode =
-        switch (mode) {
-          ProcessStartMode.normal => 'pipe',
-          ProcessStartMode.detached => 'ignore',
-          ProcessStartMode.detachedWithStdio => 'pipe',
-          ProcessStartMode.inheritStdio => 'inherit',
-          _ => unreachable,
-        }.toJS;
+    final jsMode = switch (mode) {
+      ProcessStartMode.normal => 'pipe',
+      ProcessStartMode.detached => 'ignore',
+      ProcessStartMode.detachedWithStdio => 'pipe',
+      ProcessStartMode.inheritStdio => 'inherit',
+      _ => unreachable,
+    }.toJS;
     return _spawn(
       command,
       args.map((arg) => arg.toJS).toList().toJS,
@@ -147,15 +145,14 @@ extension type ChildProcess(JSObject it) {
         detached:
             mode == ProcessStartMode.detached ||
             mode == ProcessStartMode.detachedWithStdio,
-        stdio:
-            <JSAny>[
-              // stdin
-              stdin ?? jsMode,
-              // stdout
-              jsMode,
-              // stderr
-              jsMode,
-            ].toJS,
+        stdio: <JSAny>[
+          // stdin
+          stdin ?? jsMode,
+          // stdout
+          jsMode,
+          // stderr
+          jsMode,
+        ].toJS,
         shell: runInShell ? '/bin/sh' : null,
       ),
     );

@@ -98,10 +98,9 @@ class ListObjectsV2Operation
     b,
   ) {
     b.method = 'GET';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}?list-type=2'
-            : r'/?list-type=2';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}?list-type=2'
+        : r'/?list-type=2';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.requestPayer != null) {
       b.headers['x-amz-request-payer'] = input.requestPayer!.value;

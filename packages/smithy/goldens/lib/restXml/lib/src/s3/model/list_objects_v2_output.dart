@@ -38,8 +38,9 @@ abstract class ListObjectsV2Output
       prefix: prefix,
       delimiter: delimiter,
       maxKeys: maxKeys,
-      commonPrefixes:
-          commonPrefixes == null ? null : _i2.BuiltList(commonPrefixes),
+      commonPrefixes: commonPrefixes == null
+          ? null
+          : _i2.BuiltList(commonPrefixes),
       encodingType: encodingType,
       keyCount: keyCount,
       continuationToken: continuationToken,
@@ -94,20 +95,19 @@ abstract class ListObjectsV2Output
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListObjectsV2Output')
-          ..add('isTruncated', isTruncated)
-          ..add('contents', contents)
-          ..add('name', name)
-          ..add('prefix', prefix)
-          ..add('delimiter', delimiter)
-          ..add('maxKeys', maxKeys)
-          ..add('commonPrefixes', commonPrefixes)
-          ..add('encodingType', encodingType)
-          ..add('keyCount', keyCount)
-          ..add('continuationToken', continuationToken)
-          ..add('nextContinuationToken', nextContinuationToken)
-          ..add('startAfter', startAfter);
+    final helper = newBuiltValueToStringHelper('ListObjectsV2Output')
+      ..add('isTruncated', isTruncated)
+      ..add('contents', contents)
+      ..add('name', name)
+      ..add('prefix', prefix)
+      ..add('delimiter', delimiter)
+      ..add('maxKeys', maxKeys)
+      ..add('commonPrefixes', commonPrefixes)
+      ..add('encodingType', encodingType)
+      ..add('keyCount', keyCount)
+      ..add('continuationToken', continuationToken)
+      ..add('nextContinuationToken', nextContinuationToken)
+      ..add('startAfter', startAfter);
     return helper.toString();
   }
 }

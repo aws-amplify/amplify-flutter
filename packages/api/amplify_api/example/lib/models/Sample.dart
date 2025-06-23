@@ -196,19 +196,16 @@ class Sample extends amplify_core.Model {
       _name = json['name'],
       _number = (json['number'] as num?)?.toInt(),
       _flag = json['flag'],
-      _date =
-          json['date'] != null
-              ? amplify_core.TemporalTime.fromString(json['date'])
-              : null,
+      _date = json['date'] != null
+          ? amplify_core.TemporalTime.fromString(json['date'])
+          : null,
       _rootbeer = (json['rootbeer'] as num?)?.toDouble(),
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -389,10 +386,9 @@ class SampleModelIdentifier implements amplify_core.ModelIdentifier<Sample> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

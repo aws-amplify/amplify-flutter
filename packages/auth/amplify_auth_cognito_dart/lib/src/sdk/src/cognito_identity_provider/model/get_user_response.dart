@@ -30,8 +30,9 @@ abstract class GetUserResponse
       userAttributes: _i2.BuiltList(userAttributes),
       mfaOptions: mfaOptions == null ? null : _i2.BuiltList(mfaOptions),
       preferredMfaSetting: preferredMfaSetting,
-      userMfaSettingList:
-          userMfaSettingList == null ? null : _i2.BuiltList(userMfaSettingList),
+      userMfaSettingList: userMfaSettingList == null
+          ? null
+          : _i2.BuiltList(userMfaSettingList),
     );
   }
 
@@ -79,13 +80,12 @@ abstract class GetUserResponse
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetUserResponse')
-          ..add('username', '***SENSITIVE***')
-          ..add('userAttributes', userAttributes)
-          ..add('mfaOptions', mfaOptions)
-          ..add('preferredMfaSetting', preferredMfaSetting)
-          ..add('userMfaSettingList', userMfaSettingList);
+    final helper = newBuiltValueToStringHelper('GetUserResponse')
+      ..add('username', '***SENSITIVE***')
+      ..add('userAttributes', userAttributes)
+      ..add('mfaOptions', mfaOptions)
+      ..add('preferredMfaSetting', preferredMfaSetting)
+      ..add('userMfaSettingList', userMfaSettingList);
     return helper.toString();
   }
 }

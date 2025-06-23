@@ -69,10 +69,9 @@ abstract class UpdateEndpointsBatchRequest
   List<Object?> get props => [applicationId, endpointBatchRequest];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateEndpointsBatchRequest')
-          ..add('applicationId', applicationId)
-          ..add('endpointBatchRequest', endpointBatchRequest);
+    final helper = newBuiltValueToStringHelper('UpdateEndpointsBatchRequest')
+      ..add('applicationId', applicationId)
+      ..add('endpointBatchRequest', endpointBatchRequest);
     return helper.toString();
   }
 }
