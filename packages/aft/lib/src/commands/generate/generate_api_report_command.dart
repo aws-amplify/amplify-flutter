@@ -42,6 +42,7 @@ class GenerateApiReportCommand extends AmplifyCommand {
       final packagePaths = aftConfig.allPackages.values
           .where((package) => 
               package.isDevelopmentPackage && 
+              package.isPublishable &&
               !package.isLintsPackage && 
               !package.path.contains('_test'))
           .map((package) => package.path)
@@ -160,18 +161,22 @@ class GenerateApiReportCommand extends AmplifyCommand {
         
         final packageApi = json['packageApi'] as Map;
         
-        // Extract only the declarations part without metadata
-        // This focuses on the actual API structure rather than paths and entry points
         if (packageApi.containsKey('interfaceDeclarations')) {
           final interfaceDeclarations = packageApi['interfaceDeclarations'];
           
-          // Create a simplified JSON with only the essential API information
           final simplifiedJson = {
             'interfaceDeclarations': interfaceDeclarations
           };
           
+          // Convert to JSON string and strip path fields in one pass
           const encoder = JsonEncoder.withIndent('  ');
-          await file.writeAsString(encoder.convert(simplifiedJson));
+          var jsonString = encoder.convert(simplifiedJson);
+          
+          // Remove relativePath and entryPoints fields
+          jsonString = jsonString.replaceAll(RegExp(r',?\s*"relativePath":\s*"[^"]*"'), '');
+          jsonString = jsonString.replaceAll(RegExp(r',?\s*"entryPoints":\s*\[[^\]]*\]'), '');
+          
+          await file.writeAsString(jsonString);
           
           logger.info('Extracted API information from $filePath');
         }

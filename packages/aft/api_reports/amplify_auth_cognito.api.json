@@ -29,15 +29,12 @@
               "name": "secureStorageFactory",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?",
-              "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart"
+              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -47,8 +44,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -58,16 +53,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "amplify_auth_cognito.dart"
-      ],
-      "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart"
+      ]
     }
   ]
 }

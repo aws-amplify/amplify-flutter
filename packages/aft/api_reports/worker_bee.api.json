@@ -23,15 +23,12 @@
               "name": "hivePath",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:worker_bee/worker_bee.dart"
+              "typeName": "String"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/worker_bee.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -41,16 +38,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/worker_bee.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "worker_bee.dart"
-      ],
-      "relativePath": "package:worker_bee/worker_bee.dart"
+      ]
     },
     {
       "name": "WorkerHive",
@@ -75,15 +66,12 @@
               "name": "workers",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<Type>",
-              "relativePath": "package:worker_bee/worker_bee.dart"
+              "typeName": "List<Type>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/worker_bee.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -93,16 +81,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/worker_bee.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "worker_bee.dart"
-      ],
-      "relativePath": "package:worker_bee/worker_bee.dart"
+      ]
     },
     {
       "name": "WorkerBeeBase",
@@ -134,15 +116,12 @@
               "name": "serializers",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Serializers?",
-              "relativePath": "package:worker_bee/worker_bee.dart"
+              "typeName": "Serializers?"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/worker_bee.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "T",
@@ -156,8 +135,7 @@
               "name": "name",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -165,17 +143,14 @@
               "name": "parameter",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "T?",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "T?"
             }
           ],
           "typeParameterNames": [
             "T"
           ],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "void",
@@ -189,15 +164,12 @@
               "name": "pendingOp",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "CancelableOperation<void>",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "CancelableOperation<void>"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "Future<Response?>",
@@ -211,8 +183,7 @@
               "name": "listen",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Stream<Request>",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "Stream<Request>"
             },
             {
               "isRequired": true,
@@ -220,15 +191,12 @@
               "name": "respond",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "StreamSink<Response>",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "StreamSink<Response>"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "Future<void>",
@@ -242,15 +210,12 @@
               "name": "jsEntrypoint",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "String?"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "Future<void>",
@@ -264,15 +229,12 @@
               "name": "logsChannel",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "StreamChannel<LogEntry>?",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "StreamChannel<LogEntry>?"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "void",
@@ -286,15 +248,12 @@
               "name": "result",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Response?",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "Response?"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "void",
@@ -308,8 +267,7 @@
               "name": "error",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Object",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "Object"
             },
             {
               "isRequired": false,
@@ -317,15 +275,12 @@
               "name": "stackTrace",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "StackTrace?",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "StackTrace?"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "void",
@@ -339,15 +294,12 @@
               "name": "event",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Request",
-              "relativePath": "package:worker_bee/src/common.dart"
+              "typeName": "Request"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -357,8 +309,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -368,8 +318,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -379,8 +327,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -390,8 +336,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -401,8 +345,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -412,8 +354,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -423,8 +363,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -434,8 +372,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -445,8 +381,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -456,8 +390,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -467,8 +399,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -478,8 +408,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -489,8 +417,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -500,8 +426,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": true
         },
@@ -511,8 +435,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": true
         },
@@ -522,16 +444,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/common.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "worker_bee.dart"
-      ],
-      "relativePath": "package:worker_bee/worker_bee.dart"
+      ]
     },
     {
       "name": "CastStreamSink",
@@ -554,16 +470,10 @@
             "O"
           ],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/worker_bee.dart"
+          "isStatic": false
         }
       ],
-      "fieldDeclarations": [],
-      "entryPoints": [
-        "worker_bee.dart"
-      ],
-      "relativePath": "package:worker_bee/worker_bee.dart"
+      "fieldDeclarations": []
     },
     {
       "name": "WorkerBeeException",
@@ -589,15 +499,12 @@
               "name": "b",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "void Function(WorkerBeeExceptionBuilder)",
-              "relativePath": "package:worker_bee/src/exception/worker_bee_exception.dart"
+              "typeName": "void Function(WorkerBeeExceptionBuilder)"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/exception/worker_bee_exception.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "WorkerBeeException",
@@ -607,9 +514,7 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/exception/worker_bee_exception.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -619,8 +524,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/exception/worker_bee_exception.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -630,16 +533,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/exception/worker_bee_exception.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "worker_bee.dart"
-      ],
-      "relativePath": "package:worker_bee/src/exception/worker_bee_exception.dart"
+      ]
     },
     {
       "name": "WorkerLogEntry",
@@ -667,8 +564,7 @@
               "name": "level",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "LogLevel",
-              "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+              "typeName": "LogLevel"
             },
             {
               "isRequired": true,
@@ -676,8 +572,7 @@
               "name": "message",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -685,8 +580,7 @@
               "name": "loggerName",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -694,8 +588,7 @@
               "name": "local",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool",
-              "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+              "typeName": "bool"
             },
             {
               "isRequired": false,
@@ -703,8 +596,7 @@
               "name": "time",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "DateTime?",
-              "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+              "typeName": "DateTime?"
             },
             {
               "isRequired": false,
@@ -712,8 +604,7 @@
               "name": "error",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Object?",
-              "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+              "typeName": "Object?"
             },
             {
               "isRequired": false,
@@ -721,15 +612,12 @@
               "name": "stackTrace",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "StackTrace?",
-              "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+              "typeName": "StackTrace?"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "WorkerLogEntry",
@@ -743,8 +631,7 @@
               "name": "entry",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "LogEntry",
-              "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+              "typeName": "LogEntry"
             },
             {
               "isRequired": true,
@@ -752,15 +639,12 @@
               "name": "local",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool",
-              "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+              "typeName": "bool"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -770,16 +654,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "worker_bee.dart"
-      ],
-      "relativePath": "package:worker_bee/src/logging/worker_log_entry.dart"
+      ]
     },
     {
       "name": "WorkerAssignment",
@@ -804,8 +682,7 @@
               "name": "role",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:worker_bee/src/preamble.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -813,15 +690,12 @@
               "name": "logsChannel",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "StreamChannel<LogEntry>",
-              "relativePath": "package:worker_bee/src/preamble.dart"
+              "typeName": "StreamChannel<LogEntry>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/preamble.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -831,8 +705,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/preamble.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -842,16 +714,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/preamble.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "worker_bee.dart"
-      ],
-      "relativePath": "package:worker_bee/src/preamble.dart"
+      ]
     },
     {
       "name": "SendPorts",
@@ -876,8 +742,7 @@
               "name": "messagePort",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "SendPort",
-              "relativePath": "package:worker_bee/src/vm/impl.dart"
+              "typeName": "SendPort"
             },
             {
               "isRequired": true,
@@ -885,8 +750,7 @@
               "name": "donePort",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "SendPort",
-              "relativePath": "package:worker_bee/src/vm/impl.dart"
+              "typeName": "SendPort"
             },
             {
               "isRequired": true,
@@ -894,15 +758,12 @@
               "name": "logPort",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "SendPort",
-              "relativePath": "package:worker_bee/src/vm/impl.dart"
+              "typeName": "SendPort"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/vm/impl.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -912,8 +773,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/vm/impl.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -923,8 +782,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/vm/impl.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -934,16 +791,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:worker_bee/src/vm/impl.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "worker_bee.dart"
-      ],
-      "relativePath": "package:worker_bee/src/vm/impl.dart"
+      ]
     }
   ]
 }

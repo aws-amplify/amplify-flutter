@@ -22,16 +22,10 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_push_notifications_pinpoint/amplify_push_notifications_pinpoint.dart"
+          "isStatic": false
         }
       ],
-      "fieldDeclarations": [],
-      "entryPoints": [
-        "amplify_push_notifications_pinpoint.dart"
-      ],
-      "relativePath": "package:amplify_push_notifications_pinpoint/amplify_push_notifications_pinpoint.dart"
+      "fieldDeclarations": []
     }
   ]
 }

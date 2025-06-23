@@ -25,8 +25,7 @@
               "name": "serviceProviderClient",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "ServiceProviderClient",
-              "relativePath": "package:amplify_push_notifications/src/amplify_push_notifications_impl.dart"
+              "typeName": "ServiceProviderClient"
             },
             {
               "isRequired": true,
@@ -34,8 +33,7 @@
               "name": "backgroundProcessor",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Future<void> Function()",
-              "relativePath": "package:amplify_push_notifications/src/amplify_push_notifications_impl.dart"
+              "typeName": "Future<void> Function()"
             },
             {
               "isRequired": false,
@@ -43,15 +41,12 @@
               "name": "dependencyManager",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "DependencyManager?",
-              "relativePath": "package:amplify_push_notifications/src/amplify_push_notifications_impl.dart"
+              "typeName": "DependencyManager?"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_push_notifications/src/amplify_push_notifications_impl.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -61,8 +56,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_push_notifications/src/amplify_push_notifications_impl.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -72,8 +65,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_push_notifications/src/amplify_push_notifications_impl.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -83,8 +74,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_push_notifications/src/amplify_push_notifications_impl.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -94,16 +83,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_push_notifications/src/amplify_push_notifications_impl.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "amplify_push_notifications.dart"
-      ],
-      "relativePath": "package:amplify_push_notifications/src/amplify_push_notifications_impl.dart"
+      ]
     }
   ]
 }

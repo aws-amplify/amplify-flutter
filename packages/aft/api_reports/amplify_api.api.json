@@ -27,15 +27,12 @@
               "name": "options",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "APIPluginOptions",
-              "relativePath": "package:amplify_api/src/api_plugin_impl.dart"
+              "typeName": "APIPluginOptions"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_api/src/api_plugin_impl.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -45,16 +42,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_api/src/api_plugin_impl.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "amplify_api.dart"
-      ],
-      "relativePath": "package:amplify_api/src/api_plugin_impl.dart"
+      ]
     }
   ]
 }

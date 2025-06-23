@@ -27,8 +27,7 @@
               "name": "webOptions",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "WebSecureStorageOptions?",
-              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+              "typeName": "WebSecureStorageOptions?"
             },
             {
               "isRequired": false,
@@ -36,8 +35,7 @@
               "name": "windowsOptions",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "WindowsSecureStorageOptions?",
-              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+              "typeName": "WindowsSecureStorageOptions?"
             },
             {
               "isRequired": false,
@@ -45,8 +43,7 @@
               "name": "linuxOptions",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "LinuxSecureStorageOptions?",
-              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+              "typeName": "LinuxSecureStorageOptions?"
             },
             {
               "isRequired": false,
@@ -54,8 +51,7 @@
               "name": "macOSOptions",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "MacOSSecureStorageOptions?",
-              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+              "typeName": "MacOSSecureStorageOptions?"
             },
             {
               "isRequired": false,
@@ -63,15 +59,12 @@
               "name": "iOSOptions",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "IOSSecureStorageOptions?",
-              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+              "typeName": "IOSSecureStorageOptions?"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+          "isStatic": true
         },
         {
           "returnTypeName": "void",
@@ -81,9 +74,7 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+          "isStatic": true
         },
         {
           "returnTypeName": "AmplifySecureStorage",
@@ -97,15 +88,12 @@
               "name": "config",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "AmplifySecureStorageConfig",
-              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+              "typeName": "AmplifySecureStorageConfig"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -115,16 +103,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "amplify_secure_storage.dart"
-      ],
-      "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+      ]
     }
   ]
 }

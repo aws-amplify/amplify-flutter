@@ -26,8 +26,7 @@
               "name": "appLifecycleProvider",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "AppLifecycleProvider?",
-              "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+              "typeName": "AppLifecycleProvider?"
             },
             {
               "isRequired": false,
@@ -35,8 +34,7 @@
               "name": "secureStorageFactory",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?",
-              "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?"
             },
             {
               "isRequired": false,
@@ -44,22 +42,15 @@
               "name": "options",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "AnalyticsPinpointPluginOptions",
-              "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+              "typeName": "AnalyticsPinpointPluginOptions"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+          "isStatic": false
         }
       ],
-      "fieldDeclarations": [],
-      "entryPoints": [
-        "amplify_analytics_pinpoint.dart"
-      ],
-      "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+      "fieldDeclarations": []
     }
   ]
 }

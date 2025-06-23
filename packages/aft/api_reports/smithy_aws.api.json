@@ -23,8 +23,7 @@
               "name": "endpoint",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Endpoint",
-              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart"
+              "typeName": "Endpoint"
             },
             {
               "isRequired": false,
@@ -32,15 +31,12 @@
               "name": "credentialScope",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "CredentialScope?",
-              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart"
+              "typeName": "CredentialScope?"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -50,8 +46,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -61,16 +55,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart"
+      ]
     },
     {
       "name": "CredentialScope",
@@ -96,8 +84,7 @@
               "name": "region",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+              "typeName": "String?"
             },
             {
               "isRequired": false,
@@ -105,15 +92,12 @@
               "name": "service",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+              "typeName": "String?"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "CredentialScope",
@@ -127,15 +111,12 @@
               "name": "json",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<String, Object?>",
-              "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -145,8 +126,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -156,8 +135,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -167,16 +144,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+      ]
     },
     {
       "name": "AWSEndpointResolver",
@@ -201,8 +172,7 @@
               "name": "service",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -210,15 +180,12 @@
               "name": "region",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+              "typeName": "String"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "AWSEndpointResolver",
@@ -232,22 +199,15 @@
               "name": "partitions",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<Partition>",
-              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+              "typeName": "List<Partition>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+          "isStatic": false
         }
       ],
-      "fieldDeclarations": [],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+      "fieldDeclarations": []
     },
     {
       "name": "Partition",
@@ -273,15 +233,12 @@
               "name": "region",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "String"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "AWSEndpoint",
@@ -295,15 +252,12 @@
               "name": "region",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "String"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "Partition",
@@ -317,8 +271,7 @@
               "name": "id",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -326,8 +279,7 @@
               "name": "regionRegex",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "RegExp",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "RegExp"
             },
             {
               "isRequired": false,
@@ -335,8 +287,7 @@
               "name": "partitionEndpoint",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "String?"
             },
             {
               "isRequired": true,
@@ -344,8 +295,7 @@
               "name": "isRegionalized",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "bool"
             },
             {
               "isRequired": true,
@@ -353,8 +303,7 @@
               "name": "defaults",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "EndpointDefinition",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "EndpointDefinition"
             },
             {
               "isRequired": true,
@@ -362,8 +311,7 @@
               "name": "regions",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Set<String>",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "Set<String>"
             },
             {
               "isRequired": true,
@@ -371,15 +319,12 @@
               "name": "endpoints",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<String, EndpointDefinition>",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "Map<String, EndpointDefinition>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -389,8 +334,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -400,8 +343,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -411,8 +352,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -422,8 +361,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -433,8 +370,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -444,8 +379,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -455,16 +388,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+      ]
     },
     {
       "name": "EndpointDefinition",
@@ -490,8 +417,7 @@
               "name": "region",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -499,15 +425,12 @@
               "name": "defaults",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "EndpointDefinition",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "EndpointDefinition"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "EndpointDefinition",
@@ -521,15 +444,12 @@
               "name": "defaults",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "EndpointDefinition",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "EndpointDefinition"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "EndpointDefinition",
@@ -543,8 +463,7 @@
               "name": "hostname",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "String?"
             },
             {
               "isRequired": false,
@@ -552,8 +471,7 @@
               "name": "protocols",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<String>",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "List<String>"
             },
             {
               "isRequired": false,
@@ -561,8 +479,7 @@
               "name": "credentialScope",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "CredentialScope?",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "CredentialScope?"
             },
             {
               "isRequired": false,
@@ -570,8 +487,7 @@
               "name": "signatureVersions",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<AWSSignatureVersion>",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "List<AWSSignatureVersion>"
             },
             {
               "isRequired": false,
@@ -579,15 +495,12 @@
               "name": "variants",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<EndpointDefinitionVariant>",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "List<EndpointDefinitionVariant>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "EndpointDefinition",
@@ -601,15 +514,12 @@
               "name": "json",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<String, Object?>",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -619,8 +529,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -630,8 +538,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -641,8 +547,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -652,8 +556,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -663,16 +565,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+      ]
     },
     {
       "name": "AWSSignatureVersion",
@@ -693,8 +589,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -704,8 +598,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -715,8 +607,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -726,8 +616,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -737,8 +625,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -748,8 +634,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -759,16 +643,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+      ]
     },
     {
       "name": "EndpointDefinitionVariant",
@@ -795,8 +673,7 @@
               "name": "dnsSuffix",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "String?"
             },
             {
               "isRequired": false,
@@ -804,8 +681,7 @@
               "name": "hostname",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "String?"
             },
             {
               "isRequired": true,
@@ -813,15 +689,12 @@
               "name": "tags",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<String>",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "List<String>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "EndpointDefinitionVariant",
@@ -835,15 +708,12 @@
               "name": "json",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<String, Object?>",
-              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -853,8 +723,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -864,8 +732,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -875,8 +741,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -886,16 +750,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+      ]
     },
     {
       "name": "CheckErrorOnSuccess",
@@ -917,16 +775,10 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/s3/check_error_on_success.dart"
+          "isStatic": false
         }
       ],
-      "fieldDeclarations": [],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/http/interceptors/s3/check_error_on_success.dart"
+      "fieldDeclarations": []
     },
     {
       "name": "CheckPartialResponse",
@@ -948,16 +800,10 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/s3/check_partial_response.dart"
+          "isStatic": false
         }
       ],
-      "fieldDeclarations": [],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/http/interceptors/s3/check_partial_response.dart"
+      "fieldDeclarations": []
     },
     {
       "name": "WithChecksum",
@@ -983,22 +829,15 @@
               "name": "algorithm",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:smithy_aws/src/http/interceptors/with_checksum.dart"
+              "typeName": "String?"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_checksum.dart"
+          "isStatic": false
         }
       ],
-      "fieldDeclarations": [],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/http/interceptors/with_checksum.dart"
+      "fieldDeclarations": []
     },
     {
       "name": "WithSdkInvocationId",
@@ -1020,16 +859,10 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sdk_invocation.dart"
+          "isStatic": false
         }
       ],
-      "fieldDeclarations": [],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/http/interceptors/with_sdk_invocation.dart"
+      "fieldDeclarations": []
     },
     {
       "name": "WithSdkRequest",
@@ -1051,16 +884,10 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sdk_request.dart"
+          "isStatic": false
         }
       ],
-      "fieldDeclarations": [],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/http/interceptors/with_sdk_request.dart"
+      "fieldDeclarations": []
     },
     {
       "name": "WithSigV4",
@@ -1086,8 +913,7 @@
               "name": "region",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -1095,8 +921,7 @@
               "name": "service",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "AWSService",
-              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+              "typeName": "AWSService"
             },
             {
               "isRequired": true,
@@ -1104,8 +929,7 @@
               "name": "credentialsProvider",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "AWSCredentialsProvider",
-              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+              "typeName": "AWSCredentialsProvider"
             },
             {
               "isRequired": false,
@@ -1113,8 +937,7 @@
               "name": "serviceConfiguration",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "ServiceConfiguration",
-              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+              "typeName": "ServiceConfiguration"
             },
             {
               "isRequired": false,
@@ -1122,8 +945,7 @@
               "name": "algorithm",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "AWSAlgorithm",
-              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+              "typeName": "AWSAlgorithm"
             },
             {
               "isRequired": false,
@@ -1131,15 +953,12 @@
               "name": "isOptional",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool",
-              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+              "typeName": "bool"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -1149,8 +968,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1160,8 +977,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1171,8 +986,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1182,8 +995,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1193,8 +1004,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1204,8 +1013,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1215,16 +1022,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+      ]
     },
     {
       "name": "AWSRetryer",
@@ -1250,8 +1051,7 @@
               "name": "initialRetryTokens",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "int",
-              "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+              "typeName": "int"
             },
             {
               "isRequired": false,
@@ -1259,8 +1059,7 @@
               "name": "exponentialBase",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "double?",
-              "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+              "typeName": "double?"
             },
             {
               "isRequired": false,
@@ -1268,8 +1067,7 @@
               "name": "exponentialPower",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "double",
-              "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+              "typeName": "double"
             },
             {
               "isRequired": false,
@@ -1277,15 +1075,12 @@
               "name": "maxBackoffTime",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Duration",
-              "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+              "typeName": "Duration"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -1295,8 +1090,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1306,8 +1099,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1317,8 +1108,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1328,8 +1117,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1339,16 +1126,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+      ]
     },
     {
       "name": "AwsJson1_0Protocol",
@@ -1382,8 +1163,7 @@
               "name": "requestInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpRequestInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+              "typeName": "List<HttpRequestInterceptor>"
             },
             {
               "isRequired": false,
@@ -1391,8 +1171,7 @@
               "name": "responseInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpResponseInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+              "typeName": "List<HttpResponseInterceptor>"
             },
             {
               "isRequired": false,
@@ -1400,8 +1179,7 @@
               "name": "serializers",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<SmithySerializer<dynamic>>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+              "typeName": "List<SmithySerializer<dynamic>>"
             },
             {
               "isRequired": false,
@@ -1409,15 +1187,12 @@
               "name": "builderFactories",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<FullType, Function>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+              "typeName": "Map<FullType, Function>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -1427,8 +1202,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1438,16 +1211,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+      ]
     },
     {
       "name": "AwsJson1_1Protocol",
@@ -1482,8 +1249,7 @@
               "name": "requestInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpRequestInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+              "typeName": "List<HttpRequestInterceptor>"
             },
             {
               "isRequired": false,
@@ -1491,8 +1257,7 @@
               "name": "responseInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpResponseInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+              "typeName": "List<HttpResponseInterceptor>"
             },
             {
               "isRequired": false,
@@ -1500,8 +1265,7 @@
               "name": "serializers",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<SmithySerializer<dynamic>>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+              "typeName": "List<SmithySerializer<dynamic>>"
             },
             {
               "isRequired": false,
@@ -1509,15 +1273,12 @@
               "name": "builderFactories",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<FullType, Function>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+              "typeName": "Map<FullType, Function>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -1527,8 +1288,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1538,16 +1297,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+      ]
     },
     {
       "name": "AwsQueryError",
@@ -1573,8 +1326,7 @@
               "name": "httpResponseCode",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "int",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "int"
             },
             {
               "isRequired": true,
@@ -1582,8 +1334,7 @@
               "name": "code",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -1591,15 +1342,12 @@
               "name": "shape",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "String"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -1609,8 +1357,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1620,8 +1366,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1631,8 +1375,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1642,16 +1384,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+      ]
     },
     {
       "name": "AwsQueryProtocol",
@@ -1684,8 +1420,7 @@
               "name": "action",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -1693,8 +1428,7 @@
               "name": "version",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "String"
             },
             {
               "isRequired": false,
@@ -1702,8 +1436,7 @@
               "name": "awsQueryErrors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<AwsQueryError>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "List<AwsQueryError>"
             },
             {
               "isRequired": false,
@@ -1711,8 +1444,7 @@
               "name": "requestInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpRequestInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "List<HttpRequestInterceptor>"
             },
             {
               "isRequired": false,
@@ -1720,8 +1452,7 @@
               "name": "responseInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpResponseInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "List<HttpResponseInterceptor>"
             },
             {
               "isRequired": false,
@@ -1729,8 +1460,7 @@
               "name": "serializers",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<SmithySerializer<dynamic>>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "List<SmithySerializer<dynamic>>"
             },
             {
               "isRequired": false,
@@ -1738,15 +1468,12 @@
               "name": "builderFactories",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<FullType, Function>",
-              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+              "typeName": "Map<FullType, Function>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -1756,8 +1483,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1767,8 +1492,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1778,8 +1501,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1789,8 +1510,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1800,16 +1519,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+      ]
     },
     {
       "name": "Ec2QueryProtocol",
@@ -1843,8 +1556,7 @@
               "name": "action",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+              "typeName": "String"
             },
             {
               "isRequired": true,
@@ -1852,8 +1564,7 @@
               "name": "version",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String",
-              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+              "typeName": "String"
             },
             {
               "isRequired": false,
@@ -1861,8 +1572,7 @@
               "name": "requestInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpRequestInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+              "typeName": "List<HttpRequestInterceptor>"
             },
             {
               "isRequired": false,
@@ -1870,8 +1580,7 @@
               "name": "responseInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpResponseInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+              "typeName": "List<HttpResponseInterceptor>"
             },
             {
               "isRequired": false,
@@ -1879,8 +1588,7 @@
               "name": "serializers",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<SmithySerializer<dynamic>>",
-              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+              "typeName": "List<SmithySerializer<dynamic>>"
             },
             {
               "isRequired": false,
@@ -1888,15 +1596,12 @@
               "name": "builderFactories",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<FullType, Function>",
-              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+              "typeName": "Map<FullType, Function>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -1906,8 +1611,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1917,8 +1620,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1928,8 +1629,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1939,8 +1638,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -1950,16 +1647,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+      ]
     },
     {
       "name": "RestJson1Protocol",
@@ -1993,8 +1684,7 @@
               "name": "mediaType",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+              "typeName": "String?"
             },
             {
               "isRequired": false,
@@ -2002,8 +1692,7 @@
               "name": "requestInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpRequestInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+              "typeName": "List<HttpRequestInterceptor>"
             },
             {
               "isRequired": false,
@@ -2011,8 +1700,7 @@
               "name": "responseInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpResponseInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+              "typeName": "List<HttpResponseInterceptor>"
             },
             {
               "isRequired": false,
@@ -2020,8 +1708,7 @@
               "name": "serializers",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<SmithySerializer<dynamic>>",
-              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+              "typeName": "List<SmithySerializer<dynamic>>"
             },
             {
               "isRequired": false,
@@ -2029,15 +1716,12 @@
               "name": "builderFactories",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<FullType, Function>",
-              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+              "typeName": "Map<FullType, Function>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -2047,8 +1731,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -2058,8 +1740,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -2069,16 +1749,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+      ]
     },
     {
       "name": "RestXmlProtocol",
@@ -2111,15 +1785,12 @@
               "name": "response",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "AWSBaseHttpResponse",
-              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+              "typeName": "AWSBaseHttpResponse"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": true,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+          "isStatic": true
         },
         {
           "returnTypeName": "RestXmlProtocol<InputPayload, Input, OutputPayload, Output>",
@@ -2133,8 +1804,7 @@
               "name": "mediaType",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?",
-              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+              "typeName": "String?"
             },
             {
               "isRequired": false,
@@ -2142,8 +1812,7 @@
               "name": "requestInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpRequestInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+              "typeName": "List<HttpRequestInterceptor>"
             },
             {
               "isRequired": false,
@@ -2151,8 +1820,7 @@
               "name": "responseInterceptors",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<HttpResponseInterceptor>",
-              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+              "typeName": "List<HttpResponseInterceptor>"
             },
             {
               "isRequired": false,
@@ -2160,8 +1828,7 @@
               "name": "serializers",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "List<SmithySerializer<dynamic>>",
-              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+              "typeName": "List<SmithySerializer<dynamic>>"
             },
             {
               "isRequired": false,
@@ -2169,8 +1836,7 @@
               "name": "builderFactories",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<FullType, Function>",
-              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+              "typeName": "Map<FullType, Function>"
             },
             {
               "isRequired": false,
@@ -2178,15 +1844,12 @@
               "name": "noErrorWrapping",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool",
-              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+              "typeName": "bool"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -2196,8 +1859,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -2207,8 +1868,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -2218,8 +1877,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -2229,16 +1886,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+      ]
     },
     {
       "name": "S3ClientConfig",
@@ -2263,8 +1914,7 @@
               "name": "usePathStyle",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool?",
-              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+              "typeName": "bool?"
             },
             {
               "isRequired": false,
@@ -2272,8 +1922,7 @@
               "name": "useDualStack",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool?",
-              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+              "typeName": "bool?"
             },
             {
               "isRequired": false,
@@ -2281,8 +1930,7 @@
               "name": "useAcceleration",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool?",
-              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+              "typeName": "bool?"
             },
             {
               "isRequired": false,
@@ -2290,15 +1938,12 @@
               "name": "signerConfiguration",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "S3ServiceConfiguration?",
-              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+              "typeName": "S3ServiceConfiguration?"
             }
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+          "isStatic": false
         },
         {
           "returnTypeName": "S3ClientConfig",
@@ -2312,8 +1957,7 @@
               "name": "usePathStyle",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool",
-              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+              "typeName": "bool"
             },
             {
               "isRequired": false,
@@ -2321,8 +1965,7 @@
               "name": "useDualStack",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool",
-              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+              "typeName": "bool"
             },
             {
               "isRequired": false,
@@ -2330,8 +1973,7 @@
               "name": "useAcceleration",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "bool",
-              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+              "typeName": "bool"
             },
             {
               "isRequired": false,
@@ -2339,15 +1981,12 @@
               "name": "signerConfiguration",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "S3ServiceConfiguration?",
-              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+              "typeName": "S3ServiceConfiguration?"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -2357,8 +1996,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -2368,8 +2005,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -2379,8 +2014,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart",
           "isReadable": true,
           "isWriteable": false
         },
@@ -2390,16 +2023,10 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "entryPoints": [],
-          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart",
           "isReadable": true,
           "isWriteable": false
         }
-      ],
-      "entryPoints": [
-        "smithy_aws.dart"
-      ],
-      "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+      ]
     }
   ]
 }
