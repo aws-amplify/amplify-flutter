@@ -68,6 +68,9 @@ class GenerateApiReportCommand extends AmplifyCommand {
         }).toList();
       }
       
+      // Sort package paths for deterministic processing
+      packagePaths.sort();
+      
       for (final packagePath in packagePaths) {
         logger.info('Processing $packagePath...');
         try {
@@ -187,6 +190,16 @@ class GenerateApiReportCommand extends AmplifyCommand {
           final simplifiedJson = {
             'interfaceDeclarations': interfaceDeclarations
           };
+          
+          // Sort interface declarations for deterministic output
+          if (interfaceDeclarations is List) {
+            interfaceDeclarations.sort((a, b) {
+              if (a is Map && b is Map && a['name'] != null && b['name'] != null) {
+                return (a['name'] as String).compareTo(b['name'] as String);
+              }
+              return 0;
+            });
+          }
           
           // Convert to JSON string and strip path fields in one pass
           const encoder = JsonEncoder.withIndent('  ');

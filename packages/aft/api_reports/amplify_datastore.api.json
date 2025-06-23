@@ -841,6 +841,15 @@
           "isStatic": false,
           "isReadable": true,
           "isWriteable": true
+        },
+        {
+          "typeName": "int",
+          "name": "hashCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
         }
       ]
     },
@@ -913,6 +922,15 @@
           "isStatic": false,
           "isReadable": true,
           "isWriteable": true
+        },
+        {
+          "typeName": "int",
+          "name": "hashCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
         }
       ]
     },
@@ -1019,6 +1037,15 @@
           "isStatic": false,
           "isReadable": true,
           "isWriteable": true
+        },
+        {
+          "typeName": "int",
+          "name": "hashCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
         }
       ]
     }
