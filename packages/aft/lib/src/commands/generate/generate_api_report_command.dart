@@ -187,10 +187,6 @@ class GenerateApiReportCommand extends AmplifyCommand {
         if (packageApi.containsKey('interfaceDeclarations')) {
           final interfaceDeclarations = packageApi['interfaceDeclarations'];
           
-          final simplifiedJson = {
-            'interfaceDeclarations': interfaceDeclarations
-          };
-          
           // Sort interface declarations for deterministic output
           if (interfaceDeclarations is List) {
             interfaceDeclarations.sort((a, b) {
@@ -200,6 +196,10 @@ class GenerateApiReportCommand extends AmplifyCommand {
               return 0;
             });
           }
+          
+          final simplifiedJson = {
+            'interfaceDeclarations': interfaceDeclarations
+          };
           
           // Convert to JSON string and strip path fields in one pass
           const encoder = JsonEncoder.withIndent('  ');

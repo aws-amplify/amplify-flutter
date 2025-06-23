@@ -54,17 +54,11 @@ jobs:
           if [[ -n "$API_JSON_CHANGES" ]]; then
             echo "API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
             git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'
-            # Show summary of API changes instead of full diff
+            # Show full diff for API changes
             for file in $(git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'); do
               echo "=== API CHANGES DETECTED in: $file ==="
-              echo "Lines added: $(git diff --numstat "$file" | cut -f1)"
-              echo "Lines removed: $(git diff --numstat "$file" | cut -f2)"
-              echo "First 20 lines of changes:"
-              git diff "$file" | head -20
-              echo "..."
-              echo "Last 10 lines of changes:"
-              git diff "$file" | tail -10
-              echo "=== End of summary for: $file ==="
+              git diff "$file"
+              echo "=== End of diff for: $file ==="
             done
             exit 1
           else
