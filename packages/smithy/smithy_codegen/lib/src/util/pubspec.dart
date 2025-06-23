@@ -35,13 +35,13 @@ final dependencyVersions = {
   'meta': const Dependency('^1.16.0'),
   'shelf': const Dependency('^1.4.0'),
   'shelf_router': const Dependency('^1.1.3'),
-  'xml': const Dependency('6.3.0'),
+  'xml': const Dependency('6.5.0'),
 
   // Dev Dependencies
   'smithy_test': const Dependency.dev('^0.5.0', DependencyType.smithy),
   'build_runner': const Dependency.dev('^2.4.9'),
   'build_web_compilers': const Dependency.dev('^4.0.0'),
-  'build_test': const Dependency.dev('^2.2.0'),
+  'build_test': const Dependency.dev('^3.1.1'),
   'built_value_generator': const Dependency.dev('^8.10.1'),
   'lints': const Dependency.dev('^6.0.0'),
   'test': const Dependency.dev('^1.22.1'),
