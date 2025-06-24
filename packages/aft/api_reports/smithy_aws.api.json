@@ -72,25 +72,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "AWSEndpointResolver",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "partitions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<Partition>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "AWSEndpoint",
           "name": "resolve",
           "isDeprecated": false,
@@ -115,6 +96,25 @@
           ],
           "typeParameterNames": [],
           "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSEndpointResolver",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "partitions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<Partition>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -759,25 +759,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CredentialScope",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CredentialScope",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -797,6 +778,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CredentialScope",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -975,22 +975,49 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "EndpointDefinition",
-          "name": "fromJson",
+          "returnTypeName": "AWSEndpoint",
+          "name": "resolve",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
               "isNamed": false,
-              "name": "json",
+              "name": "region",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<String, Object?>"
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "defaults",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointDefinition"
             }
           ],
           "typeParameterNames": [],
-          "type": "constructor",
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "EndpointDefinition",
+          "name": "withDefaults",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "defaults",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointDefinition"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         },
         {
@@ -1045,49 +1072,22 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "AWSEndpoint",
-          "name": "resolve",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "region",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "defaults",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "EndpointDefinition"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "EndpointDefinition",
-          "name": "withDefaults",
+          "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
               "isNamed": false,
-              "name": "defaults",
+              "name": "json",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "EndpointDefinition"
+              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -1154,25 +1154,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "EndpointDefinitionVariant",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "EndpointDefinitionVariant",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1200,6 +1181,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "List<String>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "EndpointDefinitionVariant",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -1261,6 +1261,25 @@
         {
           "returnTypeName": "bool",
           "name": "canResolveEndpoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSEndpoint",
+          "name": "resolveEndpoint",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
@@ -1342,25 +1361,6 @@
           ],
           "typeParameterNames": [],
           "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSEndpoint",
-          "name": "resolveEndpoint",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "region",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
           "isStatic": false
         }
       ],
@@ -1552,6 +1552,25 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "Future<String?>",
+          "name": "resolveError",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "response",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpResponse"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
           "returnTypeName": "RestXmlProtocol<InputPayload, Input, OutputPayload, Output>",
           "name": "new",
           "isDeprecated": false,
@@ -1609,25 +1628,6 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<String?>",
-          "name": "resolveError",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "response",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSBaseHttpResponse"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
         }
       ],
       "fieldDeclarations": [

@@ -17,16 +17,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "AmplifyDataStore",
-          "name": "emptyConstructor",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AmplifyDataStore",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -48,6 +38,16 @@
               "typeName": "DataStorePluginOptions"
             }
           ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AmplifyDataStore",
+          "name": "emptyConstructor",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
@@ -240,16 +240,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "DataStoreStreamController",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "void",
           "name": "registerModelsForHub",
           "isDeprecated": false,
@@ -266,6 +256,16 @@
           ],
           "typeParameterNames": [],
           "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DataStoreStreamController",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -296,13 +296,22 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "Future<void>",
-          "name": "deviceOffline",
+          "returnTypeName": "NativeAmplifyApi",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [],
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "_authProviders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>"
+            }
+          ],
           "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -344,35 +353,6 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "NativeAmplifyApi",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "_authProviders",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<void>",
-          "name": "onStop",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "Future<NativeGraphQLResponse>",
           "name": "query",
           "isDeprecated": false,
@@ -390,41 +370,6 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "setUp",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "api",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "NativeApiPlugin?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "binaryMessenger",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "BinaryMessenger?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "messageChannelSuffix",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
         },
         {
           "returnTypeName": "Future<NativeGraphQLSubscriptionResponse>",
@@ -463,6 +408,61 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "deviceOffline",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "onStop",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "setUp",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "api",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeApiPlugin?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "binaryMessenger",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "BinaryMessenger?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "messageChannelSuffix",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
         }
       ],
       "fieldDeclarations": [
@@ -498,16 +498,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "Future<void>",
-          "name": "deviceOffline",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "Future<String?>",
           "name": "getLatestAuthToken",
           "isDeprecated": false,
@@ -546,26 +536,6 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "NativeApiPlugin",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<void>",
-          "name": "onStop",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "Future<NativeGraphQLResponse>",
           "name": "query",
           "isDeprecated": false,
@@ -580,6 +550,64 @@
               "typeName": "NativeGraphQLRequest"
             }
           ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLSubscriptionResponse>",
+          "name": "subscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "unsubscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "deviceOffline",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "onStop",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -620,41 +648,13 @@
           "isStatic": true
         },
         {
-          "returnTypeName": "Future<NativeGraphQLSubscriptionResponse>",
-          "name": "subscribe",
+          "returnTypeName": "NativeApiPlugin",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "request",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "NativeGraphQLRequest"
-            }
-          ],
+          "parameters": [],
           "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<void>",
-          "name": "unsubscribe",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "subscriptionId",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -682,6 +682,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "Object",
+          "name": "encode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "NativeGraphQLRequest",
           "name": "decode",
           "isDeprecated": false,
@@ -699,16 +709,6 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": true
-        },
-        {
-          "returnTypeName": "Object",
-          "name": "encode",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
         },
         {
           "returnTypeName": "NativeGraphQLRequest",
@@ -865,6 +865,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "Object",
+          "name": "encode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "NativeGraphQLResponse",
           "name": "decode",
           "isDeprecated": false,
@@ -882,16 +892,6 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": true
-        },
-        {
-          "returnTypeName": "Object",
-          "name": "encode",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
         },
         {
           "returnTypeName": "NativeGraphQLResponse",
@@ -946,6 +946,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "Object",
+          "name": "encode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "NativeGraphQLSubscriptionResponse",
           "name": "decode",
           "isDeprecated": false,
@@ -963,16 +973,6 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": true
-        },
-        {
-          "returnTypeName": "Object",
-          "name": "encode",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
         },
         {
           "returnTypeName": "NativeGraphQLSubscriptionResponse",

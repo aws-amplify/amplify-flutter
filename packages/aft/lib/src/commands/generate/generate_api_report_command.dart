@@ -185,7 +185,6 @@ class GenerateApiReportCommand extends AmplifyCommand {
           final interfaceDeclarations = packageApi['interfaceDeclarations'];
           
           // Sort interface declarations for deterministic output
-          // Sort by "executableDeclarations" if they exist
           if (interfaceDeclarations is List) {
             interfaceDeclarations.sort((a, b) {
               if (a is Map && b is Map && a['name'] != null && b['name'] != null) {

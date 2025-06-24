@@ -67,6 +67,16 @@
           "isStatic": true
         },
         {
+          "returnTypeName": "void",
+          "name": "registerWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
           "returnTypeName": "AmplifySecureStorage",
           "name": "new",
           "isDeprecated": false,
@@ -84,16 +94,6 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "registerWith",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
         }
       ],
       "fieldDeclarations": [
