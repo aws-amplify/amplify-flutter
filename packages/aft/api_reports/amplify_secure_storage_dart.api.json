@@ -1,50 +1,27 @@
 {
   "interfaceDeclarations": [
     {
-      "name": "AmplifySecureStorageConfig",
+      "name": "AmplifySecureStorageDart",
       "isDeprecated": false,
       "isExperimental": false,
       "isSealed": false,
-      "isRequired": true,
+      "isRequired": false,
       "typeParameterNames": [],
       "superTypeNames": [
+        "AmplifySecureStorageInterface",
+        "SecureStorageInterface",
         "Object",
-        "Built<AmplifySecureStorageConfig, AmplifySecureStorageConfigBuilder>"
+        "AWSDebuggable",
+        "AWSLoggerMixin",
+        "AmplifySecureStorageDartMixin"
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "AmplifySecureStorageConfig",
-          "name": "byNamespace",
+          "returnTypeName": "AmplifySecureStorageDart Function(AmplifySecureStorageScope)",
+          "name": "factoryFrom",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "namespace",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AmplifySecureStorageConfig",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "scope",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
             {
               "isRequired": false,
               "isNamed": true,
@@ -87,9 +64,366 @@
             }
           ],
           "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "void",
+          "name": "registerWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "AmplifySecureStorageDart",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifySecureStorageConfig"
+            }
+          ],
+          "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
         },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "removeAll",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "write",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<String?>",
+          "name": "read",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "delete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "AmplifySecureStorageConfig",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "AmplifySecureStorageInterface",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "SecureStorageInterface",
+        "Object",
+        "AWSDebuggable",
+        "AWSLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "removeAll",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AmplifySecureStorageInterface",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifySecureStorageConfig"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "write",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<String?>",
+          "name": "read",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "delete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "AmplifySecureStorageConfig",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "SecureStorageInterface",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "write",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<String?>",
+          "name": "read",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "delete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SecureStorageInterface",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "AmplifySecureStorageConfig",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Built<AmplifySecureStorageConfig, AmplifySecureStorageConfigBuilder>"
+      ],
+      "executableDeclarations": [
         {
           "returnTypeName": "AmplifySecureStorageConfig",
           "name": "copyWith",
@@ -155,6 +489,84 @@
           ],
           "typeParameterNames": [],
           "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AmplifySecureStorageConfig",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "scope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "webOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "windowsOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WindowsSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "linuxOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LinuxSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "macOSOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "MacOSSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "iOSOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IOSSecureStorageOptions?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AmplifySecureStorageConfig",
+          "name": "byNamespace",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "namespace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -332,675 +744,51 @@
       ]
     },
     {
-      "name": "AmplifySecureStorageDart",
+      "name": "WebSecureStorageOptionsBuilder",
       "isDeprecated": false,
       "isExperimental": false,
       "isSealed": false,
       "isRequired": false,
       "typeParameterNames": [],
       "superTypeNames": [
-        "AmplifySecureStorageInterface",
-        "SecureStorageInterface",
         "Object",
-        "AWSDebuggable",
-        "AWSLoggerMixin",
-        "AmplifySecureStorageDartMixin"
+        "Builder<WebSecureStorageOptions, WebSecureStorageOptionsBuilder>"
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "AmplifySecureStorageDart",
+          "returnTypeName": "WebSecureStorageOptionsBuilder",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "config",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AmplifySecureStorageConfig"
-            }
-          ],
+          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "delete",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AmplifySecureStorageDart Function(AmplifySecureStorageScope)",
-          "name": "factoryFrom",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "webOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "WebSecureStorageOptions?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "windowsOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "WindowsSecureStorageOptions?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "linuxOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "LinuxSecureStorageOptions?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "macOSOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "MacOSSecureStorageOptions?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "iOSOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "IOSSecureStorageOptions?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
-        },
-        {
-          "returnTypeName": "FutureOr<String?>",
-          "name": "read",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "registerWith",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "removeAll",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "write",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "value",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
         }
       ],
       "fieldDeclarations": [
         {
-          "typeName": "AmplifySecureStorageConfig",
-          "name": "config",
+          "typeName": "String?",
+          "name": "databaseName",
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
           "isReadable": true,
-          "isWriteable": false
+          "isWriteable": true
         },
         {
-          "typeName": "String",
-          "name": "runtimeTypeName",
+          "typeName": "WebPersistenceOption?",
+          "name": "persistenceOption",
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
           "isReadable": true,
-          "isWriteable": false
+          "isWriteable": true
         }
       ]
     },
     {
-      "name": "AmplifySecureStorageDartMixin",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "AmplifySecureStorageInterface",
-        "SecureStorageInterface",
-        "Object",
-        "AWSDebuggable",
-        "AWSLoggerMixin"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "delete",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<String?>",
-          "name": "read",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "removeAll",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "write",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "value",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "AmplifySecureStorageConfig",
-          "name": "config",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "String",
-          "name": "runtimeTypeName",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "AmplifySecureStorageInterface",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "SecureStorageInterface",
-        "Object",
-        "AWSDebuggable",
-        "AWSLoggerMixin"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "AmplifySecureStorageInterface",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "config",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AmplifySecureStorageConfig"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "delete",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<String?>",
-          "name": "read",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "removeAll",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "write",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "value",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "AmplifySecureStorageConfig",
-          "name": "config",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "String",
-          "name": "runtimeTypeName",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "AmplifySecureStorageScope",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Enum",
-        "Object"
-      ],
-      "executableDeclarations": [],
-      "fieldDeclarations": [
-        {
-          "typeName": "AmplifySecureStorageScope",
-          "name": "awsCognitoAuthPlugin",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AmplifySecureStorageScope",
-          "name": "awsPinpointAnalyticsPlugin",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AmplifySecureStorageScope",
-          "name": "awsPinpointPushNotificationsPlugin",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "List<AmplifySecureStorageScope>",
-          "name": "values",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "AmplifySecureStorageWorker",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "AmplifySecureStorageInterface",
-        "SecureStorageInterface",
-        "Object",
-        "AWSDebuggable",
-        "AWSLoggerMixin"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "AmplifySecureStorageWorker",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "config",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AmplifySecureStorageConfig"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "delete",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AmplifySecureStorageWorker Function(AmplifySecureStorageScope)",
-          "name": "factoryFrom",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "webOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "WebSecureStorageOptions?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "windowsOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "WindowsSecureStorageOptions?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "linuxOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "LinuxSecureStorageOptions?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "macOSOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "MacOSSecureStorageOptions?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "iOSOptions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "IOSSecureStorageOptions?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
-        },
-        {
-          "returnTypeName": "FutureOr<String?>",
-          "name": "read",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "removeAll",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "write",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "value",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "String",
-          "name": "runtimeTypeName",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AmplifySecureStorageConfig",
-          "name": "config",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "IOSSecureStorageOptions",
+      "name": "WebSecureStorageOptions",
       "isDeprecated": false,
       "isExperimental": false,
       "isSealed": false,
@@ -1008,21 +796,11 @@
       "typeParameterNames": [],
       "superTypeNames": [
         "Object",
-        "Built<IOSSecureStorageOptions, IOSSecureStorageOptionsBuilder>"
+        "Built<WebSecureStorageOptions, WebSecureStorageOptionsBuilder>"
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "IOSSecureStorageOptions",
-          "name": "empty",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "IOSSecureStorageOptions",
+          "returnTypeName": "WebSecureStorageOptions",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1030,11 +808,286 @@
             {
               "isRequired": false,
               "isNamed": true,
-              "name": "accessible",
+              "name": "databaseName",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "KeychainAttributeAccessible"
+              "typeName": "String?"
             },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "persistenceOption",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebPersistenceOption"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "databaseName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebPersistenceOption",
+          "name": "persistenceOption",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Serializer<WebSecureStorageOptions>",
+          "name": "serializer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WebPersistenceOption",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "EnumClass",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WebPersistenceOption",
+          "name": "valueOf",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "WebPersistenceOption",
+          "name": "inMemory",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebPersistenceOption",
+          "name": "indexedDB",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "BuiltSet<WebPersistenceOption>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Serializer<WebPersistenceOption>",
+          "name": "serializer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WindowsSecureStorageOptionsBuilder",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Builder<WindowsSecureStorageOptions, WindowsSecureStorageOptionsBuilder>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WindowsSecureStorageOptionsBuilder",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "storagePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ]
+    },
+    {
+      "name": "WindowsSecureStorageOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Built<WindowsSecureStorageOptions, WindowsSecureStorageOptionsBuilder>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WindowsSecureStorageOptions",
+          "name": "copyWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "storagePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WindowsSecureStorageOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "storagePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "storagePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Serializer<WindowsSecureStorageOptions>",
+          "name": "serializer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "LinuxSecureStorageOptionsBuilder",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Builder<LinuxSecureStorageOptions, LinuxSecureStorageOptionsBuilder>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "LinuxSecureStorageOptionsBuilder",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "accessGroup",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ]
+    },
+    {
+      "name": "LinuxSecureStorageOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Built<LinuxSecureStorageOptions, LinuxSecureStorageOptionsBuilder>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "LinuxSecureStorageOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
             {
               "isRequired": false,
               "isNamed": true,
@@ -1060,16 +1113,7 @@
           "isWriteable": false
         },
         {
-          "typeName": "KeychainAttributeAccessible?",
-          "name": "accessible",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "Serializer<IOSSecureStorageOptions>",
+          "typeName": "Serializer<LinuxSecureStorageOptions>",
           "name": "serializer",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1080,7 +1124,7 @@
       ]
     },
     {
-      "name": "IOSSecureStorageOptionsBuilder",
+      "name": "MacOSSecureStorageOptionsBuilder",
       "isDeprecated": false,
       "isExperimental": false,
       "isSealed": false,
@@ -1088,11 +1132,11 @@
       "typeParameterNames": [],
       "superTypeNames": [
         "Object",
-        "Builder<IOSSecureStorageOptions, IOSSecureStorageOptionsBuilder>"
+        "Builder<MacOSSecureStorageOptions, MacOSSecureStorageOptionsBuilder>"
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "IOSSecureStorageOptionsBuilder",
+          "returnTypeName": "MacOSSecureStorageOptionsBuilder",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1103,6 +1147,15 @@
         }
       ],
       "fieldDeclarations": [
+        {
+          "typeName": "bool?",
+          "name": "useDataProtection",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
         {
           "typeName": "String?",
           "name": "accessGroup",
@@ -1120,6 +1173,103 @@
           "isStatic": false,
           "isReadable": true,
           "isWriteable": true
+        }
+      ]
+    },
+    {
+      "name": "MacOSSecureStorageOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Built<MacOSSecureStorageOptions, MacOSSecureStorageOptionsBuilder>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "MacOSSecureStorageOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "useDataProtection",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "accessible",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "KeychainAttributeAccessible"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "accessGroup",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "MacOSSecureStorageOptions",
+          "name": "empty",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "bool",
+          "name": "useDataProtection",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "accessGroup",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "KeychainAttributeAccessible?",
+          "name": "accessible",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Serializer<MacOSSecureStorageOptions>",
+          "name": "serializer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
         }
       ]
     },
@@ -1222,60 +1372,7 @@
       ]
     },
     {
-      "name": "LinuxSecureStorageOptions",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": true,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object",
-        "Built<LinuxSecureStorageOptions, LinuxSecureStorageOptionsBuilder>"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "LinuxSecureStorageOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "accessGroup",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "String?",
-          "name": "accessGroup",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "Serializer<LinuxSecureStorageOptions>",
-          "name": "serializer",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "LinuxSecureStorageOptionsBuilder",
+      "name": "IOSSecureStorageOptionsBuilder",
       "isDeprecated": false,
       "isExperimental": false,
       "isSealed": false,
@@ -1283,11 +1380,11 @@
       "typeParameterNames": [],
       "superTypeNames": [
         "Object",
-        "Builder<LinuxSecureStorageOptions, LinuxSecureStorageOptionsBuilder>"
+        "Builder<IOSSecureStorageOptions, IOSSecureStorageOptionsBuilder>"
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "LinuxSecureStorageOptionsBuilder",
+          "returnTypeName": "IOSSecureStorageOptionsBuilder",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1306,11 +1403,20 @@
           "isStatic": false,
           "isReadable": true,
           "isWriteable": true
+        },
+        {
+          "typeName": "KeychainAttributeAccessible?",
+          "name": "accessible",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
         }
       ]
     },
     {
-      "name": "MacOSSecureStorageOptions",
+      "name": "IOSSecureStorageOptions",
       "isDeprecated": false,
       "isExperimental": false,
       "isSealed": false,
@@ -1318,33 +1424,15 @@
       "typeParameterNames": [],
       "superTypeNames": [
         "Object",
-        "Built<MacOSSecureStorageOptions, MacOSSecureStorageOptionsBuilder>"
+        "Built<IOSSecureStorageOptions, IOSSecureStorageOptionsBuilder>"
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "MacOSSecureStorageOptions",
-          "name": "empty",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "MacOSSecureStorageOptions",
+          "returnTypeName": "IOSSecureStorageOptions",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "useDataProtection",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool"
-            },
             {
               "isRequired": false,
               "isNamed": true,
@@ -1365,18 +1453,19 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
+        },
+        {
+          "returnTypeName": "IOSSecureStorageOptions",
+          "name": "empty",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
-        {
-          "typeName": "bool",
-          "name": "useDataProtection",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
         {
           "typeName": "String?",
           "name": "accessGroup",
@@ -1396,7 +1485,7 @@
           "isWriteable": false
         },
         {
-          "typeName": "Serializer<MacOSSecureStorageOptions>",
+          "typeName": "Serializer<IOSSecureStorageOptions>",
           "name": "serializer",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1407,113 +1496,26 @@
       ]
     },
     {
-      "name": "MacOSSecureStorageOptionsBuilder",
+      "name": "AmplifySecureStorageDartMixin",
       "isDeprecated": false,
       "isExperimental": false,
       "isSealed": false,
       "isRequired": false,
       "typeParameterNames": [],
       "superTypeNames": [
+        "AmplifySecureStorageInterface",
+        "SecureStorageInterface",
         "Object",
-        "Builder<MacOSSecureStorageOptions, MacOSSecureStorageOptionsBuilder>"
+        "AWSDebuggable",
+        "AWSLoggerMixin"
       ],
       "executableDeclarations": [
-        {
-          "returnTypeName": "MacOSSecureStorageOptionsBuilder",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "bool?",
-          "name": "useDataProtection",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": true
-        },
-        {
-          "typeName": "String?",
-          "name": "accessGroup",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": true
-        },
-        {
-          "typeName": "KeychainAttributeAccessible?",
-          "name": "accessible",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": true
-        }
-      ]
-    },
-    {
-      "name": "SecureStorageInterface",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "SecureStorageInterface",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
         {
           "returnTypeName": "FutureOr<void>",
-          "name": "delete",
+          "name": "removeAll",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<String?>",
-          "name": "read",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "key",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
+          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -1544,32 +1546,17 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
-        }
-      ],
-      "fieldDeclarations": []
-    },
-    {
-      "name": "WebPersistenceOption",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "EnumClass",
-        "Object"
-      ],
-      "executableDeclarations": [
+        },
         {
-          "returnTypeName": "WebPersistenceOption",
-          "name": "valueOf",
+          "returnTypeName": "FutureOr<String?>",
+          "name": "read",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
-              "isNamed": false,
-              "name": "name",
+              "isNamed": true,
+              "name": "key",
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "String"
@@ -1577,206 +1564,21 @@
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": true
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "WebPersistenceOption",
-          "name": "inMemory",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
+          "isStatic": false
         },
         {
-          "typeName": "WebPersistenceOption",
-          "name": "indexedDB",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "BuiltSet<WebPersistenceOption>",
-          "name": "values",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "Serializer<WebPersistenceOption>",
-          "name": "serializer",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "WebSecureStorageOptions",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": true,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object",
-        "Built<WebSecureStorageOptions, WebSecureStorageOptionsBuilder>"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "WebSecureStorageOptions",
-          "name": "new",
+          "returnTypeName": "FutureOr<void>",
+          "name": "delete",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": false,
+              "isRequired": true,
               "isNamed": true,
-              "name": "databaseName",
+              "name": "key",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "persistenceOption",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "WebPersistenceOption"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "String?",
-          "name": "databaseName",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "WebPersistenceOption",
-          "name": "persistenceOption",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "Serializer<WebSecureStorageOptions>",
-          "name": "serializer",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "WebSecureStorageOptionsBuilder",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object",
-        "Builder<WebSecureStorageOptions, WebSecureStorageOptionsBuilder>"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "WebSecureStorageOptionsBuilder",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "String?",
-          "name": "databaseName",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": true
-        },
-        {
-          "typeName": "WebPersistenceOption?",
-          "name": "persistenceOption",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": true
-        }
-      ]
-    },
-    {
-      "name": "WindowsSecureStorageOptions",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": true,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object",
-        "Built<WindowsSecureStorageOptions, WindowsSecureStorageOptionsBuilder>"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "WindowsSecureStorageOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "storagePath",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "WindowsSecureStorageOptions",
-          "name": "copyWith",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "storagePath",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
+              "typeName": "String"
             }
           ],
           "typeParameterNames": [],
@@ -1786,8 +1588,8 @@
       ],
       "fieldDeclarations": [
         {
-          "typeName": "String?",
-          "name": "storagePath",
+          "typeName": "AmplifySecureStorageConfig",
+          "name": "config",
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
@@ -1795,48 +1597,246 @@
           "isWriteable": false
         },
         {
-          "typeName": "Serializer<WindowsSecureStorageOptions>",
-          "name": "serializer",
+          "typeName": "String",
+          "name": "runtimeTypeName",
           "isDeprecated": false,
           "isExperimental": false,
-          "isStatic": true,
+          "isStatic": false,
           "isReadable": true,
           "isWriteable": false
         }
       ]
     },
     {
-      "name": "WindowsSecureStorageOptionsBuilder",
+      "name": "AmplifySecureStorageWorker",
       "isDeprecated": false,
       "isExperimental": false,
       "isSealed": false,
       "isRequired": false,
       "typeParameterNames": [],
       "superTypeNames": [
+        "AmplifySecureStorageInterface",
+        "SecureStorageInterface",
         "Object",
-        "Builder<WindowsSecureStorageOptions, WindowsSecureStorageOptionsBuilder>"
+        "AWSDebuggable",
+        "AWSLoggerMixin"
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "WindowsSecureStorageOptionsBuilder",
+          "returnTypeName": "AmplifySecureStorageWorker Function(AmplifySecureStorageScope)",
+          "name": "factoryFrom",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "webOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "windowsOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WindowsSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "linuxOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LinuxSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "macOSOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "MacOSSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "iOSOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IOSSecureStorageOptions?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "AmplifySecureStorageWorker",
           "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifySecureStorageConfig"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "removeAll",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
           "typeParameterNames": [],
-          "type": "constructor",
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "write",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<String?>",
+          "name": "read",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "delete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
       "fieldDeclarations": [
         {
-          "typeName": "String?",
-          "name": "storagePath",
+          "typeName": "String",
+          "name": "runtimeTypeName",
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
           "isReadable": true,
-          "isWriteable": true
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifySecureStorageConfig",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "AmplifySecureStorageScope",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "AmplifySecureStorageScope",
+          "name": "awsCognitoAuthPlugin",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifySecureStorageScope",
+          "name": "awsPinpointAnalyticsPlugin",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifySecureStorageScope",
+          "name": "awsPinpointPushNotificationsPlugin",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<AmplifySecureStorageScope>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
         }
       ]
     }

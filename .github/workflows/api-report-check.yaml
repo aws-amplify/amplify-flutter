@@ -54,11 +54,22 @@ jobs:
           if [[ -n "$API_JSON_CHANGES" ]]; then
             echo "API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
             git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'
-            # Show full diff for API changes
+            # Compare API interfaces using sets instead of text diff
             for file in $(git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'); do
-              echo "=== API CHANGES DETECTED in: $file ==="
-              git diff "$file"
-              echo "=== End of diff for: $file ==="
+              echo "=== Checking API changes in: $file ==="
+              
+              # Extract interface declarations as sets
+              jq -r '.interfaceDeclarations[] | tostring' "$file" > /tmp/new_interfaces.txt
+              git show HEAD~1:"$file" | jq -r '.interfaceDeclarations[] | tostring' > /tmp/old_interfaces.txt 2>/dev/null || touch /tmp/old_interfaces.txt
+              
+              # Compare the interface sets (order doesn't matter)
+              if ! cmp -s <(sort /tmp/old_interfaces.txt) <(sort /tmp/new_interfaces.txt); then
+                echo "=== ACTUAL API CHANGES DETECTED in: $file ==="
+              else
+                echo "No actual API changes detected in: $file (only ordering differences)"
+              fi
+              
+              rm -f /tmp/old_interfaces.txt /tmp/new_interfaces.txt
             done
             exit 1
           else

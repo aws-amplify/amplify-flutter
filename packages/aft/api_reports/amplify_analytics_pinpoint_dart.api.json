@@ -1,90 +1,6 @@
 {
   "interfaceDeclarations": [
     {
-      "name": "AWSPinpointUserProfile",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "UserProfile",
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "AWSPinpointUserProfile",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "name",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "email",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "plan",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "location",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "UserProfileLocation?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "customProperties",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "CustomProperties?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "userAttributes",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, List<String>>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "Map<String, List<String>>?",
-          "name": "userAttributes",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
       "name": "AmplifyAnalyticsPinpointDart",
       "isDeprecated": false,
       "isExperimental": false,
@@ -170,131 +86,6 @@
       ]
     },
     {
-      "name": "AnalyticsPinpointPluginOptions",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "AnalyticsPinpointPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "autoFlushEventsInterval",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Duration"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "Duration",
-          "name": "autoFlushEventsInterval",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "AppLifecycleProvider",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": true,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "AppLifecycleProvider",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "setOnBackgroundListener",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "onBackground",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "void Function()"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "setOnForegroundListener",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "onForeground",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "void Function()"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "startObserving",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "stopObserving",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": []
-    },
-    {
       "name": "CachedEventsPathProvider",
       "isDeprecated": false,
       "isExperimental": false,
@@ -306,6 +97,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "Future<String>",
+          "name": "getApplicationSupportPath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "CachedEventsPathProvider",
           "name": "new",
           "isDeprecated": false,
@@ -314,15 +115,82 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "LegacyNativeDataProvider",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<String?>",
+          "name": "getEndpointId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pinpointAppId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
         },
         {
-          "returnTypeName": "Future<String>",
-          "name": "getApplicationSupportPath",
+          "returnTypeName": "LegacyNativeDataProvider",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "DeviceContextInfoProvider",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<DeviceContextInfo>",
+          "name": "getDeviceInfoDetails",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
           "typeParameterNames": [],
           "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DeviceContextInfoProvider",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -542,40 +410,6 @@
       ]
     },
     {
-      "name": "DeviceContextInfoProvider",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": true,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "DeviceContextInfoProvider",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<DeviceContextInfo>",
-          "name": "getDeviceInfoDetails",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": []
-    },
-    {
       "name": "DevicePlatform",
       "isDeprecated": false,
       "isExperimental": false,
@@ -663,7 +497,7 @@
       ]
     },
     {
-      "name": "LegacyNativeDataProvider",
+      "name": "AppLifecycleProvider",
       "isDeprecated": false,
       "isExperimental": false,
       "isSealed": false,
@@ -674,7 +508,65 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "LegacyNativeDataProvider",
+          "returnTypeName": "void",
+          "name": "setOnForegroundListener",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onForeground",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "setOnBackgroundListener",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onBackground",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "startObserving",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "stopObserving",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AppLifecycleProvider",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -682,28 +574,136 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
-        },
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "AnalyticsPinpointPluginOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
         {
-          "returnTypeName": "Future<String?>",
-          "name": "getEndpointId",
+          "returnTypeName": "AnalyticsPinpointPluginOptions",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "pinpointAppId",
+              "isRequired": false,
+              "isNamed": true,
+              "name": "autoFlushEventsInterval",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String"
+              "typeName": "Duration"
             }
           ],
           "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
           "isStatic": false
         }
       ],
-      "fieldDeclarations": []
+      "fieldDeclarations": [
+        {
+          "typeName": "Duration",
+          "name": "autoFlushEventsInterval",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "AWSPinpointUserProfile",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "UserProfile",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSPinpointUserProfile",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "email",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "plan",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "location",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "UserProfileLocation?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "customProperties",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CustomProperties?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "userAttributes",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, List<String>>?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Map<String, List<String>>?",
+          "name": "userAttributes",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
     }
   ]
 }

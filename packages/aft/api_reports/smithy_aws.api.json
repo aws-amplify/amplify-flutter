@@ -61,6 +61,95 @@
       ]
     },
     {
+      "name": "CredentialScope",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSSerializable<Map<String, Object?>>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CredentialScope",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CredentialScope",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "region",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<Object?, Object?>",
+          "name": "zoneValues",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
       "name": "AWSEndpointResolver",
       "isDeprecated": false,
       "isExperimental": false,
@@ -71,25 +160,6 @@
         "Object"
       ],
       "executableDeclarations": [
-        {
-          "returnTypeName": "AWSEndpointResolver",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "partitions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<Partition>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
         {
           "returnTypeName": "AWSEndpoint",
           "name": "resolve",
@@ -116,9 +186,846 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSEndpointResolver",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "partitions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<Partition>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
         }
       ],
       "fieldDeclarations": []
+    },
+    {
+      "name": "Partition",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Comparable<Partition>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "bool",
+          "name": "canResolveEndpoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSEndpoint",
+          "name": "resolveEndpoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Partition",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "id",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "regionRegex",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "RegExp"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "partitionEndpoint",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "isRegionalized",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "defaults",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointDefinition"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "regions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Set<String>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "endpoints",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, EndpointDefinition>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "id",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "RegExp",
+          "name": "regionRegex",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "partitionEndpoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "isRegionalized",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "EndpointDefinition",
+          "name": "defaults",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Set<String>",
+          "name": "regions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, EndpointDefinition>",
+          "name": "endpoints",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "EndpointDefinition",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSSerializable<Object?>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSEndpoint",
+          "name": "resolve",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "defaults",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointDefinition"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "EndpointDefinition",
+          "name": "withDefaults",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "defaults",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointDefinition"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "EndpointDefinition",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "hostname",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "protocols",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<String>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CredentialScope?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signatureVersions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<AWSSignatureVersion>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "variants",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<EndpointDefinitionVariant>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "EndpointDefinition",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "hostname",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<String>",
+          "name": "protocols",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CredentialScope?",
+          "name": "credentialScope",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<AWSSignatureVersion>",
+          "name": "signatureVersions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<EndpointDefinitionVariant>",
+          "name": "variants",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "AWSSignatureVersion",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "v2",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "v4",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "s3",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "s3v4",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "v3",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "v3https",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<AWSSignatureVersion>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "EndpointDefinitionVariant",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSEquatable<EndpointDefinitionVariant>",
+        "AWSSerializable<Object?>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "EndpointDefinitionVariant",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "dnsSuffix",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "hostname",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "tags",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<String>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "EndpointDefinitionVariant",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "dnsSuffix",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "hostname",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<String>",
+          "name": "tags",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Object?>",
+          "name": "props",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "CheckErrorOnSuccess",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpResponseInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CheckErrorOnSuccess",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "CheckPartialResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpResponseInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CheckPartialResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "WithChecksum",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpRequestInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WithChecksum",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "WithSdkInvocationId",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpRequestInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WithSdkInvocationId",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "WithSdkRequest",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpRequestInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WithSdkRequest",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "WithSigV4",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpRequestInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WithSigV4",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSService"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialsProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialsProvider"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceConfiguration"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "isOptional",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "bool",
+          "name": "isOptional",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "region",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSAlgorithm",
+          "name": "algorithm",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSCredentialsProvider",
+          "name": "credentialsProvider",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ServiceConfiguration",
+          "name": "serviceConfiguration",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "order",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
     },
     {
       "name": "AWSRetryer",
@@ -219,84 +1126,6 @@
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "AWSSignatureVersion",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Enum",
-        "Object"
-      ],
-      "executableDeclarations": [],
-      "fieldDeclarations": [
-        {
-          "typeName": "AWSSignatureVersion",
-          "name": "v2",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AWSSignatureVersion",
-          "name": "v4",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AWSSignatureVersion",
-          "name": "s3",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AWSSignatureVersion",
-          "name": "s3v4",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AWSSignatureVersion",
-          "name": "v3",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AWSSignatureVersion",
-          "name": "v3https",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "List<AWSSignatureVersion>",
-          "name": "values",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": true,
           "isReadable": true,
           "isWriteable": false
         }
@@ -696,145 +1525,6 @@
       ]
     },
     {
-      "name": "CheckErrorOnSuccess",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "HttpResponseInterceptor",
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "CheckErrorOnSuccess",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": []
-    },
-    {
-      "name": "CheckPartialResponse",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "HttpResponseInterceptor",
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "CheckPartialResponse",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": []
-    },
-    {
-      "name": "CredentialScope",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object",
-        "AWSSerializable<Map<String, Object?>>"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "CredentialScope",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CredentialScope",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "region",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "service",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "String?",
-          "name": "region",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "String?",
-          "name": "service",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "Map<Object?, Object?>",
-          "name": "zoneValues",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
       "name": "Ec2QueryProtocol",
       "isDeprecated": false,
       "isExperimental": false,
@@ -954,474 +1644,6 @@
         {
           "typeName": "String",
           "name": "contentType",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "EndpointDefinition",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object",
-        "AWSSerializable<Object?>"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "EndpointDefinition",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "EndpointDefinition",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "hostname",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "protocols",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<String>"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "credentialScope",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "CredentialScope?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "signatureVersions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<AWSSignatureVersion>"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "variants",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<EndpointDefinitionVariant>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSEndpoint",
-          "name": "resolve",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "region",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "defaults",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "EndpointDefinition"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "EndpointDefinition",
-          "name": "withDefaults",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "defaults",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "EndpointDefinition"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "String?",
-          "name": "hostname",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "List<String>",
-          "name": "protocols",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "CredentialScope?",
-          "name": "credentialScope",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "List<AWSSignatureVersion>",
-          "name": "signatureVersions",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "List<EndpointDefinitionVariant>",
-          "name": "variants",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "EndpointDefinitionVariant",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object",
-        "AWSEquatable<EndpointDefinitionVariant>",
-        "AWSSerializable<Object?>"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "EndpointDefinitionVariant",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "EndpointDefinitionVariant",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "dnsSuffix",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "hostname",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "tags",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<String>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "String?",
-          "name": "dnsSuffix",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "String?",
-          "name": "hostname",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "List<String>",
-          "name": "tags",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "List<Object?>",
-          "name": "props",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "Partition",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object",
-        "Comparable<Partition>"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "Partition",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "id",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "regionRegex",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "RegExp"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "partitionEndpoint",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "isRegionalized",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "defaults",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "EndpointDefinition"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "regions",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Set<String>"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "endpoints",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, EndpointDefinition>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "bool",
-          "name": "canResolveEndpoint",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "region",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSEndpoint",
-          "name": "resolveEndpoint",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "region",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "String",
-          "name": "id",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "RegExp",
-          "name": "regionRegex",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "String?",
-          "name": "partitionEndpoint",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "bool",
-          "name": "isRegionalized",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "EndpointDefinition",
-          "name": "defaults",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "Set<String>",
-          "name": "regions",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "Map<String, EndpointDefinition>",
-          "name": "endpoints",
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
@@ -1552,6 +1774,25 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "Future<String?>",
+          "name": "resolveError",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "response",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpResponse"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
           "returnTypeName": "RestXmlProtocol<InputPayload, Input, OutputPayload, Output>",
           "name": "new",
           "isDeprecated": false,
@@ -1609,25 +1850,6 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<String?>",
-          "name": "resolveError",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "response",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSBaseHttpResponse"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
         }
       ],
       "fieldDeclarations": [
@@ -1682,49 +1904,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "S3ClientConfig",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "usePathStyle",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "useDualStack",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "useAcceleration",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "signerConfiguration",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "S3ServiceConfiguration?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "S3ClientConfig",
           "name": "copyWith",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1765,6 +1944,49 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
+        },
+        {
+          "returnTypeName": "S3ClientConfig",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "usePathStyle",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "useDualStack",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "useAcceleration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signerConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "S3ServiceConfiguration?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -1798,228 +2020,6 @@
         {
           "typeName": "S3ServiceConfiguration?",
           "name": "signerConfiguration",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
-      "name": "WithChecksum",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "HttpRequestInterceptor",
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "WithChecksum",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "algorithm",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": []
-    },
-    {
-      "name": "WithSdkInvocationId",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "HttpRequestInterceptor",
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "WithSdkInvocationId",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": []
-    },
-    {
-      "name": "WithSdkRequest",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "HttpRequestInterceptor",
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "WithSdkRequest",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": []
-    },
-    {
-      "name": "WithSigV4",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "HttpRequestInterceptor",
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "WithSigV4",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "region",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "service",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSService"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "credentialsProvider",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentialsProvider"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "serviceConfiguration",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "ServiceConfiguration"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "algorithm",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSAlgorithm"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "isOptional",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "bool",
-          "name": "isOptional",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "String",
-          "name": "region",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AWSService",
-          "name": "service",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AWSAlgorithm",
-          "name": "algorithm",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "AWSCredentialsProvider",
-          "name": "credentialsProvider",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "ServiceConfiguration",
-          "name": "serviceConfiguration",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        },
-        {
-          "typeName": "int",
-          "name": "order",
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
