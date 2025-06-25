@@ -55,21 +55,25 @@ jobs:
             echo "API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
             git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'
             # Compare API interfaces using sets instead of text diff
+            # We're comparing the PR's committed API reports vs freshly generated ones
             for file in $(git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'); do
               echo "=== Checking API changes in: $file ==="
               
-              # Extract interface declarations as sets
-              jq -r '.interfaceDeclarations[] | tostring' "$file" > /tmp/new_interfaces.txt
-              git show HEAD~1:"$file" | jq -r '.interfaceDeclarations[] | tostring' > /tmp/old_interfaces.txt 2>/dev/null || touch /tmp/old_interfaces.txt
+              # Get the version from the PR (what developer committed)
+              git show HEAD:"$file" | jq -r '.interfaceDeclarations[] | tostring' > /tmp/pr_interfaces.txt 2>/dev/null || touch /tmp/pr_interfaces.txt
+              
+              # Get the freshly generated version (what CI just created)
+              jq -r '.interfaceDeclarations[] | tostring' "$file" > /tmp/generated_interfaces.txt
               
               # Compare the interface sets (order doesn't matter)
-              if ! cmp -s <(sort /tmp/old_interfaces.txt) <(sort /tmp/new_interfaces.txt); then
+              if ! cmp -s <(sort /tmp/pr_interfaces.txt) <(sort /tmp/generated_interfaces.txt); then
                 echo "=== ACTUAL API CHANGES DETECTED in: $file ==="
+                echo "The API report in your PR doesn't match the current code. Please run 'aft generate api-report' and commit the changes."
               else
-                echo "No actual API changes detected in: $file (only ordering differences)"
+                echo "API report is up-to-date for: $file"
               fi
               
-              rm -f /tmp/old_interfaces.txt /tmp/new_interfaces.txt
+              rm -f /tmp/pr_interfaces.txt /tmp/generated_interfaces.txt
             done
             exit 1
           else
