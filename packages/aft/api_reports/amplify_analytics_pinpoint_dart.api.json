@@ -224,22 +224,13 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "void",
-          "name": "setOnForegroundListener",
+          "returnTypeName": "AppLifecycleProvider",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "onForeground",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "void Function()"
-            }
-          ],
+          "parameters": [],
           "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -252,6 +243,25 @@
               "isRequired": true,
               "isNamed": false,
               "name": "onBackground",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "setOnForegroundListener",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onForeground",
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "void Function()"
@@ -280,16 +290,6 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "AppLifecycleProvider",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
         }
       ],
       "fieldDeclarations": []
@@ -306,16 +306,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "Future<String>",
-          "name": "getApplicationSupportPath",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "CachedEventsPathProvider",
           "name": "new",
           "isDeprecated": false,
@@ -323,6 +313,16 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<String>",
+          "name": "getApplicationSupportPath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -553,16 +553,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "Future<DeviceContextInfo>",
-          "name": "getDeviceInfoDetails",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "DeviceContextInfoProvider",
           "name": "new",
           "isDeprecated": false,
@@ -570,6 +560,16 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<DeviceContextInfo>",
+          "name": "getDeviceInfoDetails",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -674,6 +674,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "LegacyNativeDataProvider",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "Future<String?>",
           "name": "getEndpointId",
           "isDeprecated": false,
@@ -690,16 +700,6 @@
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "LegacyNativeDataProvider",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
           "isStatic": false
         }
       ],

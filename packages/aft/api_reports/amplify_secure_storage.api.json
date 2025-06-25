@@ -16,6 +16,25 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "AmplifySecureStorage",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifySecureStorageConfig"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "AmplifySecureStorage Function(AmplifySecureStorageScope)",
           "name": "factoryFrom",
           "isDeprecated": false,
@@ -75,25 +94,6 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": true
-        },
-        {
-          "returnTypeName": "AmplifySecureStorage",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "config",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AmplifySecureStorageConfig"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
         }
       ],
       "fieldDeclarations": [

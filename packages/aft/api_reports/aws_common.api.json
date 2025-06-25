@@ -16,6 +16,53 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "AWSBaseHttpClient",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpOperation<AWSBaseHttpResponse>",
+          "name": "send",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "onCancel",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "FutureOr<void> Function()?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "Future<AWSBaseHttpRequest>",
           "name": "transformRequest",
           "isDeprecated": false,
@@ -49,53 +96,6 @@
               "typeName": "AWSBaseHttpResponse"
             }
           ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSBaseHttpClient",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSHttpOperation<AWSBaseHttpResponse>",
-          "name": "send",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "request",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSBaseHttpRequest"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "onCancel",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "FutureOr<void> Function()?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -145,6 +145,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "FutureOr<AWSHttpRequest>",
           "name": "read",
           "isDeprecated": false,
@@ -177,16 +187,6 @@
               "typeName": "FutureOr<void> Function()?"
             }
           ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -344,6 +344,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "FutureOr<String>",
           "name": "decodeBody",
           "isDeprecated": false,
@@ -358,16 +368,6 @@
               "typeName": "Encoding"
             }
           ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -516,6 +516,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "AWSCredentials",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, dynamic>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSCredentials",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -551,25 +570,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "DateTime?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSCredentials",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, dynamic>"
             }
           ],
           "typeParameterNames": [],
@@ -657,13 +657,33 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "FutureOr<AWSCredentials>",
-          "name": "retrieve",
+          "returnTypeName": "AWSCredentialsProvider",
+          "name": "dartEnvironment",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
           "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSCredentialsProvider",
+          "name": "defaultChain",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSCredentialsProvider",
+          "name": "environment",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -681,26 +701,6 @@
               "typeName": "AWSCredentials"
             }
           ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSCredentialsProvider",
-          "name": "environment",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSCredentialsProvider",
-          "name": "dartEnvironment",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
@@ -725,13 +725,13 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "AWSCredentialsProvider",
-          "name": "defaultChain",
+          "returnTypeName": "FutureOr<AWSCredentials>",
+          "name": "retrieve",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
           "typeParameterNames": [],
-          "type": "constructor",
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -772,6 +772,16 @@
           "isStatic": false
         },
         {
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "AWSHttpOperation<AWSBaseHttpResponse>",
           "name": "send",
           "isDeprecated": false,
@@ -794,16 +804,6 @@
               "typeName": "FutureOr<void> Function()?"
             }
           ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -1021,40 +1021,73 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "ChunkedStreamReader<int>",
-          "name": "getChunkedStreamReader",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Stream<List<int>>",
-          "name": "openRead",
+          "returnTypeName": "AWSFile",
+          "name": "fromData",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": false,
+              "isRequired": true,
               "isNamed": false,
-              "name": "start",
+              "name": "data",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "int?"
+              "typeName": "List<int>"
             },
             {
               "isRequired": false,
-              "isNamed": false,
-              "name": "end",
+              "isNamed": true,
+              "name": "name",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "int?"
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
             }
           ],
           "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSFile",
+          "name": "fromPath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -1102,76 +1135,6 @@
         },
         {
           "returnTypeName": "AWSFile",
-          "name": "fromPath",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "path",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "name",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "contentType",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSFile",
-          "name": "fromData",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "data",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<int>"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "name",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "contentType",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSFile",
           "name": "protected",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1211,6 +1174,43 @@
           ],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ChunkedStreamReader<int>",
+          "name": "getChunkedStreamReader",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Stream<List<int>>",
+          "name": "openRead",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "start",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "end",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -1283,6 +1283,41 @@
         "Object"
       ],
       "executableDeclarations": [
+        {
+          "returnTypeName": "AWSFilePlatform",
+          "name": "fromData",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "data",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
         {
           "returnTypeName": "AWSFilePlatform",
           "name": "fromFile",
@@ -1389,41 +1424,6 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "AWSFilePlatform",
-          "name": "fromData",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "data",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<int>"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "name",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "contentType",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "ChunkedStreamReader<int>",
           "name": "getChunkedStreamReader",
           "isDeprecated": false,
@@ -1532,17 +1532,17 @@
       "executableDeclarations": [
         {
           "returnTypeName": "AWSFilePlatform",
-          "name": "fromFile",
+          "name": "fromBlob",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
               "isNamed": false,
-              "name": "file",
+              "name": "blob",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "File"
+              "typeName": "Blob"
             },
             {
               "isRequired": false,
@@ -1559,17 +1559,52 @@
         },
         {
           "returnTypeName": "AWSFilePlatform",
-          "name": "fromBlob",
+          "name": "fromData",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
               "isNamed": false,
-              "name": "blob",
+              "name": "data",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Blob"
+              "typeName": "List<int>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSFilePlatform",
+          "name": "fromFile",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "file",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "File"
             },
             {
               "isRequired": false,
@@ -1656,41 +1691,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "int"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSFilePlatform",
-          "name": "fromData",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "data",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<int>"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "name",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "contentType",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
             }
           ],
           "typeParameterNames": [],
@@ -2053,33 +2053,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "AWSHttpOperation<AWSBaseHttpResponse>",
-          "name": "send",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "request",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSBaseHttpRequest"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "onCancel",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "FutureOr<void> Function()?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "AWSHttpClient",
           "name": "new",
           "isDeprecated": false,
@@ -2105,6 +2078,33 @@
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpOperation<AWSBaseHttpResponse>",
+          "name": "send",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "onCancel",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "FutureOr<void> Function()?"
+            }
+          ],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -2500,6 +2500,143 @@
       "executableDeclarations": [
         {
           "returnTypeName": "AWSHttpRequest",
+          "name": "delete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "uri",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "body",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "followRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "maxRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpRequest",
+          "name": "get",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "uri",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "followRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "maxRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpRequest",
+          "name": "head",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "uri",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "followRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "maxRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpRequest",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -2535,6 +2672,159 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "List<int>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "followRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "maxRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpRequest",
+          "name": "patch",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "uri",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "body",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "followRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "maxRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpRequest",
+          "name": "post",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "uri",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "body",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "followRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "maxRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpRequest",
+          "name": "put",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "uri",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "body",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
             },
             {
               "isRequired": false,
@@ -2649,293 +2939,13 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "AWSHttpRequest",
-          "name": "get",
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "uri",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Uri"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "followRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "maxRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            }
-          ],
+          "parameters": [],
           "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSHttpRequest",
-          "name": "head",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "uri",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Uri"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "followRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "maxRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSHttpRequest",
-          "name": "put",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "uri",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Uri"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "body",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<int>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "followRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "maxRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSHttpRequest",
-          "name": "post",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "uri",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Uri"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "body",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<int>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "followRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "maxRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSHttpRequest",
-          "name": "patch",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "uri",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Uri"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "body",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<int>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "followRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "maxRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSHttpRequest",
-          "name": "delete",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "uri",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Uri"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "body",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "List<int>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "followRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "maxRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
+          "type": "method",
           "isStatic": false
         },
         {
@@ -2971,16 +2981,6 @@
               "typeName": "FutureOr<void> Function()?"
             }
           ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -3174,6 +3174,16 @@
           "isStatic": false
         },
         {
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "FutureOr<String>",
           "name": "decodeBody",
           "isDeprecated": false,
@@ -3188,16 +3198,6 @@
               "typeName": "Encoding"
             }
           ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -3257,6 +3257,73 @@
       "executableDeclarations": [
         {
           "returnTypeName": "AWSLogger",
+          "name": "detached",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "namespace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSLogger",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "namespace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSLogger",
+          "name": "protected",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "namespace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSLogger",
           "name": "createChild",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3275,218 +3342,8 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "Plugin?",
-          "name": "getPlugin",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [
-            "Plugin"
-          ],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "registerPlugin",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "plugin",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "T"
-            }
-          ],
-          "typeParameterNames": [
-            "T"
-          ],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "unregisterPlugin",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "plugin",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSLoggerPlugin"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "unregisterAllPlugins",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "log",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "level",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "LogLevel"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "message",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "error",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Object?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "stackTrace",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "StackTrace?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "verbose",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "message",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "error",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Object?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "stackTrace",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "StackTrace?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "void",
           "name": "debug",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "message",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "error",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Object?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "stackTrace",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "StackTrace?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "info",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "message",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "error",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Object?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "stackTrace",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "StackTrace?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "warn",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
@@ -3555,68 +3412,211 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "AWSLogger",
-          "name": "new",
+          "returnTypeName": "Plugin?",
+          "name": "getPlugin",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "namespace",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
+          "parameters": [],
+          "typeParameterNames": [
+            "Plugin"
           ],
-          "typeParameterNames": [],
-          "type": "constructor",
+          "type": "method",
           "isStatic": false
         },
         {
-          "returnTypeName": "AWSLogger",
-          "name": "detached",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "namespace",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSLogger",
-          "name": "protected",
+          "returnTypeName": "void",
+          "name": "info",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
               "isNamed": false,
-              "name": "namespace",
+              "name": "message",
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
             }
           ],
           "typeParameterNames": [],
-          "type": "constructor",
+          "type": "method",
           "isStatic": false
         },
         {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
+          "returnTypeName": "void",
+          "name": "log",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "level",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LogLevel"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "message",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "registerPlugin",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "plugin",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "T"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "unregisterAllPlugins",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "unregisterPlugin",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "plugin",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSLoggerPlugin"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "verbose",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "message",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "warn",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "message",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -3715,6 +3715,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "AWSLoggerPlugin",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "void",
           "name": "handleLogEntry",
           "isDeprecated": false,
@@ -3731,16 +3741,6 @@
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSLoggerPlugin",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -3865,25 +3865,17 @@
       "executableDeclarations": [
         {
           "returnTypeName": "AWSProfile",
-          "name": "new",
+          "name": "build",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "name",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
               "isRequired": false,
-              "isNamed": true,
-              "name": "properties",
+              "isNamed": false,
+              "name": "updates",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<String, AWSProperty>"
+              "typeName": "void Function(AWSProfileBuilder)"
             }
           ],
           "typeParameterNames": [],
@@ -3911,17 +3903,25 @@
         },
         {
           "returnTypeName": "AWSProfile",
-          "name": "build",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "updates",
+              "isRequired": true,
+              "isNamed": true,
+              "name": "name",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "void Function(AWSProfileBuilder)"
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "properties",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, AWSProperty>"
             }
           ],
           "typeParameterNames": [],
@@ -4045,56 +4045,18 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "String?",
-          "name": "region",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "profileName",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSCredentialsProvider?",
-          "name": "credentials",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "profileName",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "AWSProfileFile",
-          "name": "new",
+          "name": "build",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "profiles",
+              "isRequired": false,
+              "isNamed": false,
+              "name": "updates",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<String, AWSProfile>"
+              "typeName": "void Function(AWSProfileFileBuilder)"
             }
           ],
           "typeParameterNames": [],
@@ -4122,21 +4084,59 @@
         },
         {
           "returnTypeName": "AWSProfileFile",
-          "name": "build",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "updates",
+              "isRequired": true,
+              "isNamed": true,
+              "name": "profiles",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "void Function(AWSProfileFileBuilder)"
+              "typeName": "Map<String, AWSProfile>"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSCredentialsProvider?",
+          "name": "credentials",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "profileName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "String?",
+          "name": "region",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "profileName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         },
         {
@@ -4317,33 +4317,17 @@
       "executableDeclarations": [
         {
           "returnTypeName": "AWSProperty",
-          "name": "new",
+          "name": "build",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "name",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "value",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
               "isRequired": false,
-              "isNamed": true,
-              "name": "subProperties",
+              "isNamed": false,
+              "name": "updates",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Map<String, AWSProperty>"
+              "typeName": "void Function(AWSPropertyBuilder)"
             }
           ],
           "typeParameterNames": [],
@@ -4371,17 +4355,33 @@
         },
         {
           "returnTypeName": "AWSProperty",
-          "name": "build",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "updates",
+              "isRequired": true,
+              "isNamed": true,
+              "name": "name",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "void Function(AWSPropertyBuilder)"
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "subProperties",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, AWSProperty>"
             }
           ],
           "typeParameterNames": [],
@@ -8225,21 +8225,13 @@
       "executableDeclarations": [
         {
           "returnTypeName": "AWSStreamedHttpRequest",
-          "name": "new",
+          "name": "delete",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
-              "isNamed": true,
-              "name": "method",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSHttpMethod"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
+              "isNamed": false,
               "name": "uri",
               "isDeprecated": false,
               "isExperimental": false,
@@ -8248,14 +8240,6 @@
             {
               "isRequired": false,
               "isNamed": true,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
               "name": "body",
               "isDeprecated": false,
               "isExperimental": false,
@@ -8272,101 +8256,10 @@
             {
               "isRequired": false,
               "isNamed": true,
-              "name": "followRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "maxRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSStreamedHttpRequest",
-          "name": "raw",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "method",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSHttpMethod"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "scheme",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "host",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "port",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "path",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "queryParameters",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
               "name": "headers",
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, String>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "body",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Stream<List<int>>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "contentLength",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
             },
             {
               "isRequired": false,
@@ -8445,6 +8338,132 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Uri"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "followRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "maxRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSStreamedHttpRequest",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "method",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSHttpMethod"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "uri",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "body",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Stream<List<int>>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "followRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "maxRedirects",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSStreamedHttpRequest",
+          "name": "patch",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "uri",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "body",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Stream<List<int>>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
             },
             {
               "isRequired": false,
@@ -8595,17 +8614,65 @@
         },
         {
           "returnTypeName": "AWSStreamedHttpRequest",
-          "name": "patch",
+          "name": "raw",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
-              "isNamed": false,
-              "name": "uri",
+              "isNamed": true,
+              "name": "method",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Uri"
+              "typeName": "AWSHttpMethod"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "scheme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "host",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "port",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
             },
             {
               "isRequired": false,
@@ -8622,14 +8689,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "int?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
             },
             {
               "isRequired": false,
@@ -8653,62 +8712,13 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "AWSStreamedHttpRequest",
-          "name": "delete",
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "uri",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Uri"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "body",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Stream<List<int>>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "contentLength",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "followRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "maxRedirects",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int?"
-            }
-          ],
+          "parameters": [],
           "typeParameterNames": [],
-          "type": "constructor",
+          "type": "method",
           "isStatic": false
         },
         {
@@ -8744,16 +8754,6 @@
               "typeName": "FutureOr<void> Function()?"
             }
           ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -8921,16 +8921,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "Future<AWSHttpResponse>",
-          "name": "read",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "AWSStreamedHttpResponse",
           "name": "new",
           "isDeprecated": false,
@@ -8966,6 +8956,16 @@
           "isStatic": false
         },
         {
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "FutureOr<String>",
           "name": "decodeBody",
           "isDeprecated": false,
@@ -8985,8 +8985,8 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
+          "returnTypeName": "Future<AWSHttpResponse>",
+          "name": "read",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
@@ -9229,16 +9229,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "FutureOr<void>",
-          "name": "cancel",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "Cancelable",
           "name": "new",
           "isDeprecated": false,
@@ -9246,6 +9236,16 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "cancel",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -9384,16 +9384,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "Closeable",
           "name": "new",
           "isDeprecated": false,
@@ -9401,6 +9391,16 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -9512,114 +9512,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "String",
-          "name": "encodeFormValues",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "params",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "encoding",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Encoding"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
-        },
-        {
-          "returnTypeName": "HttpPayload",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "body",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Object?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "contentType",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "HttpPayload",
-          "name": "empty",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "contentType",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "HttpPayload",
-          "name": "string",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "body",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "encoding",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Encoding"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "contentType",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "HttpPayload",
           "name": "bytes",
           "isDeprecated": false,
@@ -9633,6 +9525,44 @@
               "isExperimental": false,
               "typeName": "List<int>"
             },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "HttpPayload",
+          "name": "dataUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "dataUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "HttpPayload",
+          "name": "empty",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
             {
               "isRequired": false,
               "isNamed": true,
@@ -9718,6 +9648,33 @@
         },
         {
           "returnTypeName": "HttpPayload",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "body",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "contentType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "HttpPayload",
           "name": "streaming",
           "isDeprecated": false,
           "isExperimental": false,
@@ -9745,22 +9702,65 @@
         },
         {
           "returnTypeName": "HttpPayload",
-          "name": "dataUrl",
+          "name": "string",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
               "isNamed": false,
-              "name": "dataUrl",
+              "name": "body",
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "encoding",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Encoding"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
             }
           ],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
+        },
+        {
+          "returnTypeName": "String",
+          "name": "encodeFormValues",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "params",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "encoding",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Encoding"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
         }
       ],
       "fieldDeclarations": [
@@ -9798,7 +9798,7 @@
       "executableDeclarations": [
         {
           "returnTypeName": "InvalidCredentialsException",
-          "name": "new",
+          "name": "couldNotLoad",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
@@ -9817,7 +9817,7 @@
         },
         {
           "returnTypeName": "InvalidCredentialsException",
-          "name": "couldNotLoad",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
@@ -9923,65 +9923,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "LogEntry",
-          "name": "copyWith",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "level",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "LogLevel?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "message",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "loggerName",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "time",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "DateTime?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "error",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Object?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "stackTrace",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "StackTrace?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "LogEntry",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -10037,6 +9978,65 @@
           ],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "LogEntry",
+          "name": "copyWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "level",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LogLevel?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "message",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "loggerName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "time",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DateTime?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -10139,44 +10139,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "bool",
-          "name": "binary>",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "value",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "LogLevel"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "bool",
-          "name": "binary>=",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "value",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "LogLevel"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "bool",
           "name": "binary<",
           "isDeprecated": false,
           "isExperimental": false,
@@ -10197,6 +10159,44 @@
         {
           "returnTypeName": "bool",
           "name": "binary<=",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LogLevel"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "binary>",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LogLevel"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "binary>=",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
@@ -10315,6 +10315,16 @@
           "isStatic": false
         },
         {
+          "returnTypeName": "FutureOr<void>",
+          "name": "close",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "AWSHttpOperation<AWSBaseHttpResponse>",
           "name": "send",
           "isDeprecated": false,
@@ -10337,16 +10347,6 @@
               "typeName": "FutureOr<void> Function()?"
             }
           ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FutureOr<void>",
-          "name": "close",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
@@ -10450,6 +10450,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "SimpleLogPrinter",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "String",
           "name": "formatLogEntry",
           "isDeprecated": false,
@@ -10467,16 +10477,6 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": true
-        },
-        {
-          "returnTypeName": "SimpleLogPrinter",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
         },
         {
           "returnTypeName": "void",
@@ -10567,26 +10567,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "void",
-          "name": "start",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "stop",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "StoppableTimer",
           "name": "new",
           "isDeprecated": false,
@@ -10619,6 +10599,26 @@
           ],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "start",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "stop",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],

@@ -109,60 +109,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "AWSHttpClient",
-          "name": "getHttpClient",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "type",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "ApiType"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "apiName",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "authorizationMode",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "WebSocketBloc",
-          "name": "createWebSocketBloc",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "endpoint",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "EndpointConfig"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "AmplifyAPIDart",
           "name": "new",
           "isDeprecated": false,
@@ -195,6 +141,60 @@
           ],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WebSocketBloc",
+          "name": "createWebSocketBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "endpoint",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointConfig"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpClient",
+          "name": "getHttpClient",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "type",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiType"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -342,33 +342,6 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "ReconnectingState",
-          "name": "reconnecting",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "networkState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "NetworkState?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "intendedState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "IntendedState?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "DisconnectedState",
           "name": "disconnect",
           "isDeprecated": false,
@@ -399,6 +372,33 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
             }
           ],
           "typeParameterNames": [],
@@ -522,33 +522,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "ConnectedState",
-          "name": "connected",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "timer",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "RestartableTimer"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "pollTimer",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Timer"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "ConnectingState",
           "name": "new",
           "isDeprecated": false,
@@ -616,26 +589,26 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "ConnectingState",
-          "name": "connecting",
+          "returnTypeName": "ConnectedState",
+          "name": "connected",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "networkState",
+              "isRequired": true,
+              "isNamed": false,
+              "name": "timer",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "NetworkState?"
+              "typeName": "RestartableTimer"
             },
             {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "intendedState",
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pollTimer",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "IntendedState?"
+              "typeName": "Timer"
             }
           ],
           "typeParameterNames": [],
@@ -643,8 +616,8 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "ReconnectingState",
-          "name": "reconnecting",
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
@@ -700,6 +673,33 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
             }
           ],
           "typeParameterNames": [],
@@ -975,33 +975,6 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "ReconnectingState",
-          "name": "reconnecting",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "networkState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "NetworkState?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "intendedState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "IntendedState?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "DisconnectedState",
           "name": "disconnect",
           "isDeprecated": false,
@@ -1032,6 +1005,33 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
             }
           ],
           "typeParameterNames": [],
@@ -1137,33 +1137,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "Uri",
-          "name": "getUri",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "path",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "queryParameters",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, dynamic>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "EndpointConfig",
           "name": "new",
           "isDeprecated": false,
@@ -1188,6 +1161,33 @@
           ],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Uri",
+          "name": "getUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, dynamic>?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -1344,33 +1344,6 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "ReconnectingState",
-          "name": "reconnecting",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "networkState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "NetworkState?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "intendedState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "IntendedState?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "DisconnectedState",
           "name": "disconnect",
           "isDeprecated": false,
@@ -1401,6 +1374,33 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
             }
           ],
           "typeParameterNames": [],
@@ -1931,7 +1931,7 @@
         },
         {
           "returnTypeName": "GraphQLRequest<T>",
-          "name": "onUpdate",
+          "name": "onDelete",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
@@ -1984,7 +1984,7 @@
         },
         {
           "returnTypeName": "GraphQLRequest<T>",
-          "name": "onDelete",
+          "name": "onUpdate",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
@@ -2145,33 +2145,6 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "ReconnectingState",
-          "name": "reconnecting",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "networkState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "NetworkState?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "intendedState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "IntendedState?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "DisconnectedState",
           "name": "disconnect",
           "isDeprecated": false,
@@ -2202,6 +2175,33 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
             }
           ],
           "typeParameterNames": [],
@@ -2410,33 +2410,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "ConnectedState",
-          "name": "connected",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "timer",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "RestartableTimer"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "pollTimer",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Timer"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "ReconnectingState",
           "name": "new",
           "isDeprecated": false,
@@ -2504,26 +2477,26 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "ConnectingState",
-          "name": "connecting",
+          "returnTypeName": "ConnectedState",
+          "name": "connected",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "networkState",
+              "isRequired": true,
+              "isNamed": false,
+              "name": "timer",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "NetworkState?"
+              "typeName": "RestartableTimer"
             },
             {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "intendedState",
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pollTimer",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "IntendedState?"
+              "typeName": "Timer"
             }
           ],
           "typeParameterNames": [],
@@ -2531,8 +2504,8 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "ReconnectingState",
-          "name": "reconnecting",
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
@@ -2588,6 +2561,33 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
             }
           ],
           "typeParameterNames": [],
@@ -2771,6 +2771,25 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "SubscriptionBloc<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "initialState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WsSubscriptionState<T>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "void",
           "name": "add",
           "isDeprecated": false,
@@ -2814,25 +2833,6 @@
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "SubscriptionBloc<T>",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "initialState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "WsSubscriptionState<T>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -3351,16 +3351,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "SubscriptionListeningState<T>",
-          "name": "ready",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "SubscriptionPendingState<T>",
           "name": "new",
           "isDeprecated": false,
@@ -3441,6 +3431,16 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionListeningState<T>",
+          "name": "ready",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -3486,65 +3486,6 @@
         "AmplifyLoggerMixin"
       ],
       "executableDeclarations": [
-        {
-          "returnTypeName": "void",
-          "name": "add",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "event",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "WebSocketEvent"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Stream<GraphQLResponse<T>>",
-          "name": "subscribe",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "event",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "SubscribeEvent<T>"
-            }
-          ],
-          "typeParameterNames": [
-            "T"
-          ],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<void>",
-          "name": "checkPollResponse",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "res",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSBaseHttpResponse"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
         {
           "returnTypeName": "WebSocketBloc",
           "name": "new",
@@ -3610,6 +3551,65 @@
           ],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "add",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "event",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketEvent"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "checkPollResponse",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "res",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpResponse"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Stream<GraphQLResponse<T>>",
+          "name": "subscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "event",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SubscribeEvent<T>"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -3709,6 +3709,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "WebSocketService",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "Stream<WebSocketEvent>",
           "name": "init",
           "isDeprecated": false,
@@ -3772,16 +3782,6 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "WebSocketService",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
         }
       ],
       "fieldDeclarations": []
@@ -3797,107 +3797,6 @@
         "Object"
       ],
       "executableDeclarations": [
-        {
-          "returnTypeName": "ConnectingState",
-          "name": "connecting",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "networkState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "NetworkState?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "intendedState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "IntendedState?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "ReconnectingState",
-          "name": "reconnecting",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "networkState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "NetworkState?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "intendedState",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "IntendedState?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "DisconnectedState",
-          "name": "disconnect",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FailureState",
-          "name": "failed",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "e",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Object"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "st",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "StackTrace"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "PendingDisconnect",
-          "name": "shutdown",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
         {
           "returnTypeName": "WebSocketState",
           "name": "new",
@@ -3963,6 +3862,107 @@
           ],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -4055,6 +4055,41 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "WsSubscriptionState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "SubscriptionCompletedState<T>",
           "name": "complete",
           "isDeprecated": false,
@@ -4099,41 +4134,6 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "WsSubscriptionState<T>",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "request",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "GraphQLRequest<T>"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "onEstablished",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "void Function()?"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "parentBloc",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "WebSocketBloc"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
           "isStatic": false
         }
       ],

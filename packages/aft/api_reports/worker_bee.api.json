@@ -244,31 +244,21 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "T",
-          "name": "unwrapParameter",
+          "returnTypeName": "void",
+          "name": "add",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
               "isNamed": false,
-              "name": "name",
+              "name": "event",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "parameter",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "T?"
+              "typeName": "Request"
             }
           ],
-          "typeParameterNames": [
-            "T"
-          ],
+          "typeParameterNames": [],
           "type": "method",
           "isStatic": false
         },
@@ -285,71 +275,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "CancelableOperation<void>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<Response?>",
-          "name": "run",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "listen",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Stream<Request>"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "respond",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "StreamSink<Response>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<void>",
-          "name": "spawn",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "jsEntrypoint",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<void>",
-          "name": "connect",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "logsChannel",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "StreamChannel<LogEntry>?"
             }
           ],
           "typeParameterNames": [],
@@ -403,21 +328,96 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "void",
-          "name": "add",
+          "returnTypeName": "Future<void>",
+          "name": "connect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "logsChannel",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StreamChannel<LogEntry>?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<Response?>",
+          "name": "run",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [
             {
               "isRequired": true,
               "isNamed": false,
-              "name": "event",
+              "name": "listen",
               "isDeprecated": false,
               "isExperimental": false,
-              "typeName": "Request"
+              "typeName": "Stream<Request>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "respond",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StreamSink<Response>"
             }
           ],
           "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "spawn",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "jsEntrypoint",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "T",
+          "name": "unwrapParameter",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parameter",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "T?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
           "type": "method",
           "isStatic": false
         }
@@ -583,6 +583,16 @@
       "executableDeclarations": [
         {
           "returnTypeName": "WorkerBeeException",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WorkerBeeException",
           "name": "rebuild",
           "isDeprecated": false,
           "isExperimental": false,
@@ -598,16 +608,6 @@
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "WorkerBeeException",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -691,6 +691,33 @@
       "executableDeclarations": [
         {
           "returnTypeName": "WorkerLogEntry",
+          "name": "fromLogEntry",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "entry",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LogEntry"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "local",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WorkerLogEntry",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -750,33 +777,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "StackTrace?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "WorkerLogEntry",
-          "name": "fromLogEntry",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "entry",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "LogEntry"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "local",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool"
             }
           ],
           "typeParameterNames": [],

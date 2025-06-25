@@ -192,6 +192,29 @@ class GenerateApiReportCommand extends AmplifyCommand {
               }
               return 0;
             });
+            
+            // Sort executable declarations within each interface, but preserve constructor order
+            for (final declaration in interfaceDeclarations) {
+              if (declaration is Map && declaration['executableDeclarations'] is List) {
+                final executables = declaration['executableDeclarations'] as List;
+                // ignore: cascade_invocations
+                executables.sort((a, b) {
+                  if (a is Map && b is Map) {
+                    // Keep constructors first, then sort methods
+                    final aType = a['type'] as String?;
+                    final bType = b['type'] as String?;
+                    if (aType == 'constructor' && bType != 'constructor') return -1;
+                    if (bType == 'constructor' && aType != 'constructor') return 1;
+                    
+                    // Sort by name within same type
+                    if (a['name'] != null && b['name'] != null) {
+                      return (a['name'] as String).compareTo(b['name'] as String);
+                    }
+                  }
+                  return 0;
+                });
+              }
+            }
           }
           
           final simplifiedJson = {
