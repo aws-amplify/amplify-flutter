@@ -52,8 +52,11 @@ jobs:
           API_JSON_CHANGES=$(git status --porcelain | grep 'packages/aft/api_reports/.*\.api\.json' || true)
           
           if [[ -n "$API_JSON_CHANGES" ]]; then
-            echo "API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
+            echo "API report files have changes. Checking if they are actual API changes..."
             git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'
+            
+            ACTUAL_API_CHANGES=false
+            
             # Compare API interfaces using sets instead of text diff
             # We're comparing the PR's committed API reports vs freshly generated ones
             for file in $(git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'); do
@@ -74,13 +77,20 @@ jobs:
                 echo "The API report in your PR doesn't match the current code. Please run 'aft generate api-report' and commit the changes."
                 echo "Full diff for debugging:"
                 git diff "$file"
+                ACTUAL_API_CHANGES=true
               else
-                echo "API report is up-to-date for: $file"
+                echo "API report is up-to-date for: $file (only ordering differences)"
               fi
               
               rm -f /tmp/pr_interfaces.txt /tmp/generated_interfaces.txt /tmp/pr_sorted.txt /tmp/generated_sorted.txt
             done
-            exit 1
+            
+            if [[ "$ACTUAL_API_CHANGES" == "true" ]]; then
+              echo "ERROR: API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
+              exit 1
+            else
+              echo "All API reports are up-to-date (detected only ordering differences)."
+            fi
           else
             echo "API report files are up-to-date."
           fi
