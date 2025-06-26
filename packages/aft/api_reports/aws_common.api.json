@@ -2694,6 +2694,15 @@
         },
         {
           "typeName": "AWSService",
+          "name": "iotCore",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSService",
           "name": "iot1ClickDevicesService",
           "isDeprecated": false,
           "isExperimental": false,
