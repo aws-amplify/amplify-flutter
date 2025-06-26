@@ -4,6 +4,20 @@ on:
     types: [opened]
 
 jobs:
+  notify:
+    runs-on: ubuntu-latest
+    permissions: {}
+    if: ${{ !contains(fromJSON('["MEMBER", "OWNER"]'), github.event.issue.author_association) }}
+    steps:
+      - name: Run webhook curl command
+        env:
+          WEBHOOK_URL: ${{ secrets.SLACK_ISSUE_WEBHOOK_URL }}
+          ISSUE: ${{toJson(github.event.issue.title)}}
+          ISSUE_URL: ${{github.event.issue.html_url}}
+          USER: ${{github.event.issue.user.login}}
+        shell: bash
+        run: echo $ISSUE | sed 's/[^a-zA-Z0-9 &().,:]//g' | xargs -I {} curl -s POST "$WEBHOOK_URL" -H "Content-Type:application/json" --data '{"issue":"{}", "issueUrl":"'$ISSUE_URL'", "user":"'$USER'"}'
+
   add-issue-opened-labels:
     runs-on: ubuntu-latest
     permissions:

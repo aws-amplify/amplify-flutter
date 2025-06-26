@@ -558,6 +558,9 @@ class AWSService {
   /// AWS IoT
   static const iot = AWSService('iot');
 
+  /// AWS IoT Core Device
+  static const iotCore = AWSService('iotdevicegateway');
+
   /// AWS IoT 1-Click Devices Service
   static const iot1ClickDevicesService = AWSService('iot1click');
 
