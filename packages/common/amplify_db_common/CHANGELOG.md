@@ -1,3 +1,9 @@
+## 0.4.12
+
+### Chores
+- chore(all): Bump Dart SDK to 3.8.0 ([#6165](https://github.com/aws-amplify/amplify-flutter/pull/6165))
+- chore(amplify_db_common): Update sqlite3-native-library ([#6177](https://github.com/aws-amplify/amplify-flutter/pull/6177))
+
 ## 0.4.11
 
 - Minor bug fixes and improvements

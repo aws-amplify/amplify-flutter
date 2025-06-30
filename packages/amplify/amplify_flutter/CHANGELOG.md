@@ -1,3 +1,11 @@
+## 2.6.4
+
+### Chores
+- chore(all): Bump Dart SDK to 3.8.0 ([#6165](https://github.com/aws-amplify/amplify-flutter/pull/6165))
+- chore(aws_common): Added IOT Core device service to service list ([#6170](https://github.com/aws-amplify/amplify-flutter/pull/6170))
+- chore(amplify_db_common): Update sqlite3-native-library ([#6177](https://github.com/aws-amplify/amplify-flutter/pull/6177))
+- chore(auth): remove token query parameters ([#6179](https://github.com/aws-amplify/amplify-flutter/pull/6179))
+
 ## 2.6.3
 
 - Minor bug fixes and improvements
