@@ -126,7 +126,6 @@ class AuthConfig extends AmplifyPluginConfigMap {
             signOutUri: oAuthConfig.signOutUri,
             signOutUriQueryParameters: oAuthConfig.signOutUriQueryParameters,
             tokenUri: oAuthConfig.tokenUri,
-            tokenUriQueryParameters: oAuthConfig.tokenUriQueryParameters,
             // Amplify Flutter only supports responseType:code
             // "response_type" is set to "code" by `getAuthorizationUrl` from
             // pkg:oauth2
