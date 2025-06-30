@@ -82,9 +82,6 @@ extension HostedUiConfig on OAuthOutputs {
     } else {
       baseUri = _webDomain.replace(path: '/oauth2/token');
     }
-    return baseUri.replace(
-      // ignore: invalid_use_of_internal_member
-      queryParameters: tokenUriQueryParameters,
-    );
+    return baseUri;
   }
 }
