@@ -47,12 +47,6 @@ CognitoOAuthConfig _$CognitoOAuthConfigFromJson(Map<String, dynamic> json) =>
               (k, e) => MapEntry(k, e as String),
             ),
           ),
-          tokenUriQueryParameters: $checkedConvert(
-            'TokenURIQueryParameters',
-            (v) => (v as Map<String, dynamic>?)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ),
-          ),
         );
         return val;
       },
@@ -68,7 +62,6 @@ CognitoOAuthConfig _$CognitoOAuthConfigFromJson(Map<String, dynamic> json) =>
         'tokenUri': 'TokenURI',
         'signInUriQueryParameters': 'SignInURIQueryParameters',
         'signOutUriQueryParameters': 'SignOutURIQueryParameters',
-        'tokenUriQueryParameters': 'TokenURIQueryParameters',
       },
     );
 
@@ -86,7 +79,5 @@ Map<String, dynamic> _$CognitoOAuthConfigToJson(CognitoOAuthConfig instance) =>
       if (instance.signOutUriQueryParameters case final value?)
         'SignOutURIQueryParameters': value,
       if (instance.tokenUri case final value?) 'TokenURI': value,
-      if (instance.tokenUriQueryParameters case final value?)
-        'TokenURIQueryParameters': value,
       'Scopes': instance.scopes,
     };

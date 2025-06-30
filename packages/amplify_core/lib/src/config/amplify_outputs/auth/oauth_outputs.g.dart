@@ -48,12 +48,6 @@ OAuthOutputs _$OAuthOutputsFromJson(Map<String, dynamic> json) =>
             ),
           ),
           tokenUri: $checkedConvert('token_uri', (v) => v as String?),
-          tokenUriQueryParameters: $checkedConvert(
-            'token_uri_query_parameters',
-            (v) => (v as Map<String, dynamic>?)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ),
-          ),
           responseType: $checkedConvert(
             'response_type',
             (v) => $enumDecode(_$OAuthResponseTypeEnumMap, v),
@@ -70,7 +64,6 @@ OAuthOutputs _$OAuthOutputsFromJson(Map<String, dynamic> json) =>
         'signOutUri': 'sign_out_uri',
         'signOutUriQueryParameters': 'sign_out_uri_query_parameters',
         'tokenUri': 'token_uri',
-        'tokenUriQueryParameters': 'token_uri_query_parameters',
         'responseType': 'response_type',
       },
     );
@@ -91,8 +84,6 @@ Map<String, dynamic> _$OAuthOutputsToJson(OAuthOutputs instance) =>
       if (instance.signOutUriQueryParameters case final value?)
         'sign_out_uri_query_parameters': value,
       if (instance.tokenUri case final value?) 'token_uri': value,
-      if (instance.tokenUriQueryParameters case final value?)
-        'token_uri_query_parameters': value,
       'response_type': _$OAuthResponseTypeEnumMap[instance.responseType]!,
     };
 
