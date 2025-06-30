@@ -1,3 +1,8 @@
+## 2.6.3
+
+### Chores
+- chore(all): Bump Dart SDK to 3.8.0 ([#6165](https://github.com/aws-amplify/amplify-flutter/pull/6165))
+
 ## 2.6.2
 
 ### Chores
