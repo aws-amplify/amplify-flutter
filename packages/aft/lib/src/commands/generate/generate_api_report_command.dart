@@ -110,7 +110,12 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
       packageName = path.basename(packagePath);
     }
 
-    final outputPath = path.join(_apiReportsDir, '$packageName.api.json');
+    final outputPath = path.join(
+      rootDir.path,
+      _apiReportsDir,
+      '$packageName.api.json',
+    );
+
     logger.info('Extracting API model to $outputPath');
 
     try {
@@ -151,7 +156,6 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
   Future<void> _extractInterfaceDeclarations(String filePath) async {
     try {
       final file = File(filePath);
-      if (!file.existsSync()) return;
 
       final content = await file.readAsString();
 
