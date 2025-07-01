@@ -7,21 +7,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/options/glob_options.dart';
 import 'package:path/path.dart' as path;
+import 'package:pubspec_parse/pubspec_parse.dart';
 
 /// Command to generate API reports for Amplify packages.
-class GenerateApiReportCommand extends AmplifyCommand {
-  GenerateApiReportCommand() {
-    argParser.addOption(
-      'packages',
-      abbr: 'p',
-      help: 'Generate API reports for specific packages only (comma-separated)',
-    );
-  }
-
+class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
   @override
-  String get description =>
-      'Generates API reports for Amplify packages';
+  String get description => 'Generates API reports for Amplify packages';
 
   @override
   String get name => 'api-report';
@@ -45,29 +38,18 @@ class GenerateApiReportCommand extends AmplifyCommand {
 
       logger.info('Generating API JSON files for all packages...');
       final failedPackages = <String>[];
-
       // Filter packages to only include development packages (not examples or test packages)
-      var packagePaths = aftConfig.allPackages.values
-          .where((package) => 
-              package.isDevelopmentPackage && 
-              package.isPublishable &&
-              !package.isLintsPackage && 
-              !package.path.contains('_test'))
+      final packagePaths = commandPackages.values
+          .where(
+            (package) =>
+                package.isDevelopmentPackage &&
+                package.isPublishable &&
+                !package.isLintsPackage &&
+                !package.isTestPackage,
+          )
           .map((package) => package.path)
           .toList();
-      
-      // Filter by specific packages if provided
-      final specificPackages = argResults?['packages'] as String?;
-      if (specificPackages != null) {
-        final packageNames = specificPackages.split(',').map((s) => s.trim()).toSet();
-        packagePaths = packagePaths.where((path) {
-          final packageName = aftConfig.allPackages.values
-              .firstWhere((pkg) => pkg.path == path)
-              .name;
-          return packageNames.contains(packageName);
-        }).toList();
-      }
-      
+
       for (final packagePath in packagePaths) {
         logger.info('Processing $packagePath...');
         try {
@@ -120,15 +102,14 @@ class GenerateApiReportCommand extends AmplifyCommand {
     // Use the actual package name from pubspec if available
     final pubspecFile = File(path.join(packagePath, 'pubspec.yaml'));
     String packageName;
-    
+
     if (pubspecFile.existsSync()) {
-      final pubspecContent = pubspecFile.readAsStringSync();
-      final nameMatch = RegExp(r'name:\s*([^\s]+)').firstMatch(pubspecContent);
-      packageName = nameMatch?.group(1) ?? path.basename(packagePath);
+      final pubspec = Pubspec.parse(await pubspecFile.readAsString());
+      packageName = pubspec.name;
     } else {
       packageName = path.basename(packagePath);
     }
-    
+
     final outputPath = path.join(_apiReportsDir, '$packageName.api.json');
     logger.info('Extracting API model to $outputPath');
 
@@ -142,9 +123,11 @@ class GenerateApiReportCommand extends AmplifyCommand {
       ], workingDirectory: rootDir.path);
 
       if (result.exitCode != 0) {
-        logger.error(result.stderr.toString());
+        logger.info('dart-apitool failed with exit code: ${result.exitCode}');
         await _createEmptyApiJson(outputPath);
         return;
+      } else {
+        logger.info('dart-apitool succeeded for $packagePath');
       }
 
       // Extract only the interfaceDeclarations to avoid frequent changes due to package versions
@@ -163,8 +146,6 @@ class GenerateApiReportCommand extends AmplifyCommand {
     logger.info('Created empty placeholder file at $outputPath');
   }
 
-
-
   /// Extracts only the essential API information from the generated API JSON file
   /// to avoid frequent changes due to package versions and dependencies
   Future<void> _extractInterfaceDeclarations(String filePath) async {
@@ -173,33 +154,50 @@ class GenerateApiReportCommand extends AmplifyCommand {
       if (!file.existsSync()) return;
 
       final content = await file.readAsString();
+
       final json = jsonDecode(content);
 
-      if (json is Map && 
-          json.containsKey('packageApi') && 
+      if (json is Map &&
+          json.containsKey('packageApi') &&
           json['packageApi'] is Map) {
-        
         final packageApi = json['packageApi'] as Map;
-        
+        print('PackageApi keys: ${packageApi.keys.toList()}');
+
         if (packageApi.containsKey('interfaceDeclarations')) {
           final interfaceDeclarations = packageApi['interfaceDeclarations'];
-          
+
           final simplifiedJson = {
-            'interfaceDeclarations': interfaceDeclarations
+            'interfaceDeclarations': interfaceDeclarations,
           };
-          
+
           // Convert to JSON string and strip path fields in one pass
           const encoder = JsonEncoder.withIndent('  ');
           var jsonString = encoder.convert(simplifiedJson);
-          
-          // Remove relativePath and entryPoints fields
-          jsonString = jsonString.replaceAll(RegExp(r',?\s*"relativePath":\s*"[^"]*"'), '');
-          jsonString = jsonString.replaceAll(RegExp(r',?\s*"entryPoints":\s*\[[^\]]*\]'), '');
-          
+
+          // Remove path-related fields
+          jsonString = jsonString.replaceAll(
+            RegExp(r',?\s*"relativePath":\s*"[^"]*"'),
+            '',
+          );
+          jsonString = jsonString.replaceAll(
+            RegExp(r',?\s*"entryPoints":\s*\[[^\]]*\]'),
+            '',
+          );
+          jsonString = jsonString.replaceAll(
+            RegExp(r',?\s*"packagePath":\s*"[^"]*"'),
+            '',
+          );
+
           await file.writeAsString(jsonString);
-          
-          logger.info('Extracted API information from $filePath');
+        } else {
+          logger.info(
+            'No interfaceDeclarations found in packageApi for $filePath',
+          );
         }
+      } else {
+        logger.info(
+          'Unexpected JSON structure in $filePath - not packageApi format',
+        );
       }
     } catch (e) {
       logger.warn('Failed to process API JSON for $filePath: $e');
