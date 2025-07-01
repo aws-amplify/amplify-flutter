@@ -28,7 +28,7 @@ cp $ROOT_DIR/build-support/dummy_amplifyconfiguration.dart lib/amplifyconfigurat
 if [ -e ./android/settings.gradle.kts ]
 then
   sed -i '' -e "s/id(\"com.android.application\") .*/id(\"com.android.application\") version \"8.3.0\" apply false/" ./android/settings.gradle.kts
-  sed -i '' -e "s/id(\"org.jetbrains.kotlin.android\") .*/id(\"org.jetbrains.kotlin.android\") version \"1.9.10\" apply false/" ./android/settings.gradle.kts
+  sed -i '' -e "s/id(\"org.jetbrains.kotlin.android\") .*/id(\"org.jetbrains.kotlin.android\") version \"2.0.20\" apply false/" ./android/settings.gradle.kts
   cat ./android/settings.gradle.kts
 
   # TODO(khatruong2009): remove this line after the next stable release (3.22.0 or 4.0)
@@ -56,7 +56,7 @@ then
 # Flutter <3.29.0 (delete this else block when min Flutter SDK is bumped to 3.29.0 or higher)
 else
   sed -i '' -e "s/id \"com.android.application\" .*/id \"com.android.application\" version \"8.3.0\" apply false/" ./android/settings.gradle 
-  sed -i '' -e "s/id \"org.jetbrains.kotlin.android\" .*/id \"org.jetbrains.kotlin.android\" version \"1.9.10\" apply false/" ./android/settings.gradle
+  sed -i '' -e "s/id \"org.jetbrains.kotlin.android\" .*/id \"org.jetbrains.kotlin.android\" version \"2.0.20\" apply false/" ./android/settings.gradle
   cat ./android/settings.gradle
 
   sed -i '' -e "s/minSdkVersion = .*/minSdkVersion = 24/" ./android/app/build.gradle
