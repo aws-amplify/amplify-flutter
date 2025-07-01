@@ -161,7 +161,6 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
           json.containsKey('packageApi') &&
           json['packageApi'] is Map) {
         final packageApi = json['packageApi'] as Map;
-        print('PackageApi keys: ${packageApi.keys.toList()}');
 
         if (packageApi.containsKey('interfaceDeclarations')) {
           final interfaceDeclarations = packageApi['interfaceDeclarations'];
