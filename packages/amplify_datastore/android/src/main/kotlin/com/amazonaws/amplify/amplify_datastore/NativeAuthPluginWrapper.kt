@@ -144,7 +144,7 @@ class NativeAuthPluginWrapper(
 
     override fun signUp(
         username: String,
-        password: String,
+        password: String?,
         options: AuthSignUpOptions,
         onSuccess: Consumer<AuthSignUpResult>,
         onError: Consumer<AuthException>
@@ -415,6 +415,86 @@ class NativeAuthPluginWrapper(
 
     override fun deleteUser(onSuccess: Action, onError: Consumer<AuthException>) {
         unsupported("deleteUser")
+    }
+
+    override fun setUpTOTP(
+        onSuccess: Consumer<TOTPSetupDetails>,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("setUpTOTP")
+    }
+
+    override fun verifyTOTPSetup(
+        code: String,
+        onSuccess: Action,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("verifyTOTPSetup")
+    }
+
+    override fun verifyTOTPSetup(
+        code: String,
+        options: AuthVerifyTOTPSetupOptions,
+        onSuccess: Action,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("verifyTOTPSetup")
+    }
+
+    override fun associateWebAuthnCredential(
+        callingActivity: Activity,
+        onSuccess: Action,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("associateWebAuthnCredential")
+    }
+
+    override fun associateWebAuthnCredential(
+        callingActivity: Activity,
+        options: AuthAssociateWebAuthnCredentialsOptions,
+        onSuccess: Action,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("associateWebAuthnCredential")
+    }
+
+    override fun listWebAuthnCredentials(
+        onSuccess: Consumer<AuthListWebAuthnCredentialsResult>,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("listWebAuthnCredentials")
+    }
+
+    override fun listWebAuthnCredentials(
+        options: AuthListWebAuthnCredentialsOptions,
+        onSuccess: Consumer<AuthListWebAuthnCredentialsResult>,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("listWebAuthnCredentials")
+    }
+
+    override fun deleteWebAuthnCredential(
+        options: AuthDeleteWebAuthnCredentialOptions,
+        onSuccess: Action,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("deleteWebAuthnCredential")
+    }
+
+    override fun deleteWebAuthnCredential(
+        credentialId: String,
+        options: AuthDeleteWebAuthnCredentialOptions,
+        onSuccess: Action,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("deleteWebAuthnCredential")
+    }
+
+    override fun autoSignIn(
+        onSuccess: Consumer<AuthSignInResult>,
+        onError: Consumer<AuthException>
+    ) {
+        unsupported("autoSignIn")
     }
 
     private fun unsupported(methodName: String): Nothing {
