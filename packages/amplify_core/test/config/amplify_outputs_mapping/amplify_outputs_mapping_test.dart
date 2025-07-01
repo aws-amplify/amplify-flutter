@@ -81,9 +81,6 @@ void main() {
           signOutQueryParamKey: signOutQueryParamValue,
         });
         expect(oauth.tokenUri, tokenUri);
-        expect(oauth.tokenUriQueryParameters, {
-          tokenQueryParamKey: tokenQueryParamValue,
-        });
         expect(oauth.scopes, containsAll([scope1, scope2]));
       });
 
@@ -167,7 +164,7 @@ const scope2 = 'scope2';
 
 /// hand written config with all oauth options including those not par of the
 /// AmplifyOutputs schema (SignInURIQueryParameters, SignOutURIQueryParameters,
-/// TokenURI, and TokenURIQueryParameters)
+/// and TokenURI)
 const oauthConfig =
     '''{
   "auth": {
@@ -196,9 +193,6 @@ const oauthConfig =
                 "$signOutQueryParamKey": "$signOutQueryParamValue"
               },
               "TokenURI": "$tokenUri",
-              "TokenURIQueryParameters": {
-                "$tokenQueryParamKey": "$tokenQueryParamValue"
-              },
               "Scopes": [
                 "$scope1",
                 "$scope2"
