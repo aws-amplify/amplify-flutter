@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
 
       - name: Setup Dart
         uses: dart-lang/setup-dart@c8d9f105c780f626b21f6929fec7e8162014f5ad # main
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
 
       - name: Setup Dart
         uses: dart-lang/setup-dart@c8d9f105c780f626b21f6929fec7e8162014f5ad # main
@@ -92,7 +92,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
 
       - name: Test
         uses: ./.github/composite_actions/setup_chromedriver
@@ -115,7 +115,7 @@ jobs:
           - "17.5"
     steps:
       - name: Git Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
 
       - name: Launch Simulator (iOS ${{ matrix.ios-version }})
         uses: ./.github/composite_actions/launch_ios_simulator
@@ -127,7 +127,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
 
       - uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # 4.7.1
         with:
