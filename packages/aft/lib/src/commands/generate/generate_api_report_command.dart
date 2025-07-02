@@ -169,6 +169,15 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
         if (packageApi.containsKey('interfaceDeclarations')) {
           final interfaceDeclarations = packageApi['interfaceDeclarations'];
 
+          // Sort interface declarations by name for consistent ordering
+          if (interfaceDeclarations is List) {
+            interfaceDeclarations.sort((a, b) {
+              final nameA = a is Map ? (a['name'] ?? '') : '';
+              final nameB = b is Map ? (b['name'] ?? '') : '';
+              return nameA.toString().compareTo(nameB.toString());
+            });
+          }
+
           final simplifiedJson = {
             'interfaceDeclarations': interfaceDeclarations,
           };

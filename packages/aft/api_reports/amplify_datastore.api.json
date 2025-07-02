@@ -84,59 +84,6 @@
       ]
     },
     {
-      "name": "DataStoreStreamController",
-      "isDeprecated": false,
-      "isExperimental": false,
-      "isSealed": false,
-      "isRequired": false,
-      "typeParameterNames": [],
-      "superTypeNames": [
-        "Object"
-      ],
-      "executableDeclarations": [
-        {
-          "returnTypeName": "void",
-          "name": "registerModelsForHub",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "models",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "ModelProviderInterface"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "DataStoreStreamController",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        }
-      ],
-      "fieldDeclarations": [
-        {
-          "typeName": "StreamController<DataStoreHubEvent>",
-          "name": "datastoreStreamController",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "isStatic": false,
-          "isReadable": true,
-          "isWriteable": false
-        }
-      ]
-    },
-    {
       "name": "DataStorePluginOptions",
       "isDeprecated": false,
       "isExperimental": false,
@@ -273,6 +220,59 @@
         {
           "typeName": "AuthModeStrategy",
           "name": "authModeStrategy",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "DataStoreStreamController",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "registerModelsForHub",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "models",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelProviderInterface"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DataStoreStreamController",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "StreamController<DataStoreHubEvent>",
+          "name": "datastoreStreamController",
           "isDeprecated": false,
           "isExperimental": false,
           "isStatic": false,
