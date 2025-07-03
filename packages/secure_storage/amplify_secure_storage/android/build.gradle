@@ -2,14 +2,14 @@ group 'com.amazonaws.amplify.amplify_secure_storage'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.9.10'
+    ext.kotlin_version = '2.0.20'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath 'com.android.tools.build:gradle:8.9.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -56,6 +56,6 @@ dependencies {
     // See https://github.com/aws-amplify/amplify-flutter/issues/2640
     implementation 'com.google.crypto.tink:tink-android:[1.8.0, )'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.10.3'
-    testImplementation 'androidx.test:core-ktx:1.5.0'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
+    testImplementation 'androidx.test:core-ktx:1.6.1'
 }
