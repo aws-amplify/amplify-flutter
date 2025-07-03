@@ -480,7 +480,7 @@ class NativeAuthPluginWrapper(
     }
 
     override fun deleteWebAuthnCredential(
-        options: AuthDeleteWebAuthnCredentialOptions,
+        credentialId: String,
         onSuccess: Action,
         onError: Consumer<AuthException>
     ) {
