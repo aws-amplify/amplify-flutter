@@ -13,12 +13,6 @@ import com.amplifyframework.auth.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.AWSCredentials
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.TOTPSetupDetails
-import com.amplifyframework.auth.AuthVerifyTOTPSetupOptions
-import com.amplifyframework.auth.AuthAssociateWebAuthnCredentialsOptions
-import com.amplifyframework.auth.AuthListWebAuthnCredentialsResult
-import com.amplifyframework.auth.AuthListWebAuthnCredentialsOptions
-import com.amplifyframework.auth.AuthListWebAuthnCredentialsResult
-import com.amplifyframework.auth.AuthDeleteWebAuthnCredentialOptions
 import com.amplifyframework.auth.AuthDevice
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthPlugin
@@ -31,10 +25,13 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthService
 import com.amplifyframework.auth.cognito.BuildConfig
 import com.amplifyframework.auth.cognito.helpers.FlutterFactory
 import com.amplifyframework.auth.exceptions.UnknownException
+import com.amplifyframework.auth.options.AuthAssociateWebAuthnCredentialsOptions
 import com.amplifyframework.auth.options.AuthConfirmResetPasswordOptions
 import com.amplifyframework.auth.options.AuthConfirmSignInOptions
 import com.amplifyframework.auth.options.AuthConfirmSignUpOptions
+import com.amplifyframework.auth.options.AuthDeleteWebAuthnCredentialOptions
 import com.amplifyframework.auth.options.AuthFetchSessionOptions
+import com.amplifyframework.auth.options.AuthListWebAuthnCredentialsOptions
 import com.amplifyframework.auth.options.AuthResendSignUpCodeOptions
 import com.amplifyframework.auth.options.AuthResendUserAttributeConfirmationCodeOptions
 import com.amplifyframework.auth.options.AuthResetPasswordOptions
@@ -43,7 +40,9 @@ import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.auth.options.AuthUpdateUserAttributeOptions
 import com.amplifyframework.auth.options.AuthUpdateUserAttributesOptions
+import com.amplifyframework.auth.options.AuthVerifyTOTPSetupOptions
 import com.amplifyframework.auth.options.AuthWebUISignInOptions
+import com.amplifyframework.auth.result.AuthListWebAuthnCredentialsResult
 import com.amplifyframework.auth.result.AuthResetPasswordResult
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.AuthSignInResult
