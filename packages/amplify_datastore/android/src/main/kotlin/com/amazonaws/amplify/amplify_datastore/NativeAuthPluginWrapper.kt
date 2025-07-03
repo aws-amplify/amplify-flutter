@@ -12,6 +12,13 @@ import com.amplifyframework.annotations.InternalAmplifyApi
 import com.amplifyframework.auth.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.AWSCredentials
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
+import com.amplifyframework.auth.TOTPSetupDetails
+import com.amplifyframework.auth.AuthVerifyTOTPSetupOptions
+import com.amplifyframework.auth.AuthAssociateWebAuthnCredentialsOptions
+import com.amplifyframework.auth.AuthListWebAuthnCredentialsResult
+import com.amplifyframework.auth.AuthListWebAuthnCredentialsOptions
+import com.amplifyframework.auth.AuthListWebAuthnCredentialsResult
+import com.amplifyframework.auth.AuthDeleteWebAuthnCredentialOptions
 import com.amplifyframework.auth.AuthDevice
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthPlugin
