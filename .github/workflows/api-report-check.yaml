@@ -68,21 +68,18 @@ jobs:
               # Get the freshly generated version (what CI just created)
               jq -r '.interfaceDeclarations[] | tostring' "$file" > /tmp/generated_interfaces.txt
               
-              # Compare the interface sets (order doesn't matter)
-              sort /tmp/pr_interfaces.txt > /tmp/pr_sorted.txt
-              sort /tmp/generated_interfaces.txt > /tmp/generated_sorted.txt
-              
-              if ! cmp -s /tmp/pr_sorted.txt /tmp/generated_sorted.txt; then
+              # Compare the interface sets
+              if ! cmp -s /tmp/pr_interfaces.txt /tmp/generated_interfaces.txt; then
                 echo "=== ACTUAL API CHANGES DETECTED in: $file ==="
                 echo "The API report in your PR doesn't match the current code. Please run 'aft generate api-report' and commit the changes."
                 echo "Full diff for debugging:"
                 git diff "$file"
                 ACTUAL_API_CHANGES=true
               else
-                echo "API report is up-to-date for: $file (only ordering differences)"
+                echo "API report is up-to-date for: $file"
               fi
               
-              rm -f /tmp/pr_interfaces.txt /tmp/generated_interfaces.txt /tmp/pr_sorted.txt /tmp/generated_sorted.txt
+              rm -f /tmp/pr_interfaces.txt /tmp/generated_interfaces.txt
             done
             
             if [[ "$ACTUAL_API_CHANGES" == "true" ]]; then
