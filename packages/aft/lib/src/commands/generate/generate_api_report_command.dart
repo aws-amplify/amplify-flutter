@@ -119,20 +119,33 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
     logger.info('Extracting API model to $outputPath');
 
     try {
+      // Create complete temp structure to preserve relative dependencies
+      final tempRoot = Directory.systemTemp.createTempSync('amplify_api_');
+      final tempPackagesDir = Directory(path.join(tempRoot.path, 'packages'));
+      await tempPackagesDir.create(recursive: true);
+      
+      // Mirror packages structure with symlinks, excluding examples
+      final packagesDir = Directory(path.join(rootDir.path, 'packages'));
+      await _mirrorPackagesStructure(packagesDir, tempPackagesDir);
+      
+      final packageRelativePath = path.relative(packagePath, from: rootDir.path);
+      final tempPackagePath = path.join(tempRoot.path, packageRelativePath);
+      
       final result = await Process.run('dart-apitool', [
         'extract',
         '--input',
-        packagePath,
+        tempPackagePath,
         '--output',
         outputPath,
-      ], workingDirectory: rootDir.path);
+      ], workingDirectory: tempRoot.path);
+      
+      await tempRoot.delete(recursive: true);
 
       if (result.exitCode != 0) {
-        logger.info('dart-apitool failed with exit code: ${result.exitCode}');
+        print('dart-apitool failed with exit code: ${result.exitCode}');
+        print('stderr: ${result.stderr}');
         await _createEmptyApiJson(outputPath);
         return;
-      } else {
-        logger.info('dart-apitool succeeded for $packagePath');
       }
 
       // Extract only the interfaceDeclarations to avoid frequent changes due to package versions
@@ -140,6 +153,22 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
     } catch (e) {
       logger.warn('Error generating API JSON for $packagePath: $e');
       await _createEmptyApiJson(outputPath);
+    }
+  }
+
+  /// Creates a shallow copy of the packages directory structure with symlinks, excluding examples
+  Future<void> _mirrorPackagesStructure(Directory source, Directory target) async {
+    await for (final entity in source.list()) {
+      final name = path.basename(entity.path);
+      final targetPath = path.join(target.path, name);
+      
+      if (entity is Directory) {
+        if (name == 'example') continue; // Skip example directories
+        await Directory(targetPath).create();
+        await _mirrorPackagesStructure(entity, Directory(targetPath));
+      } else {
+        await Link(targetPath).create(entity.path);
+      }
     }
   }
 
