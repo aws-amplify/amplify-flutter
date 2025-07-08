@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: avoid_catches_without_on_clauses, cascade_invocations
+// ignore_for_file: avoid_catches_without_on_clauses, cascade_invocations, avoid_dynamic_calls
 
 import 'dart:convert';
 import 'dart:io';
@@ -123,22 +123,25 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
       final tempRoot = Directory.systemTemp.createTempSync('amplify_api_');
       final tempPackagesDir = Directory(path.join(tempRoot.path, 'packages'));
       await tempPackagesDir.create(recursive: true);
-      
+
       // Mirror packages structure with symlinks, excluding examples
       final packagesDir = Directory(path.join(rootDir.path, 'packages'));
       await _mirrorPackagesStructure(packagesDir, tempPackagesDir);
-      
-      final packageRelativePath = path.relative(packagePath, from: rootDir.path);
+
+      final packageRelativePath = path.relative(
+        packagePath,
+        from: rootDir.path,
+      );
       final tempPackagePath = path.join(tempRoot.path, packageRelativePath);
-      
+
       final result = await Process.run('dart-apitool', [
         'extract',
         '--input',
         tempPackagePath,
         '--output',
         outputPath,
-      ], workingDirectory: tempRoot.path);
-      
+      ], workingDirectory: rootDir.path);
+
       await tempRoot.delete(recursive: true);
 
       if (result.exitCode != 0) {
@@ -157,11 +160,14 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
   }
 
   /// Creates a shallow copy of the packages directory structure with symlinks, excluding examples
-  Future<void> _mirrorPackagesStructure(Directory source, Directory target) async {
+  Future<void> _mirrorPackagesStructure(
+    Directory source,
+    Directory target,
+  ) async {
     await for (final entity in source.list()) {
       final name = path.basename(entity.path);
       final targetPath = path.join(target.path, name);
-      
+
       if (entity is Directory) {
         if (name == 'example') continue; // Skip example directories
         await Directory(targetPath).create();
@@ -183,10 +189,16 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
   /// Extracts only the essential API information from the generated API JSON file
   /// to avoid frequent changes due to package versions and dependencies
   Future<void> _extractInterfaceDeclarations(String filePath) async {
+    print('Starting extraction for: $filePath');
     try {
       final file = File(filePath);
+      if (!file.existsSync()) {
+        print('File does not exist: $filePath');
+        return;
+      }
 
       final content = await file.readAsString();
+      print('File size: ${content.length} characters');
 
       final json = jsonDecode(content);
 
@@ -198,13 +210,47 @@ class GenerateApiReportCommand extends AmplifyCommand with GlobOptions {
         if (packageApi.containsKey('interfaceDeclarations')) {
           final interfaceDeclarations = packageApi['interfaceDeclarations'];
 
-          // Sort interface declarations by name for consistent ordering
+          // Sort interface declarations by name and sort executableDeclarations within each interface
           if (interfaceDeclarations is List) {
+            // Sort top-level interfaces by name
             interfaceDeclarations.sort((a, b) {
-              final nameA = a is Map ? (a['name'] ?? '') : '';
-              final nameB = b is Map ? (b['name'] ?? '') : '';
-              return nameA.toString().compareTo(nameB.toString());
+              if (a is! Map || b is! Map) return 0;
+              final nameA = a['name']?.toString() ?? '';
+              final nameB = b['name']?.toString() ?? '';
+              return nameA.compareTo(nameB);
             });
+
+            // Sort executableDeclarations within each interface
+            for (final interfaceItem in interfaceDeclarations) {
+              if (interfaceItem is Map &&
+                  interfaceItem['executableDeclarations'] is List) {
+                final execList =
+                    interfaceItem['executableDeclarations'] as List;
+                execList.sort((a, b) {
+                  if (a is! Map || b is! Map) return 0;
+                  final nameA = a['name']?.toString() ?? '';
+                  final nameB = b['name']?.toString() ?? '';
+                  final nameCompare = nameA.compareTo(nameB);
+                  if (nameCompare != 0) return nameCompare;
+                  // For same method names, sort by first parameter name
+                  final paramsA = a['parameters'];
+                  final paramsB = b['parameters'];
+                  final paramA =
+                      (paramsA is List &&
+                          paramsA.isNotEmpty &&
+                          paramsA[0] is Map)
+                      ? paramsA[0]['name']?.toString() ?? ''
+                      : '';
+                  final paramB =
+                      (paramsB is List &&
+                          paramsB.isNotEmpty &&
+                          paramsB[0] is Map)
+                      ? paramsB[0]['name']?.toString() ?? ''
+                      : '';
+                  return paramA.compareTo(paramB);
+                });
+              }
+            }
           }
 
           final simplifiedJson = {

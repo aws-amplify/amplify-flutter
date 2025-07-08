@@ -39,6 +39,25 @@
           "isStatic": false
         },
         {
+          "returnTypeName": "AWSAlgorithm",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "id",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "String",
           "name": "sign",
           "isDeprecated": false,
@@ -63,25 +82,6 @@
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSAlgorithm",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "id",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -231,7 +231,7 @@
       "executableDeclarations": [
         {
           "returnTypeName": "String",
-          "name": "formatFull",
+          "name": "formatDate",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
@@ -241,7 +241,7 @@
         },
         {
           "returnTypeName": "String",
-          "name": "formatDate",
+          "name": "formatFull",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
@@ -312,6 +312,76 @@
         "Object"
       ],
       "executableDeclarations": [
+        {
+          "returnTypeName": "String",
+          "name": "createAuthorizationHeader",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signedHeaders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SignedHeaders"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signature",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSSigV4Signer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "credentialsProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialsProvider"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
         {
           "returnTypeName": "Future<Uri>",
           "name": "presign",
@@ -502,76 +572,6 @@
           "typeParameterNames": [],
           "type": "method",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "String",
-          "name": "createAuthorizationHeader",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "credentials",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentials"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "credentialScope",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentialScope"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "signedHeaders",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "SignedHeaders"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "signature",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AWSSigV4Signer",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "credentialsProvider",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentialsProvider"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "algorithm",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSAlgorithm"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
         }
       ],
       "fieldDeclarations": [
@@ -753,108 +753,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "BaseServiceConfiguration",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "normalizePath",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "omitSessionToken",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "doubleEncodePathSegments",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "signBody",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "applySigned",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "request",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSBaseHttpRequest"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "credentialScope",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentialScope"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "credentials",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentials"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "payloadHash",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "contentLength",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "void",
           "name": "applyPresigned",
           "isDeprecated": false,
@@ -922,6 +820,65 @@
           "isStatic": false
         },
         {
+          "returnTypeName": "void",
+          "name": "applySigned",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "payloadHash",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "Future<String>",
           "name": "hashPayload",
           "isDeprecated": false,
@@ -973,6 +930,49 @@
           ],
           "typeParameterNames": [],
           "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "BaseServiceConfiguration",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "normalizePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "omitSessionToken",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "doubleEncodePathSegments",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signBody",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -1581,108 +1581,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "S3ServiceConfiguration",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "signPayload",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "chunked",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "chunkSize",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "encoding",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "S3PayloadEncoding"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
-          "name": "applySigned",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "request",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSBaseHttpRequest"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "credentialScope",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentialScope"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "credentials",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentials"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "payloadHash",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "contentLength",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "void",
           "name": "applyPresigned",
           "isDeprecated": false,
@@ -1750,6 +1648,65 @@
           "isStatic": false
         },
         {
+          "returnTypeName": "void",
+          "name": "applySigned",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "payloadHash",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "Future<String>",
           "name": "hashPayload",
           "isDeprecated": false,
@@ -1801,6 +1758,49 @@
           ],
           "typeParameterNames": [],
           "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "S3ServiceConfiguration",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signPayload",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "chunked",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "chunkSize",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "encoding",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "S3PayloadEncoding"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -1960,65 +1960,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "void",
-          "name": "applySigned",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "headers",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "request",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSBaseHttpRequest"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "credentialScope",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentialScope"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "credentials",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AWSCredentials"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "payloadHash",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            },
-            {
-              "isRequired": true,
-              "isNamed": true,
-              "name": "contentLength",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "int"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "void",
           "name": "applyPresigned",
           "isDeprecated": false,
           "isExperimental": false,
@@ -2085,6 +2026,65 @@
           "isStatic": false
         },
         {
+          "returnTypeName": "void",
+          "name": "applySigned",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "payloadHash",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "Future<String>",
           "name": "hashPayload",
           "isDeprecated": false,
@@ -2136,6 +2136,49 @@
           ],
           "typeParameterNames": [],
           "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ServiceConfiguration",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "normalizePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "omitSessionToken",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "doubleEncodePathSegments",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signBody",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -2195,49 +2238,6 @@
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "ServiceConfiguration",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "normalizePath",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "omitSessionToken",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "doubleEncodePathSegments",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "signBody",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "bool?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
           "isStatic": false
         }
       ],

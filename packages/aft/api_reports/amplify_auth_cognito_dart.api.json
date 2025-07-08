@@ -15,6 +15,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "ASFContextData",
+          "name": "build",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "updates",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(ASFContextDataBuilder)"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ASFContextData",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -98,25 +117,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "int?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "ASFContextData",
-          "name": "build",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "updates",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "void Function(ASFContextDataBuilder)"
             }
           ],
           "typeParameterNames": [],
@@ -418,6 +418,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "ASFDeviceInfoCollector",
+          "name": "base",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "Future<ASFContextData>",
           "name": "getNativeContextData",
           "isDeprecated": false,
@@ -430,16 +440,6 @@
         {
           "returnTypeName": "ASFDeviceInfoCollector",
           "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "ASFDeviceInfoCollector",
-          "name": "base",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
@@ -685,6 +685,16 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "Future<void>",
+          "name": "clearFederationToIdentityPool",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
           "returnTypeName": "Future<FederateToIdentityPoolResult>",
           "name": "federateToIdentityPool",
           "isDeprecated": false,
@@ -720,8 +730,8 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "Future<void>",
-          "name": "clearFederationToIdentityPool",
+          "returnTypeName": "Future<UserMfaPreference>",
+          "name": "fetchMfaPreference",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
@@ -730,13 +740,30 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "Future<UserMfaPreference>",
-          "name": "fetchMfaPreference",
+          "returnTypeName": "AmplifyAuthCognitoDart",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [],
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "secureStorageFactory",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "hostedUiPlatformFactory",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "HostedUiPlatform Function(DependencyManager)?"
+            }
+          ],
           "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -772,33 +799,6 @@
           ],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AmplifyAuthCognitoDart",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "secureStorageFactory",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?"
-            },
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "hostedUiPlatformFactory",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "HostedUiPlatform Function(DependencyManager)?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
           "isStatic": false
         }
       ],
@@ -1295,35 +1295,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "Future<CredentialStoreData>",
-          "name": "loadCredentials",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "Future<void>",
-          "name": "storeCredentials",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "credentials",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "CredentialStoreData"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "Future<void>",
           "name": "clearCredentials",
           "isDeprecated": false,
@@ -1343,16 +1314,6 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "Future<CognitoAuthSession>",
-          "name": "loadSession",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": false
-        },
-        {
           "returnTypeName": "Future<void>",
           "name": "configureHostedUI",
           "isDeprecated": false,
@@ -1363,8 +1324,8 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "Future<HostedUiState>",
-          "name": "signOutHostedUI",
+          "returnTypeName": "Future<CognitoUserPoolTokens>",
+          "name": "getUserPoolTokens",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
@@ -1373,8 +1334,18 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "Future<CognitoUserPoolTokens>",
-          "name": "getUserPoolTokens",
+          "returnTypeName": "Future<CredentialStoreData>",
+          "name": "loadCredentials",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<CognitoAuthSession>",
+          "name": "loadSession",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
@@ -1399,6 +1370,35 @@
           ],
           "typeParameterNames": [],
           "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<HostedUiState>",
+          "name": "signOutHostedUI",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "storeCredentials",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CredentialStoreData"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -1431,6 +1431,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoAuthUser",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoAuthUser",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1458,25 +1477,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "CognitoSignInDetails"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoAuthUser",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -1577,25 +1577,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoConfirmResetPasswordPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "clientMetadata",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoConfirmResetPasswordPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1607,6 +1588,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoConfirmResetPasswordPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "clientMetadata",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
             }
           ],
           "typeParameterNames": [],
@@ -1661,6 +1661,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoConfirmSignInPluginOptions",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoConfirmSignInPluginOptions",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1688,25 +1707,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoConfirmSignInPluginOptions",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -1779,25 +1779,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoConfirmSignUpPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "clientMetadata",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoConfirmSignUpPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1809,6 +1790,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoConfirmSignUpPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "clientMetadata",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>"
             }
           ],
           "typeParameterNames": [],
@@ -1863,16 +1863,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoConfirmUserAttributePluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoConfirmUserAttributePluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -1886,6 +1876,16 @@
               "typeName": "Map<String, Object?>"
             }
           ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoConfirmUserAttributePluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
@@ -1926,6 +1926,25 @@
         "AWSEquatable<CognitoDevice>"
       ],
       "executableDeclarations": [
+        {
+          "returnTypeName": "CognitoDevice",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
         {
           "returnTypeName": "CognitoDevice",
           "name": "new",
@@ -1979,25 +1998,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "DateTime?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoDevice",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -2143,16 +2143,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoFetchAuthSessionPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoFetchAuthSessionPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -2166,6 +2156,16 @@
               "typeName": "Map<String, Object?>"
             }
           ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoFetchAuthSessionPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
@@ -2209,16 +2209,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoFetchUserAttributesPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoFetchUserAttributesPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -2232,6 +2222,16 @@
               "typeName": "Map<String, Object?>"
             }
           ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoFetchUserAttributesPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
@@ -2275,16 +2275,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoGetCurrentUserPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoGetCurrentUserPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -2298,6 +2288,16 @@
               "typeName": "Map<String, Object?>"
             }
           ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoGetCurrentUserPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
@@ -2624,25 +2624,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoResendSignUpCodePluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "clientMetadata",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoResendSignUpCodePluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -2654,6 +2635,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoResendSignUpCodePluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "clientMetadata",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>"
             }
           ],
           "typeParameterNames": [],
@@ -2745,25 +2745,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoResetPasswordPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "clientMetadata",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoResetPasswordPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -2775,6 +2756,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoResetPasswordPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "clientMetadata",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
             }
           ],
           "typeParameterNames": [],
@@ -2829,6 +2829,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoResetPasswordResult",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoResetPasswordResult",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -2848,25 +2867,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "ResetPasswordStep"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoResetPasswordResult",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -2912,25 +2912,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoSendUserAttributeVerificationCodePluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "clientMetadata",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSendUserAttributeVerificationCodePluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -2942,6 +2923,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSendUserAttributeVerificationCodePluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "clientMetadata",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
             }
           ],
           "typeParameterNames": [],
@@ -3050,44 +3050,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoSignInDetails",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "signInType",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "CognitoSignInType"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSignInDetails",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSignInDetails",
           "name": "apiBased",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3115,6 +3077,25 @@
         },
         {
           "returnTypeName": "CognitoSignInDetails",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSignInDetails",
           "name": "hostedUi",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3126,6 +3107,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "AuthProvider?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSignInDetails",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "signInType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CognitoSignInType"
             }
           ],
           "typeParameterNames": [],
@@ -3162,6 +3162,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoSignInDetailsApiBased",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSignInDetailsApiBased",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3181,25 +3200,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "AuthFlowType?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSignInDetailsApiBased",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -3262,6 +3262,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoSignInDetailsFederated",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSignInDetailsFederated",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3281,25 +3300,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "AuthProvider"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSignInDetailsFederated",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -3354,25 +3354,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoSignInDetailsHostedUi",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "provider",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "AuthProvider?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSignInDetailsHostedUi",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3384,6 +3365,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSignInDetailsHostedUi",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "provider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AuthProvider?"
             }
           ],
           "typeParameterNames": [],
@@ -3501,6 +3501,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoSignInPluginOptions",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSignInPluginOptions",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3520,25 +3539,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, String>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSignInPluginOptions",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -3698,6 +3698,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoSignInWithWebUIPluginOptions",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSignInWithWebUIPluginOptions",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3717,25 +3736,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSignInWithWebUIPluginOptions",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -3799,16 +3799,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoSignOutPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSignOutPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3822,6 +3812,16 @@
               "typeName": "Map<String, Object?>"
             }
           ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSignOutPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
@@ -3975,6 +3975,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoSignUpPluginOptions",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoSignUpPluginOptions",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -3994,25 +4013,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, String>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoSignUpPluginOptions",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -4196,16 +4196,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoUpdatePasswordPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoUpdatePasswordPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -4219,6 +4209,16 @@
               "typeName": "Map<String, Object?>"
             }
           ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoUpdatePasswordPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
@@ -4262,25 +4262,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoUpdateUserAttributePluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "clientMetadata",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoUpdateUserAttributePluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -4292,6 +4273,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoUpdateUserAttributePluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "clientMetadata",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
             }
           ],
           "typeParameterNames": [],
@@ -4346,25 +4346,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoUpdateUserAttributesPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "clientMetadata",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, String>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoUpdateUserAttributesPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -4376,6 +4357,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoUpdateUserAttributesPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "clientMetadata",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
             }
           ],
           "typeParameterNames": [],
@@ -4427,13 +4427,41 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "void",
-          "name": "validate",
+          "returnTypeName": "CognitoUserPoolTokens",
+          "name": "build",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [],
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "updates",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(CognitoUserPoolTokensBuilder)"
+            }
+          ],
           "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoUserPoolTokens",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -4480,41 +4508,13 @@
           "isStatic": false
         },
         {
-          "returnTypeName": "CognitoUserPoolTokens",
-          "name": "build",
+          "returnTypeName": "void",
+          "name": "validate",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "updates",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "void Function(CognitoUserPoolTokensBuilder)"
-            }
-          ],
+          "parameters": [],
           "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoUserPoolTokens",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
+          "type": "method",
           "isStatic": false
         }
       ],
@@ -4654,25 +4654,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CognitoVerifyTotpSetupPluginOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "friendlyDeviceName",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CognitoVerifyTotpSetupPluginOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -4684,6 +4665,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CognitoVerifyTotpSetupPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "friendlyDeviceName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
             }
           ],
           "typeParameterNames": [],
@@ -4803,6 +4803,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "CredentialStoreData",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "CredentialStoreData",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -4838,25 +4857,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "CognitoSignInDetails?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "CredentialStoreData",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -5238,25 +5238,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "FederateToIdentityPoolOptions",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": true,
-              "name": "developerProvidedIdentityId",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FederateToIdentityPoolOptions",
           "name": "fromJson",
           "isDeprecated": false,
           "isExperimental": false,
@@ -5268,6 +5249,25 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FederateToIdentityPoolOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "developerProvidedIdentityId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
             }
           ],
           "typeParameterNames": [],
@@ -5320,6 +5320,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "FederateToIdentityPoolRequest",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FederateToIdentityPoolRequest",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -5347,25 +5366,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "FederateToIdentityPoolOptions?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FederateToIdentityPoolRequest",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -5427,6 +5427,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "FederateToIdentityPoolResult",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FederateToIdentityPoolResult",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -5446,25 +5465,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "AWSCredentials"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "FederateToIdentityPoolResult",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -5706,16 +5706,6 @@
       "executableDeclarations": [
         {
           "returnTypeName": "HostedUiState",
-          "name": "notConfigured",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "HostedUiState",
           "name": "configuring",
           "isDeprecated": false,
           "isExperimental": false,
@@ -5726,27 +5716,34 @@
         },
         {
           "returnTypeName": "HostedUiState",
-          "name": "signingIn",
+          "name": "failure",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [],
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "exception",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Exception"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
         },
         {
           "returnTypeName": "HostedUiState",
-          "name": "signingOut",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "HostedUiState",
-          "name": "signedOut",
+          "name": "notConfigured",
           "isDeprecated": false,
           "isExperimental": false,
           "parameters": [],
@@ -5775,27 +5772,30 @@
         },
         {
           "returnTypeName": "HostedUiState",
-          "name": "failure",
+          "name": "signedOut",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "exception",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Exception"
-            },
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "stackTrace",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "StackTrace"
-            }
-          ],
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "HostedUiState",
+          "name": "signingIn",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "HostedUiState",
+          "name": "signingOut",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
@@ -6217,6 +6217,25 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "bool",
+          "name": "isLambdaException",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "exception",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
           "returnTypeName": "InvalidLambdaResponseException",
           "name": "new",
           "isDeprecated": false,
@@ -6250,25 +6269,6 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "bool",
-          "name": "isLambdaException",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "exception",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
         }
       ],
       "fieldDeclarations": [
@@ -6671,6 +6671,25 @@
         },
         {
           "returnTypeName": "JsonWebClaims",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "JsonWebClaims",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -6738,25 +6757,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "Map<String, Object?>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "JsonWebClaims",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -6883,6 +6883,25 @@
         },
         {
           "returnTypeName": "JsonWebHeader",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "JsonWebHeader",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -6974,25 +6993,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "List<String>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "JsonWebHeader",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -7132,6 +7132,25 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "JsonWebKey",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -7315,25 +7334,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "List<OtherPrime>?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "JsonWebKey",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -7583,25 +7583,6 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "JsonWebToken?",
-          "name": "tryParse",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "token",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
-        },
-        {
           "returnTypeName": "String",
           "name": "encode",
           "isDeprecated": false,
@@ -7672,6 +7653,25 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
+        },
+        {
+          "returnTypeName": "JsonWebToken?",
+          "name": "tryParse",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "token",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
         }
       ],
       "fieldDeclarations": [
@@ -8190,6 +8190,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "OtherPrime",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "OtherPrime",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -8217,25 +8236,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "BigInt"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "OtherPrime",
-          "name": "fromJson",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "json",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "Map<String, Object?>"
             }
           ],
           "typeParameterNames": [],
@@ -8948,6 +8948,25 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "bool",
+          "name": "isLambdaException",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "exception",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
           "returnTypeName": "UnexpectedLambdaException",
           "name": "new",
           "isDeprecated": false,
@@ -8981,25 +9000,6 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "bool",
-          "name": "isLambdaException",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "exception",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
         }
       ],
       "fieldDeclarations": [
@@ -9252,6 +9252,25 @@
       "executableDeclarations": [
         {
           "returnTypeName": "UserContextDataType",
+          "name": "build",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "updates",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(UserContextDataTypeBuilder)"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "UserContextDataType",
           "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
@@ -9271,25 +9290,6 @@
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "String?"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "constructor",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "UserContextDataType",
-          "name": "build",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": false,
-              "isNamed": false,
-              "name": "updates",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "void Function(UserContextDataTypeBuilder)"
             }
           ],
           "typeParameterNames": [],
@@ -9401,6 +9401,25 @@
       ],
       "executableDeclarations": [
         {
+          "returnTypeName": "bool",
+          "name": "isLambdaException",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "exception",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
           "returnTypeName": "UserLambdaValidationException",
           "name": "new",
           "isDeprecated": false,
@@ -9434,25 +9453,6 @@
           "typeParameterNames": [],
           "type": "constructor",
           "isStatic": false
-        },
-        {
-          "returnTypeName": "bool",
-          "name": "isLambdaException",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "exception",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "String"
-            }
-          ],
-          "typeParameterNames": [],
-          "type": "method",
-          "isStatic": true
         }
       ],
       "fieldDeclarations": [
