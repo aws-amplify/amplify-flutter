@@ -51,7 +51,7 @@ android {
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
-        testImplementation 'org.mockito:mockito-core:5.17.0'
+        testImplementation 'org.mockito:mockito-core:5.18.0'
 
     }
 
