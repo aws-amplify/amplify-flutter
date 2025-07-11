@@ -13,7 +13,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.9.2'
+        classpath 'com.android.tools.build:gradle:8.11.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.jlleitschuh.gradle:ktlint-gradle:11.6.1'
     }
@@ -85,15 +85,15 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:5.17.0'
+    testImplementation 'org.mockito:mockito-core:5.18.0'
     testImplementation 'org.mockito:mockito-inline:5.2.0'
     testImplementation 'androidx.test:core:1.6.1'
     testImplementation 'com.google.code.gson:gson:2.10.1'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2'
 
     // Tests must be updated if bumped
     //noinspection GradleDependency
-    testImplementation 'org.robolectric:robolectric:4.12.1'
+    testImplementation 'org.robolectric:robolectric:4.15.1'
     testImplementation 'com.fasterxml.jackson.core:jackson-core:2.15.3'
     testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.4'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
