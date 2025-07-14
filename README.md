@@ -10,7 +10,7 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
 
-⚠️ **Amplify Flutter v1 is now in Maintenance Mode until April 30th, 2025. This means that we will continue to include updates to ensure compatibility with backend services and security. No new features will be introduced in v1.**
+⚠️ **Amplify Flutter v1 is deprecated as of April 30th, 2025. No new features or bug fixes will be added. Dependencies may become outdated and potentially introduce compatibility issues.**
 
 Please use the latest version (Gen 2) of Amplify Flutter. If you are currently using v1, follow [these instructions](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) to upgrade to v2.
 
