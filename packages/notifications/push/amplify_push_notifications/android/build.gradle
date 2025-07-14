@@ -74,7 +74,7 @@ dependencies {
     implementation 'androidx.test:core-ktx:1.6.1'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'io.mockk:mockk:1.13.5'
+    testImplementation 'io.mockk:mockk:1.14.4'
     // slf4j is logging facade package used by mockk internally
     testImplementation 'org.slf4j:slf4j-nop:2.0.7'
     testImplementation 'org.robolectric:robolectric:4.15.1'
