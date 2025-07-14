@@ -24,7 +24,7 @@ jobs:
   comment-visibility-warning:
     runs-on: ubuntu-latest
     steps:
-      - uses: aws-actions/closed-issue-message@36b7048ea77bb834d16e7a7c5b5471ac767a4ca1 # v1
+      - uses: aws-actions/closed-issue-message@2f2b01ffd909b2382cdf3e839a846572f748dbe8 # v1
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           message: |
