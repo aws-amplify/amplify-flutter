@@ -80,6 +80,10 @@ final class SignOutStateMachine
       // to clear the credentials associated with the non-existent user.
       await manager.clearCredentials();
       return emit(const SignOutState.success());
+    } on Exception catch (e) {
+      // on any other exception, we should clear credentials and rethrow the exception
+      await dispatchAndComplete(const CredentialStoreEvent.clearCredentials());
+      return emit(SignOutFailure(e));
     }
 
     // Capture results of individual steps to determine overall success.
