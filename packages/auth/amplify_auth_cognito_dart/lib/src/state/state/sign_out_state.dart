@@ -101,7 +101,7 @@ final class SignOutPartialFailure extends SignOutState {
 
   /// The exception that occurred while revoking the token.
   final RevokeTokenException? revokeTokenException;
-  
+
   /// The exception that occurred while signing out with an invalid userpool token.
   final InvalidTokenException? invalidTokenException;
 

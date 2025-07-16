@@ -89,9 +89,7 @@ final class SignOutStateMachine
       return emit(const SignOutState.success());
     } on Exception catch (e) {
       // on any other exception, we should clear credentials and rethrow the exception
-      invalidTokenException = InvalidTokenException(
-        underlyingException: e,
-      );
+      invalidTokenException = InvalidTokenException(underlyingException: e);
       await dispatchAndComplete(const CredentialStoreEvent.clearCredentials());
       return emit(
         SignOutState.partialFailure(
