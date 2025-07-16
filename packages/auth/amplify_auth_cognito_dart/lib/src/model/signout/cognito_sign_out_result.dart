@@ -26,6 +26,7 @@ sealed class CognitoSignOutResult extends SignOutResult
     HostedUiException? hostedUiException,
     GlobalSignOutException? globalSignOutException,
     RevokeTokenException? revokeTokenException,
+    InvalidTokenException? invalidTokenException,
   }) = CognitoPartialSignOut._;
 
   /// Whether credentials have been cleared from the local device.
@@ -108,6 +109,7 @@ final class CognitoPartialSignOut extends CognitoSignOutResult {
     hostedUiException,
     globalSignOutException,
     revokeTokenException,
+    invalidTokenException,
     signedOutLocally,
   ];
 
@@ -116,6 +118,7 @@ final class CognitoPartialSignOut extends CognitoSignOutResult {
     'hostedUiException': hostedUiException?.toString(),
     'globalSignOutException': globalSignOutException?.toString(),
     'revokeTokenException': revokeTokenException?.toString(),
+    'invalidTokenException': invalidTokenException?.toString(),
     'signedOutLocally': signedOutLocally,
   };
 }
