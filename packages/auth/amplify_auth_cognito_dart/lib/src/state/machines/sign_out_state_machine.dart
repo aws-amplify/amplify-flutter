@@ -70,6 +70,13 @@ final class SignOutStateMachine
     // Do not clear other storage items (e.g. AWS credentials) in this case,
     // since an unauthenticated user may still be cached.
     final CognitoUserPoolTokens tokens;
+
+    // Capture results of individual steps to determine overall success.
+    HostedUiException? hostedUiException;
+    GlobalSignOutException? globalSignOutException;
+    RevokeTokenException? revokeTokenException;
+    InvalidTokenException? invalidTokenException;
+
     try {
       tokens = await manager.getUserPoolTokens();
     } on SignedOutException {
@@ -82,14 +89,19 @@ final class SignOutStateMachine
       return emit(const SignOutState.success());
     } on Exception catch (e) {
       // on any other exception, we should clear credentials and rethrow the exception
+      invalidTokenException = InvalidTokenException(
+        underlyingException: e,
+      );
       await dispatchAndComplete(const CredentialStoreEvent.clearCredentials());
-      return emit(SignOutFailure(e));
+      return emit(
+        SignOutState.partialFailure(
+          hostedUiException: hostedUiException,
+          globalSignOutException: globalSignOutException,
+          revokeTokenException: revokeTokenException,
+          invalidTokenException: invalidTokenException,
+        ),
+      );
     }
-
-    // Capture results of individual steps to determine overall success.
-    HostedUiException? hostedUiException;
-    GlobalSignOutException? globalSignOutException;
-    RevokeTokenException? revokeTokenException;
 
     // Sign out via Hosted UI, if configured.
     Future<void> signOutHostedUi() async {
@@ -167,6 +179,7 @@ final class SignOutStateMachine
           hostedUiException: hostedUiException,
           globalSignOutException: globalSignOutException,
           revokeTokenException: revokeTokenException,
+          invalidTokenException: invalidTokenException,
         ),
       );
     }
@@ -181,6 +194,7 @@ final class SignOutStateMachine
           hostedUiException: hostedUiException,
           globalSignOutException: globalSignOutException,
           revokeTokenException: revokeTokenException,
+          invalidTokenException: invalidTokenException,
         ),
       );
     }

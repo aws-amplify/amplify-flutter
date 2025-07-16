@@ -85,6 +85,7 @@ final class CognitoPartialSignOut extends CognitoSignOutResult {
     this.hostedUiException,
     this.globalSignOutException,
     this.revokeTokenException,
+    this.invalidTokenException,
   }) : super._();
 
   /// The exception that occurred during Hosted UI sign out.
@@ -95,6 +96,9 @@ final class CognitoPartialSignOut extends CognitoSignOutResult {
 
   /// The exception that occurred while revoking the token.
   final RevokeTokenException? revokeTokenException;
+
+  /// The exception that occurred while signing out with an invalid userpool token.
+  final InvalidTokenException? invalidTokenException;
 
   @override
   bool get signedOutLocally => true;
@@ -114,6 +118,21 @@ final class CognitoPartialSignOut extends CognitoSignOutResult {
     'revokeTokenException': revokeTokenException?.toString(),
     'signedOutLocally': signedOutLocally,
   };
+}
+/// {@template amplify_auth_cognito_dart.model.signout.hosted_ui_exception}
+/// Exception thrown trying to sign out with an invalid userpool token (one or more of the Id, Access, or Refresh Token).
+/// {@endtemplate}
+class InvalidTokenException extends AuthServiceException {
+  /// {@macro amplify_auth_cognito_dart.model.signout.invalid_token_exception}
+  const InvalidTokenException({
+    super.underlyingException,
+  }) : super(
+         'The provided user pool token is invalid',
+         recoverySuggestion: 'See underlyingException for more details',
+       );
+
+  @override
+  String get runtimeTypeName => 'InvalidTokenException';
 }
 
 /// {@template amplify_auth_cognito_dart.model.signout.hosted_ui_exception}
