@@ -43,7 +43,7 @@ jobs:
         run: git submodule update --init
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@cc97e1648fff6ca5cc647fa67f47e70f7895510b # 2.11.0
+        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
         with:
           cache: true
           channel: ${{ matrix.channel }}
@@ -96,7 +96,7 @@ jobs:
 
       - name: Archive golden failures
         if: "always() && inputs.has-goldens && steps.testJob.conclusion == 'failure'"
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # 4.6.0
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # 4.6.2
         with:
           name: golden-failures-${{ matrix.channel }}-${{ matrix.flutter-version }}
           path: ${{ inputs.working-directory }}/test/ui/failures/

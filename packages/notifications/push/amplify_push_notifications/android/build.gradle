@@ -2,7 +2,7 @@ group 'com.amazonaws.amplify.amplify_push_notifications'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '2.0.20'
+    ext.kotlin_version = '2.2.0'
     repositories {
         google()
         mavenCentral()
@@ -65,7 +65,7 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.2.0"
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
     api "com.google.firebase:firebase-messaging:24.1.2"
     // Import support library for Amplify push utils
     implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.29.1'
@@ -74,7 +74,7 @@ dependencies {
     implementation 'androidx.test:core-ktx:1.6.1'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'io.mockk:mockk:1.13.5'
+    testImplementation 'io.mockk:mockk:1.14.4'
     // slf4j is logging facade package used by mockk internally
     testImplementation 'org.slf4j:slf4j-nop:2.0.7'
     testImplementation 'org.robolectric:robolectric:4.15.1'
