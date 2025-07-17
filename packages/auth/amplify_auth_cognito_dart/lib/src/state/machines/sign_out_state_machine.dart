@@ -88,7 +88,7 @@ final class SignOutStateMachine
       await manager.clearCredentials();
       return emit(const SignOutState.success());
     } on Exception catch (e) {
-      // on any other exception, we should clear credentials and rethrow the exception
+      // unable to read tokens, clear the credentials to clear this invalid state.
       invalidTokenException = InvalidTokenException(underlyingException: e);
       await dispatchAndComplete(const CredentialStoreEvent.clearCredentials());
       return emit(
