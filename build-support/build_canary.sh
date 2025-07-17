@@ -25,7 +25,7 @@ cp $ROOT_DIR/build-support/dummy_amplifyconfiguration.dart lib/amplifyconfigurat
 
 # Android
 sed -i '' -e "s/id(\"com.android.application\") .*/id(\"com.android.application\") version \"8.3.0\" apply false/" ./android/settings.gradle.kts
-sed -i '' -e "s/id(\"org.jetbrains.kotlin.android\") .*/id(\"org.jetbrains.kotlin.android\") version \"2.0.20\" apply false/" ./android/settings.gradle.kts
+sed -i '' -e "s/id(\"org.jetbrains.kotlin.android\") .*/id(\"org.jetbrains.kotlin.android\") version \"2.2.0\" apply false/" ./android/settings.gradle.kts
 cat ./android/settings.gradle.kts
 
 # TODO(khatruong2009): remove this line after the next stable release (3.22.0 or 4.0)
@@ -45,7 +45,7 @@ sed -i '' -e "s/targetCompatibility = .*/targetCompatibility = JavaVersion.VERSI
 sed -i '' -e "s/jvmTarget = .*/jvmTarget = JavaVersion.VERSION_17.toString()/" ./android/app/build.gradle.kts
 
 sed -i '' -e "s/compileOptions {.*/compileOptions {\n\t\tisCoreLibraryDesugaringEnabled = true/" ./android/app/build.gradle.kts
-sed -i '' -e "s/flutter {.*/dependencies {\n\tcoreLibraryDesugaring(\"com.android.tools:desugar_jdk_libs:2.0.3\")\n}\n\nflutter {/" ./android/app/build.gradle.kts
+sed -i '' -e "s/flutter {.*/dependencies {\n\tcoreLibraryDesugaring(\"com.android.tools:desugar_jdk_libs:2.1.5\")\n}\n\nflutter {/" ./android/app/build.gradle.kts
 cat ./android/app/build.gradle.kts
 
 sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
