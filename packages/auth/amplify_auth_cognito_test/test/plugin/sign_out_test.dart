@@ -10,6 +10,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_auth_cognito_test/common/jwt.dart';
 import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_hosted_ui.dart';
@@ -239,6 +240,57 @@ void main() {
                       'refreshToken',
                       refreshToken,
                     ),
+                  ),
+            ),
+          );
+          expect(
+            plugin.stateMachine.getUserPoolTokens(),
+            throwsSignedOutException,
+          );
+          expect(hubEvents, emitsSignOutEvent);
+        },
+      );
+      test(
+        'clears credential store when signed in & token is invalid',
+        () async {
+          seedStorage(
+            secureStorage,
+            userPoolKeys: userPoolKeys,
+            identityPoolKeys: identityPoolKeys,
+          );
+          final expiredIdToken = createJwt(
+            type: TokenType.id,
+            expiration: Duration.zero,
+          );
+          // Write an expired ID token to the secure storage
+          secureStorage.write(
+            key: userPoolKeys[CognitoUserPoolKey.idToken],
+            value: expiredIdToken.raw,
+          );
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
+
+          final mockIdp = MockCognitoIdentityProviderClient(
+            initiateAuth: (p0) async =>
+                throw InternalErrorException(message: 'Invalid token'),
+          );
+          stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
+
+          await expectLater(
+            plugin.signOut(),
+            completion(
+              isA<CognitoPartialSignOut>()
+                  .having(
+                    (res) => res.signedOutLocally,
+                    'signedOutLocally',
+                    isTrue,
+                  )
+                  .having(
+                    (res) => res.invalidTokenException,
+                    'invalidTokenException',
+                    isA<InvalidTokenException>(),
                   ),
             ),
           );

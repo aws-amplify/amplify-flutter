@@ -70,6 +70,13 @@ final class SignOutStateMachine
     // Do not clear other storage items (e.g. AWS credentials) in this case,
     // since an unauthenticated user may still be cached.
     final CognitoUserPoolTokens tokens;
+
+    // Capture results of individual steps to determine overall success.
+    HostedUiException? hostedUiException;
+    GlobalSignOutException? globalSignOutException;
+    RevokeTokenException? revokeTokenException;
+    InvalidTokenException? invalidTokenException;
+
     try {
       tokens = await manager.getUserPoolTokens();
     } on SignedOutException {
@@ -80,12 +87,19 @@ final class SignOutStateMachine
       // to clear the credentials associated with the non-existent user.
       await manager.clearCredentials();
       return emit(const SignOutState.success());
+    } on Exception catch (e) {
+      // unable to read tokens, clear the credentials to clear this invalid state.
+      invalidTokenException = InvalidTokenException(underlyingException: e);
+      await dispatchAndComplete(const CredentialStoreEvent.clearCredentials());
+      return emit(
+        SignOutState.partialFailure(
+          hostedUiException: hostedUiException,
+          globalSignOutException: globalSignOutException,
+          revokeTokenException: revokeTokenException,
+          invalidTokenException: invalidTokenException,
+        ),
+      );
     }
-
-    // Capture results of individual steps to determine overall success.
-    HostedUiException? hostedUiException;
-    GlobalSignOutException? globalSignOutException;
-    RevokeTokenException? revokeTokenException;
 
     // Sign out via Hosted UI, if configured.
     Future<void> signOutHostedUi() async {
@@ -163,6 +177,7 @@ final class SignOutStateMachine
           hostedUiException: hostedUiException,
           globalSignOutException: globalSignOutException,
           revokeTokenException: revokeTokenException,
+          invalidTokenException: invalidTokenException,
         ),
       );
     }
@@ -177,6 +192,7 @@ final class SignOutStateMachine
           hostedUiException: hostedUiException,
           globalSignOutException: globalSignOutException,
           revokeTokenException: revokeTokenException,
+          invalidTokenException: invalidTokenException,
         ),
       );
     }
