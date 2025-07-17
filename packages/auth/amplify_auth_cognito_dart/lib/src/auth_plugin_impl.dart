@@ -1074,6 +1074,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
         hostedUiException: result.hostedUiException,
         globalSignOutException: result.globalSignOutException,
         revokeTokenException: result.revokeTokenException,
+        invalidTokenException: result.invalidTokenException,
       ),
       SignOutFailure(:final exception) => CognitoSignOutResult.failed(
         AuthException.fromException(exception),
