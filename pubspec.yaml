@@ -40,7 +40,7 @@ dependencies:
   package_info_plus: ^8.0.0
   pigeon: ^25.5.0
   sqlite3: ^2.7.6
-  source_gen: ^2.0.0
+  source_gen: ^3.0.0
   stack_trace: ^1.10.0
   uuid: ^4.5.1
   win32: ^5.14.0
