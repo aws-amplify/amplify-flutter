@@ -23,6 +23,8 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
   final UserContextDataType? userContextData;
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
+  @override
+  final String? session;
 
   factory _$ConfirmSignUpRequest([
     void Function(ConfirmSignUpRequestBuilder)? updates,
@@ -37,6 +39,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
     this.analyticsMetadata,
     this.userContextData,
     this.clientMetadata,
+    this.session,
   }) : super._();
   @override
   ConfirmSignUpRequest rebuild(
@@ -58,7 +61,8 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
         forceAliasCreation == other.forceAliasCreation &&
         analyticsMetadata == other.analyticsMetadata &&
         userContextData == other.userContextData &&
-        clientMetadata == other.clientMetadata;
+        clientMetadata == other.clientMetadata &&
+        session == other.session;
   }
 
   @override
@@ -72,6 +76,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
     _$hash = $jc(_$hash, analyticsMetadata.hashCode);
     _$hash = $jc(_$hash, userContextData.hashCode);
     _$hash = $jc(_$hash, clientMetadata.hashCode);
+    _$hash = $jc(_$hash, session.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -121,6 +126,10 @@ class ConfirmSignUpRequestBuilder
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
+  String? _session;
+  String? get session => _$this._session;
+  set session(String? session) => _$this._session = session;
+
   ConfirmSignUpRequestBuilder() {
     ConfirmSignUpRequest._init(this);
   }
@@ -136,6 +145,7 @@ class ConfirmSignUpRequestBuilder
       _analyticsMetadata = $v.analyticsMetadata?.toBuilder();
       _userContextData = $v.userContextData?.toBuilder();
       _clientMetadata = $v.clientMetadata?.toBuilder();
+      _session = $v.session;
       _$v = null;
     }
     return this;
@@ -184,6 +194,7 @@ class ConfirmSignUpRequestBuilder
             analyticsMetadata: _analyticsMetadata?.build(),
             userContextData: _userContextData?.build(),
             clientMetadata: _clientMetadata?.build(),
+            session: session,
           );
     } catch (_) {
       late String _$failedField;

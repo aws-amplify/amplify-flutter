@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.confirm_forgot_password_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,7 +31,7 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-/// Allows a user to enter a confirmation code to reset a forgotten password.
+/// This public API operation accepts a confirmation code that Amazon Cognito sent to a user and accepts a new password for that user.
 ///
 /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class ConfirmForgotPasswordOperation
@@ -42,7 +42,7 @@ class ConfirmForgotPasswordOperation
           ConfirmForgotPasswordResponse,
           ConfirmForgotPasswordResponse
         > {
-  /// Allows a user to enter a confirmation code to reset a forgotten password.
+  /// This public API operation accepts a confirmation code that Amazon Cognito sent to a user and accepts a new password for that user.
   ///
   /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   ConfirmForgotPasswordOperation({

@@ -13,6 +13,8 @@ class _$SignUpResponse extends SignUpResponse {
   final CodeDeliveryDetailsType? codeDeliveryDetails;
   @override
   final String userSub;
+  @override
+  final String? session;
 
   factory _$SignUpResponse([void Function(SignUpResponseBuilder)? updates]) =>
       (SignUpResponseBuilder()..update(updates))._build();
@@ -21,6 +23,7 @@ class _$SignUpResponse extends SignUpResponse {
     required this.userConfirmed,
     this.codeDeliveryDetails,
     required this.userSub,
+    this.session,
   }) : super._();
   @override
   SignUpResponse rebuild(void Function(SignUpResponseBuilder) updates) =>
@@ -35,7 +38,8 @@ class _$SignUpResponse extends SignUpResponse {
     return other is SignUpResponse &&
         userConfirmed == other.userConfirmed &&
         codeDeliveryDetails == other.codeDeliveryDetails &&
-        userSub == other.userSub;
+        userSub == other.userSub &&
+        session == other.session;
   }
 
   @override
@@ -44,6 +48,7 @@ class _$SignUpResponse extends SignUpResponse {
     _$hash = $jc(_$hash, userConfirmed.hashCode);
     _$hash = $jc(_$hash, codeDeliveryDetails.hashCode);
     _$hash = $jc(_$hash, userSub.hashCode);
+    _$hash = $jc(_$hash, session.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -69,6 +74,10 @@ class SignUpResponseBuilder
   String? get userSub => _$this._userSub;
   set userSub(String? userSub) => _$this._userSub = userSub;
 
+  String? _session;
+  String? get session => _$this._session;
+  set session(String? session) => _$this._session = session;
+
   SignUpResponseBuilder() {
     SignUpResponse._init(this);
   }
@@ -79,6 +88,7 @@ class SignUpResponseBuilder
       _userConfirmed = $v.userConfirmed;
       _codeDeliveryDetails = $v.codeDeliveryDetails?.toBuilder();
       _userSub = $v.userSub;
+      _session = $v.session;
       _$v = null;
     }
     return this;
@@ -114,6 +124,7 @@ class SignUpResponseBuilder
               r'SignUpResponse',
               'userSub',
             ),
+            session: session,
           );
     } catch (_) {
       late String _$failedField;

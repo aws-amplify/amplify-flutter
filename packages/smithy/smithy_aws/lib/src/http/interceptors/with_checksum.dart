@@ -63,7 +63,8 @@ class WithChecksum extends HttpRequestInterceptor {
     'CRC32C' ||
     'CRC32' ||
     'SHA1' ||
-    'SHA256' => 'x-amz-checksum-${_algorithm.toLowerCase()}',
+    'SHA256' ||
+    'CRC64NVME' => 'x-amz-checksum-${_algorithm.toLowerCase()}',
     'MD5' || _ => 'Content-MD5',
   };
 
@@ -74,6 +75,7 @@ class WithChecksum extends HttpRequestInterceptor {
     'CRC32' => Crc32().fuse(const _CrcValueToHeaderConverter()),
     'SHA1' => sha1.fuse(const _DigestToHeaderConverter()),
     'SHA256' => sha256.fuse(const _DigestToHeaderConverter()),
+    'CRC64NVME' => Crc64Nvme().fuse(const _CrcValueToHeaderConverter()),
     'MD5' || _ => md5.fuse(const _DigestToHeaderConverter()),
   };
 
@@ -88,4 +90,19 @@ class WithChecksum extends HttpRequestInterceptor {
     request.headers[_header] = digest;
     return request;
   }
+}
+
+// Parameters are defined here
+// https://reveng.sourceforge.io/crc-catalogue/all.htm#crc.cat.crc-64-nvme
+// https://nvmexpress.org/wp-content/uploads/NVM-Express-NVM-Command-Set-Specification-1.0d-2023.12.28-Ratified.pdf
+class Crc64Nvme extends ParametricCrc {
+  Crc64Nvme()
+    : super(
+        64,
+        BigInt.parse('ad93d23594c93659', radix: 16),
+        BigInt.parse('ffffffffffffffff', radix: 16),
+        BigInt.parse('ffffffffffffffff', radix: 16),
+        inputReflected: true,
+        outputReflected: true,
+      );
 }

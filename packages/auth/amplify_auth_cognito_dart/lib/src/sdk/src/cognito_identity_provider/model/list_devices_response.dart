@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.list_devices_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,7 +44,7 @@ abstract class ListDevicesResponse
     ListDevicesResponseAwsJson11Serializer(),
   ];
 
-  /// The devices returned in the list devices response.
+  /// An array of devices and their details. Each entry that's returned includes device information, last-accessed and created dates, and the device key.
   _i2.BuiltList<DeviceType>? get devices;
 
   /// The identifier that Amazon Cognito returned with the previous request to this operation. When you include a pagination token in your request, Amazon Cognito returns the next set of items in the list. By use of this token, you can paginate through the full list of items.

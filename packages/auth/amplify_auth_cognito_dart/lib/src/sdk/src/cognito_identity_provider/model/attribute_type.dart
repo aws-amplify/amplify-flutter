@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.attribute_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,16 +10,16 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'attribute_type.g.dart';
 
-/// Specifies whether the attribute is standard or custom.
+/// The name and value of a user attribute.
 abstract class AttributeType
     with _i1.AWSEquatable<AttributeType>
     implements Built<AttributeType, AttributeTypeBuilder> {
-  /// Specifies whether the attribute is standard or custom.
+  /// The name and value of a user attribute.
   factory AttributeType({required String name, String? value}) {
     return _$AttributeType._(name: name, value: value);
   }
 
-  /// Specifies whether the attribute is standard or custom.
+  /// The name and value of a user attribute.
   factory AttributeType.build([void Function(AttributeTypeBuilder) updates]) =
       _$AttributeType;
 

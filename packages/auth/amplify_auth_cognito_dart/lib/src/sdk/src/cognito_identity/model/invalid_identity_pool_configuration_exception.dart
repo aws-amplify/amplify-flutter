@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity.model.invalid_identity_pool_configuration_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,7 +10,9 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_identity_pool_configuration_exception.g.dart';
 
-/// Thrown if the identity pool has no role associated for the given auth type (auth/unauth) or if the AssumeRole fails.
+/// If you provided authentication information in the request, the identity pool has no authenticated role configured, or STS returned an error response to the request to assume the authenticated role from the identity pool. If you provided no authentication information in the request, the identity pool has no unauthenticated role configured, or STS returned an error response to the request to assume the unauthenticated role from the identity pool.
+///
+/// Your role trust policy must grant `AssumeRoleWithWebIdentity` permissions to `cognito-identity.amazonaws.com`.
 abstract class InvalidIdentityPoolConfigurationException
     with _i1.AWSEquatable<InvalidIdentityPoolConfigurationException>
     implements
@@ -19,12 +21,16 @@ abstract class InvalidIdentityPoolConfigurationException
           InvalidIdentityPoolConfigurationExceptionBuilder
         >,
         _i2.SmithyHttpException {
-  /// Thrown if the identity pool has no role associated for the given auth type (auth/unauth) or if the AssumeRole fails.
+  /// If you provided authentication information in the request, the identity pool has no authenticated role configured, or STS returned an error response to the request to assume the authenticated role from the identity pool. If you provided no authentication information in the request, the identity pool has no unauthenticated role configured, or STS returned an error response to the request to assume the unauthenticated role from the identity pool.
+  ///
+  /// Your role trust policy must grant `AssumeRoleWithWebIdentity` permissions to `cognito-identity.amazonaws.com`.
   factory InvalidIdentityPoolConfigurationException({String? message}) {
     return _$InvalidIdentityPoolConfigurationException._(message: message);
   }
 
-  /// Thrown if the identity pool has no role associated for the given auth type (auth/unauth) or if the AssumeRole fails.
+  /// If you provided authentication information in the request, the identity pool has no authenticated role configured, or STS returned an error response to the request to assume the authenticated role from the identity pool. If you provided no authentication information in the request, the identity pool has no unauthenticated role configured, or STS returned an error response to the request to assume the unauthenticated role from the identity pool.
+  ///
+  /// Your role trust policy must grant `AssumeRoleWithWebIdentity` permissions to `cognito-identity.amazonaws.com`.
   factory InvalidIdentityPoolConfigurationException.build([
     void Function(InvalidIdentityPoolConfigurationExceptionBuilder) updates,
   ]) = _$InvalidIdentityPoolConfigurationException;

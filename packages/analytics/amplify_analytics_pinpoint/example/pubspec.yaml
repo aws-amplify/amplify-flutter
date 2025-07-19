@@ -32,7 +32,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   json_annotation: ^4.9.0
-  json_serializable: ^6.9.4
+  json_serializable: ">=6.9.4 <6.10.0"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

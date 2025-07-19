@@ -19,6 +19,8 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
   final AnalyticsMetadataType? analyticsMetadata;
   @override
   final UserContextDataType? userContextData;
+  @override
+  final String? session;
 
   factory _$InitiateAuthRequest([
     void Function(InitiateAuthRequestBuilder)? updates,
@@ -31,6 +33,7 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
     required this.clientId,
     this.analyticsMetadata,
     this.userContextData,
+    this.session,
   }) : super._();
   @override
   InitiateAuthRequest rebuild(
@@ -50,7 +53,8 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
         clientMetadata == other.clientMetadata &&
         clientId == other.clientId &&
         analyticsMetadata == other.analyticsMetadata &&
-        userContextData == other.userContextData;
+        userContextData == other.userContextData &&
+        session == other.session;
   }
 
   @override
@@ -62,6 +66,7 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
     _$hash = $jc(_$hash, clientId.hashCode);
     _$hash = $jc(_$hash, analyticsMetadata.hashCode);
     _$hash = $jc(_$hash, userContextData.hashCode);
+    _$hash = $jc(_$hash, session.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -103,6 +108,10 @@ class InitiateAuthRequestBuilder
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
+  String? _session;
+  String? get session => _$this._session;
+  set session(String? session) => _$this._session = session;
+
   InitiateAuthRequestBuilder();
 
   InitiateAuthRequestBuilder get _$this {
@@ -114,6 +123,7 @@ class InitiateAuthRequestBuilder
       _clientId = $v.clientId;
       _analyticsMetadata = $v.analyticsMetadata?.toBuilder();
       _userContextData = $v.userContextData?.toBuilder();
+      _session = $v.session;
       _$v = null;
     }
     return this;
@@ -152,6 +162,7 @@ class InitiateAuthRequestBuilder
             ),
             analyticsMetadata: _analyticsMetadata?.build(),
             userContextData: _userContextData?.build(),
+            session: session,
           );
     } catch (_) {
       late String _$failedField;

@@ -309,7 +309,10 @@ Future<void> signOutUser({bool assertComplete = false}) async {
     ):
       _logger.error(
         'Error signing out:',
-        hostedUiException ?? globalSignOutException ?? revokeTokenException ?? invalidTokenException,
+        hostedUiException ??
+            globalSignOutException ??
+            revokeTokenException ??
+            invalidTokenException,
       );
     case CognitoFailedSignOut(:final exception):
       _logger.error('Error signing out:', exception);

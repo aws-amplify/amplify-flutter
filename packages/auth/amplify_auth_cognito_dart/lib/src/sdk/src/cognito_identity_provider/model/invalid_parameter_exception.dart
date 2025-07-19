@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_parameter_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,8 +17,11 @@ abstract class InvalidParameterException
         Built<InvalidParameterException, InvalidParameterExceptionBuilder>,
         _i2.SmithyHttpException {
   /// This exception is thrown when the Amazon Cognito service encounters an invalid parameter.
-  factory InvalidParameterException({String? message}) {
-    return _$InvalidParameterException._(message: message);
+  factory InvalidParameterException({String? message, String? reasonCode}) {
+    return _$InvalidParameterException._(
+      message: message,
+      reasonCode: reasonCode,
+    );
   }
 
   /// This exception is thrown when the Amazon Cognito service encounters an invalid parameter.
@@ -42,6 +45,9 @@ abstract class InvalidParameterException
   /// The message returned when the Amazon Cognito service throws an invalid parameter exception.
   @override
   String? get message;
+
+  /// The reason code of the exception.
+  String? get reasonCode;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
     namespace: 'com.amazonaws.cognitoidentityprovider',
@@ -62,12 +68,13 @@ abstract class InvalidParameterException
   Exception? get underlyingException => null;
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, reasonCode];
 
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InvalidParameterException')
-      ..add('message', message);
+      ..add('message', message)
+      ..add('reasonCode', reasonCode);
     return helper.toString();
   }
 }
@@ -111,6 +118,13 @@ class InvalidParameterExceptionAwsJson11Serializer
                     specifiedType: const FullType(String),
                   )
                   as String);
+        case 'reasonCode':
+          result.reasonCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -124,12 +138,22 @@ class InvalidParameterExceptionAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final InvalidParameterException(:message) = object;
+    final InvalidParameterException(:message, :reasonCode) = object;
     if (message != null) {
       result$
         ..add('message')
         ..add(
           serializers.serialize(message, specifiedType: const FullType(String)),
+        );
+    }
+    if (reasonCode != null) {
+      result$
+        ..add('reasonCode')
+        ..add(
+          serializers.serialize(
+            reasonCode,
+            specifiedType: const FullType(String),
+          ),
         );
     }
     return result$;

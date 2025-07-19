@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.get_user_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,7 +23,7 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-/// Gets the user attributes and metadata for a user.
+/// Gets user attributes and and MFA settings for the currently signed-in user.
 ///
 /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
 ///
@@ -36,7 +36,7 @@ class GetUserOperation
           GetUserResponse,
           GetUserResponse
         > {
-  /// Gets the user attributes and metadata for a user.
+  /// Gets user attributes and and MFA settings for the currently signed-in user.
   ///
   /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
   ///

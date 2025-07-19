@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,7 +35,7 @@ abstract class GetUserRequest
     GetUserRequestAwsJson11Serializer(),
   ];
 
-  /// A non-expired access token for the user whose information you want to query.
+  /// A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for `aws.cognito.signin.user.admin`.
   String get accessToken;
   @override
   GetUserRequest getPayload() => this;

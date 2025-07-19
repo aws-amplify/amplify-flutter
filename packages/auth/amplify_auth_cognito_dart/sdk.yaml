@@ -23,6 +23,7 @@ apis:
     - UpdateUserAttributes
     - VerifySoftwareToken
     - VerifyUserAttribute
+    - GetTokensFromRefreshToken
   com.amazonaws.cognitoidentity:
     - GetCredentialsForIdentity
     - GetId

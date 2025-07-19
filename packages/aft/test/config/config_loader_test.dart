@@ -20,7 +20,7 @@ environment:
   sdk: ^3.8.0
 
 dependencies:
-  json_serializable: ^6.9.4
+  json_serializable: ">=6.9.4 <6.10.0"
 ''';
       await d.dir('repo', [d.file('pubspec.yaml', rootPubspec)]).create();
 
@@ -53,7 +53,7 @@ environment:
   sdk: ^3.8.0
 
 dependencies:
-  json_serializable: ^6.9.4
+  json_serializable: ">=6.9.4 <6.10.0"
 
 aft:
   scripts:
@@ -72,7 +72,7 @@ environment:
 
 dependencies:
   built_value: ^8.10.1
-  json_serializable: ^6.9.4
+  json_serializable: ">=6.9.4 <6.10.0"
 
 aft:
   scripts:

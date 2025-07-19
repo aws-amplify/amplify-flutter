@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_user_attribute_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,13 +46,13 @@ abstract class VerifyUserAttributeRequest
   static const List<_i1.SmithySerializer<VerifyUserAttributeRequest>>
   serializers = [VerifyUserAttributeRequestAwsJson11Serializer()];
 
-  /// A valid access token that Amazon Cognito issued to the user whose user attributes you want to verify.
+  /// A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for `aws.cognito.signin.user.admin`.
   String get accessToken;
 
-  /// The attribute name in the request to verify user attributes.
+  /// The name of the attribute that you want to verify.
   String get attributeName;
 
-  /// The verification code in the request to verify user attributes.
+  /// The verification code that your user pool sent to the added or changed attribute, for example the user's email address.
   String get code;
   @override
   VerifyUserAttributeRequest getPayload() => this;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,18 +53,18 @@ abstract class GetUserResponse
     GetUserResponseAwsJson11Serializer(),
   ];
 
-  /// The username of the user that you requested.
+  /// The name of the user that you requested.
   String get username;
 
   /// An array of name-value pairs representing user attributes.
   ///
-  /// For custom attributes, you must prepend the `custom:` prefix to the attribute name.
+  /// Custom attributes are prepended with the `custom:` prefix.
   _i2.BuiltList<AttributeType> get userAttributes;
 
   /// _This response parameter is no longer supported._ It provides information only about SMS MFA configurations. It doesn't provide information about time-based one-time password (TOTP) software token MFA configurations. To look up information about either type of MFA configuration, use UserMFASettingList instead.
   _i2.BuiltList<MfaOptionType>? get mfaOptions;
 
-  /// The user's preferred MFA setting.
+  /// The user's preferred MFA. Users can prefer SMS message, email message, or TOTP MFA.
   String? get preferredMfaSetting;
 
   /// The MFA options that are activated for the user. The possible values in this list are `SMS_MFA`, `EMAIL_OTP`, and `SOFTWARE\_TOKEN\_MFA`.

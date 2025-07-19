@@ -35,4 +35,5 @@ const _$ChecksumAlgorithmEnumMap = {
   ChecksumAlgorithm.sha1: 'SHA1',
   ChecksumAlgorithm.sha256: 'SHA256',
   ChecksumAlgorithm.md5: 'MD5',
+  ChecksumAlgorithm.crc64nvme: 'CRC64NVME',
 };

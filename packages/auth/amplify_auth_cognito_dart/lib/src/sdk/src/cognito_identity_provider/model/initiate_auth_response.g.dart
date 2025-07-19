@@ -15,6 +15,8 @@ class _$InitiateAuthResponse extends InitiateAuthResponse {
   final _i2.BuiltMap<String, String?>? challengeParameters;
   @override
   final AuthenticationResultType? authenticationResult;
+  @override
+  final _i2.BuiltList<ChallengeNameType>? availableChallenges;
 
   factory _$InitiateAuthResponse([
     void Function(InitiateAuthResponseBuilder)? updates,
@@ -25,6 +27,7 @@ class _$InitiateAuthResponse extends InitiateAuthResponse {
     this.session,
     this.challengeParameters,
     this.authenticationResult,
+    this.availableChallenges,
   }) : super._();
   @override
   InitiateAuthResponse rebuild(
@@ -42,7 +45,8 @@ class _$InitiateAuthResponse extends InitiateAuthResponse {
         challengeName == other.challengeName &&
         session == other.session &&
         challengeParameters == other.challengeParameters &&
-        authenticationResult == other.authenticationResult;
+        authenticationResult == other.authenticationResult &&
+        availableChallenges == other.availableChallenges;
   }
 
   @override
@@ -52,6 +56,7 @@ class _$InitiateAuthResponse extends InitiateAuthResponse {
     _$hash = $jc(_$hash, session.hashCode);
     _$hash = $jc(_$hash, challengeParameters.hashCode);
     _$hash = $jc(_$hash, authenticationResult.hashCode);
+    _$hash = $jc(_$hash, availableChallenges.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -84,6 +89,13 @@ class InitiateAuthResponseBuilder
     AuthenticationResultTypeBuilder? authenticationResult,
   ) => _$this._authenticationResult = authenticationResult;
 
+  _i2.ListBuilder<ChallengeNameType>? _availableChallenges;
+  _i2.ListBuilder<ChallengeNameType> get availableChallenges =>
+      _$this._availableChallenges ??= _i2.ListBuilder<ChallengeNameType>();
+  set availableChallenges(
+    _i2.ListBuilder<ChallengeNameType>? availableChallenges,
+  ) => _$this._availableChallenges = availableChallenges;
+
   InitiateAuthResponseBuilder();
 
   InitiateAuthResponseBuilder get _$this {
@@ -93,6 +105,7 @@ class InitiateAuthResponseBuilder
       _session = $v.session;
       _challengeParameters = $v.challengeParameters?.toBuilder();
       _authenticationResult = $v.authenticationResult?.toBuilder();
+      _availableChallenges = $v.availableChallenges?.toBuilder();
       _$v = null;
     }
     return this;
@@ -121,6 +134,7 @@ class InitiateAuthResponseBuilder
             session: session,
             challengeParameters: _challengeParameters?.build(),
             authenticationResult: _authenticationResult?.build(),
+            availableChallenges: _availableChallenges?.build(),
           );
     } catch (_) {
       late String _$failedField;
@@ -129,6 +143,8 @@ class InitiateAuthResponseBuilder
         _challengeParameters?.build();
         _$failedField = 'authenticationResult';
         _authenticationResult?.build();
+        _$failedField = 'availableChallenges';
+        _availableChallenges?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'InitiateAuthResponse',

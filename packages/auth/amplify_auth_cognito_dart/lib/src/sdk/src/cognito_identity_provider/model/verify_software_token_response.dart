@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_software_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,10 +37,10 @@ abstract class VerifySoftwareTokenResponse
   static const List<_i2.SmithySerializer<VerifySoftwareTokenResponse>>
   serializers = [VerifySoftwareTokenResponseAwsJson11Serializer()];
 
-  /// The status of the verify software token.
+  /// Amazon Cognito can accept or reject the code that you provide. This response parameter indicates the success of TOTP verification. Some reasons that this operation might return an error are clock skew on the user's device and excessive retries.
   VerifySoftwareTokenResponseType? get status;
 
-  /// The session that should be passed both ways in challenge-response calls to the service.
+  /// This session ID satisfies an `MFA_SETUP` challenge. Supply the session ID in your challenge response.
   String? get session;
   @override
   List<Object?> get props => [status, session];

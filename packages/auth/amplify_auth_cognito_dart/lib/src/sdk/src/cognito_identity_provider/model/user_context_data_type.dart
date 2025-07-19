@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.user_context_data_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,11 +10,11 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'user_context_data_type.g.dart';
 
-/// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+/// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito threat protection.
 abstract class UserContextDataType
     with _i1.AWSEquatable<UserContextDataType>
     implements Built<UserContextDataType, UserContextDataTypeBuilder> {
-  /// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  /// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito threat protection.
   factory UserContextDataType({String? ipAddress, String? encodedData}) {
     return _$UserContextDataType._(
       ipAddress: ipAddress,
@@ -22,7 +22,7 @@ abstract class UserContextDataType
     );
   }
 
-  /// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  /// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito threat protection.
   factory UserContextDataType.build([
     void Function(UserContextDataTypeBuilder) updates,
   ]) = _$UserContextDataType;
