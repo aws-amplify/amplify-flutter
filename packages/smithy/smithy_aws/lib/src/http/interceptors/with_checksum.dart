@@ -97,11 +97,12 @@ class WithChecksum extends HttpRequestInterceptor {
 // https://nvmexpress.org/wp-content/uploads/NVM-Express-NVM-Command-Set-Specification-1.0d-2023.12.28-Ratified.pdf
 class Crc64Nvme extends ParametricCrc {
   Crc64Nvme()
-      : super(
-          64,
-          BigInt.parse('ad93d23594c93659', radix: 16),
-          BigInt.parse('ffffffffffffffff', radix: 16),
-          BigInt.parse('ffffffffffffffff', radix: 16),
-          inputReflected: true,
-          outputReflected: true);
-  }
+    : super(
+        64,
+        BigInt.parse('ad93d23594c93659', radix: 16),
+        BigInt.parse('ffffffffffffffff', radix: 16),
+        BigInt.parse('ffffffffffffffff', radix: 16),
+        inputReflected: true,
+        outputReflected: true,
+      );
+}
