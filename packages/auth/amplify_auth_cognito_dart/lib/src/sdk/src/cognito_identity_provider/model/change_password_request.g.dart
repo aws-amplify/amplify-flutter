@@ -8,7 +8,7 @@ part of 'change_password_request.dart';
 
 class _$ChangePasswordRequest extends ChangePasswordRequest {
   @override
-  final String previousPassword;
+  final String? previousPassword;
   @override
   final String proposedPassword;
   @override
@@ -19,7 +19,7 @@ class _$ChangePasswordRequest extends ChangePasswordRequest {
   ]) => (ChangePasswordRequestBuilder()..update(updates))._build();
 
   _$ChangePasswordRequest._({
-    required this.previousPassword,
+    this.previousPassword,
     required this.proposedPassword,
     required this.accessToken,
   }) : super._();
@@ -100,11 +100,7 @@ class ChangePasswordRequestBuilder
     final _$result =
         _$v ??
         _$ChangePasswordRequest._(
-          previousPassword: BuiltValueNullFieldError.checkNotNull(
-            previousPassword,
-            r'ChangePasswordRequest',
-            'previousPassword',
-          ),
+          previousPassword: previousPassword,
           proposedPassword: BuiltValueNullFieldError.checkNotNull(
             proposedPassword,
             r'ChangePasswordRequest',

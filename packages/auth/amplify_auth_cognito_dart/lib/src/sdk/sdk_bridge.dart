@@ -746,6 +746,30 @@ class WrappedCognitoIdentityProviderClient
       responseProgress: operation.responseProgress,
     );
   }
+
+  @override
+  SmithyOperation<GetTokensFromRefreshTokenResponse> getTokensFromRefreshToken(
+    GetTokensFromRefreshTokenRequest input, {
+    AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
+  }) {
+    final operation = _base.getTokensFromRefreshToken(
+      input,
+      client: client ?? _dependencyManager.getOrCreate<AmplifyHttpClient>(),
+      credentialsProvider: credentialsProvider,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
+  }
 }
 
 /// Get/set helpers for MFA settings.
