@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.list_devices_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,10 +44,10 @@ abstract class ListDevicesRequest
     ListDevicesRequestAwsJson11Serializer(),
   ];
 
-  /// A valid access token that Amazon Cognito issued to the user whose list of devices you want to view.
+  /// A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for `aws.cognito.signin.user.admin`.
   String get accessToken;
 
-  /// The limit of the device request.
+  /// The maximum number of devices that you want Amazon Cognito to return in the response.
   int? get limit;
 
   /// This API operation returns a limited number of results. The pagination token is an identifier that you can present in an additional API request with the same parameters. When you include the pagination token, Amazon Cognito returns the next set of items after the current list. Subsequent requests return a new pagination token. By use of this token, you can paginate through the full list of items.

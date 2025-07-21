@@ -22,6 +22,9 @@ enum ChecksumAlgorithm {
 
   @JsonValue('MD5')
   md5,
+
+  @JsonValue('CRC64NVME')
+  crc64nvme,
 }
 
 @ShapeIdConverter()

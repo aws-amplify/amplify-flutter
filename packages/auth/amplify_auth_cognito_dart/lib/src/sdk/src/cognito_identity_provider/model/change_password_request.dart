@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.change_password_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,7 +18,7 @@ abstract class ChangePasswordRequest
     implements Built<ChangePasswordRequest, ChangePasswordRequestBuilder> {
   /// Represents the request to change a user password.
   factory ChangePasswordRequest({
-    required String previousPassword,
+    String? previousPassword,
     required String proposedPassword,
     required String accessToken,
   }) {
@@ -46,10 +46,10 @@ abstract class ChangePasswordRequest
     ChangePasswordRequestAwsJson11Serializer(),
   ];
 
-  /// The old password.
-  String get previousPassword;
+  /// The user's previous password. Required if the user has a password. If the user has no password and only signs in with passwordless authentication options, you can omit this parameter.
+  String? get previousPassword;
 
-  /// The new password.
+  /// A new password that you prompted the user to enter in your application.
   String get proposedPassword;
 
   /// A valid access token that Amazon Cognito issued to the user whose password you want to change.
@@ -142,11 +142,6 @@ class ChangePasswordRequestAwsJson11Serializer
       :accessToken,
     ) = object;
     result$.addAll([
-      'PreviousPassword',
-      serializers.serialize(
-        previousPassword,
-        specifiedType: const FullType(String),
-      ),
       'ProposedPassword',
       serializers.serialize(
         proposedPassword,
@@ -155,6 +150,16 @@ class ChangePasswordRequestAwsJson11Serializer
       'AccessToken',
       serializers.serialize(accessToken, specifiedType: const FullType(String)),
     ]);
+    if (previousPassword != null) {
+      result$
+        ..add('PreviousPassword')
+        ..add(
+          serializers.serialize(
+            previousPassword,
+            specifiedType: const FullType(String),
+          ),
+        );
+    }
     return result$;
   }
 }
