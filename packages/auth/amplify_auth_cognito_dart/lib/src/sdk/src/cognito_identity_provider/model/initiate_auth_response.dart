@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,6 +23,7 @@ abstract class InitiateAuthResponse
     String? session,
     Map<String, String?>? challengeParameters,
     AuthenticationResultType? authenticationResult,
+    List<ChallengeNameType>? availableChallenges,
   }) {
     return _$InitiateAuthResponse._(
       challengeName: challengeName,
@@ -31,6 +32,9 @@ abstract class InitiateAuthResponse
           ? null
           : _i2.BuiltMap(challengeParameters),
       authenticationResult: authenticationResult,
+      availableChallenges: availableChallenges == null
+          ? null
+          : _i2.BuiltList(availableChallenges),
     );
   }
 
@@ -51,51 +55,65 @@ abstract class InitiateAuthResponse
     InitiateAuthResponseAwsJson11Serializer(),
   ];
 
-  /// The name of the challenge that you're responding to with this call. This name is returned in the `InitiateAuth` response if you must pass another challenge.
+  /// The name of an additional authentication challenge that you must respond to.
   ///
-  /// Valid values include the following:
+  /// Possible challenges include the following:
   ///
-  /// All of the following challenges require `USERNAME` and `SECRET_HASH` (if applicable) in the parameters.
+  /// All of the following challenges require `USERNAME` and, when the app client has a client secret, `SECRET_HASH` in the parameters.
   ///
-  /// *   `SMS_MFA`: Next challenge is to supply an `SMS\_MFA\_CODE`that your user pool delivered in an SMS message.
+  /// *   `WEB_AUTHN`: Respond to the challenge with the results of a successful authentication with a WebAuthn authenticator, or passkey. Examples of WebAuthn authenticators include biometric devices and security keys.
   ///
-  /// *   `EMAIL_OTP`: Next challenge is to supply an `EMAIL\_OTP\_CODE` that your user pool delivered in an email message.
+  /// *   `PASSWORD`: Respond with `USER\_PASSWORD\_AUTH` parameters: `USERNAME` (required), `PASSWORD` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
   ///
-  /// *   `PASSWORD_VERIFIER`: Next challenge is to supply `PASSWORD\_CLAIM\_SIGNATURE`, `PASSWORD\_CLAIM\_SECRET_BLOCK`, and `TIMESTAMP` after the client-side SRP calculations.
+  /// *   `PASSWORD_SRP`: Respond with `USER\_SRP\_AUTH` parameters: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
   ///
-  /// *   `CUSTOM_CHALLENGE`: This is returned if your custom authentication flow determines that the user should pass another challenge before tokens are issued.
+  /// *   `SELECT_CHALLENGE`: Respond to the challenge with `USERNAME` and an `ANSWER` that matches one of the challenge types in the `AvailableChallenges` response parameter.
   ///
-  /// *   `DEVICE\_SRP\_AUTH`: If device tracking was activated on your user pool and the previous challenges were passed, this challenge is returned so that Amazon Cognito can start tracking this device.
+  /// *   `SMS_MFA`: Respond with an `SMS\_MFA\_CODE` that your user pool delivered in an SMS message.
   ///
-  /// *   `DEVICE\_PASSWORD\_VERIFIER`: Similar to `PASSWORD_VERIFIER`, but for devices only.
+  /// *   `EMAIL_OTP`: Respond with an `EMAIL\_OTP\_CODE` that your user pool delivered in an email message.
   ///
-  /// *   `NEW\_PASSWORD\_REQUIRED`: For users who are required to change their passwords after successful first login.
+  /// *   `PASSWORD_VERIFIER`: Respond with `PASSWORD\_CLAIM\_SIGNATURE`, `PASSWORD\_CLAIM\_SECRET_BLOCK`, and `TIMESTAMP` after client-side SRP calculations.
   ///
-  ///     Respond to this challenge with `NEW_PASSWORD` and any required attributes that Amazon Cognito returned in the `requiredAttributes` parameter. You can also set values for attributes that aren't required by your user pool and that your app client can write. For more information, see [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html).
+  /// *   `CUSTOM_CHALLENGE`: This is returned if your custom authentication flow determines that the user should pass another challenge before tokens are issued. The parameters of the challenge are determined by your Lambda function.
   ///
-  ///     In a `NEW\_PASSWORD\_REQUIRED` challenge response, you can't modify a required attribute that already has a value. In `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the `requiredAttributes` parameter, then use the `UpdateUserAttributes` API operation to modify the value of any additional attributes.
+  /// *   `DEVICE\_SRP\_AUTH`: Respond with the initial parameters of device SRP authentication. For more information, see [Signing in with a device](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-signing-in-with-a-device).
+  ///
+  /// *   `DEVICE\_PASSWORD\_VERIFIER`: Respond with `PASSWORD\_CLAIM\_SIGNATURE`, `PASSWORD\_CLAIM\_SECRET_BLOCK`, and `TIMESTAMP` after client-side SRP calculations. For more information, see [Signing in with a device](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-signing-in-with-a-device).
+  ///
+  /// *   `NEW\_PASSWORD\_REQUIRED`: For users who are required to change their passwords after successful first login. Respond to this challenge with `NEW_PASSWORD` and any required attributes that Amazon Cognito returned in the `requiredAttributes` parameter. You can also set values for attributes that aren't required by your user pool and that your app client can write.
+  ///
+  ///     Amazon Cognito only returns this challenge for users who have temporary passwords. When you create passwordless users, you must provide values for all required attributes.
+  ///
+  ///     In a `NEW\_PASSWORD\_REQUIRED` challenge response, you can't modify a required attribute that already has a value. In `AdminRespondToAuthChallenge` or `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the `requiredAttributes` parameter, then use the `AdminUpdateUserAttributes` or `UpdateUserAttributes` API operation to modify the value of any additional attributes.
   ///
   /// *   `MFA_SETUP`: For users who are required to setup an MFA factor before they can sign in. The MFA types activated for the user pool will be listed in the challenge parameters `MFAS\_CAN\_SETUP` value.
   ///
-  ///     To set up software token MFA, use the session returned here from `InitiateAuth` as an input to `AssociateSoftwareToken`. Use the session returned by `VerifySoftwareToken` as an input to `RespondToAuthChallenge` with challenge name `MFA_SETUP` to complete sign-in. To set up SMS MFA, an administrator should help the user to add a phone number to their account, and then the user should call `InitiateAuth` again to restart sign-in.
+  ///     To set up time-based one-time password (TOTP) MFA, use the session returned in this challenge from `InitiateAuth` or `AdminInitiateAuth` as an input to `AssociateSoftwareToken`. Then, use the session returned by `VerifySoftwareToken` as an input to `RespondToAuthChallenge` or `AdminRespondToAuthChallenge` with challenge name `MFA_SETUP` to complete sign-in.
+  ///
+  ///     To set up SMS or email MFA, collect a `phone_number` or `email` attribute for the user. Then restart the authentication flow with an `InitiateAuth` or `AdminInitiateAuth` request.
   ChallengeNameType? get challengeName;
 
-  /// The session that should pass both ways in challenge-response calls to the service. If the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
+  /// The session identifier that links a challenge response to the initial authentication request. If the user must pass another challenge, Amazon Cognito returns a session ID and challenge parameters.
   String? get session;
 
-  /// The challenge parameters. These are returned in the `InitiateAuth` response if you must pass another challenge. The responses in this parameter should be used to compute inputs to the next call (`RespondToAuthChallenge`).
+  /// The required parameters of the `ChallengeName` challenge.
   ///
-  /// All challenges require `USERNAME` and `SECRET_HASH` (if applicable).
+  /// All challenges require `USERNAME`. They also require `SECRET_HASH` if your app client has a client secret.
   _i2.BuiltMap<String, String?>? get challengeParameters;
 
-  /// The result of the authentication response. This result is only returned if the caller doesn't need to pass another challenge. If the caller does need to pass another challenge before it gets tokens, `ChallengeName`, `ChallengeParameters`, and `Session` are returned.
+  /// The result of a successful and complete authentication request. This result is only returned if the user doesn't need to pass another challenge. If they must pass another challenge before they get tokens, Amazon Cognito returns a challenge in `ChallengeName`, `ChallengeParameters`, and `Session` response parameters.
   AuthenticationResultType? get authenticationResult;
+
+  /// This response parameter lists the available authentication challenges that users can select from in [choice-based authentication](https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-selection-sdk.html#authentication-flows-selection-choice). For example, they might be able to choose between passkey authentication, a one-time password from an SMS message, and a traditional password.
+  _i2.BuiltList<ChallengeNameType>? get availableChallenges;
   @override
   List<Object?> get props => [
     challengeName,
     session,
     challengeParameters,
     authenticationResult,
+    availableChallenges,
   ];
 
   @override
@@ -104,7 +122,8 @@ abstract class InitiateAuthResponse
       ..add('challengeName', challengeName)
       ..add('session', '***SENSITIVE***')
       ..add('challengeParameters', challengeParameters)
-      ..add('authenticationResult', authenticationResult);
+      ..add('authenticationResult', authenticationResult)
+      ..add('availableChallenges', availableChallenges);
     return helper.toString();
   }
 }
@@ -174,6 +193,16 @@ class InitiateAuthResponseAwsJson11Serializer
                 )
                 as AuthenticationResultType),
           );
+        case 'AvailableChallenges':
+          result.availableChallenges.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(ChallengeNameType),
+                  ]),
+                )
+                as _i2.BuiltList<ChallengeNameType>),
+          );
       }
     }
 
@@ -192,6 +221,7 @@ class InitiateAuthResponseAwsJson11Serializer
       :session,
       :challengeParameters,
       :authenticationResult,
+      :availableChallenges,
     ) = object;
     if (challengeName != null) {
       result$
@@ -230,6 +260,18 @@ class InitiateAuthResponseAwsJson11Serializer
           serializers.serialize(
             authenticationResult,
             specifiedType: const FullType(AuthenticationResultType),
+          ),
+        );
+    }
+    if (availableChallenges != null) {
+      result$
+        ..add('AvailableChallenges')
+        ..add(
+          serializers.serialize(
+            availableChallenges,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(ChallengeNameType),
+            ]),
           ),
         );
     }

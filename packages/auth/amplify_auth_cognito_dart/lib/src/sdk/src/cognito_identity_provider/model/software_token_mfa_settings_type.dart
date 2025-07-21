@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.software_token_mfa_settings_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,7 +10,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'software_token_mfa_settings_type.g.dart';
 
-/// The type used for enabling software token MFA at the user level. If an MFA type is activated for a user, the user will be prompted for MFA during all sign-in attempts, unless device tracking is turned on and the device has been trusted. If you want MFA to be applied selectively based on the assessed risk level of sign-in attempts, deactivate MFA for users and turn on Adaptive Authentication for the user pool.
+/// A user's preference for using time-based one-time password (TOTP) multi-factor authentication (MFA). Turns TOTP MFA on and off, and can set TOTP as preferred when other MFA options are available. You can't turn off TOTP MFA for any of your users when MFA is required in your user pool; you can only set the type that your user prefers.
 abstract class SoftwareTokenMfaSettingsType
     with _i1.AWSEquatable<SoftwareTokenMfaSettingsType>
     implements
@@ -18,7 +18,7 @@ abstract class SoftwareTokenMfaSettingsType
           SoftwareTokenMfaSettingsType,
           SoftwareTokenMfaSettingsTypeBuilder
         > {
-  /// The type used for enabling software token MFA at the user level. If an MFA type is activated for a user, the user will be prompted for MFA during all sign-in attempts, unless device tracking is turned on and the device has been trusted. If you want MFA to be applied selectively based on the assessed risk level of sign-in attempts, deactivate MFA for users and turn on Adaptive Authentication for the user pool.
+  /// A user's preference for using time-based one-time password (TOTP) multi-factor authentication (MFA). Turns TOTP MFA on and off, and can set TOTP as preferred when other MFA options are available. You can't turn off TOTP MFA for any of your users when MFA is required in your user pool; you can only set the type that your user prefers.
   factory SoftwareTokenMfaSettingsType({bool? enabled, bool? preferredMfa}) {
     enabled ??= false;
     preferredMfa ??= false;
@@ -28,7 +28,7 @@ abstract class SoftwareTokenMfaSettingsType
     );
   }
 
-  /// The type used for enabling software token MFA at the user level. If an MFA type is activated for a user, the user will be prompted for MFA during all sign-in attempts, unless device tracking is turned on and the device has been trusted. If you want MFA to be applied selectively based on the assessed risk level of sign-in attempts, deactivate MFA for users and turn on Adaptive Authentication for the user pool.
+  /// A user's preference for using time-based one-time password (TOTP) multi-factor authentication (MFA). Turns TOTP MFA on and off, and can set TOTP as preferred when other MFA options are available. You can't turn off TOTP MFA for any of your users when MFA is required in your user pool; you can only set the type that your user prefers.
   factory SoftwareTokenMfaSettingsType.build([
     void Function(SoftwareTokenMfaSettingsTypeBuilder) updates,
   ]) = _$SoftwareTokenMfaSettingsType;

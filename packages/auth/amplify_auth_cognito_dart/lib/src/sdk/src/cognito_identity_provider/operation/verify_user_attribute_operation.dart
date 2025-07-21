@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.verify_user_attribute_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,9 +27,9 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-/// Verifies the specified user attributes in the user pool.
+/// Submits a verification code for a signed-in user who has added or changed a value of an auto-verified attribute. When successful, the user's attribute becomes verified and the attribute `email_verified` or `phone\_number\_verified` becomes `true`.
 ///
-/// If your user pool requires verification before Amazon Cognito updates the attribute value, VerifyUserAttribute updates the affected attribute to its pending value. For more information, see [UserAttributeUpdateSettingsType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserAttributeUpdateSettingsType.html).
+/// If your user pool requires verification before Amazon Cognito updates the attribute value, this operation updates the affected attribute to its pending value.
 ///
 /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
 ///
@@ -42,9 +42,9 @@ class VerifyUserAttributeOperation
           VerifyUserAttributeResponse,
           VerifyUserAttributeResponse
         > {
-  /// Verifies the specified user attributes in the user pool.
+  /// Submits a verification code for a signed-in user who has added or changed a value of an auto-verified attribute. When successful, the user's attribute becomes verified and the attribute `email_verified` or `phone\_number\_verified` becomes `true`.
   ///
-  /// If your user pool requires verification before Amazon Cognito updates the attribute value, VerifyUserAttribute updates the affected attribute to its pending value. For more information, see [UserAttributeUpdateSettingsType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserAttributeUpdateSettingsType.html).
+  /// If your user pool requires verification before Amazon Cognito updates the attribute value, this operation updates the affected attribute to its pending value.
   ///
   /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
   ///

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity.operation.get_credentials_for_identity_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,7 +22,7 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-/// Returns credentials for the provided identity ID. Any provided logins will be validated against supported login providers. If the token is for cognito-identity.amazonaws.com, it will be passed through to AWS Security Token Service with the appropriate role for the token.
+/// Returns credentials for the provided identity ID. Any provided logins will be validated against supported login providers. If the token is for `cognito-identity.amazonaws.com`, it will be passed through to Security Token Service with the appropriate role for the token.
 ///
 /// This is a public API. You do not need any credentials to call this API.
 class GetCredentialsForIdentityOperation
@@ -33,7 +33,7 @@ class GetCredentialsForIdentityOperation
           GetCredentialsForIdentityResponse,
           GetCredentialsForIdentityResponse
         > {
-  /// Returns credentials for the provided identity ID. Any provided logins will be validated against supported login providers. If the token is for cognito-identity.amazonaws.com, it will be passed through to AWS Security Token Service with the appropriate role for the token.
+  /// Returns credentials for the provided identity ID. Any provided logins will be validated against supported login providers. If the token is for `cognito-identity.amazonaws.com`, it will be passed through to Security Token Service with the appropriate role for the token.
   ///
   /// This is a public API. You do not need any credentials to call this API.
   GetCredentialsForIdentityOperation({

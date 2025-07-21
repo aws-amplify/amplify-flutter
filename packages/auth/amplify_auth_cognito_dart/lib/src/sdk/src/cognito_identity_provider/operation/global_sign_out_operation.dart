@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.global_sign_out_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,7 +33,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 /// *   Amazon Cognito no longer accepts a signed-out user's refresh tokens in refresh requests.
 ///
 ///
-/// Other requests might be valid until your user's token expires.
+/// Other requests might be valid until your user's token expires. This operation doesn't clear the [managed login](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html) session cookie. To clear the session for a user who signed in with managed login or the classic hosted UI, direct their browser session to the [logout endpoint](https://docs.aws.amazon.com/cognito/latest/developerguide/logout-endpoint.html).
 ///
 /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
 ///
@@ -57,7 +57,7 @@ class GlobalSignOutOperation
   /// *   Amazon Cognito no longer accepts a signed-out user's refresh tokens in refresh requests.
   ///
   ///
-  /// Other requests might be valid until your user's token expires.
+  /// Other requests might be valid until your user's token expires. This operation doesn't clear the [managed login](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html) session cookie. To clear the session for a user who signed in with managed login or the classic hosted UI, direct their browser session to the [logout endpoint](https://docs.aws.amazon.com/cognito/latest/developerguide/logout-endpoint.html).
   ///
   /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
   ///
