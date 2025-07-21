@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.device_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -12,11 +12,11 @@ import 'package:smithy/smithy.dart' as _i3;
 
 part 'device_type.g.dart';
 
-/// The device type.
+/// Information about a user's device that they've registered for device SRP authentication in your application. For more information, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
 abstract class DeviceType
     with _i1.AWSEquatable<DeviceType>
     implements Built<DeviceType, DeviceTypeBuilder> {
-  /// The device type.
+  /// Information about a user's device that they've registered for device SRP authentication in your application. For more information, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
   factory DeviceType({
     String? deviceKey,
     List<AttributeType>? deviceAttributes,
@@ -35,7 +35,7 @@ abstract class DeviceType
     );
   }
 
-  /// The device type.
+  /// Information about a user's device that they've registered for device SRP authentication in your application. For more information, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
   factory DeviceType.build([void Function(DeviceTypeBuilder) updates]) =
       _$DeviceType;
 
@@ -45,19 +45,19 @@ abstract class DeviceType
     DeviceTypeAwsJson11Serializer(),
   ];
 
-  /// The device key.
+  /// The device key, for example `us-west-2_EXAMPLE-a1b2c3d4-5678-90ab-cdef-EXAMPLE22222`.
   String? get deviceKey;
 
-  /// The device attributes.
+  /// Metadata about a user's device, like name and last-access source IP.
   _i2.BuiltList<AttributeType>? get deviceAttributes;
 
-  /// The creation date of the device.
+  /// The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java `Date` object.
   DateTime? get deviceCreateDate;
 
   /// The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java `Date` object.
   DateTime? get deviceLastModifiedDate;
 
-  /// The date when the device was last authenticated.
+  /// The date when the user last signed in with the device.
   DateTime? get deviceLastAuthenticatedDate;
   @override
   List<Object?> get props => [

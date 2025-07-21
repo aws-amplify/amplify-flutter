@@ -122,6 +122,7 @@ enum ChecksumAlgorithm {
     CRC32
     SHA1
     SHA256
+    CRC64NVME
 }
 
 apply HttpChecksumRequired @httpRequestTests([
@@ -235,6 +236,24 @@ apply HttpChecksumRequiredWithMember @httpRequestTests([
         },
         params: {
             checksumAlgorithm: "CRC32C",
+            content: "hello, world"
+        }
+    },
+    {
+        id: "HttpChecksumRequiredWithMemberWithCRC64NVME",
+        documentation: "Adds a CRC64NVME checksum when that algorithm is provided",
+        protocol: restJson1,
+        method: "POST",
+        uri: "/requiredWithMember",
+        body: "hello, world",
+        bodyMediaType: "application/octet-stream",
+        headers: {
+            "Content-Type": "application/octet-stream",
+            "x-amz-checksum-crc64nvme": "imGzfIgXKM8=",
+            "x-amz-request-algorithm": "CRC64NVME"
+        },
+        params: {
+            checksumAlgorithm: "CRC64NVME",
             content: "hello, world"
         }
     }

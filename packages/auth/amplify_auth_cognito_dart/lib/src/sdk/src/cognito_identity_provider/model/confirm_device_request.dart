@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -11,13 +11,13 @@ import 'package:smithy/smithy.dart' as _i1;
 
 part 'confirm_device_request.g.dart';
 
-/// Confirms the device request.
+/// The confirm-device request.
 abstract class ConfirmDeviceRequest
     with
         _i1.HttpInput<ConfirmDeviceRequest>,
         _i2.AWSEquatable<ConfirmDeviceRequest>
     implements Built<ConfirmDeviceRequest, ConfirmDeviceRequestBuilder> {
-  /// Confirms the device request.
+  /// The confirm-device request.
   factory ConfirmDeviceRequest({
     required String accessToken,
     required String deviceKey,
@@ -32,7 +32,7 @@ abstract class ConfirmDeviceRequest
     );
   }
 
-  /// Confirms the device request.
+  /// The confirm-device request.
   factory ConfirmDeviceRequest.build([
     void Function(ConfirmDeviceRequestBuilder) updates,
   ]) = _$ConfirmDeviceRequest;
@@ -49,16 +49,16 @@ abstract class ConfirmDeviceRequest
     ConfirmDeviceRequestAwsJson11Serializer(),
   ];
 
-  /// A valid access token that Amazon Cognito issued to the user whose device you want to confirm.
+  /// A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for `aws.cognito.signin.user.admin`.
   String get accessToken;
 
-  /// The device key.
+  /// The unique identifier, or device key, of the device that you want to update the status for.
   String get deviceKey;
 
   /// The configuration of the device secret verifier.
   DeviceSecretVerifierConfigType? get deviceSecretVerifierConfig;
 
-  /// The device name.
+  /// A friendly name for the device, for example `MyMobilePhone`.
   String? get deviceName;
   @override
   ConfirmDeviceRequest getPayload() => this;

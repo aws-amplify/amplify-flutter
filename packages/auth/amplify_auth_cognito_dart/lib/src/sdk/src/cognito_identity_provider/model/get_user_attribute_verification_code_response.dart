@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_attribute_verification_code_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,7 +46,7 @@ abstract class GetUserAttributeVerificationCodeResponse
   >
   serializers = [GetUserAttributeVerificationCodeResponseAwsJson11Serializer()];
 
-  /// The code delivery details returned by the server in response to the request to get the user attribute verification code.
+  /// Information about the delivery destination of the user attribute verification code.
   CodeDeliveryDetailsType? get codeDeliveryDetails;
   @override
   List<Object?> get props => [codeDeliveryDetails];
