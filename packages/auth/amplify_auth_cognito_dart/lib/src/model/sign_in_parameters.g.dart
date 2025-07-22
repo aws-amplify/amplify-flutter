@@ -38,6 +38,17 @@ class _$SignInParametersSerializer
           serializers.serialize(value, specifiedType: const FullType(String)),
         );
     }
+    value = object.preferredFirstFactor;
+    if (value != null) {
+      result
+        ..add('preferredFirstFactor')
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(AuthFactorType),
+          ),
+        );
+    }
     return result;
   }
 
@@ -71,6 +82,14 @@ class _$SignInParametersSerializer
                   )
                   as String?;
           break;
+        case 'preferredFirstFactor':
+          result.preferredFirstFactor =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(AuthFactorType),
+                  )
+                  as AuthFactorType?;
+          break;
       }
     }
 
@@ -83,12 +102,18 @@ class _$SignInParameters extends SignInParameters {
   final String username;
   @override
   final String? password;
+  @override
+  final AuthFactorType? preferredFirstFactor;
 
   factory _$SignInParameters([
     void Function(SignInParametersBuilder)? updates,
   ]) => (SignInParametersBuilder()..update(updates))._build();
 
-  _$SignInParameters._({required this.username, this.password}) : super._();
+  _$SignInParameters._({
+    required this.username,
+    this.password,
+    this.preferredFirstFactor,
+  }) : super._();
   @override
   SignInParameters rebuild(void Function(SignInParametersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -102,7 +127,8 @@ class _$SignInParameters extends SignInParameters {
     if (identical(other, this)) return true;
     return other is SignInParameters &&
         username == other.username &&
-        password == other.password;
+        password == other.password &&
+        preferredFirstFactor == other.preferredFirstFactor;
   }
 
   @override
@@ -110,6 +136,7 @@ class _$SignInParameters extends SignInParameters {
     var _$hash = 0;
     _$hash = $jc(_$hash, username.hashCode);
     _$hash = $jc(_$hash, password.hashCode);
+    _$hash = $jc(_$hash, preferredFirstFactor.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -118,7 +145,8 @@ class _$SignInParameters extends SignInParameters {
   String toString() {
     return (newBuiltValueToStringHelper(r'SignInParameters')
           ..add('username', username)
-          ..add('password', password))
+          ..add('password', password)
+          ..add('preferredFirstFactor', preferredFirstFactor))
         .toString();
   }
 }
@@ -135,6 +163,11 @@ class SignInParametersBuilder
   String? get password => _$this._password;
   set password(String? password) => _$this._password = password;
 
+  AuthFactorType? _preferredFirstFactor;
+  AuthFactorType? get preferredFirstFactor => _$this._preferredFirstFactor;
+  set preferredFirstFactor(AuthFactorType? preferredFirstFactor) =>
+      _$this._preferredFirstFactor = preferredFirstFactor;
+
   SignInParametersBuilder();
 
   SignInParametersBuilder get _$this {
@@ -142,6 +175,7 @@ class SignInParametersBuilder
     if ($v != null) {
       _username = $v.username;
       _password = $v.password;
+      _preferredFirstFactor = $v.preferredFirstFactor;
       _$v = null;
     }
     return this;
@@ -170,6 +204,7 @@ class SignInParametersBuilder
             'username',
           ),
           password: password,
+          preferredFirstFactor: preferredFirstFactor,
         );
     replace(_$result);
     return _$result;

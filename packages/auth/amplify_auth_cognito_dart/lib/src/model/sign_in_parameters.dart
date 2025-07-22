@@ -4,6 +4,7 @@
 @internal
 library;
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';
@@ -25,6 +26,9 @@ abstract class SignInParameters
 
   /// The password of the user, if initating an SRP-based flow.
   String? get password;
+
+  /// The preferred first factor of the user, if initating an USER_AUTH flow.
+  AuthFactorType? get preferredFirstFactor;
 
   /// The `built_value` serializer for [SignInParameters].
   static Serializer<SignInParameters> get serializer =>

@@ -14,6 +14,10 @@ CognitoSignInPluginOptions _$CognitoSignInPluginOptionsFromJson(
       'authFlowType',
       (v) => $enumDecodeNullable(_$AuthenticationFlowTypeEnumMap, v),
     ),
+    preferredFirstFactor: $checkedConvert(
+      'preferredFirstFactor',
+      (v) => $enumDecodeNullable(_$AuthFactorTypeEnumMap, v),
+    ),
     clientMetadata: $checkedConvert(
       'clientMetadata',
       (v) =>
@@ -31,6 +35,8 @@ Map<String, dynamic> _$CognitoSignInPluginOptionsToJson(
 ) => <String, dynamic>{
   if (_$AuthenticationFlowTypeEnumMap[instance.authFlowType] case final value?)
     'authFlowType': value,
+  if (_$AuthFactorTypeEnumMap[instance.preferredFirstFactor] case final value?)
+    'preferredFirstFactor': value,
   'clientMetadata': instance.clientMetadata,
 };
 
@@ -39,4 +45,13 @@ const _$AuthenticationFlowTypeEnumMap = {
   AuthenticationFlowType.userPasswordAuth: 'USER_PASSWORD_AUTH',
   AuthenticationFlowType.customAuthWithSrp: 'CUSTOM_AUTH_WITH_SRP',
   AuthenticationFlowType.customAuthWithoutSrp: 'CUSTOM_AUTH_WITHOUT_SRP',
+  AuthenticationFlowType.userAuth: 'USER_AUTH',
+};
+
+const _$AuthFactorTypeEnumMap = {
+  AuthFactorType.password: 'PASSWORD',
+  AuthFactorType.passwordSrp: 'PASSWORD_SRP',
+  AuthFactorType.emailOtp: 'EMAIL_OTP',
+  AuthFactorType.smsOtp: 'SMS_OTP',
+  AuthFactorType.webAuthn: 'WEB_AUTHN',
 };

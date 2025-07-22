@@ -104,4 +104,7 @@ abstract class CognitoConstants {
 
   /// The `REFRESH_TOKEN` parameter
   static const refreshToken = 'REFRESH_TOKEN';
+
+  /// The `PREFERRED_CHALLENGE` parameter
+  static const preferredChallenge = 'PREFERRED_CHALLENGE';
 }

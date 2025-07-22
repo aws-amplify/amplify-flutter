@@ -192,6 +192,7 @@ final class SignInStateMachine
   AuthenticationResultType? _authenticationResult;
   ChallengeNameType? _challengeName;
   BuiltMap<String, String?> _challengeParameters = BuiltMap();
+  BuiltList<ChallengeNameType> _availableChallenges = BuiltList();
   String? _session;
   SrpInitResult? _initResult;
   Map<CognitoUserAttributeKey, String>? _attributesNeedingUpdate;
@@ -225,6 +226,27 @@ final class SignInStateMachine
             }(),
           },
         )
+        .nonNulls
+        .toSet();
+  }
+
+  /// The allowed first factor types returned in the last challenge response.
+  Set<AuthFactorType>? get _allowedFirstFactorTypes {
+    final allowedFirstFactorNames = _availableChallenges;
+    if (allowedFirstFactorNames.isEmpty) {
+      return null;
+    }
+    return allowedFirstFactorNames
+        .map((type) {
+          final match = AuthFactorType.values
+              .where((factor) => factor.value == type.value)
+              .firstOrNull;
+
+          if (match == null) {
+            logger.error('Unrecognized first factor type: $type');
+          }
+          return match;
+        })
         .nonNulls
         .toSet();
   }
@@ -308,6 +330,10 @@ final class SignInStateMachine
         event,
         expectPassword(),
       ),
+      AuthFlowType.userAuth => initiateUserAuth(
+        event,
+        parameters.preferredFirstFactor?.value,
+      ),
       _ => throw StateError('Unsupported auth flow: $authFlowType'),
     };
   }
@@ -348,6 +374,9 @@ final class SignInStateMachine
       ),
       ChallengeNameType.newPasswordRequired when hasUserResponse =>
         createNewPasswordRequest(event),
+      ChallengeNameType.selectChallenge when hasUserResponse => createSelectFirstFactorRequest(
+        event,
+      ),
       _ => null,
     };
   }
@@ -554,6 +583,25 @@ final class SignInStateMachine
         ..authParameters.addAll({
           CognitoConstants.challengeParamUsername: providedUsername,
           CognitoConstants.challengeParamPassword: password,
+        })
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
+  /// Initiates a username/password auth flow.
+  @protected
+  Future<InitiateAuthRequest> initiateUserAuth(
+    SignInInitiate event,
+    String? preferredChallenge,
+  ) async {
+    return InitiateAuthRequest.build((b) {
+      b
+        ..authFlow = AuthFlowType.userAuth
+        ..clientId = _authOutputs.userPoolClientId
+        ..authParameters.addAll({
+          CognitoConstants.challengeParamUsername: providedUsername,
+          if (preferredChallenge != null)
+            CognitoConstants.preferredChallenge: preferredChallenge,
         })
         ..clientMetadata.addAll(event.clientMetadata);
     });
@@ -779,6 +827,36 @@ final class SignInStateMachine
     });
   }
 
+  /// Selects a first factor type to use for sign-in.
+  @protected
+  Future<RespondToAuthChallengeRequest> createSelectFirstFactorRequest(
+    SignInRespondToChallenge event,
+  ) async {
+    final selection = event.answer.toUpperCase();
+    final knownFactorTypes = AuthFactorType.values.map(
+      (factor) => factor.value,
+    );
+
+    return RespondToAuthChallengeRequest.build((b) {
+      final isKnownFactorType = knownFactorTypes.any(
+        (value) => value == selection,
+      );
+
+      if (!isKnownFactorType) {
+        throw ArgumentError('Must be one of $knownFactorTypes');
+      }
+      
+      b
+        ..challengeName = ChallengeNameType.selectChallenge
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: cognitoUsername,
+          CognitoConstants.challengeParamAnswer: selection,
+        })
+        ..clientId = _authOutputs.userPoolClientId
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
   /// Responds to a TOTP challenge.
   @protected
   Future<RespondToAuthChallengeRequest> createSoftwareTokenMfaRequest(
@@ -928,6 +1006,7 @@ final class SignInStateMachine
     _authenticationResult = initResponse.authenticationResult;
     _challengeName = initResponse.challengeName;
     _challengeParameters = initResponse.challengeParameters ?? BuiltMap();
+    _availableChallenges = initResponse.availableChallenges ?? BuiltList();
     _session = initResponse.session;
 
     final stopState = await _processChallenge(event);
@@ -1095,6 +1174,7 @@ final class SignInStateMachine
       _codeDeliveryDetails,
       _allowedMfaTypes,
       _totpSetupResult,
+      _allowedFirstFactorTypes,
     );
 
     // If we can't internally respond to the challenge, we may need user

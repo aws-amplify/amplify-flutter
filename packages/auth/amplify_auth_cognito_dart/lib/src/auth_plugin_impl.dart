@@ -494,6 +494,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
             missingAttributes: challenge.requiredAttributes,
             allowedMfaTypes: challenge.allowedMfaTypes,
             totpSetupDetails: challenge.totpSetupResult,
+            availableFactors: challenge.allowedfirstFactorTypes,
           ),
         );
 
@@ -527,7 +528,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           parameters: SignInParameters(
             (p) => p
               ..username = username
-              ..password = password,
+              ..password = password
+              ..preferredFirstFactor = pluginOptions.preferredFirstFactor,
           ),
           clientMetadata: pluginOptions.clientMetadata,
         ),
