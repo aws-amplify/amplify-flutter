@@ -90,7 +90,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   @override
   Future<CognitoSignUpResult> signUp({
     required String username,
-    required String password,
+    String? password,
     SignUpOptions? options,
   }) async {
     options ??= const SignUpOptions();

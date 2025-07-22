@@ -130,7 +130,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// {@endtemplate}
   Future<SignUpResult> signUp({
     required String username,
-    required String password,
+    String? password,
     SignUpOptions? options,
   }) => identifyCall(
     AuthCategoryMethod.signUp,

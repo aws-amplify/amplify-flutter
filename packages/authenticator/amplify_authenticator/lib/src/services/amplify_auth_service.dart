@@ -20,7 +20,7 @@ abstract class AuthService {
 
   Future<SignUpResult> signUp(
     String username,
-    String password,
+    String? password,
     Map<CognitoUserAttributeKey, String> authAttributes,
   );
 
@@ -127,7 +127,7 @@ class AmplifyAuthService
   @override
   Future<SignUpResult> signUp(
     String username,
-    String password,
+    String? password,
     Map<CognitoUserAttributeKey, String> attributes,
   ) {
     return _withUserAgent(() {
