@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 /// {@category Auth}
 /// {@template amplify_core.auth.auth_factor_type}
-/// Enumeration of the possible mechanisms that can be used to authenticate a user when 
+/// Enumeration of the possible mechanisms that can be used to authenticate a user when
 /// signing in with USER_AUTH.
 /// {@endtemplate}
 enum AuthFactorType {
