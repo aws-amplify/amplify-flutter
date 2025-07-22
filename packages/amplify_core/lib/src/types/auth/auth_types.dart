@@ -54,6 +54,7 @@ export 'session/auth_user.dart';
 export 'session/fetch_auth_session_options.dart';
 export 'session/get_current_user_options.dart';
 export 'session/sign_in_details.dart';
+export 'sign_in/auth_factor_type.dart';
 // Sign In
 export 'sign_in/auth_next_sign_in_step.dart';
 export 'sign_in/auth_provider.dart';

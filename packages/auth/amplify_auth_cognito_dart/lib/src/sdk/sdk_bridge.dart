@@ -33,6 +33,7 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
     ChallengeNameType.softwareTokenMfa =>
       AuthSignInStep.confirmSignInWithTotpMfaCode,
     ChallengeNameType.emailOtp => AuthSignInStep.confirmSignInWithOtpCode,
+    ChallengeNameType.selectChallenge => AuthSignInStep.continueSignInWithFirstFactorSelection,
     ChallengeNameType.adminNoSrpAuth ||
     ChallengeNameType.passwordVerifier ||
     ChallengeNameType.devicePasswordVerifier ||
@@ -91,6 +92,7 @@ extension AuthenticationFlowTypeBridge on AuthenticationFlowType {
     AuthenticationFlowType.customAuthWithSrp ||
     AuthenticationFlowType.customAuthWithoutSrp => AuthFlowType.customAuth,
     AuthenticationFlowType.userPasswordAuth => AuthFlowType.userPasswordAuth,
+    AuthenticationFlowType.userAuth => AuthFlowType.userAuth,
   };
 }
 

@@ -171,6 +171,26 @@ Future<void> _handleSignInResult(SignInResult result) async {
     case AuthSignInStep.done:
       safePrint('Sign in is complete');
     // #enddocregion handle-confirm-signin-done
+    // #docregion handle-confirm-signin-first-factor-selection
+    case AuthSignInStep.continueSignInWithFirstFactorSelection:
+      final allowedfirstFactorTypes = result.nextStep.availableFactors!;
+      if (allowedfirstFactorTypes.length == 1) {
+        return _handleFirstFactorSelection(allowedfirstFactorTypes.first);
+      }
+      final selection = await _promptUserFirstFactorPreference(
+        allowedfirstFactorTypes,
+      );
+      safePrint('Selected first factor type: $selection');
+      return _handleFirstFactorSelection(selection);
+    // #enddocregion handle-confirm-signin-first-factor-selection
+    // #docregion handle-confirm-signin-otp
+    case AuthSignInStep.confirmSignInWithOtp:
+      safePrint('Enter a one-time code');
+    // #enddocregion handle-confirm-signin-otp
+    // #docregion handle-confirm-signin-password
+    case AuthSignInStep.confirmSignInWithPassword:
+      safePrint('Enter your Password');
+    // #enddocregion handle-confirm-signin-password
     // #docregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-email-code, handle-confirm-signin-mfa-setup-selection, handle-confirm-signin-email-setup
   }
 }
@@ -242,7 +262,30 @@ Future<void> _handleMfaSelection(MfaType selection) async {
     );
     return _handleSignInResult(result);
   } on AuthException catch (e) {
-    safePrint('Error resending code: ${e.message}');
+    safePrint('Error selecting MFA type: ${e.message}');
+  }
+}
+// #enddocregion handle-mfa-selection
+
+// #docregion prompt-user-preference
+Future<AuthFactorType> _promptUserFirstFactorPreference(
+  Set<AuthFactorType> allowedTypes,
+) async {
+  // #enddocregion prompt-user-preference
+  throw UnimplementedError();
+  // #docregion prompt-user-preference
+}
+// #enddocregion prompt-user-preference
+
+// #docregion handle-mfa-selection
+Future<void> _handleFirstFactorSelection(AuthFactorType selection) async {
+  try {
+    final result = await Amplify.Auth.confirmSignIn(
+      confirmationValue: selection.value,
+    );
+    return _handleSignInResult(result);
+  } on AuthException catch (e) {
+    safePrint('Error selecting first factor preference: ${e.message}');
   }
 }
 // #enddocregion handle-mfa-selection
