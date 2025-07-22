@@ -17,7 +17,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   /// {@macro amplify_core.amplify_auth_category.sign_up}
   Future<SignUpResult> signUp({
     required String username,
-    required String password,
+    String? password,
     SignUpOptions? options,
   }) {
     throw UnimplementedError('signUp() has not been implemented');

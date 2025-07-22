@@ -61,7 +61,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   @override
   Future<SignUpResult> signUp({
     required String username,
-    required String password,
+    String? password,
     SignUpOptions? options,
   }) async {
     await Future<void>.delayed(delay);
