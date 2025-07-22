@@ -27,7 +27,7 @@ class CognitoSignInPluginOptions extends SignInPluginOptions {
   final AuthenticationFlowType? authFlowType;
 
   /// {@template amplify_auth_cognito_dart.cognito_sign_in_plugin_options.preferred_first_factor}
-  /// The auth factor type the user should begin signing with if available. If the preferred 
+  /// The auth factor type the user should begin signing with if available. If the preferred
   /// first factor is not available, the flow would fallback to provide available first factors.
   /// {@endtemplate}
   final AuthFactorType? preferredFirstFactor;

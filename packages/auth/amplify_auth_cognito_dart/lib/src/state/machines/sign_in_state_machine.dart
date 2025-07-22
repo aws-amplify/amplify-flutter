@@ -374,9 +374,8 @@ final class SignInStateMachine
       ),
       ChallengeNameType.newPasswordRequired when hasUserResponse =>
         createNewPasswordRequest(event),
-      ChallengeNameType.selectChallenge when hasUserResponse => createSelectFirstFactorRequest(
-        event,
-      ),
+      ChallengeNameType.selectChallenge when hasUserResponse =>
+        createSelectFirstFactorRequest(event),
       _ => null,
     };
   }
@@ -845,7 +844,7 @@ final class SignInStateMachine
       if (!isKnownFactorType) {
         throw ArgumentError('Must be one of $knownFactorTypes');
       }
-      
+
       b
         ..challengeName = ChallengeNameType.selectChallenge
         ..challengeResponses.addAll({
