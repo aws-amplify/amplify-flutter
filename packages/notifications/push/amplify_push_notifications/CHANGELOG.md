@@ -1,3 +1,13 @@
+## 2.6.5
+
+### Chores
+- chore(notifications): Bumped kotlin_version to 2.2.0 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(notifications): Bumped com.android.tools:desugar_jdk_libs to 2.1.5 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(notifications): Bumped com.android.tools.build:gradle to 8.11.0 ([#6203](https://github.com/aws-amplify/amplify-flutter/pull/6203))
+- chore(notifications): Bumped com.google.firebase:firebase-messaging to 24.1.2 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(notifications): Bumped com.amplifyframework:aws-push-notifications-pinpoint-common to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(notifications): Bumped org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1 to 1.8.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+
 ## 2.6.4
 
 ### Chores
