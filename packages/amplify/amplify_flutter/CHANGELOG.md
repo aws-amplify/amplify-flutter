@@ -1,3 +1,22 @@
+## 2.6.5
+
+### Chores
+- chore(datastore, analytics, auth, common, notifications, secure_storage): Bumped kotlin_version to 2.2.0 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(datastore, analytics, auth, common, notifications, common, secure_storage): Bumped com.android.tools.build:gradle to 8.11.0 ([#6203](https://github.com/aws-amplify/amplify-flutter/pull/6203))
+- chore(datastore, notifications): Bumped com.android.tools:desugar_jdk_libs to 2.1.5 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(datastore): Bumped com.google.code.gson:gson to 2.13.1 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(datastore): Bumped com.amplifyframework:aws-auth-cognito to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(datastore): Bumped com.amplifyframework:aws-api to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(datastore): Bumped com.amplifyframework:aws-datastore to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(datastore): Bumped com.amplifyframework:aws-api-appsync to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(datastore, auth): Bumped org.jetbrains.kotlinx:kotlinx-coroutines-android: to 1.10.2 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(notifications): Bumped com.google.firebase:firebase-messaging to 24.1.2 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(notifications): Bumped com.amplifyframework:aws-push-notifications-pinpoint-common to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(notifications): Bumped org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1 to 1.8.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+
+### Fixes
+- fix(auth): handle fallthrough exceptions in sign out state ([#6226](https://github.com/aws-amplify/amplify-flutter/pull/6226))
+
 ## 2.6.4
 
 ### Chores

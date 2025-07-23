@@ -1,3 +1,9 @@
+## 0.5.12
+
+### Chores
+- chore(secure_storage): Bumped kotlin_version to 2.2.0 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(secure_storage): Bumped com.android.tools.build:gradle to 8.11.0 ([#6203](https://github.com/aws-amplify/amplify-flutter/pull/6203))
+
 ## 0.5.11
 
 ### Chores
