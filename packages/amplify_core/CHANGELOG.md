@@ -1,3 +1,8 @@
+## 2.6.5
+
+### Fixes
+- fix(auth): handle fallthrough exceptions in sign out state ([#6226](https://github.com/aws-amplify/amplify-flutter/pull/6226))
+
 ## 2.6.4
 
 ### Chores
