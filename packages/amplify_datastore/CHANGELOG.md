@@ -1,3 +1,8 @@
+## 2.6.6
+
+### Fixes
+- fix(datastore): corrected getToken return value for oidc
+
 ## 2.6.5
 
 ### Chores
