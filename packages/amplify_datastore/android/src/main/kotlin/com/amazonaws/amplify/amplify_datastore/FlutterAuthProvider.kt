@@ -105,7 +105,7 @@ class FlutterAuthProviders(
                 }
                 launch(Dispatchers.Main) {
                     nativeApiPlugin.getLatestAuthToken(authType.name) { resultToken ->
-                        result.success(resultToken)
+                        result.success(resultToken.getOrNull())
                     }
                 }
 
