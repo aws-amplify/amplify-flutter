@@ -30,6 +30,9 @@ abstract class SignInParameters
   /// The preferred first factor of the user, if initating an USER_AUTH flow.
   AuthFactorType? get preferredFirstFactor;
 
+  /// The session, if initating an USER_AUTH flow after sign up.
+  String? get session;
+
   /// The `built_value` serializer for [SignInParameters].
   static Serializer<SignInParameters> get serializer =>
       _$signInParametersSerializer;

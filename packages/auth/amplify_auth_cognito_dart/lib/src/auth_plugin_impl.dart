@@ -511,6 +511,53 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   @override
+  Future<CognitoSignInResult> autoSignIn({AutoSignInOptions? options}) async {
+    final pluginOptions = reifyPluginOptions(
+      pluginOptions: options?.pluginOptions,
+      defaultPluginOptions: const CognitoAutoSignInPluginOptions(),
+    );
+
+    try {
+      final signUpStateMachine = _stateMachine.get(SignUpStateMachine.type);
+      final signUpState = signUpStateMachine?.currentState;
+      final signUpSuccess = signUpState is SignUpSuccess ? signUpState : null;
+      final username = signUpSuccess?.username;
+      final session = signUpSuccess?.session;
+
+      if (username == null || session == null) {
+        throw const InvalidStateException(
+          'No sign up session available for auto sign in',
+          recoverySuggestion: 'Call and complete Amplify.Auth.signUp first',
+        );
+      }
+
+      final result = await _stateMachine.acceptAndComplete<SignInState>(
+        SignInEvent.initiate(
+          authFlowType: AuthenticationFlowType.userAuth,
+          parameters: SignInParameters(
+            (p) => p
+              ..username = username
+              ..session = session,
+          ),
+          clientMetadata: pluginOptions.clientMetadata,
+        ),
+      );
+
+      return _processSignInResult(result);
+    } on PasswordResetRequiredException {
+      return const CognitoSignInResult(
+        isSignedIn: false,
+        nextStep: AuthNextSignInStep(signInStep: AuthSignInStep.resetPassword),
+      );
+    } on UserNotConfirmedException {
+      return const CognitoSignInResult(
+        isSignedIn: false,
+        nextStep: AuthNextSignInStep(signInStep: AuthSignInStep.confirmSignUp),
+      );
+    }
+  }
+
+  @override
   Future<CognitoSignInResult> signIn({
     required String username,
     String? password,

@@ -333,6 +333,7 @@ final class SignInStateMachine
       AuthFlowType.userAuth => initiateUserAuth(
         event,
         parameters.preferredFirstFactor?.value,
+        parameters.session,
       ),
       _ => throw StateError('Unsupported auth flow: $authFlowType'),
     };
@@ -592,6 +593,7 @@ final class SignInStateMachine
   Future<InitiateAuthRequest> initiateUserAuth(
     SignInInitiate event,
     String? preferredChallenge,
+    String? session,
   ) async {
     return InitiateAuthRequest.build((b) {
       b
@@ -602,7 +604,8 @@ final class SignInStateMachine
           if (preferredChallenge != null)
             CognitoConstants.preferredChallenge: preferredChallenge,
         })
-        ..clientMetadata.addAll(event.clientMetadata);
+        ..clientMetadata.addAll(event.clientMetadata)
+        ..session = session;
     });
   }
 

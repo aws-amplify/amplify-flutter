@@ -261,6 +261,15 @@ class StateMachineBloc
             }
           }
           yield* _checkUserVerification();
+        case AuthSignInStep.continueSignInWithFirstFactorSelection:
+          // TODO: tyllark - Handle this case.
+          throw UnimplementedError();
+        case AuthSignInStep.confirmSignInWithOtp:
+          // TODO: tyllark - Handle this case.
+          throw UnimplementedError();
+        case AuthSignInStep.confirmSignInWithPassword:
+          // TODO: tyllark - Handle this case.
+          throw UnimplementedError();
       }
     } on AuthNotAuthorizedException {
       /// The .failAuthentication flag available in the DefineAuthChallenge Lambda trigger

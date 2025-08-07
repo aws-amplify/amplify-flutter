@@ -49,6 +49,14 @@ class _$SignInParametersSerializer
           ),
         );
     }
+    value = object.session;
+    if (value != null) {
+      result
+        ..add('session')
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
+    }
     return result;
   }
 
@@ -90,6 +98,14 @@ class _$SignInParametersSerializer
                   )
                   as AuthFactorType?;
           break;
+        case 'session':
+          result.session =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
+          break;
       }
     }
 
@@ -104,6 +120,8 @@ class _$SignInParameters extends SignInParameters {
   final String? password;
   @override
   final AuthFactorType? preferredFirstFactor;
+  @override
+  final String? session;
 
   factory _$SignInParameters([
     void Function(SignInParametersBuilder)? updates,
@@ -113,6 +131,7 @@ class _$SignInParameters extends SignInParameters {
     required this.username,
     this.password,
     this.preferredFirstFactor,
+    this.session,
   }) : super._();
   @override
   SignInParameters rebuild(void Function(SignInParametersBuilder) updates) =>
@@ -128,7 +147,8 @@ class _$SignInParameters extends SignInParameters {
     return other is SignInParameters &&
         username == other.username &&
         password == other.password &&
-        preferredFirstFactor == other.preferredFirstFactor;
+        preferredFirstFactor == other.preferredFirstFactor &&
+        session == other.session;
   }
 
   @override
@@ -137,6 +157,7 @@ class _$SignInParameters extends SignInParameters {
     _$hash = $jc(_$hash, username.hashCode);
     _$hash = $jc(_$hash, password.hashCode);
     _$hash = $jc(_$hash, preferredFirstFactor.hashCode);
+    _$hash = $jc(_$hash, session.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -146,7 +167,8 @@ class _$SignInParameters extends SignInParameters {
     return (newBuiltValueToStringHelper(r'SignInParameters')
           ..add('username', username)
           ..add('password', password)
-          ..add('preferredFirstFactor', preferredFirstFactor))
+          ..add('preferredFirstFactor', preferredFirstFactor)
+          ..add('session', session))
         .toString();
   }
 }
@@ -168,6 +190,10 @@ class SignInParametersBuilder
   set preferredFirstFactor(AuthFactorType? preferredFirstFactor) =>
       _$this._preferredFirstFactor = preferredFirstFactor;
 
+  String? _session;
+  String? get session => _$this._session;
+  set session(String? session) => _$this._session = session;
+
   SignInParametersBuilder();
 
   SignInParametersBuilder get _$this {
@@ -176,6 +202,7 @@ class SignInParametersBuilder
       _username = $v.username;
       _password = $v.password;
       _preferredFirstFactor = $v.preferredFirstFactor;
+      _session = $v.session;
       _$v = null;
     }
     return this;
@@ -205,6 +232,7 @@ class SignInParametersBuilder
           ),
           password: password,
           preferredFirstFactor: preferredFirstFactor,
+          session: session,
         );
     replace(_$result);
     return _$result;
