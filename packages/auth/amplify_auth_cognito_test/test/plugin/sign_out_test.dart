@@ -275,6 +275,8 @@ void main() {
           final mockIdp = MockCognitoIdentityProviderClient(
             initiateAuth: (p0) async =>
                 throw InternalErrorException(message: 'Invalid token'),
+            getTokensFromRefreshToken: () async =>
+                throw const AuthNotAuthorizedException('Auth not authorized'),
           );
           stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
