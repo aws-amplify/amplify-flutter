@@ -32,6 +32,8 @@ export 'attribute/update_user_attributes_options.dart';
 export 'auth_code_delivery_details.dart';
 export 'auth_device.dart';
 export 'auth_next_step.dart';
+// Auto Sign In
+export 'auto_sign_in/auto_sign_in_options.dart';
 // Hub
 export 'hub/auth_hub_event.dart';
 // MFA

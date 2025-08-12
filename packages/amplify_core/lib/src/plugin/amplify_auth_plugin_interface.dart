@@ -40,6 +40,11 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('resendSignUpCode() has not been implemented');
   }
 
+  /// {@macro amplify_core.amplify_auth_category.auto_sign_in}
+  Future<SignInResult> autoSignIn({AutoSignInOptions? options}) {
+    throw UnimplementedError('autoSignIn() has not been implemented');
+  }
+
   /// {@macro amplify_core.amplify_auth_category.sign_in}
   Future<SignInResult> signIn({
     required String username,

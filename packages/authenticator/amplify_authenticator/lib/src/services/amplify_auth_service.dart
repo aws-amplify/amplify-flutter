@@ -26,6 +26,8 @@ abstract class AuthService {
 
   Future<SignUpResult> confirmSignUp(String username, String code);
 
+  Future<SignInResult> autoSignIn();
+
   Future<AuthUser?> get currentUser;
 
   /// Checks to see if a user has a valid session.
@@ -147,6 +149,11 @@ class AmplifyAuthService
         confirmationCode: code,
       ),
     );
+  }
+
+  @override
+  Future<SignInResult> autoSignIn() {
+    return _withUserAgent(() => Amplify.Auth.autoSignIn());
   }
 
   @override

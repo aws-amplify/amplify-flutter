@@ -594,6 +594,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     ),
   );
 
+  /// {@template amplify_core.amplify_auth_category.autoSignIn}
+  /// {@endtemplate}
+  Future<SignInResult> autoSignIn({AutoSignInOptions? options}) => identifyCall(
+    AuthCategoryMethod.confirmSignIn,
+    () => defaultPlugin.autoSignIn(options: options),
+  );
+
   /// {@template amplify_core.amplify_auth_category.sign_out}
   /// Sign the user out of the current device.
   ///
