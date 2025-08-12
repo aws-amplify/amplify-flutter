@@ -1,6 +1,6 @@
 name: amplify_auth_cognito_dart
 description: A Dart-only implementation of the Amplify Auth plugin for Cognito.
-version: 0.11.12
+version: 0.11.13
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/auth/amplify_auth_cognito_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -10,11 +10,11 @@ environment:
 
 dependencies:
   amplify_analytics_pinpoint_dart: ">=0.4.11 <0.5.0"
-  amplify_core: ">=2.6.4 <2.7.0"
+  amplify_core: ">=2.6.5 <2.7.0"
   amplify_secure_storage_dart: ">=0.5.7 <0.6.0"
   async: ^2.10.0
-  aws_common: ">=0.7.9 <0.8.0"
-  aws_signature_v4: ">=0.6.7 <0.7.0"
+  aws_common: ">=0.7.10 <0.8.0"
+  aws_signature_v4: ">=0.6.8 <0.7.0"
   built_collection: ^5.0.0
   built_value: ^8.10.1
   clock: ^1.1.1
@@ -29,8 +29,8 @@ dependencies:
   meta: ^1.16.0
   oauth2: ^2.0.2
   path: ^1.8.0
-  smithy: ">=0.7.7 <0.8.0"
-  smithy_aws: ">=0.7.7 <0.8.0"
+  smithy: ">=0.7.8 <0.8.0"
+  smithy_aws: ">=0.7.8 <0.8.0"
   stream_transform: ^2.1.0
   uuid: ^4.5.1
   web: ^1.1.1
