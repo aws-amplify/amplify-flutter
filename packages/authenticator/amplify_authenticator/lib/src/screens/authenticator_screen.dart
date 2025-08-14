@@ -255,7 +255,7 @@ class _AuthenticatorTabViewState
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final labelColor = Theme.of(context).tabBarTheme.labelColor;
     final textColor = Theme.of(context).textTheme.bodySmall?.color;
-    final fallbackColor = isDark ? Colors.white : Colors.red;
+    final fallbackColor = isDark ? Colors.white : Colors.black;
     return labelColor ?? textColor ?? fallbackColor;
   }
 
