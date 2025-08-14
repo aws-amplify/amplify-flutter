@@ -4517,7 +4517,6 @@
         error = type$.Object._as(error);
       error.stack = stackTrace.toString$0(0);
       throw error;
-      throw A.wrapException("unreachable");
     },
     List_List$filled($length, fill, growable, $E) {
       var i,
@@ -6480,7 +6479,6 @@
               // goto return
               $async$goto = 1;
               break;
-              $async$handler = 2;
               // goto after finally
               $async$goto = 6;
               break;
@@ -6490,8 +6488,6 @@
               $async$exception = $async$currentError;
               t1 = A.Exception_Exception('"' + commandLine + " " + B.JSArray_methods.join$1(args, " ") + '" failed:\n' + A.S(stdout) + "\n" + A.S(stderr));
               throw A.wrapException(t1);
-              // goto after finally
-              $async$goto = 6;
               break;
             case 3:
               // uncaught
@@ -7410,7 +7406,6 @@
               // goto finally
               $async$goto = 4;
               break;
-              $async$next.push(5);
               // goto finally
               $async$goto = 4;
               break;
@@ -14679,8 +14674,12 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "brew", A._setArrayType(["install", "xcodesorg/made/xcodes", "aria2"], type$.JSArray_String), true), $async$call$0);
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "brew", A._setArrayType(["uninstall", "--ignore-dependencies", "aria2"], type$.JSArray_String), true), $async$call$0);
             case 2:
+              // returning from await.
+              $async$goto = 3;
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "brew", A._setArrayType(["install", "xcodesorg/made/xcodes", "aria2"], type$.JSArray_String), true), $async$call$0);
+            case 3:
               // returning from await.
               if ($async$result.exitCode !== 0)
                 throw A.wrapException(A.Exception_Exception("Could not install xcodes"));
