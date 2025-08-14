@@ -14674,12 +14674,8 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "brew", A._setArrayType(["uninstall", "--ignore-dependencies", "aria2"], type$.JSArray_String), true), $async$call$0);
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "/bin/sh", A._setArrayType(["-c", "brew uninstall --ignore-dependencies aria2 || true && brew install xcodesorg/made/xcodes aria2"], type$.JSArray_String), true), $async$call$0);
             case 2:
-              // returning from await.
-              $async$goto = 3;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "brew", A._setArrayType(["install", "xcodesorg/made/xcodes", "aria2"], type$.JSArray_String), true), $async$call$0);
-            case 3:
               // returning from await.
               if ($async$result.exitCode !== 0)
                 throw A.wrapException(A.Exception_Exception("Could not install xcodes"));
