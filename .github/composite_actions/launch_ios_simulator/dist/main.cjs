@@ -4517,7 +4517,6 @@
         error = type$.Object._as(error);
       error.stack = stackTrace.toString$0(0);
       throw error;
-      throw A.wrapException("unreachable");
     },
     List_List$filled($length, fill, growable, $E) {
       var i,
@@ -6480,7 +6479,6 @@
               // goto return
               $async$goto = 1;
               break;
-              $async$handler = 2;
               // goto after finally
               $async$goto = 6;
               break;
@@ -6490,8 +6488,6 @@
               $async$exception = $async$currentError;
               t1 = A.Exception_Exception('"' + commandLine + " " + B.JSArray_methods.join$1(args, " ") + '" failed:\n' + A.S(stdout) + "\n" + A.S(stderr));
               throw A.wrapException(t1);
-              // goto after finally
-              $async$goto = 6;
               break;
             case 3:
               // uncaught
@@ -7410,7 +7406,6 @@
               // goto finally
               $async$goto = 4;
               break;
-              $async$next.push(5);
               // goto finally
               $async$goto = 4;
               break;
