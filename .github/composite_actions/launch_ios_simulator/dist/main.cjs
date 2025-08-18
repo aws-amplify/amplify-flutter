@@ -14679,7 +14679,7 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "brew", A._setArrayType(["install", "xcodesorg/made/xcodes", "aria2"], type$.JSArray_String), true), $async$call$0);
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "/bin/sh", A._setArrayType(["-c", "brew install xcodes"], type$.JSArray_String), true), $async$call$0);
             case 2:
               // returning from await.
               if ($async$result.exitCode !== 0)
