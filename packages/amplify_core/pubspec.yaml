@@ -35,6 +35,6 @@ dev_dependencies:
       path: packages/code_excerpt_updater
       # TODO: Bump when global SDK >=3.1
       ref: 923adadacbb95f11d222e6fc6135f6dbb66f84ee
-  json_serializable: ">=6.9.4 <6.10.0"
+  json_serializable: ^6.9.4
   path: ^1.8.0
   test: ^1.22.1
