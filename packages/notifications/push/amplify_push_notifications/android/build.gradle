@@ -66,7 +66,7 @@ android {
 
 dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
-    api "com.google.firebase:firebase-messaging:24.1.2"
+    api "com.google.firebase:firebase-messaging:25.0.0"
     // Import support library for Amplify push utils
     implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.29.1'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0"
