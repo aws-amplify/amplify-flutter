@@ -6,7 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.storage.remove_many_result}
 /// Presents the result of a [StorageRemoveManyOperation].
 /// {@endtemplate}
-class StorageRemoveManyResult<Item extends StorageItem, Error extends Object> {
+class StorageRemoveManyResult<Item extends StorageItem, ErrorT extends Object> {
   /// {@macro amplify_core.storage.remove_many_result}
   const StorageRemoveManyResult({
     required this.removedItems,
@@ -17,5 +17,5 @@ class StorageRemoveManyResult<Item extends StorageItem, Error extends Object> {
   final List<Item> removedItems;
 
   /// The errors that occurred when removing the specified items.
-  final List<Error> errors;
+  final List<ErrorT> errors;
 }
