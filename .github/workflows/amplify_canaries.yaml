@@ -32,7 +32,7 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.32.0"
+            flutter-version: "3.35.0"
     steps:
       - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
         with:
@@ -88,7 +88,7 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.32.0"
+            flutter-version: "3.35.0"
     steps:
       - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
         with:
@@ -162,7 +162,7 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.32.0"
+            flutter-version: "3.35.0"
         ios-version:
           - "15.0"
           - "17.5"

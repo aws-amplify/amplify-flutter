@@ -19,7 +19,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ^3.8.0
-  flutter: ">=3.32.0"
+  flutter: ">=3.35.0"
 
 dependencies:
   amplify_auth_cognito: ">=1.0.0-next.8 <1.0.0-next.9"
