@@ -30,6 +30,8 @@ import com.amazonaws.amplify.amplify_datastore.util.AtomicResult
 import com.amazonaws.amplify.amplify_datastore.util.cast
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
+import com.amplifyframework.logging.AndroidLoggingPlugin;
+import com.amplifyframework.logging.LogLevel;
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.annotations.AmplifyFlutterApi
 import com.amplifyframework.api.aws.AWSApiPlugin
@@ -307,6 +309,7 @@ class AmplifyDataStorePlugin :
 
         try {
             Amplify.addPlugin(dataStorePlugin)
+            Amplify.addPlugin(AndroidLoggingPlugin(LogLevel.VERBOSE))
         } catch (e: Exception) {
             handleAddPluginException("Datastore", e, flutterResult, uiThreadHandler)
             return
