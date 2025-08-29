@@ -35,7 +35,7 @@ sed -i '' -e "s/minSdk = .*/minSdk = 24/" ./android/app/build.gradle.kts
 sed -i '' -e '/id "kotlin-android"/a\
 id '\''kotlin-parcelize'\''' ./android/app/build.gradle.kts
 
-sed -i '' -e "s/compileSdk = .*/compileSdk = 35/" ./android/app/build.gradle.kts
+sed -i '' -e "s/compileSdk = .*/compileSdk = 36/" ./android/app/build.gradle.kts
 
 sed -i '' -e "s/sourceCompatibility = .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
 
