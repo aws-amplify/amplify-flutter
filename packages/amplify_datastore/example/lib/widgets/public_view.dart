@@ -308,8 +308,7 @@ class _PublicViewState extends State<PublicView>
             }
           },
           activeTrackColor: Colors.lightGreenAccent,
-          //TODO: tyllark uncomment after next Flutter version bump
-          //activeThumbColor: Colors.green,
+          activeThumbColor: Colors.green,
         ),
 
         Padding(padding: EdgeInsets.all(5.0)),
