@@ -39,7 +39,7 @@ final class SdkManager {
 
   /// The current `compileSdk` used by the repo.
   // TODO(dnys1): Extract from aft.yaml?
-  static const compileSdk = 35;
+  static const compileSdk = 36;
 
   /// The install directory for cmdline-tools.
   ///
