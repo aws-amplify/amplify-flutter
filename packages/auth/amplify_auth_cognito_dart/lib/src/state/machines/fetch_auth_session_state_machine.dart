@@ -507,17 +507,22 @@ final class FetchAuthSessionStateMachine
     final deviceSecrets = await getOrCreate<DeviceMetadataRepository>().get(
       userPoolTokens.username,
     );
-
-    // seems we dont support client metadata
+    
+    final deviceKey = deviceSecrets?.deviceKey;
+    // ignore: invalid_use_of_internal_member
+    final appClientSecret = _authConfig?.appClientSecret;
+    
     final refreshRequest = cognito_idp.GetTokensFromRefreshTokenRequest.build((
       b,
     ) {
       b
         ..refreshToken = userPoolTokens.refreshToken
         ..clientId = _authConfig?.userPoolClientId;
-      final deviceKey = deviceSecrets?.deviceKey;
       if (deviceKey != null) {
         b.deviceKey = deviceKey;
+      }
+      if (appClientSecret != null) {
+        b.clientSecret = appClientSecret;
       }
     });
     try {
