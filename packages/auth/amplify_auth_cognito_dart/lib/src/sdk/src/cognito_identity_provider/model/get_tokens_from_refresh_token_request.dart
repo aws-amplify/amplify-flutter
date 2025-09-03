@@ -32,8 +32,9 @@ abstract class GetTokensFromRefreshTokenRequest
       clientId: clientId,
       clientSecret: clientSecret,
       deviceKey: deviceKey,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 
