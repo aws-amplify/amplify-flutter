@@ -27,7 +27,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
 
 android {
-    compileSdk 36
+    compileSdk 34
 
     compileOptions {
         coreLibraryDesugaringEnabled true
