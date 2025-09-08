@@ -90,7 +90,7 @@ Future<String?> getRuntimeId(String iosVersion) async {
 Future<void> installXcodes() => core.withGroup('Install xcodes', () async {
   final res = await exec.exec('brew', [
     'install',
-    'xcodesorg/made/xcodes',
+    'homebrew/core/xcodes',
     'aria2',
   ]);
   if (res.exitCode != 0) {

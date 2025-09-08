@@ -3,7 +3,7 @@ description: E2E tests for the worker_bee package.
 publish_to: none
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.9.0
 
 dependencies:
   web: ^1.1.1

@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace 'com.amazonaws.amplify.e2e_flutter_test'
-    compileSdk flutter.compileSdkVersion
+    compileSdk 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {
