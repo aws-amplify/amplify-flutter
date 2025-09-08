@@ -277,7 +277,7 @@ class AttributeExistsQueryOperator<T> extends QueryFieldOperator<T> {
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'operatorName': QueryFieldOperatorType.attribute_exists.toShortString(),
-      'exists': this.exists,
+      'exists': exists,
     };
   }
 }

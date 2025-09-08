@@ -8,6 +8,6 @@ import 'package:pub_semver/pub_semver.dart';
 ///
 /// This is a no-op on Web since `dart_style` (`analyzer`) is not supported.
 String format(String source) {
-  final formatter = DartFormatter(languageVersion: Version(3, 8, 0));
+  final formatter = DartFormatter(languageVersion: Version(3, 9, 0));
   return formatter.format(source);
 }

@@ -103,6 +103,6 @@ class _ElementComponent extends Component {
 extension NodeX on Node {
   /// calls [Component.renderElement], and appends the result to the node.
   Node appendComponent(Component component) {
-    return append(component.renderElement());
+    return appendChild(component.renderElement());
   }
 }

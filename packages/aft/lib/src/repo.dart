@@ -279,7 +279,7 @@ class Repo {
   /// the version change is propagated to all packages which depend on
   /// [package] at the type which is next least severe.
   ///
-  /// If [propagateToComponent] is `true`, all component packages are bumped to
+  /// If [VersionPropagation.propagateToComponent] is `true`, all component packages are bumped to
   /// the same version.
   Version bumpVersion(
     PackageInfo package, {
