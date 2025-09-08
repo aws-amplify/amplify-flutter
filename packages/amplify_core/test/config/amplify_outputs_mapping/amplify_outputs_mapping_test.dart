@@ -249,8 +249,9 @@ const userPoolOnlyConfig = '''{
 /// - https://github.com/aws-amplify/amplify-backend/issues/1551
 Map<String, Object?> updateConfig(Map<String, Object?> config) {
   config as Map<String, dynamic>;
+  final auth = config['auth'] as Map<String, dynamic>;
   // ignore: avoid_dynamic_calls
-  final cognitoPlugin = (config)['auth']['plugins']['awsCognitoAuthPlugin'];
+  final cognitoPlugin = auth['plugins']['awsCognitoAuthPlugin'];
   // ignore: avoid_dynamic_calls
   final defaultAuth = cognitoPlugin['Auth']['Default'] as Map<String, Object?>;
   final oAuthConfig = defaultAuth['OAuth'] as Map<String, Object?>;

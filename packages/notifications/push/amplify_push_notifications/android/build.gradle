@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.11.0'
+        classpath 'com.android.tools.build:gradle:8.12.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
@@ -51,7 +51,7 @@ android {
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
-        testImplementation 'org.mockito:mockito-core:5.18.0'
+        testImplementation 'org.mockito:mockito-core:5.19.0'
 
     }
 
@@ -66,7 +66,10 @@ android {
 
 dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
-    api "com.google.firebase:firebase-messaging:24.1.2"
+    
+    implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
+    api "com.google.firebase:firebase-messaging"
+
     // Import support library for Amplify push utils
     implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.29.1'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0"
