@@ -110,7 +110,7 @@ abstract class AmplifyCommand extends Command<void>
 
   /// The path to the Flutter SDK, if installed.
   late final String? flutterRoot = () {
-    final dartSdkPath = getSdkPath();
+    final dartSdkPath = sdkPath;
     final flutterBin = p.dirname(p.dirname(dartSdkPath));
     if (File(p.join(flutterBin, 'flutter')).existsSync()) {
       return p.dirname(flutterBin);
