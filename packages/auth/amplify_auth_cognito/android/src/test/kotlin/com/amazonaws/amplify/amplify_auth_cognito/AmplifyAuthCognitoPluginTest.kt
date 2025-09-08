@@ -32,7 +32,7 @@ internal class AmplifyAuthCognitoPluginTest {
     @Test
     fun convertsCancelledException() {
         val mockPlugin = object : AmplifyAuthCognitoPlugin() {
-            override fun launchUrl(url: String, browserPackageName: String?) {
+            override fun launchUrl(url: String, browserPackageName: String?, preferPrivateSession: Boolean) {
                 throw HostedUiException.CANCELLED()
             }
         }
@@ -70,7 +70,7 @@ internal class AmplifyAuthCognitoPluginTest {
     fun convertsUnknownException() {
         val aMessage = "a message"
         val mockPlugin = object : AmplifyAuthCognitoPlugin() {
-            override fun launchUrl(url: String, browserPackageName: String?) {
+            override fun launchUrl(url: String, browserPackageName: String?, preferPrivateSession: Boolean) {
                 throw HostedUiException.UNKNOWN(aMessage)
             }
         }
