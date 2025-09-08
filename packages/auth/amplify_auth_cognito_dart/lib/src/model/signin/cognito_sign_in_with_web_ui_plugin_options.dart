@@ -22,11 +22,13 @@ class CognitoSignInWithWebUIPluginOptions extends SignInWithWebUIPluginOptions {
   ) => _$CognitoSignInWithWebUIPluginOptionsFromJson(json);
 
   /// {@template amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.private_session}
-  /// iOS-only: Starts the webUI signin in a private browser session, if supported by the current browser.
+  /// Starts the webUI signin in a private browser session, if supported by the current browser.
   ///
-  /// Note that this value internally sets `prefersEphemeralWebBrowserSession` in ASWebAuthenticationSession.
+  /// Note that on iOS this value internally sets `prefersEphemeralWebBrowserSession` in ASWebAuthenticationSession.
   /// As per Apple documentation, Whether the request is honored depends on the user’s default web browser.
   /// Safari always honors the request.
+  ///
+  /// Note that on Android this value internally sets `setEphemeralBrowsingEnabled` in CustomTabsIntent.
   ///
   /// Defaults to `false`.
   /// {@endtemplate}
