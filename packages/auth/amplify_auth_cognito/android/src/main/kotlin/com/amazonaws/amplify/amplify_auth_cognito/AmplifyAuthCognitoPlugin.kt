@@ -433,11 +433,12 @@ open class AmplifyAuthCognitoPlugin :
   /**
    * Launches [url] in a Custom Tab.
    */
-  open fun launchUrl(url: String, browserPackageName: String?) {
+  open fun launchUrl(url: String, browserPackageName: String?, preferPrivateSession: Boolean) {
     if (mainActivity == null) {
       throw HostedUiException.UNKNOWN("No activity found")
     }
     val intent = CustomTabsIntent.Builder().apply {
+      setEphemeralBrowsingEnabled(preferPrivateSession)
       setShareState(CustomTabsIntent.SHARE_STATE_OFF)
     }.build()
     val useBrowserPackage = browserPackageName
@@ -469,9 +470,6 @@ open class AmplifyAuthCognitoPlugin :
 
   /**
    * Launch the sign in URL.
-   *
-   * Note: [preferPrivateSession] currently has no effect on Android since it is not supported in
-   * custom tabs.
    */
   override fun signInWithUrl(
     url: String,
@@ -482,7 +480,7 @@ open class AmplifyAuthCognitoPlugin :
   ) {
     val result = AtomicResult(callback, "signIn")
     try {
-      launchUrl(url, browserPackageName)
+      launchUrl(url, browserPackageName, preferPrivateSession)
       signInResult = result
     } catch (e: Throwable) {
       result(Result.failure(HostedUiException.fromThrowable(e)))
@@ -501,7 +499,7 @@ open class AmplifyAuthCognitoPlugin :
   ) {
     val result = AtomicResult(callback, "signOut")
     try {
-      launchUrl(url, browserPackageName)
+      launchUrl(url, browserPackageName, preferPrivateSession)
       signOutResult = result
     } catch (e: Throwable) {
       result(Result.failure(HostedUiException.fromThrowable(e)))
