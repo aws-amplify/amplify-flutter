@@ -23,34 +23,34 @@ mixin AuthenticatorRadioField<
   @override
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    return Column(
-      children: <Widget>[
-        for (final selection in selections)
-          ListTile(
-            key: Key('${selection.value}${widget.titleKey}'),
-            horizontalTitleGap: 0,
-            contentPadding: EdgeInsets.zero,
-            title: Text(inputResolver.resolve(context, selection.label)),
-            leading: Radio<FieldValue>(
-              value: selection.value,
-              groupValue: selectionValue,
-              onChanged: (FieldValue? value) {
-                if (value != null) {
-                  setState(() {
-                    _selectionValue = value;
-                  });
-                  onChanged(value);
-                }
+    return RadioGroup(
+      groupValue: selectionValue,
+      onChanged: (FieldValue? value) {
+        if (value != null) {
+          setState(() {
+            _selectionValue = value;
+          });
+          onChanged(value);
+        }
+      },
+      child: Column(
+        children: <Widget>[
+          for (final selection in selections)
+            ListTile(
+              key: Key('${selection.value}${widget.titleKey}'),
+              horizontalTitleGap: 0,
+              contentPadding: EdgeInsets.zero,
+              title: Text(inputResolver.resolve(context, selection.label)),
+              leading: Radio<FieldValue>(value: selection.value),
+              onTap: () {
+                setState(() {
+                  _selectionValue = selection.value;
+                });
+                onChanged(selection.value);
               },
             ),
-            onTap: () {
-              setState(() {
-                _selectionValue = selection.value;
-              });
-              onChanged(selection.value);
-            },
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

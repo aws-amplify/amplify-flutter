@@ -55,7 +55,7 @@ abstract class ModelType<T extends Model> {
   }
 
   /// Perform [action] with [T] as type argument.
-  R callWithType<R>(R Function<T>() action) => action<T>();
+  R callWithType<R>(R Function<U>() action) => action<T>();
 
   // Checks and casts.
   bool isInstance(Object o) => o is T;

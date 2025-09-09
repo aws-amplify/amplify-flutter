@@ -24,7 +24,7 @@ cp -r $ROOT_DIR/canaries/lib .
 cp $ROOT_DIR/build-support/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 
 # Android
-sed -i '' -e "s/id(\"com.android.application\") .*/id(\"com.android.application\") version \"8.3.0\" apply false/" ./android/settings.gradle.kts
+sed -i '' -e "s/id(\"com.android.application\") .*/id(\"com.android.application\") version \"8.12.1\" apply false/" ./android/settings.gradle.kts
 sed -i '' -e "s/id(\"org.jetbrains.kotlin.android\") .*/id(\"org.jetbrains.kotlin.android\") version \"2.2.0\" apply false/" ./android/settings.gradle.kts
 cat ./android/settings.gradle.kts
 
@@ -35,7 +35,7 @@ sed -i '' -e "s/minSdk = .*/minSdk = 24/" ./android/app/build.gradle.kts
 sed -i '' -e '/id "kotlin-android"/a\
 id '\''kotlin-parcelize'\''' ./android/app/build.gradle.kts
 
-sed -i '' -e "s/compileSdk = .*/compileSdk = 35/" ./android/app/build.gradle.kts
+sed -i '' -e "s/compileSdk = .*/compileSdk = 36/" ./android/app/build.gradle.kts
 
 sed -i '' -e "s/sourceCompatibility = .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
 
@@ -48,7 +48,7 @@ sed -i '' -e "s/compileOptions {.*/compileOptions {\n\t\tisCoreLibraryDesugaring
 sed -i '' -e "s/flutter {.*/dependencies {\n\tcoreLibraryDesugaring(\"com.android.tools:desugar_jdk_libs:2.1.5\")\n}\n\nflutter {/" ./android/app/build.gradle.kts
 cat ./android/app/build.gradle.kts
 
-sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
+sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.13-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
 cat ./android/gradle/wrapper/gradle-wrapper.properties
 
 

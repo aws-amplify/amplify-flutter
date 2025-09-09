@@ -1,3 +1,21 @@
+## 2.6.6
+
+### Fixes
+- fix(datastore): corrected getToken return value for oidc
+
+## 2.6.5
+
+### Chores
+- chore(datastore): Bumped kotlin_version to 2.2.0 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(datastore): Bumped com.android.tools:desugar_jdk_libs to 2.1.5 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(datastore): Bumped com.google.code.gson:gson to 2.13.1 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(datastore): Bumped com.android.tools.build:gradle to 8.11.0 ([#6203](https://github.com/aws-amplify/amplify-flutter/pull/6203))
+- chore(datastore): Bumped com.amplifyframework:aws-auth-cognito to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(datastore): Bumped com.amplifyframework:aws-api to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(datastore): Bumped com.amplifyframework:aws-datastore to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(datastore): Bumped com.amplifyframework:aws-api-appsync to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(datastore): Bumped org.jetbrains.kotlinx:kotlinx-coroutines-android: to 1.10.2 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+
 ## 2.6.4
 
 ### Chores
