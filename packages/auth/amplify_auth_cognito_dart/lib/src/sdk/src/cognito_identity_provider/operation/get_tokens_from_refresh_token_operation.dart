@@ -73,6 +73,7 @@ class GetTokensFromRefreshTokenOperation
               region: _region,
               service: _i4.AWSService.cognitoIdentityProvider,
               credentialsProvider: _credentialsProvider,
+              isOptional: true,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i3.WithSdkInvocationId(),
