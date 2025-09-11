@@ -24,7 +24,7 @@ dependencies:
   # This must roughly match what's included in `dart format`
   # on stable so that CI checks pass for generated code.
   dart_style: ^3.0.1
-  device_info_plus: ^11.3.3
+  device_info_plus: ^12.0.0
   drift: ^2.25.0
   drift_dev: ^2.25.1
   ffigen: ^9.0.0
