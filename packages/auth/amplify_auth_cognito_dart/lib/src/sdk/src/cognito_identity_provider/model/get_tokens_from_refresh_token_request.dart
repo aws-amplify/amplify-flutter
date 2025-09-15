@@ -53,7 +53,7 @@ abstract class GetTokensFromRefreshTokenRequest
   static const List<_i1.SmithySerializer<GetTokensFromRefreshTokenRequest>>
   serializers = [GetTokensFromRefreshTokenRequestAwsJson11Serializer()];
 
-  /// A valid refresh token that can authorize the request for new tokens. When refresh token rotation is active in the requested app client, this token is invalidated after the request is complete.
+  /// A valid refresh token that can authorize the request for new tokens. When refresh token rotation is active in the requested app client, this token is invalidated after the request is complete and after an optional grace period.
   String get refreshToken;
 
   /// The app client that issued the refresh token to the user who wants to request new tokens.
