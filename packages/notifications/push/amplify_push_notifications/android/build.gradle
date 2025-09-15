@@ -71,7 +71,7 @@ dependencies {
     api "com.google.firebase:firebase-messaging"
 
     // Import support library for Amplify push utils
-    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.29.1'
+    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.30.1'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0"
     implementation project(path: ':flutter_plugin_android_lifecycle')
     implementation 'androidx.test:core-ktx:1.6.1'
