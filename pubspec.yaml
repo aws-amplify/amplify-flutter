@@ -20,7 +20,7 @@ dependencies:
   built_value: ^8.10.1
   built_value_generator: ^8.10.1
   code_builder: ^4.10.1
-  connectivity_plus: ^6.0.1
+  connectivity_plus: ^7.0.0
   # This must roughly match what's included in `dart format`
   # on stable so that CI checks pass for generated code.
   dart_style: ^3.0.1
