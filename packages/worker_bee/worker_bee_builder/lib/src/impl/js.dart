@@ -42,7 +42,7 @@ class JsGenerator extends ImplGenerator {
   late final _workersJsPath =
       'packages/$_packageName/${_workersJs.path.replaceFirst('lib/', '')}';
   late final _debugWorkersJs = hiveEntrypointId.changeExtension(
-    '.debug.dart.js',
+    '.dev.js',
   );
   late final _debugWorkersJsPath =
       'packages/$_packageName/${_debugWorkersJs.path.replaceFirst('lib/', '')}';
@@ -52,7 +52,7 @@ class JsGenerator extends ImplGenerator {
       'packages/$_packageName/${_minifiedWorkersJs.path.replaceFirst('lib/', '')}';
 
   late final _releaseWorkersJs = hiveEntrypointId.changeExtension(
-    '.release.dart.js',
+    '.mins.js',
   );
   late final _releaseWorkersJsPath =
       'packages/$_packageName/${_releaseWorkersJs.path.replaceFirst('lib/', '')}';
