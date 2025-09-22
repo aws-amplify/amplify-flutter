@@ -23,7 +23,7 @@ dependencies:
   intl: ^0.20.2
   meta: ^1.16.0
   # TODO(equartey): Remove this once we have our own method of getting the app name
-  package_info_plus: ^8.0.0
+  package_info_plus: ^9.0.0
   qr_flutter: 4.1.0
   smithy: ">=0.7.7 <0.8.0"
   stream_transform: ^2.1.0
