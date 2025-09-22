@@ -17,7 +17,10 @@ import 'package:worker_bee_builder/src/worker_generator.dart';
 Builder workerBeeBuilder(BuilderOptions options) => LibraryBuilder(
   WorkerBeeGenerator(),
   generatedExtension: '.worker.dart',
-  additionalOutputExtensions: ['.worker.vm.dart', '.worker.js.dart'],
+  additionalOutputExtensions: [
+    '.worker.vm.dart',
+    '.worker.js.dart',
+  ],
 );
 
 /// {@template worker_bee_builder.worker_hive_builder}
@@ -30,6 +33,6 @@ Builder workerHiveBuilder(BuilderOptions options) => LibraryBuilder(
 );
 
 /// {@template worker_bee_builder.worker_copy_builder}
-/// Copies generated JS artifacts to `lib/` for publishing.
+/// Copies generated JS and WASM artifacts to `lib/` for publishing.
 /// {@endtemplate}
 Builder workerCopyBuilder(BuilderOptions options) => WorkerCopyBuilder();
