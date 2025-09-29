@@ -29,14 +29,41 @@ builders:
       - workerCopyBuilder
     build_extensions:
       .debug.dart.js:
-        - .js
-      .debug.dart.js.map:
-        - .js.map
+        - .dev.js
+      .debug.dart2js.js:
+        - .dev.dart2js.js
+      .debug.dart2js.js.map:
+        - .dev.dart2js.js.map
       .release.dart.js:
         - .min.js
-      .release.dart.js.map:
-        - .min.js.map
+      .release.dart2js.js:
+        - .min.dart2js.js
+      .release.dart2js.js.map:
+        - .min.dart2js.js.map
+      .debug.wasm:
+        - .dev.wasm
+      .debug.wasm.map:
+        - .dev.wasm.map
+      .debug.mjs:
+        - .dev.mjs
+      .release.wasm:
+        - .min.wasm
+      .release.wasm.map:
+        - .min.wasm.map
+      .release.mjs:
+        - .min.mjs
     auto_apply: none
     build_to: source
     required_inputs:
-      - .dart.js
+      - .debug.dart.js
+      - .debug.dart2js.js
+      - .debug.dart2js.js.map
+      - .release.dart.js
+      - .release.dart2js.js
+      - .release.dart2js.js.map
+      - .debug.wasm
+      - .debug.wasm.map
+      - .debug.mjs
+      - .release.wasm
+      - .release.wasm.map
+      - .release.mjs

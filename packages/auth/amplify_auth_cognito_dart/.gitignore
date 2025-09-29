@@ -14,5 +14,10 @@ pubspec.lock
 *.js.map
 *.js.deps
 
+# WASM outputs
+*.mjs
+*.wasm
+*.wasm.map
+
 doc/api
 coverage/
