@@ -29,7 +29,7 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.16.0
-  package_info_plus: ^8.0.0
+  package_info_plus: ^9.0.0
   path_provider: ^2.0.11
 
 dev_dependencies:

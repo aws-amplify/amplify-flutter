@@ -421,10 +421,13 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       customSenderKmsKey,
       deviceTracking,
       mfaSecondFactor,
-      advancedSecurityMode,
       keepOriginal,
     });
-    this.createUserCleanupJob(userPool);
+
+    const cfnUserPool = userPool.node.defaultChild as cognito.CfnUserPool;
+    cfnUserPool.addPropertyOverride('UserPoolAddOns', {
+      AdvancedSecurityMode: advancedSecurityMode
+    });
 
     let oAuth: cognito.OAuthSettings | undefined;
     let webDomain: cognito.UserPoolDomain | undefined;
