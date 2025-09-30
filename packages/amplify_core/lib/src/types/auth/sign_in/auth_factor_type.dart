@@ -23,11 +23,11 @@ enum AuthFactorType {
 
   /// Sign in using a One Time Password sent to the user's SMS number
   @JsonValue('SMS_OTP')
-  smsOtp('SMS_OTP'),
+  smsOtp('SMS_OTP');
 
-  /// Sign in with WebAuthn (i.e. PassKey)
-  @JsonValue('WEB_AUTHN')
-  webAuthn('WEB_AUTHN');
+  // /// Sign in with WebAuthn (i.e. PassKey)
+  // @JsonValue('WEB_AUTHN')
+  // webAuthn('WEB_AUTHN');
 
   const AuthFactorType(this.value);
 
