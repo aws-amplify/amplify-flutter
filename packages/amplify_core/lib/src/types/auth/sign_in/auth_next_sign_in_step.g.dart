@@ -115,5 +115,4 @@ const _$AuthFactorTypeEnumMap = {
   AuthFactorType.passwordSrp: 'PASSWORD_SRP',
   AuthFactorType.emailOtp: 'EMAIL_OTP',
   AuthFactorType.smsOtp: 'SMS_OTP',
-  AuthFactorType.webAuthn: 'WEB_AUTHN',
 };
