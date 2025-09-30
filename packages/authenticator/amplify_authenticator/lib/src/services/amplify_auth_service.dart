@@ -20,13 +20,14 @@ abstract class AuthService {
 
   Future<SignUpResult> signUp(
     String username,
-    String? password,
+    String password,
     Map<CognitoUserAttributeKey, String> authAttributes,
   );
 
   Future<SignUpResult> confirmSignUp(String username, String code);
 
-  Future<SignInResult> autoSignIn();
+  // TODO(tyllark): Passwordless Authenticator.
+  //Future<SignInResult> autoSignIn();
 
   Future<AuthUser?> get currentUser;
 
@@ -129,7 +130,7 @@ class AmplifyAuthService
   @override
   Future<SignUpResult> signUp(
     String username,
-    String? password,
+    String password,
     Map<CognitoUserAttributeKey, String> attributes,
   ) {
     return _withUserAgent(() {
@@ -151,10 +152,11 @@ class AmplifyAuthService
     );
   }
 
-  @override
-  Future<SignInResult> autoSignIn() {
-    return _withUserAgent(() => Amplify.Auth.autoSignIn());
-  }
+  // TODO(tyllark): Passwordless Authenticator.
+  // @override
+  // Future<SignInResult> autoSignIn() {
+  //   return _withUserAgent(() => Amplify.Auth.autoSignIn());
+  // }
 
   @override
   Future<SignInResult> confirmSignIn({

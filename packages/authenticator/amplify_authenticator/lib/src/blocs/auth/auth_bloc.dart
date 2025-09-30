@@ -262,14 +262,16 @@ class StateMachineBloc
           }
           yield* _checkUserVerification();
         case AuthSignInStep.continueSignInWithFirstFactorSelection:
-          // TODO: tyllark - Handle this case.
-          throw UnimplementedError();
         case AuthSignInStep.confirmSignInWithOtp:
-          // TODO: tyllark - Handle this case.
-          throw UnimplementedError();
         case AuthSignInStep.confirmSignInWithPassword:
-          // TODO: tyllark - Handle this case.
-          throw UnimplementedError();
+          // TODO(tyllark): Passwordless Authenticator.
+          _exceptionController.add(
+            AuthenticatorException(
+              'Passwordless is not supported at this time. Please try again.',
+              showBanner: true,
+            ),
+          );
+          yield* _changeScreen(initialStep);
       }
     } on AuthNotAuthorizedException {
       /// The .failAuthentication flag available in the DefineAuthChallenge Lambda trigger
