@@ -411,7 +411,7 @@ final class SignInStateMachine
   Future<RespondToAuthChallengeRequest> createPasswordVerifierRequest(
     BuiltMap<String, String?> challengeParameters,
   ) async {
-    final username= parameters.username;
+    final username = parameters.username;
     final password = parameters.password;
     if (password == null || password.isEmpty) {
       throw const AuthValidationException('No password given');
