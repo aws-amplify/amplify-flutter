@@ -1,3 +1,25 @@
+## 2.7.0
+
+### Features
+- feat(auth): Added support for Android private browsing ([#6336](https://github.com/aws-amplify/amplify-flutter/pull/6336))
+- feat(auth): Refresh token rotation ([#6293](https://github.com/aws-amplify/amplify-flutter/pull/6293))
+
+### Chores
+- chore(all): Bumped Flutter SDK to ^3.35.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped Dart SDK to ^3.9.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped Android Gradle distributionUrl to 8.13 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped Android com.android.application to 8.12.1 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped Android compileSdk to 36 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped com.android.tools.build:gradle to 8.12.1 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(datastore): Bumped org.jlleitschuh.gradle:ktlint-gradle to 13.1.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(auth): Bumped androidx.browser:browser to 1.9.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(notifications): Bumped com.google.firebase:firebase-bom to 33.16.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(secure_storage): Bumped androidx.security:security-crypto to 1.1.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(authenticator): exported social_button ([#5880](https://github.com/aws-amplify/amplify-flutter/pull/5880))
+- chore(analytics, authenticator): Bumped package_info_plus to ^9.0.0 ([#6393](https://github.com/aws-amplify/amplify-flutter/pull/6393))
+- chore(analytics): Bumped device_info_plus to ^12.0.0 ([#6396](https://github.com/aws-amplify/amplify-flutter/pull/6396))
+
+
 ## 2.6.5
 
 ### Chores
