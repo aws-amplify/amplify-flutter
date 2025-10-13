@@ -1,3 +1,11 @@
+## 2.7.0
+
+### Chores
+- chore(all): Bumped Flutter SDK to ^3.35.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped Dart SDK to ^3.9.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped com.android.tools.build:gradle to 8.12.1 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(notifications): Bumped com.google.firebase:firebase-bom to 33.16.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+
 ## 2.6.5
 
 ### Chores
