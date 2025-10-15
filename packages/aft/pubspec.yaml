@@ -9,15 +9,15 @@ environment:
 dependencies:
   args: ^2.5.0
   async: ^2.10.0
-  aws_common: ">=0.4.2+5 <0.5.0"
+  aws_common: ^0.7.11
   built_collection: ^5.0.0
-  built_value: ^8.10.1
+  built_value: ^8.12.0
   checked_yaml: ^2.0.0
   cli_util: ^0.4.2
   code_builder: ^4.10.1
   collection: ^1.18.0
   file: ^7.0.1
-  git: ^2.2.0
+  git: ^2.3.2
   glob: ^2.1.0
   graphs: ^2.1.0
   io: ^1.0.4
@@ -35,7 +35,7 @@ dependencies:
   pubspec_parse: ^1.2.2
   shelf: ^1.4.0
   shelf_static: ^1.1.1
-  smithy: ">=0.4.0+8 <0.5.0"
+  smithy: ^0.7.9
   smithy_codegen:
     path: ../smithy/smithy_codegen
   stream_transform: ^2.1.0
@@ -64,11 +64,11 @@ dependency_overrides:
     path: ../smithy/smithy_codegen
 
 dev_dependencies:
-  amplify_lints: ^3.1.0
-  build_runner: ^2.4.9
-  built_value_generator: ^8.10.1
+  amplify_lints: ^3.1.4
+  build_runner: ^2.9.0
+  built_value_generator: ^8.12.0
   checks: ^0.3.0
-  json_serializable: ">=6.9.4 <6.10.0"
+  json_serializable: ^6.11.1
   test: ^1.22.1
   test_descriptor: ^2.0.1
 
