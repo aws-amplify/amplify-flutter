@@ -13,3 +13,8 @@ pubspec.lock
 *.js
 *.js.map
 *.js.deps
+
+# WASM outputs
+*.mjs
+*.wasm
+*.wasm.map

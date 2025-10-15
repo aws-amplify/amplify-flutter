@@ -28,9 +28,5 @@ const bool zProfileMode = bool.fromEnvironment('dart.vm.profile');
 /// Whether running in release mode.
 const bool zReleaseMode = bool.fromEnvironment('dart.vm.product');
 
-/// Whether running on the Web.
-///
-/// Since JS does not support integers, an int and a double will be identical
-/// when representing the same value. However, this will not be true for all
-/// other compilation targets.
-const bool zIsWeb = identical(0, 0.0);
+/// Whether running on the Webin JavaScript or WebAssembly.
+const bool zIsWeb = bool.fromEnvironment('dart.library.js_interop');
