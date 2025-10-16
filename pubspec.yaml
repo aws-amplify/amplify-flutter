@@ -38,7 +38,7 @@ dependencies:
   mime: ^2.0.0
   oauth2: ^2.0.2
   package_info_plus: ^9.0.0
-  pigeon: ^25.5.0
+  pigeon: ^26.0.2
   sqlite3: ^2.7.6
   source_gen: ^2.0.0
   stack_trace: ^1.10.0
