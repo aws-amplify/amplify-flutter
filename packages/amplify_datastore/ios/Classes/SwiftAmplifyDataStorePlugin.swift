@@ -652,13 +652,15 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             return DataStoreSyncExpression.syncExpression(modelSchema!) {
                 var resolvedQueryPredicate = queryPredicate
                 let semaphore = DispatchSemaphore(value: 0)
-                self.channel!.invokeMethod("resolveQueryPredicate", arguments: id) { result in
-                    do {
-                        resolvedQueryPredicate = try QueryPredicateBuilder.fromSerializedMap(result as? [String: Any])
-                    } catch {
-                        print("Failed to resolve query predicate. Reverting to original query predicate.")
+                DispatchQueue.main.async {
+                    self.channel!.invokeMethod("resolveQueryPredicate", arguments: id) { result in
+                        do {
+                            resolvedQueryPredicate = try QueryPredicateBuilder.fromSerializedMap(result as? [String: Any])
+                        } catch {
+                            print("Failed to resolve query predicate. Reverting to original query predicate.")
+                        }
+                        semaphore.signal()
                     }
-                    semaphore.signal()
                 }
                 semaphore.wait()
                 return resolvedQueryPredicate
