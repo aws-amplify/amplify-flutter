@@ -15,7 +15,7 @@
     "@types/aws-lambda": "^8.10.150",
     "@types/babel__traverse": "^7.20.7",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.0.13",
+    "@types/node": "^24.9.1",
     "aws-cdk": "2.1020.2",
     "esbuild": "^0.25.6",
     "jest": "^30.0.4",
