@@ -15,6 +15,108 @@ mixin AuthenticatorUsernameField<
   T extends AuthenticatorFormField<FieldType, UsernameInput>
 >
     on AuthenticatorFormFieldState<FieldType, UsernameInput, T> {
+  TextEditingController? _controller;
+  UsernameType? _controllerUsernameType;
+  bool _applyingControllerText = false;
+  String? _lastSyncedText;
+
+  @protected
+  TextEditingController? get textController => null;
+
+  void _updateController() {
+    final controller = textController;
+    final type = selectedUsernameType;
+    final shouldListen = type != UsernameType.phoneNumber;
+
+    if (identical(controller, _controller) && type == _controllerUsernameType) {
+      if (!shouldListen && _controller != null) {
+        _controller!.removeListener(_handleControllerChanged);
+      }
+      return;
+    }
+
+    if (_controller != null) {
+      _controller!.removeListener(_handleControllerChanged);
+    }
+
+    _controller = controller;
+    _controllerUsernameType = type;
+    _lastSyncedText = null;
+
+    if (_controller != null && shouldListen) {
+      _controller!.addListener(_handleControllerChanged);
+    }
+  }
+
+  void _handleControllerChanged() {
+    final controller = _controller;
+    if (controller == null || _applyingControllerText) {
+      return;
+    }
+
+    final text = controller.text;
+    if (text == _lastSyncedText) {
+      return;
+    }
+
+    _lastSyncedText = text;
+    _applyingControllerText = true;
+    try {
+      onChanged(UsernameInput(type: selectedUsernameType, username: text));
+    } finally {
+      _applyingControllerText = false;
+    }
+  }
+
+  void _syncControllerText({bool force = false}) {
+    if (_controller == null || selectedUsernameType == UsernameType.phoneNumber) {
+      return;
+    }
+
+    final target = initialValue?.username ?? '';
+    if (!force && _controller!.text == target) {
+      _lastSyncedText = _controller!.text;
+      return;
+    }
+
+    _applyingControllerText = true;
+    _controller!.value = _controller!.value.copyWith(
+      text: target,
+      selection: TextSelection.collapsed(offset: target.length),
+      composing: TextRange.empty,
+    );
+    _lastSyncedText = target;
+    _applyingControllerText = false;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _updateController();
+    _syncControllerText(force: true);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _updateController();
+    _syncControllerText();
+  }
+
+  @override
+  void didUpdateWidget(covariant T oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _updateController();
+    _syncControllerText(force: true);
+  }
+
+  @override
+  void dispose() {
+    _controller?.removeListener(_handleControllerChanged);
+    _controller = null;
+    super.dispose();
+  }
+
   @override
   UsernameInput? get initialValue {
     return UsernameInput(type: selectedUsernameType, username: state.username);
@@ -220,11 +322,17 @@ mixin AuthenticatorUsernameField<
         errorMaxLines: errorMaxLines,
         initialValue: state.username,
         autofillHints: autofillHints,
+        controller: textController,
       );
     }
+
+    _updateController();
+    _syncControllerText();
+
     return TextFormField(
       style: enabled ? null : TextStyle(color: Theme.of(context).disabledColor),
-      initialValue: initialValue?.username,
+      controller: _controller,
+      initialValue: _controller == null ? initialValue?.username : null,
       enabled: enabled,
       validator: validator,
       onChanged: onChanged,

@@ -19,23 +19,29 @@ class ResetPasswordFormField
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    this.controller,
   }) : super._();
+
+  final TextEditingController? controller;
 
   const ResetPasswordFormField.verificationCode({
     Key? key,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) : this._(
          key: key ?? keyVerificationCodeResetPasswordFormField,
          field: ResetPasswordField.verificationCode,
          titleKey: InputResolverKey.verificationCodeTitle,
          hintTextKey: InputResolverKey.verificationCodeHint,
          autofillHints: autofillHints,
+         controller: controller,
        );
 
   const ResetPasswordFormField.newPassword({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) : this._(
          key: key ?? keyPasswordResetPasswordFormField,
          field: ResetPasswordField.newPassword,
@@ -43,17 +49,20 @@ class ResetPasswordFormField
          hintTextKey: InputResolverKey.newPasswordHint,
          validator: validator,
          autofillHints: autofillHints,
+         controller: controller,
        );
 
   const ResetPasswordFormField.passwordConfirmation({
     Key? key,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) : this._(
          key: key ?? keyPasswordConfirmationResetPasswordFormField,
          field: ResetPasswordField.passwordConfirmation,
          titleKey: InputResolverKey.passwordConfirmationTitle,
          hintTextKey: InputResolverKey.passwordConfirmationHint,
          autofillHints: autofillHints,
+         controller: controller,
        );
 
   @override
@@ -76,6 +85,9 @@ class _ResetPasswordFormFieldState
           ResetPasswordFormField
         >
     with AuthenticatorTextField {
+  @override
+  TextEditingController? get textController => widget.controller;
+
   @override
   bool get obscureText {
     switch (widget.field) {

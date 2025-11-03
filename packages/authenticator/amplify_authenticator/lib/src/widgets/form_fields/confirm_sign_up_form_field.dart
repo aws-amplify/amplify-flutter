@@ -28,6 +28,7 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _ConfirmSignUpUsernameField(
     key: key ?? keyUsernameConfirmSignUpFormField,
     titleKey: InputResolverKey.usernameTitle,
@@ -35,6 +36,7 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     field: ConfirmSignUpField.username,
     validator: validator,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a verificationCode component.
@@ -42,6 +44,7 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _ConfirmSignUpTextField(
     key: key ?? keyCodeConfirmSignUpFormField,
     titleKey: InputResolverKey.verificationCodeTitle,
@@ -49,6 +52,7 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     field: ConfirmSignUpField.code,
     validator: validator,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   @override
@@ -131,7 +135,10 @@ class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    this.controller,
   }) : super._();
+
+  final TextEditingController? controller;
 
   @override
   _ConfirmSignUpTextFieldState createState() => _ConfirmSignUpTextFieldState();
@@ -139,6 +146,9 @@ class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
 
 class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
     with AuthenticatorTextField {
+  @override
+  TextEditingController? get textController => widget.controller;
+
   @override
   String? get initialValue {
     switch (widget.field) {
@@ -199,7 +209,10 @@ class _ConfirmSignUpUsernameField
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    this.controller,
   }) : super._();
+
+  final TextEditingController? controller;
 
   @override
   _ConfirmSignUpUsernameFieldState createState() =>
@@ -213,6 +226,9 @@ class _ConfirmSignUpUsernameFieldState
           ConfirmSignUpField,
           ConfirmSignUpFormField<UsernameInput>
         > {
+  @override
+  TextEditingController? get textController => widget.controller;
+
   @override
   Widget? get surlabel => null;
 }

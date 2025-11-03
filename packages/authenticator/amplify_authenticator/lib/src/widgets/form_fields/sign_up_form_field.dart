@@ -40,10 +40,12 @@ abstract class SignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpUsernameField(
     key: key ?? keyUsernameSignUpFormField,
     validator: validator,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a password component.
@@ -51,6 +53,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyPasswordSignUpFormField,
     titleKey: InputResolverKey.passwordTitle,
@@ -58,6 +61,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     field: SignUpField.password,
     validator: validator,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a passwordConfirmation component.
@@ -65,6 +69,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyPasswordConfirmationSignUpFormField,
     titleKey: InputResolverKey.passwordConfirmationTitle,
@@ -72,6 +77,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     field: SignUpField.passwordConfirmation,
     validator: validator,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates an address component.
@@ -80,6 +86,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyAddressSignUpFormField,
     titleKey: InputResolverKey.addressTitle,
@@ -88,6 +95,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a birthdate component.
@@ -112,6 +120,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyEmailSignUpFormField,
     titleKey: InputResolverKey.emailTitle,
@@ -120,6 +129,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a familyName component.
@@ -128,6 +138,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyFamilyNameSignUpFormField,
     titleKey: InputResolverKey.familyNameTitle,
@@ -136,6 +147,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a gender component.
@@ -144,6 +156,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyGenderSignUpFormField,
     titleKey: InputResolverKey.genderTitle,
@@ -152,6 +165,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a givenName component.
@@ -160,6 +174,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyGivenNameSignUpFormField,
     titleKey: InputResolverKey.givenNameTitle,
@@ -168,6 +183,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a middleName component.
@@ -176,6 +192,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyMiddleNameSignUpFormField,
     titleKey: InputResolverKey.middleNameTitle,
@@ -184,6 +201,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a name component.
@@ -192,6 +210,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyNameSignUpFormField,
     titleKey: InputResolverKey.nameTitle,
@@ -200,6 +219,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a nickname component.
@@ -208,6 +228,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyNicknameSignUpFormField,
     titleKey: InputResolverKey.nicknameTitle,
@@ -216,6 +237,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a phoneNumber component.
@@ -224,6 +246,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpPhoneField(
     key: key ?? keyPhoneNumberSignUpFormField,
     titleKey: InputResolverKey.phoneNumberTitle,
@@ -232,6 +255,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a preferredUsername component.
@@ -240,6 +264,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key ?? keyPreferredUsernameSignUpFormField,
     titleKey: InputResolverKey.preferredUsernameTitle,
@@ -248,6 +273,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a custom attribute component.
@@ -259,6 +285,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignUpTextField(
     key: key,
     title: title,
@@ -268,6 +295,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     attributeKey: attributeKey,
     required: required,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Custom Cognito attribute key.
@@ -454,7 +482,10 @@ class _SignUpTextField extends SignUpFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
+    this.controller,
   }) : super._(customAttributeKey: attributeKey);
+
+  final TextEditingController? controller;
 
   @override
   _SignUpTextFieldState createState() => _SignUpTextFieldState();
@@ -462,6 +493,9 @@ class _SignUpTextField extends SignUpFormField<String> {
 
 class _SignUpTextFieldState extends _SignUpFormFieldState<String>
     with AuthenticatorTextField {
+  @override
+  TextEditingController? get textController => widget.controller;
+
   @override
   String? get initialValue {
     switch (widget.field) {
@@ -629,19 +663,29 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
 }
 
 class _SignUpUsernameField extends SignUpFormField<UsernameInput> {
-  const _SignUpUsernameField({super.key, super.validator, super.autofillHints})
+  const _SignUpUsernameField({
+    super.key,
+    super.validator,
+    super.autofillHints,
+    this.controller,
+  })
     : super._(
         field: SignUpField.username,
         titleKey: InputResolverKey.usernameTitle,
         hintTextKey: InputResolverKey.usernameHint,
       );
 
+  final TextEditingController? controller;
+
   @override
   _SignUpUsernameFieldState createState() => _SignUpUsernameFieldState();
 }
 
 class _SignUpUsernameFieldState extends _SignUpFormFieldState<UsernameInput>
-    with AuthenticatorUsernameField {}
+    with AuthenticatorUsernameField {
+  @override
+  TextEditingController? get textController => widget.controller;
+}
 
 class _SignUpPhoneField extends SignUpFormField<String> {
   const _SignUpPhoneField({
@@ -653,7 +697,10 @@ class _SignUpPhoneField extends SignUpFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
+    this.controller,
   }) : super._(customAttributeKey: attributeKey);
+
+  final TextEditingController? controller;
 
   @override
   _SignUpPhoneFieldState createState() => _SignUpPhoneFieldState();

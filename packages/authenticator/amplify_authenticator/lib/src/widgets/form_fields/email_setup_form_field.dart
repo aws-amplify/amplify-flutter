@@ -21,13 +21,17 @@ class EmailSetupFormField
     super.hintText,
     super.validator,
     super.autofillHints,
+    this.controller,
   }) : super._();
+
+  final TextEditingController? controller;
 
   /// Creates an email FormField for the email setup step.
   const EmailSetupFormField.email({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) : this._(
          key: key ?? keyEmailSetupFormField,
          field: EmailSetupField.email,
@@ -35,6 +39,7 @@ class EmailSetupFormField
          hintTextKey: InputResolverKey.emailHint,
          validator: validator,
          autofillHints: autofillHints,
+         controller: controller,
        );
 
   @override
@@ -53,6 +58,9 @@ class _EmailSetupFormFieldState
           EmailSetupFormField
         >
     with AuthenticatorTextField {
+  @override
+  TextEditingController? get textController => widget.controller;
+
   @override
   TextInputType get keyboardType {
     return TextInputType.emailAddress;

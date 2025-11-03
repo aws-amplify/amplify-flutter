@@ -94,6 +94,7 @@ export 'src/widgets/form_field.dart'
         TotpSetupFormField,
         VerifyUserFormField;
 export 'src/widgets/social/social_button.dart';
+export 'src/controllers/authenticator_text_field_controller.dart';
 
 /// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator

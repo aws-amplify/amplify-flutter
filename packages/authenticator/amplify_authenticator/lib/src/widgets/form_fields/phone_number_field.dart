@@ -15,6 +15,7 @@ class AuthenticatorPhoneField<FieldType extends Enum>
     this.initialValue,
     this.errorMaxLines,
     super.autofillHints,
+    this.controller,
   }) : super._(
          titleKey: InputResolverKey.phoneNumberTitle,
          hintTextKey: InputResolverKey.phoneNumberHint,
@@ -25,6 +26,7 @@ class AuthenticatorPhoneField<FieldType extends Enum>
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String?>? validator;
   final int? errorMaxLines;
+  final TextEditingController? controller;
 
   @override
   AuthenticatorComponentState<AuthenticatorPhoneField<FieldType>>
@@ -45,6 +47,9 @@ class AuthenticatorPhoneField<FieldType extends Enum>
           'validator',
           validator,
         ),
+      )
+      ..add(
+        DiagnosticsProperty<TextEditingController?>('controller', controller),
       );
   }
 }
@@ -70,6 +75,9 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
     }
     return initialValue;
   }
+
+  @override
+  TextEditingController? get textController => widget.controller;
 
   @override
   bool get enabled => widget.enabled ?? super.enabled;

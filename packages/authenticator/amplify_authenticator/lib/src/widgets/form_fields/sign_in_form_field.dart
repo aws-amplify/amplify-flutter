@@ -33,10 +33,12 @@ abstract class SignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignInUsernameField(
     key: key ?? keyUsernameSignInFormField,
     validator: validator,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   /// Creates a password FormField for the sign in step.
@@ -44,6 +46,7 @@ abstract class SignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    TextEditingController? controller,
   }) => _SignInTextField(
     key: key ?? keyPasswordSignInFormField,
     titleKey: InputResolverKey.passwordTitle,
@@ -51,6 +54,7 @@ abstract class SignInFormField<FieldValue extends Object>
     field: SignInField.password,
     validator: validator,
     autofillHints: autofillHints,
+    controller: controller,
   );
 
   @override
@@ -130,7 +134,10 @@ class _SignInTextField extends SignInFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    this.controller,
   }) : super._();
+
+  final TextEditingController? controller;
 
   @override
   _SignInTextFieldState createState() => _SignInTextFieldState();
@@ -138,6 +145,9 @@ class _SignInTextField extends SignInFormField<String> {
 
 class _SignInTextFieldState extends _SignInFormFieldState<String>
     with AuthenticatorTextField {
+  @override
+  TextEditingController? get textController => widget.controller;
+
   @override
   String? get initialValue {
     switch (widget.field) {
@@ -182,7 +192,12 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
 }
 
 class _SignInUsernameField extends SignInFormField<UsernameInput> {
-  const _SignInUsernameField({Key? key, super.validator, super.autofillHints})
+  const _SignInUsernameField({
+    Key? key,
+    super.validator,
+    super.autofillHints,
+    this.controller,
+  })
     : super._(
         key: key ?? keyUsernameSignInFormField,
         titleKey: InputResolverKey.usernameTitle,
@@ -190,9 +205,14 @@ class _SignInUsernameField extends SignInFormField<UsernameInput> {
         field: SignInField.username,
       );
 
+  final TextEditingController? controller;
+
   @override
   _SignInUsernameFieldState createState() => _SignInUsernameFieldState();
 }
 
 class _SignInUsernameFieldState extends _SignInFormFieldState<UsernameInput>
-    with AuthenticatorUsernameField {}
+    with AuthenticatorUsernameField {
+  @override
+  TextEditingController? get textController => widget.controller;
+}
