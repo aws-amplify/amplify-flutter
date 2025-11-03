@@ -489,6 +489,14 @@ class _SignUpTextField extends SignUpFormField<String> {
 
   @override
   _SignUpTextFieldState createState() => _SignUpTextFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _SignUpTextFieldState extends _SignUpFormFieldState<String>
@@ -668,17 +676,24 @@ class _SignUpUsernameField extends SignUpFormField<UsernameInput> {
     super.validator,
     super.autofillHints,
     this.controller,
-  })
-    : super._(
-        field: SignUpField.username,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
-      );
+  }) : super._(
+         field: SignUpField.username,
+         titleKey: InputResolverKey.usernameTitle,
+         hintTextKey: InputResolverKey.usernameHint,
+       );
 
   final TextEditingController? controller;
 
   @override
   _SignUpUsernameFieldState createState() => _SignUpUsernameFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _SignUpUsernameFieldState extends _SignUpFormFieldState<UsernameInput>
@@ -704,6 +719,14 @@ class _SignUpPhoneField extends SignUpFormField<String> {
 
   @override
   _SignUpPhoneFieldState createState() => _SignUpPhoneFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _SignUpPhoneFieldState extends _SignUpTextFieldState

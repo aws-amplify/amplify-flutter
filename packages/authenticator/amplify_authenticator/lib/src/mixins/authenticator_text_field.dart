@@ -68,14 +68,25 @@ mixin AuthenticatorTextField<
   void initState() {
     super.initState();
     _maybeUpdateEffectiveController();
-    _syncControllerText(force: true);
+    // Skip sync in initState since 'state' isn't available yet
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _maybeUpdateEffectiveController();
-    _syncControllerText();
+    // Schedule both syncs after build completes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        // First sync controller -> state if controller has initial text
+        if (_effectiveController != null &&
+            _lastSyncedControllerValue == null) {
+          _handleControllerChanged();
+        }
+        // Then sync state -> controller to ensure they're in sync
+        _syncControllerText();
+      }
+    });
   }
 
   @override
@@ -105,14 +116,13 @@ mixin AuthenticatorTextField<
       ).obscureTextToggleValue,
       builder: (BuildContext context, bool toggleObscureText, Widget? _) {
         final obscureText = this.obscureText && toggleObscureText;
-        _syncControllerText();
+        // Don't sync during build
         return TextFormField(
           style: enabled
               ? null
               : TextStyle(color: Theme.of(context).disabledColor),
           controller: _effectiveController,
-          initialValue:
-              _effectiveController == null ? initialValue : null,
+          initialValue: _effectiveController == null ? initialValue : null,
           enabled: enabled,
           validator: widget.validatorOverride ?? validator,
           onChanged: onChanged,

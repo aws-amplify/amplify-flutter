@@ -78,6 +78,14 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
 
   @override
   _VerifyUserTextFieldState createState() => _VerifyUserTextFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>

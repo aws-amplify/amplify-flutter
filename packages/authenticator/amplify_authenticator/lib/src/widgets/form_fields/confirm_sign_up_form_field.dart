@@ -142,6 +142,14 @@ class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
 
   @override
   _ConfirmSignUpTextFieldState createState() => _ConfirmSignUpTextFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
@@ -217,6 +225,14 @@ class _ConfirmSignUpUsernameField
   @override
   _ConfirmSignUpUsernameFieldState createState() =>
       _ConfirmSignUpUsernameFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _ConfirmSignUpUsernameFieldState

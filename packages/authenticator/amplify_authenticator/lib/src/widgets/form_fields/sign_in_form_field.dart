@@ -141,6 +141,14 @@ class _SignInTextField extends SignInFormField<String> {
 
   @override
   _SignInTextFieldState createState() => _SignInTextFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _SignInTextFieldState extends _SignInFormFieldState<String>
@@ -197,18 +205,25 @@ class _SignInUsernameField extends SignInFormField<UsernameInput> {
     super.validator,
     super.autofillHints,
     this.controller,
-  })
-    : super._(
-        key: key ?? keyUsernameSignInFormField,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
-        field: SignInField.username,
-      );
+  }) : super._(
+         key: key ?? keyUsernameSignInFormField,
+         titleKey: InputResolverKey.usernameTitle,
+         hintTextKey: InputResolverKey.usernameHint,
+         field: SignInField.username,
+       );
 
   final TextEditingController? controller;
 
   @override
   _SignInUsernameFieldState createState() => _SignInUsernameFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _SignInUsernameFieldState extends _SignInFormFieldState<UsernameInput>

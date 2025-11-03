@@ -529,6 +529,14 @@ class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {
   @override
   _ConfirmSignInPhoneFieldState createState() =>
       _ConfirmSignInPhoneFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _ConfirmSignInPhoneFieldState extends _ConfirmSignInTextFieldState
@@ -586,6 +594,14 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
 
   @override
   _ConfirmSignInTextFieldState createState() => _ConfirmSignInTextFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+  }
 }
 
 class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>

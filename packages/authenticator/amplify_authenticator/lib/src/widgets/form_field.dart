@@ -96,6 +96,9 @@ abstract class AuthenticatorFormField<
   /// Autocomplete hints to override the default value
   final Iterable<String>? autofillHints;
 
+  /// Optional text controller exposed by text-driven form fields.
+  TextEditingController? get controller => null;
+
   /// Whether the field is required in the form.
   ///
   /// Defaults to `false`.
@@ -126,6 +129,9 @@ abstract class AuthenticatorFormField<
       ..add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride))
       ..add(EnumProperty<UsernameType?>('usernameType', usernameType))
       ..add(IterableProperty<String>('autofillHints', autofillHints));
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
   }
 }
 

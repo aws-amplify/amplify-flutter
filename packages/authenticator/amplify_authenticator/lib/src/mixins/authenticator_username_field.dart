@@ -69,7 +69,8 @@ mixin AuthenticatorUsernameField<
   }
 
   void _syncControllerText({bool force = false}) {
-    if (_controller == null || selectedUsernameType == UsernameType.phoneNumber) {
+    if (_controller == null ||
+        selectedUsernameType == UsernameType.phoneNumber) {
       return;
     }
 
@@ -93,14 +94,24 @@ mixin AuthenticatorUsernameField<
   void initState() {
     super.initState();
     _updateController();
-    _syncControllerText(force: true);
+    // Skip sync in initState since 'state' isn't available yet
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _updateController();
-    _syncControllerText();
+    // Schedule both syncs after build completes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        // First sync controller -> state if controller has initial text
+        if (_controller != null && _lastSyncedText == null) {
+          _handleControllerChanged();
+        }
+        // Then sync state -> controller to ensure they're in sync
+        _syncControllerText();
+      }
+    });
   }
 
   @override
@@ -327,7 +338,7 @@ mixin AuthenticatorUsernameField<
     }
 
     _updateController();
-    _syncControllerText();
+    // Don't sync during build
 
     return TextFormField(
       style: enabled ? null : TextStyle(color: Theme.of(context).disabledColor),
