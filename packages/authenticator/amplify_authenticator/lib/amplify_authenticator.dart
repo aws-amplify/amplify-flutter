@@ -42,6 +42,7 @@ export 'package:amplify_authenticator/src/utils/dial_code.dart' show DialCode;
 export 'package:amplify_authenticator/src/utils/dial_code_options.dart'
     show DialCodeOptions;
 
+export 'src/controllers/authenticator_text_field_controller.dart';
 export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
@@ -94,7 +95,6 @@ export 'src/widgets/form_field.dart'
         TotpSetupFormField,
         VerifyUserFormField;
 export 'src/widgets/social/social_button.dart';
-export 'src/controllers/authenticator_text_field_controller.dart';
 
 /// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator

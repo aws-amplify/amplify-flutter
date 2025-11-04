@@ -9,21 +9,6 @@ part of '../form_field.dart';
 /// {@endtemplate}
 class ResetPasswordFormField
     extends AuthenticatorFormField<ResetPasswordField, String> {
-  /// {@macro amplify_authenticator.sign_up_form_field}
-  ///
-  /// Either [titleKey] or [title] is required.
-  const ResetPasswordFormField._({
-    super.key,
-    required super.field,
-    super.titleKey,
-    super.hintTextKey,
-    super.validator,
-    super.autofillHints,
-    this.controller,
-  }) : super._();
-
-  final TextEditingController? controller;
-
   const ResetPasswordFormField.verificationCode({
     Key? key,
     Iterable<String>? autofillHints,
@@ -64,6 +49,22 @@ class ResetPasswordFormField
          autofillHints: autofillHints,
          controller: controller,
        );
+
+  /// {@macro amplify_authenticator.sign_up_form_field}
+  ///
+  /// Either [titleKey] or [title] is required.
+  const ResetPasswordFormField._({
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.validator,
+    super.autofillHints,
+    this.controller,
+  }) : super._();
+
+  @override
+  final TextEditingController? controller;
 
   @override
   bool get required => true;

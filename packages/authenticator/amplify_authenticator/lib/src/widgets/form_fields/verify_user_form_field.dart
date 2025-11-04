@@ -74,6 +74,7 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
     this.controller,
   }) : super._();
 
+  @override
   final TextEditingController? controller;
 
   @override

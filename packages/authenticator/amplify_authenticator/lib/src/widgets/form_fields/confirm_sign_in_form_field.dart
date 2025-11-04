@@ -524,6 +524,7 @@ class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {
     this.controller,
   }) : super._(customAttributeKey: attributeKey);
 
+  @override
   final TextEditingController? controller;
 
   @override
@@ -590,6 +591,7 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
     this.controller,
   }) : super._(customAttributeKey: attributeKey);
 
+  @override
   final TextEditingController? controller;
 
   @override

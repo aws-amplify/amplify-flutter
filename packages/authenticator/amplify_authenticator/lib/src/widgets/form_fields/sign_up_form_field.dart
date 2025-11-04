@@ -485,6 +485,7 @@ class _SignUpTextField extends SignUpFormField<String> {
     this.controller,
   }) : super._(customAttributeKey: attributeKey);
 
+  @override
   final TextEditingController? controller;
 
   @override
@@ -682,6 +683,7 @@ class _SignUpUsernameField extends SignUpFormField<UsernameInput> {
          hintTextKey: InputResolverKey.usernameHint,
        );
 
+  @override
   final TextEditingController? controller;
 
   @override
@@ -715,6 +717,7 @@ class _SignUpPhoneField extends SignUpFormField<String> {
     this.controller,
   }) : super._(customAttributeKey: attributeKey);
 
+  @override
   final TextEditingController? controller;
 
   @override

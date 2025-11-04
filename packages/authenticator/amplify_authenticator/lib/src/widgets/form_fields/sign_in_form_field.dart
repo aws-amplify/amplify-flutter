@@ -137,6 +137,7 @@ class _SignInTextField extends SignInFormField<String> {
     this.controller,
   }) : super._();
 
+  @override
   final TextEditingController? controller;
 
   @override
@@ -212,6 +213,7 @@ class _SignInUsernameField extends SignInFormField<UsernameInput> {
          field: SignInField.username,
        );
 
+  @override
   final TextEditingController? controller;
 
   @override

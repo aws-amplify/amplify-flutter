@@ -128,10 +128,10 @@ abstract class AuthenticatorFormField<
       ..add(DiagnosticsProperty<bool>('required', required))
       ..add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride))
       ..add(EnumProperty<UsernameType?>('usernameType', usernameType))
-      ..add(IterableProperty<String>('autofillHints', autofillHints));
-    properties.add(
-      DiagnosticsProperty<TextEditingController?>('controller', controller),
-    );
+      ..add(IterableProperty<String>('autofillHints', autofillHints))
+      ..add(
+        DiagnosticsProperty<TextEditingController?>('controller', controller),
+      );
   }
 }
 

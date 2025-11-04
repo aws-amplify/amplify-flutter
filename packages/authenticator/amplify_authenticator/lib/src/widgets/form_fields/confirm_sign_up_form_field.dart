@@ -138,6 +138,7 @@ class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
     this.controller,
   }) : super._();
 
+  @override
   final TextEditingController? controller;
 
   @override
@@ -220,6 +221,7 @@ class _ConfirmSignUpUsernameField
     this.controller,
   }) : super._();
 
+  @override
   final TextEditingController? controller;
 
   @override

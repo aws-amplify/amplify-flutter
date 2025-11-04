@@ -9,23 +9,6 @@ part of '../form_field.dart';
 /// {@endtemplate}
 class EmailSetupFormField
     extends AuthenticatorFormField<EmailSetupField, String> {
-  /// {@macro amplify_authenticator.email_setup_form_field}
-  ///
-  /// Either [titleKey] or [title] is required.
-  const EmailSetupFormField._({
-    super.key,
-    required super.field,
-    super.titleKey,
-    super.hintTextKey,
-    super.title,
-    super.hintText,
-    super.validator,
-    super.autofillHints,
-    this.controller,
-  }) : super._();
-
-  final TextEditingController? controller;
-
   /// Creates an email FormField for the email setup step.
   const EmailSetupFormField.email({
     Key? key,
@@ -41,6 +24,24 @@ class EmailSetupFormField
          autofillHints: autofillHints,
          controller: controller,
        );
+
+  /// {@macro amplify_authenticator.email_setup_form_field}
+  ///
+  /// Either [titleKey] or [title] is required.
+  const EmailSetupFormField._({
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.title,
+    super.hintText,
+    super.validator,
+    super.autofillHints,
+    this.controller,
+  }) : super._();
+
+  @override
+  final TextEditingController? controller;
 
   @override
   bool get required => true;

@@ -11,6 +11,5 @@ import 'package:flutter/widgets.dart';
 class AuthenticatorTextFieldController extends TextEditingController {
   AuthenticatorTextFieldController({super.text});
 
-  AuthenticatorTextFieldController.fromValue(TextEditingValue value)
-      : super.fromValue(value);
+  AuthenticatorTextFieldController.fromValue(super.value) : super.fromValue();
 }

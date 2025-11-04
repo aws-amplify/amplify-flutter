@@ -1,3 +1,14 @@
+## 2.4.0
+
+### Features
+
+- feat(authenticator): Add TextEditingController support to form fields
+  - Added `AuthenticatorTextFieldController` class for programmatic control of form fields
+  - All text-based form fields now accept an optional `controller` parameter
+  - Enables pre-populating fields (e.g., from GPS/API data) and auto-filling verification codes
+  - Bidirectional sync between controller and internal state
+  - Compatible with standard `TextEditingController` for flexibility
+
 ## 2.3.8
 
 ### Chores
