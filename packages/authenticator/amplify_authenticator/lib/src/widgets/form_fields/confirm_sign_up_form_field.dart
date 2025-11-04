@@ -94,6 +94,10 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
 
   @override
   bool get enabled {
+    final override = widget.enabledOverride;
+    if (override != null) {
+      return override;
+    }
     switch (widget.field) {
       case ConfirmSignUpField.code:
         return true;

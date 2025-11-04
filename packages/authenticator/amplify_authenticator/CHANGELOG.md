@@ -8,6 +8,7 @@
   - Enables pre-populating fields (e.g., from GPS/API data) and auto-filling verification codes
   - Bidirectional sync between controller and internal state
   - Compatible with standard `TextEditingController` for flexibility
+- feat(authenticator): Allow SignUpFormField inputs to be disabled or hidden so apps can prefill values programmatically or keep legacy attributes off-screen
 
 ## 2.3.8
 

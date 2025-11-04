@@ -66,6 +66,8 @@ abstract class AuthenticatorFormField<
     FormFieldValidator<FieldValue>? validator,
     this.requiredOverride,
     this.autofillHints,
+    this.enabledOverride,
+    this.visible = true,
   }) : validatorOverride = validator;
 
   /// Resolver key for the title
@@ -99,6 +101,17 @@ abstract class AuthenticatorFormField<
   /// Optional text controller exposed by text-driven form fields.
   TextEditingController? get controller => null;
 
+  /// Whether the field can receive manual input.
+  ///
+  /// When `null`, the widget decides its enabled state.
+  final bool? enabledOverride;
+
+  /// Whether the field should be rendered.
+  ///
+  /// When `false`, the field stays offstage so programmatic updates can still
+  /// run without occupying layout space.
+  final bool visible;
+
   /// Whether the field is required in the form.
   ///
   /// Defaults to `false`.
@@ -131,7 +144,9 @@ abstract class AuthenticatorFormField<
       ..add(IterableProperty<String>('autofillHints', autofillHints))
       ..add(
         DiagnosticsProperty<TextEditingController?>('controller', controller),
-      );
+      )
+      ..add(DiagnosticsProperty<bool?>('enabledOverride', enabledOverride))
+      ..add(DiagnosticsProperty<bool>('visible', visible));
   }
 }
 
@@ -172,7 +187,7 @@ abstract class AuthenticatorFormFieldState<
   FieldValue? get initialValue => null;
 
   /// Whether the form field accepts input.
-  bool get enabled => true;
+  bool get enabled => widget.enabledOverride ?? true;
 
   /// Widget to show at leading end, typically an [Icon].
   Widget? get prefix => null;
@@ -270,7 +285,7 @@ abstract class AuthenticatorFormFieldState<
   @nonVirtual
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final field = Container(
       margin: EdgeInsets.only(bottom: marginBottom ?? 0),
       child: Stack(
         children: [
@@ -285,6 +300,17 @@ abstract class AuthenticatorFormFieldState<
           ),
         ],
       ),
+    );
+    if (widget.visible) {
+      return field;
+    }
+    return Visibility(
+      visible: false,
+      maintainState: true,
+      maintainAnimation: true,
+      maintainSemantics: false,
+      maintainInteractivity: false,
+      child: field,
     );
   }
 

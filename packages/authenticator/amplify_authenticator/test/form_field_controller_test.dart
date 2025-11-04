@@ -6,8 +6,8 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -666,6 +666,87 @@ void main() {
         controller.text = '';
         await tester.pump();
         expect(authState.username, equals(''));
+      },
+    );
+
+    testWidgets(
+      'SignUpFormField.username respects enabled flag and still syncs controller',
+      (tester) async {
+        final usernameController = AuthenticatorTextFieldController(
+          text: 'prefill-user',
+        );
+        addTearDown(usernameController.dispose);
+
+        await tester.pumpWidget(
+          MockAuthenticatorApp(
+            initialStep: AuthenticatorStep.signUp,
+            signUpForm: SignUpForm.custom(
+              fields: [
+                SignUpFormField.username(
+                  controller: usernameController,
+                  enabled: false,
+                ),
+                SignUpFormField.password(),
+                SignUpFormField.passwordConfirmation(),
+              ],
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final fieldFinder = find.byKey(keyUsernameSignUpFormField);
+        final textField = tester.widget<TextFormField>(fieldFinder);
+        expect(textField.enabled, isFalse);
+
+        usernameController.text = 'automation-user';
+        await tester.pump();
+
+        final signUpContext = tester.element(find.byType(SignUpForm));
+        final authState = InheritedAuthenticatorState.of(signUpContext);
+        expect(authState.username, equals('automation-user'));
+      },
+    );
+
+    testWidgets(
+      'Hidden sign up field stays in sync via controller',
+      (tester) async {
+        final emailController = AuthenticatorTextFieldController();
+        addTearDown(emailController.dispose);
+
+        await tester.pumpWidget(
+          MockAuthenticatorApp(
+            initialStep: AuthenticatorStep.signUp,
+            signUpForm: SignUpForm.custom(
+              fields: [
+                SignUpFormField.username(),
+                SignUpFormField.password(),
+                SignUpFormField.passwordConfirmation(),
+                SignUpFormField.email(
+                  controller: emailController,
+                  visible: false,
+                ),
+              ],
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final emailFieldFinder = find.byKey(keyEmailSignUpFormField);
+        expect(emailFieldFinder, findsOneWidget);
+        expect(
+          () => tester.getTopLeft(emailFieldFinder),
+          throwsA(isA<StateError>()),
+        );
+
+        emailController.text = 'hidden@example.com';
+        await tester.pump();
+
+        final signUpContext = tester.element(find.byType(SignUpForm));
+        final authState = InheritedAuthenticatorState.of(signUpContext);
+        expect(
+          authState.getAttribute(CognitoUserAttributeKey.email),
+          equals('hidden@example.com'),
+        );
       },
     );
 
