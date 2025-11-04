@@ -4,6 +4,7 @@
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
 mixin AuthenticatorTextField<
@@ -14,6 +15,8 @@ mixin AuthenticatorTextField<
   TextEditingController? _effectiveController;
   bool _isApplyingControllerText = false;
   String? _lastSyncedControllerValue;
+  String? _pendingControllerText;
+  bool _controllerUpdateScheduled = false;
 
   @protected
   TextEditingController? get textController => null;
@@ -26,6 +29,7 @@ mixin AuthenticatorTextField<
     _effectiveController?.removeListener(_handleControllerChanged);
     _effectiveController = controller;
     _lastSyncedControllerValue = null;
+    _pendingControllerText = null;
     if (_effectiveController != null) {
       _effectiveController!.addListener(_handleControllerChanged);
     }
@@ -37,11 +41,27 @@ mixin AuthenticatorTextField<
       return;
     }
     final text = controller.text;
-    if (text == _lastSyncedControllerValue) {
+    if (text == _lastSyncedControllerValue && _pendingControllerText == null) {
       return;
     }
-    _lastSyncedControllerValue = text;
-    onChanged(text);
+    _pendingControllerText = text;
+    if (_controllerUpdateScheduled) {
+      return;
+    }
+    _controllerUpdateScheduled = true;
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _controllerUpdateScheduled = false;
+      final pendingText = _pendingControllerText;
+      _pendingControllerText = null;
+      if (!mounted || pendingText == null) {
+        return;
+      }
+      if (pendingText == _lastSyncedControllerValue) {
+        return;
+      }
+      _lastSyncedControllerValue = pendingText;
+      onChanged(pendingText);
+    });
   }
 
   void _syncControllerText({bool force = false}) {
@@ -50,8 +70,16 @@ mixin AuthenticatorTextField<
       return;
     }
     final target = initialValue ?? '';
-    if (!force && controller.text == target) {
-      _lastSyncedControllerValue = controller.text;
+    final controllerText = controller.text;
+    if (!force && controllerText == target) {
+      _lastSyncedControllerValue = controllerText;
+      return;
+    }
+
+    final normalizedController = controllerText.trimRight();
+    final normalizedTarget = target.trimRight();
+    if (normalizedController == normalizedTarget) {
+      _lastSyncedControllerValue = controllerText;
       return;
     }
     _isApplyingControllerText = true;
@@ -61,6 +89,7 @@ mixin AuthenticatorTextField<
       composing: TextRange.empty,
     );
     _lastSyncedControllerValue = target;
+    _pendingControllerText = null;
     _isApplyingControllerText = false;
   }
 
@@ -93,13 +122,19 @@ mixin AuthenticatorTextField<
   void didUpdateWidget(covariant T oldWidget) {
     super.didUpdateWidget(oldWidget);
     _maybeUpdateEffectiveController();
-    _syncControllerText(force: true);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _syncControllerText(force: true);
+      }
+    });
   }
 
   @override
   void dispose() {
     _effectiveController?.removeListener(_handleControllerChanged);
     _effectiveController = null;
+    _pendingControllerText = null;
+    _controllerUpdateScheduled = false;
     super.dispose();
   }
 
@@ -117,6 +152,7 @@ mixin AuthenticatorTextField<
       builder: (BuildContext context, bool toggleObscureText, Widget? _) {
         final obscureText = this.obscureText && toggleObscureText;
         // Don't sync during build
+        final shouldHandleChangeImmediately = _effectiveController == null;
         return TextFormField(
           style: enabled
               ? null
@@ -125,7 +161,7 @@ mixin AuthenticatorTextField<
           initialValue: _effectiveController == null ? initialValue : null,
           enabled: enabled,
           validator: widget.validatorOverride ?? validator,
-          onChanged: onChanged,
+          onChanged: shouldHandleChangeImmediately ? onChanged : null,
           autocorrect: false,
           decoration: InputDecoration(
             labelText: labelText,

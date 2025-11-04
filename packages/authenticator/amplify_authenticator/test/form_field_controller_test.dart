@@ -3,8 +3,10 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -161,6 +163,51 @@ void main() {
       authState.password = 'statepass789';
       await tester.pump();
       expect(passwordController.text, equals('statepass789'));
+    });
+
+    testWidgets('typing with controller defers state updates to after build', (
+      tester,
+    ) async {
+      final usernameController = AuthenticatorTextFieldController();
+      addTearDown(usernameController.dispose);
+
+      await tester.pumpWidget(
+        MockAuthenticatorApp(
+          initialStep: AuthenticatorStep.signIn,
+          signInForm: SignInForm.custom(
+            fields: [
+              SignInFormField.username(controller: usernameController),
+              SignInFormField.password(),
+            ],
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final fieldFinder = find.byKey(keyUsernameSignInFormField);
+      await tester.tap(fieldFinder);
+      await tester.pump();
+      await tester.showKeyboard(fieldFinder);
+
+      expect(tester.takeException(), isNull);
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.keyA);
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.space);
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.backspace);
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+
+      final signInContext = tester.element(find.byType(SignInForm));
+      final authState = InheritedAuthenticatorState.of(signInContext);
+
+      expect(usernameController.text, equals('a'));
+      expect(authState.username, equals('a'));
     });
 
     testWidgets('SignUpFormField.password syncs with controller', (
@@ -501,5 +548,164 @@ void main() {
         equals('c@test.com'),
       );
     });
+
+    testWidgets(
+      'No setState during build when typing special keys (space, backspace)',
+      (tester) async {
+        final controller = AuthenticatorTextFieldController();
+        addTearDown(controller.dispose);
+
+        await tester.pumpWidget(
+          MockAuthenticatorApp(
+            initialStep: AuthenticatorStep.signUp,
+            signUpForm: SignUpForm.custom(
+              fields: [
+                SignUpFormField.username(controller: controller),
+                SignUpFormField.password(),
+                SignUpFormField.passwordConfirmation(),
+              ],
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final signUpContext = tester.element(find.byType(SignUpForm));
+        final authState = InheritedAuthenticatorState.of(signUpContext);
+
+        // Type regular characters
+        controller.text = 'test';
+        await tester.pump();
+        expect(authState.username, equals('test'));
+
+        // Type space character - this should not cause setState during build
+        controller.text = 'test ';
+        await tester.pump();
+        expect(authState.username, equals('test '));
+
+        // Type more characters after space
+        controller.text = 'test user';
+        await tester.pump();
+        expect(authState.username, equals('test user'));
+
+        // Simulate backspace by removing characters
+        controller.text = 'test use';
+        await tester.pump();
+        expect(authState.username, equals('test use'));
+
+        controller.text = 'test us';
+        await tester.pump();
+        expect(authState.username, equals('test us'));
+
+        // Multiple rapid changes including special keys
+        controller.text = 'test us ';
+        await tester.pump();
+        controller.text = 'test us a';
+        await tester.pump();
+        controller.text = 'test us';
+        await tester.pump();
+        controller.text = 'test';
+        await tester.pump();
+        expect(authState.username, equals('test'));
+
+        // Test passes if no exception is thrown during the above operations
+      },
+    );
+
+    testWidgets(
+      'Controller updates during form field interactions do not cause errors',
+      (tester) async {
+        final controller = AuthenticatorTextFieldController(text: 'initial');
+        addTearDown(controller.dispose);
+
+        await tester.pumpWidget(
+          MockAuthenticatorApp(
+            initialStep: AuthenticatorStep.signUp,
+            signUpForm: SignUpForm.custom(
+              fields: [
+                SignUpFormField.username(controller: controller),
+                SignUpFormField.password(),
+                SignUpFormField.passwordConfirmation(),
+              ],
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final signUpContext = tester.element(find.byType(SignUpForm));
+        final authState = InheritedAuthenticatorState.of(signUpContext);
+
+        // Verify initial state
+        expect(authState.username, equals('initial'));
+
+        // Simulate complex editing sequence
+        controller.text = 'initial text';
+        await tester.pump();
+        expect(authState.username, equals('initial text'));
+
+        // Add space
+        controller.text = 'initial text ';
+        await tester.pump();
+        expect(authState.username, equals('initial text '));
+
+        // Continue typing
+        controller.text = 'initial text with spaces';
+        await tester.pump();
+        expect(authState.username, equals('initial text with spaces'));
+
+        // Delete to space
+        controller.text = 'initial text with ';
+        await tester.pump();
+        expect(authState.username, equals('initial text with '));
+
+        // Delete space
+        controller.text = 'initial text with';
+        await tester.pump();
+        expect(authState.username, equals('initial text with'));
+
+        // Complete deletion
+        controller.text = '';
+        await tester.pump();
+        expect(authState.username, equals(''));
+      },
+    );
+
+    testWidgets(
+      'SignInFormField.password controller handles special characters correctly',
+      (tester) async {
+        final passwordController = AuthenticatorTextFieldController();
+        addTearDown(passwordController.dispose);
+
+        await tester.pumpWidget(
+          MockAuthenticatorApp(
+            initialStep: AuthenticatorStep.signIn,
+            signInForm: SignInForm.custom(
+              fields: [
+                SignInFormField.username(),
+                SignInFormField.password(controller: passwordController),
+              ],
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final signInContext = tester.element(find.byType(SignInForm));
+        final authState = InheritedAuthenticatorState.of(signInContext);
+
+        // Test password with special characters and spaces
+        const complexPassword = r'Pass word123! @#$';
+
+        // Set the final password
+        passwordController.text = complexPassword;
+        await tester.pump();
+
+        // Verify final password
+        expect(authState.password, equals(complexPassword));
+
+        // Test deletion
+        passwordController.text = '';
+        await tester.pump();
+        expect(authState.password, equals(''));
+      },
+    );
   });
 }

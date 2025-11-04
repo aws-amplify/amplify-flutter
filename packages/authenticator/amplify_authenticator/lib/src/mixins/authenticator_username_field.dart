@@ -9,6 +9,7 @@ import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 mixin AuthenticatorUsernameField<
   FieldType extends Enum,
@@ -19,6 +20,8 @@ mixin AuthenticatorUsernameField<
   UsernameType? _controllerUsernameType;
   bool _applyingControllerText = false;
   String? _lastSyncedText;
+  String? _pendingControllerText;
+  bool _controllerUpdateScheduled = false;
 
   @protected
   TextEditingController? get textController => null;
@@ -42,6 +45,7 @@ mixin AuthenticatorUsernameField<
     _controller = controller;
     _controllerUsernameType = type;
     _lastSyncedText = null;
+    _pendingControllerText = null;
 
     if (_controller != null && shouldListen) {
       _controller!.addListener(_handleControllerChanged);
@@ -55,17 +59,35 @@ mixin AuthenticatorUsernameField<
     }
 
     final text = controller.text;
-    if (text == _lastSyncedText) {
+    if (text == _lastSyncedText && _pendingControllerText == null) {
       return;
     }
 
-    _lastSyncedText = text;
-    _applyingControllerText = true;
-    try {
-      onChanged(UsernameInput(type: selectedUsernameType, username: text));
-    } finally {
-      _applyingControllerText = false;
+    _pendingControllerText = text;
+    if (_controllerUpdateScheduled) {
+      return;
     }
+    _controllerUpdateScheduled = true;
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _controllerUpdateScheduled = false;
+      final pendingText = _pendingControllerText;
+      _pendingControllerText = null;
+      if (!mounted || pendingText == null) {
+        return;
+      }
+      if (pendingText == _lastSyncedText) {
+        return;
+      }
+      _applyingControllerText = true;
+      try {
+        onChanged(
+          UsernameInput(type: selectedUsernameType, username: pendingText),
+        );
+        _lastSyncedText = pendingText;
+      } finally {
+        _applyingControllerText = false;
+      }
+    });
   }
 
   void _syncControllerText({bool force = false}) {
@@ -75,8 +97,16 @@ mixin AuthenticatorUsernameField<
     }
 
     final target = initialValue?.username ?? '';
-    if (!force && _controller!.text == target) {
-      _lastSyncedText = _controller!.text;
+    final controllerText = _controller!.text;
+    if (!force && controllerText == target) {
+      _lastSyncedText = controllerText;
+      return;
+    }
+
+    final normalizedController = controllerText.trimRight();
+    final normalizedTarget = target.trimRight();
+    if (normalizedController == normalizedTarget) {
+      _lastSyncedText = controllerText;
       return;
     }
 
@@ -87,6 +117,7 @@ mixin AuthenticatorUsernameField<
       composing: TextRange.empty,
     );
     _lastSyncedText = target;
+    _pendingControllerText = null;
     _applyingControllerText = false;
   }
 
@@ -118,13 +149,19 @@ mixin AuthenticatorUsernameField<
   void didUpdateWidget(covariant T oldWidget) {
     super.didUpdateWidget(oldWidget);
     _updateController();
-    _syncControllerText(force: true);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _syncControllerText(force: true);
+      }
+    });
   }
 
   @override
   void dispose() {
     _controller?.removeListener(_handleControllerChanged);
     _controller = null;
+    _pendingControllerText = null;
+    _controllerUpdateScheduled = false;
     super.dispose();
   }
 
@@ -310,8 +347,8 @@ mixin AuthenticatorUsernameField<
     final inputResolver = stringResolver.inputs;
     final hintText = inputResolver.resolve(context, hintKey);
 
-    void onChanged(String username) {
-      return this.onChanged(
+    void handleChanged(String username) {
+      return onChanged(
         UsernameInput(type: selectedUsernameType, username: username),
       );
     }
@@ -327,7 +364,7 @@ mixin AuthenticatorUsernameField<
       return AuthenticatorPhoneField<FieldType>(
         field: widget.field,
         requiredOverride: true,
-        onChanged: onChanged,
+        onChanged: handleChanged,
         validator: validator,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
@@ -340,13 +377,19 @@ mixin AuthenticatorUsernameField<
     _updateController();
     // Don't sync during build
 
+    final controllerInUse = _controller != null;
+
     return TextFormField(
       style: enabled ? null : TextStyle(color: Theme.of(context).disabledColor),
       controller: _controller,
       initialValue: _controller == null ? initialValue?.username : null,
       enabled: enabled,
       validator: validator,
-      onChanged: onChanged,
+      onChanged: (username) {
+        if (!controllerInUse) {
+          handleChanged(username);
+        }
+      },
       autocorrect: false,
       decoration: InputDecoration(
         prefixIcon: prefix,
