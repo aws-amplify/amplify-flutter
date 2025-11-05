@@ -14,7 +14,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
     private let nativeSubscriptionEventBus = PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>()
     private var channel: FlutterMethodChannel?
     private var observeSubscription: AnyCancellable?
-    private var syncExpressionPredicates: [String: [String: Any]] = [:]
     private let nativeAuthPlugin: NativeAuthPlugin
     private let nativeApiPlugin: NativeApiPlugin
     private let cognitoPlugin: CognitoPlugin
@@ -679,28 +678,21 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
     }
 
     private func createSyncExpressions(syncExpressionList: [[String: Any]]) throws -> [DataStoreSyncExpression] {
-        // Store predicates as instance variables to ensure they remain valid
-        for syncExpression in syncExpressionList {
-            let modelName = syncExpression["modelName"] as! String
-            if let queryPredicateMap = syncExpression["queryPredicate"] as? [String: Any] {
-                syncExpressionPredicates[modelName] = queryPredicateMap
-            }
-        }
-        
         return try syncExpressionList.map { syncExpression in
             let modelName = syncExpression["modelName"] as! String
             let modelSchema = modelSchemaRegistry.modelSchemas[modelName]
+            
+            // Capture the predicate map at configuration time
+            let predicateMap = syncExpression["queryPredicate"] as? [String: Any]
+            
             return DataStoreSyncExpression.syncExpression(modelSchema!) {
-                guard let predicateMap = self.syncExpressionPredicates[modelName] else {
-                    print("[DataStore] No predicate found for \(modelName), using .all")
-                    return QueryPredicateConstant.all
-                }
+                // Build predicate synchronously from captured map
+                // This predicate is evaluated at sync time, not configuration time
                 do {
-                    let predicate = try QueryPredicateBuilder.fromSerializedMap(predicateMap)
-                    print("[DataStore] Sync expression evaluated for \(modelName)")
-                    return predicate
+                    return try QueryPredicateBuilder.fromSerializedMap(predicateMap)
                 } catch {
-                    print("[DataStore] Failed to build predicate for \(modelName): \(error)")
+                    print("[DataStore] Error building sync expression predicate: \(error)")
+                    print("[DataStore] Falling back to .all for model \(modelName)")
                     return QueryPredicateConstant.all
                 }
             }
