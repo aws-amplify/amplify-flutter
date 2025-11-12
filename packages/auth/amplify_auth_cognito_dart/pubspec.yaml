@@ -56,4 +56,8 @@ dev_dependencies:
 flutter:
   assets:
     - lib/src/workers/workers.min.js
-    - lib/src/workers/workers.min.js.map
+    - lib/src/workers/workers.min.dart2js.js
+    - lib/src/workers/workers.min.dart2js.js.map
+    - lib/src/workers/workers.min.wasm
+    - lib/src/workers/workers.min.wasm.map
+    - lib/src/workers/workers.min.mjs

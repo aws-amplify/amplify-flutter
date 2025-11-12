@@ -30,8 +30,8 @@ class E2EWorkerNoResultImpl extends E2EWorkerNoResult {
         .map(Uri.encodeComponent)
         .join('/');
     const relativePath = zDebugMode
-        ? 'packages/e2e/workers.debug.dart.js'
-        : 'packages/e2e/workers.release.dart.js';
+        ? 'packages/e2e/workers.dev.js'
+        : 'packages/e2e/workers.mins.js';
     final testRelativePath = Uri(
       scheme: baseUri.scheme,
       host: baseUri.host,
