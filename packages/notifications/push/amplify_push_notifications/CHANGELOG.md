@@ -1,3 +1,8 @@
+## 2.7.1
+
+### Fixes
+- fix(amplify_push_notifications): replace removeFirst() with removeAt(0) for Android < 11 compatibility
+
 ## 2.7.0
 
 ### Chores
