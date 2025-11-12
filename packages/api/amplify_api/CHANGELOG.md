@@ -1,3 +1,8 @@
+## 2.7.1
+
+### Chores
+- chore(api): Bumped connectivity_plus to ^7.0.0 
+
 ## 2.7.0
 
 ### Chores
