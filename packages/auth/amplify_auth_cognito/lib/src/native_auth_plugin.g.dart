@@ -376,6 +376,11 @@ class NativeAuthBridge {
     String callbackUrlScheme,
     bool preferPrivateSession,
     String? browserPackageName,
+    String? nonce,
+    String? language,
+    String? loginHint,
+    List<String>? prompt,
+    String? resource
   ) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.signInWithUrl$pigeonVar_messageChannelSuffix';
@@ -391,6 +396,11 @@ class NativeAuthBridge {
         callbackUrlScheme,
         preferPrivateSession,
         browserPackageName,
+        nonce,
+        language,
+        loginHint,
+        prompt,
+        resource
       ],
     );
     final List<Object?>? pigeonVar_replyList =
