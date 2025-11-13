@@ -87,7 +87,7 @@ final class ThrowingNativeBridge extends Fake implements NativeAuthBridge {
     String? arg_language,
     String? arg_loginHint,
     List<String>? arg_prompt,
-    String? arg_resource
+    String? arg_resource,
   ) async {
     throw PlatformException(code: 'CANCELLED');
   }

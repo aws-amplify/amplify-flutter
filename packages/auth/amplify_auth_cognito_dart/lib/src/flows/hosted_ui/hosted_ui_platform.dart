@@ -102,7 +102,11 @@ abstract class HostedUiPlatform implements Closeable {
   @protected
   @visibleForTesting
   @nonVirtual
-  Future<Uri> getSignInUri({Uri? redirectUri, AuthProvider? provider, CognitoSignInWithWebUIPluginOptions? options}) async {
+  Future<Uri> getSignInUri({
+    Uri? redirectUri,
+    AuthProvider? provider,
+    CognitoSignInWithWebUIPluginOptions? options,
+  }) async {
     final state = generateState();
     final codeVerifier = createCodeVerifier();
 
@@ -124,7 +128,7 @@ abstract class HostedUiPlatform implements Closeable {
       codeVerifier: codeVerifier,
       httpClient: httpClient,
       provider: provider,
-      options: options
+      options: options,
     );
     final uri = _authCodeGrant!.getAuthorizationUrl(
       redirectUri ?? signInRedirectUri,

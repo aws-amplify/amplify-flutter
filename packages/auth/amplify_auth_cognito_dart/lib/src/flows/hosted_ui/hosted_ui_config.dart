@@ -27,7 +27,10 @@ extension HostedUiConfig on OAuthOutputs {
   /// References:
   /// - https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html
   /// - https://docs.aws.amazon.com/cognito/latest/developerguide/login-endpoint.html
-  Uri signInUri([AuthProvider? provider, CognitoSignInWithWebUIPluginOptions? options]) {
+  Uri signInUri([
+    AuthProvider? provider,
+    CognitoSignInWithWebUIPluginOptions? options,
+  ]) {
     Uri baseUri;
     // ignore: invalid_use_of_internal_member
     if (this.signInUri != null) {

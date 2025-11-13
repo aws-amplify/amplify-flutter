@@ -19,7 +19,7 @@ class CognitoSignInWithWebUIPluginOptions extends SignInWithWebUIPluginOptions {
     this.language,
     this.loginHint,
     this.prompt,
-    this.resource
+    this.resource,
   });
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_plugin_options}
@@ -49,7 +49,7 @@ class CognitoSignInWithWebUIPluginOptions extends SignInWithWebUIPluginOptions {
   /// {@template amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.nonce}
   /// A random value that you can add to the request. The nonce value that you provide is included in the ID token
   /// that Amazon Cognito issues. To guard against replay attacks, your app can inspect the nonce claim in the ID
-  /// token and compare it to the one you generated. 
+  /// token and compare it to the one you generated.
   /// {@endtemplate}
   final String? nonce;
 
@@ -81,7 +81,15 @@ class CognitoSignInWithWebUIPluginOptions extends SignInWithWebUIPluginOptions {
   final String? resource;
 
   @override
-  List<Object?> get props => [isPreferPrivateSession, browserPackageName, nonce, language, loginHint, prompt, resource];
+  List<Object?> get props => [
+    isPreferPrivateSession,
+    browserPackageName,
+    nonce,
+    language,
+    loginHint,
+    prompt,
+    resource,
+  ];
 
   @override
   String get runtimeTypeName => 'CognitoSignInWithWebUIPluginOptions';

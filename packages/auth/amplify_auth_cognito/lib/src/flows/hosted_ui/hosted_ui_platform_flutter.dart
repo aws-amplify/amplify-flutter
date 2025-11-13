@@ -98,7 +98,7 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
         options.language,
         options.loginHint,
         options.prompt?.map((obj) => obj.value).toList(),
-        options.resource
+        options.resource,
       );
       dispatcher
           .dispatch(

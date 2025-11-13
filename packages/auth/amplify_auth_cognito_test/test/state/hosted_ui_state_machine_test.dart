@@ -575,7 +575,7 @@ void main() {
                   ) async {
                     final signInUrl = await platform.getSignInUri(
                       provider: provider,
-                      options: options
+                      options: options,
                     );
                     _launchUrl.complete(signInUrl);
                   },
@@ -584,8 +584,16 @@ void main() {
                 expect(options.nonce == 'nonce', isTrue);
                 expect(options.language == 'en', isTrue);
                 expect(options.loginHint == 'username', isTrue);
-                expect(options.prompt?.contains(CognitoSignInWithWebUIPrompt.login), isTrue);
-                expect(options.prompt?.contains(CognitoSignInWithWebUIPrompt.consent), isTrue);
+                expect(
+                  options.prompt?.contains(CognitoSignInWithWebUIPrompt.login),
+                  isTrue,
+                );
+                expect(
+                  options.prompt?.contains(
+                    CognitoSignInWithWebUIPrompt.consent,
+                  ),
+                  isTrue,
+                );
                 expect(options.resource == 'myapp://', isTrue);
               }),
             ),
@@ -607,8 +615,11 @@ void main() {
                   nonce: 'nonce',
                   language: 'en',
                   loginHint: 'username',
-                  prompt: [CognitoSignInWithWebUIPrompt.login, CognitoSignInWithWebUIPrompt.consent],
-                  resource: 'myapp://'
+                  prompt: [
+                    CognitoSignInWithWebUIPrompt.login,
+                    CognitoSignInWithWebUIPrompt.consent,
+                  ],
+                  resource: 'myapp://',
                 ),
               ),
             )
