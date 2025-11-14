@@ -53,10 +53,11 @@ void main() {
         dependencyManager
           ..addInstance<NativeAuthBridge>(
             MockNativeAuthBridge(
-              signInWithUrl: expectAsync1((
-                argSignInOut,
-              ) async {
-                expect(argSignInOut.url, contains(mockConfig.auth?.oauth?.domain));
+              signInWithUrl: expectAsync1((argSignInOut) async {
+                expect(
+                  argSignInOut.url,
+                  contains(mockConfig.auth?.oauth?.domain),
+                );
                 expect(argSignInOut.callbackurlscheme, testUrlScheme);
                 expect(argSignInOut.preferprivatesession, isFalse);
                 expect(argSignInOut.browserPackageName, browserPackage);
@@ -77,16 +78,20 @@ void main() {
           nonce: 'nonce',
           language: 'en',
           loginHint: 'username',
-          prompt: [CognitoSignInWithWebUIPrompt.login, CognitoSignInWithWebUIPrompt.consent],
-          resource: 'myapp://'
+          prompt: [
+            CognitoSignInWithWebUIPrompt.login,
+            CognitoSignInWithWebUIPrompt.consent,
+          ],
+          resource: 'myapp://',
         );
         dependencyManager
           ..addInstance<NativeAuthBridge>(
             MockNativeAuthBridge(
-              signInWithUrl: expectAsync1((
-                argSignInOut,
-              ) async {
-                expect(argSignInOut.url, contains(mockConfig.auth?.oauth?.domain));
+              signInWithUrl: expectAsync1((argSignInOut) async {
+                expect(
+                  argSignInOut.url,
+                  contains(mockConfig.auth?.oauth?.domain),
+                );
                 expect(argSignInOut.callbackurlscheme, testUrlScheme);
                 expect(argSignInOut.preferprivatesession, isFalse);
                 expect(argSignInOut.browserPackageName, browserPackage);
@@ -94,8 +99,18 @@ void main() {
                 expect(argSignInOut.language, 'es');
                 expect(argSignInOut.loginHint, 'username');
                 expect(argSignInOut.prompt, isNotNull);
-                expect(argSignInOut.prompt?.contains(CognitoSignInWithWebUIPrompt.login.value), isTrue);
-                expect(argSignInOut.prompt?.contains(CognitoSignInWithWebUIPrompt.consent.value), isTrue);
+                expect(
+                  argSignInOut.prompt?.contains(
+                    CognitoSignInWithWebUIPrompt.login.value,
+                  ),
+                  isTrue,
+                );
+                expect(
+                  argSignInOut.prompt?.contains(
+                    CognitoSignInWithWebUIPrompt.consent.value,
+                  ),
+                  isTrue,
+                );
                 expect(argSignInOut.resource, 'myapp://');
                 return {'code': 'code', 'state': 'state'};
               }),
@@ -115,10 +130,11 @@ void main() {
         dependencyManager
           ..addInstance<NativeAuthBridge>(
             MockNativeAuthBridge(
-              signOutWithUrl: expectAsync1((
-                argSignInOut
-              ) async {
-                expect(argSignInOut.url, contains(mockConfig.auth?.oauth?.domain));
+              signOutWithUrl: expectAsync1((argSignInOut) async {
+                expect(
+                  argSignInOut.url,
+                  contains(mockConfig.auth?.oauth?.domain),
+                );
                 expect(argSignInOut.callbackurlscheme, testUrlScheme);
                 expect(argSignInOut.preferprivatesession, isFalse);
                 expect(argSignInOut.browserPackageName, browserPackage);
@@ -136,7 +152,7 @@ void main() {
 
 class SignInOut {
   SignInOut(
-    this.url, 
+    this.url,
     this.callbackurlscheme,
     this.preferprivatesession,
     this.browserPackageName,
@@ -144,7 +160,7 @@ class SignInOut {
     this.language,
     this.loginHint,
     this.prompt,
-    this.resource
+    this.resource,
   );
 
   String url = '';
@@ -158,10 +174,7 @@ class SignInOut {
   String? resource;
 }
 
-typedef SignInOutFn<T> =
-    Future<T> Function(
-      SignInOut signInOut
-    );
+typedef SignInOutFn<T> = Future<T> Function(SignInOut signInOut);
 
 class MockNativeAuthBridge extends Fake implements NativeAuthBridge {
   MockNativeAuthBridge({
@@ -185,16 +198,18 @@ class MockNativeAuthBridge extends Fake implements NativeAuthBridge {
     List<String>? argPrompt,
     String? argResource,
   ) async {
-    return _signInWithUrl?.call(SignInOut(
-          argUrl,
-          argCallbackurlscheme,
-          argPreferprivatesession,
-          argBrowserpackagename,
-          argNonce,
-          argLanguage,
-          argLoginHint,
-          argPrompt,
-          argResource)
+    return _signInWithUrl?.call(
+          SignInOut(
+            argUrl,
+            argCallbackurlscheme,
+            argPreferprivatesession,
+            argBrowserpackagename,
+            argNonce,
+            argLanguage,
+            argLoginHint,
+            argPrompt,
+            argResource,
+          ),
         ) ??
         (throw UnimplementedError());
   }
@@ -206,16 +221,18 @@ class MockNativeAuthBridge extends Fake implements NativeAuthBridge {
     bool argPreferprivatesession,
     String? argBrowserpackagename,
   ) async {
-    return _signOutWithUrl?.call(SignInOut(
-          argUrl,
-          argCallbackurlscheme,
-          argPreferprivatesession,
-          argBrowserpackagename,
-          null,
-          null,
-          null,
-          null,
-          null)
+    return _signOutWithUrl?.call(
+          SignInOut(
+            argUrl,
+            argCallbackurlscheme,
+            argPreferprivatesession,
+            argBrowserpackagename,
+            null,
+            null,
+            null,
+            null,
+            null,
+          ),
         ) ??
         (throw UnimplementedError());
   }
