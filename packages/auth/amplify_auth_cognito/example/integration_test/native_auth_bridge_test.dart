@@ -145,12 +145,12 @@ class SignInOut {
     this.loginHint,
     this.prompt,
     this.resource
-  )
+  );
 
   String url = '';
   String callbackurlscheme = '';
   bool preferprivatesession = false;
-  String? browserPackageName,
+  String? browserPackageName;
   String? nonce;
   String? language;
   String? loginHint;
