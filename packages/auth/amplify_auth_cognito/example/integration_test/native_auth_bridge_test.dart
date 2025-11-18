@@ -96,7 +96,7 @@ void main() {
                 expect(argSignInOut.preferprivatesession, isFalse);
                 expect(argSignInOut.browserPackageName, browserPackage);
                 expect(argSignInOut.nonce, 'nonce');
-                expect(argSignInOut.language, 'es');
+                expect(argSignInOut.language, 'en');
                 expect(argSignInOut.loginHint, 'username');
                 expect(argSignInOut.prompt, isNotNull);
                 expect(
