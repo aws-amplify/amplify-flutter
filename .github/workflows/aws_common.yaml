@@ -33,7 +33,7 @@ on:
       - 'packages/aws_common/lib/**/*'
       - 'packages/aws_common/test/**/*'
   schedule:
-    - cron: "0 13 * * *" # Everyday at 06:00 PST
+    - cron: "0 13 * * 1" # Every Monday at 06:00 PST
   workflow_dispatch:
 defaults:
   run:
