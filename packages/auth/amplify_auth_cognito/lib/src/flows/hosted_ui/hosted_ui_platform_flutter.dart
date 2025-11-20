@@ -94,6 +94,11 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
         signInRedirectUri.scheme,
         options.isPreferPrivateSession,
         options.browserPackageName,
+        options.nonce,
+        options.language,
+        options.loginHint,
+        options.prompt?.map((obj) => obj.value).toList(),
+        options.resource,
       );
       dispatcher
           .dispatch(
