@@ -53,16 +53,65 @@ void main() {
         dependencyManager
           ..addInstance<NativeAuthBridge>(
             MockNativeAuthBridge(
-              signInWithUrl: expectAsync4((
-                argUrl,
-                argCallbackurlscheme,
-                argPreferprivatesession,
-                argBrowserpackagename,
-              ) async {
-                expect(argUrl, contains(mockConfig.auth?.oauth?.domain));
-                expect(argCallbackurlscheme, testUrlScheme);
-                expect(argPreferprivatesession, isFalse);
-                expect(argBrowserpackagename, browserPackage);
+              signInWithUrl: expectAsync1((argSignInOut) async {
+                expect(
+                  argSignInOut.url,
+                  contains(mockConfig.auth?.oauth?.domain),
+                );
+                expect(argSignInOut.callbackurlscheme, testUrlScheme);
+                expect(argSignInOut.preferprivatesession, isFalse);
+                expect(argSignInOut.browserPackageName, browserPackage);
+                return {'code': 'code', 'state': 'state'};
+              }),
+            ),
+          )
+          ..addInstance<Dispatcher<AuthEvent, AuthState>>(
+            const MockDispatcher(),
+          );
+        await platform.signIn(options: options);
+      });
+
+      asyncTest('signInWithUrl with OIDC parameters', (_) async {
+        const options = CognitoSignInWithWebUIPluginOptions(
+          isPreferPrivateSession: false,
+          browserPackageName: browserPackage,
+          nonce: 'nonce',
+          language: 'en',
+          loginHint: 'username',
+          prompt: [
+            CognitoSignInWithWebUIPrompt.login,
+            CognitoSignInWithWebUIPrompt.consent,
+          ],
+          resource: 'myapp://',
+        );
+        dependencyManager
+          ..addInstance<NativeAuthBridge>(
+            MockNativeAuthBridge(
+              signInWithUrl: expectAsync1((argSignInOut) async {
+                expect(
+                  argSignInOut.url,
+                  contains(mockConfig.auth?.oauth?.domain),
+                );
+                expect(argSignInOut.callbackurlscheme, testUrlScheme);
+                expect(argSignInOut.preferprivatesession, isFalse);
+                expect(argSignInOut.browserPackageName, browserPackage);
+                expect(argSignInOut.nonce, 'nonce');
+                expect(argSignInOut.language, 'en');
+                expect(argSignInOut.loginHint, 'username');
+                expect(argSignInOut.prompt, isNotNull);
+                expect(
+                  argSignInOut.prompt?.contains(
+                    CognitoSignInWithWebUIPrompt.login.value,
+                  ),
+                  isTrue,
+                );
+                expect(
+                  argSignInOut.prompt?.contains(
+                    CognitoSignInWithWebUIPrompt.consent.value,
+                  ),
+                  isTrue,
+                );
+                expect(argSignInOut.resource, 'myapp://');
                 return {'code': 'code', 'state': 'state'};
               }),
             ),
@@ -81,16 +130,14 @@ void main() {
         dependencyManager
           ..addInstance<NativeAuthBridge>(
             MockNativeAuthBridge(
-              signOutWithUrl: expectAsync4((
-                argUrl,
-                argCallbackurlscheme,
-                argPreferprivatesession,
-                argBrowserpackagename,
-              ) async {
-                expect(argUrl, contains(mockConfig.auth?.oauth?.domain));
-                expect(argCallbackurlscheme, testUrlScheme);
-                expect(argPreferprivatesession, isFalse);
-                expect(argBrowserpackagename, browserPackage);
+              signOutWithUrl: expectAsync1((argSignInOut) async {
+                expect(
+                  argSignInOut.url,
+                  contains(mockConfig.auth?.oauth?.domain),
+                );
+                expect(argSignInOut.callbackurlscheme, testUrlScheme);
+                expect(argSignInOut.preferprivatesession, isFalse);
+                expect(argSignInOut.browserPackageName, browserPackage);
               }),
             ),
           )
@@ -103,13 +150,31 @@ void main() {
   );
 }
 
-typedef SignInOutFn<T> =
-    Future<T> Function(
-      String argUrl,
-      String argCallbackurlscheme,
-      bool argPreferprivatesession,
-      String? argBrowserpackagename,
-    );
+class SignInOut {
+  SignInOut(
+    this.url,
+    this.callbackurlscheme,
+    this.preferprivatesession,
+    this.browserPackageName,
+    this.nonce,
+    this.language,
+    this.loginHint,
+    this.prompt,
+    this.resource,
+  );
+
+  String url = '';
+  String callbackurlscheme = '';
+  bool preferprivatesession = false;
+  String? browserPackageName;
+  String? nonce;
+  String? language;
+  String? loginHint;
+  List<String>? prompt;
+  String? resource;
+}
+
+typedef SignInOutFn<T> = Future<T> Function(SignInOut signInOut);
 
 class MockNativeAuthBridge extends Fake implements NativeAuthBridge {
   MockNativeAuthBridge({
@@ -127,12 +192,24 @@ class MockNativeAuthBridge extends Fake implements NativeAuthBridge {
     String argCallbackurlscheme,
     bool argPreferprivatesession,
     String? argBrowserpackagename,
+    String? argNonce,
+    String? argLanguage,
+    String? argLoginHint,
+    List<String>? argPrompt,
+    String? argResource,
   ) async {
     return _signInWithUrl?.call(
-          argUrl,
-          argCallbackurlscheme,
-          argPreferprivatesession,
-          argBrowserpackagename,
+          SignInOut(
+            argUrl,
+            argCallbackurlscheme,
+            argPreferprivatesession,
+            argBrowserpackagename,
+            argNonce,
+            argLanguage,
+            argLoginHint,
+            argPrompt,
+            argResource,
+          ),
         ) ??
         (throw UnimplementedError());
   }
@@ -145,10 +222,17 @@ class MockNativeAuthBridge extends Fake implements NativeAuthBridge {
     String? argBrowserpackagename,
   ) async {
     return _signOutWithUrl?.call(
-          argUrl,
-          argCallbackurlscheme,
-          argPreferprivatesession,
-          argBrowserpackagename,
+          SignInOut(
+            argUrl,
+            argCallbackurlscheme,
+            argPreferprivatesession,
+            argBrowserpackagename,
+            null,
+            null,
+            null,
+            null,
+            null,
+          ),
         ) ??
         (throw UnimplementedError());
   }

@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
@@ -26,7 +27,10 @@ extension HostedUiConfig on OAuthOutputs {
   /// References:
   /// - https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html
   /// - https://docs.aws.amazon.com/cognito/latest/developerguide/login-endpoint.html
-  Uri signInUri([AuthProvider? provider]) {
+  Uri signInUri([
+    AuthProvider? provider,
+    CognitoSignInWithWebUIPluginOptions? options,
+  ]) {
     Uri baseUri;
     // ignore: invalid_use_of_internal_member
     if (this.signInUri != null) {
@@ -35,9 +39,20 @@ extension HostedUiConfig on OAuthOutputs {
     } else {
       baseUri = _webDomain.replace(path: '/oauth2/authorize');
     }
+
+    final nonce = options?.nonce;
+    final language = options?.language;
+    final loginHint = options?.loginHint;
+    final prompt = options?.prompt?.map((obj) => obj.value).toList().join(' ');
+    final resource = options?.resource;
     return baseUri.replace(
       queryParameters: <String, String>{
         if (provider != null) 'identity_provider': provider.uriParameter,
+        if (nonce != null) 'nonce': nonce,
+        if (language != null) 'lang': language,
+        if (loginHint != null) 'login_hint': loginHint,
+        if (prompt != null) 'prompt': prompt,
+        if (resource != null) 'resource': resource,
         // ignore: invalid_use_of_internal_member
         ...?signInUriQueryParameters,
       },
