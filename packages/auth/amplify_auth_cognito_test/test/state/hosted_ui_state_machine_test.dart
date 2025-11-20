@@ -562,6 +562,81 @@ void main() {
 
         stateMachine.dispatch(const HostedUiEvent.signOut()).ignore();
       });
+
+      test('preserves oidc parameters', () async {
+        stateMachine
+          ..addBuilder<HostedUiPlatform>(
+            createHostedUiFactory(
+              signIn:
+                  (
+                    HostedUiPlatform platform,
+                    CognitoSignInWithWebUIPluginOptions options,
+                    AuthProvider? provider,
+                  ) async {
+                    final signInUrl = await platform.getSignInUri(
+                      provider: provider,
+                      options: options,
+                    );
+                    _launchUrl.complete(signInUrl);
+                  },
+              signOut: expectAsync2((platform, options) async {
+                expect(options.isPreferPrivateSession, isTrue);
+                expect(options.nonce == 'nonce', isTrue);
+                expect(options.language == 'en', isTrue);
+                expect(options.loginHint == 'username', isTrue);
+                expect(
+                  options.prompt?.contains(CognitoSignInWithWebUIPrompt.login),
+                  isTrue,
+                );
+                expect(
+                  options.prompt?.contains(
+                    CognitoSignInWithWebUIPrompt.consent,
+                  ),
+                  isTrue,
+                );
+                expect(options.resource == 'myapp://', isTrue);
+              }),
+            ),
+          )
+          ..dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
+
+        await expectLater(
+          stateMachine.stream.whereType<HostedUiState>(),
+          emitsInOrder(<Matcher>[
+            isA<HostedUiConfiguring>(),
+            isA<HostedUiSignedOut>(),
+          ]),
+        );
+
+        stateMachine
+            .dispatch(
+              const HostedUiEvent.signIn(
+                options: CognitoSignInWithWebUIPluginOptions(
+                  nonce: 'nonce',
+                  language: 'en',
+                  loginHint: 'username',
+                  prompt: [
+                    CognitoSignInWithWebUIPrompt.login,
+                    CognitoSignInWithWebUIPrompt.consent,
+                  ],
+                  resource: 'myapp://',
+                ),
+              ),
+            )
+            .ignore();
+        final params = await server.authorize(await _launchUrl.future);
+        stateMachine.dispatch(HostedUiEvent.exchange(params)).ignore();
+
+        await expectLater(
+          stateMachine.stream.whereType<HostedUiState>(),
+          emitsInOrder(<Matcher>[
+            isA<HostedUiSigningIn>(),
+            isA<HostedUiSignedIn>(),
+          ]),
+        );
+
+        stateMachine.dispatch(const HostedUiEvent.signOut()).ignore();
+      });
     });
   });
 }
