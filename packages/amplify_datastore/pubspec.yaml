@@ -25,7 +25,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   fake_async: ^1.2.0
-  pigeon: ^25.5.0
+  pigeon: ">=25.5.0 <27.0.0"
 
 # The following section is specific to Flutter.
 flutter:
