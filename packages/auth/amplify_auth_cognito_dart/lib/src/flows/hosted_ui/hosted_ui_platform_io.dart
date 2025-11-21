@@ -216,6 +216,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     try {
       final signInUrl = (await getSignInUri(
         provider: provider,
+        options: options,
         redirectUri: localServer.uri,
       )).toString();
       await launchUrl(signInUrl);
