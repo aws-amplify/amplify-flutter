@@ -1,3 +1,7 @@
+## 2.3.9
+
+- Minor bug fixes and improvements
+
 ## 2.3.8
 
 ### Chores

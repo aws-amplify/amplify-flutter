@@ -40,6 +40,7 @@ export 'src/model/signin/cognito_confirm_sign_in_plugin_options.dart';
 export 'src/model/signin/cognito_sign_in_plugin_options.dart';
 export 'src/model/signin/cognito_sign_in_result.dart';
 export 'src/model/signin/cognito_sign_in_with_web_ui_plugin_options.dart';
+export 'src/model/signin/cognito_sign_in_with_web_ui_plugin_options_prompt.dart';
 export 'src/model/signout/cognito_sign_out_plugin_options.dart';
 export 'src/model/signout/cognito_sign_out_result.dart';
 export 'src/model/signup/cognito_confirm_sign_up_plugin_options.dart';

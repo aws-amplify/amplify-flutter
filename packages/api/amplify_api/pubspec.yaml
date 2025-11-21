@@ -1,6 +1,6 @@
 name: amplify_api
 description: The Amplify Flutter API category plugin, supporting GraphQL and REST operations.
-version: 2.7.1
+version: 2.8.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/api/amplify_api
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -20,8 +20,8 @@ platforms:
 
 dependencies:
   amplify_api_dart: ">=0.5.12 <0.6.0"
-  amplify_core: ">=2.7.0 <2.8.0"
-  amplify_flutter: ">=2.7.0 <2.8.0"
+  amplify_core: ">=2.8.0 <2.9.0"
+  amplify_flutter: ">=2.8.0 <2.9.0"
   connectivity_plus: ^7.0.0
   flutter:
     sdk: flutter
