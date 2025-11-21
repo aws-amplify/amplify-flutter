@@ -332,7 +332,7 @@ ${workflowPaths.map((path) => "      - '$path'").join('\n')}
     paths:
 ${workflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
-    - cron: "0 13 * * *" # Everyday at 06:00 PST
+    - cron: "0 13 * * 1" # Every Monday at 06:00 PST
   workflow_dispatch:
 defaults:
   run:
