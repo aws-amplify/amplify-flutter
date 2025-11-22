@@ -28,6 +28,7 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignUpUsernameField(
     key: key ?? keyUsernameConfirmSignUpFormField,
     titleKey: InputResolverKey.usernameTitle,
@@ -35,6 +36,7 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     field: ConfirmSignUpField.username,
     validator: validator,
     autofillHints: autofillHints,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a verificationCode component.
@@ -42,6 +44,7 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignUpTextField(
     key: key ?? keyCodeConfirmSignUpFormField,
     titleKey: InputResolverKey.verificationCodeTitle,
@@ -49,6 +52,7 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     field: ConfirmSignUpField.code,
     validator: validator,
     autofillHints: autofillHints,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   @override
@@ -90,6 +94,15 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
 
   @override
   bool get enabled {
+    switch (widget.enabledOverride) {
+      case AuthenticatorTextEnabledOverride.enabled:
+        return true;
+      case AuthenticatorTextEnabledOverride.disabled:
+        return false;
+      case AuthenticatorTextEnabledOverride.defaultSetting:
+      case null:
+        break;
+    }
     switch (widget.field) {
       case ConfirmSignUpField.code:
         return true;
@@ -131,10 +144,25 @@ class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    this.authenticatorTextFieldController,
   }) : super._();
 
   @override
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
+
+  @override
   _ConfirmSignUpTextFieldState createState() => _ConfirmSignUpTextFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
+    );
+  }
 }
 
 class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
@@ -199,11 +227,26 @@ class _ConfirmSignUpUsernameField
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    this.authenticatorTextFieldController,
   }) : super._();
+
+  @override
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _ConfirmSignUpUsernameFieldState createState() =>
       _ConfirmSignUpUsernameFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
+    );
+  }
 }
 
 class _ConfirmSignUpUsernameFieldState

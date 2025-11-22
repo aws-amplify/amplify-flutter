@@ -66,6 +66,8 @@ abstract class AuthenticatorFormField<
     FormFieldValidator<FieldValue>? validator,
     this.requiredOverride,
     this.autofillHints,
+    this.enabledOverride,
+    this.visible = true,
   }) : validatorOverride = validator;
 
   /// Resolver key for the title
@@ -96,6 +98,21 @@ abstract class AuthenticatorFormField<
   /// Autocomplete hints to override the default value
   final Iterable<String>? autofillHints;
 
+  /// Optional text controller exposed by text-driven form fields.
+  AuthenticatorTextFieldController? get authenticatorTextFieldController =>
+      null;
+
+  /// Whether the field can receive manual input.
+  ///
+  /// When `null`, the widget decides its enabled state.
+  final AuthenticatorTextEnabledOverride? enabledOverride;
+
+  /// Whether the field should be rendered.
+  ///
+  /// When `false`, the field stays offstage so programmatic updates can still
+  /// run without occupying layout space.
+  final bool visible;
+
   /// Whether the field is required in the form.
   ///
   /// Defaults to `false`.
@@ -125,7 +142,20 @@ abstract class AuthenticatorFormField<
       ..add(DiagnosticsProperty<bool>('required', required))
       ..add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride))
       ..add(EnumProperty<UsernameType?>('usernameType', usernameType))
-      ..add(IterableProperty<String>('autofillHints', autofillHints));
+      ..add(IterableProperty<String>('autofillHints', autofillHints))
+      ..add(
+        DiagnosticsProperty<AuthenticatorTextFieldController?>(
+          'authenticatorTextFieldController',
+          authenticatorTextFieldController,
+        ),
+      )
+      ..add(
+        EnumProperty<AuthenticatorTextEnabledOverride?>(
+          'enabledOverride',
+          enabledOverride,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('visible', visible));
   }
 }
 
@@ -166,7 +196,17 @@ abstract class AuthenticatorFormFieldState<
   FieldValue? get initialValue => null;
 
   /// Whether the form field accepts input.
-  bool get enabled => true;
+  bool get enabled {
+    switch (widget.enabledOverride) {
+      case AuthenticatorTextEnabledOverride.enabled:
+        return true;
+      case AuthenticatorTextEnabledOverride.disabled:
+        return false;
+      case AuthenticatorTextEnabledOverride.defaultSetting:
+      case null:
+        return true;
+    }
+  }
 
   /// Widget to show at leading end, typically an [Icon].
   Widget? get prefix => null;
@@ -264,7 +304,7 @@ abstract class AuthenticatorFormFieldState<
   @nonVirtual
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final field = Container(
       margin: EdgeInsets.only(bottom: marginBottom ?? 0),
       child: Stack(
         children: [
@@ -279,6 +319,17 @@ abstract class AuthenticatorFormFieldState<
           ),
         ],
       ),
+    );
+    if (widget.visible) {
+      return field;
+    }
+    return Visibility(
+      visible: false,
+      maintainState: true,
+      maintainAnimation: true,
+      maintainSemantics: false,
+      maintainInteractivity: false,
+      child: field,
     );
   }
 
