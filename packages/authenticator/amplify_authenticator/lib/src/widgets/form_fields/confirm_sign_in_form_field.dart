@@ -31,7 +31,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyNewPasswordConfirmSignInFormField,
     titleKey: InputResolverKey.passwordTitle,
@@ -39,7 +39,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     field: ConfirmSignInField.newPassword,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a new password component.
@@ -47,7 +47,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyConfirmNewPasswordConfirmSignInFormField,
     titleKey: InputResolverKey.passwordConfirmationTitle,
@@ -55,7 +55,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     field: ConfirmSignInField.confirmNewPassword,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates an auth answer component.
@@ -65,7 +65,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     String? hintText,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyCustomChallengeConfirmSignInFormField,
     title: title,
@@ -77,7 +77,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     field: ConfirmSignInField.customChallenge,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates an mfa preference selection  component.
@@ -99,7 +99,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyCodeConfirmSignInFormField,
     titleKey: InputResolverKey.verificationCodeTitle,
@@ -107,7 +107,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     field: ConfirmSignInField.code,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates an address component.
@@ -116,7 +116,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyAddressConfirmSignInFormField,
     titleKey: InputResolverKey.addressTitle,
@@ -125,7 +125,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a birthdate component.
@@ -150,7 +150,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyEmailConfirmSignInFormField,
     titleKey: InputResolverKey.emailTitle,
@@ -159,7 +159,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a familyName component.
@@ -168,7 +168,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyFamilyNameConfirmSignInFormField,
     titleKey: InputResolverKey.familyNameTitle,
@@ -177,7 +177,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a gender component.
@@ -186,7 +186,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyGenderConfirmSignInFormField,
     titleKey: InputResolverKey.genderTitle,
@@ -195,7 +195,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a givenName component.
@@ -204,7 +204,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyGivenNameConfirmSignInFormField,
     titleKey: InputResolverKey.givenNameTitle,
@@ -213,7 +213,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a middleName component.
@@ -222,7 +222,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyMiddleNameConfirmSignInFormField,
     titleKey: InputResolverKey.middleNameTitle,
@@ -231,7 +231,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a name component.
@@ -240,7 +240,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyNameConfirmSignInFormField,
     titleKey: InputResolverKey.nameTitle,
@@ -249,7 +249,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a nickname component.
@@ -258,7 +258,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyNicknameConfirmSignInFormField,
     titleKey: InputResolverKey.nicknameTitle,
@@ -267,7 +267,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a phoneNumber component.
@@ -276,7 +276,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInPhoneField(
     key: key ?? keyPhoneNumberConfirmSignInFormField,
     titleKey: InputResolverKey.phoneNumberTitle,
@@ -285,7 +285,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a preferredUsername component.
@@ -294,7 +294,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key ?? keyPreferredUsernameConfirmSignInFormField,
     titleKey: InputResolverKey.preferredUsernameTitle,
@@ -303,7 +303,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a custom attribute component.
@@ -315,7 +315,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _ConfirmSignInTextField(
     key: key,
     title: title,
@@ -325,7 +325,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     attributeKey: attributeKey,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Custom Cognito attribute key.
@@ -521,11 +521,11 @@ class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._(customAttributeKey: attributeKey);
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _ConfirmSignInPhoneFieldState createState() =>
@@ -535,7 +535,10 @@ class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<TextEditingController?>('controller', controller),
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
     );
   }
 }
@@ -588,11 +591,11 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._(customAttributeKey: attributeKey);
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _ConfirmSignInTextFieldState createState() => _ConfirmSignInTextFieldState();
@@ -601,7 +604,10 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<TextEditingController?>('controller', controller),
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
     );
   }
 }
@@ -612,9 +618,6 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
           ConfirmSignInField,
           ConfirmSignInFormField<String>
         > {
-  @override
-  TextEditingController? get textController => widget.controller;
-
   @override
   String? get initialValue {
     switch (widget.field) {

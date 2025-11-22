@@ -99,12 +99,13 @@ abstract class AuthenticatorFormField<
   final Iterable<String>? autofillHints;
 
   /// Optional text controller exposed by text-driven form fields.
-  TextEditingController? get controller => null;
+  AuthenticatorTextFieldController? get authenticatorTextFieldController =>
+      null;
 
   /// Whether the field can receive manual input.
   ///
   /// When `null`, the widget decides its enabled state.
-  final bool? enabledOverride;
+  final AuthenticatorTextEnabledOverride? enabledOverride;
 
   /// Whether the field should be rendered.
   ///
@@ -143,9 +144,17 @@ abstract class AuthenticatorFormField<
       ..add(EnumProperty<UsernameType?>('usernameType', usernameType))
       ..add(IterableProperty<String>('autofillHints', autofillHints))
       ..add(
-        DiagnosticsProperty<TextEditingController?>('controller', controller),
+        DiagnosticsProperty<AuthenticatorTextFieldController?>(
+          'authenticatorTextFieldController',
+          authenticatorTextFieldController,
+        ),
       )
-      ..add(DiagnosticsProperty<bool?>('enabledOverride', enabledOverride))
+      ..add(
+        EnumProperty<AuthenticatorTextEnabledOverride?>(
+          'enabledOverride',
+          enabledOverride,
+        ),
+      )
       ..add(DiagnosticsProperty<bool>('visible', visible));
   }
 }
@@ -187,7 +196,17 @@ abstract class AuthenticatorFormFieldState<
   FieldValue? get initialValue => null;
 
   /// Whether the form field accepts input.
-  bool get enabled => widget.enabledOverride ?? true;
+  bool get enabled {
+    switch (widget.enabledOverride) {
+      case AuthenticatorTextEnabledOverride.enabled:
+        return true;
+      case AuthenticatorTextEnabledOverride.disabled:
+        return false;
+      case AuthenticatorTextEnabledOverride.defaultSetting:
+      case null:
+        return true;
+    }
+  }
 
   /// Widget to show at leading end, typically an [Icon].
   Widget? get prefix => null;

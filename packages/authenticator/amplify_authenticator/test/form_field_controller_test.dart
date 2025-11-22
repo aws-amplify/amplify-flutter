@@ -27,7 +27,9 @@ void main() {
           initialStep: AuthenticatorStep.signUp,
           signUpForm: SignUpForm.custom(
             fields: [
-              SignUpFormField.username(controller: usernameController),
+              SignUpFormField.username(
+                authenticatorTextFieldController: usernameController,
+              ),
               SignUpFormField.password(),
               SignUpFormField.passwordConfirmation(),
             ],
@@ -67,7 +69,9 @@ void main() {
               SignUpFormField.username(),
               SignUpFormField.password(),
               SignUpFormField.passwordConfirmation(),
-              SignUpFormField.address(controller: addressController),
+              SignUpFormField.address(
+                authenticatorTextFieldController: addressController,
+              ),
             ],
           ),
         ),
@@ -102,7 +106,9 @@ void main() {
           initialStep: AuthenticatorStep.signIn,
           signInForm: SignInForm.custom(
             fields: [
-              SignInFormField.username(controller: usernameController),
+              SignInFormField.username(
+                authenticatorTextFieldController: usernameController,
+              ),
               SignInFormField.password(),
             ],
           ),
@@ -141,7 +147,9 @@ void main() {
           signInForm: SignInForm.custom(
             fields: [
               SignInFormField.username(),
-              SignInFormField.password(controller: passwordController),
+              SignInFormField.password(
+                authenticatorTextFieldController: passwordController,
+              ),
             ],
           ),
         ),
@@ -176,7 +184,9 @@ void main() {
           initialStep: AuthenticatorStep.signIn,
           signInForm: SignInForm.custom(
             fields: [
-              SignInFormField.username(controller: usernameController),
+              SignInFormField.username(
+                authenticatorTextFieldController: usernameController,
+              ),
               SignInFormField.password(),
             ],
           ),
@@ -222,7 +232,9 @@ void main() {
           signUpForm: SignUpForm.custom(
             fields: [
               SignUpFormField.username(),
-              SignUpFormField.password(controller: passwordController),
+              SignUpFormField.password(
+                authenticatorTextFieldController: passwordController,
+              ),
               SignUpFormField.passwordConfirmation(),
             ],
           ),
@@ -258,7 +270,9 @@ void main() {
               SignUpFormField.username(),
               SignUpFormField.password(),
               SignUpFormField.passwordConfirmation(),
-              SignUpFormField.email(controller: emailController),
+              SignUpFormField.email(
+                authenticatorTextFieldController: emailController,
+              ),
             ],
           ),
         ),
@@ -305,7 +319,7 @@ void main() {
               SignUpFormField.custom(
                 title: 'Bio',
                 attributeKey: const CognitoUserAttributeKey.custom('bio'),
-                controller: bioController,
+                authenticatorTextFieldController: bioController,
               ),
             ],
           ),
@@ -360,9 +374,15 @@ void main() {
               SignUpFormField.username(),
               SignUpFormField.password(),
               SignUpFormField.passwordConfirmation(),
-              SignUpFormField.address(controller: addressController),
-              SignUpFormField.name(controller: nameController),
-              SignUpFormField.phoneNumber(controller: phoneController),
+              SignUpFormField.address(
+                authenticatorTextFieldController: addressController,
+              ),
+              SignUpFormField.name(
+                authenticatorTextFieldController: nameController,
+              ),
+              SignUpFormField.phoneNumber(
+                authenticatorTextFieldController: phoneController,
+              ),
             ],
           ),
         ),
@@ -459,7 +479,9 @@ void main() {
               SignUpFormField.username(),
               SignUpFormField.password(),
               SignUpFormField.passwordConfirmation(),
-              SignUpFormField.address(controller: controller),
+              SignUpFormField.address(
+                authenticatorTextFieldController: controller,
+              ),
             ],
           ),
         ),
@@ -480,38 +502,6 @@ void main() {
       );
     });
 
-    testWidgets('Controller works with standard TextEditingController', (
-      tester,
-    ) async {
-      // Test that standard TextEditingController also works
-      final usernameController = TextEditingController(text: 'standard');
-      addTearDown(usernameController.dispose);
-
-      await tester.pumpWidget(
-        MockAuthenticatorApp(
-          initialStep: AuthenticatorStep.signUp,
-          signUpForm: SignUpForm.custom(
-            fields: [
-              SignUpFormField.username(controller: usernameController),
-              SignUpFormField.password(),
-              SignUpFormField.passwordConfirmation(),
-            ],
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final signUpContext = tester.element(find.byType(SignUpForm));
-      final authState = InheritedAuthenticatorState.of(signUpContext);
-
-      // Standard TextEditingController should also work
-      expect(authState.username, equals('standard'));
-
-      usernameController.text = 'updated-standard';
-      await tester.pump();
-      expect(authState.username, equals('updated-standard'));
-    });
-
     testWidgets('Controller updates are handled correctly for rapid changes', (
       tester,
     ) async {
@@ -526,7 +516,9 @@ void main() {
               SignUpFormField.username(),
               SignUpFormField.password(),
               SignUpFormField.passwordConfirmation(),
-              SignUpFormField.email(controller: controller),
+              SignUpFormField.email(
+                authenticatorTextFieldController: controller,
+              ),
             ],
           ),
         ),
@@ -537,9 +529,10 @@ void main() {
       final authState = InheritedAuthenticatorState.of(signUpContext);
 
       // Rapid updates
-      controller.text = 'a@test.com';
-      controller.text = 'b@test.com';
-      controller.text = 'c@test.com';
+      controller
+        ..text = 'a@test.com'
+        ..text = 'b@test.com'
+        ..text = 'c@test.com';
       await tester.pump();
 
       // Should reflect the latest value
@@ -560,7 +553,9 @@ void main() {
             initialStep: AuthenticatorStep.signUp,
             signUpForm: SignUpForm.custom(
               fields: [
-                SignUpFormField.username(controller: controller),
+                SignUpFormField.username(
+                  authenticatorTextFieldController: controller,
+                ),
                 SignUpFormField.password(),
                 SignUpFormField.passwordConfirmation(),
               ],
@@ -622,7 +617,9 @@ void main() {
             initialStep: AuthenticatorStep.signUp,
             signUpForm: SignUpForm.custom(
               fields: [
-                SignUpFormField.username(controller: controller),
+                SignUpFormField.username(
+                  authenticatorTextFieldController: controller,
+                ),
                 SignUpFormField.password(),
                 SignUpFormField.passwordConfirmation(),
               ],
@@ -683,8 +680,8 @@ void main() {
             signUpForm: SignUpForm.custom(
               fields: [
                 SignUpFormField.username(
-                  controller: usernameController,
-                  enabled: false,
+                  authenticatorTextFieldController: usernameController,
+                  enabled: AuthenticatorTextEnabledOverride.disabled,
                 ),
                 SignUpFormField.password(),
                 SignUpFormField.passwordConfirmation(),
@@ -695,7 +692,11 @@ void main() {
         await tester.pumpAndSettle();
 
         final fieldFinder = find.byKey(keyUsernameSignUpFormField);
-        final textField = tester.widget<TextFormField>(fieldFinder);
+        final textFormFieldFinder = find.descendant(
+          of: fieldFinder,
+          matching: find.byType(TextFormField),
+        );
+        final textField = tester.widget<TextFormField>(textFormFieldFinder);
         expect(textField.enabled, isFalse);
 
         usernameController.text = 'automation-user';
@@ -707,48 +708,50 @@ void main() {
       },
     );
 
-    testWidgets(
-      'Hidden sign up field stays in sync via controller',
-      (tester) async {
-        final emailController = AuthenticatorTextFieldController();
-        addTearDown(emailController.dispose);
+    testWidgets('Hidden sign up field stays in sync via controller', (
+      tester,
+    ) async {
+      final emailController = AuthenticatorTextFieldController();
+      addTearDown(emailController.dispose);
 
-        await tester.pumpWidget(
-          MockAuthenticatorApp(
-            initialStep: AuthenticatorStep.signUp,
-            signUpForm: SignUpForm.custom(
-              fields: [
-                SignUpFormField.username(),
-                SignUpFormField.password(),
-                SignUpFormField.passwordConfirmation(),
-                SignUpFormField.email(
-                  controller: emailController,
-                  visible: false,
-                ),
-              ],
-            ),
+      await tester.pumpWidget(
+        MockAuthenticatorApp(
+          initialStep: AuthenticatorStep.signUp,
+          signUpForm: SignUpForm.custom(
+            fields: [
+              SignUpFormField.username(),
+              SignUpFormField.password(),
+              SignUpFormField.passwordConfirmation(),
+              SignUpFormField.email(
+                authenticatorTextFieldController: emailController,
+                visible: false,
+              ),
+            ],
           ),
-        );
-        await tester.pumpAndSettle();
+        ),
+      );
+      await tester.pumpAndSettle();
 
-        final emailFieldFinder = find.byKey(keyEmailSignUpFormField);
-        expect(emailFieldFinder, findsOneWidget);
-        expect(
-          () => tester.getTopLeft(emailFieldFinder),
-          throwsA(isA<StateError>()),
-        );
+      final emailFieldFinder = find.byKey(keyEmailSignUpFormField);
+      expect(emailFieldFinder, findsOneWidget);
+      expect(
+        find.descendant(
+          of: emailFieldFinder,
+          matching: find.byType(TextFormField),
+        ),
+        findsNothing,
+      );
 
-        emailController.text = 'hidden@example.com';
-        await tester.pump();
+      emailController.text = 'hidden@example.com';
+      await tester.pump();
 
-        final signUpContext = tester.element(find.byType(SignUpForm));
-        final authState = InheritedAuthenticatorState.of(signUpContext);
-        expect(
-          authState.getAttribute(CognitoUserAttributeKey.email),
-          equals('hidden@example.com'),
-        );
-      },
-    );
+      final signUpContext = tester.element(find.byType(SignUpForm));
+      final authState = InheritedAuthenticatorState.of(signUpContext);
+      expect(
+        authState.getAttribute(CognitoUserAttributeKey.email),
+        equals('hidden@example.com'),
+      );
+    });
 
     testWidgets(
       'SignInFormField.password controller handles special characters correctly',
@@ -762,7 +765,9 @@ void main() {
             signInForm: SignInForm.custom(
               fields: [
                 SignInFormField.username(),
-                SignInFormField.password(controller: passwordController),
+                SignInFormField.password(
+                  authenticatorTextFieldController: passwordController,
+                ),
               ],
             ),
           ),

@@ -35,7 +35,7 @@ abstract class VerifyUserFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _VerifyUserTextField(
     key: keyVerifyUserConfirmationCode,
     titleKey: InputResolverKey.verificationCodeTitle,
@@ -43,7 +43,7 @@ abstract class VerifyUserFormField<FieldValue extends Object>
     field: VerifyAttributeField.confirmVerify,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   @override
@@ -71,11 +71,11 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._();
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _VerifyUserTextFieldState createState() => _VerifyUserTextFieldState();
@@ -84,16 +84,16 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<TextEditingController?>('controller', controller),
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
     );
   }
 }
 
 class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
     with AuthenticatorTextField {
-  @override
-  TextEditingController? get textController => widget.controller;
-
   @override
   bool get obscureText {
     return false;

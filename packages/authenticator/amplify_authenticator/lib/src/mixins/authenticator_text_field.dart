@@ -19,7 +19,8 @@ mixin AuthenticatorTextField<
   bool _controllerUpdateScheduled = false;
 
   @protected
-  TextEditingController? get textController => null;
+  TextEditingController? get textController =>
+      widget.authenticatorTextFieldController;
 
   void _maybeUpdateEffectiveController() {
     final controller = textController;
@@ -69,10 +70,27 @@ mixin AuthenticatorTextField<
     if (controller == null) {
       return;
     }
+
+    // If there is a pending controller update, do not overwrite the controller
+    // with the state value, as the state value may be stale.
+    if (_pendingControllerText != null && !force) {
+      return;
+    }
+
     final target = initialValue ?? '';
     final controllerText = controller.text;
+
     if (!force && controllerText == target) {
       _lastSyncedControllerValue = controllerText;
+      return;
+    }
+
+    // If the controller has changed locally (user input) but the state
+    // has not changed from what we last synced, ignore the state value
+    // as it is likely stale.
+    if (!force &&
+        controllerText != _lastSyncedControllerValue &&
+        target == _lastSyncedControllerValue) {
       return;
     }
 
@@ -104,18 +122,31 @@ mixin AuthenticatorTextField<
   void didChangeDependencies() {
     super.didChangeDependencies();
     _maybeUpdateEffectiveController();
-    // Schedule both syncs after build completes
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        // First sync controller -> state if controller has initial text
-        if (_effectiveController != null &&
-            _lastSyncedControllerValue == null) {
-          _handleControllerChanged();
-        }
+    if (mounted) {
+      // First sync controller -> state if controller has initial text
+      if (_effectiveController != null &&
+          _lastSyncedControllerValue == null &&
+          _effectiveController!.text.isNotEmpty) {
+        final text = _effectiveController!.text;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          _isApplyingControllerText = true;
+          try {
+            onChanged(text);
+            _lastSyncedControllerValue = text;
+          } finally {
+            _isApplyingControllerText = false;
+          }
+        });
+      } else {
         // Then sync state -> controller to ensure they're in sync
-        _syncControllerText();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _syncControllerText();
+          }
+        });
       }
-    });
+    }
   }
 
   @override
@@ -124,7 +155,7 @@ mixin AuthenticatorTextField<
     _maybeUpdateEffectiveController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _syncControllerText(force: true);
+        _syncControllerText();
       }
     });
   }
@@ -144,7 +175,6 @@ mixin AuthenticatorTextField<
     final hintText = widget.hintText == null
         ? widget.hintTextKey?.resolve(context, inputResolver)
         : widget.hintText!;
-    _maybeUpdateEffectiveController();
     return ValueListenableBuilder<bool>(
       valueListenable: AuthenticatorFormState.of(
         context,

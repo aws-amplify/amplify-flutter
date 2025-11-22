@@ -97,19 +97,28 @@ class _AuthenticatorWithControllersState
       signUpForm: SignUpForm.custom(
         fields: [
           // Username field with controller - can be pre-populated or modified
-          SignUpFormField.username(controller: _usernameController),
+          SignUpFormField.username(
+            authenticatorTextFieldController: _usernameController,
+          ),
 
           // Email field with controller
-          SignUpFormField.email(controller: _emailController, required: true),
+          SignUpFormField.email(
+            authenticatorTextFieldController: _emailController,
+            required: true,
+          ),
 
           SignUpFormField.password(),
           SignUpFormField.passwordConfirmation(),
 
           // Address field with controller - can be populated from GPS/API
-          SignUpFormField.address(controller: _addressController),
+          SignUpFormField.address(
+            authenticatorTextFieldController: _addressController,
+          ),
 
           // Phone number field with controller
-          SignUpFormField.phoneNumber(controller: _phoneController),
+          SignUpFormField.phoneNumber(
+            authenticatorTextFieldController: _phoneController,
+          ),
         ],
       ),
 

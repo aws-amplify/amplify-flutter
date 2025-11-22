@@ -15,18 +15,20 @@ class AuthenticatorPhoneField<FieldType extends Enum>
     this.initialValue,
     this.errorMaxLines,
     super.autofillHints,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._(
          titleKey: InputResolverKey.phoneNumberTitle,
          hintTextKey: InputResolverKey.phoneNumberHint,
        );
 
-  final bool? enabled;
+  final AuthenticatorTextEnabledOverride? enabled;
   final String? initialValue;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String?>? validator;
   final int? errorMaxLines;
-  final TextEditingController? controller;
+
+  @override
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   AuthenticatorComponentState<AuthenticatorPhoneField<FieldType>>
@@ -39,7 +41,7 @@ class AuthenticatorPhoneField<FieldType extends Enum>
       ..add(
         ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged),
       )
-      ..add(DiagnosticsProperty<bool?>('enabled', enabled))
+      ..add(EnumProperty<AuthenticatorTextEnabledOverride?>('enabled', enabled))
       ..add(StringProperty('initialValue', initialValue))
       ..add(IntProperty('errorMaxLines', errorMaxLines))
       ..add(
@@ -49,7 +51,10 @@ class AuthenticatorPhoneField<FieldType extends Enum>
         ),
       )
       ..add(
-        DiagnosticsProperty<TextEditingController?>('controller', controller),
+        DiagnosticsProperty<AuthenticatorTextFieldController?>(
+          'authenticatorTextFieldController',
+          authenticatorTextFieldController,
+        ),
       );
   }
 }
@@ -77,10 +82,17 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
   }
 
   @override
-  TextEditingController? get textController => widget.controller;
-
-  @override
-  bool get enabled => widget.enabled ?? super.enabled;
+  bool get enabled {
+    switch (widget.enabled) {
+      case AuthenticatorTextEnabledOverride.enabled:
+        return true;
+      case AuthenticatorTextEnabledOverride.disabled:
+        return false;
+      case AuthenticatorTextEnabledOverride.defaultSetting:
+      case null:
+        return super.enabled;
+    }
+  }
 
   @override
   int get errorMaxLines => widget.errorMaxLines ?? super.errorMaxLines;

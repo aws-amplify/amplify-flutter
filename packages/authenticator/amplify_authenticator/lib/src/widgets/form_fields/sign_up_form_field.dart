@@ -23,7 +23,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     CognitoUserAttributeKey? customAttributeKey,
     bool? required,
     super.autofillHints,
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
     super.visible,
   }) : _customAttributeKey = customAttributeKey,
        super._(requiredOverride: required, enabledOverride: enabled);
@@ -42,11 +42,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` to lock the field when its value should come from
     /// background work or autocomplete instead of manual edits.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to keep the field hidden while still allowing the app to
     /// supply data programmatically (e.g., legacy or system-managed fields).
@@ -55,7 +55,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     key: key ?? keyUsernameSignUpFormField,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -65,11 +65,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` to lock the field while values are supplied
     /// automatically (e.g., when generating passwords in the background).
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the field when credentials are handled outside
     /// of the UI but still need to sync with the form state.
@@ -81,7 +81,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     field: SignUpField.password,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -91,11 +91,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` to keep the confirmation read-only while values are
     /// synced from elsewhere (e.g., mirror updates from a generated password).
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the confirmation when credentials are managed
     /// outside of the UI but still need validation.
@@ -107,7 +107,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     field: SignUpField.passwordConfirmation,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -118,11 +118,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when the address is auto-derived (e.g., GPS lookup)
     /// and should stay read-only for the user.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to keep the field hidden while still syncing backend-only
     /// attributes such as generated addresses.
@@ -135,7 +135,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -149,7 +149,7 @@ abstract class SignUpFormField<FieldValue extends Object>
 
     /// Provide `false` to prevent edits when birthdates are sourced from a
     /// trusted system record instead of the user.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to quietly retain legacy birthdate attributes that are
     /// no longer presented to the user.
@@ -172,11 +172,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when emails are pre-filled or synced from identity
     /// providers and should remain read-only.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the field while continuing to supply values for
     /// federated or system-managed email attributes.
@@ -189,7 +189,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -200,11 +200,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when last names are sourced from another system and
     /// should not be edited by the user.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the field while the app populates the value for
     /// legacy or backend-only requirements.
@@ -217,7 +217,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -228,11 +228,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when gender is pulled from an external profile and
     /// should stay read-only in the form.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the field while continuing to update backend
     /// attributes without user interaction.
@@ -245,7 +245,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -256,11 +256,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when first names are sourced from a profile service and
     /// should stay read-only.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the field while still syncing attributes that
     /// are set elsewhere.
@@ -273,7 +273,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -284,11 +284,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when middle names should reflect external records and
     /// must remain read-only.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the field while keeping system-provided values
     /// in sync.
@@ -301,7 +301,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -312,11 +312,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when display names are computed or imported and should
     /// not be edited manually.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the field while still satisfying backend
     /// requirements for a name attribute.
@@ -329,7 +329,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -340,11 +340,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when nicknames are generated automatically and the user
     /// should not edit them.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide nickname inputs while still populating values
     /// behind the scenes.
@@ -357,7 +357,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -368,11 +368,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` to keep the phone field read-only when values are
     /// imported (e.g., from contacts or device settings).
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the phone field while still syncing values for
     /// legacy Cognito setups that require it.
@@ -385,7 +385,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -396,11 +396,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when preferred usernames are handled automatically and
     /// should not be altered by the user.
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the preferred username input while keeping the
     /// backing attribute synchronized.
@@ -413,7 +413,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     validator: validator,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -427,11 +427,11 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     bool? required,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
 
     /// Provide `false` when the custom attribute should be supplied by the app
     /// rather than the end user (e.g., tokens or IDs).
-    bool? enabled,
+    AuthenticatorTextEnabledOverride? enabled,
 
     /// Set to `false` to hide the field while still letting the app populate
     /// Cognito attributes that users should not see.
@@ -445,7 +445,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     attributeKey: attributeKey,
     required: required,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
     enabled: enabled,
     visible: visible,
   );
@@ -636,11 +636,11 @@ class _SignUpTextField extends SignUpFormField<String> {
     super.autofillHints,
     super.enabled,
     super.visible,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._(customAttributeKey: attributeKey);
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _SignUpTextFieldState createState() => _SignUpTextFieldState();
@@ -649,16 +649,16 @@ class _SignUpTextField extends SignUpFormField<String> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<TextEditingController?>('controller', controller),
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
     );
   }
 }
 
 class _SignUpTextFieldState extends _SignUpFormFieldState<String>
     with AuthenticatorTextField {
-  @override
-  TextEditingController? get textController => widget.controller;
-
   @override
   String? get initialValue {
     switch (widget.field) {
@@ -832,7 +832,7 @@ class _SignUpUsernameField extends SignUpFormField<UsernameInput> {
     super.autofillHints,
     super.enabled,
     super.visible,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._(
          field: SignUpField.username,
          titleKey: InputResolverKey.usernameTitle,
@@ -840,7 +840,7 @@ class _SignUpUsernameField extends SignUpFormField<UsernameInput> {
        );
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _SignUpUsernameFieldState createState() => _SignUpUsernameFieldState();
@@ -849,16 +849,16 @@ class _SignUpUsernameField extends SignUpFormField<UsernameInput> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<TextEditingController?>('controller', controller),
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
     );
   }
 }
 
 class _SignUpUsernameFieldState extends _SignUpFormFieldState<UsernameInput>
-    with AuthenticatorUsernameField {
-  @override
-  TextEditingController? get textController => widget.controller;
-}
+    with AuthenticatorUsernameField {}
 
 class _SignUpPhoneField extends SignUpFormField<String> {
   const _SignUpPhoneField({
@@ -872,11 +872,11 @@ class _SignUpPhoneField extends SignUpFormField<String> {
     super.autofillHints,
     super.enabled,
     super.visible,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._(customAttributeKey: attributeKey);
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _SignUpPhoneFieldState createState() => _SignUpPhoneFieldState();
@@ -885,7 +885,10 @@ class _SignUpPhoneField extends SignUpFormField<String> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<TextEditingController?>('controller', controller),
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
     );
   }
 }

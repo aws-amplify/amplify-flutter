@@ -12,21 +12,21 @@ class ResetPasswordFormField
   const ResetPasswordFormField.verificationCode({
     Key? key,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) : this._(
          key: key ?? keyVerificationCodeResetPasswordFormField,
          field: ResetPasswordField.verificationCode,
          titleKey: InputResolverKey.verificationCodeTitle,
          hintTextKey: InputResolverKey.verificationCodeHint,
          autofillHints: autofillHints,
-         controller: controller,
+         authenticatorTextFieldController: authenticatorTextFieldController,
        );
 
   const ResetPasswordFormField.newPassword({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) : this._(
          key: key ?? keyPasswordResetPasswordFormField,
          field: ResetPasswordField.newPassword,
@@ -34,20 +34,20 @@ class ResetPasswordFormField
          hintTextKey: InputResolverKey.newPasswordHint,
          validator: validator,
          autofillHints: autofillHints,
-         controller: controller,
+         authenticatorTextFieldController: authenticatorTextFieldController,
        );
 
   const ResetPasswordFormField.passwordConfirmation({
     Key? key,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) : this._(
          key: key ?? keyPasswordConfirmationResetPasswordFormField,
          field: ResetPasswordField.passwordConfirmation,
          titleKey: InputResolverKey.passwordConfirmationTitle,
          hintTextKey: InputResolverKey.passwordConfirmationHint,
          autofillHints: autofillHints,
-         controller: controller,
+         authenticatorTextFieldController: authenticatorTextFieldController,
        );
 
   /// {@macro amplify_authenticator.sign_up_form_field}
@@ -60,11 +60,11 @@ class ResetPasswordFormField
     super.hintTextKey,
     super.validator,
     super.autofillHints,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._();
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   bool get required => true;
@@ -86,9 +86,6 @@ class _ResetPasswordFormFieldState
           ResetPasswordFormField
         >
     with AuthenticatorTextField {
-  @override
-  TextEditingController? get textController => widget.controller;
-
   @override
   bool get obscureText {
     switch (widget.field) {

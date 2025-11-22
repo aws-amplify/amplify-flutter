@@ -33,12 +33,12 @@ abstract class SignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _SignInUsernameField(
     key: key ?? keyUsernameSignInFormField,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a password FormField for the sign in step.
@@ -46,7 +46,7 @@ abstract class SignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _SignInTextField(
     key: key ?? keyPasswordSignInFormField,
     titleKey: InputResolverKey.passwordTitle,
@@ -54,7 +54,7 @@ abstract class SignInFormField<FieldValue extends Object>
     field: SignInField.password,
     validator: validator,
     autofillHints: autofillHints,
-    controller: controller,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   @override
@@ -134,11 +134,11 @@ class _SignInTextField extends SignInFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._();
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _SignInTextFieldState createState() => _SignInTextFieldState();
@@ -147,16 +147,16 @@ class _SignInTextField extends SignInFormField<String> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<TextEditingController?>('controller', controller),
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
     );
   }
 }
 
 class _SignInTextFieldState extends _SignInFormFieldState<String>
     with AuthenticatorTextField {
-  @override
-  TextEditingController? get textController => widget.controller;
-
   @override
   String? get initialValue {
     switch (widget.field) {
@@ -205,7 +205,7 @@ class _SignInUsernameField extends SignInFormField<UsernameInput> {
     Key? key,
     super.validator,
     super.autofillHints,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._(
          key: key ?? keyUsernameSignInFormField,
          titleKey: InputResolverKey.usernameTitle,
@@ -214,7 +214,7 @@ class _SignInUsernameField extends SignInFormField<UsernameInput> {
        );
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _SignInUsernameFieldState createState() => _SignInUsernameFieldState();
@@ -223,13 +223,13 @@ class _SignInUsernameField extends SignInFormField<UsernameInput> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<TextEditingController?>('controller', controller),
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
     );
   }
 }
 
 class _SignInUsernameFieldState extends _SignInFormFieldState<UsernameInput>
-    with AuthenticatorUsernameField {
-  @override
-  TextEditingController? get textController => widget.controller;
-}
+    with AuthenticatorUsernameField {}

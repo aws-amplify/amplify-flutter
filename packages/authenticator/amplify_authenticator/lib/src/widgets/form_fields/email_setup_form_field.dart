@@ -14,7 +14,7 @@ class EmailSetupFormField
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-    TextEditingController? controller,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) : this._(
          key: key ?? keyEmailSetupFormField,
          field: EmailSetupField.email,
@@ -22,7 +22,7 @@ class EmailSetupFormField
          hintTextKey: InputResolverKey.emailHint,
          validator: validator,
          autofillHints: autofillHints,
-         controller: controller,
+         authenticatorTextFieldController: authenticatorTextFieldController,
        );
 
   /// {@macro amplify_authenticator.email_setup_form_field}
@@ -37,11 +37,11 @@ class EmailSetupFormField
     super.hintText,
     super.validator,
     super.autofillHints,
-    this.controller,
+    this.authenticatorTextFieldController,
   }) : super._();
 
   @override
-  final TextEditingController? controller;
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   bool get required => true;
@@ -59,9 +59,6 @@ class _EmailSetupFormFieldState
           EmailSetupFormField
         >
     with AuthenticatorTextField {
-  @override
-  TextEditingController? get textController => widget.controller;
-
   @override
   TextInputType get keyboardType {
     return TextInputType.emailAddress;

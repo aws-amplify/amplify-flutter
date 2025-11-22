@@ -24,7 +24,8 @@ mixin AuthenticatorUsernameField<
   bool _controllerUpdateScheduled = false;
 
   @protected
-  TextEditingController? get textController => null;
+  TextEditingController? get textController =>
+      widget.authenticatorTextFieldController;
 
   void _updateController() {
     final controller = textController;
@@ -96,10 +97,25 @@ mixin AuthenticatorUsernameField<
       return;
     }
 
+    // If there is a pending controller update, do not overwrite the controller
+    // with the state value, as the state value may be stale.
+    if (_pendingControllerText != null && !force) {
+      return;
+    }
+
     final target = initialValue?.username ?? '';
     final controllerText = _controller!.text;
     if (!force && controllerText == target) {
       _lastSyncedText = controllerText;
+      return;
+    }
+
+    // If the controller has changed locally (user input) but the state
+    // has not changed from what we last synced, ignore the state value
+    // as it is likely stale.
+    if (!force &&
+        controllerText != _lastSyncedText &&
+        target == _lastSyncedText) {
       return;
     }
 
@@ -132,17 +148,33 @@ mixin AuthenticatorUsernameField<
   void didChangeDependencies() {
     super.didChangeDependencies();
     _updateController();
-    // Schedule both syncs after build completes
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        // First sync controller -> state if controller has initial text
-        if (_controller != null && _lastSyncedText == null) {
-          _handleControllerChanged();
-        }
+    if (mounted) {
+      // First sync controller -> state if controller has initial text
+      if (_controller != null &&
+          _lastSyncedText == null &&
+          _controller!.text.isNotEmpty) {
+        final text = _controller!.text;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          _applyingControllerText = true;
+          try {
+            onChanged(
+              UsernameInput(type: selectedUsernameType, username: text),
+            );
+            _lastSyncedText = text;
+          } finally {
+            _applyingControllerText = false;
+          }
+        });
+      } else {
         // Then sync state -> controller to ensure they're in sync
-        _syncControllerText();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _syncControllerText();
+          }
+        });
       }
-    });
+    }
   }
 
   @override
@@ -151,7 +183,7 @@ mixin AuthenticatorUsernameField<
     _updateController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _syncControllerText(force: true);
+        _syncControllerText();
       }
     });
   }
@@ -366,11 +398,14 @@ mixin AuthenticatorUsernameField<
         requiredOverride: true,
         onChanged: handleChanged,
         validator: validator,
-        enabled: enabled,
+        enabled: enabled
+            ? AuthenticatorTextEnabledOverride.enabled
+            : AuthenticatorTextEnabledOverride.disabled,
         errorMaxLines: errorMaxLines,
         initialValue: state.username,
         autofillHints: autofillHints,
-        controller: textController,
+        authenticatorTextFieldController:
+            textController as AuthenticatorTextFieldController?,
       );
     }
 
