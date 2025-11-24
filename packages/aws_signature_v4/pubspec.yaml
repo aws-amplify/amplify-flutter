@@ -13,7 +13,7 @@ dependencies:
   aws_common: ">=0.7.11 <0.8.0"
   collection: ^1.18.0
   convert: ^3.0.1
-  crypto: ^3.0.1
+  crypto: ^3.0.7
   json_annotation: ^4.9.0
   meta: ^1.16.0
   path: ^1.8.0
