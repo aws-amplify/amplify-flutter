@@ -17,7 +17,7 @@ dependencies:
   built_collection: ^5.1.1
   built_value: ^8.10.1
   collection: ^1.18.0
-  meta: ^1.8.0
+  meta: ^1.16.0
   smithy: any
   smithy_aws: any
   stream_transform: ^2.1.0
