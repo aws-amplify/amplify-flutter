@@ -22,7 +22,7 @@ platforms:
 dependencies:
   async: ^2.10.0
   aws_common: ">=0.7.11 <0.8.0"
-  built_collection: ^5.0.0
+  built_collection: ^5.1.1
   built_value: ^8.10.1
   ffi: ^2.0.2
   file: ^7.0.1

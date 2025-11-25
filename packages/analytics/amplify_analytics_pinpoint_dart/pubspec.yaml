@@ -14,7 +14,7 @@ dependencies:
   amplify_secure_storage_dart: ">=0.5.8 <0.6.0"
   aws_common: ">=0.7.11 <0.8.0"
   aws_signature_v4: ">=0.6.9 <0.7.0"
-  built_collection: ^5.0.0
+  built_collection: ^5.1.1
   built_value: ^8.10.1
   collection: ^1.18.0
   drift: ^2.25.0
