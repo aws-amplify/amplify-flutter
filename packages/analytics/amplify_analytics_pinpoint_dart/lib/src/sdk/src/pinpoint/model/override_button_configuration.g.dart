@@ -8,7 +8,7 @@ part of 'override_button_configuration.dart';
 
 class _$OverrideButtonConfiguration extends OverrideButtonConfiguration {
   @override
-  final ButtonAction buttonAction;
+  final ButtonAction? buttonAction;
   @override
   final String? link;
 
@@ -16,8 +16,7 @@ class _$OverrideButtonConfiguration extends OverrideButtonConfiguration {
     void Function(OverrideButtonConfigurationBuilder)? updates,
   ]) => (OverrideButtonConfigurationBuilder()..update(updates))._build();
 
-  _$OverrideButtonConfiguration._({required this.buttonAction, this.link})
-    : super._();
+  _$OverrideButtonConfiguration._({this.buttonAction, this.link}) : super._();
   @override
   OverrideButtonConfiguration rebuild(
     void Function(OverrideButtonConfigurationBuilder) updates,
@@ -90,14 +89,7 @@ class OverrideButtonConfigurationBuilder
   _$OverrideButtonConfiguration _build() {
     final _$result =
         _$v ??
-        _$OverrideButtonConfiguration._(
-          buttonAction: BuiltValueNullFieldError.checkNotNull(
-            buttonAction,
-            r'OverrideButtonConfiguration',
-            'buttonAction',
-          ),
-          link: link,
-        );
+        _$OverrideButtonConfiguration._(buttonAction: buttonAction, link: link);
     replace(_$result);
     return _$result;
   }
