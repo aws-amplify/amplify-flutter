@@ -123,7 +123,7 @@ class FlattenedXmlMapInputOutputRestXmlSerializer
     ];
     final FlattenedXmlMapInputOutput(:myMap) = object;
     if (myMap != null) {
-      result$..addAll(
+      result$.addAll(
         const _i1.XmlBuiltMapSerializer(flattenedKey: 'myMap').serialize(
           serializers,
           myMap,
