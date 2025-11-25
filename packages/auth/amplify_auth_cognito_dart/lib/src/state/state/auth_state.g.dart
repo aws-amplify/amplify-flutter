@@ -35,11 +35,8 @@ CredentialStoreData _$CredentialStoreDataFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CredentialStoreDataToJson(
   CredentialStoreData instance,
 ) => <String, dynamic>{
-  if (instance.identityId case final value?) 'identityId': value,
-  if (instance.awsCredentials?.toJson() case final value?)
-    'awsCredentials': value,
-  if (instance.userPoolTokens?.toJson() case final value?)
-    'userPoolTokens': value,
-  if (instance.signInDetails?.toJson() case final value?)
-    'signInDetails': value,
+  'identityId': ?instance.identityId,
+  'awsCredentials': ?instance.awsCredentials?.toJson(),
+  'userPoolTokens': ?instance.userPoolTokens?.toJson(),
+  'signInDetails': ?instance.signInDetails?.toJson(),
 };

@@ -28,7 +28,7 @@ S3DownloadDataPluginOptions _$S3DownloadDataPluginOptionsFromJson(
 Map<String, dynamic> _$S3DownloadDataPluginOptionsToJson(
   S3DownloadDataPluginOptions instance,
 ) => <String, dynamic>{
-  if (instance.bytesRange?.toJson() case final value?) 'bytesRange': value,
+  'bytesRange': ?instance.bytesRange?.toJson(),
   'getProperties': instance.getProperties,
   'useAccelerateEndpoint': instance.useAccelerateEndpoint,
 };
