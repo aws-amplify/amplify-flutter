@@ -391,7 +391,7 @@ class XmlListsInputOutputRestXmlSerializer
         );
     }
     if (flattenedList != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(memberName: 'flattenedList').serialize(
           serializers,
           flattenedList,
@@ -400,7 +400,7 @@ class XmlListsInputOutputRestXmlSerializer
       );
     }
     if (flattenedList2 != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(memberName: 'customName').serialize(
           serializers,
           flattenedList2,
@@ -409,7 +409,7 @@ class XmlListsInputOutputRestXmlSerializer
       );
     }
     if (flattenedListWithMemberNamespace != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(
           memberName: 'flattenedListWithMemberNamespace',
           memberNamespace: _i1.XmlNamespace('https://xml-member.example.com'),
@@ -421,7 +421,7 @@ class XmlListsInputOutputRestXmlSerializer
       );
     }
     if (flattenedListWithNamespace != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(
           memberName: 'flattenedListWithNamespace',
         ).serialize(
@@ -432,7 +432,7 @@ class XmlListsInputOutputRestXmlSerializer
       );
     }
     if (flattenedStructureList != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(
           memberName: 'flattenedStructureList',
         ).serialize(

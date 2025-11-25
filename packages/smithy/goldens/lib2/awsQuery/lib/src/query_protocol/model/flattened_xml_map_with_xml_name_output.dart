@@ -131,7 +131,7 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
     ];
     final FlattenedXmlMapWithXmlNameOutput(:myMap) = object;
     if (myMap != null) {
-      result$.addAll(
+      result$..addAll(
         const _i3.XmlBuiltMapSerializer(
           keyName: 'K',
           valueName: 'V',

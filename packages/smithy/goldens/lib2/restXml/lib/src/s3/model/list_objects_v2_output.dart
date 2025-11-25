@@ -262,7 +262,7 @@ class ListObjectsV2OutputRestXmlSerializer
       :startAfter,
     ) = object;
     if (commonPrefixes != null) {
-      result$.addAll(
+      result$..addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'CommonPrefixes',
         ).serialize(
@@ -275,7 +275,7 @@ class ListObjectsV2OutputRestXmlSerializer
       );
     }
     if (contents != null) {
-      result$.addAll(
+      result$..addAll(
         const _i3.XmlBuiltListSerializer(memberName: 'Contents').serialize(
           serializers,
           contents,

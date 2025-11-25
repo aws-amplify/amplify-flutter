@@ -14,14 +14,17 @@ class ChecksumAlgorithm extends _i1.SmithyEnum<ChecksumAlgorithm> {
 
   static const crc32C = ChecksumAlgorithm._(1, 'CRC32C', 'CRC32C');
 
-  static const sha1 = ChecksumAlgorithm._(2, 'SHA1', 'SHA1');
+  static const crc64Nvme = ChecksumAlgorithm._(2, 'CRC64NVME', 'CRC64NVME');
 
-  static const sha256 = ChecksumAlgorithm._(3, 'SHA256', 'SHA256');
+  static const sha1 = ChecksumAlgorithm._(3, 'SHA1', 'SHA1');
+
+  static const sha256 = ChecksumAlgorithm._(4, 'SHA256', 'SHA256');
 
   /// All values of [ChecksumAlgorithm].
   static const values = <ChecksumAlgorithm>[
     ChecksumAlgorithm.crc32,
     ChecksumAlgorithm.crc32C,
+    ChecksumAlgorithm.crc64Nvme,
     ChecksumAlgorithm.sha1,
     ChecksumAlgorithm.sha256,
   ];

@@ -64,7 +64,7 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StreamingTraitsWithMediaTypeInputOutputBuilder b) {
-    b.blob = const _i2.Stream.empty();
+    b..blob = const _i2.Stream.empty();
   }
 
   String? get foo;
