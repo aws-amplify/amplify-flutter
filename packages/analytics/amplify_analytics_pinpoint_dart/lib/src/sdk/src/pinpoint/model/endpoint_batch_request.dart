@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_batch_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,8 +17,10 @@ abstract class EndpointBatchRequest
     with _i1.AWSEquatable<EndpointBatchRequest>
     implements Built<EndpointBatchRequest, EndpointBatchRequestBuilder> {
   /// Specifies a batch of endpoints to create or update and the settings and attributes to set or change for each endpoint.
-  factory EndpointBatchRequest({required List<EndpointBatchItem> item}) {
-    return _$EndpointBatchRequest._(item: _i2.BuiltList(item));
+  factory EndpointBatchRequest({List<EndpointBatchItem>? item}) {
+    return _$EndpointBatchRequest._(
+      item: item == null ? null : _i2.BuiltList(item),
+    );
   }
 
   /// Specifies a batch of endpoints to create or update and the settings and attributes to set or change for each endpoint.
@@ -33,9 +35,10 @@ abstract class EndpointBatchRequest
   ];
 
   /// An array that defines the endpoints to create or update and, for each endpoint, the property values to set or change. An array can contain a maximum of 100 items.
-  _i2.BuiltList<EndpointBatchItem> get item;
+  _i2.BuiltList<EndpointBatchItem>? get item;
   @override
   List<Object?> get props => [item];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndpointBatchRequest')
@@ -54,10 +57,12 @@ class EndpointBatchRequestRestJson1Serializer
     EndpointBatchRequest,
     _$EndpointBatchRequest,
   ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
     _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   EndpointBatchRequest deserialize(
     Serializers serializers,
@@ -98,15 +103,18 @@ class EndpointBatchRequestRestJson1Serializer
   }) {
     final result$ = <Object?>[];
     final EndpointBatchRequest(:item) = object;
-    result$.addAll([
-      'Item',
-      serializers.serialize(
-        item,
-        specifiedType: const FullType(_i2.BuiltList, [
-          FullType(EndpointBatchItem),
-        ]),
-      ),
-    ]);
+    if (item != null) {
+      result$
+        ..add('Item')
+        ..add(
+          serializers.serialize(
+            item,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(EndpointBatchItem),
+            ]),
+          ),
+        );
+    }
     return result$;
   }
 }

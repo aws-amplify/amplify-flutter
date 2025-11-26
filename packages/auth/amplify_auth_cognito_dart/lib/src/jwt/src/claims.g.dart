@@ -19,11 +19,11 @@ JsonWebClaims _$JsonWebClaimsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonWebClaimsToJson(JsonWebClaims instance) =>
     <String, dynamic>{
-      if (instance.issuer case final value?) 'iss': value,
-      if (instance.subject case final value?) 'sub': value,
-      if (instance.audience case final value?) 'aud': value,
-      if (encodeDateTime(instance.expiration) case final value?) 'exp': value,
-      if (encodeDateTime(instance.notBefore) case final value?) 'nbf': value,
-      if (encodeDateTime(instance.issuedAt) case final value?) 'iat': value,
-      if (instance.jwtId case final value?) 'jti': value,
+      'iss': ?instance.issuer,
+      'sub': ?instance.subject,
+      'aud': ?instance.audience,
+      'exp': ?encodeDateTime(instance.expiration),
+      'nbf': ?encodeDateTime(instance.notBefore),
+      'iat': ?encodeDateTime(instance.issuedAt),
+      'jti': ?instance.jwtId,
     };

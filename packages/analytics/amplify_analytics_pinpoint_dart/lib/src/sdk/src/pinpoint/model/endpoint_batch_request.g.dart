@@ -8,13 +8,13 @@ part of 'endpoint_batch_request.dart';
 
 class _$EndpointBatchRequest extends EndpointBatchRequest {
   @override
-  final _i2.BuiltList<EndpointBatchItem> item;
+  final _i2.BuiltList<EndpointBatchItem>? item;
 
   factory _$EndpointBatchRequest([
     void Function(EndpointBatchRequestBuilder)? updates,
   ]) => (EndpointBatchRequestBuilder()..update(updates))._build();
 
-  _$EndpointBatchRequest._({required this.item}) : super._();
+  _$EndpointBatchRequest._({this.item}) : super._();
   @override
   EndpointBatchRequest rebuild(
     void Function(EndpointBatchRequestBuilder) updates,
@@ -53,7 +53,7 @@ class EndpointBatchRequestBuilder
   EndpointBatchRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _item = $v.item.toBuilder();
+      _item = $v.item?.toBuilder();
       _$v = null;
     }
     return this;
@@ -75,12 +75,12 @@ class EndpointBatchRequestBuilder
   _$EndpointBatchRequest _build() {
     _$EndpointBatchRequest _$result;
     try {
-      _$result = _$v ?? _$EndpointBatchRequest._(item: item.build());
+      _$result = _$v ?? _$EndpointBatchRequest._(item: _item?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'item';
-        item.build();
+        _item?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'EndpointBatchRequest',

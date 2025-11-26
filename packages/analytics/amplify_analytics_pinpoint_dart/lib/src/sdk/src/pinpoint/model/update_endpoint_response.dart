@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoint_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,7 +16,7 @@ abstract class UpdateEndpointResponse
     implements
         Built<UpdateEndpointResponse, UpdateEndpointResponseBuilder>,
         _i2.HasPayload<MessageBody> {
-  factory UpdateEndpointResponse({required MessageBody messageBody}) {
+  factory UpdateEndpointResponse({MessageBody? messageBody}) {
     return _$UpdateEndpointResponse._(messageBody: messageBody);
   }
 
@@ -28,22 +28,26 @@ abstract class UpdateEndpointResponse
 
   /// Constructs a [UpdateEndpointResponse] from a [payload] and [response].
   factory UpdateEndpointResponse.fromResponse(
-    MessageBody payload,
+    MessageBody? payload,
     _i1.AWSBaseHttpResponse response,
   ) => UpdateEndpointResponse.build((b) {
-    b.messageBody.replace(payload);
+    if (payload != null) {
+      b.messageBody.replace(payload);
+    }
   });
 
-  static const List<_i2.SmithySerializer<MessageBody>> serializers = [
+  static const List<_i2.SmithySerializer<MessageBody?>> serializers = [
     UpdateEndpointResponseRestJson1Serializer(),
   ];
 
   /// Provides information about an API request or response.
-  MessageBody get messageBody;
+  MessageBody? get messageBody;
   @override
-  MessageBody getPayload() => messageBody;
+  MessageBody? getPayload() => messageBody ?? MessageBody();
+
   @override
   List<Object?> get props => [messageBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateEndpointResponse')
@@ -62,10 +66,12 @@ class UpdateEndpointResponseRestJson1Serializer
     UpdateEndpointResponse,
     _$UpdateEndpointResponse,
   ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
     _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   MessageBody deserialize(
     Serializers serializers,

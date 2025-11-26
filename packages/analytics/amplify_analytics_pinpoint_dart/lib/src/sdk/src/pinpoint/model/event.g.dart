@@ -18,7 +18,7 @@ class _$Event extends Event {
   @override
   final String? clientSdkVersion;
   @override
-  final String eventType;
+  final String? eventType;
   @override
   final _i2.BuiltMap<String, double>? metrics;
   @override
@@ -26,7 +26,7 @@ class _$Event extends Event {
   @override
   final Session? session;
   @override
-  final String timestamp;
+  final String? timestamp;
 
   factory _$Event([void Function(EventBuilder)? updates]) =>
       (EventBuilder()..update(updates))._build();
@@ -37,11 +37,11 @@ class _$Event extends Event {
     this.appVersionCode,
     this.attributes,
     this.clientSdkVersion,
-    required this.eventType,
+    this.eventType,
     this.metrics,
     this.sdkName,
     this.session,
-    required this.timestamp,
+    this.timestamp,
   }) : super._();
   @override
   Event rebuild(void Function(EventBuilder) updates) =>
@@ -178,19 +178,11 @@ class EventBuilder implements Builder<Event, EventBuilder> {
             appVersionCode: appVersionCode,
             attributes: _attributes?.build(),
             clientSdkVersion: clientSdkVersion,
-            eventType: BuiltValueNullFieldError.checkNotNull(
-              eventType,
-              r'Event',
-              'eventType',
-            ),
+            eventType: eventType,
             metrics: _metrics?.build(),
             sdkName: sdkName,
             session: _session?.build(),
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-              timestamp,
-              r'Event',
-              'timestamp',
-            ),
+            timestamp: timestamp,
           );
     } catch (_) {
       late String _$failedField;

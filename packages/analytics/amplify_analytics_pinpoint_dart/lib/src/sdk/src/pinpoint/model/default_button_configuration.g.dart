@@ -12,11 +12,11 @@ class _$DefaultButtonConfiguration extends DefaultButtonConfiguration {
   @override
   final int? borderRadius;
   @override
-  final ButtonAction buttonAction;
+  final ButtonAction? buttonAction;
   @override
   final String? link;
   @override
-  final String text;
+  final String? text;
   @override
   final String? textColor;
 
@@ -27,9 +27,9 @@ class _$DefaultButtonConfiguration extends DefaultButtonConfiguration {
   _$DefaultButtonConfiguration._({
     this.backgroundColor,
     this.borderRadius,
-    required this.buttonAction,
+    this.buttonAction,
     this.link,
-    required this.text,
+    this.text,
     this.textColor,
   }) : super._();
   @override
@@ -133,17 +133,9 @@ class DefaultButtonConfigurationBuilder
         _$DefaultButtonConfiguration._(
           backgroundColor: backgroundColor,
           borderRadius: borderRadius,
-          buttonAction: BuiltValueNullFieldError.checkNotNull(
-            buttonAction,
-            r'DefaultButtonConfiguration',
-            'buttonAction',
-          ),
+          buttonAction: buttonAction,
           link: link,
-          text: BuiltValueNullFieldError.checkNotNull(
-            text,
-            r'DefaultButtonConfiguration',
-            'text',
-          ),
+          text: text,
           textColor: textColor,
         );
     replace(_$result);

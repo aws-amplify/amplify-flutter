@@ -10,7 +10,7 @@ class _$UpdateEndpointsBatchRequest extends UpdateEndpointsBatchRequest {
   @override
   final String applicationId;
   @override
-  final EndpointBatchRequest endpointBatchRequest;
+  final EndpointBatchRequest? endpointBatchRequest;
 
   factory _$UpdateEndpointsBatchRequest([
     void Function(UpdateEndpointsBatchRequestBuilder)? updates,
@@ -18,7 +18,7 @@ class _$UpdateEndpointsBatchRequest extends UpdateEndpointsBatchRequest {
 
   _$UpdateEndpointsBatchRequest._({
     required this.applicationId,
-    required this.endpointBatchRequest,
+    this.endpointBatchRequest,
   }) : super._();
   @override
   UpdateEndpointsBatchRequest rebuild(
@@ -72,7 +72,7 @@ class UpdateEndpointsBatchRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _applicationId = $v.applicationId;
-      _endpointBatchRequest = $v.endpointBatchRequest.toBuilder();
+      _endpointBatchRequest = $v.endpointBatchRequest?.toBuilder();
       _$v = null;
     }
     return this;
@@ -102,13 +102,13 @@ class UpdateEndpointsBatchRequestBuilder
               r'UpdateEndpointsBatchRequest',
               'applicationId',
             ),
-            endpointBatchRequest: endpointBatchRequest.build(),
+            endpointBatchRequest: _endpointBatchRequest?.build(),
           );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'endpointBatchRequest';
-        endpointBatchRequest.build();
+        _endpointBatchRequest?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'UpdateEndpointsBatchRequest',

@@ -29,7 +29,7 @@ dev_dependencies:
   async: ^2.10.0
   aws_signature_v4: any
   checks: ^0.3.0
-  collection: any
+  collection: ^1.18.0
   flutter_driver:
     sdk: flutter
   flutter_test:

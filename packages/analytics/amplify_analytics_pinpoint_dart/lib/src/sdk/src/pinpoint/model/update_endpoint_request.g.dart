@@ -12,7 +12,7 @@ class _$UpdateEndpointRequest extends UpdateEndpointRequest {
   @override
   final String endpointId;
   @override
-  final EndpointRequest endpointRequest;
+  final EndpointRequest? endpointRequest;
 
   factory _$UpdateEndpointRequest([
     void Function(UpdateEndpointRequestBuilder)? updates,
@@ -21,7 +21,7 @@ class _$UpdateEndpointRequest extends UpdateEndpointRequest {
   _$UpdateEndpointRequest._({
     required this.applicationId,
     required this.endpointId,
-    required this.endpointRequest,
+    this.endpointRequest,
   }) : super._();
   @override
   UpdateEndpointRequest rebuild(
@@ -78,7 +78,7 @@ class UpdateEndpointRequestBuilder
     if ($v != null) {
       _applicationId = $v.applicationId;
       _endpointId = $v.endpointId;
-      _endpointRequest = $v.endpointRequest.toBuilder();
+      _endpointRequest = $v.endpointRequest?.toBuilder();
       _$v = null;
     }
     return this;
@@ -113,13 +113,13 @@ class UpdateEndpointRequestBuilder
               r'UpdateEndpointRequest',
               'endpointId',
             ),
-            endpointRequest: endpointRequest.build(),
+            endpointRequest: _endpointRequest?.build(),
           );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'endpointRequest';
-        endpointRequest.build();
+        _endpointRequest?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'UpdateEndpointRequest',

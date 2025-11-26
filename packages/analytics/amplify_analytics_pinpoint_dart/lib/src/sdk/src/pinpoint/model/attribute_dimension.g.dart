@@ -10,14 +10,13 @@ class _$AttributeDimension extends AttributeDimension {
   @override
   final AttributeType? attributeType;
   @override
-  final _i2.BuiltList<String> values;
+  final _i2.BuiltList<String>? values;
 
   factory _$AttributeDimension([
     void Function(AttributeDimensionBuilder)? updates,
   ]) => (AttributeDimensionBuilder()..update(updates))._build();
 
-  _$AttributeDimension._({this.attributeType, required this.values})
-    : super._();
+  _$AttributeDimension._({this.attributeType, this.values}) : super._();
   @override
   AttributeDimension rebuild(
     void Function(AttributeDimensionBuilder) updates,
@@ -65,7 +64,7 @@ class AttributeDimensionBuilder
     final $v = _$v;
     if ($v != null) {
       _attributeType = $v.attributeType;
-      _values = $v.values.toBuilder();
+      _values = $v.values?.toBuilder();
       _$v = null;
     }
     return this;
@@ -91,13 +90,13 @@ class AttributeDimensionBuilder
           _$v ??
           _$AttributeDimension._(
             attributeType: attributeType,
-            values: values.build(),
+            values: _values?.build(),
           );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'values';
-        values.build();
+        _values?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'AttributeDimension',

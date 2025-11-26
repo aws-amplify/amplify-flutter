@@ -22,7 +22,7 @@ platforms:
 dependencies:
   async: ^2.10.0
   aws_common: ">=0.7.11 <0.8.0"
-  built_collection: ^5.0.0
+  built_collection: ^5.1.1
   built_value: ^8.10.1
   ffi: ^2.0.2
   file: ^7.0.1
@@ -36,7 +36,7 @@ dev_dependencies:
   amplify_lints: ">=3.1.4 <3.2.0"
   amplify_secure_storage_test:
     path: ../amplify_secure_storage_test
-  build: ^2.3.0
+  build: ^4.0.0
   build_runner: ^2.4.15
   build_web_compilers: ^4.1.4
   built_value_generator: ^8.10.1

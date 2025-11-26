@@ -40,17 +40,14 @@ Map<String, dynamic> _$CognitoSignInWithWebUIPluginOptionsToJson(
   CognitoSignInWithWebUIPluginOptions instance,
 ) => <String, dynamic>{
   'isPreferPrivateSession': instance.isPreferPrivateSession,
-  if (instance.browserPackageName case final value?)
-    'browserPackageName': value,
-  if (instance.nonce case final value?) 'nonce': value,
-  if (instance.language case final value?) 'language': value,
-  if (instance.loginHint case final value?) 'loginHint': value,
-  if (instance.prompt
-          ?.map((e) => _$CognitoSignInWithWebUIPromptEnumMap[e]!)
-          .toList()
-      case final value?)
-    'prompt': value,
-  if (instance.resource case final value?) 'resource': value,
+  'browserPackageName': ?instance.browserPackageName,
+  'nonce': ?instance.nonce,
+  'language': ?instance.language,
+  'loginHint': ?instance.loginHint,
+  'prompt': ?instance.prompt
+      ?.map((e) => _$CognitoSignInWithWebUIPromptEnumMap[e]!)
+      .toList(),
+  'resource': ?instance.resource,
 };
 
 const _$CognitoSignInWithWebUIPromptEnumMap = {

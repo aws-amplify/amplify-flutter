@@ -8,21 +8,18 @@ part of 'in_app_message_header_config.dart';
 
 class _$InAppMessageHeaderConfig extends InAppMessageHeaderConfig {
   @override
-  final Alignment alignment;
+  final Alignment? alignment;
   @override
-  final String header;
+  final String? header;
   @override
-  final String textColor;
+  final String? textColor;
 
   factory _$InAppMessageHeaderConfig([
     void Function(InAppMessageHeaderConfigBuilder)? updates,
   ]) => (InAppMessageHeaderConfigBuilder()..update(updates))._build();
 
-  _$InAppMessageHeaderConfig._({
-    required this.alignment,
-    required this.header,
-    required this.textColor,
-  }) : super._();
+  _$InAppMessageHeaderConfig._({this.alignment, this.header, this.textColor})
+    : super._();
   @override
   InAppMessageHeaderConfig rebuild(
     void Function(InAppMessageHeaderConfigBuilder) updates,
@@ -99,21 +96,9 @@ class InAppMessageHeaderConfigBuilder
     final _$result =
         _$v ??
         _$InAppMessageHeaderConfig._(
-          alignment: BuiltValueNullFieldError.checkNotNull(
-            alignment,
-            r'InAppMessageHeaderConfig',
-            'alignment',
-          ),
-          header: BuiltValueNullFieldError.checkNotNull(
-            header,
-            r'InAppMessageHeaderConfig',
-            'header',
-          ),
-          textColor: BuiltValueNullFieldError.checkNotNull(
-            textColor,
-            r'InAppMessageHeaderConfig',
-            'textColor',
-          ),
+          alignment: alignment,
+          header: header,
+          textColor: textColor,
         );
     replace(_$result);
     return _$result;

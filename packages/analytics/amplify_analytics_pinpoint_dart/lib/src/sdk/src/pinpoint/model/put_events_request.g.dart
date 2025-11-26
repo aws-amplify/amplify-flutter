@@ -10,16 +10,14 @@ class _$PutEventsRequest extends PutEventsRequest {
   @override
   final String applicationId;
   @override
-  final EventsRequest eventsRequest;
+  final EventsRequest? eventsRequest;
 
   factory _$PutEventsRequest([
     void Function(PutEventsRequestBuilder)? updates,
   ]) => (PutEventsRequestBuilder()..update(updates))._build();
 
-  _$PutEventsRequest._({
-    required this.applicationId,
-    required this.eventsRequest,
-  }) : super._();
+  _$PutEventsRequest._({required this.applicationId, this.eventsRequest})
+    : super._();
   @override
   PutEventsRequest rebuild(void Function(PutEventsRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -67,7 +65,7 @@ class PutEventsRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _applicationId = $v.applicationId;
-      _eventsRequest = $v.eventsRequest.toBuilder();
+      _eventsRequest = $v.eventsRequest?.toBuilder();
       _$v = null;
     }
     return this;
@@ -97,13 +95,13 @@ class PutEventsRequestBuilder
               r'PutEventsRequest',
               'applicationId',
             ),
-            eventsRequest: eventsRequest.build(),
+            eventsRequest: _eventsRequest?.build(),
           );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'eventsRequest';
-        eventsRequest.build();
+        _eventsRequest?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'PutEventsRequest',

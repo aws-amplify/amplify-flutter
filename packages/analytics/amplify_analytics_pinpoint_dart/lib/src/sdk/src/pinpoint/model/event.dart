@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,11 +23,11 @@ abstract class Event
     String? appVersionCode,
     Map<String, String>? attributes,
     String? clientSdkVersion,
-    required String eventType,
+    String? eventType,
     Map<String, double>? metrics,
     String? sdkName,
     Session? session,
-    required String timestamp,
+    String? timestamp,
   }) {
     return _$Event._(
       appPackageName: appPackageName,
@@ -68,7 +68,7 @@ abstract class Event
   String? get clientSdkVersion;
 
   /// The name of the event.
-  String get eventType;
+  String? get eventType;
 
   /// One or more custom metrics that are associated with the event.
   _i2.BuiltMap<String, double>? get metrics;
@@ -80,7 +80,7 @@ abstract class Event
   Session? get session;
 
   /// The date and time, in ISO 8601 format, when the event occurred.
-  String get timestamp;
+  String? get timestamp;
   @override
   List<Object?> get props => [
     appPackageName,
@@ -94,6 +94,7 @@ abstract class Event
     session,
     timestamp,
   ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Event')
@@ -116,10 +117,12 @@ class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
 
   @override
   Iterable<Type> get types => const [Event, _$Event];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
     _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   Event deserialize(
     Serializers serializers,
@@ -240,12 +243,6 @@ class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
       :session,
       :timestamp,
     ) = object;
-    result$.addAll([
-      'EventType',
-      serializers.serialize(eventType, specifiedType: const FullType(String)),
-      'Timestamp',
-      serializers.serialize(timestamp, specifiedType: const FullType(String)),
-    ]);
     if (appPackageName != null) {
       result$
         ..add('AppPackageName')
@@ -299,6 +296,16 @@ class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
           ),
         );
     }
+    if (eventType != null) {
+      result$
+        ..add('EventType')
+        ..add(
+          serializers.serialize(
+            eventType,
+            specifiedType: const FullType(String),
+          ),
+        );
+    }
     if (metrics != null) {
       result$
         ..add('Metrics')
@@ -326,6 +333,16 @@ class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
           serializers.serialize(
             session,
             specifiedType: const FullType(Session),
+          ),
+        );
+    }
+    if (timestamp != null) {
+      result$
+        ..add('Timestamp')
+        ..add(
+          serializers.serialize(
+            timestamp,
+            specifiedType: const FullType(String),
           ),
         );
     }

@@ -8,14 +8,13 @@ part of 'get_in_app_messages_response.dart';
 
 class _$GetInAppMessagesResponse extends GetInAppMessagesResponse {
   @override
-  final InAppMessagesResponse inAppMessagesResponse;
+  final InAppMessagesResponse? inAppMessagesResponse;
 
   factory _$GetInAppMessagesResponse([
     void Function(GetInAppMessagesResponseBuilder)? updates,
   ]) => (GetInAppMessagesResponseBuilder()..update(updates))._build();
 
-  _$GetInAppMessagesResponse._({required this.inAppMessagesResponse})
-    : super._();
+  _$GetInAppMessagesResponse._({this.inAppMessagesResponse}) : super._();
   @override
   GetInAppMessagesResponse rebuild(
     void Function(GetInAppMessagesResponseBuilder) updates,
@@ -58,7 +57,7 @@ class GetInAppMessagesResponseBuilder
   GetInAppMessagesResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _inAppMessagesResponse = $v.inAppMessagesResponse.toBuilder();
+      _inAppMessagesResponse = $v.inAppMessagesResponse?.toBuilder();
       _$v = null;
     }
     return this;
@@ -83,13 +82,13 @@ class GetInAppMessagesResponseBuilder
       _$result =
           _$v ??
           _$GetInAppMessagesResponse._(
-            inAppMessagesResponse: inAppMessagesResponse.build(),
+            inAppMessagesResponse: _inAppMessagesResponse?.build(),
           );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'inAppMessagesResponse';
-        inAppMessagesResponse.build();
+        _inAppMessagesResponse?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'GetInAppMessagesResponse',

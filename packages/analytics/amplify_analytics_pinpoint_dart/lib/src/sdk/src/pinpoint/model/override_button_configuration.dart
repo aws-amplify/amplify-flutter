@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.override_button_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,7 +18,7 @@ abstract class OverrideButtonConfiguration
         Built<OverrideButtonConfiguration, OverrideButtonConfigurationBuilder> {
   /// Override button configuration.
   factory OverrideButtonConfiguration({
-    required ButtonAction buttonAction,
+    ButtonAction? buttonAction,
     String? link,
   }) {
     return _$OverrideButtonConfiguration._(
@@ -38,12 +38,13 @@ abstract class OverrideButtonConfiguration
   serializers = [OverrideButtonConfigurationRestJson1Serializer()];
 
   /// Action triggered by the button.
-  ButtonAction get buttonAction;
+  ButtonAction? get buttonAction;
 
   /// Button destination.
   String? get link;
   @override
   List<Object?> get props => [buttonAction, link];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('OverrideButtonConfiguration')
@@ -63,10 +64,12 @@ class OverrideButtonConfigurationRestJson1Serializer
     OverrideButtonConfiguration,
     _$OverrideButtonConfiguration,
   ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
     _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   OverrideButtonConfiguration deserialize(
     Serializers serializers,
@@ -111,13 +114,16 @@ class OverrideButtonConfigurationRestJson1Serializer
   }) {
     final result$ = <Object?>[];
     final OverrideButtonConfiguration(:buttonAction, :link) = object;
-    result$.addAll([
-      'ButtonAction',
-      serializers.serialize(
-        buttonAction,
-        specifiedType: const FullType(ButtonAction),
-      ),
-    ]);
+    if (buttonAction != null) {
+      result$
+        ..add('ButtonAction')
+        ..add(
+          serializers.serialize(
+            buttonAction,
+            specifiedType: const FullType(ButtonAction),
+          ),
+        );
+    }
     if (link != null) {
       result$
         ..add('Link')

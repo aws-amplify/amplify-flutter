@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.get_endpoint_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,7 +16,7 @@ abstract class GetEndpointResponse
     implements
         Built<GetEndpointResponse, GetEndpointResponseBuilder>,
         _i2.HasPayload<EndpointResponse> {
-  factory GetEndpointResponse({required EndpointResponse endpointResponse}) {
+  factory GetEndpointResponse({EndpointResponse? endpointResponse}) {
     return _$GetEndpointResponse._(endpointResponse: endpointResponse);
   }
 
@@ -28,22 +28,26 @@ abstract class GetEndpointResponse
 
   /// Constructs a [GetEndpointResponse] from a [payload] and [response].
   factory GetEndpointResponse.fromResponse(
-    EndpointResponse payload,
+    EndpointResponse? payload,
     _i1.AWSBaseHttpResponse response,
   ) => GetEndpointResponse.build((b) {
-    b.endpointResponse.replace(payload);
+    if (payload != null) {
+      b.endpointResponse.replace(payload);
+    }
   });
 
-  static const List<_i2.SmithySerializer<EndpointResponse>> serializers = [
+  static const List<_i2.SmithySerializer<EndpointResponse?>> serializers = [
     GetEndpointResponseRestJson1Serializer(),
   ];
 
   /// Provides information about the channel type and other settings for an endpoint.
-  EndpointResponse get endpointResponse;
+  EndpointResponse? get endpointResponse;
   @override
-  EndpointResponse getPayload() => endpointResponse;
+  EndpointResponse? getPayload() => endpointResponse ?? EndpointResponse();
+
   @override
   List<Object?> get props => [endpointResponse];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetEndpointResponse')
@@ -61,10 +65,12 @@ class GetEndpointResponseRestJson1Serializer
     GetEndpointResponse,
     _$GetEndpointResponse,
   ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
     _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   EndpointResponse deserialize(
     Serializers serializers,

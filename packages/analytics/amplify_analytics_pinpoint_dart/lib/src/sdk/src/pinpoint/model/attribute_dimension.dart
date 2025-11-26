@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.attribute_dimension; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,11 +19,11 @@ abstract class AttributeDimension
   /// Specifies attribute-based criteria for including or excluding endpoints from a segment.
   factory AttributeDimension({
     AttributeType? attributeType,
-    required List<String> values,
+    List<String>? values,
   }) {
     return _$AttributeDimension._(
       attributeType: attributeType,
-      values: _i2.BuiltList(values),
+      values: values == null ? null : _i2.BuiltList(values),
     );
   }
 
@@ -50,9 +50,10 @@ abstract class AttributeDimension
   AttributeType? get attributeType;
 
   /// The criteria values to use for the segment dimension. Depending on the value of the AttributeType property, endpoints are included or excluded from the segment if their attribute values match the criteria values.
-  _i2.BuiltList<String> get values;
+  _i2.BuiltList<String>? get values;
   @override
   List<Object?> get props => [attributeType, values];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AttributeDimension')
@@ -68,10 +69,12 @@ class AttributeDimensionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [AttributeDimension, _$AttributeDimension];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
     _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   AttributeDimension deserialize(
     Serializers serializers,
@@ -119,13 +122,6 @@ class AttributeDimensionRestJson1Serializer
   }) {
     final result$ = <Object?>[];
     final AttributeDimension(:attributeType, :values) = object;
-    result$.addAll([
-      'Values',
-      serializers.serialize(
-        values,
-        specifiedType: const FullType(_i2.BuiltList, [FullType(String)]),
-      ),
-    ]);
     if (attributeType != null) {
       result$
         ..add('AttributeType')
@@ -133,6 +129,16 @@ class AttributeDimensionRestJson1Serializer
           serializers.serialize(
             attributeType,
             specifiedType: const FullType(AttributeType),
+          ),
+        );
+    }
+    if (values != null) {
+      result$
+        ..add('Values')
+        ..add(
+          serializers.serialize(
+            values,
+            specifiedType: const FullType(_i2.BuiltList, [FullType(String)]),
           ),
         );
     }

@@ -15,8 +15,8 @@ PackageInfo _$PackageInfoFromJson(Map<String, dynamic> json) => PackageInfo(
 
 Map<String, dynamic> _$PackageInfoToJson(PackageInfo instance) =>
     <String, dynamic>{
-      if (instance.appName case final value?) 'app_name': value,
-      if (instance.version case final value?) 'version': value,
-      if (instance.buildNumber case final value?) 'build_number': value,
-      if (instance.packageName case final value?) 'package_name': value,
+      'app_name': ?instance.appName,
+      'version': ?instance.version,
+      'build_number': ?instance.buildNumber,
+      'package_name': ?instance.packageName,
     };

@@ -10,7 +10,7 @@ dependencies:
   amplify_core: any
   aws_common: any
   collection: ^1.18.0
-  meta: ^1.8.0
+  meta: ^1.16.0
 
 dev_dependencies:
   amplify_lints: any

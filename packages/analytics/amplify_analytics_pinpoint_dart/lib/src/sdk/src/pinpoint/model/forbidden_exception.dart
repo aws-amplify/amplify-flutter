@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.forbidden_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,18 +51,23 @@ abstract class ForbiddenException
     namespace: 'com.amazonaws.pinpoint',
     shape: 'ForbiddenException',
   );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 403;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message, requestId];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForbiddenException')
@@ -78,10 +83,12 @@ class ForbiddenExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [ForbiddenException, _$ForbiddenException];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
     _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   ForbiddenException deserialize(
     Serializers serializers,

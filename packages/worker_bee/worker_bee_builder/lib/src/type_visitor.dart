@@ -24,7 +24,7 @@ class SymbolVisitor extends UnifyingTypeVisitor<Reference> {
         t
           ..isNullable = type.nullabilitySuffix != NullabilitySuffix.none
           ..symbol = type.element.name
-          ..url = type.element.librarySource.uri.toString()
+          ..url = type.element.library.uri.toString()
           ..types.addAll([
             for (final typeArg in type.typeArguments) typeArg.accept(this),
           ]);

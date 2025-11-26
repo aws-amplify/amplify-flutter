@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.default_button_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,9 +20,9 @@ abstract class DefaultButtonConfiguration
   factory DefaultButtonConfiguration({
     String? backgroundColor,
     int? borderRadius,
-    required ButtonAction buttonAction,
+    ButtonAction? buttonAction,
     String? link,
-    required String text,
+    String? text,
     String? textColor,
   }) {
     return _$DefaultButtonConfiguration._(
@@ -52,13 +52,13 @@ abstract class DefaultButtonConfiguration
   int? get borderRadius;
 
   /// Action triggered by the button.
-  ButtonAction get buttonAction;
+  ButtonAction? get buttonAction;
 
   /// Button destination.
   String? get link;
 
   /// Button text.
-  String get text;
+  String? get text;
 
   /// The text color of the button.
   String? get textColor;
@@ -71,6 +71,7 @@ abstract class DefaultButtonConfiguration
     text,
     textColor,
   ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DefaultButtonConfiguration')
@@ -94,10 +95,12 @@ class DefaultButtonConfigurationRestJson1Serializer
     DefaultButtonConfiguration,
     _$DefaultButtonConfiguration,
   ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
     _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   DefaultButtonConfiguration deserialize(
     Serializers serializers,
@@ -177,15 +180,6 @@ class DefaultButtonConfigurationRestJson1Serializer
       :text,
       :textColor,
     ) = object;
-    result$.addAll([
-      'ButtonAction',
-      serializers.serialize(
-        buttonAction,
-        specifiedType: const FullType(ButtonAction),
-      ),
-      'Text',
-      serializers.serialize(text, specifiedType: const FullType(String)),
-    ]);
     if (backgroundColor != null) {
       result$
         ..add('BackgroundColor')
@@ -206,11 +200,28 @@ class DefaultButtonConfigurationRestJson1Serializer
           ),
         );
     }
+    if (buttonAction != null) {
+      result$
+        ..add('ButtonAction')
+        ..add(
+          serializers.serialize(
+            buttonAction,
+            specifiedType: const FullType(ButtonAction),
+          ),
+        );
+    }
     if (link != null) {
       result$
         ..add('Link')
         ..add(
           serializers.serialize(link, specifiedType: const FullType(String)),
+        );
+    }
+    if (text != null) {
+      result$
+        ..add('Text')
+        ..add(
+          serializers.serialize(text, specifiedType: const FullType(String)),
         );
     }
     if (textColor != null) {

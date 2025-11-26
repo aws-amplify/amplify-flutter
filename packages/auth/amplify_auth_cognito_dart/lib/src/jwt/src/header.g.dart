@@ -31,15 +31,15 @@ JsonWebHeader _$JsonWebHeaderFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonWebHeaderToJson(JsonWebHeader instance) =>
     <String, dynamic>{
-      if (AlgorithmX.toJson(instance.algorithm) case final value?) 'alg': value,
-      if (instance.jwkSetUri?.toString() case final value?) 'jku': value,
-      if (instance.jwk?.toJson() case final value?) 'jwk': value,
-      if (instance.keyId case final value?) 'kid': value,
-      if (instance.x509Uri?.toString() case final value?) 'x5u': value,
-      if (instance.x509CertChain case final value?) 'x5c': value,
-      if (instance.x509sha1Thumbprint case final value?) 'x5t': value,
-      if (instance.x509sha256Thumbprint case final value?) 'x5t#S256': value,
-      if (instance.type case final value?) 'typ': value,
-      if (instance.contentType case final value?) 'cty': value,
-      if (instance.critical case final value?) 'crit': value,
+      'alg': ?AlgorithmX.toJson(instance.algorithm),
+      'jku': ?instance.jwkSetUri?.toString(),
+      'jwk': ?instance.jwk?.toJson(),
+      'kid': ?instance.keyId,
+      'x5u': ?instance.x509Uri?.toString(),
+      'x5c': ?instance.x509CertChain,
+      'x5t': ?instance.x509sha1Thumbprint,
+      'x5t#S256': ?instance.x509sha256Thumbprint,
+      'typ': ?instance.type,
+      'cty': ?instance.contentType,
+      'crit': ?instance.critical,
     };

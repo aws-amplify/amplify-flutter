@@ -10,12 +10,12 @@ class _$SetDimension extends SetDimension {
   @override
   final DimensionType? dimensionType;
   @override
-  final _i2.BuiltList<String> values;
+  final _i2.BuiltList<String>? values;
 
   factory _$SetDimension([void Function(SetDimensionBuilder)? updates]) =>
       (SetDimensionBuilder()..update(updates))._build();
 
-  _$SetDimension._({this.dimensionType, required this.values}) : super._();
+  _$SetDimension._({this.dimensionType, this.values}) : super._();
   @override
   SetDimension rebuild(void Function(SetDimensionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -61,7 +61,7 @@ class SetDimensionBuilder
     final $v = _$v;
     if ($v != null) {
       _dimensionType = $v.dimensionType;
-      _values = $v.values.toBuilder();
+      _values = $v.values?.toBuilder();
       _$v = null;
     }
     return this;
@@ -87,13 +87,13 @@ class SetDimensionBuilder
           _$v ??
           _$SetDimension._(
             dimensionType: dimensionType,
-            values: values.build(),
+            values: _values?.build(),
           );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'values';
-        values.build();
+        _values?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'SetDimension',
