@@ -11,7 +11,7 @@ class AuthenticatorPhoneField<FieldType extends Enum>
     super.requiredOverride,
     this.onChanged,
     this.validator,
-    this.enabled,
+    AuthenticatorTextEnabledOverride? enabled,
     this.initialValue,
     this.errorMaxLines,
     super.autofillHints,
@@ -19,9 +19,9 @@ class AuthenticatorPhoneField<FieldType extends Enum>
   }) : super._(
          titleKey: InputResolverKey.phoneNumberTitle,
          hintTextKey: InputResolverKey.phoneNumberHint,
+         enabledOverride: enabled,
        );
 
-  final AuthenticatorTextEnabledOverride? enabled;
   final String? initialValue;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String?>? validator;
@@ -41,7 +41,6 @@ class AuthenticatorPhoneField<FieldType extends Enum>
       ..add(
         ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged),
       )
-      ..add(EnumProperty<AuthenticatorTextEnabledOverride?>('enabled', enabled))
       ..add(StringProperty('initialValue', initialValue))
       ..add(IntProperty('errorMaxLines', errorMaxLines))
       ..add(
@@ -79,19 +78,6 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
       initialValue = displayPhoneNumber(initialValue);
     }
     return initialValue;
-  }
-
-  @override
-  bool get enabled {
-    switch (widget.enabled) {
-      case AuthenticatorTextEnabledOverride.enabled:
-        return true;
-      case AuthenticatorTextEnabledOverride.disabled:
-        return false;
-      case AuthenticatorTextEnabledOverride.defaultSetting:
-      case null:
-        return super.enabled;
-    }
   }
 
   @override

@@ -94,15 +94,6 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
 
   @override
   bool get enabled {
-    switch (widget.enabledOverride) {
-      case AuthenticatorTextEnabledOverride.enabled:
-        return true;
-      case AuthenticatorTextEnabledOverride.disabled:
-        return false;
-      case AuthenticatorTextEnabledOverride.defaultSetting:
-      case null:
-        break;
-    }
     switch (widget.field) {
       case ConfirmSignUpField.code:
         return true;

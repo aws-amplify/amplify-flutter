@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_authenticator/src/controllers/authenticator_text_field_controller.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ mixin AuthenticatorTextField<
   bool _controllerUpdateScheduled = false;
 
   @protected
-  TextEditingController? get textController =>
+  AuthenticatorTextFieldController? get textController =>
       widget.authenticatorTextFieldController;
 
   void _maybeUpdateEffectiveController() {
@@ -184,12 +185,12 @@ mixin AuthenticatorTextField<
         // Don't sync during build
         final shouldHandleChangeImmediately = _effectiveController == null;
         return TextFormField(
-          style: enabled
+          style: effectiveEnabled
               ? null
               : TextStyle(color: Theme.of(context).disabledColor),
           controller: _effectiveController,
           initialValue: _effectiveController == null ? initialValue : null,
-          enabled: enabled,
+          enabled: effectiveEnabled,
           validator: widget.validatorOverride ?? validator,
           onChanged: shouldHandleChangeImmediately ? onChanged : null,
           autocorrect: false,

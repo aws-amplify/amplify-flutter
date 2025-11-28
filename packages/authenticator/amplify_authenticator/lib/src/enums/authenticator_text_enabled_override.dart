@@ -6,9 +6,6 @@ enum AuthenticatorTextEnabledOverride {
   /// Use the default enabled state.
   defaultSetting,
 
-  /// Force the field to be enabled.
-  enabled,
-
   /// Force the field to be disabled.
   disabled,
 }

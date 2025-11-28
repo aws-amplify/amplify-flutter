@@ -7,7 +7,6 @@ import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -197,19 +196,17 @@ void main() {
       final fieldFinder = find.byKey(keyUsernameSignInFormField);
       await tester.tap(fieldFinder);
       await tester.pump();
-      await tester.showKeyboard(fieldFinder);
 
       expect(tester.takeException(), isNull);
 
-      await tester.sendKeyEvent(LogicalKeyboardKey.keyA);
+      // Use enterText to simulate typing - sendKeyEvent doesn't update
+      // TextEditingController in widget tests
+      await tester.enterText(fieldFinder, 'a ');
       await tester.pump();
       expect(tester.takeException(), isNull);
 
-      await tester.sendKeyEvent(LogicalKeyboardKey.space);
-      await tester.pump();
-      expect(tester.takeException(), isNull);
-
-      await tester.sendKeyEvent(LogicalKeyboardKey.backspace);
+      // Simulate backspace by entering text without the trailing space
+      await tester.enterText(fieldFinder, 'a');
       await tester.pump();
       expect(tester.takeException(), isNull);
 

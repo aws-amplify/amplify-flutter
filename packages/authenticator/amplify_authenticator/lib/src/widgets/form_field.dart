@@ -196,15 +196,20 @@ abstract class AuthenticatorFormFieldState<
   FieldValue? get initialValue => null;
 
   /// Whether the form field accepts input.
-  bool get enabled {
+  bool get enabled => true;
+
+  /// Effective enabled state that combines [enabled] with [widget.enabledOverride].
+  ///
+  /// Subclasses can override [enabled] to provide custom logic for determining
+  /// the default enabled state. This property ensures the override is respected.
+  @nonVirtual
+  bool get effectiveEnabled {
     switch (widget.enabledOverride) {
-      case AuthenticatorTextEnabledOverride.enabled:
-        return true;
       case AuthenticatorTextEnabledOverride.disabled:
         return false;
       case AuthenticatorTextEnabledOverride.defaultSetting:
       case null:
-        return true;
+        return enabled;
     }
   }
 
@@ -367,5 +372,8 @@ abstract class AuthenticatorFormFieldState<
       ..add(DiagnosticsProperty<double?>('marginBottom', marginBottom))
       ..add(DoubleProperty('labelGap', labelGap))
       ..add(IterableProperty<String>('autofillHints', autofillHints));
+    properties.add(
+      DiagnosticsProperty<bool>('effectiveEnabled', effectiveEnabled),
+    );
   }
 }

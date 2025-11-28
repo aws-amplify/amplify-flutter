@@ -24,7 +24,7 @@ mixin AuthenticatorUsernameField<
   bool _controllerUpdateScheduled = false;
 
   @protected
-  TextEditingController? get textController =>
+  AuthenticatorTextFieldController? get textController =>
       widget.authenticatorTextFieldController;
 
   void _updateController() {
@@ -398,27 +398,25 @@ mixin AuthenticatorUsernameField<
         requiredOverride: true,
         onChanged: handleChanged,
         validator: validator,
-        enabled: enabled
-            ? AuthenticatorTextEnabledOverride.enabled
-            : AuthenticatorTextEnabledOverride.disabled,
+        enabled: widget.enabledOverride,
         errorMaxLines: errorMaxLines,
         initialValue: state.username,
         autofillHints: autofillHints,
-        authenticatorTextFieldController:
-            textController as AuthenticatorTextFieldController?,
+        authenticatorTextFieldController: textController,
       );
     }
 
     _updateController();
-    // Don't sync during build
 
     final controllerInUse = _controller != null;
 
     return TextFormField(
-      style: enabled ? null : TextStyle(color: Theme.of(context).disabledColor),
+      style: effectiveEnabled
+          ? null
+          : TextStyle(color: Theme.of(context).disabledColor),
       controller: _controller,
       initialValue: _controller == null ? initialValue?.username : null,
-      enabled: enabled,
+      enabled: effectiveEnabled,
       validator: validator,
       onChanged: (username) {
         if (!controllerInUse) {
