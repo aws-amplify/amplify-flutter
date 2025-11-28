@@ -9,6 +9,47 @@ part of '../form_field.dart';
 /// {@endtemplate}
 class ResetPasswordFormField
     extends AuthenticatorFormField<ResetPasswordField, String> {
+  const ResetPasswordFormField.verificationCode({
+    Key? key,
+    Iterable<String>? autofillHints,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
+  }) : this._(
+         key: key ?? keyVerificationCodeResetPasswordFormField,
+         field: ResetPasswordField.verificationCode,
+         titleKey: InputResolverKey.verificationCodeTitle,
+         hintTextKey: InputResolverKey.verificationCodeHint,
+         autofillHints: autofillHints,
+         authenticatorTextFieldController: authenticatorTextFieldController,
+       );
+
+  const ResetPasswordFormField.newPassword({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
+  }) : this._(
+         key: key ?? keyPasswordResetPasswordFormField,
+         field: ResetPasswordField.newPassword,
+         titleKey: InputResolverKey.newPasswordTitle,
+         hintTextKey: InputResolverKey.newPasswordHint,
+         validator: validator,
+         autofillHints: autofillHints,
+         authenticatorTextFieldController: authenticatorTextFieldController,
+       );
+
+  const ResetPasswordFormField.passwordConfirmation({
+    Key? key,
+    Iterable<String>? autofillHints,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
+  }) : this._(
+         key: key ?? keyPasswordConfirmationResetPasswordFormField,
+         field: ResetPasswordField.passwordConfirmation,
+         titleKey: InputResolverKey.passwordConfirmationTitle,
+         hintTextKey: InputResolverKey.passwordConfirmationHint,
+         autofillHints: autofillHints,
+         authenticatorTextFieldController: authenticatorTextFieldController,
+       );
+
   /// {@macro amplify_authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
@@ -19,42 +60,11 @@ class ResetPasswordFormField
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    this.authenticatorTextFieldController,
   }) : super._();
 
-  const ResetPasswordFormField.verificationCode({
-    Key? key,
-    Iterable<String>? autofillHints,
-  }) : this._(
-         key: key ?? keyVerificationCodeResetPasswordFormField,
-         field: ResetPasswordField.verificationCode,
-         titleKey: InputResolverKey.verificationCodeTitle,
-         hintTextKey: InputResolverKey.verificationCodeHint,
-         autofillHints: autofillHints,
-       );
-
-  const ResetPasswordFormField.newPassword({
-    Key? key,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
-  }) : this._(
-         key: key ?? keyPasswordResetPasswordFormField,
-         field: ResetPasswordField.newPassword,
-         titleKey: InputResolverKey.newPasswordTitle,
-         hintTextKey: InputResolverKey.newPasswordHint,
-         validator: validator,
-         autofillHints: autofillHints,
-       );
-
-  const ResetPasswordFormField.passwordConfirmation({
-    Key? key,
-    Iterable<String>? autofillHints,
-  }) : this._(
-         key: key ?? keyPasswordConfirmationResetPasswordFormField,
-         field: ResetPasswordField.passwordConfirmation,
-         titleKey: InputResolverKey.passwordConfirmationTitle,
-         hintTextKey: InputResolverKey.passwordConfirmationHint,
-         autofillHints: autofillHints,
-       );
+  @override
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   bool get required => true;

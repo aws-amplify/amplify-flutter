@@ -33,10 +33,12 @@ abstract class SignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _SignInUsernameField(
     key: key ?? keyUsernameSignInFormField,
     validator: validator,
     autofillHints: autofillHints,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   /// Creates a password FormField for the sign in step.
@@ -44,6 +46,7 @@ abstract class SignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
   }) => _SignInTextField(
     key: key ?? keyPasswordSignInFormField,
     titleKey: InputResolverKey.passwordTitle,
@@ -51,6 +54,7 @@ abstract class SignInFormField<FieldValue extends Object>
     field: SignInField.password,
     validator: validator,
     autofillHints: autofillHints,
+    authenticatorTextFieldController: authenticatorTextFieldController,
   );
 
   @override
@@ -130,10 +134,25 @@ class _SignInTextField extends SignInFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    this.authenticatorTextFieldController,
   }) : super._();
 
   @override
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
+
+  @override
   _SignInTextFieldState createState() => _SignInTextFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
+    );
+  }
 }
 
 class _SignInTextFieldState extends _SignInFormFieldState<String>
@@ -182,16 +201,34 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
 }
 
 class _SignInUsernameField extends SignInFormField<UsernameInput> {
-  const _SignInUsernameField({Key? key, super.validator, super.autofillHints})
-    : super._(
-        key: key ?? keyUsernameSignInFormField,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
-        field: SignInField.username,
-      );
+  const _SignInUsernameField({
+    Key? key,
+    super.validator,
+    super.autofillHints,
+    this.authenticatorTextFieldController,
+  }) : super._(
+         key: key ?? keyUsernameSignInFormField,
+         titleKey: InputResolverKey.usernameTitle,
+         hintTextKey: InputResolverKey.usernameHint,
+         field: SignInField.username,
+       );
+
+  @override
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
 
   @override
   _SignInUsernameFieldState createState() => _SignInUsernameFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
+    );
+  }
 }
 
 class _SignInUsernameFieldState extends _SignInFormFieldState<UsernameInput>
