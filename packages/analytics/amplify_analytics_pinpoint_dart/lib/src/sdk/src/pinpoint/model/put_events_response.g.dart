@@ -8,13 +8,13 @@ part of 'put_events_response.dart';
 
 class _$PutEventsResponse extends PutEventsResponse {
   @override
-  final EventsResponse eventsResponse;
+  final EventsResponse? eventsResponse;
 
   factory _$PutEventsResponse([
     void Function(PutEventsResponseBuilder)? updates,
   ]) => (PutEventsResponseBuilder()..update(updates))._build();
 
-  _$PutEventsResponse._({required this.eventsResponse}) : super._();
+  _$PutEventsResponse._({this.eventsResponse}) : super._();
   @override
   PutEventsResponse rebuild(void Function(PutEventsResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -53,7 +53,7 @@ class PutEventsResponseBuilder
   PutEventsResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _eventsResponse = $v.eventsResponse.toBuilder();
+      _eventsResponse = $v.eventsResponse?.toBuilder();
       _$v = null;
     }
     return this;
@@ -76,12 +76,13 @@ class PutEventsResponseBuilder
     _$PutEventsResponse _$result;
     try {
       _$result =
-          _$v ?? _$PutEventsResponse._(eventsResponse: eventsResponse.build());
+          _$v ??
+          _$PutEventsResponse._(eventsResponse: _eventsResponse?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'eventsResponse';
-        eventsResponse.build();
+        _eventsResponse?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'PutEventsResponse',

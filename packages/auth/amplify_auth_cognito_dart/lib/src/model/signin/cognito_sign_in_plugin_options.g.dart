@@ -29,8 +29,7 @@ CognitoSignInPluginOptions _$CognitoSignInPluginOptionsFromJson(
 Map<String, dynamic> _$CognitoSignInPluginOptionsToJson(
   CognitoSignInPluginOptions instance,
 ) => <String, dynamic>{
-  if (_$AuthenticationFlowTypeEnumMap[instance.authFlowType] case final value?)
-    'authFlowType': value,
+  'authFlowType': ?_$AuthenticationFlowTypeEnumMap[instance.authFlowType],
   'clientMetadata': instance.clientMetadata,
 };
 

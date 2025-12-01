@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoint_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,7 +19,7 @@ abstract class UpdateEndpointRequest
   factory UpdateEndpointRequest({
     required String applicationId,
     required String endpointId,
-    required EndpointRequest endpointRequest,
+    EndpointRequest? endpointRequest,
   }) {
     return _$UpdateEndpointRequest._(
       applicationId: applicationId,
@@ -35,11 +35,13 @@ abstract class UpdateEndpointRequest
   const UpdateEndpointRequest._();
 
   factory UpdateEndpointRequest.fromRequest(
-    EndpointRequest payload,
+    EndpointRequest? payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) => UpdateEndpointRequest.build((b) {
-    b.endpointRequest.replace(payload);
+    if (payload != null) {
+      b.endpointRequest.replace(payload);
+    }
     if (labels['applicationId'] != null) {
       b.applicationId = labels['applicationId']!;
     }
@@ -48,18 +50,18 @@ abstract class UpdateEndpointRequest
     }
   });
 
-  static const List<_i1.SmithySerializer<EndpointRequest>> serializers = [
+  static const List<_i1.SmithySerializer<EndpointRequest?>> serializers = [
     UpdateEndpointRequestRestJson1Serializer(),
   ];
 
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
   String get applicationId;
 
-  /// The unique identifier for the endpoint.
+  /// The case insensitive unique identifier for the endpoint. The identifier can't contain `$`, `{` or `}`.
   String get endpointId;
 
   /// Specifies the channel type and other settings for an endpoint.
-  EndpointRequest get endpointRequest;
+  EndpointRequest? get endpointRequest;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -72,9 +74,11 @@ abstract class UpdateEndpointRequest
   }
 
   @override
-  EndpointRequest getPayload() => endpointRequest;
+  EndpointRequest? getPayload() => endpointRequest ?? EndpointRequest();
+
   @override
   List<Object?> get props => [applicationId, endpointId, endpointRequest];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateEndpointRequest')
@@ -95,10 +99,12 @@ class UpdateEndpointRequestRestJson1Serializer
     UpdateEndpointRequest,
     _$UpdateEndpointRequest,
   ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
     _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   EndpointRequest deserialize(
     Serializers serializers,

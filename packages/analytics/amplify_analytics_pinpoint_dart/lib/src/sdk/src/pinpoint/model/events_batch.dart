@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.events_batch; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,11 +18,11 @@ abstract class EventsBatch
     with _i1.AWSEquatable<EventsBatch>
     implements Built<EventsBatch, EventsBatchBuilder> {
   /// Specifies a batch of endpoints and events to process.
-  factory EventsBatch({
-    required PublicEndpoint endpoint,
-    required Map<String, Event> events,
-  }) {
-    return _$EventsBatch._(endpoint: endpoint, events: _i2.BuiltMap(events));
+  factory EventsBatch({PublicEndpoint? endpoint, Map<String, Event>? events}) {
+    return _$EventsBatch._(
+      endpoint: endpoint,
+      events: events == null ? null : _i2.BuiltMap(events),
+    );
   }
 
   /// Specifies a batch of endpoints and events to process.
@@ -36,12 +36,13 @@ abstract class EventsBatch
   ];
 
   /// A set of properties and attributes that are associated with the endpoint.
-  PublicEndpoint get endpoint;
+  PublicEndpoint? get endpoint;
 
   /// A set of properties that are associated with the event.
-  _i2.BuiltMap<String, Event> get events;
+  _i2.BuiltMap<String, Event>? get events;
   @override
   List<Object?> get props => [endpoint, events];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EventsBatch')
@@ -57,10 +58,12 @@ class EventsBatchRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [EventsBatch, _$EventsBatch];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
     _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   EventsBatch deserialize(
     Serializers serializers,
@@ -110,21 +113,29 @@ class EventsBatchRestJson1Serializer
   }) {
     final result$ = <Object?>[];
     final EventsBatch(:endpoint, :events) = object;
-    result$.addAll([
-      'Endpoint',
-      serializers.serialize(
-        endpoint,
-        specifiedType: const FullType(PublicEndpoint),
-      ),
-      'Events',
-      serializers.serialize(
-        events,
-        specifiedType: const FullType(_i2.BuiltMap, [
-          FullType(String),
-          FullType(Event),
-        ]),
-      ),
-    ]);
+    if (endpoint != null) {
+      result$
+        ..add('Endpoint')
+        ..add(
+          serializers.serialize(
+            endpoint,
+            specifiedType: const FullType(PublicEndpoint),
+          ),
+        );
+    }
+    if (events != null) {
+      result$
+        ..add('Events')
+        ..add(
+          serializers.serialize(
+            events,
+            specifiedType: const FullType(_i2.BuiltMap, [
+              FullType(String),
+              FullType(Event),
+            ]),
+          ),
+        );
+    }
     return result$;
   }
 }

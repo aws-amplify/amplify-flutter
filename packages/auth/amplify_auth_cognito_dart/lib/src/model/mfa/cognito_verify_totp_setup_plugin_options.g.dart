@@ -22,7 +22,4 @@ _$CognitoVerifyTotpSetupPluginOptionsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CognitoVerifyTotpSetupPluginOptionsToJson(
   CognitoVerifyTotpSetupPluginOptions instance,
-) => <String, dynamic>{
-  if (instance.friendlyDeviceName case final value?)
-    'friendlyDeviceName': value,
-};
+) => <String, dynamic>{'friendlyDeviceName': ?instance.friendlyDeviceName};
