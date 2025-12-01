@@ -461,10 +461,9 @@ void main() {
       await tester.pumpAndSettle();
 
       final signUpContext = tester.element(find.byType(SignUpForm));
-      var authState = InheritedAuthenticatorState.of(signUpContext);
-
-      // Set state value
-      authState.address = 'Initial Address';
+      var authState = InheritedAuthenticatorState.of(signUpContext)
+        // Set state value
+        ..address = 'Initial Address';
       await tester.pump();
 
       // Rebuild with controller
