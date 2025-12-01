@@ -198,7 +198,8 @@ abstract class AuthenticatorFormFieldState<
   /// Whether the form field accepts input.
   bool get enabled => true;
 
-  /// Effective enabled state that combines [enabled] with [enabledOverride].
+  /// Effective enabled state that combines [enabled] with
+  /// [AuthenticatorFormField.enabledOverride].
   ///
   /// Subclasses can override [enabled] to provide custom logic for determining
   /// the default enabled state. This property ensures the override is respected.
