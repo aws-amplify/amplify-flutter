@@ -35,9 +35,9 @@ class WorkerImpl {
 abstract class ImplGenerator {
   /// {@macro worker_bee_builder.impl_generator}
   ImplGenerator(this.workerEl, this.requestEl, this.responseEl) {
-    workerName = workerEl.name;
+    workerName = workerEl.name!;
     workerImplName = '${workerName}Impl';
-    workerType = Reference(workerName, workerEl.librarySource.uri.toString());
+    workerType = Reference(workerName, workerEl.library.uri.toString());
     _checkCtors(workerEl.constructors);
 
     requestType = requestEl.thisType.accept(symbolVisitor);

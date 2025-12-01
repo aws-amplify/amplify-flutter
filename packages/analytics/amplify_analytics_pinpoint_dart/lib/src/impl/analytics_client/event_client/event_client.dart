@@ -141,7 +141,8 @@ class EventClient implements Closeable {
           .result;
 
       // Parse the EndpointResponse portion of Result
-      final endpointResponse = result.eventsResponse.results?[_fixedEndpointId];
+      final endpointResponse =
+          result.eventsResponse?.results?[_fixedEndpointId];
 
       if (endpointResponse == null) {
         _logger.warn(
@@ -250,7 +251,7 @@ class EventClient implements Closeable {
     return statusCode != null && statusCode >= 500 && statusCode < 600;
   }
 
-  bool _shouldRetryEvent(String eventId, String eventType) {
+  bool _shouldRetryEvent(String eventId, String? eventType) {
     final timesFailed = _failureCountByEvent[eventId] ?? 1;
     if (timesFailed >= 3) {
       _logger.warn('Retry limit exceeded, deleting event: $eventType');

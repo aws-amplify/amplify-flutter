@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.operation.get_endpoint_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -68,7 +68,7 @@ class GetEndpointOperation
               service: _i4.AWSService.pinpoint,
               credentialsProvider: _credentialsProvider,
             ),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i3.WithSdkInvocationId(),
             const _i3.WithSdkRequest(),
           ] +
@@ -99,13 +99,16 @@ class GetEndpointOperation
         b.method = 'GET';
         b.path = r'/v1/apps/{ApplicationId}/endpoints/{EndpointId}';
       });
+
   @override
   int successCode([GetEndpointResponse? output]) => 200;
+
   @override
   GetEndpointResponse buildOutput(
-    EndpointResponse payload,
+    EndpointResponse? payload,
     _i4.AWSBaseHttpResponse response,
   ) => GetEndpointResponse.fromResponse(payload, response);
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
     _i1.SmithyError<BadRequestException, BadRequestException>(
@@ -179,14 +182,19 @@ class GetEndpointOperation
       builder: TooManyRequestsException.fromResponse,
     ),
   ];
+
   @override
   String get runtimeTypeName => 'GetEndpoint';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<GetEndpointResponse> run(
     GetEndpointRequest input, {

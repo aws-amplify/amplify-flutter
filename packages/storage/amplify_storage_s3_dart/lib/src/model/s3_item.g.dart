@@ -32,11 +32,10 @@ S3Item _$S3ItemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$S3ItemToJson(S3Item instance) => <String, dynamic>{
   'path': instance.path,
-  if (instance.size case final value?) 'size': value,
-  if (instance.lastModified?.toIso8601String() case final value?)
-    'lastModified': value,
-  if (instance.eTag case final value?) 'eTag': value,
+  'size': ?instance.size,
+  'lastModified': ?instance.lastModified?.toIso8601String(),
+  'eTag': ?instance.eTag,
   'metadata': instance.metadata,
-  if (instance.versionId case final value?) 'versionId': value,
-  if (instance.contentType case final value?) 'contentType': value,
+  'versionId': ?instance.versionId,
+  'contentType': ?instance.contentType,
 };

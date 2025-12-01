@@ -8,15 +8,14 @@ part of 'metric_dimension.dart';
 
 class _$MetricDimension extends MetricDimension {
   @override
-  final String comparisonOperator;
+  final String? comparisonOperator;
   @override
-  final double value;
+  final double? value;
 
   factory _$MetricDimension([void Function(MetricDimensionBuilder)? updates]) =>
       (MetricDimensionBuilder()..update(updates))._build();
 
-  _$MetricDimension._({required this.comparisonOperator, required this.value})
-    : super._();
+  _$MetricDimension._({this.comparisonOperator, this.value}) : super._();
   @override
   MetricDimension rebuild(void Function(MetricDimensionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -84,16 +83,8 @@ class MetricDimensionBuilder
     final _$result =
         _$v ??
         _$MetricDimension._(
-          comparisonOperator: BuiltValueNullFieldError.checkNotNull(
-            comparisonOperator,
-            r'MetricDimension',
-            'comparisonOperator',
-          ),
-          value: BuiltValueNullFieldError.checkNotNull(
-            value,
-            r'MetricDimension',
-            'value',
-          ),
+          comparisonOperator: comparisonOperator,
+          value: value,
         );
     replace(_$result);
     return _$result;

@@ -168,37 +168,37 @@ void main() {
 
       expect(captured.applicationId, pinpointAppId);
 
-      final batchItem = captured.eventsRequest.batchItem;
+      final batchItem = captured.eventsRequest?.batchItem;
 
-      expect(batchItem[mockEndpointId], isNotNull);
-      final eventsBatch = batchItem[mockEndpointId]!;
+      expect(batchItem?[mockEndpointId], isNotNull);
+      final eventsBatch = batchItem?[mockEndpointId];
 
-      expect(eventsBatch.endpoint, endpointClient.getPublicEndpoint());
+      expect(eventsBatch?.endpoint, endpointClient.getPublicEndpoint());
 
       // Event
-      expect(eventsBatch.events.length, 1);
-      expect(eventsBatch.events['0'], isNotNull);
-      final event = eventsBatch.events['0']!;
+      expect(eventsBatch?.events?.length, 1);
+      expect(eventsBatch?.events?['0'], isNotNull);
+      final event = eventsBatch?.events?['0'];
 
-      expect(event.appPackageName, mockDeviceContextInfo.appPackageName);
-      expect(event.appTitle, mockDeviceContextInfo.appName);
-      expect(event.appVersionCode, mockDeviceContextInfo.appVersion);
-      expect(event.eventType, eventType);
+      expect(event?.appPackageName, mockDeviceContextInfo.appPackageName);
+      expect(event?.appTitle, mockDeviceContextInfo.appName);
+      expect(event?.appVersionCode, mockDeviceContextInfo.appVersion);
+      expect(event?.eventType, eventType);
 
-      expect(event.clientSdkVersion, packageVersion);
-      expect(event.sdkName, 'amplify-flutter');
-      expect(event.session, session);
+      expect(event?.clientSdkVersion, packageVersion);
+      expect(event?.sdkName, 'amplify-flutter');
+      expect(event?.session, session);
 
       // Attributes
-      expect(event.attributes, isNotNull);
-      final attributes = event.attributes!;
+      expect(event?.attributes, isNotNull);
+      final attributes = event?.attributes;
 
-      expect(attributes[stringProperty], stringValue);
-      expect(attributes[boolProperty], boolValue.toString());
+      expect(attributes?[stringProperty], stringValue);
+      expect(attributes?[boolProperty], boolValue.toString());
 
       // Metrics
-      expect(event.metrics, isNotNull);
-      final metrics = event.metrics!;
+      expect(event?.metrics, isNotNull);
+      final metrics = event!.metrics!;
 
       expect(metrics[doubleProperty], doubleValue);
       expect(metrics[intProperty], intValue);
@@ -217,29 +217,29 @@ void main() {
             verify(() => pinpointClient.putEvents(captureAny())).captured[0]
                 as PutEventsRequest;
 
-        final batchItem = captured.eventsRequest.batchItem;
+        final batchItem = captured.eventsRequest?.batchItem;
 
-        expect(batchItem[mockEndpointId], isNotNull);
-        final eventsBatch = batchItem[mockEndpointId]!;
+        expect(batchItem?[mockEndpointId], isNotNull);
+        final eventsBatch = batchItem?[mockEndpointId];
 
         // Event
-        expect(eventsBatch.events.length, 1);
-        expect(eventsBatch.events['0'], isNotNull);
-        final event = eventsBatch.events['0']!;
+        expect(eventsBatch?.events?.length, 1);
+        expect(eventsBatch?.events?['0'], isNotNull);
+        final event = eventsBatch?.events?['0'];
 
         // Attributes
-        expect(event.attributes, isNotNull);
-        final attributes = event.attributes!;
+        expect(event?.attributes, isNotNull);
+        final attributes = event?.attributes;
 
-        expect(attributes[stringProperty], stringValue);
-        expect(attributes[boolProperty], boolValue.toString());
+        expect(attributes?[stringProperty], stringValue);
+        expect(attributes?[boolProperty], boolValue.toString());
 
         // Metrics
-        expect(event.metrics, isNotNull);
-        final metrics = event.metrics!;
+        expect(event?.metrics, isNotNull);
+        final metrics = event?.metrics;
 
-        expect(metrics[doubleProperty], doubleValue);
-        expect(metrics[intProperty], intValue);
+        expect(metrics?[doubleProperty], doubleValue);
+        expect(metrics?[intProperty], intValue);
       },
     );
 
@@ -261,18 +261,18 @@ void main() {
             verify(() => pinpointClient.putEvents(captureAny())).captured[0]
                 as PutEventsRequest;
 
-        final batchItem = captured.eventsRequest.batchItem;
+        final batchItem = captured.eventsRequest?.batchItem;
 
-        expect(batchItem[mockEndpointId], isNotNull);
-        final eventsBatch = batchItem[mockEndpointId]!;
+        expect(batchItem?[mockEndpointId], isNotNull);
+        final eventsBatch = batchItem?[mockEndpointId];
 
         // Event
-        expect(eventsBatch.events.length, 1);
-        expect(eventsBatch.events['0'], isNotNull);
-        final event = eventsBatch.events['0']!;
+        expect(eventsBatch?.events?.length, 1);
+        expect(eventsBatch?.events?['0'], isNotNull);
+        final event = eventsBatch?.events?['0'];
 
-        expect(event.attributes, isEmpty);
-        expect(event.metrics, isEmpty);
+        expect(event?.attributes, isEmpty);
+        expect(event?.metrics, isEmpty);
       },
     );
 
