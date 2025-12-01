@@ -21,6 +21,5 @@ FederateToIdentityPoolOptions _$FederateToIdentityPoolOptionsFromJson(
 Map<String, dynamic> _$FederateToIdentityPoolOptionsToJson(
   FederateToIdentityPoolOptions instance,
 ) => <String, dynamic>{
-  if (instance.developerProvidedIdentityId case final value?)
-    'developerProvidedIdentityId': value,
+  'developerProvidedIdentityId': ?instance.developerProvidedIdentityId,
 };
