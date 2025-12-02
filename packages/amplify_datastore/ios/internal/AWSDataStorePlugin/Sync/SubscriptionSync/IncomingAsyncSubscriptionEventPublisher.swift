@@ -44,6 +44,7 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
     private let consistencyQueue: DispatchQueue
     private let taskQueue: TaskQueue<Void>
     private let modelName: ModelName
+    private let modelPredicate: QueryPredicate?
 
     init(modelSchema: ModelSchema,
          api: APICategoryGraphQLBehavior,
@@ -59,6 +60,7 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
         )
         self.taskQueue = TaskQueue()
         self.modelName = modelSchema.name
+        self.modelPredicate = modelPredicate
 
         self.connectionStatusQueue = OperationQueue()
         connectionStatusQueue.name
