@@ -24,6 +24,7 @@ class StateMachineBloc
   StateMachineBloc({
     required AuthService authService,
     required this.preferPrivateSession,
+    this.oidcOptions,
     this.initialStep = AuthenticatorStep.signIn,
     this.totpOptions,
   }) : _authService = authService {
@@ -40,6 +41,7 @@ class StateMachineBloc
   }
   final AuthService _authService;
   final bool preferPrivateSession;
+  final OidcOptions? oidcOptions;
   final AuthenticatorStep initialStep;
   final TotpOptions? totpOptions;
 
