@@ -8,13 +8,13 @@ part of 'update_endpoint_response.dart';
 
 class _$UpdateEndpointResponse extends UpdateEndpointResponse {
   @override
-  final MessageBody messageBody;
+  final MessageBody? messageBody;
 
   factory _$UpdateEndpointResponse([
     void Function(UpdateEndpointResponseBuilder)? updates,
   ]) => (UpdateEndpointResponseBuilder()..update(updates))._build();
 
-  _$UpdateEndpointResponse._({required this.messageBody}) : super._();
+  _$UpdateEndpointResponse._({this.messageBody}) : super._();
   @override
   UpdateEndpointResponse rebuild(
     void Function(UpdateEndpointResponseBuilder) updates,
@@ -54,7 +54,7 @@ class UpdateEndpointResponseBuilder
   UpdateEndpointResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _messageBody = $v.messageBody.toBuilder();
+      _messageBody = $v.messageBody?.toBuilder();
       _$v = null;
     }
     return this;
@@ -77,12 +77,12 @@ class UpdateEndpointResponseBuilder
     _$UpdateEndpointResponse _$result;
     try {
       _$result =
-          _$v ?? _$UpdateEndpointResponse._(messageBody: messageBody.build());
+          _$v ?? _$UpdateEndpointResponse._(messageBody: _messageBody?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'messageBody';
-        messageBody.build();
+        _messageBody?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'UpdateEndpointResponse',

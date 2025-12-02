@@ -83,32 +83,32 @@ void main() {
 
       final endpointRequest = captured.endpointRequest;
 
-      expect(endpointRequest.attributes, isEmpty);
-      expect(endpointRequest.metrics, isEmpty);
+      expect(endpointRequest?.attributes, isEmpty);
+      expect(endpointRequest?.metrics, isEmpty);
 
       // Demographics
-      expect(endpointRequest.demographic, isNotNull);
-      final demographic = endpointRequest.demographic!;
+      expect(endpointRequest?.demographic, isNotNull);
+      final demographic = endpointRequest?.demographic;
 
-      expect(demographic.appVersion, mockDeviceContextInfo.appVersion);
-      expect(demographic.locale, mockDeviceContextInfo.locale);
-      expect(demographic.make, mockDeviceContextInfo.make);
-      expect(demographic.model, mockDeviceContextInfo.model);
-      expect(demographic.modelVersion, mockDeviceContextInfo.modelVersion);
-      expect(demographic.platform, mockDeviceContextInfo.platform!.name);
+      expect(demographic?.appVersion, mockDeviceContextInfo.appVersion);
+      expect(demographic?.locale, mockDeviceContextInfo.locale);
+      expect(demographic?.make, mockDeviceContextInfo.make);
+      expect(demographic?.model, mockDeviceContextInfo.model);
+      expect(demographic?.modelVersion, mockDeviceContextInfo.modelVersion);
+      expect(demographic?.platform, mockDeviceContextInfo.platform!.name);
       expect(
-        demographic.platformVersion,
+        demographic?.platformVersion,
         mockDeviceContextInfo.platformVersion,
       );
-      expect(demographic.timezone, mockDeviceContextInfo.timezone);
+      expect(demographic?.timezone, mockDeviceContextInfo.timezone);
 
       // Location
-      expect(endpointRequest.location, isNotNull);
-      final location = endpointRequest.location!;
+      expect(endpointRequest?.location, isNotNull);
+      final location = endpointRequest?.location;
 
-      expect(location.country, mockDeviceContextInfo.countryCode);
-      expect(location.latitude, isNull);
-      expect(location.longitude, isNull);
+      expect(location?.country, mockDeviceContextInfo.countryCode);
+      expect(location?.latitude, isNull);
+      expect(location?.longitude, isNull);
     });
 
     test(
@@ -142,9 +142,9 @@ void main() {
 
         final endpointRequest = captured.endpointRequest;
 
-        expect(endpointRequest.channelType, channelType);
-        expect(endpointRequest.address, address);
-        expect(endpointRequest.optOut, optOut);
+        expect(endpointRequest?.channelType, channelType);
+        expect(endpointRequest?.address, address);
+        expect(endpointRequest?.optOut, optOut);
       },
     );
 
@@ -173,32 +173,32 @@ void main() {
       final endpointRequest = captured.endpointRequest;
 
       // Attributes
-      expect(endpointRequest.attributes, isNotNull);
-      final attributes = endpointRequest.attributes!;
+      expect(endpointRequest?.attributes, isNotNull);
+      final attributes = endpointRequest?.attributes;
 
-      expect(attributes['name'], [userProfile.name]);
-      expect(attributes['email'], [userProfile.email]);
-      expect(attributes['plan'], [userProfile.plan]);
-      expect(attributes[stringProperty], [stringValue]);
-      expect(attributes[boolProperty], [boolValue.toString()]);
+      expect(attributes?['name'], [userProfile.name]);
+      expect(attributes?['email'], [userProfile.email]);
+      expect(attributes?['plan'], [userProfile.plan]);
+      expect(attributes?[stringProperty], [stringValue]);
+      expect(attributes?[boolProperty], [boolValue.toString()]);
 
       // Metrics
-      expect(endpointRequest.metrics, isNotNull);
-      final metrics = endpointRequest.metrics!;
+      expect(endpointRequest?.metrics, isNotNull);
+      final metrics = endpointRequest?.metrics;
 
-      expect(metrics[doubleProperty], doubleValue);
-      expect(metrics[intProperty], intValue);
+      expect(metrics?[doubleProperty], doubleValue);
+      expect(metrics?[intProperty], intValue);
 
       // Location
-      expect(endpointRequest.location, isNotNull);
-      final location = endpointRequest.location!;
+      expect(endpointRequest?.location, isNotNull);
+      final location = endpointRequest?.location;
 
-      expect(location.city, userLocation.city);
-      expect(location.country, userLocation.country);
-      expect(location.latitude, userLocation.latitude);
-      expect(location.longitude, userLocation.longitude);
-      expect(location.postalCode, userLocation.postalCode);
-      expect(location.region, userLocation.region);
+      expect(location?.city, userLocation.city);
+      expect(location?.country, userLocation.country);
+      expect(location?.latitude, userLocation.latitude);
+      expect(location?.longitude, userLocation.longitude);
+      expect(location?.postalCode, userLocation.postalCode);
+      expect(location?.region, userLocation.region);
     });
 
     test('getPublicEndpoint returns an Endpoint with all set values', () async {
