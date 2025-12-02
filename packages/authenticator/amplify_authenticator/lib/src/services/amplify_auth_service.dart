@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/version.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:collection/collection.dart';
@@ -14,6 +15,7 @@ abstract class AuthService {
   Future<SignInResult> signInWithProvider(
     AuthProvider provider, {
     required bool preferPrivateSession,
+    OidcOptions? oidcOptions,
   });
 
   Future<void> signOut();
@@ -109,6 +111,7 @@ class AmplifyAuthService
   Future<SignInResult> signInWithProvider(
     AuthProvider provider, {
     required bool preferPrivateSession,
+    OidcOptions? oidcOptions,
   }) {
     return _withUserAgent(
       () => Amplify.Auth.signInWithWebUI(
@@ -116,6 +119,11 @@ class AmplifyAuthService
         options: SignInWithWebUIOptions(
           pluginOptions: CognitoSignInWithWebUIPluginOptions(
             isPreferPrivateSession: preferPrivateSession,
+            nonce: oidcOptions?.nonce,
+            language: oidcOptions?.language,
+            loginHint: oidcOptions?.loginHint,
+            prompt: oidcOptions?.prompt,
+            resource: oidcOptions?.resource,
           ),
         ),
       ),
