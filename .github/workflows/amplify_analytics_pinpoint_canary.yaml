@@ -1,0 +1,95 @@
+# CANARY WORKFLOW
+# This is a minimal weekly test for Analytics (Pinpoint).
+# Runs every Monday at 6am PST.
+# For comprehensive testing, see amplify_analytics_pinpoint_example.yaml
+# Platform coverage: Android 35 only (stable channel only)
+name: Analytics Canary
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/amplify_analytics_pinpoint_canary.yaml"
+  schedule:
+    # Weekly on Monday at 6am PST (13:00 UTC)
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e-android:
+    runs-on: ubuntu-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        channel:
+          - "stable"
+        flutter-version:
+          - "any" # latest
+    steps:
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+        with:
+          persist-credentials: false
+          submodules: true
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+        with:
+          channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.flutter-version }}
+
+      - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # 5.0.0
+        with:
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "17"
+
+      # Must be run before `fetch_backends` so that `pubspec.lock` is present.
+      - name: Pub Upgrade
+        working-directory: canaries
+        run: flutter pub upgrade
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: amplified_todo
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
+      - name: Run Analytics Canary (Android)
+        timeout-minutes: 45
+        uses: ./.github/composite_actions/launch_android_emulator
+        with:
+          # Perform a build to reduce startup time of `flutter test` and prevent timeout
+          script: cd canaries && flutter build apk --debug && flutter test -d emulator-5554 integration_test/main_test.dart
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: canary
+          working-directory: canaries
+
+          framework: flutter
+          flutter-dart-channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.flutter-version }}
+          platform: android
+          platform-version: "35"
