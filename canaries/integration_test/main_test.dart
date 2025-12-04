@@ -86,7 +86,7 @@ void main() {
     await Amplify.Analytics.recordEvent(event: event);
     await Amplify.Analytics.flushEvents();
 
-    // === API: Get current user ===
+    // === AUTH: Get current user ===
     final username = (await Amplify.Auth.getCurrentUser()).username;
 
     // === API: Create Todo ===
