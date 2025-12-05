@@ -210,6 +210,13 @@ class _MyAppState extends State<MyApp> {
   // Widget build(BuildContext context) {
   //   return const AuthenticatorWithCustomAuthFlow();
   // }
+
+  // Below is an example showing TextEditingController support for
+  // programmatic form field control
+  // @override
+  // Widget build(BuildContext context) {
+  //   return const AuthenticatorWithControllers();
+  // }
 }
 
 /// The screen which is shown once the user is logged in. We can use
