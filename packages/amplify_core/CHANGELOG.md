@@ -1,3 +1,8 @@
+## 2.8.0
+
+### Features
+- feat(auth): add support for cognito oidc parameters in managed login ([#6442](https://github.com/aws-amplify/amplify-flutter/pull/6442))
+
 ## 2.7.0
 
 ### Features
