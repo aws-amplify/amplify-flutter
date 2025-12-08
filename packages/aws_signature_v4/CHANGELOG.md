@@ -1,3 +1,7 @@
+## 0.6.10
+
+- Minor bug fixes and improvements
+
 ## 0.6.9
 
 ### Chores
