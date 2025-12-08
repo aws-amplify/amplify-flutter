@@ -1,3 +1,22 @@
+## 2.8.0
+
+### Features
+- feat(auth): add support for cognito oidc parameters in managed login ([#6442](https://github.com/aws-amplify/amplify-flutter/pull/6442))
+
+### Chores
+- chore(all): bumped analyzer to ^9.0.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped built_collection to ^5.1.1 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped collection to ^1.18.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped crypto: ^3.0.7 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped grpc to ^5.0.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped json_serializable to ^6.11.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped meta to ^1.16.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped pigeon to ^26.0.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped protobuf to ^5.0.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped shelf to ^1.4.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped source_gen to ^4.0.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+- chore(all): bumped stream_transform to ^2.1.0 ([#6457](https://github.com/aws-amplify/amplify-flutter/pull/6457))
+
 ## 2.7.0
 
 ### Features
