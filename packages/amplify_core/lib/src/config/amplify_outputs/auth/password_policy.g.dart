@@ -45,7 +45,7 @@ PasswordPolicy _$PasswordPolicyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PasswordPolicyToJson(PasswordPolicy instance) =>
     <String, dynamic>{
-      if (instance.minLength case final value?) 'min_length': value,
+      'min_length': ?instance.minLength,
       'require_numbers': instance.requireNumbers,
       'require_lowercase': instance.requireLowercase,
       'require_uppercase': instance.requireUppercase,

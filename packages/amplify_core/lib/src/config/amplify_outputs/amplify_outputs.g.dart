@@ -53,13 +53,12 @@ AmplifyOutputs _$AmplifyOutputsFromJson(
 
 Map<String, dynamic> _$AmplifyOutputsToJson(AmplifyOutputs instance) =>
     <String, dynamic>{
-      if (instance.schema case final value?) 'schema': value,
+      'schema': ?instance.schema,
       'version': instance.version,
-      if (instance.analytics?.toJson() case final value?) 'analytics': value,
-      if (instance.auth?.toJson() case final value?) 'auth': value,
-      if (_dataToJson(instance.data) case final value?) 'data': value,
-      if (instance.notifications?.toJson() case final value?)
-        'notifications': value,
-      if (instance.storage?.toJson() case final value?) 'storage': value,
-      if (instance.custom case final value?) 'custom': value,
+      'analytics': ?instance.analytics?.toJson(),
+      'auth': ?instance.auth?.toJson(),
+      'data': ?_dataToJson(instance.data),
+      'notifications': ?instance.notifications?.toJson(),
+      'storage': ?instance.storage?.toJson(),
+      'custom': ?instance.custom,
     };

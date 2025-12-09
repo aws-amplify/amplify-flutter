@@ -33,7 +33,7 @@ Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) =>
       'region': instance.region,
       'authorizationType':
           _$APIAuthorizationTypeEnumMap[instance.authorizationType]!,
-      if (instance.apiKey case final value?) 'apiKey': value,
+      'apiKey': ?instance.apiKey,
     };
 
 const _$EndpointTypeEnumMap = {

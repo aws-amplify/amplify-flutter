@@ -76,14 +76,12 @@ Map<String, dynamic> _$OAuthOutputsToJson(OAuthOutputs instance) =>
       'domain': instance.domain,
       'scopes': instance.scopes,
       'redirect_sign_in_uri': instance.redirectSignInUri,
-      if (instance.signInUri case final value?) 'sign_in_uri': value,
-      if (instance.signInUriQueryParameters case final value?)
-        'sign_in_uri_query_parameters': value,
+      'sign_in_uri': ?instance.signInUri,
+      'sign_in_uri_query_parameters': ?instance.signInUriQueryParameters,
       'redirect_sign_out_uri': instance.redirectSignOutUri,
-      if (instance.signOutUri case final value?) 'sign_out_uri': value,
-      if (instance.signOutUriQueryParameters case final value?)
-        'sign_out_uri_query_parameters': value,
-      if (instance.tokenUri case final value?) 'token_uri': value,
+      'sign_out_uri': ?instance.signOutUri,
+      'sign_out_uri_query_parameters': ?instance.signOutUriQueryParameters,
+      'token_uri': ?instance.tokenUri,
       'response_type': _$OAuthResponseTypeEnumMap[instance.responseType]!,
     };
 
