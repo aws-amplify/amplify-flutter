@@ -44,7 +44,7 @@ Map<String, dynamic> _$CognitoAppSyncConfigToJson(
   'ApiUrl': instance.apiUrl,
   'Region': instance.region,
   'AuthMode': _$APIAuthorizationTypeEnumMap[instance.authMode]!,
-  if (instance.apiKey case final value?) 'ApiKey': value,
+  'ApiKey': ?instance.apiKey,
   'ClientDatabasePrefix': instance.clientDatabasePrefix,
 };
 

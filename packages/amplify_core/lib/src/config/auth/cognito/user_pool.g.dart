@@ -44,8 +44,8 @@ Map<String, dynamic> _$CognitoUserPoolConfigToJson(
 ) => <String, dynamic>{
   'PoolId': instance.poolId,
   'AppClientId': instance.appClientId,
-  if (instance.appClientSecret case final value?) 'AppClientSecret': value,
+  'AppClientSecret': ?instance.appClientSecret,
   'Region': instance.region,
-  if (instance.hostedUI?.toJson() case final value?) 'HostedUI': value,
-  if (instance.endpoint case final value?) 'Endpoint': value,
+  'HostedUI': ?instance.hostedUI?.toJson(),
+  'Endpoint': ?instance.endpoint,
 };

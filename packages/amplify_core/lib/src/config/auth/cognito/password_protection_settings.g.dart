@@ -31,11 +31,9 @@ PasswordProtectionSettings _$PasswordProtectionSettingsFromJson(
 Map<String, dynamic> _$PasswordProtectionSettingsToJson(
   PasswordProtectionSettings instance,
 ) => <String, dynamic>{
-  if (const _PasswordPolicyMinLengthConverter().toJson(
-        instance.passwordPolicyMinLength,
-      )
-      case final value?)
-    'passwordPolicyMinLength': value,
+  'passwordPolicyMinLength': ?const _PasswordPolicyMinLengthConverter().toJson(
+    instance.passwordPolicyMinLength,
+  ),
   'passwordPolicyCharacters': instance.passwordPolicyCharacters
       .map((e) => _$PasswordPolicyCharactersEnumMap[e]!)
       .toList(),
