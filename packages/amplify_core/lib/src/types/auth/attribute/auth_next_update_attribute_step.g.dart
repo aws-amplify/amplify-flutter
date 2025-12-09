@@ -35,8 +35,7 @@ Map<String, dynamic> _$AuthNextUpdateAttributeStepToJson(
   AuthNextUpdateAttributeStep instance,
 ) => <String, dynamic>{
   'additionalInfo': instance.additionalInfo,
-  if (instance.codeDeliveryDetails?.toJson() case final value?)
-    'codeDeliveryDetails': value,
+  'codeDeliveryDetails': ?instance.codeDeliveryDetails?.toJson(),
   'updateAttributeStep':
       _$AuthUpdateAttributeStepEnumMap[instance.updateAttributeStep]!,
 };

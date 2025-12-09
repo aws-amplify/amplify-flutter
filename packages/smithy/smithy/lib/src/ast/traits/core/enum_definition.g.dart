@@ -20,8 +20,8 @@ EnumDefinition _$EnumDefinitionFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$EnumDefinitionToJson(EnumDefinition instance) =>
     <String, dynamic>{
       'value': instance.value,
-      if (instance.name case final value?) 'name': value,
-      if (instance.documentation case final value?) 'documentation': value,
+      'name': ?instance.name,
+      'documentation': ?instance.documentation,
       'tags': instance.tags,
-      if (instance.deprecated case final value?) 'deprecated': value,
+      'deprecated': ?instance.deprecated,
     };

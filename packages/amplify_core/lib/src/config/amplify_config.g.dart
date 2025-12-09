@@ -57,10 +57,9 @@ Map<String, dynamic> _$AmplifyConfigToJson(AmplifyConfig instance) =>
     <String, dynamic>{
       'UserAgent': instance.userAgent,
       'Version': instance.version,
-      if (instance.api?.toJson() case final value?) 'api': value,
-      if (instance.analytics?.toJson() case final value?) 'analytics': value,
-      if (instance.auth?.toJson() case final value?) 'auth': value,
-      if (instance.notifications?.toJson() case final value?)
-        'notifications': value,
-      if (instance.storage?.toJson() case final value?) 'storage': value,
+      'api': ?instance.api?.toJson(),
+      'analytics': ?instance.analytics?.toJson(),
+      'auth': ?instance.auth?.toJson(),
+      'notifications': ?instance.notifications?.toJson(),
+      'storage': ?instance.storage?.toJson(),
     };

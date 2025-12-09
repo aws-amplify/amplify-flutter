@@ -41,7 +41,7 @@ Map<String, dynamic> _$DataOutputsToJson(DataOutputs instance) =>
     <String, dynamic>{
       'aws_region': instance.awsRegion,
       'url': instance.url,
-      if (instance.apiKey case final value?) 'api_key': value,
+      'api_key': ?instance.apiKey,
       'default_authorization_type':
           _$APIAuthorizationTypeEnumMap[instance.defaultAuthorizationType]!,
       'authorization_types': instance.authorizationTypes

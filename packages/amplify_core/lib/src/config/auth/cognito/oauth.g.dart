@@ -69,15 +69,13 @@ Map<String, dynamic> _$CognitoOAuthConfigToJson(CognitoOAuthConfig instance) =>
     <String, dynamic>{
       'WebDomain': instance.webDomain,
       'AppClientId': instance.appClientId,
-      if (instance.appClientSecret case final value?) 'AppClientSecret': value,
+      'AppClientSecret': ?instance.appClientSecret,
       'SignInRedirectURI': instance.signInRedirectUri,
-      if (instance.signInUri case final value?) 'SignInURI': value,
-      if (instance.signInUriQueryParameters case final value?)
-        'SignInURIQueryParameters': value,
+      'SignInURI': ?instance.signInUri,
+      'SignInURIQueryParameters': ?instance.signInUriQueryParameters,
       'SignOutRedirectURI': instance.signOutRedirectUri,
-      if (instance.signOutUri case final value?) 'SignOutURI': value,
-      if (instance.signOutUriQueryParameters case final value?)
-        'SignOutURIQueryParameters': value,
-      if (instance.tokenUri case final value?) 'TokenURI': value,
+      'SignOutURI': ?instance.signOutUri,
+      'SignOutURIQueryParameters': ?instance.signOutUriQueryParameters,
+      'TokenURI': ?instance.tokenUri,
       'Scopes': instance.scopes,
     };
