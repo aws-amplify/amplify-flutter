@@ -73,32 +73,22 @@ CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CognitoAuthConfigToJson(
   CognitoAuthConfig instance,
 ) => <String, dynamic>{
-  if (instance.oAuth?.toJson() case final value?) 'OAuth': value,
-  if (instance.socialProviders?.map((e) => _$SocialProviderEnumMap[e]!).toList()
-      case final value?)
-    'socialProviders': value,
-  if (instance.usernameAttributes
-          ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
-          .toList()
-      case final value?)
-    'usernameAttributes': value,
-  if (instance.signupAttributes
-          ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
-          .toList()
-      case final value?)
-    'signupAttributes': value,
-  if (instance.passwordProtectionSettings?.toJson() case final value?)
-    'passwordProtectionSettings': value,
-  if (_$MfaConfigurationEnumMap[instance.mfaConfiguration] case final value?)
-    'mfaConfiguration': value,
-  if (instance.mfaTypes?.map((e) => _$MfaTypeEnumMap[e]!).toList()
-      case final value?)
-    'mfaTypes': value,
-  if (instance.verificationMechanisms
-          ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
-          .toList()
-      case final value?)
-    'verificationMechanisms': value,
+  'OAuth': ?instance.oAuth?.toJson(),
+  'socialProviders': ?instance.socialProviders
+      ?.map((e) => _$SocialProviderEnumMap[e]!)
+      .toList(),
+  'usernameAttributes': ?instance.usernameAttributes
+      ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
+      .toList(),
+  'signupAttributes': ?instance.signupAttributes
+      ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
+      .toList(),
+  'passwordProtectionSettings': ?instance.passwordProtectionSettings?.toJson(),
+  'mfaConfiguration': ?_$MfaConfigurationEnumMap[instance.mfaConfiguration],
+  'mfaTypes': ?instance.mfaTypes?.map((e) => _$MfaTypeEnumMap[e]!).toList(),
+  'verificationMechanisms': ?instance.verificationMechanisms
+      ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
+      .toList(),
 };
 
 const _$SocialProviderEnumMap = {

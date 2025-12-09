@@ -98,40 +98,31 @@ AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
   },
 );
 
-Map<String, dynamic> _$AuthOutputsToJson(
-  AuthOutputs instance,
-) => <String, dynamic>{
-  'aws_region': instance.awsRegion,
-  if (instance.userPoolId case final value?) 'user_pool_id': value,
-  if (instance.userPoolClientId case final value?) 'user_pool_client_id': value,
-  if (instance.appClientSecret case final value?) 'app_client_secret': value,
-  if (instance.identityPoolId case final value?) 'identity_pool_id': value,
-  if (instance.passwordPolicy?.toJson() case final value?)
-    'password_policy': value,
-  if (instance.oauth?.toJson() case final value?) 'oauth': value,
-  if (instance.standardRequiredAttributes
+Map<String, dynamic> _$AuthOutputsToJson(AuthOutputs instance) =>
+    <String, dynamic>{
+      'aws_region': instance.awsRegion,
+      'user_pool_id': ?instance.userPoolId,
+      'user_pool_client_id': ?instance.userPoolClientId,
+      'app_client_secret': ?instance.appClientSecret,
+      'identity_pool_id': ?instance.identityPoolId,
+      'password_policy': ?instance.passwordPolicy?.toJson(),
+      'oauth': ?instance.oauth?.toJson(),
+      'standard_required_attributes': ?instance.standardRequiredAttributes
           ?.map(const CognitoUserAttributeKeyConverter().toJson)
-          .toList()
-      case final value?)
-    'standard_required_attributes': value,
-  if (instance.usernameAttributes
+          .toList(),
+      'username_attributes': ?instance.usernameAttributes
           ?.map(const CognitoUserAttributeKeyConverter().toJson)
-          .toList()
-      case final value?)
-    'username_attributes': value,
-  if (instance.userVerificationTypes
+          .toList(),
+      'user_verification_types': ?instance.userVerificationTypes
           ?.map(const CognitoUserAttributeKeyConverter().toJson)
-          .toList()
-      case final value?)
-    'user_verification_types': value,
-  'unauthenticated_identities_enabled':
-      instance.unauthenticatedIdentitiesEnabled,
-  if (_$MfaEnforcementEnumMap[instance.mfaConfiguration] case final value?)
-    'mfa_configuration': value,
-  if (instance.mfaMethods?.map((e) => _$MfaMethodEnumMap[e]!).toList()
-      case final value?)
-    'mfa_methods': value,
-};
+          .toList(),
+      'unauthenticated_identities_enabled':
+          instance.unauthenticatedIdentitiesEnabled,
+      'mfa_configuration': ?_$MfaEnforcementEnumMap[instance.mfaConfiguration],
+      'mfa_methods': ?instance.mfaMethods
+          ?.map((e) => _$MfaMethodEnumMap[e]!)
+          .toList(),
+    };
 
 const _$MfaEnforcementEnumMap = {
   MfaEnforcement.optional: 'OPTIONAL',

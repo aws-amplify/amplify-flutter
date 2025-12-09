@@ -25,5 +25,5 @@ Map<String, dynamic> _$SignUpResultToJson(SignUpResult instance) =>
     <String, dynamic>{
       'isSignUpComplete': instance.isSignUpComplete,
       'nextStep': instance.nextStep.toJson(),
-      if (instance.userId case final value?) 'userId': value,
+      'userId': ?instance.userId,
     };

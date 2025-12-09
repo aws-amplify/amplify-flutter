@@ -123,18 +123,12 @@ Map<String, dynamic> _$CognitoPluginConfigToJson(
 ) => <String, dynamic>{
   'UserAgent': instance.userAgent,
   'Version': instance.version,
-  if (instance.identityManager?.toJson() case final value?)
-    'IdentityManager': value,
-  if (instance.credentialsProvider?.toJson() case final value?)
-    'CredentialsProvider': value,
-  if (instance.cognitoUserPool?.toJson() case final value?)
-    'CognitoUserPool': value,
-  if (instance.auth?.toJson() case final value?) 'Auth': value,
-  if (instance.appSync?.toJson() case final value?) 'AppSync': value,
-  if (instance.pinpointAnalytics?.toJson() case final value?)
-    'PinpointAnalytics': value,
-  if (instance.pinpointTargeting?.toJson() case final value?)
-    'PinpointTargeting': value,
-  if (instance.s3TransferUtility?.toJson() case final value?)
-    'S3TransferUtility': value,
+  'IdentityManager': ?instance.identityManager?.toJson(),
+  'CredentialsProvider': ?instance.credentialsProvider?.toJson(),
+  'CognitoUserPool': ?instance.cognitoUserPool?.toJson(),
+  'Auth': ?instance.auth?.toJson(),
+  'AppSync': ?instance.appSync?.toJson(),
+  'PinpointAnalytics': ?instance.pinpointAnalytics?.toJson(),
+  'PinpointTargeting': ?instance.pinpointTargeting?.toJson(),
+  'S3TransferUtility': ?instance.s3TransferUtility?.toJson(),
 };
