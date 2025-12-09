@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.put_events_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,7 +18,7 @@ abstract class PutEventsRequest
         _i1.HasPayload<EventsRequest> {
   factory PutEventsRequest({
     required String applicationId,
-    required EventsRequest eventsRequest,
+    EventsRequest? eventsRequest,
   }) {
     return _$PutEventsRequest._(
       applicationId: applicationId,
@@ -33,17 +33,19 @@ abstract class PutEventsRequest
   const PutEventsRequest._();
 
   factory PutEventsRequest.fromRequest(
-    EventsRequest payload,
+    EventsRequest? payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) => PutEventsRequest.build((b) {
-    b.eventsRequest.replace(payload);
+    if (payload != null) {
+      b.eventsRequest.replace(payload);
+    }
     if (labels['applicationId'] != null) {
       b.applicationId = labels['applicationId']!;
     }
   });
 
-  static const List<_i1.SmithySerializer<EventsRequest>> serializers = [
+  static const List<_i1.SmithySerializer<EventsRequest?>> serializers = [
     PutEventsRequestRestJson1Serializer(),
   ];
 
@@ -51,7 +53,7 @@ abstract class PutEventsRequest
   String get applicationId;
 
   /// Specifies a batch of events to process.
-  EventsRequest get eventsRequest;
+  EventsRequest? get eventsRequest;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -62,9 +64,11 @@ abstract class PutEventsRequest
   }
 
   @override
-  EventsRequest getPayload() => eventsRequest;
+  EventsRequest? getPayload() => eventsRequest ?? EventsRequest();
+
   @override
   List<Object?> get props => [applicationId, eventsRequest];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutEventsRequest')
@@ -80,10 +84,12 @@ class PutEventsRequestRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [PutEventsRequest, _$PutEventsRequest];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
     _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   EventsRequest deserialize(
     Serializers serializers,

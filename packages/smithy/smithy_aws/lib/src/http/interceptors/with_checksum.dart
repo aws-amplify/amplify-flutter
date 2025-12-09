@@ -10,13 +10,20 @@ import 'package:crclib/catalog.dart';
 import 'package:crclib/crclib.dart';
 import 'package:crypto/crypto.dart';
 import 'package:smithy/smithy.dart';
+import 'package:smithy_aws/src/http/interceptors/crc64nvme.dart';
 
 class _CrcValueToHeaderConverter extends Converter<CrcValue, String> {
   const _CrcValueToHeaderConverter();
 
   @override
   String convert(CrcValue input) {
-    return base64Encode(hex.decode(input.toRadixString(16)));
+    // Convert to BigInt to ensure unsigned representation
+    final bigIntValue = input.toBigInt();
+    final hexString = bigIntValue.toRadixString(16);
+
+    // Pad with leading zero if odd length (hex.decode requires even length)
+    final paddedHex = hexString.length.isOdd ? '0$hexString' : hexString;
+    return base64Encode(hex.decode(paddedHex));
   }
 
   @override
@@ -90,19 +97,4 @@ class WithChecksum extends HttpRequestInterceptor {
     request.headers[_header] = digest;
     return request;
   }
-}
-
-// Parameters are defined here
-// https://reveng.sourceforge.io/crc-catalogue/all.htm#crc.cat.crc-64-nvme
-// https://nvmexpress.org/wp-content/uploads/NVM-Express-NVM-Command-Set-Specification-1.0d-2023.12.28-Ratified.pdf
-class Crc64Nvme extends ParametricCrc {
-  Crc64Nvme()
-    : super(
-        64,
-        BigInt.parse('ad93d23594c93659', radix: 16),
-        BigInt.parse('ffffffffffffffff', radix: 16),
-        BigInt.parse('ffffffffffffffff', radix: 16),
-        inputReflected: true,
-        outputReflected: true,
-      );
 }

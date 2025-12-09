@@ -8,16 +8,15 @@ part of 'campaign_event_filter.dart';
 
 class _$CampaignEventFilter extends CampaignEventFilter {
   @override
-  final EventDimensions dimensions;
+  final EventDimensions? dimensions;
   @override
-  final FilterType filterType;
+  final FilterType? filterType;
 
   factory _$CampaignEventFilter([
     void Function(CampaignEventFilterBuilder)? updates,
   ]) => (CampaignEventFilterBuilder()..update(updates))._build();
 
-  _$CampaignEventFilter._({required this.dimensions, required this.filterType})
-    : super._();
+  _$CampaignEventFilter._({this.dimensions, this.filterType}) : super._();
   @override
   CampaignEventFilter rebuild(
     void Function(CampaignEventFilterBuilder) updates,
@@ -64,7 +63,7 @@ class CampaignEventFilterBuilder
   CampaignEventFilterBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _dimensions = $v.dimensions.toBuilder();
+      _dimensions = $v.dimensions?.toBuilder();
       _filterType = $v.filterType;
       _$v = null;
     }
@@ -90,18 +89,14 @@ class CampaignEventFilterBuilder
       _$result =
           _$v ??
           _$CampaignEventFilter._(
-            dimensions: dimensions.build(),
-            filterType: BuiltValueNullFieldError.checkNotNull(
-              filterType,
-              r'CampaignEventFilter',
-              'filterType',
-            ),
+            dimensions: _dimensions?.build(),
+            filterType: filterType,
           );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'dimensions';
-        dimensions.build();
+        _dimensions?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'CampaignEventFilter',

@@ -8,21 +8,18 @@ part of 'in_app_message_body_config.dart';
 
 class _$InAppMessageBodyConfig extends InAppMessageBodyConfig {
   @override
-  final Alignment alignment;
+  final Alignment? alignment;
   @override
-  final String body;
+  final String? body;
   @override
-  final String textColor;
+  final String? textColor;
 
   factory _$InAppMessageBodyConfig([
     void Function(InAppMessageBodyConfigBuilder)? updates,
   ]) => (InAppMessageBodyConfigBuilder()..update(updates))._build();
 
-  _$InAppMessageBodyConfig._({
-    required this.alignment,
-    required this.body,
-    required this.textColor,
-  }) : super._();
+  _$InAppMessageBodyConfig._({this.alignment, this.body, this.textColor})
+    : super._();
   @override
   InAppMessageBodyConfig rebuild(
     void Function(InAppMessageBodyConfigBuilder) updates,
@@ -98,21 +95,9 @@ class InAppMessageBodyConfigBuilder
     final _$result =
         _$v ??
         _$InAppMessageBodyConfig._(
-          alignment: BuiltValueNullFieldError.checkNotNull(
-            alignment,
-            r'InAppMessageBodyConfig',
-            'alignment',
-          ),
-          body: BuiltValueNullFieldError.checkNotNull(
-            body,
-            r'InAppMessageBodyConfig',
-            'body',
-          ),
-          textColor: BuiltValueNullFieldError.checkNotNull(
-            textColor,
-            r'InAppMessageBodyConfig',
-            'textColor',
-          ),
+          alignment: alignment,
+          body: body,
+          textColor: textColor,
         );
     replace(_$result);
     return _$result;

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_header_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,9 +18,9 @@ abstract class InAppMessageHeaderConfig
         Built<InAppMessageHeaderConfig, InAppMessageHeaderConfigBuilder> {
   /// Text config for Message Header.
   factory InAppMessageHeaderConfig({
-    required Alignment alignment,
-    required String header,
-    required String textColor,
+    Alignment? alignment,
+    String? header,
+    String? textColor,
   }) {
     return _$InAppMessageHeaderConfig._(
       alignment: alignment,
@@ -40,15 +40,16 @@ abstract class InAppMessageHeaderConfig
   serializers = [InAppMessageHeaderConfigRestJson1Serializer()];
 
   /// The alignment of the text. Valid values: LEFT, CENTER, RIGHT.
-  Alignment get alignment;
+  Alignment? get alignment;
 
   /// Message Header.
-  String get header;
+  String? get header;
 
   /// The text color.
-  String get textColor;
+  String? get textColor;
   @override
   List<Object?> get props => [alignment, header, textColor];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InAppMessageHeaderConfig')
@@ -69,10 +70,12 @@ class InAppMessageHeaderConfigRestJson1Serializer
     InAppMessageHeaderConfig,
     _$InAppMessageHeaderConfig,
   ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
     _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
   ];
+
   @override
   InAppMessageHeaderConfig deserialize(
     Serializers serializers,
@@ -124,17 +127,33 @@ class InAppMessageHeaderConfigRestJson1Serializer
   }) {
     final result$ = <Object?>[];
     final InAppMessageHeaderConfig(:alignment, :header, :textColor) = object;
-    result$.addAll([
-      'Alignment',
-      serializers.serialize(
-        alignment,
-        specifiedType: const FullType(Alignment),
-      ),
-      'Header',
-      serializers.serialize(header, specifiedType: const FullType(String)),
-      'TextColor',
-      serializers.serialize(textColor, specifiedType: const FullType(String)),
-    ]);
+    if (alignment != null) {
+      result$
+        ..add('Alignment')
+        ..add(
+          serializers.serialize(
+            alignment,
+            specifiedType: const FullType(Alignment),
+          ),
+        );
+    }
+    if (header != null) {
+      result$
+        ..add('Header')
+        ..add(
+          serializers.serialize(header, specifiedType: const FullType(String)),
+        );
+    }
+    if (textColor != null) {
+      result$
+        ..add('TextColor')
+        ..add(
+          serializers.serialize(
+            textColor,
+            specifiedType: const FullType(String),
+          ),
+        );
+    }
     return result$;
   }
 }

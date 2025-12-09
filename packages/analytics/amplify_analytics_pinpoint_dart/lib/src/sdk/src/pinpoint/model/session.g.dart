@@ -10,21 +10,17 @@ class _$Session extends Session {
   @override
   final int? duration;
   @override
-  final String id;
+  final String? id;
   @override
-  final String startTimestamp;
+  final String? startTimestamp;
   @override
   final String? stopTimestamp;
 
   factory _$Session([void Function(SessionBuilder)? updates]) =>
       (SessionBuilder()..update(updates))._build();
 
-  _$Session._({
-    this.duration,
-    required this.id,
-    required this.startTimestamp,
-    this.stopTimestamp,
-  }) : super._();
+  _$Session._({this.duration, this.id, this.startTimestamp, this.stopTimestamp})
+    : super._();
   @override
   Session rebuild(void Function(SessionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -107,12 +103,8 @@ class SessionBuilder implements Builder<Session, SessionBuilder> {
         _$v ??
         _$Session._(
           duration: duration,
-          id: BuiltValueNullFieldError.checkNotNull(id, r'Session', 'id'),
-          startTimestamp: BuiltValueNullFieldError.checkNotNull(
-            startTimestamp,
-            r'Session',
-            'startTimestamp',
-          ),
+          id: id,
+          startTimestamp: startTimestamp,
           stopTimestamp: stopTimestamp,
         );
     replace(_$result);

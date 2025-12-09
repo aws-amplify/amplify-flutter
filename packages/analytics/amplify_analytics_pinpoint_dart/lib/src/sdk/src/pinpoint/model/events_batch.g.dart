@@ -8,14 +8,14 @@ part of 'events_batch.dart';
 
 class _$EventsBatch extends EventsBatch {
   @override
-  final PublicEndpoint endpoint;
+  final PublicEndpoint? endpoint;
   @override
-  final _i2.BuiltMap<String, Event> events;
+  final _i2.BuiltMap<String, Event>? events;
 
   factory _$EventsBatch([void Function(EventsBatchBuilder)? updates]) =>
       (EventsBatchBuilder()..update(updates))._build();
 
-  _$EventsBatch._({required this.endpoint, required this.events}) : super._();
+  _$EventsBatch._({this.endpoint, this.events}) : super._();
   @override
   EventsBatch rebuild(void Function(EventsBatchBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -59,8 +59,8 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
   EventsBatchBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _endpoint = $v.endpoint.toBuilder();
-      _events = $v.events.toBuilder();
+      _endpoint = $v.endpoint?.toBuilder();
+      _events = $v.events?.toBuilder();
       _$v = null;
     }
     return this;
@@ -84,14 +84,17 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
     try {
       _$result =
           _$v ??
-          _$EventsBatch._(endpoint: endpoint.build(), events: events.build());
+          _$EventsBatch._(
+            endpoint: _endpoint?.build(),
+            events: _events?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'endpoint';
-        endpoint.build();
+        _endpoint?.build();
         _$failedField = 'events';
-        events.build();
+        _events?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'EventsBatch',

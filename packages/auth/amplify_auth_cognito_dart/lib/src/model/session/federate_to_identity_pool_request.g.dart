@@ -30,5 +30,5 @@ Map<String, dynamic> _$FederateToIdentityPoolRequestToJson(
 ) => <String, dynamic>{
   'token': instance.token,
   'provider': instance.provider.toJson(),
-  if (instance.options?.toJson() case final value?) 'options': value,
+  'options': ?instance.options?.toJson(),
 };
