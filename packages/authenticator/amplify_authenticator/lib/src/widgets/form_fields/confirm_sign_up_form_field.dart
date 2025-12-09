@@ -21,6 +21,8 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     super.hintText,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
   }) : super._();
 
   /// {@macro amplify_authenticator.username_form_field}
@@ -29,6 +31,8 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
     AuthenticatorTextFieldController? authenticatorTextFieldController,
+    AuthenticatorTextEnabledOverride? enabledOverride,
+    bool visible = true,
   }) => _ConfirmSignUpUsernameField(
     key: key ?? keyUsernameConfirmSignUpFormField,
     titleKey: InputResolverKey.usernameTitle,
@@ -37,6 +41,8 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     validator: validator,
     autofillHints: autofillHints,
     authenticatorTextFieldController: authenticatorTextFieldController,
+    enabledOverride: enabledOverride,
+    visible: visible,
   );
 
   /// Creates a verificationCode component.
@@ -45,6 +51,8 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
     AuthenticatorTextFieldController? authenticatorTextFieldController,
+    AuthenticatorTextEnabledOverride? enabledOverride,
+    bool visible = true,
   }) => _ConfirmSignUpTextField(
     key: key ?? keyCodeConfirmSignUpFormField,
     titleKey: InputResolverKey.verificationCodeTitle,
@@ -53,6 +61,8 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     validator: validator,
     autofillHints: autofillHints,
     authenticatorTextFieldController: authenticatorTextFieldController,
+    enabledOverride: enabledOverride,
+    visible: visible,
   );
 
   @override
@@ -135,6 +145,8 @@ class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
     this.authenticatorTextFieldController,
   }) : super._();
 
@@ -218,6 +230,8 @@ class _ConfirmSignUpUsernameField
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
     this.authenticatorTextFieldController,
   }) : super._();
 

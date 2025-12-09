@@ -677,7 +677,7 @@ void main() {
               fields: [
                 SignUpFormField.username(
                   authenticatorTextFieldController: usernameController,
-                  enabled: AuthenticatorTextEnabledOverride.disabled,
+                  enabledOverride: AuthenticatorTextEnabledOverride.disabled,
                 ),
                 SignUpFormField.password(),
                 SignUpFormField.passwordConfirmation(),

@@ -19,6 +19,8 @@ abstract class VerifyUserFormField<FieldValue extends Object>
     super.hintText,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
   }) : super._();
 
   static VerifyUserFormField<CognitoUserAttributeKey> verifyAttribute({
@@ -36,6 +38,8 @@ abstract class VerifyUserFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
     AuthenticatorTextFieldController? authenticatorTextFieldController,
+    AuthenticatorTextEnabledOverride? enabledOverride,
+    bool visible = true,
   }) => _VerifyUserTextField(
     key: keyVerifyUserConfirmationCode,
     titleKey: InputResolverKey.verificationCodeTitle,
@@ -44,6 +48,8 @@ abstract class VerifyUserFormField<FieldValue extends Object>
     validator: validator,
     autofillHints: autofillHints,
     authenticatorTextFieldController: authenticatorTextFieldController,
+    enabledOverride: enabledOverride,
+    visible: visible,
   );
 
   @override
@@ -71,6 +77,8 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
     this.authenticatorTextFieldController,
   }) : super._();
 

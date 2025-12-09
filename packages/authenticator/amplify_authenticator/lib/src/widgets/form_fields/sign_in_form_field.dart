@@ -26,6 +26,8 @@ abstract class SignInFormField<FieldValue extends Object>
     super.validator,
     bool? required,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
   }) : super._(requiredOverride: required);
 
   /// {@macro amplify_authenticator.username_form_field}
@@ -34,11 +36,15 @@ abstract class SignInFormField<FieldValue extends Object>
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
     AuthenticatorTextFieldController? authenticatorTextFieldController,
+    AuthenticatorTextEnabledOverride? enabledOverride,
+    bool visible = true,
   }) => _SignInUsernameField(
     key: key ?? keyUsernameSignInFormField,
     validator: validator,
     autofillHints: autofillHints,
     authenticatorTextFieldController: authenticatorTextFieldController,
+    enabledOverride: enabledOverride,
+    visible: visible,
   );
 
   /// Creates a password FormField for the sign in step.
@@ -47,6 +53,8 @@ abstract class SignInFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
     AuthenticatorTextFieldController? authenticatorTextFieldController,
+    AuthenticatorTextEnabledOverride? enabledOverride,
+    bool visible = true,
   }) => _SignInTextField(
     key: key ?? keyPasswordSignInFormField,
     titleKey: InputResolverKey.passwordTitle,
@@ -55,6 +63,8 @@ abstract class SignInFormField<FieldValue extends Object>
     validator: validator,
     autofillHints: autofillHints,
     authenticatorTextFieldController: authenticatorTextFieldController,
+    enabledOverride: enabledOverride,
+    visible: visible,
   );
 
   @override
@@ -134,6 +144,8 @@ class _SignInTextField extends SignInFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
     this.authenticatorTextFieldController,
   }) : super._();
 
@@ -205,6 +217,8 @@ class _SignInUsernameField extends SignInFormField<UsernameInput> {
     Key? key,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
     this.authenticatorTextFieldController,
   }) : super._(
          key: key ?? keyUsernameSignInFormField,

@@ -13,6 +13,8 @@ class ResetPasswordFormField
     Key? key,
     Iterable<String>? autofillHints,
     AuthenticatorTextFieldController? authenticatorTextFieldController,
+    AuthenticatorTextEnabledOverride? enabledOverride,
+    bool visible = true,
   }) : this._(
          key: key ?? keyVerificationCodeResetPasswordFormField,
          field: ResetPasswordField.verificationCode,
@@ -20,6 +22,8 @@ class ResetPasswordFormField
          hintTextKey: InputResolverKey.verificationCodeHint,
          autofillHints: autofillHints,
          authenticatorTextFieldController: authenticatorTextFieldController,
+         enabledOverride: enabledOverride,
+         visible: visible,
        );
 
   const ResetPasswordFormField.newPassword({
@@ -27,6 +31,8 @@ class ResetPasswordFormField
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
     AuthenticatorTextFieldController? authenticatorTextFieldController,
+    AuthenticatorTextEnabledOverride? enabledOverride,
+    bool visible = true,
   }) : this._(
          key: key ?? keyPasswordResetPasswordFormField,
          field: ResetPasswordField.newPassword,
@@ -35,12 +41,16 @@ class ResetPasswordFormField
          validator: validator,
          autofillHints: autofillHints,
          authenticatorTextFieldController: authenticatorTextFieldController,
+         enabledOverride: enabledOverride,
+         visible: visible,
        );
 
   const ResetPasswordFormField.passwordConfirmation({
     Key? key,
     Iterable<String>? autofillHints,
     AuthenticatorTextFieldController? authenticatorTextFieldController,
+    AuthenticatorTextEnabledOverride? enabledOverride,
+    bool visible = true,
   }) : this._(
          key: key ?? keyPasswordConfirmationResetPasswordFormField,
          field: ResetPasswordField.passwordConfirmation,
@@ -48,6 +58,8 @@ class ResetPasswordFormField
          hintTextKey: InputResolverKey.passwordConfirmationHint,
          autofillHints: autofillHints,
          authenticatorTextFieldController: authenticatorTextFieldController,
+         enabledOverride: enabledOverride,
+         visible: visible,
        );
 
   /// {@macro amplify_authenticator.sign_up_form_field}
@@ -60,6 +72,8 @@ class ResetPasswordFormField
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
     this.authenticatorTextFieldController,
   }) : super._();
 
