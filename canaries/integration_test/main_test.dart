@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:amplified_todo/main.dart' as app;
 import 'package:amplified_todo/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart' as keys;
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -58,32 +59,59 @@ void main() {
   }
 
   Future<void> performAuthenticatedActions() async {
-    // Retrieve guest data
+    // === AUTH: Fetch auth session ===
+    final authSession = await Amplify.Auth.fetchAuthSession();
+    expect(authSession.isSignedIn, isTrue);
+
+    // === STORAGE: Download guest data ===
     final guestData = await Amplify.Storage.downloadData(path: path).result;
     expect(utf8.decode(guestData.bytes), data);
 
-    // Upload data to Storage
+    // === STORAGE: Upload to private path ===
+    final privatePath = StoragePath.fromIdentityId(
+      (String identityId) => 'private/$identityId/canary-test',
+    );
     await Amplify.Storage.uploadData(
       data: StorageDataPayload.string(data),
-      path: StoragePath.fromIdentityId(
-        (String identityId) => 'private/$identityId/hello',
-      ),
+      path: privatePath,
     ).result;
 
-    // Record Analytics event
+    // === STORAGE: List files ===
+    final listResult = await Amplify.Storage.list(
+      path: StoragePath.fromString('public/'),
+    ).result;
+    expect(listResult.items.isNotEmpty, isTrue);
+
+    // === ANALYTICS: Record event ===
     await Amplify.Analytics.recordEvent(event: event);
     await Amplify.Analytics.flushEvents();
 
-    // Perform API mutation
+    // === AUTH: Get current user ===
     final username = (await Amplify.Auth.getCurrentUser()).username;
-    final todo = Todo(name: 'name', owner: username);
-    final mutation = ModelMutations.create(todo);
-    final response = await Amplify.API.mutate(request: mutation).response;
-    expect(response.hasErrors, isFalse);
-    expect(response.data, todo);
 
-    // Perform DataStore operation
-    final dsTodo = Todo(name: 'test', owner: username);
+    // === API: Create Todo ===
+    final todo = Todo(name: 'canary-test-${uuid()}', owner: username);
+    final createMutation = ModelMutations.create(todo);
+    final createResponse =
+        await Amplify.API.mutate(request: createMutation).response;
+    expect(createResponse.hasErrors, isFalse);
+    expect(createResponse.data, isNotNull);
+    final createdTodo = createResponse.data!;
+
+    // === API: Query Todo ===
+    final queryRequest = ModelQueries.get(Todo.classType, createdTodo.modelIdentifier);
+    final queryResponse = await Amplify.API.query(request: queryRequest).response;
+    expect(queryResponse.hasErrors, isFalse);
+    expect(queryResponse.data?.id, createdTodo.id);
+
+    // === API: Delete Todo (cleanup) ===
+    final deleteMutation = ModelMutations.delete(createdTodo);
+    final deleteResponse =
+        await Amplify.API.mutate(request: deleteMutation).response;
+    expect(deleteResponse.hasErrors, isFalse);
+
+    // === DATASTORE: Save and observe ===
+    final dsTodo = Todo(name: 'canary-ds-test', owner: username);
     final subscription = Amplify.DataStore.observe(Todo.classType);
     final expectation = expectLater(
       subscription,
@@ -91,12 +119,26 @@ void main() {
         isA<SubscriptionEvent<Todo>>().having(
           (event) => event.item.name,
           'name',
-          'test',
+          'canary-ds-test',
         ),
       ),
     );
     await Amplify.DataStore.save(dsTodo);
     await expectation;
+
+    // === DATASTORE: Query ===
+    final dsQueryResult = await Amplify.DataStore.query(
+      Todo.classType,
+      where: Todo.NAME.eq('canary-ds-test'),
+    );
+    expect(dsQueryResult.isNotEmpty, isTrue);
+
+    // === DATASTORE: Delete (cleanup) ===
+    await Amplify.DataStore.delete(dsTodo);
+
+    // === STORAGE: Delete uploaded files (cleanup) ===
+    await Amplify.Storage.remove(path: path).result;
+    await Amplify.Storage.remove(path: privatePath).result;
   }
 
   testWidgets('canary', (tester) async {
@@ -152,13 +194,34 @@ void main() {
 
     await tester.runAsync(performAuthenticatedActions);
 
-    // Clean up
+    // === AUTH: Sign out ===
+    await tester.runAsync(() async {
+      final signOutResult = await Amplify.Auth.signOut();
+      expect(signOutResult, isA<CognitoCompleteSignOut>());
+      
+      // Verify user is signed out
+      final sessionAfterSignOut = await Amplify.Auth.fetchAuthSession();
+      expect(sessionAfterSignOut.isSignedIn, isFalse);
+    });
+    await tester.pumpAndSettle();
+    expect(signUpTab, findsOneWidget, reason: 'User should be signed out');
+
+    // === AUTH: Sign back in for cleanup ===
+    await tester.runAsync(() async {
+      final signInResult = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      expect(signInResult.isSignedIn, isTrue);
+    });
+
+    // === AUTH: Delete user (cleanup) ===
     await tester.runAsync(Amplify.Auth.deleteUser);
     await expectLater(
       hubEventsController.stream,
       emitsThrough(AuthHubEvent.userDeleted()),
     );
     await tester.pumpAndSettle();
-    expect(signUpTab, findsOneWidget, reason: 'User should be signed out');
+    expect(signUpTab, findsOneWidget, reason: 'User should be signed out after deletion');
   });
 }
