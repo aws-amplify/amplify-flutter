@@ -22,7 +22,4 @@ AnalyticsOutputs _$AnalyticsOutputsFromJson(Map<String, dynamic> json) =>
     }, fieldKeyMap: const {'amazonPinpoint': 'amazon_pinpoint'});
 
 Map<String, dynamic> _$AnalyticsOutputsToJson(AnalyticsOutputs instance) =>
-    <String, dynamic>{
-      if (instance.amazonPinpoint?.toJson() case final value?)
-        'amazon_pinpoint': value,
-    };
+    <String, dynamic>{'amazon_pinpoint': ?instance.amazonPinpoint?.toJson()};

@@ -25,10 +25,9 @@ Map<String, dynamic> _$FileLocationTestToJson(FileLocationTest instance) =>
     <String, dynamic>{
       'name': instance.name,
       'environment': instance.environment,
-      if (instance.languageSpecificHome case final value?)
-        'languageSpecificHome': value,
+      'languageSpecificHome': ?instance.languageSpecificHome,
       'platform': _$TestPlatformEnumMap[instance.platform]!,
-      if (instance.profile case final value?) 'profile': value,
+      'profile': ?instance.profile,
       'configLocation': instance.configLocation,
       'credentialsLocation': instance.credentialsLocation,
     };
@@ -59,8 +58,8 @@ ParserTestInput _$ParserTestInputFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ParserTestInputToJson(ParserTestInput instance) =>
     <String, dynamic>{
-      if (instance.configFile case final value?) 'configFile': value,
-      if (instance.credentialsFile case final value?) 'credentialsFile': value,
+      'configFile': ?instance.configFile,
+      'credentialsFile': ?instance.credentialsFile,
     };
 
 ParserTestOutput _$ParserTestOutputFromJson(Map<String, dynamic> json) =>
@@ -73,10 +72,10 @@ ParserTestOutput _$ParserTestOutputFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ParserTestOutputToJson(ParserTestOutput instance) =>
     <String, dynamic>{
-      if (instance.errorContaining case final value?) 'errorContaining': value,
-      if (const NullableAWSProfileFileConverter().toJson(instance.profiles)
-          case final value?)
-        'profiles': value,
+      'errorContaining': ?instance.errorContaining,
+      'profiles': ?const NullableAWSProfileFileConverter().toJson(
+        instance.profiles,
+      ),
     };
 
 ProfileTest _$ProfileTestFromJson(Map<String, dynamic> json) => ProfileTest(
@@ -124,13 +123,11 @@ ProfileTestOutput _$ProfileTestOutputFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$ProfileTestOutputToJson(
-  ProfileTestOutput instance,
-) => <String, dynamic>{
-  if (instance.region case final value?) 'region': value,
-  if (_$AWSCredentialsTypeEnumMap[instance.credentialType] case final value?)
-    'credentialType': value,
-};
+Map<String, dynamic> _$ProfileTestOutputToJson(ProfileTestOutput instance) =>
+    <String, dynamic>{
+      'region': ?instance.region,
+      'credentialType': ?_$AWSCredentialsTypeEnumMap[instance.credentialType],
+    };
 
 const _$AWSCredentialsTypeEnumMap = {
   AWSCredentialsType.assumeRole: 'assumeRole',

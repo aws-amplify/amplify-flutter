@@ -1,3 +1,7 @@
+## 2.8.0
+
+- Minor bug fixes and improvements
+
 ## 2.7.1
 
 ### Fixes

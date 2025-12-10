@@ -1,6 +1,6 @@
 name: worker_bee_builder
 description: Builder package for worker_bee to quickly generate necessary boilerplate
-version: 0.3.7
+version: 0.3.8
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/worker_bee/worker_bee_builder
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -21,7 +21,7 @@ dependencies:
   source_gen: ^4.0.0
   stream_channel: ^2.1.0
   tuple: ^2.0.0
-  worker_bee: ">=0.3.8 <0.4.0"
+  worker_bee: ">=0.3.9 <0.4.0"
 
 dev_dependencies:
   amplify_lints: ">=3.1.4 <3.2.0"

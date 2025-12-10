@@ -34,8 +34,7 @@ AuthNextSignUpStep _$AuthNextSignUpStepFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$AuthNextSignUpStepToJson(AuthNextSignUpStep instance) =>
     <String, dynamic>{
       'additionalInfo': instance.additionalInfo,
-      if (instance.codeDeliveryDetails?.toJson() case final value?)
-        'codeDeliveryDetails': value,
+      'codeDeliveryDetails': ?instance.codeDeliveryDetails?.toJson(),
       'signUpStep': _$AuthSignUpStepEnumMap[instance.signUpStep]!,
     };
 
