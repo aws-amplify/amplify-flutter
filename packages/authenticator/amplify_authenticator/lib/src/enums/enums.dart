@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export 'authenticator_step.dart';
+export 'authenticator_text_enabled_override.dart';
 export 'confirm_signin_types.dart';
 export 'confirm_signup_types.dart';
 export 'email_setup_types.dart';
