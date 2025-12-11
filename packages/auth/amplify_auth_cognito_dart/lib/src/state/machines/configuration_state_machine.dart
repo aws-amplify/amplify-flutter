@@ -67,17 +67,37 @@ final class ConfigurationStateMachine
 
   /// State machine callback for the [Configure] event.
   Future<void> onConfigure(Configure event) async {
+    safePrint('🔧 [Configuration State Machine] onConfigure called');
+    
     final authOutputs = event.config.auth;
     if (authOutputs == null) {
       throw ConfigurationError('No Cognito plugin config available');
     }
+    
+    safePrint('🔧 [Configuration State Machine] AuthOutputs found - userPoolEndpoint: ${authOutputs.userPoolEndpoint}');
+    
     addInstance(authOutputs);
     final waiters = <Future<void>>[];
+    
+    // Log endpoint configuration
+    if (authOutputs.userPoolEndpoint != null) {
+      safePrint(
+        '🔧 [Amplify Auth] Configuring Cognito with custom endpoint: ${authOutputs.userPoolEndpoint}',
+      );
+    } else {
+      safePrint(
+        '🔧 [Amplify Auth] Configuring Cognito with default AWS endpoint (no custom endpoint set)',
+      );
+    }
+    
+    safePrint('🔧 [Configuration State Machine] Creating WrappedCognitoIdentityProviderClient with endpoint: ${authOutputs.userPoolEndpoint}');
+    
     addInstance<CognitoIdentityProviderClient>(
       WrappedCognitoIdentityProviderClient(
         region: authOutputs.awsRegion,
         credentialsProvider: _credentialsProvider,
         dependencyManager: this,
+        endpoint: authOutputs.userPoolEndpoint,
       ),
     );
 
