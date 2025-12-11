@@ -190,6 +190,9 @@ class WrappedCognitoIdentityProviderClient
          ],
        ),
        _dependencyManager = dependencyManager {
+    safePrint('🌐 [SDK Bridge] WrappedCognitoIdentityProviderClient constructor called');
+    safePrint('🌐 [SDK Bridge] region: $region, endpoint parameter: $endpoint');
+    
     // Log the actual baseUri being used
     final baseUri = endpoint == null
         ? null

@@ -515,6 +515,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     String? password,
     SignInOptions? options,
   }) async {
+    safePrint(
+      '🔐 [Auth Plugin] signIn called with username: $username (password provided: ${password != null})',
+    );
+    
     final pluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const CognitoSignInPluginOptions(),
