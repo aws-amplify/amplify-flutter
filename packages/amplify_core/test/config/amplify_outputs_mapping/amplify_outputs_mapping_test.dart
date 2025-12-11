@@ -92,16 +92,22 @@ void main() {
         expect(mappedOutputs.auth?.appClientSecret, appClientSecret);
       });
 
-      test(
-        'maps config with only the required options for a user pool',
-        () async {
-          final configJson =
-              jsonDecode(userPoolOnlyConfig) as Map<String, Object?>;
-          final amplifyConfig = AmplifyConfig.fromJson(configJson);
-          final mappedOutputs = amplifyConfig.toAmplifyOutputs();
-          expect(mappedOutputs.auth?.passwordPolicy, null);
-        },
-      );
+      test('maps config with only the required options for a user pool',
+          () async {
+        final configJson =
+            jsonDecode(userPoolOnlyConfig) as Map<String, Object?>;
+        final amplifyConfig = AmplifyConfig.fromJson(configJson);
+        final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+        expect(mappedOutputs.auth?.passwordPolicy, null);
+      });
+
+      test('maps config with user pool endpoint', () async {
+        final configJson =
+            jsonDecode(endpointConfig) as Map<String, Object?>;
+        final amplifyConfig = AmplifyConfig.fromJson(configJson);
+        final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+        expect(mappedOutputs.auth?.userPoolEndpoint, userPoolEndpoint);
+      });
     });
   });
 }
@@ -259,3 +265,40 @@ Map<String, Object?> updateConfig(Map<String, Object?> config) {
   defaultAuth['socialProviders'] = ['GOOGLE', 'FACEBOOK', 'AMAZON', 'APPLE'];
   return config;
 }
+
+const userPoolEndpoint = 'https://fake-user-pool-endpoint.com';
+
+const endpointConfig = r'''{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "auth": {
+    "plugins": {
+      "awsCognitoAuthPlugin": {
+        "IdentityManager": {
+          "Default": {}
+        },
+        "CredentialsProvider": {
+          "CognitoIdentity": {
+            "Default": {
+              "PoolId": "fake-pool-id",
+              "Region": "us-east-1"
+            }
+          }
+        },
+        "CognitoUserPool": {
+          "Default": {
+            "PoolId": "fake-pool-id",
+            "AppClientId": "fake-client-id",
+            "Region": "us-east-1",
+            "Endpoint": "https://fake-user-pool-endpoint.com"
+          }
+        },
+        "Auth": {
+          "Default": {
+            "authenticationFlowType": "USER_SRP_AUTH"
+          }
+        }
+      }
+    }
+  }
+}''';
