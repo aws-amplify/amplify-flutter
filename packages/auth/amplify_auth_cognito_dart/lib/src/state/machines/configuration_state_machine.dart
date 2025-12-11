@@ -73,6 +73,18 @@ final class ConfigurationStateMachine
     }
     addInstance(authOutputs);
     final waiters = <Future<void>>[];
+    
+    // Log endpoint configuration
+    if (authOutputs.userPoolEndpoint != null) {
+      safePrint(
+        '🔧 [Amplify Auth] Configuring Cognito with custom endpoint: ${authOutputs.userPoolEndpoint}',
+      );
+    } else {
+      safePrint(
+        '🔧 [Amplify Auth] Configuring Cognito with default AWS endpoint (no custom endpoint set)',
+      );
+    }
+    
     addInstance<CognitoIdentityProviderClient>(
       WrappedCognitoIdentityProviderClient(
         region: authOutputs.awsRegion,

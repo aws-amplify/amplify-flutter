@@ -133,11 +133,22 @@ class AuthConfig extends AmplifyPluginConfigMap {
           )
         : null;
 
+    final endpoint = userPool?.endpoint;
+    if (endpoint != null) {
+      safePrint(
+        '📋 [Auth Config] Gen 1 config contains Endpoint: $endpoint',
+      );
+    } else {
+      safePrint(
+        '📋 [Auth Config] No Endpoint found in Gen 1 config',
+      );
+    }
+
     return AuthOutputs(
       awsRegion: region,
       userPoolId: userPool?.poolId,
       userPoolClientId: userPool?.appClientId,
-      userPoolEndpoint: userPool?.endpoint,
+      userPoolEndpoint: endpoint,
       appClientSecret: userPool?.appClientSecret,
       identityPoolId: identityPool?.poolId,
       passwordPolicy: passwordPolicy,
