@@ -5,7 +5,8 @@ targets:
         enabled: true
       build_web_compilers:entrypoint:
         enabled: false
-  debug:
+
+  compile:
     auto_apply_builders: false
     builders:
       build_web_compilers:dart2js_archive_extractor:
@@ -14,24 +15,28 @@ targets:
         enabled: true
         generate_for:
           - lib/*.debug.dart
-        options:
-          compiler: dart2js
-          dart2js_args:
-            - --no-minify
-  release:
-    auto_apply_builders: false
-    builders:
-      build_web_compilers:dart2js_archive_extractor:
-        enabled: false
-      build_web_compilers:entrypoint:
-        enabled: true
-        generate_for:
           - lib/*.release.dart
-        options:
-          compiler: dart2js
-          dart2js_args:
-            - -O2
-            - --define=dart.vm.product=true
+        dev_options:
+          compilers: 
+            dart2js:
+              args:
+                - --no-minify
+            dart2wasm:
+              args:
+                - --no-minify
+        release_options:
+          compilers:
+            dart2js:
+              args:
+                - -O2
+                - --define=dart.vm.product=true
+            dart2wasm:
+              args:
+                - -O2
+                - --define=dart.vm.product=true
+    dependencies:
+      - $default
+
   workers:
     auto_apply_builders: false
     builders:
@@ -39,9 +44,16 @@ targets:
         enabled: true
         generate_for:
           - lib/*.debug.dart.js
-          - lib/*.debug.dart.js.map
+          - lib/*.debug.dart2js.js
+          - lib/*.debug.dart2js.js.map
           - lib/*.release.dart.js
-          - lib/*.release.dart.js.map
+          - lib/*.release.dart2js.js
+          - lib/*.release.dart2js.js.map
+          - lib/*.debug.mjs
+          - lib/*.debug.wasm
+          - lib/*.debug.wasm.map
+          - lib/*.release.mjs
+          - lib/*.release.wasm
+          - lib/*.release.wasm.map
     dependencies:
-      - e2e:debug
-      - e2e:release
+      - e2e:compile
