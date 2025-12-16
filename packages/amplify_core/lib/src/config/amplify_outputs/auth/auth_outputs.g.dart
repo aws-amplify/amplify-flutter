@@ -19,6 +19,10 @@ AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
         'user_pool_client_id',
         (v) => v as String?,
       ),
+      userPoolEndpoint: $checkedConvert(
+        'user_pool_endpoint',
+        (v) => v as String?,
+      ),
       appClientSecret: $checkedConvert(
         'app_client_secret',
         (v) => v as String?,
@@ -86,6 +90,7 @@ AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
     'awsRegion': 'aws_region',
     'userPoolId': 'user_pool_id',
     'userPoolClientId': 'user_pool_client_id',
+    'userPoolEndpoint': 'user_pool_endpoint',
     'appClientSecret': 'app_client_secret',
     'identityPoolId': 'identity_pool_id',
     'passwordPolicy': 'password_policy',
@@ -103,6 +108,7 @@ Map<String, dynamic> _$AuthOutputsToJson(AuthOutputs instance) =>
       'aws_region': instance.awsRegion,
       'user_pool_id': ?instance.userPoolId,
       'user_pool_client_id': ?instance.userPoolClientId,
+      'user_pool_endpoint': ?instance.userPoolEndpoint,
       'app_client_secret': ?instance.appClientSecret,
       'identity_pool_id': ?instance.identityPoolId,
       'password_policy': ?instance.passwordPolicy?.toJson(),
