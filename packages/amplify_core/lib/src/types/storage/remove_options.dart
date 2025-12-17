@@ -12,7 +12,17 @@ class StorageRemoveOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.remove_options}
-  const StorageRemoveOptions({this.pluginOptions, this.bucket});
+  const StorageRemoveOptions({
+    this.pluginOptions, 
+    this.bucket,
+    this.recursive,
+    this.batchSize,
+    this.batchStrategy,
+    this.delayBetweenBatchesMs,
+    this.maxConcurrency,
+    this.errorHandling,
+    this.onProgress,
+  });
 
   /// {@macro amplify_core.storage.remove_plugin_options}
   final StorageRemovePluginOptions? pluginOptions;
@@ -20,8 +30,38 @@ class StorageRemoveOptions
   /// Optionally specify which bucket to target
   final StorageBucket? bucket;
 
+  /// Enable recursive folder deletion. When true, deletes all contents within the folder.
+  final bool? recursive;
+
+  /// Number of files to process per batch. Default: 1000 (S3 maximum).
+  final int? batchSize;
+
+  /// Strategy for processing batches.
+  final StorageBatchStrategy? batchStrategy;
+
+  /// Delay in milliseconds between batch operations.
+  final int? delayBetweenBatchesMs;
+
+  /// Maximum number of concurrent batch operations when using 'parallel' strategy.
+  final int? maxConcurrency;
+
+  /// Error handling strategy.
+  final StorageErrorHandling? errorHandling;
+
+  /// Callback function invoked after each batch completes.
+  final void Function(StorageRemoveProgressInfo)? onProgress;
+
   @override
-  List<Object?> get props => [pluginOptions, bucket];
+  List<Object?> get props => [
+    pluginOptions, 
+    bucket, 
+    recursive, 
+    batchSize, 
+    batchStrategy, 
+    delayBetweenBatchesMs, 
+    maxConcurrency, 
+    errorHandling,
+  ];
 
   @override
   String get runtimeTypeName => 'StorageRemoveOptions';
@@ -30,7 +70,73 @@ class StorageRemoveOptions
   Map<String, Object?> toJson() => {
     'pluginOptions': pluginOptions?.toJson(),
     'bucket': bucket?.toJson(),
+    'recursive': recursive,
+    'batchSize': batchSize,
+    'batchStrategy': batchStrategy?.name,
+    'delayBetweenBatchesMs': delayBetweenBatchesMs,
+    'maxConcurrency': maxConcurrency,
+    'errorHandling': errorHandling?.name,
   };
+}
+
+/// Strategy for processing batches.
+enum StorageBatchStrategy {
+  /// Process one batch at a time
+  sequential,
+  /// Process multiple batches concurrently
+  parallel,
+}
+
+/// Error handling strategy.
+enum StorageErrorHandling {
+  /// Stop on first error
+  failEarly,
+  /// Process all batches regardless of errors
+  continueOnError,
+}
+
+/// Progress information for remove operations.
+class StorageRemoveProgressInfo
+    with AWSEquatable<StorageRemoveProgressInfo>, AWSDebuggable {
+  const StorageRemoveProgressInfo({
+    required this.totalFiles,
+    required this.deletedFiles,
+    required this.failedFiles,
+    required this.currentBatch,
+    required this.totalBatches,
+    this.errors = const [],
+  });
+
+  /// Total number of files to delete
+  final int totalFiles;
+
+  /// Number of files successfully deleted
+  final int deletedFiles;
+
+  /// Number of files that failed to delete
+  final int failedFiles;
+
+  /// Current batch being processed
+  final int currentBatch;
+
+  /// Total number of batches
+  final int totalBatches;
+
+  /// List of errors encountered
+  final List<StorageException> errors;
+
+  @override
+  List<Object?> get props => [
+    totalFiles,
+    deletedFiles,
+    failedFiles,
+    currentBatch,
+    totalBatches,
+    errors,
+  ];
+
+  @override
+  String get runtimeTypeName => 'StorageRemoveProgressInfo';
 }
 
 /// {@template amplify_core.storage.remove_plugin_options}
