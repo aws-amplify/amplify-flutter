@@ -1,3 +1,8 @@
+## 2.8.1
+
+### Fixes
+- fix(auth): added Cognito OIDC options to sign in uri ([#6481](https://github.com/aws-amplify/amplify-flutter/pull/6481))
+
 ## 2.8.0
 
 ### Features
