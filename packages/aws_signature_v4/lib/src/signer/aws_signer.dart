@@ -165,6 +165,13 @@ class AWSSigV4Signer {
     Duration? expiresIn,
     required bool presignedUrl,
   }) {
+    // ignore: invalid_use_of_internal_member
+    final clockSkewDate = request.clockSkewDate;
+    if (clockSkewDate != null) {
+      credentialScope = credentialScope.copyWith(
+        dateTime: clockSkewDate,
+      );
+    }
     final canonicalRequest = presignedUrl
         ? CanonicalRequest.presignedUrl(
             request: request,

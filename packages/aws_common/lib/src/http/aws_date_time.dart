@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:intl/intl.dart';
+
 /// {@template aws_signature_v4.aws_date_time}
 /// A utility class which wraps [DateTime] objects.
 ///
@@ -14,6 +16,24 @@ class AWSDateTime {
   ///
   /// Uses [DateTime.now] as the input.
   AWSDateTime.now() : dateTime = DateTime.now().toUtc();
+
+  /// {@macro aws_signature_v4.aws_date_time}
+  ///
+  /// Uses [DateTime.parse] as the input.
+  AWSDateTime.parse(String dateString)
+      : dateTime = DateTime.parse(dateString).toUtc();
+
+  /// {@macro aws_signature_v4.aws_date_time}
+  ///
+  /// Uses [DateTime.isUtc] as the input.
+  AWSDateTime.isUtc(this.dateTime);
+
+  /// {@macro aws_signature_v4.aws_date_time}
+  ///
+  /// Create AWSDate time from AWS server header string
+  /// Example: 'Tue, 23 Mar 2021 21:29:00 GMT'
+  AWSDateTime.fromServiceHeader(String dateHeader)
+      : dateTime = DateFormat('E, d MMM yyyy HH:mm:ss').parse(dateHeader);
 
   /// The underlying [DateTime] object.
   final DateTime dateTime;
@@ -35,4 +55,13 @@ class AWSDateTime {
 
   @override
   String toString() => formatFull();
+
+  /// Find the difference between two dates
+  Duration difference(DateTime d) {
+    final days = dateTime.day - d.day;
+    final hours = dateTime.hour - d.hour;
+    final minutes = dateTime.minute - d.minute;
+
+    return Duration(days: days, hours: hours, minutes: minutes);
+  }
 }

@@ -20,6 +20,10 @@ on:
       - 'packages/aws_signature_v4/**/*.yaml'
       - 'packages/aws_signature_v4/lib/**/*'
       - 'packages/aws_signature_v4/test/**/*'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
   pull_request:
     paths:
       - '.github/composite_actions/setup_firefox/action.yaml'
@@ -36,6 +40,10 @@ on:
       - 'packages/aws_signature_v4/**/*.yaml'
       - 'packages/aws_signature_v4/lib/**/*'
       - 'packages/aws_signature_v4/test/**/*'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
   schedule:
     - cron: "0 13 * * 1" # Every Monday at 06:00 PST
   workflow_dispatch:

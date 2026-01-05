@@ -22,6 +22,10 @@ on:
       - 'packages/common/amplify_db_common/test/**/*'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
   pull_request:
     paths:
       - '.github/workflows/amplify_db_common.yaml'
@@ -40,6 +44,10 @@ on:
       - 'packages/common/amplify_db_common/test/**/*'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
   schedule:
     - cron: "0 13 * * 1" # Every Monday at 06:00 PST
   workflow_dispatch:

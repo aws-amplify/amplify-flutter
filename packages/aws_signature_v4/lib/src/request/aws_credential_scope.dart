@@ -4,7 +4,6 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_signature_v4/src/request/aws_date_time.dart';
 import 'package:aws_signature_v4/src/signer/aws_signer.dart';
 
 /// {@template aws_signature_v4.aws_credential_scope}
@@ -57,4 +56,16 @@ class AWSCredentialScope {
   @override
   String toString() =>
       '${dateTime.formatDate()}/$region/$service/${AWSSigV4Signer.terminationString}';
+
+  /// Copy this scope with new values.
+  AWSCredentialScope copyWith({
+    AWSDateTime? dateTime,
+    String? region,
+    String? service,
+  }) =>
+      AWSCredentialScope.raw(
+        dateTime: dateTime ?? this.dateTime,
+        region: region ?? _region,
+        service: service ?? _service,
+      );
 }

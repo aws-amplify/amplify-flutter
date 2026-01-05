@@ -6,11 +6,11 @@ library;
 
 export 'package:aws_common/src/credentials/aws_credentials.dart';
 export 'package:aws_common/src/credentials/aws_credentials_provider.dart';
+export 'package:aws_common/src/http/aws_date_time.dart';
 
 export 'src/configuration/service_configuration.dart';
 export 'src/configuration/services/s3.dart';
 export 'src/request/aws_credential_scope.dart';
-export 'src/request/aws_date_time.dart';
 export 'src/request/aws_signed_request.dart';
 export 'src/request/canonical_request/canonical_request.dart';
 export 'src/signer/aws_algorithm.dart';

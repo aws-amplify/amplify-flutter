@@ -81,6 +81,18 @@ sealed class AWSBaseHttpRequest
   /// If `false`, calling [contentLength] will require reading the body.
   bool get hasContentLength;
 
+  late AWSDateTime? _clockSkewDate;
+
+  /// Set the adjusted clock skew date for the request.
+  @internal
+  set clockSkewDate(AWSDateTime? val) {
+    _clockSkewDate = val;
+  }
+
+  /// The adjusted clock skew date for the request.
+  @internal
+  AWSDateTime? get clockSkewDate => _clockSkewDate;
+
   /// The URI of the request.
   late final Uri uri = Uri(
     scheme: scheme,

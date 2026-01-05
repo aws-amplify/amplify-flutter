@@ -4,6 +4,8 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/exception/aws_clock_skew_exception.dart';
+import 'package:aws_common/src/http/aws_clock_skew.dart';
 import 'package:aws_common/src/http/aws_http_client_io.dart'
     if (dart.library.js_interop) 'package:aws_common/src/http/aws_http_client_js.dart';
 import 'package:meta/meta.dart';
@@ -66,6 +68,11 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   /// [transformResponse].
   AWSHttpClient? get baseClient => null;
 
+  AWSClockSkew get _clockSkew => AWSClockSkew();
+
+  /// Offset in milliseconds to adjust the system clock.
+  int _clockSkewOffsetInMs = 0;
+
   @override
   BadCertificateCallback get onBadCertificate =>
       baseClient?.onBadCertificate ?? super.onBadCertificate;
@@ -98,6 +105,12 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   @mustCallSuper
   Future<AWSBaseHttpRequest> transformRequest(AWSBaseHttpRequest request);
 
+  /// Intercept a [request] before [transformRequest].
+  AWSBaseHttpRequest _interceptRequest(
+    AWSBaseHttpRequest request,
+  ) =>
+      _clockSkew.updateClockSkew(request, _clockSkewOffsetInMs);
+
   /// Transforms a [response] before returning from [send].
   ///
   /// By default, no transformation occurs.
@@ -107,24 +120,66 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
     AWSBaseHttpResponse response,
   ) async => response;
 
+  /// Intercept a [response] before [transformResponse].
+  ///
+  /// By default, saves the server time.
+  Future<AWSBaseHttpResponse> _interceptResponse(
+    AWSBaseHttpResponse response,
+  ) async {
+    final serverTime = response.headers['date'] ?? response.headers['Date'];
+    if (serverTime != null) {
+      final newOffset = _clockSkew.getUpdatedSystemClockOffset(
+        serverTime,
+        _clockSkewOffsetInMs,
+      );
+      if (newOffset != _clockSkewOffsetInMs) {
+        _clockSkewOffsetInMs = newOffset;
+        final skew = Duration(milliseconds: _clockSkewOffsetInMs);
+        throw ClockSkewException(skew);
+      }
+    }
+    return response;
+  }
+
   Future<AWSHttpOperation<AWSBaseHttpResponse>?> _send(
     AWSBaseHttpRequest request,
     CancelableCompleter<AWSBaseHttpResponse> completer, {
     required StreamController<int> requestProgressController,
     required StreamController<int> responseProgressController,
   }) async {
+    AWSBaseHttpRequest finalRequest;
     try {
-      request = await transformRequest(request);
+      final reception = _interceptRequest(request);
+      finalRequest = await transformRequest(reception);
     } on Object catch (e, st) {
       completer.completeError(e, st);
       unawaited(requestProgressController.close());
       unawaited(responseProgressController.close());
       return null;
     }
-    final operation = baseClient?.send(request) ?? super.send(request);
-    unawaited(operation.requestProgress.forward(requestProgressController));
-    unawaited(operation.responseProgress.forward(responseProgressController));
-    completer.completeOperation(operation.operation.then(transformResponse));
+
+    final operation =
+        baseClient?.send(finalRequest) ?? super.send(finalRequest);
+    unawaited(
+      operation.requestProgress.forward(requestProgressController),
+    );
+    unawaited(
+      operation.responseProgress.forward(responseProgressController),
+    );
+
+    completer.completeOperation(
+      operation.operation.then(_interceptResponse).then(
+        transformResponse,
+        onError: (e, st) async {
+          if (e is ClockSkewException) {
+            // retry the request
+            safePrint(e.message);
+            return send(request).operation.value;
+          }
+          throw e as Exception;
+        },
+      ),
+    );
     return operation;
   }
 

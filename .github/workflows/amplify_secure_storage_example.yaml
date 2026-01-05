@@ -17,7 +17,12 @@ on:
       - 'packages/amplify_lints/pubspec.yaml'
       - 'packages/aws_common/lib/**/*.dart'
       - 'packages/aws_common/pubspec.yaml'
+<<<<<<< HEAD
       - 'packages/secure_storage/amplify_secure_storage/android/**/*'
+=======
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+>>>>>>> origin/feat/clock-skew
       - 'packages/secure_storage/amplify_secure_storage/example/**/*.dart'
       - 'packages/secure_storage/amplify_secure_storage/example/**/*.yaml'
       - 'packages/secure_storage/amplify_secure_storage/example/lib/**/*'
@@ -28,6 +33,10 @@ on:
       - 'packages/secure_storage/amplify_secure_storage/pubspec.yaml'
       - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
       - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
       - 'packages/worker_bee/worker_bee/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee/pubspec.yaml'
       - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
@@ -45,7 +54,12 @@ on:
       - 'packages/amplify_lints/pubspec.yaml'
       - 'packages/aws_common/lib/**/*.dart'
       - 'packages/aws_common/pubspec.yaml'
+<<<<<<< HEAD
       - 'packages/secure_storage/amplify_secure_storage/android/**/*'
+=======
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+>>>>>>> origin/feat/clock-skew
       - 'packages/secure_storage/amplify_secure_storage/example/**/*.dart'
       - 'packages/secure_storage/amplify_secure_storage/example/**/*.yaml'
       - 'packages/secure_storage/amplify_secure_storage/example/lib/**/*'
@@ -56,6 +70,10 @@ on:
       - 'packages/secure_storage/amplify_secure_storage/pubspec.yaml'
       - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
       - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
       - 'packages/worker_bee/worker_bee/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee/pubspec.yaml'
       - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
