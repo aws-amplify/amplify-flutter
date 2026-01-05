@@ -223,6 +223,8 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
 
     override fun onCancel(p0: Any?) {
         eventSink = null
-        Amplify.Hub.unsubscribe(token)
+        if (this::token.isInitialized) {
+            Amplify.Hub.unsubscribe(token)
+        }
     }
 }
