@@ -70,21 +70,3 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           script: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
-
-      - name: Log success/failure
-        if: always()
-        uses: ./.github/composite_actions/log_cw_metric_wrapper
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-          job-status: ${{ job.status }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-          test-type: e2e
-          working-directory: ${{ inputs.working-directory }}
-
-          framework: flutter
-
-          platform: android
-          platform-version: android-${{ matrix.api-level }}

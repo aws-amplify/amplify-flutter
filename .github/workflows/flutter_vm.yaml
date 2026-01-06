@@ -100,20 +100,3 @@ jobs:
         with:
           name: golden-failures-${{ matrix.channel }}-${{ matrix.flutter-version }}
           path: ${{ inputs.working-directory }}/test/ui/failures/
-
-      - name: Log success/failure
-        if: always()
-        uses: ./.github/composite_actions/log_cw_metric_wrapper
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-          job-status: ${{ job.status }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-          test-type: unit
-          working-directory: ${{ inputs.working-directory }}
-
-          framework: flutter
-          flutter-dart-channel: ${{ matrix.channel }}
-          flutter-version: ${{ matrix.flutter-version }}

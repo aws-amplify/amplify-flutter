@@ -18,8 +18,12 @@ runs:
         path: |
           ~/.gradle/caches/modules-2
           ~/.gradle/caches/metadata-*
+          ~/.gradle/caches/transforms-*
+          ~/.gradle/caches/jars-*
           ~/.gradle/wrapper
-        key: gradle-${{ runner.os }}
+        key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          gradle-${{ runner.os }}-
 
     - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
       with:

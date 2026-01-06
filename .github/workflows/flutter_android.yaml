@@ -32,6 +32,19 @@ jobs:
         exclude:
           - channel: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches/modules-2
+            ~/.gradle/caches/metadata-*
+            ~/.gradle/caches/transforms-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
       - name: Setup Java
         uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # 5.0.0
         with:
@@ -72,21 +85,3 @@ jobs:
         if: inputs.has-native-tests
         run: ./gradlew :"${{ inputs.package-name }}":testDebugUnitTest --stacktrace
         working-directory: ${{ inputs.example-directory }}/android
-
-      - name: Log success/failure
-        if: always()
-        uses: ./.github/composite_actions/log_cw_metric_wrapper
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-          job-status: ${{ job.status }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-          test-type: unit
-          working-directory: ${{ inputs.example-directory }}
-
-          framework: flutter
-          flutter-dart-channel: ${{ matrix.channel }}
-
-          platform: android
