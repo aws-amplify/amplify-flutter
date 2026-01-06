@@ -12,6 +12,15 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches/modules-2
+          ~/.gradle/caches/metadata-*
+          ~/.gradle/wrapper
+        key: gradle-${{ runner.os }}
+
     - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
       with:
         cache: true
