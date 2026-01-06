@@ -10,6 +10,7 @@ environment:
 dependencies:
   amplify_authenticator: any
   amplify_flutter: any
+  amplify_auth_cognito_dart: any
   amplify_integration_test:
     path: ../../test/amplify_integration_test
   flutter:
