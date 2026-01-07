@@ -1,0 +1,2476 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "BuilderComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "BuilderComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "builder",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Component Function()",
+              "relativePath": "package:example_common/src/components/builder_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/builder_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Component Function()",
+          "name": "builder",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/builder_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/builder_component.dart"
+    },
+    {
+      "name": "Component",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/component.dart"
+    },
+    {
+      "name": "ButtonComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ButtonComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "id",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:example_common/src/components/button_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "margin",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ComponentEdgeInsets",
+              "relativePath": "package:example_common/src/components/button_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "padding",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ComponentEdgeInsets",
+              "relativePath": "package:example_common/src/components/button_component.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "innerHtml",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:example_common/src/components/button_component.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "onClick",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()",
+              "relativePath": "package:example_common/src/components/button_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "loading",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:example_common/src/components/button_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/button_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "id",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/button_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ComponentEdgeInsets",
+          "name": "margin",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/button_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ComponentEdgeInsets",
+          "name": "padding",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/button_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "innerHtml",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/button_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()",
+          "name": "onClick",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/button_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "loading",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/button_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/button_component.dart"
+    },
+    {
+      "name": "ComponentEdgeInsets",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "String",
+          "name": "toCssString",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+        },
+        {
+          "returnTypeName": "ComponentEdgeInsets",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "left",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double",
+              "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "right",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double",
+              "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "top",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double",
+              "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "bottom",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double",
+              "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+        },
+        {
+          "returnTypeName": "ComponentEdgeInsets",
+          "name": "symmetric",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "horizontal",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double",
+              "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "vertical",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double",
+              "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+        },
+        {
+          "returnTypeName": "ComponentEdgeInsets",
+          "name": "all",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double",
+              "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ComponentEdgeInsets",
+          "name": "zero",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/utils/component_edge_insets.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "double",
+          "name": "left",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/utils/component_edge_insets.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "double",
+          "name": "right",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/utils/component_edge_insets.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "double",
+          "name": "top",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/utils/component_edge_insets.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "double",
+          "name": "bottom",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/utils/component_edge_insets.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/utils/component_edge_insets.dart"
+    },
+    {
+      "name": "CenterComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CenterComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "child",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Component",
+              "relativePath": "package:example_common/src/components/center_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/center_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Component",
+          "name": "child",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/center_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/center_component.dart"
+    },
+    {
+      "name": "StatefulComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "setState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "fn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "onInit",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "StatefulComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/component.dart"
+    },
+    {
+      "name": "NodeX",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Node",
+          "name": "appendComponent",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "component",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Component",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/component.dart"
+    },
+    {
+      "name": "ContainerComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ContainerComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "child",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Component?",
+              "relativePath": "package:example_common/src/components/container_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "height",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double?",
+              "relativePath": "package:example_common/src/components/container_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "width",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double?",
+              "relativePath": "package:example_common/src/components/container_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "margin",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ComponentEdgeInsets?",
+              "relativePath": "package:example_common/src/components/container_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "padding",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ComponentEdgeInsets?",
+              "relativePath": "package:example_common/src/components/container_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/container_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Component?",
+          "name": "child",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/container_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ComponentEdgeInsets?",
+          "name": "margin",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/container_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ComponentEdgeInsets?",
+          "name": "padding",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/container_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "double?",
+          "name": "height",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/container_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "double?",
+          "name": "width",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/container_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/container_component.dart"
+    },
+    {
+      "name": "FlexComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "FlexComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "direction",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Axis",
+              "relativePath": "package:example_common/src/components/flex_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "alignItems",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AlignItems",
+              "relativePath": "package:example_common/src/components/flex_component.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "children",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<Component>",
+              "relativePath": "package:example_common/src/components/flex_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Axis",
+          "name": "direction",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AlignItems",
+          "name": "alignItems",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Component>",
+          "name": "children",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/flex_component.dart"
+    },
+    {
+      "name": "Axis",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "Axis",
+          "name": "horizontal",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/enums.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Axis",
+          "name": "vertical",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/enums.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Axis>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/enums.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/enums.dart"
+    },
+    {
+      "name": "AlignItems",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "AlignItems",
+          "name": "center",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/enums.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AlignItems",
+          "name": "start",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/enums.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AlignItems",
+          "name": "end",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/enums.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AlignItems",
+          "name": "stretch",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/enums.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<AlignItems>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/enums.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/enums.dart"
+    },
+    {
+      "name": "ColumnComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "FlexComponent",
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ColumnComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "alignItems",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AlignItems",
+              "relativePath": "package:example_common/src/components/flex_component.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "children",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<Component>",
+              "relativePath": "package:example_common/src/components/flex_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Axis",
+          "name": "direction",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AlignItems",
+          "name": "alignItems",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Component>",
+          "name": "children",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/flex_component.dart"
+    },
+    {
+      "name": "RowComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "FlexComponent",
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "RowComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "alignItems",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AlignItems",
+              "relativePath": "package:example_common/src/components/flex_component.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "children",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<Component>",
+              "relativePath": "package:example_common/src/components/flex_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Axis",
+          "name": "direction",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AlignItems",
+          "name": "alignItems",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Component>",
+          "name": "children",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/flex_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/flex_component.dart"
+    },
+    {
+      "name": "FormComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "FormComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "id",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:example_common/src/components/form_component.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "children",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<Component>",
+              "relativePath": "package:example_common/src/components/form_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/form_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "id",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/form_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Component>",
+          "name": "children",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/form_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/form_component.dart"
+    },
+    {
+      "name": "TableComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "TableComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "tableDefinition",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "TableDefinition",
+              "relativePath": "package:example_common/src/components/table_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/table_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "TableDefinition",
+          "name": "tableDefinition",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/table_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/table_component.dart"
+    },
+    {
+      "name": "TableDefinition",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "TableDefinition",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<String>",
+              "relativePath": "package:example_common/src/components/table_component.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "rows",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<List<String>>",
+              "relativePath": "package:example_common/src/components/table_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/table_component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "List<String>",
+          "name": "headers",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/table_component.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "List<List<String>>",
+          "name": "rows",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/table_component.dart",
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/table_component.dart"
+    },
+    {
+      "name": "TextComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "TextComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "text",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:example_common/src/components/text_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "text",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/text_component.dart"
+    },
+    {
+      "name": "TextFormFieldComponent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Component",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "TextFormFieldComponent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "id",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "padding",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ComponentEdgeInsets?",
+              "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "margin",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ComponentEdgeInsets",
+              "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "labelText",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "initialValue",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "onChanged",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(String?)",
+              "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "required",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "type",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+        },
+        {
+          "returnTypeName": "Element",
+          "name": "renderElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "render",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "componentDidMount",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        },
+        {
+          "returnTypeName": "Component",
+          "name": "fromElement",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "element",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Element",
+              "relativePath": "package:example_common/src/components/component.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "id",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_form_field_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ComponentEdgeInsets?",
+          "name": "padding",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_form_field_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ComponentEdgeInsets",
+          "name": "margin",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_form_field_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "labelText",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_form_field_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "initialValue",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_form_field_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "required",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_form_field_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "type",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_form_field_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function(String?)",
+          "name": "onChanged",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/text_form_field_component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CssStyleDeclaration",
+          "name": "style",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/components/component.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/components/text_form_field_component.dart"
+    },
+    {
+      "name": "AxisX",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "flexDirection",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:example_common/src/enums.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "example_common.dart"
+      ],
+      "relativePath": "package:example_common/src/enums.dart"
+    }
+  ]
+}
