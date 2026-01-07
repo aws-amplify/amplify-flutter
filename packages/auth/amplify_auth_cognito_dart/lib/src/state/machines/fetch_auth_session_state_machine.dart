@@ -7,14 +7,11 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
-import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
-import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -359,7 +356,6 @@ final class FetchAuthSessionStateMachine
     AuthResult<String> userSubResult;
     AuthResult<AWSCredentials> credentialsResult;
     AuthResult<String> identityIdResult;
-
     final hasUserPool = _authConfig?.userPoolId != null;
     var userPoolTokens = result.userPoolTokens;
     if (!hasUserPool) {
@@ -511,38 +507,30 @@ final class FetchAuthSessionStateMachine
     final deviceSecrets = await getOrCreate<DeviceMetadataRepository>().get(
       userPoolTokens.username,
     );
-    final refreshRequest = cognito_idp.InitiateAuthRequest.build((b) {
+
+    final deviceKey = deviceSecrets?.deviceKey;
+    // ignore: invalid_use_of_internal_member
+    final appClientSecret = _authConfig?.appClientSecret;
+
+    final refreshRequest = cognito_idp.GetTokensFromRefreshTokenRequest.build((
+      b,
+    ) {
       b
-        ..authFlow = cognito_idp.AuthFlowType.refreshTokenAuth
-        ..clientId = _authConfig?.userPoolClientId
-        ..authParameters.addAll({
-          CognitoConstants.refreshToken: userPoolTokens.refreshToken,
-        })
-        ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
-
-      // ignore: invalid_use_of_internal_member
-      if (_authConfig?.appClientSecret != null &&
-          _authConfig?.userPoolClientId != null) {
-        b.authParameters[CognitoConstants.challengeParamSecretHash] =
-            computeSecretHash(
-              userPoolTokens.username,
-              _authConfig!.userPoolClientId!,
-              // ignore: invalid_use_of_internal_member
-              _authConfig!.appClientSecret!,
-            );
-      }
-
-      final deviceKey = deviceSecrets?.deviceKey;
+        ..refreshToken = userPoolTokens.refreshToken
+        ..clientId = _authConfig?.userPoolClientId;
       if (deviceKey != null) {
-        b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
+        b.deviceKey = deviceKey;
+      }
+      if (appClientSecret != null) {
+        b.clientSecret = appClientSecret;
       }
     });
     try {
       final result = await _withZoneOverrides(
-        () => _cognitoIdpClient.initiateAuth(refreshRequest).result,
+        () =>
+            _cognitoIdpClient.getTokensFromRefreshToken(refreshRequest).result,
       );
       final authResult = result.authenticationResult;
-
       final accessToken = authResult?.accessToken;
       final refreshToken = authResult?.refreshToken;
       final idToken = authResult?.idToken;

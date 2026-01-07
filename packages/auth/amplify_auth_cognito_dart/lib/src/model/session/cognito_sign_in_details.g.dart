@@ -52,12 +52,10 @@ Map<String, dynamic> _$CognitoSignInDetailsApiBasedToJson(
   CognitoSignInDetailsApiBased instance,
 ) => <String, dynamic>{
   'username': instance.username,
-  if (_$JsonConverterToJson<String, AuthFlowType>(
-        instance.authFlowType,
-        const _AuthFlowTypeSerializer().toJson,
-      )
-      case final value?)
-    'authFlowType': value,
+  'authFlowType': ?_$JsonConverterToJson<String, AuthFlowType>(
+    instance.authFlowType,
+    const _AuthFlowTypeSerializer().toJson,
+  ),
 };
 
 Value? _$JsonConverterFromJson<Json, Value>(
@@ -85,9 +83,7 @@ CognitoSignInDetailsHostedUi _$CognitoSignInDetailsHostedUiFromJson(
 
 Map<String, dynamic> _$CognitoSignInDetailsHostedUiToJson(
   CognitoSignInDetailsHostedUi instance,
-) => <String, dynamic>{
-  if (instance.provider?.toJson() case final value?) 'provider': value,
-};
+) => <String, dynamic>{'provider': ?instance.provider?.toJson()};
 
 CognitoSignInDetailsFederated _$CognitoSignInDetailsFederatedFromJson(
   Map<String, dynamic> json,

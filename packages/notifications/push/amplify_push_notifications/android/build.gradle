@@ -2,14 +2,14 @@ group 'com.amazonaws.amplify.amplify_push_notifications'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.9.10'
+    ext.kotlin_version = '2.2.0'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath 'com.android.tools.build:gradle:8.12.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
@@ -51,7 +51,7 @@ android {
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
-        testImplementation 'org.mockito:mockito-core:5.5.0'
+        testImplementation 'org.mockito:mockito-core:5.19.0'
 
     }
 
@@ -65,19 +65,22 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.2.0"
-    api "com.google.firebase:firebase-messaging:23.2.0"
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
+    
+    implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
+    api "com.google.firebase:firebase-messaging"
+
     // Import support library for Amplify push utils
-    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.21.1'
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
+    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.29.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0"
     implementation project(path: ':flutter_plugin_android_lifecycle')
-    implementation 'androidx.test:core-ktx:1.5.0'
+    implementation 'androidx.test:core-ktx:1.6.1'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'io.mockk:mockk:1.13.5'
+    testImplementation 'io.mockk:mockk:1.14.4'
     // slf4j is logging facade package used by mockk internally
     testImplementation 'org.slf4j:slf4j-nop:2.0.7'
-    testImplementation 'org.robolectric:robolectric:4.10.3'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
+    testImplementation 'org.robolectric:robolectric:4.15.1'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2'
 
 }

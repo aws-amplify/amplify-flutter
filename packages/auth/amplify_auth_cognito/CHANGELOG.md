@@ -1,3 +1,31 @@
+## 2.8.1
+
+### Fixes
+- fix(auth): added Cognito OIDC options to sign in uri ([#6481](https://github.com/aws-amplify/amplify-flutter/pull/6481))
+
+## 2.8.0
+
+### Features
+- feat(auth): add support for cognito oidc parameters in managed login ([#6442](https://github.com/aws-amplify/amplify-flutter/pull/6442))
+
+## 2.7.0
+
+### Features
+- feat(auth): Added support for Android private browsing ([#6336](https://github.com/aws-amplify/amplify-flutter/pull/6336))
+
+### Chores
+- chore(all): Bumped Flutter SDK to ^3.35.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped Dart SDK to ^3.9.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped com.android.tools.build:gradle to 8.12.1 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(auth): Bumped androidx.browser:browser to 1.9.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+
+## 2.6.5
+
+### Chores
+- chore(auth): Bumped kotlin_version to 2.2.0 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(auth): Bumped com.android.tools.build:gradle to 8.11.0 ([#6203](https://github.com/aws-amplify/amplify-flutter/pull/6203))
+- chore(auth): Bumped org.jetbrains.kotlinx:kotlinx-coroutines-android to 1.10.2 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+
 ## 2.6.4
 
 ### Chores

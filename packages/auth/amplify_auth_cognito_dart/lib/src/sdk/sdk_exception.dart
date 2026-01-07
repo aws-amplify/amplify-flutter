@@ -141,6 +141,21 @@ final class ConcurrentModificationException extends CognitoServiceException {
   String get runtimeTypeName => 'ConcurrentModificationException';
 }
 
+/// {@template amplify_auth_cognito_dart.sdk_exception.device_key_exists_exception}
+/// This exception is thrown when a user attempts to confirm a device with a device key that already exists.
+/// {@endtemplate}
+final class DeviceKeyExistsException extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.device_key_exists_exception}
+  const DeviceKeyExistsException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'DeviceKeyExistsException';
+}
+
 /// {@template amplify_auth_cognito_dart.sdk_exception.enable_software_token_mfa_exception}
 /// This exception is thrown when there is a code mismatch and the service fails to configure the software token TOTP multi-factor authentication (MFA).
 /// {@endtemplate}
@@ -387,6 +402,21 @@ final class PasswordResetRequiredException extends CognitoServiceException {
   String get runtimeTypeName => 'PasswordResetRequiredException';
 }
 
+/// {@template amplify_auth_cognito_dart.sdk_exception.refresh_token_reuse_exception}
+/// This exception is throw when your application requests token refresh with a refresh token that has been invalidated by refresh-token rotation.
+/// {@endtemplate}
+final class RefreshTokenReuseException extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.refresh_token_reuse_exception}
+  const RefreshTokenReuseException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'RefreshTokenReuseException';
+}
+
 /// {@template amplify_auth_cognito_dart.sdk_exception.resource_not_found_exception}
 /// This exception is thrown when the Amazon Cognito service can't find the requested resource.
 /// {@endtemplate}
@@ -583,7 +613,9 @@ final class ExternalServiceException extends CognitoServiceException {
 }
 
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_identity_pool_configuration_exception}
-/// Thrown if the identity pool has no role associated for the given auth type (auth/unauth) or if the AssumeRole fails.
+/// If you provided authentication information in the request, the identity pool has no authenticated role configured, or STS returned an error response to the request to assume the authenticated role from the identity pool. If you provided no authentication information in the request, the identity pool has no unauthenticated role configured, or STS returned an error response to the request to assume the unauthenticated role from the identity pool.
+///
+/// Your role trust policy must grant `AssumeRoleWithWebIdentity` permissions to `cognito-identity.amazonaws.com`.
 /// {@endtemplate}
 final class InvalidIdentityPoolConfigurationException
     extends CognitoServiceException {
@@ -641,6 +673,10 @@ Object transformSdkException(Object e) {
       message,
       underlyingException: e,
     ),
+    'DeviceKeyExistsException' => DeviceKeyExistsException(
+      message,
+      underlyingException: e,
+    ),
     'EnableSoftwareTokenMFAException' => EnableSoftwareTokenMfaException(
       message,
       underlyingException: e,
@@ -689,6 +725,10 @@ Object transformSdkException(Object e) {
     'PasswordHistoryPolicyViolationException' =>
       PasswordHistoryPolicyViolationException(message, underlyingException: e),
     'PasswordResetRequiredException' => PasswordResetRequiredException(
+      message,
+      underlyingException: e,
+    ),
+    'RefreshTokenReuseException' => RefreshTokenReuseException(
       message,
       underlyingException: e,
     ),

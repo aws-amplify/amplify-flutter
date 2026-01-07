@@ -105,7 +105,7 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
 
   /// Checks the package's environment constraints against the global config.
   bool _checkEnvironment(PackageInfo package) {
-    final environment = package.pubspecInfo.pubspec.environment ?? const {};
+    final environment = package.pubspecInfo.pubspec.environment;
 
     // Check Dart SDK contraint
     final globalSdkConstraint = globalEnvironment.sdk;
@@ -441,6 +441,5 @@ extension DependencyToYaml on Dependency {
         if (path != null) 'path': path,
       },
     }),
-    _ => throw StateError('Invalid dependency: $this'),
   };
 }

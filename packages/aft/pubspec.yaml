@@ -4,13 +4,13 @@ version: 0.1.1
 publish_to: none
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.9.0
 
 dependencies:
   args: ^2.5.0
   async: ^2.10.0
   aws_common: ">=0.4.2+5 <0.5.0"
-  built_collection: ^5.0.0
+  built_collection: ^5.1.1
   built_value: ^8.10.1
   checked_yaml: ^2.0.0
   cli_util: ^0.4.2
@@ -65,10 +65,10 @@ dependency_overrides:
 
 dev_dependencies:
   amplify_lints: ^3.1.0
-  build_runner: ^2.4.9
+  build_runner: ^2.4.15
   built_value_generator: ^8.10.1
   checks: ^0.3.0
-  json_serializable: ^6.9.4
+  json_serializable: ^6.11.0
   test: ^1.22.1
   test_descriptor: ^2.0.1
 

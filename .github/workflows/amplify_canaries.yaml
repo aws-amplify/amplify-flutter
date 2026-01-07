@@ -32,9 +32,9 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.32.0"
+            flutter-version: "3.35.0"
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
         with:
           persist-credentials: false
 
@@ -44,7 +44,7 @@ jobs:
           channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
-      - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
+      - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # 5.0.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "17"
@@ -88,9 +88,9 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.32.0"
+            flutter-version: "3.35.0"
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
         with:
           persist-credentials: false
           submodules: true
@@ -101,7 +101,7 @@ jobs:
           channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
-      - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
+      - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # 5.0.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "17"
@@ -162,12 +162,12 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.32.0"
+            flutter-version: "3.35.0"
         ios-version:
           - "15.0"
           - "17.5"
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
         with:
           persist-credentials: false
           submodules: true

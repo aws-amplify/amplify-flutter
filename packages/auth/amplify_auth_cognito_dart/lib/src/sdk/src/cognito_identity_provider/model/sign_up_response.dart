@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.sign_up_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,12 +20,14 @@ abstract class SignUpResponse
     bool? userConfirmed,
     CodeDeliveryDetailsType? codeDeliveryDetails,
     required String userSub,
+    String? session,
   }) {
     userConfirmed ??= false;
     return _$SignUpResponse._(
       userConfirmed: userConfirmed,
       codeDeliveryDetails: codeDeliveryDetails,
       userSub: userSub,
+      session: session,
     );
   }
 
@@ -47,26 +49,35 @@ abstract class SignUpResponse
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SignUpResponseBuilder b) {
-    b.userConfirmed = false;
+    b..userConfirmed = false;
   }
 
-  /// A response from the server indicating that a user registration has been confirmed.
+  /// Indicates whether the user was automatically confirmed. You can auto-confirm users with a [pre sign-up Lambda trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html).
   bool get userConfirmed;
 
-  /// The code delivery details returned by the server response to the user registration request.
+  /// In user pools that automatically verify and confirm new users, Amazon Cognito sends users a message with a code or link that confirms ownership of the phone number or email address that they entered. The `CodeDeliveryDetails` object is information about the delivery destination for that link or code.
   CodeDeliveryDetailsType? get codeDeliveryDetails;
 
-  /// The 128-bit ID of the authenticated user. This isn't the same as `username`.
+  /// The unique identifier of the new user, for example `a1b2c3d4-5678-90ab-cdef-EXAMPLE11111`.
   String get userSub;
+
+  /// A session Id that you can pass to `ConfirmSignUp` when you want to immediately sign in your user with the `USER_AUTH` flow after they complete sign-up.
+  String? get session;
   @override
-  List<Object?> get props => [userConfirmed, codeDeliveryDetails, userSub];
+  List<Object?> get props => [
+    userConfirmed,
+    codeDeliveryDetails,
+    userSub,
+    session,
+  ];
 
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SignUpResponse')
       ..add('userConfirmed', userConfirmed)
       ..add('codeDeliveryDetails', codeDeliveryDetails)
-      ..add('userSub', userSub);
+      ..add('userSub', userSub)
+      ..add('session', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -121,6 +132,13 @@ class SignUpResponseAwsJson11Serializer
                     specifiedType: const FullType(String),
                   )
                   as String);
+        case 'Session':
+          result.session =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -134,8 +152,12 @@ class SignUpResponseAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final SignUpResponse(:userConfirmed, :codeDeliveryDetails, :userSub) =
-        object;
+    final SignUpResponse(
+      :userConfirmed,
+      :codeDeliveryDetails,
+      :userSub,
+      :session,
+    ) = object;
     result$.addAll([
       'UserConfirmed',
       serializers.serialize(userConfirmed, specifiedType: const FullType(bool)),
@@ -150,6 +172,13 @@ class SignUpResponseAwsJson11Serializer
             codeDeliveryDetails,
             specifiedType: const FullType(CodeDeliveryDetailsType),
           ),
+        );
+    }
+    if (session != null) {
+      result$
+        ..add('Session')
+        ..add(
+          serializers.serialize(session, specifiedType: const FullType(String)),
         );
     }
     return result$;

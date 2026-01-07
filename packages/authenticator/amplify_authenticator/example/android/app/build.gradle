@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace 'com.amazonaws.amplify.amplify_authenticator_example'
-    compileSdk flutter.compileSdkVersion
+    compileSdk 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -65,5 +65,5 @@ flutter {
 }
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }

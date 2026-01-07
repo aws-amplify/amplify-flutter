@@ -6,7 +6,7 @@ issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 publish_to: none
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.9.0
 
 dependencies:
   archive: ^4.0.0
@@ -14,7 +14,7 @@ dependencies:
   async: ^2.10.0
   aws_common: any
   collection: ^1.18.0
-  crypto: ^3.0.6
+  crypto: ^3.0.7
   drift: ^2.25.0
   file: ^7.0.1
   git: ^2.2.0
@@ -31,9 +31,9 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
-  build_runner: ^2.4.9
+  build_runner: ^2.4.15
   drift_dev: ^2.25.1
-  json_serializable: ^6.9.4
+  json_serializable: ^6.11.0
   pub_api_client: ^3.1.1
   shelf_router_generator: ^1.0.5
   test: ^1.22.1

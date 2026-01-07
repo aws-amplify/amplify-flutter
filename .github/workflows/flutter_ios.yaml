@@ -33,13 +33,13 @@ jobs:
           - channel: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
 
       - name: Git Submodules
         run: git submodule update --init
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa # 2.10.0
+        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
         with:
           cache: true
           channel: ${{ matrix.channel }}

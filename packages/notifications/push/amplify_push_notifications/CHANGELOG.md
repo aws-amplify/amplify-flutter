@@ -1,3 +1,30 @@
+## 2.8.0
+
+- Minor bug fixes and improvements
+
+## 2.7.1
+
+### Fixes
+- fix(amplify_push_notifications): replace removeFirst() with removeAt(0) for Android < 11 compatibility
+
+## 2.7.0
+
+### Chores
+- chore(all): Bumped Flutter SDK to ^3.35.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped Dart SDK to ^3.9.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(all): Bumped com.android.tools.build:gradle to 8.12.1 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+- chore(notifications): Bumped com.google.firebase:firebase-bom to 33.16.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+
+## 2.6.5
+
+### Chores
+- chore(notifications): Bumped kotlin_version to 2.2.0 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(notifications): Bumped com.android.tools:desugar_jdk_libs to 2.1.5 ([#6224](https://github.com/aws-amplify/amplify-flutter/pull/6224))
+- chore(notifications): Bumped com.android.tools.build:gradle to 8.11.0 ([#6203](https://github.com/aws-amplify/amplify-flutter/pull/6203))
+- chore(notifications): Bumped com.google.firebase:firebase-messaging to 24.1.2 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(notifications): Bumped com.amplifyframework:aws-push-notifications-pinpoint-common to 2.29.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+- chore(notifications): Bumped org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1 to 1.8.1 ([#6187](https://github.com/aws-amplify/amplify-flutter/pull/6187))
+
 ## 2.6.4
 
 ### Chores

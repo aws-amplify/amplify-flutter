@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
         with:
           submodules: true
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@e58aeb62aef51dcc4d0ba8eada7c08092aad5314 # main
+        uses: dart-lang/setup-dart@fe21d53e1e27c70b5c8e8273d4bcc0d23c071577 # main
         with:
           sdk: stable
 

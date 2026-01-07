@@ -8,13 +8,13 @@ part of 'update_endpoints_batch_response.dart';
 
 class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
   @override
-  final MessageBody messageBody;
+  final MessageBody? messageBody;
 
   factory _$UpdateEndpointsBatchResponse([
     void Function(UpdateEndpointsBatchResponseBuilder)? updates,
   ]) => (UpdateEndpointsBatchResponseBuilder()..update(updates))._build();
 
-  _$UpdateEndpointsBatchResponse._({required this.messageBody}) : super._();
+  _$UpdateEndpointsBatchResponse._({this.messageBody}) : super._();
   @override
   UpdateEndpointsBatchResponse rebuild(
     void Function(UpdateEndpointsBatchResponseBuilder) updates,
@@ -59,7 +59,7 @@ class UpdateEndpointsBatchResponseBuilder
   UpdateEndpointsBatchResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _messageBody = $v.messageBody.toBuilder();
+      _messageBody = $v.messageBody?.toBuilder();
       _$v = null;
     }
     return this;
@@ -83,12 +83,12 @@ class UpdateEndpointsBatchResponseBuilder
     try {
       _$result =
           _$v ??
-          _$UpdateEndpointsBatchResponse._(messageBody: messageBody.build());
+          _$UpdateEndpointsBatchResponse._(messageBody: _messageBody?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'messageBody';
-        messageBody.build();
+        _messageBody?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'UpdateEndpointsBatchResponse',

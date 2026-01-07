@@ -15,3 +15,4 @@ allow_licenses:
   - "MIT"
   - "Apache-2.0 AND ISC AND MIT"
   - "Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND ISC AND MIT"
+  - "BlueOak-1.0.0"

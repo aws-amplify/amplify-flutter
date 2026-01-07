@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,6 +28,7 @@ abstract class InitiateAuthRequest
     required String clientId,
     AnalyticsMetadataType? analyticsMetadata,
     UserContextDataType? userContextData,
+    String? session,
   }) {
     return _$InitiateAuthRequest._(
       authFlow: authFlow,
@@ -40,6 +41,7 @@ abstract class InitiateAuthRequest
       clientId: clientId,
       analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
+      session: session,
     );
   }
 
@@ -60,38 +62,46 @@ abstract class InitiateAuthRequest
     InitiateAuthRequestAwsJson11Serializer(),
   ];
 
-  /// The authentication flow for this call to run. The API action will depend on this value. For example:
+  /// The authentication flow that you want to initiate. Each `AuthFlow` has linked `AuthParameters` that you must submit. The following are some example flows.
   ///
-  /// *   `REFRESH\_TOKEN\_AUTH` takes in a valid refresh token and returns new tokens.
+  /// USER_AUTH
   ///
-  /// *   `USER\_SRP\_AUTH` takes in `USERNAME` and `SRP_A` and returns the SRP variables to be used for next challenge execution.
+  /// The entry point for [choice-based authentication](https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-selection-sdk.html#authentication-flows-selection-choice) with passwords, one-time passwords, and WebAuthn authenticators. Request a preferred authentication type or review available authentication types. From the offered authentication types, select one in a challenge response and then authenticate with that method in an additional challenge response. To activate this setting, your user pool must be in the [Essentials tier](https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html) or higher.
   ///
-  /// *   `USER\_PASSWORD\_AUTH` takes in `USERNAME` and `PASSWORD` and returns the next challenge or tokens.
+  /// USER\_SRP\_AUTH
   ///
+  /// Username-password authentication with the Secure Remote Password (SRP) protocol. For more information, see [Use SRP password verification in custom authentication flow](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#Using-SRP-password-verification-in-custom-authentication-flow).
   ///
-  /// Valid values include:
+  /// REFRESH\_TOKEN\_AUTH and REFRESH_TOKEN
   ///
-  /// *   `USER\_SRP\_AUTH`: Authentication flow for the Secure Remote Password (SRP) protocol.
+  /// Receive new ID and access tokens when you pass a `REFRESH_TOKEN` parameter with a valid refresh token as the value. For more information, see [Using the refresh token](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-the-refresh-token.html).
   ///
-  /// *   `REFRESH\_TOKEN\_AUTH`/`REFRESH_TOKEN`: Authentication flow for refreshing the access token and ID token by supplying a valid refresh token.
+  /// CUSTOM_AUTH
   ///
-  /// *   `CUSTOM_AUTH`: Custom authentication flow.
+  /// Custom authentication with Lambda triggers. For more information, see [Custom authentication challenge Lambda triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html).
   ///
-  /// *   `USER\_PASSWORD\_AUTH`: Non-SRP authentication flow; user name and password are passed directly. If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't find the user name in the user pool.
+  /// USER\_PASSWORD\_AUTH
   ///
+  /// Client-side username-password authentication with the password sent directly in the request. For more information about client-side and server-side authentication, see [SDK authorization models](https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-public-server-side.html).
   ///
-  /// `ADMIN\_NO\_SRP_AUTH` isn't a valid value.
+  /// `ADMIN\_USER\_PASSWORD_AUTH` is a flow type of `AdminInitiateAuth` and isn't valid for InitiateAuth. `ADMIN\_NO\_SRP_AUTH` is a legacy server-side username-password flow and isn't valid for InitiateAuth.
   AuthFlowType get authFlow;
 
-  /// The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking. The required values depend on the value of `AuthFlow`:
+  /// The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking.
   ///
-  /// *   For `USER\_SRP\_AUTH`: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
+  /// The required values are specific to the InitiateAuthRequest$AuthFlow.
   ///
-  /// *   For `USER\_PASSWORD\_AUTH`: `USERNAME` (required), `PASSWORD` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
+  /// The following are some authentication flows and their parameters. Add a `SECRET_HASH` parameter if your app client has a client secret.
   ///
-  /// *   For `REFRESH\_TOKEN\_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
+  /// *   `USER_AUTH`: `USERNAME` (required), `PREFERRED_CHALLENGE`. If you don't provide a value for `PREFERRED_CHALLENGE`, Amazon Cognito responds with the `AvailableChallenges` parameter that specifies the available sign-in methods.
   ///
-  /// *   For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret), `DEVICE_KEY`. To start the authentication flow with password verification, include `ChallengeName: SRP_A` and `SRP\_A: (The SRP\_A Value)`.
+  /// *   `USER\_SRP\_AUTH`: `USERNAME` (required), `SRP_A` (required), `DEVICE_KEY`.
+  ///
+  /// *   `USER\_PASSWORD\_AUTH`: `USERNAME` (required), `PASSWORD` (required), `DEVICE_KEY`.
+  ///
+  /// *   `REFRESH\_TOKEN\_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required), `DEVICE_KEY`.
+  ///
+  /// *   `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret), `DEVICE_KEY`. To start the authentication flow with password verification, include `ChallengeName: SRP_A` and `SRP\_A: (The SRP\_A Value)`.
   ///
   ///
   /// For more information about `SECRET_HASH`, see [Computing secret hash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash). For information about `DEVICE_KEY`, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
@@ -99,18 +109,18 @@ abstract class InitiateAuthRequest
 
   /// A map of custom key-value pairs that you can provide as input for certain custom workflows that this action triggers.
   ///
-  /// You create custom workflows by assigning Lambda functions to user pool triggers. When you use the InitiateAuth API action, Amazon Cognito invokes the Lambda functions that are specified for various triggers. The ClientMetadata value is passed as input to the functions for only the following triggers:
+  /// You create custom workflows by assigning Lambda functions to user pool triggers. When you send an `InitiateAuth` request, Amazon Cognito invokes the Lambda functions that are specified for various triggers. The `ClientMetadata` value is passed as input to the functions for only the following triggers.
   ///
-  /// *   Pre signup
+  /// *   Pre sign-up
   ///
   /// *   Pre authentication
   ///
   /// *   User migration
   ///
   ///
-  /// When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function receives as input. This payload contains a `validationData` attribute, which provides the data that you assigned to the ClientMetadata parameter in your InitiateAuth request. In your function code in Lambda, you can process the `validationData` value to enhance your workflow for your specific needs.
+  /// When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload as input to the function. This payload contains a `validationData` attribute with the data that you assigned to the `ClientMetadata` parameter in your `InitiateAuth` request. In your function, `validationData` can contribute to operations that require data that isn't in the default payload.
   ///
-  /// When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following triggers, but it doesn't provide the ClientMetadata value as input:
+  /// `InitiateAuth` requests invokes the following triggers without `ClientMetadata` as input.
   ///
   /// *   Post authentication
   ///
@@ -122,26 +132,35 @@ abstract class InitiateAuthRequest
   ///
   /// *   Define auth challenge
   ///
+  /// *   Custom email sender
   ///
-  /// For more information, see [Customizing user pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
+  /// *   Custom SMS sender
   ///
-  /// When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
   ///
-  /// *   Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata parameter serves no purpose.
+  /// For more information, see [Using Lambda triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
   ///
-  /// *   Validate the ClientMetadata value.
+  /// When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
   ///
-  /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+  /// *   Store the `ClientMetadata` value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration doesn't include triggers, the `ClientMetadata` parameter serves no purpose.
+  ///
+  /// *   Validate the `ClientMetadata` value.
+  ///
+  /// *   Encrypt the `ClientMetadata` value. Don't send sensitive information in this parameter.
   _i3.BuiltMap<String, String>? get clientMetadata;
 
-  /// The app client ID.
+  /// The ID of the app client that your user wants to sign in to.
   String get clientId;
 
-  /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `InitiateAuth` calls.
+  /// Information that supports analytics outcomes with Amazon Pinpoint, including the user's endpoint ID. The endpoint ID is a destination for Amazon Pinpoint push notifications, for example a device identifier, email address, or phone number.
   AnalyticsMetadataType? get analyticsMetadata;
 
-  /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
+  /// Contextual data about your user session like the device fingerprint, IP address, or location. Amazon Cognito threat protection evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
+  ///
+  /// For more information, see [Collecting data for threat protection in applications](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-viewing-threat-protection-app.html).
   UserContextDataType? get userContextData;
+
+  /// The optional session ID from a `ConfirmSignUp` API request. You can sign in a user directly from the sign-up process with the `USER_AUTH` authentication flow. When you pass the session ID to `InitiateAuth`, Amazon Cognito assumes the SMS or email message one-time verification password from `ConfirmSignUp` as the primary authentication factor. You're not required to submit this code a second time. This option is only valid for users who have confirmed their sign-up and are signing in for the first time within the authentication flow session duration of the session ID.
+  String? get session;
   @override
   InitiateAuthRequest getPayload() => this;
 
@@ -153,6 +172,7 @@ abstract class InitiateAuthRequest
     clientId,
     analyticsMetadata,
     userContextData,
+    session,
   ];
 
   @override
@@ -163,7 +183,8 @@ abstract class InitiateAuthRequest
       ..add('clientMetadata', clientMetadata)
       ..add('clientId', '***SENSITIVE***')
       ..add('analyticsMetadata', analyticsMetadata)
-      ..add('userContextData', '***SENSITIVE***');
+      ..add('userContextData', '***SENSITIVE***')
+      ..add('session', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -251,6 +272,13 @@ class InitiateAuthRequestAwsJson11Serializer
                 )
                 as UserContextDataType),
           );
+        case 'Session':
+          result.session =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -271,6 +299,7 @@ class InitiateAuthRequestAwsJson11Serializer
       :clientId,
       :analyticsMetadata,
       :userContextData,
+      :session,
     ) = object;
     result$.addAll([
       'AuthFlow',
@@ -325,6 +354,13 @@ class InitiateAuthRequestAwsJson11Serializer
             userContextData,
             specifiedType: const FullType(UserContextDataType),
           ),
+        );
+    }
+    if (session != null) {
+      result$
+        ..add('Session')
+        ..add(
+          serializers.serialize(session, specifiedType: const FullType(String)),
         );
     }
     return result$;

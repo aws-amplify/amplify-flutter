@@ -14,7 +14,7 @@ class _$SignUpRequest extends SignUpRequest {
   @override
   final String username;
   @override
-  final String password;
+  final String? password;
   @override
   final _i3.BuiltList<AttributeType>? userAttributes;
   @override
@@ -33,7 +33,7 @@ class _$SignUpRequest extends SignUpRequest {
     required this.clientId,
     this.secretHash,
     required this.username,
-    required this.password,
+    this.password,
     this.userAttributes,
     this.validationData,
     this.analyticsMetadata,
@@ -178,11 +178,7 @@ class SignUpRequestBuilder
               r'SignUpRequest',
               'username',
             ),
-            password: BuiltValueNullFieldError.checkNotNull(
-              password,
-              r'SignUpRequest',
-              'password',
-            ),
+            password: password,
             userAttributes: _userAttributes?.build(),
             validationData: _validationData?.build(),
             analyticsMetadata: _analyticsMetadata?.build(),

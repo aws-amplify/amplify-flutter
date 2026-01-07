@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.associate_software_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,10 +42,10 @@ abstract class AssociateSoftwareTokenResponse
   static const List<_i2.SmithySerializer<AssociateSoftwareTokenResponse>>
   serializers = [AssociateSoftwareTokenResponseAwsJson11Serializer()];
 
-  /// A unique generated shared secret code that is used in the TOTP algorithm to generate a one-time code.
+  /// A unique generated shared secret code that is used by the TOTP algorithm to generate a one-time code.
   String? get secretCode;
 
-  /// The session that should be passed both ways in challenge-response calls to the service. This allows authentication of the user as part of the MFA setup process.
+  /// The session identifier that maintains the state of authentication requests and challenge responses.
   String? get session;
   @override
   List<Object?> get props => [secretCode, session];

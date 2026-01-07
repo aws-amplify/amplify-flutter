@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.confirm_device_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -9,6 +9,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/common/serializers.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/confirm_device_request.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/confirm_device_response.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_key_exists_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forbidden_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/internal_error_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_lambda_response_exception.dart';
@@ -27,7 +28,7 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-/// Confirms tracking of the device. This API call is the call that begins device tracking. For more information about device authentication, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
+/// Confirms a device that a user wants to remember. A remembered device is a "Remember me on this device" option for user pools that perform authentication with the device key of a trusted device in the back end, instead of a user-provided MFA code. For more information about device authentication, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
 ///
 /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
 ///
@@ -40,7 +41,7 @@ class ConfirmDeviceOperation
           ConfirmDeviceResponse,
           ConfirmDeviceResponse
         > {
-  /// Confirms tracking of the device. This API call is the call that begins device tracking. For more information about device authentication, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
+  /// Confirms a device that a user wants to remember. A remembered device is a "Remember me on this device" option for user pools that perform authentication with the device key of a trusted device in the back end, instead of a user-provided MFA code. For more information about device authentication, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
   ///
   /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
   ///
@@ -128,6 +129,16 @@ class ConfirmDeviceOperation
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
+    _i1.SmithyError<DeviceKeyExistsException, DeviceKeyExistsException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'DeviceKeyExistsException',
+      ),
+      _i1.ErrorKind.client,
+      DeviceKeyExistsException,
+      statusCode: 400,
+      builder: DeviceKeyExistsException.fromResponse,
+    ),
     _i1.SmithyError<ForbiddenException, ForbiddenException>(
       _i1.ShapeId(
         namespace: 'com.amazonaws.cognitoidentityprovider',

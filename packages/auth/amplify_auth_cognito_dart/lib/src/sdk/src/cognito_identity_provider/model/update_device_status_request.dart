@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.update_device_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,13 +47,13 @@ abstract class UpdateDeviceStatusRequest
   static const List<_i1.SmithySerializer<UpdateDeviceStatusRequest>>
   serializers = [UpdateDeviceStatusRequestAwsJson11Serializer()];
 
-  /// A valid access token that Amazon Cognito issued to the user whose device status you want to update.
+  /// A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for `aws.cognito.signin.user.admin`.
   String get accessToken;
 
-  /// The device key.
+  /// The device key of the device you want to update, for example `us-west-2_a1b2c3d4-5678-90ab-cdef-EXAMPLE11111`.
   String get deviceKey;
 
-  /// The status of whether a device is remembered.
+  /// To enable device authentication with the specified device, set to `remembered`.To disable, set to `not_remembered`.
   DeviceRememberedStatusType? get deviceRememberedStatus;
   @override
   UpdateDeviceStatusRequest getPayload() => this;

@@ -35,6 +35,5 @@ Map<String, dynamic> _$StorageOutputsToJson(StorageOutputs instance) =>
     <String, dynamic>{
       'aws_region': instance.awsRegion,
       'bucket_name': instance.bucketName,
-      if (instance.buckets?.map((e) => e.toJson()).toList() case final value?)
-        'buckets': value,
+      'buckets': ?instance.buckets?.map((e) => e.toJson()).toList(),
     };

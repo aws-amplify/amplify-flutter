@@ -12,7 +12,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa # 2.10.0
+    - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
       with:
         cache: true
         channel: ${{ inputs.channel }}

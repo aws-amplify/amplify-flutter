@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.authentication_result_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -11,12 +11,12 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'authentication_result_type.g.dart';
 
-/// The authentication result.
+/// The object that your application receives after authentication. Contains tokens and information for device authentication.
 abstract class AuthenticationResultType
     with _i1.AWSEquatable<AuthenticationResultType>
     implements
         Built<AuthenticationResultType, AuthenticationResultTypeBuilder> {
-  /// The authentication result.
+  /// The object that your application receives after authentication. Contains tokens and information for device authentication.
   factory AuthenticationResultType({
     String? accessToken,
     int? expiresIn,
@@ -36,7 +36,7 @@ abstract class AuthenticationResultType
     );
   }
 
-  /// The authentication result.
+  /// The object that your application receives after authentication. Contains tokens and information for device authentication.
   factory AuthenticationResultType.build([
     void Function(AuthenticationResultTypeBuilder) updates,
   ]) = _$AuthenticationResultType;
@@ -48,22 +48,22 @@ abstract class AuthenticationResultType
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AuthenticationResultTypeBuilder b) {
-    b.expiresIn = 0;
+    b..expiresIn = 0;
   }
 
-  /// A valid access token that Amazon Cognito issued to the user who you want to authenticate.
+  /// Your user's access token.
   String? get accessToken;
 
   /// The expiration period of the authentication result in seconds.
   int get expiresIn;
 
-  /// The token type.
+  /// The intended use of the token, for example `Bearer`.
   String? get tokenType;
 
-  /// The refresh token.
+  /// Your user's refresh token.
   String? get refreshToken;
 
-  /// The ID token.
+  /// Your user's ID token.
   String? get idToken;
 
   /// The new device metadata from an authentication result.

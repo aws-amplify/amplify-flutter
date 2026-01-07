@@ -24,62 +24,33 @@ cp -r $ROOT_DIR/canaries/lib .
 cp $ROOT_DIR/build-support/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 
 # Android
-# Flutter >=3.29.0
-if [ -e ./android/settings.gradle.kts ]
-then
-  sed -i '' -e "s/id(\"com.android.application\") .*/id(\"com.android.application\") version \"8.3.0\" apply false/" ./android/settings.gradle.kts
-  sed -i '' -e "s/id(\"org.jetbrains.kotlin.android\") .*/id(\"org.jetbrains.kotlin.android\") version \"1.9.10\" apply false/" ./android/settings.gradle.kts
-  cat ./android/settings.gradle.kts
+sed -i '' -e "s/id(\"com.android.application\") .*/id(\"com.android.application\") version \"8.12.1\" apply false/" ./android/settings.gradle.kts
+sed -i '' -e "s/id(\"org.jetbrains.kotlin.android\") .*/id(\"org.jetbrains.kotlin.android\") version \"2.2.0\" apply false/" ./android/settings.gradle.kts
+cat ./android/settings.gradle.kts
 
-  # TODO(khatruong2009): remove this line after the next stable release (3.22.0 or 4.0)
-  sed -i '' -e "s/minSdkVersion = .*/minSdkVersion = 24/" ./android/app/build.gradle.kts
-  sed -i '' -e "s/minSdk = .*/minSdk = 24/" ./android/app/build.gradle.kts
+# TODO(khatruong2009): remove this line after the next stable release (3.22.0 or 4.0)
+sed -i '' -e "s/minSdkVersion = .*/minSdkVersion = 24/" ./android/app/build.gradle.kts
+sed -i '' -e "s/minSdk = .*/minSdk = 24/" ./android/app/build.gradle.kts
 
-  sed -i '' -e '/id "kotlin-android"/a\
-  id '\''kotlin-parcelize'\''' ./android/app/build.gradle.kts
+sed -i '' -e '/id "kotlin-android"/a\
+id '\''kotlin-parcelize'\''' ./android/app/build.gradle.kts
 
-  sed -i '' -e "s/compileSdk = .*/compileSdk = 35/" ./android/app/build.gradle.kts
+sed -i '' -e "s/compileSdk = .*/compileSdk = 36/" ./android/app/build.gradle.kts
 
-  sed -i '' -e "s/sourceCompatibility = .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
+sed -i '' -e "s/sourceCompatibility = .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
 
-  sed -i '' -e "s/targetCompatibility = .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
+sed -i '' -e "s/targetCompatibility = .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
 
-  # TODO(equartey): remove this line after the next stable release (3.22.0 or 4.0)
-  sed -i '' -e "s/jvmTarget = .*/jvmTarget = JavaVersion.VERSION_17.toString()/" ./android/app/build.gradle.kts
+# TODO(equartey): remove this line after the next stable release (3.22.0 or 4.0)
+sed -i '' -e "s/jvmTarget = .*/jvmTarget = JavaVersion.VERSION_17.toString()/" ./android/app/build.gradle.kts
 
-  sed -i '' -e "s/compileOptions {.*/compileOptions {\n\t\tisCoreLibraryDesugaringEnabled = true/" ./android/app/build.gradle.kts
-  sed -i '' -e "s/flutter {.*/dependencies {\n\tcoreLibraryDesugaring(\"com.android.tools:desugar_jdk_libs:2.0.3\")\n}\n\nflutter {/" ./android/app/build.gradle.kts
-  cat ./android/app/build.gradle.kts
+sed -i '' -e "s/compileOptions {.*/compileOptions {\n\t\tisCoreLibraryDesugaringEnabled = true/" ./android/app/build.gradle.kts
+sed -i '' -e "s/flutter {.*/dependencies {\n\tcoreLibraryDesugaring(\"com.android.tools:desugar_jdk_libs:2.1.5\")\n}\n\nflutter {/" ./android/app/build.gradle.kts
+cat ./android/app/build.gradle.kts
 
-  sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
-  cat ./android/gradle/wrapper/gradle-wrapper.properties
-# Flutter <3.29.0 (delete this else block when min Flutter SDK is bumped to 3.29.0 or higher)
-else
-  sed -i '' -e "s/id \"com.android.application\" .*/id \"com.android.application\" version \"8.3.0\" apply false/" ./android/settings.gradle 
-  sed -i '' -e "s/id \"org.jetbrains.kotlin.android\" .*/id \"org.jetbrains.kotlin.android\" version \"1.9.10\" apply false/" ./android/settings.gradle
-  cat ./android/settings.gradle
+sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.13-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
+cat ./android/gradle/wrapper/gradle-wrapper.properties
 
-  sed -i '' -e "s/minSdkVersion = .*/minSdkVersion = 24/" ./android/app/build.gradle
-  sed -i '' -e "s/minSdk = .*/minSdk = 24/" ./android/app/build.gradle
-
-  sed -i '' -e '/id "kotlin-android"/a\
-  id '\''kotlin-parcelize'\''' ./android/app/build.gradle
-
-  sed -i '' -e "s/compileSdk = .*/compileSdk = 35/" ./android/app/build.gradle
-
-  sed -i '' -e "s/sourceCompatibility = .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
-
-  sed -i '' -e "s/targetCompatibility = .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
-
-  sed -i '' -e "s/jvmTarget = .*/jvmTarget = JavaVersion.VERSION_17/" ./android/app/build.gradle
-
-  #sed -i '' -e "s/compileOptions {.*/compileOptions {\n\t\tCoreLibraryDesugaringEnabled = true/" ./android/app/build.gradle
-  sed -i '' -e "s/flutter {.*/dependencies {\n\tcoreLibraryDesugaring(\"com.android.tools:desugar_jdk_libs:2.0.3\")\n}\n\nflutter {/" ./android/app/build.gradle
-  cat ./android/app/build.gradle
-
-  sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
-  cat ./android/gradle/wrapper/gradle-wrapper.properties
-fi
 
 # iOS
 sed -i '' -e "s/# platform .*/platform :ios, '13.0'/" ./ios/Podfile

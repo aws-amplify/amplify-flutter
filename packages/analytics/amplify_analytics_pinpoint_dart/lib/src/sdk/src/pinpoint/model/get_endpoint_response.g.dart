@@ -8,13 +8,13 @@ part of 'get_endpoint_response.dart';
 
 class _$GetEndpointResponse extends GetEndpointResponse {
   @override
-  final EndpointResponse endpointResponse;
+  final EndpointResponse? endpointResponse;
 
   factory _$GetEndpointResponse([
     void Function(GetEndpointResponseBuilder)? updates,
   ]) => (GetEndpointResponseBuilder()..update(updates))._build();
 
-  _$GetEndpointResponse._({required this.endpointResponse}) : super._();
+  _$GetEndpointResponse._({this.endpointResponse}) : super._();
   @override
   GetEndpointResponse rebuild(
     void Function(GetEndpointResponseBuilder) updates,
@@ -55,7 +55,7 @@ class GetEndpointResponseBuilder
   GetEndpointResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _endpointResponse = $v.endpointResponse.toBuilder();
+      _endpointResponse = $v.endpointResponse?.toBuilder();
       _$v = null;
     }
     return this;
@@ -79,12 +79,12 @@ class GetEndpointResponseBuilder
     try {
       _$result =
           _$v ??
-          _$GetEndpointResponse._(endpointResponse: endpointResponse.build());
+          _$GetEndpointResponse._(endpointResponse: _endpointResponse?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'endpointResponse';
-        endpointResponse.build();
+        _endpointResponse?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'GetEndpointResponse',

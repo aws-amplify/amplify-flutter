@@ -30,17 +30,17 @@ final dependencyVersions = {
   'aws_common': const Dependency('^0.7.8', DependencyType.aws),
   'aws_signature_v4': const Dependency('^0.6.6', DependencyType.aws),
   'built_value': const Dependency('^8.10.1'),
-  'built_collection': const Dependency('^5.0.0'),
+  'built_collection': const Dependency('^5.1.1'),
   'fixnum': const Dependency('^1.0.0'),
   'meta': const Dependency('^1.16.0'),
   'shelf': const Dependency('^1.4.0'),
   'shelf_router': const Dependency('^1.1.3'),
-  'xml': const Dependency('6.5.0'),
+  'xml': const Dependency('^6.5.0'),
 
   // Dev Dependencies
   'smithy_test': const Dependency.dev('^0.5.0', DependencyType.smithy),
-  'build_runner': const Dependency.dev('^2.4.9'),
-  'build_web_compilers': const Dependency.dev('^4.0.0'),
+  'build_runner': const Dependency.dev('^2.4.15'),
+  'build_web_compilers': const Dependency.dev('^4.1.4'),
   'build_test': const Dependency.dev('^3.1.1'),
   'built_value_generator': const Dependency.dev('^8.10.1'),
   'lints': const Dependency.dev('^6.0.0'),
@@ -110,7 +110,7 @@ ${smithyPath == null
               : ''
         : 'publish_to: none\n'}${pubspec.homepage != null ? 'homepage: ${pubspec.homepage}\n' : ''}
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.9.0
 
 dependencies:
 $dependenciesBlock

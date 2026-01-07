@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.auth_flow_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,14 +36,16 @@ class AuthFlowType extends _i1.SmithyEnum<AuthFlowType> {
     'REFRESH_TOKEN_AUTH',
   );
 
+  static const userAuth = AuthFlowType._(5, 'USER_AUTH', 'USER_AUTH');
+
   static const userPasswordAuth = AuthFlowType._(
-    5,
+    6,
     'USER_PASSWORD_AUTH',
     'USER_PASSWORD_AUTH',
   );
 
   static const userSrpAuth = AuthFlowType._(
-    6,
+    7,
     'USER_SRP_AUTH',
     'USER_SRP_AUTH',
   );
@@ -55,6 +57,7 @@ class AuthFlowType extends _i1.SmithyEnum<AuthFlowType> {
     AuthFlowType.customAuth,
     AuthFlowType.refreshToken,
     AuthFlowType.refreshTokenAuth,
+    AuthFlowType.userAuth,
     AuthFlowType.userPasswordAuth,
     AuthFlowType.userSrpAuth,
   ];

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.device_secret_verifier_config_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,7 +10,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'device_secret_verifier_config_type.g.dart';
 
-/// The device verifier against which it is authenticated.
+/// A Secure Remote Password (SRP) value that your application generates when you register a user's device. For more information, see [Getting a device key](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-getting-a-device-key).
 abstract class DeviceSecretVerifierConfigType
     with _i1.AWSEquatable<DeviceSecretVerifierConfigType>
     implements
@@ -18,7 +18,7 @@ abstract class DeviceSecretVerifierConfigType
           DeviceSecretVerifierConfigType,
           DeviceSecretVerifierConfigTypeBuilder
         > {
-  /// The device verifier against which it is authenticated.
+  /// A Secure Remote Password (SRP) value that your application generates when you register a user's device. For more information, see [Getting a device key](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-getting-a-device-key).
   factory DeviceSecretVerifierConfigType({
     String? passwordVerifier,
     String? salt,
@@ -29,7 +29,7 @@ abstract class DeviceSecretVerifierConfigType
     );
   }
 
-  /// The device verifier against which it is authenticated.
+  /// A Secure Remote Password (SRP) value that your application generates when you register a user's device. For more information, see [Getting a device key](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html#user-pools-remembered-devices-getting-a-device-key).
   factory DeviceSecretVerifierConfigType.build([
     void Function(DeviceSecretVerifierConfigTypeBuilder) updates,
   ]) = _$DeviceSecretVerifierConfigType;
@@ -39,10 +39,10 @@ abstract class DeviceSecretVerifierConfigType
   static const List<_i2.SmithySerializer<DeviceSecretVerifierConfigType>>
   serializers = [DeviceSecretVerifierConfigTypeAwsJson11Serializer()];
 
-  /// The password verifier.
+  /// A password verifier for a user's device. Used in SRP authentication.
   String? get passwordVerifier;
 
-  /// The [salt](https://en.wikipedia.org/wiki/Salt_(cryptography))
+  /// The salt that you want to use in SRP authentication with the user's device.
   String? get salt;
   @override
   List<Object?> get props => [passwordVerifier, salt];

@@ -308,7 +308,7 @@ class _PublicViewState extends State<PublicView>
             }
           },
           activeTrackColor: Colors.lightGreenAccent,
-          activeColor: Colors.green,
+          activeThumbColor: Colors.green,
         ),
 
         Padding(padding: EdgeInsets.all(5.0)),

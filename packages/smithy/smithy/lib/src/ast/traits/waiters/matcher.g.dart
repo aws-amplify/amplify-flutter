@@ -18,10 +18,10 @@ Matcher _$MatcherFromJson(Map<String, dynamic> json) => Matcher(
 );
 
 Map<String, dynamic> _$MatcherToJson(Matcher instance) => <String, dynamic>{
-  if (instance.success case final value?) 'success': value,
-  if (instance.errorType case final value?) 'errorType': value,
-  if (instance.output case final value?) 'output': value,
-  if (instance.inputOutput case final value?) 'inputOutput': value,
+  'success': ?instance.success,
+  'errorType': ?instance.errorType,
+  'output': ?instance.output,
+  'inputOutput': ?instance.inputOutput,
 };
 
 PathMatcher _$PathMatcherFromJson(Map<String, dynamic> json) => PathMatcher(
