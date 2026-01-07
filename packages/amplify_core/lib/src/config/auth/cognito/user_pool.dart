@@ -36,6 +36,7 @@ class CognitoUserPoolConfig
       appClientId: authOutputs.userPoolClientId!,
       appClientSecret: authOutputs.appClientSecret,
       region: authOutputs.awsRegion,
+      endpoint: authOutputs.userPoolEndpoint,
       hostedUI: authOutputs.oauth == null
           ? null
           : CognitoOAuthConfig.fromAuthOutputs(authOutputs),

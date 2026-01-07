@@ -132,11 +132,22 @@ class AuthConfig extends AmplifyPluginConfigMap {
             responseType: OAuthResponseType.code,
           )
         : null;
+    final endpoint = userPool?.endpoint;
+    if (endpoint != null) {
+      safePrint(
+        '📋 [Auth Config] Gen 1 config contains Endpoint: $endpoint',
+      );
+    } else {
+      safePrint(
+        '📋 [Auth Config] No Endpoint found in Gen 1 config',
+      );
+    }
 
-    return AuthOutputs(
+    final authOutputs = AuthOutputs(
       awsRegion: region,
       userPoolId: userPool?.poolId,
       userPoolClientId: userPool?.appClientId,
+      userPoolEndpoint: endpoint,
       appClientSecret: userPool?.appClientSecret,
       identityPoolId: identityPool?.poolId,
       passwordPolicy: passwordPolicy,
@@ -147,6 +158,12 @@ class AuthConfig extends AmplifyPluginConfigMap {
       mfaConfiguration: plugin?.mfaConfiguration?.toMfaEnforcement(),
       mfaMethods: plugin?.mfaTypes?.map((t) => t.toMfaMethod()).toList(),
     );
+
+    safePrint(
+      '📤 [Auth Config] Created AuthOutputs with userPoolEndpoint: ${authOutputs.userPoolEndpoint}',
+    );
+
+    return authOutputs;
   }
 
   @override

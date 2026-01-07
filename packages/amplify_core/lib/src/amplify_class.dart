@@ -180,6 +180,9 @@ abstract class AmplifyClass {
 
   /// Configures all plugins in topologically-sorted order.
   Future<void> _configurePlugins(AmplifyOutputs config) async {
+    safePrint(
+      '⚙️ [Amplify Core] Configuring plugins with AuthOutputs.userPoolEndpoint: ${config.auth?.userPoolEndpoint}',
+    );
     await Future.wait(_addPluginFutures);
     _addPluginFutures.clear();
     final categories = <Category, AmplifyCategory>{

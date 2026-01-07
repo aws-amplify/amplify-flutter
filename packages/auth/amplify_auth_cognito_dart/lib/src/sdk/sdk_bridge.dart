@@ -189,7 +189,26 @@ class WrappedCognitoIdentityProviderClient
            WithHeader(AWSHeaders.cacheControl, 'no-store'),
          ],
        ),
-       _dependencyManager = dependencyManager;
+       _dependencyManager = dependencyManager {
+    safePrint('🌐 [SDK Bridge] WrappedCognitoIdentityProviderClient constructor called');
+    safePrint('🌐 [SDK Bridge] region: $region, endpoint parameter: $endpoint');
+    
+    // Log the actual baseUri being used
+    final baseUri = endpoint == null
+        ? null
+        : (endpoint.startsWith('http')
+              ? Uri.parse(endpoint)
+              : Uri.parse('https://$endpoint'));
+    if (baseUri != null) {
+      safePrint(
+        '🌐 [Cognito SDK] Using custom baseUri: $baseUri',
+      );
+    } else {
+      safePrint(
+        '🌐 [Cognito SDK] Using default AWS Cognito endpoint for region: $region',
+      );
+    }
+  }
 
   final DependencyManager _dependencyManager;
   final CognitoIdentityProviderClient _base;
