@@ -9,10 +9,56 @@ inputs:
     default: google_apis
   abi:
     description: "ABI of the Android system image - x86, x86_64 or arm64-v8a. Defaults to the host architecture."
+    default: "x86_64"
   # TODO(dnys1): Can this be removed so we can use a separate step?
   script:
     required: true
     description: The script to run once the emulator is booted.
+  cores:
+    description: "Number of cores to use for the emulator"
+    default: "2"
+  ram-size:
+    description: "Size of RAM for the AVD (e.g., 2048M)"
+  emulator-boot-timeout:
+    description: "Emulator boot timeout in seconds"
+    default: "600"
+  emulator-options:
+    description: "Additional emulator options"
+    default: "-no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim"
+  disable-animations:
+    description: "Whether to disable animations"
+    default: "true"
+  avd-name:
+    description: "Custom AVD name"
+    default: "test"
+  force-avd-creation:
+    description: "Whether to force create the AVD"
+    default: "true"
+  emulator-port:
+    description: "Emulator port to use"
+    default: "5554"
 runs:
-  using: "node16"
-  main: "dist/index.mjs"
+  using: "composite"
+  steps:
+    - name: Enable KVM group permissions
+      shell: bash
+      run: |
+        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger --name-match=kvm
+    
+    - name: Run Android Emulator
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: ${{ inputs.api-level }}
+        target: ${{ inputs.target }}
+        arch: ${{ inputs.abi }}
+        cores: ${{ inputs.cores }}
+        ram-size: ${{ inputs.ram-size }}
+        avd-name: ${{ inputs.avd-name }}
+        force-avd-creation: ${{ inputs.force-avd-creation }}
+        emulator-port: ${{ inputs.emulator-port }}
+        emulator-boot-timeout: ${{ inputs.emulator-boot-timeout }}
+        emulator-options: ${{ inputs.emulator-options }}
+        disable-animations: ${{ inputs.disable-animations }}
+        script: ${{ inputs.script }}
