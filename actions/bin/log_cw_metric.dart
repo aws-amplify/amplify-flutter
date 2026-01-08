@@ -92,6 +92,7 @@ Future<void> logMetric() async {
     'amplify_lints',
     'amplify_native_legacy_wrapper',
     'pub_server',
+    'amplify_foundation',
   ];
 
   final category = categories.firstWhereOrNull(workingDirectory.contains);
