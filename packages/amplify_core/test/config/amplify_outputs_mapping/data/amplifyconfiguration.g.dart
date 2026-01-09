@@ -10,7 +10,8 @@ const amplifyConfig = '''{
           "Default": {
             "PoolId": "fake-user-pool",
             "AppClientId": "fake-client-id",
-            "Region": "us-east-1"
+            "Region": "us-east-1",
+            "Endpoint": "fake-endpoint"
           }
         },
         "CredentialsProvider": {
