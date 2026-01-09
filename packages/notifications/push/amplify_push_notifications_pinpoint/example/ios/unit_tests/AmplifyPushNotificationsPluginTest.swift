@@ -423,7 +423,8 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
 
 class MockFlutterPluginRegistrar: NSObject, FlutterPluginRegistrar {
     var instance: Any?
-
+    var viewController: UIViewController?
+    
     func messenger() -> FlutterBinaryMessenger {
         return MockFlutterBinaryMessenger()
     }
