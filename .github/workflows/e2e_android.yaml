@@ -69,7 +69,17 @@ jobs:
         timeout-minutes: 90
         with:
           api-level: ${{ matrix.api-level }}
-          script: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
+          ram-size: "4096M"
+          cores: "4"
+          emulator-boot-timeout: "900"
+          script: |
+            # Verify emulator is ready
+            adb devices -l
+            adb shell getprop sys.boot_completed
+            # Wait a bit more for full boot
+            sleep 10
+            # Run tests
+            aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
 
       - name: Log success/failure
         if: always()

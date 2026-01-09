@@ -37,6 +37,11 @@ inputs:
   emulator-port:
     description: "Emulator port to use"
     default: "5554"
+  disk-size:
+    description: "Disk size for the AVD (e.g., 8192M)"
+    default: "8192M"
+  profile:
+    description: "Hardware profile to use (e.g., Nexus 5X for stability)"
 runs:
   using: "composite"
   steps:
@@ -53,8 +58,10 @@ runs:
         api-level: ${{ inputs.api-level }}
         target: ${{ inputs.target }}
         arch: ${{ inputs.abi }}
+        profile: ${{ inputs.profile }}
         cores: ${{ inputs.cores }}
         ram-size: ${{ inputs.ram-size }}
+        disk-size: ${{ inputs.disk-size }}
         avd-name: ${{ inputs.avd-name }}
         force-avd-creation: ${{ inputs.force-avd-creation }}
         emulator-port: ${{ inputs.emulator-port }}
