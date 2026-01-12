@@ -1,3 +1,8 @@
+## 2.9.0
+
+### Features
+- Add support for custom Cognito endpoints ([#6477](https://github.com/aws-amplify/amplify-flutter/pull/6477))
+
 ## 2.8.0
 
 ### Features
