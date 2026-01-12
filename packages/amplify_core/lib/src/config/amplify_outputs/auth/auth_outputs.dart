@@ -46,7 +46,7 @@ class AuthOutputs
   final String? userPoolClientId;
 
   /// The Cognito User Pool Endpoint.
-  final String? userPoolEndpoint; //Gen 1 only
+  final String? userPoolEndpoint;
 
   /// A fixed string that must be used in all API requests to the app client
   /// if the the app client has one configured.
