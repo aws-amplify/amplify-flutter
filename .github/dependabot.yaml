@@ -215,6 +215,46 @@ updates:
       - dependency-name: "amplify_storage_s3"
       - dependency-name: "amplify_storage_s3_dart"
   - package-ecosystem: "pub"
+    directory: "canaries/.dart_tool/widget_preview_scaffold"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      # Ignore all repo packages
+      - dependency-name: "amplify_analytics_pinpoint"
+      - dependency-name: "amplify_analytics_pinpoint_dart"
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
+      - dependency-name: "amplify_lints"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_db_common_dart"
+      - dependency-name: "amplify_secure_storage_dart"
+      - dependency-name: "worker_bee"
+      - dependency-name: "worker_bee_builder"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "amplify_db_common"
+      - dependency-name: "amplify_secure_storage"
+      - dependency-name: "amplify_api"
+      - dependency-name: "amplify_api_dart"
+      - dependency-name: "amplify_flutter"
+      - dependency-name: "amplify_auth_cognito"
+      - dependency-name: "amplify_auth_cognito_dart"
+      - dependency-name: "smithy_codegen"
+      - dependency-name: "amplify_authenticator"
+      - dependency-name: "amplify_datastore"
+      - dependency-name: "amplify_datastore_plugin_interface"
+      - dependency-name: "amplify_storage_s3"
+      - dependency-name: "amplify_storage_s3_dart"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+      stack_trace:
+        patterns:
+          - "stack_trace"
+  - package-ecosystem: "pub"
     directory: "infra"
     schedule:
       interval: "daily"
@@ -1097,6 +1137,9 @@ updates:
       built_value:
         patterns:
           - "built_value"
+      http:
+        patterns:
+          - "http"
       json_annotation:
         patterns:
           - "json_annotation"
@@ -2063,6 +2106,34 @@ updates:
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "smithy_codegen"
       - dependency-name: "amplify_authenticator"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_foundation_dart"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      # Ignore all repo packages
+      - dependency-name: "amplify_lints"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+      json_annotation:
+        patterns:
+          - "json_annotation"
+      build_runner:
+        patterns:
+          - "build_runner"
+      build_web_compilers:
+        patterns:
+          - "build_web_compilers"
+      json_serializable:
+        patterns:
+          - "json_serializable"
+      test:
+        patterns:
+          - "test"
   - package-ecosystem: "pub"
     directory: "packages/amplify_native_legacy_wrapper/example"
     schedule:
