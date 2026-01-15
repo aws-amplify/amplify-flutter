@@ -26,7 +26,11 @@ abstract interface class Logger {
   void verbose(String message, [Object? error, StackTrace? stackTrace]);
 }
 
+/// {@template amplify_foundation_dart.amplify_logger}
+/// A logger implementation for Amplify.
+/// {@endtemplate}
 class AmplifyLogger implements Logger {
+  /// {@macro amplify_foundation_dart.amplify_logger}
   AmplifyLogger({
     this.name = '',
     this.thresholdLevel = LogLevel.info,
@@ -36,7 +40,10 @@ class AmplifyLogger implements Logger {
   @override
   LogLevel thresholdLevel;
 
+  /// The name of the logger.
   final String name;
+
+  /// An optional handler for processing log entries.
   void Function(AmplifyLog)? logHandler;
 
   void _log(
@@ -85,12 +92,20 @@ class AmplifyLogger implements Logger {
   }
 }
 
+/// {@template amplify_foundation_dart.amplify_no_op_logger}
+/// A logger that does not emit any logs.
+/// {@endtemplate}
 class AmplifyNoOpLogger extends AmplifyLogger {
+  /// {@macro amplify_foundation_dart.amplify_no_op_logger}
   AmplifyNoOpLogger({super.name, super.thresholdLevel})
     : super(logHandler: null);
 }
 
+/// {@template amplify_foundation_dart.amplify_simple_printer_logger}
+/// A logger that prints logs to the console.
+/// {@endtemplate}
 class AmplifySimplePrinterLogger extends AmplifyLogger {
+  /// {@macro amplify_foundation_dart.amplify_simple_printer_logger}
   AmplifySimplePrinterLogger({super.name, super.thresholdLevel})
     : super(logHandler: _logHandler);
 

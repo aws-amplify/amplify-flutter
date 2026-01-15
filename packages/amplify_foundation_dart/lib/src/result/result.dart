@@ -3,22 +3,39 @@
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 
+/// {@template amplify_foundation_dart.result}
+/// A type representing either a success with data or a failure with an error.
+/// {@endtemplate}
 sealed class Result<T, E extends Object> {
   const Result();
 
+  /// Whether this result is a success.
   bool get isSuccess;
+
+  /// Whether this result is a failure.
   bool get isFailure;
 
+  /// Returns the data if this is a success, otherwise throws.
   T get dataOrThrow;
+
+  /// Returns the data if this is a success, otherwise returns null.
   T? get dataOrNull;
+
+  /// Returns the error if this is a failure, otherwise returns null.
   E? get errorOrNull;
 
+  /// Handles the result by calling the appropriate callback.
   void handle({void Function(T)? onSuccess, void Function(E)? onFailure});
 }
 
+/// {@template amplify_foundation_dart.success}
+/// A successful result containing data.
+/// {@endtemplate}
 class Success<T, E extends Object> implements Result<T, E> {
+  /// {@macro amplify_foundation_dart.success}
   const Success(this.data);
 
+  /// The success data.
   final T data;
 
   @override
@@ -42,9 +59,14 @@ class Success<T, E extends Object> implements Result<T, E> {
   }
 }
 
+/// {@template amplify_foundation_dart.failure}
+/// A failed result containing an error.
+/// {@endtemplate}
 class Failure<T, E extends Object> implements Result<T, E> {
+  /// {@macro amplify_foundation_dart.failure}
   const Failure(this.error);
 
+  /// The error.
   final E error;
 
   @override
