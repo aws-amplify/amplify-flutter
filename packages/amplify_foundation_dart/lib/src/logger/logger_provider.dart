@@ -7,7 +7,9 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 /// A provider for creating and managing loggers.
 /// {@endtemplate}
 abstract interface class LoggerProvider {
+  /// {@template amplify_foundation_dart.logger_provider.resolve}
   /// Resolves a logger by name.
+  /// {@endtemplate}
   Logger resolve(String name);
 }
 

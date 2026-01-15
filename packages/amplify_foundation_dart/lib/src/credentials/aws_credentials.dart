@@ -9,10 +9,14 @@ part 'aws_credentials.g.dart';
 /// Base class for AWS credentials.
 /// {@endtemplate}
 sealed class AWSCredentials {
+  /// {@template amplify_foundation_dart.aws_credentials.access_key_id}
   /// The AWS access key ID.
+  /// {@endtemplate}
   String get accessKeyId;
 
+  /// {@template amplify_foundation_dart.aws_credentials.secret_access_key}
   /// The AWS secret access key.
+  /// {@endtemplate}
   String get secretAccessKey;
 }
 

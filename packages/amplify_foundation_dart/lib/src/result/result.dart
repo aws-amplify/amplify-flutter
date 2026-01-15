@@ -9,22 +9,34 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 sealed class Result<T, E extends Object> {
   const Result();
 
+  /// {@template amplify_foundation_dart.result.is_success}
   /// Whether this result is a success.
+  /// {@endtemplate}
   bool get isSuccess;
 
+  /// {@template amplify_foundation_dart.result.is_failure}
   /// Whether this result is a failure.
+  /// {@endtemplate}
   bool get isFailure;
 
+  /// {@template amplify_foundation_dart.result.data_or_throw}
   /// Returns the data if this is a success, otherwise throws.
+  /// {@endtemplate}
   T get dataOrThrow;
 
+  /// {@template amplify_foundation_dart.result.data_or_null}
   /// Returns the data if this is a success, otherwise returns null.
+  /// {@endtemplate}
   T? get dataOrNull;
 
+  /// {@template amplify_foundation_dart.result.error_or_null}
   /// Returns the error if this is a failure, otherwise returns null.
+  /// {@endtemplate}
   E? get errorOrNull;
 
+  /// {@template amplify_foundation_dart.result.handle}
   /// Handles the result by calling the appropriate callback.
+  /// {@endtemplate}
   void handle({void Function(T)? onSuccess, void Function(E)? onFailure});
 }
 
