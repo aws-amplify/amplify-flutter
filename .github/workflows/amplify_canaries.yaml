@@ -56,7 +56,7 @@ jobs:
         run: build-support/build_canary.sh apk
 
       - name: Log success/failure
-        if: always()
+        if: always() && github.actor != 'dependabot[bot]' && (github.event.pull_request == null || github.event.pull_request.head.repo.full_name == github.repository)
         uses: ./.github/composite_actions/log_cw_metric_wrapper
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
@@ -127,7 +127,7 @@ jobs:
           script: cd canaries && flutter build apk --debug && flutter test -d emulator-5554 integration_test/main_test.dart
 
       - name: Log success/failure
-        if: always()
+        if: always() && github.actor != 'dependabot[bot]' && (github.event.pull_request == null || github.event.pull_request.head.repo.full_name == github.repository)
         uses: ./.github/composite_actions/log_cw_metric_wrapper
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
@@ -206,7 +206,7 @@ jobs:
           flutter test -d test integration_test/main_test.dart --verbose
 
       - name: Log success/failure
-        if: always()
+        if: always() && github.actor != 'dependabot[bot]' && (github.event.pull_request == null || github.event.pull_request.head.repo.full_name == github.repository)
         uses: ./.github/composite_actions/log_cw_metric_wrapper
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
