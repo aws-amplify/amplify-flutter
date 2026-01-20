@@ -102,7 +102,7 @@ jobs:
           path: ${{ inputs.working-directory }}/test/ui/failures/
 
       - name: Log success/failure
-        if: always()
+        if: always() && github.actor != 'dependabot[bot]' && (github.event.pull_request == null || github.event.pull_request.head.repo.full_name == github.repository)
         uses: ./.github/composite_actions/log_cw_metric_wrapper
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
