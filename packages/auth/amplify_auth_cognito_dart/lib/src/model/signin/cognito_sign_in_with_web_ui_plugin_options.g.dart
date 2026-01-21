@@ -20,6 +20,18 @@ _$CognitoSignInWithWebUIPluginOptionsFromJson(Map<String, dynamic> json) =>
           'browserPackageName',
           (v) => v as String?,
         ),
+        nonce: $checkedConvert('nonce', (v) => v as String?),
+        language: $checkedConvert('language', (v) => v as String?),
+        loginHint: $checkedConvert('loginHint', (v) => v as String?),
+        prompt: $checkedConvert(
+          'prompt',
+          (v) => (v as List<dynamic>?)
+              ?.map(
+                (e) => $enumDecode(_$CognitoSignInWithWebUIPromptEnumMap, e),
+              )
+              .toList(),
+        ),
+        resource: $checkedConvert('resource', (v) => v as String?),
       );
       return val;
     });
@@ -28,6 +40,19 @@ Map<String, dynamic> _$CognitoSignInWithWebUIPluginOptionsToJson(
   CognitoSignInWithWebUIPluginOptions instance,
 ) => <String, dynamic>{
   'isPreferPrivateSession': instance.isPreferPrivateSession,
-  if (instance.browserPackageName case final value?)
-    'browserPackageName': value,
+  'browserPackageName': ?instance.browserPackageName,
+  'nonce': ?instance.nonce,
+  'language': ?instance.language,
+  'loginHint': ?instance.loginHint,
+  'prompt': ?instance.prompt
+      ?.map((e) => _$CognitoSignInWithWebUIPromptEnumMap[e]!)
+      .toList(),
+  'resource': ?instance.resource,
+};
+
+const _$CognitoSignInWithWebUIPromptEnumMap = {
+  CognitoSignInWithWebUIPrompt.none: 'none',
+  CognitoSignInWithWebUIPrompt.login: 'login',
+  CognitoSignInWithWebUIPrompt.selectAccount: 'select_account',
+  CognitoSignInWithWebUIPrompt.consent: 'consent',
 };

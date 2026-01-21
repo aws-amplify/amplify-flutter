@@ -34,8 +34,7 @@ ResetPasswordStep _$ResetPasswordStepFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ResetPasswordStepToJson(ResetPasswordStep instance) =>
     <String, dynamic>{
       'additionalInfo': instance.additionalInfo,
-      if (instance.codeDeliveryDetails?.toJson() case final value?)
-        'codeDeliveryDetails': value,
+      'codeDeliveryDetails': ?instance.codeDeliveryDetails?.toJson(),
       'updateStep': _$AuthResetPasswordStepEnumMap[instance.updateStep]!,
     };
 

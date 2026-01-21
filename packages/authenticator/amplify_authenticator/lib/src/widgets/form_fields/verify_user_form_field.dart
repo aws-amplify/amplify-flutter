@@ -19,6 +19,8 @@ abstract class VerifyUserFormField<FieldValue extends Object>
     super.hintText,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
   }) : super._();
 
   static VerifyUserFormField<CognitoUserAttributeKey> verifyAttribute({
@@ -35,6 +37,9 @@ abstract class VerifyUserFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    AuthenticatorTextFieldController? authenticatorTextFieldController,
+    AuthenticatorTextEnabledOverride? enabledOverride,
+    bool visible = true,
   }) => _VerifyUserTextField(
     key: keyVerifyUserConfirmationCode,
     titleKey: InputResolverKey.verificationCodeTitle,
@@ -42,6 +47,9 @@ abstract class VerifyUserFormField<FieldValue extends Object>
     field: VerifyAttributeField.confirmVerify,
     validator: validator,
     autofillHints: autofillHints,
+    authenticatorTextFieldController: authenticatorTextFieldController,
+    enabledOverride: enabledOverride,
+    visible: visible,
   );
 
   @override
@@ -69,10 +77,27 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
     super.hintTextKey,
     super.validator,
     super.autofillHints,
+    super.enabledOverride,
+    super.visible,
+    this.authenticatorTextFieldController,
   }) : super._();
 
   @override
+  final AuthenticatorTextFieldController? authenticatorTextFieldController;
+
+  @override
   _VerifyUserTextFieldState createState() => _VerifyUserTextFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<AuthenticatorTextFieldController?>(
+        'authenticatorTextFieldController',
+        authenticatorTextFieldController,
+      ),
+    );
+  }
 }
 
 class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>

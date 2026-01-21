@@ -1,3 +1,12 @@
+## 0.6.10
+
+- Minor bug fixes and improvements
+
+## 0.6.9
+
+### Chores
+- chore(all): Bumped Dart SDK to ^3.9.0 ([#6306](https://github.com/aws-amplify/amplify-flutter/pull/6306))
+
 ## 0.6.8
 
 - Minor bug fixes and improvements

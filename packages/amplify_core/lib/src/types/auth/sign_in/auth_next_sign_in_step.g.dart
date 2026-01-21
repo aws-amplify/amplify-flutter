@@ -63,8 +63,7 @@ AuthNextSignInStep _$AuthNextSignInStepFromJson(
 Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) =>
     <String, dynamic>{
       'additionalInfo': instance.additionalInfo,
-      if (instance.codeDeliveryDetails?.toJson() case final value?)
-        'codeDeliveryDetails': value,
+      'codeDeliveryDetails': ?instance.codeDeliveryDetails?.toJson(),
       'signInStep': _$AuthSignInStepEnumMap[instance.signInStep]!,
       'missingAttributes': instance.missingAttributes
           .map(const AuthUserAttributeKeyConverter().toJson)
@@ -74,11 +73,6 @@ Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) =>
         'allowedMfaTypes': value,
       if (instance.totpSetupDetails?.toJson() case final value?)
         'totpSetupDetails': value,
-      if (instance.availableFactors
-              ?.map((e) => _$AuthFactorTypeEnumMap[e]!)
-              .toList()
-          case final value?)
-        'availableFactors': value,
     };
 
 const _$AuthSignInStepEnumMap = {

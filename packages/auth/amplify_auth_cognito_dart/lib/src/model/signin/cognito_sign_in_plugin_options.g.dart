@@ -35,8 +35,6 @@ Map<String, dynamic> _$CognitoSignInPluginOptionsToJson(
 ) => <String, dynamic>{
   if (_$AuthenticationFlowTypeEnumMap[instance.authFlowType] case final value?)
     'authFlowType': value,
-  if (_$AuthFactorTypeEnumMap[instance.preferredFirstFactor] case final value?)
-    'preferredFirstFactor': value,
   'clientMetadata': instance.clientMetadata,
 };
 

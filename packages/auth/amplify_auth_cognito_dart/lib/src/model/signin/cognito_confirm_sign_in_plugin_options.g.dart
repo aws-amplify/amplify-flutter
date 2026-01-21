@@ -40,8 +40,7 @@ Map<String, dynamic> _$CognitoConfirmSignInPluginOptionsToJson(
   'userAttributes': const CognitoUserAttributeMapConverter().toJson(
     instance.userAttributes,
   ),
-  if (instance.friendlyDeviceName case final value?)
-    'friendlyDeviceName': value,
+  'friendlyDeviceName': ?instance.friendlyDeviceName,
 };
 
 Value? _$JsonConverterFromJson<Json, Value>(

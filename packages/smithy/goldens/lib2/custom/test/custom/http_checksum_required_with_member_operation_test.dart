@@ -207,6 +207,45 @@ void main() {
       ],
     );
   });
+  _i1.test('HttpChecksumRequiredWithMemberWithCRC64NVME (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpChecksumRequiredWithMemberOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'HttpChecksumRequiredWithMemberWithCRC64NVME',
+        documentation:
+            'Adds a CRC64NVME checksum when that algorithm is provided',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: 'hello, world',
+        bodyMediaType: 'application/octet-stream',
+        params: {'checksumAlgorithm': 'CRC64NVME', 'content': 'hello, world'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/octet-stream',
+          'x-amz-checksum-crc64nvme': 'imGzfIgXKM8=',
+          'x-amz-request-algorithm': 'CRC64NVME',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/requiredWithMember',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        HttpChecksumRequiredWithMemberInputRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
 class HttpChecksumRequiredWithMemberInputRestJson1Serializer

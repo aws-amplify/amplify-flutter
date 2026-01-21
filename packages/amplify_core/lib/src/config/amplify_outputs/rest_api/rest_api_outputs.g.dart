@@ -35,7 +35,7 @@ Map<String, dynamic> _$RestApiOutputsToJson(RestApiOutputs instance) =>
     <String, dynamic>{
       'aws_region': instance.awsRegion,
       'url': instance.url,
-      if (instance.apiKey case final value?) 'api_key': value,
+      'api_key': ?instance.apiKey,
       'authorization_type':
           _$APIAuthorizationTypeEnumMap[instance.authorizationType]!,
     };
