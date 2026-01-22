@@ -1,3 +1,16 @@
+## 2.4.1
+
+- Minor bug fixes and improvements
+
+## 2.4.0
+
+### Features
+- feat(authenticator): Add TextEditingController, visible, and enabledOverride support to form fields ([#6424](https://github.com/aws-amplify/amplify-flutter/pull/6424))
+
+## 2.3.9
+
+- Minor bug fixes and improvements
+
 ## 2.3.8
 
 ### Chores

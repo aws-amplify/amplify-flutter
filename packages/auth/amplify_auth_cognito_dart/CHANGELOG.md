@@ -1,3 +1,13 @@
+## 0.11.16
+
+### Features
+- Add support for custom Cognito endpoints ([#6477](https://github.com/aws-amplify/amplify-flutter/pull/6477))
+
+## 0.11.15
+
+### Features
+- feat(auth): add support for cognito oidc parameters in managed login ([#6442](https://github.com/aws-amplify/amplify-flutter/pull/6442))
+
 ## 0.11.14
 
 ### Features
