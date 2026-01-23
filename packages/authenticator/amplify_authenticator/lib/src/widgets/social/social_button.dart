@@ -193,47 +193,53 @@ class _SocialSignInButtonState
   @override
   Widget build(BuildContext context) {
     final resolver = stringResolver.buttons;
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 40),
-      child: OutlinedButton(
-        focusNode: focusNode,
-        style: ButtonStyle(foregroundColor: getButtonForegroundColor(context)),
-        onPressed: state.isBusy
-            ? null
-            : () => state.signInWithProvider(widget.provider),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final padding = calculatePadding(constraints);
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: padding),
-              child: Row(
-                mainAxisAlignment: padding == 0
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.start,
-                children: [
-                  SizedBox.square(
-                    dimension: logoSize,
-                    child: Padding(
-                      padding: widget.provider.logoInsets,
-                      child: icon,
+    final isBusy = state.isBusy;
+    return Opacity(
+      opacity: isBusy ? 0.5 : 1.0,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 40),
+        child: OutlinedButton(
+          focusNode: focusNode,
+          style: ButtonStyle(
+            foregroundColor: getButtonForegroundColor(context),
+          ),
+          onPressed: isBusy
+              ? null
+              : () => state.signInWithProvider(widget.provider),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final padding = calculatePadding(constraints);
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: padding),
+                child: Row(
+                  mainAxisAlignment: padding == 0
+                      ? MainAxisAlignment.center
+                      : MainAxisAlignment.start,
+                  children: [
+                    SizedBox.square(
+                      dimension: logoSize,
+                      child: Padding(
+                        padding: widget.provider.logoInsets,
+                        child: icon,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: spacing),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Text(
-                        resolver.resolve(
-                          context,
-                          ButtonResolverKey.signInWith(widget.provider),
+                    const SizedBox(width: spacing),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Text(
+                          resolver.resolve(
+                            context,
+                            ButtonResolverKey.signInWith(widget.provider),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
