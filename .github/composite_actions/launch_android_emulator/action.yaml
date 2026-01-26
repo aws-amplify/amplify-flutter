@@ -13,6 +13,12 @@ inputs:
   script:
     required: true
     description: The script to run once the emulator is booted.
+  max-retries:
+    description: "Maximum number of retry attempts for the entire emulator launch and script execution. Defaults to 1 (no retries)."
+    default: "1"
+  retry-timeout-minutes:
+    description: "Timeout in minutes for each individual retry attempt. If an attempt exceeds this timeout, it will be killed and retried. Defaults to 30 minutes."
+    default: "90"
 runs:
   using: "node16"
   main: "dist/index.mjs"
