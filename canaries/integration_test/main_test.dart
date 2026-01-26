@@ -19,7 +19,7 @@ const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
 const digits = '1234567890';
 const symbols = r'~/`!@#$%^&*(),._?:;{}|<>';
 
-String generateUsername() => 'TEMP_USER-${uuid()}';
+String generateUsername() => 'temp-user-${uuid()}';
 String generatePassword() =>
     uuid() +
     uppercaseLetters[random.nextInt(uppercaseLetters.length)] +
