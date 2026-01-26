@@ -63,6 +63,9 @@ void main() {
     final authSession = await Amplify.Auth.fetchAuthSession();
     expect(authSession.isSignedIn, isTrue);
 
+    // Clear DataStore to prevent sync conflicts with direct API calls
+    await Amplify.DataStore.clear();
+
     // === STORAGE: Download guest data ===
     final guestData = await Amplify.Storage.downloadData(path: path).result;
     expect(utf8.decode(guestData.bytes), data);
