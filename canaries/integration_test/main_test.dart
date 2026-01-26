@@ -103,11 +103,25 @@ void main() {
     final queryResponse = await Amplify.API.query(request: queryRequest).response;
     expect(queryResponse.hasErrors, isFalse);
     expect(queryResponse.data?.id, createdTodo.id);
+    final queriedTodo = queryResponse.data!;
 
     // === API: Delete Todo (cleanup) ===
-    final deleteMutation = ModelMutations.delete(createdTodo);
+    // Use the queried todo which reflects the actual DB state including the owner
+    // field as set by AppSync (which uses the cognito:username from the JWT token)
+    final deleteMutation = ModelMutations.delete(queriedTodo);
     final deleteResponse =
         await Amplify.API.mutate(request: deleteMutation).response;
+    if (deleteResponse.hasErrors) {
+      // Log only error types (safe enums like "Unauthorized", "ConflictUndetected")
+      // Do NOT log error messages or field values which may contain sensitive data
+      final errorTypes = deleteResponse.errors
+          ?.map((e) => e.errorType ?? 'Unknown')
+          .join(', ');
+      AWSLogger().error('Delete mutation failed with ${deleteResponse.errors?.length ?? 0} error(s). Types: $errorTypes');
+      // Log only whether values match, not the actual values
+      final ownerMatch = queriedTodo.owner == createdTodo.owner;
+      AWSLogger().error('Owner field matches between queried and created todo: $ownerMatch');
+    }
     expect(deleteResponse.hasErrors, isFalse);
 
     // === DATASTORE: Save and observe ===
