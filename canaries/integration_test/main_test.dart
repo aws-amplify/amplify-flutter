@@ -63,7 +63,11 @@ void main() {
     final authSession = await Amplify.Auth.fetchAuthSession();
     expect(authSession.isSignedIn, isTrue);
 
-    // Clear DataStore to prevent sync conflicts with direct API calls
+    // Stop DataStore sync engine to prevent race conditions with direct API calls.
+    // DataStore.clear() only clears local data but keeps the sync engine running,
+    // which can cause version conflicts when the sync engine picks up items created
+    // via direct API and updates their _version field.
+    await Amplify.DataStore.stop();
     await Amplify.DataStore.clear();
 
     // === STORAGE: Download guest data ===
@@ -109,25 +113,17 @@ void main() {
     final queriedTodo = queryResponse.data!;
 
     // === API: Delete Todo (cleanup) ===
-    // Use deleteById to avoid ConflictUnhandled errors caused by _version mismatch
-    // when DataStore sync may have modified the item's version in the background.
-    // Note: Cleanup failures are logged but do not fail the test, as the primary
-    // test assertions have already passed. DataStore sync can race with direct API
-    // calls, causing version conflicts that are expected in this test scenario.
     final deleteMutation = ModelMutations.deleteById(
       Todo.classType,
       queriedTodo.modelIdentifier,
     );
     final deleteResponse =
         await Amplify.API.mutate(request: deleteMutation).response;
-    if (deleteResponse.hasErrors) {
-      // Log only error types (safe enums like "Unauthorized", "ConflictUnhandled")
-      // Do NOT log error messages or field values which may contain sensitive data
-      final errorTypes = deleteResponse.errors
-          ?.map((e) => e.errorType ?? 'Unknown')
-          .join(', ');
-      AWSLogger().warn('[Cleanup] Delete mutation failed with ${deleteResponse.errors?.length ?? 0} error(s). Types: $errorTypes. This is expected if DataStore sync modified the item version.');
-    }
+    expect(deleteResponse.hasErrors, isFalse);
+
+    // === DATASTORE: Start sync and test ===
+    // Restart DataStore for DataStore-specific tests after API tests are complete
+    await Amplify.DataStore.start();
 
     // === DATASTORE: Save and observe ===
     final dsTodo = Todo(name: 'canary-ds-test', owner: username);
