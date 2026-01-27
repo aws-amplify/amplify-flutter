@@ -59,9 +59,12 @@ jobs:
 
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
-        timeout-minutes: 90
+        # Total timeout is (retry-timeout-minutes × max-retries) + buffer for cleanup between retries
+        timeout-minutes: 480
         with:
           script: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
+          max-retries: 5
+          retry-timeout-minutes: 90
 
       - name: Log success/failure
         if: always()
