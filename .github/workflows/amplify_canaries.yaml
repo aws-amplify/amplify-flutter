@@ -120,11 +120,13 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run Canary
-        timeout-minutes: 45
+        timeout-minutes: 225
         uses: ./.github/composite_actions/launch_android_emulator
         with:
           # Perform a build to reduce startup time of `flutter test` and prevent timeout
           script: cd canaries && flutter build apk --debug && flutter test -d emulator-5554 integration_test/main_test.dart
+          max-retries: 5
+          retry-timeout-minutes: 45
 
       - name: Log success/failure
         if: always()

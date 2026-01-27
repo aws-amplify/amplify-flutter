@@ -388,8 +388,6 @@ class StateMachineBloc
         final result = await _authService.signIn(data.username, data.password);
         await _processSignInResult(result, isSocialSignIn: false);
       } else if (data is AuthSocialSignInData) {
-        // Do not await a social sign-in since multiple sign-in attempts
-        // can occur.
         await _authService
             .signInWithProvider(
               data.provider,
@@ -403,6 +401,13 @@ class StateMachineBloc
                   ? logger.info
                   : logger.error;
               log('Error signing in', error, stackTrace);
+              // Emit exception so that the UI can exit loading state
+              _exceptionController.add(
+                AuthenticatorException(
+                  error,
+                  showBanner: error is! UserCancelledException,
+                ),
+              );
             });
       } else {
         throw StateError('Bad sign in data: $data');
