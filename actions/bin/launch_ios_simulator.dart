@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:actions/actions.dart';
+import 'package:actions/src/shell_script.dart';
 import 'package:collection/collection.dart';
 
 Future<void> main(List<String> args) => wrapMain(launch);
@@ -60,6 +61,9 @@ Future<void> launch() async {
   if (bootRes.exitCode != 0) {
     throw Exception('Could not boot simulator');
   }
+
+  final script = core.getRequiredInput('script');
+  await core.withGroup('Running script', () => ShellScript(script).run());
 }
 
 /// Gets the iOS runtime identifier for the given [iosVersion].

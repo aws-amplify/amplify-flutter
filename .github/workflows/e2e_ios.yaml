@@ -45,10 +45,6 @@ jobs:
         with:
           channel: ${{ matrix.channel }}
 
-      - name: Launch iOS simulator
-        uses: ./.github/composite_actions/launch_ios_simulator
-        timeout-minutes: 20
-
       - name: Pub Upgrade
         run: aft exec --include=${{ inputs.package-name }} -- flutter pub upgrade
 
@@ -61,9 +57,11 @@ jobs:
           scope: ${{ inputs.package-name }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - name: Run integration tests
-        timeout-minutes: 60
-        run: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
+      - name: Launch iOS simulator
+        uses: ./.github/composite_actions/launch_ios_simulator
+        timeout-minutes: 90
+        with:
+          script: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
 
       - name: Log success/failure
         if: always()

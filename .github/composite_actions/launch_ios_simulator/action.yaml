@@ -4,6 +4,9 @@ inputs:
   ios-version:
     description: The iOS version
     default: "17.5"
+  script:
+    required: true
+    description: The script to run once the simulator is booted.
 runs:
   using: "node16"
   main: "dist/index.mjs"
