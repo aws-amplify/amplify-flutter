@@ -113,10 +113,7 @@ void main() {
     final queriedTodo = queryResponse.data!;
 
     // === API: Delete Todo (cleanup) ===
-    final deleteMutation = ModelMutations.deleteById(
-      Todo.classType,
-      queriedTodo.modelIdentifier,
-    );
+    final deleteMutation = ModelMutations.delete(queriedTodo);
     final deleteResponse =
         await Amplify.API.mutate(request: deleteMutation).response;
     expect(deleteResponse.hasErrors, isFalse);
