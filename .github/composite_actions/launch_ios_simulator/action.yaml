@@ -4,6 +4,15 @@ inputs:
   ios-version:
     description: The iOS version
     default: "17.5"
+  script:
+    required: true
+    description: The script to run once the simulator is booted.
+  max-retries:
+    description: "Maximum number of retry attempts for the entire simulator launch and script execution. Defaults to 1 (no retries)."
+    default: "1"
+  retry-timeout-minutes:
+    description: "Timeout in minutes for each individual retry attempt. If an attempt exceeds this timeout, it will be killed and retried. Defaults to 90 minutes."
+    default: "90"
 runs:
   using: "node16"
   main: "dist/index.mjs"

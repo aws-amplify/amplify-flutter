@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:actions/actions.dart';
 import 'package:actions/src/android/avd_manager.dart';
 import 'package:actions/src/android/sdk_manager.dart';
-import 'package:actions/src/android/shell_script.dart';
+import 'package:actions/src/shell_script.dart';
 import 'package:actions/src/android/types.dart';
 
 Future<void> main() => wrapMain(_action);
