@@ -1,10 +1,69 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smithy/smithy.dart';
+
+/// Enum representing all Cognito exception types for type-safe error handling
+enum CognitoExceptionType {
+  userNotFound('UserNotFoundException'),
+  userNotConfirmed('UserNotConfirmedException'),
+  usernameExists('UsernameExistsException'),
+  aliasExists('AliasExistsException'),
+  invalidPassword('InvalidPasswordException'),
+  invalidParameter('InvalidParameterException'),
+  expiredCode('ExpiredCodeException'),
+  codeMismatch('CodeMismatchException'),
+  codeDeliveryFailure('CodeDeliveryFailureException'),
+  limitExceeded('LimitExceededException'),
+  mfaMethodNotFound('MfaMethodNotFoundException'),
+  notAuthorized('NotAuthorizedServiceException'),
+  resourceNotFound('ResourceNotFoundException'),
+  softwareTokenMfaNotFound('SoftwareTokenMfaNotFoundException'),
+  tooManyFailedAttempts('TooManyFailedAttemptsException'),
+  tooManyRequests('TooManyRequestsException'),
+  passwordResetRequired('PasswordResetRequiredException'),
+  enableSoftwareTokenMfa('EnableSoftwareTokenMFAException'),
+  userLambdaValidation('UserLambdaValidationException'),
+  unknown('UnknownException');
+
+  const CognitoExceptionType(this.className);
+  
+  /// The actual exception class name
+  final String className;
+  
+  /// Creates enum from exception class name, returns unknown if not found
+  static CognitoExceptionType fromClassName(String className) {
+    for (final type in CognitoExceptionType.values) {
+      if (type.className == className) return type;
+    }
+    return CognitoExceptionType.unknown;
+  }
+}
+
+/// {@template amplify_authenticator.cognito_authenticator_exception}
+/// A specialized AuthenticatorException for Cognito-specific errors that
+/// provides access to the underlying Cognito exception for localization.
+/// {@endtemplate}
+class CognitoAuthenticatorException extends AuthenticatorException {
+  /// {@macro amplify_authenticator.cognito_authenticator_exception}
+  const CognitoAuthenticatorException._(
+    super.message, {
+    super.showBanner = true,
+    super.underlyingException,
+  }) : super._();
+
+  /// Returns the underlying Cognito service exception
+  CognitoServiceException get cognitoException => 
+      underlyingException as CognitoServiceException;
+
+  /// Returns the Cognito exception type enum for type-safe error handling
+  CognitoExceptionType getCognitoExceptionType() => 
+      CognitoExceptionType.fromClassName(cognitoException.runtimeType.toString());
+}
 
 /// {@template amplify_authenticator.authenticator_exception}
 /// An exception originating within the Authenticator as part of the sign up/
@@ -16,6 +75,13 @@ class AuthenticatorException extends AmplifyException {
     String message;
     if (exception is String) {
       message = exception;
+    } else if (exception is CognitoServiceException) {
+      message = exception.message;
+      return CognitoAuthenticatorException._(
+        message,
+        showBanner: showBanner,
+        underlyingException: exception,
+      );
     } else if (exception is AmplifyException) {
       message = exception.message;
     } else if (exception is SmithyException) {

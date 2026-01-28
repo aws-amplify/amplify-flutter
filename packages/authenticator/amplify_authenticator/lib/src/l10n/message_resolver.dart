@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,17 @@ class MessageResolver extends Resolver<MessageResolverKey> {
   /// The message that is displayed after a TOTP Key failed to copy to the clipboard
   String copyFailed(BuildContext context) {
     return AuthenticatorLocalizations.messagesOf(context).copyFailed;
+  }
+
+  /// Resolves error messages for AuthenticatorException instances
+  String error(BuildContext context, AuthenticatorException exception) {
+    if (exception is CognitoAuthenticatorException) {      
+      // Fallback to Cognito's original message
+      return exception.cognitoException.message;
+    }
+    
+    // Non-Cognito exceptions use original message or unknown fallback
+    return exception.message;
   }
 
   @override

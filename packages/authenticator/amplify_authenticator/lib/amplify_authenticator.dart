@@ -543,10 +543,15 @@ class _AuthenticatorState extends State<Authenticator> {
         _logger.error('Error in AuthBloc', exception);
       }
       if (mounted && exception.showBanner) {
-        _showExceptionBanner(
-          type: StatusType.error,
-          message: exception.message,
-        );
+        final context = scaffoldMessengerKey.currentContext;
+        if (context != null && context.mounted) {
+          final resolver = widget.stringResolver.messages;
+          final errorMessage = resolver.error(context, exception);
+          _showExceptionBanner(
+            type: StatusType.error,
+            message: errorMessage,
+          );
+        }
       }
     });
   }
