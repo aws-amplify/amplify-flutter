@@ -6959,34 +6959,6 @@
     },
     SdkManager__ensureBuildTools_closure6: function SdkManager__ensureBuildTools_closure6() {
     },
-    ShellScript_run(_this) {
-      var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        fullScript, t1;
-      var $async$ShellScript_run = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
-        for (;;)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              fullScript = "#!/bin/bash\nset -eo pipefail\n" + _this + "\n";
-              t1 = init.G;
-              A._asJSObject(t1.core).info("Running script:\n" + fullScript + "\n=======================================");
-              $async$goto = 2;
-              return A._asyncAwait(A.FileSystem_withTempDir(A._asJSObject(t1.fs), "launch_android_emulator", new A.ShellScript_run_closure(fullScript, _this), type$.Null), $async$ShellScript_run);
-            case 2:
-              // returning from await.
-              // implicit return
-              return A._asyncReturn(null, $async$completer);
-          }
-      });
-      return A._asyncStartSync($async$ShellScript_run, $async$completer);
-    },
-    ShellScript_run_closure: function ShellScript_run_closure(t0, t1) {
-      this.fullScript = t0;
-      this._this = t1;
-    },
     AndroidAbi_parse(value) {
       return B.JSArray_methods.firstWhere$2$orElse(B.List_Lmb, new A.AndroidAbi_parse_closure(value), new A.AndroidAbi_parse_closure0(value));
     },
@@ -7222,6 +7194,34 @@
     Arch: function Arch(t0, t1) {
       this.index = t0;
       this._name = t1;
+    },
+    ShellScript_run(_this) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
+        fullScript, t1;
+      var $async$ShellScript_run = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        for (;;)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              fullScript = "#!/bin/bash\nset -eo pipefail\n" + _this + "\n";
+              t1 = init.G;
+              A._asJSObject(t1.core).info("Running script:\n" + fullScript + "\n=======================================");
+              $async$goto = 2;
+              return A._asyncAwait(A.FileSystem_withTempDir(A._asJSObject(t1.fs), "shell_script", new A.ShellScript_run_closure(fullScript, _this), type$.Null), $async$ShellScript_run);
+            case 2:
+              // returning from await.
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$ShellScript_run, $async$completer);
+    },
+    ShellScript_run_closure: function ShellScript_run_closure(t0, t1) {
+      this.fullScript = t0;
+      this._this = t1;
     },
     unreachable() {
       return A.throwExpression(new A._UnreachableError());
@@ -10371,19 +10371,19 @@
     call$1(o) {
       return this.getTag(o);
     },
-    $signature: 35
+    $signature: 29
   };
   A.initHooks_closure0.prototype = {
     call$2(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 29
+    $signature: 57
   };
   A.initHooks_closure1.prototype = {
     call$1(tag) {
       return this.prototypeForTag(A._asString(tag));
     },
-    $signature: 30
+    $signature: 67
   };
   A._Record.prototype = {
     toString$0(_) {
@@ -10900,7 +10900,7 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 72
+    $signature: 34
   };
   A._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0() {
@@ -10988,13 +10988,13 @@
     call$2(error, stackTrace) {
       this.bodyFunction.call$2(1, new A.ExceptionAndStackTrace(error, type$.StackTrace._as(stackTrace)));
     },
-    $signature: 46
+    $signature: 30
   };
   A._wrapJsFunctionForAsync_closure.prototype = {
     call$2(errorCode, result) {
       this.$protected(A._asInt(errorCode), result);
     },
-    $signature: 62
+    $signature: 32
   };
   A.AsyncError.prototype = {
     toString$0(_) {
@@ -11446,7 +11446,7 @@
       type$.StackTrace._as(s);
       this.joinedResult._completeErrorObject$1(new A.AsyncError(e, s));
     },
-    $signature: 15
+    $signature: 20
   };
   A._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0() {
@@ -12961,7 +12961,7 @@
     call$2(k, v) {
       this.result.$indexSet(0, this.K._as(k), this.V._as(v));
     },
-    $signature: 32
+    $signature: 74
   };
   A.ListBase.prototype = {
     get$iterator(receiver) {
@@ -13509,7 +13509,7 @@
     call$1(sink) {
       return new A._ConverterStreamEventSink(sink, this.$this.startChunkedConversion$1(sink), type$._ConverterStreamEventSink_dynamic_dynamic);
     },
-    $signature: 52
+    $signature: 72
   };
   A.Encoding.prototype = {};
   A.JsonCodec.prototype = {
@@ -13536,7 +13536,7 @@
       type$.EventSink_String._as(sink);
       return new A._LineSplitterEventSink(sink, new A._StringAdapterSink(sink));
     },
-    $signature: 57
+    $signature: 41
   };
   A._LineSplitterSink.prototype = {
     addSlice$4(chunk, start, end, isLast) {
@@ -14602,7 +14602,7 @@
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv6 address, " + msg, this.host, position));
     },
-    $signature: 60
+    $signature: 52
   };
   A._Uri.prototype = {
     get$_text() {
@@ -15310,7 +15310,7 @@
       } else
         t1._completeDoneError$2(error, type$.nullable_StackTrace._as(stackTrace));
     },
-    $signature: 65
+    $signature: 62
   };
   A._IOSinkImpl.prototype = {$isStringSink: 1, $isIOSink: 1};
   A.ProcessStartMode.prototype = {
@@ -15358,7 +15358,7 @@
       } else
         return o;
     },
-    $signature: 66
+    $signature: 63
   };
   A.promiseToFuture_closure.prototype = {
     call$1(r) {
@@ -15407,7 +15407,7 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 67
+    $signature: 65
   };
   A.wrapMain__closure0.prototype = {
     call$0() {
@@ -15447,7 +15447,7 @@
       });
       return A._asyncStartSync($async$call$2, $async$completer);
     },
-    $signature: 69
+    $signature: 66
   };
   A.wrapMain__closure.prototype = {
     call$0() {
@@ -15744,7 +15744,7 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 74
+    $signature: 69
   };
   A.AvdManager__enableKvm_closure.prototype = {
     call$0() {
@@ -15848,7 +15848,7 @@
     call$1(e) {
       return e instanceof A._BootNotCompleted;
     },
-    $signature: 28
+    $signature: 45
   };
   A.AvdManager__waitForBoot__closure0.prototype = {
     call$1(e) {
@@ -16247,36 +16247,6 @@
     },
     $signature: 2
   };
-  A.ShellScript_run_closure.prototype = {
-    call$1(tempDir) {
-      var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$self = this, result, t1, scriptPath;
-      var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
-        for (;;)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              scriptPath = A.join(tempDir, "script.sh", null, null);
-              A._asJSObject(init.G.fs).writeFileSync(scriptPath, $async$self.fullScript);
-              $async$goto = 2;
-              return A._asyncAwait($.$get$processManager().run$2$echoOutput(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), true), $async$call$1);
-            case 2:
-              // returning from await.
-              result = $async$result;
-              t1 = result.exitCode;
-              if (t1 !== 0)
-                throw A.wrapException(A.ProcessException$("/bin/bash", A._setArrayType([$async$self._this], type$.JSArray_String), A.S(result.stdout) + "\n" + A.S(result.stderr), t1));
-              // implicit return
-              return A._asyncReturn(null, $async$completer);
-          }
-      });
-      return A._asyncStartSync($async$call$1, $async$completer);
-    },
-    $signature: 33
-  };
   A.AndroidAbi.prototype = {
     _enumToString$0() {
       return "AndroidAbi." + this._name;
@@ -16292,7 +16262,7 @@
       t1 = this.value;
       return el._name === t1 || el.abi === t1;
     },
-    $signature: 34
+    $signature: 33
   };
   A.AndroidAbi_parse_closure0.prototype = {
     call$0() {
@@ -16304,7 +16274,7 @@
     call$1(el) {
       return type$.AndroidAbi._as(el).abi;
     },
-    $signature: 36
+    $signature: 35
   };
   A.AndroidApiLevel.prototype = {
     _enumToString$0() {
@@ -16324,13 +16294,13 @@
     call$1(el) {
       return type$.AndroidApiLevel._as(el).level === this.levelInt;
     },
-    $signature: 37
+    $signature: 36
   };
   A.AndroidApiLevel_allApiLevels_closure.prototype = {
     call$1(el) {
       return type$.AndroidApiLevel._as(el).level;
     },
-    $signature: 38
+    $signature: 37
   };
   A.AndroidSystemImageTarget.prototype = {
     _enumToString$0() {
@@ -16344,7 +16314,7 @@
     call$1(el) {
       return type$.AndroidSystemImageTarget._as(el).tag === this.target;
     },
-    $signature: 39
+    $signature: 38
   };
   A.AndroidSystemImageTarget_parse_closure0.prototype = {
     call$0() {
@@ -16356,7 +16326,7 @@
     call$1(el) {
       return type$.AndroidSystemImageTarget._as(el).tag;
     },
-    $signature: 40
+    $signature: 39
   };
   A.ChildProcess_spawn_closure.prototype = {
     call$1(arg) {
@@ -16373,7 +16343,7 @@
         return;
       t1.add$1(0, chunk);
     },
-    $signature: 41
+    $signature: 40
   };
   A.NodeReadableStream_get_stream_onError.prototype = {
     call$1(error) {
@@ -16385,7 +16355,7 @@
       t1.addError$1(error);
       t1.close$0();
     },
-    $signature: 42
+    $signature: 28
   };
   A.NodeReadableStream_get_stream_onDone.prototype = {
     call$1(__wc0_formal) {
@@ -16397,7 +16367,7 @@
     call$0() {
       return this.call$1(null);
     },
-    $signature: 43
+    $signature: 42
   };
   A.NodeReadableStream_get_stream_closure.prototype = {
     call$0() {
@@ -16429,7 +16399,7 @@
     call$0() {
       return this.call$3(null, null, null);
     },
-    $signature: 44
+    $signature: 43
   };
   A.processManager_closure.prototype = {
     call$0() {
@@ -16440,7 +16410,7 @@
       B.JSArray_methods.add$1(t1._errorTearDowns, t2);
       return pm;
     },
-    $signature: 45
+    $signature: 44
   };
   A.NodeProcessManager.prototype = {
     run$3$echoOutput$pipe(command, echoOutput, pipe) {
@@ -16615,7 +16585,7 @@
         A._asJSObject(init.G.core).info(line);
       this.stdout._contents += line + "\n";
     },
-    $signature: 19
+    $signature: 24
   };
   A.NodeProcessManager_run_closure0.prototype = {
     call$1(line) {
@@ -16624,7 +16594,7 @@
         A._asJSObject(init.G.core).info(line);
       this.stderr._contents += line + "\n";
     },
-    $signature: 19
+    $signature: 24
   };
   A.NodeProcess.prototype = {
     _init$0() {
@@ -16763,14 +16733,14 @@
       type$.List_int._as(chunk);
       this._box_0.stdin.write(new Uint8Array(A._ensureNativeList(chunk)));
     },
-    $signature: 47
+    $signature: 46
   };
   A.NodeProcess__init_closure0.prototype = {
     call$1(error) {
       var t1 = this.$this;
       return A.throwExpression(A.ProcessException$(t1.executable, t1.$arguments, "Error spawning subprocess: " + A.S(A._asJSObject(error)), 0));
     },
-    $signature: 48
+    $signature: 47
   };
   A.OS.prototype = {
     _enumToString$0() {
@@ -16781,6 +16751,36 @@
     _enumToString$0() {
       return "Arch." + this._name;
     }
+  };
+  A.ShellScript_run_closure.prototype = {
+    call$1(tempDir) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
+        $async$self = this, result, t1, scriptPath;
+      var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        for (;;)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              scriptPath = A.join(tempDir, "script.sh", null, null);
+              A._asJSObject(init.G.fs).writeFileSync(scriptPath, $async$self.fullScript);
+              $async$goto = 2;
+              return A._asyncAwait($.$get$processManager().run$2$echoOutput(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), true), $async$call$1);
+            case 2:
+              // returning from await.
+              result = $async$result;
+              t1 = result.exitCode;
+              if (t1 !== 0)
+                throw A.wrapException(A.ProcessException$("/bin/bash", A._setArrayType([$async$self._this], type$.JSArray_String), A.S(result.stdout) + "\n" + A.S(result.stderr), t1));
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$call$1, $async$completer);
+    },
+    $signature: 48
   };
   A._UnreachableError.prototype = {};
   A.StreamForward_forward_closure.prototype = {
@@ -16804,7 +16804,7 @@
       if ((t1._state & 4) === 0)
         t1.addError$2(e, st);
     },
-    $signature: 15
+    $signature: 20
   };
   A.StreamForward_forward_closure0.prototype = {
     call$0() {
@@ -17923,7 +17923,7 @@
     call$1(match) {
       return B.JSString_methods.$mul(".<fn>", match.$index(0, 1).length);
     },
-    $signature: 20
+    $signature: 19
   };
   A._prettifyMember_closure0.prototype = {
     call$1(match) {
@@ -17931,7 +17931,7 @@
       t1.toString;
       return t1 + ".";
     },
-    $signature: 20
+    $signature: 19
   };
   A.Mapping.prototype = {};
   A.MultiSectionMapping.prototype = {
@@ -18475,7 +18475,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 17
+    $signature: 15
   };
   A.Chain_toString_closure.prototype = {
     call$1(trace) {
@@ -19113,7 +19113,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 17
+    $signature: 15
   };
   A.Trace_toString_closure.prototype = {
     call$1(frame) {
@@ -19165,14 +19165,14 @@
       t1.warning(string$.u23f0_____);
       t1.warning("");
     },
-    $signature: 27
+    $signature: 16
   };
   A._runTestsWithTimeout_closure0.prototype = {
     call$1(__wc1_formal) {
       if (this._box_0.timedOut)
         throw A.wrapException(A.TimeoutException$("Attempt timed out", this.timeout));
     },
-    $signature: 27
+    $signature: 16
   };
   A._runTestsWithTimeout_closure1.prototype = {
     call$1(__wc2_formal) {
@@ -19230,16 +19230,16 @@
     _static(A, "async___rootRunBinary$closure", 6, null, ["call$3$6"], ["_rootRunBinary"], 79, 0);
     _static(A, "async___rootRegisterCallback$closure", 4, null, ["call$1$4", "call$4"], ["_rootRegisterCallback", function($self, $parent, zone, f) {
       return A._rootRegisterCallback($self, $parent, zone, f, type$.dynamic);
-    }], 23, 0);
+    }], 17, 0);
     _static(A, "async___rootRegisterUnaryCallback$closure", 4, null, ["call$2$4", "call$4"], ["_rootRegisterUnaryCallback", function($self, $parent, zone, f) {
       var t1 = type$.dynamic;
       return A._rootRegisterUnaryCallback($self, $parent, zone, f, t1, t1);
-    }], 24, 0);
+    }], 25, 0);
     _static(A, "async___rootRegisterBinaryCallback$closure", 4, null, ["call$3$4", "call$4"], ["_rootRegisterBinaryCallback", function($self, $parent, zone, f) {
       var t1 = type$.dynamic;
       return A._rootRegisterBinaryCallback($self, $parent, zone, f, t1, t1, t1);
-    }], 25, 0);
-    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 26, 0);
+    }], 26, 0);
+    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 27, 0);
     _static(A, "async___rootScheduleMicrotask$closure", 4, null, ["call$4"], ["_rootScheduleMicrotask"], 80, 0);
     _static(A, "async___rootCreateTimer$closure", 5, null, ["call$5"], ["_rootCreateTimer"], 81, 0);
     _static(A, "async___rootCreatePeriodicTimer$closure", 5, null, ["call$5"], ["_rootCreatePeriodicTimer"], 82, 0);
@@ -19247,7 +19247,7 @@
     _static(A, "async___rootFork$closure", 5, null, ["call$5"], ["_rootFork"], 84, 0);
     _instance_2_u(A._Future.prototype, "get$_completeError", "_completeError$2", 4);
     var _;
-    _instance_1_u(_ = A._StreamController.prototype, "get$_async$_add", "_async$_add$1", 16);
+    _instance_1_u(_ = A._StreamController.prototype, "get$_async$_add", "_async$_add$1", 23);
     _instance_2_u(_, "get$_addError", "_addError$2", 4);
     _instance_0_u(_, "get$_close", "_close$0", 0);
     _instance_0_u(_ = A._ControllerSubscription.prototype, "get$_onPause", "_onPause$0", 0);
@@ -19256,7 +19256,7 @@
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
     _instance_0_u(_ = A._SinkTransformerStreamSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
-    _instance_1_u(_, "get$_handleData", "_handleData$1", 16);
+    _instance_1_u(_, "get$_handleData", "_handleData$1", 23);
     _instance_2_u(_, "get$_handleError", "_handleError$2", 4);
     _instance_0_u(_, "get$_handleDone", "_handleDone$0", 0);
     _static(A, "core_int_parse$closure", 1, null, ["call$3$onError$radix", "call$1"], ["int_parse", function(source) {
@@ -19264,7 +19264,7 @@
     }], 85, 0);
     _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 11);
     _instance_1_u(_ = A._StreamSinkImpl.prototype, "get$_completeDoneValue", "_completeDoneValue$1", 10);
-    _instance_2_u(_, "get$_completeDoneError", "_completeDoneError$2", 63);
+    _instance_2_u(_, "get$_completeDoneError", "_completeDoneError$2", 60);
     _static(A, "math__max$closure", 2, null, ["call$1$2", "call$2"], ["max", function(a, b) {
       return A.max(a, b, type$.num);
     }], 86, 0);
@@ -19278,11 +19278,11 @@
     _static_1(A, "frame_Frame___parseFirefox_tearOff$closure", "Frame___parseFirefox_tearOff", 8);
     _static_1(A, "frame_Frame___parseFriendly_tearOff$closure", "Frame___parseFriendly_tearOff", 8);
     _instance_0_u(A.LazyChain.prototype, "get$toTrace", "toTrace$0", 6);
-    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 23, 0, 0);
-    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 24, 0, 0);
-    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 25, 0, 0);
+    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 17, 0, 0);
+    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 25, 0, 0);
+    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 26, 0, 0);
     _instance(_, "get$_handleUncaughtError", 0, 5, null, ["call$5"], ["_handleUncaughtError$5"], 68, 0, 0);
-    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 26, 0, 0);
+    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 27, 0, 0);
     _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 21);
     _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 21);
     _static_0(A, "launch_android_emulator___action$closure", "_action", 3);
@@ -19306,7 +19306,7 @@
     _inherit(A._CastListBase, A.__CastListBase__CastIterableBase_ListMixin);
     _inherit(A.CastList, A._CastListBase);
     _inheritMany(A.MapBase, [A.CastMap, A.JsLinkedHashMap, A._HashMap, A._JsonMap]);
-    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.AvdManager__waitForBoot__closure1, A.AvdManager__waitForBoot__closure0, A.SdkManager__ensureBuildTools_closure0, A.SdkManager__ensureBuildTools_closure1, A.ShellScript_run_closure, A.AndroidAbi_parse_closure, A.AndroidAbi_allAbis_closure, A.AndroidApiLevel_parse_closure, A.AndroidApiLevel_allApiLevels_closure, A.AndroidSystemImageTarget_parse_closure, A.AndroidSystemImageTarget_allTags_closure, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.StreamForward_forward_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A._runTestsWithTimeout_closure, A._runTestsWithTimeout_closure0, A._runTestsWithTimeout_closure1]);
+    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.AvdManager__waitForBoot__closure1, A.AvdManager__waitForBoot__closure0, A.SdkManager__ensureBuildTools_closure0, A.SdkManager__ensureBuildTools_closure1, A.AndroidAbi_parse_closure, A.AndroidAbi_allAbis_closure, A.AndroidApiLevel_parse_closure, A.AndroidApiLevel_allApiLevels_closure, A.AndroidSystemImageTarget_parse_closure, A.AndroidSystemImageTarget_allTags_closure, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.ShellScript_run_closure, A.StreamForward_forward_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A._runTestsWithTimeout_closure, A._runTestsWithTimeout_closure0, A._runTestsWithTimeout_closure1]);
     _inheritMany(A.Closure2Args, [A.CastMap_forEach_closure, A.JsLinkedHashMap_addAll_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A.Future_wait_handleError, A.Future_any_onError, A._Future__propagateToListeners_handleWhenCompleteCallback_closure0, A.HashMap_HashMap$from_closure, A.MapBase_mapToString_closure, A.Uri_parseIPv6Address_error, A._StreamSinkImpl__controller_closure0, A.wrapMain_closure0, A.StreamForward_forward_closure1, A.SingleMapping$fromJson_closure, A.Frame_Frame$parseV8_closure_parseJsLocation, A.StackZoneSpecification__registerBinaryCallback_closure]);
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A.RuntimeError, A._Error, A.AssertionError, A.ArgumentError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError]);
     _inherit(A.UnmodifiableListBase, A.ListBase);
@@ -19376,7 +19376,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List", Object: "Object", Map: "Map", JSObject: "JSObject"},
     mangledNames: {},
-    types: ["~()", "bool(String)", "Future<Null>()", "Future<~>()", "~(Object,StackTrace)", "Future<ProcessResult>()", "Trace()", "Frame()", "Frame(String)", "Null()", "~(@)", "String(String)", "Null(@)", "0&()", "~(~())", "Null(Object,StackTrace)", "~(Object?)", "int(Frame)", "@()", "~(String)", "String(Match)", "Trace(String)", "String(Frame)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "Null(~)", "bool(Exception)", "@(@,String)", "@(String)", "Future<~>(Exception)", "~(@,@)", "Future<Null>(String)", "bool(AndroidAbi)", "@(@)", "String(AndroidAbi)", "bool(AndroidApiLevel)", "int(AndroidApiLevel)", "bool(AndroidSystemImageTarget)", "String(AndroidSystemImageTarget)", "~(NativeUint8List)", "~(JSObject)", "~([@])", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "Null(@,StackTrace)", "~(List<int>)", "0&(JSObject)", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "~(String,@)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "_LineSplitterEventSink(EventSink<String>)", "List<Frame>(Trace)", "int(Trace)", "0&(String,int?)", "String(Trace)", "~(int,@)", "~(@,StackTrace?)", "Frame(String,String)", "Null(@,@)", "Object?(Object?)", "Future<0&>()", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "Future<~>(Object,Chain)", "Chain()", "Future<_AttemptResult>()", "Null(~())", "0&(Object?)", "Future<Process>()", "Future<0^>([0^/?])<Object?>", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "int(String{onError:int(String)?,radix:int?})", "0^(0^,0^)<num>", "AndroidAbi(String)", "AndroidApiLevel(String)", "AndroidSystemImageTarget(String)", "Future<bool>()", "~(Object?,Object?)"],
+    types: ["~()", "bool(String)", "Future<Null>()", "Future<~>()", "~(Object,StackTrace)", "Future<ProcessResult>()", "Trace()", "Frame()", "Frame(String)", "Null()", "~(@)", "String(String)", "Null(@)", "0&()", "~(~())", "int(Frame)", "Null(~)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "@()", "String(Match)", "Null(Object,StackTrace)", "Trace(String)", "String(Frame)", "~(Object?)", "~(String)", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "~(JSObject)", "@(@)", "Null(@,StackTrace)", "Future<~>(Exception)", "~(int,@)", "bool(AndroidAbi)", "Null(~())", "String(AndroidAbi)", "bool(AndroidApiLevel)", "int(AndroidApiLevel)", "bool(AndroidSystemImageTarget)", "String(AndroidSystemImageTarget)", "~(NativeUint8List)", "_LineSplitterEventSink(EventSink<String>)", "~([@])", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "bool(Exception)", "~(List<int>)", "0&(JSObject)", "Future<Null>(String)", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "0&(String,int?)", "~(String,@)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "@(@,String)", "List<Frame>(Trace)", "int(Trace)", "~(@,StackTrace?)", "String(Trace)", "Null(@,@)", "Object?(Object?)", "Frame(String,String)", "Future<0&>()", "Future<~>(Object,Chain)", "@(String)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "Future<Process>()", "Chain()", "Future<_AttemptResult>()", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "0&(Object?)", "~(@,@)", "Future<0^>([0^/?])<Object?>", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "int(String{onError:int(String)?,radix:int?})", "0^(0^,0^)<num>", "AndroidAbi(String)", "AndroidApiLevel(String)", "AndroidSystemImageTarget(String)", "Future<bool>()", "~(Object?,Object?)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti"),
