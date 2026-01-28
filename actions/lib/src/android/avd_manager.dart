@@ -4,9 +4,9 @@
 import 'package:actions/actions.dart';
 import 'package:actions/src/android/android_tool.dart';
 import 'package:actions/src/android/sdk_manager.dart';
-import 'package:actions/src/android/shell_script.dart';
 import 'package:actions/src/android/types.dart';
 import 'package:actions/src/node/process_manager.dart';
+import 'package:actions/src/shell_script.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
