@@ -45,11 +45,11 @@ class MessageResolver extends Resolver<MessageResolverKey> {
 
   /// Resolves error messages for AuthenticatorException instances
   String error(BuildContext context, AuthenticatorException exception) {
-    if (exception is CognitoAuthenticatorException) {      
+    if (exception is CognitoAuthenticatorException) {
       // Fallback to Cognito's original message
       return exception.cognitoException.message;
     }
-    
+
     // Non-Cognito exceptions use original message or unknown fallback
     return exception.message;
   }

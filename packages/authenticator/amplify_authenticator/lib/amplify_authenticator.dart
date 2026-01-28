@@ -547,10 +547,7 @@ class _AuthenticatorState extends State<Authenticator> {
         if (context != null && context.mounted) {
           final resolver = widget.stringResolver.messages;
           final errorMessage = resolver.error(context, exception);
-          _showExceptionBanner(
-            type: StatusType.error,
-            message: errorMessage,
-          );
+          _showExceptionBanner(type: StatusType.error, message: errorMessage);
         }
       }
     });

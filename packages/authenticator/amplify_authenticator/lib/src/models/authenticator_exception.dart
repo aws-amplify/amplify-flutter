@@ -31,10 +31,10 @@ enum CognitoExceptionType {
   unknown('UnknownException');
 
   const CognitoExceptionType(this.className);
-  
+
   /// The actual exception class name
   final String className;
-  
+
   /// Creates enum from exception class name, returns unknown if not found
   static CognitoExceptionType fromClassName(String className) {
     for (final type in CognitoExceptionType.values) {
@@ -57,12 +57,14 @@ class CognitoAuthenticatorException extends AuthenticatorException {
   }) : super._();
 
   /// Returns the underlying Cognito service exception
-  CognitoServiceException get cognitoException => 
+  CognitoServiceException get cognitoException =>
       underlyingException as CognitoServiceException;
 
   /// Returns the Cognito exception type enum for type-safe error handling
-  CognitoExceptionType getCognitoExceptionType() => 
-      CognitoExceptionType.fromClassName(cognitoException.runtimeType.toString());
+  CognitoExceptionType getCognitoExceptionType() =>
+      CognitoExceptionType.fromClassName(
+        cognitoException.runtimeType.toString(),
+      );
 }
 
 /// {@template amplify_authenticator.authenticator_exception}
