@@ -66,12 +66,12 @@ jobs:
       - name: Launch Android emulator
         uses: ./.github/composite_actions/launch_android_emulator
         # Total timeout is (retry-timeout-minutes × max-retries) + buffer for cleanup between retries
-        timeout-minutes: 480
+        timeout-minutes: 355
         with:
           api-level: ${{ matrix.api-level }}
           script: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
           max-retries: 5
-          retry-timeout-minutes: 90
+          retry-timeout-minutes: 70
 
       - name: Log success/failure
         if: always()
