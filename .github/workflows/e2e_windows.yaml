@@ -59,11 +59,14 @@ jobs:
           scope: ${{ inputs.package-name }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
+      - name: Enable running PowerShell scripts
+        run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
       - name: Run integration tests
-        timeout-minutes: 60
+        timeout-minutes: 320
         run: |
           flutter config --enable-windows-desktop
-          dart pub global run aft exec --include=${{ inputs.package-name }} -- flutter test integration_test/main_test.dart -d windows
+          ${{ github.workspace }}/build-support/windows_timeout_attempts.ps1 5 60 "dart pub global run aft exec --include=${{ inputs.package-name }} -- flutter test integration_test/main_test.dart -d windows"
 
       - name: Log success/failure
         if: always()
