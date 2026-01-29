@@ -37,6 +37,7 @@ retries=${retries:-$DEFAULT_RETRIES}
 small=${small:-$DEFAULT_SMALL}
 
 if [[ "$OSTYPE" == "linux-gnu"* && $deviceId == "linux"* ]]; then
+    echo "::group::Set up Linux"
     sudo apt-get update -y
     sudo apt-get install -y ninja-build libgtk-3-dev libsecret-1-dev libglib2.0-dev gnome-keyring network-manager
 
@@ -51,6 +52,8 @@ if [[ "$OSTYPE" == "linux-gnu"* && $deviceId == "linux"* ]]; then
         # Set up keyring.
         echo 'password' | gnome-keyring-daemon --start --replace --daemonize --unlock
     fi
+
+    echo "::endgroup::"
 fi
 
 declare -a testsList
@@ -63,7 +66,9 @@ if [ ! -e $TARGET ]; then
 fi
 
 if [ -n $CI ]; then
+    echo "::group::Run pub upgrade"
     flutter pub upgrade
+    echo "::endgroup::"
 fi
 
 testsList+=("$TARGET")
