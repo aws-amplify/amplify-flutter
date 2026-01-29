@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:smithy/smithy.dart';
 
 /// Enum representing all Cognito exception types for type-safe error handling
-enum CognitoExceptionType {
+enum CognitoErrorType {
   userNotFound('UserNotFoundException'),
   userNotConfirmed('UserNotConfirmedException'),
   usernameExists('UsernameExistsException'),
@@ -30,17 +30,20 @@ enum CognitoExceptionType {
   userLambdaValidation('UserLambdaValidationException'),
   unknown('UnknownException');
 
-  const CognitoExceptionType(this.className);
+  const CognitoErrorType(this.errorType);
+  
+  /// The actual error name
+  final String errorType;
 
-  /// The actual exception class name
-  final String className;
-
-  /// Creates enum from exception class name, returns unknown if not found
-  static CognitoExceptionType fromClassName(String className) {
-    for (final type in CognitoExceptionType.values) {
-      if (type.className == className) return type;
+  /// Returns the ARB key for this exception type
+  String get arbKey => 'authenticatorCognitoError${errorType.replaceAll('Exception', '')}';
+  
+  /// Creates enum from error type string, returns unknown if not found
+  static CognitoErrorType fromErrorType(String errorType) {
+    for (final type in CognitoErrorType.values) {
+      if (type.errorType == errorType) return type;
     }
-    return CognitoExceptionType.unknown;
+    return CognitoErrorType.unknown;
   }
 }
 
@@ -57,14 +60,15 @@ class CognitoAuthenticatorException extends AuthenticatorException {
   }) : super._();
 
   /// Returns the underlying Cognito service exception
-  CognitoServiceException get cognitoException =>
+  CognitoServiceException get cognitoException => 
       underlyingException as CognitoServiceException;
 
   /// Returns the Cognito exception type enum for type-safe error handling
-  CognitoExceptionType getCognitoExceptionType() =>
-      CognitoExceptionType.fromClassName(
-        cognitoException.runtimeType.toString(),
-      );
+  CognitoErrorType getCognitoExceptionType() => 
+      CognitoErrorType.fromErrorType(cognitoException.runtimeType.toString());
+
+  /// Returns the ARB resource key for this exception
+  String getArbKey() => getCognitoExceptionType().arbKey;
 }
 
 /// {@template amplify_authenticator.authenticator_exception}
