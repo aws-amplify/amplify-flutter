@@ -8185,7 +8185,7 @@
     _cleanupEmulator() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$handler = 1, $async$errorStack = [], e, e0, e1, e2, e3, e4, exception, t1, $async$exception, $async$exception1, $async$exception2, $async$exception3, $async$exception4, $async$exception5;
+        $async$handler = 1, $async$errorStack = [], e, e0, e1, e2, e3, exception, t1, $async$exception, $async$exception1, $async$exception2, $async$exception3, $async$exception4;
       var $async$_cleanupEmulator = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1) {
           $async$errorStack.push($async$result);
@@ -8196,7 +8196,7 @@
             case 0:
               // Function start
               t1 = init.G;
-              A._asJSObject(t1.core).info("Step 1/6: Killing emulator via adb emu kill...");
+              A._asJSObject(t1.core).info("Step 1/5: Killing emulator via adb emu kill...");
               $async$handler = 3;
               $async$goto = 6;
               return A._asyncAwait(A.ShellScript_run("adb emu kill 2>/dev/null || true"), $async$_cleanupEmulator);
@@ -8223,7 +8223,7 @@
               break;
             case 5:
               // after finally
-              A._asJSObject(t1.core).info("Step 2/6: Killing qemu-system processes...");
+              A._asJSObject(t1.core).info("Step 2/5: Killing qemu-system processes...");
               $async$handler = 8;
               $async$goto = 11;
               return A._asyncAwait(A.ShellScript_run("pkill -9 qemu-system 2>/dev/null || true"), $async$_cleanupEmulator);
@@ -8250,7 +8250,7 @@
               break;
             case 10:
               // after finally
-              A._asJSObject(t1.core).info("Step 3/6: Killing emulator processes...");
+              A._asJSObject(t1.core).info("Step 3/5: Killing emulator processes...");
               $async$handler = 13;
               $async$goto = 16;
               return A._asyncAwait(A.ShellScript_run("pkill -9 emulator 2>/dev/null || true"), $async$_cleanupEmulator);
@@ -8277,7 +8277,7 @@
               break;
             case 15:
               // after finally
-              A._asJSObject(t1.core).info("Step 4/6: Stopping adb server...");
+              A._asJSObject(t1.core).info("Step 4/5: Stopping adb server...");
               $async$handler = 18;
               $async$goto = 21;
               return A._asyncAwait(A.ShellScript_run("adb kill-server 2>/dev/null || true"), $async$_cleanupEmulator);
@@ -8304,18 +8304,17 @@
               break;
             case 20:
               // after finally
-              A._asJSObject(t1.core).info("Waiting 5 seconds for processes to terminate...");
+              A._asJSObject(t1.core).info("Waiting 10 seconds for processes to terminate...");
               $async$goto = 22;
-              return A._asyncAwait(A.Future_Future$delayed(B.Duration_5000000, type$.void), $async$_cleanupEmulator);
+              return A._asyncAwait(A.Future_Future$delayed(B.Duration_10000000, type$.void), $async$_cleanupEmulator);
             case 22:
               // returning from await.
-              A._asJSObject(t1.core).info('Step 5/6: Deleting AVD "test" to free disk space...');
+              A._asJSObject(t1.core).info("Step 5/5: Checking available disk space...");
               $async$handler = 24;
               $async$goto = 27;
-              return A._asyncAwait(A.ShellScript_run('      # List existing AVDs for debugging\n      echo "Existing AVDs before deletion:"\n      avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"\n      \n      # Delete only the "test" AVD that was created by this action\n      avdmanager delete avd -n test 2>/dev/null || echo "  AVD \'test\' not found or already deleted"\n      \n      # List remaining AVDs for debugging\n      echo "Remaining AVDs after deletion:"\n      avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"\n    '), $async$_cleanupEmulator);
+              return A._asyncAwait(A.ShellScript_run("df -h . | tail -1"), $async$_cleanupEmulator);
             case 27:
               // returning from await.
-              A._asJSObject(t1.core).info('   \u2713 AVD "test" deleted');
               $async$handler = 1;
               // goto after finally
               $async$goto = 26;
@@ -8325,7 +8324,7 @@
               $async$handler = 23;
               $async$exception4 = $async$errorStack.pop();
               e3 = A.unwrapException($async$exception4);
-              A._asJSObject(t1.core).warning("   \u26a0 Failed to delete AVD: " + A.S(e3));
+              A._asJSObject(t1.core).warning("   \u26a0 Failed to check disk space: " + A.S(e3));
               // goto after finally
               $async$goto = 26;
               break;
@@ -8335,32 +8334,6 @@
               $async$goto = 1;
               break;
             case 26:
-              // after finally
-              A._asJSObject(t1.core).info("Step 6/6: Checking available disk space...");
-              $async$handler = 29;
-              $async$goto = 32;
-              return A._asyncAwait(A.ShellScript_run("df -h . | tail -1"), $async$_cleanupEmulator);
-            case 32:
-              // returning from await.
-              $async$handler = 1;
-              // goto after finally
-              $async$goto = 31;
-              break;
-            case 29:
-              // catch
-              $async$handler = 28;
-              $async$exception5 = $async$errorStack.pop();
-              e4 = A.unwrapException($async$exception5);
-              A._asJSObject(t1.core).warning("   \u26a0 Failed to check disk space: " + A.S(e4));
-              // goto after finally
-              $async$goto = 31;
-              break;
-            case 28:
-              // uncaught
-              // goto rethrow
-              $async$goto = 1;
-              break;
-            case 31:
               // after finally
               A._asJSObject(t1.core).info("\u2705 Cleanup complete");
               // implicit return
@@ -19721,7 +19694,6 @@
     B.Duration_0 = new A.Duration(0);
     B.Duration_10000000 = new A.Duration(10000000);
     B.Duration_30000000 = new A.Duration(30000000);
-    B.Duration_5000000 = new A.Duration(5000000);
     B.FormatException_3no = new A.FormatException("section can't use both url and map entries", null, null);
     B.FormatException_BnX = new A.FormatException('map containing "sections" cannot contain "mappings", "sources", or "names".', null, null);
     B.FormatException_L64 = new A.FormatException("section missing offset", null, null);
