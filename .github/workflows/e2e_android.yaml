@@ -69,7 +69,7 @@ jobs:
         timeout-minutes: 355
         with:
           api-level: ${{ matrix.api-level }}
-          script: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
+          script: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554
           max-retries: 5
           retry-timeout-minutes: 70
 
