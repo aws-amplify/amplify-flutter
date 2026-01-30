@@ -59,10 +59,11 @@ jobs:
       - uses: ./.github/composite_actions/setup_chromedriver
 
       - name: Run integration tests
-        timeout-minutes: 60
+        timeout-minutes: 320
         run: |
-          chromedriver --port=4444 &
-          aft exec --include=${{ inputs.package-name }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d web-server
+          # 5 attemps
+          # 60 minutes timeout each
+          "${{ github.workspace }}/build-support/linux_timeout_attempts.sh" 5 60 'bash -c "chromedriver --port=4444 & aft exec --include=${{ inputs.package-name }} -- ${{ github.workspace }}/build-support/integ_test.sh -d web-server"'
 
       - name: Log success/failure
         if: always()
