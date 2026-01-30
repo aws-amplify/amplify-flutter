@@ -295,23 +295,24 @@ Future<void> _cleanupAndWait() async {
 Future<void> _cleanupSimulator() async {
   core.info('Step 1/5: Shutting down "test" simulator...');
   try {
-    await ShellScript('xcrun simctl shutdown test 2>/dev/null || true').run();
+    await ShellScript('xcrun simctl shutdown test 2>/dev/null').run();
     core.info('   ✓ Simulator shutdown completed');
   } on Object catch (e) {
     core.warning('   ⚠ Failed to shutdown simulator: $e');
   }
 
-  core.info('Step 2/5: Deleting "test" simulator device...');
+  // IMPROVEMENT HERE: Changed "delete" to "erase"
+  core.info('Step 2/5: Erasing "test" simulator content...');
   try {
-    await ShellScript('xcrun simctl delete test 2>/dev/null || true').run();
-    core.info('   ✓ Simulator device deleted');
+    await ShellScript('xcrun simctl erase test 2>/dev/null').run();
+    core.info('   ✓ Simulator content erased');
   } on Object catch (e) {
-    core.warning('   ⚠ Failed to delete simulator device: $e');
+    core.warning('   ⚠ Failed to erase simulator: $e');
   }
 
   core.info('Step 3/5: Killing Simulator.app processes...');
   try {
-    await ShellScript('pkill -9 Simulator 2>/dev/null || true').run();
+    await ShellScript('pkill -9 Simulator 2>/dev/null').run();
     core.info('   ✓ Simulator.app kill completed');
   } on Object catch (e) {
     core.warning('   ⚠ Failed to kill Simulator.app: $e');
@@ -319,7 +320,7 @@ Future<void> _cleanupSimulator() async {
 
   core.info('Step 4/5: Killing launchd_sim processes...');
   try {
-    await ShellScript('pkill -9 launchd_sim 2>/dev/null || true').run();
+    await ShellScript('pkill -9 launchd_sim 2>/dev/null').run();
     core.info('   ✓ launchd_sim kill completed');
   } on Object catch (e) {
     core.warning('   ⚠ Failed to kill launchd_sim: $e');
