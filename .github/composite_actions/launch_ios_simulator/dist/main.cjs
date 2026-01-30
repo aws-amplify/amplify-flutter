@@ -8110,7 +8110,7 @@
               A._asJSObject(t1.core).info('Step 1/5: Shutting down "test" simulator...');
               $async$handler = 3;
               $async$goto = 6;
-              return A._asyncAwait(A.ShellScript_run("xcrun simctl shutdown test 2>/dev/null || true"), $async$_cleanupSimulator);
+              return A._asyncAwait(A.ShellScript_run("xcrun simctl shutdown test 2>/dev/null"), $async$_cleanupSimulator);
             case 6:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 Simulator shutdown completed");
@@ -8134,13 +8134,13 @@
               break;
             case 5:
               // after finally
-              A._asJSObject(t1.core).info('Step 2/5: Deleting "test" simulator device...');
+              A._asJSObject(t1.core).info('Step 2/5: Erasing "test" simulator content...');
               $async$handler = 8;
               $async$goto = 11;
-              return A._asyncAwait(A.ShellScript_run("xcrun simctl delete test 2>/dev/null || true"), $async$_cleanupSimulator);
+              return A._asyncAwait(A.ShellScript_run("xcrun simctl erase test 2>/dev/null"), $async$_cleanupSimulator);
             case 11:
               // returning from await.
-              A._asJSObject(t1.core).info("   \u2713 Simulator device deleted");
+              A._asJSObject(t1.core).info("   \u2713 Simulator content erased");
               $async$handler = 1;
               // goto after finally
               $async$goto = 10;
@@ -8150,7 +8150,7 @@
               $async$handler = 7;
               $async$exception1 = $async$errorStack.pop();
               e0 = A.unwrapException($async$exception1);
-              A._asJSObject(t1.core).warning("   \u26a0 Failed to delete simulator device: " + A.S(e0));
+              A._asJSObject(t1.core).warning("   \u26a0 Failed to erase simulator: " + A.S(e0));
               // goto after finally
               $async$goto = 10;
               break;
@@ -8164,7 +8164,7 @@
               A._asJSObject(t1.core).info("Step 3/5: Killing Simulator.app processes...");
               $async$handler = 13;
               $async$goto = 16;
-              return A._asyncAwait(A.ShellScript_run("pkill -9 Simulator 2>/dev/null || true"), $async$_cleanupSimulator);
+              return A._asyncAwait(A.ShellScript_run("pkill -9 Simulator 2>/dev/null"), $async$_cleanupSimulator);
             case 16:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 Simulator.app kill completed");
@@ -8191,7 +8191,7 @@
               A._asJSObject(t1.core).info("Step 4/5: Killing launchd_sim processes...");
               $async$handler = 18;
               $async$goto = 21;
-              return A._asyncAwait(A.ShellScript_run("pkill -9 launchd_sim 2>/dev/null || true"), $async$_cleanupSimulator);
+              return A._asyncAwait(A.ShellScript_run("pkill -9 launchd_sim 2>/dev/null"), $async$_cleanupSimulator);
             case 21:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 launchd_sim kill completed");
