@@ -1,0 +1,112 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifySecureStorage",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AmplifySecureStorageInterface",
+        "SecureStorageInterface",
+        "Object",
+        "AWSDebuggable",
+        "AWSLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifySecureStorage Function(AmplifySecureStorageScope)",
+          "name": "factoryFrom",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "webOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "windowsOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WindowsSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "linuxOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LinuxSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "macOSOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "MacOSSecureStorageOptions?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "iOSOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IOSSecureStorageOptions?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "AmplifySecureStorage",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifySecureStorageConfig"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "registerWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "scopeStoragePrefix",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    }
+  ]
+}
