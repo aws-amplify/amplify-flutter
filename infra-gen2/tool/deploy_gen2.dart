@@ -156,7 +156,8 @@ void main(List<String> arguments) async {
     if (backendGroup.backends.isEmpty) {
       continue;
     }
-    var amplifyEnvironments = <String, String>{};
+    var gen2Environments = <String, String>{};
+    var gen1Environments = <String, String>{};
     final categoryName = backendGroup.category.name;
     final outputPath = p.join(repoRoot.path, backendGroup.defaultOutput);
     final amplifyOutputs = File(p.join(outputPath, 'amplify_outputs.dart'));
@@ -195,15 +196,20 @@ void main(List<String> arguments) async {
       }
 
       // Cache the config contents to create environments map
-      amplifyEnvironments = {
-        ...amplifyEnvironments,
+      gen2Environments = {
+        ...gen2Environments,
         ..._cacheConfigContents(backendName, amplifyOutputs),
+      };
+      gen1Environments = {
+        ...gen1Environments,
+        ..._cacheConfigContents(backendName, amplifyConfiguration),
       };
     }
 
     // Only append environments if there are multiple backends
     if (backendGroup.backends.length > 1) {
-      _appendEnvironments(amplifyEnvironments, backendGroup, amplifyOutputs);
+      _appendEnvironments(gen2Environments, backendGroup, amplifyOutputs);
+      _appendEnvironments(gen1Environments, backendGroup, amplifyConfiguration);
     }
 
     // Copy config files to shared paths
