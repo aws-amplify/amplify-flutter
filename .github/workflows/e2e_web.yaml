@@ -63,7 +63,8 @@ jobs:
         run: |
           # 5 attemps
           # 60 minutes timeout each
-          "${{ github.workspace }}/build-support/linux_timeout_attempts.sh" 5 60 'bash -c "chromedriver --port=4444 & aft exec --include=${{ inputs.package-name }} -- ${{ github.workspace }}/build-support/integ_test.sh -d web-server"'
+          chromedriver --port=4444 &
+          "${{ github.workspace }}/build-support/linux_timeout_attempts.sh" 5 60 "aft exec --include=${{ inputs.package-name }} -- ${{ github.workspace }}/build-support/integ_test.sh -d web-server"
 
       - name: Log success/failure
         if: always()
