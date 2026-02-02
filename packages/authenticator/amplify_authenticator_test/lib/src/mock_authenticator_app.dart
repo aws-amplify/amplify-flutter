@@ -24,6 +24,7 @@ class MockAuthenticatorApp extends StatefulWidget {
     this.authPlugin,
     this.signInForm,
     this.signUpForm,
+    this.stringResolver,
     this.child,
   });
 
@@ -34,6 +35,7 @@ class MockAuthenticatorApp extends StatefulWidget {
   final AuthPluginInterface? authPlugin;
   final SignInForm? signInForm;
   final SignUpForm? signUpForm;
+  final AuthStringResolver? stringResolver;
   final Widget? child;
 
   @override
@@ -110,6 +112,7 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
       authBlocOverride: _authBloc,
       signInForm: widget.signInForm,
       signUpForm: widget.signUpForm,
+      stringResolver: widget.stringResolver ?? const AuthStringResolver(),
       child:
           widget.child ??
           MaterialApp(
