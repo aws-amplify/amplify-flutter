@@ -317,10 +317,10 @@ abstract class AuthenticatorFormFieldState<
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              if (surlabel != null) surlabel!,
+              ?surlabel,
               SizedBox(height: labelGap),
               buildFormField(context),
-              if (companionWidget != null) companionWidget!,
+              ?companionWidget,
             ],
           ),
         ],
