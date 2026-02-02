@@ -29,7 +29,7 @@ jobs:
           - sdk: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Cache Pub dependencies
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # 4.2.3
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # 5.0.3
         with:
           path: |
             ~/.pub-cache/hosted
