@@ -86,8 +86,9 @@ void main() {
     });
 
     test('handles string exceptions', () {
-      final authenticatorException =
-          AuthenticatorException('Simple error message');
+      final authenticatorException = AuthenticatorException(
+        'Simple error message',
+      );
 
       expect(
         authenticatorException,

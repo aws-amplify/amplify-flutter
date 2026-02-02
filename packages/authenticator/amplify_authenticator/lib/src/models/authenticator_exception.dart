@@ -31,13 +31,14 @@ enum CognitoErrorType {
   unknown('UnknownException');
 
   const CognitoErrorType(this.errorType);
-  
+
   /// The actual error name
   final String errorType;
 
   /// Returns the ARB key for this exception type
-  String get arbKey => 'authenticatorCognitoError${errorType.replaceAll('Exception', '')}';
-  
+  String get arbKey =>
+      'authenticatorCognitoError${errorType.replaceAll('Exception', '')}';
+
   /// Creates enum from error type string, returns unknown if not found
   static CognitoErrorType fromErrorType(String errorType) {
     for (final type in CognitoErrorType.values) {
@@ -60,11 +61,11 @@ class CognitoAuthenticatorException extends AuthenticatorException {
   }) : super._();
 
   /// Returns the underlying Cognito service exception
-  CognitoServiceException get cognitoException => 
+  CognitoServiceException get cognitoException =>
       underlyingException as CognitoServiceException;
 
   /// Returns the Cognito exception type enum for type-safe error handling
-  CognitoErrorType getCognitoExceptionType() => 
+  CognitoErrorType getCognitoExceptionType() =>
       CognitoErrorType.fromErrorType(cognitoException.runtimeType.toString());
 
   /// Returns the ARB resource key for this exception

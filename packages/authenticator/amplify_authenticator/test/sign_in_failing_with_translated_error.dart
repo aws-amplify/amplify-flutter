@@ -16,7 +16,7 @@ class CustomMessageResolver extends MessageResolver {
     // Check if it's a Cognito exception
     if (exception is CognitoAuthenticatorException) {
       final errorType = exception.getCognitoExceptionType();
-      
+
       // Override specific error messages
       switch (errorType) {
         case CognitoErrorType.userNotFound:
@@ -26,7 +26,7 @@ class CustomMessageResolver extends MessageResolver {
           return exception.message;
       }
     }
-    
+
     // Non-Cognito exceptions use original message
     return exception.message;
   }
@@ -61,6 +61,8 @@ void main() {
     await tester.pumpAndSettle();
 
     // Then I see the custom error message
-    signInPage.expectError('Custom: We could not find an account with that username');
+    signInPage.expectError(
+      'Custom: We could not find an account with that username',
+    );
   });
 }
