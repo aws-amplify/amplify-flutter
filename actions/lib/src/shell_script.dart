@@ -10,8 +10,7 @@ import 'package:path/path.dart' as p;
 extension type ShellScript(String script) {
   /// Executes the script with `/bin/bash` and throws if there's an error.
   Future<void> run() async {
-    final fullScript =
-        '''
+    final fullScript = '''
 #!/bin/bash
 set -eo pipefail
 $script
@@ -19,7 +18,7 @@ $script
     core.info(
       'Running script:\n$fullScript\n=======================================',
     );
-    await fs.withTempDir('launch_android_emulator', (tempDir) async {
+    await fs.withTempDir('shell_script', (tempDir) async {
       final scriptPath = p.join(tempDir, 'script.sh');
       fs.writeFileSync(scriptPath, fullScript);
       final result = await processManager.run(

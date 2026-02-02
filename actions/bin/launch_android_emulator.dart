@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:actions/actions.dart';
 import 'package:actions/src/android/avd_manager.dart';
 import 'package:actions/src/android/sdk_manager.dart';
-import 'package:actions/src/android/shell_script.dart';
+import 'package:actions/src/shell_script.dart';
 import 'package:actions/src/android/types.dart';
 
 Future<void> main() => wrapMain(_action);
@@ -261,7 +261,7 @@ Future<void> _cleanupAndWait() async {
 
 /// Cleans up any running emulator processes and AVD files before a retry attempt.
 Future<void> _cleanupEmulator() async {
-  core.info('Step 1/6: Killing emulator via adb emu kill...');
+  core.info('Step 1/5: Killing emulator via adb emu kill...');
   try {
     await ShellScript('adb emu kill 2>/dev/null || true').run();
     core.info('   ✓ adb emu kill completed');
@@ -269,7 +269,7 @@ Future<void> _cleanupEmulator() async {
     core.warning('   ⚠ Failed to kill emulator via adb: $e');
   }
 
-  core.info('Step 2/6: Killing qemu-system processes...');
+  core.info('Step 2/5: Killing qemu-system processes...');
   try {
     await ShellScript('pkill -9 qemu-system 2>/dev/null || true').run();
     core.info('   ✓ qemu-system kill completed');
@@ -277,7 +277,7 @@ Future<void> _cleanupEmulator() async {
     core.warning('   ⚠ Failed to kill qemu-system: $e');
   }
 
-  core.info('Step 3/6: Killing emulator processes...');
+  core.info('Step 3/5: Killing emulator processes...');
   try {
     await ShellScript('pkill -9 emulator 2>/dev/null || true').run();
     core.info('   ✓ emulator kill completed');
@@ -285,7 +285,7 @@ Future<void> _cleanupEmulator() async {
     core.warning('   ⚠ Failed to kill emulator process: $e');
   }
 
-  core.info('Step 4/6: Stopping adb server...');
+  core.info('Step 4/5: Stopping adb server...');
   try {
     await ShellScript('adb kill-server 2>/dev/null || true').run();
     core.info('   ✓ adb kill-server completed');
@@ -293,31 +293,31 @@ Future<void> _cleanupEmulator() async {
     core.warning('   ⚠ Failed to kill adb server: $e');
   }
 
-  core.info('Waiting 5 seconds for processes to terminate...');
-  await Future<void>.delayed(const Duration(seconds: 5));
+  core.info('Waiting 10 seconds for processes to terminate...');
+  await Future<void>.delayed(const Duration(seconds: 10));
 
-  core.info('Step 5/6: Deleting AVD "test" to free disk space...');
-  try {
-    // Use avdmanager to properly delete only the AVD named "test" that was created by this action
-    // This is safe and won't affect other AVDs on the system
-    await ShellScript('''
-      # List existing AVDs for debugging
-      echo "Existing AVDs before deletion:"
-      avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"
-      
-      # Delete only the "test" AVD that was created by this action
-      avdmanager delete avd -n test 2>/dev/null || echo "  AVD 'test' not found or already deleted"
-      
-      # List remaining AVDs for debugging
-      echo "Remaining AVDs after deletion:"
-      avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"
-    ''').run();
-    core.info('   ✓ AVD "test" deleted');
-  } on Object catch (e) {
-    core.warning('   ⚠ Failed to delete AVD: $e');
-  }
+  // core.info('Step 5/6: Deleting AVD "test" to free disk space...');
+  // try {
+  //   // Use avdmanager to properly delete only the AVD named "test" that was created by this action
+  //   // This is safe and won't affect other AVDs on the system
+  //   await ShellScript('''
+  //     # List existing AVDs for debugging
+  //     echo "Existing AVDs before deletion:"
+  //     avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"
+  //
+  //     # Delete only the "test" AVD that was created by this action
+  //     avdmanager delete avd -n test 2>/dev/null || echo "  AVD 'test' not found or already deleted"
+  //
+  //     # List remaining AVDs for debugging
+  //     echo "Remaining AVDs after deletion:"
+  //     avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"
+  //   ''').run();
+  //   core.info('   ✓ AVD "test" deleted');
+  // } on Object catch (e) {
+  //   core.warning('   ⚠ Failed to delete AVD: $e');
+  // }
 
-  core.info('Step 6/6: Checking available disk space...');
+  core.info('Step 5/5: Checking available disk space...');
   try {
     await ShellScript('df -h . | tail -1').run();
   } on Object catch (e) {

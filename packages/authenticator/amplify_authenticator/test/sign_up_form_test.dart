@@ -6,6 +6,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -50,6 +51,25 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Sign Up View', () {
+    group('autofill', () {
+      testWidgets(
+        'form is wrapped in AutofillGroup for password manager support',
+        (tester) async {
+          await tester.pumpWidget(
+            const MockAuthenticatorApp(initialStep: AuthenticatorStep.signUp),
+          );
+          await tester.pumpAndSettle();
+
+          SignUpPage(tester: tester).expectStep(AuthenticatorStep.signUp);
+
+          // Verify that an AutofillGroup exists in the widget tree.
+          // This ensures password managers can properly recognize and autofill
+          // credentials.
+          expect(find.byType(AutofillGroup), findsOneWidget);
+        },
+      );
+    });
+
     group('form validation', () {
       testWidgets('displays message when submitted without any data', (
         tester,
