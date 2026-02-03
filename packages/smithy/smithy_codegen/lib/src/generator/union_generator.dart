@@ -228,10 +228,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
           ..name = variantClassName(member)
           ..modifier = ClassModifier.final$
           ..extend = symbol
-          ..constructors.addAll([
-            ctor,
-            if (privateConstructor != null) privateConstructor,
-          ])
+          ..constructors.addAll([ctor, ?privateConstructor])
           ..fields.addAll([
             if (member.target != Shape.unit)
               Field(

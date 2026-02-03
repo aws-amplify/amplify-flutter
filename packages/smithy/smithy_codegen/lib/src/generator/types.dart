@@ -112,7 +112,7 @@ class _Core {
     (t) => t
       ..symbol = 'Iterable'
       ..url = _url
-      ..types.addAll([if (ref != null) ref]),
+      ..types.addAll([?ref]),
   );
 
   /// Creates a [core.List] reference.
@@ -120,7 +120,7 @@ class _Core {
     (t) => t
       ..symbol = 'List'
       ..url = _url
-      ..types.addAll([if (ref != null) ref]),
+      ..types.addAll([?ref]),
   );
 
   /// Creates a [core.Map] reference.
@@ -190,7 +190,7 @@ class _Async {
     (t) => t
       ..symbol = 'Stream'
       ..url = _url
-      ..types.addAll([if (ref != null) ref]),
+      ..types.addAll([?ref]),
   );
 
   /// Creates a `runZoned` refererence.
@@ -587,12 +587,7 @@ class _Smithy {
     (t) => t
       ..symbol = 'HttpProtocol'
       ..url = _url
-      ..types.addAll([
-        if (inputPayload != null) inputPayload,
-        if (input != null) input,
-        if (outputPayload != null) outputPayload,
-        if (output != null) output,
-      ]),
+      ..types.addAll([?inputPayload, ?input, ?outputPayload, ?output]),
   );
 
   /// Creates a [smithy.HttpRequest] AST reference.
@@ -656,7 +651,7 @@ class _Smithy {
     (t) => t
       ..symbol = 'PrimitiveSmithySerializer'
       ..url = _url
-      ..types.addAll([if (ref != null) ref]),
+      ..types.addAll([?ref]),
   );
 
   /// Creates a [smithy.RpcRouter] reference.
@@ -728,7 +723,7 @@ class _Smithy {
     (t) => t
       ..symbol = 'SmithySerializer'
       ..url = _url
-      ..types.addAll([if (ref != null) ref]),
+      ..types.addAll([?ref]),
   );
 
   /// Creates a [smithy.StructuredSmithySerializer] reference for [ref], the
@@ -737,7 +732,7 @@ class _Smithy {
     (t) => t
       ..symbol = 'StructuredSmithySerializer'
       ..url = _url
-      ..types.addAll([if (ref != null) ref]),
+      ..types.addAll([?ref]),
   );
 
   /// Creates a [smithy.Timestamp] reference.
