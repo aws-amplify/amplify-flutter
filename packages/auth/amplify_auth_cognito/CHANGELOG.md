@@ -1,3 +1,18 @@
+## 2.9.0
+
+### Features
+- Add support for custom Cognito endpoints ([#6477](https://github.com/aws-amplify/amplify-flutter/pull/6477))
+
+## 2.8.1
+
+### Fixes
+- fix(auth): added Cognito OIDC options to sign in uri ([#6481](https://github.com/aws-amplify/amplify-flutter/pull/6481))
+
+## 2.8.0
+
+### Features
+- feat(auth): add support for cognito oidc parameters in managed login ([#6442](https://github.com/aws-amplify/amplify-flutter/pull/6442))
+
 ## 2.7.0
 
 ### Features

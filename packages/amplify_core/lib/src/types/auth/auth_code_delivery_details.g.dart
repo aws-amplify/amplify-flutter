@@ -32,13 +32,11 @@ Map<String, dynamic> _$AuthCodeDeliveryDetailsToJson(
   AuthCodeDeliveryDetails instance,
 ) => <String, dynamic>{
   'deliveryMedium': _$DeliveryMediumEnumMap[instance.deliveryMedium]!,
-  if (instance.destination case final value?) 'destination': value,
-  if (_$JsonConverterToJson<String, AuthUserAttributeKey>(
-        instance.attributeKey,
-        const AuthUserAttributeKeyConverter().toJson,
-      )
-      case final value?)
-    'attributeKey': value,
+  'destination': ?instance.destination,
+  'attributeKey': ?_$JsonConverterToJson<String, AuthUserAttributeKey>(
+    instance.attributeKey,
+    const AuthUserAttributeKeyConverter().toJson,
+  ),
 };
 
 const _$DeliveryMediumEnumMap = {

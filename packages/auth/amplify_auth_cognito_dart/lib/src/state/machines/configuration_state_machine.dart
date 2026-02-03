@@ -78,6 +78,7 @@ final class ConfigurationStateMachine
         region: authOutputs.awsRegion,
         credentialsProvider: _credentialsProvider,
         dependencyManager: this,
+        endpoint: authOutputs.userPoolEndpoint,
       ),
     );
 
