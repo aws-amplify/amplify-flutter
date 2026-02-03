@@ -48,11 +48,11 @@ extension HostedUiConfig on OAuthOutputs {
     return baseUri.replace(
       queryParameters: <String, String>{
         if (provider != null) 'identity_provider': provider.uriParameter,
-        if (nonce != null) 'nonce': nonce,
-        if (language != null) 'lang': language,
-        if (loginHint != null) 'login_hint': loginHint,
-        if (prompt != null) 'prompt': prompt,
-        if (resource != null) 'resource': resource,
+        'nonce': ?nonce,
+        'lang': ?language,
+        'login_hint': ?loginHint,
+        'prompt': ?prompt,
+        'resource': ?resource,
         // ignore: invalid_use_of_internal_member
         ...?signInUriQueryParameters,
       },
