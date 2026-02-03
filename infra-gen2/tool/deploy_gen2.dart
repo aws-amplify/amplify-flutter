@@ -340,7 +340,7 @@ Map<String, String> _cacheConfigContents(
   final exp = RegExp(r"'''(.*?)'''", dotAll: true);
   final configMap = exp.firstMatch(rawConfigContent)?.group(1) ?? '';
 
-  return {backendName: '\'\'\'$configMap\'\'\''};
+  return {backendName: 'r\'\'\'$configMap\'\'\''};
 }
 
 /// Append the environments to amplify_outputs.dart
