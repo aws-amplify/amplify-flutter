@@ -54,7 +54,7 @@ Future<void> signUpUser({
   try {
     final userAttributes = {
       AuthUserAttributeKey.email: email,
-      if (phoneNumber != null) AuthUserAttributeKey.phoneNumber: phoneNumber,
+      AuthUserAttributeKey.phoneNumber: ?phoneNumber,
       // additional attributes as needed
     };
     final result = await Amplify.Auth.signUp(

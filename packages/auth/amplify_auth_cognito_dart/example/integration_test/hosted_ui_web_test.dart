@@ -128,7 +128,7 @@ Future<void> buildAndRun(Compiler compiler) async {
     final mimeType = mimeResolver.lookup(path);
     return Response.ok(
       await file.readAsBytes(),
-      headers: {if (mimeType != null) 'Content-Type': mimeType},
+      headers: {'Content-Type': ?mimeType},
     );
   });
   final fileServer = await io.serve(handler, 'localhost', applicationUri.port);
