@@ -36,8 +36,7 @@ enum CognitoErrorType {
   final String errorType;
 
   /// Returns the ARB key for this exception type
-  String get arbKey =>
-      'authenticatorCognitoError$errorType';
+  String get arbKey => 'authenticatorCognitoError$errorType';
 
   /// Creates enum from error type string, returns unknown if not found
   static CognitoErrorType fromErrorType(String errorType) {

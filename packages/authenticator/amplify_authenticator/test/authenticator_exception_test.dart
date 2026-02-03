@@ -10,21 +10,31 @@ void main() {
     test('fromErrorType maps SDK exception types correctly', () {
       // Test with actual SDK exception runtime types
 
-      const notAuthorizedException = NotAuthorizedServiceException('Not authorized');
+      const notAuthorizedException = NotAuthorizedServiceException(
+        'Not authorized',
+      );
       expect(
-        CognitoErrorType.fromErrorType(notAuthorizedException.runtimeType.toString()),
+        CognitoErrorType.fromErrorType(
+          notAuthorizedException.runtimeType.toString(),
+        ),
         CognitoErrorType.notAuthorized,
       );
 
       const userNotFoundException = UserNotFoundException('User not found');
       expect(
-        CognitoErrorType.fromErrorType(userNotFoundException.runtimeType.toString()),
+        CognitoErrorType.fromErrorType(
+          userNotFoundException.runtimeType.toString(),
+        ),
         CognitoErrorType.userNotFound,
       );
 
-      const usernameExistsException = UsernameExistsException('Username exists');
+      const usernameExistsException = UsernameExistsException(
+        'Username exists',
+      );
       expect(
-        CognitoErrorType.fromErrorType(usernameExistsException.runtimeType.toString()),
+        CognitoErrorType.fromErrorType(
+          usernameExistsException.runtimeType.toString(),
+        ),
         CognitoErrorType.usernameExists,
       );
     });
@@ -52,11 +62,9 @@ void main() {
     test('wraps Cognito exceptions and provides access to metadata', () {
       const cognitoException = NotAuthorizedServiceException('Not authorized');
       final authenticatorException = AuthenticatorException(cognitoException);
-      
 
       expect(authenticatorException, isA<CognitoAuthenticatorException>());
 
-      
       final cognitoAuthException =
           authenticatorException as CognitoAuthenticatorException;
       expect(cognitoAuthException.cognitoException, cognitoException);
