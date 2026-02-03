@@ -49,6 +49,10 @@ class PutRecordsOperation extends _i1.HttpOperation<PutRecordsRequest,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
+            const _i1.WithHeader(
+              'X-Amz-Target',
+              'Kinesis_20131202.PutRecords',
+            ),
             _i3.WithSigV4(
               region: _region,
               service: _i4.AWSService.kinesis,
