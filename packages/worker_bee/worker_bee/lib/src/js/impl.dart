@@ -153,7 +153,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
   Future<void> spawn({String? jsEntrypoint}) async {
     return runTraced(() async {
       for (final entrypoint in [
-        if (jsEntrypoint != null) jsEntrypoint,
+        ?jsEntrypoint,
         this.jsEntrypoint,
         ...fallbackUrls,
       ]) {

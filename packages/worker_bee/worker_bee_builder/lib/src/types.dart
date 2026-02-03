@@ -40,7 +40,7 @@ class _Core {
   Reference list([Reference? ref]) => TypeReference(
     (t) => t
       ..symbol = 'List'
-      ..types.addAll([if (ref != null) ref]),
+      ..types.addAll([?ref]),
   );
 
   /// Creates a [core.Map] reference.
