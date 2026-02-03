@@ -7,13 +7,24 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('CognitoErrorType', () {
-    test('fromErrorType maps known exceptions correctly', () {
+    test('fromErrorType maps SDK exception types correctly', () {
+      // Test with actual SDK exception runtime types
+
+      const notAuthorizedException = NotAuthorizedServiceException('Not authorized');
       expect(
-        CognitoErrorType.fromErrorType('UserNotFoundException'),
+        CognitoErrorType.fromErrorType(notAuthorizedException.runtimeType.toString()),
+        CognitoErrorType.notAuthorized,
+      );
+
+      const userNotFoundException = UserNotFoundException('User not found');
+      expect(
+        CognitoErrorType.fromErrorType(userNotFoundException.runtimeType.toString()),
         CognitoErrorType.userNotFound,
       );
+
+      const usernameExistsException = UsernameExistsException('Username exists');
       expect(
-        CognitoErrorType.fromErrorType('UsernameExistsException'),
+        CognitoErrorType.fromErrorType(usernameExistsException.runtimeType.toString()),
         CognitoErrorType.usernameExists,
       );
     });
@@ -39,28 +50,29 @@ void main() {
 
   group('CognitoAuthenticatorException', () {
     test('wraps Cognito exceptions and provides access to metadata', () {
-      const cognitoException = UserNotFoundException('User does not exist');
+      const cognitoException = NotAuthorizedServiceException('Not authorized');
       final authenticatorException = AuthenticatorException(cognitoException);
+      
 
       expect(authenticatorException, isA<CognitoAuthenticatorException>());
 
+      
       final cognitoAuthException =
           authenticatorException as CognitoAuthenticatorException;
-
       expect(cognitoAuthException.cognitoException, cognitoException);
-      expect(cognitoAuthException.message, 'User does not exist');
+      expect(cognitoAuthException.message, 'Not authorized');
       expect(
-        cognitoAuthException.getCognitoExceptionType(),
-        CognitoErrorType.userNotFound,
+        cognitoAuthException.getCognitoErrorType(),
+        CognitoErrorType.notAuthorized,
       );
       expect(
         cognitoAuthException.getArbKey(),
-        'authenticatorCognitoErrorUserNotFound',
+        'authenticatorCognitoErrorNotAuthorized',
       );
     });
 
     test('preserves showBanner flag', () {
-      const cognitoException = UserNotFoundException('User not found');
+      const cognitoException = NotAuthorizedServiceException('Not authorized');
 
       final exceptionWithBanner = AuthenticatorException(
         cognitoException,
@@ -77,24 +89,12 @@ void main() {
   });
 
   group('AuthenticatorException', () {
-    test('handles non-Cognito exceptions', () {
+    test('handles string exceptions', () {
       final exception = AuthenticatorException('Generic error');
 
       expect(exception, isNot(isA<CognitoAuthenticatorException>()));
       expect(exception, isA<AuthenticatorException>());
       expect(exception.message, 'Generic error');
-    });
-
-    test('handles string exceptions', () {
-      final authenticatorException = AuthenticatorException(
-        'Simple error message',
-      );
-
-      expect(
-        authenticatorException,
-        isNot(isA<CognitoAuthenticatorException>()),
-      );
-      expect(authenticatorException.message, 'Simple error message');
     });
 
     test('handles AmplifyException', () {
@@ -109,12 +109,12 @@ void main() {
     });
 
     test('toString returns underlying exception string', () {
-      const cognitoException = UserNotFoundException('User not found');
+      const cognitoException = NotAuthorizedServiceException('Not authorized');
       final authenticatorException = AuthenticatorException(cognitoException);
 
       expect(
         authenticatorException.toString(),
-        contains('UserNotFoundException'),
+        contains('NotAuthorizedServiceException'),
       );
     });
   });

@@ -15,7 +15,11 @@ class CustomMessageResolver extends MessageResolver {
   String error(BuildContext context, AuthenticatorException exception) {
     // Check if it's a Cognito exception
     if (exception is CognitoAuthenticatorException) {
-      final errorType = exception.getCognitoExceptionType();
+      final errorType = exception.getCognitoErrorType();
+      final arbKey = exception.getArbKey();
+
+      // Verify the ARB key is correct
+      expect(arbKey, 'authenticatorCognitoError${errorType.errorType}');
 
       // Override specific error messages
       switch (errorType) {

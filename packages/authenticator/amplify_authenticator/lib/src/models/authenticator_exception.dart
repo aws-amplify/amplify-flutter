@@ -9,26 +9,26 @@ import 'package:smithy/smithy.dart';
 
 /// Enum representing all Cognito exception types for type-safe error handling
 enum CognitoErrorType {
-  userNotFound('UserNotFoundException'),
-  userNotConfirmed('UserNotConfirmedException'),
-  usernameExists('UsernameExistsException'),
-  aliasExists('AliasExistsException'),
-  invalidPassword('InvalidPasswordException'),
-  invalidParameter('InvalidParameterException'),
-  expiredCode('ExpiredCodeException'),
-  codeMismatch('CodeMismatchException'),
-  codeDeliveryFailure('CodeDeliveryFailureException'),
-  limitExceeded('LimitExceededException'),
-  mfaMethodNotFound('MfaMethodNotFoundException'),
-  notAuthorized('NotAuthorizedServiceException'),
-  resourceNotFound('ResourceNotFoundException'),
-  softwareTokenMfaNotFound('SoftwareTokenMfaNotFoundException'),
-  tooManyFailedAttempts('TooManyFailedAttemptsException'),
-  tooManyRequests('TooManyRequestsException'),
-  passwordResetRequired('PasswordResetRequiredException'),
-  enableSoftwareTokenMfa('EnableSoftwareTokenMFAException'),
-  userLambdaValidation('UserLambdaValidationException'),
-  unknown('UnknownException');
+  userNotFound('UserNotFound'),
+  userNotConfirmed('UserNotConfirmed'),
+  usernameExists('UsernameExists'),
+  aliasExists('AliasExists'),
+  invalidPassword('InvalidPassword'),
+  invalidParameter('InvalidParameter'),
+  expiredCode('ExpiredCode'),
+  codeMismatch('CodeMismatch'),
+  codeDeliveryFailure('CodeDeliveryFailure'),
+  limitExceeded('LimitExceeded'),
+  mfaMethodNotFound('MfaMethodNotFound'),
+  notAuthorized('NotAuthorized'),
+  resourceNotFound('ResourceNotFound'),
+  softwareTokenMfaNotFound('SoftwareTokenMfaNotFound'),
+  tooManyFailedAttempts('TooManyFailedAttempts'),
+  tooManyRequests('TooManyRequests'),
+  passwordResetRequired('PasswordResetRequired'),
+  enableSoftwareTokenMfa('EnableSoftwareTokenMFA'),
+  userLambdaValidation('UserLambdaValidation'),
+  unknown('Unknown');
 
   const CognitoErrorType(this.errorType);
 
@@ -37,10 +37,14 @@ enum CognitoErrorType {
 
   /// Returns the ARB key for this exception type
   String get arbKey =>
-      'authenticatorCognitoError${errorType.replaceAll('Exception', '')}';
+      'authenticatorCognitoError$errorType';
 
   /// Creates enum from error type string, returns unknown if not found
   static CognitoErrorType fromErrorType(String errorType) {
+    // Strip Exception suffix and ServiceException, since e.g. NotAuthorizedServiceException has the latter suffix
+    errorType = errorType
+        .replaceFirst('ServiceException', '')
+        .replaceFirst('Exception', '');
     for (final type in CognitoErrorType.values) {
       if (type.errorType == errorType) return type;
     }
@@ -64,12 +68,15 @@ class CognitoAuthenticatorException extends AuthenticatorException {
   CognitoServiceException get cognitoException =>
       underlyingException as CognitoServiceException;
 
-  /// Returns the Cognito exception type enum for type-safe error handling
-  CognitoErrorType getCognitoExceptionType() =>
+  /// Returns the Cognito exception type enum for type-safe error handling.
+  CognitoErrorType getCognitoErrorType() =>
       CognitoErrorType.fromErrorType(cognitoException.runtimeType.toString());
 
-  /// Returns the ARB resource key for this exception
-  String getArbKey() => getCognitoExceptionType().arbKey;
+  /// Returns the ARB resource key for this exception.
+  ///
+  /// ARB keys follow the format `authenticatorCognitoError{ErrorType}`.
+  /// For example, a [UserNotFoundException] returns `authenticatorCognitoErrorUserNotFound`.
+  String getArbKey() => getCognitoErrorType().arbKey;
 }
 
 /// {@template amplify_authenticator.authenticator_exception}
