@@ -606,8 +606,7 @@ final class SignInStateMachine
         ..clientId = _authOutputs.userPoolClientId
         ..authParameters.addAll({
           CognitoConstants.challengeParamUsername: providedUsername,
-          if (preferredChallenge != null)
-            CognitoConstants.preferredChallenge: preferredChallenge,
+          CognitoConstants.preferredChallenge: ?preferredChallenge,
         })
         ..clientMetadata.addAll(event.clientMetadata)
         ..session = session;
@@ -867,10 +866,9 @@ final class SignInStateMachine
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: cognitoUsername,
           CognitoConstants.challengeParamAnswer: selectedFactor.value,
-          if (_computeSecretHash() case final secretHash?)
-            CognitoConstants.challengeParamSecretHash: secretHash,
-          if (_user.deviceSecrets?.deviceKey case final deviceKey?)
-            CognitoConstants.challengeParamDeviceKey: deviceKey,
+          CognitoConstants.challengeParamSecretHash: ?_computeSecretHash(),
+          CognitoConstants.challengeParamDeviceKey:
+              ?_user.deviceSecrets?.deviceKey,
         })
         ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata);
@@ -891,10 +889,9 @@ final class SignInStateMachine
           CognitoConstants.challengeParamUsername: cognitoUsername,
           CognitoConstants.challengeParamAnswer: AuthFactorType.password.value,
           CognitoConstants.challengeParamPassword: password,
-          if (_computeSecretHash() case final secretHash?)
-            CognitoConstants.challengeParamSecretHash: secretHash,
-          if (_user.deviceSecrets?.deviceKey case final deviceKey?)
-            CognitoConstants.challengeParamDeviceKey: deviceKey,
+          CognitoConstants.challengeParamSecretHash: ?_computeSecretHash(),
+          CognitoConstants.challengeParamDeviceKey:
+              ?_user.deviceSecrets?.deviceKey,
         })
         ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata);
@@ -925,10 +922,9 @@ final class SignInStateMachine
               AuthFactorType.passwordSrp.value,
           CognitoConstants.challengeParamSrpA: _initResult!.publicA
               .toRadixString(16),
-          if (_computeSecretHash() case final secretHash?)
-            CognitoConstants.challengeParamSecretHash: secretHash,
-          if (_user.deviceSecrets?.deviceKey case final deviceKey?)
-            CognitoConstants.challengeParamDeviceKey: deviceKey,
+          CognitoConstants.challengeParamSecretHash: ?_computeSecretHash(),
+          CognitoConstants.challengeParamDeviceKey:
+              ?_user.deviceSecrets?.deviceKey,
         })
         ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata);
