@@ -252,7 +252,7 @@ final class CredentialStoreStateMachine
           keys[CognitoUserPoolKey.accessToken]: userPoolTokens.accessToken.raw,
           keys[CognitoUserPoolKey.refreshToken]: userPoolTokens.refreshToken,
           keys[CognitoUserPoolKey.idToken]: userPoolTokens.idToken.raw,
-          if (username != null) keys[CognitoUserPoolKey.username]: username,
+          keys[CognitoUserPoolKey.username]: ?username,
           if (authFlowType != null)
             keys[CognitoUserPoolKey.authFlowType]: authFlowType.value,
         });
