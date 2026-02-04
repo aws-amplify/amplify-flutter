@@ -274,6 +274,11 @@ Future<String> _deployBackend(
     '🏖️  Deploying ${category.name} ${backend.name}, this may take a while...',
   );
 
+  final outputFile = File(p.join(outputPath, 'amplify_outputs.dart'));
+  if (outputFile.existsSync()) {
+    outputFile.deleteSync();
+  }
+
   // Deploy the backend
   final process = await Process.start('npx', [
     'ampx',
@@ -296,6 +301,10 @@ Future<String> _deployBackend(
 
   var stackID = '';
 
+  var postedError = false;
+  var postedErrorReason = false;
+  var postedUpdateFailed = false;
+
   // Listen to stdout for stack ID
   await for (final String line
       in process.stdout
@@ -303,6 +312,14 @@ Future<String> _deployBackend(
           .transform(const LineSplitter())) {
     if (verbose) {
       print(line);
+    } else if (line.contains(' [ERROR]')) {
+      print('❌   $line');
+      postedError = true;
+    } else if (line.startsWith('  ∟ Caused by: ')) {
+      print('❌   $line');
+      postedErrorReason = true;
+    } else if (line.contains(' | UPDATE_FAILED | ')) {
+      postedUpdateFailed = true;
     }
     // Save Stack ID
     if (line.contains('Stack:')) {
@@ -315,6 +332,14 @@ Future<String> _deployBackend(
   if (exitCode != 0) {
     throw Exception(
       '❌ Error deploying ${category.name} ${backend.identifier} sandbox',
+    );
+  } else if (postedError && postedErrorReason && postedUpdateFailed) {
+    throw Exception(
+      '❌ Error deploying ${category.name} ${backend.identifier} sandbox: Update failed',
+    );
+  } else if (!outputFile.existsSync()) {
+    throw Exception(
+      '❌ Error deploying ${category.name} ${backend.identifier} sandbox - Output file not generated',
     );
   } else {
     print('👍 ${category.name} ${backend.identifier} sandbox deployed');
@@ -502,6 +527,11 @@ void _generateGen1Config(
     '📁 Generating gen 1 config file for ${category.name} ${backend.name}...',
   );
 
+  final outputFile = File(p.join(outputPath, 'amplifyconfiguration.dart'));
+  if (outputFile.existsSync()) {
+    outputFile.deleteSync();
+  }
+
   // Deploy the backend
   final process = Process.runSync('npx', [
     'ampx',
@@ -523,6 +553,10 @@ void _generateGen1Config(
   if (process.exitCode != 0) {
     throw Exception(
       '❌ Error generating gen 1 config file for ${category.name} ${backend.name}:: ${process.stdout}',
+    );
+  } else if(!outputFile.existsSync()) {
+    throw Exception(
+      '❌ Error generating gen 1 config file for ${category.name} ${backend.identifier} - Output file not generated',
     );
   } else {
     print(
