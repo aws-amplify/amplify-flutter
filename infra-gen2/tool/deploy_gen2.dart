@@ -274,6 +274,11 @@ Future<String> _deployBackend(
     '🏖️  Deploying ${category.name} ${backend.name}, this may take a while...',
   );
 
+  final outputFile = File(p.join(outputPath, 'amplify_outputs.dart'));
+  if (outputFile.existsSync()) {
+    outputFile.deleteSync();
+  }
+
   // Deploy the backend
   final process = await Process.start('npx', [
     'ampx',
@@ -286,6 +291,7 @@ Future<String> _deployBackend(
     backend.identifier,
     '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
     '--once',
+    '--debug',
   ], workingDirectory: p.join(repoRoot.path, backend.pathToSource));
 
   if (verbose) {
@@ -296,18 +302,56 @@ Future<String> _deployBackend(
 
   var stackID = '';
 
+  // About deployment errors
+  var postedDeploymentError = false;
+  var postedDeploymentErrorReason = false;
+  var postedDeploymentUpdateFailed = false;
+
+  // About CDK build errors
+  var postingBackendBuildError = false;
+  var postedBackendBuildError = false;
+
+  var previousLine = '';
+
   // Listen to stdout for stack ID
   await for (final String line
       in process.stdout
           .transform(utf8.decoder)
           .transform(const LineSplitter())) {
+
+    if (!line.startsWith('    at ') && line.trim().isNotEmpty) {
+      // This line does not belong to a cdk build error
+      postingBackendBuildError = false;
+    }
+
     if (verbose) {
       print(line);
+    } else if (line.contains(' [ERROR]')) {
+      print('❌   $line');
+      postedDeploymentError = true;
+    } else if (line.contains('  ∟ Caused by: ')) {
+      print('    $line');
+      postedDeploymentErrorReason = true;
+    } else if (line.contains(' | UPDATE_FAILED | ')) {
+      postedDeploymentUpdateFailed = true;
+    } else if (!postingBackendBuildError && line.startsWith('    at ')) {
+      // This line and the previous line log a cdk build error
+      print('❌   $previousLine');
+      print('    $line');
+      postedBackendBuildError = true;
+      postingBackendBuildError = true;
+    } else if (line.startsWith('    at ')) {
+      // This line logs a cdk build error
+      print('    $line');
     }
+
     // Save Stack ID
     if (line.contains('Stack:')) {
       stackID = line.split('Stack:').last.trim();
     }
+
+    // Needed for printing cdk build errors
+    previousLine = line;
   }
 
   final exitCode = await process.exitCode;
@@ -315,6 +359,18 @@ Future<String> _deployBackend(
   if (exitCode != 0) {
     throw Exception(
       '❌ Error deploying ${category.name} ${backend.identifier} sandbox',
+    );
+  } else if (postedDeploymentError && postedDeploymentErrorReason && postedDeploymentUpdateFailed) {
+    throw Exception(
+      '❌ Error deploying ${category.name} ${backend.identifier} sandbox: Update failed',
+    );
+  } else if (postedBackendBuildError) {
+    throw Exception(
+      '❌ Error deploying ${category.name} ${backend.identifier} sandbox - CDK build failed',
+    );
+  } else if (!outputFile.existsSync()) {
+    throw Exception(
+      '❌ Error deploying ${category.name} ${backend.identifier} sandbox - Output file not generated',
     );
   } else {
     print('👍 ${category.name} ${backend.identifier} sandbox deployed');
@@ -502,6 +558,11 @@ void _generateGen1Config(
     '📁 Generating gen 1 config file for ${category.name} ${backend.name}...',
   );
 
+  final outputFile = File(p.join(outputPath, 'amplifyconfiguration.dart'));
+  if (outputFile.existsSync()) {
+    outputFile.deleteSync();
+  }
+
   // Deploy the backend
   final process = Process.runSync('npx', [
     'ampx',
@@ -523,6 +584,10 @@ void _generateGen1Config(
   if (process.exitCode != 0) {
     throw Exception(
       '❌ Error generating gen 1 config file for ${category.name} ${backend.name}:: ${process.stdout}',
+    );
+  } else if(!outputFile.existsSync()) {
+    throw Exception(
+      '❌ Error generating gen 1 config file for ${category.name} ${backend.identifier} - Output file not generated',
     );
   } else {
     print(
