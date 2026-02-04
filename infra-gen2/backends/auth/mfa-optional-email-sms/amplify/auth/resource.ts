@@ -13,4 +13,9 @@ export const auth = defineAuth({
     email: true,
     sms: true,
   },
+  senders: {
+    email: {
+      fromEmail: "ktruon@amazon.com",
+    },
+  },
 });

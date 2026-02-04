@@ -12,4 +12,9 @@ export const auth = defineAuth({
     mode: "REQUIRED",
     email: true,
   },
+  senders: {
+    email: {
+      fromEmail: "ktruon@amazon.com",
+    },
+  },
 });

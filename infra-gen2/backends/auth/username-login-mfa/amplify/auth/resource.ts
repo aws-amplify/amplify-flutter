@@ -14,5 +14,10 @@ export const auth = defineAuth({
     sms: true,
     totp: true,
   },
+  senders: {
+    email: {
+      fromEmail: "ktruon@amazon.com",
+    },
+  },
   accountRecovery: "PHONE_WITHOUT_MFA_AND_EMAIL",
 });
