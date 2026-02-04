@@ -19,7 +19,7 @@ const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
 const digits = '1234567890';
 const symbols = r'~/`!@#$%^&*(),._?:;{}|<>';
 
-String generateUsername() => 'TEMP_USER-${uuid()}';
+String generateUsername() => 'temp-user-${uuid()}';
 String generatePassword() =>
     uuid() +
     uppercaseLetters[random.nextInt(uppercaseLetters.length)] +
@@ -63,6 +63,13 @@ void main() {
     final authSession = await Amplify.Auth.fetchAuthSession();
     expect(authSession.isSignedIn, isTrue);
 
+    // Stop DataStore sync engine to prevent race conditions with direct API calls.
+    // DataStore.clear() only clears local data but keeps the sync engine running,
+    // which can cause version conflicts when the sync engine picks up items created
+    // via direct API and updates their _version field.
+    await Amplify.DataStore.stop();
+    await Amplify.DataStore.clear();
+
     // === STORAGE: Download guest data ===
     final guestData = await Amplify.Storage.downloadData(path: path).result;
     expect(utf8.decode(guestData.bytes), data);
@@ -103,12 +110,17 @@ void main() {
     final queryResponse = await Amplify.API.query(request: queryRequest).response;
     expect(queryResponse.hasErrors, isFalse);
     expect(queryResponse.data?.id, createdTodo.id);
+    final queriedTodo = queryResponse.data!;
 
     // === API: Delete Todo (cleanup) ===
-    final deleteMutation = ModelMutations.delete(createdTodo);
+    final deleteMutation = ModelMutations.delete(queriedTodo);
     final deleteResponse =
         await Amplify.API.mutate(request: deleteMutation).response;
     expect(deleteResponse.hasErrors, isFalse);
+
+    // === DATASTORE: Start sync and test ===
+    // Restart DataStore for DataStore-specific tests after API tests are complete
+    await Amplify.DataStore.start();
 
     // === DATASTORE: Save and observe ===
     final dsTodo = Todo(name: 'canary-ds-test', owner: username);
