@@ -8,11 +8,9 @@ export const auth = defineAuth({
   loginWith: {
     email: true,
   },
-
-  // TODO(khatruong2009): Uncomment the following line when the feature is ready.
-  // multifactor: {
-  //   mode: "OPTIONAL",
-  //   email: true,
-  //   sms: true,
-  // },
+  multifactor: {
+    mode: "OPTIONAL",
+    email: true,
+    sms: true,
+  },
 });
