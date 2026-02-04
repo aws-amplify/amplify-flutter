@@ -65,6 +65,7 @@ export 'src/types/analytics/analytics_types.dart';
 
 /// API
 export 'src/types/api/api_types.dart' hide WebSocketOptions;
+
 // ignore: invalid_export_of_internal_element
 export 'src/types/api/api_types.dart' show WebSocketOptions;
 
@@ -133,4 +134,5 @@ set Amplify(AmplifyClass amplifyClass) {
   AmplifyClass.instance = amplifyClass;
 }
 
+// TMP trigger actions
 // ignore_for_file: non_constant_identifier_names
