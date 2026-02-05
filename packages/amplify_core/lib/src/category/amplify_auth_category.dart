@@ -130,7 +130,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// {@endtemplate}
   Future<SignUpResult> signUp({
     required String username,
-    required String password,
+    String? password,
     SignUpOptions? options,
   }) => identifyCall(
     AuthCategoryMethod.signUp,
@@ -592,6 +592,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
       confirmationValue: confirmationValue,
       options: options,
     ),
+  );
+
+  /// {@template amplify_core.amplify_auth_category.autoSignIn}
+  /// {@endtemplate}
+  Future<SignInResult> autoSignIn({AutoSignInOptions? options}) => identifyCall(
+    AuthCategoryMethod.confirmSignIn,
+    () => defaultPlugin.autoSignIn(options: options),
   );
 
   /// {@template amplify_core.amplify_auth_category.sign_out}
