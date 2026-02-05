@@ -235,6 +235,7 @@ Future<String> adminCreateUser(
 
   final createError = (result['createUser'] as Map?)?['error'];
   if (createError != null) {
+    _logger.error('Failed to create user: >>$createError<<');
     throw Exception(createError);
   }
 
