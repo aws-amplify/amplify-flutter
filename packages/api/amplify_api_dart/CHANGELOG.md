@@ -1,3 +1,7 @@
+## 0.5.15
+
+- Minor bug fixes and improvements
+
 ## 0.5.14
 
 - Minor bug fixes and improvements
