@@ -26,7 +26,9 @@ abstract class AuthService {
 
   Future<SignUpResult> confirmSignUp(String username, String code);
 
-  // TODO(tyllark): Passwordless Authenticator.
+  // TODO(cadivus): Implement Passwordless Authenticator. See:
+  // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html#amazon-cognito-user-pools-authentication-flow-methods-passkey
+  // https://docs.amplify.aws/react/build-a-backend/auth/concepts/passwordless/#webauthn-passkey
   //Future<SignInResult> autoSignIn();
 
   Future<AuthUser?> get currentUser;
@@ -152,7 +154,9 @@ class AmplifyAuthService
     );
   }
 
-  // TODO(tyllark): Passwordless Authenticator.
+  // TODO(cadivus): Implement Passwordless Authenticator. See:
+  // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html#amazon-cognito-user-pools-authentication-flow-methods-passkey
+  // https://docs.amplify.aws/react/build-a-backend/auth/concepts/passwordless/#webauthn-passkey
   // @override
   // Future<SignInResult> autoSignIn() {
   //   return _withUserAgent(() => Amplify.Auth.autoSignIn());

@@ -25,6 +25,9 @@ enum AuthFactorType {
   @JsonValue('SMS_OTP')
   smsOtp('SMS_OTP');
 
+  // TODO(cadivus): Implement Passwordless Authenticator. See:
+  // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html#amazon-cognito-user-pools-authentication-flow-methods-passkey
+  // https://docs.amplify.aws/react/build-a-backend/auth/concepts/passwordless/#webauthn-passkey
   // /// Sign in with WebAuthn (i.e. PassKey)
   // @JsonValue('WEB_AUTHN')
   // webAuthn('WEB_AUTHN');
