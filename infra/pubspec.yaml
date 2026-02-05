@@ -1,9 +1,0 @@
-name: infra
-publish_to: none
-
-environment:
-  sdk: ^3.9.0
-
-dependencies:
-  amplify_core: any
-  path: ^1.8.0
