@@ -61,7 +61,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   @override
   Future<SignUpResult> signUp({
     required String username,
-    required String password,
+    String? password,
     SignUpOptions? options,
   }) async {
     await Future<void>.delayed(delay);
@@ -380,7 +380,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 class MockCognitoUser {
   factory MockCognitoUser({
     required String username,
-    required String password,
+    String? password,
     String? email,
     String? phoneNumber,
   }) {
@@ -401,7 +401,7 @@ class MockCognitoUser {
   });
   final String sub;
   final String username;
-  final String password;
+  final String? password;
   final String? email;
   final String? phoneNumber;
 

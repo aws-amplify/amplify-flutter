@@ -10,14 +10,13 @@ class _$SignUpParameters extends SignUpParameters {
   @override
   final String username;
   @override
-  final String password;
+  final String? password;
 
   factory _$SignUpParameters([
     void Function(SignUpParametersBuilder)? updates,
   ]) => (SignUpParametersBuilder()..update(updates))._build();
 
-  _$SignUpParameters._({required this.username, required this.password})
-    : super._();
+  _$SignUpParameters._({required this.username, this.password}) : super._();
   @override
   SignUpParameters rebuild(void Function(SignUpParametersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -98,11 +97,7 @@ class SignUpParametersBuilder
             r'SignUpParameters',
             'username',
           ),
-          password: BuiltValueNullFieldError.checkNotNull(
-            password,
-            r'SignUpParameters',
-            'password',
-          ),
+          password: password,
         );
     replace(_$result);
     return _$result;
