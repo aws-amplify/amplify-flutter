@@ -30,8 +30,8 @@ class SecureStorageWorkerImpl extends SecureStorageWorker {
         .map(Uri.encodeComponent)
         .join('/');
     const relativePath = zDebugMode
-        ? 'packages/amplify_secure_storage_dart/src/worker/workers.debug.dart.js'
-        : 'packages/amplify_secure_storage_dart/src/worker/workers.release.dart.js';
+        ? 'packages/amplify_secure_storage_dart/src/worker/workers.dev.js'
+        : 'packages/amplify_secure_storage_dart/src/worker/workers.mins.js';
     final testRelativePath = Uri(
       scheme: baseUri.scheme,
       host: baseUri.host,
