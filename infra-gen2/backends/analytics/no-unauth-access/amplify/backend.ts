@@ -17,7 +17,7 @@ const { userPool, cfnResources } = resources;
 const { stack } = userPool;
 
 const customOutputs = addAnalyticsExtensions({
-  name: "analytics-main",
+  name: "analytics-no-unauth-access",
   stack: stack,
   authenticatedRole: pinpointRole,
 });
