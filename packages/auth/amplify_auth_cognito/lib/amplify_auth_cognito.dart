@@ -8,3 +8,5 @@ export 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide AmplifyAuthCognitoDart;
 
 export 'src/auth_plugin_impl.dart';
+
+// TMP trigger actions
