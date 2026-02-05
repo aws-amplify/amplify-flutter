@@ -62,7 +62,7 @@ jobs:
           flutter config --enable-linux-desktop
           # 5 attemps
           # 60 minutes timeout each
-          "${{ github.workspace }}/build-support/linux_timeout_attempts.sh" 5 60 'aft exec --include=${{ inputs.package-name }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d linux'
+          "${{ github.workspace }}/build-support/linux_timeout_attempts.sh" 1 60 'aft exec --include=${{ inputs.package-name }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d linux'
 
       - name: Log success/failure
         if: always()

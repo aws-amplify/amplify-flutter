@@ -9,7 +9,7 @@ final random = Random();
 
 const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
-const digits = '1234567890';
+const digits = '1';
 const symbols = r'~/`!@#$%^&*(),._?:;{}|<>';
 
 String generatePhoneNumber() {

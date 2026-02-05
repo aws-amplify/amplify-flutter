@@ -107,6 +107,18 @@ void main() {
           },
         );
 
+        // Create a user with an unverified phone number.
+        await adminCreateUser(
+          'asdfg$username',
+          password,
+          autoConfirm: true,
+          verifyAttributes: false,
+          attributes: {
+            AuthUserAttributeKey.phoneNumber: phoneNumber,
+            AuthUserAttributeKey.email: 'asdfg$username',
+          },
+        );
+
         final signInRes = await Amplify.Auth.signIn(
           username: username,
           password: password,
