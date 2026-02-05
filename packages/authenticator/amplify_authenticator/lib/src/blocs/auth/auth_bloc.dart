@@ -261,6 +261,19 @@ class StateMachineBloc
             }
           }
           yield* _checkUserVerification();
+        case AuthSignInStep.continueSignInWithFirstFactorSelection:
+        case AuthSignInStep.confirmSignInWithOtp:
+        case AuthSignInStep.confirmSignInWithPassword:
+          // TODO(cadivus): Implement Passwordless Authenticator. See:
+          // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html#amazon-cognito-user-pools-authentication-flow-methods-passkey
+          // https://docs.amplify.aws/react/build-a-backend/auth/concepts/passwordless/#webauthn-passkey
+          _exceptionController.add(
+            AuthenticatorException(
+              'Passwordless is not supported at this time. Please try again.',
+              showBanner: true,
+            ),
+          );
+          yield* _changeScreen(initialStep);
       }
     } on AuthNotAuthorizedException {
       /// The .failAuthentication flag available in the DefineAuthChallenge Lambda trigger

@@ -63,8 +63,14 @@ final class SignUpStateMachine
       case SignUpConfirm _:
         emit(const SignUpState.confirming());
         await onConfirm(event);
-      case SignUpSucceeded(:final userId):
-        emit(SignUpState.success(userId: userId));
+      case SignUpSucceeded():
+        emit(
+          SignUpState.success(
+            username: event.username,
+            userId: event.userId,
+            session: event.session,
+          ),
+        );
         await onSucceeded(event);
     }
   }
@@ -123,7 +129,13 @@ final class SignUpStateMachine
         .result;
 
     if (resp.userConfirmed) {
-      emit(SignUpState.success(userId: resp.userSub));
+      emit(
+        SignUpState.success(
+          username: event.parameters.username,
+          userId: resp.userSub,
+          session: resp.session,
+        ),
+      );
     } else {
       emit(
         SignUpState.needsConfirmation(
@@ -139,7 +151,7 @@ final class SignUpStateMachine
     UserContextDataType? contextData;
     final contextDataProvider = _contextDataProvider;
     contextData = await contextDataProvider.buildRequestData(event.username);
-    await _cognito
+    final resp = await _cognito
         .confirmSignUp(
           ConfirmSignUpRequest.build((b) {
             b
@@ -166,7 +178,7 @@ final class SignUpStateMachine
         )
         .result;
 
-    emit(const SignUpState.success());
+    emit(SignUpState.success(username: event.username, session: resp.session));
   }
 
   /// State machine callback for the [SignUpSucceeded] event.

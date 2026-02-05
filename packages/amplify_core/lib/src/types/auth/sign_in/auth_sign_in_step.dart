@@ -21,6 +21,9 @@ enum AuthSignInStep {
   /// continuing.
   continueSignInWithEmailMfaSetup,
 
+  /// The sign-in is not complete and the user must select a first factor method.
+  continueSignInWithFirstFactorSelection,
+
   /// The sign-in is not complete and must be confirmed with an SMS code.
   confirmSignInWithSmsMfaCode,
 
@@ -38,6 +41,12 @@ enum AuthSignInStep {
   /// The sign-in is not complete and must be confirmed with the answer to a
   /// custom challenge.
   confirmSignInWithCustomChallenge,
+
+  /// The sign-in is not complete and must be confirmed with an one time password code.
+  confirmSignInWithOtp,
+
+  /// The sign-in is not complete and must be confirmed with a password.
+  confirmSignInWithPassword,
 
   /// The sign-in is not complete and the user must reset their password before
   /// proceeding.
