@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:io';
 
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint/src/flutter_endpoint_info_store_manager.dart';
@@ -25,6 +24,7 @@ import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:flutter/foundation.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
@@ -53,7 +53,9 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   }) async {
     await super.addPlugin(authProviderRepo: authProviderRepo);
 
-    if (zIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
+    if (zIsWeb ||
+        !(defaultTargetPlatform == TargetPlatform.android ||
+            defaultTargetPlatform == TargetPlatform.iOS)) {
       return;
     }
 
@@ -99,7 +101,9 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       defaultPluginOptions: const CognitoSignUpPluginOptions(),
     );
     Map<String, String>? validationData;
-    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+    if (!zIsWeb &&
+        (defaultTargetPlatform == TargetPlatform.android ||
+            defaultTargetPlatform == TargetPlatform.iOS)) {
       final nativeValidationData = await stateMachine
           .expect<NativeAuthBridge>()
           .getValidationData();
