@@ -1,3 +1,8 @@
+## 2.10.0
+
+### Fixes
+- fix(datastore): UninitializedPropertyAccessException crash on Android when amplify_datastore is included but not used ([#6485](https://github.com/aws-amplify/amplify-flutter/pull/6485))
+
 ## 2.9.0
 
 - Minor bug fixes and improvements
