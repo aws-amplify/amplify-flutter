@@ -32,7 +32,7 @@ void main() {
     await signInPage.enterUsername(testUser.email!);
 
     // And I type my password
-    await signInPage.enterPassword(testUser.password);
+    await signInPage.enterPassword(testUser.password!);
 
     // And I click the "Sign In" button
     await binding.runAsync(signInPage.submitSignIn);

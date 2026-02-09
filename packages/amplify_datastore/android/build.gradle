@@ -13,7 +13,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.12.1'
+        classpath 'com.android.tools.build:gradle:8.13.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.jlleitschuh.gradle:ktlint-gradle:13.1.0'
     }
@@ -77,10 +77,10 @@ android {
 dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
 
-    implementation 'com.amplifyframework:aws-auth-cognito:2.29.1'
-    implementation "com.amplifyframework:aws-api:2.29.1"
-    implementation "com.amplifyframework:aws-datastore:2.29.1"
-    implementation "com.amplifyframework:aws-api-appsync:2.29.1"
+    implementation 'com.amplifyframework:aws-auth-cognito:2.33.0'
+    implementation "com.amplifyframework:aws-api:2.33.0"
+    implementation "com.amplifyframework:aws-datastore:2.33.0"
+    implementation "com.amplifyframework:aws-api-appsync:2.33.0"
     implementation 'com.google.code.gson:gson:2.13.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
 
@@ -94,7 +94,7 @@ dependencies {
     // Tests must be updated if bumped
     //noinspection GradleDependency
     testImplementation 'org.robolectric:robolectric:4.15.1'
-    testImplementation 'com.fasterxml.jackson.core:jackson-core:2.19.1'
-    testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.19.1'
-    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.19.1'
+    testImplementation 'com.fasterxml.jackson.core:jackson-core:2.21.0'
+    testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.21'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.21.0'
 }

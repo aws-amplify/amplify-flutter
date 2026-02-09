@@ -29,12 +29,12 @@ jobs:
         uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@fe21d53e1e27c70b5c8e8273d4bcc0d23c071577 # main
+        uses: dart-lang/setup-dart@21e68f4d54916e6c2f68f8c290b2aed9b02cbd3e # main
         with:
           sdk: 3.9.0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # 4.1.0
+        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # 4.2.0
         with:
           version: 9
 
@@ -61,7 +61,7 @@ jobs:
         uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@fe21d53e1e27c70b5c8e8273d4bcc0d23c071577 # main
+        uses: dart-lang/setup-dart@21e68f4d54916e6c2f68f8c290b2aed9b02cbd3e # main
         with:
           sdk: 3.9.0
 
@@ -130,7 +130,7 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
 
-      - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # 5.0.0
+      - uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # 5.2.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "17"
