@@ -8,7 +8,6 @@ import 'dart:js_interop';
 import 'package:aws_common/src/js/common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:web/web.dart';
-import 'package:worker_bee/src/js/js_extensions.dart';
 import 'package:worker_bee/src/js/message_port_channel.dart';
 import 'package:worker_bee/src/preamble.dart';
 import 'package:worker_bee/src/serializers/serializers.dart';
@@ -29,7 +28,7 @@ Future<WorkerAssignment> getWorkerAssignment() async {
     self.postMessage(
       workerBeeSerializers
           .serialize(e, specifiedType: FullType.unspecified)
-          ?.toJSBoxOrCast,
+          .jsify(),
     );
   }
 
