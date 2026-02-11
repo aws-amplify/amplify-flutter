@@ -1,0 +1,13 @@
+{
+  "name": "worker-bee-example-tester",
+  "version": "1.0.0",
+  "description": "Automated test runner for worker_bee_example using Selenium WebDriver",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^4.40.0"
+  }
+}
