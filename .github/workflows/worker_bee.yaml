@@ -82,11 +82,6 @@ jobs:
           cache: true
           channel: stable
 
-      - name: Setup Node.js
-        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # 4.2.0
-        with:
-          node-version: '20'
-
       - name: Setup ChromeDriver
         uses: ./.github/composite_actions/setup_chromedriver
 
@@ -102,10 +97,8 @@ jobs:
         working-directory: packages/worker_bee/worker_bee/example
         run: flutter pub get
 
-      - name: Install Node.js test dependencies
-        working-directory: packages/worker_bee/worker_bee/example/tool/example_web_tester
-        run: npm ci
+      - name: Install Python test dependencies
+        run: pip install -r packages/worker_bee/worker_bee/example/tool/example_web_tester/requirements.txt
 
       - name: Run example web tests
-        working-directory: packages/worker_bee/worker_bee/example/tool/example_web_tester
-        run: node index.js
+        run: python3 packages/worker_bee/worker_bee/example/tool/example_web_tester/example_web_tester.py
