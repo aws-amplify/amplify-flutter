@@ -24,7 +24,7 @@
     "aws-cdk-lib": "^2.203.0",
     "constructs": "^10.3.0",
     "esbuild": "^0.25.0",
-    "tsx": "^4.16.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.5.4"
   },
   "overrides": {
