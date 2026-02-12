@@ -106,8 +106,9 @@ class KinesisSender {
         retryableRecordIndices: List.generate(records.length, (i) => i),
       );
     } on SmithyHttpException catch (e) {
-      // Check if it's a retryable HTTP error (5xx)
-      if (e.statusCode != null && e.statusCode! >= 500) {
+      // Check if it's a retryable HTTP error (429 or 5xx)
+      if (e.statusCode != null &&
+          (e.statusCode == 429 || e.statusCode! >= 500)) {
         return PutRecordsResult(
           successfulRecordIndices: const [],
           failedRecordIndices: const [],
