@@ -27,16 +27,12 @@ on:
       - 'packages/worker_bee/worker_bee/**/*.yaml'
       - 'packages/worker_bee/worker_bee/lib/**/*'
       - 'packages/worker_bee/worker_bee/test/**/*'
-  schedule:
-    - cron: "0 13 * * 1" # Every Monday at 06:00 PST
   workflow_dispatch:
 defaults:
   run:
     shell: bash
 
-# These permissions are needed to interact with GitHub's OIDC Token endpoint.
 permissions:
-  id-token: write
   contents: read
 
 # Cancels in-progress job when there is another push to same ref.
