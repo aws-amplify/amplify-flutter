@@ -1,4 +1,4 @@
-name: worker_bee_web_test
+name: worker_bee_web_build_and_run_test
 on:
   push:
     branches:
@@ -88,5 +88,5 @@ jobs:
       - name: Install Python test dependencies
         run: pip install -r packages/worker_bee/worker_bee/example/tool/example_web_tester/requirements.txt
 
-      - name: Run example web tests
+      - name: Run build and run test (generate files and test them)
         run: python3 packages/worker_bee/worker_bee/example/tool/example_web_tester/example_web_tester.py
