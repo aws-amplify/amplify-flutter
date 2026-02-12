@@ -12,15 +12,15 @@
     "backends/storage/*"
   ],
   "dependencies": {
-    "aws-amplify": "^6.4.3",
+    "aws-amplify": "^6.16.2",
     "infra-common": "1.0.0"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^1.15.0",
+    "@aws-amplify/backend": "^1.21.0",
     "@aws-amplify/backend-cli": "^1.5.0",
     "@aws-crypto/client-node": "^4.2.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.775.0",
-    "aws-cdk": "^2.1006.0",
+    "aws-cdk": "^2.1106.0",
     "aws-cdk-lib": "^2.203.0",
     "constructs": "^10.3.0",
     "esbuild": "^0.25.0",
