@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.12.1'
+        classpath 'com.android.tools.build:gradle:8.13.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
@@ -71,7 +71,7 @@ dependencies {
     api "com.google.firebase:firebase-messaging"
 
     // Import support library for Amplify push utils
-    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.29.1'
+    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.33.0'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0"
     implementation project(path: ':flutter_plugin_android_lifecycle')
     implementation 'androidx.test:core-ktx:1.6.1'

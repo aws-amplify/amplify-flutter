@@ -1,6 +1,6 @@
 name: worker_bee
 description: A cross-platform isolated worker runtime for Dart Web, VM, and Flutter.
-version: 0.3.9
+version: 0.3.10
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/worker_bee/worker_bee
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues

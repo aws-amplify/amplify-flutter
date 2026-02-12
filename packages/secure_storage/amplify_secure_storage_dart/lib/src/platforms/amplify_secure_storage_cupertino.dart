@@ -104,7 +104,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final attributes = _createCFDictionary(
       map: {
         security.kSecValueData: data,
-        if (_accessible != null) security.kSecAttrAccessible: _accessible!,
+        security.kSecAttrAccessible: ?_accessible,
       },
       arena: arena,
     );
@@ -128,7 +128,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final query = _createCFDictionary(
       map: {
         ...baseQueryAttributes,
-        if (_accessible != null) security.kSecAttrAccessible: _accessible!,
+        security.kSecAttrAccessible: ?_accessible,
         security.kSecValueData: secret,
       },
       arena: arena,
@@ -183,7 +183,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final query = _createCFDictionary(
       map: {
         ...baseQueryAttributes,
-        if (_accessible != null) security.kSecAttrAccessible: _accessible!,
+        security.kSecAttrAccessible: ?_accessible,
         security.kSecMatchLimit: security.kSecMatchLimitOne,
         security.kSecReturnData: security.kCFBooleanTrue,
       },

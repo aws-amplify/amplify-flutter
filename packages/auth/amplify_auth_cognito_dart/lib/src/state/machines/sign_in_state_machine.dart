@@ -192,6 +192,7 @@ final class SignInStateMachine
   AuthenticationResultType? _authenticationResult;
   ChallengeNameType? _challengeName;
   BuiltMap<String, String?> _challengeParameters = BuiltMap();
+  BuiltList<ChallengeNameType> _availableChallenges = BuiltList();
   String? _session;
   SrpInitResult? _initResult;
   Map<CognitoUserAttributeKey, String>? _attributesNeedingUpdate;
@@ -225,6 +226,27 @@ final class SignInStateMachine
             }(),
           },
         )
+        .nonNulls
+        .toSet();
+  }
+
+  /// The allowed first factor types returned in the last challenge response.
+  Set<AuthFactorType>? get _allowedFirstFactorTypes {
+    final allowedFirstFactorNames = _availableChallenges;
+    if (allowedFirstFactorNames.isEmpty) {
+      return null;
+    }
+    return allowedFirstFactorNames
+        .map((type) {
+          final match = AuthFactorType.values
+              .where((factor) => factor.value == type.value)
+              .firstOrNull;
+
+          if (match == null) {
+            logger.error('Unrecognized first factor type: $type');
+          }
+          return match;
+        })
         .nonNulls
         .toSet();
   }
@@ -308,6 +330,11 @@ final class SignInStateMachine
         event,
         expectPassword(),
       ),
+      AuthFlowType.userAuth => initiateUserAuth(
+        event,
+        parameters.preferredFirstFactor?.value,
+        parameters.session,
+      ),
       _ => throw StateError('Unsupported auth flow: $authFlowType'),
     };
   }
@@ -348,6 +375,13 @@ final class SignInStateMachine
       ),
       ChallengeNameType.newPasswordRequired when hasUserResponse =>
         createNewPasswordRequest(event),
+      ChallengeNameType.selectChallenge when hasUserResponse =>
+        createSelectFirstFactorRequest(event),
+      ChallengeNameType.password when hasUserResponse => createPasswordRequest(
+        event,
+      ),
+      ChallengeNameType.passwordSrp when hasUserResponse =>
+        createPasswordSrpRequest(event),
       _ => null,
     };
   }
@@ -556,6 +590,26 @@ final class SignInStateMachine
           CognitoConstants.challengeParamPassword: password,
         })
         ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
+  /// Initiates a username/password auth flow.
+  @protected
+  Future<InitiateAuthRequest> initiateUserAuth(
+    SignInInitiate event,
+    String? preferredChallenge,
+    String? session,
+  ) async {
+    return InitiateAuthRequest.build((b) {
+      b
+        ..authFlow = AuthFlowType.userAuth
+        ..clientId = _authOutputs.userPoolClientId
+        ..authParameters.addAll({
+          CognitoConstants.challengeParamUsername: providedUsername,
+          CognitoConstants.preferredChallenge: ?preferredChallenge,
+        })
+        ..clientMetadata.addAll(event.clientMetadata)
+        ..session = session;
     });
   }
 
@@ -779,6 +833,104 @@ final class SignInStateMachine
     });
   }
 
+  /// Selects a first factor type to use for sign-in.
+  @protected
+  Future<RespondToAuthChallengeRequest?> createSelectFirstFactorRequest(
+    SignInRespondToChallenge event,
+  ) async {
+    final answer = event.answer.toUpperCase();
+    final selectedFactor = AuthFactorType.values
+        .where((factor) => factor.value == answer)
+        .firstOrNull;
+
+    if (selectedFactor == null) {
+      final knownFactorTypes = AuthFactorType.values.map(
+        (factor) => factor.value,
+      );
+      throw ArgumentError('Must be one of $knownFactorTypes');
+    }
+
+    // Return null to trigger a challenge state that requests password input
+    if (selectedFactor == AuthFactorType.password) {
+      _challengeName = ChallengeNameType.password;
+      return null;
+    }
+    if (selectedFactor == AuthFactorType.passwordSrp) {
+      _challengeName = ChallengeNameType.passwordSrp;
+      return null;
+    }
+
+    return RespondToAuthChallengeRequest.build((b) {
+      b
+        ..challengeName = ChallengeNameType.selectChallenge
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: cognitoUsername,
+          CognitoConstants.challengeParamAnswer: selectedFactor.value,
+          CognitoConstants.challengeParamSecretHash: ?_computeSecretHash(),
+          CognitoConstants.challengeParamDeviceKey:
+              ?_user.deviceSecrets?.deviceKey,
+        })
+        ..clientId = _authOutputs.userPoolClientId
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
+  /// Responds to a PASSWORD challenge by initiating password authentication.
+  @protected
+  Future<RespondToAuthChallengeRequest> createPasswordRequest(
+    SignInRespondToChallenge event,
+  ) async {
+    final password = event.answer;
+
+    return RespondToAuthChallengeRequest.build((b) {
+      b
+        ..challengeName = ChallengeNameType.selectChallenge
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: cognitoUsername,
+          CognitoConstants.challengeParamAnswer: AuthFactorType.password.value,
+          CognitoConstants.challengeParamPassword: password,
+          CognitoConstants.challengeParamSecretHash: ?_computeSecretHash(),
+          CognitoConstants.challengeParamDeviceKey:
+              ?_user.deviceSecrets?.deviceKey,
+        })
+        ..clientId = _authOutputs.userPoolClientId
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
+  /// Responds to a PASSWORD_SRP challenge by initiating SRP password verification.
+  @protected
+  Future<RespondToAuthChallengeRequest?> createPasswordSrpRequest(
+    SignInRespondToChallenge event,
+  ) async {
+    final password = event.answer;
+    _initResult ??= await _initSrp();
+
+    //Set the username/password for the followup Verify Password step
+    parameters = parameters.rebuild(
+      (b) => b
+        ..username = cognitoUsername
+        ..password = password,
+    );
+
+    return RespondToAuthChallengeRequest.build((b) {
+      b
+        ..challengeName = ChallengeNameType.selectChallenge
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: cognitoUsername,
+          CognitoConstants.challengeParamAnswer:
+              AuthFactorType.passwordSrp.value,
+          CognitoConstants.challengeParamSrpA: _initResult!.publicA
+              .toRadixString(16),
+          CognitoConstants.challengeParamSecretHash: ?_computeSecretHash(),
+          CognitoConstants.challengeParamDeviceKey:
+              ?_user.deviceSecrets?.deviceKey,
+        })
+        ..clientId = _authOutputs.userPoolClientId
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
   /// Responds to a TOTP challenge.
   @protected
   Future<RespondToAuthChallengeRequest> createSoftwareTokenMfaRequest(
@@ -928,6 +1080,7 @@ final class SignInStateMachine
     _authenticationResult = initResponse.authenticationResult;
     _challengeName = initResponse.challengeName;
     _challengeParameters = initResponse.challengeParameters ?? BuiltMap();
+    _availableChallenges = initResponse.availableChallenges ?? BuiltList();
     _session = initResponse.session;
 
     final stopState = await _processChallenge(event);
@@ -1095,6 +1248,7 @@ final class SignInStateMachine
       _codeDeliveryDetails,
       _allowedMfaTypes,
       _totpSetupResult,
+      _allowedFirstFactorTypes,
     );
 
     // If we can't internally respond to the challenge, we may need user
@@ -1233,6 +1387,18 @@ final class SignInStateMachine
     _attributesNeedingUpdate = null;
     _totpSetupResult = null;
     _enableMfaType = null;
+  }
+
+  String? _computeSecretHash() {
+    // ignore: invalid_use_of_internal_member
+    final appClientSecret = _authOutputs.appClientSecret;
+    if (appClientSecret == null) return null;
+
+    return computeSecretHash(
+      cognitoUsername,
+      _authOutputs.userPoolClientId!,
+      appClientSecret,
+    );
   }
 }
 
