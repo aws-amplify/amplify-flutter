@@ -1,9 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_kinesis_datastreams/src/exception/kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/sdk_bridge.dart';
 import 'package:smithy/smithy.dart';
@@ -116,6 +118,18 @@ class KinesisSender {
         );
       }
       rethrow;
+    } on AWSHttpException catch (e) {
+      // Network-level errors (DNS, connection refused, etc.)
+      throw KinesisNetworkException(
+        'Failed to connect to Kinesis: $e',
+        underlyingException: e,
+      );
+    } on SocketException catch (e) {
+      // Socket-level errors (no internet, connection reset, etc.)
+      throw KinesisNetworkException(
+        'Network error: ${e.message}',
+        underlyingException: e,
+      );
     }
   }
 
