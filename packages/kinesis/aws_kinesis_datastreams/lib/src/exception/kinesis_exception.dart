@@ -94,3 +94,21 @@ class KinesisNetworkException extends KinesisDataStreamsException {
           recoverySuggestion: 'Check network connectivity and try again.',
         );
 }
+
+/// {@template aws_kinesis_datastreams.client_closed_exception}
+/// Thrown when an operation is attempted on a closed client.
+///
+/// This exception is thrown when calling [KinesisDataStreams.record],
+/// [KinesisDataStreams.flush], or other operations after the client
+/// has been closed via [KinesisDataStreams.close].
+///
+/// Once closed, a client cannot be reused. Create a new instance instead.
+/// {@endtemplate}
+class ClientClosedException extends KinesisDataStreamsException {
+  /// {@macro aws_kinesis_datastreams.client_closed_exception}
+  const ClientClosedException()
+      : super(
+          'Client has been closed',
+          recoverySuggestion: 'Create a new KinesisDataStreams instance.',
+        );
+}
