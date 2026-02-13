@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart' show KinesisDataStreams, KinesisDataStreamsOptions;
+
 /// {@template aws_kinesis_datastreams.kinesis_exception}
 /// Base exception for Kinesis Data Streams errors.
 ///
@@ -76,26 +78,7 @@ class CacheFullException extends KinesisDataStreamsException {
         );
 }
 
-/// {@template aws_kinesis_datastreams.credentials_exception}
-/// Thrown when credentials cannot be resolved.
-///
-/// This exception is thrown when the [AWSCredentialsProvider] fails to
-/// provide valid credentials for signing API requests.
-///
-/// Common causes:
-/// - Invalid or expired credentials
-/// - Network issues preventing credential refresh
-/// - Misconfigured credential provider
-/// {@endtemplate}
-class CredentialsException extends KinesisDataStreamsException {
-  /// {@macro aws_kinesis_datastreams.credentials_exception}
-  const CredentialsException(super.message, {super.underlyingException})
-      : super(
-          recoverySuggestion: 'Verify your CredentialsProvider implementation.',
-        );
-}
-
-/// {@template aws_kinesis_datastreams.network_exception}
+/// {@template aws_kinesis_datastreams.kinesis_network_exception}
 /// Thrown when a network error occurs.
 ///
 /// This exception is thrown when the library cannot communicate with
@@ -104,9 +87,9 @@ class CredentialsException extends KinesisDataStreamsException {
 /// Records that fail due to network errors are retained in the cache
 /// and will be retried on the next flush operation.
 /// {@endtemplate}
-class NetworkException extends KinesisDataStreamsException {
-  /// {@macro aws_kinesis_datastreams.network_exception}
-  const NetworkException(super.message, {super.underlyingException})
+class KinesisNetworkException extends KinesisDataStreamsException {
+  /// {@macro aws_kinesis_datastreams.kinesis_network_exception}
+  const KinesisNetworkException(super.message, {super.underlyingException})
       : super(
           recoverySuggestion: 'Check network connectivity and try again.',
         );
