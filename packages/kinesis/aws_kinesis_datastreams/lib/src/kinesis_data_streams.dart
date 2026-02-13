@@ -215,6 +215,26 @@ class KinesisDataStreams {
     _recordClient.disable();
   }
 
+  /// Enables automatic flush operations.
+  ///
+  /// When enabled, records will be automatically flushed at the interval
+  /// specified in [KinesisDataStreamsOptions.flushStrategy].
+  ///
+  /// This does not affect manual [flush] calls or [record] operations.
+  void enableAutoFlush() {
+    _recordClient.enableAutoFlush();
+  }
+
+  /// Disables automatic flush operations.
+  ///
+  /// When disabled, records will not be automatically flushed.
+  /// You must call [flush] manually to send records to Kinesis.
+  ///
+  /// This does not affect manual [flush] calls or [record] operations.
+  void disableAutoFlush() {
+    _recordClient.disableAutoFlush();
+  }
+
   /// Closes the client and releases all resources.
   ///
   /// After closing:

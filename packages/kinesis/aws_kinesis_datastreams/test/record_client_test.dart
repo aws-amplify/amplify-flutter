@@ -448,18 +448,28 @@ void main() {
         expect(client.isClosed, isTrue);
       });
 
-      test('ignores record calls after close', () async {
+      test('throws ClientClosedException on record after close', () async {
         await client.close();
 
-        await client.record(
-          KinesisRecord(
-            data: Uint8List.fromList([1]),
-            partitionKey: 'pk',
-            streamName: 'stream',
+        expect(
+          () => client.record(
+            KinesisRecord(
+              data: Uint8List.fromList([1]),
+              partitionKey: 'pk',
+              streamName: 'stream',
+            ),
           ),
+          throwsA(isA<ClientClosedException>()),
         );
+      });
 
-        // Can't check storage after close, but no exception should be thrown
+      test('throws ClientClosedException on flush after close', () async {
+        await client.close();
+
+        expect(
+          () => client.flush(),
+          throwsA(isA<ClientClosedException>()),
+        );
       });
     });
   });

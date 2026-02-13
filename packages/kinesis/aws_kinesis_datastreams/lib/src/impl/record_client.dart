@@ -168,6 +168,22 @@ class RecordClient {
     _scheduler.disable();
   }
 
+  /// Enables automatic flush operations.
+  ///
+  /// When enabled, the scheduler will trigger flush operations at the
+  /// configured interval. This does not affect manual flush() calls.
+  void enableAutoFlush() {
+    _scheduler.enable();
+  }
+
+  /// Disables automatic flush operations.
+  ///
+  /// When disabled, the scheduler will not trigger automatic flushes.
+  /// Manual flush() calls and record() calls still work normally.
+  void disableAutoFlush() {
+    _scheduler.disable();
+  }
+
   /// Closes the client and releases all resources.
   Future<void> close() async {
     _closed = true;
