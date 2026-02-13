@@ -60,12 +60,12 @@ void main() {
       credentialsProvider: const AWSCredentialsProvider(credentials),
       storagePath: tempDir.path,
       options: const KinesisDataStreamsOptions(
-        flushStrategy: KinesisDataStreamsInterval(
-          interval: Duration(minutes: 5), // Disable auto-flush for tests
-        ),
         maxRetries: 3,
       ),
     );
+
+    // Disable auto-flush for controlled testing
+    client.disableAutoFlush();
   });
 
   tearDown(() async {
