@@ -57,9 +57,10 @@ class RecordClient {
   /// The record is persisted to SQLite storage if the client is enabled
   /// and there is sufficient cache space.
   ///
+  /// Throws [ClientClosedException] if the client has been closed.
   /// Throws [CacheFullException] if the cache is full.
   Future<void> record(KinesisRecord record) async {
-    if (_closed) return;
+    if (_closed) throw const ClientClosedException();
     if (!_enabled) return;
 
     // Check cache size before saving
@@ -79,8 +80,10 @@ class RecordClient {
   /// Successful records are deleted from the cache.
   /// Failed records with retryable errors have their retry count incremented.
   /// Records exceeding max retries are removed from the cache.
+  ///
+  /// Throws [ClientClosedException] if the client has been closed.
   Future<void> flush() async {
-    if (_closed) return;
+    if (_closed) throw const ClientClosedException();
     if (!_enabled) return;
 
     // Process records in batches until no more remain
