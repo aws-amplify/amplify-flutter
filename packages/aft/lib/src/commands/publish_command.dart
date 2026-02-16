@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:aft/src/constraints_checker.dart';
 import 'package:aft/src/options/glob_options.dart';
+import 'package:aft/src/publish_scheduler.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:graphs/graphs.dart';
@@ -278,11 +279,15 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     // ordering, it is okay for later packages to fail. While this means that
     // some packages will not be published, it also means that the command
     // can be re-run to pick up where it left off.
-    for (final package in packagesNeedingPublish) {
-      await prePublish(package);
-      await publish(package);
-      await awaitPendingAnalysis(package.name);
-    }
+    final scheduler = PublishScheduler(
+      packages: packagesNeedingPublish,
+      publishPackage: (package) async {
+        await prePublish(package);
+        await publish(package);
+      },
+      command: this,
+    );
+    await scheduler.run();
 
     stdout.writeln(
       dryRun
