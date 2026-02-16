@@ -281,6 +281,7 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     for (final package in packagesNeedingPublish) {
       await prePublish(package);
       await publish(package);
+      await awaitPendingAnalysis(package.name);
     }
 
     stdout.writeln(
