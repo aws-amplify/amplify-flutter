@@ -40,33 +40,41 @@ class RecordStorage {
   /// Retrieves a batch of records sorted by stream_name, partition_key, id.
   ///
   /// Returns records up to [maxCount] records and [maxBytes] total size.
+  /// Uses window functions to efficiently limit at the database level.
   Future<List<StoredRecord>> getRecordsBatch({
     int maxCount = 500,
     int maxBytes = 5 * 1024 * 1024,
   }) async {
-    // Query records sorted by stream_name, partition_key, id
-    final query = _db.select(_db.kinesisRecords)
-      ..orderBy([
-        (t) => OrderingTerm.asc(t.streamName),
-        (t) => OrderingTerm.asc(t.partitionKey),
-        (t) => OrderingTerm.asc(t.id),
-      ]);
+    // Use window functions to compute row number and running size,
+    // then filter to get records within both limits.
+    // Include record if: running_size <= maxBytes OR it's the first record (rn = 1)
+    final results = await _db.customSelect(
+      '''
+      SELECT id, stream_name, partition_key, data, data_size, retry_count, created_at
+      FROM (
+        SELECT *,
+          ROW_NUMBER() OVER (ORDER BY stream_name, partition_key, id) as rn,
+          SUM(data_size) OVER (ORDER BY stream_name, partition_key, id) as running_size
+        FROM kinesis_records
+      )
+      WHERE rn <= ?1 AND (running_size <= ?2 OR rn = 1)
+      ORDER BY stream_name, partition_key, id
+      ''',
+      variables: [Variable.withInt(maxCount), Variable.withInt(maxBytes)],
+      readsFrom: {_db.kinesisRecords},
+    ).get();
 
-    final allRecords = await query.get();
-
-    // Apply count and size limits
-    final result = <StoredRecord>[];
-    var totalBytes = 0;
-
-    for (final record in allRecords) {
-      if (result.length >= maxCount) break;
-      if (totalBytes + record.dataSize > maxBytes && result.isNotEmpty) break;
-
-      result.add(record);
-      totalBytes += record.dataSize;
-    }
-
-    return result;
+    return results.map((row) {
+      return StoredRecord(
+        id: row.read<int>('id'),
+        streamName: row.read<String>('stream_name'),
+        partitionKey: row.read<String>('partition_key'),
+        data: row.read<Uint8List>('data'),
+        dataSize: row.read<int>('data_size'),
+        retryCount: row.read<int>('retry_count'),
+        createdAt: row.read<int>('created_at'),
+      );
+    }).toList();
   }
 
   /// Deletes records by their IDs.
