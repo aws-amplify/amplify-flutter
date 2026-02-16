@@ -19,7 +19,7 @@
     "@aws-amplify/backend": "^1.21.0",
     "@aws-amplify/backend-cli": "^1.5.0",
     "@aws-crypto/client-node": "^4.2.0",
-    "@aws-sdk/client-cognito-identity-provider": "^3.775.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.990.0",
     "aws-cdk": "^2.1106.0",
     "aws-cdk-lib": "^2.203.0",
     "constructs": "^10.3.0",
