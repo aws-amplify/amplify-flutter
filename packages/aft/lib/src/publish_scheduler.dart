@@ -34,6 +34,7 @@ class PublishScheduler {
     required List<PackageInfo> packages,
     required PublishPackageFn publishPackage,
     required AmplifyCommand command,
+    this.dryRun = false,
   }) : _packages = packages,
        _publishPackage = publishPackage,
        _command = command;
@@ -41,6 +42,7 @@ class PublishScheduler {
   final List<PackageInfo> _packages;
   final PublishPackageFn _publishPackage;
   final AmplifyCommand _command;
+  final bool dryRun;
 
   /// Packages that are ready to be published (all in-process deps done).
   final List<PackageInfo> _packagePublishQueue = [];
@@ -212,6 +214,26 @@ class PublishScheduler {
   /// Publishes all packages, processing the queue without blocking on
   /// analysis.
   Future<void> run() async {
+    if (dryRun) {
+      return _runDryRun();
+    }
+    return _runNormal();
+  }
+
+  /// Dry-run mode: simply iterate through the packages in the provided
+  /// order and call [_publishPackage] for each one.
+  Future<void> _runDryRun() async {
+    for (final package in _packages) {
+      stdout.writeln('Publishing ${package.name} (${package.version}) [dry run]');
+      await _publishPackage(package);
+      stdout.writeln('');
+    }
+    stdout.writeln('All packages passed pre-publish checks (dry run).');
+  }
+
+  /// Normal (non-dry-run) publish flow that processes the queue without
+  /// blocking on analysis.
+  Future<void> _runNormal() async {
     final adjacencyLists = _buildAdjacencyLists();
 
     /// Tracks which packages have been published (publish call returned).

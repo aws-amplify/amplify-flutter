@@ -286,6 +286,7 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
         await publish(package);
       },
       command: this,
+      dryRun: dryRun,
     );
     await scheduler.run();
 
