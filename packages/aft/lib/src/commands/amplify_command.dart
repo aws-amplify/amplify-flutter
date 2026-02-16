@@ -105,7 +105,7 @@ abstract class AmplifyCommand extends Command<void>
     ...Platform.environment,
     'AFT_ROOT': rootDir.uri.toFilePath(),
     // Needed for running `dart doc` for Flutter packages.
-    if (flutterRoot != null) 'FLUTTER_ROOT': flutterRoot!,
+    'FLUTTER_ROOT': ?flutterRoot,
   };
 
   /// The path to the Flutter SDK, if installed.
