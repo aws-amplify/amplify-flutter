@@ -19,6 +19,9 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read
+
 jobs:
   ffigen-validate:
     runs-on: ${{ inputs.os }}
