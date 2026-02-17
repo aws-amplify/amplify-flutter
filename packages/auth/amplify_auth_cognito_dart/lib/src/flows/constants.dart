@@ -60,6 +60,9 @@ abstract class CognitoConstants {
   /// The `SMS_MFA_CODE` parameter.
   static const challengeParamSmsMfaCode = 'SMS_MFA_CODE';
 
+  /// The `SMS_OTP_CODE` parameter.
+  static const challengeParamSmsOtpCode = 'SMS_OTP_CODE';
+
   /// The `EMAIL_OTP_CODE` parameter.
   static const challengeParamEmailOtpCode = 'EMAIL_OTP_CODE';
 
