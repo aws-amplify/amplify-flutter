@@ -1,0 +1,1249 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "RunContext",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "saveState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/action_context.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "onFailed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "fn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "FutureOr<void> Function()",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "onSuccess",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "fn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "FutureOr<void> Function()",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "onExit",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "fn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "FutureOr<void> Function()",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "RunContext",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/action_context.dart"
+    },
+    {
+      "name": "PostRunContext",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "String?",
+          "name": "getState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "PostRunContext",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Map<String, String>",
+          "name": "stateValues",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/action_context.dart"
+    },
+    {
+      "name": "ActionContext",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "RunContext",
+        "PostRunContext"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<void>",
+          "name": "runTearDowns",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "result",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ActionResult",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "ActionContext",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "saveState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "key",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/action_context.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "onFailed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "fn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "FutureOr<void> Function()",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "onSuccess",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "fn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "FutureOr<void> Function()",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "onExit",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "fn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "FutureOr<void> Function()",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        },
+        {
+          "returnTypeName": "String?",
+          "name": "getState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/action_context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Map<String, String>",
+          "name": "stateValues",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/action_context.dart"
+    },
+    {
+      "name": "ActionResult",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "ActionResult",
+          "name": "success",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ActionResult",
+          "name": "failure",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<ActionResult>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/action_context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/action_context.dart"
+    },
+    {
+      "name": "AllChromeDownloads",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "String",
+          "name": "chromeDriverUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "platform",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ChromePlatform",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        },
+        {
+          "returnTypeName": "AllChromeDownloads",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "versions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<ChromeVersion>",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        },
+        {
+          "returnTypeName": "AllChromeDownloads",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "List<ChromeVersion>",
+          "name": "versions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/chromedriver/downloads.dart"
+    },
+    {
+      "name": "ChromeVersion",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "String?",
+          "name": "chromeDriverUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "platform",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ChromePlatform",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        },
+        {
+          "returnTypeName": "ChromeVersion",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "revision",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "downloads",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ChromeVersionDownloads",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        },
+        {
+          "returnTypeName": "ChromeVersion",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "revision",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ChromeVersionDownloads",
+          "name": "downloads",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/chromedriver/downloads.dart"
+    },
+    {
+      "name": "ChromeVersionDownloads",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ChromeVersionDownloads",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "chrome",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<ChromeDownload>",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "chromedriver",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<ChromeDownload>",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        },
+        {
+          "returnTypeName": "ChromeVersionDownloads",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "List<ChromeDownload>",
+          "name": "chrome",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<ChromeDownload>",
+          "name": "chromedriver",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/chromedriver/downloads.dart"
+    },
+    {
+      "name": "ChromeDownload",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ChromeDownload",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "platform",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ChromePlatform",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "url",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        },
+        {
+          "returnTypeName": "ChromeDownload",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ChromePlatform",
+          "name": "platform",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "url",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/chromedriver/downloads.dart"
+    },
+    {
+      "name": "ChromePlatform",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ChromePlatform",
+          "name": "fromOsArch",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "os",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "OS",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "arch",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Arch",
+              "relativePath": "package:actions/src/chromedriver/downloads.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ChromePlatform",
+          "name": "linux64",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ChromePlatform",
+          "name": "macArm64",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ChromePlatform",
+          "name": "macX64",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ChromePlatform",
+          "name": "win32",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ChromePlatform",
+          "name": "win64",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<ChromePlatform>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/chromedriver/downloads.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/chromedriver/downloads.dart"
+    },
+    {
+      "name": "OS",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "OS",
+          "name": "macOS",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/os.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "OS",
+          "name": "linux",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/os.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<OS>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/os.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/os.dart"
+    },
+    {
+      "name": "Arch",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "Arch",
+          "name": "arm64",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/os.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Arch",
+          "name": "x64",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/os.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Arch>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/os.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/os.dart"
+    },
+    {
+      "name": "ExecResult",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ExecResult",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "exitCode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:actions/src/node/actions/exec.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "stdout",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/node/actions/exec.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "stderr",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:actions/src/node/actions/exec.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/node/actions/exec.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "int",
+          "name": "exitCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/node/actions/exec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "stdout",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/node/actions/exec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "stderr",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/node/actions/exec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/node/actions/exec.dart"
+    },
+    {
+      "name": "FileSystemAccess",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "FileSystemAccess",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/node/fs.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "int",
+          "name": "F_OK",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/node/fs.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "X_OK",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/node/fs.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "W_OK",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/node/fs.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "R_OK",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:actions/src/node/fs.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "actions.dart"
+      ],
+      "relativePath": "package:actions/src/node/fs.dart"
+    }
+  ]
+}
