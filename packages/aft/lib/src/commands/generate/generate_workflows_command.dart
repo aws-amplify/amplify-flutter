@@ -425,7 +425,7 @@ jobs:
     // Add ffigen validation jobs
     if (hasFfigen) {
       for (final MapEntry(key: os, value: configs) in ffigenConfigs.entries) {
-        final osLabel = os == 'macos-14' ? 'macos' : 'linux';
+        final osLabel = os.startsWith('macos') ? 'macos' : 'linux';
         final configFiles = configs.join(' ');
         workflowContents.write('''
   ffigen_${osLabel}_test:
@@ -696,14 +696,14 @@ jobs:
         // Check for ObjC language (requires macOS)
         final language = yaml['language'];
         if (language is String && language == 'objc') {
-          return 'macos-14';
+          return 'macos-26';
         }
 
         // Check for macOS SDK paths in headers or compiler-opts
         if (content.contains('MacOSX.platform') ||
             content.contains('MacOSX.sdk') ||
             content.contains('Xcode.app')) {
-          return 'macos-14';
+          return 'macos-26';
         }
       }
     } on Object {
