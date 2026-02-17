@@ -1,0 +1,102 @@
+name: Flutter Coverage
+on:
+  push:
+    branches:
+      - main
+      - stable
+  pull_request:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
+
+# Cancels in-progress job when there is another push to same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flutter-coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+
+      - name: Git Submodules
+        run: git submodule update --init
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
+        with:
+          cache: true
+          channel: stable
+
+      - name: Flutter Version
+        run: flutter --version
+
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast --verbose
+
+      - name: Install lcov
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lcov
+
+      - name: Run Flutter Tests with Coverage
+        run: dart pub global run aft run test:unit:flutter
+        continue-on-error: true
+
+      - name: Merge Coverage Files
+        if: always()
+        run: |
+          mkdir -p coverage
+          # Find all non-empty lcov.info files and merge them
+          find packages -name "lcov.info" -type f ! -empty -exec echo "--add-tracefile {}" \; | \
+            xargs lcov --branch-coverage --ignore-errors inconsistent --output-file coverage/merged_lcov.info || true
+
+      - name: Coverage Summary
+        if: always()
+        run: |
+          if [ -f coverage/merged_lcov.info ]; then
+            echo "## Flutter Coverage Summary" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            lcov --summary coverage/merged_lcov.info 2>&1 | tee -a $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No coverage data generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # - name: Upload to Codecov
+      #   if: always()
+      #   uses: codecov/codecov-action@v5
+      #   with:
+      #     files: coverage/merged_lcov.info
+      #     flags: flutter
+      #     name: flutter-coverage
+      #     fail_ci_if_error: false
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      # 
+      # - name: Log success/failure
+      #   if: always()
+      #   uses: ./.github/composite_actions/log_cw_metric_wrapper
+      #   with:
+      #     role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
+      #     job-status: ${{ job.status }}
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     test-type: unit
+      #     working-directory: .
+      #     framework: flutter
+      #     flutter-dart-channel: stable
