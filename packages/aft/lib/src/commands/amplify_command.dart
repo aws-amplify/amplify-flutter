@@ -105,7 +105,7 @@ abstract class AmplifyCommand extends Command<void>
     ...Platform.environment,
     'AFT_ROOT': rootDir.uri.toFilePath(),
     // Needed for running `dart doc` for Flutter packages.
-    if (flutterRoot != null) 'FLUTTER_ROOT': flutterRoot!,
+    'FLUTTER_ROOT': ?flutterRoot,
   };
 
   /// The path to the Flutter SDK, if installed.
@@ -177,6 +177,43 @@ abstract class AmplifyCommand extends Command<void>
     }
 
     return PubVersionInfo(semvers..sort());
+  }
+
+  /// Checks whether [package] still has a pending analysis on pub.dev.
+  ///
+  /// Returns `true` if the package page contains `[pending analysis]`,
+  /// `false` otherwise.
+  Future<bool> isPendingAnalysis(String package) async {
+    final uri = Uri.parse('https://pub.dev/packages/$package');
+    final request = AWSHttpRequest.get(uri);
+    final resp = await httpClient.send(request).response;
+    final body = await resp.decodeBody();
+    return body.contains('[pending analysis]');
+  }
+
+  /// Await a pending analysis on pub.dev for [package].
+  ///
+  /// Polls the pub.dev package page until the analysis is complete.
+  Future<void> awaitPendingAnalysis(String package) async {
+    final qaDurations = Platform.environment.containsKey('QA_DURATIONS');
+
+    var pollInterval = qaDurations
+        ? const Duration(seconds: 1)
+        : const Duration(seconds: 15);
+
+    final stopwatch = Stopwatch()..start();
+
+    while (await isPendingAnalysis(package)) {
+      final elapsed = stopwatch.elapsed;
+
+      if (!qaDurations && elapsed >= const Duration(seconds: 10 * 60)) {
+        pollInterval = const Duration(seconds: 30);
+      } else if (!qaDurations && elapsed >= const Duration(seconds: 3 * 60)) {
+        pollInterval = const Duration(seconds: 20);
+      }
+
+      await Future<void>.delayed(pollInterval);
+    }
   }
 
   @override
