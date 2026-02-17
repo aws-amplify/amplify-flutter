@@ -437,8 +437,8 @@ extension DependencyToYaml on Dependency {
     GitDependency(:final url, :final ref, :final path) => YamlMap.wrap({
       'git': {
         'url': url.toString(),
-        if (ref != null) 'ref': ref,
-        if (path != null) 'path': path,
+        'ref': ?ref,
+        'path': ?path,
       },
     }),
   };
