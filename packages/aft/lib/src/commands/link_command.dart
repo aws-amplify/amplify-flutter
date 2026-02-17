@@ -104,8 +104,8 @@ Future<void> _createPubspecOverride(
         return MapEntry(k, {
           'git': {
             'url': v.url.toString(),
-            if (ref != null) 'ref': ref,
-            if (path != null) 'path': path,
+            'ref': ?ref,
+            'path': ?path,
           },
         });
       }

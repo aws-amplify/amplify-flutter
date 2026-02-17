@@ -300,7 +300,7 @@ class Repo {
     final newProposedVersion = currentVersion.nextAmplifyVersion(type);
     final newVersion = maxBy([
       proposedPackageVersion,
-      if (proposedComponentVersion != null) proposedComponentVersion,
+      ?proposedComponentVersion,
       newProposedVersion,
     ], (version) => version)!;
     final propagateToComponent =
