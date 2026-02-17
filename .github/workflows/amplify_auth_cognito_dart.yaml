@@ -9,6 +9,7 @@ on:
       - '.github/workflows/amplify_auth_cognito_dart.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/ffigen_validate.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
@@ -42,6 +43,7 @@ on:
       - '.github/workflows/amplify_auth_cognito_dart.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/ffigen_validate.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
@@ -102,3 +104,12 @@ jobs:
     with:
       package-name: amplify_auth_cognito_dart
       working-directory: packages/auth/amplify_auth_cognito_dart
+  ffigen_macos_test:
+    needs: test
+    uses: ./.github/workflows/ffigen_validate.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_auth_cognito_dart
+      working-directory: packages/auth/amplify_auth_cognito_dart
+      ffigen-configs: 'ffigen.macos.yaml'
+      os: macos-14
