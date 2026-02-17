@@ -63,15 +63,6 @@ jobs:
     with:
       package-name: amplify_secure_storage_dart
       working-directory: packages/secure_storage/amplify_secure_storage_dart
-  ffigen_linux_test:
-    needs: test
-    uses: ./.github/workflows/ffigen_validate.yaml
-    secrets: inherit
-    with:
-      package-name: amplify_secure_storage_dart
-      working-directory: packages/secure_storage/amplify_secure_storage_dart
-      ffigen-configs: 'ffigen.glib.config.yaml ffigen.gio.config.yaml ffigen.libsecret.config.yaml'
-      os: ubuntu-latest
   ffigen_macos_test:
     needs: test
     uses: ./.github/workflows/ffigen_validate.yaml
@@ -79,5 +70,14 @@ jobs:
     with:
       package-name: amplify_secure_storage_dart
       working-directory: packages/secure_storage/amplify_secure_storage_dart
-      ffigen-configs: 'ffigen.cupertino.security.config.yaml ffigen.cupertino.coreFoundation.config.yaml'
+      ffigen-configs: 'ffigen.cupertino.coreFoundation.config.yaml ffigen.cupertino.security.config.yaml'
       os: macos-14
+  ffigen_linux_test:
+    needs: test
+    uses: ./.github/workflows/ffigen_validate.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_secure_storage_dart
+      working-directory: packages/secure_storage/amplify_secure_storage_dart
+      ffigen-configs: 'ffigen.gio.config.yaml ffigen.glib.config.yaml ffigen.libsecret.config.yaml'
+      os: ubuntu-latest

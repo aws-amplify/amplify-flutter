@@ -673,7 +673,15 @@ jobs:
       configsByOs.putIfAbsent(os, () => []).add(configName);
     }
 
-    return configsByOs;
+    // Sort config names within each OS group for deterministic output
+    for (final configs in configsByOs.values) {
+      configs.sort();
+    }
+
+    // Return with sorted keys for deterministic job ordering
+    return Map.fromEntries(
+      configsByOs.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+    );
   }
 
   /// Determines the OS runner needed for a given ffigen config file.
