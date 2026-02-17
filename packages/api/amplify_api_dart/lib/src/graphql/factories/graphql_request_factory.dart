@@ -126,8 +126,10 @@ class GraphQLRequestFactory {
     ModelSchema schema,
     GraphQLRequestOperation operation,
     ModelIdentifier? modelIdentifier,
-    Map<String, dynamic> variables,
-  ) {
+    Map<String, dynamic> variables, {
+    String? overrideQueryFieldType,
+    String? indexName,
+  }) {
     var upperOutput = '';
     var lowerOutput = '';
     final modelName = _capitalize(schema.name);
@@ -169,6 +171,36 @@ class GraphQLRequestFactory {
             '(\$filter: Model${modelName}FilterInput, \$limit: Int, \$nextToken: String)';
         lowerOutput =
             r'(filter: $filter, limit: $limit, nextToken: $nextToken)';
+      case GraphQLRequestOperation.listWithIndex:
+        // get secondary index query field
+        String? queryFieldProp;
+
+        try {
+          if (indexName == null) {
+            if (((schema.indexes ?? []).first.props).length >= 2) {
+              queryFieldProp =
+                  (schema.indexes?.first.props[1] as List<String>).first;
+            }
+          } else {
+            queryFieldProp = (schema.indexes
+                    ?.firstWhere((index) => index.name == indexName)
+                    .props[1] as List<String>)
+                .first;
+          }
+          // ignore: avoid_catches_without_on_clauses
+        } catch (e) {
+          throw const ApiOperationException(
+            'Unable to get query field property from schema',
+            recoverySuggestion: 'please provide a valid query field',
+          );
+        }
+
+        upperOutput =
+            '(\$filter: Model${modelName}FilterInput, \$limit: Int, \$nextToken: String, \$queryField: ${overrideQueryFieldType ?? 'ID!'}, \$sortDirection: ModelSortDirection)';
+        lowerOutput =
+            r'(filter: $filter, limit: $limit, nextToken: $nextToken, ' +
+                (queryFieldProp ?? '') +
+                r': $queryField, sortDirection: $sortDirection)';
       case GraphQLRequestOperation.create:
       case GraphQLRequestOperation.update:
       case GraphQLRequestOperation.delete:
@@ -244,6 +276,114 @@ class GraphQLRequestFactory {
     );
   }
 
+  GraphQLRequest<T> buildRequestForSecondaryIndex<T extends Model>({
+    required ModelType modelType,
+    Model? model,
+    ModelIdentifier? modelIdentifier,
+    required GraphQLRequestType requestType,
+    required GraphQLRequestOperation requestOperation,
+    required Map<String, dynamic> variables,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+    int depth = 0,
+    String? queryField,
+    String? sortDirection,
+    String? indexName,
+    String? overrideQueryFieldType,
+    String? customQueryName,
+  }) {
+    // retrieve schema from ModelT"ype and validate required properties
+    final schema = getModelSchemaByModelName(
+      modelType.modelName(),
+      GraphQLRequestOperation.list,
+    );
+
+    // Get secondary index name
+    String? secondaryIndexName;
+
+    if (indexName == null) {
+      try {
+        secondaryIndexName = (schema.indexes ?? []).first.name;
+        // ignore: avoid_catches_without_on_clauses
+      } catch (e) {
+        throw const ApiOperationException(
+          'Unable to get secondary index name from schema',
+          recoverySuggestion: 'please provide a valid index name',
+        );
+      }
+    } else {
+      // Search for the index with the given name
+      (schema.indexes ?? [])
+              .where(
+                (index) => index.name == indexName,
+              )
+              .isEmpty
+          ? throw const ApiOperationException(
+              'Given secondary index name not found in schema',
+              recoverySuggestion: 'please provide a valid index name',
+            )
+          : null;
+    }
+
+    // e.g. "query" or "mutation"
+    final requestTypeVal = requestType.name;
+
+    // ignore: prefer_single_quotes
+    variables["queryField"] = queryField;
+
+    // ignore: prefer_single_quotes
+    variables["sortDirection"] = sortDirection;
+
+    // e.g. "{upper: "($id: ID!)", lower: "(id: $id)"}"
+    final documentInputs = _buildDocumentInputs(
+      schema,
+      requestOperation,
+      modelIdentifier,
+      variables,
+      overrideQueryFieldType: overrideQueryFieldType,
+      indexName: indexName,
+    );
+
+    // e.g. "id name createdAt" - fields to retrieve
+    final fields =
+        _getSelectionSetFromModelSchema(schema, GraphQLRequestOperation.list);
+
+    // e.g. "getBlog"
+    indexName ??= secondaryIndexName;
+
+    if (indexName == null) {
+      throw const ApiOperationException(
+        'Unable to get secondary index name from schema',
+        recoverySuggestion: 'please provide a valid index name',
+      );
+    }
+
+    indexName = "${schema.name}By${indexName.split("By").last}";
+
+    var requestName = 'list${_capitalize(indexName)}';
+
+    if (customQueryName != null) {
+      requestName = customQueryName;
+    }
+
+    // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
+    final document =
+        """$requestTypeVal $requestName${documentInputs.upper} { $requestName${documentInputs.lower} { $fields } }""";
+    // e.g "listBlogs"
+    final decodePath = requestName;
+
+    return GraphQLRequest<T>(
+      document: document,
+      variables: variables,
+      modelType: modelType,
+      decodePath: decodePath,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
+  }
+
   Map<String, dynamic> buildVariablesForListRequest({
     int? limit,
     String? nextToken,
@@ -278,7 +418,7 @@ class GraphQLRequestFactory {
   }
 
   /// Translates a `QueryPredicate` to a map representing a GraphQL filter
-  /// which AppSync will accept. Example:
+  /// which AppSync will accept. Exame:
   /// `queryPredicateToGraphQLFilter(Blog.NAME.eq('foo'));` // =>
   /// `{'name': {'eq': 'foo'}}`. In the case of a mutation, it will apply to
   /// the "condition" field rather than "filter."
