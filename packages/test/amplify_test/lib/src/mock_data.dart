@@ -12,46 +12,42 @@ const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
 const digits = '1234567890';
 const symbols = r'~/`!@#$%^&*(),._?:;{}|<>';
 
+/// Returns a random digit character.
+String _randomDigit() => digits[random.nextInt(digits.length)];
+
+/// Generates a unique seed from the current time and a random value
+/// to avoid phone number collisions across test runs.
+int _uniqueSeed() =>
+    DateTime.now().microsecondsSinceEpoch + random.nextInt(10000);
+
 String generatePhoneNumber() {
-  final buf = StringBuffer('+1');
-  for (var i = 0; i < 3; i++) {
-    buf.write(digits[random.nextInt(digits.length)]);
-  }
-  buf.write('55501');
-  for (var i = 0; i < 2; i++) {
-    buf.write(digits[random.nextInt(digits.length)]);
-  }
-  return buf.toString();
+  final seed = _uniqueSeed();
+  final areaCode = (seed % 1000).toString().padLeft(3, _randomDigit());
+  final suffix = '${_randomDigit()}${_randomDigit()}';
+  return '+1${areaCode}55501$suffix';
 }
 
 PhoneNumber generateUSPhoneNumber() {
   const countryCode = '+1';
-  final areaCode = StringBuffer();
-  for (var i = 0; i < 3; i++) {
-    areaCode.write(digits[random.nextInt(digits.length)]);
-  }
-  final phoneNumber = StringBuffer('55501');
-  for (var i = 0; i < 2; i++) {
-    phoneNumber.write(digits[random.nextInt(digits.length)]);
-  }
+  final seed = _uniqueSeed();
+  final areaCode = (seed % 1000).toString().padLeft(3, _randomDigit());
+  final suffix = '${_randomDigit()}${_randomDigit()}';
   return PhoneNumber(
     countryCode: countryCode,
-    areaCode: areaCode.toString(),
-    phoneNumber: phoneNumber.toString(),
+    areaCode: areaCode,
+    phoneNumber: '55501$suffix',
   );
 }
 
 PhoneNumber generateFrenchPhoneNumber() {
   const countryCode = '+33';
   const areaCode = '1';
-  final phoneNumber = StringBuffer('9900');
-  for (var i = 0; i < 4; i++) {
-    phoneNumber.write(digits[random.nextInt(digits.length)]);
-  }
+  final seed = _uniqueSeed();
+  final suffix = (seed % 1000).toString().padLeft(3, _randomDigit()) + _randomDigit();
   return PhoneNumber(
     countryCode: countryCode,
     areaCode: areaCode,
-    phoneNumber: phoneNumber.toString(),
+    phoneNumber: '9900$suffix',
   );
 }
 
@@ -61,8 +57,8 @@ String generateUsername() => 'TEMP_USER-${uuid()}';
 
 String generatePassword() =>
     uuid() +
-    uppercaseLetters[random.nextInt(uppercaseLetters.length)] +
-    symbols[random.nextInt(symbols.length)];
+        uppercaseLetters[random.nextInt(uppercaseLetters.length)] +
+        symbols[random.nextInt(symbols.length)];
 
 String generateNameAttribute() => 'FAKE-NAME-${uuid()}';
 
