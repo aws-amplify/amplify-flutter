@@ -590,6 +590,15 @@ void _generateGen1Config(
       '❌ Error generating gen 1 config file for ${category.name} ${backend.identifier} - Output file not generated',
     );
   } else {
+    final content = outputFile.readAsStringSync();
+    if (!content.contains('const amplifyconfig =') &&
+        content.contains('const amplifyConfig =')) {
+      // Workaround because ampx writes the wrong const name
+      outputFile.writeAsStringSync(
+        '\n\nconst amplifyconfig = amplifyConfig;\n',
+        mode: FileMode.append,
+      );
+    }
     print(
       '👍 Gen 1 config file for ${category.name} ${backend.name} generated',
     );
