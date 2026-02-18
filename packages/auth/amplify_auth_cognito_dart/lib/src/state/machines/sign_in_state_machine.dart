@@ -368,6 +368,9 @@ final class SignInStateMachine
       ChallengeNameType.emailOtp when hasUserResponse => createEmailOtpRequest(
         event,
       ),
+      ChallengeNameType.smsOtp when hasUserResponse => createSmsOtpRequest(
+        event,
+      ),
       ChallengeNameType.selectMfaType when hasUserResponse =>
         createSelectMfaRequest(event),
       ChallengeNameType.mfaSetup when hasUserResponse => handleMfaSetup(
@@ -513,6 +516,23 @@ final class SignInStateMachine
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: cognitoUsername,
           CognitoConstants.challengeParamEmailOtpCode: event.answer,
+        })
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
+  /// Creates the response object for an SMS OTP challenge.
+  @protected
+  Future<RespondToAuthChallengeRequest> createSmsOtpRequest(
+    SignInRespondToChallenge event,
+  ) async {
+    return RespondToAuthChallengeRequest.build((b) {
+      b
+        ..clientId = _authOutputs.userPoolClientId
+        ..challengeName = _challengeName
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: cognitoUsername,
+          CognitoConstants.challengeParamSmsOtpCode: event.answer,
         })
         ..clientMetadata.addAll(event.clientMetadata);
     });
