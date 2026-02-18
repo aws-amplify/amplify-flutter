@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { defineBackend } from "@aws-amplify/backend";
-import { addAuthUserExtensions } from "infra-common";
+import { addAuthUserExtensions, addCleanupUsersSchedule } from "infra-common";
 import { auth } from "./auth/resource";
 
 const backend = defineBackend({
@@ -23,3 +23,9 @@ const customOutputs = addAuthUserExtensions({
   cfnUserPool,
 });
 backend.addOutput(customOutputs);
+
+addCleanupUsersSchedule({
+  name: "phone-sign-in",
+  stack,
+  userPool,
+});

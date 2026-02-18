@@ -1,5 +1,7 @@
 import { defineBackend } from "@aws-amplify/backend";
+import { Stack } from "aws-cdk-lib";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import { addCleanupUsersSchedule } from "infra-common";
 import { v4 as uuidv4 } from "uuid";
 import { auth } from "./auth/resource";
 import { storage } from "./storage/resource";
@@ -38,3 +40,11 @@ backend.storage.resources.cfnResources.cfnBucket.corsConfiguration = {
     },
   ],
 };
+
+// Cleanup old users
+const { userPool } = backend.auth.resources;
+addCleanupUsersSchedule({
+  name: "storage-dots-in-name",
+  stack: Stack.of(userPool),
+  userPool,
+});

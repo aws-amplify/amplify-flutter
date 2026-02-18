@@ -7,6 +7,7 @@ import {
   RestApi,
 } from "aws-cdk-lib/aws-apigateway";
 import { Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { addCleanupUsersSchedule } from "infra-common";
 import { auth } from "./auth/resource";
 import { data } from "./data/resource";
 import { restApiFunction } from "./functions/rest-api/resource";
@@ -93,6 +94,14 @@ backend.auth.resources.authenticatedUserIamRole.attachInlinePolicy(
 backend.auth.resources.unauthenticatedUserIamRole.attachInlinePolicy(
   apiRestGuestPolicy
 );
+
+// Cleanup old users
+const { userPool } = backend.auth.resources;
+addCleanupUsersSchedule({
+  name: "api-multi-auth",
+  stack: Stack.of(userPool),
+  userPool,
+});
 
 // add outputs to the configuration file
 backend.addOutput({

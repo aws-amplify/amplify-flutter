@@ -1,5 +1,5 @@
 import { defineBackend } from "@aws-amplify/backend";
-import { addAnalyticsExtensions } from "infra-common";
+import { addAnalyticsExtensions, addCleanupUsersSchedule } from "infra-common";
 import { auth } from "./auth/resource";
 
 /**
@@ -29,3 +29,9 @@ const customOutputs = addAnalyticsExtensions({
 
 // patch the custom Pinpoint resource to the expected output configuration
 backend.addOutput(customOutputs);
+
+addCleanupUsersSchedule({
+  name: "analytics-no-unauth-identities",
+  stack,
+  userPool,
+});
