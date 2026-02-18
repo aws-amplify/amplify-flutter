@@ -84,6 +84,10 @@ void main() {
       // And I click the "Create Account" button
       await signUpPage.submitSignUp();
 
+      // Clean up the created user after the test completes,
+      // even if later assertions fail.
+      addTearDown(() => adminDeleteUser(username));
+
       // Then I see "Confirmation Code"
       await confirmSignUpPage.expectConfirmSignUpIsPresent();
       confirmSignUpPage.expectConfirmationCodeIsPresent();

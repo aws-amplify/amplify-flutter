@@ -66,6 +66,10 @@ void main() {
         ),
       );
 
+      // Clean up the created user after the test completes,
+      // even if later assertions fail.
+      addTearDown(() => adminDeleteUser(phoneNumber.toE164()));
+
       await loadAuthenticator(tester: tester);
 
       expect(
