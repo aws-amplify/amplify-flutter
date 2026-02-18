@@ -114,6 +114,10 @@ void main() {
       await signUpPage.enterEmail(email);
       await signUpPage.submitSignUp();
 
+      // Clean up the created user after the test completes,
+      // even if later assertions fail.
+      addTearDown(() => adminDeleteUser(username));
+
       await confirmSignUpPage.expectConfirmSignUpIsPresent();
       confirmSignUpPage.expectConfirmationCodeIsPresent();
 
