@@ -32,7 +32,8 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
       AuthSignInStep.continueSignInWithMfaSetupSelection,
     ChallengeNameType.softwareTokenMfa =>
       AuthSignInStep.confirmSignInWithTotpMfaCode,
-    ChallengeNameType.emailOtp => AuthSignInStep.confirmSignInWithOtpCode,
+    ChallengeNameType.emailOtp ||
+    ChallengeNameType.smsOtp => AuthSignInStep.confirmSignInWithOtpCode,
     ChallengeNameType.selectChallenge =>
       AuthSignInStep.continueSignInWithFirstFactorSelection,
     ChallengeNameType.password ||
