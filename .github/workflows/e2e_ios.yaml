@@ -20,11 +20,10 @@ jobs:
     # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
     runs-on: macos-14-xlarge
     strategy:
-      # Allows other matrix items to run if one fails
-      fail-fast: false
+      # Stop all matrix jobs when the first one fails
+      fail-fast: true
       matrix:
         channel:
-          - beta
           - stable
         # Skips e2e tests against beta on PRs
         exclude:
@@ -60,11 +59,11 @@ jobs:
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
         # Total timeout is (retry-timeout-minutes × max-retries) + buffer for cleanup between retries
-        timeout-minutes: 355
+        timeout-minutes: 25
         with:
           script: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
-          max-retries: 5
-          retry-timeout-minutes: 70
+          max-retries: 1
+          retry-timeout-minutes: 20
 
       - name: Log success/failure
         if: always()

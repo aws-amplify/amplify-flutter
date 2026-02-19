@@ -63,6 +63,7 @@ until [ "$n" -gt $retries ]
 do
     if flutter test \
         --no-pub \
+        --fail-fast \
         -d $deviceId \
         $TARGET;
     then
@@ -104,6 +105,7 @@ for ENTRY in $TEST_ENTRIES; do
     do
         if flutter test \
               --no-pub \
+              --fail-fast \
               --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
               -d $deviceId \
               $ENTRY;
