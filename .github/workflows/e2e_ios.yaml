@@ -65,15 +65,6 @@ jobs:
           max-retries: 1
           retry-timeout-minutes: 20
 
-      - name: Upload test screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: e2e-ios-screenshots-${{ matrix.channel }}
-          path: /tmp/screenshots/
-          if-no-files-found: ignore
-          retention-days: 14
-
       - name: Log success/failure
         if: always()
         uses: ./.github/composite_actions/log_cw_metric_wrapper
