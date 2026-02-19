@@ -80,6 +80,138 @@ void main() {
       await testRunner.configure(environmentName: 'sign-in-with-phone');
     });
 
+    // Scenario: Login mechanism set to "phone"
+    testWidgets('Login mechanism set to "phone"', (tester) async {
+      final signUpPage = SignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          emitsDone,
+        ]),
+      );
+
+      await signInPage.navigateToSignUp();
+
+      // Then I see "Phone Number" as an input field
+      signUpPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
+
+      // And I don't see "Username" as an input field
+      signUpPage.expectPlainUsernameNotPresent();
+
+      await tester.bloc.close();
+    });
+
+    // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
+    testWidgets(
+      '"Email" is included from aws_cognito_verification_mechanisms',
+      (tester) async {
+        final signUpPage = SignUpPage(tester: tester);
+        final signInPage = SignInPage(tester: tester);
+        await loadAuthenticator(tester: tester);
+
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.signUp,
+            emitsDone,
+          ]),
+        );
+
+        await signInPage.navigateToSignUp();
+
+        // Then I see "Email" as an "email" field
+        signUpPage.expectEmailIsPresent();
+
+        await tester.bloc.close();
+      },
+    );
+
+    // Scenario: Sign up with valid phone number & password
+    testWidgets('Sign up a new phone number & password', (tester) async {
+      final signUpPage = SignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+
+      await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          UnauthenticatedState.confirmSignUp,
+          emitsDone,
+        ]),
+      );
+
+      await signInPage.navigateToSignUp();
+
+      // Retry sign-up with a new phone number if the generated number
+      // is already registered in the Cognito user pool.
+      for (var attempt = 1; attempt <= maxSignUpAttempts; attempt++) {
+        final phoneNumber = generateUSPhoneNumber();
+        final password = generatePassword();
+        final email = generateEmail();
+
+        // When I enter my phone number
+        await signUpPage.enterUsername(phoneNumber.withOutCountryCode());
+
+        // And I type my password
+        await signUpPage.enterPassword(password);
+
+        // And I confirm my password
+        await signUpPage.enterPasswordConfirmation(password);
+
+        // And I type my "email" with a randomized email
+        await signUpPage.enterEmail(email);
+
+        // And I click the "Create Account" button
+        await signUpPage.submitSignUp();
+
+        // If we've advanced to confirmSignUp, sign-up succeeded.
+        if (_currentStep(tester) == AuthenticatorStep.confirmSignUp) {
+          // Clean up the created user after the test completes,
+          // even if later assertions fail.
+          addTearDown(() => adminDeleteUser(phoneNumber.toE164()));
+          break;
+        }
+
+        // Still on the signUp page – check *why* sign-up failed.
+        if (_isDuplicateAccountError(tester)) {
+          // The phone number is already registered – retry with a new one
+          // unless we've exhausted all attempts.
+          if (attempt == maxSignUpAttempts) {
+            fail(
+              'Sign-up failed after $maxSignUpAttempts attempts. '
+              'Every generated phone number was already registered.',
+            );
+          }
+          // Continue to next iteration with a fresh number.
+          continue;
+        }
+
+        // A non-duplicate error occurred – fail immediately so we don't
+        // mask real issues behind retries.
+        final errorText = _bannerText(tester) ?? 'unknown error';
+        fail(
+          'Sign-up failed on attempt $attempt with a non-retryable error: '
+          '$errorText',
+        );
+      }
+
+      // Then I see "Confirmation Code"
+      await confirmSignUpPage.expectConfirmSignUpIsPresent();
+      confirmSignUpPage.expectConfirmationCodeIsPresent();
+
+      await tester.bloc.close();
+    });
+
     testWidgets('Sign up with a non US number', (tester) async {
       final signUpPage = SignUpPage(tester: tester);
       final signInPage = SignInPage(tester: tester);
