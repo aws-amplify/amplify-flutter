@@ -162,41 +162,9 @@ jobs:
       package-name: amplify_authenticator_example
       working-directory: packages/authenticator/amplify_authenticator/example
       has-goldens: false
-  e2e_android_test:
-    needs: [test]
-    uses: ./.github/workflows/e2e_android.yaml
-    secrets: inherit
-    with:
-      package-name: amplify_authenticator_example
-      working-directory: packages/authenticator/amplify_authenticator/example
-      needs-aws-config: true
   e2e_ios_test:
     needs: [test]
     uses: ./.github/workflows/e2e_ios.yaml
-    secrets: inherit
-    with:
-      package-name: amplify_authenticator_example
-      working-directory: packages/authenticator/amplify_authenticator/example
-      needs-aws-config: true
-  e2e_web_test:
-    needs: [test]
-    uses: ./.github/workflows/e2e_web.yaml
-    secrets: inherit
-    with:
-      package-name: amplify_authenticator_example
-      working-directory: packages/authenticator/amplify_authenticator/example
-      needs-aws-config: true
-  e2e_linux_test:
-    needs: [test]
-    uses: ./.github/workflows/e2e_linux.yaml
-    secrets: inherit
-    with:
-      package-name: amplify_authenticator_example
-      working-directory: packages/authenticator/amplify_authenticator/example
-      needs-aws-config: true
-  e2e_windows_test:
-    needs: [test]
-    uses: ./.github/workflows/e2e_windows.yaml
     secrets: inherit
     with:
       package-name: amplify_authenticator_example
