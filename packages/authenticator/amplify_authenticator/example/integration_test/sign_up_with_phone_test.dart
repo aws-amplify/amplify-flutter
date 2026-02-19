@@ -129,9 +129,8 @@ void main() {
 
         // If we've advanced to confirmSignUp, sign-up succeeded.
         if (_currentStep(tester) == AuthenticatorStep.confirmSignUp) {
-          // Clean up the created user after the test completes,
-          // even if later assertions fail.
-          addTearDown(() => adminDeleteUser(phoneNumber.toE164()));
+          // AmplifyAuthTestPlugin.signUp already registers a tearDown
+          // to delete the user, so no manual cleanup is needed here.
           break;
         }
 
