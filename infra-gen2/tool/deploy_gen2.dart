@@ -39,6 +39,11 @@ const List<AmplifyBackendGroup> infraConfig = [
     ],
     backends: [
       AmplifyBackend(
+        name: 'main',
+        identifier: 'auth-main',
+        pathToSource: 'infra-gen2/backends/auth/main',
+      ),
+      AmplifyBackend(
         name: 'email-sign-in',
         identifier: 'email-sign-in',
         pathToSource: 'infra-gen2/backends/auth/email-sign-in',
