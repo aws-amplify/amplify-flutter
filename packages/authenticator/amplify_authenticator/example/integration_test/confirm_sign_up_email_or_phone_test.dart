@@ -66,10 +66,6 @@ void main() {
       // And I click the "Create Account" button
       await signUpPage.submitSignUp();
 
-      // Clean up the created user after the test completes,
-      // even if later assertions fail.
-      addTearDown(() => adminDeleteUser(email));
-
       // And I see "Confirmation Code"
       confirmSignUpPage.expectConfirmationCodeIsPresent();
 
@@ -130,10 +126,6 @@ void main() {
 
       // And I click the "Create Account" button
       await signUpPage.submitSignUp();
-
-      // Clean up the created user after the test completes,
-      // even if later assertions fail.
-      addTearDown(() => adminDeleteUser(phoneNumber.toE164()));
 
       // And I see "Confirmation Code"
       confirmSignUpPage.expectConfirmationCodeIsPresent();

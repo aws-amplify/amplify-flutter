@@ -80,10 +80,6 @@ void main() {
         ),
       );
 
-      // Clean up the created user after the test completes,
-      // even if later assertions fail.
-      addTearDown(() => adminDeleteUser(email));
-
       signInPage.expectUsername(label: 'Email');
 
       // When I type my "username" with status "unconfirmed"

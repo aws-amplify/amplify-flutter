@@ -90,10 +90,6 @@ void main() {
         // And I click the "Create Account" button
         await po.submitSignUp();
 
-        // Clean up the created user after the test completes,
-        // even if later assertions fail.
-        addTearDown(() => adminDeleteUser(username));
-
         // Then I see "Sign out"
         await po.expectAuthenticated();
 
