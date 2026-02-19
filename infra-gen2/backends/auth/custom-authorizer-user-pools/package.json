@@ -1,0 +1,5 @@
+{
+  "name": "custom-authorizer-user-pools",
+  "version": "1.0.0",
+  "main": "index.js"
+}

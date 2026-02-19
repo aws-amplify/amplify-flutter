@@ -39,6 +39,11 @@ const List<AmplifyBackendGroup> infraConfig = [
     ],
     backends: [
       AmplifyBackend(
+        name: 'main',
+        identifier: 'auth-main',
+        pathToSource: 'infra-gen2/backends/auth/main',
+      ),
+      AmplifyBackend(
         name: 'email-sign-in',
         identifier: 'email-sign-in',
         pathToSource: 'infra-gen2/backends/auth/email-sign-in',
@@ -92,6 +97,11 @@ const List<AmplifyBackendGroup> infraConfig = [
         name: 'username-login-mfa',
         identifier: 'user-login-mfa',
         pathToSource: 'infra-gen2/backends/auth/username-login-mfa',
+      ),
+      AmplifyBackend(
+        name: 'custom-authorizer-user-pools',
+        identifier: 'custom-auth-up',
+        pathToSource: 'infra-gen2/backends/auth/custom-authorizer-user-pools',
       ),
     ],
   ),
@@ -590,6 +600,15 @@ void _generateGen1Config(
       '❌ Error generating gen 1 config file for ${category.name} ${backend.identifier} - Output file not generated',
     );
   } else {
+    final content = outputFile.readAsStringSync();
+    if (!content.contains('const amplifyconfig =') &&
+        content.contains('const amplifyConfig =')) {
+      // Workaround because ampx writes the wrong const name
+      outputFile.writeAsStringSync(
+        '\n\nconst amplifyconfig = amplifyConfig;\n',
+        mode: FileMode.append,
+      );
+    }
     print(
       '👍 Gen 1 config file for ${category.name} ${backend.name} generated',
     );
