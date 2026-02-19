@@ -98,6 +98,11 @@ const List<AmplifyBackendGroup> infraConfig = [
         identifier: 'user-login-mfa',
         pathToSource: 'infra-gen2/backends/auth/username-login-mfa',
       ),
+      AmplifyBackend(
+        name: 'custom-authorizer-user-pools',
+        identifier: 'custom-auth-up',
+        pathToSource: 'infra-gen2/backends/auth/custom-authorizer-user-pools',
+      ),
     ],
   ),
   AmplifyBackendGroup(
