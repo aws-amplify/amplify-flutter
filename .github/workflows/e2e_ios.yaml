@@ -20,11 +20,10 @@ jobs:
     # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
     runs-on: macos-14-xlarge
     strategy:
-      # Allows other matrix items to run if one fails
-      fail-fast: false
+      # Stop all matrix jobs when the first one fails
+      fail-fast: true
       matrix:
         channel:
-          - beta
           - stable
         # Skips e2e tests against beta on PRs
         exclude:
