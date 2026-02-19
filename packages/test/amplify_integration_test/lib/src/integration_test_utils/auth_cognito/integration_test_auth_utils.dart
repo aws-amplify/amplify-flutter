@@ -365,14 +365,17 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
 ///
 /// Otherwise, throws with the combined errors of all of them.
 Future<void> _oneOf(List<Future<Object?> Function()> futures) async {
+  var success = false;
   Exception? error;
   for (final future in futures) {
     try {
       await future();
-      return;
+      success = true;
     } on Exception catch (e) {
       error = e;
     }
   }
-  throw error!;
+  if (!success) {
+    throw error!;
+  }
 }
