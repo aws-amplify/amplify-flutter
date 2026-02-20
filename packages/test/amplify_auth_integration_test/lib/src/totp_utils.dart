@@ -3,7 +3,6 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:otp/otp.dart';
 
@@ -11,31 +10,44 @@ import 'package:otp/otp.dart';
 const friendlyDeviceName = 'friendlyDeviceName';
 
 /// The interval between TOTP codes, i.e. how long before they expire.
-const Duration _totpInterval = Duration(seconds: 30);
+const int _totpIntervalSecs = 30;
 
-/// Calculates the timestamp of the next TOTP code, based off the previous one, if any.
+/// Tracks the last TOTP counter used to avoid code reuse.
+int _lastUsedCounter = 0;
+
+/// Returns a timestamp (ms) for the next unique TOTP code.
+///
+/// Cognito accepts codes from the current counter ± 1, so we can generate
+/// codes for the next counter without waiting in most cases. We only wait
+/// if the required counter exceeds the acceptable window.
 Future<int> get _nextTotpTime async {
-  final now = DateTime.now();
-  if (OTP.lastUsedTime == 0) {
+  final nowMs = DateTime.now().millisecondsSinceEpoch;
+  final currentCounter = nowMs ~/ 1000 ~/ _totpIntervalSecs;
+
+  if (_lastUsedCounter == 0) {
     addTearDown(() {
+      _lastUsedCounter = 0;
       OTP.lastUsedTime = 0;
       OTP.lastUsedCounter = 0;
     });
-    return now.millisecondsSinceEpoch;
+    _lastUsedCounter = currentCounter;
+    return nowMs;
   }
-  // Cognito allows a +/- 1 interval range for codes and codes cannot be reused.
-  final acceptableWindowEnd = now.add(_totpInterval);
-  final nextTime = maxBy([
-    now,
-    DateTime.fromMillisecondsSinceEpoch(
-      OTP.lastUsedTime + _totpInterval.inMilliseconds,
-    ),
-  ], (dt) => dt)!;
-  if (nextTime.isAfter(acceptableWindowEnd)) {
-    // Wait until the next window opens.
-    await Future<void>.delayed(nextTime.difference(now));
+
+  // Need a counter different from the last one used.
+  final nextCounter = _lastUsedCounter + 1;
+  // Cognito accepts current counter ± 1, so max acceptable is current + 1.
+  final maxAcceptable = currentCounter + 1;
+
+  if (nextCounter > maxAcceptable) {
+    // Wait until the counter we need falls within the acceptable window.
+    final targetMs = nextCounter * _totpIntervalSecs * 1000;
+    final waitMs = targetMs - nowMs + 1000; // +1s buffer
+    await Future<void>.delayed(Duration(milliseconds: waitMs));
   }
-  return nextTime.millisecondsSinceEpoch;
+
+  _lastUsedCounter = nextCounter;
+  return nextCounter * _totpIntervalSecs * 1000;
 }
 
 String? _sharedSecret;
@@ -66,5 +78,5 @@ Future<String> generateTotpCode([String? sharedSecret]) async =>
       // These parameters are needed to match what Cognito expects.
       algorithm: Algorithm.SHA1,
       isGoogle: true,
-      interval: _totpInterval.inSeconds,
+      interval: _totpIntervalSecs,
     );
