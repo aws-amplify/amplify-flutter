@@ -60,25 +60,8 @@ jobs:
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
         # Total timeout is (retry-timeout-minutes × max-retries) + buffer for cleanup between retries
-        timeout-minutes: 355
+        timeout-minutes: 60
         with:
           script: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
-          max-retries: 5
-          retry-timeout-minutes: 70
-
-      - name: Log success/failure
-        if: always()
-        uses: ./.github/composite_actions/log_cw_metric_wrapper
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-          job-status: ${{ job.status }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-          test-type: e2e
-          working-directory: ${{ inputs.working-directory }}
-
-          framework: flutter
-
-          platform: ios
+          max-retries: 1
+          retry-timeout-minutes: 55
