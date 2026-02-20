@@ -366,7 +366,7 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
   );
 
   // Collect code delivered via Lambda
-  final stream = operation
+  return operation
       .tap(
         (event) =>
             _logger.debug('Got event: ${event.data}, errors: ${event.errors}'),
@@ -378,26 +378,6 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
         final json = (jsonDecode(event.data!) as Map)['onCreateMFACode'] as Map;
         return CreateMFACodeResponse.fromJson(json.cast());
       });
-
-  // Wrap in a broadcast controller so we can forcefully close it in teardown.
-  // This ensures the WebSocket connection is cleaned up even if .first hasn't
-  // resolved yet.
-  final controller = StreamController<CreateMFACodeResponse>.broadcast();
-  StreamSubscription<CreateMFACodeResponse>? sub;
-  sub = stream.listen(
-    controller.add,
-    onError: controller.addError,
-    onDone: controller.close,
-  );
-
-  addTearDown(() async {
-    await sub?.cancel();
-    if (!controller.isClosed) {
-      await controller.close();
-    }
-  });
-
-  return controller.stream;
 }
 
 /// Completes if one of the [futures] completes successfully.
