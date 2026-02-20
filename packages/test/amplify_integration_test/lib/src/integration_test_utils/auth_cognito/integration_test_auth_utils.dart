@@ -430,9 +430,8 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
   // Cancel the subscription during teardown to prevent hangs.
   addTearDown(() async {
     await sub.cancel();
-    if (!controller.isClosed) {
-      await controller.close();
-    }
+    // Don't close the controller — let it be garbage collected.
+    // Closing it would cause 'Bad state: No element' on pending .first futures.
   });
 
   return controller.stream;
