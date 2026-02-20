@@ -208,6 +208,9 @@ class AuthTestRunner {
 
   final Map<String, String> _amplifyOutputs;
 
+  /// Tracks the currently configured environment to skip redundant resets.
+  static String? _currentEnvironment;
+
   /// Initializes the testing framework.
   void setupTests() {
     AWSLogger().logLevel = LogLevel.verbose;
@@ -229,15 +232,31 @@ class AuthTestRunner {
 
   /// Configures Amplify for the given [environmentName].
   ///
-  /// **MUST** be called from `setUp` and not `setUpAll` so that users created
-  /// during a test are deleted and signed out after the test. This prevents
-  /// any state from leaking between tests.
+  /// When [skipReset] is true, `Amplify.reset` and plugin close are not
+  /// registered as teardowns (used when the caller manages the lifecycle).
   Future<void> configure({
     String environmentName = 'main',
     bool useAmplifyOutputs = false,
     List<APIAuthProvider> apiAuthProviders = const [],
     AWSHttpClient? baseClient,
+    bool skipReset = false,
   }) async {
+    // If already configured for this environment, just sign out.
+    if (_currentEnvironment == environmentName) {
+      await Amplify.Auth.signOut();
+      addTearDown(signOutUser);
+      return;
+    }
+
+    // Different environment — reset first if needed.
+    if (_currentEnvironment != null) {
+      try {
+        await Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close();
+      } on Exception catch (_) {}
+      await Amplify.reset();
+      _currentEnvironment = null;
+    }
+
     final config = useAmplifyOutputs
         ? _amplifyOutputs[environmentName]!
         : _amplifyConfigs[environmentName]!;
@@ -260,8 +279,16 @@ class AuthTestRunner {
     ]);
     await Amplify.configure(config);
     await Amplify.Auth.signOut();
-    addTearDown(Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close);
-    addTearDown(Amplify.reset);
+    _currentEnvironment = environmentName;
+    if (!skipReset) {
+      addTearDown(() async {
+        try {
+          await Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close();
+        } on Exception catch (_) {}
+        await Amplify.reset();
+        _currentEnvironment = null;
+      });
+    }
     addTearDown(signOutUser);
   }
 
@@ -274,6 +301,9 @@ class AuthTestRunner {
   }
 
   /// Runs [body] in a [group] which configures [environment].
+  ///
+  /// Amplify is configured once for the group and reused across tests.
+  /// Only sign-out and user cleanup happen between tests.
   void withEnvironment(
     EnvironmentInfo environment,
     void Function(EnvironmentInfo env) body,
@@ -283,7 +313,16 @@ class AuthTestRunner {
         await configure(
           environmentName: environment.name,
           useAmplifyOutputs: environment.useAmplifyOutputs,
+          skipReset: true,
         );
+      });
+
+      tearDownAll(() async {
+        try {
+          await Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close();
+        } on Exception catch (_) {}
+        await Amplify.reset();
+        _currentEnvironment = null;
       });
 
       body(environment);
