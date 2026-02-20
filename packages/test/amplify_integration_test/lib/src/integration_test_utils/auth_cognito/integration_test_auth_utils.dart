@@ -383,7 +383,8 @@ Future<OtpResult> getOtpCode(UserAttribute userAttribute) async {
         }
       })
       .map((event) => event.code)
-      .first;
+      .first
+      .timeout(const Duration(seconds: 60));
 
   await establishedCompleter.future;
   return OtpResult(code);
@@ -402,6 +403,8 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
       }
     }''';
 
+  final controller = StreamController<CreateMFACodeResponse>();
+
   final operation = Amplify.API.subscribe(
     GraphQLRequest<String>(document: subscriptionDocument),
     onEstablished: () {
@@ -410,19 +413,29 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
     },
   );
 
-  // Collect code delivered via Lambda
-  return operation
-      .tap(
-        (event) =>
-            _logger.debug('Got event: ${event.data}, errors: ${event.errors}'),
-      )
-      .map((event) {
-        if (event.hasErrors) {
-          throw Exception(event.errors);
-        }
-        final json = (jsonDecode(event.data!) as Map)['onCreateMFACode'] as Map;
-        return CreateMFACodeResponse.fromJson(json.cast());
-      });
+  final sub = operation.listen(
+    (event) {
+      _logger.debug('Got event: ${event.data}, errors: ${event.errors}');
+      if (event.hasErrors) {
+        controller.addError(Exception(event.errors));
+        return;
+      }
+      final json = (jsonDecode(event.data!) as Map)['onCreateMFACode'] as Map;
+      controller.add(CreateMFACodeResponse.fromJson(json.cast()));
+    },
+    onError: controller.addError,
+    onDone: controller.close,
+  );
+
+  // Cancel the subscription during teardown to prevent hangs.
+  addTearDown(() async {
+    await sub.cancel();
+    if (!controller.isClosed) {
+      await controller.close();
+    }
+  });
+
+  return controller.stream;
 }
 
 /// Completes if one of the [futures] completes successfully.
