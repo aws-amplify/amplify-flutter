@@ -338,8 +338,7 @@ Future<OtpResult> getOtpCode(UserAttribute userAttribute) async {
         }
       })
       .map((event) => event.code)
-      .first
-      .timeout(const Duration(seconds: 60));
+      .first;
 
   await establishedCompleter.future;
   return OtpResult(code);
