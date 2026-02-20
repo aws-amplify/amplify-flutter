@@ -10,7 +10,7 @@ import 'package:otp/otp.dart';
 const friendlyDeviceName = 'friendlyDeviceName';
 
 /// The interval between TOTP codes, i.e. how long before they expire.
-const int _totpIntervalSecs = 30;
+const Duration _totpInterval = Duration(seconds: 30);
 
 /// Tracks the last TOTP counter used to avoid code reuse.
 int _lastUsedCounter = 0;
@@ -23,7 +23,7 @@ int _lastUsedCounter = 0;
 /// required counter exceeds current+1.
 Future<int> get _nextTotpTime async {
   final nowMs = DateTime.now().millisecondsSinceEpoch;
-  final currentCounter = nowMs ~/ 1000 ~/ _totpIntervalSecs;
+  final currentCounter = nowMs ~/ 1000 ~/ _totpInterval.inSeconds;
 
   if (_lastUsedCounter == 0) {
     addTearDown(() {
@@ -44,19 +44,19 @@ Future<int> get _nextTotpTime async {
     // We can use this counter without waiting.
     _lastUsedCounter = neededCounter;
     // Return a timestamp that maps to neededCounter.
-    return neededCounter * _totpIntervalSecs * 1000;
+    return neededCounter * _totpInterval.inSeconds * 1000;
   }
 
   // neededCounter > currentCounter + 1: wait until real time catches up
   // so that neededCounter falls within the acceptable window.
-  final targetMs = (neededCounter - 1) * _totpIntervalSecs * 1000;
+  final targetMs = (neededCounter - 1) * _totpInterval.inSeconds * 1000;
   final waitMs = targetMs - nowMs + 500; // +500ms buffer
   if (waitMs > 0) {
     await Future<void>.delayed(Duration(milliseconds: waitMs));
   }
 
   _lastUsedCounter = neededCounter;
-  return neededCounter * _totpIntervalSecs * 1000;
+  return neededCounter * _totpInterval.inSeconds * 1000;
 }
 
 String? _sharedSecret;
@@ -87,5 +87,5 @@ Future<String> generateTotpCode([String? sharedSecret]) async =>
       // These parameters are needed to match what Cognito expects.
       algorithm: Algorithm.SHA1,
       isGoogle: true,
-      interval: _totpIntervalSecs,
+      interval: _totpInterval.inSeconds,
     );
