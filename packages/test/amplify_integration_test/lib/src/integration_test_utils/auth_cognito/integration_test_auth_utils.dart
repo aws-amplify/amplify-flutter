@@ -254,6 +254,51 @@ Future<String> adminCreateUser(
 
   final createError = (result['createUser'] as Map?)?['error'];
   if (createError != null) {
+    // Retry once on UsernameExistsException — delete the stale user and retry.
+    if (createError.toString().contains('UsernameExistsException')) {
+      _logger.debug('User "$username" already exists, deleting and retrying');
+      try {
+        await adminDeleteUser(username);
+      } on Exception catch (_) {}
+      await Future<void>.delayed(const Duration(seconds: 1));
+      final retryResult = await _graphQL(
+        r'''
+          mutation CreateUser($input: CreateUserInput!) {
+            createUser(input: $input) {
+              success
+              cognitoUsername
+              error
+            }
+          }
+      ''',
+        variables: {
+          'input': {...createUserParams, 'password': password},
+        },
+      );
+      _logger.debug('Got createUser retry result: $retryResult');
+      final retryError = (retryResult['createUser'] as Map?)?['error'];
+      if (retryError != null) {
+        throw Exception(retryError);
+      }
+      final retryCognitoUsername =
+          (retryResult['createUser'] as Map)['cognitoUsername'] as String;
+      addTearDown(() async {
+        try {
+          await _oneOf([
+            () => adminDeleteUser(username),
+            () => adminDeleteUser(retryCognitoUsername),
+          ]);
+        } on Exception catch (e) {
+          _logger.debug(
+            'Error deleting user ($username / $retryCognitoUsername):',
+            e,
+          );
+        }
+      });
+      _logger.debug('Successfully created user "$username" (retry)');
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      return retryCognitoUsername;
+    }
     throw Exception(createError);
   }
 
