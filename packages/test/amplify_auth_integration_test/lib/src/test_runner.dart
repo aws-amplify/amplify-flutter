@@ -241,20 +241,12 @@ class AuthTestRunner {
     AWSHttpClient? baseClient,
     bool skipReset = false,
   }) async {
-    // If already configured for this environment, just sign out.
-    if (_currentEnvironment == environmentName) {
+    // If already configured for this environment (via withEnvironment),
+    // just sign out instead of doing a full reset + reconfigure.
+    if (skipReset && _currentEnvironment == environmentName) {
       await Amplify.Auth.signOut();
       addTearDown(signOutUser);
       return;
-    }
-
-    // Different environment — reset first if needed.
-    if (_currentEnvironment != null) {
-      try {
-        await Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close();
-      } on Exception catch (_) {}
-      await Amplify.reset();
-      _currentEnvironment = null;
     }
 
     final config = useAmplifyOutputs
@@ -281,13 +273,9 @@ class AuthTestRunner {
     await Amplify.Auth.signOut();
     _currentEnvironment = environmentName;
     if (!skipReset) {
-      addTearDown(() async {
-        try {
-          await Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close();
-        } on Exception catch (_) {}
-        await Amplify.reset();
-        _currentEnvironment = null;
-      });
+      addTearDown(Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close);
+      addTearDown(Amplify.reset);
+      addTearDown(() => _currentEnvironment = null);
     }
     addTearDown(signOutUser);
   }
