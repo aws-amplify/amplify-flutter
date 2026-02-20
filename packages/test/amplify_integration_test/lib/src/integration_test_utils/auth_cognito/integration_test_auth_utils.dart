@@ -34,19 +34,38 @@ Future<Map<String, Object?>> _graphQL(
   String document, {
   Map<String, Object?> variables = const {},
 }) async {
-  final response = await Amplify.API
-      .query(
-        request: GraphQLRequest<String>(
-          document: document,
-          variables: variables,
-        ),
-      )
-      .response;
-  if (response.hasErrors) {
-    throw Exception(response.errors);
+  // Retry on transient errors (e.g. Lambda cold start timeouts).
+  for (var attempt = 0; attempt < 3; attempt++) {
+    final response = await Amplify.API
+        .query(
+          request: GraphQLRequest<String>(
+            document: document,
+            variables: variables,
+          ),
+        )
+        .response;
+    if (response.hasErrors) {
+      final isRetryable = response.errors.any(
+        (e) =>
+            e.message.contains('Task timed out') ||
+            e.message.contains('Lambda:Unhandled'),
+      );
+      if (isRetryable && attempt < 2) {
+        _logger.debug(
+          'Retryable error (attempt ${attempt + 1}): ${response.errors}',
+        );
+        await Future<void>.delayed(
+          Duration(seconds: 2 * (attempt + 1)),
+        );
+        continue;
+      }
+      throw Exception(response.errors);
+    }
+    final responseJson = jsonDecode(response.data!) as Map<String, Object?>;
+    return responseJson;
   }
-  final responseJson = jsonDecode(response.data!) as Map<String, Object?>;
-  return responseJson;
+  // Unreachable, but needed for the compiler.
+  throw StateError('Unreachable');
 }
 
 final Serializers _serializers = () {

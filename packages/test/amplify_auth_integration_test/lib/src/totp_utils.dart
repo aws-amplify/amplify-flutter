@@ -17,9 +17,9 @@ int _lastUsedCounter = 0;
 
 /// Returns a timestamp (ms) for the next unique TOTP code.
 ///
-/// Cognito accepts codes from the current counter ± 1, so we can generate
-/// codes for the next counter without waiting in most cases. We only wait
-/// if the required counter exceeds the acceptable window.
+/// Cognito rejects reused codes, so we must ensure each call uses a different
+/// counter. When the current real-time counter equals the last used one, we
+/// wait until the next 30-second boundary instead of a full 30 seconds.
 Future<int> get _nextTotpTime async {
   final nowMs = DateTime.now().millisecondsSinceEpoch;
   final currentCounter = nowMs ~/ 1000 ~/ _totpIntervalSecs;
@@ -34,20 +34,19 @@ Future<int> get _nextTotpTime async {
     return nowMs;
   }
 
-  // Need a counter different from the last one used.
-  final nextCounter = _lastUsedCounter + 1;
-  // Cognito accepts current counter ± 1, so max acceptable is current + 1.
-  final maxAcceptable = currentCounter + 1;
-
-  if (nextCounter > maxAcceptable) {
-    // Wait until the counter we need falls within the acceptable window.
-    final targetMs = nextCounter * _totpIntervalSecs * 1000;
-    final waitMs = targetMs - nowMs + 1000; // +1s buffer
-    await Future<void>.delayed(Duration(milliseconds: waitMs));
+  if (currentCounter > _lastUsedCounter) {
+    // Real time has already advanced past the last used counter.
+    _lastUsedCounter = currentCounter;
+    return nowMs;
   }
 
-  _lastUsedCounter = nextCounter;
-  return nextCounter * _totpIntervalSecs * 1000;
+  // Current counter == last used counter; wait for the next boundary.
+  final nextBoundaryMs = (_lastUsedCounter + 1) * _totpIntervalSecs * 1000;
+  final waitMs = nextBoundaryMs - nowMs + 500; // +500ms buffer
+  await Future<void>.delayed(Duration(milliseconds: waitMs));
+
+  _lastUsedCounter = _lastUsedCounter + 1;
+  return DateTime.now().millisecondsSinceEpoch;
 }
 
 String? _sharedSecret;
