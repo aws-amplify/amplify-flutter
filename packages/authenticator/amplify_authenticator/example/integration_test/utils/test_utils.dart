@@ -8,6 +8,7 @@ import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -29,6 +30,17 @@ Future<void> loadAuthenticator({
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   if (!binding.sendFramesToEngine) binding.allowFirstFrame();
+
+  // On web, unfocus any currently focused element before replacing the widget
+  // tree. This prevents a Flutter web framework bug where the browser fires
+  // asynchronous focus change events (didChangeViewFocus) after the old widget
+  // tree has been deactivated, causing "Cannot get renderObject of inactive
+  // element" errors that fail the test.
+  if (kIsWeb) {
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pumpAndSettle();
+  }
+
   await tester.pumpWidget(authenticator);
   await tester.pumpAndSettle();
 }
