@@ -357,8 +357,6 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
       }
     }''';
 
-  final controller = StreamController<CreateMFACodeResponse>();
-
   final operation = Amplify.API.subscribe(
     GraphQLRequest<String>(document: subscriptionDocument),
     onEstablished: () {
@@ -367,25 +365,36 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
     },
   );
 
-  final sub = operation.listen(
-    (event) {
-      _logger.debug('Got event: ${event.data}, errors: ${event.errors}');
-      if (event.hasErrors) {
-        controller.addError(Exception(event.errors));
-        return;
-      }
-      final json = (jsonDecode(event.data!) as Map)['onCreateMFACode'] as Map;
-      controller.add(CreateMFACodeResponse.fromJson(json.cast()));
-    },
+  // Collect code delivered via Lambda
+  final stream = operation
+      .tap(
+        (event) =>
+            _logger.debug('Got event: ${event.data}, errors: ${event.errors}'),
+      )
+      .map((event) {
+        if (event.hasErrors) {
+          throw Exception(event.errors);
+        }
+        final json = (jsonDecode(event.data!) as Map)['onCreateMFACode'] as Map;
+        return CreateMFACodeResponse.fromJson(json.cast());
+      });
+
+  // Wrap in a broadcast controller so we can forcefully close it in teardown.
+  // This ensures the WebSocket connection is cleaned up even if .first hasn't
+  // resolved yet.
+  final controller = StreamController<CreateMFACodeResponse>.broadcast();
+  StreamSubscription<CreateMFACodeResponse>? sub;
+  sub = stream.listen(
+    controller.add,
     onError: controller.addError,
     onDone: controller.close,
   );
 
-  // Cancel the subscription during teardown to prevent hangs.
   addTearDown(() async {
-    await sub.cancel();
-    // Don't close the controller — let it be garbage collected.
-    // Closing it would cause 'Bad state: No element' on pending .first futures.
+    await sub?.cancel();
+    if (!controller.isClosed) {
+      await controller.close();
+    }
   });
 
   return controller.stream;
