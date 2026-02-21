@@ -30,13 +30,46 @@ builders:
     build_extensions:
       .debug.dart.js:
         - .js
+      .debug.dart2js.js:
+        - .dart2js.js
       .debug.dart.js.map:
         - .js.map
+      .debug.dart2js.js.map:
+        - .dart2js.js.map
       .release.dart.js:
         - .min.js
       .release.dart.js.map:
         - .min.js.map
+      .release.dart2js.js:
+        - .min.dart2js.js
+      .release.dart2js.js.map:
+        - .min.dart2js.js.map
+      .debug.wasm:
+        - .wasm
+      .debug.wasm.map:
+        - .wasm.map
+      .debug.mjs:
+        - .mjs
+      .release.wasm:
+        - .min.wasm
+      .release.wasm.map:
+        - .min.wasm.map
+      .release.mjs:
+        - .min.mjs
     auto_apply: none
     build_to: source
     required_inputs:
-      - .dart.js
+      - .debug.dart.js
+      - .debug.dart2js.js
+      - .debug.dart.js.map
+      - .debug.dart2js.js.map
+      - .release.dart.js
+      - .release.dart.js.map
+      - .release.dart2js.js
+      - .release.dart2js.js.map
+      - .debug.wasm
+      - .debug.wasm.map
+      - .debug.mjs
+      - .release.wasm
+      - .release.wasm.map
+      - .release.mjs

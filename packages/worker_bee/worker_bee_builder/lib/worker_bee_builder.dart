@@ -30,6 +30,6 @@ Builder workerHiveBuilder(BuilderOptions options) => LibraryBuilder(
 );
 
 /// {@template worker_bee_builder.worker_copy_builder}
-/// Copies generated JS artifacts to `lib/` for publishing.
+/// Copies generated JS and WASM artifacts to `lib/` for publishing.
 /// {@endtemplate}
 Builder workerCopyBuilder(BuilderOptions options) => WorkerCopyBuilder();

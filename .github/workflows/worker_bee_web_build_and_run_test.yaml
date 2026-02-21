@@ -1,0 +1,92 @@
+name: worker_bee_web_build_and_run_test
+on:
+  push:
+    branches:
+      - main
+      - stable
+    paths:
+      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/worker_bee.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/**/*.dart'
+      - 'packages/worker_bee/worker_bee/**/*.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*'
+      - 'packages/worker_bee/worker_bee/test/**/*'
+  pull_request:
+    paths:
+      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/worker_bee.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/**/*.dart'
+      - 'packages/worker_bee/worker_bee/**/*.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*'
+      - 'packages/worker_bee/worker_bee/test/**/*'
+  workflow_dispatch:
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  example-web-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+
+      - name: Git Submodules
+        run: git submodule update --init
+
+      - name: Cache Pub dependencies
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # 5.0.3
+        with:
+          path: |
+            ~/.pub-cache/hosted
+            ~/.pub-cache/git
+          key: os:ubuntu-latest;sdk:stable;packages:packages/worker_bee/worker_bee/example
+          restore-keys: |
+            os:ubuntu-latest;sdk:stable;packages:packages/worker_bee/worker_bee/example
+            os:ubuntu-latest;sdk:stable
+            os:ubuntu-latest
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
+        with:
+          cache: true
+          channel: stable
+
+      - name: Setup ChromeDriver
+        uses: ./.github/composite_actions/setup_chromedriver
+
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast --include=worker_bee --verbose
+
+      - name: Resolve example dependencies
+        working-directory: packages/worker_bee/worker_bee/example
+        run: flutter pub get
+
+      - name: Install Python test dependencies
+        run: pip install -r packages/worker_bee/worker_bee/example/tool/example_web_tester/requirements.txt
+
+      - name: Run build and run test (generate files and test them)
+        run: python3 packages/worker_bee/worker_bee/example/tool/example_web_tester/example_web_tester.py

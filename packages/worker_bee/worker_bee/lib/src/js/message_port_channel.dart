@@ -57,8 +57,12 @@ class MessagePortChannel<T>
                 return;
               }
             }
+            // Convert JS types to native Dart types before deserialization.
+            // Data received via postMessage arrives as JS types which are not
+            // assignable to Dart collection types like List<Object?>.
+            final dartData = eventData?.dartify();
             final data = _serializers.deserialize(
-              eventData,
+              dartData,
               specifiedType: _specifiedType,
             );
             if (data is WorkerBeeException || data is! T) {
@@ -85,7 +89,7 @@ class MessagePortChannel<T>
       () => _serializers.serialize(event, specifiedType: _specifiedType),
       zoneValues: {#transfer: transfer},
     );
-    messagePort.postMessage(serialized?.toJSBoxOrCast, transfer.toJSBoxOrCast);
+    messagePort.postMessage(serialized.jsify(), transfer.toJSBoxOrCast);
   }
 
   @override
@@ -95,7 +99,7 @@ class MessagePortChannel<T>
       specifiedType: FullType.unspecified,
     );
 
-    messagePort.postMessage(serialized?.toJSBoxOrCast);
+    messagePort.postMessage(serialized.jsify());
     close();
   }
 

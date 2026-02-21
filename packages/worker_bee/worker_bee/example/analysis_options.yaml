@@ -1,0 +1,6 @@
+analyzer:
+  exclude:
+    - '**/*.g.dart'
+    - '**/*.worker.js.dart'
+    - '**/*.worker.vm.dart'
+    - '**/*.worker.dart'

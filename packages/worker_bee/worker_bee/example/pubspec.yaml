@@ -1,0 +1,41 @@
+name: worker_bee_example
+description: "Example for worker_bee"
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Worker Bee dependencies
+  worker_bee: any
+  built_value: ^8.10.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Worker Bee Builder for code generation
+  worker_bee_builder: any
+  build_runner: ^2.4.15
+  build_web_compilers: ^4.0.11
+  built_value_generator: ^8.10.1
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
