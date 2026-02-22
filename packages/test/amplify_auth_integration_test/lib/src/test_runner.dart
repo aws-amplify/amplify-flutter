@@ -225,6 +225,31 @@ class AuthTestRunner {
     };
     // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
     binding.deferFirstFrame();
+
+    // Suppress a Flutter beta framework bug where focus traversal tries to
+    // access a defunct element's renderObject during asynchronous
+    // didChangeViewFocus events on web. This happens when the browser fires
+    // focus change events after the widget tree has been deactivated.
+    // Must be in setUp so it runs after testWidgets resets FlutterError.onError.
+    if (kIsWeb) {
+      setUp(() {
+        final originalOnError = FlutterError.onError;
+        FlutterError.onError = (details) {
+          final exception = details.exception;
+          if (exception is FlutterError &&
+              exception.message.contains(
+                'Cannot get renderObject of inactive element',
+              ) &&
+              (details.context
+                      ?.toString()
+                      .contains('didChangeViewFocus') ??
+                  false)) {
+            return;
+          }
+          originalOnError?.call(details);
+        };
+      });
+    }
   }
 
   /// Configures Amplify for the given [environmentName].
