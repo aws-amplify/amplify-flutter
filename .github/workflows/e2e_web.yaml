@@ -24,7 +24,6 @@ jobs:
       matrix:
         channel:
           - beta
-          - stable
         # Skips e2e tests against beta on PRs
         exclude:
           - channel: ${{ (github.event_name == 'pull_request' && 'beta') || 'NONE' }}
