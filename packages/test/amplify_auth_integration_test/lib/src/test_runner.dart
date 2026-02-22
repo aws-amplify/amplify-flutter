@@ -225,6 +225,37 @@ class AuthTestRunner {
     };
     // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
     binding.deferFirstFrame();
+
+    // Workaround for a Flutter framework race condition on web (beta channel)
+    // where the browser fires asynchronous focus change events
+    // (didChangeViewFocus, introduced in 3.24.0 for multi-view support) after
+    // the widget tree has been deactivated. The focus traversal system then
+    // calls findRenderObject() on an inactive element, which throws. This is
+    // not an application bug — the element is mounted but inactive, so the
+    // standard `mounted` guard doesn't help. The error is scoped by checking
+    // both the exception message and the error context to avoid masking real
+    // inactive-element bugs in application code.
+    //
+    // Placed in setUp because testWidgets resets FlutterError.onError per test.
+    if (kIsWeb) {
+      setUp(() {
+        final originalOnError = FlutterError.onError;
+        FlutterError.onError = (details) {
+          final exception = details.exception;
+          if (exception is FlutterError &&
+              exception.message.contains(
+                'Cannot get renderObject of inactive element',
+              ) &&
+              (details.context
+                      ?.toString()
+                      .contains('didChangeViewFocus') ??
+                  false)) {
+            return;
+          }
+          originalOnError?.call(details);
+        };
+      });
+    }
   }
 
   /// Configures Amplify for the given [environmentName].
