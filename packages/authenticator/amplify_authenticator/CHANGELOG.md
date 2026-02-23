@@ -1,3 +1,9 @@
+## 2.5.1
+
+### Fixes
+- fix(auth): Fix flaky web tests ([#6652](https://github.com/aws-amplify/amplify-flutter/pull/6652))
+- fix(auth): Fix tests (await UI changes, handle random number collision) ([#6650](https://github.com/aws-amplify/amplify-flutter/pull/6650))
+
 ## 2.5.0
 
 ### Features
