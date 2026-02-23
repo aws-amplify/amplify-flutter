@@ -193,32 +193,10 @@ Future<_AttemptResult> _runTestsWithTimeout({
   required String script,
 }) async {
   final startTime = DateTime.now();
-  var timedOut = false;
-
-  // Create a timeout future that we'll race against
-  final timeoutFuture = Future<void>.delayed(timeout).then((_) {
-    timedOut = true;
-    core..warning('')
-    ..warning('⏰ ══════════════════════════════════════════════════════════════')
-    ..warning('⏰  TIMEOUT REACHED FOR ATTEMPT $attempt')
-    ..warning('⏰  Attempt exceeded ${timeout.inMinutes} minute limit')
-    ..warning('⏰  Time: ${DateTime.now().toUtc().toIso8601String()}')
-    ..warning('⏰ ══════════════════════════════════════════════════════════════')
-    ..warning('');
-  });
+  final runningScript = ShellScript(script).start();
 
   try {
-    // Race between the script and the timeout
-    await Future.any([
-      ShellScript(script).run().then((_) {
-        if (timedOut) {
-          throw TimeoutException('Attempt timed out', timeout);
-        }
-      }),
-      timeoutFuture.then((_) {
-        throw TimeoutException('Attempt $attempt timed out after ${timeout.inMinutes} minutes', timeout);
-      }),
-    ]);
+    await runningScript.future.timeout(timeout);
 
     final duration = DateTime.now().difference(startTime);
     core.info('⏱️  Tests completed in ${duration.inMinutes} minutes ${duration.inSeconds % 60} seconds');
@@ -229,6 +207,15 @@ Future<_AttemptResult> _runTestsWithTimeout({
       duration: duration,
     );
   } on TimeoutException catch (e, st) {
+    core..warning('')
+    ..warning('⏰ ══════════════════════════════════════════════════════════════')
+    ..warning('⏰  TIMEOUT REACHED FOR ATTEMPT $attempt')
+    ..warning('⏰  Attempt exceeded ${timeout.inMinutes} minute limit')
+    ..warning('⏰  Time: ${DateTime.now().toUtc().toIso8601String()}')
+    ..warning('⏰  Killing test process...')
+    ..warning('⏰ ══════════════════════════════════════════════════════════════')
+    ..warning('');
+    runningScript.kill();
     final duration = DateTime.now().difference(startTime);
     return _AttemptResult(
       success: false,
@@ -238,10 +225,11 @@ Future<_AttemptResult> _runTestsWithTimeout({
       stackTrace: st,
     );
   } on Object catch (e, st) {
+    runningScript.kill();
     final duration = DateTime.now().difference(startTime);
     return _AttemptResult(
       success: false,
-      timedOut: timedOut,
+      timedOut: false,
       duration: duration,
       error: e,
       stackTrace: st,
@@ -261,7 +249,7 @@ Future<void> _cleanupAndWait() async {
 
 /// Cleans up any running emulator processes and AVD files before a retry attempt.
 Future<void> _cleanupEmulator() async {
-  core.info('Step 1/5: Killing emulator via adb emu kill...');
+  core.info('Step 1/6: Killing emulator via adb emu kill...');
   try {
     await ShellScript('adb emu kill 2>/dev/null || true').run();
     core.info('   ✓ adb emu kill completed');
@@ -269,7 +257,7 @@ Future<void> _cleanupEmulator() async {
     core.warning('   ⚠ Failed to kill emulator via adb: $e');
   }
 
-  core.info('Step 2/5: Killing qemu-system processes...');
+  core.info('Step 2/6: Killing qemu-system processes...');
   try {
     await ShellScript('pkill -9 qemu-system 2>/dev/null || true').run();
     core.info('   ✓ qemu-system kill completed');
@@ -277,7 +265,7 @@ Future<void> _cleanupEmulator() async {
     core.warning('   ⚠ Failed to kill qemu-system: $e');
   }
 
-  core.info('Step 3/5: Killing emulator processes...');
+  core.info('Step 3/6: Killing emulator processes...');
   try {
     await ShellScript('pkill -9 emulator 2>/dev/null || true').run();
     core.info('   ✓ emulator kill completed');
@@ -285,7 +273,7 @@ Future<void> _cleanupEmulator() async {
     core.warning('   ⚠ Failed to kill emulator process: $e');
   }
 
-  core.info('Step 4/5: Stopping adb server...');
+  core.info('Step 4/6: Stopping adb server...');
   try {
     await ShellScript('adb kill-server 2>/dev/null || true').run();
     core.info('   ✓ adb kill-server completed');
@@ -296,28 +284,23 @@ Future<void> _cleanupEmulator() async {
   core.info('Waiting 10 seconds for processes to terminate...');
   await Future<void>.delayed(const Duration(seconds: 10));
 
-  // core.info('Step 5/6: Deleting AVD "test" to free disk space...');
-  // try {
-  //   // Use avdmanager to properly delete only the AVD named "test" that was created by this action
-  //   // This is safe and won't affect other AVDs on the system
-  //   await ShellScript('''
-  //     # List existing AVDs for debugging
-  //     echo "Existing AVDs before deletion:"
-  //     avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"
-  //
-  //     # Delete only the "test" AVD that was created by this action
-  //     avdmanager delete avd -n test 2>/dev/null || echo "  AVD 'test' not found or already deleted"
-  //
-  //     # List remaining AVDs for debugging
-  //     echo "Remaining AVDs after deletion:"
-  //     avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"
-  //   ''').run();
-  //   core.info('   ✓ AVD "test" deleted');
-  // } on Object catch (e) {
-  //   core.warning('   ⚠ Failed to delete AVD: $e');
-  // }
+  core.info('Step 5/6: Deleting AVD "test" to free disk space...');
+  try {
+    await ShellScript('''
+      echo "Existing AVDs before deletion:"
+      avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"
 
-  core.info('Step 5/5: Checking available disk space...');
+      avdmanager delete avd -n test 2>/dev/null || echo "  AVD 'test' not found or already deleted"
+
+      echo "Remaining AVDs after deletion:"
+      avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"
+    ''').run();
+    core.info('   ✓ AVD "test" deleted');
+  } on Object catch (e) {
+    core.warning('   ⚠ Failed to delete AVD: $e');
+  }
+
+  core.info('Step 6/6: Checking available disk space...');
   try {
     await ShellScript('df -h . | tail -1').run();
   } on Object catch (e) {
