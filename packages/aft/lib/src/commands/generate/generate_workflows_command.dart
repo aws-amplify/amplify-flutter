@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:path/path.dart' as p;
+import 'package:yaml/yaml.dart';
 
 /// Command for generating GitHub Actions workflows for all packages in the
 /// repo.
@@ -265,11 +266,17 @@ ${dependabotGroups.join('\n')}
     final hasGoldens =
         package.flavor == PackageFlavor.flutter &&
         package.goldensTestDirectory != null;
+    // Detect ffigen configurations
+    const ffigenWorkflow = 'ffigen_validate.yaml';
+    final ffigenConfigs = _detectFfigenConfigs(package);
+    final hasFfigen = ffigenConfigs.isNotEmpty;
+
     final workflows = <String>[
       analyzeAndTestWorkflow,
       if (needsNativeTest) nativeWorkflow,
       if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
       if (needsE2ETest) ...e2eWorkflows.values,
+      if (hasFfigen) ffigenWorkflow,
     ];
 
     // Collect all the paths for which this workflow will run. This includes
@@ -411,6 +418,25 @@ jobs:
       package-name: ${package.name}
       working-directory: $repoRelativePath
       needs-aws-config: $needsAwsConfig
+''');
+      }
+    }
+
+    // Add ffigen validation jobs
+    if (hasFfigen) {
+      for (final MapEntry(key: os, value: configs) in ffigenConfigs.entries) {
+        final osLabel = os.startsWith('macos') ? 'macos' : 'linux';
+        final configFiles = configs.join(' ');
+        workflowContents.write('''
+  ffigen_${osLabel}_test:
+    needs: test
+    uses: ./.github/workflows/$ffigenWorkflow
+    secrets: inherit
+    with:
+      package-name: ${package.name}
+      working-directory: $repoRelativePath
+      ffigen-configs: '$configFiles'
+      os: $os
 ''');
       }
     }
@@ -617,6 +643,73 @@ jobs:
 ''';
 
     writeWorkflowFile(iosWorkflowFile, iosWorkflowContents);
+  }
+
+  /// Detects ffigen configuration files in the package directory and groups
+  /// them by the OS runner needed.
+  ///
+  /// Returns a map of runner OS -> list of config file names.
+  Map<String, List<String>> _detectFfigenConfigs(PackageInfo package) {
+    final packageDir = Directory(package.path);
+    final ffigenConfigFiles = packageDir
+        .listSync()
+        .whereType<File>()
+        .where(
+          (f) =>
+              p.basename(f.path).startsWith('ffigen') &&
+              p.basename(f.path).endsWith('.yaml'),
+        )
+        .toList();
+
+    if (ffigenConfigFiles.isEmpty) {
+      return {};
+    }
+
+    // Group configs by OS runner
+    final configsByOs = <String, List<String>>{};
+    for (final configFile in ffigenConfigFiles) {
+      final configName = p.basename(configFile.path);
+      final os = _ffigenConfigOs(configFile);
+      configsByOs.putIfAbsent(os, () => []).add(configName);
+    }
+
+    // Sort config names within each OS group for deterministic output
+    for (final configs in configsByOs.values) {
+      configs.sort();
+    }
+
+    // Return with sorted keys for deterministic job ordering
+    return Map.fromEntries(
+      configsByOs.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+    );
+  }
+
+  /// Determines the OS runner needed for a given ffigen config file.
+  ///
+  /// Checks for macOS indicators (Xcode paths, ObjC language) in the config.
+  /// Defaults to `ubuntu-latest` for Linux-based configs.
+  String _ffigenConfigOs(File configFile) {
+    try {
+      final content = configFile.readAsStringSync();
+      final yaml = loadYaml(content);
+      if (yaml is YamlMap) {
+        // Check for ObjC language (requires macOS)
+        final language = yaml['language'];
+        if (language is String && language == 'objc') {
+          return 'macos-26';
+        }
+
+        // Check for macOS SDK paths in headers or compiler-opts
+        if (content.contains('MacOSX.platform') ||
+            content.contains('MacOSX.sdk') ||
+            content.contains('Xcode.app')) {
+          return 'macos-26';
+        }
+      }
+    } on Object {
+      // If we can't parse the config, default to Linux
+    }
+    return 'ubuntu-latest';
   }
 
   void writeWorkflowFile(File workflowFile, String content) {
