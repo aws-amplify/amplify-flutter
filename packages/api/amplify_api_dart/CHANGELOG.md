@@ -1,3 +1,8 @@
+## 0.5.16
+
+### Fixes
+- fix(graphql): Keep type when parsing data ([#6657](https://github.com/aws-amplify/amplify-flutter/pull/6657))
+
 ## 0.5.15
 
 - Minor bug fixes and improvements
