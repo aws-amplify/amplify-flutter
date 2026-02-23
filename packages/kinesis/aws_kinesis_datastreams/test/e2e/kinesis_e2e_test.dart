@@ -40,7 +40,7 @@ void main() {
     return;
   }
 
-  late KinesisDataStreams client;
+  late AmplifyKinesisClient client;
   late Directory tempDir;
 
   setUpAll(() async {
@@ -55,11 +55,11 @@ void main() {
       testSessionToken,
     );
 
-    client = KinesisDataStreams(
+    client = AmplifyKinesisClient(
       region: testRegion,
       credentialsProvider: const AWSCredentialsProvider(credentials),
       storagePath: tempDir.path,
-      options: const KinesisDataStreamsOptions(
+      options: const AmplifyKinesisClientOptions(
         maxRetries: 3,
       ),
     );
@@ -232,7 +232,7 @@ void main() {
   group('Error handling', () {
     test('throws ResourceNotFoundException for non-existent stream', () async {
       // Arrange
-      final badClient = KinesisDataStreams(
+      final badClient = AmplifyKinesisClient(
         region: testRegion,
         credentialsProvider: const AWSCredentialsProvider(
           AWSCredentials(testAccessKeyId, testSecretAccessKey, testSessionToken),
@@ -267,13 +267,13 @@ void main() {
       await client.close();
 
       // Act - create new client with same storage path
-      final newClient = KinesisDataStreams(
+      final newClient = AmplifyKinesisClient(
         region: testRegion,
         credentialsProvider: const AWSCredentialsProvider(
           AWSCredentials(testAccessKeyId, testSecretAccessKey, testSessionToken),
         ),
         storagePath: tempDir.path,
-        options: const KinesisDataStreamsOptions(
+        options: const AmplifyKinesisClientOptions(
           flushStrategy: KinesisDataStreamsInterval(
             interval: Duration(minutes: 5),
           ),

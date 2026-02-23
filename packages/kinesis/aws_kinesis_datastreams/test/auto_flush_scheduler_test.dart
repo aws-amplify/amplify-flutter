@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aws_kinesis_datastreams/src/flush_strategy/interval_flush_strategy.dart';
+import 'package:aws_kinesis_datastreams/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
@@ -23,18 +23,14 @@ void main() {
 
           scheduler.start();
 
-          // No flush yet
           expect(flushCount, equals(0));
 
-          // Advance 10 seconds - first flush
           async.elapse(const Duration(seconds: 10));
           expect(flushCount, equals(1));
 
-          // Advance another 10 seconds - second flush
           async.elapse(const Duration(seconds: 10));
           expect(flushCount, equals(2));
 
-          // Advance 25 seconds - two more flushes (at 30s and 40s)
           async.elapse(const Duration(seconds: 25));
           expect(flushCount, equals(4));
 
@@ -61,6 +57,25 @@ void main() {
           expect(flushCount, equals(0));
         });
       });
+
+      test('does nothing with None strategy', () {
+        fakeAsync((async) {
+          var flushCount = 0;
+          final scheduler = AutoFlushScheduler(
+            strategy: const KinesisDataStreamsNone(),
+            onFlush: () async {
+              flushCount++;
+            },
+          );
+
+          scheduler.start();
+
+          async.elapse(const Duration(seconds: 60));
+          expect(flushCount, equals(0));
+
+          scheduler.close();
+        });
+      });
     });
 
     group('stop()', () {
@@ -78,13 +93,11 @@ void main() {
 
           scheduler.start();
 
-          // First flush
           async.elapse(const Duration(seconds: 10));
           expect(flushCount, equals(1));
 
           scheduler.stop();
 
-          // No more flushes after stop
           async.elapse(const Duration(seconds: 30));
           expect(flushCount, equals(1));
         });
@@ -107,7 +120,6 @@ void main() {
           scheduler.start();
           scheduler.disable();
 
-          // Timer fires but flush is skipped
           async.elapse(const Duration(seconds: 30));
           expect(flushCount, equals(0));
 
@@ -132,13 +144,11 @@ void main() {
           scheduler.start();
           scheduler.disable();
 
-          // No flush while disabled
           async.elapse(const Duration(seconds: 15));
           expect(flushCount, equals(0));
 
           scheduler.enable();
 
-          // Next timer tick triggers flush
           async.elapse(const Duration(seconds: 10));
           expect(flushCount, equals(1));
 
@@ -162,14 +172,12 @@ void main() {
 
           scheduler.start();
 
-          // First flush
           async.elapse(const Duration(seconds: 10));
           expect(flushCount, equals(1));
 
           scheduler.close();
           expect(scheduler.isClosed, isTrue);
 
-          // No more flushes after close
           async.elapse(const Duration(seconds: 30));
           expect(flushCount, equals(1));
         });

@@ -2,15 +2,34 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// {@template aws_kinesis_datastreams.flush_strategy}
-/// Base class for flush strategies that determine when automatic flushing occurs.
+/// Determines when automatic flushing of cached records occurs.
 ///
-/// Implement this class to create custom flush strategies. The library provides
-/// [KinesisDataStreamsInterval] as the default implementation.
-///
-/// See also:
-/// - [KinesisDataStreamsInterval] for interval-based flushing
+/// Available strategies:
+/// - [KinesisDataStreamsInterval]: Flush at a fixed time interval (default)
+/// - [KinesisDataStreamsNone]: Disable automatic flushing entirely
 /// {@endtemplate}
-abstract class KinesisDataStreamsFlushStrategy {
+sealed class KinesisDataStreamsFlushStrategy {
   /// {@macro aws_kinesis_datastreams.flush_strategy}
   const KinesisDataStreamsFlushStrategy();
+}
+
+/// {@template aws_kinesis_datastreams.interval_flush_strategy}
+/// A flush strategy that triggers automatic flushes at a fixed interval.
+/// {@endtemplate}
+class KinesisDataStreamsInterval extends KinesisDataStreamsFlushStrategy {
+  /// {@macro aws_kinesis_datastreams.interval_flush_strategy}
+  const KinesisDataStreamsInterval({
+    this.interval = const Duration(seconds: 30),
+  });
+
+  /// The interval between automatic flush operations.
+  final Duration interval;
+}
+
+/// {@template aws_kinesis_datastreams.none_flush_strategy}
+/// A flush strategy that disables automatic flushing.
+/// {@endtemplate}
+class KinesisDataStreamsNone extends KinesisDataStreamsFlushStrategy {
+  /// {@macro aws_kinesis_datastreams.none_flush_strategy}
+  const KinesisDataStreamsNone();
 }
