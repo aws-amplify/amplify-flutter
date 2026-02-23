@@ -13,7 +13,6 @@ import 'package:aws_amazon_firehose/src/impl/record_client.dart';
 import 'package:aws_amazon_firehose/src/impl/record_storage.dart';
 import 'package:aws_amazon_firehose/src/model/clear_cache_data.dart';
 import 'package:aws_amazon_firehose/src/model/flush_data.dart';
-import 'package:aws_amazon_firehose/src/model/record_data.dart';
 import 'package:aws_amazon_firehose/src/sdk/firehose.dart';
 
 // TODO(v3): Update credentialsProvider type to V3
