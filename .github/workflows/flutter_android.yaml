@@ -38,7 +38,7 @@ jobs:
           java-version: "17"
 
       - name: Git Checkout
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
 
       - name: Git Submodules
         run: git submodule update --init
