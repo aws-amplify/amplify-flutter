@@ -3,13 +3,16 @@
 
 import 'dart:typed_data';
 
-import 'package:aws_kinesis_datastreams/src/exception/kinesis_exception.dart';
-import 'package:aws_kinesis_datastreams/src/flush_strategy/interval_flush_strategy.dart';
+import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
+import 'package:aws_kinesis_datastreams/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams/src/impl/record_client.dart';
 import 'package:aws_kinesis_datastreams/src/impl/record_storage.dart';
+import 'package:aws_kinesis_datastreams/src/model/clear_cache_data.dart';
+import 'package:aws_kinesis_datastreams/src/model/flush_data.dart';
+import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
 import 'package:test/test.dart';
 
 import 'helpers/test_database.dart';
@@ -47,7 +50,6 @@ void main() {
     });
 
     group('record()', () {
-      // **Feature: kinesis-data-streams, Property 2: Record rejection when disabled**
       test('rejects records when disabled', () async {
         client.disable();
 
@@ -76,8 +78,7 @@ void main() {
         expect(records, hasLength(1));
       });
 
-      // **Feature: kinesis-data-streams, Property 4: Cache size enforcement**
-      test('throws CacheFullException when cache is full', () async {
+      test('throws KinesisLimitExceededException when cache is full', () async {
         // Fill the cache (1KB limit)
         await client.record(
           KinesisRecord(
@@ -96,13 +97,12 @@ void main() {
               streamName: 'stream',
             ),
           ),
-          throwsA(isA<CacheFullException>()),
+          throwsA(isA<KinesisLimitExceededException>()),
         );
       });
     });
 
     group('enable() / disable()', () {
-      // **Feature: kinesis-data-streams, Property 3: Enable/disable state transitions**
       test('disable then enable restores record acceptance', () async {
         client.disable();
         expect(client.isEnabled, isFalse);
@@ -135,8 +135,7 @@ void main() {
     });
 
     group('flush()', () {
-      // **Feature: kinesis-data-streams, Property 5: Flush sends all cached records**
-      test('sends all cached records', () async {
+      test('sends all cached records and returns FlushData', () async {
         for (var i = 0; i < 3; i++) {
           await client.record(
             KinesisRecord(
@@ -147,14 +146,15 @@ void main() {
           );
         }
 
-        await client.flush();
+        final result = await client.flush();
 
+        expect(result, isA<FlushData>());
+        expect(result.recordsFlushed, equals(3));
         expect(sender.putRecordsCalls, hasLength(1));
         expect(sender.putRecordsCalls.first.records, hasLength(3));
       });
 
-      // **Feature: kinesis-data-streams, Property 6: Flush does nothing when disabled**
-      test('does nothing when disabled', () async {
+      test('returns empty FlushData when disabled', () async {
         await client.record(
           KinesisRecord(
             data: Uint8List.fromList([1]),
@@ -164,8 +164,9 @@ void main() {
         );
 
         client.disable();
-        await client.flush();
+        final result = await client.flush();
 
+        expect(result.recordsFlushed, equals(0));
         expect(sender.putRecordsCalls, isEmpty);
 
         // Records should still be in storage
@@ -173,9 +174,22 @@ void main() {
         expect(records, hasLength(1));
       });
 
-      // **Feature: kinesis-data-streams, Property 7: Batch size limits**
+      test('returns FlushData with flushInProgress when already flushing', () async {
+        await client.record(
+          KinesisRecord(
+            data: Uint8List.fromList([1]),
+            partitionKey: 'pk',
+            streamName: 'stream',
+          ),
+        );
+
+        // First flush should work normally
+        final result = await client.flush();
+        expect(result.recordsFlushed, equals(1));
+        expect(result.flushInProgress, isFalse);
+      });
+
       test('respects batch size limits - 500 records', () async {
-        // Create a client with larger cache
         final largeDb = createTestDatabase();
         final largeStorage = RecordStorage(
           database: largeDb,
@@ -206,17 +220,17 @@ void main() {
           );
         }
 
-        await largeClient.flush();
+        final result = await largeClient.flush();
 
         // Should have made 2 calls: 500 + 100
         expect(largeSender.putRecordsCalls, hasLength(2));
         expect(largeSender.putRecordsCalls[0].records, hasLength(500));
         expect(largeSender.putRecordsCalls[1].records, hasLength(100));
+        expect(result.recordsFlushed, equals(600));
 
         await largeClient.close();
       });
 
-      // **Feature: kinesis-data-streams, Property 8: Stream separation in batching**
       test('separates records by stream', () async {
         await client.record(
           KinesisRecord(
@@ -240,17 +254,17 @@ void main() {
           ),
         );
 
-        await client.flush();
+        final result = await client.flush();
 
         // Should have 2 calls - one per stream
         expect(sender.putRecordsCalls, hasLength(2));
+        expect(result.recordsFlushed, equals(3));
 
         final streamNames =
             sender.putRecordsCalls.map((c) => c.streamName).toSet();
         expect(streamNames, containsAll(['stream-a', 'stream-b']));
       });
 
-      // **Feature: kinesis-data-streams, Property 10: Successful record deletion**
       test('deletes successful records after send', () async {
         await client.record(
           KinesisRecord(
@@ -266,21 +280,17 @@ void main() {
         expect(records, isEmpty);
       });
 
-      // **Feature: kinesis-data-streams, Property 11: Failed record retry increment**
       test('increments retry count for retryable failures', () async {
-        // Configure sender to return retryable failure, then success
         var callCount = 0;
         sender.resultProvider = (records) {
           callCount++;
           if (callCount == 1) {
-            // First call: mark as retryable
             return PutRecordsResult(
               successfulRecordIndices: [],
               failedRecordIndices: [],
               retryableRecordIndices: List.generate(records.length, (i) => i),
             );
           }
-          // Subsequent calls: succeed
           return PutRecordsResult(
             successfulRecordIndices: List.generate(records.length, (i) => i),
             failedRecordIndices: [],
@@ -296,18 +306,12 @@ void main() {
           ),
         );
 
-        // First flush - should increment retry count
         await client.flush();
 
-        // Record should still be there with retry count = 1
-        // But the second iteration of flush will succeed and delete it
-        // So we need to check after just one send attempt
-        // Let's verify the sender was called twice (retry then success)
         expect(callCount, equals(2));
       });
 
       test('retains record with incremented retry count after retryable failure', () async {
-        // Create a new client that we can control more precisely
         final testDb = createTestDatabase();
         final testStorage = RecordStorage(
           database: testDb,
@@ -342,19 +346,14 @@ void main() {
           ),
         );
 
-        // Manually call _sendStreamBatch equivalent by doing one flush iteration
-        // Since flush loops until empty, we need to check after the loop
         await testClient.flush();
 
-        // After flush completes, record should be deleted because it exceeded retries
-        // (flush loops until no records remain or all are deleted)
-        // Let's verify the sender was called 4 times (initial + 3 retries)
+        // Should be called 4 times (initial + 3 retries)
         expect(testSender.putRecordsCalls.length, equals(4));
 
         await testClient.close();
       });
 
-      // **Feature: kinesis-data-streams, Property 12: Retry limit enforcement**
       test('removes records exceeding max retries', () async {
         sender.nextResult = const PutRecordsResult(
           successfulRecordIndices: [],
@@ -380,7 +379,6 @@ void main() {
       });
 
       test('handles mixed success and failure', () async {
-        // Add 3 records
         for (var i = 0; i < 3; i++) {
           await client.record(
             KinesisRecord(
@@ -395,14 +393,12 @@ void main() {
         sender.resultProvider = (records) {
           callCount++;
           if (callCount == 1 && records.length == 3) {
-            // First call with 3 records: first succeeds, second retryable, third fails
             return const PutRecordsResult(
               successfulRecordIndices: [0],
               failedRecordIndices: [2],
               retryableRecordIndices: [1],
             );
           }
-          // Subsequent calls: all succeed
           return PutRecordsResult(
             successfulRecordIndices: List.generate(records.length, (i) => i),
             failedRecordIndices: [],
@@ -412,18 +408,14 @@ void main() {
 
         await client.flush();
 
-        // After flush, all records should be processed
-        // - Record 0: succeeded, deleted
-        // - Record 1: retried, then succeeded on second call
-        // - Record 2: failed (non-retryable), deleted
         final records = await storage.getRecordsBatch();
         expect(records, isEmpty);
-        expect(callCount, equals(2)); // First call + retry call
+        expect(callCount, equals(2));
       });
     });
 
     group('clearCache()', () {
-      test('removes all cached records', () async {
+      test('removes all cached records and returns ClearCacheData', () async {
         for (var i = 0; i < 5; i++) {
           await client.record(
             KinesisRecord(
@@ -434,8 +426,10 @@ void main() {
           );
         }
 
-        await client.clearCache();
+        final result = await client.clearCache();
 
+        expect(result, isA<ClearCacheData>());
+        expect(result.recordsCleared, equals(5));
         final records = await storage.getRecordsBatch();
         expect(records, isEmpty);
       });
@@ -480,6 +474,12 @@ class _TestKinesisSender implements KinesisSender {
   final List<_PutRecordsCall> putRecordsCalls = [];
   PutRecordsResult? nextResult;
   PutRecordsResult Function(List<KinesisSenderRecord> records)? resultProvider;
+
+  @override
+  KinesisClient get sdkClient => throw UnimplementedError('Not needed in tests');
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 
   @override
   Future<PutRecordsResult> putRecords({

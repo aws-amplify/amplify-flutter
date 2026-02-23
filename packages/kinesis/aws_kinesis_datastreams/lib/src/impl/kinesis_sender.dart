@@ -5,7 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_kinesis_datastreams/src/exception/kinesis_exception.dart';
+import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/sdk_bridge.dart';
 import 'package:smithy/smithy.dart';
@@ -60,6 +60,9 @@ class KinesisSender {
         );
 
   final KinesisClient _kinesisClient;
+
+  /// The underlying SDK client for direct access.
+  KinesisClient get sdkClient => _kinesisClient;
 
   /// Error codes that indicate a retryable error.
   static const _retryableErrorCodes = {

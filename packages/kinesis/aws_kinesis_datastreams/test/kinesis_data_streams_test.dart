@@ -3,21 +3,22 @@
 
 import 'dart:typed_data';
 
-import 'package:aws_kinesis_datastreams/src/flush_strategy/interval_flush_strategy.dart';
+import 'package:aws_kinesis_datastreams/src/amplify_kinesis_client.dart';
+import 'package:aws_kinesis_datastreams/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
-import 'package:aws_kinesis_datastreams/src/kinesis_data_streams.dart';
 import 'package:aws_kinesis_datastreams/src/kinesis_data_streams_options.dart';
+import 'package:aws_kinesis_datastreams/src/model/clear_cache_data.dart';
+import 'package:aws_kinesis_datastreams/src/model/flush_data.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'common/mocktail_mocks.dart';
 
 void main() {
-  group('KinesisDataStreams', () {
+  group('AmplifyKinesisClient', () {
     late MockRecordClient mockRecordClient;
 
     setUpAll(() {
-      // Register fallback values for any() matchers
       registerFallbackValue(
         KinesisRecord(
           data: Uint8List(0),
@@ -30,14 +31,17 @@ void main() {
     setUp(() {
       mockRecordClient = MockRecordClient();
 
-      // Default stub behaviors
       when(() => mockRecordClient.isEnabled).thenReturn(true);
       when(() => mockRecordClient.isClosed).thenReturn(false);
       when(() => mockRecordClient.record(any())).thenAnswer((_) async {});
-      when(() => mockRecordClient.flush()).thenAnswer((_) async {});
-      when(() => mockRecordClient.clearCache()).thenAnswer((_) async {});
+      when(() => mockRecordClient.flush())
+          .thenAnswer((_) async => const FlushData());
+      when(() => mockRecordClient.clearCache())
+          .thenAnswer((_) async => const ClearCacheData());
       when(() => mockRecordClient.enable()).thenReturn(null);
       when(() => mockRecordClient.disable()).thenReturn(null);
+      when(() => mockRecordClient.enableAutoFlush()).thenReturn(null);
+      when(() => mockRecordClient.disableAutoFlush()).thenReturn(null);
       when(() => mockRecordClient.close()).thenAnswer((_) async {});
     });
 
@@ -48,7 +52,7 @@ void main() {
 
     group('initialization', () {
       test('initializes with default options', () {
-        final client = KinesisDataStreams.withRecordClient(
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
@@ -62,7 +66,7 @@ void main() {
       });
 
       test('initializes with custom options', () {
-        const customOptions = KinesisDataStreamsOptions(
+        const customOptions = AmplifyKinesisClientOptions(
           cacheMaxBytes: 10 * 1024 * 1024,
           maxRetries: 10,
           flushStrategy: KinesisDataStreamsInterval(
@@ -70,7 +74,7 @@ void main() {
           ),
         );
 
-        final client = KinesisDataStreams.withRecordClient(
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
           region: 'eu-west-1',
           options: customOptions,
@@ -84,11 +88,27 @@ void main() {
           equals(const Duration(minutes: 1)),
         );
       });
+
+      test('supports None flush strategy', () {
+        const customOptions = AmplifyKinesisClientOptions(
+          flushStrategy: KinesisDataStreamsNone(),
+        );
+
+        final client = AmplifyKinesisClient.withRecordClient(
+          recordClient: mockRecordClient,
+          options: customOptions,
+        );
+
+        expect(
+          client.options.flushStrategy,
+          isA<KinesisDataStreamsNone>(),
+        );
+      });
     });
 
     group('record()', () {
       test('delegates to RecordClient with correct KinesisRecord', () async {
-        final client = KinesisDataStreams.withRecordClient(
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
@@ -110,7 +130,7 @@ void main() {
       });
 
       test('creates record with correct data size', () async {
-        final client = KinesisDataStreams.withRecordClient(
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
@@ -130,32 +150,42 @@ void main() {
     });
 
     group('flush()', () {
-      test('delegates to RecordClient', () async {
-        final client = KinesisDataStreams.withRecordClient(
+      test('delegates to RecordClient and returns FlushData', () async {
+        when(() => mockRecordClient.flush())
+            .thenAnswer((_) async => const FlushData(recordsFlushed: 5));
+
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
-        await client.flush();
+        final result = await client.flush();
 
         verify(() => mockRecordClient.flush()).called(1);
+        expect(result, isA<FlushData>());
+        expect(result.recordsFlushed, equals(5));
       });
     });
 
     group('clearCache()', () {
-      test('delegates to RecordClient', () async {
-        final client = KinesisDataStreams.withRecordClient(
+      test('delegates to RecordClient and returns ClearCacheData', () async {
+        when(() => mockRecordClient.clearCache())
+            .thenAnswer((_) async => const ClearCacheData(recordsCleared: 3));
+
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
-        await client.clearCache();
+        final result = await client.clearCache();
 
         verify(() => mockRecordClient.clearCache()).called(1);
+        expect(result, isA<ClearCacheData>());
+        expect(result.recordsCleared, equals(3));
       });
     });
 
     group('enable() / disable()', () {
       test('enable() delegates to RecordClient', () {
-        final client = KinesisDataStreams.withRecordClient(
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
@@ -165,7 +195,7 @@ void main() {
       });
 
       test('disable() delegates to RecordClient', () {
-        final client = KinesisDataStreams.withRecordClient(
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
@@ -177,7 +207,7 @@ void main() {
       test('isEnabled reflects RecordClient state', () {
         when(() => mockRecordClient.isEnabled).thenReturn(false);
 
-        final client = KinesisDataStreams.withRecordClient(
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
@@ -188,9 +218,31 @@ void main() {
       });
     });
 
+    group('enableAutoFlush() / disableAutoFlush()', () {
+      test('enableAutoFlush() delegates to RecordClient', () {
+        final client = AmplifyKinesisClient.withRecordClient(
+          recordClient: mockRecordClient,
+        );
+
+        client.enableAutoFlush();
+
+        verify(() => mockRecordClient.enableAutoFlush()).called(1);
+      });
+
+      test('disableAutoFlush() delegates to RecordClient', () {
+        final client = AmplifyKinesisClient.withRecordClient(
+          recordClient: mockRecordClient,
+        );
+
+        client.disableAutoFlush();
+
+        verify(() => mockRecordClient.disableAutoFlush()).called(1);
+      });
+    });
+
     group('close()', () {
       test('delegates to RecordClient', () async {
-        final client = KinesisDataStreams.withRecordClient(
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
@@ -202,7 +254,7 @@ void main() {
       test('isClosed reflects RecordClient state', () {
         when(() => mockRecordClient.isClosed).thenReturn(false);
 
-        final client = KinesisDataStreams.withRecordClient(
+        final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
@@ -212,26 +264,19 @@ void main() {
         expect(client.isClosed, isTrue);
       });
     });
+
+    group('deprecated aliases', () {
+      test('KinesisDataStreams is an alias for AmplifyKinesisClient', () {
+        // ignore: deprecated_member_use_from_same_package
+        // This just verifies the typedef exists and compiles
+        // ignore: deprecated_member_use
+        expect(
+          AmplifyKinesisClient.withRecordClient(
+            recordClient: mockRecordClient,
+          ),
+          isA<AmplifyKinesisClient>(),
+        );
+      });
+    });
   });
-}
-
-// =============================================================================
-// Integration Tests with Real Database
-// =============================================================================
-
-/// These tests use real in-memory databases to verify end-to-end behavior.
-void integrationTests() {
-  // Note: Integration tests for Property 14 (persistence across restarts),
-  // Property 16 (concurrent operations), and Property 19 (secure logging)
-  // are covered in the RecordClient and RecordStorage tests since
-  // KinesisDataStreams is a thin wrapper that delegates to RecordClient.
-  //
-  // The KinesisDataStreams class itself doesn't add any persistence,
-  // concurrency, or logging logic - it simply creates and delegates to
-  // the underlying components.
-  //
-  // See:
-  // - test/record_storage_test.dart for Property 14 (persistence)
-  // - test/record_client_test.dart for Property 16 (concurrent operations)
-  // - The KinesisSender implementation for Property 19 (secure logging)
 }
