@@ -6,49 +6,45 @@ These tests verify the library works correctly against real AWS resources.
 
 1. An AWS account with access to Amazon Data Firehose
 2. A Firehose delivery stream created in your account
-3. AWS credentials with permissions to write to the delivery stream
+3. AWS credentials with `firehose:PutRecordBatch` and `firehose:DescribeDeliveryStream` permissions
 
-## Setup
+## Running Locally
 
-1. Edit `test_config.dart` and fill in your credentials:
-
-```dart
-const bool isConfigured = true;
-const String testAccessKeyId = 'YOUR_ACCESS_KEY_ID';
-const String testSecretAccessKey = 'YOUR_SECRET_ACCESS_KEY';
-const String? testSessionToken = null; // Optional, for temporary credentials
-const String testRegion = 'us-east-1';
-const String testDeliveryStreamName = 'your-delivery-stream-name';
-```
-
-2. Run the tests:
+Set environment variables and run:
 
 ```bash
+export TEST_ACCESS_KEY_ID=AKIA...
+export TEST_SECRET_ACCESS_KEY=...
+export TEST_REGION=us-west-2
+export TEST_DELIVERY_STREAM_NAME=kinesis-main-delivery-stream
+
 dart test test/e2e/ --tags=e2e
 ```
 
-## Creating a Test Delivery Stream
-
-You can create a simple test delivery stream using the AWS CLI:
+Or pass via `--dart-define`:
 
 ```bash
-# Create an S3 bucket for the destination
-aws s3 mb s3://my-firehose-test-bucket
-
-# Create the delivery stream
-aws firehose create-delivery-stream \
-  --delivery-stream-name my-test-stream \
-  --s3-destination-configuration \
-    RoleARN=arn:aws:iam::ACCOUNT_ID:role/firehose-role,\
-    BucketARN=arn:aws:s3:::my-firehose-test-bucket,\
-    Prefix=test/
+dart test test/e2e/ --tags=e2e \
+  --dart-define=TEST_ACCESS_KEY_ID=AKIA... \
+  --dart-define=TEST_SECRET_ACCESS_KEY=... \
+  --dart-define=TEST_REGION=us-west-2 \
+  --dart-define=TEST_DELIVERY_STREAM_NAME=kinesis-main-delivery-stream
 ```
 
-Note: You'll need to create an IAM role with permissions for Firehose to write to S3.
+## Infrastructure
 
-## Security Notes
+Test resources (Kinesis stream, Firehose delivery stream, IAM user) are
+provisioned via CDK in `infra-gen2/backends/kinesis/main/`. The construct
+is defined in `infra-gen2/infra-common/src/kinesis-extensions/`.
 
-- Never commit real credentials to version control
-- Use temporary credentials (session tokens) when possible
-- Consider using environment variables for credentials in CI/CD
-- The `test_config.dart` file is gitignored by default
+Deploy with:
+
+```bash
+cd infra-gen2
+dart tool/deploy_gen2.dart --category kinesis
+```
+
+## CI
+
+The GitHub Actions workflow at `.github/workflows/kinesis_e2e.yaml` runs
+these tests automatically on PRs that touch `packages/kinesis/`.
