@@ -4,7 +4,9 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    as foundation;
+import 'package:aws_common/aws_common.dart';
 import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/sdk_bridge.dart';
@@ -51,7 +53,8 @@ class KinesisSender {
   /// {@macro aws_kinesis_datastreams.kinesis_sender}
   KinesisSender({
     required String region,
-    required AWSCredentialsProvider credentialsProvider,
+    required foundation.AWSCredentialsProvider<foundation.AWSCredentials>
+        credentialsProvider,
     AWSHttpClient? httpClient,
   }) : _kinesisClient = WrappedKinesisClient(
           region: region,
@@ -125,13 +128,13 @@ class KinesisSender {
       // Network-level errors (DNS, connection refused, etc.)
       throw KinesisNetworkException(
         'Failed to connect to Kinesis: $e',
-        underlyingException: e,
+        cause: e,
       );
     } on SocketException catch (e) {
       // Socket-level errors (no internet, connection reset, etc.)
       throw KinesisNetworkException(
         'Network error: ${e.message}',
-        underlyingException: e,
+        cause: e,
       );
     }
   }

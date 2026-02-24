@@ -3,8 +3,10 @@
 
 import 'dart:typed_data';
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart' show KinesisLimitExceededException;
 import 'package:aws_kinesis_datastreams/src/db/kinesis_record_database.dart';
+import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart' show KinesisLimitExceededException;
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_sender.dart';
@@ -14,9 +16,6 @@ import 'package:aws_kinesis_datastreams/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams/src/model/flush_data.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
-
-// TODO(v3): Update credentialsProvider type to V3
-// `AWSCredentialsProvider<AWSCredentials>` once available.
 
 /// {@template aws_kinesis_datastreams.amplify_kinesis_client}
 /// Client for recording and streaming data to Amazon Kinesis Data Streams.
@@ -51,7 +50,7 @@ class AmplifyKinesisClient {
   /// {@macro aws_kinesis_datastreams.amplify_kinesis_client}
   AmplifyKinesisClient({
     required String region,
-    required AWSCredentialsProvider credentialsProvider,
+    required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
     AmplifyKinesisClientOptions options = const AmplifyKinesisClientOptions(),
     String? storagePath,
   }) : this._internal(
@@ -63,7 +62,7 @@ class AmplifyKinesisClient {
 
   AmplifyKinesisClient._internal({
     required String region,
-    required AWSCredentialsProvider credentialsProvider,
+    required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
     required AmplifyKinesisClientOptions options,
     required String storagePath,
   })  : _region = region,

@@ -6,7 +6,9 @@ library;
 
 import 'dart:async';
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    as foundation;
+import 'package:aws_common/aws_common.dart';
 import 'package:aws_kinesis_datastreams/src/impl/record_client.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/src/kinesis/kinesis_client.dart';
 import 'package:mocktail/mocktail.dart';
@@ -55,6 +57,6 @@ class MockRecordClient extends Mock implements RecordClient {}
 // Fake Implementations
 // =============================================================================
 
-/// Fake implementation of [AWSCredentialsProvider] for testing.
+/// Fake implementation of [foundation.AWSCredentialsProvider] for testing.
 class FakeAWSCredentialsProvider extends Fake
-    implements AWSCredentialsProvider {}
+    implements foundation.AWSCredentialsProvider<foundation.AWSCredentials> {}

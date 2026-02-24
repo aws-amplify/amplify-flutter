@@ -1,51 +1,101 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// TODO(v3): Replace with `extends AmplifyException` once V3 foundational
-// library is available. For now we implement Exception directly.
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 
+/// {@template aws_kinesis_datastreams.amplify_kinesis_exception}
 /// Base exception for Amplify Kinesis Data Streams errors.
-sealed class AmplifyKinesisException implements Exception {
-  const AmplifyKinesisException(this.message, {this.recoverySuggestion, this.underlyingException});
-  final String message;
-  final String? recoverySuggestion;
-  final Object? underlyingException;
+/// {@endtemplate}
+sealed class AmplifyKinesisException extends AmplifyException {
+  /// {@macro aws_kinesis_datastreams.amplify_kinesis_exception}
+  AmplifyKinesisException({
+    required super.message,
+    required super.recoverySuggestion,
+    super.cause,
+  });
+
   @override
   String toString() {
-    final buf = StringBuffer('$runtimeType: $message');
-    if (recoverySuggestion != null) buf.write('\nRecovery suggestion: $recoverySuggestion');
-    if (underlyingException != null) buf.write('\nCaused by: $underlyingException');
+    final buf = StringBuffer('AmplifyKinesisException: $message');
+    if (recoverySuggestion.isNotEmpty) {
+      buf.write('\nRecovery suggestion: $recoverySuggestion');
+    }
+    if (cause != null) buf.write('\nCaused by: $cause');
     return buf.toString();
   }
 }
 
+/// {@template aws_kinesis_datastreams.kinesis_storage_exception}
 /// Thrown when a local cache/database error occurs.
+/// {@endtemplate}
 class KinesisStorageException extends AmplifyKinesisException {
-  const KinesisStorageException(super.message, {super.underlyingException}) : super(recoverySuggestion: 'Try clearing the cache or reinitializing.');
+  /// {@macro aws_kinesis_datastreams.kinesis_storage_exception}
+  KinesisStorageException(String message, {Object? super.cause})
+      : super(
+          message: message,
+          recoverySuggestion: 'Try clearing the cache or reinitializing.',
+        );
 }
 
+/// {@template aws_kinesis_datastreams.kinesis_service_exception}
 /// Thrown when a Kinesis SDK/API error occurs. Inspect [sdkException] for details.
+/// {@endtemplate}
 class KinesisServiceException extends AmplifyKinesisException {
-  const KinesisServiceException(super.message, {this.sdkException, super.underlyingException}) : super(recoverySuggestion: 'Check sdkException for details.');
+  /// {@macro aws_kinesis_datastreams.kinesis_service_exception}
+  KinesisServiceException(String message, {this.sdkException, Object? super.cause})
+      : super(
+          message: message,
+          recoverySuggestion: 'Check sdkException for details.',
+        );
+
+  /// The underlying SDK exception, if any.
   final Object? sdkException;
 }
 
+/// {@template aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
 /// Thrown when the local cache is full.
+/// {@endtemplate}
 class KinesisLimitExceededException extends AmplifyKinesisException {
-  const KinesisLimitExceededException() : super('Cache is full', recoverySuggestion: 'Call flush() or clearCache().');
+  /// {@macro aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
+  KinesisLimitExceededException()
+      : super(
+          message: 'Cache is full',
+          recoverySuggestion: 'Call flush() or clearCache().',
+        );
 }
 
+/// {@template aws_kinesis_datastreams.kinesis_unknown_exception}
 /// Catch-all for unexpected errors.
+/// {@endtemplate}
 class KinesisUnknownException extends AmplifyKinesisException {
-  const KinesisUnknownException(super.message, {super.underlyingException}) : super(recoverySuggestion: 'Unexpected error. Please file a bug.');
+  /// {@macro aws_kinesis_datastreams.kinesis_unknown_exception}
+  KinesisUnknownException(String message, {Object? super.cause})
+      : super(
+          message: message,
+          recoverySuggestion: 'Unexpected error. Please file a bug.',
+        );
 }
 
+/// {@template aws_kinesis_datastreams.kinesis_network_exception}
 /// Thrown when a network error prevents communication with Kinesis.
+/// {@endtemplate}
 class KinesisNetworkException extends AmplifyKinesisException {
-  const KinesisNetworkException(super.message, {super.underlyingException}) : super(recoverySuggestion: 'Check network connectivity and try again.');
+  /// {@macro aws_kinesis_datastreams.kinesis_network_exception}
+  KinesisNetworkException(String message, {Object? super.cause})
+      : super(
+          message: message,
+          recoverySuggestion: 'Check network connectivity and try again.',
+        );
 }
 
+/// {@template aws_kinesis_datastreams.client_closed_exception}
 /// Thrown when an operation is attempted on a closed client.
+/// {@endtemplate}
 class ClientClosedException extends AmplifyKinesisException {
-  const ClientClosedException() : super('Client has been closed', recoverySuggestion: 'Create a new AmplifyKinesisClient instance.');
+  /// {@macro aws_kinesis_datastreams.client_closed_exception}
+  ClientClosedException()
+      : super(
+          message: 'Client has been closed',
+          recoverySuggestion: 'Create a new AmplifyKinesisClient instance.',
+        );
 }

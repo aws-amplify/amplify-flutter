@@ -51,12 +51,12 @@ class RecordClient {
 
   /// Records data to the local cache.
   Future<void> record(KinesisRecord record) async {
-    if (_closed) throw const ClientClosedException();
+    if (_closed) throw ClientClosedException();
     if (!_enabled) return;
 
     final currentSize = await _storage.getCurrentCacheSize();
     if (currentSize + record.dataSize > _storage.maxCacheBytes) {
-      throw const KinesisLimitExceededException();
+      throw KinesisLimitExceededException();
     }
 
     await _storage.saveRecord(record);
@@ -64,7 +64,7 @@ class RecordClient {
 
   /// Flushes all cached records to Kinesis.
   Future<FlushData> flush() async {
-    if (_closed) throw const ClientClosedException();
+    if (_closed) throw ClientClosedException();
     if (!_enabled) return const FlushData();
 
     if (_flushing) return const FlushData(flushInProgress: true);

@@ -4,12 +4,18 @@
 /// Amplify Kinesis Data Streams client for Dart.
 library;
 
-// TODO(v3): Replace with V3 credentials provider type.
-export 'package:amplify_core/amplify_core.dart'
-    show AWSCredentials, AWSCredentialsProvider;
+export 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    show
+        AWSCredentials,
+        AWSCredentialsProvider,
+        StaticCredentials,
+        TemporaryCredentials,
+        Logger;
 
 // Main client
 export 'src/amplify_kinesis_client.dart';
+// V2 → V3 credentials bridge
+export 'src/credentials/credentials_bridge.dart';
 // Exceptions
 export 'src/exception/amplify_kinesis_exception.dart';
 // Flush strategies
