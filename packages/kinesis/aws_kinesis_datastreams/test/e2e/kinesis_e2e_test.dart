@@ -49,15 +49,9 @@ void main() {
   });
 
   setUp(() {
-    const credentials = AWSCredentials(
-      testAccessKeyId,
-      testSecretAccessKey,
-      testSessionToken,
-    );
-
     client = AmplifyKinesisClient(
       region: testRegion,
-      credentialsProvider: const AWSCredentialsProvider(credentials),
+      credentialsProvider: _StaticProvider(_makeCredentials()),
       storagePath: tempDir.path,
       options: const AmplifyKinesisClientOptions(
         maxRetries: 3,
@@ -234,9 +228,7 @@ void main() {
       // Arrange
       final badClient = AmplifyKinesisClient(
         region: testRegion,
-        credentialsProvider: const AWSCredentialsProvider(
-          AWSCredentials(testAccessKeyId, testSecretAccessKey, testSessionToken),
-        ),
+        credentialsProvider: _StaticProvider(_makeCredentials()),
         storagePath: tempDir.path,
       );
 
@@ -269,9 +261,7 @@ void main() {
       // Act - create new client with same storage path
       final newClient = AmplifyKinesisClient(
         region: testRegion,
-        credentialsProvider: const AWSCredentialsProvider(
-          AWSCredentials(testAccessKeyId, testSecretAccessKey, testSessionToken),
-        ),
+        credentialsProvider: _StaticProvider(_makeCredentials()),
         storagePath: tempDir.path,
         options: const AmplifyKinesisClientOptions(
           flushStrategy: KinesisDataStreamsInterval(
@@ -287,4 +277,26 @@ void main() {
       // Assert - no exception means persisted record was sent
     });
   });
+}
+
+/// Creates credentials from test config, handling optional session token.
+AWSCredentials _makeCredentials() {
+  if (testSessionToken != null) {
+    return TemporaryCredentials(
+      testAccessKeyId,
+      testSecretAccessKey,
+      testSessionToken!,
+      DateTime.now().add(const Duration(hours: 1)),
+    );
+  }
+  return StaticCredentials(testAccessKeyId, testSecretAccessKey);
+}
+
+/// Simple credentials provider for E2E tests.
+class _StaticProvider implements AWSCredentialsProvider<AWSCredentials> {
+  const _StaticProvider(this._credentials);
+  final AWSCredentials _credentials;
+
+  @override
+  Future<AWSCredentials> resolve() async => _credentials;
 }

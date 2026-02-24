@@ -1,9 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart' show AmplifyKinesisClient;
+import 'package:aws_kinesis_datastreams/src/amplify_kinesis_client.dart' show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams/src/flush_strategy/flush_strategy.dart';
-
-// TODO(v3): Import V3 Logger type once available.
 
 /// {@template aws_kinesis_datastreams.amplify_kinesis_client_options}
 /// Configuration options for [AmplifyKinesisClient].
@@ -15,7 +16,7 @@ class AmplifyKinesisClientOptions {
     this.maxRecords = 500,
     this.maxRetries = 5,
     this.flushStrategy = const KinesisDataStreamsInterval(),
-    // TODO(v3): Add logger parameter once V3 Logger type is available.
+    this.logger,
   });
 
   /// Maximum size of the local cache in bytes. Defaults to 5MB.
@@ -30,8 +31,8 @@ class AmplifyKinesisClientOptions {
   /// Strategy for automatic flushing of cached records.
   final KinesisDataStreamsFlushStrategy flushStrategy;
 
-  // TODO(v3): Uncomment once V3 Logger type is available.
-  // final Logger? logger;
+  /// Optional logger for debug and error output.
+  final Logger? logger;
 }
 
 /// Deprecated: Use [AmplifyKinesisClientOptions] instead.
