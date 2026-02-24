@@ -58,6 +58,10 @@ runs:
       with:
         persist-credentials: false
         submodules: true
+        # Skip git clean/reset to avoid failures from Windows file locks after
+        # long-running tests. Safe here because this checkout only needs the
+        # composite action files and nothing runs after it.
+        clean: false
 
     - name: Configure AWS credentials
       if: env.SKIP_CW != 'true'
