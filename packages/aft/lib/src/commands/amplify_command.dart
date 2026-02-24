@@ -181,14 +181,37 @@ abstract class AmplifyCommand extends Command<void>
 
   /// Checks whether [package] still has a pending analysis on pub.dev.
   ///
-  /// Returns `true` if the package page contains `[pending analysis]`,
-  /// `false` otherwise.
+  /// Returns `true` if `grantedPoints` is 0 and `tags` does not contain any
+  /// string starting with `sdk:`, `platform:`, `runtime:`, or `is:`.
   Future<bool> isPendingAnalysis(String package) async {
-    final uri = Uri.parse('https://pub.dev/packages/$package');
-    final request = AWSHttpRequest.get(uri);
+    final uri = Uri.parse('https://pub.dev/api/packages/$package/score');
+    final request = AWSHttpRequest.get(
+      uri,
+      headers: const {AWSHeaders.accept: 'application/json'},
+    );
     final resp = await httpClient.send(request).response;
     final body = await resp.decodeBody();
-    return body.contains('[pending analysis]');
+
+    if (resp.statusCode != 200) {
+      throw Exception(
+        'Failed to fetch score for $package: ${resp.statusCode} $body',
+      );
+    }
+
+    final json = jsonDecode(body) as Map<String, Object?>;
+    final grantedPoints = json['grantedPoints'] as num? ?? 0;
+    final tags = (json['tags'] as List<Object?>?)?.cast<String>() ?? <String>[];
+
+    if (grantedPoints != 0) {
+      return false;
+    }
+
+    final analysisPrefixes = ['sdk:', 'platform:', 'runtime:', 'is:'];
+    final hasAnalysisTag = tags.any(
+      (tag) => analysisPrefixes.any((prefix) => tag.startsWith(prefix)),
+    );
+
+    return !hasAnalysisTag;
   }
 
   /// Await a pending analysis on pub.dev for [package].
