@@ -4,10 +4,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_amazon_firehose/src/exception/amplify_firehose_exception.dart';
 import 'package:aws_amazon_firehose/src/impl/firehose_sender.dart';
 import 'package:aws_amazon_firehose/src/sdk/firehose.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
@@ -293,12 +293,12 @@ class _TestableFirehoseSender extends FirehoseSender {
     } on AWSHttpException catch (e) {
       throw FirehoseNetworkException(
         'Failed to connect to Firehose: $e',
-        underlyingException: e,
+        cause: e,
       );
     } on SocketException catch (e) {
       throw FirehoseNetworkException(
         'Network error: ${e.message}',
-        underlyingException: e,
+        cause: e,
       );
     }
   }

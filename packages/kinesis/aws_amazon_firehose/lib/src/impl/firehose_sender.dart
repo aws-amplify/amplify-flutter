@@ -4,10 +4,12 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    as foundation;
 import 'package:aws_amazon_firehose/src/exception/amplify_firehose_exception.dart';
 import 'package:aws_amazon_firehose/src/sdk/firehose.dart';
 import 'package:aws_amazon_firehose/src/sdk/sdk_bridge.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:smithy/smithy.dart';
 
 /// Result of a PutRecordBatch operation.
@@ -47,7 +49,8 @@ class FirehoseSender {
   /// {@macro aws_amazon_firehose.firehose_sender}
   FirehoseSender({
     required String region,
-    required AWSCredentialsProvider credentialsProvider,
+    required foundation.AWSCredentialsProvider<foundation.AWSCredentials>
+        credentialsProvider,
     AWSHttpClient? httpClient,
   }) : _firehoseClient = WrappedFirehoseClient(
           region: region,
@@ -118,13 +121,13 @@ class FirehoseSender {
       // Network-level errors (DNS, connection refused, etc.)
       throw FirehoseNetworkException(
         'Failed to connect to Firehose: $e',
-        underlyingException: e,
+        cause: e,
       );
     } on SocketException catch (e) {
       // Socket-level errors (no internet, connection reset, etc.)
       throw FirehoseNetworkException(
         'Network error: ${e.message}',
-        underlyingException: e,
+        cause: e,
       );
     }
   }

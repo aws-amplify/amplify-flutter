@@ -54,12 +54,12 @@ class RecordClient {
   /// Throws [ClientClosedException] if the client has been closed.
   /// Throws [FirehoseLimitExceededException] if the cache is full.
   Future<void> record(FirehoseDataRecord record) async {
-    if (_closed) throw const ClientClosedException();
+    if (_closed) throw ClientClosedException();
     if (!_enabled) return;
 
     final currentSize = await _storage.getCurrentCacheSize();
     if (currentSize + record.dataSize > _storage.maxCacheBytes) {
-      throw const FirehoseLimitExceededException();
+      throw FirehoseLimitExceededException();
     }
 
     await _storage.saveRecord(record);
@@ -71,7 +71,7 @@ class RecordClient {
   ///
   /// Throws [ClientClosedException] if the client has been closed.
   Future<FlushData> flush() async {
-    if (_closed) throw const ClientClosedException();
+    if (_closed) throw ClientClosedException();
     if (!_enabled) return const FlushData();
 
     if (_flushing) return const FlushData(flushInProgress: true);

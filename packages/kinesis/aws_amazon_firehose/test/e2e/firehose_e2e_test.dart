@@ -49,15 +49,9 @@ void main() {
   });
 
   setUp(() {
-    final credentials = AWSCredentials(
-      testAccessKeyId,
-      testSecretAccessKey,
-      testSessionToken,
-    );
-
     client = AmplifyFirehoseClient(
       region: testRegion,
-      credentialsProvider: AWSCredentialsProvider(credentials),
+      credentialsProvider: _StaticProvider(_makeCredentials()),
       storagePath: tempDir.path,
       options: const AmplifyFirehoseClientOptions(
         maxRetries: 3,
@@ -222,13 +216,7 @@ void main() {
       // Arrange
       final badClient = AmplifyFirehoseClient(
         region: testRegion,
-        credentialsProvider: AWSCredentialsProvider(
-          AWSCredentials(
-            testAccessKeyId,
-            testSecretAccessKey,
-            testSessionToken,
-          ),
-        ),
+        credentialsProvider: _StaticProvider(_makeCredentials()),
         storagePath: tempDir.path,
       );
 
@@ -258,13 +246,7 @@ void main() {
       // Act - create new client with same storage path
       final newClient = AmplifyFirehoseClient(
         region: testRegion,
-        credentialsProvider: AWSCredentialsProvider(
-          AWSCredentials(
-            testAccessKeyId,
-            testSecretAccessKey,
-            testSessionToken,
-          ),
-        ),
+        credentialsProvider: _StaticProvider(_makeCredentials()),
         storagePath: tempDir.path,
         options: const AmplifyFirehoseClientOptions(
           flushStrategy: AmazonDataFirehoseInterval(
@@ -279,4 +261,26 @@ void main() {
       await newClient.close();
     });
   });
+}
+
+/// Creates credentials from test config, handling optional session token.
+AWSCredentials _makeCredentials() {
+  if (testSessionToken != null) {
+    return TemporaryCredentials(
+      testAccessKeyId,
+      testSecretAccessKey,
+      testSessionToken!,
+      DateTime.now().add(const Duration(hours: 1)),
+    );
+  }
+  return StaticCredentials(testAccessKeyId, testSecretAccessKey);
+}
+
+/// Simple credentials provider for E2E tests.
+class _StaticProvider implements AWSCredentialsProvider<AWSCredentials> {
+  const _StaticProvider(this._credentials);
+  final AWSCredentials _credentials;
+
+  @override
+  Future<AWSCredentials> resolve() async => _credentials;
 }

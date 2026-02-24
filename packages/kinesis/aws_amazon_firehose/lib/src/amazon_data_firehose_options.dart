@@ -1,10 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:aws_amazon_firehose/src/flush_strategy/flush_strategy.dart';
-
-// TODO(v3): Import V3 Logger type once available.
-// import 'package:amplify_v3_core/amplify_v3_core.dart' show Logger;
 
 /// {@template aws_amazon_firehose.amplify_firehose_client_options}
 /// Configuration options for [AmplifyFirehoseClient].
@@ -27,8 +25,7 @@ class AmplifyFirehoseClientOptions {
     this.maxRecords = 500,
     this.maxRetries = 5,
     this.flushStrategy = const AmazonDataFirehoseInterval(),
-    // TODO(v3): Add logger parameter once V3 Logger type is available.
-    // this.logger,
+    this.logger,
   });
 
   /// Maximum size of the local cache in bytes.
@@ -56,9 +53,8 @@ class AmplifyFirehoseClientOptions {
   /// Defaults to [AmazonDataFirehoseInterval] with a 30-second interval.
   final AmazonDataFirehoseFlushStrategy flushStrategy;
 
-  // TODO(v3): Uncomment once V3 Logger type is available.
-  // /// Optional logger for debug and error output.
-  // final Logger? logger;
+  /// Optional logger for debug and error output.
+  final Logger? logger;
 }
 
 /// Deprecated: Use [AmplifyFirehoseClientOptions] instead.

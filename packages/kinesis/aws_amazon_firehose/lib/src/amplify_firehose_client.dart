@@ -3,7 +3,7 @@
 
 import 'dart:typed_data';
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:aws_amazon_firehose/src/amazon_data_firehose_options.dart';
 import 'package:aws_amazon_firehose/src/db/firehose_record_database.dart';
 import 'package:aws_amazon_firehose/src/impl/auto_flush_scheduler.dart';
@@ -14,9 +14,6 @@ import 'package:aws_amazon_firehose/src/impl/record_storage.dart';
 import 'package:aws_amazon_firehose/src/model/clear_cache_data.dart';
 import 'package:aws_amazon_firehose/src/model/flush_data.dart';
 import 'package:aws_amazon_firehose/src/sdk/firehose.dart';
-
-// TODO(v3): Update credentialsProvider type to V3
-// `AWSCredentialsProvider<AWSCredentials>` once available.
 
 /// {@template aws_amazon_firehose.amplify_firehose_client}
 /// Client for recording and streaming data to Amazon Data Firehose.
@@ -50,7 +47,7 @@ class AmplifyFirehoseClient {
   /// {@macro aws_amazon_firehose.amplify_firehose_client}
   AmplifyFirehoseClient({
     required String region,
-    required AWSCredentialsProvider credentialsProvider,
+    required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
     AmplifyFirehoseClientOptions options = const AmplifyFirehoseClientOptions(),
     String? storagePath,
   }) : this._internal(
@@ -62,7 +59,7 @@ class AmplifyFirehoseClient {
 
   AmplifyFirehoseClient._internal({
     required String region,
-    required AWSCredentialsProvider credentialsProvider,
+    required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
     required AmplifyFirehoseClientOptions options,
     required String storagePath,
   })  : _region = region,
