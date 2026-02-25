@@ -973,11 +973,10 @@ class _$PaginationItem extends PaginationItem {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
     return other is PaginationItem &&
         member == other.member &&
         isNullable == other.isNullable &&
-        buildExpression == _$dynamicOther.buildExpression &&
+        buildExpression == other.buildExpression &&
         symbol == other.symbol;
   }
 
