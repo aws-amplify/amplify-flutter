@@ -212,8 +212,12 @@ class StorageS3Service {
   }
 
   /// Takes in input from [AmplifyStorageS3Dart.getUrl] API to create a
-  /// `GET` [AWSHttpRequest], then `presign` it with [sigv4.AWSSigV4Signer], and
-  /// returns a [S3GetUrlResult] containing the presigned [Uri].
+  /// presigned [AWSHttpRequest] (GET or PUT), then `presign` it with
+  /// [sigv4.AWSSigV4Signer], and returns a [S3GetUrlResult] containing the
+  /// presigned [Uri].
+  ///
+  /// When [S3GetUrlPluginOptions.method] is [StorageAccessMethod.put], the
+  /// generated presigned URL can be used to upload objects via HTTP PUT.
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3GetUrlResult> getUrl({
@@ -253,8 +257,13 @@ class StorageS3Service {
           .replaceFirst(RegExp(r'\.s3\.'), '.s3-accelerate.');
     }
 
+    // Determine HTTP method based on the StorageAccessMethod option
+    final httpMethod = s3PluginOptions.method == StorageAccessMethod.put
+        ? AWSHttpMethod.put
+        : AWSHttpMethod.get;
+
     final urlRequest = AWSHttpRequest.raw(
-      method: AWSHttpMethod.get,
+      method: httpMethod,
       host: host,
       path: '/$resolvedPath',
     );
