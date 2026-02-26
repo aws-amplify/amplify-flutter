@@ -2905,3 +2905,8 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
+
+  - package-ecosystem: "pip"
+    directory: "packages/worker_bee/worker_bee/example/tool/example_web_tester"
+    schedule:
+      interval: "weekly"

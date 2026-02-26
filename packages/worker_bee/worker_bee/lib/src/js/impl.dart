@@ -73,6 +73,11 @@ mixin WorkerBeeImpl<Request extends Object, Response>
   /// Deserializes an object using the registered `built_value` serializers.
   @optionalTypeArgs
   T _deserialize<T extends Object?>(Object? object) {
+    // Convert JS types (JSArray, JSString, etc.) to native Dart types
+    // (List, String, etc.) so that built_value can deserialize them.
+    // Data received via postMessage arrives as JS types which are not
+    // assignable to Dart collection types like List<Object?>.
+    object = (object as JSAny?)?.dartify();
     final deserialized = runZoned(
       () =>
           serializers.deserialize(
@@ -92,7 +97,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
       final serialized = _serialize(error);
       error = serialized.value!;
       self.postMessage(
-        serialized.value?.toJSBoxOrCast,
+        serialized.value.jsify(),
         serialized.transfer.toJSBoxOrCast,
       );
     }
@@ -123,7 +128,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
           logger.verbose('Sending message: $message');
           final serialized = _serialize(message);
           self.postMessage(
-            serialized.value?.toJSBoxOrCast,
+            serialized.value.jsify(),
             serialized.transfer.toJSBoxOrCast,
           );
         }),
@@ -139,7 +144,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
 
       final serializedResult = _serialize(result);
       self.postMessage(
-        serializedResult.value?.toJSBoxOrCast,
+        serializedResult.value.jsify(),
         serializedResult.transfer.toJSBoxOrCast,
       );
 
@@ -231,7 +236,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
               final serialized = _serialize(message);
 
               _worker!.postMessage(
-                serialized.value?.toJSBoxOrCast,
+                serialized.value.jsify(),
                 serialized.transfer.toJSBoxOrCast,
               );
             }),
