@@ -53,7 +53,7 @@ void main() {
       region: testRegion,
       credentialsProvider: _StaticProvider(_makeCredentials()),
       storagePath: tempDir.path,
-      options: const AmplifyKinesisClientOptions(
+      options: AmplifyKinesisClientOptions(
         maxRetries: 3,
       ),
     );
@@ -263,7 +263,7 @@ void main() {
         region: testRegion,
         credentialsProvider: _StaticProvider(_makeCredentials()),
         storagePath: tempDir.path,
-        options: const AmplifyKinesisClientOptions(
+        options: AmplifyKinesisClientOptions(
           flushStrategy: KinesisDataStreamsInterval(
             interval: Duration(minutes: 5),
           ),
