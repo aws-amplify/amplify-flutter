@@ -66,7 +66,7 @@ void main() {
       });
 
       test('initializes with custom options', () {
-        const customOptions = AmplifyKinesisClientOptions(
+        final customOptions = AmplifyKinesisClientOptions(
           cacheMaxBytes: 10 * 1024 * 1024,
           maxRetries: 10,
           flushStrategy: KinesisDataStreamsInterval(
@@ -90,7 +90,7 @@ void main() {
       });
 
       test('supports None flush strategy', () {
-        const customOptions = AmplifyKinesisClientOptions(
+        final customOptions = AmplifyKinesisClientOptions(
           flushStrategy: KinesisDataStreamsNone(),
         );
 

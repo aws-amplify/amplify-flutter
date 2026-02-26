@@ -51,12 +51,12 @@ class AmplifyKinesisClient {
   AmplifyKinesisClient({
     required String region,
     required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
-    AmplifyKinesisClientOptions options = const AmplifyKinesisClientOptions(),
+    AmplifyKinesisClientOptions? options,
     String? storagePath,
   }) : this._internal(
           region: region,
           credentialsProvider: credentialsProvider,
-          options: options,
+          options: options ?? AmplifyKinesisClientOptions(),
           storagePath: storagePath ?? 'kinesis_data_streams',
         );
 
@@ -99,9 +99,9 @@ class AmplifyKinesisClient {
   AmplifyKinesisClient.withRecordClient({
     required RecordClient recordClient,
     String region = 'us-east-1',
-    AmplifyKinesisClientOptions options = const AmplifyKinesisClientOptions(),
+    AmplifyKinesisClientOptions? options,
   })  : _region = region,
-        _options = options,
+        _options = options ?? AmplifyKinesisClientOptions(),
         _recordClient = recordClient;
 
   final String _region;
