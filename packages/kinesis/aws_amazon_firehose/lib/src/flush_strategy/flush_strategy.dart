@@ -39,6 +39,9 @@ class AmazonDataFirehoseInterval extends AmazonDataFirehoseFlushStrategy {
 
   /// The interval between automatic flush operations.
   ///
+  /// Must be between 1 second and 1 hour. Validated by
+  /// [AmplifyFirehoseClientOptions].
+  ///
   /// Defaults to 30 seconds.
   final Duration interval;
 }

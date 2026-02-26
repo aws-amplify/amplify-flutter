@@ -53,7 +53,7 @@ void main() {
       region: testRegion,
       credentialsProvider: _StaticProvider(_makeCredentials()),
       storagePath: tempDir.path,
-      options: const AmplifyFirehoseClientOptions(
+      options: AmplifyFirehoseClientOptions(
         maxRetries: 3,
       ),
     );
@@ -248,7 +248,7 @@ void main() {
         region: testRegion,
         credentialsProvider: _StaticProvider(_makeCredentials()),
         storagePath: tempDir.path,
-        options: const AmplifyFirehoseClientOptions(
+        options: AmplifyFirehoseClientOptions(
           flushStrategy: AmazonDataFirehoseInterval(
             interval: Duration(minutes: 5),
           ),

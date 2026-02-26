@@ -48,12 +48,12 @@ class AmplifyFirehoseClient {
   AmplifyFirehoseClient({
     required String region,
     required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
-    AmplifyFirehoseClientOptions options = const AmplifyFirehoseClientOptions(),
+    AmplifyFirehoseClientOptions? options,
     String? storagePath,
   }) : this._internal(
           region: region,
           credentialsProvider: credentialsProvider,
-          options: options,
+          options: options ?? AmplifyFirehoseClientOptions(),
           storagePath: storagePath ?? 'amazon_data_firehose',
         );
 
@@ -96,9 +96,9 @@ class AmplifyFirehoseClient {
   AmplifyFirehoseClient.withRecordClient({
     required RecordClient recordClient,
     String region = 'us-east-1',
-    AmplifyFirehoseClientOptions options = const AmplifyFirehoseClientOptions(),
+    AmplifyFirehoseClientOptions? options,
   })  : _region = region,
-        _options = options,
+        _options = options ?? AmplifyFirehoseClientOptions(),
         _recordClient = recordClient;
 
   final String _region;

@@ -4,8 +4,17 @@
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:aws_amazon_firehose/src/flush_strategy/flush_strategy.dart';
 
+/// Maximum number of records per Firehose PutRecordBatch call.
+const int kFirehoseMaxRecordsPerBatch = 500;
+
+/// Maximum batch payload size for Firehose PutRecordBatch (4 MB).
+const int kFirehoseMaxBatchBytes = 4 * 1024 * 1024;
+
 /// {@template aws_amazon_firehose.amplify_firehose_client_options}
 /// Configuration options for [AmplifyFirehoseClient].
+///
+/// All numeric properties are validated to be positive and within
+/// service-imposed upper bounds.
 ///
 /// ```dart
 /// final options = AmplifyFirehoseClientOptions(
@@ -20,35 +29,66 @@ import 'package:aws_amazon_firehose/src/flush_strategy/flush_strategy.dart';
 /// {@endtemplate}
 class AmplifyFirehoseClientOptions {
   /// {@macro aws_amazon_firehose.amplify_firehose_client_options}
-  const AmplifyFirehoseClientOptions({
-    this.cacheMaxBytes = 5 * 1024 * 1024, // 5MB
-    this.maxRecords = 500,
+  AmplifyFirehoseClientOptions({
+    this.cacheMaxBytes = 5 * 1024 * 1024,
+    this.maxRecords = kFirehoseMaxRecordsPerBatch,
     this.maxRetries = 5,
     this.flushStrategy = const AmazonDataFirehoseInterval(),
     this.logger,
-  });
+  }) {
+    RangeError.checkValueInInterval(
+      cacheMaxBytes, 1, _maxCacheBytes, 'cacheMaxBytes',
+    );
+    RangeError.checkValueInInterval(
+      maxRecords, 1, kFirehoseMaxRecordsPerBatch, 'maxRecords',
+    );
+    RangeError.checkValueInInterval(
+      maxRetries, 0, _maxRetryAttempts, 'maxRetries',
+    );
+    if (flushStrategy case final AmazonDataFirehoseInterval interval) {
+      if (interval.interval.inMilliseconds < _minFlushIntervalMs ||
+          interval.interval.inMilliseconds > _maxFlushIntervalMs) {
+        throw RangeError.range(
+          interval.interval.inMilliseconds,
+          _minFlushIntervalMs,
+          _maxFlushIntervalMs,
+          'flushStrategy.interval',
+          'Flush interval must be between 1 second and 1 hour',
+        );
+      }
+    }
+  }
+
+  static const int _maxCacheBytes = 4 * 1024 * 1024 * 1024; // 4GB
+  static const int _maxRetryAttempts = 20;
+  static const int _minFlushIntervalMs = 1000; // 1 second
+  static const int _maxFlushIntervalMs = 3600000; // 1 hour
 
   /// Maximum size of the local cache in bytes.
   ///
-  /// Defaults to 5MB (5 * 1024 * 1024 bytes).
+  /// Must be between 1 byte and 4GB.
+  ///
+  /// Defaults to 5MB.
   final int cacheMaxBytes;
 
   /// Maximum number of records per batch sent to Firehose.
   ///
-  /// Amazon Data Firehose supports up to 500 records per PutRecordBatch call.
+  /// Must be between 1 and 500 (the Firehose PutRecordBatch limit).
   ///
   /// Defaults to 500.
   final int maxRecords;
 
   /// Maximum number of retry attempts for failed records.
   ///
-  /// Defaults to 5 retries.
+  /// Must be between 0 (no retries) and 20.
+  ///
+  /// Defaults to 5.
   final int maxRetries;
 
   /// Strategy for automatic flushing of cached records.
   ///
-  /// - [AmazonDataFirehoseInterval]: Flush at a fixed interval (default: 30s)
-  /// - [AmazonDataFirehoseNone]: Disable automatic flushing entirely
+  /// When using [AmazonDataFirehoseInterval], the interval must be
+  /// between 1 second and 1 hour.
   ///
   /// Defaults to [AmazonDataFirehoseInterval] with a 30-second interval.
   final AmazonDataFirehoseFlushStrategy flushStrategy;
