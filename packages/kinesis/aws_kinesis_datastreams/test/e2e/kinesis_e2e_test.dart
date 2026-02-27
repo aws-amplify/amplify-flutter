@@ -295,7 +295,7 @@ AWSCredentials _makeCredentials() {
 }
 
 /// Simple credentials provider for E2E tests.
-class _StaticProvider implements AWSCredentialsProvider<AWSCredentials> {
+class _StaticProvider implements AWSCredentialsProvider {
   const _StaticProvider(this._credentials);
   final AWSCredentials _credentials;
 

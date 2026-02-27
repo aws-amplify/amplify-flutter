@@ -53,7 +53,7 @@ class KinesisSender {
   /// {@macro aws_kinesis_datastreams.kinesis_sender}
   KinesisSender({
     required String region,
-    required foundation.AWSCredentialsProvider<foundation.AWSCredentials>
+    required foundation.AWSCredentialsProvider
         credentialsProvider,
     AWSHttpClient? httpClient,
   }) : _kinesisClient = WrappedKinesisClient(
