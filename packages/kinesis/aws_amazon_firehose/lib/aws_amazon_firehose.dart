@@ -11,13 +11,13 @@ export 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
         StaticCredentials,
         TemporaryCredentials,
         Logger;
+// V2 → V3 credentials bridge
+export 'package:amplify_foundation_dart_bridge/amplify_foundation_dart_bridge.dart';
 
 // Options
 export 'src/amazon_data_firehose_options.dart';
 // Main client
 export 'src/amplify_firehose_client.dart';
-// V2 → V3 credentials bridge
-export 'src/credentials/credentials_bridge.dart';
 // Exceptions
 export 'src/exception/amplify_firehose_exception.dart';
 // Flush strategies

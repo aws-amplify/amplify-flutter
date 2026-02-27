@@ -9,6 +9,7 @@ environment:
 dependencies:
   amplify_core: ^2.0.0
   amplify_foundation_dart: ^1.0.0
+  amplify_foundation_dart_bridge: ^1.0.0
   aws_common: ^0.7.0
   aws_signature_v4: ^0.6.0
   built_collection: ^5.1.0
