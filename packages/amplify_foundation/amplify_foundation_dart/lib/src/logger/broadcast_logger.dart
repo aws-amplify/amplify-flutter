@@ -14,7 +14,7 @@ import 'package:amplify_foundation_dart/src/logger/logger.dart';
 /// {@endtemplate}
 final class BroadcastLogger implements Logger {
   /// {@macro amplify_foundation_dart.broadcast_logger}
-  const BroadcastLogger({required this.name, required this.sinks});
+  BroadcastLogger({required this.name, required this.sinks});
 
   /// The name of this logger.
   final String name;
@@ -62,9 +62,7 @@ final class BroadcastLogger implements Logger {
       stackTrace: stackTrace,
     );
     for (final sink in sinks) {
-      if (sink.isEnabled(logLevel)) {
-        sink.emit(logMessage);
-      }
+      sink.emit(logMessage);
     }
   }
 }

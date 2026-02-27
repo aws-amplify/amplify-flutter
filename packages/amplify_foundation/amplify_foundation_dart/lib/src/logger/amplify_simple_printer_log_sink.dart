@@ -5,6 +5,7 @@ import 'package:amplify_foundation_dart/src/logger/log_level.dart';
 import 'package:amplify_foundation_dart/src/logger/log_message.dart';
 import 'package:amplify_foundation_dart/src/logger/log_sink.dart';
 import 'package:amplify_foundation_dart/src/util/print.dart';
+import 'package:uuid/uuid.dart';
 
 /// {@template amplify_foundation_dart.amplify_simple_printer_log_sink}
 /// A [LogSink] implementation that prints log messages to the console.
@@ -14,7 +15,11 @@ import 'package:amplify_foundation_dart/src/util/print.dart';
 /// {@endtemplate}
 final class AmplifySimplePrinterLogSink implements LogSink {
   /// {@macro amplify_foundation_dart.amplify_simple_printer_log_sink}
-  AmplifySimplePrinterLogSink({required this.logLevel});
+  AmplifySimplePrinterLogSink({required this.logLevel})
+    : id = 'AmplifySimplePrinterLogSink-${const Uuid().v4()}';
+
+  @override
+  final String id;
 
   /// The maximum log level that this sink will emit.
   final LogLevel logLevel;

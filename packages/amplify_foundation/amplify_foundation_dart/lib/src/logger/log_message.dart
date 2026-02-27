@@ -4,11 +4,11 @@
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 
 /// {@template amplify_foundation_dart.log_message}
-/// A class representing a single log message.
+/// A struct representing a single log message.
 /// {@endtemplate}
-final class LogMessage {
+class LogMessage {
   /// {@macro amplify_foundation_dart.log_message}
-  const LogMessage({
+  LogMessage({
     required this.level,
     required this.name,
     required this.content,
