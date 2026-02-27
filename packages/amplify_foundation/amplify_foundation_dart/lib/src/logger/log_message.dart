@@ -6,7 +6,7 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 /// {@template amplify_foundation_dart.log_message}
 /// A struct representing a single log message.
 /// {@endtemplate}
-class LogMessage {
+final class LogMessage {
   /// {@macro amplify_foundation_dart.log_message}
   LogMessage({
     required this.level,
