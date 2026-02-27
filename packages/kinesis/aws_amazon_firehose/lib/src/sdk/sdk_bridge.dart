@@ -17,7 +17,7 @@ class _CredentialsProviderAdapter
     implements amplify_core.AWSCredentialsProvider {
   const _CredentialsProviderAdapter(this._provider);
 
-  final foundation.AWSCredentialsProvider<foundation.AWSCredentials> _provider;
+  final foundation.AWSCredentialsProvider _provider;
 
   @override
   String get runtimeTypeName => '_CredentialsProviderAdapter';
@@ -70,7 +70,7 @@ class WrappedFirehoseClient implements FirehoseClient {
   WrappedFirehoseClient({
     required String region,
     Uri? baseUri,
-    required foundation.AWSCredentialsProvider<foundation.AWSCredentials>
+    required foundation.AWSCredentialsProvider
         credentialsProvider,
     AWSHttpClient? httpClient,
   })  : _base = FirehoseClient(

@@ -47,7 +47,7 @@ class AmplifyFirehoseClient {
   /// {@macro aws_amazon_firehose.amplify_firehose_client}
   AmplifyFirehoseClient({
     required String region,
-    required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
+    required AWSCredentialsProvider credentialsProvider,
     AmplifyFirehoseClientOptions? options,
     String? storagePath,
   }) : this._internal(
@@ -59,7 +59,7 @@ class AmplifyFirehoseClient {
 
   AmplifyFirehoseClient._internal({
     required String region,
-    required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
+    required AWSCredentialsProvider credentialsProvider,
     required AmplifyFirehoseClientOptions options,
     required String storagePath,
   })  : _region = region,

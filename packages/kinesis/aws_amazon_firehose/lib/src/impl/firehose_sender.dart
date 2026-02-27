@@ -49,7 +49,7 @@ class FirehoseSender {
   /// {@macro aws_amazon_firehose.firehose_sender}
   FirehoseSender({
     required String region,
-    required foundation.AWSCredentialsProvider<foundation.AWSCredentials>
+    required foundation.AWSCredentialsProvider
         credentialsProvider,
     AWSHttpClient? httpClient,
   }) : _firehoseClient = WrappedFirehoseClient(
