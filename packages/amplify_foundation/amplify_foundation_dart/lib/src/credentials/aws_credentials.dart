@@ -26,7 +26,7 @@ sealed class AWSCredentials {
 @JsonSerializable(fieldRename: FieldRename.snake)
 final class StaticCredentials implements AWSCredentials {
   /// {@macro amplify_foundation_dart.static_credentials}
-  StaticCredentials(this.accessKeyId, this.secretAccessKey);
+  const StaticCredentials(this.accessKeyId, this.secretAccessKey);
 
   /// Creates [StaticCredentials] from JSON.
   factory StaticCredentials.fromJson(Map<String, dynamic> json) =>
