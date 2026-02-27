@@ -66,7 +66,7 @@ class MyLogSink implements LogSink {
 class MyCredentialsProvider implements AWSCredentialsProvider {
   @override
   Future<AWSCredentials> resolve() async {
-    return StaticCredentials('accessKeyID', 'secretAccessKey');
+    return const StaticCredentials('accessKeyID', 'secretAccessKey');
   }
 }
 
@@ -103,7 +103,7 @@ class AmplifyCognitoClientConfig {
 class CognitoCredentialProvider implements AWSCredentialsProvider {
   @override
   Future<AWSCredentials> resolve() async {
-    return StaticCredentials('accessKeyID', 'secretAccessKey');
+    return const StaticCredentials('accessKeyID', 'secretAccessKey');
   }
 }
 
@@ -131,8 +131,9 @@ class UnknownAmplifyException extends AmplifyException {
 }
 
 class UploadResult {
-  UploadResult({required this.value});
-  String value;
+  const UploadResult({required this.value});
+
+  final String value;
 }
 
 class AmplifyS3ClientConfig {
@@ -171,6 +172,6 @@ class AmplifyS3Client {
   }
 
   Future<UploadResult> _upload(String file) async {
-    return UploadResult(value: 'Success!');
+    return const UploadResult(value: 'Success!');
   }
 }

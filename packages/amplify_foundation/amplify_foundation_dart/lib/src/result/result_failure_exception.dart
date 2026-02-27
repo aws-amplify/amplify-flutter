@@ -8,7 +8,7 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 /// {@endtemplate}
 class ResultFailureException extends AmplifyException {
   /// {@macro amplify_foundation_dart.result_failure_exception}
-  ResultFailureException({required super.cause})
+  const ResultFailureException({required super.cause})
     : super(
         message: 'result failed, there is no data available',
         recoverySuggestion:

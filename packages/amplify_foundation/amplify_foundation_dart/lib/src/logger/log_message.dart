@@ -8,7 +8,7 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 /// {@endtemplate}
 final class LogMessage {
   /// {@macro amplify_foundation_dart.log_message}
-  LogMessage({
+  const LogMessage({
     required this.level,
     required this.name,
     required this.content,

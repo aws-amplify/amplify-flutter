@@ -6,7 +6,7 @@
 /// {@endtemplate}
 abstract class AmplifyException implements Exception {
   /// {@macro amplify_foundation_dart.amplify_exception}
-  AmplifyException({
+  const AmplifyException({
     required this.message,
     required this.recoverySuggestion,
     this.cause,

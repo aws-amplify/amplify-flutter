@@ -82,7 +82,7 @@ void main() {
 
       const message = 'test message';
       final error = Object();
-      final stackTrace = MockStackTrace();
+      const stackTrace = MockStackTrace();
 
       logger.error(message, error, stackTrace);
 
@@ -140,7 +140,7 @@ void main() {
   group('LogMessage', () {
     test('fields are set correctly', () {
       final error = Exception('test');
-      final stackTrace = MockStackTrace();
+      const stackTrace = MockStackTrace();
 
       final message = LogMessage(
         level: LogLevel.warn,
@@ -158,7 +158,7 @@ void main() {
     });
 
     test('error and stackTrace default to null', () {
-      final message = LogMessage(
+      const message = LogMessage(
         level: LogLevel.info,
         name: 'test',
         content: 'hello',
@@ -217,4 +217,6 @@ void main() {
   });
 }
 
-class MockStackTrace implements StackTrace {}
+class MockStackTrace implements StackTrace {
+  const MockStackTrace();
+}
