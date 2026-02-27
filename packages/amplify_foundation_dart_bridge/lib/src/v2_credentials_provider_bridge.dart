@@ -23,7 +23,7 @@ import 'package:aws_common/aws_common.dart' as v2;
 /// ```
 /// {@endtemplate}
 class V2CredentialsProviderBridge
-    implements v3.AWSCredentialsProvider<v3.AWSCredentials> {
+    implements v3.AWSCredentialsProvider {
   /// {@macro amplify_foundation_dart_bridge.v2_credentials_provider_bridge}
   const V2CredentialsProviderBridge(this._v2Provider);
 

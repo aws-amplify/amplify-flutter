@@ -5,10 +5,8 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 
 /// A component which can emit logs.
 abstract interface class Logger {
-  Logger({required this.thresholdLevel});
-
   /// The minimum permissible LogLevel for which logs will be emitted
-  LogLevel thresholdLevel;
+  LogLevel get thresholdLevel;
 
   /// {@template amplify_foundation_dart.logger.error}
   /// Logs a message at `error` level.
@@ -65,13 +63,13 @@ class AmplifyLogger implements Logger {
   });
 
   @override
-  LogLevel thresholdLevel;
+  final LogLevel thresholdLevel;
 
   /// The name of the logger.
   final String name;
 
   /// An optional handler for processing log entries.
-  void Function(AmplifyLog)? logHandler;
+  final void Function(AmplifyLog)? logHandler;
 
   void _log(
     LogLevel level,
