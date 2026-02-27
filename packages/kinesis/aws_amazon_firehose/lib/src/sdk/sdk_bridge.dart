@@ -40,8 +40,30 @@ class _CredentialsProviderAdapter
   }
 }
 
+/// Wraps an [AWSHttpClient] to append a library-specific user agent
+/// component to every outgoing request.
+class _UserAgentHttpClient extends AWSBaseHttpClient {
+  _UserAgentHttpClient(this.baseClient);
+
+  @override
+  final AWSHttpClient baseClient;
+
+  @override
+  Future<AWSBaseHttpRequest> transformRequest(
+    AWSBaseHttpRequest request,
+  ) async {
+    request.headers.update(
+      AWSHeaders.platformUserAgent,
+      (value) => '$value ${WrappedFirehoseClient.userAgentComponent}',
+      ifAbsent: () => WrappedFirehoseClient.userAgentComponent,
+    );
+    return request;
+  }
+}
+
 /// {@template aws_amazon_firehose.sdk.wrapped_firehose_client}
-/// A wrapped [FirehoseClient] which allows mockable HttpClient
+/// A wrapped [FirehoseClient] which allows mockable HttpClient and
+/// injects a library-specific user agent component.
 /// {@endtemplate}
 class WrappedFirehoseClient implements FirehoseClient {
   /// {@macro aws_amazon_firehose.sdk.wrapped_firehose_client}
@@ -57,6 +79,9 @@ class WrappedFirehoseClient implements FirehoseClient {
           credentialsProvider: _CredentialsProviderAdapter(credentialsProvider),
         ),
         _httpClient = httpClient;
+
+  /// User agent component identifying this library.
+  static const userAgentComponent = 'aws-amazon-firehose-dart/0.1.0';
 
   final FirehoseClient _base;
   final AWSHttpClient? _httpClient;
@@ -78,8 +103,10 @@ class WrappedFirehoseClient implements FirehoseClient {
     return _base.putRecordBatch(
       input,
       client: client ??
-          _httpClient ??
-          _deps.getOrCreate<amplify_core.AmplifyHttpClient>(),
+          _UserAgentHttpClient(
+            _httpClient ??
+                _deps.getOrCreate<amplify_core.AmplifyHttpClient>(),
+          ),
       credentialsProvider: credentialsProvider,
     );
   }
