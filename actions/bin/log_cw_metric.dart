@@ -89,6 +89,8 @@ Future<void> logMetric() async {
     'smithy',
     'worker_bee',
     'amplify_flutter',
+    'amplify_foundation_dart_bridge',
+    'amplify_foundation_dart',
     'amplify_lints',
     'amplify_native_legacy_wrapper',
     'pub_server',
