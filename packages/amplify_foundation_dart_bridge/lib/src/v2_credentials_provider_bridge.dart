@@ -1,8 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    as v3;
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart' as v3;
 import 'package:aws_common/aws_common.dart' as v2;
 
 /// {@template amplify_foundation_dart_bridge.v2_credentials_provider_bridge}
@@ -22,8 +21,7 @@ import 'package:aws_common/aws_common.dart' as v2;
 /// final v3Provider = V2CredentialsProviderBridge(v2Provider);
 /// ```
 /// {@endtemplate}
-class V2CredentialsProviderBridge
-    implements v3.AWSCredentialsProvider {
+class V2CredentialsProviderBridge implements v3.AWSCredentialsProvider {
   /// {@macro amplify_foundation_dart_bridge.v2_credentials_provider_bridge}
   const V2CredentialsProviderBridge(this._v2Provider);
 
