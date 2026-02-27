@@ -204,6 +204,10 @@ mixin AuthenticatorTextField<
             suffixIcon: suffix,
             errorMaxLines: errorMaxLines,
             hintText: hintText,
+            // Workaround for Flutter issue where validation errors are not
+            // announced by screen readers on web unless helperText is set.
+            // See: https://github.com/flutter/flutter/issues/99715
+            helperText: ' ',
           ),
           maxLength: maxLength,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
