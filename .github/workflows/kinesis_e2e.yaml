@@ -1,0 +1,92 @@
+name: Kinesis E2E Tests
+on:
+  pull_request:
+    paths:
+      - "packages/kinesis/**"
+      - ".github/workflows/kinesis_e2e.yaml"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kinesis-data-streams-e2e:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+        with:
+          persist-credentials: false
+
+      - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94 # v1
+        with:
+          sdk: stable
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@04b98b3f9e85f563fb061be8751a0352327246b0 # 3.0.1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Fetch Kinesis E2E secrets
+        uses: aws-actions/aws-secretsmanager-get-secrets@022e8919774ecb75e8e375656d7b1898936ab878 # 1.0.4
+        with:
+          secret-ids: |
+            KINESIS_E2E,${{ secrets.KINESIS_E2E_SECRET_ARN }}
+          parse-json-secrets: true
+
+      - name: Install dependencies
+        run: dart pub get
+        working-directory: packages/kinesis/aws_kinesis_datastreams
+
+      - name: Run E2E tests
+        working-directory: packages/kinesis/aws_kinesis_datastreams
+        env:
+          TEST_ACCESS_KEY_ID: ${{ env.KINESIS_E2E_ACCESS_KEY_ID }}
+          TEST_SECRET_ACCESS_KEY: ${{ env.KINESIS_E2E_SECRET_ACCESS_KEY }}
+          TEST_REGION: ${{ secrets.AWS_REGION }}
+          TEST_STREAM_NAME: ${{ env.KINESIS_E2E_STREAM_NAME }}
+        run: dart test test/e2e/ --tags=e2e
+
+  firehose-e2e:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+        with:
+          persist-credentials: false
+
+      - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94 # v1
+        with:
+          sdk: stable
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@04b98b3f9e85f563fb061be8751a0352327246b0 # 3.0.1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Fetch Kinesis E2E secrets
+        uses: aws-actions/aws-secretsmanager-get-secrets@022e8919774ecb75e8e375656d7b1898936ab878 # 1.0.4
+        with:
+          secret-ids: |
+            KINESIS_E2E,${{ secrets.KINESIS_E2E_SECRET_ARN }}
+          parse-json-secrets: true
+
+      - name: Install dependencies
+        run: dart pub get
+        working-directory: packages/kinesis/aws_amazon_firehose
+
+      - name: Run E2E tests
+        working-directory: packages/kinesis/aws_amazon_firehose
+        env:
+          TEST_ACCESS_KEY_ID: ${{ env.KINESIS_E2E_ACCESS_KEY_ID }}
+          TEST_SECRET_ACCESS_KEY: ${{ env.KINESIS_E2E_SECRET_ACCESS_KEY }}
+          TEST_REGION: ${{ secrets.AWS_REGION }}
+          TEST_DELIVERY_STREAM_NAME: ${{ env.KINESIS_E2E_DELIVERY_STREAM_NAME }}
+        run: dart test test/e2e/ --tags=e2e
