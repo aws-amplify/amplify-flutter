@@ -7,8 +7,8 @@ library;
 // Amplify Exceptions
 export 'package:amplify_foundation_dart/src/amplify_exception/amplify_exception.dart';
 // AWS Credendials
-export 'package:amplify_foundation_dart/src/credentials/aws_credendials_provider.dart';
 export 'package:amplify_foundation_dart/src/credentials/aws_credentials.dart';
+export 'package:amplify_foundation_dart/src/credentials/aws_credentials_provider.dart';
 // Logger
 export 'package:amplify_foundation_dart/src/logger/amplify_log.dart';
 export 'package:amplify_foundation_dart/src/logger/log_level.dart';

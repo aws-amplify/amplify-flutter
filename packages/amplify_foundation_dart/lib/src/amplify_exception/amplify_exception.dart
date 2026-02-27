@@ -22,5 +22,6 @@ abstract class AmplifyException implements Exception {
   final Object? cause;
 
   @override
-  String toString() => 'AmplifyException: $message';
+  String toString() =>
+      'AmplifyException: $message\nRecovery suggestion: $recoverySuggestion';
 }
