@@ -6,7 +6,7 @@
 /// {@endtemplate}
 abstract class AmplifyException implements Exception {
   /// {@macro amplify_foundation_dart.amplify_exception}
-  const AmplifyException({
+  AmplifyException({
     required this.message,
     required this.recoverySuggestion,
     this.cause,
@@ -23,5 +23,5 @@ abstract class AmplifyException implements Exception {
 
   @override
   String toString() =>
-      '$runtimeType: $message\nRecovery suggestion: $recoverySuggestion';
+      'AmplifyException: $message\nRecovery suggestion: $recoverySuggestion';
 }

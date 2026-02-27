@@ -10,7 +10,7 @@ void main() {
       const accessKeyId = 'accessKeyId';
       const secretAccessKey = 'secretAccessKey';
 
-      const credential = StaticCredentials(accessKeyId, secretAccessKey);
+      final credential = StaticCredentials(accessKeyId, secretAccessKey);
 
       expect(credential.accessKeyId, accessKeyId);
       expect(credential.secretAccessKey, secretAccessKey);
@@ -20,7 +20,7 @@ void main() {
       const accessKeyId = 'accessKeyId';
       const secretAccessKey = 'secretAccessKey';
 
-      const credential = StaticCredentials(accessKeyId, secretAccessKey);
+      final credential = StaticCredentials(accessKeyId, secretAccessKey);
       final json = credential.toJson();
       final serializedCredential = StaticCredentials.fromJson(json);
 

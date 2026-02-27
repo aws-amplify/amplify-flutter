@@ -6,19 +6,17 @@ library;
 
 // Amplify Exceptions
 export 'package:amplify_foundation_dart/src/amplify_exception/amplify_exception.dart';
-// AWS Credentials
+// AWS Credendials
 export 'package:amplify_foundation_dart/src/credentials/aws_credentials.dart';
 export 'package:amplify_foundation_dart/src/credentials/aws_credentials_provider.dart';
 // Logger
-export 'package:amplify_foundation_dart/src/logger/amplify_logging.dart';
-export 'package:amplify_foundation_dart/src/logger/amplify_simple_printer_log_sink.dart';
-export 'package:amplify_foundation_dart/src/logger/broadcast_logger.dart';
+export 'package:amplify_foundation_dart/src/logger/amplify_log.dart';
 export 'package:amplify_foundation_dart/src/logger/log_level.dart';
-export 'package:amplify_foundation_dart/src/logger/log_message.dart';
-export 'package:amplify_foundation_dart/src/logger/log_sink.dart';
 export 'package:amplify_foundation_dart/src/logger/logger.dart';
+export 'package:amplify_foundation_dart/src/logger/logger_provider.dart';
 // Results
 export 'package:amplify_foundation_dart/src/result/result.dart';
+export 'package:amplify_foundation_dart/src/result/result_failure_exception.dart';
 // Utils
 export 'package:amplify_foundation_dart/src/util/globals.dart';
 export 'package:amplify_foundation_dart/src/util/print.dart';

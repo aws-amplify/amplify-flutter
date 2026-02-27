@@ -6,45 +6,85 @@ import 'package:test/test.dart';
 
 void main() {
   group('Result Tests', () {
-    group('Ok', () {
+    group('Success', () {
       const payload = 'payload';
-      const ok = Result.ok(payload);
+      const success = Success(payload);
 
-      test('value', () {
-        expect((ok as Ok<String>).value, payload);
+      test('data', () {
+        expect(success.data, payload);
       });
 
-      test('switch exhaustiveness', () {
-        final value = switch (ok) {
-          Ok(:final value) => value,
-          Error() => null,
-        };
-        expect(value, payload);
+      test('dataOrNull', () {
+        expect(success.dataOrNull, payload);
       });
 
-      test('toString', () {
-        expect(ok.toString(), 'Result<String>.ok(payload)');
+      test('dataOrThrow', () {
+        expect(() => success.dataOrThrow, returnsNormally);
+      });
+
+      test('errorOrNull', () {
+        expect(success.errorOrNull, null);
+      });
+
+      test('isFailure', () {
+        expect(success.isFailure, false);
+      });
+
+      test('isSuccess', () {
+        expect(success.isSuccess, true);
+      });
+
+      test('handle', () {
+        var onFailureCalls = 0;
+        var onSuccessCalls = 0;
+        success.handle(
+          onSuccess: (_) => onSuccessCalls++,
+          onFailure: (_) => onFailureCalls++,
+        );
+
+        expect(onSuccessCalls, 1);
+        expect(onFailureCalls, 0);
       });
     });
 
-    group('Error', () {
-      final exception = Exception('something went wrong');
-      final error = Result<String>.error(exception);
+    group('Failure', () {
+      final error = Exception('Exception');
+      final failure = Failure<Object, Exception>(error);
 
       test('error', () {
-        expect((error as Error<String>).error, exception);
+        expect(failure.error, error);
       });
 
-      test('switch exhaustiveness', () {
-        final value = switch (error) {
-          Ok(:final value) => value,
-          Error(:final error) => error.toString(),
-        };
-        expect(value, exception.toString());
+      test('dataOrNull', () {
+        expect(failure.dataOrNull, null);
       });
 
-      test('toString', () {
-        expect(error.toString(), contains('Result<String>.error'));
+      test('dataOrThrow', () {
+        expect(() => failure.dataOrThrow, throwsA(isA<Exception>()));
+      });
+
+      test('errorOrNull', () {
+        expect(failure.errorOrNull, error);
+      });
+
+      test('isFailure', () {
+        expect(failure.isFailure, true);
+      });
+
+      test('isSuccess', () {
+        expect(failure.isSuccess, false);
+      });
+
+      test('handle', () {
+        var onFailureCalls = 0;
+        var onSuccessCalls = 0;
+        failure.handle(
+          onSuccess: (_) => onSuccessCalls++,
+          onFailure: (_) => onFailureCalls++,
+        );
+
+        expect(onSuccessCalls, 0);
+        expect(onFailureCalls, 1);
       });
     });
   });
