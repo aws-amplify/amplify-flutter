@@ -2,7 +2,7 @@ name: amplify_foundation_dart_bridge
 description: Bridges V2 (amplify_core/aws_common) credential types to V3 (amplify_foundation_dart) types.
 version: 1.0.0
 homepage: https://docs.amplify.aws/flutter/
-repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_foundation_dart_bridge
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_foundation/amplify_foundation_dart_bridge
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
