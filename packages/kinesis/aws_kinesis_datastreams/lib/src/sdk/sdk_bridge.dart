@@ -81,7 +81,7 @@ class WrappedKinesisClient implements KinesisClient {
         _httpClient = httpClient;
 
   /// User agent component identifying this library.
-  static const userAgentComponent = 'aws-kinesis-datastreams-dart/0.1.0';
+  static const userAgentComponent = 'md/amplify-kinesis#0.1.0 lib/amplify-flutter#0.1.0';
 
   final KinesisClient _base;
   final AWSHttpClient? _httpClient;
