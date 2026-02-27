@@ -170,24 +170,26 @@ void main() {
   });
 
   group('AmplifyLogging', () {
+    late CapturingLogSink sink;
+
+    setUp(() {
+      sink = CapturingLogSink(logLevel: LogLevel.verbose);
+    });
+
     tearDown(() {
-      // Clean up any registered sinks between tests
-      AmplifyLogging.removeSink(CapturingLogSink(logLevel: LogLevel.verbose));
+      // Remove the registered sink to avoid leaking state between tests
+      AmplifyLogging.removeSink(sink);
     });
 
     test('logger broadcasts to registered sinks', () {
-      final sink = CapturingLogSink(logLevel: LogLevel.verbose);
       AmplifyLogging.addSink(sink);
       AmplifyLogging.logger('test').info('hello');
 
       expect(sink.messages, hasLength(1));
       expect(sink.messages.first.content, 'hello');
-
-      AmplifyLogging.removeSink(sink);
     });
 
     test('removeSink stops messages', () {
-      final sink = CapturingLogSink(logLevel: LogLevel.verbose);
       AmplifyLogging.addSink(sink);
       AmplifyLogging.removeSink(sink);
       AmplifyLogging.logger('test').info('hello');
