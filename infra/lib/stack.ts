@@ -5,11 +5,12 @@ import * as cdk from "aws-cdk-lib";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import { Construct } from "constructs";
 import {
-  AuthIntegrationTestStack,
-  AuthIntegrationTestStackEnvironmentProps,
+    AuthIntegrationTestStack,
+    AuthIntegrationTestStackEnvironmentProps,
 } from "./auth/stack";
 import { env } from "./common";
 import { GitHubStack } from "./github/github";
+import { KinesisTestResources } from "./kinesis/kinesis-resources";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -284,6 +285,9 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       }
     );
 
+    // Kinesis Data Streams & Firehose E2E test resources
+    const kinesis = new KinesisTestResources(this, "Kinesis");
+
     new cdk.CfnOutput(this, "Categories", {
       value: JSON.stringify({
         auth: {
@@ -295,6 +299,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
 
     new GitHubStack(this, "GitHub", {
       auth: auth.bucket,
+      kinesis,
       env,
     });
   }
