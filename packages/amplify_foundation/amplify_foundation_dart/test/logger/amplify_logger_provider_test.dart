@@ -9,7 +9,7 @@ void main() {
     test('new name returns new loggers', () {
       final loggerProvider = AmplifyLoggerProvider(
         createLogger: (name) {
-          return AmplifyNoOpLogger();
+          return BroadcastLogger(name: name, sinks: []);
         },
       );
 
@@ -22,10 +22,10 @@ void main() {
       expect(logger1, isNot(logger2));
     });
 
-    test('cached logger are returned', () {
+    test('cached loggers are returned', () {
       final loggerProvider = AmplifyLoggerProvider(
         createLogger: (name) {
-          return AmplifyNoOpLogger();
+          return BroadcastLogger(name: name, sinks: []);
         },
       );
 
@@ -43,7 +43,7 @@ void main() {
       AmplifyLoggerProvider(
         createLogger: (name) {
           expect(name, myName);
-          return AmplifyNoOpLogger();
+          return BroadcastLogger(name: name, sinks: []);
         },
       ).resolve(myName);
     });

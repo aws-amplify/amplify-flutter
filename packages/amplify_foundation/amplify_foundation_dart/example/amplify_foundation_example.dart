@@ -15,10 +15,16 @@ void main() async {
   print('End maxCustomization');
 }
 
-//Min Customization
+// Min Customization — register a simple printer sink and use AmplifyLogging
 Future<void> minCustomization() async {
-  final loggerProvider = AmplifySimplePrinterLoggerProvider();
-  //final loggerProvider = AmplifyNoOpLoggerProvider();
+  // Register a console log sink at info level
+  final logSink = AmplifySimplePrinterLogSink(logLevel: LogLevel.info);
+  AmplifyLogging.addSink(logSink);
+
+  final loggerProvider = AmplifyLoggerProvider(
+    createLogger: AmplifyLogging.logger,
+  );
+
   final cognitoConfig = AmplifyCognitoClientConfig(id: 'UserPoolId');
 
   final amplifyCognitoClient = AmplifyCognitoClient(
@@ -42,7 +48,21 @@ Future<void> minCustomization() async {
   );
 }
 
-//Max Customization
+// Max Customization — custom LogSink and LoggerProvider
+class MyLogSink implements LogSink {
+  @override
+  final String id = 'my-custom-sink';
+
+  @override
+  bool isEnabled(LogLevel logLevel) => true; // Accept all levels
+
+  @override
+  void emit(LogMessage message) {
+    // Custom sink logic — e.g., send to remote logging service
+    print('[${message.level.name}] ${message.name}: ${message.content}');
+  }
+}
+
 class MyCredentialsProvider implements AWSCredentialsProvider {
   @override
   Future<AWSCredentials> resolve() async {
@@ -50,22 +70,14 @@ class MyCredentialsProvider implements AWSCredentialsProvider {
   }
 }
 
-class MyLoggerProvider implements LoggerProvider {
-  @override
-  Logger resolve(String name) {
-    return AmplifyLogger(
-      name: name,
-      thresholdLevel: LogLevel.all,
-      logHandler: _logHandler,
-    );
-  }
-
-  void _logHandler(AmplifyLog log) {}
-}
-
 Future<void> maxCustomization() async {
   final credentialsProvider = MyCredentialsProvider();
-  final loggerProvider = MyLoggerProvider();
+
+  // Use a custom sink with a BroadcastLogger
+  final customSink = MyLogSink();
+  final loggerProvider = AmplifyLoggerProvider(
+    createLogger: (name) => BroadcastLogger(name: name, sinks: [customSink]),
+  );
 
   final s3Config = AmplifyS3ClientConfig(id: 'S3BucketId');
 
@@ -82,7 +94,7 @@ Future<void> maxCustomization() async {
   );
 }
 
-//Cognito Client Code
+// Cognito Client Code
 class AmplifyCognitoClientConfig {
   AmplifyCognitoClientConfig({required this.id});
   String id;
@@ -109,7 +121,7 @@ class AmplifyCognitoClient {
   }
 }
 
-//S3 Client Code
+// S3 Client Code
 class UnknownAmplifyException extends AmplifyException {
   UnknownAmplifyException({super.cause})
     : super(
@@ -159,9 +171,6 @@ class AmplifyS3Client {
   }
 
   Future<UploadResult> _upload(String file) async {
-    // final credentials = await awsCredentialsProvider.resolve();
-    // final id = config.id;
-
     return UploadResult(value: 'Success!');
   }
 }
