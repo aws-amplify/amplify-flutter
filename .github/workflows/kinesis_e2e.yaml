@@ -38,6 +38,31 @@ jobs:
             KINESIS_E2E,${{ secrets.KINESIS_E2E_SECRET_ARN }}
           parse-json-secrets: true
 
+      - name: Create pubspec overrides
+        working-directory: packages/kinesis/aws_kinesis_datastreams
+        run: |
+          cat > pubspec_overrides.yaml << 'EOF'
+          dependency_overrides:
+            amplify_core:
+              path: ../../amplify_core
+            amplify_db_common_dart:
+              path: ../../common/amplify_db_common_dart
+            amplify_foundation_dart:
+              path: ../../amplify_foundation/amplify_foundation_dart
+            amplify_foundation_dart_bridge:
+              path: ../../amplify_foundation/amplify_foundation_dart_bridge
+            amplify_lints:
+              path: ../../amplify_lints
+            aws_common:
+              path: ../../aws_common
+            aws_signature_v4:
+              path: ../../aws_signature_v4
+            smithy:
+              path: ../../smithy/smithy
+            smithy_aws:
+              path: ../../smithy/smithy_aws
+          EOF
+
       - name: Install dependencies
         run: dart pub get
         working-directory: packages/kinesis/aws_kinesis_datastreams
@@ -77,6 +102,27 @@ jobs:
           secret-ids: |
             KINESIS_E2E,${{ secrets.KINESIS_E2E_SECRET_ARN }}
           parse-json-secrets: true
+
+      - name: Create pubspec overrides
+        working-directory: packages/kinesis/aws_amazon_firehose
+        run: |
+          cat > pubspec_overrides.yaml << 'EOF'
+          dependency_overrides:
+            amplify_core:
+              path: ../../amplify_core
+            amplify_foundation_dart:
+              path: ../../amplify_foundation/amplify_foundation_dart
+            amplify_foundation_dart_bridge:
+              path: ../../amplify_foundation/amplify_foundation_dart_bridge
+            aws_common:
+              path: ../../aws_common
+            aws_signature_v4:
+              path: ../../aws_signature_v4
+            smithy:
+              path: ../../smithy/smithy
+            smithy_aws:
+              path: ../../smithy/smithy_aws
+          EOF
 
       - name: Install dependencies
         run: dart pub get
