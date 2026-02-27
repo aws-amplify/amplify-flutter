@@ -59,4 +59,4 @@ class MockRecordClient extends Mock implements RecordClient {}
 
 /// Fake implementation of [foundation.AWSCredentialsProvider] for testing.
 class FakeAWSCredentialsProvider extends Fake
-    implements foundation.AWSCredentialsProvider<foundation.AWSCredentials> {}
+    implements foundation.AWSCredentialsProvider {}

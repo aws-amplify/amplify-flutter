@@ -50,7 +50,7 @@ class AmplifyKinesisClient {
   /// {@macro aws_kinesis_datastreams.amplify_kinesis_client}
   AmplifyKinesisClient({
     required String region,
-    required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
+    required AWSCredentialsProvider credentialsProvider,
     AmplifyKinesisClientOptions? options,
     String? storagePath,
   }) : this._internal(
@@ -62,7 +62,7 @@ class AmplifyKinesisClient {
 
   AmplifyKinesisClient._internal({
     required String region,
-    required AWSCredentialsProvider<AWSCredentials> credentialsProvider,
+    required AWSCredentialsProvider credentialsProvider,
     required AmplifyKinesisClientOptions options,
     required String storagePath,
   })  : _region = region,
