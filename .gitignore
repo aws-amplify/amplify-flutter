@@ -45,3 +45,4 @@ amplify_outputs*.dart
 
 # Custom Actions output
 **/*.cjs.deps
+.flutter-plugins-dependencies
