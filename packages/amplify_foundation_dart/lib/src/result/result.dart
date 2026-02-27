@@ -43,7 +43,7 @@ sealed class Result<T, E extends Object> {
 /// {@template amplify_foundation_dart.success}
 /// A successful result containing data.
 /// {@endtemplate}
-class Success<T, E extends Object> implements Result<T, E> {
+final class Success<T, E extends Object> implements Result<T, E> {
   /// {@macro amplify_foundation_dart.success}
   const Success(this.data);
 
@@ -74,7 +74,7 @@ class Success<T, E extends Object> implements Result<T, E> {
 /// {@template amplify_foundation_dart.failure}
 /// A failed result containing an error.
 /// {@endtemplate}
-class Failure<T, E extends Object> implements Result<T, E> {
+final class Failure<T, E extends Object> implements Result<T, E> {
   /// {@macro amplify_foundation_dart.failure}
   const Failure(this.error);
 

@@ -6,9 +6,9 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 /// {@template amplify_foundation_dart.aws_credentials_provider}
 /// A provider for AWS credentials.
 /// {@endtemplate}
-abstract interface class AWSCredentialsProvider<T extends AWSCredentials> {
+abstract interface class AWSCredentialsProvider {
   /// {@template amplify_foundation_dart.aws_credentials_provider.resolve}
   /// Resolves and returns AWS credentials.
   /// {@endtemplate}
-  Future<T> resolve();
+  Future<AWSCredentials> resolve();
 }
