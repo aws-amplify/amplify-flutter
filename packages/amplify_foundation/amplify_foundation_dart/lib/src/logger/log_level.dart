@@ -2,10 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// An enumeration of the different levels of logging.
-/// The levels are progressive, with lower-value items being lower priority
+///
+/// The levels are progressive, with lower-value items being higher priority
 /// than higher-value items. For example, `info` is lower priority than `warn`
-/// or `error`.
-enum LogLevel {
+/// or `error`. At a given level, only log messages of higher level (lower in
+/// value) are allowed.
+enum LogLevel implements Comparable<LogLevel> {
   /// No logging.
   none(0),
 
@@ -22,19 +24,25 @@ enum LogLevel {
   debug(4),
 
   /// Verbose level logging.
-  verbose(5),
-
-  /// All logging levels.
-  all(6);
+  verbose(5);
 
   const LogLevel(this.value);
 
   /// The numeric value of the log level.
   final int value;
 
-  /// Check if this log level is within the threshold (less than or equal to)
-  /// Returns true if this level should be logged given the threshold
-  bool shouldLog(LogLevel logLevel) {
-    return logLevel.value <= value;
-  }
+  @override
+  int compareTo(LogLevel other) => value.compareTo(other.value);
+
+  /// Returns true if [other] is less than or equal to this level.
+  bool operator <(LogLevel other) => value < other.value;
+
+  /// Returns true if [other] is less than or equal to this level.
+  bool operator <=(LogLevel other) => value <= other.value;
+
+  /// Returns true if [other] is greater than this level.
+  bool operator >(LogLevel other) => value > other.value;
+
+  /// Returns true if [other] is greater than or equal to this level.
+  bool operator >=(LogLevel other) => value >= other.value;
 }
