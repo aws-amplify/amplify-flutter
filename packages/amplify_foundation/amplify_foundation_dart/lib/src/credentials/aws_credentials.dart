@@ -48,7 +48,7 @@ final class StaticCredentials implements AWSCredentials {
 @JsonSerializable(fieldRename: FieldRename.snake)
 final class TemporaryCredentials implements AWSCredentials {
   /// {@macro amplify_foundation_dart.temporary_credentials}
-  TemporaryCredentials(
+  const TemporaryCredentials(
     this.accessKeyId,
     this.secretAccessKey,
     this.sessionToken,
