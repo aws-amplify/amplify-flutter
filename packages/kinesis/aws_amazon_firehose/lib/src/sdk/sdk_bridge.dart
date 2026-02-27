@@ -81,7 +81,7 @@ class WrappedFirehoseClient implements FirehoseClient {
         _httpClient = httpClient;
 
   /// User agent component identifying this library.
-  static const userAgentComponent = 'aws-amazon-firehose-dart/0.1.0';
+  static const userAgentComponent = 'md/amplify-kinesis#0.1.0 lib/amplify-flutter#0.1.0';
 
   final FirehoseClient _base;
   final AWSHttpClient? _httpClient;
