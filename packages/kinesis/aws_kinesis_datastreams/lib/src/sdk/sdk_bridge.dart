@@ -40,8 +40,30 @@ class _CredentialsProviderAdapter
   }
 }
 
+/// Wraps an [AWSHttpClient] to append a library-specific user agent
+/// component to every outgoing request.
+class _UserAgentHttpClient extends AWSBaseHttpClient {
+  _UserAgentHttpClient(this.baseClient);
+
+  @override
+  final AWSHttpClient baseClient;
+
+  @override
+  Future<AWSBaseHttpRequest> transformRequest(
+    AWSBaseHttpRequest request,
+  ) async {
+    request.headers.update(
+      AWSHeaders.platformUserAgent,
+      (value) => '$value ${WrappedKinesisClient.userAgentComponent}',
+      ifAbsent: () => WrappedKinesisClient.userAgentComponent,
+    );
+    return request;
+  }
+}
+
 /// {@template aws_kinesis_datastreams.sdk.wrapped_kinesis_client}
-/// A wrapped [KinesisClient] which allows mockable HttpClient
+/// A wrapped [KinesisClient] which allows mockable HttpClient and
+/// injects a library-specific user agent component.
 /// {@endtemplate}
 class WrappedKinesisClient implements KinesisClient {
   /// {@macro aws_kinesis_datastreams.sdk.wrapped_kinesis_client}
@@ -57,6 +79,9 @@ class WrappedKinesisClient implements KinesisClient {
           credentialsProvider: _CredentialsProviderAdapter(credentialsProvider),
         ),
         _httpClient = httpClient;
+
+  /// User agent component identifying this library.
+  static const userAgentComponent = 'aws-kinesis-datastreams-dart/0.1.0';
 
   final KinesisClient _base;
   final AWSHttpClient? _httpClient;
@@ -78,8 +103,10 @@ class WrappedKinesisClient implements KinesisClient {
     return _base.putRecords(
       input,
       client: client ??
-          _httpClient ??
-          _deps.getOrCreate<amplify_core.AmplifyHttpClient>(),
+          _UserAgentHttpClient(
+            _httpClient ??
+                _deps.getOrCreate<amplify_core.AmplifyHttpClient>(),
+          ),
       credentialsProvider: credentialsProvider,
     );
   }
