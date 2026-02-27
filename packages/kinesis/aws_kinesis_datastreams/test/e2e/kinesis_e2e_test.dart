@@ -63,8 +63,10 @@ void main() {
   });
 
   tearDown(() async {
-    await client.clearCache();
-    await client.close();
+    if (!client.isClosed) {
+      await client.clearCache();
+      await client.close();
+    }
   });
 
   tearDownAll(() async {
