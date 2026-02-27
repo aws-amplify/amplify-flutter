@@ -1,7 +1,3 @@
-# amplify_foundation_dart
+# Amplify Foundation Dart
 
 Common types and utilities for Amplify packages.
-
-## Getting Started
-
-### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.

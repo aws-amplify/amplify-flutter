@@ -2,7 +2,7 @@ name: amplify_foundation_dart
 description: Common types and utilities used across Amplify packages.
 version: 1.0.0
 homepage: https://docs.amplify.aws/flutter/
-repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_foundation/amplify_foundation_dart
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_foundation_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:

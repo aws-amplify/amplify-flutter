@@ -26,7 +26,7 @@ sealed class AWSCredentials {
 @JsonSerializable(fieldRename: FieldRename.snake)
 final class StaticCredentials implements AWSCredentials {
   /// {@macro amplify_foundation_dart.static_credentials}
-  const StaticCredentials(this.accessKeyId, this.secretAccessKey);
+  StaticCredentials(this.accessKeyId, this.secretAccessKey);
 
   /// Creates [StaticCredentials] from JSON.
   factory StaticCredentials.fromJson(Map<String, dynamic> json) =>
@@ -48,7 +48,7 @@ final class StaticCredentials implements AWSCredentials {
 @JsonSerializable(fieldRename: FieldRename.snake)
 final class TemporaryCredentials implements AWSCredentials {
   /// {@macro amplify_foundation_dart.temporary_credentials}
-  const TemporaryCredentials(
+  TemporaryCredentials(
     this.accessKeyId,
     this.secretAccessKey,
     this.sessionToken,
