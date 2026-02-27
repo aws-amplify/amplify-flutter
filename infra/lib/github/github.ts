@@ -17,18 +17,12 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as secrets from "aws-cdk-lib/aws-secretsmanager";
 import * as cr from "aws-cdk-lib/custom-resources";
 import { Construct } from "constructs";
-import { KinesisTestResources } from "../kinesis/kinesis-resources";
 
 export interface GitHubStackProps extends StackProps {
   /**
    * The Auth configuration bucket.
    */
   auth: s3.IBucket;
-
-  /**
-   * Kinesis E2E test resources (stream, delivery stream, IAM credentials).
-   */
-  kinesis: KinesisTestResources;
 }
 
 /**
@@ -38,8 +32,7 @@ export class GitHubStack extends Stack {
   constructor(scope: Construct, id: string, props: GitHubStackProps) {
     super(scope, id, props);
 
-    // const { analytics, auth, storage } = props;
-    const { auth, kinesis } = props;
+    const { auth } = props;
 
     const afsSecrets = new secrets.Secret(this, "AfsSecrets", {
       secretName: "afs",
@@ -138,7 +131,7 @@ export class GitHubStack extends Stack {
       },
     });
 
-    for (const resource of [auth, afsSecrets, kinesis.secret]) {
+    for (const resource of [auth, afsSecrets]) {
       resource.grantRead(gitHubRole);
     }
 
