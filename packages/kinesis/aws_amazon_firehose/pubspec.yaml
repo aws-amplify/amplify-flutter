@@ -4,7 +4,7 @@ version: 0.1.0
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/kinesis/aws_amazon_firehose
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.6.0
 
 dependencies:
   amplify_core: ^2.0.0
