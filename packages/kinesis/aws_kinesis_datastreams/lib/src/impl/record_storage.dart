@@ -43,7 +43,7 @@ class RecordStorage {
   /// Uses window functions to efficiently limit at the database level.
   Future<List<StoredRecord>> getRecordsBatch({
     int maxCount = 500,
-    int maxBytes = 5 * 1024 * 1024,
+    int maxBytes = 10 * 1024 * 1024, // 10 MiB for Kinesis PutRecords
   }) async {
     // Use window functions to compute row number and running size,
     // then filter to get records within both limits.

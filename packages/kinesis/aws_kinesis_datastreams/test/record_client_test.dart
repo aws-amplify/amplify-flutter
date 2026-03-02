@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
@@ -10,6 +11,7 @@ import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams/src/impl/record_client.dart';
 import 'package:aws_kinesis_datastreams/src/impl/record_storage.dart';
+import 'package:aws_kinesis_datastreams/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams/src/model/flush_data.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
@@ -98,6 +100,77 @@ void main() {
             ),
           ),
           throwsA(isA<KinesisLimitExceededException>()),
+        );
+      });
+
+      test('throws KinesisRecordTooLargeException when record exceeds 10 MiB', () async {
+        // 10 MiB limit applies to partition key + data blob combined
+        final partitionKey = 'pk';
+        final partitionKeyBytes = utf8.encode(partitionKey).length;
+        final oversizedData = Uint8List(kKinesisMaxRecordBytes - partitionKeyBytes + 1);
+
+        expect(
+          () => client.record(
+            KinesisRecord(
+              data: oversizedData,
+              partitionKey: partitionKey,
+              streamName: 'stream',
+            ),
+          ),
+          throwsA(isA<KinesisRecordTooLargeException>()),
+        );
+      });
+
+      test('accepts record exactly at 10 MiB limit (partition key + data)', () async {
+        // Need a larger cache for this test
+        final largeDb = createTestDatabase();
+        final largeStorage = RecordStorage(
+          database: largeDb,
+          maxCacheBytes: 20 * 1024 * 1024, // 20MB cache
+        );
+        final largeScheduler = AutoFlushScheduler(
+          strategy: const KinesisDataStreamsInterval(
+            interval: Duration(hours: 1),
+          ),
+          onFlush: () async {},
+        );
+        final largeClient = RecordClient(
+          storage: largeStorage,
+          sender: _TestKinesisSender(),
+          scheduler: largeScheduler,
+          maxRetries: 3,
+        );
+
+        final partitionKey = 'pk';
+        final partitionKeyBytes = utf8.encode(partitionKey).length;
+        final exactLimitData = Uint8List(kKinesisMaxRecordBytes - partitionKeyBytes);
+
+        await largeClient.record(
+          KinesisRecord(
+            data: exactLimitData,
+            partitionKey: partitionKey,
+            streamName: 'stream',
+          ),
+        );
+
+        final records = await largeStorage.getRecordsBatch();
+        expect(records, hasLength(1));
+
+        await largeClient.close();
+      });
+
+      test('dataSize includes partition key size', () {
+        final partitionKey = 'test-partition-key';
+        final data = Uint8List.fromList([1, 2, 3]);
+        final record = KinesisRecord(
+          data: data,
+          partitionKey: partitionKey,
+          streamName: 'stream',
+        );
+
+        expect(
+          record.dataSize,
+          equals(data.length + utf8.encode(partitionKey).length),
         );
       });
     });

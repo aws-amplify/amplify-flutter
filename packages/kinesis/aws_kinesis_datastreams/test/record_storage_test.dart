@@ -40,7 +40,7 @@ void main() {
         expect(retrieved.first.streamName, equals('test-stream'));
         expect(retrieved.first.partitionKey, equals('test-partition'));
         expect(retrieved.first.data, equals(Uint8List.fromList([1, 2, 3, 4, 5])));
-        expect(retrieved.first.dataSize, equals(5));
+        expect(retrieved.first.dataSize, equals(19));
         expect(retrieved.first.retryCount, equals(0));
       });
     });
@@ -225,7 +225,8 @@ void main() {
         );
 
         final size = await storage.getCurrentCacheSize();
-        expect(size, equals(350));
+        // dataSize includes partition key: (100+4) + (200+4) + (50+4) = 362
+        expect(size, equals(362));
       });
 
       test('returns 0 for empty database', () async {
