@@ -232,6 +232,29 @@ void main() {
       await badClient.flush();
       await badClient.close();
     });
+
+    test('invalid stream records do not block valid stream flushes', () async {
+      // Arrange - record to a non-existent stream first
+      await client.record(
+        data: Uint8List.fromList(utf8.encode('{"bad": "record"}')),
+        deliveryStreamName: 'non-existent-delivery-stream-12345',
+      );
+
+      // Flush once — the invalid record should fail but not crash
+      final firstFlush = await client.flush();
+      expect(firstFlush.recordsFlushed, equals(0));
+
+      // Now record to the valid stream
+      await client.record(
+        data: Uint8List.fromList(utf8.encode('{"good": "record"}')),
+        deliveryStreamName: testDeliveryStreamName,
+      );
+
+      // Flush again — the valid record should succeed even though
+      // the invalid record is still stranded in the DB
+      final secondFlush = await client.flush();
+      expect(secondFlush.recordsFlushed, equals(1));
+    });
   });
 
   group('Persistence', () {

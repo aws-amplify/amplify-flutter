@@ -444,6 +444,74 @@ void main() {
         expect(records, isEmpty);
         expect(callCount, equals(2));
       });
+
+      test('invalid stream records do not block valid stream flushes', () async {
+        // Use a larger cache to hold both records
+        final testDb = createTestDatabase();
+        final testStorage = RecordStorage(
+          database: testDb,
+          maxCacheBytes: 1024,
+        );
+        final testSender = _TestFirehoseSender();
+        final testScheduler = AutoFlushScheduler(
+          strategy: const AmazonDataFirehoseInterval(
+            interval: Duration(hours: 1),
+          ),
+          onFlush: () async {},
+        );
+        final testClient = RecordClient(
+          storage: testStorage,
+          sender: testSender,
+          scheduler: testScheduler,
+          maxRetries: 3,
+        );
+
+        // Sender throws for invalid stream, succeeds for valid stream
+        testSender.streamResultProvider = (streamName, records) {
+          if (streamName == 'invalid-stream') {
+            throw Exception('ResourceNotFoundException');
+          }
+          return PutRecordBatchResult(
+            successfulRecordIndices: List.generate(records.length, (i) => i),
+            failedRecordIndices: [],
+            retryableRecordIndices: [],
+          );
+        };
+
+        // Record to invalid stream
+        await testClient.record(
+          FirehoseDataRecord(
+            data: Uint8List.fromList([1, 2, 3]),
+            streamName: 'invalid-stream',
+          ),
+        );
+
+        // First flush — invalid record fails, retry count incremented
+        final firstFlush = await testClient.flush();
+        expect(firstFlush.recordsFlushed, equals(0));
+
+        // Record to valid stream
+        await testClient.record(
+          FirehoseDataRecord(
+            data: Uint8List.fromList([4, 5, 6]),
+            streamName: 'valid-stream',
+          ),
+        );
+
+        // Second flush — valid record should succeed even though
+        // the invalid record is still in the DB
+        final secondFlush = await testClient.flush();
+        expect(secondFlush.recordsFlushed, equals(1));
+
+        // Verify the valid-stream call succeeded
+        final validCalls = testSender.putRecordBatchCalls
+            .where((c) => c.streamName == 'valid-stream')
+            .toList();
+        expect(validCalls, hasLength(1));
+        expect(validCalls.first.records, hasLength(1));
+
+        await testClient.close();
+      });
     });
 
     group('clearCache()', () {
@@ -503,6 +571,7 @@ class _TestFirehoseSender implements FirehoseSender {
   final List<_PutRecordBatchCall> putRecordBatchCalls = [];
   PutRecordBatchResult? nextResult;
   PutRecordBatchResult Function(List<FirehoseSenderRecord> records)? resultProvider;
+  PutRecordBatchResult Function(String streamName, List<FirehoseSenderRecord> records)? streamResultProvider;
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
@@ -513,6 +582,10 @@ class _TestFirehoseSender implements FirehoseSender {
     required List<FirehoseSenderRecord> records,
   }) async {
     putRecordBatchCalls.add(_PutRecordBatchCall(streamName: deliveryStreamName, records: records));
+
+    if (streamResultProvider != null) {
+      return streamResultProvider!(deliveryStreamName, records);
+    }
 
     if (resultProvider != null) {
       return resultProvider!(records);
