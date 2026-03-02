@@ -41,21 +41,35 @@ void main() {
       expect(temp.expiration, equals(expiration));
     });
 
-    test('defaults expiration to 1 hour when not provided', () async {
-      const v2Creds = v2.AWSCredentials(
-        'accessKey',
-        'secretKey',
-        'sessionToken',
-      );
-      const v2Provider = v2.AWSCredentialsProvider(v2Creds);
-      const bridge = V2CredentialsProviderBridge(v2Provider);
+    test(
+      'throws when session token is present but expiration is null',
+      () async {
+        const v2Creds = v2.AWSCredentials(
+          'accessKey',
+          'secretKey',
+          'sessionToken',
+        );
+        const v2Provider = v2.AWSCredentialsProvider(v2Creds);
+        const bridge = V2CredentialsProviderBridge(v2Provider);
 
-      final before = DateTime.now().add(const Duration(minutes: 59));
-      final v3Creds = await bridge.resolve() as v3.TemporaryCredentials;
-      final after = DateTime.now().add(const Duration(hours: 1, minutes: 1));
+        expect(bridge.resolve(), throwsStateError);
+      },
+    );
 
-      expect(v3Creds.expiration.isAfter(before), isTrue);
-      expect(v3Creds.expiration.isBefore(after), isTrue);
-    });
+    test(
+      'throws when expiration is present but session token is null',
+      () async {
+        final v2Creds = v2.AWSCredentials(
+          'accessKey',
+          'secretKey',
+          null,
+          DateTime.now().add(const Duration(hours: 1)),
+        );
+        final v2Provider = v2.AWSCredentialsProvider(v2Creds);
+        final bridge = V2CredentialsProviderBridge(v2Provider);
+
+        expect(bridge.resolve(), throwsStateError);
+      },
+    );
   });
 }
