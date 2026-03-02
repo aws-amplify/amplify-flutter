@@ -30,12 +30,28 @@ class V2CredentialsProviderBridge implements v3.AWSCredentialsProvider {
   @override
   Future<v3.AWSCredentials> resolve() async {
     final creds = await _v2Provider.retrieve();
-    if (creds.sessionToken != null) {
+    final sessionToken = creds.sessionToken;
+    final expiration = creds.expiration;
+
+    if (sessionToken != null && expiration == null) {
+      throw StateError(
+        'Credentials with a session token must include an expiration, '
+        'but expiration was null.',
+      );
+    }
+    if (sessionToken == null && expiration != null) {
+      throw StateError(
+        'Credentials with an expiration must include a session token, '
+        'but session token was null.',
+      );
+    }
+
+    if (sessionToken != null && expiration != null) {
       return v3.TemporaryCredentials(
         creds.accessKeyId,
         creds.secretAccessKey,
-        creds.sessionToken!,
-        creds.expiration ?? DateTime.now().add(const Duration(hours: 1)),
+        sessionToken,
+        expiration,
       );
     }
     return v3.StaticCredentials(creds.accessKeyId, creds.secretAccessKey);
