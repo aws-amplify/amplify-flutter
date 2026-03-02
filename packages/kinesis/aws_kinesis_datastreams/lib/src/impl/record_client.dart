@@ -9,6 +9,7 @@ import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams/src/impl/record_storage.dart';
+import 'package:aws_kinesis_datastreams/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams/src/model/flush_data.dart';
 
@@ -40,8 +41,8 @@ class RecordClient {
   bool _closed = false;
   bool _flushing = false;
 
-  /// Maximum batch size in bytes (5MB Kinesis limit).
-  static const int maxBatchSizeBytes = 5 * 1024 * 1024;
+  /// Maximum batch size in bytes (10 MiB Kinesis PutRecords limit).
+  static const int maxBatchSizeBytes = 10 * 1024 * 1024;
 
   /// Whether the client is currently enabled.
   bool get isEnabled => _enabled;
@@ -50,9 +51,21 @@ class RecordClient {
   bool get isClosed => _closed;
 
   /// Records data to the local cache.
+  ///
+  /// Throws [ClientClosedException] if the client has been closed.
+  /// Throws [KinesisRecordTooLargeException] if the record exceeds the
+  /// per-record size limit (10 MiB, partition key + data blob).
+  /// Throws [KinesisLimitExceededException] if the cache is full.
   Future<void> record(KinesisRecord record) async {
     if (_closed) throw ClientClosedException();
     if (!_enabled) return;
+
+    if (record.dataSize > kKinesisMaxRecordBytes) {
+      throw KinesisRecordTooLargeException(
+        recordBytes: record.dataSize,
+        maxBytes: kKinesisMaxRecordBytes,
+      );
+    }
 
     final currentSize = await _storage.getCurrentCacheSize();
     if (currentSize + record.dataSize > _storage.maxCacheBytes) {

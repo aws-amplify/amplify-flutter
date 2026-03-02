@@ -126,7 +126,7 @@ void main() {
         expect(captured.data, equals(data));
         expect(captured.partitionKey, equals('test-partition'));
         expect(captured.streamName, equals('test-stream'));
-        expect(captured.dataSize, equals(5));
+        expect(captured.dataSize, equals(19));
       });
 
       test('creates record with correct data size', () async {
@@ -145,7 +145,7 @@ void main() {
             .captured
             .single as KinesisRecord;
 
-        expect(captured.dataSize, equals(1000));
+        expect(captured.dataSize, equals(1002));
       });
     });
 

@@ -9,8 +9,17 @@ import 'package:aws_kinesis_datastreams/src/flush_strategy/flush_strategy.dart';
 /// Maximum number of records per Kinesis PutRecords call.
 const int kKinesisMaxRecordsPerBatch = 500;
 
-/// Maximum batch payload size for Kinesis PutRecords (5 MB).
-const int kKinesisMaxBatchBytes = 5 * 1024 * 1024;
+/// Maximum batch payload size for Kinesis PutRecords (10 MiB).
+///
+/// Per AWS docs, the total size of a PutRecords request (including partition
+/// keys and data blobs) must not exceed 10 MiB.
+const int kKinesisMaxBatchBytes = 10 * 1024 * 1024;
+
+/// Maximum size of a single Kinesis record (10 MiB, partition key + data blob).
+///
+/// Per AWS docs: "The record size limit applies to the total size of the
+/// partition key and data blob."
+const int kKinesisMaxRecordBytes = 10 * 1024 * 1024;
 
 /// {@template aws_kinesis_datastreams.amplify_kinesis_client_options}
 /// Configuration options for [AmplifyKinesisClient].

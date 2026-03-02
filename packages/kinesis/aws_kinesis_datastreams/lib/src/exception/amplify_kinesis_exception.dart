@@ -88,6 +88,25 @@ class KinesisNetworkException extends AmplifyKinesisException {
         );
 }
 
+/// {@template aws_kinesis_datastreams.kinesis_record_too_large_exception}
+/// Thrown when a single record exceeds the Kinesis per-record size limit
+/// (10 MiB, partition key + data blob combined).
+/// {@endtemplate}
+class KinesisRecordTooLargeException extends AmplifyKinesisException {
+  /// {@macro aws_kinesis_datastreams.kinesis_record_too_large_exception}
+  KinesisRecordTooLargeException({
+    required int recordBytes,
+    required int maxBytes,
+  }) : super(
+          message:
+              'Record size ($recordBytes bytes) exceeds the Kinesis '
+              'per-record limit ($maxBytes bytes). The limit applies to the '
+              'total size of the partition key and data blob.',
+          recoverySuggestion:
+              'Reduce the record payload size or use a shorter partition key.',
+        );
+}
+
 /// {@template aws_kinesis_datastreams.client_closed_exception}
 /// Thrown when an operation is attempted on a closed client.
 /// {@endtemplate}

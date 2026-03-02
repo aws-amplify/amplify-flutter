@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:convert';
 import 'dart:typed_data';
 
 /// Internal representation of a record to be sent to Kinesis.
@@ -10,7 +11,7 @@ class KinesisRecord {
     required this.data,
     required this.partitionKey,
     required this.streamName,
-  }) : dataSize = data.length,
+  }) : dataSize = data.length + utf8.encode(partitionKey).length,
        createdAt = DateTime.now();
 
   /// Creates a Kinesis record with a specific creation timestamp (for testing).
@@ -19,7 +20,7 @@ class KinesisRecord {
     required this.partitionKey,
     required this.streamName,
     required this.createdAt,
-  }) : dataSize = data.length;
+  }) : dataSize = data.length + utf8.encode(partitionKey).length;
 
   /// The data blob to send to Kinesis.
   final Uint8List data;
@@ -30,7 +31,10 @@ class KinesisRecord {
   /// The name of the Kinesis Data Stream.
   final String streamName;
 
-  /// The size of the data blob in bytes.
+  /// The size of the record in bytes (data blob + partition key).
+  ///
+  /// Per AWS docs, the record size limit applies to the total size of the
+  /// partition key and data blob combined.
   final int dataSize;
 
   /// Timestamp of when the record was created.
