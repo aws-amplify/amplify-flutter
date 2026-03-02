@@ -485,6 +485,75 @@ void main() {
         expect(records, isEmpty);
         expect(callCount, equals(2));
       });
+
+      test('invalid stream records do not block valid stream flushes', () async {
+        final testDb = createTestDatabase();
+        final testStorage = RecordStorage(
+          database: testDb,
+          maxCacheBytes: 1024,
+        );
+        final testSender = _TestKinesisSender();
+        final testScheduler = AutoFlushScheduler(
+          strategy: const KinesisDataStreamsInterval(
+            interval: Duration(hours: 1),
+          ),
+          onFlush: () async {},
+        );
+        final testClient = RecordClient(
+          storage: testStorage,
+          sender: testSender,
+          scheduler: testScheduler,
+          maxRetries: 3,
+        );
+
+        // Sender throws for invalid stream, succeeds for valid stream
+        testSender.streamResultProvider = (streamName, records) {
+          if (streamName == 'invalid-stream') {
+            throw Exception('ResourceNotFoundException');
+          }
+          return PutRecordsResult(
+            successfulRecordIndices: List.generate(records.length, (i) => i),
+            failedRecordIndices: [],
+            retryableRecordIndices: [],
+          );
+        };
+
+        // Record to invalid stream
+        await testClient.record(
+          KinesisRecord(
+            data: Uint8List.fromList([1, 2, 3]),
+            partitionKey: 'pk',
+            streamName: 'invalid-stream',
+          ),
+        );
+
+        // First flush — invalid record fails, retry count incremented
+        final firstFlush = await testClient.flush();
+        expect(firstFlush.recordsFlushed, equals(0));
+
+        // Record to valid stream
+        await testClient.record(
+          KinesisRecord(
+            data: Uint8List.fromList([4, 5, 6]),
+            partitionKey: 'pk',
+            streamName: 'valid-stream',
+          ),
+        );
+
+        // Second flush — valid record should succeed even though
+        // the invalid record is still in the DB
+        final secondFlush = await testClient.flush();
+        expect(secondFlush.recordsFlushed, equals(1));
+
+        // Verify the valid-stream call succeeded
+        final validCalls = testSender.putRecordsCalls
+            .where((c) => c.streamName == 'valid-stream')
+            .toList();
+        expect(validCalls, hasLength(1));
+        expect(validCalls.first.records, hasLength(1));
+
+        await testClient.close();
+      });
     });
 
     group('clearCache()', () {
@@ -547,6 +616,7 @@ class _TestKinesisSender implements KinesisSender {
   final List<_PutRecordsCall> putRecordsCalls = [];
   PutRecordsResult? nextResult;
   PutRecordsResult Function(List<KinesisSenderRecord> records)? resultProvider;
+  PutRecordsResult Function(String streamName, List<KinesisSenderRecord> records)? streamResultProvider;
 
   @override
   KinesisClient get sdkClient => throw UnimplementedError('Not needed in tests');
@@ -560,6 +630,10 @@ class _TestKinesisSender implements KinesisSender {
     required List<KinesisSenderRecord> records,
   }) async {
     putRecordsCalls.add(_PutRecordsCall(streamName: streamName, records: records));
+
+    if (streamResultProvider != null) {
+      return streamResultProvider!(streamName, records);
+    }
 
     if (resultProvider != null) {
       return resultProvider!(records);
