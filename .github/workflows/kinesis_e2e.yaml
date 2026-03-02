@@ -38,6 +38,9 @@ jobs:
             KINESIS_E2E,${{ secrets.KINESIS_E2E_SECRET_ARN }}
           parse-json-secrets: true
 
+      - name: Install native sqlite3
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
+
       - name: Create pubspec overrides
         working-directory: packages/kinesis/aws_kinesis_datastreams
         run: |
@@ -103,9 +106,14 @@ jobs:
             KINESIS_E2E,${{ secrets.KINESIS_E2E_SECRET_ARN }}
           parse-json-secrets: true
 
+      - name: Install native sqlite3
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
+
       - name: Create pubspec overrides
         working-directory: packages/kinesis/aws_amazon_firehose
         run: |
+          # Remove sqlite3_flutter_libs (requires Flutter SDK) — native sqlite3 is installed above
+          sed -i '/sqlite3_flutter_libs/d' pubspec.yaml
           cat > pubspec_overrides.yaml << 'EOF'
           dependency_overrides:
             amplify_core:
