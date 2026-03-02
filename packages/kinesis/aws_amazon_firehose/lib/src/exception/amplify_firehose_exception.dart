@@ -92,6 +92,23 @@ class FirehoseNetworkException extends AmplifyFirehoseException {
         );
 }
 
+/// {@template aws_amazon_firehose.firehose_record_too_large_exception}
+/// Thrown when a single record exceeds the Firehose per-record size limit
+/// (1,000 KB before base64 encoding).
+/// {@endtemplate}
+class FirehoseRecordTooLargeException extends AmplifyFirehoseException {
+  /// {@macro aws_amazon_firehose.firehose_record_too_large_exception}
+  FirehoseRecordTooLargeException({
+    required int recordBytes,
+    required int maxBytes,
+  }) : super(
+          message:
+              'Record size ($recordBytes bytes) exceeds the Firehose '
+              'per-record limit ($maxBytes bytes).',
+          recoverySuggestion: 'Reduce the record payload size.',
+        );
+}
+
 /// {@template aws_amazon_firehose.client_closed_exception}
 /// Thrown when an operation is attempted on a closed client.
 /// {@endtemplate}

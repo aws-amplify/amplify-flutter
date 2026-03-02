@@ -10,6 +10,9 @@ const int kFirehoseMaxRecordsPerBatch = 500;
 /// Maximum batch payload size for Firehose PutRecordBatch (4 MB).
 const int kFirehoseMaxBatchBytes = 4 * 1024 * 1024;
 
+/// Maximum size of a single Firehose record (1,000 KB before base64 encoding).
+const int kFirehoseMaxRecordBytes = 1000 * 1024;
+
 /// {@template aws_amazon_firehose.amplify_firehose_client_options}
 /// Configuration options for [AmplifyFirehoseClient].
 ///

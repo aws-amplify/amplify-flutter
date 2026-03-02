@@ -3,6 +3,7 @@
 
 import 'dart:typed_data';
 
+import 'package:aws_amazon_firehose/src/amazon_data_firehose_options.dart';
 import 'package:aws_amazon_firehose/src/exception/amplify_firehose_exception.dart';
 import 'package:aws_amazon_firehose/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_amazon_firehose/src/impl/auto_flush_scheduler.dart';
@@ -93,6 +94,55 @@ void main() {
           ),
           throwsA(isA<FirehoseLimitExceededException>()),
         );
+      });
+
+      test('throws FirehoseRecordTooLargeException when record exceeds 1000 KB', () async {
+        final oversizedData = Uint8List(kFirehoseMaxRecordBytes + 1);
+
+        expect(
+          () => client.record(
+            FirehoseDataRecord(
+              data: oversizedData,
+              streamName: 'stream',
+            ),
+          ),
+          throwsA(isA<FirehoseRecordTooLargeException>()),
+        );
+      });
+
+      test('accepts record exactly at 1000 KB limit', () async {
+        // Need a larger cache for this test
+        final largeDb = createTestDatabase();
+        final largeStorage = RecordStorage(
+          database: largeDb,
+          maxCacheBytes: 2 * 1024 * 1024, // 2MB cache
+        );
+        final largeScheduler = AutoFlushScheduler(
+          strategy: const AmazonDataFirehoseInterval(
+            interval: Duration(hours: 1),
+          ),
+          onFlush: () async {},
+        );
+        final largeClient = RecordClient(
+          storage: largeStorage,
+          sender: _TestFirehoseSender(),
+          scheduler: largeScheduler,
+          maxRetries: 3,
+        );
+
+        final exactLimitData = Uint8List(kFirehoseMaxRecordBytes);
+
+        await largeClient.record(
+          FirehoseDataRecord(
+            data: exactLimitData,
+            streamName: 'stream',
+          ),
+        );
+
+        final records = await largeStorage.getRecordsBatch();
+        expect(records, hasLength(1));
+
+        await largeClient.close();
       });
     });
 

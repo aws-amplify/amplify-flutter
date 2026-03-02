@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:aws_amazon_firehose/src/amazon_data_firehose_options.dart';
 import 'package:aws_amazon_firehose/src/db/firehose_record_database.dart';
 import 'package:aws_amazon_firehose/src/exception/amplify_firehose_exception.dart';
 import 'package:aws_amazon_firehose/src/impl/auto_flush_scheduler.dart';
@@ -52,10 +53,19 @@ class RecordClient {
   /// Records data to the local cache.
   ///
   /// Throws [ClientClosedException] if the client has been closed.
+  /// Throws [FirehoseRecordTooLargeException] if the record exceeds the
+  /// per-record size limit (1,000 KB).
   /// Throws [FirehoseLimitExceededException] if the cache is full.
   Future<void> record(FirehoseDataRecord record) async {
     if (_closed) throw ClientClosedException();
     if (!_enabled) return;
+
+    if (record.dataSize > kFirehoseMaxRecordBytes) {
+      throw FirehoseRecordTooLargeException(
+        recordBytes: record.dataSize,
+        maxBytes: kFirehoseMaxRecordBytes,
+      );
+    }
 
     final currentSize = await _storage.getCurrentCacheSize();
     if (currentSize + record.dataSize > _storage.maxCacheBytes) {
