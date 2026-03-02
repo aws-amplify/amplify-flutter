@@ -112,8 +112,6 @@ jobs:
       - name: Create pubspec overrides
         working-directory: packages/kinesis/aws_amazon_firehose
         run: |
-          # Remove sqlite3_flutter_libs (requires Flutter SDK) — native sqlite3 is installed above
-          sed -i '/sqlite3_flutter_libs/d' pubspec.yaml
           cat > pubspec_overrides.yaml << 'EOF'
           dependency_overrides:
             amplify_core:
