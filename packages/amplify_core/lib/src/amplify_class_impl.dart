@@ -46,8 +46,6 @@ class AmplifyClassImpl extends AmplifyClass {
           plugin.cast(),
           authProviderRepo: authProviderRepo,
         );
-      case Category.kinesis:
-        throw UnimplementedError('Kinesis is not an Amplify category plugin');
     }
   }
 }

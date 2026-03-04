@@ -16,7 +16,7 @@ sealed class KinesisDataStreamsFlushStrategy {
 /// {@template aws_kinesis_datastreams.interval_flush_strategy}
 /// A flush strategy that triggers automatic flushes at a fixed interval.
 /// {@endtemplate}
-class KinesisDataStreamsInterval extends KinesisDataStreamsFlushStrategy {
+final class KinesisDataStreamsInterval extends KinesisDataStreamsFlushStrategy {
   /// {@macro aws_kinesis_datastreams.interval_flush_strategy}
   const KinesisDataStreamsInterval({
     this.interval = const Duration(seconds: 30),
@@ -29,7 +29,7 @@ class KinesisDataStreamsInterval extends KinesisDataStreamsFlushStrategy {
 /// {@template aws_kinesis_datastreams.none_flush_strategy}
 /// A flush strategy that disables automatic flushing.
 /// {@endtemplate}
-class KinesisDataStreamsNone extends KinesisDataStreamsFlushStrategy {
+final class KinesisDataStreamsNone extends KinesisDataStreamsFlushStrategy {
   /// {@macro aws_kinesis_datastreams.none_flush_strategy}
   const KinesisDataStreamsNone();
 }

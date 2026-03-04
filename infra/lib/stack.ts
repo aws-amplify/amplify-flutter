@@ -5,8 +5,8 @@ import * as cdk from "aws-cdk-lib";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import { Construct } from "constructs";
 import {
-    AuthIntegrationTestStack,
-    AuthIntegrationTestStackEnvironmentProps,
+  AuthIntegrationTestStack,
+  AuthIntegrationTestStackEnvironmentProps,
 } from "./auth/stack";
 import { env } from "./common";
 import { GitHubStack } from "./github/github";
@@ -283,7 +283,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         // crossRegionReferences: true,
       }
     );
-
 
     new cdk.CfnOutput(this, "Categories", {
       value: JSON.stringify({

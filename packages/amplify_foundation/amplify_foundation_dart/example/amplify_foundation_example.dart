@@ -50,9 +50,6 @@ Future<void> minCustomization() async {
 // Max Customization — custom LogSink and logger factory
 class MyLogSink implements LogSink {
   @override
-  final String id = 'my-custom-sink';
-
-  @override
   bool isEnabled(LogLevel logLevel) => true; // Accept all levels
 
   @override

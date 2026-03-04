@@ -31,7 +31,7 @@ class AutoFlushScheduler {
 
     switch (_strategy) {
       case KinesisDataStreamsInterval(:final interval):
-        _timer = Timer.periodic(interval, (_) { _handleTimerTick(); });
+        _timer = Timer.periodic(interval, (_) => _handleTimerTick());
       case KinesisDataStreamsNone():
         break;
     }
