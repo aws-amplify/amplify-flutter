@@ -264,19 +264,5 @@ void main() {
         expect(client.isClosed, isTrue);
       });
     });
-
-    group('deprecated aliases', () {
-      test('KinesisDataStreams is an alias for AmplifyKinesisClient', () {
-        // ignore: deprecated_member_use_from_same_package
-        // This just verifies the typedef exists and compiles
-        // ignore: deprecated_member_use
-        expect(
-          AmplifyKinesisClient.withRecordClient(
-            recordClient: mockRecordClient,
-          ),
-          isA<AmplifyKinesisClient>(),
-        );
-      });
-    });
   });
 }

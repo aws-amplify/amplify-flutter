@@ -195,11 +195,3 @@ class AmplifyKinesisClient {
     await _recordClient.close();
   }
 }
-
-// ---------------------------------------------------------------------------
-// Deprecated alias for backward compatibility
-// ---------------------------------------------------------------------------
-
-/// Deprecated: Use [AmplifyKinesisClient] instead.
-@Deprecated('Use AmplifyKinesisClient instead')
-typedef KinesisDataStreams = AmplifyKinesisClient;
