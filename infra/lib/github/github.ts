@@ -32,7 +32,6 @@ export class GitHubStack extends Stack {
   constructor(scope: Construct, id: string, props: GitHubStackProps) {
     super(scope, id, props);
 
-    // const { analytics, auth, storage } = props;
     const { auth } = props;
 
     const afsSecrets = new secrets.Secret(this, "AfsSecrets", {
