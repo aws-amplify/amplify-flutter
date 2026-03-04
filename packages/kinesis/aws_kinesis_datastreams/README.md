@@ -30,7 +30,7 @@ import 'dart:typed_data';
 import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart';
 
 // Using static credentials (for testing only)
-final kinesis = KinesisDataStreams(
+final kinesis = AmplifyKinesisClient(
   region: 'us-east-1',
   credentialsProvider: AWSCredentialsProvider(
     AWSCredentials(
@@ -74,7 +74,7 @@ class AmplifyCredentialsAdapter implements AWSCredentialsProvider {
 }
 
 // Initialize with Amplify Auth
-final kinesis = KinesisDataStreams(
+final kinesis = AmplifyKinesisClient(
   region: 'us-east-1',
   credentialsProvider: AmplifyCredentialsAdapter(amplifyAuth),
 );
@@ -83,10 +83,10 @@ final kinesis = KinesisDataStreams(
 ### Custom Configuration
 
 ```dart
-final kinesis = KinesisDataStreams(
+final kinesis = AmplifyKinesisClient(
   region: 'us-east-1',
   credentialsProvider: myCredentialsProvider,
-  options: KinesisDataStreamsOptions(
+  options: AmplifyKinesisClientOptions(
     cacheMaxBytes: 10 * 1024 * 1024, // 10MB cache
     maxRetries: 3,
     flushStrategy: KinesisDataStreamsInterval(
@@ -166,7 +166,7 @@ The library handles credentials securely:
 
 ## API Reference
 
-### KinesisDataStreams
+### AmplifyKinesisClient
 
 The main client class for recording and streaming data.
 
@@ -179,7 +179,7 @@ The main client class for recording and streaming data.
 | `clearCache()` | Removes all cached records |
 | `close()` | Closes the client and releases resources |
 
-### KinesisDataStreamsOptions
+### AmplifyKinesisClientOptions
 
 Configuration options for the client.
 
@@ -193,7 +193,7 @@ Configuration options for the client.
 
 | Exception | Description |
 |-----------|-------------|
-| `KinesisDataStreamsException` | Base exception for all errors |
+| `AmplifyKinesisException` | Base exception for all errors |
 | `CacheFullException` | Thrown when the cache is full |
 | `CredentialsException` | Thrown when credentials cannot be resolved |
 | `NetworkException` | Thrown when a network error occurs |

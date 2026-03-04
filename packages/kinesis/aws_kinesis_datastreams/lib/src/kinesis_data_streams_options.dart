@@ -94,7 +94,3 @@ class AmplifyKinesisClientOptions {
   /// Optional logger for debug and error output.
   final Logger? logger;
 }
-
-/// Deprecated: Use [AmplifyKinesisClientOptions] instead.
-@Deprecated('Use AmplifyKinesisClientOptions instead')
-typedef KinesisDataStreamsOptions = AmplifyKinesisClientOptions;
