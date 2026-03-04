@@ -62,7 +62,9 @@ final class BroadcastLogger implements Logger {
       stackTrace: stackTrace,
     );
     for (final sink in sinks) {
-      sink.emit(logMessage);
+      if (sink.isEnabled(logLevel)) {
+        sink.emit(logMessage);
+      }
     }
   }
 }
