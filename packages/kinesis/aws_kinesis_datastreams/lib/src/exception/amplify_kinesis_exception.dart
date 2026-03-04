@@ -37,21 +37,6 @@ final class KinesisStorageException extends AmplifyKinesisException {
         );
 }
 
-/// {@template aws_kinesis_datastreams.kinesis_service_exception}
-/// Thrown when a Kinesis SDK/API error occurs. Inspect [sdkException] for details.
-/// {@endtemplate}
-final class KinesisServiceException extends AmplifyKinesisException {
-  /// {@macro aws_kinesis_datastreams.kinesis_service_exception}
-  KinesisServiceException(String message, {this.sdkException, super.cause})
-      : super(
-          message: message,
-          recoverySuggestion: 'Check sdkException for details.',
-        );
-
-  /// The underlying SDK exception, if any.
-  final Object? sdkException;
-}
-
 /// {@template aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
 /// Thrown when the local cache is full.
 /// {@endtemplate}
@@ -104,6 +89,22 @@ final class KinesisRecordTooLargeException extends AmplifyKinesisException {
               'total size of the partition key and data blob.',
           recoverySuggestion:
               'Reduce the record payload size or use a shorter partition key.',
+        );
+}
+
+/// {@template aws_kinesis_datastreams.kinesis_partition_key_invalid_exception}
+/// Thrown when a partition key is empty or exceeds the Kinesis limit (256 characters).
+/// {@endtemplate}
+final class KinesisPartitionKeyInvalidException extends AmplifyKinesisException {
+  /// {@macro aws_kinesis_datastreams.kinesis_partition_key_invalid_exception}
+  KinesisPartitionKeyInvalidException({
+    required int keyLength,
+  }) : super(
+          message:
+              'Partition key length ($keyLength) is invalid. '
+              'Kinesis requires partition keys to be between 1 and 256 characters.',
+          recoverySuggestion:
+              'Use a partition key between 1 and 256 characters.',
         );
 }
 

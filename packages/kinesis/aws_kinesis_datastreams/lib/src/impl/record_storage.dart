@@ -5,12 +5,14 @@ import 'dart:async';
 
 import 'package:aws_kinesis_datastreams/src/db/kinesis_record_database.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
+import 'package:aws_kinesis_datastreams/src/kinesis_data_streams_options.dart'
+    show kKinesisMaxBatchBytes, kKinesisMaxRecordsPerBatch;
 import 'package:drift/drift.dart';
 
 /// {@template aws_kinesis_datastreams.record_storage}
 /// Manages SQLite database operations for record persistence.
 /// {@endtemplate}
-class RecordStorage {
+final class RecordStorage {
   /// {@macro aws_kinesis_datastreams.record_storage}
   RecordStorage({
     required KinesisRecordDatabase database,
@@ -42,8 +44,8 @@ class RecordStorage {
   /// Returns records up to [maxCount] records and [maxBytes] total size.
   /// Uses window functions to efficiently limit at the database level.
   Future<List<StoredRecord>> getRecordsBatch({
-    int maxCount = 500,
-    int maxBytes = 10 * 1024 * 1024, // 10 MiB for Kinesis PutRecords
+    int maxCount = kKinesisMaxRecordsPerBatch,
+    int maxBytes = kKinesisMaxBatchBytes,
   }) async {
     // Use window functions to compute row number and running size,
     // then filter to get records within both limits.

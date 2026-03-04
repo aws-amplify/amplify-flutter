@@ -21,6 +21,9 @@ const int kKinesisMaxBatchBytes = 10 * 1024 * 1024;
 /// partition key and data blob."
 const int kKinesisMaxRecordBytes = 10 * 1024 * 1024;
 
+/// Maximum length of a Kinesis partition key (256 characters).
+const int kKinesisMaxPartitionKeyLength = 256;
+
 /// {@template aws_kinesis_datastreams.amplify_kinesis_client_options}
 /// Configuration options for [AmplifyKinesisClient].
 ///
