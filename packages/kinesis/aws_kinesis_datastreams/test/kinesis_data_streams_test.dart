@@ -20,7 +20,7 @@ void main() {
 
     setUpAll(() {
       registerFallbackValue(
-        KinesisRecord(
+        KinesisRecord.now(
           data: Uint8List(0),
           partitionKey: '',
           streamName: '',

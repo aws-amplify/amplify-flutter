@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// AWS credentials for authenticating API requests.
-class Credentials {
+final class Credentials {
   /// Creates AWS credentials.
   const Credentials({
     required this.accessKeyId,

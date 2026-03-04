@@ -4,7 +4,7 @@
 /// {@template aws_kinesis_datastreams.flush_data}
 /// Data returned from a flush operation.
 /// {@endtemplate}
-class FlushData {
+final class FlushData {
   /// {@macro aws_kinesis_datastreams.flush_data}
   const FlushData({this.recordsFlushed = 0, this.flushInProgress = false});
 

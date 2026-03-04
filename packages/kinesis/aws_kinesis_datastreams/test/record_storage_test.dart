@@ -27,7 +27,7 @@ void main() {
 
     group('saveRecord', () {
       test('saves record with valid data', () async {
-        final record = KinesisRecord(
+        final record = KinesisRecord.now(
           data: Uint8List.fromList([1, 2, 3, 4, 5]),
           partitionKey: 'test-partition',
           streamName: 'test-stream',
@@ -49,7 +49,7 @@ void main() {
       test('respects maxCount limit', () async {
         for (var i = 0; i < 10; i++) {
           await storage.saveRecord(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -64,7 +64,7 @@ void main() {
       test('respects maxBytes limit', () async {
         for (var i = 0; i < 10; i++) {
           await storage.saveRecord(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List(100),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -78,21 +78,21 @@ void main() {
 
       test('returns records sorted by stream_name, partition_key, id', () async {
         await storage.saveRecord(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk-b',
             streamName: 'stream-b',
           ),
         );
         await storage.saveRecord(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([2]),
             partitionKey: 'pk-a',
             streamName: 'stream-a',
           ),
         );
         await storage.saveRecord(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([3]),
             partitionKey: 'pk-a',
             streamName: 'stream-b',
@@ -113,7 +113,7 @@ void main() {
       test('removes correct records by ID', () async {
         for (var i = 0; i < 5; i++) {
           await storage.saveRecord(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -135,7 +135,7 @@ void main() {
 
       test('handles empty ID list gracefully', () async {
         await storage.saveRecord(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -152,7 +152,7 @@ void main() {
     group('incrementRetryCount', () {
       test('increments retry count correctly', () async {
         await storage.saveRecord(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -178,7 +178,7 @@ void main() {
       test('removes records over max retry limit', () async {
         for (var i = 0; i < 3; i++) {
           await storage.saveRecord(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -203,21 +203,21 @@ void main() {
     group('getCurrentCacheSize', () {
       test('returns accurate sum of data sizes', () async {
         await storage.saveRecord(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List(100),
             partitionKey: 'pk-1',
             streamName: 'stream',
           ),
         );
         await storage.saveRecord(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List(200),
             partitionKey: 'pk-2',
             streamName: 'stream',
           ),
         );
         await storage.saveRecord(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List(50),
             partitionKey: 'pk-3',
             streamName: 'stream',
@@ -239,7 +239,7 @@ void main() {
       test('removes all records', () async {
         for (var i = 0; i < 5; i++) {
           await storage.saveRecord(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',

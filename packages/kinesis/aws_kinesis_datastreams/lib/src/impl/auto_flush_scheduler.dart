@@ -50,6 +50,6 @@ class AutoFlushScheduler {
 
   void _handleTimerTick() {
     if (!_enabled || _closed) return;
-    _onFlush();
+    unawaited(_onFlush().catchError((_) {}));
   }
 }
