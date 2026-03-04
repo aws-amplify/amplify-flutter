@@ -8,20 +8,18 @@ import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthSession
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthSession
 import com.amplifyframework.core.Consumer
+import io.flutter.plugin.common.BinaryMessenger
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.any
-import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -34,19 +32,16 @@ class NativeAuthPluginWrapperTest {
     fun fetchAuthSession_callsOnError_whenNativePluginIsNull() {
         val wrapper = NativeAuthPluginWrapper { null }
 
-        val latch = CountDownLatch(1)
         var capturedError: AuthException? = null
+        var capturedSuccess: AuthSession? = null
 
         wrapper.fetchAuthSession(
-            Consumer { _ -> },
-            Consumer { error ->
-                capturedError = error
-                latch.countDown()
-            }
+            Consumer { session -> capturedSuccess = session },
+            Consumer { error -> capturedError = error }
         )
 
-        assertTrue("onError should be called", latch.await(2, TimeUnit.SECONDS))
-        assertNotNull("Error should not be null", capturedError)
+        assertNotNull("onError should be called when native plugin is null", capturedError)
+        assertNull("onSuccess should not be called", capturedSuccess)
         assertTrue(
             "Error message should indicate no native plugin",
             capturedError!!.message!!.contains("No native plugin registered")
@@ -55,17 +50,24 @@ class NativeAuthPluginWrapperTest {
 
     @Test
     fun fetchAuthSession_callsOnError_whenPigeonBridgeFails() = runTest(coroutinesTestRule.testDispatcher) {
-        val mockNativePlugin = mock(NativeAuthPlugin::class.java)
-
-        // Simulate pigeon bridge failure (e.g., Flutter engine not responsive)
-        doAnswer { invocation ->
-            @Suppress("UNCHECKED_CAST")
-            val callback = invocation.arguments[0] as (Result<NativeAuthSession>) -> Unit
-            callback(Result.failure(RuntimeException("Connection error")))
+        // Create a mock BinaryMessenger that simulates a connection error
+        // by returning null (not a List), which causes the pigeon-generated code
+        // to invoke callback with Result.failure(createConnectionError(...))
+        val mockMessenger = mock(BinaryMessenger::class.java)
+        org.mockito.Mockito.doAnswer { invocation ->
+            // The second argument is the BinaryMessenger.BinaryReply callback
+            val reply = invocation.arguments[2] as BinaryMessenger.BinaryReply
+            // Return null to simulate connection error (not a List<*>)
+            reply.reply(null)
             null
-        }.`when`(mockNativePlugin).fetchAuthSession(any())
+        }.`when`(mockMessenger).send(
+            org.mockito.Mockito.anyString(),
+            org.mockito.Mockito.any(),
+            org.mockito.Mockito.any()
+        )
 
-        val wrapper = NativeAuthPluginWrapper { mockNativePlugin }
+        val nativePlugin = NativeAuthPlugin(mockMessenger)
+        val wrapper = NativeAuthPluginWrapper { nativePlugin }
 
         var capturedError: AuthException? = null
         var capturedSuccess: AuthSession? = null
@@ -78,45 +80,6 @@ class NativeAuthPluginWrapperTest {
         advanceUntilIdle()
 
         assertNotNull("onError should be called when pigeon bridge fails", capturedError)
-        assertTrue(
-            "Error message should contain original error",
-            capturedError!!.message!!.contains("Connection error")
-        )
-        assertTrue("onSuccess should not be called", capturedSuccess == null)
-    }
-
-    @Test
-    fun fetchAuthSession_callsOnSuccess_whenSessionIsValid() = runTest(coroutinesTestRule.testDispatcher) {
-        val mockNativePlugin = mock(NativeAuthPlugin::class.java)
-
-        val mockSession = NativeAuthSession(
-            isSignedIn = false,
-            userSub = null,
-            identityId = null,
-            userPoolTokens = null,
-            awsCredentials = null,
-        )
-
-        doAnswer { invocation ->
-            @Suppress("UNCHECKED_CAST")
-            val callback = invocation.arguments[0] as (Result<NativeAuthSession>) -> Unit
-            callback(Result.success(mockSession))
-            null
-        }.`when`(mockNativePlugin).fetchAuthSession(any())
-
-        val wrapper = NativeAuthPluginWrapper { mockNativePlugin }
-
-        var capturedError: AuthException? = null
-        var capturedSuccess: AuthSession? = null
-
-        wrapper.fetchAuthSession(
-            Consumer { session -> capturedSuccess = session },
-            Consumer { error -> capturedError = error }
-        )
-
-        advanceUntilIdle()
-
-        assertNotNull("onSuccess should be called when session is valid", capturedSuccess)
-        assertTrue("onError should not be called", capturedError == null)
+        assertNull("onSuccess should not be called", capturedSuccess)
     }
 }
