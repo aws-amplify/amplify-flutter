@@ -1,10 +1,26 @@
 name: Kinesis E2E Tests
 on:
+  push:
+    branches:
+      - main
+      - stable
+    paths:
+      - "packages/kinesis/**"
+      - ".github/workflows/kinesis_e2e.yaml"
   pull_request:
     paths:
       - "packages/kinesis/**"
       - ".github/workflows/kinesis_e2e.yaml"
   workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,17 +29,35 @@ concurrency:
 jobs:
   kinesis-data-streams-e2e:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
-        with:
-          persist-credentials: false
+      - name: Git Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
 
-      - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94 # v1
+      - name: Git Submodules
+        run: git submodule update --init
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
+        with:
+          cache: true
+          channel: stable
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@03a180dbe1de8ea7fb700663cbb7d24ca4bbe82c # main
         with:
           sdk: stable
+
+      - name: Install native sqlite3
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
+
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast --include=aws_kinesis_datastreams --verbose
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@04b98b3f9e85f563fb061be8751a0352327246b0 # 3.0.1
@@ -37,38 +71,6 @@ jobs:
           secret-ids: |
             KINESIS_E2E,${{ secrets.KINESIS_E2E_SECRET_ARN }}
           parse-json-secrets: true
-
-      - name: Install native sqlite3
-        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
-
-      - name: Create pubspec overrides
-        working-directory: packages/kinesis/aws_kinesis_datastreams
-        run: |
-          cat > pubspec_overrides.yaml << 'EOF'
-          dependency_overrides:
-            amplify_core:
-              path: ../../amplify_core
-            amplify_db_common_dart:
-              path: ../../common/amplify_db_common_dart
-            amplify_foundation_dart:
-              path: ../../amplify_foundation/amplify_foundation_dart
-            amplify_foundation_dart_bridge:
-              path: ../../amplify_foundation/amplify_foundation_dart_bridge
-            amplify_lints:
-              path: ../../amplify_lints
-            aws_common:
-              path: ../../aws_common
-            aws_signature_v4:
-              path: ../../aws_signature_v4
-            smithy:
-              path: ../../smithy/smithy
-            smithy_aws:
-              path: ../../smithy/smithy_aws
-          EOF
-
-      - name: Install dependencies
-        run: dart pub get
-        working-directory: packages/kinesis/aws_kinesis_datastreams
 
       - name: Run E2E tests
         working-directory: packages/kinesis/aws_kinesis_datastreams
@@ -79,19 +81,54 @@ jobs:
           TEST_STREAM_NAME: ${{ env.KINESIS_E2E_STREAM_NAME }}
         run: dart test test/e2e/ --tags=e2e
 
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: e2e
+          working-directory: packages/kinesis/aws_kinesis_datastreams
+
+          framework: dart
+          flutter-dart-channel: stable
+          dart-compiler: vm
+
   firehose-e2e:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
-        with:
-          persist-credentials: false
+      - name: Git Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
 
-      - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94 # v1
+      - name: Git Submodules
+        run: git submodule update --init
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
+        with:
+          cache: true
+          channel: stable
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@03a180dbe1de8ea7fb700663cbb7d24ca4bbe82c # main
         with:
           sdk: stable
+
+      - name: Install native sqlite3
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
+
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast --include=aws_amazon_firehose --verbose
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@04b98b3f9e85f563fb061be8751a0352327246b0 # 3.0.1
@@ -106,34 +143,6 @@ jobs:
             KINESIS_E2E,${{ secrets.KINESIS_E2E_SECRET_ARN }}
           parse-json-secrets: true
 
-      - name: Install native sqlite3
-        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
-
-      - name: Create pubspec overrides
-        working-directory: packages/kinesis/aws_amazon_firehose
-        run: |
-          cat > pubspec_overrides.yaml << 'EOF'
-          dependency_overrides:
-            amplify_core:
-              path: ../../amplify_core
-            amplify_foundation_dart:
-              path: ../../amplify_foundation/amplify_foundation_dart
-            amplify_foundation_dart_bridge:
-              path: ../../amplify_foundation/amplify_foundation_dart_bridge
-            aws_common:
-              path: ../../aws_common
-            aws_signature_v4:
-              path: ../../aws_signature_v4
-            smithy:
-              path: ../../smithy/smithy
-            smithy_aws:
-              path: ../../smithy/smithy_aws
-          EOF
-
-      - name: Install dependencies
-        run: dart pub get
-        working-directory: packages/kinesis/aws_amazon_firehose
-
       - name: Run E2E tests
         working-directory: packages/kinesis/aws_amazon_firehose
         env:
@@ -142,3 +151,20 @@ jobs:
           TEST_REGION: ${{ secrets.AWS_REGION }}
           TEST_DELIVERY_STREAM_NAME: ${{ env.KINESIS_E2E_DELIVERY_STREAM_NAME }}
         run: dart test test/e2e/ --tags=e2e
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: e2e
+          working-directory: packages/kinesis/aws_amazon_firehose
+
+          framework: dart
+          flutter-dart-channel: stable
+          dart-compiler: vm
