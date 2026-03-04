@@ -4,7 +4,7 @@
 /// {@template aws_kinesis_datastreams.clear_cache_data}
 /// Data returned from a clearCache operation.
 /// {@endtemplate}
-class ClearCacheData {
+final class ClearCacheData {
   /// {@macro aws_kinesis_datastreams.clear_cache_data}
   const ClearCacheData({this.recordsCleared = 0});
 

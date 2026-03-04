@@ -28,9 +28,9 @@ sealed class AmplifyKinesisException extends AmplifyException {
 /// {@template aws_kinesis_datastreams.kinesis_storage_exception}
 /// Thrown when a local cache/database error occurs.
 /// {@endtemplate}
-class KinesisStorageException extends AmplifyKinesisException {
+final class KinesisStorageException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_storage_exception}
-  KinesisStorageException(String message, {Object? super.cause})
+  KinesisStorageException(String message, {super.cause})
       : super(
           message: message,
           recoverySuggestion: 'Try clearing the cache or reinitializing.',
@@ -40,9 +40,9 @@ class KinesisStorageException extends AmplifyKinesisException {
 /// {@template aws_kinesis_datastreams.kinesis_service_exception}
 /// Thrown when a Kinesis SDK/API error occurs. Inspect [sdkException] for details.
 /// {@endtemplate}
-class KinesisServiceException extends AmplifyKinesisException {
+final class KinesisServiceException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_service_exception}
-  KinesisServiceException(String message, {this.sdkException, Object? super.cause})
+  KinesisServiceException(String message, {this.sdkException, super.cause})
       : super(
           message: message,
           recoverySuggestion: 'Check sdkException for details.',
@@ -55,7 +55,7 @@ class KinesisServiceException extends AmplifyKinesisException {
 /// {@template aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
 /// Thrown when the local cache is full.
 /// {@endtemplate}
-class KinesisLimitExceededException extends AmplifyKinesisException {
+final class KinesisLimitExceededException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
   KinesisLimitExceededException()
       : super(
@@ -67,9 +67,9 @@ class KinesisLimitExceededException extends AmplifyKinesisException {
 /// {@template aws_kinesis_datastreams.kinesis_unknown_exception}
 /// Catch-all for unexpected errors.
 /// {@endtemplate}
-class KinesisUnknownException extends AmplifyKinesisException {
+final class KinesisUnknownException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_unknown_exception}
-  KinesisUnknownException(String message, {Object? super.cause})
+  KinesisUnknownException(String message, {super.cause})
       : super(
           message: message,
           recoverySuggestion: 'Unexpected error. Please file a bug.',
@@ -79,9 +79,9 @@ class KinesisUnknownException extends AmplifyKinesisException {
 /// {@template aws_kinesis_datastreams.kinesis_network_exception}
 /// Thrown when a network error prevents communication with Kinesis.
 /// {@endtemplate}
-class KinesisNetworkException extends AmplifyKinesisException {
+final class KinesisNetworkException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_network_exception}
-  KinesisNetworkException(String message, {Object? super.cause})
+  KinesisNetworkException(String message, {super.cause})
       : super(
           message: message,
           recoverySuggestion: 'Check network connectivity and try again.',
@@ -92,7 +92,7 @@ class KinesisNetworkException extends AmplifyKinesisException {
 /// Thrown when a single record exceeds the Kinesis per-record size limit
 /// (10 MiB, partition key + data blob combined).
 /// {@endtemplate}
-class KinesisRecordTooLargeException extends AmplifyKinesisException {
+final class KinesisRecordTooLargeException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_record_too_large_exception}
   KinesisRecordTooLargeException({
     required int recordBytes,
@@ -110,7 +110,7 @@ class KinesisRecordTooLargeException extends AmplifyKinesisException {
 /// {@template aws_kinesis_datastreams.client_closed_exception}
 /// Thrown when an operation is attempted on a closed client.
 /// {@endtemplate}
-class ClientClosedException extends AmplifyKinesisException {
+final class ClientClosedException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.client_closed_exception}
   ClientClosedException()
       : super(

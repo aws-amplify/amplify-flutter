@@ -90,15 +90,13 @@ class RecordStorage {
   Future<void> incrementRetryCount(Iterable<int> ids) async {
     if (ids.isEmpty) return;
 
-    for (final id in ids) {
-      await (_db.update(_db.kinesisRecords)
-        ..where((t) => t.id.equals(id)))
-        .write(
-          KinesisRecordsCompanion.custom(
-            retryCount: _db.kinesisRecords.retryCount + const Constant(1),
-          ),
-        );
-    }
+    await (_db.update(_db.kinesisRecords)
+      ..where((t) => t.id.isIn(ids)))
+      .write(
+        KinesisRecordsCompanion.custom(
+          retryCount: _db.kinesisRecords.retryCount + const Constant(1),
+        ),
+      );
   }
 
   /// Deletes records that have exceeded the maximum retry count.
@@ -118,6 +116,17 @@ class RecordStorage {
 
     final sum = result.read(_db.kinesisRecords.dataSize.sum());
     return sum ?? 0;
+  }
+
+  /// Returns the total number of cached records.
+  Future<int> getRecordCount() async {
+    final query = _db.selectOnly(_db.kinesisRecords)
+      ..addColumns([_db.kinesisRecords.id.count()]);
+
+    final result = await query.getSingleOrNull();
+    if (result == null) return 0;
+
+    return result.read(_db.kinesisRecords.id.count()) ?? 0;
   }
 
   /// Deletes all records from the database.

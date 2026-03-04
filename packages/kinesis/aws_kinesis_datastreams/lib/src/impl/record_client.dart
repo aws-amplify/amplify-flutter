@@ -134,16 +134,28 @@ class RecordClient {
 
   /// Clears all cached records.
   Future<ClearCacheData> clearCache() async {
-    final batch = await _storage.getRecordsBatch();
-    final count = batch.length;
+    final count = await _storage.getRecordCount();
     await _storage.clear();
     return ClearCacheData(recordsCleared: count);
   }
 
-  void enable() { _enabled = true; _scheduler.enable(); }
-  void disable() { _enabled = false; _scheduler.disable(); }
-  void enableAutoFlush() { _scheduler.enable(); }
-  void disableAutoFlush() { _scheduler.disable(); }
+  void enable() {
+    _enabled = true;
+    _scheduler.enable();
+  }
+
+  void disable() {
+    _enabled = false;
+    _scheduler.disable();
+  }
+
+  void enableAutoFlush() {
+    _scheduler.enable();
+  }
+
+  void disableAutoFlush() {
+    _scheduler.disable();
+  }
 
   Future<void> close() async {
     _closed = true;

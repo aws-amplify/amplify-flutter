@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
@@ -13,7 +12,7 @@ import 'package:aws_kinesis_datastreams/src/sdk/sdk_bridge.dart';
 import 'package:smithy/smithy.dart';
 
 /// Result of a PutRecords operation.
-class PutRecordsResult {
+final class PutRecordsResult {
   /// Creates a new [PutRecordsResult].
   const PutRecordsResult({
     required this.successfulRecordIndices,
@@ -32,7 +31,7 @@ class PutRecordsResult {
 }
 
 /// A record to be sent to Kinesis.
-class KinesisSenderRecord {
+final class KinesisSenderRecord {
   /// Creates a new [KinesisSenderRecord].
   const KinesisSenderRecord({
     required this.data,
@@ -128,12 +127,6 @@ class KinesisSender {
       // Network-level errors (DNS, connection refused, etc.)
       throw KinesisNetworkException(
         'Failed to connect to Kinesis: $e',
-        cause: e,
-      );
-    } on SocketException catch (e) {
-      // Socket-level errors (no internet, connection reset, etc.)
-      throw KinesisNetworkException(
-        'Network error: ${e.message}',
         cause: e,
       );
     }

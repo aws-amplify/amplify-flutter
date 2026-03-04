@@ -4,9 +4,9 @@
 import 'dart:typed_data';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
-import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart' show KinesisLimitExceededException;
 import 'package:aws_kinesis_datastreams/src/db/kinesis_record_database.dart';
-import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart' show KinesisLimitExceededException;
+import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart'
+    show KinesisLimitExceededException;
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_sender.dart';
@@ -141,7 +141,7 @@ class AmplifyKinesisClient {
     required String partitionKey,
     required String streamName,
   }) async {
-    final kinesisRecord = KinesisRecord(
+    final kinesisRecord = KinesisRecord.now(
       data: data,
       partitionKey: partitionKey,
       streamName: streamName,

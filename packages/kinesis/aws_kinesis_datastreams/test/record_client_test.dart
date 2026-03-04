@@ -56,7 +56,7 @@ void main() {
         client.disable();
 
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1, 2, 3]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -69,7 +69,7 @@ void main() {
 
       test('accepts records when enabled', () async {
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1, 2, 3]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -83,7 +83,7 @@ void main() {
       test('throws KinesisLimitExceededException when cache is full', () async {
         // Fill the cache (1KB limit)
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List(900),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -93,7 +93,7 @@ void main() {
         // This should throw because 900 + 200 > 1024
         expect(
           () => client.record(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List(200),
               partitionKey: 'pk',
               streamName: 'stream',
@@ -111,7 +111,7 @@ void main() {
 
         expect(
           () => client.record(
-            KinesisRecord(
+            KinesisRecord.now(
               data: oversizedData,
               partitionKey: partitionKey,
               streamName: 'stream',
@@ -146,7 +146,7 @@ void main() {
         final exactLimitData = Uint8List(kKinesisMaxRecordBytes - partitionKeyBytes);
 
         await largeClient.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: exactLimitData,
             partitionKey: partitionKey,
             streamName: 'stream',
@@ -162,7 +162,7 @@ void main() {
       test('dataSize includes partition key size', () {
         final partitionKey = 'test-partition-key';
         final data = Uint8List.fromList([1, 2, 3]);
-        final record = KinesisRecord(
+        final record = KinesisRecord.now(
           data: data,
           partitionKey: partitionKey,
           streamName: 'stream',
@@ -181,7 +181,7 @@ void main() {
         expect(client.isEnabled, isFalse);
 
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -195,7 +195,7 @@ void main() {
         expect(client.isEnabled, isTrue);
 
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([2]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -211,7 +211,7 @@ void main() {
       test('sends all cached records and returns FlushData', () async {
         for (var i = 0; i < 3; i++) {
           await client.record(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -229,7 +229,7 @@ void main() {
 
       test('returns empty FlushData when disabled', () async {
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -249,7 +249,7 @@ void main() {
 
       test('returns FlushData with flushInProgress when already flushing', () async {
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -285,7 +285,7 @@ void main() {
         // Add 600 records
         for (var i = 0; i < 600; i++) {
           await largeClient.record(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List.fromList([i % 256]),
               partitionKey: 'pk',
               streamName: 'stream',
@@ -306,21 +306,21 @@ void main() {
 
       test('separates records by stream', () async {
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream-a',
           ),
         );
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([2]),
             partitionKey: 'pk',
             streamName: 'stream-b',
           ),
         );
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([3]),
             partitionKey: 'pk',
             streamName: 'stream-a',
@@ -340,7 +340,7 @@ void main() {
 
       test('deletes successful records after send', () async {
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -372,7 +372,7 @@ void main() {
         };
 
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -412,7 +412,7 @@ void main() {
         );
 
         await testClient.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -435,7 +435,7 @@ void main() {
         );
 
         await client.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -454,7 +454,7 @@ void main() {
       test('handles mixed success and failure', () async {
         for (var i = 0; i < 3; i++) {
           await client.record(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -520,7 +520,7 @@ void main() {
 
         // Record to invalid stream
         await testClient.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([1, 2, 3]),
             partitionKey: 'pk',
             streamName: 'invalid-stream',
@@ -533,7 +533,7 @@ void main() {
 
         // Record to valid stream
         await testClient.record(
-          KinesisRecord(
+          KinesisRecord.now(
             data: Uint8List.fromList([4, 5, 6]),
             partitionKey: 'pk',
             streamName: 'valid-stream',
@@ -560,7 +560,7 @@ void main() {
       test('removes all cached records and returns ClearCacheData', () async {
         for (var i = 0; i < 5; i++) {
           await client.record(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -589,7 +589,7 @@ void main() {
 
         expect(
           () => client.record(
-            KinesisRecord(
+            KinesisRecord.now(
               data: Uint8List.fromList([1]),
               partitionKey: 'pk',
               streamName: 'stream',
