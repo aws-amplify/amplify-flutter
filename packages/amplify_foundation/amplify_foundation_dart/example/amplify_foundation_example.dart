@@ -15,7 +15,8 @@ void main() async {
   print('End maxCustomization');
 }
 
-// Min Customization — register a simple printer sink and use AmplifyLogging
+// Min Customization — register a simple printer sink, use AmplifyLogging,
+// and create an AWSCredentialsProvider from a Cognito client
 Future<void> minCustomization() async {
   // Register a console log sink at info level
   final logSink = AmplifySimplePrinterLogSink(logLevel: LogLevel.info);
