@@ -17,7 +17,6 @@ export 'package:amplify_foundation_dart/src/logger/log_level.dart';
 export 'package:amplify_foundation_dart/src/logger/log_message.dart';
 export 'package:amplify_foundation_dart/src/logger/log_sink.dart';
 export 'package:amplify_foundation_dart/src/logger/logger.dart';
-export 'package:amplify_foundation_dart/src/logger/logger_provider.dart';
 // Results
 export 'package:amplify_foundation_dart/src/result/result.dart';
 export 'package:amplify_foundation_dart/src/result/result_failure_exception.dart';
