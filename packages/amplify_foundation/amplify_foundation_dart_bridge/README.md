@@ -1,6 +1,6 @@
 # amplify_foundation_dart_bridge
 
-Bridges `aws_common` credential types to `amplify_foundation_dart` types.
+Bridges V2 (`amplify_core`/`aws_common`) credential types to V3 (`amplify_foundation_dart`) types.
 
 ## Getting Started
 
