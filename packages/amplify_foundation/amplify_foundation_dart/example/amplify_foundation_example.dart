@@ -43,10 +43,12 @@ Future<void> minCustomization() async {
   );
 
   final result = await amplifyS3Client.upload('FilePath');
-  result.handle(
-    onSuccess: (data) => print('onSuccess - ${data.value}'),
-    onFailure: (error) => print('onFailure - ${error.message}'),
-  );
+  switch (result) {
+    case Ok(:final value):
+      print('ok - ${value.value}');
+    case Error(:final error):
+      print('error - $error');
+  }
 }
 
 // Max Customization — custom LogSink and LoggerProvider
@@ -89,10 +91,12 @@ Future<void> maxCustomization() async {
   );
 
   final result = await amplifyS3Client.upload('FilePath');
-  result.handle(
-    onSuccess: (data) => print('onSuccess - ${data.value}'),
-    onFailure: (error) => print('onFailure - ${error.message}'),
-  );
+  switch (result) {
+    case Ok(:final value):
+      print('ok - ${value.value}');
+    case Error(:final error):
+      print('error - $error');
+  }
 }
 
 // Cognito Client Code
@@ -155,20 +159,17 @@ class AmplifyS3Client {
 
   Logger get _logger => loggerProvider.resolve('AmplifyS3Client');
 
-  Future<Result<UploadResult, AmplifyException>> upload(String file) async {
+  Future<Result<UploadResult>> upload(String file) async {
     try {
       _logger.info('upload called with file: $file');
 
       final result = await _upload(file);
 
       _logger.info('someAction returned with: $result');
-      return Success(result);
-    } on AmplifyException catch (error, stackTrace) {
+      return Result.ok(result);
+    } on Exception catch (error, stackTrace) {
       _logger.error('Error calling someAction', error, stackTrace);
-      return Failure(error);
-    } on Object catch (error, stackTrace) {
-      _logger.error('Error calling someAction', error, stackTrace);
-      return Failure(UnknownAmplifyException(cause: error));
+      return Result.error(error);
     }
   }
 
