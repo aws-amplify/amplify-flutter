@@ -86,12 +86,12 @@ void main() {
 
       logger.error(message, error, stackTrace);
 
-      final log = sink.messages..single;
-      expect(log.first.name, 'myLogger');
-      expect(log.first.content, message);
-      expect(log.first.error, error);
-      expect(log.first.stackTrace, stackTrace);
-      expect(log.first.level, LogLevel.error);
+      final log = sink.messages.single;
+      expect(log.name, 'myLogger');
+      expect(log.content, message);
+      expect(log.error, error);
+      expect(log.stackTrace, stackTrace);
+      expect(log.level, LogLevel.error);
     });
 
     test('log method works with explicit level', () {

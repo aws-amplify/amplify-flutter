@@ -34,15 +34,15 @@ enum LogLevel implements Comparable<LogLevel> {
   @override
   int compareTo(LogLevel other) => value.compareTo(other.value);
 
-  /// Returns true if [other] is less than or equal to this level.
+  /// Returns true if this level is strictly less than [other].
   bool operator <(LogLevel other) => value < other.value;
 
-  /// Returns true if [other] is less than or equal to this level.
+  /// Returns true if this level is less than or equal to [other].
   bool operator <=(LogLevel other) => value <= other.value;
 
-  /// Returns true if [other] is greater than this level.
+  /// Returns true if this level is strictly greater than [other].
   bool operator >(LogLevel other) => value > other.value;
 
-  /// Returns true if [other] is greater than or equal to this level.
+  /// Returns true if this level is greater than or equal to [other].
   bool operator >=(LogLevel other) => value >= other.value;
 }

@@ -97,7 +97,7 @@ Future<void> maxCustomization() async {
 // Cognito Client Code
 class AmplifyCognitoClientConfig {
   AmplifyCognitoClientConfig({required this.id});
-  String id;
+  final String id;
 }
 
 class CognitoCredentialProvider implements AWSCredentialsProvider {
@@ -111,7 +111,7 @@ class AmplifyCognitoClient {
   AmplifyCognitoClient({required this.createLogger, required this.config});
 
   final Logger Function(String name) createLogger;
-  AmplifyCognitoClientConfig config;
+  final AmplifyCognitoClientConfig config;
 
   Logger get _logger => createLogger('AmplifyCognitoClient');
 
@@ -125,7 +125,7 @@ class AmplifyCognitoClient {
 class UnknownAmplifyException extends AmplifyException {
   UnknownAmplifyException({super.cause})
     : super(
-        message: 'An unknown error has occured',
+        message: 'An unknown error has occurred',
         recoverySuggestion: 'Please open an issue on the Amplify Github',
       );
 }
@@ -138,7 +138,7 @@ class UploadResult {
 
 class AmplifyS3ClientConfig {
   AmplifyS3ClientConfig({required this.id});
-  String id;
+  final String id;
 }
 
 class AmplifyS3Client {
@@ -148,9 +148,9 @@ class AmplifyS3Client {
     required this.config,
   });
 
-  AWSCredentialsProvider awsCredentialsProvider;
+  final AWSCredentialsProvider awsCredentialsProvider;
   final Logger Function(String name) createLogger;
-  AmplifyS3ClientConfig config;
+  final AmplifyS3ClientConfig config;
 
   Logger get _logger => createLogger('AmplifyS3Client');
 

@@ -28,6 +28,9 @@ final class AmplifyLogging {
   }
 
   /// Creates a named [Logger] that broadcasts to all registered sinks.
+  ///
+  /// Returns a logger bound to the sinks registered at the time of the call.
+  /// Sinks added later will not affect previously created loggers.
   static Logger logger(String name) {
     return BroadcastLogger(
       name: name,

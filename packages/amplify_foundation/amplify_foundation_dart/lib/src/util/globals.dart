@@ -1,6 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// The `z` prefix is used instead of `k` to avoid naming conflicts with
+// `kDebugMode`, `kProfileMode`, `kReleaseMode`, and `kIsWeb` from
+// `dart:foundation` / `package:flutter/foundation.dart`.
+
 /// Whether running in debug mode.
 const bool zDebugMode = !zProfileMode && !zReleaseMode;
 
