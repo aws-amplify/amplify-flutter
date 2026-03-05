@@ -177,6 +177,8 @@ extension type _ChildProcessOptions._(JSObject it) {
 extension type NodeChildProcess._(JSObject it) implements EventEmitter {
   Future<void> get onSpawn => once('spawn');
   Future<JSObject> get onError => once('error');
+  /// Nullable because the exit code is `null` when the process is
+  /// killed by a signal.
   Future<JSNumber?> get onExit => once('exit');
   Future<void> get onClose => once('close');
   external bool kill([String signal]);
