@@ -10,7 +10,6 @@ environment:
 
 dependencies:
   json_annotation: ^4.9.0
-  uuid: ^4.5.1
 
 dev_dependencies:
   amplify_lints: ">=3.1.4 <3.2.0"

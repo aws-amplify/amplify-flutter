@@ -15,23 +15,26 @@ import 'package:amplify_foundation_dart/src/logger/logger.dart';
 final class AmplifyLogging {
   AmplifyLogging._();
 
-  static final Map<String, LogSink> _registeredLogSinks = {};
+  static final Set<LogSink> _registeredLogSinks = {};
 
   /// Adds a [LogSink] to receive log messages.
   static void addSink(LogSink logSink) {
-    _registeredLogSinks[logSink.id] = logSink;
+    _registeredLogSinks.add(logSink);
   }
 
   /// Removes a previously registered [LogSink].
   static void removeSink(LogSink logSink) {
-    _registeredLogSinks.remove(logSink.id);
+    _registeredLogSinks.remove(logSink);
   }
 
   /// Creates a named [Logger] that broadcasts to all registered sinks.
+  ///
+  /// Returns a logger bound to the sinks registered at the time of the call.
+  /// Sinks added later will not affect previously created loggers.
   static Logger logger(String name) {
     return BroadcastLogger(
       name: name,
-      sinks: List.unmodifiable(_registeredLogSinks.values),
+      sinks: List.unmodifiable(_registeredLogSinks),
     );
   }
 }

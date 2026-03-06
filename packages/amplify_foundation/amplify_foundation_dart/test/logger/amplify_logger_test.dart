@@ -8,9 +8,6 @@ import 'package:test/test.dart';
 class CapturingLogSink implements LogSink {
   CapturingLogSink({required this.logLevel});
 
-  @override
-  final String id = 'capturing-sink';
-
   final LogLevel logLevel;
 
   final List<LogMessage> messages = [];
@@ -86,12 +83,12 @@ void main() {
 
       logger.error(message, error, stackTrace);
 
-      final log = sink.messages..single;
-      expect(log.first.name, 'myLogger');
-      expect(log.first.content, message);
-      expect(log.first.error, error);
-      expect(log.first.stackTrace, stackTrace);
-      expect(log.first.level, LogLevel.error);
+      final log = sink.messages.single;
+      expect(log.name, 'myLogger');
+      expect(log.content, message);
+      expect(log.error, error);
+      expect(log.stackTrace, stackTrace);
+      expect(log.level, LogLevel.error);
     });
 
     test('log method works with explicit level', () {
@@ -209,10 +206,13 @@ void main() {
       expect(sink.isEnabled(LogLevel.verbose), isFalse);
     });
 
-    test('has unique id', () {
+    test('each instance has unique identity', () {
       final sink1 = AmplifySimplePrinterLogSink(logLevel: LogLevel.info);
       final sink2 = AmplifySimplePrinterLogSink(logLevel: LogLevel.info);
-      expect(sink1.id, isNot(equals(sink2.id)));
+      final sink3 = AmplifySimplePrinterLogSink(logLevel: LogLevel.info);
+      expect(identical(sink1, sink2), isFalse);
+      expect(identical(sink1, sink3), isFalse);
+      expect(identical(sink2, sink3), isFalse);
     });
   });
 }

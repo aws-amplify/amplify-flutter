@@ -23,5 +23,5 @@ abstract class AmplifyException implements Exception {
 
   @override
   String toString() =>
-      'AmplifyException: $message\nRecovery suggestion: $recoverySuggestion';
+      '$runtimeType: $message\nRecovery suggestion: $recoverySuggestion';
 }

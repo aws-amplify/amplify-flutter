@@ -15,20 +15,17 @@ void main() async {
   print('End maxCustomization');
 }
 
-// Min Customization — register a simple printer sink and use AmplifyLogging
+// Min Customization — register a simple printer sink, use AmplifyLogging,
+// and create an AWSCredentialsProvider from a Cognito client
 Future<void> minCustomization() async {
   // Register a console log sink at info level
   final logSink = AmplifySimplePrinterLogSink(logLevel: LogLevel.info);
   AmplifyLogging.addSink(logSink);
 
-  final loggerProvider = AmplifyLoggerProvider(
-    createLogger: AmplifyLogging.logger,
-  );
-
   final cognitoConfig = AmplifyCognitoClientConfig(id: 'UserPoolId');
 
   final amplifyCognitoClient = AmplifyCognitoClient(
-    loggerProvider: loggerProvider,
+    createLogger: AmplifyLogging.logger,
     config: cognitoConfig,
   );
 
@@ -37,22 +34,21 @@ Future<void> minCustomization() async {
 
   final amplifyS3Client = AmplifyS3Client(
     awsCredentialsProvider: credentialsProvider,
-    loggerProvider: loggerProvider,
+    createLogger: AmplifyLogging.logger,
     config: s3Config,
   );
 
   final result = await amplifyS3Client.upload('FilePath');
-  result.handle(
-    onSuccess: (data) => print('onSuccess - ${data.value}'),
-    onFailure: (error) => print('onFailure - ${error.message}'),
-  );
+  switch (result) {
+    case Ok(:final value):
+      print('ok - ${value.value}');
+    case Error(:final error):
+      print('error - $error');
+  }
 }
 
-// Max Customization — custom LogSink and LoggerProvider
+// Max Customization — custom LogSink and logger factory
 class MyLogSink implements LogSink {
-  @override
-  final String id = 'my-custom-sink';
-
   @override
   bool isEnabled(LogLevel logLevel) => true; // Accept all levels
 
@@ -75,29 +71,30 @@ Future<void> maxCustomization() async {
 
   // Use a custom sink with a BroadcastLogger
   final customSink = MyLogSink();
-  final loggerProvider = AmplifyLoggerProvider(
-    createLogger: (name) => BroadcastLogger(name: name, sinks: [customSink]),
-  );
+  Logger createLogger(String name) =>
+      BroadcastLogger(name: name, sinks: [customSink]);
 
   final s3Config = AmplifyS3ClientConfig(id: 'S3BucketId');
 
   final amplifyS3Client = AmplifyS3Client(
     awsCredentialsProvider: credentialsProvider,
-    loggerProvider: loggerProvider,
+    createLogger: createLogger,
     config: s3Config,
   );
 
   final result = await amplifyS3Client.upload('FilePath');
-  result.handle(
-    onSuccess: (data) => print('onSuccess - ${data.value}'),
-    onFailure: (error) => print('onFailure - ${error.message}'),
-  );
+  switch (result) {
+    case Ok(:final value):
+      print('ok - ${value.value}');
+    case Error(:final error):
+      print('error - $error');
+  }
 }
 
 // Cognito Client Code
 class AmplifyCognitoClientConfig {
   AmplifyCognitoClientConfig({required this.id});
-  String id;
+  final String id;
 }
 
 class CognitoCredentialProvider implements AWSCredentialsProvider {
@@ -108,12 +105,12 @@ class CognitoCredentialProvider implements AWSCredentialsProvider {
 }
 
 class AmplifyCognitoClient {
-  AmplifyCognitoClient({required this.loggerProvider, required this.config});
+  AmplifyCognitoClient({required this.createLogger, required this.config});
 
-  LoggerProvider loggerProvider;
-  AmplifyCognitoClientConfig config;
+  final Logger Function(String name) createLogger;
+  final AmplifyCognitoClientConfig config;
 
-  Logger get _logger => loggerProvider.resolve('AmplifyCognitoClient');
+  Logger get _logger => createLogger('AmplifyCognitoClient');
 
   AWSCredentialsProvider toAWSCredentialsProvider() {
     _logger.verbose('Creating CognitoCredentialProvider');
@@ -125,7 +122,7 @@ class AmplifyCognitoClient {
 class UnknownAmplifyException extends AmplifyException {
   UnknownAmplifyException({super.cause})
     : super(
-        message: 'An unknown error has occured',
+        message: 'An unknown error has occurred',
         recoverySuggestion: 'Please open an issue on the Amplify Github',
       );
 }
@@ -138,36 +135,33 @@ class UploadResult {
 
 class AmplifyS3ClientConfig {
   AmplifyS3ClientConfig({required this.id});
-  String id;
+  final String id;
 }
 
 class AmplifyS3Client {
   AmplifyS3Client({
     required this.awsCredentialsProvider,
-    required this.loggerProvider,
+    required this.createLogger,
     required this.config,
   });
 
-  AWSCredentialsProvider awsCredentialsProvider;
-  LoggerProvider loggerProvider;
-  AmplifyS3ClientConfig config;
+  final AWSCredentialsProvider awsCredentialsProvider;
+  final Logger Function(String name) createLogger;
+  final AmplifyS3ClientConfig config;
 
-  Logger get _logger => loggerProvider.resolve('AmplifyS3Client');
+  Logger get _logger => createLogger('AmplifyS3Client');
 
-  Future<Result<UploadResult, AmplifyException>> upload(String file) async {
+  Future<Result<UploadResult>> upload(String file) async {
     try {
       _logger.info('upload called with file: $file');
 
       final result = await _upload(file);
 
       _logger.info('someAction returned with: $result');
-      return Success(result);
-    } on AmplifyException catch (error, stackTrace) {
+      return Result.ok(result);
+    } on Exception catch (error, stackTrace) {
       _logger.error('Error calling someAction', error, stackTrace);
-      return Failure(error);
-    } on Object catch (error, stackTrace) {
-      _logger.error('Error calling someAction', error, stackTrace);
-      return Failure(UnknownAmplifyException(cause: error));
+      return Result.error(error);
     }
   }
 
