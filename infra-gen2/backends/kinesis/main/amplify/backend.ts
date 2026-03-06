@@ -2,37 +2,29 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { defineBackend } from "@aws-amplify/backend";
-import * as cdk from "aws-cdk-lib";
+import { Duration, RemovalPolicy } from "aws-cdk-lib";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as kinesis from "aws-cdk-lib/aws-kinesis";
 import * as firehose from "aws-cdk-lib/aws-kinesisfirehose";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import { auth } from "./auth/resource";
 
-/**
- * Kinesis E2E test backend.
- *
- * Provisions Kinesis Data Streams and Amazon Data Firehose resources
- * for E2E testing. No Amplify categories are needed — the Amplify
- * backend is used only as a CDK entry-point.
- *
- * Test credentials and resource names are stored in a dedicated
- * Secrets Manager secret managed outside this stack.
- */
-const backend = defineBackend({});
+const backend = defineBackend({
+  auth,
+});
 
-const kinesisStack = backend.createStack("KinesisTestResources");
+const kinesisStack = backend.createStack("KinesisStack");
 
 // --- Kinesis Data Stream ---
-new kinesis.Stream(kinesisStack, "TestStream", {
-  streamName: "kinesis-e2e-data-stream",
+const stream = new kinesis.Stream(kinesisStack, "TestStream", {
+  streamName: "amplify-kinesis-test-stream",
   shardCount: 1,
-  retentionPeriod: cdk.Duration.hours(24),
-  removalPolicy: cdk.RemovalPolicy.DESTROY,
+  retentionPeriod: Duration.hours(24),
 });
 
 // --- S3 bucket (Firehose destination) ---
 const bucket = new s3.Bucket(kinesisStack, "FirehoseDestBucket", {
-  removalPolicy: cdk.RemovalPolicy.DESTROY,
+  removalPolicy: RemovalPolicy.DESTROY,
   autoDeleteObjects: true,
   enforceSSL: true,
 });
@@ -44,11 +36,11 @@ const firehoseRole = new iam.Role(kinesisStack, "FirehoseS3Role", {
 bucket.grantReadWrite(firehoseRole);
 
 // --- Firehose delivery stream ---
-new firehose.CfnDeliveryStream(
+const deliveryStream = new firehose.CfnDeliveryStream(
   kinesisStack,
   "TestDeliveryStream",
   {
-    deliveryStreamName: "kinesis-e2e-delivery-stream",
+    deliveryStreamName: "amplify-kinesis-test-delivery-stream",
     s3DestinationConfiguration: {
       bucketArn: bucket.bucketArn,
       roleArn: firehoseRole.roleArn,
@@ -58,5 +50,29 @@ new firehose.CfnDeliveryStream(
         sizeInMBs: 1,
       },
     },
-  },
+  }
+);
+
+// Grant authenticated users permission to put records to Kinesis Data Streams
+backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
+  new iam.PolicyStatement({
+    actions: [
+      "kinesis:PutRecord",
+      "kinesis:PutRecords",
+      "kinesis:DescribeStream",
+    ],
+    resources: [stream.streamArn],
+  })
+);
+
+// Grant authenticated users permission to put records to Firehose
+backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
+  new iam.PolicyStatement({
+    actions: [
+      "firehose:PutRecord",
+      "firehose:PutRecordBatch",
+      "firehose:DescribeDeliveryStream",
+    ],
+    resources: [deliveryStream.attrArn],
+  })
 );
