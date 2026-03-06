@@ -28,15 +28,17 @@ final class RecordStorage {
 
   /// Saves a record to the database using parameterized queries.
   Future<void> saveRecord(KinesisRecord record) async {
-    await _db.into(_db.kinesisRecords).insert(
-      KinesisRecordsCompanion.insert(
-        streamName: record.streamName,
-        partitionKey: record.partitionKey,
-        data: record.data,
-        dataSize: record.dataSize,
-        createdAt: record.createdAt.millisecondsSinceEpoch,
-      ),
-    );
+    await _db
+        .into(_db.kinesisRecords)
+        .insert(
+          KinesisRecordsCompanion.insert(
+            streamName: record.streamName,
+            partitionKey: record.partitionKey,
+            data: record.data,
+            dataSize: record.dataSize,
+            createdAt: record.createdAt.millisecondsSinceEpoch,
+          ),
+        );
   }
 
   /// Retrieves a batch of records sorted by stream_name, partition_key, id.
@@ -50,8 +52,9 @@ final class RecordStorage {
     // Use window functions to compute row number and running size,
     // then filter to get records within both limits.
     // Include record if: running_size <= maxBytes OR it's the first record (rn = 1)
-    final results = await _db.customSelect(
-      '''
+    final results = await _db
+        .customSelect(
+          '''
       SELECT id, stream_name, partition_key, data, data_size, retry_count, created_at
       FROM (
         SELECT *,
@@ -62,9 +65,10 @@ final class RecordStorage {
       WHERE rn <= ?1 AND (running_size <= ?2 OR rn = 1)
       ORDER BY stream_name, partition_key, id
       ''',
-      variables: [Variable.withInt(maxCount), Variable.withInt(maxBytes)],
-      readsFrom: {_db.kinesisRecords},
-    ).get();
+          variables: [Variable.withInt(maxCount), Variable.withInt(maxBytes)],
+          readsFrom: {_db.kinesisRecords},
+        )
+        .get();
 
     return results.map((row) {
       return StoredRecord(
@@ -83,29 +87,25 @@ final class RecordStorage {
   Future<void> deleteRecords(Iterable<int> ids) async {
     if (ids.isEmpty) return;
 
-    await (_db.delete(_db.kinesisRecords)
-      ..where((t) => t.id.isIn(ids)))
-      .go();
+    await (_db.delete(_db.kinesisRecords)..where((t) => t.id.isIn(ids))).go();
   }
 
   /// Increments the retry count for the specified records.
   Future<void> incrementRetryCount(Iterable<int> ids) async {
     if (ids.isEmpty) return;
 
-    await (_db.update(_db.kinesisRecords)
-      ..where((t) => t.id.isIn(ids)))
-      .write(
-        KinesisRecordsCompanion.custom(
-          retryCount: _db.kinesisRecords.retryCount + const Constant(1),
-        ),
-      );
+    await (_db.update(_db.kinesisRecords)..where((t) => t.id.isIn(ids))).write(
+      KinesisRecordsCompanion.custom(
+        retryCount: _db.kinesisRecords.retryCount + const Constant(1),
+      ),
+    );
   }
 
   /// Deletes records that have exceeded the maximum retry count.
   Future<void> deleteRecordsExceedingRetries(int maxRetries) async {
-    await (_db.delete(_db.kinesisRecords)
-      ..where((t) => t.retryCount.isBiggerThanValue(maxRetries)))
-      .go();
+    await (_db.delete(
+      _db.kinesisRecords,
+    )..where((t) => t.retryCount.isBiggerThanValue(maxRetries))).go();
   }
 
   /// Returns the current total size of cached data in bytes.

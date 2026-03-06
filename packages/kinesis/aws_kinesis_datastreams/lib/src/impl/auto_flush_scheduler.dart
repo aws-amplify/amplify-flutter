@@ -13,8 +13,8 @@ class AutoFlushScheduler {
   AutoFlushScheduler({
     required KinesisDataStreamsFlushStrategy strategy,
     required Future<void> Function() onFlush,
-  })  : _strategy = strategy,
-        _onFlush = onFlush;
+  }) : _strategy = strategy,
+       _onFlush = onFlush;
 
   final KinesisDataStreamsFlushStrategy _strategy;
   final Future<void> Function() _onFlush;
@@ -42,13 +42,19 @@ class AutoFlushScheduler {
   }
 
   /// Stops the scheduler and cancels any active timer.
-  void stop() { _cancelTimer(); }
+  void stop() {
+    _cancelTimer();
+  }
 
   /// Enables the scheduler to trigger flushes.
-  void enable() { _enabled = true; }
+  void enable() {
+    _enabled = true;
+  }
 
   /// Disables the scheduler from triggering flushes.
-  void disable() { _enabled = false; }
+  void disable() {
+    _enabled = false;
+  }
 
   /// Closes the scheduler and releases resources.
   Future<void> close() async {
@@ -56,7 +62,10 @@ class AutoFlushScheduler {
     _cancelTimer();
   }
 
-  void _cancelTimer() { _timer?.cancel(); _timer = null; }
+  void _cancelTimer() {
+    _timer?.cancel();
+    _timer = null;
+  }
 
   void _handleTimerTick() {
     if (!_enabled || _closed) return;

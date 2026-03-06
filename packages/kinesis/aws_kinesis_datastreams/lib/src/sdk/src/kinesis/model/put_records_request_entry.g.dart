@@ -14,9 +14,9 @@ class _$PutRecordsRequestEntry extends PutRecordsRequestEntry {
   @override
   final String partitionKey;
 
-  factory _$PutRecordsRequestEntry(
-          [void Function(PutRecordsRequestEntryBuilder)? updates]) =>
-      (new PutRecordsRequestEntryBuilder()..update(updates))._build();
+  factory _$PutRecordsRequestEntry([
+    void Function(PutRecordsRequestEntryBuilder)? updates,
+  ]) => (new PutRecordsRequestEntryBuilder()..update(updates))._build();
 
   _$PutRecordsRequestEntry._({
     required this.data,
@@ -24,15 +24,21 @@ class _$PutRecordsRequestEntry extends PutRecordsRequestEntry {
     required this.partitionKey,
   }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        data, r'PutRecordsRequestEntry', 'data');
+      data,
+      r'PutRecordsRequestEntry',
+      'data',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        partitionKey, r'PutRecordsRequestEntry', 'partitionKey');
+      partitionKey,
+      r'PutRecordsRequestEntry',
+      'partitionKey',
+    );
   }
 
   @override
   PutRecordsRequestEntry rebuild(
-          void Function(PutRecordsRequestEntryBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PutRecordsRequestEntryBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PutRecordsRequestEntryBuilder toBuilder() =>
@@ -103,13 +109,20 @@ class PutRecordsRequestEntryBuilder
   PutRecordsRequestEntry build() => _build();
 
   _$PutRecordsRequestEntry _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PutRecordsRequestEntry._(
           data: BuiltValueNullFieldError.checkNotNull(
-              data, r'PutRecordsRequestEntry', 'data'),
+            data,
+            r'PutRecordsRequestEntry',
+            'data',
+          ),
           explicitHashKey: explicitHashKey,
           partitionKey: BuiltValueNullFieldError.checkNotNull(
-              partitionKey, r'PutRecordsRequestEntry', 'partitionKey'),
+            partitionKey,
+            r'PutRecordsRequestEntry',
+            'partitionKey',
+          ),
         );
     replace(_$result);
     return _$result;

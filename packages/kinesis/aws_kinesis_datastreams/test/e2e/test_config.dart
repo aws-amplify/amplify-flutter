@@ -57,7 +57,8 @@ AmplifyAuthConfig? _loadAmplifyConfig() {
 final AmplifyAuthConfig? amplifyAuthConfig = _loadAmplifyConfig();
 
 /// AWS Region — from amplify config or environment variable.
-final String testRegion = amplifyAuthConfig?.region ??
+final String testRegion =
+    amplifyAuthConfig?.region ??
     (const String.fromEnvironment('TEST_REGION').isNotEmpty
         ? const String.fromEnvironment('TEST_REGION')
         : Platform.environment['TEST_REGION'] ?? 'us-west-2');
@@ -67,9 +68,8 @@ final String testRegion = amplifyAuthConfig?.region ??
 /// Defaults to the stream name provisioned by the infra-gen2 backend.
 final String testStreamName =
     const String.fromEnvironment('TEST_STREAM_NAME').isNotEmpty
-        ? const String.fromEnvironment('TEST_STREAM_NAME')
-        : Platform.environment['TEST_STREAM_NAME'] ??
-            'amplify-kinesis-test-stream';
+    ? const String.fromEnvironment('TEST_STREAM_NAME')
+    : Platform.environment['TEST_STREAM_NAME'] ?? 'amplify-kinesis-test-stream';
 
 /// Whether the test environment is configured.
 ///

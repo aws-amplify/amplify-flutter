@@ -74,18 +74,18 @@ abstract class PutRecordsResultEntry
 class PutRecordsResultEntryAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<PutRecordsResultEntry> {
   const PutRecordsResultEntryAwsJson11Serializer()
-      : super('PutRecordsResultEntry');
+    : super('PutRecordsResultEntry');
 
   @override
   Iterable<Type> get types => const [
-        PutRecordsResultEntry,
-        _$PutRecordsResultEntry,
-      ];
+    PutRecordsResultEntry,
+    _$PutRecordsResultEntry,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   PutRecordsResultEntry deserialize(
@@ -104,25 +104,33 @@ class PutRecordsResultEntryAwsJson11Serializer
       }
       switch (key) {
         case 'SequenceNumber':
-          result.sequenceNumber = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.sequenceNumber =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ShardId':
-          result.shardId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.shardId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ErrorCode':
-          result.errorCode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.errorCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ErrorMessage':
-          result.errorMessage = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.errorMessage =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
     return result.build();
@@ -138,34 +146,42 @@ class PutRecordsResultEntryAwsJson11Serializer
     if (object.sequenceNumber != null) {
       result
         ..add('SequenceNumber')
-        ..add(serializers.serialize(
-          object.sequenceNumber,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.sequenceNumber,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (object.shardId != null) {
       result
         ..add('ShardId')
-        ..add(serializers.serialize(
-          object.shardId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.shardId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (object.errorCode != null) {
       result
         ..add('ErrorCode')
-        ..add(serializers.serialize(
-          object.errorCode,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.errorCode,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (object.errorMessage != null) {
       result
         ..add('ErrorMessage')
-        ..add(serializers.serialize(
-          object.errorMessage,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.errorMessage,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }

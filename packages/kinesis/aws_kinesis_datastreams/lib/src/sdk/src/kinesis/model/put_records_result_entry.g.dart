@@ -16,9 +16,9 @@ class _$PutRecordsResultEntry extends PutRecordsResultEntry {
   @override
   final String? errorMessage;
 
-  factory _$PutRecordsResultEntry(
-          [void Function(PutRecordsResultEntryBuilder)? updates]) =>
-      (new PutRecordsResultEntryBuilder()..update(updates))._build();
+  factory _$PutRecordsResultEntry([
+    void Function(PutRecordsResultEntryBuilder)? updates,
+  ]) => (new PutRecordsResultEntryBuilder()..update(updates))._build();
 
   _$PutRecordsResultEntry._({
     this.sequenceNumber,
@@ -29,8 +29,8 @@ class _$PutRecordsResultEntry extends PutRecordsResultEntry {
 
   @override
   PutRecordsResultEntry rebuild(
-          void Function(PutRecordsResultEntryBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PutRecordsResultEntryBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PutRecordsResultEntryBuilder toBuilder() =>
@@ -108,7 +108,8 @@ class PutRecordsResultEntryBuilder
   PutRecordsResultEntry build() => _build();
 
   _$PutRecordsResultEntry _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PutRecordsResultEntry._(
           sequenceNumber: sequenceNumber,
           shardId: shardId,

@@ -20,11 +20,7 @@ void main() {
 
     setUpAll(() {
       registerFallbackValue(
-        KinesisRecord.now(
-          data: Uint8List(0),
-          partitionKey: '',
-          streamName: '',
-        ),
+        KinesisRecord.now(data: Uint8List(0), partitionKey: '', streamName: ''),
       );
     });
 
@@ -34,10 +30,12 @@ void main() {
       when(() => mockRecordClient.isEnabled).thenReturn(true);
       when(() => mockRecordClient.isClosed).thenReturn(false);
       when(() => mockRecordClient.record(any())).thenAnswer((_) async {});
-      when(() => mockRecordClient.flush())
-          .thenAnswer((_) async => const FlushData());
-      when(() => mockRecordClient.clearCache())
-          .thenAnswer((_) async => const ClearCacheData());
+      when(
+        () => mockRecordClient.flush(),
+      ).thenAnswer((_) async => const FlushData());
+      when(
+        () => mockRecordClient.clearCache(),
+      ).thenAnswer((_) async => const ClearCacheData());
       when(() => mockRecordClient.enable()).thenReturn(null);
       when(() => mockRecordClient.disable()).thenReturn(null);
       when(() => mockRecordClient.enableAutoFlush()).thenReturn(null);
@@ -59,10 +57,7 @@ void main() {
         expect(client.region, equals('us-east-1'));
         expect(client.options.cacheMaxBytes, equals(5 * 1024 * 1024));
         expect(client.options.maxRetries, equals(5));
-        expect(
-          client.options.flushStrategy,
-          isA<KinesisDataStreamsInterval>(),
-        );
+        expect(client.options.flushStrategy, isA<KinesisDataStreamsInterval>());
       });
 
       test('initializes with custom options', () {
@@ -99,10 +94,7 @@ void main() {
           options: customOptions,
         );
 
-        expect(
-          client.options.flushStrategy,
-          isA<KinesisDataStreamsNone>(),
-        );
+        expect(client.options.flushStrategy, isA<KinesisDataStreamsNone>());
       });
     });
 
@@ -119,9 +111,9 @@ void main() {
           streamName: 'test-stream',
         );
 
-        final captured = verify(() => mockRecordClient.record(captureAny()))
-            .captured
-            .single as KinesisRecord;
+        final captured =
+            verify(() => mockRecordClient.record(captureAny())).captured.single
+                as KinesisRecord;
 
         expect(captured.data, equals(data));
         expect(captured.partitionKey, equals('test-partition'));
@@ -141,9 +133,9 @@ void main() {
           streamName: 'stream',
         );
 
-        final captured = verify(() => mockRecordClient.record(captureAny()))
-            .captured
-            .single as KinesisRecord;
+        final captured =
+            verify(() => mockRecordClient.record(captureAny())).captured.single
+                as KinesisRecord;
 
         expect(captured.dataSize, equals(1002));
       });
@@ -151,8 +143,9 @@ void main() {
 
     group('flush()', () {
       test('delegates to RecordClient and returns FlushData', () async {
-        when(() => mockRecordClient.flush())
-            .thenAnswer((_) async => const FlushData(recordsFlushed: 5));
+        when(
+          () => mockRecordClient.flush(),
+        ).thenAnswer((_) async => const FlushData(recordsFlushed: 5));
 
         final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
@@ -168,8 +161,9 @@ void main() {
 
     group('clearCache()', () {
       test('delegates to RecordClient and returns ClearCacheData', () async {
-        when(() => mockRecordClient.clearCache())
-            .thenAnswer((_) async => const ClearCacheData(recordsCleared: 3));
+        when(
+          () => mockRecordClient.clearCache(),
+        ).thenAnswer((_) async => const ClearCacheData(recordsCleared: 3));
 
         final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,

@@ -22,8 +22,14 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Writes multiple data records into a Kinesis data stream in a single call.
-class PutRecordsOperation extends _i1.HttpOperation<PutRecordsRequest,
-    PutRecordsRequest, PutRecordsResponse, PutRecordsResponse> {
+class PutRecordsOperation
+    extends
+        _i1.HttpOperation<
+          PutRecordsRequest,
+          PutRecordsRequest,
+          PutRecordsResponse,
+          PutRecordsResponse
+        > {
   /// Writes multiple data records into a Kinesis data stream in a single call.
   PutRecordsOperation({
     required String region,
@@ -32,27 +38,30 @@ class PutRecordsOperation extends _i1.HttpOperation<PutRecordsRequest,
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-          _i1.HttpProtocol<PutRecordsRequest, PutRecordsRequest,
-              PutRecordsResponse, PutRecordsResponse>>
-      protocols = [
+    _i1.HttpProtocol<
+      PutRecordsRequest,
+      PutRecordsRequest,
+      PutRecordsResponse,
+      PutRecordsResponse
+    >
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            const _i1.WithHeader(
-              'X-Amz-Target',
-              'Kinesis_20131202.PutRecords',
-            ),
+            const _i1.WithHeader('X-Amz-Target', 'Kinesis_20131202.PutRecords'),
             _i3.WithSigV4(
               region: _region,
               service: _i4.AWSService.kinesis,
@@ -85,9 +94,9 @@ class PutRecordsOperation extends _i1.HttpOperation<PutRecordsRequest,
 
   @override
   _i1.HttpRequest buildRequest(PutRecordsRequest input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/';
-      });
+    b.method = 'POST';
+    b.path = r'/';
+  });
 
   @override
   int successCode([PutRecordsResponse? output]) => 200;
@@ -96,53 +105,51 @@ class PutRecordsOperation extends _i1.HttpOperation<PutRecordsRequest,
   PutRecordsResponse buildOutput(
     PutRecordsResponse payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      PutRecordsResponse.fromResponse(payload, response);
+  ) => PutRecordsResponse.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<InvalidArgumentException, InvalidArgumentException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.kinesis',
-            shape: 'InvalidArgumentException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidArgumentException,
-          statusCode: 400,
-          builder: InvalidArgumentException.fromResponse,
-        ),
-        _i1.SmithyError<ProvisionedThroughputExceededException,
-            ProvisionedThroughputExceededException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.kinesis',
-            shape: 'ProvisionedThroughputExceededException',
-          ),
-          _i1.ErrorKind.client,
-          ProvisionedThroughputExceededException,
-          statusCode: 400,
-          builder: ProvisionedThroughputExceededException.fromResponse,
-        ),
-        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.kinesis',
-            shape: 'ResourceNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          ResourceNotFoundException,
-          statusCode: 400,
-          builder: ResourceNotFoundException.fromResponse,
-        ),
-        _i1.SmithyError<KmsException, KmsException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.kinesis',
-            shape: 'KMSException',
-          ),
-          _i1.ErrorKind.client,
-          KmsException,
-          statusCode: 400,
-          builder: KmsException.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<InvalidArgumentException, InvalidArgumentException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.kinesis',
+        shape: 'InvalidArgumentException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidArgumentException,
+      statusCode: 400,
+      builder: InvalidArgumentException.fromResponse,
+    ),
+    _i1.SmithyError<
+      ProvisionedThroughputExceededException,
+      ProvisionedThroughputExceededException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.kinesis',
+        shape: 'ProvisionedThroughputExceededException',
+      ),
+      _i1.ErrorKind.client,
+      ProvisionedThroughputExceededException,
+      statusCode: 400,
+      builder: ProvisionedThroughputExceededException.fromResponse,
+    ),
+    _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.kinesis',
+        shape: 'ResourceNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      ResourceNotFoundException,
+      statusCode: 400,
+      builder: ResourceNotFoundException.fromResponse,
+    ),
+    _i1.SmithyError<KmsException, KmsException>(
+      _i1.ShapeId(namespace: 'com.amazonaws.kinesis', shape: 'KMSException'),
+      _i1.ErrorKind.client,
+      KmsException,
+      statusCode: 400,
+      builder: KmsException.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'PutRecords';

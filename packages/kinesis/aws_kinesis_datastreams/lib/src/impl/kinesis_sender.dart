@@ -33,10 +33,7 @@ final class PutRecordsResult {
 /// A record to be sent to Kinesis.
 final class KinesisSenderRecord {
   /// Creates a new [KinesisSenderRecord].
-  const KinesisSenderRecord({
-    required this.data,
-    required this.partitionKey,
-  });
+  const KinesisSenderRecord({required this.data, required this.partitionKey});
 
   /// The data blob to send.
   final Uint8List data;
@@ -52,14 +49,13 @@ class KinesisSender {
   /// {@macro aws_kinesis_datastreams.kinesis_sender}
   KinesisSender({
     required String region,
-    required foundation.AWSCredentialsProvider
-        credentialsProvider,
+    required foundation.AWSCredentialsProvider credentialsProvider,
     AWSHttpClient? httpClient,
   }) : _kinesisClient = WrappedKinesisClient(
-          region: region,
-          credentialsProvider: credentialsProvider,
-          httpClient: httpClient,
-        );
+         region: region,
+         credentialsProvider: credentialsProvider,
+         httpClient: httpClient,
+       );
 
   final KinesisClient _kinesisClient;
 

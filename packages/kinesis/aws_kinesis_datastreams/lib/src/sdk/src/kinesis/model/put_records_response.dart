@@ -43,8 +43,7 @@ abstract class PutRecordsResponse
   factory PutRecordsResponse.fromResponse(
     PutRecordsResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<PutRecordsResponse>> serializers = [
     PutRecordsResponseAwsJson11Serializer(),
@@ -77,15 +76,12 @@ class PutRecordsResponseAwsJson11Serializer
   const PutRecordsResponseAwsJson11Serializer() : super('PutRecordsResponse');
 
   @override
-  Iterable<Type> get types => const [
-        PutRecordsResponse,
-        _$PutRecordsResponse,
-      ];
+  Iterable<Type> get types => const [PutRecordsResponse, _$PutRecordsResponse];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   PutRecordsResponse deserialize(
@@ -104,23 +100,29 @@ class PutRecordsResponseAwsJson11Serializer
       }
       switch (key) {
         case 'FailedRecordCount':
-          result.failedRecordCount = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.failedRecordCount =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'Records':
-          result.records.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(PutRecordsResultEntry)],
-            ),
-          ) as _i3.BuiltList<PutRecordsResultEntry>));
+          result.records.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltList, [
+                    FullType(PutRecordsResultEntry),
+                  ]),
+                )
+                as _i3.BuiltList<PutRecordsResultEntry>),
+          );
         case 'EncryptionType':
-          result.encryptionType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.encryptionType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
     return result.build();
@@ -136,27 +138,30 @@ class PutRecordsResponseAwsJson11Serializer
       'Records',
       serializers.serialize(
         object.records,
-        specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(PutRecordsResultEntry)],
-        ),
+        specifiedType: const FullType(_i3.BuiltList, [
+          FullType(PutRecordsResultEntry),
+        ]),
       ),
     ];
     if (object.failedRecordCount != null) {
       result
         ..add('FailedRecordCount')
-        ..add(serializers.serialize(
-          object.failedRecordCount,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(
+            object.failedRecordCount,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     if (object.encryptionType != null) {
       result
         ..add('EncryptionType')
-        ..add(serializers.serialize(
-          object.encryptionType,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.encryptionType,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }

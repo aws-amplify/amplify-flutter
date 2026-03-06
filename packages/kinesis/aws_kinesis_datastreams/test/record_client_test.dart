@@ -103,61 +103,71 @@ void main() {
         );
       });
 
-      test('throws KinesisRecordTooLargeException when record exceeds 10 MiB', () async {
-        // 10 MiB limit applies to partition key + data blob combined
-        const partitionKey = 'pk';
-        final partitionKeyBytes = utf8.encode(partitionKey).length;
-        final oversizedData = Uint8List(kKinesisMaxRecordBytes - partitionKeyBytes + 1);
+      test(
+        'throws KinesisRecordTooLargeException when record exceeds 10 MiB',
+        () async {
+          // 10 MiB limit applies to partition key + data blob combined
+          const partitionKey = 'pk';
+          final partitionKeyBytes = utf8.encode(partitionKey).length;
+          final oversizedData = Uint8List(
+            kKinesisMaxRecordBytes - partitionKeyBytes + 1,
+          );
 
-        expect(
-          () => client.record(
+          expect(
+            () => client.record(
+              KinesisRecord.now(
+                data: oversizedData,
+                partitionKey: partitionKey,
+                streamName: 'stream',
+              ),
+            ),
+            throwsA(isA<KinesisRecordTooLargeException>()),
+          );
+        },
+      );
+
+      test(
+        'accepts record exactly at 10 MiB limit (partition key + data)',
+        () async {
+          // Need a larger cache for this test
+          final largeDb = createTestDatabase();
+          final largeStorage = RecordStorage(
+            database: largeDb,
+            maxCacheBytes: 20 * 1024 * 1024, // 20MB cache
+          );
+          final largeScheduler = AutoFlushScheduler(
+            strategy: const KinesisDataStreamsInterval(
+              interval: Duration(hours: 1),
+            ),
+            onFlush: () async {},
+          );
+          final largeClient = RecordClient(
+            storage: largeStorage,
+            sender: _TestKinesisSender(),
+            scheduler: largeScheduler,
+            maxRetries: 3,
+          );
+
+          const partitionKey = 'pk';
+          final partitionKeyBytes = utf8.encode(partitionKey).length;
+          final exactLimitData = Uint8List(
+            kKinesisMaxRecordBytes - partitionKeyBytes,
+          );
+
+          await largeClient.record(
             KinesisRecord.now(
-              data: oversizedData,
+              data: exactLimitData,
               partitionKey: partitionKey,
               streamName: 'stream',
             ),
-          ),
-          throwsA(isA<KinesisRecordTooLargeException>()),
-        );
-      });
+          );
 
-      test('accepts record exactly at 10 MiB limit (partition key + data)', () async {
-        // Need a larger cache for this test
-        final largeDb = createTestDatabase();
-        final largeStorage = RecordStorage(
-          database: largeDb,
-          maxCacheBytes: 20 * 1024 * 1024, // 20MB cache
-        );
-        final largeScheduler = AutoFlushScheduler(
-          strategy: const KinesisDataStreamsInterval(
-            interval: Duration(hours: 1),
-          ),
-          onFlush: () async {},
-        );
-        final largeClient = RecordClient(
-          storage: largeStorage,
-          sender: _TestKinesisSender(),
-          scheduler: largeScheduler,
-          maxRetries: 3,
-        );
+          final records = await largeStorage.getRecordsBatch();
+          expect(records, hasLength(1));
 
-        const partitionKey = 'pk';
-        final partitionKeyBytes = utf8.encode(partitionKey).length;
-        final exactLimitData = Uint8List(kKinesisMaxRecordBytes - partitionKeyBytes);
-
-        await largeClient.record(
-          KinesisRecord.now(
-            data: exactLimitData,
-            partitionKey: partitionKey,
-            streamName: 'stream',
-          ),
-        );
-
-        final records = await largeStorage.getRecordsBatch();
-        expect(records, hasLength(1));
-
-        await largeClient.close();
-      });
+          await largeClient.close();
+        },
+      );
 
       test('dataSize includes partition key size', () {
         const partitionKey = 'test-partition-key';
@@ -247,20 +257,23 @@ void main() {
         expect(records, hasLength(1));
       });
 
-      test('returns FlushData with flushInProgress when already flushing', () async {
-        await client.record(
-          KinesisRecord.now(
-            data: Uint8List.fromList([1]),
-            partitionKey: 'pk',
-            streamName: 'stream',
-          ),
-        );
+      test(
+        'returns FlushData with flushInProgress when already flushing',
+        () async {
+          await client.record(
+            KinesisRecord.now(
+              data: Uint8List.fromList([1]),
+              partitionKey: 'pk',
+              streamName: 'stream',
+            ),
+          );
 
-        // First flush should work normally
-        final result = await client.flush();
-        expect(result.recordsFlushed, equals(1));
-        expect(result.flushInProgress, isFalse);
-      });
+          // First flush should work normally
+          final result = await client.flush();
+          expect(result.recordsFlushed, equals(1));
+          expect(result.flushInProgress, isFalse);
+        },
+      );
 
       test('respects batch size limits - 500 records', () async {
         final largeDb = createTestDatabase();
@@ -333,8 +346,9 @@ void main() {
         expect(sender.putRecordsCalls, hasLength(2));
         expect(result.recordsFlushed, equals(3));
 
-        final streamNames =
-            sender.putRecordsCalls.map((c) => c.streamName).toSet();
+        final streamNames = sender.putRecordsCalls
+            .map((c) => c.streamName)
+            .toSet();
         expect(streamNames, containsAll(['stream-a', 'stream-b']));
       });
 
@@ -384,48 +398,51 @@ void main() {
         expect(callCount, equals(2));
       });
 
-      test('retains record with incremented retry count after retryable failure', () async {
-        final testDb = createTestDatabase();
-        final testStorage = RecordStorage(
-          database: testDb,
-          maxCacheBytes: 1024,
-        );
-        final testSender = _TestKinesisSender();
-        final testScheduler = AutoFlushScheduler(
-          strategy: const KinesisDataStreamsInterval(
-            interval: Duration(hours: 1),
-          ),
-          onFlush: () async {},
-        );
-        final testClient = RecordClient(
-          storage: testStorage,
-          sender: testSender,
-          scheduler: testScheduler,
-          maxRetries: 3,
-        );
+      test(
+        'retains record with incremented retry count after retryable failure',
+        () async {
+          final testDb = createTestDatabase();
+          final testStorage = RecordStorage(
+            database: testDb,
+            maxCacheBytes: 1024,
+          );
+          final testSender = _TestKinesisSender();
+          final testScheduler = AutoFlushScheduler(
+            strategy: const KinesisDataStreamsInterval(
+              interval: Duration(hours: 1),
+            ),
+            onFlush: () async {},
+          );
+          final testClient = RecordClient(
+            storage: testStorage,
+            sender: testSender,
+            scheduler: testScheduler,
+            maxRetries: 3,
+          );
 
-        // Always return retryable failure
-        testSender.resultProvider = (records) => PutRecordsResult(
-          successfulRecordIndices: [],
-          failedRecordIndices: [],
-          retryableRecordIndices: List.generate(records.length, (i) => i),
-        );
+          // Always return retryable failure
+          testSender.resultProvider = (records) => PutRecordsResult(
+            successfulRecordIndices: [],
+            failedRecordIndices: [],
+            retryableRecordIndices: List.generate(records.length, (i) => i),
+          );
 
-        await testClient.record(
-          KinesisRecord.now(
-            data: Uint8List.fromList([1]),
-            partitionKey: 'pk',
-            streamName: 'stream',
-          ),
-        );
+          await testClient.record(
+            KinesisRecord.now(
+              data: Uint8List.fromList([1]),
+              partitionKey: 'pk',
+              streamName: 'stream',
+            ),
+          );
 
-        await testClient.flush();
+          await testClient.flush();
 
-        // Should be called 4 times (initial + 3 retries)
-        expect(testSender.putRecordsCalls.length, equals(4));
+          // Should be called 4 times (initial + 3 retries)
+          expect(testSender.putRecordsCalls.length, equals(4));
 
-        await testClient.close();
-      });
+          await testClient.close();
+        },
+      );
 
       test('removes records exceeding max retries', () async {
         sender.nextResult = const PutRecordsResult(
@@ -486,74 +503,77 @@ void main() {
         expect(callCount, equals(2));
       });
 
-      test('invalid stream records do not block valid stream flushes', () async {
-        final testDb = createTestDatabase();
-        final testStorage = RecordStorage(
-          database: testDb,
-          maxCacheBytes: 1024,
-        );
-        final testSender = _TestKinesisSender();
-        final testScheduler = AutoFlushScheduler(
-          strategy: const KinesisDataStreamsInterval(
-            interval: Duration(hours: 1),
-          ),
-          onFlush: () async {},
-        );
-        final testClient = RecordClient(
-          storage: testStorage,
-          sender: testSender,
-          scheduler: testScheduler,
-          maxRetries: 3,
-        );
-
-        // Sender throws for invalid stream, succeeds for valid stream
-        testSender.streamResultProvider = (streamName, records) {
-          if (streamName == 'invalid-stream') {
-            throw Exception('ResourceNotFoundException');
-          }
-          return PutRecordsResult(
-            successfulRecordIndices: List.generate(records.length, (i) => i),
-            failedRecordIndices: [],
-            retryableRecordIndices: [],
+      test(
+        'invalid stream records do not block valid stream flushes',
+        () async {
+          final testDb = createTestDatabase();
+          final testStorage = RecordStorage(
+            database: testDb,
+            maxCacheBytes: 1024,
           );
-        };
+          final testSender = _TestKinesisSender();
+          final testScheduler = AutoFlushScheduler(
+            strategy: const KinesisDataStreamsInterval(
+              interval: Duration(hours: 1),
+            ),
+            onFlush: () async {},
+          );
+          final testClient = RecordClient(
+            storage: testStorage,
+            sender: testSender,
+            scheduler: testScheduler,
+            maxRetries: 3,
+          );
 
-        // Record to invalid stream
-        await testClient.record(
-          KinesisRecord.now(
-            data: Uint8List.fromList([1, 2, 3]),
-            partitionKey: 'pk',
-            streamName: 'invalid-stream',
-          ),
-        );
+          // Sender throws for invalid stream, succeeds for valid stream
+          testSender.streamResultProvider = (streamName, records) {
+            if (streamName == 'invalid-stream') {
+              throw Exception('ResourceNotFoundException');
+            }
+            return PutRecordsResult(
+              successfulRecordIndices: List.generate(records.length, (i) => i),
+              failedRecordIndices: [],
+              retryableRecordIndices: [],
+            );
+          };
 
-        // First flush — invalid record fails, retry count incremented
-        final firstFlush = await testClient.flush();
-        expect(firstFlush.recordsFlushed, equals(0));
+          // Record to invalid stream
+          await testClient.record(
+            KinesisRecord.now(
+              data: Uint8List.fromList([1, 2, 3]),
+              partitionKey: 'pk',
+              streamName: 'invalid-stream',
+            ),
+          );
 
-        // Record to valid stream
-        await testClient.record(
-          KinesisRecord.now(
-            data: Uint8List.fromList([4, 5, 6]),
-            partitionKey: 'pk',
-            streamName: 'valid-stream',
-          ),
-        );
+          // First flush — invalid record fails, retry count incremented
+          final firstFlush = await testClient.flush();
+          expect(firstFlush.recordsFlushed, equals(0));
 
-        // Second flush — valid record should succeed even though
-        // the invalid record is still in the DB
-        final secondFlush = await testClient.flush();
-        expect(secondFlush.recordsFlushed, equals(1));
+          // Record to valid stream
+          await testClient.record(
+            KinesisRecord.now(
+              data: Uint8List.fromList([4, 5, 6]),
+              partitionKey: 'pk',
+              streamName: 'valid-stream',
+            ),
+          );
 
-        // Verify the valid-stream call succeeded
-        final validCalls = testSender.putRecordsCalls
-            .where((c) => c.streamName == 'valid-stream')
-            .toList();
-        expect(validCalls, hasLength(1));
-        expect(validCalls.first.records, hasLength(1));
+          // Second flush — valid record should succeed even though
+          // the invalid record is still in the DB
+          final secondFlush = await testClient.flush();
+          expect(secondFlush.recordsFlushed, equals(1));
 
-        await testClient.close();
-      });
+          // Verify the valid-stream call succeeded
+          final validCalls = testSender.putRecordsCalls
+              .where((c) => c.streamName == 'valid-stream')
+              .toList();
+          expect(validCalls, hasLength(1));
+          expect(validCalls.first.records, hasLength(1));
+
+          await testClient.close();
+        },
+      );
     });
 
     group('clearCache()', () {
@@ -602,10 +622,7 @@ void main() {
       test('throws ClientClosedException on flush after close', () async {
         await client.close();
 
-        expect(
-          () => client.flush(),
-          throwsA(isA<ClientClosedException>()),
-        );
+        expect(() => client.flush(), throwsA(isA<ClientClosedException>()));
       });
     });
   });
@@ -616,10 +633,15 @@ class _TestKinesisSender implements KinesisSender {
   final List<_PutRecordsCall> putRecordsCalls = [];
   PutRecordsResult? nextResult;
   PutRecordsResult Function(List<KinesisSenderRecord> records)? resultProvider;
-  PutRecordsResult Function(String streamName, List<KinesisSenderRecord> records)? streamResultProvider;
+  PutRecordsResult Function(
+    String streamName,
+    List<KinesisSenderRecord> records,
+  )?
+  streamResultProvider;
 
   @override
-  KinesisClient get sdkClient => throw UnimplementedError('Not needed in tests');
+  KinesisClient get sdkClient =>
+      throw UnimplementedError('Not needed in tests');
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
@@ -629,7 +651,9 @@ class _TestKinesisSender implements KinesisSender {
     required String streamName,
     required List<KinesisSenderRecord> records,
   }) async {
-    putRecordsCalls.add(_PutRecordsCall(streamName: streamName, records: records));
+    putRecordsCalls.add(
+      _PutRecordsCall(streamName: streamName, records: records),
+    );
 
     if (streamResultProvider != null) {
       return streamResultProvider!(streamName, records);

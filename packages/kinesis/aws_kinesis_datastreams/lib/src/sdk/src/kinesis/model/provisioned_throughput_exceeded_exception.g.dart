@@ -15,21 +15,21 @@ class _$ProvisionedThroughputExceededException
   @override
   final Map<String, String>? headers;
 
-  factory _$ProvisionedThroughputExceededException(
-          [void Function(ProvisionedThroughputExceededExceptionBuilder)?
-              updates]) =>
-      (new ProvisionedThroughputExceededExceptionBuilder()..update(updates))
-          ._build();
+  factory _$ProvisionedThroughputExceededException([
+    void Function(ProvisionedThroughputExceededExceptionBuilder)? updates,
+  ]) => (new ProvisionedThroughputExceededExceptionBuilder()..update(updates))
+      ._build();
 
-  _$ProvisionedThroughputExceededException._(
-      {this.message, this.statusCode, this.headers})
-      : super._();
+  _$ProvisionedThroughputExceededException._({
+    this.message,
+    this.statusCode,
+    this.headers,
+  }) : super._();
 
   @override
   ProvisionedThroughputExceededException rebuild(
-          void Function(ProvisionedThroughputExceededExceptionBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ProvisionedThroughputExceededExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ProvisionedThroughputExceededExceptionBuilder toBuilder() =>
@@ -53,8 +53,10 @@ class _$ProvisionedThroughputExceededException
 
 class ProvisionedThroughputExceededExceptionBuilder
     implements
-        Builder<ProvisionedThroughputExceededException,
-            ProvisionedThroughputExceededExceptionBuilder> {
+        Builder<
+          ProvisionedThroughputExceededException,
+          ProvisionedThroughputExceededExceptionBuilder
+        > {
   _$ProvisionedThroughputExceededException? _$v;
 
   String? _message;
@@ -90,7 +92,8 @@ class ProvisionedThroughputExceededExceptionBuilder
 
   @override
   void update(
-      void Function(ProvisionedThroughputExceededExceptionBuilder)? updates) {
+    void Function(ProvisionedThroughputExceededExceptionBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -98,7 +101,8 @@ class ProvisionedThroughputExceededExceptionBuilder
   ProvisionedThroughputExceededException build() => _build();
 
   _$ProvisionedThroughputExceededException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ProvisionedThroughputExceededException._(
           message: message,
           statusCode: statusCode,

@@ -3,8 +3,10 @@
 
 import 'dart:async';
 
-import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart' show AmplifyKinesisClient;
-import 'package:aws_kinesis_datastreams/src/amplify_kinesis_client.dart' show AmplifyKinesisClient;
+import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart'
+    show AmplifyKinesisClient;
+import 'package:aws_kinesis_datastreams/src/amplify_kinesis_client.dart'
+    show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams/src/db/kinesis_record_database.dart';
 import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
@@ -29,11 +31,11 @@ class RecordClient {
     required AutoFlushScheduler scheduler,
     required int maxRetries,
     int maxRecords = 500,
-  })  : _storage = storage,
-        _sender = sender,
-        _scheduler = scheduler,
-        _maxRetries = maxRetries,
-        _maxRecords = maxRecords;
+  }) : _storage = storage,
+       _sender = sender,
+       _scheduler = scheduler,
+       _maxRetries = maxRetries,
+       _maxRecords = maxRecords;
 
   final RecordStorage _storage;
   final KinesisSender _sender;
@@ -201,10 +203,8 @@ class RecordClient {
   ) async {
     final senderRecords = records
         .map(
-          (r) => KinesisSenderRecord(
-            data: r.data,
-            partitionKey: r.partitionKey,
-          ),
+          (r) =>
+              KinesisSenderRecord(data: r.data, partitionKey: r.partitionKey),
         )
         .toList();
 

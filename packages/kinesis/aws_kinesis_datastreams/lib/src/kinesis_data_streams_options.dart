@@ -40,13 +40,22 @@ class AmplifyKinesisClientOptions {
     this.logger,
   }) {
     RangeError.checkValueInInterval(
-      cacheMaxBytes, 1, _maxCacheBytes, 'cacheMaxBytes',
+      cacheMaxBytes,
+      1,
+      _maxCacheBytes,
+      'cacheMaxBytes',
     );
     RangeError.checkValueInInterval(
-      maxRecords, 1, kKinesisMaxRecordsPerBatch, 'maxRecords',
+      maxRecords,
+      1,
+      kKinesisMaxRecordsPerBatch,
+      'maxRecords',
     );
     RangeError.checkValueInInterval(
-      maxRetries, 0, _maxRetryAttempts, 'maxRetries',
+      maxRetries,
+      0,
+      _maxRetryAttempts,
+      'maxRetries',
     );
     if (flushStrategy case final KinesisDataStreamsInterval interval) {
       if (interval.interval.inMilliseconds < _minFlushIntervalMs ||

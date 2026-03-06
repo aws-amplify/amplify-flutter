@@ -92,10 +92,7 @@ class CognitoAuthHelper {
       {
         'AuthFlow': 'USER_PASSWORD_AUTH',
         'ClientId': config.userPoolClientId,
-        'AuthParameters': {
-          'USERNAME': email,
-          'PASSWORD': password,
-        },
+        'AuthParameters': {'USERNAME': email, 'PASSWORD': password},
       },
     );
     final result = response['AuthenticationResult'] as Map<String, dynamic>;
@@ -109,8 +106,10 @@ class CognitoAuthHelper {
     };
 
     // Get identity ID
-    final idResponse = await _identityRequest('AWSCognitoIdentityService.GetId',
-        {'IdentityPoolId': config.identityPoolId, 'Logins': logins});
+    final idResponse = await _identityRequest(
+      'AWSCognitoIdentityService.GetId',
+      {'IdentityPoolId': config.identityPoolId, 'Logins': logins},
+    );
     final identityId = idResponse['IdentityId'] as String;
 
     // Get credentials

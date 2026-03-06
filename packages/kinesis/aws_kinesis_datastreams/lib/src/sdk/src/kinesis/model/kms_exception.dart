@@ -25,9 +25,8 @@ abstract class KmsException
   }
 
   /// A KMS exception.
-  factory KmsException.build([
-    void Function(KmsExceptionBuilder) updates,
-  ]) = _$KmsException;
+  factory KmsException.build([void Function(KmsExceptionBuilder) updates]) =
+      _$KmsException;
 
   const KmsException._();
 
@@ -35,11 +34,10 @@ abstract class KmsException
   factory KmsException.fromResponse(
     KmsException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<KmsException>> serializers = [
     KmsExceptionAwsJson11Serializer(),
@@ -50,9 +48,9 @@ abstract class KmsException
 
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.kinesis',
-        shape: 'KMSException',
-      );
+    namespace: 'com.amazonaws.kinesis',
+    shape: 'KMSException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -84,15 +82,12 @@ class KmsExceptionAwsJson11Serializer
   const KmsExceptionAwsJson11Serializer() : super('KmsException');
 
   @override
-  Iterable<Type> get types => const [
-        KmsException,
-        _$KmsException,
-      ];
+  Iterable<Type> get types => const [KmsException, _$KmsException];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   KmsException deserialize(
@@ -111,10 +106,12 @@ class KmsExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
     return result.build();
@@ -130,10 +127,12 @@ class KmsExceptionAwsJson11Serializer
     if (object.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(
-          object.message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.message,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }

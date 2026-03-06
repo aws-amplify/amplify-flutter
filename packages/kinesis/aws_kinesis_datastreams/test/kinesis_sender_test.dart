@@ -19,10 +19,7 @@ void main() {
       PutRecordsRequest(
         streamName: 'test',
         records: [
-          PutRecordsRequestEntry(
-            data: Uint8List(0),
-            partitionKey: 'test',
-          ),
+          PutRecordsRequestEntry(data: Uint8List(0), partitionKey: 'test'),
         ],
       ),
     );
@@ -216,46 +213,48 @@ void main() {
         },
       );
 
-      test('identifies retryable records with InternalFailure error code',
-          () async {
-        when(() => mockClient.putRecords(any())).thenReturn(
-          mockSmithyOperation(
-            () => PutRecordsResponse(
-              failedRecordCount: 1,
-              records: [
-                PutRecordsResultEntry(
-                  errorCode: 'InternalFailure',
-                  errorMessage: 'Internal error',
-                ),
-                PutRecordsResultEntry(
-                  sequenceNumber: 'seq-1',
-                  shardId: 'shard-1',
-                ),
-              ],
+      test(
+        'identifies retryable records with InternalFailure error code',
+        () async {
+          when(() => mockClient.putRecords(any())).thenReturn(
+            mockSmithyOperation(
+              () => PutRecordsResponse(
+                failedRecordCount: 1,
+                records: [
+                  PutRecordsResultEntry(
+                    errorCode: 'InternalFailure',
+                    errorMessage: 'Internal error',
+                  ),
+                  PutRecordsResultEntry(
+                    sequenceNumber: 'seq-1',
+                    shardId: 'shard-1',
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
+          );
 
-        final sender = _TestableKinesisSender(mockClient);
+          final sender = _TestableKinesisSender(mockClient);
 
-        final result = await sender.putRecords(
-          streamName: 'test-stream',
-          records: [
-            KinesisSenderRecord(
-              data: Uint8List.fromList([1]),
-              partitionKey: 'pk-1',
-            ),
-            KinesisSenderRecord(
-              data: Uint8List.fromList([2]),
-              partitionKey: 'pk-2',
-            ),
-          ],
-        );
+          final result = await sender.putRecords(
+            streamName: 'test-stream',
+            records: [
+              KinesisSenderRecord(
+                data: Uint8List.fromList([1]),
+                partitionKey: 'pk-1',
+              ),
+              KinesisSenderRecord(
+                data: Uint8List.fromList([2]),
+                partitionKey: 'pk-2',
+              ),
+            ],
+          );
 
-        expect(result.successfulRecordIndices, equals([1]));
-        expect(result.failedRecordIndices, isEmpty);
-        expect(result.retryableRecordIndices, equals([0]));
-      });
+          expect(result.successfulRecordIndices, equals([1]));
+          expect(result.failedRecordIndices, isEmpty);
+          expect(result.retryableRecordIndices, equals([0]));
+        },
+      );
 
       test('handles mixed success, failure, and retryable records', () async {
         when(() => mockClient.putRecords(any())).thenReturn(
@@ -343,7 +342,10 @@ void main() {
           final mockOperation = MockSmithyOperation<PutRecordsResponse>();
 
           when(() => mockOperation.result).thenThrow(
-            const SmithyHttpException(statusCode: 503, body: 'Service Unavailable'),
+            const SmithyHttpException(
+              statusCode: 503,
+              body: 'Service Unavailable',
+            ),
           );
 
           when(() => mockClient.putRecords(any())).thenReturn(mockOperation);
@@ -366,33 +368,30 @@ void main() {
         },
       );
 
-      test(
-        'rethrows SmithyHttpException with non-5xx status',
-        () async {
-          final mockOperation = MockSmithyOperation<PutRecordsResponse>();
+      test('rethrows SmithyHttpException with non-5xx status', () async {
+        final mockOperation = MockSmithyOperation<PutRecordsResponse>();
 
-          when(() => mockOperation.result).thenThrow(
-            const SmithyHttpException(statusCode: 400, body: 'Bad Request'),
-          );
+        when(() => mockOperation.result).thenThrow(
+          const SmithyHttpException(statusCode: 400, body: 'Bad Request'),
+        );
 
-          when(() => mockClient.putRecords(any())).thenReturn(mockOperation);
+        when(() => mockClient.putRecords(any())).thenReturn(mockOperation);
 
-          final sender = _TestableKinesisSender(mockClient);
+        final sender = _TestableKinesisSender(mockClient);
 
-          expect(
-            () => sender.putRecords(
-              streamName: 'test-stream',
-              records: [
-                KinesisSenderRecord(
-                  data: Uint8List.fromList([1]),
-                  partitionKey: 'pk-1',
-                ),
-              ],
-            ),
-            throwsA(isA<SmithyHttpException>()),
-          );
-        },
-      );
+        expect(
+          () => sender.putRecords(
+            streamName: 'test-stream',
+            records: [
+              KinesisSenderRecord(
+                data: Uint8List.fromList([1]),
+                partitionKey: 'pk-1',
+              ),
+            ],
+          ),
+          throwsA(isA<SmithyHttpException>()),
+        );
+      });
     });
   });
 }
@@ -400,10 +399,10 @@ void main() {
 /// A testable version of KinesisSender that accepts a mock client.
 class _TestableKinesisSender extends KinesisSender {
   _TestableKinesisSender(this._mockClient)
-      : super(
-          region: 'us-east-1',
-          credentialsProvider: FakeAWSCredentialsProvider(),
-        );
+    : super(
+        region: 'us-east-1',
+        credentialsProvider: FakeAWSCredentialsProvider(),
+      );
 
   final KinesisClient _mockClient;
 

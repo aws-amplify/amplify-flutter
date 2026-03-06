@@ -70,18 +70,18 @@ class WrappedKinesisClient implements KinesisClient {
   WrappedKinesisClient({
     required String region,
     Uri? baseUri,
-    required foundation.AWSCredentialsProvider
-        credentialsProvider,
+    required foundation.AWSCredentialsProvider credentialsProvider,
     AWSHttpClient? httpClient,
-  })  : _base = KinesisClient(
-          region: region,
-          baseUri: baseUri,
-          credentialsProvider: _CredentialsProviderAdapter(credentialsProvider),
-        ),
-        _httpClient = httpClient;
+  }) : _base = KinesisClient(
+         region: region,
+         baseUri: baseUri,
+         credentialsProvider: _CredentialsProviderAdapter(credentialsProvider),
+       ),
+       _httpClient = httpClient;
 
   /// User agent component identifying this library.
-  static const userAgentComponent = 'md/amplify-kinesis#0.1.0 lib/amplify-flutter#0.1.0';
+  static const userAgentComponent =
+      'md/amplify-kinesis#0.1.0 lib/amplify-flutter#0.1.0';
 
   final KinesisClient _base;
   final AWSHttpClient? _httpClient;
@@ -102,10 +102,10 @@ class WrappedKinesisClient implements KinesisClient {
   }) {
     return _base.putRecords(
       input,
-      client: client ??
+      client:
+          client ??
           _UserAgentHttpClient(
-            _httpClient ??
-                _deps.getOrCreate<amplify_core.AmplifyHttpClient>(),
+            _httpClient ?? _deps.getOrCreate<amplify_core.AmplifyHttpClient>(),
           ),
       credentialsProvider: credentialsProvider,
     );

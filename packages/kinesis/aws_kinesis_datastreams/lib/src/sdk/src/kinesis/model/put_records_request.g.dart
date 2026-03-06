@@ -14,9 +14,9 @@ class _$PutRecordsRequest extends PutRecordsRequest {
   @override
   final String? streamArn;
 
-  factory _$PutRecordsRequest(
-          [void Function(PutRecordsRequestBuilder)? updates]) =>
-      (new PutRecordsRequestBuilder()..update(updates))._build();
+  factory _$PutRecordsRequest([
+    void Function(PutRecordsRequestBuilder)? updates,
+  ]) => (new PutRecordsRequestBuilder()..update(updates))._build();
 
   _$PutRecordsRequest._({
     required this.records,
@@ -24,9 +24,15 @@ class _$PutRecordsRequest extends PutRecordsRequest {
     this.streamArn,
   }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        records, r'PutRecordsRequest', 'records');
+      records,
+      r'PutRecordsRequest',
+      'records',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        streamName, r'PutRecordsRequest', 'streamName');
+      streamName,
+      r'PutRecordsRequest',
+      'streamName',
+    );
   }
 
   @override
@@ -105,11 +111,15 @@ class PutRecordsRequestBuilder
   _$PutRecordsRequest _build() {
     _$PutRecordsRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PutRecordsRequest._(
             records: records.build(),
             streamName: BuiltValueNullFieldError.checkNotNull(
-                streamName, r'PutRecordsRequest', 'streamName'),
+              streamName,
+              r'PutRecordsRequest',
+              'streamName',
+            ),
             streamArn: streamArn,
           );
     } catch (_) {
@@ -119,7 +129,10 @@ class PutRecordsRequestBuilder
         records.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PutRecordsRequest', _$failedField, e.toString());
+          r'PutRecordsRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

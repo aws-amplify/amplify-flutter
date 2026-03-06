@@ -69,18 +69,18 @@ abstract class PutRecordsRequestEntry
 class PutRecordsRequestEntryAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<PutRecordsRequestEntry> {
   const PutRecordsRequestEntryAwsJson11Serializer()
-      : super('PutRecordsRequestEntry');
+    : super('PutRecordsRequestEntry');
 
   @override
   Iterable<Type> get types => const [
-        PutRecordsRequestEntry,
-        _$PutRecordsRequestEntry,
-      ];
+    PutRecordsRequestEntry,
+    _$PutRecordsRequestEntry,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   PutRecordsRequestEntry deserialize(
@@ -99,20 +99,26 @@ class PutRecordsRequestEntryAwsJson11Serializer
       }
       switch (key) {
         case 'Data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i3.Uint8List),
-          ) as _i3.Uint8List);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i3.Uint8List),
+                  )
+                  as _i3.Uint8List);
         case 'ExplicitHashKey':
-          result.explicitHashKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.explicitHashKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'PartitionKey':
-          result.partitionKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.partitionKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
     return result.build();
@@ -139,10 +145,12 @@ class PutRecordsRequestEntryAwsJson11Serializer
     if (object.explicitHashKey != null) {
       result
         ..add('ExplicitHashKey')
-        ..add(serializers.serialize(
-          object.explicitHashKey,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.explicitHashKey,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }

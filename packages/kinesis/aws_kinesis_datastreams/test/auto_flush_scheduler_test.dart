@@ -40,13 +40,13 @@ void main() {
         fakeAsync((async) {
           var flushCount = 0;
           AutoFlushScheduler(
-            strategy: const KinesisDataStreamsInterval(
-              interval: Duration(seconds: 10),
-            ),
-            onFlush: () async {
-              flushCount++;
-            },
-          )
+              strategy: const KinesisDataStreamsInterval(
+                interval: Duration(seconds: 10),
+              ),
+              onFlush: () async {
+                flushCount++;
+              },
+            )
             ..close()
             ..start();
 
@@ -101,16 +101,17 @@ void main() {
       test('prevents timer from triggering flush', () {
         fakeAsync((async) {
           var flushCount = 0;
-          final scheduler = AutoFlushScheduler(
-            strategy: const KinesisDataStreamsInterval(
-              interval: Duration(seconds: 10),
-            ),
-            onFlush: () async {
-              flushCount++;
-            },
-          )
-            ..start()
-            ..disable();
+          final scheduler =
+              AutoFlushScheduler(
+                  strategy: const KinesisDataStreamsInterval(
+                    interval: Duration(seconds: 10),
+                  ),
+                  onFlush: () async {
+                    flushCount++;
+                  },
+                )
+                ..start()
+                ..disable();
 
           async.elapse(const Duration(seconds: 30));
           expect(flushCount, equals(0));
@@ -124,16 +125,17 @@ void main() {
       test('resumes timer triggering flush after disable', () {
         fakeAsync((async) {
           var flushCount = 0;
-          final scheduler = AutoFlushScheduler(
-            strategy: const KinesisDataStreamsInterval(
-              interval: Duration(seconds: 10),
-            ),
-            onFlush: () async {
-              flushCount++;
-            },
-          )
-            ..start()
-            ..disable();
+          final scheduler =
+              AutoFlushScheduler(
+                  strategy: const KinesisDataStreamsInterval(
+                    interval: Duration(seconds: 10),
+                  ),
+                  onFlush: () async {
+                    flushCount++;
+                  },
+                )
+                ..start()
+                ..disable();
 
           async.elapse(const Duration(seconds: 15));
           expect(flushCount, equals(0));
@@ -176,13 +178,13 @@ void main() {
         fakeAsync((async) {
           var flushCount = 0;
           AutoFlushScheduler(
-            strategy: const KinesisDataStreamsInterval(
-              interval: Duration(seconds: 10),
-            ),
-            onFlush: () async {
-              flushCount++;
-            },
-          )
+              strategy: const KinesisDataStreamsInterval(
+                interval: Duration(seconds: 10),
+              ),
+              onFlush: () async {
+                flushCount++;
+              },
+            )
             ..close()
             ..start();
 
@@ -214,12 +216,13 @@ void main() {
       });
 
       test('returns true after enable', () {
-        final scheduler = AutoFlushScheduler(
-          strategy: const KinesisDataStreamsInterval(),
-          onFlush: () async {},
-        )
-          ..disable()
-          ..enable();
+        final scheduler =
+            AutoFlushScheduler(
+                strategy: const KinesisDataStreamsInterval(),
+                onFlush: () async {},
+              )
+              ..disable()
+              ..enable();
 
         expect(scheduler.isEnabled, isTrue);
         scheduler.close();

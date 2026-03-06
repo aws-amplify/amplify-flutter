@@ -31,10 +31,10 @@ sealed class AmplifyKinesisException extends AmplifyException {
 final class KinesisStorageException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_storage_exception}
   KinesisStorageException(String message, {super.cause})
-      : super(
-          message: message,
-          recoverySuggestion: 'Try clearing the cache or reinitializing.',
-        );
+    : super(
+        message: message,
+        recoverySuggestion: 'Try clearing the cache or reinitializing.',
+      );
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
@@ -43,10 +43,10 @@ final class KinesisStorageException extends AmplifyKinesisException {
 final class KinesisLimitExceededException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
   KinesisLimitExceededException()
-      : super(
-          message: 'Cache is full',
-          recoverySuggestion: 'Call flush() or clearCache().',
-        );
+    : super(
+        message: 'Cache is full',
+        recoverySuggestion: 'Call flush() or clearCache().',
+      );
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_unknown_exception}
@@ -55,10 +55,10 @@ final class KinesisLimitExceededException extends AmplifyKinesisException {
 final class KinesisUnknownException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_unknown_exception}
   KinesisUnknownException(String message, {super.cause})
-      : super(
-          message: message,
-          recoverySuggestion: 'Unexpected error. Please file a bug.',
-        );
+    : super(
+        message: message,
+        recoverySuggestion: 'Unexpected error. Please file a bug.',
+      );
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_network_exception}
@@ -67,10 +67,10 @@ final class KinesisUnknownException extends AmplifyKinesisException {
 final class KinesisNetworkException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_network_exception}
   KinesisNetworkException(String message, {super.cause})
-      : super(
-          message: message,
-          recoverySuggestion: 'Check network connectivity and try again.',
-        );
+    : super(
+        message: message,
+        recoverySuggestion: 'Check network connectivity and try again.',
+      );
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_record_too_large_exception}
@@ -83,29 +83,28 @@ final class KinesisRecordTooLargeException extends AmplifyKinesisException {
     required int recordBytes,
     required int maxBytes,
   }) : super(
-          message:
-              'Record size ($recordBytes bytes) exceeds the Kinesis '
-              'per-record limit ($maxBytes bytes). The limit applies to the '
-              'total size of the partition key and data blob.',
-          recoverySuggestion:
-              'Reduce the record payload size or use a shorter partition key.',
-        );
+         message:
+             'Record size ($recordBytes bytes) exceeds the Kinesis '
+             'per-record limit ($maxBytes bytes). The limit applies to the '
+             'total size of the partition key and data blob.',
+         recoverySuggestion:
+             'Reduce the record payload size or use a shorter partition key.',
+       );
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_partition_key_invalid_exception}
 /// Thrown when a partition key is empty or exceeds the Kinesis limit (256 characters).
 /// {@endtemplate}
-final class KinesisPartitionKeyInvalidException extends AmplifyKinesisException {
+final class KinesisPartitionKeyInvalidException
+    extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_partition_key_invalid_exception}
-  KinesisPartitionKeyInvalidException({
-    required int keyLength,
-  }) : super(
-          message:
-              'Partition key length ($keyLength) is invalid. '
-              'Kinesis requires partition keys to be between 1 and 256 characters.',
-          recoverySuggestion:
-              'Use a partition key between 1 and 256 characters.',
-        );
+  KinesisPartitionKeyInvalidException({required int keyLength})
+    : super(
+        message:
+            'Partition key length ($keyLength) is invalid. '
+            'Kinesis requires partition keys to be between 1 and 256 characters.',
+        recoverySuggestion: 'Use a partition key between 1 and 256 characters.',
+      );
 }
 
 /// {@template aws_kinesis_datastreams.client_closed_exception}
@@ -114,8 +113,8 @@ final class KinesisPartitionKeyInvalidException extends AmplifyKinesisException 
 final class ClientClosedException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.client_closed_exception}
   ClientClosedException()
-      : super(
-          message: 'Client has been closed',
-          recoverySuggestion: 'Create a new AmplifyKinesisClient instance.',
-        );
+    : super(
+        message: 'Client has been closed',
+        recoverySuggestion: 'Create a new AmplifyKinesisClient instance.',
+      );
 }

@@ -66,9 +66,7 @@ void main() {
       region: testRegion,
       credentialsProvider: credentialsProvider,
       storagePath: tempDir.path,
-      options: AmplifyKinesisClientOptions(
-        maxRetries: 3,
-      ),
+      options: AmplifyKinesisClientOptions(maxRetries: 3),
     );
 
     // Disable auto-flush for controlled testing
@@ -155,8 +153,14 @@ void main() {
 
   group('Data integrity', () {
     test('sends binary data correctly', () async {
-      final binaryData =
-          Uint8List.fromList([0x00, 0x01, 0x02, 0xFF, 0xFE, 0xFD]);
+      final binaryData = Uint8List.fromList([
+        0x00,
+        0x01,
+        0x02,
+        0xFF,
+        0xFE,
+        0xFD,
+      ]);
 
       await client.record(
         data: binaryData,
@@ -180,8 +184,7 @@ void main() {
     });
 
     test('handles special characters in partition key', () async {
-      const specialPartitionKey =
-          r'test-key_with.special:chars/and\more';
+      const specialPartitionKey = r'test-key_with.special:chars/and\more';
 
       await client.record(
         data: Uint8List.fromList(utf8.encode('{"test": "special_key"}')),
