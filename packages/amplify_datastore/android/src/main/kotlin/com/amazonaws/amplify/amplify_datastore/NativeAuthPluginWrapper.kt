@@ -92,50 +92,56 @@ class NativeAuthPluginWrapper(
             return
         }
         MainScope().launch {
-            nativePlugin.fetchAuthSession() { result ->
-                val session = result.getOrNull()
-                if(session != null) {
-                    val userPoolTokens = if (session.userPoolTokens != null) {
-                        val tokens = FlutterFactory.createAWSCognitoUserPoolTokens(
-                            session.userPoolTokens!!.accessToken,
-                            session.userPoolTokens!!.idToken,
-                            session.userPoolTokens!!.refreshToken
-                        )
-                        AuthSessionResult.success(tokens)
-                    } else {
-                        AuthSessionResult.failure(UnknownException("Could not fetch userPoolTokens"))
-                    }
-                    val awsCredentials: AuthSessionResult<AWSCredentials> =
-                        if (session.awsCredentials != null) {
-                            val sessionCredentials = session.awsCredentials!!
-                            val credentials = AWSCredentials.createAWSCredentials(
-                                sessionCredentials.accessKeyId,
-                                sessionCredentials.secretAccessKey,
-                                sessionCredentials.sessionToken,
-                                if (sessionCredentials.expirationIso8601Utc != null) {
-                                    Instant.fromIso8601(
-                                        sessionCredentials.expirationIso8601Utc!!
-                                    ).epochSeconds
-                                } else {
-                                    null
-                                }
+            try {
+                nativePlugin.fetchAuthSession() { result ->
+                    val session = result.getOrNull()
+                    if(session != null) {
+                        val userPoolTokens = if (session.userPoolTokens != null) {
+                            val tokens = FlutterFactory.createAWSCognitoUserPoolTokens(
+                                session.userPoolTokens!!.accessToken,
+                                session.userPoolTokens!!.idToken,
+                                session.userPoolTokens!!.refreshToken
                             )
-                            AuthSessionResult.success(credentials)
+                            AuthSessionResult.success(tokens)
                         } else {
-                            AuthSessionResult.failure(UnknownException("Could not fetch awsCredentials"))
+                            AuthSessionResult.failure(UnknownException("Could not fetch userPoolTokens"))
                         }
-                    val authSession = FlutterFactory.createAWSCognitoAuthSession(
-                        session.isSignedIn,
-                        AuthSessionResult.success(session.identityId),
-                        awsCredentials,
-                        AuthSessionResult.success(session.userSub),
-                        userPoolTokens
-                    )
-                    onSuccess.accept(authSession)
-                } else {
-                    val error = UnknownException(result.exceptionOrNull()?.message ?: "Could not fetch")
-                    AuthSessionResult.failure<AWSCognitoUserPoolTokens>(error)
+                        val awsCredentials: AuthSessionResult<AWSCredentials> =
+                            if (session.awsCredentials != null) {
+                                val sessionCredentials = session.awsCredentials!!
+                                val credentials = AWSCredentials.createAWSCredentials(
+                                    sessionCredentials.accessKeyId,
+                                    sessionCredentials.secretAccessKey,
+                                    sessionCredentials.sessionToken,
+                                    if (sessionCredentials.expirationIso8601Utc != null) {
+                                        Instant.fromIso8601(
+                                            sessionCredentials.expirationIso8601Utc!!
+                                        ).epochSeconds
+                                    } else {
+                                        null
+                                    }
+                                )
+                                AuthSessionResult.success(credentials)
+                            } else {
+                                AuthSessionResult.failure(UnknownException("Could not fetch awsCredentials"))
+                            }
+                        val authSession = FlutterFactory.createAWSCognitoAuthSession(
+                            session.isSignedIn,
+                            AuthSessionResult.success(session.identityId),
+                            awsCredentials,
+                            AuthSessionResult.success(session.userSub),
+                            userPoolTokens
+                        )
+                        onSuccess.accept(authSession)
+                    } else {
+                        val error = UnknownException(result.exceptionOrNull()?.message ?: "Could not fetch")
+                        onError.accept(error)
+                    }
                 }
+            } catch (e: Exception) {
+                onError.accept(
+                    UnknownException("Failed to fetch auth session from Dart plugin", e)
+                )
             }
         }
     }
