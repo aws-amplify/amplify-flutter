@@ -11,9 +11,6 @@ import 'package:amplify_foundation_dart/src/logger/log_message.dart';
 /// For example, logging to the console or a custom logging framework.
 /// {@endtemplate}
 abstract interface class LogSink {
-  /// A unique identifier for this log sink.
-  String get id;
-
   /// Returns true if this sink will emit logs at the given [logLevel].
   bool isEnabled(LogLevel logLevel);
 

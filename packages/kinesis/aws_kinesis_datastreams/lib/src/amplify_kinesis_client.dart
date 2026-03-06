@@ -126,7 +126,7 @@ class AmplifyKinesisClient {
   /// Use this for advanced operations not covered by this client's API.
   ///
   /// Note: This getter is only available when the client was created with
-  /// the default constructor (not [withRecordClient]).
+  /// the default constructor (not [AmplifyKinesisClient.withRecordClient]).
   KinesisClient get kinesisClient => _kinesisSender.sdkClient;
 
   /// Records data to be sent to a Kinesis Data Stream.

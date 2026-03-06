@@ -22,9 +22,13 @@ class AutoFlushScheduler {
   bool _enabled = true;
   bool _closed = false;
 
+  /// Whether the scheduler is currently enabled.
   bool get isEnabled => _enabled;
+
+  /// Whether the scheduler has been closed.
   bool get isClosed => _closed;
 
+  /// Starts the scheduler based on the configured strategy.
   void start() {
     if (_closed) return;
     _cancelTimer();
@@ -37,10 +41,16 @@ class AutoFlushScheduler {
     }
   }
 
+  /// Stops the scheduler and cancels any active timer.
   void stop() { _cancelTimer(); }
+
+  /// Enables the scheduler to trigger flushes.
   void enable() { _enabled = true; }
+
+  /// Disables the scheduler from triggering flushes.
   void disable() { _enabled = false; }
 
+  /// Closes the scheduler and releases resources.
   Future<void> close() async {
     _closed = true;
     _cancelTimer();

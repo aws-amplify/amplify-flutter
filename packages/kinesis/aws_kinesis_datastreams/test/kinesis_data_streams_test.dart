@@ -69,7 +69,7 @@ void main() {
         final customOptions = AmplifyKinesisClientOptions(
           cacheMaxBytes: 10 * 1024 * 1024,
           maxRetries: 10,
-          flushStrategy: KinesisDataStreamsInterval(
+          flushStrategy: const KinesisDataStreamsInterval(
             interval: Duration(minutes: 1),
           ),
         );
@@ -91,7 +91,7 @@ void main() {
 
       test('supports None flush strategy', () {
         final customOptions = AmplifyKinesisClientOptions(
-          flushStrategy: KinesisDataStreamsNone(),
+          flushStrategy: const KinesisDataStreamsNone(),
         );
 
         final client = AmplifyKinesisClient.withRecordClient(
@@ -185,21 +185,17 @@ void main() {
 
     group('enable() / disable()', () {
       test('enable() delegates to RecordClient', () {
-        final client = AmplifyKinesisClient.withRecordClient(
+        AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
-        );
-
-        client.enable();
+        ).enable();
 
         verify(() => mockRecordClient.enable()).called(1);
       });
 
       test('disable() delegates to RecordClient', () {
-        final client = AmplifyKinesisClient.withRecordClient(
+        AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
-        );
-
-        client.disable();
+        ).disable();
 
         verify(() => mockRecordClient.disable()).called(1);
       });
@@ -220,21 +216,17 @@ void main() {
 
     group('enableAutoFlush() / disableAutoFlush()', () {
       test('enableAutoFlush() delegates to RecordClient', () {
-        final client = AmplifyKinesisClient.withRecordClient(
+        AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
-        );
-
-        client.enableAutoFlush();
+        ).enableAutoFlush();
 
         verify(() => mockRecordClient.enableAutoFlush()).called(1);
       });
 
       test('disableAutoFlush() delegates to RecordClient', () {
-        final client = AmplifyKinesisClient.withRecordClient(
+        AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
-        );
-
-        client.disableAutoFlush();
+        ).disableAutoFlush();
 
         verify(() => mockRecordClient.disableAutoFlush()).called(1);
       });
