@@ -132,6 +132,20 @@ const List<AmplifyBackendGroup> infraConfig = [
       ),
     ],
   ),
+  AmplifyBackendGroup(
+    category: Category.kinesis,
+    defaultOutput: 'packages/kinesis/aws_kinesis_datastreams/lib',
+    sharedOutputs: [
+      'packages/kinesis/aws_amazon_firehose/lib',
+    ],
+    backends: [
+      AmplifyBackend(
+        name: 'main',
+        identifier: 'main',
+        pathToSource: 'infra-gen2/backends/kinesis/main',
+      ),
+    ],
+  ),
 ];
 
 const pathToBackends = 'infra-gen2/backends';
