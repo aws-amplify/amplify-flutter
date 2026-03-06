@@ -54,19 +54,19 @@ class AmplifyKinesisClient {
     AmplifyKinesisClientOptions? options,
     String? storagePath,
   }) : this._internal(
-          region: region,
-          credentialsProvider: credentialsProvider,
-          options: options ?? AmplifyKinesisClientOptions(),
-          storagePath: storagePath ?? 'kinesis_data_streams',
-        );
+         region: region,
+         credentialsProvider: credentialsProvider,
+         options: options ?? AmplifyKinesisClientOptions(),
+         storagePath: storagePath ?? 'kinesis_data_streams',
+       );
 
   AmplifyKinesisClient._internal({
     required String region,
     required AWSCredentialsProvider credentialsProvider,
     required AmplifyKinesisClientOptions options,
     required String storagePath,
-  })  : _region = region,
-        _options = options {
+  }) : _region = region,
+       _options = options {
     final database = KinesisRecordDatabase(storagePath);
     final storage = RecordStorage(
       database: database,
@@ -100,9 +100,9 @@ class AmplifyKinesisClient {
     required RecordClient recordClient,
     String region = 'us-east-1',
     AmplifyKinesisClientOptions? options,
-  })  : _region = region,
-        _options = options ?? AmplifyKinesisClientOptions(),
-        _recordClient = recordClient;
+  }) : _region = region,
+       _options = options ?? AmplifyKinesisClientOptions(),
+       _recordClient = recordClient;
 
   final String _region;
   final AmplifyKinesisClientOptions _options;

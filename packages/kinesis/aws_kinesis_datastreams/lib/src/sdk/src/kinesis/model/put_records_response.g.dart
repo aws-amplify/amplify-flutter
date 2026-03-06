@@ -14,9 +14,9 @@ class _$PutRecordsResponse extends PutRecordsResponse {
   @override
   final String? encryptionType;
 
-  factory _$PutRecordsResponse(
-          [void Function(PutRecordsResponseBuilder)? updates]) =>
-      (new PutRecordsResponseBuilder()..update(updates))._build();
+  factory _$PutRecordsResponse([
+    void Function(PutRecordsResponseBuilder)? updates,
+  ]) => (new PutRecordsResponseBuilder()..update(updates))._build();
 
   _$PutRecordsResponse._({
     this.failedRecordCount,
@@ -24,13 +24,16 @@ class _$PutRecordsResponse extends PutRecordsResponse {
     this.encryptionType,
   }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        records, r'PutRecordsResponse', 'records');
+      records,
+      r'PutRecordsResponse',
+      'records',
+    );
   }
 
   @override
   PutRecordsResponse rebuild(
-          void Function(PutRecordsResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PutRecordsResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PutRecordsResponseBuilder toBuilder() =>
@@ -106,7 +109,8 @@ class PutRecordsResponseBuilder
   _$PutRecordsResponse _build() {
     _$PutRecordsResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PutRecordsResponse._(
             failedRecordCount: failedRecordCount,
             records: records.build(),
@@ -119,7 +123,10 @@ class PutRecordsResponseBuilder
         records.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PutRecordsResponse', _$failedField, e.toString());
+          r'PutRecordsResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

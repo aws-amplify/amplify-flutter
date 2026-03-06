@@ -6,7 +6,5 @@ import 'package:drift/native.dart';
 
 /// Creates an in-memory database for testing.
 KinesisRecordDatabase createTestDatabase() {
-  return KinesisRecordDatabase.forTesting(
-    NativeDatabase.memory(),
-  );
+  return KinesisRecordDatabase.forTesting(NativeDatabase.memory());
 }

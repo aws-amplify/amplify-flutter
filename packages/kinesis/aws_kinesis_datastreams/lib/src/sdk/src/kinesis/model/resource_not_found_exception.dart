@@ -35,23 +35,22 @@ abstract class ResourceNotFoundException
   factory ResourceNotFoundException.fromResponse(
     ResourceNotFoundException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<ResourceNotFoundException>>
-      serializers = [ResourceNotFoundExceptionAwsJson11Serializer()];
+  serializers = [ResourceNotFoundExceptionAwsJson11Serializer()];
 
   @override
   String? get message;
 
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.kinesis',
-        shape: 'ResourceNotFoundException',
-      );
+    namespace: 'com.amazonaws.kinesis',
+    shape: 'ResourceNotFoundException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -81,18 +80,18 @@ abstract class ResourceNotFoundException
 class ResourceNotFoundExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ResourceNotFoundException> {
   const ResourceNotFoundExceptionAwsJson11Serializer()
-      : super('ResourceNotFoundException');
+    : super('ResourceNotFoundException');
 
   @override
   Iterable<Type> get types => const [
-        ResourceNotFoundException,
-        _$ResourceNotFoundException,
-      ];
+    ResourceNotFoundException,
+    _$ResourceNotFoundException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ResourceNotFoundException deserialize(
@@ -111,10 +110,12 @@ class ResourceNotFoundExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
     return result.build();
@@ -130,10 +131,12 @@ class ResourceNotFoundExceptionAwsJson11Serializer
     if (object.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(
-          object.message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.message,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }

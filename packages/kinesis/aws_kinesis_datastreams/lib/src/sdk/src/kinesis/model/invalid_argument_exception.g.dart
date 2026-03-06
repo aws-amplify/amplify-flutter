@@ -14,17 +14,17 @@ class _$InvalidArgumentException extends InvalidArgumentException {
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidArgumentException(
-          [void Function(InvalidArgumentExceptionBuilder)? updates]) =>
-      (new InvalidArgumentExceptionBuilder()..update(updates))._build();
+  factory _$InvalidArgumentException([
+    void Function(InvalidArgumentExceptionBuilder)? updates,
+  ]) => (new InvalidArgumentExceptionBuilder()..update(updates))._build();
 
   _$InvalidArgumentException._({this.message, this.statusCode, this.headers})
-      : super._();
+    : super._();
 
   @override
   InvalidArgumentException rebuild(
-          void Function(InvalidArgumentExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidArgumentExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidArgumentExceptionBuilder toBuilder() =>
@@ -90,7 +90,8 @@ class InvalidArgumentExceptionBuilder
   InvalidArgumentException build() => _build();
 
   _$InvalidArgumentException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InvalidArgumentException._(
           message: message,
           statusCode: statusCode,

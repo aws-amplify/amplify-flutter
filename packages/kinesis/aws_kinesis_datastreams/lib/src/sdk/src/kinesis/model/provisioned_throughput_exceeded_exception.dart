@@ -18,8 +18,10 @@ part 'provisioned_throughput_exceeded_exception.g.dart';
 abstract class ProvisionedThroughputExceededException
     with _i1.AWSEquatable<ProvisionedThroughputExceededException>
     implements
-        Built<ProvisionedThroughputExceededException,
-            ProvisionedThroughputExceededExceptionBuilder>,
+        Built<
+          ProvisionedThroughputExceededException,
+          ProvisionedThroughputExceededExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   /// The request rate for the stream is too high, or the requested data is too
   /// large for the available throughput.
@@ -39,26 +41,28 @@ abstract class ProvisionedThroughputExceededException
   factory ProvisionedThroughputExceededException.fromResponse(
     ProvisionedThroughputExceededException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
-  static const List<_i2.SmithySerializer<ProvisionedThroughputExceededException>>
-      serializers = [ProvisionedThroughputExceededExceptionAwsJson11Serializer()];
+  static const List<
+    _i2.SmithySerializer<ProvisionedThroughputExceededException>
+  >
+  serializers = [ProvisionedThroughputExceededExceptionAwsJson11Serializer()];
 
   @override
   String? get message;
 
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.kinesis',
-        shape: 'ProvisionedThroughputExceededException',
-      );
+    namespace: 'com.amazonaws.kinesis',
+    shape: 'ProvisionedThroughputExceededException',
+  );
 
   @override
-  _i2.RetryConfig? get retryConfig => const _i2.RetryConfig(isThrottlingError: true);
+  _i2.RetryConfig? get retryConfig =>
+      const _i2.RetryConfig(isThrottlingError: true);
 
   @override
   @BuiltValueField(compare: false)
@@ -76,28 +80,29 @@ abstract class ProvisionedThroughputExceededException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ProvisionedThroughputExceededException')
-          ..add('message', message);
+    final helper = newBuiltValueToStringHelper(
+      'ProvisionedThroughputExceededException',
+    )..add('message', message);
     return helper.toString();
   }
 }
 
 class ProvisionedThroughputExceededExceptionAwsJson11Serializer
-    extends _i2.StructuredSmithySerializer<ProvisionedThroughputExceededException> {
+    extends
+        _i2.StructuredSmithySerializer<ProvisionedThroughputExceededException> {
   const ProvisionedThroughputExceededExceptionAwsJson11Serializer()
-      : super('ProvisionedThroughputExceededException');
+    : super('ProvisionedThroughputExceededException');
 
   @override
   Iterable<Type> get types => const [
-        ProvisionedThroughputExceededException,
-        _$ProvisionedThroughputExceededException,
-      ];
+    ProvisionedThroughputExceededException,
+    _$ProvisionedThroughputExceededException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ProvisionedThroughputExceededException deserialize(
@@ -116,10 +121,12 @@ class ProvisionedThroughputExceededExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
     return result.build();
@@ -135,10 +142,12 @@ class ProvisionedThroughputExceededExceptionAwsJson11Serializer
     if (object.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(
-          object.message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.message,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }

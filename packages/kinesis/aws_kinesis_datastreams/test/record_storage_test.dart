@@ -15,10 +15,7 @@ void main() {
 
     setUp(() {
       final db = createTestDatabase();
-      storage = RecordStorage(
-        database: db,
-        maxCacheBytes: 10 * 1024 * 1024,
-      );
+      storage = RecordStorage(database: db, maxCacheBytes: 10 * 1024 * 1024);
     });
 
     tearDown(() async {
@@ -39,7 +36,10 @@ void main() {
         expect(retrieved, hasLength(1));
         expect(retrieved.first.streamName, equals('test-stream'));
         expect(retrieved.first.partitionKey, equals('test-partition'));
-        expect(retrieved.first.data, equals(Uint8List.fromList([1, 2, 3, 4, 5])));
+        expect(
+          retrieved.first.data,
+          equals(Uint8List.fromList([1, 2, 3, 4, 5])),
+        );
         expect(retrieved.first.dataSize, equals(19));
         expect(retrieved.first.retryCount, equals(0));
       });
@@ -76,37 +76,40 @@ void main() {
         expect(batch, hasLength(3));
       });
 
-      test('returns records sorted by stream_name, partition_key, id', () async {
-        await storage.saveRecord(
-          KinesisRecord.now(
-            data: Uint8List.fromList([1]),
-            partitionKey: 'pk-b',
-            streamName: 'stream-b',
-          ),
-        );
-        await storage.saveRecord(
-          KinesisRecord.now(
-            data: Uint8List.fromList([2]),
-            partitionKey: 'pk-a',
-            streamName: 'stream-a',
-          ),
-        );
-        await storage.saveRecord(
-          KinesisRecord.now(
-            data: Uint8List.fromList([3]),
-            partitionKey: 'pk-a',
-            streamName: 'stream-b',
-          ),
-        );
+      test(
+        'returns records sorted by stream_name, partition_key, id',
+        () async {
+          await storage.saveRecord(
+            KinesisRecord.now(
+              data: Uint8List.fromList([1]),
+              partitionKey: 'pk-b',
+              streamName: 'stream-b',
+            ),
+          );
+          await storage.saveRecord(
+            KinesisRecord.now(
+              data: Uint8List.fromList([2]),
+              partitionKey: 'pk-a',
+              streamName: 'stream-a',
+            ),
+          );
+          await storage.saveRecord(
+            KinesisRecord.now(
+              data: Uint8List.fromList([3]),
+              partitionKey: 'pk-a',
+              streamName: 'stream-b',
+            ),
+          );
 
-        final batch = await storage.getRecordsBatch();
+          final batch = await storage.getRecordsBatch();
 
-        expect(batch[0].streamName, equals('stream-a'));
-        expect(batch[1].streamName, equals('stream-b'));
-        expect(batch[1].partitionKey, equals('pk-a'));
-        expect(batch[2].streamName, equals('stream-b'));
-        expect(batch[2].partitionKey, equals('pk-b'));
-      });
+          expect(batch[0].streamName, equals('stream-a'));
+          expect(batch[1].streamName, equals('stream-b'));
+          expect(batch[1].partitionKey, equals('pk-a'));
+          expect(batch[2].streamName, equals('stream-b'));
+          expect(batch[2].partitionKey, equals('pk-b'));
+        },
+      );
     });
 
     group('deleteRecords', () {

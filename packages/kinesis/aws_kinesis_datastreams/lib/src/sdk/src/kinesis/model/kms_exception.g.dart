@@ -85,7 +85,8 @@ class KmsExceptionBuilder
   KmsException build() => _build();
 
   _$KmsException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$KmsException._(
           message: message,
           statusCode: statusCode,

@@ -17,9 +17,7 @@ part 'put_records_request.g.dart';
 
 /// A PutRecords request.
 abstract class PutRecordsRequest
-    with
-        _i1.HttpInput<PutRecordsRequest>,
-        _i2.AWSEquatable<PutRecordsRequest>
+    with _i1.HttpInput<PutRecordsRequest>, _i2.AWSEquatable<PutRecordsRequest>
     implements Built<PutRecordsRequest, PutRecordsRequestBuilder> {
   /// A PutRecords request.
   factory PutRecordsRequest({
@@ -44,8 +42,7 @@ abstract class PutRecordsRequest
   factory PutRecordsRequest.fromRequest(
     PutRecordsRequest payload,
     _i2.AWSBaseHttpRequest request,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<PutRecordsRequest>> serializers = [
     PutRecordsRequestAwsJson11Serializer(),
@@ -81,15 +78,12 @@ class PutRecordsRequestAwsJson11Serializer
   const PutRecordsRequestAwsJson11Serializer() : super('PutRecordsRequest');
 
   @override
-  Iterable<Type> get types => const [
-        PutRecordsRequest,
-        _$PutRecordsRequest,
-      ];
+  Iterable<Type> get types => const [PutRecordsRequest, _$PutRecordsRequest];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   PutRecordsRequest deserialize(
@@ -108,23 +102,29 @@ class PutRecordsRequestAwsJson11Serializer
       }
       switch (key) {
         case 'Records':
-          result.records.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(PutRecordsRequestEntry)],
-            ),
-          ) as _i3.BuiltList<PutRecordsRequestEntry>));
+          result.records.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltList, [
+                    FullType(PutRecordsRequestEntry),
+                  ]),
+                )
+                as _i3.BuiltList<PutRecordsRequestEntry>),
+          );
         case 'StreamName':
-          result.streamName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.streamName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'StreamARN':
-          result.streamArn = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.streamArn =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
     return result.build();
@@ -140,10 +140,9 @@ class PutRecordsRequestAwsJson11Serializer
       'Records',
       serializers.serialize(
         object.records,
-        specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(PutRecordsRequestEntry)],
-        ),
+        specifiedType: const FullType(_i3.BuiltList, [
+          FullType(PutRecordsRequestEntry),
+        ]),
       ),
       'StreamName',
       serializers.serialize(
@@ -154,10 +153,12 @@ class PutRecordsRequestAwsJson11Serializer
     if (object.streamArn != null) {
       result
         ..add('StreamARN')
-        ..add(serializers.serialize(
-          object.streamArn,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            object.streamArn,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }
