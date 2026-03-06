@@ -64,7 +64,7 @@ void main() {
         unawaited(check(proc.stderr!.stream).withQueue.isDone());
         unawaited(
           check((proc.onClose, proc.onExit).wait).completes(
-            (it) => it..has((res) => res.$2.toDartInt, 'exitCode').equals(0),
+            (it) => it..has((res) => res.$2!.toDartInt, 'exitCode').equals(0),
           ),
         );
         await check(proc.onSpawn).completes();
@@ -83,7 +83,7 @@ void main() {
         unawaited(check(proc.stderr!.stream).withQueue.isDone());
         unawaited(
           check((proc.onClose, proc.onExit).wait).completes(
-            (it) => it..has((res) => res.$2.toDartInt, 'exitCode').equals(0),
+            (it) => it..has((res) => res.$2!.toDartInt, 'exitCode').equals(0),
           ),
         );
         await check(proc.onSpawn).completes();
