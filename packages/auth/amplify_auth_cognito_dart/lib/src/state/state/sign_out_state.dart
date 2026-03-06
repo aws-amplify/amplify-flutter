@@ -110,6 +110,7 @@ final class SignOutPartialFailure extends SignOutState {
     hostedUiException,
     globalSignOutException,
     revokeTokenException,
+    invalidTokenException,
   ];
 
   @override
