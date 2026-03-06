@@ -257,16 +257,6 @@ class RecordClient {
     _scheduler.disable();
   }
 
-  /// Enables automatic flush operations.
-  void enableAutoFlush() {
-    _scheduler.enable();
-  }
-
-  /// Disables automatic flush operations.
-  void disableAutoFlush() {
-    _scheduler.disable();
-  }
-
   /// Closes the client and releases all resources.
   Future<void> close() async {
     _closed = true;

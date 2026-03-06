@@ -178,16 +178,6 @@ class AmplifyKinesisClient {
     _recordClient.disable();
   }
 
-  /// Enables automatic flush operations.
-  void enableAutoFlush() {
-    _recordClient.enableAutoFlush();
-  }
-
-  /// Disables automatic flush operations.
-  void disableAutoFlush() {
-    _recordClient.disableAutoFlush();
-  }
-
   /// Closes the client and releases all resources.
   ///
   /// The client cannot be reused after closing.
