@@ -16,7 +16,7 @@
     "@types/babel__traverse": "^7.20.7",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.3.0",
-    "aws-cdk": "2.1107.0",
+    "aws-cdk": "2.1109.0",
     "esbuild": "^0.27.3",
     "jest": "^30.2.0",
     "ts-jest": "^29.4.5",
@@ -28,7 +28,7 @@
     "@aws-sdk/client-amplify": "^3.1000.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.1000.0",
     "@aws-sdk/client-s3": "^3.1000.0",
-    "aws-cdk-lib": "2.240.0",
+    "aws-cdk-lib": "2.241.0",
     "constructs": "^10.5.0",
     "node-fetch": "^3.3.2",
     "source-map-support": "^0.5.21"
