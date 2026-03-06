@@ -3,9 +3,13 @@
 
 /// End-to-end tests for the Kinesis Data Streams library.
 ///
-/// These tests verify the library works correctly against real AWS resources.
-/// They require valid AWS credentials and a Kinesis stream to be configured
-/// in test_config.dart.
+/// These tests verify the library works correctly against real AWS resources
+/// using Cognito-authenticated credentials, matching the real customer flow.
+///
+/// In CI, `fetch_backends` downloads `amplify_outputs.dart` with the Cognito
+/// config. The test signs up a test user, authenticates, and uses the
+/// identity pool's authenticated role (which has Kinesis permissions) to
+/// send records.
 ///
 /// Run with: dart test test/e2e/ --tags=e2e
 @Tags(['e2e'])
@@ -18,22 +22,23 @@ import 'dart:typed_data';
 import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart';
 import 'package:test/test.dart';
 
+import 'cognito_auth_helper.dart';
 import 'test_config.dart';
 
 void main() {
   // Skip all tests if not configured
   if (!isConfigured) {
-    test('E2E tests skipped - test_config.dart not configured', () {
+    test('E2E tests skipped - amplify_outputs.dart not found', () {
       // ignore: avoid_print
       print('''
 ╔══════════════════════════════════════════════════════════════════╗
 ║  E2E TESTS SKIPPED                                               ║
 ║                                                                  ║
 ║  To run E2E tests:                                               ║
-║  1. Edit test/e2e/test_config.dart                               ║
-║  2. Fill in your AWS credentials and stream name                 ║
-║  3. Set isConfigured = true                                      ║
-║  4. Run: dart test test/e2e/ --tags=e2e                          ║
+║  1. Deploy the kinesis backend:                                  ║
+║     cd infra-gen2/backends/kinesis/main && npx ampx sandbox      ║
+║  2. Copy amplify_outputs.dart to lib/                            ║
+║  3. Run: dart test test/e2e/ --tags=e2e                          ║
 ╚══════════════════════════════════════════════════════════════════╝
       ''');
     });
@@ -42,16 +47,24 @@ void main() {
 
   late AmplifyKinesisClient client;
   late Directory tempDir;
+  late CognitoCredentialsProvider credentialsProvider;
 
   setUpAll(() async {
     // Create temp directory for database
     tempDir = await Directory.systemTemp.createTemp('kinesis_e2e_test_');
+
+    // Authenticate via Cognito and get credentials provider
+    final authHelper = CognitoAuthHelper(amplifyAuthConfig!);
+    credentialsProvider = CognitoCredentialsProvider(authHelper);
+
+    // Pre-authenticate to fail fast if auth is broken
+    await credentialsProvider.resolve();
   });
 
   setUp(() {
     client = AmplifyKinesisClient(
       region: testRegion,
-      credentialsProvider: _StaticProvider(_makeCredentials()),
+      credentialsProvider: credentialsProvider,
       storagePath: tempDir.path,
       options: AmplifyKinesisClientOptions(
         maxRetries: 3,
@@ -71,36 +84,30 @@ void main() {
   });
 
   tearDownAll(() async {
-    // Clean up temp directory
     if (await tempDir.exists()) {
       await tempDir.delete(recursive: true);
     }
   });
 
-
   group('Basic record and flush', () {
     test('records a single event and flushes successfully', () async {
-      // Arrange
-      final testData = {'event': 'test', 'timestamp': DateTime.now().toIso8601String()};
+      final testData = {
+        'event': 'test',
+        'timestamp': DateTime.now().toIso8601String(),
+      };
       final data = Uint8List.fromList(utf8.encode(jsonEncode(testData)));
 
-      // Act
       await client.record(
         data: data,
         partitionKey: 'e2e-test-partition',
         streamName: testStreamName,
       );
       await client.flush();
-
-      // Assert - if no exception thrown, the record was sent successfully
-      // The flush would throw if the stream doesn't exist or credentials are invalid
     });
 
     test('records multiple events and flushes all', () async {
-      // Arrange
       const recordCount = 5;
 
-      // Act
       for (var i = 0; i < recordCount; i++) {
         final testData = {'event': 'batch_test', 'index': i};
         await client.record(
@@ -110,106 +117,83 @@ void main() {
         );
       }
       await client.flush();
-
-      // Assert - all records sent without error
     });
 
     test('handles empty flush gracefully', () async {
-      // Act & Assert - should not throw
       await client.flush();
     });
   });
 
   group('Enable/disable functionality', () {
     test('disabled client ignores new records', () async {
-      // Arrange
       client.disable();
 
-      // Act
       await client.record(
         data: Uint8List.fromList(utf8.encode('{"ignored": true}')),
         partitionKey: 'disabled-test',
         streamName: testStreamName,
       );
 
-      // Re-enable and flush - should have nothing to send
       client.enable();
       await client.flush();
-
-      // Assert - no exception means success (nothing was queued)
     });
 
     test('disabled client skips flush', () async {
-      // Arrange - record while enabled
       await client.record(
         data: Uint8List.fromList(utf8.encode('{"test": "data"}')),
         partitionKey: 'disable-flush-test',
         streamName: testStreamName,
       );
 
-      // Act - disable and try to flush
       client.disable();
-      await client.flush(); // Should do nothing
+      await client.flush();
 
-      // Re-enable and flush for real
       client.enable();
       await client.flush();
     });
   });
 
-
   group('Data integrity', () {
     test('sends binary data correctly', () async {
-      // Arrange - create binary data (not just JSON)
-      final binaryData = Uint8List.fromList([0x00, 0x01, 0x02, 0xFF, 0xFE, 0xFD]);
+      final binaryData =
+          Uint8List.fromList([0x00, 0x01, 0x02, 0xFF, 0xFE, 0xFD]);
 
-      // Act
       await client.record(
         data: binaryData,
         partitionKey: 'binary-test',
         streamName: testStreamName,
       );
       await client.flush();
-
-      // Assert - no exception means binary data was accepted
     });
 
     test('handles large records up to 1MB', () async {
-      // Arrange - create a ~100KB record (well under 1MB limit)
       final largeData = Uint8List.fromList(
         List.generate(100 * 1024, (i) => i % 256),
       );
 
-      // Act
       await client.record(
         data: largeData,
         partitionKey: 'large-record-test',
         streamName: testStreamName,
       );
       await client.flush();
-
-      // Assert - large record sent successfully
     });
 
     test('handles special characters in partition key', () async {
-      // Arrange
-      const specialPartitionKey = r'test-key_with.special:chars/and\more';
+      const specialPartitionKey =
+          r'test-key_with.special:chars/and\more';
 
-      // Act
       await client.record(
         data: Uint8List.fromList(utf8.encode('{"test": "special_key"}')),
         partitionKey: specialPartitionKey,
         streamName: testStreamName,
       );
       await client.flush();
-
-      // Assert - special characters handled correctly
     });
   });
 
   group('Cache management', () {
     test('clearCache removes all pending records', () async {
-      // Arrange - add some records
       for (var i = 0; i < 3; i++) {
         await client.record(
           data: Uint8List.fromList(utf8.encode('{"index": $i}')),
@@ -218,57 +202,28 @@ void main() {
         );
       }
 
-      // Act
       await client.clearCache();
-      await client.flush(); // Should have nothing to send
-
-      // Assert - no exception, nothing sent
+      await client.flush();
     });
   });
 
   group('Error handling', () {
-    test('throws ResourceNotFoundException for non-existent stream', () async {
-      // Arrange
-      final badClient = AmplifyKinesisClient(
-        region: testRegion,
-        credentialsProvider: _StaticProvider(_makeCredentials()),
-        storagePath: tempDir.path,
-      );
-
-      // Act
-      await badClient.record(
-        data: Uint8List.fromList(utf8.encode('{"test": "bad_stream"}')),
-        partitionKey: 'error-test',
-        streamName: 'non-existent-stream-name-12345',
-      );
-
-      // Assert - should throw when flushing to non-existent stream
-      // The error is caught and records are retried, so we check it doesn't hang
-      await badClient.flush();
-      await badClient.close();
-    });
-
     test('invalid stream records do not block valid stream flushes', () async {
-      // Record to a non-existent stream first
       await client.record(
         data: Uint8List.fromList(utf8.encode('{"bad": "record"}')),
         partitionKey: 'bad-pk',
         streamName: 'non-existent-stream-name-12345',
       );
 
-      // Flush once — the invalid record should fail but not crash
       final firstFlush = await client.flush();
       expect(firstFlush.recordsFlushed, equals(0));
 
-      // Now record to the valid stream
       await client.record(
         data: Uint8List.fromList(utf8.encode('{"good": "record"}')),
         partitionKey: 'good-pk',
         streamName: testStreamName,
       );
 
-      // Flush again — the valid record should succeed even though
-      // the invalid record is still stranded in the DB
       final secondFlush = await client.flush();
       expect(secondFlush.recordsFlushed, equals(1));
     });
@@ -276,20 +231,17 @@ void main() {
 
   group('Persistence', () {
     test('records persist across client instances', () async {
-      // Arrange - record data with first client
       await client.record(
         data: Uint8List.fromList(utf8.encode('{"persist": "test"}')),
         partitionKey: 'persistence-test',
         streamName: testStreamName,
       );
 
-      // Close without flushing
       await client.close();
 
-      // Act - create new client with same storage path
       final newClient = AmplifyKinesisClient(
         region: testRegion,
-        credentialsProvider: _StaticProvider(_makeCredentials()),
+        credentialsProvider: credentialsProvider,
         storagePath: tempDir.path,
         options: AmplifyKinesisClientOptions(
           flushStrategy: const KinesisDataStreamsInterval(
@@ -298,33 +250,8 @@ void main() {
         ),
       );
 
-      // Flush with new client - should send the persisted record
       await newClient.flush();
       await newClient.close();
-
-      // Assert - no exception means persisted record was sent
     });
   });
-}
-
-/// Creates credentials from test config, handling optional session token.
-AWSCredentials _makeCredentials() {
-  if (testSessionToken != null) {
-    return TemporaryCredentials(
-      testAccessKeyId,
-      testSecretAccessKey,
-      testSessionToken!,
-      DateTime.now().add(const Duration(hours: 1)),
-    );
-  }
-  return StaticCredentials(testAccessKeyId, testSecretAccessKey);
-}
-
-/// Simple credentials provider for E2E tests.
-class _StaticProvider implements AWSCredentialsProvider {
-  const _StaticProvider(this._credentials);
-  final AWSCredentials _credentials;
-
-  @override
-  Future<AWSCredentials> resolve() async => _credentials;
 }
