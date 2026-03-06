@@ -3,6 +3,8 @@
 
 import 'dart:async';
 
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    show Logger;
 import 'package:aws_kinesis_datastreams/src/flush_strategy/flush_strategy.dart';
 
 /// {@template aws_kinesis_datastreams.auto_flush_scheduler}
@@ -13,11 +15,13 @@ class AutoFlushScheduler {
   AutoFlushScheduler({
     required KinesisDataStreamsFlushStrategy strategy,
     required Future<void> Function() onFlush,
+    this.logger,
   }) : _strategy = strategy,
        _onFlush = onFlush;
 
   final KinesisDataStreamsFlushStrategy _strategy;
   final Future<void> Function() _onFlush;
+  final Logger? logger;
   Timer? _timer;
   bool _enabled = true;
   bool _closed = false;
@@ -69,6 +73,10 @@ class AutoFlushScheduler {
 
   void _handleTimerTick() {
     if (!_enabled || _closed) return;
-    unawaited(_onFlush().catchError((_) {}));
+    unawaited(
+      _onFlush().catchError((Object error, StackTrace stackTrace) {
+        logger?.error('Auto-flush failed', error, stackTrace);
+      }),
+    );
   }
 }

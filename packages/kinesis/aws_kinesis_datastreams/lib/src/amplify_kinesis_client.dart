@@ -77,16 +77,19 @@ class AmplifyKinesisClient {
       credentialsProvider: credentialsProvider,
     );
 
-    late final AutoFlushScheduler scheduler;
     late final RecordClient recordClient;
+    late final AutoFlushScheduler scheduler;
+
+    scheduler = AutoFlushScheduler(
+      strategy: options.flushStrategy,
+      onFlush: () => recordClient.flush(),
+      logger: options.logger,
+    );
 
     recordClient = RecordClient(
       storage: storage,
       sender: _kinesisSender,
-      scheduler: scheduler = AutoFlushScheduler(
-        strategy: options.flushStrategy,
-        onFlush: () => recordClient.flush(),
-      ),
+      scheduler: scheduler,
       maxRetries: options.maxRetries,
       maxRecords: options.maxRecords,
     );

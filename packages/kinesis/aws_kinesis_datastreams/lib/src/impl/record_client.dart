@@ -3,8 +3,6 @@
 
 import 'dart:async';
 
-import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart'
-    show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams/src/amplify_kinesis_client.dart'
     show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams/src/db/kinesis_record_database.dart';
