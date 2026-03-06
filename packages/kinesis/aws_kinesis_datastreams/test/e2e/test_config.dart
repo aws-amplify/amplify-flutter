@@ -31,7 +31,7 @@ final String testSecretAccessKey =
 
 /// AWS Session Token (optional, for temporary credentials).
 final String? testSessionToken = () {
-  final fromEnv = const String.fromEnvironment('TEST_SESSION_TOKEN');
+  const fromEnv = String.fromEnvironment('TEST_SESSION_TOKEN');
   if (fromEnv.isNotEmpty) return fromEnv;
   return Platform.environment['TEST_SESSION_TOKEN'];
 }();

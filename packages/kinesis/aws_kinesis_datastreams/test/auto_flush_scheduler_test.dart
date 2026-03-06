@@ -19,9 +19,7 @@ void main() {
             onFlush: () async {
               flushCount++;
             },
-          );
-
-          scheduler.start();
+          )..start();
 
           expect(flushCount, equals(0));
 
@@ -41,17 +39,16 @@ void main() {
       test('does nothing after close', () {
         fakeAsync((async) {
           var flushCount = 0;
-          final scheduler = AutoFlushScheduler(
+          AutoFlushScheduler(
             strategy: const KinesisDataStreamsInterval(
               interval: Duration(seconds: 10),
             ),
             onFlush: () async {
               flushCount++;
             },
-          );
-
-          scheduler.close();
-          scheduler.start();
+          )
+            ..close()
+            ..start();
 
           async.elapse(const Duration(seconds: 30));
           expect(flushCount, equals(0));
@@ -66,9 +63,7 @@ void main() {
             onFlush: () async {
               flushCount++;
             },
-          );
-
-          scheduler.start();
+          )..start();
 
           async.elapse(const Duration(seconds: 60));
           expect(flushCount, equals(0));
@@ -89,9 +84,7 @@ void main() {
             onFlush: () async {
               flushCount++;
             },
-          );
-
-          scheduler.start();
+          )..start();
 
           async.elapse(const Duration(seconds: 10));
           expect(flushCount, equals(1));
@@ -115,10 +108,9 @@ void main() {
             onFlush: () async {
               flushCount++;
             },
-          );
-
-          scheduler.start();
-          scheduler.disable();
+          )
+            ..start()
+            ..disable();
 
           async.elapse(const Duration(seconds: 30));
           expect(flushCount, equals(0));
@@ -139,10 +131,9 @@ void main() {
             onFlush: () async {
               flushCount++;
             },
-          );
-
-          scheduler.start();
-          scheduler.disable();
+          )
+            ..start()
+            ..disable();
 
           async.elapse(const Duration(seconds: 15));
           expect(flushCount, equals(0));
@@ -168,9 +159,7 @@ void main() {
             onFlush: () async {
               flushCount++;
             },
-          );
-
-          scheduler.start();
+          )..start();
 
           async.elapse(const Duration(seconds: 10));
           expect(flushCount, equals(1));
@@ -186,17 +175,16 @@ void main() {
       test('prevents restart after close', () {
         fakeAsync((async) {
           var flushCount = 0;
-          final scheduler = AutoFlushScheduler(
+          AutoFlushScheduler(
             strategy: const KinesisDataStreamsInterval(
               interval: Duration(seconds: 10),
             ),
             onFlush: () async {
               flushCount++;
             },
-          );
-
-          scheduler.close();
-          scheduler.start();
+          )
+            ..close()
+            ..start();
 
           async.elapse(const Duration(seconds: 30));
           expect(flushCount, equals(0));
@@ -219,9 +207,8 @@ void main() {
         final scheduler = AutoFlushScheduler(
           strategy: const KinesisDataStreamsInterval(),
           onFlush: () async {},
-        );
+        )..disable();
 
-        scheduler.disable();
         expect(scheduler.isEnabled, isFalse);
         scheduler.close();
       });
@@ -230,10 +217,10 @@ void main() {
         final scheduler = AutoFlushScheduler(
           strategy: const KinesisDataStreamsInterval(),
           onFlush: () async {},
-        );
+        )
+          ..disable()
+          ..enable();
 
-        scheduler.disable();
-        scheduler.enable();
         expect(scheduler.isEnabled, isTrue);
         scheduler.close();
       });

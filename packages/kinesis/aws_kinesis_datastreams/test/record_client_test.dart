@@ -105,7 +105,7 @@ void main() {
 
       test('throws KinesisRecordTooLargeException when record exceeds 10 MiB', () async {
         // 10 MiB limit applies to partition key + data blob combined
-        final partitionKey = 'pk';
+        const partitionKey = 'pk';
         final partitionKeyBytes = utf8.encode(partitionKey).length;
         final oversizedData = Uint8List(kKinesisMaxRecordBytes - partitionKeyBytes + 1);
 
@@ -141,7 +141,7 @@ void main() {
           maxRetries: 3,
         );
 
-        final partitionKey = 'pk';
+        const partitionKey = 'pk';
         final partitionKeyBytes = utf8.encode(partitionKey).length;
         final exactLimitData = Uint8List(kKinesisMaxRecordBytes - partitionKeyBytes);
 
@@ -160,7 +160,7 @@ void main() {
       });
 
       test('dataSize includes partition key size', () {
-        final partitionKey = 'test-partition-key';
+        const partitionKey = 'test-partition-key';
         final data = Uint8List.fromList([1, 2, 3]);
         final record = KinesisRecord.now(
           data: data,

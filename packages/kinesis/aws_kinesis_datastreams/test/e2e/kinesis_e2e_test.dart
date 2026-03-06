@@ -59,6 +59,7 @@ void main() {
     );
 
     // Disable auto-flush for controlled testing
+    // ignore: cascade_invocations
     client.disableAutoFlush();
   });
 
@@ -291,7 +292,7 @@ void main() {
         credentialsProvider: _StaticProvider(_makeCredentials()),
         storagePath: tempDir.path,
         options: AmplifyKinesisClientOptions(
-          flushStrategy: KinesisDataStreamsInterval(
+          flushStrategy: const KinesisDataStreamsInterval(
             interval: Duration(minutes: 5),
           ),
         ),
