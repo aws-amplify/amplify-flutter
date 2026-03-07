@@ -38,8 +38,6 @@ void main() {
       ).thenAnswer((_) async => const ClearCacheData());
       when(() => mockRecordClient.enable()).thenReturn(null);
       when(() => mockRecordClient.disable()).thenReturn(null);
-      when(() => mockRecordClient.enableAutoFlush()).thenReturn(null);
-      when(() => mockRecordClient.disableAutoFlush()).thenReturn(null);
       when(() => mockRecordClient.close()).thenAnswer((_) async {});
     });
 
@@ -205,24 +203,6 @@ void main() {
 
         when(() => mockRecordClient.isEnabled).thenReturn(true);
         expect(client.isEnabled, isTrue);
-      });
-    });
-
-    group('enableAutoFlush() / disableAutoFlush()', () {
-      test('enableAutoFlush() delegates to RecordClient', () {
-        AmplifyKinesisClient.withRecordClient(
-          recordClient: mockRecordClient,
-        ).enableAutoFlush();
-
-        verify(() => mockRecordClient.enableAutoFlush()).called(1);
-      });
-
-      test('disableAutoFlush() delegates to RecordClient', () {
-        AmplifyKinesisClient.withRecordClient(
-          recordClient: mockRecordClient,
-        ).disableAutoFlush();
-
-        verify(() => mockRecordClient.disableAutoFlush()).called(1);
       });
     });
 

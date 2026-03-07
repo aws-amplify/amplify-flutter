@@ -66,12 +66,11 @@ void main() {
       region: testRegion,
       credentialsProvider: credentialsProvider,
       storagePath: tempDir.path,
-      options: AmplifyKinesisClientOptions(maxRetries: 3),
+      options: AmplifyKinesisClientOptions(
+        maxRetries: 3,
+        flushStrategy: const KinesisDataStreamsNone(),
+      ),
     );
-
-    // Disable auto-flush for controlled testing
-    // ignore: cascade_invocations
-    client.disableAutoFlush();
   });
 
   tearDown(() async {
