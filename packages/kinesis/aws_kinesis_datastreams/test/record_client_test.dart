@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
+import 'package:aws_kinesis_datastreams/src/exception/record_cache_exception.dart';
 import 'package:aws_kinesis_datastreams/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
@@ -15,6 +16,7 @@ import 'package:aws_kinesis_datastreams/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams/src/model/flush_data.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
+import 'package:smithy/smithy.dart' show SmithyHttpException;
 import 'package:test/test.dart';
 
 import 'helpers/test_database.dart';
@@ -80,7 +82,7 @@ void main() {
         expect(records, hasLength(1));
       });
 
-      test('throws KinesisLimitExceededException when cache is full', () async {
+      test('throws RecordCacheLimitExceededException when cache is full', () async {
         // Fill the cache (1KB limit)
         await client.record(
           KinesisRecord.now(
@@ -99,12 +101,12 @@ void main() {
               streamName: 'stream',
             ),
           ),
-          throwsA(isA<KinesisLimitExceededException>()),
+          throwsA(isA<RecordCacheLimitExceededException>()),
         );
       });
 
       test(
-        'throws KinesisRecordTooLargeException when record exceeds 10 MiB',
+        'throws KinesisValidationException when record exceeds 10 MiB',
         () async {
           // 10 MiB limit applies to partition key + data blob combined
           const partitionKey = 'pk';
@@ -121,7 +123,7 @@ void main() {
                 streamName: 'stream',
               ),
             ),
-            throwsA(isA<KinesisRecordTooLargeException>()),
+            throwsA(isA<RecordCacheValidationException>()),
           );
         },
       );
@@ -368,20 +370,11 @@ void main() {
       });
 
       test('increments retry count for retryable failures', () async {
-        var callCount = 0;
         sender.resultProvider = (records) {
-          callCount++;
-          if (callCount == 1) {
-            return PutRecordsResult(
-              successfulRecordIndices: [],
-              failedRecordIndices: [],
-              retryableRecordIndices: List.generate(records.length, (i) => i),
-            );
-          }
           return PutRecordsResult(
-            successfulRecordIndices: List.generate(records.length, (i) => i),
+            successfulRecordIndices: [],
             failedRecordIndices: [],
-            retryableRecordIndices: [],
+            retryableRecordIndices: List.generate(records.length, (i) => i),
           );
         };
 
@@ -393,9 +386,19 @@ void main() {
           ),
         );
 
+        // First flush — record is retryable, excluded from further
+        // iterations in this flush cycle (Android exclusion-set pattern).
         await client.flush();
+        expect(sender.putRecordsCalls, hasLength(1));
 
-        expect(callCount, equals(2));
+        // Second flush — record is retried with incremented retry count.
+        sender.resultProvider = (records) => PutRecordsResult(
+          successfulRecordIndices: List.generate(records.length, (i) => i),
+          failedRecordIndices: [],
+          retryableRecordIndices: [],
+        );
+        await client.flush();
+        expect(sender.putRecordsCalls, hasLength(2));
       });
 
       test(
@@ -435,10 +438,18 @@ void main() {
             ),
           );
 
-          await testClient.flush();
+          // Each flush attempts once then excludes the record.
+          // After 3 retries the record exceeds maxRetries and is deleted.
+          for (var i = 0; i < 4; i++) {
+            await testClient.flush();
+          }
 
-          // Should be called 4 times (initial + 3 retries)
+          // Should be called 4 times (one per flush)
           expect(testSender.putRecordsCalls.length, equals(4));
+
+          // Record should be deleted after exceeding maxRetries
+          final records = await testStorage.getRecordsBatch();
+          expect(records, isEmpty);
 
           await testClient.close();
         },
@@ -479,10 +490,8 @@ void main() {
           );
         }
 
-        var callCount = 0;
         sender.resultProvider = (records) {
-          callCount++;
-          if (callCount == 1 && records.length == 3) {
+          if (records.length == 3) {
             return const PutRecordsResult(
               successfulRecordIndices: [0],
               failedRecordIndices: [2],
@@ -496,11 +505,16 @@ void main() {
           );
         };
 
-        await client.flush();
+        // First flush: 1 success, 1 failed (deleted), 1 retryable (excluded).
+        final firstResult = await client.flush();
+        expect(firstResult.recordsFlushed, equals(1));
+
+        // Second flush: the retryable record is retried and succeeds.
+        final secondResult = await client.flush();
+        expect(secondResult.recordsFlushed, equals(1));
 
         final records = await storage.getRecordsBatch();
         expect(records, isEmpty);
-        expect(callCount, equals(2));
       });
 
       test(
@@ -525,10 +539,12 @@ void main() {
             maxRetries: 3,
           );
 
-          // Sender throws for invalid stream, succeeds for valid stream
+          // Sender throws SDK exception for invalid stream, succeeds for valid
           testSender.streamResultProvider = (streamName, records) {
             if (streamName == 'invalid-stream') {
-              throw Exception('ResourceNotFoundException');
+              throw ResourceNotFoundException(
+                message: 'Stream not found',
+              );
             }
             return PutRecordsResult(
               successfulRecordIndices: List.generate(records.length, (i) => i),
@@ -537,7 +553,7 @@ void main() {
             );
           };
 
-          // Record to invalid stream
+          // Record to both streams
           await testClient.record(
             KinesisRecord.now(
               data: Uint8List.fromList([1, 2, 3]),
@@ -545,12 +561,6 @@ void main() {
               streamName: 'invalid-stream',
             ),
           );
-
-          // First flush — invalid record fails, retry count incremented
-          final firstFlush = await testClient.flush();
-          expect(firstFlush.recordsFlushed, equals(0));
-
-          // Record to valid stream
           await testClient.record(
             KinesisRecord.now(
               data: Uint8List.fromList([4, 5, 6]),
@@ -559,10 +569,10 @@ void main() {
             ),
           );
 
-          // Second flush — valid record should succeed even though
-          // the invalid record is still in the DB
-          final secondFlush = await testClient.flush();
-          expect(secondFlush.recordsFlushed, equals(1));
+          // Single flush — SDK error on invalid-stream is caught and skipped,
+          // valid-stream still flushes successfully (matching Android behavior).
+          final result = await testClient.flush();
+          expect(result.recordsFlushed, equals(1));
 
           // Verify the valid-stream call succeeded
           final validCalls = testSender.putRecordsCalls
@@ -570,6 +580,51 @@ void main() {
               .toList();
           expect(validCalls, hasLength(1));
           expect(validCalls.first.records, hasLength(1));
+
+          await testClient.close();
+        },
+      );
+
+      test(
+        'non-SDK errors abort the flush',
+        () async {
+          final testDb = createTestDatabase();
+          final testStorage = RecordStorage(
+            database: testDb,
+            maxCacheBytes: 1024,
+          );
+          final testSender = _TestKinesisSender();
+          final testScheduler = AutoFlushScheduler(
+            strategy: const KinesisDataStreamsInterval(
+              interval: Duration(hours: 1),
+            ),
+            onFlush: () async {},
+          );
+          final testClient = RecordClient(
+            storage: testStorage,
+            sender: testSender,
+            scheduler: testScheduler,
+            maxRetries: 3,
+          );
+
+          // Sender throws a non-SDK error (e.g. network error)
+          testSender.streamResultProvider = (streamName, records) {
+            throw Exception('Network error');
+          };
+
+          await testClient.record(
+            KinesisRecord.now(
+              data: Uint8List.fromList([1, 2, 3]),
+              partitionKey: 'pk',
+              streamName: 'stream',
+            ),
+          );
+
+          // Non-SDK errors propagate to the caller
+          expect(
+            () => testClient.flush(),
+            throwsA(isA<Exception>()),
+          );
 
           await testClient.close();
         },

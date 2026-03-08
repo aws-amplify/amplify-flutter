@@ -8,7 +8,9 @@ import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart'
 import 'package:aws_kinesis_datastreams/src/amplify_kinesis_client.dart'
     show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams/src/db/kinesis_record_database.dart';
-import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
+import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart'
+    show ClientClosedException;
+import 'package:aws_kinesis_datastreams/src/exception/record_cache_exception.dart';
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_sender.dart';
@@ -16,6 +18,7 @@ import 'package:aws_kinesis_datastreams/src/impl/record_storage.dart';
 import 'package:aws_kinesis_datastreams/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams/src/model/flush_data.dart';
+import 'package:smithy/smithy.dart' show SmithyHttpException;
 
 /// {@template aws_kinesis_datastreams.record_client}
 /// Orchestrates record operations, managing the flow between storage,
@@ -52,9 +55,8 @@ class RecordClient {
   int _cachedSize = 0;
   bool _cacheSizeInitialized = false;
 
-  /// Simple async lock to prevent concurrent record() calls from
-  /// racing on cache size checks.
-  Completer<void>? _recordLock;
+  /// Async mutex for serializing record() calls that touch _cachedSize.
+  Future<void> _pendingRecord = Future.value();
 
   /// Maximum batch size in bytes (10 MiB Kinesis PutRecords limit).
   static const int maxBatchSizeBytes = kKinesisMaxBatchBytes;
@@ -75,54 +77,69 @@ class RecordClient {
 
   /// Records data to the local cache.
   ///
-  /// Throws [ClientClosedException] if the client has been closed.
-  /// Throws [KinesisPartitionKeyInvalidException] if the partition key is
-  /// empty or exceeds 256 characters.
-  /// Throws [KinesisRecordTooLargeException] if the record exceeds the
-  /// per-record size limit (10 MiB, partition key + data blob).
-  /// Throws [KinesisLimitExceededException] if the cache is full.
+  /// Throws [RecordCacheException] if the client has been closed,
+  /// the partition key is invalid, the record exceeds the per-record size
+  /// limit, or the cache is full.
   Future<void> record(KinesisRecord record) async {
     if (_closed) throw ClientClosedException();
     if (!_enabled) return;
 
-    // Validate partition key length (Kinesis requires 1-256 characters).
-    if (record.partitionKey.isEmpty ||
-        record.partitionKey.length > kKinesisMaxPartitionKeyLength) {
-      throw KinesisPartitionKeyInvalidException(
-        keyLength: record.partitionKey.length,
+    // Validate partition key length (Kinesis requires 1-256 Unicode code points).
+    final partitionKeyCodePointCount = record.partitionKey.runes.length;
+    if (partitionKeyCodePointCount == 0 ||
+        partitionKeyCodePointCount > kKinesisMaxPartitionKeyLength) {
+      throw RecordCacheValidationException(
+        'Partition key length ($partitionKeyCodePointCount) is invalid. '
+        'Kinesis requires partition keys to be between 1 and '
+        '$kKinesisMaxPartitionKeyLength characters.',
+        'Use a partition key between 1 and '
+        '$kKinesisMaxPartitionKeyLength characters.',
       );
     }
 
     if (record.dataSize > kKinesisMaxRecordBytes) {
-      throw KinesisRecordTooLargeException(
-        recordBytes: record.dataSize,
-        maxBytes: kKinesisMaxRecordBytes,
+      throw RecordCacheValidationException(
+        'Record size (${record.dataSize} bytes) exceeds the Kinesis '
+        'per-record limit ($kKinesisMaxRecordBytes bytes). The limit applies '
+        'to the total size of the partition key and data blob.',
+        'Reduce the record payload size or use a shorter partition key.',
       );
     }
 
-    // Acquire async lock to prevent concurrent cache size races.
-    while (_recordLock != null) {
-      await _recordLock!.future;
-    }
-    _recordLock = Completer<void>();
+    // Serialize cache size check + write to prevent concurrent races.
+    final completer = Completer<void>();
+    final previous = _pendingRecord;
+    _pendingRecord = completer.future;
 
     try {
+      await previous;
       await _ensureCacheSizeInitialized();
 
       if (_cachedSize + record.dataSize > _storage.maxCacheBytes) {
-        throw KinesisLimitExceededException();
+        throw RecordCacheLimitExceededException(
+          'Cache size limit exceeded: '
+          '${_cachedSize + record.dataSize} bytes > '
+          '${_storage.maxCacheBytes} bytes',
+          'Call flush() to send cached records or increase cache size limit.',
+        );
       }
 
       await _storage.saveRecord(record);
       _cachedSize += record.dataSize;
     } finally {
-      final lock = _recordLock!;
-      _recordLock = null;
-      lock.complete();
+      completer.complete();
     }
   }
 
   /// Flushes all cached records to Kinesis.
+  ///
+  /// Each flush processes all pending records in batches per stream. Records
+  /// that fail or are retryable within a flush cycle are skipped via an
+  /// exclusion set and will be picked up in the next flush cycle.
+  ///
+  /// SDK Kinesis errors (throttling, invalid stream, etc.) are logged and
+  /// skipped so other streams can still flush. Non-SDK errors (e.g. network,
+  /// storage) abort the flush and propagate to the caller.
   Future<FlushData> flush() async {
     if (_closed) throw ClientClosedException();
     if (!_enabled) return const FlushData();
@@ -131,61 +148,43 @@ class RecordClient {
     _flushing = true;
 
     var totalFlushed = 0;
+    final attemptedIds = <int>{};
 
     try {
-      // Safety bound: limit iterations to prevent infinite loops if records
-      // keep failing but never exceed retries within a single flush cycle.
-      var iterations = 0;
-      const maxIterations = 100;
+      var recordsByStream = await _storage.getRecordsByStream(
+        excludingIds: attemptedIds,
+        maxCount: _maxRecords,
+        maxBytes: maxBatchSizeBytes,
+      );
 
-      var consecutiveNoProgress = 0;
-      // Allow enough no-progress iterations for records to exhaust their
-      // retries before considering the batch stuck.
-      final maxConsecutiveNoProgress = _maxRetries + 2;
-
-      while (iterations < maxIterations) {
-        iterations++;
-
-        List<StoredRecord> batch;
-        try {
-          batch = await _storage.getRecordsBatch(
-            maxCount: _maxRecords,
-            maxBytes: maxBatchSizeBytes,
-          );
-        } on Exception catch (e) {
-          throw KinesisStorageException(
-            'Failed to retrieve records batch',
-            cause: e,
-          );
-        }
-
-        if (batch.isEmpty) break;
-
-        final countBefore = await _storage.getRecordCount();
-
-        final recordsByStream = <String, List<StoredRecord>>{};
-        for (final record in batch) {
-          recordsByStream.putIfAbsent(record.streamName, () => []).add(record);
-        }
-
+      while (recordsByStream.isNotEmpty) {
         for (final entry in recordsByStream.entries) {
-          final flushed = await _sendStreamBatch(entry.key, entry.value);
-          totalFlushed += flushed;
+          final streamName = entry.key;
+          final records = entry.value;
+
+          // Track all attempted record IDs so they are excluded from the
+          // next batch, matching Android's exclusion-set approach.
+          attemptedIds.addAll(records.map((r) => r.id));
+
+          try {
+            final flushed = await _sendStreamBatch(streamName, records);
+            totalFlushed += flushed;
+          } on SmithyHttpException {
+            // SDK Kinesis exceptions (ResourceNotFoundException, throttling,
+            // etc.) are logged but not thrown — other streams can still flush.
+            await _handleFailedRequest(records);
+          } catch (e) {
+            // Network errors, storage errors, and unexpected errors — abort.
+            await _handleFailedRequest(records);
+            rethrow;
+          }
         }
 
-        await _storage.deleteRecordsExceedingRetries(_maxRetries);
-
-        // Track whether the batch is making progress. If the record count
-        // hasn't decreased for several consecutive iterations, the batch
-        // is stuck (e.g. all records are retryable but haven't exceeded
-        // max retries yet) — break to avoid spinning.
-        final countAfter = await _storage.getRecordCount();
-        if (countAfter < countBefore) {
-          consecutiveNoProgress = 0;
-        } else {
-          consecutiveNoProgress++;
-          if (consecutiveNoProgress >= maxConsecutiveNoProgress) break;
-        }
+        recordsByStream = await _storage.getRecordsByStream(
+          excludingIds: attemptedIds,
+          maxCount: _maxRecords,
+          maxBytes: maxBatchSizeBytes,
+        );
       }
 
       // Recalculate in-memory cache size from DB after deletes.
@@ -197,6 +196,10 @@ class RecordClient {
     return FlushData(recordsFlushed: totalFlushed);
   }
 
+  /// Sends a batch of records for a single stream.
+  ///
+  /// Returns the number of successfully flushed records.
+  /// Throws on SDK or network errors (caller handles the distinction).
   Future<int> _sendStreamBatch(
     String streamName,
     List<StoredRecord> records,
@@ -208,32 +211,58 @@ class RecordClient {
         )
         .toList();
 
-    PutRecordsResult result;
-    try {
-      result = await _sender.putRecords(
-        streamName: streamName,
-        records: senderRecords,
-      );
-    } on Exception {
-      // Sender/SDK errors — increment retry count and continue.
-      // Non-SDK exceptions (e.g. storage errors) are not caught here
-      // because they originate from _storage calls below, not _sender.
-      await _storage.incrementRetryCount(records.map((r) => r.id));
-      return 0;
+    final result = await _sender.putRecords(
+      streamName: streamName,
+      records: senderRecords,
+    );
+
+    final successfulIds = <int>[];
+    final retryableIds = <int>[];
+    final failedIds = <int>[];
+
+    for (final i in result.successfulRecordIndices) {
+      successfulIds.add(records[i].id);
+    }
+    for (final i in result.retryableRecordIndices) {
+      final record = records[i];
+      if (record.retryCount >= _maxRetries) {
+        failedIds.add(record.id);
+      } else {
+        retryableIds.add(record.id);
+      }
+    }
+    for (final i in result.failedRecordIndices) {
+      failedIds.add(records[i].id);
     }
 
-    // Storage operations after a successful send propagate errors to caller.
-    await _storage.deleteRecords(
-      result.successfulRecordIndices.map((i) => records[i].id),
-    );
-    await _storage.incrementRetryCount(
-      result.retryableRecordIndices.map((i) => records[i].id),
-    );
-    await _storage.deleteRecords(
-      result.failedRecordIndices.map((i) => records[i].id),
-    );
+    await _storage.deleteRecords(successfulIds);
+    await _storage.deleteRecords(failedIds);
+    await _storage.incrementRetryCount(retryableIds);
 
-    return result.successfulRecordIndices.length;
+    return successfulIds.length;
+  }
+
+  /// Handles a fully failed request by partitioning records into those that
+  /// can be retried and those that have exceeded the retry limit.
+  Future<void> _handleFailedRequest(List<StoredRecord> records) async {
+    try {
+      final idsToRetry = <int>[];
+      final idsToDelete = <int>[];
+
+      for (final record in records) {
+        if (record.retryCount < _maxRetries) {
+          idsToRetry.add(record.id);
+        } else {
+          idsToDelete.add(record.id);
+        }
+      }
+
+      await _storage.incrementRetryCount(idsToRetry);
+      await _storage.deleteRecords(idsToDelete);
+    } catch (_) {
+      // Storage errors during cleanup are swallowed to avoid masking the
+      // original error, matching Android's handleFailedRequest behavior.
+    }
   }
 
   /// Clears all cached records.

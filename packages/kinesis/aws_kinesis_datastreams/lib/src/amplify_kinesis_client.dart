@@ -5,8 +5,7 @@ import 'dart:typed_data';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:aws_kinesis_datastreams/src/db/kinesis_record_database.dart';
-import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart'
-    show KinesisLimitExceededException;
+import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_sender.dart';
@@ -134,35 +133,52 @@ class AmplifyKinesisClient {
   /// The record is persisted to local storage and will be sent during
   /// the next flush operation (automatic or manual).
   ///
-  /// Throws [KinesisLimitExceededException] if the local cache is full.
   /// Records are silently ignored if the client is disabled.
+  ///
+  /// Throws:
+  /// - [ClientClosedException] if the client has been closed.
+  /// - [KinesisValidationException] if the partition key or record size
+  ///   is invalid.
+  /// - [KinesisLimitExceededException] if the local cache is full.
+  /// - [KinesisStorageException] if a database error occurs.
+  /// - [KinesisUnknownException] for unexpected errors.
   Future<void> record({
     required Uint8List data,
     required String partitionKey,
     required String streamName,
   }) async {
-    final kinesisRecord = KinesisRecord.now(
-      data: data,
-      partitionKey: partitionKey,
-      streamName: streamName,
-    );
-    await _recordClient.record(kinesisRecord);
+    return _wrapError(() async {
+      final kinesisRecord = KinesisRecord.now(
+        data: data,
+        partitionKey: partitionKey,
+        streamName: streamName,
+      );
+      await _recordClient.record(kinesisRecord);
+    });
   }
 
   /// Flushes all cached records to Kinesis Data Streams.
   ///
   /// Returns [FlushData] with the count of records successfully flushed.
-  ///
   /// Does nothing if the client is disabled.
+  ///
+  /// Throws:
+  /// - [ClientClosedException] if the client has been closed.
+  /// - [KinesisStorageException] if a database error occurs.
+  /// - [KinesisUnknownException] for unexpected errors.
   Future<FlushData> flush() async {
-    return _recordClient.flush();
+    return _wrapError(() => _recordClient.flush());
   }
 
   /// Clears all cached records from local storage.
   ///
   /// Returns [ClearCacheData] with the count of records cleared.
+  ///
+  /// Throws:
+  /// - [KinesisStorageException] if a database error occurs.
+  /// - [KinesisUnknownException] for unexpected errors.
   Future<ClearCacheData> clearCache() async {
-    return _recordClient.clearCache();
+    return _wrapError(() => _recordClient.clearCache());
   }
 
   /// Enables the client to accept and flush records.
@@ -183,5 +199,17 @@ class AmplifyKinesisClient {
   /// The client cannot be reused after closing.
   Future<void> close() async {
     await _recordClient.close();
+  }
+
+  /// Wraps an async operation, converting any non-Kinesis errors via
+  /// [AmplifyKinesisException.from].
+  Future<T> _wrapError<T>(Future<T> Function() operation) async {
+    try {
+      return await operation();
+    } on AmplifyKinesisException {
+      rethrow;
+    } on Object catch (e) {
+      throw AmplifyKinesisException.from(e);
+    }
   }
 }

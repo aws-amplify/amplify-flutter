@@ -6,10 +6,8 @@ import 'dart:typed_data';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     as foundation;
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
 import 'package:aws_kinesis_datastreams/src/sdk/sdk_bridge.dart';
-import 'package:smithy/smithy.dart';
 
 /// Result of a PutRecords operation.
 final class PutRecordsResult {
@@ -98,34 +96,8 @@ class KinesisSender {
       records: requestEntries,
     );
 
-    try {
-      final response = await _kinesisClient.putRecords(request).result;
-      return _parseResponse(response, records.length);
-    } on ProvisionedThroughputExceededException {
-      // All records should be retried
-      return PutRecordsResult(
-        successfulRecordIndices: const [],
-        failedRecordIndices: const [],
-        retryableRecordIndices: List.generate(records.length, (i) => i),
-      );
-    } on SmithyHttpException catch (e) {
-      // Check if it's a retryable HTTP error (429 or 5xx)
-      if (e.statusCode != null &&
-          (e.statusCode == 429 || e.statusCode! >= 500)) {
-        return PutRecordsResult(
-          successfulRecordIndices: const [],
-          failedRecordIndices: const [],
-          retryableRecordIndices: List.generate(records.length, (i) => i),
-        );
-      }
-      rethrow;
-    } on AWSHttpException catch (e) {
-      // Network-level errors (DNS, connection refused, etc.)
-      throw KinesisNetworkException(
-        'Failed to connect to Kinesis: $e',
-        cause: e,
-      );
-    }
+    final response = await _kinesisClient.putRecords(request).result;
+    return _parseResponse(response, records.length);
   }
 
   /// Parses the PutRecords response to identify successful and failed records.

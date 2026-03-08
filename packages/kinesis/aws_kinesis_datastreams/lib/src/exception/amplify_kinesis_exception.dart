@@ -2,6 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:aws_kinesis_datastreams/src/exception/record_cache_exception.dart';
+
+/// Default recovery suggestion for errors.
+const String defaultRecoverySuggestion =
+    'Inspect the underlying error for more details.';
 
 /// {@template aws_kinesis_datastreams.amplify_kinesis_exception}
 /// Base exception for Amplify Kinesis Data Streams errors.
@@ -13,6 +18,44 @@ sealed class AmplifyKinesisException extends AmplifyException {
     required super.recoverySuggestion,
     super.cause,
   });
+
+  /// Maps an arbitrary error into the appropriate [AmplifyKinesisException]
+  /// subtype. If [error] is already an [AmplifyKinesisException], it is
+  /// returned as-is. [RecordCacheException] subtypes are mapped to their
+  /// corresponding public exception types.
+  static AmplifyKinesisException from(Object error) {
+    if (error is AmplifyKinesisException) return error;
+    if (error is RecordCacheValidationException) {
+      return KinesisValidationException(
+        error.message,
+        recoverySuggestion: error.recoverySuggestion,
+      );
+    }
+    if (error is RecordCacheLimitExceededException) {
+      return KinesisLimitExceededException(
+        message: error.message,
+        recoverySuggestion: error.recoverySuggestion,
+      );
+    }
+    if (error is RecordCacheDatabaseException) {
+      return KinesisStorageException(
+        error.message,
+        recoverySuggestion: error.recoverySuggestion,
+        cause: error.cause,
+      );
+    }
+    if (error is RecordCacheException) {
+      return KinesisStorageException(
+        error.message,
+        recoverySuggestion: error.recoverySuggestion,
+        cause: error.cause,
+      );
+    }
+    return KinesisUnknownException(
+      error is Exception ? error.toString() : 'An unknown error occurred',
+      cause: error is Exception ? error : null,
+    );
+  }
 
   @override
   String toString() {
@@ -30,11 +73,15 @@ sealed class AmplifyKinesisException extends AmplifyException {
 /// {@endtemplate}
 final class KinesisStorageException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_storage_exception}
-  KinesisStorageException(String message, {super.cause})
-    : super(
-        message: message,
-        recoverySuggestion: 'Try clearing the cache or reinitializing.',
-      );
+  KinesisStorageException(
+    String message, {
+    String? recoverySuggestion,
+    super.cause,
+  }) : super(
+         message: message,
+         recoverySuggestion:
+             recoverySuggestion ?? defaultRecoverySuggestion,
+       );
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
@@ -42,11 +89,30 @@ final class KinesisStorageException extends AmplifyKinesisException {
 /// {@endtemplate}
 final class KinesisLimitExceededException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
-  KinesisLimitExceededException()
-    : super(
-        message: 'Cache is full',
-        recoverySuggestion: 'Call flush() or clearCache().',
-      );
+  KinesisLimitExceededException({
+    String? message,
+    String? recoverySuggestion,
+  }) : super(
+         message: message ?? 'Cache is full',
+         recoverySuggestion:
+             recoverySuggestion ?? 'Call flush() or clearCache().',
+       );
+}
+
+/// {@template aws_kinesis_datastreams.kinesis_validation_exception}
+/// Thrown when record input validation fails (e.g. oversized record,
+/// invalid partition key).
+/// {@endtemplate}
+final class KinesisValidationException extends AmplifyKinesisException {
+  /// {@macro aws_kinesis_datastreams.kinesis_validation_exception}
+  KinesisValidationException(
+    String message, {
+    String? recoverySuggestion,
+  }) : super(
+         message: message,
+         recoverySuggestion:
+             recoverySuggestion ?? defaultRecoverySuggestion,
+       );
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_unknown_exception}
@@ -54,57 +120,13 @@ final class KinesisLimitExceededException extends AmplifyKinesisException {
 /// {@endtemplate}
 final class KinesisUnknownException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_unknown_exception}
-  KinesisUnknownException(String message, {super.cause})
-    : super(
-        message: message,
-        recoverySuggestion: 'Unexpected error. Please file a bug.',
-      );
-}
-
-/// {@template aws_kinesis_datastreams.kinesis_network_exception}
-/// Thrown when a network error prevents communication with Kinesis.
-/// {@endtemplate}
-final class KinesisNetworkException extends AmplifyKinesisException {
-  /// {@macro aws_kinesis_datastreams.kinesis_network_exception}
-  KinesisNetworkException(String message, {super.cause})
-    : super(
-        message: message,
-        recoverySuggestion: 'Check network connectivity and try again.',
-      );
-}
-
-/// {@template aws_kinesis_datastreams.kinesis_record_too_large_exception}
-/// Thrown when a single record exceeds the Kinesis per-record size limit
-/// (10 MiB, partition key + data blob combined).
-/// {@endtemplate}
-final class KinesisRecordTooLargeException extends AmplifyKinesisException {
-  /// {@macro aws_kinesis_datastreams.kinesis_record_too_large_exception}
-  KinesisRecordTooLargeException({
-    required int recordBytes,
-    required int maxBytes,
+  KinesisUnknownException(
+    String message, {
+    super.cause,
   }) : super(
-         message:
-             'Record size ($recordBytes bytes) exceeds the Kinesis '
-             'per-record limit ($maxBytes bytes). The limit applies to the '
-             'total size of the partition key and data blob.',
-         recoverySuggestion:
-             'Reduce the record payload size or use a shorter partition key.',
+         message: message,
+         recoverySuggestion: defaultRecoverySuggestion,
        );
-}
-
-/// {@template aws_kinesis_datastreams.kinesis_partition_key_invalid_exception}
-/// Thrown when a partition key is empty or exceeds the Kinesis limit (256 characters).
-/// {@endtemplate}
-final class KinesisPartitionKeyInvalidException
-    extends AmplifyKinesisException {
-  /// {@macro aws_kinesis_datastreams.kinesis_partition_key_invalid_exception}
-  KinesisPartitionKeyInvalidException({required int keyLength})
-    : super(
-        message:
-            'Partition key length ($keyLength) is invalid. '
-            'Kinesis requires partition keys to be between 1 and 256 characters.',
-        recoverySuggestion: 'Use a partition key between 1 and 256 characters.',
-      );
 }
 
 /// {@template aws_kinesis_datastreams.client_closed_exception}
