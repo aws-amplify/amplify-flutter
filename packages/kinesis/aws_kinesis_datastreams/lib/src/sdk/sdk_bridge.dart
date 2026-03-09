@@ -86,14 +86,6 @@ class WrappedKinesisClient implements KinesisClient {
   final KinesisClient _base;
   final AWSHttpClient? _httpClient;
 
-  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-  amplify_core.DependencyManager? _dependencyManager;
-
-  amplify_core.DependencyManager get _deps {
-    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-    return _dependencyManager ??= amplify_core.Amplify.dependencies;
-  }
-
   @override
   SmithyOperation<PutRecordsResponse> putRecords(
     PutRecordsRequest input, {
@@ -102,11 +94,7 @@ class WrappedKinesisClient implements KinesisClient {
   }) {
     return _base.putRecords(
       input,
-      client:
-          client ??
-          _UserAgentHttpClient(
-            _httpClient ?? _deps.getOrCreate<amplify_core.AmplifyHttpClient>(),
-          ),
+      client: client ?? _UserAgentHttpClient(_httpClient ?? AWSHttpClient()),
       credentialsProvider: credentialsProvider,
     );
   }

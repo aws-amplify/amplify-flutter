@@ -30,7 +30,7 @@ const int kKinesisMaxPartitionKeyLength = 256;
 /// All numeric properties are validated to be positive and within
 /// service-imposed upper bounds.
 /// {@endtemplate}
-class AmplifyKinesisClientOptions {
+final class AmplifyKinesisClientOptions {
   /// {@macro aws_kinesis_datastreams.amplify_kinesis_client_options}
   AmplifyKinesisClientOptions({
     this.cacheMaxBytes = 5 * 1024 * 1024,

@@ -48,31 +48,21 @@ import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
 /// {@endtemplate}
 class AmplifyKinesisClient {
   /// {@macro aws_kinesis_datastreams.amplify_kinesis_client}
-  AmplifyKinesisClient({
+  factory AmplifyKinesisClient({
     required String region,
     required AWSCredentialsProvider credentialsProvider,
     AmplifyKinesisClientOptions? options,
     String? storagePath,
-  }) : this._internal(
-         region: region,
-         credentialsProvider: credentialsProvider,
-         options: options ?? AmplifyKinesisClientOptions(),
-         storagePath: storagePath ?? 'kinesis_data_streams',
-       );
+  }) {
+    final opts = options ?? AmplifyKinesisClientOptions();
+    final path = storagePath ?? 'kinesis_data_streams';
 
-  AmplifyKinesisClient._internal({
-    required String region,
-    required AWSCredentialsProvider credentialsProvider,
-    required AmplifyKinesisClientOptions options,
-    required String storagePath,
-  }) : _region = region,
-       _options = options {
-    final database = KinesisRecordDatabase(storagePath);
+    final database = KinesisRecordDatabase(path);
     final storage = RecordStorage(
       database: database,
-      maxCacheBytes: options.cacheMaxBytes,
+      maxCacheBytes: opts.cacheMaxBytes,
     );
-    _kinesisSender = KinesisSender(
+    final kinesisSender = KinesisSender(
       region: region,
       credentialsProvider: credentialsProvider,
     );
@@ -81,21 +71,27 @@ class AmplifyKinesisClient {
     late final AutoFlushScheduler scheduler;
 
     scheduler = AutoFlushScheduler(
-      strategy: options.flushStrategy,
+      strategy: opts.flushStrategy,
       onFlush: () => recordClient.flush(),
-      logger: options.logger,
+      logger: opts.logger,
     );
 
     recordClient = RecordClient(
       storage: storage,
-      sender: _kinesisSender,
+      sender: kinesisSender,
       scheduler: scheduler,
-      maxRetries: options.maxRetries,
-      maxRecords: options.maxRecords,
+      maxRetries: opts.maxRetries,
+      maxRecords: opts.maxRecords,
     );
 
-    _recordClient = recordClient;
     scheduler.start();
+
+    return AmplifyKinesisClient._(
+      region: region,
+      options: opts,
+      recordClient: recordClient,
+      kinesisSender: kinesisSender,
+    );
   }
 
   /// Creates a client with a pre-configured [RecordClient] (for testing).
@@ -105,12 +101,23 @@ class AmplifyKinesisClient {
     AmplifyKinesisClientOptions? options,
   }) : _region = region,
        _options = options ?? AmplifyKinesisClientOptions(),
-       _recordClient = recordClient;
+       _recordClient = recordClient,
+       _kinesisSender = null;
+
+  AmplifyKinesisClient._({
+    required String region,
+    required AmplifyKinesisClientOptions options,
+    required RecordClient recordClient,
+    required KinesisSender kinesisSender,
+  }) : _region = region,
+       _options = options,
+       _recordClient = recordClient,
+       _kinesisSender = kinesisSender;
 
   final String _region;
   final AmplifyKinesisClientOptions _options;
-  late final RecordClient _recordClient;
-  late final KinesisSender _kinesisSender;
+  final RecordClient _recordClient;
+  final KinesisSender? _kinesisSender;
 
   /// The AWS region for this client.
   String get region => _region;
@@ -130,7 +137,7 @@ class AmplifyKinesisClient {
   ///
   /// Note: This getter is only available when the client was created with
   /// the default constructor (not [AmplifyKinesisClient.withRecordClient]).
-  KinesisClient get kinesisClient => _kinesisSender.sdkClient;
+  KinesisClient get kinesisClient => _kinesisSender!.sdkClient;
 
   /// Records data to be sent to a Kinesis Data Stream.
   ///
