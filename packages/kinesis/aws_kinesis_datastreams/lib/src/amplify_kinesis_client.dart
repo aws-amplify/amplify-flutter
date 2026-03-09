@@ -28,12 +28,38 @@ import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
 /// - Configurable batching (up to 500 records or 5MB per batch)
 /// - Interval-based automatic flushing
 ///
+/// ## Storage Path
+///
+/// The [storagePath] parameter is required and must point to a writable
+/// directory where the SQLite database will be stored.
+///
+/// On Flutter (Android/iOS), use the `path_provider` package:
+/// ```dart
+/// import 'package:path_provider/path_provider.dart';
+///
+/// final dir = await getApplicationSupportDirectory();
+/// final client = AmplifyKinesisClient(
+///   storagePath: dir.path,
+///   // ...
+/// );
+/// ```
+///
+/// On pure Dart (CLI/server), any writable path works:
+/// ```dart
+/// final client = AmplifyKinesisClient(
+///   storagePath: '/tmp/kinesis',
+///   // ...
+/// );
+/// ```
+///
 /// ## Usage
 ///
 /// ```dart
+/// final dir = await getApplicationSupportDirectory();
 /// final client = AmplifyKinesisClient(
 ///   region: 'us-east-1',
 ///   credentialsProvider: myCredentialsProvider,
+///   storagePath: dir.path,
 /// );
 ///
 /// await client.record(
@@ -42,8 +68,12 @@ import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
 ///   streamName: 'my-stream',
 /// );
 ///
-/// final flushResult = await client.flush();
-/// print('Flushed ${flushResult.recordsFlushed} records');
+/// switch (await client.flush()) {
+///   case Ok(:final value):
+///     print('Flushed ${value.recordsFlushed} records');
+///   case Error(:final error):
+///     print('Flush failed: $error');
+/// }
 ///
 /// await client.close();
 /// ```
@@ -53,13 +83,12 @@ class AmplifyKinesisClient {
   factory AmplifyKinesisClient({
     required String region,
     required AWSCredentialsProvider credentialsProvider,
+    required String storagePath,
     AmplifyKinesisClientOptions? options,
-    String? storagePath,
   }) {
     final opts = options ?? AmplifyKinesisClientOptions();
-    final path = storagePath ?? 'kinesis_data_streams';
 
-    final database = KinesisRecordDatabase(path);
+    final database = KinesisRecordDatabase(storagePath);
     final storage = RecordStorage(
       database: database,
       maxCacheBytes: opts.cacheMaxBytes,
