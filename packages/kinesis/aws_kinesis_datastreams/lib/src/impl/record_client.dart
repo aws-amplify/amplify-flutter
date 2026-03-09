@@ -3,6 +3,8 @@
 
 import 'dart:async';
 
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    show Result;
 import 'package:aws_kinesis_datastreams/src/amplify_kinesis_client.dart'
     show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams/src/db/kinesis_record_database.dart';
@@ -73,15 +75,17 @@ class RecordClient {
 
   /// Records data to the local cache.
   ///
+  /// Returns [Result.ok] on success, or [Result.error] if the cache is full
+  /// or a storage error occurs.
+  ///
   /// Throws [ClientClosedException] if the client has been closed.
   /// Throws [KinesisPartitionKeyInvalidException] if the partition key is
   /// empty or exceeds 256 characters.
   /// Throws [KinesisRecordTooLargeException] if the record exceeds the
   /// per-record size limit (10 MiB, partition key + data blob).
-  /// Throws [KinesisLimitExceededException] if the cache is full.
-  Future<void> record(KinesisRecord record) async {
+  Future<Result<void>> record(KinesisRecord record) async {
     if (_closed) throw ClientClosedException();
-    if (!_enabled) return;
+    if (!_enabled) return const Result.ok(null);
 
     // Validate partition key length (Kinesis requires 1-256 characters).
     if (record.partitionKey.isEmpty ||
@@ -108,11 +112,16 @@ class RecordClient {
       await _ensureCacheSizeInitialized();
 
       if (_cachedSize + record.dataSize > _storage.maxCacheBytes) {
-        throw KinesisLimitExceededException();
+        return Result.error(KinesisLimitExceededException());
       }
 
       await _storage.saveRecord(record);
       _cachedSize += record.dataSize;
+      return const Result.ok(null);
+    } on Exception catch (e) {
+      return Result.error(
+        KinesisStorageException('Failed to save record', cause: e),
+      );
     } finally {
       final lock = _recordLock!;
       _recordLock = null;
@@ -121,11 +130,16 @@ class RecordClient {
   }
 
   /// Flushes all cached records to Kinesis.
-  Future<FlushData> flush() async {
+  ///
+  /// Returns [Result.ok] with [FlushData] on success, or [Result.error]
+  /// if a storage or network error occurs during the flush.
+  ///
+  /// Throws [ClientClosedException] if the client has been closed.
+  Future<Result<FlushData>> flush() async {
     if (_closed) throw ClientClosedException();
-    if (!_enabled) return const FlushData();
+    if (!_enabled) return const Result.ok(FlushData());
 
-    if (_flushing) return const FlushData(flushInProgress: true);
+    if (_flushing) return const Result.ok(FlushData(flushInProgress: true));
     _flushing = true;
 
     var totalFlushed = 0;
@@ -151,9 +165,11 @@ class RecordClient {
             maxBytes: maxBatchSizeBytes,
           );
         } on Exception catch (e) {
-          throw KinesisStorageException(
-            'Failed to retrieve records batch',
-            cause: e,
+          return Result.error(
+            KinesisStorageException(
+              'Failed to retrieve records batch',
+              cause: e,
+            ),
           );
         }
 
@@ -188,11 +204,16 @@ class RecordClient {
 
       // Recalculate in-memory cache size from DB after deletes.
       _cachedSize = await _storage.getCurrentCacheSize();
+    } on Exception catch (e) {
+      _flushing = false;
+      return Result.error(
+        KinesisUnknownException('Flush failed unexpectedly', cause: e),
+      );
     } finally {
       _flushing = false;
     }
 
-    return FlushData(recordsFlushed: totalFlushed);
+    return Result.ok(FlushData(recordsFlushed: totalFlushed));
   }
 
   Future<int> _sendStreamBatch(
@@ -235,12 +256,21 @@ class RecordClient {
   }
 
   /// Clears all cached records.
-  Future<ClearCacheData> clearCache() async {
-    final count = await _storage.getRecordCount();
-    await _storage.clear();
-    // Reset in-memory cache size after clearing.
-    _cachedSize = 0;
-    return ClearCacheData(recordsCleared: count);
+  ///
+  /// Returns [Result.ok] with [ClearCacheData] on success, or [Result.error]
+  /// if a storage error occurs.
+  Future<Result<ClearCacheData>> clearCache() async {
+    try {
+      final count = await _storage.getRecordCount();
+      await _storage.clear();
+      // Reset in-memory cache size after clearing.
+      _cachedSize = 0;
+      return Result.ok(ClearCacheData(recordsCleared: count));
+    } on Exception catch (e) {
+      return Result.error(
+        KinesisStorageException('Failed to clear cache', cause: e),
+      );
+    }
   }
 
   /// Enables the client to accept and flush records.

@@ -218,7 +218,8 @@ void main() {
       );
 
       final firstFlush = await client.flush();
-      expect(firstFlush.recordsFlushed, equals(0));
+      expect(firstFlush, isA<Ok<FlushData>>());
+      expect((firstFlush as Ok<FlushData>).value.recordsFlushed, equals(0));
 
       await client.record(
         data: Uint8List.fromList(utf8.encode('{"good": "record"}')),
@@ -227,7 +228,8 @@ void main() {
       );
 
       final secondFlush = await client.flush();
-      expect(secondFlush.recordsFlushed, equals(1));
+      expect(secondFlush, isA<Ok<FlushData>>());
+      expect((secondFlush as Ok<FlushData>).value.recordsFlushed, equals(1));
     });
   });
 

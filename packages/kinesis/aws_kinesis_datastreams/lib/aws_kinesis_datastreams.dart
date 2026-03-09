@@ -10,7 +10,10 @@ export 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
         AWSCredentialsProvider,
         StaticCredentials,
         TemporaryCredentials,
-        Logger;
+        Logger,
+        Result,
+        Ok,
+        Error;
 // V2 → V3 credentials bridge
 export 'package:amplify_foundation_dart_bridge/amplify_foundation_dart_bridge.dart';
 

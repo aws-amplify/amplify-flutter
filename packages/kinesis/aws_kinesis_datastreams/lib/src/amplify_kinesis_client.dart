@@ -4,9 +4,11 @@
 import 'dart:typed_data';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart'
+    show KinesisPartitionKeyInvalidException, KinesisRecordTooLargeException;
 import 'package:aws_kinesis_datastreams/src/db/kinesis_record_database.dart';
 import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart'
-    show KinesisLimitExceededException;
+    show KinesisPartitionKeyInvalidException, KinesisRecordTooLargeException;
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams/src/impl/kinesis_sender.dart';
@@ -144,9 +146,14 @@ class AmplifyKinesisClient {
   /// The record is persisted to local storage and will be sent during
   /// the next flush operation (automatic or manual).
   ///
-  /// Throws [KinesisLimitExceededException] if the local cache is full.
-  /// Records are silently ignored if the client is disabled.
-  Future<void> record({
+  /// Returns [Result.ok] on success, or [Result.error] if the local cache
+  /// is full or a storage error occurs.
+  ///
+  /// Throws [KinesisPartitionKeyInvalidException] or
+  /// [KinesisRecordTooLargeException] for invalid input (programmer errors).
+  /// Records are silently accepted (returning [Result.ok]) if the client
+  /// is disabled.
+  Future<Result<void>> record({
     required Uint8List data,
     required String partitionKey,
     required String streamName,
@@ -156,22 +163,25 @@ class AmplifyKinesisClient {
       partitionKey: partitionKey,
       streamName: streamName,
     );
-    await _recordClient.record(kinesisRecord);
+    return _recordClient.record(kinesisRecord);
   }
 
   /// Flushes all cached records to Kinesis Data Streams.
   ///
-  /// Returns [FlushData] with the count of records successfully flushed.
+  /// Returns [Result.ok] with [FlushData] containing the count of records
+  /// successfully flushed, or [Result.error] if a storage or network error
+  /// occurs.
   ///
-  /// Does nothing if the client is disabled.
-  Future<FlushData> flush() async {
+  /// Returns [Result.ok] with zero records if the client is disabled.
+  Future<Result<FlushData>> flush() async {
     return _recordClient.flush();
   }
 
   /// Clears all cached records from local storage.
   ///
-  /// Returns [ClearCacheData] with the count of records cleared.
-  Future<ClearCacheData> clearCache() async {
+  /// Returns [Result.ok] with [ClearCacheData] containing the count of
+  /// records cleared, or [Result.error] if a storage error occurs.
+  Future<Result<ClearCacheData>> clearCache() async {
     return _recordClient.clearCache();
   }
 

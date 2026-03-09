@@ -4,6 +4,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    as foundation;
 import 'package:aws_kinesis_datastreams/src/exception/amplify_kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams/src/impl/auto_flush_scheduler.dart';
@@ -80,7 +82,7 @@ void main() {
         expect(records, hasLength(1));
       });
 
-      test('throws KinesisLimitExceededException when cache is full', () async {
+      test('returns Error result when cache is full', () async {
         // Fill the cache (1KB limit)
         await client.record(
           KinesisRecord.now(
@@ -90,16 +92,19 @@ void main() {
           ),
         );
 
-        // This should throw because 900 + 200 > 1024
-        expect(
-          () => client.record(
-            KinesisRecord.now(
-              data: Uint8List(200),
-              partitionKey: 'pk',
-              streamName: 'stream',
-            ),
+        // This should return Error because 900 + 200 > 1024
+        final result = await client.record(
+          KinesisRecord.now(
+            data: Uint8List(200),
+            partitionKey: 'pk',
+            streamName: 'stream',
           ),
-          throwsA(isA<KinesisLimitExceededException>()),
+        );
+
+        expect(result, isA<foundation.Error<void>>());
+        expect(
+          (result as foundation.Error<void>).error,
+          isA<KinesisLimitExceededException>(),
         );
       });
 
@@ -231,8 +236,9 @@ void main() {
 
         final result = await client.flush();
 
-        expect(result, isA<FlushData>());
-        expect(result.recordsFlushed, equals(3));
+        expect(result, isA<foundation.Ok<FlushData>>());
+        final flushData = (result as foundation.Ok<FlushData>).value;
+        expect(flushData.recordsFlushed, equals(3));
         expect(sender.putRecordsCalls, hasLength(1));
         expect(sender.putRecordsCalls.first.records, hasLength(3));
       });
@@ -249,7 +255,11 @@ void main() {
         client.disable();
         final result = await client.flush();
 
-        expect(result.recordsFlushed, equals(0));
+        expect(result, isA<foundation.Ok<FlushData>>());
+        expect(
+          (result as foundation.Ok<FlushData>).value.recordsFlushed,
+          equals(0),
+        );
         expect(sender.putRecordsCalls, isEmpty);
 
         // Records should still be in storage
@@ -270,8 +280,10 @@ void main() {
 
           // First flush should work normally
           final result = await client.flush();
-          expect(result.recordsFlushed, equals(1));
-          expect(result.flushInProgress, isFalse);
+          expect(result, isA<foundation.Ok<FlushData>>());
+          final flushData = (result as foundation.Ok<FlushData>).value;
+          expect(flushData.recordsFlushed, equals(1));
+          expect(flushData.flushInProgress, isFalse);
         },
       );
 
@@ -312,7 +324,11 @@ void main() {
         expect(largeSender.putRecordsCalls, hasLength(2));
         expect(largeSender.putRecordsCalls[0].records, hasLength(500));
         expect(largeSender.putRecordsCalls[1].records, hasLength(100));
-        expect(result.recordsFlushed, equals(600));
+        expect(result, isA<foundation.Ok<FlushData>>());
+        expect(
+          (result as foundation.Ok<FlushData>).value.recordsFlushed,
+          equals(600),
+        );
 
         await largeClient.close();
       });
@@ -344,7 +360,11 @@ void main() {
 
         // Should have 2 calls - one per stream
         expect(sender.putRecordsCalls, hasLength(2));
-        expect(result.recordsFlushed, equals(3));
+        expect(result, isA<foundation.Ok<FlushData>>());
+        expect(
+          (result as foundation.Ok<FlushData>).value.recordsFlushed,
+          equals(3),
+        );
 
         final streamNames = sender.putRecordsCalls
             .map((c) => c.streamName)
@@ -548,7 +568,11 @@ void main() {
 
           // First flush — invalid record fails, retry count incremented
           final firstFlush = await testClient.flush();
-          expect(firstFlush.recordsFlushed, equals(0));
+          expect(firstFlush, isA<foundation.Ok<FlushData>>());
+          expect(
+            (firstFlush as foundation.Ok<FlushData>).value.recordsFlushed,
+            equals(0),
+          );
 
           // Record to valid stream
           await testClient.record(
@@ -562,7 +586,11 @@ void main() {
           // Second flush — valid record should succeed even though
           // the invalid record is still in the DB
           final secondFlush = await testClient.flush();
-          expect(secondFlush.recordsFlushed, equals(1));
+          expect(secondFlush, isA<foundation.Ok<FlushData>>());
+          expect(
+            (secondFlush as foundation.Ok<FlushData>).value.recordsFlushed,
+            equals(1),
+          );
 
           // Verify the valid-stream call succeeded
           final validCalls = testSender.putRecordsCalls
@@ -590,8 +618,9 @@ void main() {
 
         final result = await client.clearCache();
 
-        expect(result, isA<ClearCacheData>());
-        expect(result.recordsCleared, equals(5));
+        expect(result, isA<foundation.Ok<ClearCacheData>>());
+        final clearData = (result as foundation.Ok<ClearCacheData>).value;
+        expect(clearData.recordsCleared, equals(5));
         final records = await storage.getRecordsBatch();
         expect(records, isEmpty);
       });
