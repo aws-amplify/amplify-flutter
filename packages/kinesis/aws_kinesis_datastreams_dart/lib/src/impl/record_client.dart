@@ -79,9 +79,10 @@ class RecordClient {
 
   /// Records data to the local cache.
   ///
-  /// Throws [RecordCacheException] if the client has been closed,
-  /// the partition key is invalid, the record exceeds the per-record size
-  /// limit, or the cache is full.
+  /// Throws [ClientClosedException] if the client has been closed.
+  /// Throws [RecordCacheValidationException] if the partition key is
+  /// invalid or the record exceeds the per-record size limit.
+  /// Throws [RecordCacheLimitExceededException] if the cache is full.
   Future<void> record(KinesisRecord record) async {
     if (_closed) throw ClientClosedException();
     if (!_enabled) return;

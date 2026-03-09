@@ -16,7 +16,6 @@ import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.da
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/sdk/kinesis.dart';
-import 'package:smithy/smithy.dart' show SmithyHttpException;
 import 'package:test/test.dart';
 
 import 'helpers/test_database.dart';
@@ -37,7 +36,7 @@ void main() {
       sender = _TestKinesisSender();
       scheduler = AutoFlushScheduler(
         strategy: const KinesisDataStreamsInterval(
-          interval: Duration(hours: 1), // Long interval to avoid auto-flush
+          interval: Duration(hours: 1),
         ),
         onFlush: () async {},
       );
@@ -82,7 +81,8 @@ void main() {
         expect(records, hasLength(1));
       });
 
-      test('throws RecordCacheLimitExceededException when cache is full', () async {
+      test('throws RecordCacheLimitExceededException when cache is full',
+          () async {
         // Fill the cache (1KB limit)
         await client.record(
           KinesisRecord.now(
@@ -92,21 +92,22 @@ void main() {
           ),
         );
 
-        // This should return Error because 900 + 200 > 1024
-        final result = await client.record(
-          KinesisRecord.now(
-            data: Uint8List(200),
-            partitionKey: 'pk',
-            streamName: 'stream',
+        // This should throw because 900 + 200 > 1024
+        expect(
+          () => client.record(
+            KinesisRecord.now(
+              data: Uint8List(200),
+              partitionKey: 'pk',
+              streamName: 'stream',
+            ),
           ),
           throwsA(isA<RecordCacheLimitExceededException>()),
         );
       });
 
       test(
-        'throws KinesisValidationException when record exceeds 10 MiB',
+        'throws RecordCacheValidationException when record exceeds 10 MiB',
         () async {
-          // 10 MiB limit applies to partition key + data blob combined
           const partitionKey = 'pk';
           final partitionKeyBytes = utf8.encode(partitionKey).length;
           final oversizedData = Uint8List(
@@ -129,11 +130,10 @@ void main() {
       test(
         'accepts record exactly at 10 MiB limit (partition key + data)',
         () async {
-          // Need a larger cache for this test
           final largeDb = createTestDatabase();
           final largeStorage = RecordStorage(
             database: largeDb,
-            maxCacheBytes: 20 * 1024 * 1024, // 20MB cache
+            maxCacheBytes: 20 * 1024 * 1024,
           );
           final largeScheduler = AutoFlushScheduler(
             strategy: const KinesisDataStreamsInterval(
@@ -231,9 +231,8 @@ void main() {
 
         final result = await client.flush();
 
-        expect(result, isA<foundation.Ok<FlushData>>());
-        final flushData = (result as foundation.Ok<FlushData>).value;
-        expect(flushData.recordsFlushed, equals(3));
+        expect(result, isA<FlushData>());
+        expect(result.recordsFlushed, equals(3));
         expect(sender.putRecordsCalls, hasLength(1));
         expect(sender.putRecordsCalls.first.records, hasLength(3));
       });
@@ -250,14 +249,9 @@ void main() {
         client.disable();
         final result = await client.flush();
 
-        expect(result, isA<foundation.Ok<FlushData>>());
-        expect(
-          (result as foundation.Ok<FlushData>).value.recordsFlushed,
-          equals(0),
-        );
+        expect(result.recordsFlushed, equals(0));
         expect(sender.putRecordsCalls, isEmpty);
 
-        // Records should still be in storage
         final records = await storage.getRecordsBatch();
         expect(records, hasLength(1));
       });
@@ -273,12 +267,9 @@ void main() {
             ),
           );
 
-          // First flush should work normally
           final result = await client.flush();
-          expect(result, isA<foundation.Ok<FlushData>>());
-          final flushData = (result as foundation.Ok<FlushData>).value;
-          expect(flushData.recordsFlushed, equals(1));
-          expect(flushData.flushInProgress, isFalse);
+          expect(result.recordsFlushed, equals(1));
+          expect(result.flushInProgress, isFalse);
         },
       );
 
@@ -286,7 +277,7 @@ void main() {
         final largeDb = createTestDatabase();
         final largeStorage = RecordStorage(
           database: largeDb,
-          maxCacheBytes: 10 * 1024 * 1024, // 10MB
+          maxCacheBytes: 10 * 1024 * 1024,
         );
         final largeSender = _TestKinesisSender();
         final largeScheduler = AutoFlushScheduler(
@@ -302,7 +293,6 @@ void main() {
           maxRetries: 3,
         );
 
-        // Add 600 records
         for (var i = 0; i < 600; i++) {
           await largeClient.record(
             KinesisRecord.now(
@@ -315,15 +305,10 @@ void main() {
 
         final result = await largeClient.flush();
 
-        // Should have made 2 calls: 500 + 100
         expect(largeSender.putRecordsCalls, hasLength(2));
         expect(largeSender.putRecordsCalls[0].records, hasLength(500));
         expect(largeSender.putRecordsCalls[1].records, hasLength(100));
-        expect(result, isA<foundation.Ok<FlushData>>());
-        expect(
-          (result as foundation.Ok<FlushData>).value.recordsFlushed,
-          equals(600),
-        );
+        expect(result.recordsFlushed, equals(600));
 
         await largeClient.close();
       });
@@ -353,13 +338,8 @@ void main() {
 
         final result = await client.flush();
 
-        // Should have 2 calls - one per stream
         expect(sender.putRecordsCalls, hasLength(2));
-        expect(result, isA<foundation.Ok<FlushData>>());
-        expect(
-          (result as foundation.Ok<FlushData>).value.recordsFlushed,
-          equals(3),
-        );
+        expect(result.recordsFlushed, equals(3));
 
         final streamNames = sender.putRecordsCalls
             .map((c) => c.streamName)
@@ -399,12 +379,9 @@ void main() {
           ),
         );
 
-        // First flush — record is retryable, excluded from further
-        // iterations in this flush cycle (Android exclusion-set pattern).
         await client.flush();
         expect(sender.putRecordsCalls, hasLength(1));
 
-        // Second flush — record is retried with incremented retry count.
         sender.resultProvider = (records) => PutRecordsResult(
           successfulRecordIndices: List.generate(records.length, (i) => i),
           failedRecordIndices: [],
@@ -436,7 +413,6 @@ void main() {
             maxRetries: 3,
           );
 
-          // Always return retryable failure
           testSender.resultProvider = (records) => PutRecordsResult(
             successfulRecordIndices: [],
             failedRecordIndices: [],
@@ -451,16 +427,12 @@ void main() {
             ),
           );
 
-          // Each flush attempts once then excludes the record.
-          // After 3 retries the record exceeds maxRetries and is deleted.
           for (var i = 0; i < 4; i++) {
             await testClient.flush();
           }
 
-          // Should be called 4 times (one per flush)
           expect(testSender.putRecordsCalls.length, equals(4));
 
-          // Record should be deleted after exceeding maxRetries
           final records = await testStorage.getRecordsBatch();
           expect(records, isEmpty);
 
@@ -483,7 +455,6 @@ void main() {
           ),
         );
 
-        // Flush 4 times to exceed maxRetries (3)
         for (var i = 0; i < 4; i++) {
           await client.flush();
         }
@@ -518,11 +489,9 @@ void main() {
           );
         };
 
-        // First flush: 1 success, 1 failed (deleted), 1 retryable (excluded).
         final firstResult = await client.flush();
         expect(firstResult.recordsFlushed, equals(1));
 
-        // Second flush: the retryable record is retried and succeeds.
         final secondResult = await client.flush();
         expect(secondResult.recordsFlushed, equals(1));
 
@@ -552,7 +521,6 @@ void main() {
             maxRetries: 3,
           );
 
-          // Sender throws SDK exception for invalid stream, succeeds for valid
           testSender.streamResultProvider = (streamName, records) {
             if (streamName == 'invalid-stream') {
               throw ResourceNotFoundException(
@@ -566,7 +534,6 @@ void main() {
             );
           };
 
-          // Record to both streams
           await testClient.record(
             KinesisRecord.now(
               data: Uint8List.fromList([1, 2, 3]),
@@ -582,12 +549,9 @@ void main() {
             ),
           );
 
-          // Single flush — SDK error on invalid-stream is caught and skipped,
-          // valid-stream still flushes successfully (matching Android behavior).
           final result = await testClient.flush();
           expect(result.recordsFlushed, equals(1));
 
-          // Verify the valid-stream call succeeded
           final validCalls = testSender.putRecordsCalls
               .where((c) => c.streamName == 'valid-stream')
               .toList();
@@ -620,7 +584,6 @@ void main() {
             maxRetries: 3,
           );
 
-          // Sender throws a non-SDK error (e.g. network error)
           testSender.streamResultProvider = (streamName, records) {
             throw Exception('Network error');
           };
@@ -633,9 +596,8 @@ void main() {
             ),
           );
 
-          // Non-SDK errors propagate to the caller
           expect(
-            () => testClient.flush(),
+            testClient.flush,
             throwsA(isA<Exception>()),
           );
 
@@ -658,9 +620,8 @@ void main() {
 
         final result = await client.clearCache();
 
-        expect(result, isA<foundation.Ok<ClearCacheData>>());
-        final clearData = (result as foundation.Ok<ClearCacheData>).value;
-        expect(clearData.recordsCleared, equals(5));
+        expect(result, isA<ClearCacheData>());
+        expect(result.recordsCleared, equals(5));
         final records = await storage.getRecordsBatch();
         expect(records, isEmpty);
       });
@@ -691,13 +652,13 @@ void main() {
       test('throws ClientClosedException on flush after close', () async {
         await client.close();
 
-        expect(() => client.flush(), throwsA(isA<ClientClosedException>()));
+        expect(client.flush, throwsA(isA<ClientClosedException>()));
       });
     });
   });
 }
 
-/// Test double for KinesisSender that tracks calls and allows configuring results.
+/// Test double for KinesisSender.
 class _TestKinesisSender implements KinesisSender {
   final List<_PutRecordsCall> putRecordsCalls = [];
   PutRecordsResult? nextResult;
@@ -705,8 +666,7 @@ class _TestKinesisSender implements KinesisSender {
   PutRecordsResult Function(
     String streamName,
     List<KinesisSenderRecord> records,
-  )?
-  streamResultProvider;
+  )? streamResultProvider;
 
   @override
   KinesisClient get sdkClient =>
@@ -736,7 +696,6 @@ class _TestKinesisSender implements KinesisSender {
       return nextResult!;
     }
 
-    // Default: all records succeed
     return PutRecordsResult(
       successfulRecordIndices: List.generate(records.length, (i) => i),
       failedRecordIndices: [],

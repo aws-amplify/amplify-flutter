@@ -3,6 +3,8 @@
 
 import 'dart:typed_data';
 
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    show Result;
 import 'package:aws_kinesis_datastreams/src/flutter_path_provider/flutter_path_provider.dart';
 import 'package:aws_kinesis_datastreams_dart/aws_kinesis_datastreams_dart.dart'
     as dart_client show AmplifyKinesisClient;
@@ -35,8 +37,12 @@ import 'package:aws_kinesis_datastreams_dart/aws_kinesis_datastreams_dart.dart';
 ///   streamName: 'my-stream',
 /// );
 ///
-/// final flushResult = await client.flush();
-/// print('Flushed ${flushResult.recordsFlushed} records');
+/// switch (await client.flush()) {
+///   case Ok(:final value):
+///     print('Flushed ${value.recordsFlushed} records');
+///   case Error(:final error):
+///     print('Flush failed: $error');
+/// }
 ///
 /// await client.close();
 /// ```
@@ -86,16 +92,11 @@ class AmplifyKinesisClient {
   /// The record is persisted to local storage and will be sent during
   /// the next flush operation (automatic or manual).
   ///
-  /// Records are silently ignored if the client is disabled.
+  /// Returns [Result.ok] on success, or [Result.error] with the appropriate
+  /// [AmplifyKinesisException] subtype on failure.
   ///
-  /// Throws:
-  /// - [ClientClosedException] if the client has been closed.
-  /// - [KinesisValidationException] if the partition key or record size
-  ///   is invalid.
-  /// - [KinesisLimitExceededException] if the local cache is full.
-  /// - [KinesisStorageException] if a database error occurs.
-  /// - [KinesisUnknownException] for unexpected errors.
-  Future<void> record({
+  /// Returns [Result.ok] silently if the client is disabled.
+  Future<Result<void>> record({
     required Uint8List data,
     required String partitionKey,
     required String streamName,
@@ -107,23 +108,18 @@ class AmplifyKinesisClient {
 
   /// Flushes all cached records to Kinesis Data Streams.
   ///
-  /// Returns [FlushData] with the count of records successfully flushed.
-  /// Does nothing if the client is disabled.
+  /// Returns [Result.ok] with [FlushData] containing the count of records
+  /// successfully flushed, or [Result.error] if a storage or network error
+  /// occurs.
   ///
-  /// Throws:
-  /// - [ClientClosedException] if the client has been closed.
-  /// - [KinesisStorageException] if a database error occurs.
-  /// - [KinesisUnknownException] for unexpected errors.
-  Future<FlushData> flush() => _delegate.flush();
+  /// Returns [Result.ok] with zero records if the client is disabled.
+  Future<Result<FlushData>> flush() => _delegate.flush();
 
   /// Clears all cached records from local storage.
   ///
-  /// Returns [ClearCacheData] with the count of records cleared.
-  ///
-  /// Throws:
-  /// - [KinesisStorageException] if a database error occurs.
-  /// - [KinesisUnknownException] for unexpected errors.
-  Future<ClearCacheData> clearCache() => _delegate.clearCache();
+  /// Returns [Result.ok] with [ClearCacheData] containing the count of
+  /// records cleared, or [Result.error] if a storage error occurs.
+  Future<Result<ClearCacheData>> clearCache() => _delegate.clearCache();
 
   /// Enables the client to accept and flush records.
   void enable() => _delegate.enable();

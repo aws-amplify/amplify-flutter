@@ -3,6 +3,8 @@
 
 import 'dart:typed_data';
 
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    show Ok;
 import 'package:aws_kinesis_datastreams_dart/src/amplify_kinesis_client.dart';
 import 'package:aws_kinesis_datastreams_dart/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
@@ -31,13 +33,13 @@ void main() {
       when(() => mockRecordClient.isClosed).thenReturn(false);
       when(
         () => mockRecordClient.record(any()),
-      ).thenAnswer((_) async => const Result.ok(null));
+      ).thenAnswer((_) async {});
       when(
         () => mockRecordClient.flush(),
-      ).thenAnswer((_) async => const Result.ok(FlushData()));
+      ).thenAnswer((_) async => const FlushData());
       when(
         () => mockRecordClient.clearCache(),
-      ).thenAnswer((_) async => const Result.ok(ClearCacheData()));
+      ).thenAnswer((_) async => const ClearCacheData());
       when(() => mockRecordClient.enable()).thenReturn(null);
       when(() => mockRecordClient.disable()).thenReturn(null);
       when(() => mockRecordClient.close()).thenAnswer((_) async {});
@@ -142,9 +144,10 @@ void main() {
     });
 
     group('flush()', () {
-      test('delegates to RecordClient and returns FlushData', () async {
+      test('delegates to RecordClient and returns Result.ok with FlushData',
+          () async {
         when(() => mockRecordClient.flush()).thenAnswer(
-          (_) async => const Result.ok(FlushData(recordsFlushed: 5)),
+          (_) async => const FlushData(recordsFlushed: 5),
         );
 
         final client = AmplifyKinesisClient.withRecordClient(
@@ -160,9 +163,11 @@ void main() {
     });
 
     group('clearCache()', () {
-      test('delegates to RecordClient and returns ClearCacheData', () async {
+      test(
+          'delegates to RecordClient and returns Result.ok with ClearCacheData',
+          () async {
         when(() => mockRecordClient.clearCache()).thenAnswer(
-          (_) async => const Result.ok(ClearCacheData(recordsCleared: 3)),
+          (_) async => const ClearCacheData(recordsCleared: 3),
         );
 
         final client = AmplifyKinesisClient.withRecordClient(
@@ -173,7 +178,8 @@ void main() {
 
         verify(() => mockRecordClient.clearCache()).called(1);
         expect(result, isA<Ok<ClearCacheData>>());
-        expect((result as Ok<ClearCacheData>).value.recordsCleared, equals(3));
+        expect(
+            (result as Ok<ClearCacheData>).value.recordsCleared, equals(3));
       });
     });
 
