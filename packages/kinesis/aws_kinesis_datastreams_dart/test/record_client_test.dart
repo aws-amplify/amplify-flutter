@@ -92,14 +92,12 @@ void main() {
           ),
         );
 
-        // This should throw because 900 + 200 > 1024
-        expect(
-          () => client.record(
-            KinesisRecord.now(
-              data: Uint8List(200),
-              partitionKey: 'pk',
-              streamName: 'stream',
-            ),
+        // This should return Error because 900 + 200 > 1024
+        final result = await client.record(
+          KinesisRecord.now(
+            data: Uint8List(200),
+            partitionKey: 'pk',
+            streamName: 'stream',
           ),
           throwsA(isA<RecordCacheLimitExceededException>()),
         );
@@ -233,8 +231,9 @@ void main() {
 
         final result = await client.flush();
 
-        expect(result, isA<FlushData>());
-        expect(result.recordsFlushed, equals(3));
+        expect(result, isA<foundation.Ok<FlushData>>());
+        final flushData = (result as foundation.Ok<FlushData>).value;
+        expect(flushData.recordsFlushed, equals(3));
         expect(sender.putRecordsCalls, hasLength(1));
         expect(sender.putRecordsCalls.first.records, hasLength(3));
       });
@@ -251,7 +250,11 @@ void main() {
         client.disable();
         final result = await client.flush();
 
-        expect(result.recordsFlushed, equals(0));
+        expect(result, isA<foundation.Ok<FlushData>>());
+        expect(
+          (result as foundation.Ok<FlushData>).value.recordsFlushed,
+          equals(0),
+        );
         expect(sender.putRecordsCalls, isEmpty);
 
         // Records should still be in storage
@@ -272,8 +275,10 @@ void main() {
 
           // First flush should work normally
           final result = await client.flush();
-          expect(result.recordsFlushed, equals(1));
-          expect(result.flushInProgress, isFalse);
+          expect(result, isA<foundation.Ok<FlushData>>());
+          final flushData = (result as foundation.Ok<FlushData>).value;
+          expect(flushData.recordsFlushed, equals(1));
+          expect(flushData.flushInProgress, isFalse);
         },
       );
 
@@ -314,7 +319,11 @@ void main() {
         expect(largeSender.putRecordsCalls, hasLength(2));
         expect(largeSender.putRecordsCalls[0].records, hasLength(500));
         expect(largeSender.putRecordsCalls[1].records, hasLength(100));
-        expect(result.recordsFlushed, equals(600));
+        expect(result, isA<foundation.Ok<FlushData>>());
+        expect(
+          (result as foundation.Ok<FlushData>).value.recordsFlushed,
+          equals(600),
+        );
 
         await largeClient.close();
       });
@@ -346,7 +355,11 @@ void main() {
 
         // Should have 2 calls - one per stream
         expect(sender.putRecordsCalls, hasLength(2));
-        expect(result.recordsFlushed, equals(3));
+        expect(result, isA<foundation.Ok<FlushData>>());
+        expect(
+          (result as foundation.Ok<FlushData>).value.recordsFlushed,
+          equals(3),
+        );
 
         final streamNames = sender.putRecordsCalls
             .map((c) => c.streamName)
@@ -645,8 +658,9 @@ void main() {
 
         final result = await client.clearCache();
 
-        expect(result, isA<ClearCacheData>());
-        expect(result.recordsCleared, equals(5));
+        expect(result, isA<foundation.Ok<ClearCacheData>>());
+        final clearData = (result as foundation.Ok<ClearCacheData>).value;
+        expect(clearData.recordsCleared, equals(5));
         final records = await storage.getRecordsBatch();
         expect(records, isEmpty);
       });

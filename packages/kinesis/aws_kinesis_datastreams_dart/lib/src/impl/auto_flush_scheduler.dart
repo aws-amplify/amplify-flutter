@@ -9,11 +9,11 @@ import 'package:aws_kinesis_datastreams_dart/src/flush_strategy/flush_strategy.d
 /// {@template aws_kinesis_datastreams.auto_flush_scheduler}
 /// Manages automatic flush scheduling based on the configured strategy.
 /// {@endtemplate}
-class AutoFlushScheduler {
+final class AutoFlushScheduler {
   /// {@macro aws_kinesis_datastreams.auto_flush_scheduler}
   AutoFlushScheduler({
     required KinesisDataStreamsFlushStrategy strategy,
-    required Future<void> Function() onFlush,
+    required Future<void> Function() onFlush
   }) : _strategy = strategy,
        _onFlush = onFlush;
 
