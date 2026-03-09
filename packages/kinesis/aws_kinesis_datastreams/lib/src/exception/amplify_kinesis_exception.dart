@@ -52,7 +52,7 @@ sealed class AmplifyKinesisException extends AmplifyException {
       );
     }
     return KinesisUnknownException(
-      error is Exception ? error.toString() : 'An unknown error occurred',
+      error.toString(),
       cause: error is Exception ? error : null,
     );
   }

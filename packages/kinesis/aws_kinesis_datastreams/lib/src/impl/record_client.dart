@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart'
     show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams/src/amplify_kinesis_client.dart'
@@ -45,6 +46,7 @@ class RecordClient {
   final AutoFlushScheduler _scheduler;
   final int _maxRetries;
   final int _maxRecords;
+  final Logger _logger = AmplifyLogging.logger('RecordClient');
 
   bool _enabled = true;
   bool _closed = false;
@@ -158,9 +160,15 @@ class RecordClient {
       );
 
       while (recordsByStream.isNotEmpty) {
+        _logger.debug(
+          'Retrieved ${recordsByStream.length} stream(s) with records to flush',
+        );
         for (final entry in recordsByStream.entries) {
           final streamName = entry.key;
           final records = entry.value;
+          _logger.verbose(
+            'Flushing ${records.length} records to stream: $streamName',
+          );
 
           // Track all attempted record IDs so they are excluded from the
           // next batch, matching Android's exclusion-set approach.
@@ -169,12 +177,19 @@ class RecordClient {
           try {
             final flushed = await _sendStreamBatch(streamName, records);
             totalFlushed += flushed;
-          } on SmithyHttpException {
+          } on SmithyHttpException catch (e) {
             // SDK Kinesis exceptions (ResourceNotFoundException, throttling,
             // etc.) are logged but not thrown — other streams can still flush.
+            _logger.warn(
+              'Kinesis SDK error flushing stream $streamName: ${e.message}. '
+              'Skipping',
+            );
             await _handleFailedRequest(records);
           } catch (e) {
             // Network errors, storage errors, and unexpected errors — abort.
+            _logger.warn(
+              'Error flushing stream $streamName: $e. Aborting flush',
+            );
             await _handleFailedRequest(records);
             rethrow;
           }
@@ -259,9 +274,17 @@ class RecordClient {
 
       await _storage.incrementRetryCount(idsToRetry);
       await _storage.deleteRecords(idsToDelete);
-    } catch (_) {
+
+      if (idsToDelete.isNotEmpty) {
+        _logger.warn(
+          'Deleted ${idsToDelete.length} records that exceeded retry limit '
+          'of $_maxRetries',
+        );
+      }
+    } catch (e) {
       // Storage errors during cleanup are swallowed to avoid masking the
       // original error, matching Android's handleFailedRequest behavior.
+      _logger.error('Failed to update records for failed request: $e', e);
     }
   }
 

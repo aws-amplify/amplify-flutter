@@ -56,7 +56,7 @@ void main() {
       const error = 'a string error';
       final result = AmplifyKinesisException.from(error);
       expect(result, isA<KinesisUnknownException>());
-      expect(result.message, 'An unknown error occurred');
+      expect(result.message, 'a string error');
       expect(result.cause, isNull);
     });
   });

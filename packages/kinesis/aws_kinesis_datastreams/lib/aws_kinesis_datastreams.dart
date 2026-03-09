@@ -4,16 +4,6 @@
 /// Amplify Kinesis Data Streams client for Dart.
 library;
 
-export 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    show
-        AWSCredentials,
-        AWSCredentialsProvider,
-        StaticCredentials,
-        TemporaryCredentials,
-        Logger;
-// V2 → V3 credentials bridge
-export 'package:amplify_foundation_dart_bridge/amplify_foundation_dart_bridge.dart';
-
 // Main client
 export 'src/amplify_kinesis_client.dart';
 // Exceptions

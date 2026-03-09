@@ -177,9 +177,69 @@ void main() {
       });
     });
 
-    group('deleteRecordsExceedingRetries', () {
-      test('removes records over max retry limit', () async {
-        for (var i = 0; i < 3; i++) {
+    group('getRecordsByStream', () {
+      test('returns records grouped by stream name', () async {
+        await storage.saveRecord(
+          KinesisRecord.now(
+            data: Uint8List.fromList([1]),
+            partitionKey: 'pk',
+            streamName: 'stream-a',
+          ),
+        );
+        await storage.saveRecord(
+          KinesisRecord.now(
+            data: Uint8List.fromList([2]),
+            partitionKey: 'pk',
+            streamName: 'stream-b',
+          ),
+        );
+        await storage.saveRecord(
+          KinesisRecord.now(
+            data: Uint8List.fromList([3]),
+            partitionKey: 'pk',
+            streamName: 'stream-a',
+          ),
+        );
+
+        final result = await storage.getRecordsByStream();
+        expect(result.keys, containsAll(['stream-a', 'stream-b']));
+        expect(result['stream-a'], hasLength(2));
+        expect(result['stream-b'], hasLength(1));
+      });
+
+      test('excludes specified IDs', () async {
+        await storage.saveRecord(
+          KinesisRecord.now(
+            data: Uint8List.fromList([1]),
+            partitionKey: 'pk',
+            streamName: 'stream',
+          ),
+        );
+        await storage.saveRecord(
+          KinesisRecord.now(
+            data: Uint8List.fromList([2]),
+            partitionKey: 'pk',
+            streamName: 'stream',
+          ),
+        );
+
+        final allRecords = await storage.getRecordsBatch();
+        expect(allRecords, hasLength(2));
+
+        final result = await storage.getRecordsByStream(
+          excludingIds: {allRecords.first.id},
+        );
+        expect(result['stream'], hasLength(1));
+        expect(result['stream']!.first.id, equals(allRecords.last.id));
+      });
+
+      test('returns empty map when no records', () async {
+        final result = await storage.getRecordsByStream();
+        expect(result, isEmpty);
+      });
+
+      test('respects maxCount per stream', () async {
+        for (var i = 0; i < 5; i++) {
           await storage.saveRecord(
             KinesisRecord.now(
               data: Uint8List.fromList([i]),
@@ -189,17 +249,8 @@ void main() {
           );
         }
 
-        final records = await storage.getRecordsBatch();
-
-        for (var i = 0; i < 6; i++) {
-          await storage.incrementRetryCount([records[0].id]);
-        }
-
-        await storage.deleteRecordsExceedingRetries(5);
-
-        final remaining = await storage.getRecordsBatch();
-        expect(remaining, hasLength(2));
-        expect(remaining.map((r) => r.id), isNot(contains(records[0].id)));
+        final result = await storage.getRecordsByStream(maxCount: 3);
+        expect(result['stream'], hasLength(3));
       });
     });
 

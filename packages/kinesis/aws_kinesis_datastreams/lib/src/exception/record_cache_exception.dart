@@ -19,7 +19,11 @@ sealed class RecordCacheException implements Exception {
   final Object? cause;
 
   @override
-  String toString() => 'RecordCacheException: $message';
+  String toString() {
+    final buf = StringBuffer('RecordCacheException: $message');
+    if (cause != null) buf.write('\nCaused by: $cause');
+    return buf.toString();
+  }
 }
 
 /// Database operation failed.

@@ -66,6 +66,7 @@ class AmplifyKinesisClient {
     required String storagePath,
   }) : _region = region,
        _options = options {
+    _logger = AmplifyLogging.logger('AmplifyKinesisClient');
     final database = KinesisRecordDatabase(storagePath);
     final storage = RecordStorage(
       database: database,
@@ -101,12 +102,15 @@ class AmplifyKinesisClient {
     AmplifyKinesisClientOptions? options,
   }) : _region = region,
        _options = options ?? AmplifyKinesisClientOptions(),
-       _recordClient = recordClient;
+       _recordClient = recordClient {
+    _logger = AmplifyLogging.logger('AmplifyKinesisClient');
+  }
 
   final String _region;
   final AmplifyKinesisClientOptions _options;
   late final RecordClient _recordClient;
   late final KinesisSender _kinesisSender;
+  late final Logger _logger;
 
   /// The AWS region for this client.
   String get region => _region;
@@ -147,6 +151,11 @@ class AmplifyKinesisClient {
     required String partitionKey,
     required String streamName,
   }) async {
+    if (!isEnabled) {
+      _logger.debug('Record collection is disabled, dropping record');
+      return;
+    }
+    _logger.verbose('Recording to stream: $streamName');
     return _wrapError(() async {
       final kinesisRecord = KinesisRecord.now(
         data: data,
@@ -154,6 +163,7 @@ class AmplifyKinesisClient {
         streamName: streamName,
       );
       await _recordClient.record(kinesisRecord);
+      _logger.debug('Record completed successfully');
     });
   }
 
@@ -167,7 +177,18 @@ class AmplifyKinesisClient {
   /// - [KinesisStorageException] if a database error occurs.
   /// - [KinesisUnknownException] for unexpected errors.
   Future<FlushData> flush() async {
-    return _wrapError(() => _recordClient.flush());
+    if (!isEnabled) {
+      _logger.debug('Flush skipped — client is disabled');
+      return const FlushData();
+    }
+    _logger.verbose('Starting flush');
+    return _wrapError(() async {
+      final result = await _recordClient.flush();
+      _logger.debug(
+        'Flush completed: ${result.recordsFlushed} records flushed',
+      );
+      return result;
+    });
   }
 
   /// Clears all cached records from local storage.
@@ -178,11 +199,19 @@ class AmplifyKinesisClient {
   /// - [KinesisStorageException] if a database error occurs.
   /// - [KinesisUnknownException] for unexpected errors.
   Future<ClearCacheData> clearCache() async {
-    return _wrapError(() => _recordClient.clearCache());
+    _logger.verbose('Clearing cache');
+    return _wrapError(() async {
+      final result = await _recordClient.clearCache();
+      _logger.debug(
+        'Clear cache completed: ${result.recordsCleared} records cleared',
+      );
+      return result;
+    });
   }
 
   /// Enables the client to accept and flush records.
   void enable() {
+    _logger.info('Enabling record collection and automatic flushing');
     _recordClient.enable();
   }
 
@@ -191,6 +220,7 @@ class AmplifyKinesisClient {
   /// Existing cached records are preserved and will be sent when
   /// the client is re-enabled.
   void disable() {
+    _logger.info('Disabling record collection and automatic flushing');
     _recordClient.disable();
   }
 
@@ -206,10 +236,13 @@ class AmplifyKinesisClient {
   Future<T> _wrapError<T>(Future<T> Function() operation) async {
     try {
       return await operation();
-    } on AmplifyKinesisException {
+    } on AmplifyKinesisException catch (e) {
+      _logger.warn('Operation failed: ${e.message}', e);
       rethrow;
     } on Object catch (e) {
-      throw AmplifyKinesisException.from(e);
+      final wrapped = AmplifyKinesisException.from(e);
+      _logger.warn('Operation failed: ${wrapped.message}', e);
+      throw wrapped;
     }
   }
 }
