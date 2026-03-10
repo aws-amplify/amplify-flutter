@@ -24,43 +24,12 @@ cfnResources.cfnUserPoolClient.explicitAuthFlows = [
 
 const kinesisStack = backend.createStack("KinesisStack");
 
-// --- Kinesis Data Stream ---
+// Kinesis Data Stream
 const stream = new kinesis.Stream(kinesisStack, "TestStream", {
   streamName: "amplify-kinesis-test-stream",
   shardCount: 1,
   retentionPeriod: Duration.hours(24),
 });
-
-// --- S3 bucket (Firehose destination) ---
-const bucket = new s3.Bucket(kinesisStack, "FirehoseDestBucket", {
-  removalPolicy: RemovalPolicy.DESTROY,
-  autoDeleteObjects: true,
-  enforceSSL: true,
-});
-
-// --- IAM role for Firehose → S3 ---
-const firehoseRole = new iam.Role(kinesisStack, "FirehoseS3Role", {
-  assumedBy: new iam.ServicePrincipal("firehose.amazonaws.com"),
-});
-bucket.grantReadWrite(firehoseRole);
-
-// --- Firehose delivery stream ---
-const deliveryStream = new firehose.CfnDeliveryStream(
-  kinesisStack,
-  "TestDeliveryStream",
-  {
-    deliveryStreamName: "amplify-kinesis-test-delivery-stream",
-    s3DestinationConfiguration: {
-      bucketArn: bucket.bucketArn,
-      roleArn: firehoseRole.roleArn,
-      prefix: "e2e-test/",
-      bufferingHints: {
-        intervalInSeconds: 60,
-        sizeInMBs: 1,
-      },
-    },
-  }
-);
 
 // Grant authenticated users permission to put records to Kinesis Data Streams
 backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
@@ -74,14 +43,3 @@ backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
   })
 );
 
-// Grant authenticated users permission to put records to Firehose
-backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
-  new iam.PolicyStatement({
-    actions: [
-      "firehose:PutRecord",
-      "firehose:PutRecordBatch",
-      "firehose:DescribeDeliveryStream",
-    ],
-    resources: [deliveryStream.attrArn],
-  })
-);
