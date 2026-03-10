@@ -69,7 +69,7 @@ jobs:
 
       - name: Run E2E tests
         working-directory: packages/kinesis/aws_kinesis_datastreams
-        run: dart test test/e2e/ --tags=e2e
+        run: dart test test/e2e/ --tags=e2e --run-skipped
 
       - name: Log success/failure
         if: always()
@@ -130,7 +130,7 @@ jobs:
 
       - name: Run E2E tests
         working-directory: packages/kinesis/aws_amazon_firehose
-        run: dart test test/e2e/ --tags=e2e
+        run: dart test test/e2e/ --tags=e2e --run-skipped
 
       - name: Log success/failure
         if: always()
