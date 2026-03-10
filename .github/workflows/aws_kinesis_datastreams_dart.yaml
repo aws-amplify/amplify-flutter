@@ -1,13 +1,14 @@
 # Generated with aft. To update, run: `aft generate workflows`
-name: aws_kinesis_datastreams
+name: aws_kinesis_datastreams_dart
 on:
   push:
     branches:
       - main
       - stable
     paths:
-      - '.github/workflows/aws_kinesis_datastreams.yaml'
-      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/aws_kinesis_datastreams_dart.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
       - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
@@ -22,20 +23,19 @@ on:
       - 'packages/aws_signature_v4/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
-      - 'packages/kinesis/aws_kinesis_datastreams/**/*.dart'
-      - 'packages/kinesis/aws_kinesis_datastreams/**/*.yaml'
-      - 'packages/kinesis/aws_kinesis_datastreams/lib/**/*'
-      - 'packages/kinesis/aws_kinesis_datastreams/test/**/*'
-      - 'packages/kinesis/aws_kinesis_datastreams_dart/lib/**/*.dart'
-      - 'packages/kinesis/aws_kinesis_datastreams_dart/pubspec.yaml'
+      - 'packages/kinesis/aws_kinesis_datastreams_dart/**/*.dart'
+      - 'packages/kinesis/aws_kinesis_datastreams_dart/**/*.yaml'
+      - 'packages/kinesis/aws_kinesis_datastreams_dart/lib/**/*'
+      - 'packages/kinesis/aws_kinesis_datastreams_dart/test/**/*'
       - 'packages/smithy/smithy/lib/**/*.dart'
       - 'packages/smithy/smithy/pubspec.yaml'
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
       - 'packages/smithy/smithy_aws/pubspec.yaml'
   pull_request:
     paths:
-      - '.github/workflows/aws_kinesis_datastreams.yaml'
-      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/aws_kinesis_datastreams_dart.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
       - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
@@ -50,12 +50,10 @@ on:
       - 'packages/aws_signature_v4/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
-      - 'packages/kinesis/aws_kinesis_datastreams/**/*.dart'
-      - 'packages/kinesis/aws_kinesis_datastreams/**/*.yaml'
-      - 'packages/kinesis/aws_kinesis_datastreams/lib/**/*'
-      - 'packages/kinesis/aws_kinesis_datastreams/test/**/*'
-      - 'packages/kinesis/aws_kinesis_datastreams_dart/lib/**/*.dart'
-      - 'packages/kinesis/aws_kinesis_datastreams_dart/pubspec.yaml'
+      - 'packages/kinesis/aws_kinesis_datastreams_dart/**/*.dart'
+      - 'packages/kinesis/aws_kinesis_datastreams_dart/**/*.yaml'
+      - 'packages/kinesis/aws_kinesis_datastreams_dart/lib/**/*'
+      - 'packages/kinesis/aws_kinesis_datastreams_dart/test/**/*'
       - 'packages/smithy/smithy/lib/**/*.dart'
       - 'packages/smithy/smithy/pubspec.yaml'
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
@@ -80,9 +78,15 @@ concurrency:
 
 jobs:
   test:
-    uses: ./.github/workflows/flutter_vm.yaml
+    uses: ./.github/workflows/dart_vm.yaml
     secrets: inherit
     with:
-      package-name: aws_kinesis_datastreams
-      working-directory: packages/kinesis/aws_kinesis_datastreams
-      has-goldens: false
+      package-name: aws_kinesis_datastreams_dart
+      working-directory: packages/kinesis/aws_kinesis_datastreams_dart
+  native_test:
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    secrets: inherit 
+    with:
+      package-name: aws_kinesis_datastreams_dart
+      working-directory: packages/kinesis/aws_kinesis_datastreams_dart
