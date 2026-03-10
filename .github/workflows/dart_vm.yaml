@@ -106,6 +106,13 @@ jobs:
         run: dart analyze --fatal-infos --fatal-warnings .
         working-directory: ${{ inputs.working-directory }}
 
+      - name: Package Score
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
+        uses: ./.github/composite_actions/package_score
+        with:
+          working-directory: ${{ inputs.working-directory }}
+          package-name: ${{ inputs.package-name }}
+
       - name: Run Tests (stable)
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true' && matrix.sdk == 'stable'"
         run: dart test
