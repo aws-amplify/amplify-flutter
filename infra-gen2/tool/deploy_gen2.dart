@@ -132,6 +132,20 @@ const List<AmplifyBackendGroup> infraConfig = [
       ),
     ],
   ),
+  AmplifyBackendGroup(
+    category: Category.kinesis,
+    defaultOutput: 'packages/kinesis/aws_kinesis_datastreams/lib',
+    sharedOutputs: [
+      'packages/kinesis/aws_amazon_firehose/lib',
+    ],
+    backends: [
+      AmplifyBackend(
+        name: 'main',
+        identifier: 'main',
+        pathToSource: 'infra-gen2/backends/kinesis/main',
+      ),
+    ],
+  ),
 ];
 
 const pathToBackends = 'infra-gen2/backends';
@@ -449,9 +463,11 @@ void _copyConfigFile(List<String> outputPaths, List<File> configFiles) {
 }
 
 /// Create a unique bucket name
+/// Uses `amplify-<category>-test-<uuid>` pattern to match the existing
+/// IAM policy glob `amplify-*test*` on the GitHub OIDC role.
 String _createBucketName(String base) {
   final uniqueShort = uuid().substring(0, 8);
-  return '${base.toLowerCase()}-gen2-integ-$uniqueShort';
+  return 'amplify-${base.toLowerCase()}-test-$uniqueShort';
 }
 
 String? _getS3BucketName(String bucketName) {
