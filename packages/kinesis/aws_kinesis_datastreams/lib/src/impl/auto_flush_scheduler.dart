@@ -21,6 +21,7 @@ final class AutoFlushScheduler {
 
   final KinesisDataStreamsFlushStrategy _strategy;
   final Future<void> Function() _onFlush;
+  /// Optional logger for reporting flush errors.
   final Logger? logger;
   Timer? _timer;
   bool _enabled = true;

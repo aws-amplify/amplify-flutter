@@ -30,7 +30,7 @@ import 'package:aws_kinesis_datastreams/src/sdk/kinesis.dart';
 ///
 /// ## Storage Path
 ///
-/// The [storagePath] parameter is required and must point to a writable
+/// The `storagePath` parameter is required and must point to a writable
 /// directory where the SQLite database will be stored.
 ///
 /// On Flutter (Android/iOS), use the `path_provider` package:

@@ -13,6 +13,15 @@ const backend = defineBackend({
   auth,
 });
 
+// Enable USER_PASSWORD_AUTH for the e2e test helper's direct Cognito calls.
+// Gen2 defaults to SRP only; our test helper uses USER_PASSWORD_AUTH for simplicity.
+const { cfnResources } = backend.auth.resources;
+cfnResources.cfnUserPoolClient.explicitAuthFlows = [
+  "ALLOW_USER_SRP_AUTH",
+  "ALLOW_USER_PASSWORD_AUTH",
+  "ALLOW_REFRESH_TOKEN_AUTH",
+];
+
 const kinesisStack = backend.createStack("KinesisStack");
 
 // --- Kinesis Data Stream ---
