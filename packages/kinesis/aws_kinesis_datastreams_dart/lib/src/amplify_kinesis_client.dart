@@ -5,13 +5,12 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
-import 'package:aws_kinesis_datastreams_dart/src/db/kinesis_record_database.dart';
 import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/record_client.dart';
-import 'package:aws_kinesis_datastreams_dart/src/impl/record_storage.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/storage/platform/record_storage_platform.dart';
 import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
@@ -21,7 +20,7 @@ import 'package:aws_kinesis_datastreams_dart/src/sdk/kinesis.dart';
 /// Client for recording and streaming data to Amazon Kinesis Data Streams.
 ///
 /// Provides offline-capable data streaming with:
-/// - Local persistence for offline support (SQLite on all platforms, via sqlite3.wasm on web)
+/// - Local persistence for offline support (SQLite on VM, IndexedDB on web)
 /// - Automatic retry for failed records
 /// - Configurable batching (up to 500 records or 5MB per batch)
 /// - Interval-based automatic flushing
@@ -59,8 +58,8 @@ class AmplifyKinesisClient {
   /// {@macro aws_kinesis_datastreams.amplify_kinesis_client}
   ///
   /// [storagePath] is the directory path for the database file on IO
-  /// platforms. On web, pass `null` (the path is unused; Drift uses
-  /// sqlite3.wasm with an IndexedDB-backed virtual file system).
+  /// platforms. On web, pass `null` (the path is unused; IndexedDB storage
+  /// is used instead, with an in-memory fallback).
   /// The [region] is used as the database identifier to namespace
   /// the database file (e.g. `kinesis_records_us-east-1`).
   AmplifyKinesisClient({
@@ -72,12 +71,9 @@ class AmplifyKinesisClient {
        _options = options ?? AmplifyKinesisClientOptions() {
     _logger = AmplifyLogging.logger('AmplifyKinesisClient');
 
-    final database = KinesisRecordDatabase(
+    final storage = createPlatformRecordStorage(
       identifier: region,
       storagePath: storagePath,
-    );
-    final storage = RecordStorage(
-      database: database,
       maxCacheBytes: _options.cacheMaxBytes,
     );
     _kinesisSender = KinesisSender(
@@ -159,7 +155,7 @@ class AmplifyKinesisClient {
       return const Result.ok(null);
     }
     _logger.verbose('Recording to stream: $streamName');
-    final kinesisRecord = KinesisRecord.now(
+    final kinesisRecord = RecordInput.now(
       data: data,
       partitionKey: partitionKey,
       streamName: streamName,

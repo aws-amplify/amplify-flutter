@@ -4,12 +4,27 @@
 import 'dart:typed_data';
 
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
+import 'package:aws_kinesis_datastreams_dart/src/model/record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/sdk/kinesis.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
 import 'common/mocktail_mocks.dart';
+
+/// Creates a [Record] for sender tests. Only `data` and `partitionKey` matter
+/// to the sender; the other fields are filled with defaults.
+Record _testRecord({required Uint8List data, required String partitionKey}) {
+  return Record(
+    id: 0,
+    streamName: '',
+    partitionKey: partitionKey,
+    data: data,
+    dataSize: data.length,
+    retryCount: 0,
+    createdAt: 0,
+  );
+}
 
 void main() {
   late MockKinesisClient mockClient;
@@ -71,7 +86,7 @@ void main() {
         await sender.putRecords(
           streamName: 'my-stream',
           records: [
-            KinesisSenderRecord(
+            _testRecord(
               data: Uint8List.fromList([1, 2, 3]),
               partitionKey: 'pk-1',
             ),
@@ -114,14 +129,8 @@ void main() {
         final result = await sender.putRecords(
           streamName: 'test-stream',
           records: [
-            KinesisSenderRecord(
-              data: Uint8List.fromList([1]),
-              partitionKey: 'pk-1',
-            ),
-            KinesisSenderRecord(
-              data: Uint8List.fromList([2]),
-              partitionKey: 'pk-2',
-            ),
+            _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
+            _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
           ],
         );
 
@@ -154,14 +163,8 @@ void main() {
         final result = await sender.putRecords(
           streamName: 'test-stream',
           records: [
-            KinesisSenderRecord(
-              data: Uint8List.fromList([1]),
-              partitionKey: 'pk-1',
-            ),
-            KinesisSenderRecord(
-              data: Uint8List.fromList([2]),
-              partitionKey: 'pk-2',
-            ),
+            _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
+            _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
           ],
         );
 
@@ -196,14 +199,8 @@ void main() {
           final result = await sender.putRecords(
             streamName: 'test-stream',
             records: [
-              KinesisSenderRecord(
-                data: Uint8List.fromList([1]),
-                partitionKey: 'pk-1',
-              ),
-              KinesisSenderRecord(
-                data: Uint8List.fromList([2]),
-                partitionKey: 'pk-2',
-              ),
+              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
+              _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
             ],
           );
 
@@ -239,14 +236,8 @@ void main() {
           final result = await sender.putRecords(
             streamName: 'test-stream',
             records: [
-              KinesisSenderRecord(
-                data: Uint8List.fromList([1]),
-                partitionKey: 'pk-1',
-              ),
-              KinesisSenderRecord(
-                data: Uint8List.fromList([2]),
-                partitionKey: 'pk-2',
-              ),
+              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
+              _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
             ],
           );
 
@@ -289,7 +280,7 @@ void main() {
           streamName: 'test-stream',
           records: List.generate(
             4,
-            (i) => KinesisSenderRecord(
+            (i) => _testRecord(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
             ),
@@ -319,14 +310,8 @@ void main() {
           final result = await sender.putRecords(
             streamName: 'test-stream',
             records: [
-              KinesisSenderRecord(
-                data: Uint8List.fromList([1]),
-                partitionKey: 'pk-1',
-              ),
-              KinesisSenderRecord(
-                data: Uint8List.fromList([2]),
-                partitionKey: 'pk-2',
-              ),
+              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
+              _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
             ],
           );
 
@@ -355,10 +340,7 @@ void main() {
           final result = await sender.putRecords(
             streamName: 'test-stream',
             records: [
-              KinesisSenderRecord(
-                data: Uint8List.fromList([1]),
-                partitionKey: 'pk-1',
-              ),
+              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
             ],
           );
 
@@ -383,10 +365,7 @@ void main() {
           () => sender.putRecords(
             streamName: 'test-stream',
             records: [
-              KinesisSenderRecord(
-                data: Uint8List.fromList([1]),
-                partitionKey: 'pk-1',
-              ),
+              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
             ],
           ),
           throwsA(isA<SmithyHttpException>()),
@@ -409,7 +388,7 @@ class _TestableKinesisSender extends KinesisSender {
   @override
   Future<PutRecordsResult> putRecords({
     required String streamName,
-    required List<KinesisSenderRecord> records,
+    required List<Record> records,
   }) async {
     if (records.isEmpty) {
       return const PutRecordsResult(

@@ -18,7 +18,7 @@ class _$PutRecordsResultEntry extends PutRecordsResultEntry {
 
   factory _$PutRecordsResultEntry([
     void Function(PutRecordsResultEntryBuilder)? updates,
-  ]) => (new PutRecordsResultEntryBuilder()..update(updates))._build();
+  ]) => (PutRecordsResultEntryBuilder()..update(updates))._build();
 
   _$PutRecordsResultEntry._({
     this.sequenceNumber,
@@ -26,7 +26,6 @@ class _$PutRecordsResultEntry extends PutRecordsResultEntry {
     this.errorCode,
     this.errorMessage,
   }) : super._();
-
   @override
   PutRecordsResultEntry rebuild(
     void Function(PutRecordsResultEntryBuilder) updates,
@@ -34,7 +33,7 @@ class _$PutRecordsResultEntry extends PutRecordsResultEntry {
 
   @override
   PutRecordsResultEntryBuilder toBuilder() =>
-      new PutRecordsResultEntryBuilder()..replace(this);
+      PutRecordsResultEntryBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -95,7 +94,6 @@ class PutRecordsResultEntryBuilder
 
   @override
   void replace(PutRecordsResultEntry other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutRecordsResultEntry;
   }
 
@@ -110,7 +108,7 @@ class PutRecordsResultEntryBuilder
   _$PutRecordsResultEntry _build() {
     final _$result =
         _$v ??
-        new _$PutRecordsResultEntry._(
+        _$PutRecordsResultEntry._(
           sequenceNumber: sequenceNumber,
           shardId: shardId,
           errorCode: errorCode,

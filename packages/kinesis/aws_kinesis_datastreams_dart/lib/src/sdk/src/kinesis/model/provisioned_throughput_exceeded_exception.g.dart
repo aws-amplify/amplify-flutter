@@ -17,7 +17,7 @@ class _$ProvisionedThroughputExceededException
 
   factory _$ProvisionedThroughputExceededException([
     void Function(ProvisionedThroughputExceededExceptionBuilder)? updates,
-  ]) => (new ProvisionedThroughputExceededExceptionBuilder()..update(updates))
+  ]) => (ProvisionedThroughputExceededExceptionBuilder()..update(updates))
       ._build();
 
   _$ProvisionedThroughputExceededException._({
@@ -25,7 +25,6 @@ class _$ProvisionedThroughputExceededException
     this.statusCode,
     this.headers,
   }) : super._();
-
   @override
   ProvisionedThroughputExceededException rebuild(
     void Function(ProvisionedThroughputExceededExceptionBuilder) updates,
@@ -33,7 +32,7 @@ class _$ProvisionedThroughputExceededException
 
   @override
   ProvisionedThroughputExceededExceptionBuilder toBuilder() =>
-      new ProvisionedThroughputExceededExceptionBuilder()..replace(this);
+      ProvisionedThroughputExceededExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -86,7 +85,6 @@ class ProvisionedThroughputExceededExceptionBuilder
 
   @override
   void replace(ProvisionedThroughputExceededException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProvisionedThroughputExceededException;
   }
 
@@ -103,7 +101,7 @@ class ProvisionedThroughputExceededExceptionBuilder
   _$ProvisionedThroughputExceededException _build() {
     final _$result =
         _$v ??
-        new _$ProvisionedThroughputExceededException._(
+        _$ProvisionedThroughputExceededException._(
           message: message,
           statusCode: statusCode,
           headers: headers,

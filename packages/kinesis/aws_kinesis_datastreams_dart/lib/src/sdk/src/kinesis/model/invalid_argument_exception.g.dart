@@ -16,11 +16,10 @@ class _$InvalidArgumentException extends InvalidArgumentException {
 
   factory _$InvalidArgumentException([
     void Function(InvalidArgumentExceptionBuilder)? updates,
-  ]) => (new InvalidArgumentExceptionBuilder()..update(updates))._build();
+  ]) => (InvalidArgumentExceptionBuilder()..update(updates))._build();
 
   _$InvalidArgumentException._({this.message, this.statusCode, this.headers})
     : super._();
-
   @override
   InvalidArgumentException rebuild(
     void Function(InvalidArgumentExceptionBuilder) updates,
@@ -28,7 +27,7 @@ class _$InvalidArgumentException extends InvalidArgumentException {
 
   @override
   InvalidArgumentExceptionBuilder toBuilder() =>
-      new InvalidArgumentExceptionBuilder()..replace(this);
+      InvalidArgumentExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -77,7 +76,6 @@ class InvalidArgumentExceptionBuilder
 
   @override
   void replace(InvalidArgumentException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidArgumentException;
   }
 
@@ -92,7 +90,7 @@ class InvalidArgumentExceptionBuilder
   _$InvalidArgumentException _build() {
     final _$result =
         _$v ??
-        new _$InvalidArgumentException._(
+        _$InvalidArgumentException._(
           message: message,
           statusCode: statusCode,
           headers: headers,
