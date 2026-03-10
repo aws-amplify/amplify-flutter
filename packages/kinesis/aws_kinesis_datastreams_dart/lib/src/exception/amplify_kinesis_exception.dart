@@ -79,8 +79,7 @@ final class KinesisStorageException extends AmplifyKinesisException {
     super.cause,
   }) : super(
          message: message,
-         recoverySuggestion:
-             recoverySuggestion ?? defaultRecoverySuggestion,
+         recoverySuggestion: recoverySuggestion ?? defaultRecoverySuggestion,
        );
 }
 
@@ -89,14 +88,12 @@ final class KinesisStorageException extends AmplifyKinesisException {
 /// {@endtemplate}
 final class KinesisLimitExceededException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
-  KinesisLimitExceededException({
-    String? message,
-    String? recoverySuggestion,
-  }) : super(
-         message: message ?? 'Cache is full',
-         recoverySuggestion:
-             recoverySuggestion ?? 'Call flush() or clearCache().',
-       );
+  KinesisLimitExceededException({String? message, String? recoverySuggestion})
+    : super(
+        message: message ?? 'Cache is full',
+        recoverySuggestion:
+            recoverySuggestion ?? 'Call flush() or clearCache().',
+      );
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_validation_exception}
@@ -105,14 +102,11 @@ final class KinesisLimitExceededException extends AmplifyKinesisException {
 /// {@endtemplate}
 final class KinesisValidationException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_validation_exception}
-  KinesisValidationException(
-    String message, {
-    String? recoverySuggestion,
-  }) : super(
-         message: message,
-         recoverySuggestion:
-             recoverySuggestion ?? defaultRecoverySuggestion,
-       );
+  KinesisValidationException(String message, {String? recoverySuggestion})
+    : super(
+        message: message,
+        recoverySuggestion: recoverySuggestion ?? defaultRecoverySuggestion,
+      );
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_unknown_exception}
@@ -120,13 +114,8 @@ final class KinesisValidationException extends AmplifyKinesisException {
 /// {@endtemplate}
 final class KinesisUnknownException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_unknown_exception}
-  KinesisUnknownException(
-    String message, {
-    super.cause,
-  }) : super(
-         message: message,
-         recoverySuggestion: defaultRecoverySuggestion,
-       );
+  KinesisUnknownException(String message, {super.cause})
+    : super(message: message, recoverySuggestion: defaultRecoverySuggestion);
 }
 
 /// {@template aws_kinesis_datastreams.client_closed_exception}

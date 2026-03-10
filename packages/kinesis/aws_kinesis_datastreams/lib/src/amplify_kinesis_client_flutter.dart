@@ -7,7 +7,8 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show Result;
 import 'package:aws_kinesis_datastreams/src/flutter_path_provider/flutter_path_provider.dart';
 import 'package:aws_kinesis_datastreams_dart/aws_kinesis_datastreams_dart.dart'
-    as dart_client show AmplifyKinesisClient;
+    as dart_client
+    show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams_dart/aws_kinesis_datastreams_dart.dart';
 
 /// {@template aws_kinesis_datastreams.amplify_kinesis_client}

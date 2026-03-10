@@ -32,10 +32,8 @@ RecordStorage createPlatformRecordStorage({
 
 /// Lazily resolves to IndexedDB or in-memory storage on first access.
 final class _WebRecordStorage extends RecordStorage {
-  _WebRecordStorage({
-    required String identifier,
-    required super.maxCacheBytes,
-  }) : _identifier = identifier;
+  _WebRecordStorage({required String identifier, required super.maxCacheBytes})
+    : _identifier = identifier;
 
   final String _identifier;
   final Logger _logger = AmplifyLogging.logger('RecordStorage');
@@ -73,12 +71,11 @@ final class _WebRecordStorage extends RecordStorage {
     Set<int> excludingIds = const {},
     int maxCount = kKinesisMaxRecordsPerBatch,
     int maxBytes = kKinesisMaxBatchBytes,
-  }) async =>
-      (await _delegate).getRecordsByStream(
-        excludingIds: excludingIds,
-        maxCount: maxCount,
-        maxBytes: maxBytes,
-      );
+  }) async => (await _delegate).getRecordsByStream(
+    excludingIds: excludingIds,
+    maxCount: maxCount,
+    maxBytes: maxBytes,
+  );
 
   @override
   Future<void> deleteRecords(Iterable<int> ids) async =>

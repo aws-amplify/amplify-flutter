@@ -40,19 +40,20 @@ final class IndexedDbRecordStorage extends RecordStorage {
       final database = event.target?.getProperty<IDBDatabase>('result'.toJS);
       final names = database?.objectStoreNames;
       if (!(names?.contains(_storeName) ?? false)) {
-        database!.createObjectStore(
-          _storeName,
-          IDBObjectStoreParameters(keyPath: 'id'.toJS, autoIncrement: true),
-        ).createIndex(
-          _streamIndex,
-          'stream_name'.toJS,
-          IDBIndexParameters(unique: false),
-        );
+        database!
+            .createObjectStore(
+              _storeName,
+              IDBObjectStoreParameters(keyPath: 'id'.toJS, autoIncrement: true),
+            )
+            .createIndex(
+              _streamIndex,
+              'stream_name'.toJS,
+              IDBIndexParameters(unique: false),
+            );
       }
     }
 
-    final request = db.open(_dbName, 1)
-      ..onupgradeneeded = onUpgradeNeeded.toJS;
+    final request = db.open(_dbName, 1)..onupgradeneeded = onUpgradeNeeded.toJS;
     final result = await request.future;
     if (result.isA<IDBDatabase>()) {
       _database = result as IDBDatabase;
@@ -116,9 +117,7 @@ final class IndexedDbRecordStorage extends RecordStorage {
   }) async {
     await _openEvent;
     final all = await _getAllRecords();
-    final filtered = all
-        .where((r) => !excludingIds.contains(r.id))
-        .toList()
+    final filtered = all.where((r) => !excludingIds.contains(r.id)).toList()
       ..sort((a, b) {
         final cmp = a.streamName.compareTo(b.streamName);
         if (cmp != 0) return cmp;
@@ -164,8 +163,7 @@ final class IndexedDbRecordStorage extends RecordStorage {
       final obj = request.result;
       if (obj == null || obj.isUndefinedOrNull) continue;
       final jsObj = obj as JSObject;
-      final current =
-          jsObj.getProperty<JSNumber>('retry_count'.toJS).toDartInt;
+      final current = jsObj.getProperty<JSNumber>('retry_count'.toJS).toDartInt;
       jsObj.setProperty('retry_count'.toJS, (current + 1).toJS);
       await store.put(jsObj).future;
     }

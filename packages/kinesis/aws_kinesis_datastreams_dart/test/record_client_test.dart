@@ -82,29 +82,31 @@ void main() {
         expect(records, hasLength(1));
       });
 
-      test('throws RecordCacheLimitExceededException when cache is full',
-          () async {
-        // Fill the cache (1KB limit)
-        await client.record(
-          RecordInput.now(
-            data: Uint8List(900),
-            partitionKey: 'pk',
-            streamName: 'stream',
-          ),
-        );
-
-        // This should throw because 900 + 200 > 1024
-        expect(
-          () => client.record(
+      test(
+        'throws RecordCacheLimitExceededException when cache is full',
+        () async {
+          // Fill the cache (1KB limit)
+          await client.record(
             RecordInput.now(
-              data: Uint8List(200),
+              data: Uint8List(900),
               partitionKey: 'pk',
               streamName: 'stream',
             ),
-          ),
-          throwsA(isA<RecordCacheLimitExceededException>()),
-        );
-      });
+          );
+
+          // This should throw because 900 + 200 > 1024
+          expect(
+            () => client.record(
+              RecordInput.now(
+                data: Uint8List(200),
+                partitionKey: 'pk',
+                streamName: 'stream',
+              ),
+            ),
+            throwsA(isA<RecordCacheLimitExceededException>()),
+          );
+        },
+      );
 
       test(
         'throws RecordCacheValidationException when record exceeds 10 MiB',
@@ -524,9 +526,7 @@ void main() {
 
           testSender.streamResultProvider = (streamName, records) {
             if (streamName == 'invalid-stream') {
-              throw ResourceNotFoundException(
-                message: 'Stream not found',
-              );
+              throw ResourceNotFoundException(message: 'Stream not found');
             }
             return PutRecordsResult(
               successfulRecordIndices: List.generate(records.length, (i) => i),
@@ -563,48 +563,42 @@ void main() {
         },
       );
 
-      test(
-        'non-SDK errors abort the flush',
-        () async {
-          final testDb = createTestDatabase();
-          final testStorage = SqliteRecordStorage(
-            database: testDb,
-            maxCacheBytes: 1024,
-          );
-          final testSender = _TestKinesisSender();
-          final testScheduler = AutoFlushScheduler(
-            strategy: const KinesisDataStreamsInterval(
-              interval: Duration(hours: 1),
-            ),
-            onFlush: () async {},
-          );
-          final testClient = RecordClient(
-            storage: testStorage,
-            sender: testSender,
-            scheduler: testScheduler,
-            maxRetries: 3,
-          );
+      test('non-SDK errors abort the flush', () async {
+        final testDb = createTestDatabase();
+        final testStorage = SqliteRecordStorage(
+          database: testDb,
+          maxCacheBytes: 1024,
+        );
+        final testSender = _TestKinesisSender();
+        final testScheduler = AutoFlushScheduler(
+          strategy: const KinesisDataStreamsInterval(
+            interval: Duration(hours: 1),
+          ),
+          onFlush: () async {},
+        );
+        final testClient = RecordClient(
+          storage: testStorage,
+          sender: testSender,
+          scheduler: testScheduler,
+          maxRetries: 3,
+        );
 
-          testSender.streamResultProvider = (streamName, records) {
-            throw Exception('Network error');
-          };
+        testSender.streamResultProvider = (streamName, records) {
+          throw Exception('Network error');
+        };
 
-          await testClient.record(
-            RecordInput.now(
-              data: Uint8List.fromList([1, 2, 3]),
-              partitionKey: 'pk',
-              streamName: 'stream',
-            ),
-          );
+        await testClient.record(
+          RecordInput.now(
+            data: Uint8List.fromList([1, 2, 3]),
+            partitionKey: 'pk',
+            streamName: 'stream',
+          ),
+        );
 
-          expect(
-            testClient.flush,
-            throwsA(isA<Exception>()),
-          );
+        expect(testClient.flush, throwsA(isA<Exception>()));
 
-          await testClient.close();
-        },
-      );
+        await testClient.close();
+      });
     });
 
     group('clearCache()', () {
@@ -664,10 +658,8 @@ class _TestKinesisSender implements KinesisSender {
   final List<_PutRecordsCall> putRecordsCalls = [];
   PutRecordsResult? nextResult;
   PutRecordsResult Function(List<Record> records)? resultProvider;
-  PutRecordsResult Function(
-    String streamName,
-    List<Record> records,
-  )? streamResultProvider;
+  PutRecordsResult Function(String streamName, List<Record> records)?
+  streamResultProvider;
 
   @override
   KinesisClient get sdkClient =>

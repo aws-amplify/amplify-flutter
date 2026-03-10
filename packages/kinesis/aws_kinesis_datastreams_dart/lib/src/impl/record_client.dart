@@ -92,18 +92,18 @@ class RecordClient {
         partitionKeyCodePointCount > kKinesisMaxPartitionKeyLength) {
       throw RecordCacheValidationException(
         'Partition key length ($partitionKeyCodePointCount) is invalid. '
-        'Kinesis requires partition keys to be between 1 and '
-        '$kKinesisMaxPartitionKeyLength characters.',
+            'Kinesis requires partition keys to be between 1 and '
+            '$kKinesisMaxPartitionKeyLength characters.',
         'Use a partition key between 1 and '
-        '$kKinesisMaxPartitionKeyLength characters.',
+            '$kKinesisMaxPartitionKeyLength characters.',
       );
     }
 
     if (record.dataSize > kKinesisMaxRecordBytes) {
       throw RecordCacheValidationException(
         'Record size (${record.dataSize} bytes) exceeds the Kinesis '
-        'per-record limit ($kKinesisMaxRecordBytes bytes). The limit applies '
-        'to the total size of the partition key and data blob.',
+            'per-record limit ($kKinesisMaxRecordBytes bytes). The limit applies '
+            'to the total size of the partition key and data blob.',
         'Reduce the record payload size or use a shorter partition key.',
       );
     }
@@ -120,8 +120,8 @@ class RecordClient {
       if (_cachedSize + record.dataSize > _storage.maxCacheBytes) {
         throw RecordCacheLimitExceededException(
           'Cache size limit exceeded: '
-          '${_cachedSize + record.dataSize} bytes > '
-          '${_storage.maxCacheBytes} bytes',
+              '${_cachedSize + record.dataSize} bytes > '
+              '${_storage.maxCacheBytes} bytes',
           'Call flush() to send cached records or increase cache size limit.',
         );
       }
@@ -215,10 +215,7 @@ class RecordClient {
   ///
   /// Returns the number of successfully flushed records.
   /// Throws on SDK or network errors (caller handles the distinction).
-  Future<int> _sendStreamBatch(
-    String streamName,
-    List<Record> records,
-  ) async {
+  Future<int> _sendStreamBatch(String streamName, List<Record> records) async {
     final result = await _sender.putRecords(
       streamName: streamName,
       records: records,

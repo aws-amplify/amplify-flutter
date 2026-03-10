@@ -15,7 +15,10 @@ void main() {
 
     setUp(() {
       final db = createTestDatabase();
-      storage = SqliteRecordStorage(database: db, maxCacheBytes: 10 * 1024 * 1024);
+      storage = SqliteRecordStorage(
+        database: db,
+        maxCacheBytes: 10 * 1024 * 1024,
+      );
     });
 
     tearDown(() async {

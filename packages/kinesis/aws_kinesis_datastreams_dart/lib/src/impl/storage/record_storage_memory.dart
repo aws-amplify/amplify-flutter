@@ -64,14 +64,13 @@ final class InMemoryRecordStorage extends RecordStorage {
     int maxCount = kKinesisMaxRecordsPerBatch,
     int maxBytes = kKinesisMaxBatchBytes,
   }) async {
-    final filtered = _records.values
-        .where((r) => !excludingIds.contains(r.id))
-        .toList()
-      ..sort((a, b) {
-        final cmp = a.streamName.compareTo(b.streamName);
-        if (cmp != 0) return cmp;
-        return a.id.compareTo(b.id);
-      });
+    final filtered =
+        _records.values.where((r) => !excludingIds.contains(r.id)).toList()
+          ..sort((a, b) {
+            final cmp = a.streamName.compareTo(b.streamName);
+            if (cmp != 0) return cmp;
+            return a.id.compareTo(b.id);
+          });
 
     final result = <String, List<Record>>{};
     final streamSizes = <String, int>{};
