@@ -463,9 +463,11 @@ void _copyConfigFile(List<String> outputPaths, List<File> configFiles) {
 }
 
 /// Create a unique bucket name
+/// Uses `amplify-<category>-test-<uuid>` pattern to match the existing
+/// IAM policy glob `amplify-*test*` on the GitHub OIDC role.
 String _createBucketName(String base) {
   final uniqueShort = uuid().substring(0, 8);
-  return '${base.toLowerCase()}-gen2-integ-$uniqueShort';
+  return 'amplify-${base.toLowerCase()}-test-$uniqueShort';
 }
 
 String? _getS3BucketName(String bucketName) {
