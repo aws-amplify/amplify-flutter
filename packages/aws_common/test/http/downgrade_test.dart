@@ -27,7 +27,10 @@ void main() {
         ..sink.add(AlpnProtocol.http1_1.value)
         ..sink.add(isSecure);
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      // Under dart2wasm, numbers from spawnHybridUri arrive as double
+      // (e.g. 50064.0 instead of 50064), so we must convert to int.
+      final port = (await httpServerQueue.next as num).toInt();
+      host = 'localhost:$port';
     });
 
     tearDownAll(() {
