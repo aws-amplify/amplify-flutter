@@ -15,16 +15,15 @@ class _$KmsException extends KmsException {
   final Map<String, String>? headers;
 
   factory _$KmsException([void Function(KmsExceptionBuilder)? updates]) =>
-      (new KmsExceptionBuilder()..update(updates))._build();
+      (KmsExceptionBuilder()..update(updates))._build();
 
   _$KmsException._({this.message, this.statusCode, this.headers}) : super._();
-
   @override
   KmsException rebuild(void Function(KmsExceptionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  KmsExceptionBuilder toBuilder() => new KmsExceptionBuilder()..replace(this);
+  KmsExceptionBuilder toBuilder() => KmsExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class KmsExceptionBuilder
 
   @override
   void replace(KmsException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$KmsException;
   }
 
@@ -87,7 +85,7 @@ class KmsExceptionBuilder
   _$KmsException _build() {
     final _$result =
         _$v ??
-        new _$KmsException._(
+        _$KmsException._(
           message: message,
           statusCode: statusCode,
           headers: headers,

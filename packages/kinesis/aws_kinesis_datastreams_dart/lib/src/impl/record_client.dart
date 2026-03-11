@@ -8,14 +8,13 @@ import 'package:aws_kinesis_datastreams_dart/aws_kinesis_datastreams_dart.dart'
     show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams_dart/src/amplify_kinesis_client.dart'
     show AmplifyKinesisClient;
-import 'package:aws_kinesis_datastreams_dart/src/db/kinesis_record_database.dart';
 import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_exception.dart'
     show ClientClosedException;
 import 'package:aws_kinesis_datastreams_dart/src/exception/record_cache_exception.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
-import 'package:aws_kinesis_datastreams_dart/src/impl/record_storage.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
@@ -83,7 +82,7 @@ class RecordClient {
   /// Throws [RecordCacheValidationException] if the partition key is
   /// invalid or the record exceeds the per-record size limit.
   /// Throws [RecordCacheLimitExceededException] if the cache is full.
-  Future<void> record(KinesisRecord record) async {
+  Future<void> record(RecordInput record) async {
     if (_closed) throw ClientClosedException();
     if (!_enabled) return;
 
@@ -218,18 +217,11 @@ class RecordClient {
   /// Throws on SDK or network errors (caller handles the distinction).
   Future<int> _sendStreamBatch(
     String streamName,
-    List<StoredRecord> records,
+    List<Record> records,
   ) async {
-    final senderRecords = records
-        .map(
-          (r) =>
-              KinesisSenderRecord(data: r.data, partitionKey: r.partitionKey),
-        )
-        .toList();
-
     final result = await _sender.putRecords(
       streamName: streamName,
-      records: senderRecords,
+      records: records,
     );
 
     final successfulIds = <int>[];
@@ -260,7 +252,7 @@ class RecordClient {
 
   /// Handles a fully failed request by partitioning records into those that
   /// can be retried and those that have exceeded the retry limit.
-  Future<void> _handleFailedRequest(List<StoredRecord> records) async {
+  Future<void> _handleFailedRequest(List<Record> records) async {
     try {
       final idsToRetry = <int>[];
       final idsToDelete = <int>[];

@@ -4,7 +4,7 @@ part of 'kinesis_record_database.dart';
 
 // ignore_for_file: type=lint
 class $KinesisRecordsTable extends KinesisRecords
-    with TableInfo<$KinesisRecordsTable, StoredRecord> {
+    with TableInfo<$KinesisRecordsTable, DriftStoredRecord> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -104,7 +104,7 @@ class $KinesisRecordsTable extends KinesisRecords
   static const String $name = 'kinesis_records';
   @override
   VerificationContext validateIntegrity(
-    Insertable<StoredRecord> instance, {
+    Insertable<DriftStoredRecord> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -167,9 +167,9 @@ class $KinesisRecordsTable extends KinesisRecords
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  StoredRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftStoredRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return StoredRecord(
+    return DriftStoredRecord(
       id: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}id'],
@@ -207,7 +207,8 @@ class $KinesisRecordsTable extends KinesisRecords
   }
 }
 
-class StoredRecord extends DataClass implements Insertable<StoredRecord> {
+class DriftStoredRecord extends DataClass
+    implements Insertable<DriftStoredRecord> {
   /// Auto-incrementing primary key.
   final int id;
 
@@ -228,7 +229,7 @@ class StoredRecord extends DataClass implements Insertable<StoredRecord> {
 
   /// Unix timestamp of when the record was created.
   final int createdAt;
-  const StoredRecord({
+  const DriftStoredRecord({
     required this.id,
     required this.streamName,
     required this.partitionKey,
@@ -262,12 +263,12 @@ class StoredRecord extends DataClass implements Insertable<StoredRecord> {
     );
   }
 
-  factory StoredRecord.fromJson(
+  factory DriftStoredRecord.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return StoredRecord(
+    return DriftStoredRecord(
       id: serializer.fromJson<int>(json['id']),
       streamName: serializer.fromJson<String>(json['streamName']),
       partitionKey: serializer.fromJson<String>(json['partitionKey']),
@@ -291,7 +292,7 @@ class StoredRecord extends DataClass implements Insertable<StoredRecord> {
     };
   }
 
-  StoredRecord copyWith({
+  DriftStoredRecord copyWith({
     int? id,
     String? streamName,
     String? partitionKey,
@@ -299,7 +300,7 @@ class StoredRecord extends DataClass implements Insertable<StoredRecord> {
     int? dataSize,
     int? retryCount,
     int? createdAt,
-  }) => StoredRecord(
+  }) => DriftStoredRecord(
     id: id ?? this.id,
     streamName: streamName ?? this.streamName,
     partitionKey: partitionKey ?? this.partitionKey,
@@ -308,8 +309,8 @@ class StoredRecord extends DataClass implements Insertable<StoredRecord> {
     retryCount: retryCount ?? this.retryCount,
     createdAt: createdAt ?? this.createdAt,
   );
-  StoredRecord copyWithCompanion(KinesisRecordsCompanion data) {
-    return StoredRecord(
+  DriftStoredRecord copyWithCompanion(KinesisRecordsCompanion data) {
+    return DriftStoredRecord(
       id: data.id.present ? data.id.value : this.id,
       streamName: data.streamName.present
           ? data.streamName.value
@@ -328,7 +329,7 @@ class StoredRecord extends DataClass implements Insertable<StoredRecord> {
 
   @override
   String toString() {
-    return (StringBuffer('StoredRecord(')
+    return (StringBuffer('DriftStoredRecord(')
           ..write('id: $id, ')
           ..write('streamName: $streamName, ')
           ..write('partitionKey: $partitionKey, ')
@@ -353,7 +354,7 @@ class StoredRecord extends DataClass implements Insertable<StoredRecord> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is StoredRecord &&
+      (other is DriftStoredRecord &&
           other.id == this.id &&
           other.streamName == this.streamName &&
           other.partitionKey == this.partitionKey &&
@@ -363,7 +364,7 @@ class StoredRecord extends DataClass implements Insertable<StoredRecord> {
           other.createdAt == this.createdAt);
 }
 
-class KinesisRecordsCompanion extends UpdateCompanion<StoredRecord> {
+class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
   final Value<int> id;
   final Value<String> streamName;
   final Value<String> partitionKey;
@@ -393,7 +394,7 @@ class KinesisRecordsCompanion extends UpdateCompanion<StoredRecord> {
        data = Value(data),
        dataSize = Value(dataSize),
        createdAt = Value(createdAt);
-  static Insertable<StoredRecord> custom({
+  static Insertable<DriftStoredRecord> custom({
     Expression<int>? id,
     Expression<String>? streamName,
     Expression<String>? partitionKey,
@@ -640,21 +641,21 @@ class $$KinesisRecordsTableTableManager
         RootTableManager<
           _$KinesisRecordDatabase,
           $KinesisRecordsTable,
-          StoredRecord,
+          DriftStoredRecord,
           $$KinesisRecordsTableFilterComposer,
           $$KinesisRecordsTableOrderingComposer,
           $$KinesisRecordsTableAnnotationComposer,
           $$KinesisRecordsTableCreateCompanionBuilder,
           $$KinesisRecordsTableUpdateCompanionBuilder,
           (
-            StoredRecord,
+            DriftStoredRecord,
             BaseReferences<
               _$KinesisRecordDatabase,
               $KinesisRecordsTable,
-              StoredRecord
+              DriftStoredRecord
             >,
           ),
-          StoredRecord,
+          DriftStoredRecord,
           PrefetchHooks Function()
         > {
   $$KinesisRecordsTableTableManager(
@@ -718,21 +719,21 @@ typedef $$KinesisRecordsTableProcessedTableManager =
     ProcessedTableManager<
       _$KinesisRecordDatabase,
       $KinesisRecordsTable,
-      StoredRecord,
+      DriftStoredRecord,
       $$KinesisRecordsTableFilterComposer,
       $$KinesisRecordsTableOrderingComposer,
       $$KinesisRecordsTableAnnotationComposer,
       $$KinesisRecordsTableCreateCompanionBuilder,
       $$KinesisRecordsTableUpdateCompanionBuilder,
       (
-        StoredRecord,
+        DriftStoredRecord,
         BaseReferences<
           _$KinesisRecordDatabase,
           $KinesisRecordsTable,
-          StoredRecord
+          DriftStoredRecord
         >,
       ),
-      StoredRecord,
+      DriftStoredRecord,
       PrefetchHooks Function()
     >;
 

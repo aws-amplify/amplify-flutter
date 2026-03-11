@@ -22,7 +22,7 @@ void main() {
 
     setUpAll(() {
       registerFallbackValue(
-        KinesisRecord.now(data: Uint8List(0), partitionKey: '', streamName: ''),
+        RecordInput.now(data: Uint8List(0), partitionKey: '', streamName: ''),
       );
     });
 
@@ -115,7 +115,7 @@ void main() {
 
         final captured =
             verify(() => mockRecordClient.record(captureAny())).captured.single
-                as KinesisRecord;
+                as RecordInput;
 
         expect(captured.data, equals(data));
         expect(captured.partitionKey, equals('test-partition'));
@@ -137,7 +137,7 @@ void main() {
 
         final captured =
             verify(() => mockRecordClient.record(captureAny())).captured.single
-                as KinesisRecord;
+                as RecordInput;
 
         expect(captured.dataSize, equals(1002));
       });

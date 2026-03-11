@@ -4,18 +4,15 @@
 import 'dart:typed_data';
 
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
-import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_sqlite.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_memory.dart';
 import 'package:test/test.dart';
 
-import 'helpers/test_database.dart';
-
 void main() {
-  group('RecordStorage', () {
-    late SqliteRecordStorage storage;
+  group('InMemoryRecordStorage', () {
+    late InMemoryRecordStorage storage;
 
     setUp(() {
-      final db = createTestDatabase();
-      storage = SqliteRecordStorage(database: db, maxCacheBytes: 10 * 1024 * 1024);
+      storage = InMemoryRecordStorage(maxCacheBytes: 10 * 1024 * 1024);
     });
 
     tearDown(() async {
@@ -23,7 +20,7 @@ void main() {
     });
 
     group('saveRecord', () {
-      test('saves record with valid data', () async {
+      test('saves and retrieves a record', () async {
         final record = RecordInput.now(
           data: Uint8List.fromList([1, 2, 3, 4, 5]),
           partitionKey: 'test-partition',
@@ -40,7 +37,6 @@ void main() {
           retrieved.first.data,
           equals(Uint8List.fromList([1, 2, 3, 4, 5])),
         );
-        expect(retrieved.first.dataSize, equals(19));
         expect(retrieved.first.retryCount, equals(0));
       });
     });
@@ -76,40 +72,37 @@ void main() {
         expect(batch, hasLength(3));
       });
 
-      test(
-        'returns records sorted by stream_name, partition_key, id',
-        () async {
-          await storage.saveRecord(
-            RecordInput.now(
-              data: Uint8List.fromList([1]),
-              partitionKey: 'pk-b',
-              streamName: 'stream-b',
-            ),
-          );
-          await storage.saveRecord(
-            RecordInput.now(
-              data: Uint8List.fromList([2]),
-              partitionKey: 'pk-a',
-              streamName: 'stream-a',
-            ),
-          );
-          await storage.saveRecord(
-            RecordInput.now(
-              data: Uint8List.fromList([3]),
-              partitionKey: 'pk-a',
-              streamName: 'stream-b',
-            ),
-          );
+      test('returns records sorted by stream, partition, id', () async {
+        await storage.saveRecord(
+          RecordInput.now(
+            data: Uint8List.fromList([1]),
+            partitionKey: 'pk-b',
+            streamName: 'stream-b',
+          ),
+        );
+        await storage.saveRecord(
+          RecordInput.now(
+            data: Uint8List.fromList([2]),
+            partitionKey: 'pk-a',
+            streamName: 'stream-a',
+          ),
+        );
+        await storage.saveRecord(
+          RecordInput.now(
+            data: Uint8List.fromList([3]),
+            partitionKey: 'pk-a',
+            streamName: 'stream-b',
+          ),
+        );
 
-          final batch = await storage.getRecordsBatch();
+        final batch = await storage.getRecordsBatch();
 
-          expect(batch[0].streamName, equals('stream-a'));
-          expect(batch[1].streamName, equals('stream-b'));
-          expect(batch[1].partitionKey, equals('pk-a'));
-          expect(batch[2].streamName, equals('stream-b'));
-          expect(batch[2].partitionKey, equals('pk-b'));
-        },
-      );
+        expect(batch[0].streamName, equals('stream-a'));
+        expect(batch[1].streamName, equals('stream-b'));
+        expect(batch[1].partitionKey, equals('pk-a'));
+        expect(batch[2].streamName, equals('stream-b'));
+        expect(batch[2].partitionKey, equals('pk-b'));
+      });
     });
 
     group('deleteRecords', () {
@@ -283,7 +276,7 @@ void main() {
         expect(size, equals(362));
       });
 
-      test('returns 0 for empty database', () async {
+      test('returns 0 for empty storage', () async {
         final size = await storage.getCurrentCacheSize();
         expect(size, equals(0));
       });
@@ -311,6 +304,24 @@ void main() {
 
         final size = await storage.getCurrentCacheSize();
         expect(size, equals(0));
+      });
+    });
+
+    group('getRecordCount', () {
+      test('returns correct count', () async {
+        expect(await storage.getRecordCount(), equals(0));
+
+        for (var i = 0; i < 3; i++) {
+          await storage.saveRecord(
+            RecordInput.now(
+              data: Uint8List.fromList([i]),
+              partitionKey: 'pk-$i',
+              streamName: 'stream',
+            ),
+          );
+        }
+
+        expect(await storage.getRecordCount(), equals(3));
       });
     });
   });
