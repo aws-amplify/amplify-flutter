@@ -3,229 +3,93 @@
 
 import 'package:aws_kinesis_datastreams_dart/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/auto_flush_scheduler.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/record_client.dart';
+import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
 import 'package:fake_async/fake_async.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
+
+class _MockRecordClient extends Mock implements RecordClient {}
 
 void main() {
   group('AutoFlushScheduler', () {
-    group('start()', () {
-      test('timer fires at configured interval', () {
-        fakeAsync((async) {
-          var flushCount = 0;
-          final scheduler = AutoFlushScheduler(
-            strategy: const KinesisDataStreamsInterval(
-              interval: Duration(seconds: 10),
-            ),
-            onFlush: () async {
-              flushCount++;
-            },
-          )..start();
+    late _MockRecordClient mockClient;
 
-          expect(flushCount, equals(0));
-
-          async.elapse(const Duration(seconds: 10));
-          expect(flushCount, equals(1));
-
-          async.elapse(const Duration(seconds: 10));
-          expect(flushCount, equals(2));
-
-          async.elapse(const Duration(seconds: 25));
-          expect(flushCount, equals(4));
-
-          scheduler.close();
-        });
-      });
-
-      test('does nothing after close', () {
-        fakeAsync((async) {
-          var flushCount = 0;
-          AutoFlushScheduler(
-              strategy: const KinesisDataStreamsInterval(
-                interval: Duration(seconds: 10),
-              ),
-              onFlush: () async {
-                flushCount++;
-              },
-            )
-            ..close()
-            ..start();
-
-          async.elapse(const Duration(seconds: 30));
-          expect(flushCount, equals(0));
-        });
-      });
-
-      test('does nothing with None strategy', () {
-        fakeAsync((async) {
-          var flushCount = 0;
-          final scheduler = AutoFlushScheduler(
-            strategy: const KinesisDataStreamsNone(),
-            onFlush: () async {
-              flushCount++;
-            },
-          )..start();
-
-          async.elapse(const Duration(seconds: 60));
-          expect(flushCount, equals(0));
-
-          scheduler.close();
-        });
-      });
+    setUp(() {
+      mockClient = _MockRecordClient();
+      when(() => mockClient.flush())
+          .thenAnswer((_) async => const FlushData());
     });
 
-    group('stop()', () {
-      test('cancels timer', () {
-        fakeAsync((async) {
-          var flushCount = 0;
-          final scheduler = AutoFlushScheduler(
-            strategy: const KinesisDataStreamsInterval(
-              interval: Duration(seconds: 10),
-            ),
-            onFlush: () async {
-              flushCount++;
-            },
-          )..start();
-
-          async.elapse(const Duration(seconds: 10));
-          expect(flushCount, equals(1));
-
-          scheduler.stop();
-
-          async.elapse(const Duration(seconds: 30));
-          expect(flushCount, equals(1));
-        });
-      });
+    tearDown(() {
+      resetMocktailState();
+      reset(mockClient);
     });
 
-    group('disable()', () {
-      test('prevents timer from triggering flush', () {
-        fakeAsync((async) {
-          var flushCount = 0;
-          final scheduler =
-              AutoFlushScheduler(
-                  strategy: const KinesisDataStreamsInterval(
-                    interval: Duration(seconds: 10),
-                  ),
-                  onFlush: () async {
-                    flushCount++;
-                  },
-                )
-                ..start()
-                ..disable();
-
-          async.elapse(const Duration(seconds: 30));
-          expect(flushCount, equals(0));
-
-          scheduler.close();
-        });
-      });
-    });
-
-    group('enable()', () {
-      test('resumes timer triggering flush after disable', () {
-        fakeAsync((async) {
-          var flushCount = 0;
-          final scheduler =
-              AutoFlushScheduler(
-                  strategy: const KinesisDataStreamsInterval(
-                    interval: Duration(seconds: 10),
-                  ),
-                  onFlush: () async {
-                    flushCount++;
-                  },
-                )
-                ..start()
-                ..disable();
-
-          async.elapse(const Duration(seconds: 15));
-          expect(flushCount, equals(0));
-
-          scheduler.enable();
-
-          async.elapse(const Duration(seconds: 10));
-          expect(flushCount, equals(1));
-
-          scheduler.close();
-        });
-      });
-    });
-
-    group('close()', () {
-      test('cancels timer and cleans up', () {
-        fakeAsync((async) {
-          var flushCount = 0;
-          final scheduler = AutoFlushScheduler(
-            strategy: const KinesisDataStreamsInterval(
-              interval: Duration(seconds: 10),
-            ),
-            onFlush: () async {
-              flushCount++;
-            },
-          )..start();
-
-          async.elapse(const Duration(seconds: 10));
-          expect(flushCount, equals(1));
-
-          scheduler.close();
-          expect(scheduler.isClosed, isTrue);
-
-          async.elapse(const Duration(seconds: 30));
-          expect(flushCount, equals(1));
-        });
-      });
-
-      test('prevents restart after close', () {
-        fakeAsync((async) {
-          var flushCount = 0;
-          AutoFlushScheduler(
-              strategy: const KinesisDataStreamsInterval(
-                interval: Duration(seconds: 10),
-              ),
-              onFlush: () async {
-                flushCount++;
-              },
-            )
-            ..close()
-            ..start();
-
-          async.elapse(const Duration(seconds: 30));
-          expect(flushCount, equals(0));
-        });
-      });
-    });
-
-    group('isEnabled', () {
-      test('returns true by default', () {
+    test('start begins periodic flushing', () {
+      fakeAsync((async) {
         final scheduler = AutoFlushScheduler(
-          strategy: const KinesisDataStreamsInterval(),
-          onFlush: () async {},
-        );
+          strategy: const KinesisDataStreamsInterval(
+            interval: Duration(seconds: 10),
+          ),
+          client: mockClient,
+        )..start();
 
-        expect(scheduler.isEnabled, isTrue);
-        scheduler.close();
+        verifyNever(() => mockClient.flush());
+
+        async.elapse(const Duration(seconds: 10));
+        verify(() => mockClient.flush()).called(1);
+
+        async.elapse(const Duration(seconds: 10));
+        verify(() => mockClient.flush()).called(1);
+
+        async.elapse(const Duration(seconds: 25));
+        verify(() => mockClient.flush()).called(2);
+
+        scheduler.stop();
       });
+    });
 
-      test('returns false after disable', () {
+    test('stop prevents further flushes', () {
+      fakeAsync((async) {
         final scheduler = AutoFlushScheduler(
-          strategy: const KinesisDataStreamsInterval(),
-          onFlush: () async {},
-        )..disable();
+          strategy: const KinesisDataStreamsInterval(
+            interval: Duration(seconds: 10),
+          ),
+          client: mockClient,
+        )..start();
 
-        expect(scheduler.isEnabled, isFalse);
-        scheduler.close();
+        async.elapse(const Duration(seconds: 10));
+        verify(() => mockClient.flush()).called(1);
+
+        scheduler.stop();
+
+        async.elapse(const Duration(seconds: 30));
+        verifyNever(() => mockClient.flush());
       });
+    });
 
-      test('returns true after enable', () {
-        final scheduler =
-            AutoFlushScheduler(
-                strategy: const KinesisDataStreamsInterval(),
-                onFlush: () async {},
-              )
-              ..disable()
-              ..enable();
+    test('start after stop restarts flushing', () {
+      fakeAsync((async) {
+        final scheduler = AutoFlushScheduler(
+          strategy: const KinesisDataStreamsInterval(
+            interval: Duration(seconds: 10),
+          ),
+          client: mockClient,
+        )..start();
 
-        expect(scheduler.isEnabled, isTrue);
-        scheduler.close();
+        async.elapse(const Duration(seconds: 10));
+        verify(() => mockClient.flush()).called(1);
+
+        scheduler.stop();
+        async.elapse(const Duration(seconds: 20));
+        verifyNever(() => mockClient.flush());
+
+        scheduler.start();
+        async.elapse(const Duration(seconds: 10));
+        verify(() => mockClient.flush()).called(1);
+
+        scheduler.stop();
       });
     });
   });

@@ -9,6 +9,7 @@ import 'dart:async';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     as foundation;
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/record_client.dart';
 import 'package:aws_kinesis_datastreams_dart/src/sdk/src/kinesis/kinesis_client.dart';
 import 'package:mocktail/mocktail.dart';
@@ -52,6 +53,9 @@ class MockAWSHttpException extends Mock implements AWSHttpException {}
 
 /// Mock implementation of [RecordClient].
 class MockRecordClient extends Mock implements RecordClient {}
+
+/// Mock implementation of [KinesisSender].
+class MockKinesisSender extends Mock implements KinesisSender {}
 
 // =============================================================================
 // Fake Implementations

@@ -60,13 +60,6 @@ final class _WebRecordStorage extends RecordStorage {
       (await _delegate).saveRecord(record);
 
   @override
-  Future<List<Record>> getRecordsBatch({
-    int maxCount = kKinesisMaxRecordsPerBatch,
-    int maxBytes = kKinesisMaxBatchBytes,
-  }) async =>
-      (await _delegate).getRecordsBatch(maxCount: maxCount, maxBytes: maxBytes);
-
-  @override
   Future<Map<String, List<Record>>> getRecordsByStream({
     Set<int> excludingIds = const {},
     int maxCount = kKinesisMaxRecordsPerBatch,
@@ -93,7 +86,7 @@ final class _WebRecordStorage extends RecordStorage {
   Future<int> getRecordCount() async => (await _delegate).getRecordCount();
 
   @override
-  Future<void> clear() async => (await _delegate).clear();
+  Future<void> clearRecords() async => (await _delegate).clearRecords();
 
   @override
   Future<void> close() async => (await _delegate).close();

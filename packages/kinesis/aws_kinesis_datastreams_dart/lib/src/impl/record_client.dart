@@ -4,12 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
-import 'package:aws_kinesis_datastreams_dart/src/amplify_kinesis_client.dart'
-    show AmplifyKinesisClient;
-import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_exception.dart'
-    show ClientClosedException;
 import 'package:aws_kinesis_datastreams_dart/src/exception/record_cache_exception.dart';
-import 'package:aws_kinesis_datastreams_dart/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
@@ -17,62 +12,51 @@ import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.da
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
 import 'package:smithy/smithy.dart' show SmithyHttpException;
+import 'package:synchronized/synchronized.dart';
 
 /// {@template aws_kinesis_datastreams.record_client}
-/// Orchestrates record operations, managing the flow between storage,
-/// scheduling, and sending.
+/// Orchestrates record operations: storage, sending, and retry logic.
 ///
-/// Not `final` to allow mocking in tests via [AmplifyKinesisClient.withRecordClient].
+/// Does not own the [AutoFlushScheduler] — that is managed by
+/// [AmplifyKinesisClient], matching Android's architecture where
+/// `AmplifyKinesisClient` creates both `RecordClient` and
+/// `AutoFlushScheduler` independently.
+///
+/// Not `final` to allow mocking in tests via
+/// [AmplifyKinesisClient.withRecordClient].
 /// {@endtemplate}
 class RecordClient {
   /// {@macro aws_kinesis_datastreams.record_client}
   RecordClient({
     required RecordStorage storage,
     required KinesisSender sender,
-    required AutoFlushScheduler scheduler,
     required int maxRetries,
     int maxRecords = 500,
   }) : _storage = storage,
        _sender = sender,
-       _scheduler = scheduler,
        _maxRetries = maxRetries,
        _maxRecords = maxRecords;
 
   final RecordStorage _storage;
   final KinesisSender _sender;
-  final AutoFlushScheduler _scheduler;
   final int _maxRetries;
   final int _maxRecords;
   final Logger _logger = AmplifyLogging.logger('RecordClient');
 
-  bool _enabled = true;
-  bool _closed = false;
   bool _flushing = false;
 
   /// In-memory cache size tracker to avoid a DB query on every record() call.
-  /// Recalculated from DB after deletes (flush/clearCache).
+  /// Initialized eagerly on first record() call, then maintained
+  /// incrementally on writes and recalculated from DB after deletes.
+  /// Matches Android's `SQLiteRecordStorage.cachedSize` pattern.
   int _cachedSize = 0;
   bool _cacheSizeInitialized = false;
 
-  /// Async mutex for serializing record() calls that touch _cachedSize.
-  Future<void> _pendingRecord = Future.value();
+  /// Lock for serializing record() calls that touch _cachedSize.
+  final Lock _recordLock = Lock();
 
   /// Maximum batch size in bytes (10 MiB Kinesis PutRecords limit).
   static const int maxBatchSizeBytes = kKinesisMaxBatchBytes;
-
-  /// Whether the client is currently enabled.
-  bool get isEnabled => _enabled;
-
-  /// Whether the client has been closed.
-  bool get isClosed => _closed;
-
-  /// Ensures the in-memory cache size is initialized from the database.
-  Future<void> _ensureCacheSizeInitialized() async {
-    if (!_cacheSizeInitialized) {
-      _cachedSize = await _storage.getCurrentCacheSize();
-      _cacheSizeInitialized = true;
-    }
-  }
 
   /// Records data to the local cache.
   ///
@@ -81,9 +65,6 @@ class RecordClient {
   /// invalid or the record exceeds the per-record size limit.
   /// Throws [RecordCacheLimitExceededException] if the cache is full.
   Future<void> record(RecordInput record) async {
-    if (_closed) throw ClientClosedException();
-    if (!_enabled) return;
-
     // Validate partition key length (Kinesis requires 1-256 Unicode code points).
     final partitionKeyCodePointCount = record.partitionKey.runes.length;
     if (partitionKeyCodePointCount == 0 ||
@@ -107,13 +88,11 @@ class RecordClient {
     }
 
     // Serialize cache size check + write to prevent concurrent races.
-    final completer = Completer<void>();
-    final previous = _pendingRecord;
-    _pendingRecord = completer.future;
-
-    try {
-      await previous;
-      await _ensureCacheSizeInitialized();
+    await _recordLock.synchronized(() async {
+      if (!_cacheSizeInitialized) {
+        _cachedSize = await _storage.getCurrentCacheSize();
+        _cacheSizeInitialized = true;
+      }
 
       if (_cachedSize + record.dataSize > _storage.maxCacheBytes) {
         throw RecordCacheLimitExceededException(
@@ -126,9 +105,7 @@ class RecordClient {
 
       await _storage.saveRecord(record);
       _cachedSize += record.dataSize;
-    } finally {
-      completer.complete();
-    }
+    });
   }
 
   /// Flushes all cached records to Kinesis.
@@ -141,9 +118,6 @@ class RecordClient {
   /// skipped so other streams can still flush. Non-SDK errors (e.g. network,
   /// storage) abort the flush and propagate to the caller.
   Future<FlushData> flush() async {
-    if (_closed) throw ClientClosedException();
-    if (!_enabled) return const FlushData();
-
     if (_flushing) return const FlushData(flushInProgress: true);
     _flushing = true;
 
@@ -219,30 +193,20 @@ class RecordClient {
       records: records,
     );
 
-    final successfulIds = <int>[];
-    final retryableIds = <int>[];
-    final failedIds = <int>[];
+    // The sender already categorizes records into successful, retryable,
+    // and failed IDs based on error codes and retry counts (matching
+    // Android's KinesisRecordSender.splitResponse).
+    await _storage.deleteRecords(result.successfulIds);
+    await _storage.deleteRecords(result.failedIds);
+    await _storage.incrementRetryCount(result.retryableIds);
 
-    for (final i in result.successfulRecordIndices) {
-      successfulIds.add(records[i].id);
-    }
-    for (final i in result.retryableRecordIndices) {
-      final record = records[i];
-      if (record.retryCount >= _maxRetries) {
-        failedIds.add(record.id);
-      } else {
-        retryableIds.add(record.id);
-      }
-    }
-    for (final i in result.failedRecordIndices) {
-      failedIds.add(records[i].id);
-    }
+    _logger.debug(
+      'Stream $streamName: ${result.successfulIds.length} succeeded, '
+      '${result.retryableIds.length} retryable, '
+      '${result.failedIds.length} failed',
+    );
 
-    await _storage.deleteRecords(successfulIds);
-    await _storage.deleteRecords(failedIds);
-    await _storage.incrementRetryCount(retryableIds);
-
-    return successfulIds.length;
+    return result.successfulIds.length;
   }
 
   /// Handles a fully failed request by partitioning records into those that
@@ -279,28 +243,13 @@ class RecordClient {
   /// Clears all cached records.
   Future<ClearCacheData> clearCache() async {
     final count = await _storage.getRecordCount();
-    await _storage.clear();
-    // Reset in-memory cache size after clearing.
+    await _storage.clearRecords();
     _cachedSize = 0;
     return ClearCacheData(recordsCleared: count);
   }
 
-  /// Enables the client to accept and flush records.
-  void enable() {
-    _enabled = true;
-    _scheduler.enable();
-  }
-
-  /// Disables the client from accepting and flushing records.
-  void disable() {
-    _enabled = false;
-    _scheduler.disable();
-  }
-
-  /// Closes the client and releases all resources.
+  /// Closes the storage and releases resources.
   Future<void> close() async {
-    _closed = true;
-    await _scheduler.close();
     await _storage.close();
   }
 }

@@ -1,33 +1,46 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+/// Tests for KinesisSender request building and response categorization.
+///
+/// Mirrors Android's `KinesisRecordSenderTest.kt` and Swift's
+/// `KinesisRecordSenderTests.swift`.
+///
+/// The sender owns retry-count categorization: all error codes are treated
+/// as retryable until the record exceeds maxRetries, matching Android's
+/// `KinesisRecordSender.splitResponse()`.
+library;
+
 import 'dart:typed_data';
 
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/sdk/kinesis.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
 import 'common/mocktail_mocks.dart';
 
-/// Creates a [Record] for sender tests. Only `data` and `partitionKey` matter
-/// to the sender; the other fields are filled with defaults.
-Record _testRecord({required Uint8List data, required String partitionKey}) {
+Record _testRecord({
+  required int id,
+  required String partitionKey,
+  required Uint8List data,
+  int retryCount = 0,
+}) {
   return Record(
-    id: 0,
-    streamName: '',
+    id: id,
+    streamName: 'test-stream',
     partitionKey: partitionKey,
     data: data,
     dataSize: data.length,
-    retryCount: 0,
+    retryCount: retryCount,
     createdAt: 0,
   );
 }
 
 void main() {
   late MockKinesisClient mockClient;
+  const maxRetries = 3;
 
   setUpAll(() {
     registerFallbackValue(
@@ -50,420 +63,115 @@ void main() {
   });
 
   group('KinesisSender', () {
-    group('putRecords', () {
-      test('returns empty result for empty records list', () async {
-        final sender = KinesisSender(
-          region: 'us-east-1',
-          credentialsProvider: FakeAWSCredentialsProvider(),
-        );
-
-        final result = await sender.putRecords(
-          streamName: 'test-stream',
-          records: [],
-        );
-
-        expect(result.successfulRecordIndices, isEmpty);
-        expect(result.failedRecordIndices, isEmpty);
-        expect(result.retryableRecordIndices, isEmpty);
-      });
-
-      test('builds correct request format', () async {
-        when(() => mockClient.putRecords(any())).thenReturn(
-          mockSmithyOperation(
-            () => PutRecordsResponse(
-              records: [
-                PutRecordsResultEntry(
-                  sequenceNumber: 'seq-1',
-                  shardId: 'shard-1',
-                ),
-              ],
-            ),
-          ),
-        );
-
-        final sender = _TestableKinesisSender(mockClient);
-
-        await sender.putRecords(
-          streamName: 'my-stream',
-          records: [
-            _testRecord(
-              data: Uint8List.fromList([1, 2, 3]),
-              partitionKey: 'pk-1',
-            ),
-          ],
-        );
-
-        final captured =
-            verify(() => mockClient.putRecords(captureAny())).captured.single
-                as PutRecordsRequest;
-
-        expect(captured.streamName, equals('my-stream'));
-        expect(captured.records.length, equals(1));
-        expect(captured.records.first.partitionKey, equals('pk-1'));
-        expect(
-          captured.records.first.data,
-          equals(Uint8List.fromList([1, 2, 3])),
-        );
-      });
-
-      test('identifies successful records', () async {
-        when(() => mockClient.putRecords(any())).thenReturn(
-          mockSmithyOperation(
-            () => PutRecordsResponse(
-              records: [
-                PutRecordsResultEntry(
-                  sequenceNumber: 'seq-1',
-                  shardId: 'shard-1',
-                ),
-                PutRecordsResultEntry(
-                  sequenceNumber: 'seq-2',
-                  shardId: 'shard-2',
-                ),
-              ],
-            ),
-          ),
-        );
-
-        final sender = _TestableKinesisSender(mockClient);
-
-        final result = await sender.putRecords(
-          streamName: 'test-stream',
-          records: [
-            _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
-            _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
-          ],
-        );
-
-        expect(result.successfulRecordIndices, equals([0, 1]));
-        expect(result.failedRecordIndices, isEmpty);
-        expect(result.retryableRecordIndices, isEmpty);
-      });
-
-      test('identifies failed records with non-retryable errors', () async {
-        when(() => mockClient.putRecords(any())).thenReturn(
-          mockSmithyOperation(
-            () => PutRecordsResponse(
-              failedRecordCount: 1,
-              records: [
-                PutRecordsResultEntry(
-                  sequenceNumber: 'seq-1',
-                  shardId: 'shard-1',
-                ),
-                PutRecordsResultEntry(
-                  errorCode: 'ValidationError',
-                  errorMessage: 'Invalid partition key',
-                ),
-              ],
-            ),
-          ),
-        );
-
-        final sender = _TestableKinesisSender(mockClient);
-
-        final result = await sender.putRecords(
-          streamName: 'test-stream',
-          records: [
-            _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
-            _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
-          ],
-        );
-
-        expect(result.successfulRecordIndices, equals([0]));
-        expect(result.failedRecordIndices, equals([1]));
-        expect(result.retryableRecordIndices, isEmpty);
-      });
-
-      test(
-        'identifies retryable records with ProvisionedThroughputExceededException error code',
-        () async {
-          when(() => mockClient.putRecords(any())).thenReturn(
-            mockSmithyOperation(
-              () => PutRecordsResponse(
-                failedRecordCount: 1,
-                records: [
-                  PutRecordsResultEntry(
-                    sequenceNumber: 'seq-1',
-                    shardId: 'shard-1',
-                  ),
-                  PutRecordsResultEntry(
-                    errorCode: 'ProvisionedThroughputExceededException',
-                    errorMessage: 'Rate exceeded',
-                  ),
-                ],
+    test('builds correct PutRecordsRequest', () async {
+      when(() => mockClient.putRecords(any())).thenReturn(
+        mockSmithyOperation(
+          () => PutRecordsResponse(
+            records: [
+              PutRecordsResultEntry(
+                sequenceNumber: 'seq-1',
+                shardId: 'shard-1',
               ),
-            ),
-          );
-
-          final sender = _TestableKinesisSender(mockClient);
-
-          final result = await sender.putRecords(
-            streamName: 'test-stream',
-            records: [
-              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
-              _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
-            ],
-          );
-
-          expect(result.successfulRecordIndices, equals([0]));
-          expect(result.failedRecordIndices, isEmpty);
-          expect(result.retryableRecordIndices, equals([1]));
-        },
-      );
-
-      test(
-        'identifies retryable records with InternalFailure error code',
-        () async {
-          when(() => mockClient.putRecords(any())).thenReturn(
-            mockSmithyOperation(
-              () => PutRecordsResponse(
-                failedRecordCount: 1,
-                records: [
-                  PutRecordsResultEntry(
-                    errorCode: 'InternalFailure',
-                    errorMessage: 'Internal error',
-                  ),
-                  PutRecordsResultEntry(
-                    sequenceNumber: 'seq-1',
-                    shardId: 'shard-1',
-                  ),
-                ],
+              PutRecordsResultEntry(
+                sequenceNumber: 'seq-2',
+                shardId: 'shard-2',
               ),
-            ),
-          );
-
-          final sender = _TestableKinesisSender(mockClient);
-
-          final result = await sender.putRecords(
-            streamName: 'test-stream',
-            records: [
-              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
-              _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
             ],
-          );
-
-          expect(result.successfulRecordIndices, equals([1]));
-          expect(result.failedRecordIndices, isEmpty);
-          expect(result.retryableRecordIndices, equals([0]));
-        },
+          ),
+        ),
       );
 
-      test('handles mixed success, failure, and retryable records', () async {
-        when(() => mockClient.putRecords(any())).thenReturn(
-          mockSmithyOperation(
-            () => PutRecordsResponse(
-              failedRecordCount: 2,
-              records: [
-                PutRecordsResultEntry(
-                  sequenceNumber: 'seq-1',
-                  shardId: 'shard-1',
-                ),
-                PutRecordsResultEntry(
-                  errorCode: 'ValidationError',
-                  errorMessage: 'Invalid',
-                ),
-                PutRecordsResultEntry(
-                  errorCode: 'ProvisionedThroughputExceededException',
-                  errorMessage: 'Rate exceeded',
-                ),
-                PutRecordsResultEntry(
-                  sequenceNumber: 'seq-2',
-                  shardId: 'shard-2',
-                ),
-              ],
-            ),
+      final sender = _DirectMockSender(mockClient, maxRetries: maxRetries);
+
+      await sender.putRecords(
+        streamName: 'my-stream',
+        records: [
+          _testRecord(
+            id: 1,
+            partitionKey: 'key1',
+            data: Uint8List.fromList([1, 2, 3]),
           ),
-        );
-
-        final sender = _TestableKinesisSender(mockClient);
-
-        final result = await sender.putRecords(
-          streamName: 'test-stream',
-          records: List.generate(
-            4,
-            (i) => _testRecord(
-              data: Uint8List.fromList([i]),
-              partitionKey: 'pk-$i',
-            ),
+          _testRecord(
+            id: 2,
+            partitionKey: 'key2',
+            data: Uint8List.fromList([4, 5, 6]),
           ),
-        );
+        ],
+      );
 
-        expect(result.successfulRecordIndices, equals([0, 3]));
-        expect(result.failedRecordIndices, equals([1]));
-        expect(result.retryableRecordIndices, equals([2]));
-      });
+      final captured =
+          verify(() => mockClient.putRecords(captureAny())).captured.single
+              as PutRecordsRequest;
 
-      test(
-        'marks all records as retryable when ProvisionedThroughputExceededException is thrown',
+      expect(captured.streamName, equals('my-stream'));
+      expect(captured.records, hasLength(2));
+      expect(captured.records[0].partitionKey, equals('key1'));
+      expect(captured.records[0].data, equals(Uint8List.fromList([1, 2, 3])));
+      expect(captured.records[1].partitionKey, equals('key2'));
+      expect(captured.records[1].data, equals(Uint8List.fromList([4, 5, 6])));
+    });
+
+    test('correctly categorizes response into success, retryable, failed',
         () async {
-          final mockOperation = MockSmithyOperation<PutRecordsResponse>();
-
-          when(() => mockOperation.result).thenThrow(
-            ProvisionedThroughputExceededException(
-              message: 'Rate exceeded for the stream',
-            ),
-          );
-
-          when(() => mockClient.putRecords(any())).thenReturn(mockOperation);
-
-          final sender = _TestableKinesisSender(mockClient);
-
-          final result = await sender.putRecords(
-            streamName: 'test-stream',
+      // Mirrors Android's KinesisRecordSenderTest:
+      // - Record 1 (retryCount=0): success (no error code)
+      // - Record 2 (retryCount=1): retryable (error code + under retry limit)
+      // - Record 3 (retryCount=maxRetries): failed (error code + at retry limit)
+      when(() => mockClient.putRecords(any())).thenReturn(
+        mockSmithyOperation(
+          () => PutRecordsResponse(
             records: [
-              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
-              _testRecord(data: Uint8List.fromList([2]), partitionKey: 'pk-2'),
-            ],
-          );
-
-          expect(result.successfulRecordIndices, isEmpty);
-          expect(result.failedRecordIndices, isEmpty);
-          expect(result.retryableRecordIndices, equals([0, 1]));
-        },
-      );
-
-      test(
-        'marks all records as retryable when SmithyHttpException with 5xx status is thrown',
-        () async {
-          final mockOperation = MockSmithyOperation<PutRecordsResponse>();
-
-          when(() => mockOperation.result).thenThrow(
-            const SmithyHttpException(
-              statusCode: 503,
-              body: 'Service Unavailable',
-            ),
-          );
-
-          when(() => mockClient.putRecords(any())).thenReturn(mockOperation);
-
-          final sender = _TestableKinesisSender(mockClient);
-
-          final result = await sender.putRecords(
-            streamName: 'test-stream',
-            records: [
-              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
-            ],
-          );
-
-          expect(result.successfulRecordIndices, isEmpty);
-          expect(result.failedRecordIndices, isEmpty);
-          expect(result.retryableRecordIndices, equals([0]));
-        },
-      );
-
-      test('rethrows SmithyHttpException with non-5xx status', () async {
-        final mockOperation = MockSmithyOperation<PutRecordsResponse>();
-
-        when(() => mockOperation.result).thenThrow(
-          const SmithyHttpException(statusCode: 400, body: 'Bad Request'),
-        );
-
-        when(() => mockClient.putRecords(any())).thenReturn(mockOperation);
-
-        final sender = _TestableKinesisSender(mockClient);
-
-        expect(
-          () => sender.putRecords(
-            streamName: 'test-stream',
-            records: [
-              _testRecord(data: Uint8List.fromList([1]), partitionKey: 'pk-1'),
+              PutRecordsResultEntry(
+                sequenceNumber: 'seq1',
+                shardId: 'shard1',
+              ),
+              PutRecordsResultEntry(
+                errorCode: 'ProvisionedThroughputExceededException',
+              ),
+              PutRecordsResultEntry(
+                errorCode: 'InternalFailure',
+              ),
             ],
           ),
-          throwsA(isA<SmithyHttpException>()),
-        );
-      });
+        ),
+      );
+
+      final sender = _DirectMockSender(mockClient, maxRetries: maxRetries);
+
+      final result = await sender.putRecords(
+        streamName: 'test-stream',
+        records: [
+          _testRecord(
+            id: 1,
+            partitionKey: 'key1',
+            data: Uint8List.fromList([1]),
+            retryCount: 0,
+          ),
+          _testRecord(
+            id: 2,
+            partitionKey: 'key2',
+            data: Uint8List.fromList([2]),
+            retryCount: 1,
+          ),
+          _testRecord(
+            id: 3,
+            partitionKey: 'key3',
+            data: Uint8List.fromList([3]),
+            retryCount: maxRetries,
+          ),
+        ],
+      );
+
+      expect(result.successfulIds, equals([1]));
+      expect(result.retryableIds, equals([2]));
+      expect(result.failedIds, equals([3]));
     });
   });
 }
 
-/// A testable version of KinesisSender that accepts a mock client.
-class _TestableKinesisSender extends KinesisSender {
-  _TestableKinesisSender(this._mockClient)
-    : super(
-        region: 'us-east-1',
-        credentialsProvider: FakeAWSCredentialsProvider(),
-      );
-
-  final KinesisClient _mockClient;
-
-  @override
-  Future<PutRecordsResult> putRecords({
-    required String streamName,
-    required List<Record> records,
-  }) async {
-    if (records.isEmpty) {
-      return const PutRecordsResult(
-        successfulRecordIndices: [],
-        failedRecordIndices: [],
-        retryableRecordIndices: [],
-      );
-    }
-
-    final requestEntries = records
-        .map(
-          (record) => PutRecordsRequestEntry(
-            data: record.data,
-            partitionKey: record.partitionKey,
-          ),
-        )
-        .toList();
-
-    final request = PutRecordsRequest(
-      streamName: streamName,
-      records: requestEntries,
-    );
-
-    try {
-      final response = await _mockClient.putRecords(request).result;
-      return _parseResponse(response, records.length);
-    } on ProvisionedThroughputExceededException {
-      return PutRecordsResult(
-        successfulRecordIndices: const [],
-        failedRecordIndices: const [],
-        retryableRecordIndices: List.generate(records.length, (i) => i),
-      );
-    } on SmithyHttpException catch (e) {
-      if (e.statusCode != null && e.statusCode! >= 500) {
-        return PutRecordsResult(
-          successfulRecordIndices: const [],
-          failedRecordIndices: const [],
-          retryableRecordIndices: List.generate(records.length, (i) => i),
-        );
-      }
-      rethrow;
-    }
-  }
-
-  static const _retryableErrorCodes = {
-    'ProvisionedThroughputExceededException',
-    'InternalFailure',
-  };
-
-  PutRecordsResult _parseResponse(
-    PutRecordsResponse response,
-    int recordCount,
-  ) {
-    final successfulIndices = <int>[];
-    final failedIndices = <int>[];
-    final retryableIndices = <int>[];
-
-    final resultEntries = response.records.toList();
-
-    for (var i = 0; i < resultEntries.length; i++) {
-      final entry = resultEntries[i];
-
-      if (entry.errorCode == null) {
-        successfulIndices.add(i);
-      } else if (_retryableErrorCodes.contains(entry.errorCode)) {
-        retryableIndices.add(i);
-      } else {
-        failedIndices.add(i);
-      }
-    }
-
-    return PutRecordsResult(
-      successfulRecordIndices: successfulIndices,
-      failedRecordIndices: failedIndices,
-      retryableRecordIndices: retryableIndices,
-    );
-  }
+/// Sender that delegates directly to a mock KinesisClient, exercising the
+/// real request-building and response-splitting logic.
+class _DirectMockSender extends KinesisSender {
+  _DirectMockSender(KinesisClient mockClient, {required int maxRetries})
+    : super(kinesisClient: mockClient, maxRetries: maxRetries);
 }

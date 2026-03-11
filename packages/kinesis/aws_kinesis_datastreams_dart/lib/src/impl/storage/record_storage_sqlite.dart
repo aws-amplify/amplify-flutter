@@ -12,6 +12,7 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dar
 import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart'
     show kKinesisMaxBatchBytes, kKinesisMaxRecordsPerBatch;
 import 'package:drift/drift.dart';
+import 'package:meta/meta.dart';
 
 /// {@template aws_kinesis_datastreams.sqlite_record_storage}
 /// SQLite-backed [RecordStorage] implementation using Drift.
@@ -46,7 +47,11 @@ final class SqliteRecordStorage extends RecordStorage {
             );
       });
 
-  @override
+  /// Retrieves a batch of records sorted by stream_name, partition_key, id.
+  ///
+  /// Not part of the [RecordStorage] interface — used only in tests to
+  /// inspect storage state.
+  @visibleForTesting
   Future<List<Record>> getRecordsBatch({
     int maxCount = kKinesisMaxRecordsPerBatch,
     int maxBytes = kKinesisMaxBatchBytes,
@@ -152,7 +157,7 @@ final class SqliteRecordStorage extends RecordStorage {
       });
 
   @override
-  Future<void> clear() => _wrapDbError('Failed to clear cache', () async {
+  Future<void> clearRecords() => _wrapDbError('Failed to clear cache', () async {
     await _db.delete(_db.kinesisRecords).go();
   });
 

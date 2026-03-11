@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:amplify_foundation_dart_bridge/amplify_foundation_dart_bridge.dart';
 import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
@@ -15,6 +16,12 @@ import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.da
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/sdk/kinesis.dart';
+import 'package:aws_kinesis_datastreams_dart/src/version.dart';
+import 'package:smithy/smithy.dart' show WithUserAgent;
+
+/// User agent component identifying this library.
+const _userAgentComponent =
+    'md/amplify-kinesis#$packageVersion lib/amplify-flutter#$packageVersion';
 
 /// {@template aws_kinesis_datastreams.amplify_kinesis_client}
 /// Client for recording and streaming data to Amazon Kinesis Data Streams.
@@ -76,27 +83,30 @@ class AmplifyKinesisClient {
       storagePath: storagePath,
       maxCacheBytes: _options.cacheMaxBytes,
     );
-    _kinesisSender = KinesisSender(
+
+    _kinesisClient = KinesisClient(
       region: region,
-      credentialsProvider: credentialsProvider,
+      credentialsProvider:
+          SmithyCredentialsProviderBridge(credentialsProvider),
+      requestInterceptors: [
+        const WithUserAgent(_userAgentComponent),
+      ],
     );
 
-    late final AutoFlushScheduler scheduler;
-    late final RecordClient recordClient;
-
-    recordClient = RecordClient(
+    _recordClient = RecordClient(
       storage: storage,
-      sender: _kinesisSender,
-      scheduler: scheduler = AutoFlushScheduler(
-        strategy: _options.flushStrategy,
-        onFlush: () => recordClient.flush(),
+      sender: KinesisSender(
+        kinesisClient: _kinesisClient,
+        maxRetries: _options.maxRetries,
       ),
       maxRetries: _options.maxRetries,
       maxRecords: _options.maxRecords,
     );
 
-    _recordClient = recordClient;
-    scheduler.start();
+    _scheduler = AutoFlushScheduler(
+      strategy: _options.flushStrategy,
+      client: _recordClient,
+    )..start();
   }
 
   /// Creates a client with a pre-configured [RecordClient] (for testing).
@@ -113,8 +123,11 @@ class AmplifyKinesisClient {
   final String _region;
   final AmplifyKinesisClientOptions _options;
   late final RecordClient _recordClient;
-  late final KinesisSender _kinesisSender;
+  late final KinesisClient _kinesisClient;
   late final Logger _logger;
+  AutoFlushScheduler? _scheduler;
+  bool _enabled = true;
+  bool _closed = false;
 
   /// The AWS region for this client.
   String get region => _region;
@@ -123,10 +136,10 @@ class AmplifyKinesisClient {
   AmplifyKinesisClientOptions get options => _options;
 
   /// Whether the client is currently enabled.
-  bool get isEnabled => _recordClient.isEnabled;
+  bool get isEnabled => _enabled;
 
   /// Whether the client has been closed.
-  bool get isClosed => _recordClient.isClosed;
+  bool get isClosed => _closed;
 
   /// Direct access to the underlying Kinesis SDK client.
   ///
@@ -134,7 +147,7 @@ class AmplifyKinesisClient {
   ///
   /// Note: This getter is only available when the client was created with
   /// the default constructor (not [AmplifyKinesisClient.withRecordClient]).
-  KinesisClient get kinesisClient => _kinesisSender.sdkClient;
+  KinesisClient get kinesisClient => _kinesisClient;
 
   /// Records data to be sent to a Kinesis Data Stream.
   ///
@@ -150,6 +163,7 @@ class AmplifyKinesisClient {
     required String partitionKey,
     required String streamName,
   }) async {
+    if (_closed) return Result.error(ClientClosedException());
     if (!isEnabled) {
       _logger.debug('Record collection is disabled, dropping record');
       return const Result.ok(null);
@@ -173,6 +187,7 @@ class AmplifyKinesisClient {
   ///
   /// Returns [Result.ok] with zero records if the client is disabled.
   Future<Result<FlushData>> flush() async {
+    if (_closed) return Result.error(ClientClosedException());
     if (!isEnabled) {
       _logger.debug('Flush skipped — client is disabled');
       return const Result.ok(FlushData());
@@ -186,6 +201,7 @@ class AmplifyKinesisClient {
   /// Returns [Result.ok] with [ClearCacheData] containing the count of
   /// records cleared, or [Result.error] if a storage error occurs.
   Future<Result<ClearCacheData>> clearCache() async {
+    if (_closed) return Result.error(ClientClosedException());
     _logger.verbose('Clearing cache');
     return _wrapError(() => _recordClient.clearCache());
   }
@@ -193,7 +209,8 @@ class AmplifyKinesisClient {
   /// Enables the client to accept and flush records.
   void enable() {
     _logger.info('Enabling record collection and automatic flushing');
-    _recordClient.enable();
+    _enabled = true;
+    _scheduler?.start();
   }
 
   /// Disables the client from accepting and flushing records.
@@ -202,26 +219,26 @@ class AmplifyKinesisClient {
   /// the client is re-enabled.
   void disable() {
     _logger.info('Disabling record collection and automatic flushing');
-    _recordClient.disable();
+    _enabled = false;
+    _scheduler?.stop();
   }
 
   /// Closes the client and releases all resources.
   ///
   /// The client cannot be reused after closing.
   Future<void> close() async {
+    _closed = true;
+    _scheduler?.stop();
     await _recordClient.close();
   }
 
   /// Wraps an async operation, catching any exceptions and returning them
   /// as [Result.error] with the appropriate [AmplifyKinesisException]
-  /// subtype. [ClientClosedException] is rethrown directly since it
-  /// represents a programmer error.
+  /// subtype.
   Future<Result<T>> _wrapError<T>(Future<T> Function() operation) async {
     try {
       final value = await operation();
       return Result.ok(value);
-    } on AmplifyKinesisException {
-      rethrow;
     } on Object catch (e) {
       final wrapped = AmplifyKinesisException.from(e);
       _logger.warn('Operation failed: ${wrapped.message}', e);

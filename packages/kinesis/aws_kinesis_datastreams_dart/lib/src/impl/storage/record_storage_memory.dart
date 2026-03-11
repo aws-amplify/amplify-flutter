@@ -34,31 +34,6 @@ final class InMemoryRecordStorage extends RecordStorage {
   }
 
   @override
-  Future<List<Record>> getRecordsBatch({
-    int maxCount = kKinesisMaxRecordsPerBatch,
-    int maxBytes = kKinesisMaxBatchBytes,
-  }) async {
-    final sorted = _records.values.toList()
-      ..sort((a, b) {
-        var cmp = a.streamName.compareTo(b.streamName);
-        if (cmp != 0) return cmp;
-        cmp = a.partitionKey.compareTo(b.partitionKey);
-        if (cmp != 0) return cmp;
-        return a.id.compareTo(b.id);
-      });
-
-    final result = <Record>[];
-    var runningSize = 0;
-    for (final record in sorted) {
-      if (result.length >= maxCount) break;
-      runningSize += record.dataSize;
-      if (runningSize > maxBytes && result.isNotEmpty) break;
-      result.add(record);
-    }
-    return result;
-  }
-
-  @override
   Future<Map<String, List<Record>>> getRecordsByStream({
     Set<int> excludingIds = const {},
     int maxCount = kKinesisMaxRecordsPerBatch,
@@ -127,7 +102,7 @@ final class InMemoryRecordStorage extends RecordStorage {
   Future<int> getRecordCount() async => _records.length;
 
   @override
-  Future<void> clear() async => _records.clear();
+  Future<void> clearRecords() async => _records.clear();
 
   @override
   Future<void> close() async => _records.clear();

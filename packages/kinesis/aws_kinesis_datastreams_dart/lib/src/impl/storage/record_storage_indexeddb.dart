@@ -62,8 +62,20 @@ final class IndexedDbRecordStorage extends RecordStorage {
     }
   }
 
-  IDBObjectStore _getStore() {
-    final tx = _database.transaction(_storeName.toJS, 'readwrite');
+  /// Returns an object store handle within a new transaction.
+  ///
+  /// IndexedDB auto-commits a transaction when all its requests complete
+  /// and the microtask queue is empty. Because Dart's `await` yields to
+  /// the microtask queue, each `await` inside a loop effectively commits
+  /// the current transaction.
+  ///
+  /// To batch operations in a single transaction, fire all requests
+  /// without intermediate awaits and then `Future.wait` them (see
+  /// [deleteRecords]). For `incrementRetryCount`, each iteration does
+  /// get+put which requires reading the result before writing, so those
+  /// cannot share a single transaction across iterations.
+  IDBObjectStore _getStore([String mode = 'readwrite']) {
+    final tx = _database.transaction(_storeName.toJS, mode);
     return tx.objectStore(_storeName);
   }
 
@@ -81,32 +93,6 @@ final class IndexedDbRecordStorage extends RecordStorage {
         record.createdAt.millisecondsSinceEpoch.toJS,
       );
     await _getStore().add(obj).future;
-  }
-
-  @override
-  Future<List<Record>> getRecordsBatch({
-    int maxCount = kKinesisMaxRecordsPerBatch,
-    int maxBytes = kKinesisMaxBatchBytes,
-  }) async {
-    await _openEvent;
-    final all = await _getAllRecords();
-    all.sort((a, b) {
-      var cmp = a.streamName.compareTo(b.streamName);
-      if (cmp != 0) return cmp;
-      cmp = a.partitionKey.compareTo(b.partitionKey);
-      if (cmp != 0) return cmp;
-      return a.id.compareTo(b.id);
-    });
-
-    final result = <Record>[];
-    var runningSize = 0;
-    for (final record in all) {
-      if (result.length >= maxCount) break;
-      runningSize += record.dataSize;
-      if (runningSize > maxBytes && result.isNotEmpty) break;
-      result.add(record);
-    }
-    return result;
   }
 
   @override
@@ -146,10 +132,15 @@ final class IndexedDbRecordStorage extends RecordStorage {
   Future<void> deleteRecords(Iterable<int> ids) async {
     if (ids.isEmpty) return;
     await _openEvent;
+    // Fire all delete requests on the same transaction without intermediate
+    // awaits, then await them all. This keeps the transaction alive for the
+    // entire batch instead of auto-committing after each delete.
     final store = _getStore();
+    final futures = <Future<JSAny?>>[];
     for (final id in ids) {
-      await store.delete(id.toJS).future;
+      futures.add(store.delete(id.toJS).future);
     }
+    await Future.wait(futures);
   }
 
   @override
@@ -194,7 +185,7 @@ final class IndexedDbRecordStorage extends RecordStorage {
   }
 
   @override
-  Future<void> clear() async {
+  Future<void> clearRecords() async {
     await _openEvent;
     await _getStore().clear().future;
   }

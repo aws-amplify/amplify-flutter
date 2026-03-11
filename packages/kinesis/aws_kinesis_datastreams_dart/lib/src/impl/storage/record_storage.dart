@@ -26,14 +26,6 @@ abstract class RecordStorage {
   /// Saves a record to storage.
   Future<void> saveRecord(RecordInput record);
 
-  /// Retrieves a batch of records sorted by stream_name, partition_key, id.
-  ///
-  /// Returns records up to [maxCount] records and [maxBytes] total size.
-  Future<List<Record>> getRecordsBatch({
-    int maxCount = kKinesisMaxRecordsPerBatch,
-    int maxBytes = kKinesisMaxBatchBytes,
-  });
-
   /// Retrieves records grouped by stream, excluding the given IDs.
   ///
   /// Each stream's records are limited by [maxCount] and [maxBytes].
@@ -56,7 +48,7 @@ abstract class RecordStorage {
   Future<int> getRecordCount();
 
   /// Deletes all records.
-  Future<void> clear();
+  Future<void> clearRecords();
 
   /// Closes the storage and releases resources.
   Future<void> close();
