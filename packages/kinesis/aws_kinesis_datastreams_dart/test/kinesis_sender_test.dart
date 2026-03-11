@@ -172,6 +172,6 @@ void main() {
 /// Sender that delegates directly to a mock KinesisClient, exercising the
 /// real request-building and response-splitting logic.
 class _DirectMockSender extends KinesisSender {
-  _DirectMockSender(KinesisClient mockClient, {required int maxRetries})
-    : super(kinesisClient: mockClient, maxRetries: maxRetries);
+  _DirectMockSender(KinesisClient mockClient, {required super.maxRetries})
+    : super(kinesisClient: mockClient);
 }

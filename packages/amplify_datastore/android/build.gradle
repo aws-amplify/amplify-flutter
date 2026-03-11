@@ -77,15 +77,15 @@ android {
 dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
 
-    implementation 'com.amplifyframework:aws-auth-cognito:2.33.0'
-    implementation "com.amplifyframework:aws-api:2.33.0"
-    implementation "com.amplifyframework:aws-datastore:2.33.0"
-    implementation "com.amplifyframework:aws-api-appsync:2.33.0"
+    implementation 'com.amplifyframework:aws-auth-cognito:2.34.0'
+    implementation "com.amplifyframework:aws-api:2.34.0"
+    implementation "com.amplifyframework:aws-datastore:2.34.0"
+    implementation "com.amplifyframework:aws-api-appsync:2.34.0"
     implementation 'com.google.code.gson:gson:2.13.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:5.21.0'
+    testImplementation 'org.mockito:mockito-core:5.22.0'
     testImplementation 'org.mockito:mockito-inline:5.2.0'
     testImplementation 'androidx.test:core:1.7.0'
     testImplementation 'com.google.code.gson:gson:2.13.1'
