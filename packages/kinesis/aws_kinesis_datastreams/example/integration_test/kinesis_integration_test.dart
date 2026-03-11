@@ -16,12 +16,11 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'utils/cognito_auth_helper.dart';
-import 'utils/test_config.dart';
+import 'utils/setup_utils.dart';
 
 void main() {
   late AmplifyKinesisClient client;
-  late CognitoCredentialsProvider credentialsProvider;
+  late AmplifyAuthCredentialsProvider credentialsProvider;
 
   setUpAll(() async {
     if (!isConfigured) {
@@ -31,11 +30,8 @@ void main() {
       );
     }
 
-    final authHelper = CognitoAuthHelper(amplifyAuthConfig!);
-    credentialsProvider = CognitoCredentialsProvider(authHelper);
-
-    // Pre-authenticate to fail fast if auth is broken.
-    await credentialsProvider.resolve();
+    await configureAmplify();
+    credentialsProvider = await signInNewUser();
   });
 
   setUp(() {

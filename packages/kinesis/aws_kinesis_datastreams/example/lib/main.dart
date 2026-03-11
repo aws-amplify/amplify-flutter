@@ -5,7 +5,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    as foundation show AWSCredentialsProvider, TemporaryCredentials;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show Error, Ok;
 import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart';
@@ -17,6 +20,26 @@ void main() {
   runApp(const KinesisExampleApp());
 }
 
+/// An [foundation.AWSCredentialsProvider] that fetches credentials from
+/// Amplify Auth's current session.
+class _AmplifyAuthCredentialsProvider
+    implements foundation.AWSCredentialsProvider {
+  @override
+  Future<foundation.TemporaryCredentials> resolve() async {
+    final session = await Amplify.Auth.fetchAuthSession(
+      options: const FetchAuthSessionOptions(forceRefresh: false),
+    ) as CognitoAuthSession;
+
+    final credentials = session.credentialsResult.value;
+    return foundation.TemporaryCredentials(
+      credentials.accessKeyId,
+      credentials.secretAccessKey,
+      credentials.sessionToken!,
+      credentials.expiration!,
+    );
+  }
+}
+
 class KinesisExampleApp extends StatefulWidget {
   const KinesisExampleApp({super.key});
 
@@ -25,13 +48,8 @@ class KinesisExampleApp extends StatefulWidget {
 }
 
 class _KinesisExampleAppState extends State<KinesisExampleApp> {
-  AmplifyKinesisClient? _client;
   bool _amplifyConfigured = false;
-  bool _isEnabled = true;
-  String _statusMessage = 'Not configured.';
-  String _streamName = 'amplify-kinesis-test-stream';
-  String _partitionKey = 'partition-1';
-  String _recordData = '';
+  String _configError = '';
 
   @override
   void initState() {
@@ -39,7 +57,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
     _configureAmplify();
   }
 
-  void _configureAmplify() async {
+  Future<void> _configureAmplify() async {
     if (!mounted) return;
 
     try {
@@ -58,13 +76,94 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
 
       setState(() {
         _amplifyConfigured = true;
-        _statusMessage = 'Amplify configured. Sign in to initialize client.';
       });
     } on Exception catch (e) {
       setState(() {
-        _statusMessage = 'Amplify configuration failed: $e';
+        _configError = 'Amplify configuration failed: $e';
       });
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_amplifyConfigured) {
+      return MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: _configError.isNotEmpty
+                ? Text(_configError, style: const TextStyle(color: Colors.red))
+                : const CircularProgressIndicator(),
+          ),
+        ),
+      );
+    }
+
+    return Authenticator(
+      child: MaterialApp(
+        builder: Authenticator.builder(),
+        home: const _KinesisHomePage(),
+      ),
+    );
+  }
+}
+
+class _KinesisHomePage extends StatefulWidget {
+  const _KinesisHomePage();
+
+  @override
+  State<_KinesisHomePage> createState() => _KinesisHomePageState();
+}
+
+class _KinesisHomePageState extends State<_KinesisHomePage> {
+  AmplifyKinesisClient? _client;
+  bool _isEnabled = true;
+  String _statusMessage = 'Initializing client...';
+  String _streamName = 'amplify-kinesis-test-stream';
+  String _partitionKey = 'partition-1';
+  String _recordData = '';
+
+  late final TextEditingController _streamNameController;
+  late final TextEditingController _partitionKeyController;
+
+  @override
+  void initState() {
+    super.initState();
+    _streamNameController = TextEditingController(text: _streamName);
+    _partitionKeyController = TextEditingController(text: _partitionKey);
+    _initializeClient();
+  }
+
+  @override
+  void dispose() {
+    _streamNameController.dispose();
+    _partitionKeyController.dispose();
+    _client?.close();
+    super.dispose();
+  }
+
+  Future<void> _initializeClient() async {
+    try {
+      final region = _parseRegionFromConfig();
+      final client = AmplifyKinesisClient(
+        region: region,
+        credentialsProvider: _AmplifyAuthCredentialsProvider(),
+      );
+
+      setState(() {
+        _client = client;
+        _statusMessage = 'Client ready (region: $region).';
+      });
+    } on Exception catch (e) {
+      setState(() {
+        _statusMessage = 'Client initialization failed: $e';
+      });
+    }
+  }
+
+  String _parseRegionFromConfig() {
+    final config = jsonDecode(amplifyConfig) as Map<String, dynamic>;
+    final auth = config['auth'] as Map<String, dynamic>;
+    return auth['aws_region'] as String;
   }
 
   void _updateStatus(String message) {
@@ -73,7 +172,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
     });
   }
 
-  void _recordEvent() async {
+  Future<void> _recordEvent() async {
     final client = _client;
     if (client == null) {
       _updateStatus('Client not initialized.');
@@ -97,7 +196,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
     }
   }
 
-  void _flushEvents() async {
+  Future<void> _flushEvents() async {
     final client = _client;
     if (client == null) {
       _updateStatus('Client not initialized.');
@@ -112,7 +211,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
     }
   }
 
-  void _clearCache() async {
+  Future<void> _clearCache() async {
     final client = _client;
     if (client == null) {
       _updateStatus('Client not initialized.');
@@ -146,7 +245,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
     _updateStatus('Client ${_isEnabled ? 'enabled' : 'disabled'}.');
   }
 
-  void _closeClient() async {
+  Future<void> _closeClient() async {
     final client = _client;
     if (client == null) {
       _updateStatus('Client not initialized.');
@@ -160,153 +259,155 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
     _updateStatus('Client closed.');
   }
 
-  @override
-  void dispose() {
-    _client?.close();
-    super.dispose();
+  Future<void> _signOut() async {
+    final client = _client;
+    if (client != null && !client.isClosed) {
+      await client.close();
+    }
+    setState(() {
+      _client = null;
+    });
+    await Amplify.Auth.signOut();
   }
 
   @override
   Widget build(BuildContext context) {
     final isClientReady = _client != null;
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Kinesis Data Streams Example'),
-        ),
-        body: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            // Configuration section
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Configuration',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Kinesis Data Streams Example'),
+        actions: [
+          IconButton(
+            onPressed: _signOut,
+            icon: const Icon(Icons.logout),
+            tooltip: 'Sign Out',
+          ),
+        ],
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          // Status section
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Status',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 8),
-                    Text(_statusMessage),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Amplify configured: $_amplifyConfigured',
-                    ),
-                    Text(
-                      'Client: ${isClientReady ? 'initialized' : 'not initialized'}',
-                    ),
-                    if (isClientReady) Text('Enabled: $_isEnabled'),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: _amplifyConfigured ? null : _configureAmplify,
-                      child: const Text('Configure Amplify'),
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(_statusMessage),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Client: ${isClientReady ? 'initialized' : 'not initialized'}',
+                  ),
+                  if (isClientReady) Text('Enabled: $_isEnabled'),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
+          ),
+          const SizedBox(height: 16),
 
-            // Record section
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Record',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+          // Record section
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Record',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 8),
-                    TextField(
-                      decoration: const InputDecoration(
-                        labelText: 'Stream Name',
-                        hintText: 'Enter Kinesis stream name',
-                      ),
-                      controller: TextEditingController(text: _streamName),
-                      onChanged: (text) => _streamName = text,
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Stream Name',
+                      hintText: 'Enter Kinesis stream name',
                     ),
-                    TextField(
-                      decoration: const InputDecoration(
-                        labelText: 'Partition Key',
-                        hintText: 'Enter partition key',
-                      ),
-                      controller: TextEditingController(text: _partitionKey),
-                      onChanged: (text) => _partitionKey = text,
+                    controller: _streamNameController,
+                    onChanged: (text) => _streamName = text,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Partition Key',
+                      hintText: 'Enter partition key',
                     ),
-                    TextField(
-                      decoration: const InputDecoration(
-                        labelText: 'Record Data',
-                        hintText: 'Enter data to record',
-                      ),
-                      onChanged: (text) => _recordData = text,
+                    controller: _partitionKeyController,
+                    onChanged: (text) => _partitionKey = text,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Record Data',
+                      hintText: 'Enter data to record',
                     ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: isClientReady ? _recordEvent : null,
-                      child: const Text('Record'),
-                    ),
-                  ],
-                ),
+                    onChanged: (text) => _recordData = text,
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: isClientReady ? _recordEvent : null,
+                    child: const Text('Record'),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
+          ),
+          const SizedBox(height: 16),
 
-            // Actions section
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Actions',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+          // Actions section
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Actions',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      ElevatedButton(
+                        onPressed: isClientReady ? _flushEvents : null,
+                        child: const Text('Flush'),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        ElevatedButton(
-                          onPressed: isClientReady ? _flushEvents : null,
-                          child: const Text('Flush'),
+                      ElevatedButton(
+                        onPressed: isClientReady ? _clearCache : null,
+                        child: const Text('Clear Cache'),
+                      ),
+                      ElevatedButton(
+                        onPressed: isClientReady ? _toggleEnabled : null,
+                        child: Text(
+                          _isEnabled ? 'Disable' : 'Enable',
                         ),
-                        ElevatedButton(
-                          onPressed: isClientReady ? _clearCache : null,
-                          child: const Text('Clear Cache'),
-                        ),
-                        ElevatedButton(
-                          onPressed: isClientReady ? _toggleEnabled : null,
-                          child: Text(
-                            _isEnabled ? 'Disable' : 'Enable',
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: isClientReady ? _closeClient : null,
-                          child: const Text('Close Client'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      ElevatedButton(
+                        onPressed: isClientReady ? _closeClient : null,
+                        child: const Text('Close Client'),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
