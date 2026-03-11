@@ -448,9 +448,6 @@
     get$hashCode$(receiver) {
       return J.getInterceptor$(receiver).get$hashCode(receiver);
     },
-    get$isEmpty$asx(receiver) {
-      return J.getInterceptor$asx(receiver).get$isEmpty(receiver);
-    },
     get$iterator$ax(receiver) {
       return J.getInterceptor$ax(receiver).get$iterator(receiver);
     },
@@ -7547,7 +7544,7 @@
                 throw A.wrapException(A.Exception_Exception("test-type input of " + testType + " must be one of: canary, e2e, unit"));
               workingDirectory = A.Core_getRequiredInput(A._asJSObject(t1.core), "working-directory");
               t3 = type$.String;
-              category = A.IterableExtension_firstWhereOrNull(A._setArrayType(["canaries", "analytics", "api", "auth", "authenticator", "core", "datastore", "db_common", "push", "secure_storage", "storage", "aws_common", "aws_signature_v4", "smithy", "worker_bee", "amplify_flutter", "amplify_foundation_dart_bridge", "amplify_foundation_dart", "amplify_lints", "amplify_native_legacy_wrapper", "kinesis", "pub_server"], t2), B.JSString_methods.get$contains(workingDirectory), t3);
+              category = A.IterableExtension_firstWhereOrNull(A._setArrayType(["canaries", "analytics", "api", "auth", "authenticator", "core", "datastore", "db_common", "push", "secure_storage", "storage", "aws_common", "aws_signature_v4", "smithy", "worker_bee", "amplify_flutter", "amplify_foundation_dart_bridge", "amplify_foundation_dart", "amplify_lints", "amplify_native_legacy_wrapper", "kinesis", "kinesis", "pub_server"], t2), B.JSString_methods.get$contains(workingDirectory), t3);
               if (category == null)
                 throw A.wrapException(A.Exception_Exception("WorkingDirectory input of " + workingDirectory + " must contain a valid category."));
               t4 = A._asString(A._asJSObject(A._asJSObject(t1.github).context).workflow);
@@ -7705,7 +7702,7 @@
     },
     IterableExtension_firstWhereOrNull(_this, test, $T) {
       var _i, element;
-      for (_i = 0; _i < 22; ++_i) {
+      for (_i = 0; _i < 23; ++_i) {
         element = _this[_i];
         if (test.call$1(element))
           return element;
@@ -8021,9 +8018,6 @@
         if (J.$eq$(receiver[i], other))
           return true;
       return false;
-    },
-    get$isEmpty(receiver) {
-      return receiver.length === 0;
     },
     toString$0(receiver) {
       return A.Iterable_iterableToFullString(receiver, "[", "]");
@@ -8452,9 +8446,6 @@
     get$length(_) {
       return J.get$length$asx(this.get$_source());
     },
-    get$isEmpty(_) {
-      return J.get$isEmpty$asx(this.get$_source());
-    },
     skip$1(_, count) {
       var t1 = A._instanceType(this);
       return A.CastIterable_CastIterable(J.skip$1$ax(this.get$_source(), count), t1._precomputed1, t1._rest[1]);
@@ -8535,10 +8526,6 @@
     get$length(_) {
       var t1 = this._source;
       return t1.get$length(t1);
-    },
-    get$isEmpty(_) {
-      var t1 = this._source;
-      return t1.get$isEmpty(t1);
     }
   };
   A.CastMap_forEach_closure.prototype = {
@@ -8580,9 +8567,6 @@
     get$iterator(_) {
       var _this = this;
       return new A.ListIterator(_this, _this.get$length(_this), A._instanceType(_this)._eval$1("ListIterator<ListIterable.E>"));
-    },
-    get$isEmpty(_) {
-      return this.get$length(this) === 0;
     },
     contains$1(_, element) {
       var i, _this = this,
@@ -8765,9 +8749,6 @@
     get$length(_) {
       return J.get$length$asx(this.__internal$_iterable);
     },
-    get$isEmpty(_) {
-      return J.get$isEmpty$asx(this.__internal$_iterable);
-    },
     elementAt$1(_, index) {
       return this._f.call$1(J.elementAt$1$ax(this.__internal$_iterable, index));
     }
@@ -8945,9 +8926,6 @@
   A.EmptyIterable.prototype = {
     get$iterator(_) {
       return B.C_EmptyIterator;
-    },
-    get$isEmpty(_) {
-      return true;
     },
     get$length(_) {
       return 0;
@@ -9158,9 +9136,6 @@
     get$length(_) {
       return this.__js_helper$_length;
     },
-    get$isEmpty(_) {
-      return this.__js_helper$_length === 0;
-    },
     get$keys() {
       return new A.LinkedHashMapKeysIterable(this, A._instanceType(this)._eval$1("LinkedHashMapKeysIterable<1>"));
     },
@@ -9308,9 +9283,6 @@
     get$length(_) {
       return this._map.__js_helper$_length;
     },
-    get$isEmpty(_) {
-      return this._map.__js_helper$_length === 0;
-    },
     get$iterator(_) {
       var t1 = this._map;
       return new A.LinkedHashMapKeyIterator(t1, t1._modifications, t1._first, this.$ti._eval$1("LinkedHashMapKeyIterator<1>"));
@@ -9344,9 +9316,6 @@
     get$length(_) {
       return this._map.__js_helper$_length;
     },
-    get$isEmpty(_) {
-      return this._map.__js_helper$_length === 0;
-    },
     get$iterator(_) {
       var t1 = this._map;
       return new A.LinkedHashMapValueIterator(t1, t1._modifications, t1._first, this.$ti._eval$1("LinkedHashMapValueIterator<1>"));
@@ -9376,9 +9345,6 @@
   A.LinkedHashMapEntriesIterable.prototype = {
     get$length(_) {
       return this._map.__js_helper$_length;
-    },
-    get$isEmpty(_) {
-      return this._map.__js_helper$_length === 0;
     },
     get$iterator(_) {
       var t1 = this._map;
@@ -11683,9 +11649,6 @@
     get$length(_) {
       return this._collection$_length;
     },
-    get$isEmpty(_) {
-      return this._collection$_length === 0;
-    },
     get$keys() {
       return new A._HashMapKeyIterable(this, A._instanceType(this)._eval$1("_HashMapKeyIterable<1>"));
     },
@@ -11884,9 +11847,6 @@
     get$length(_) {
       return this._collection$_map._collection$_length;
     },
-    get$isEmpty(_) {
-      return this._collection$_map._collection$_length === 0;
-    },
     get$iterator(_) {
       var t1 = this._collection$_map;
       return new A._HashMapKeyIterator(t1, t1._computeKeys$0(), this.$ti._eval$1("_HashMapKeyIterator<1>"));
@@ -11931,9 +11891,6 @@
     elementAt$1(receiver, index) {
       return this.$index(receiver, index);
     },
-    get$isEmpty(receiver) {
-      return this.get$length(receiver) === 0;
-    },
     contains$1(receiver, element) {
       var i,
         $length = this.get$length(receiver);
@@ -11954,21 +11911,6 @@
     },
     take$1(receiver, count) {
       return A.SubListIterable$(receiver, 0, A.checkNotNullable(count, "count", type$.int), A.instanceType(receiver)._eval$1("ListBase.E"));
-    },
-    toList$1$growable(receiver, growable) {
-      var t1, first, result, i, _this = this;
-      if (_this.get$isEmpty(receiver)) {
-        t1 = J.JSArray_JSArray$growable(0, A.instanceType(receiver)._eval$1("ListBase.E"));
-        return t1;
-      }
-      first = _this.$index(receiver, 0);
-      result = A.List_List$filled(_this.get$length(receiver), first, true, A.instanceType(receiver)._eval$1("ListBase.E"));
-      for (i = 1; i < _this.get$length(receiver); ++i)
-        B.JSArray_methods.$indexSet(result, i, _this.$index(receiver, i));
-      return result;
-    },
-    toList$0(receiver) {
-      return this.toList$1$growable(receiver, true);
     },
     cast$1$0(receiver, $R) {
       return new A.CastList(receiver, A.instanceType(receiver)._eval$1("@<ListBase.E>")._bind$1($R)._eval$1("CastList<1,2>"));
@@ -12050,10 +11992,6 @@
       var t1 = this.get$keys();
       return t1.get$length(t1);
     },
-    get$isEmpty(_) {
-      var t1 = this.get$keys();
-      return t1.get$isEmpty(t1);
-    },
     get$values() {
       return new A._MapBaseValueIterable(this, A._instanceType(this)._eval$1("_MapBaseValueIterable<MapBase.K,MapBase.V>"));
     },
@@ -12081,10 +12019,6 @@
     get$length(_) {
       var t1 = this._collection$_map;
       return t1.get$length(t1);
-    },
-    get$isEmpty(_) {
-      var t1 = this._collection$_map;
-      return t1.get$isEmpty(t1);
     },
     get$iterator(_) {
       var t1 = this._collection$_map,
@@ -12124,9 +12058,6 @@
     },
     get$length(_) {
       return this._processed == null ? this._data.__js_helper$_length : this._convert$_computeKeys$0().length;
-    },
-    get$isEmpty(_) {
-      return this.get$length(0) === 0;
     },
     get$keys() {
       if (this._processed == null) {
@@ -15859,12 +15790,12 @@
           if (!(i < t6))
             return A.ioore(t4, i);
           t6 = t4[i];
-          t7 = new A.CodeUnits(source);
-          t8 = A._setArrayType([0], t5);
-          t9 = A.Uri_parse(t6);
-          t8 = new A.SourceFile(t9, t8, new Uint32Array(A._ensureNativeList(t7.toList$0(t7))));
-          t8.SourceFile$decoded$2$url(t7, t6);
-          B.JSArray_methods.$indexSet(t3, i, t8);
+          t7 = A._setArrayType([0], t5);
+          t8 = A.Uri_parse(t6);
+          t9 = source.length;
+          t7 = new A.SourceFile(t8, t7, new Uint32Array(t9));
+          t7.SourceFile$_fromList$2$url(new A.CodeUnits(source), t6);
+          B.JSArray_methods.$indexSet(t3, i, t7);
         }
         ++i;
       }
@@ -16127,23 +16058,27 @@
     get$length(_) {
       return this._decodedChars.length;
     },
-    SourceFile$decoded$2$url(decodedChars, url) {
-      var t1, t2, t3, i, c, j, t4;
-      for (t1 = this._decodedChars, t2 = t1.length, t3 = this._lineStarts, i = 0; i < t2; ++i) {
-        c = t1[i];
+    SourceFile$_fromList$2$url(decodedChars, url) {
+      var t1, t2, t3, t4, t5, t6, i, c, j, t7;
+      for (t1 = this._decodedChars, t2 = t1.length, t3 = decodedChars._string, t4 = t3.length, t5 = t1.$flags | 0, t6 = this._lineStarts, i = 0; i < t2; ++i) {
+        if (!(i < t4))
+          return A.ioore(t3, i);
+        c = t3.charCodeAt(i);
+        t5 & 2 && A.throwUnsupportedOperation(t1);
+        t1[i] = c;
         if (c === 13) {
           j = i + 1;
-          if (j < t2) {
-            if (!(j < t2))
-              return A.ioore(t1, j);
-            t4 = t1[j] !== 10;
+          if (j < t4) {
+            if (!(j < t4))
+              return A.ioore(t3, j);
+            t7 = t3.charCodeAt(j) !== 10;
           } else
-            t4 = true;
-          if (t4)
+            t7 = true;
+          if (t7)
             c = 10;
         }
         if (c === 10)
-          B.JSArray_methods.add$1(t3, i + 1);
+          B.JSArray_methods.add$1(t6, i + 1);
       }
     }
   };
