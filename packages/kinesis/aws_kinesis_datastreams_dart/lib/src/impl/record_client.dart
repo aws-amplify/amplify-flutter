@@ -4,8 +4,6 @@
 import 'dart:async';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
-import 'package:aws_kinesis_datastreams_dart/aws_kinesis_datastreams_dart.dart'
-    show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams_dart/src/amplify_kinesis_client.dart'
     show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_exception.dart'
