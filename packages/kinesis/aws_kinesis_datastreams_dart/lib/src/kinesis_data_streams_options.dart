@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:aws_kinesis_datastreams_dart/src/amplify_kinesis_client.dart'
     show AmplifyKinesisClient;
 import 'package:aws_kinesis_datastreams_dart/src/flush_strategy/flush_strategy.dart';
@@ -37,7 +36,6 @@ final class AmplifyKinesisClientOptions {
     this.maxRecords = kKinesisMaxRecordsPerBatch,
     this.maxRetries = 5,
     this.flushStrategy = const KinesisDataStreamsInterval(),
-    this.logger,
   }) {
     RangeError.checkValueInInterval(
       cacheMaxBytes,
@@ -102,7 +100,4 @@ final class AmplifyKinesisClientOptions {
   /// When using [KinesisDataStreamsInterval], the interval must be
   /// between 1 second and 1 hour.
   final KinesisDataStreamsFlushStrategy flushStrategy;
-
-  /// Optional logger for debug and error output.
-  final Logger? logger;
 }

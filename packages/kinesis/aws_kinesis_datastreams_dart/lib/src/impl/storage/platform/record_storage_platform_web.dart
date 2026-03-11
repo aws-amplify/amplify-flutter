@@ -8,8 +8,6 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_indexeddb.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_memory.dart';
-import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart'
-    show kKinesisMaxBatchBytes, kKinesisMaxRecordsPerBatch;
 
 /// Creates a web [RecordStorage] instance.
 ///
@@ -56,19 +54,12 @@ final class _WebRecordStorage extends RecordStorage {
   }
 
   @override
-  Future<void> saveRecord(RecordInput record) async =>
-      (await _delegate).saveRecord(record);
+  Future<void> addRecord(RecordInput record) async =>
+      (await _delegate).addRecord(record);
 
   @override
-  Future<Map<String, List<Record>>> getRecordsByStream({
-    Set<int> excludingIds = const {},
-    int maxCount = kKinesisMaxRecordsPerBatch,
-    int maxBytes = kKinesisMaxBatchBytes,
-  }) async => (await _delegate).getRecordsByStream(
-    excludingIds: excludingIds,
-    maxCount: maxCount,
-    maxBytes: maxBytes,
-  );
+  Future<Map<String, List<Record>>> getRecordsByStream() async =>
+      (await _delegate).getRecordsByStream();
 
   @override
   Future<void> deleteRecords(Iterable<int> ids) async =>
@@ -77,10 +68,6 @@ final class _WebRecordStorage extends RecordStorage {
   @override
   Future<void> incrementRetryCount(Iterable<int> ids) async =>
       (await _delegate).incrementRetryCount(ids);
-
-  @override
-  Future<int> getCurrentCacheSize() async =>
-      (await _delegate).getCurrentCacheSize();
 
   @override
   Future<int> getRecordCount() async => (await _delegate).getRecordCount();

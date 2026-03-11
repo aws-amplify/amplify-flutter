@@ -100,7 +100,6 @@ class AmplifyKinesisClient {
         maxRetries: _options.maxRetries,
       ),
       maxRetries: _options.maxRetries,
-      maxRecords: _options.maxRecords,
     );
 
     _scheduler = AutoFlushScheduler(

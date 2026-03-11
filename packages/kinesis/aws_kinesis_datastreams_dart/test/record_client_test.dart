@@ -376,58 +376,6 @@ void main() {
 
         expect(client.flush, throwsA(isA<Exception>()));
       });
-
-      test('respects batch size limits - 500 records', () async {
-        final largeDb = createTestDatabase();
-        final largeStorage = SqliteRecordStorage(
-          database: largeDb,
-          maxCacheBytes: 10 * 1024 * 1024,
-        );
-        final largeSender = MockKinesisSender();
-        final largeClient = RecordClient(
-          storage: largeStorage,
-          sender: largeSender,
-          maxRetries: 3,
-        );
-
-        for (var i = 0; i < 600; i++) {
-          await largeClient.record(
-            RecordInput.now(
-              data: Uint8List.fromList([i % 256]),
-              partitionKey: 'pk',
-              streamName: 'stream',
-            ),
-          );
-        }
-
-        // Mock: all records succeed
-        when(
-          () => largeSender.putRecords(
-            streamName: any(named: 'streamName'),
-            records: any(named: 'records'),
-          ),
-        ).thenAnswer((invocation) async {
-          final records =
-              invocation.namedArguments[#records] as List<Record>;
-          return PutRecordsResult(
-            successfulIds: records.map((r) => r.id).toList(),
-            retryableIds: [],
-            failedIds: [],
-          );
-        });
-
-        final result = await largeClient.flush();
-
-        verify(
-          () => largeSender.putRecords(
-            streamName: any(named: 'streamName'),
-            records: any(named: 'records'),
-          ),
-        ).called(2);
-        expect(result.recordsFlushed, equals(600));
-
-        await largeClient.close();
-      });
     });
 
     group('clearCache()', () {

@@ -26,9 +26,9 @@ void main() {
       return byStream.values.expand((r) => r).toList();
     }
 
-    group('saveRecord', () {
+    group('addRecord', () {
       test('saves and retrieves a record', () async {
-        await storage.saveRecord(
+        await storage.addRecord(
           RecordInput.now(
             data: Uint8List.fromList([1, 2, 3, 4, 5]),
             partitionKey: 'test-partition',
@@ -51,7 +51,7 @@ void main() {
     group('deleteRecords', () {
       test('removes correct records by ID', () async {
         for (var i = 0; i < 5; i++) {
-          await storage.saveRecord(
+          await storage.addRecord(
             RecordInput.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
@@ -73,7 +73,7 @@ void main() {
       });
 
       test('handles empty ID list gracefully', () async {
-        await storage.saveRecord(
+        await storage.addRecord(
           RecordInput.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
@@ -88,7 +88,7 @@ void main() {
 
     group('incrementRetryCount', () {
       test('increments retry count correctly', () async {
-        await storage.saveRecord(
+        await storage.addRecord(
           RecordInput.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
@@ -111,9 +111,9 @@ void main() {
 
     group('getRecordsByStream', () {
       test('returns records grouped by stream name', () async {
-        await storage.saveRecord(RecordInput.now(data: Uint8List.fromList([1]), partitionKey: 'pk', streamName: 'stream-a'));
-        await storage.saveRecord(RecordInput.now(data: Uint8List.fromList([2]), partitionKey: 'pk', streamName: 'stream-b'));
-        await storage.saveRecord(RecordInput.now(data: Uint8List.fromList([3]), partitionKey: 'pk', streamName: 'stream-a'));
+        await storage.addRecord(RecordInput.now(data: Uint8List.fromList([1]), partitionKey: 'pk', streamName: 'stream-a'));
+        await storage.addRecord(RecordInput.now(data: Uint8List.fromList([2]), partitionKey: 'pk', streamName: 'stream-b'));
+        await storage.addRecord(RecordInput.now(data: Uint8List.fromList([3]), partitionKey: 'pk', streamName: 'stream-a'));
 
         final result = await storage.getRecordsByStream();
         expect(result.keys, containsAll(['stream-a', 'stream-b']));
@@ -121,57 +121,23 @@ void main() {
         expect(result['stream-b'], hasLength(1));
       });
 
-      test('excludes specified IDs', () async {
-        await storage.saveRecord(RecordInput.now(data: Uint8List.fromList([1]), partitionKey: 'pk', streamName: 'stream'));
-        await storage.saveRecord(RecordInput.now(data: Uint8List.fromList([2]), partitionKey: 'pk', streamName: 'stream'));
-
-        final allRecords = await getAllRecords();
-        final result = await storage.getRecordsByStream(excludingIds: {allRecords.first.id});
-        expect(result['stream'], hasLength(1));
-        expect(result['stream']!.first.id, equals(allRecords.last.id));
-      });
-
       test('returns empty map when no records', () async {
         final result = await storage.getRecordsByStream();
         expect(result, isEmpty);
       });
 
-      test('respects maxCount per stream', () async {
-        for (var i = 0; i < 5; i++) {
-          await storage.saveRecord(RecordInput.now(data: Uint8List.fromList([i]), partitionKey: 'pk-$i', streamName: 'stream'));
-        }
-        final result = await storage.getRecordsByStream(maxCount: 3);
-        expect(result['stream'], hasLength(3));
-      });
-    });
-
-    group('getCurrentCacheSize', () {
-      test('returns accurate sum of data sizes', () async {
-        await storage.saveRecord(RecordInput.now(data: Uint8List(100), partitionKey: 'pk-1', streamName: 'stream'));
-        await storage.saveRecord(RecordInput.now(data: Uint8List(200), partitionKey: 'pk-2', streamName: 'stream'));
-        await storage.saveRecord(RecordInput.now(data: Uint8List(50), partitionKey: 'pk-3', streamName: 'stream'));
-
-        final size = await storage.getCurrentCacheSize();
-        // dataSize includes partition key: (100+4) + (200+4) + (50+4) = 362
-        expect(size, equals(362));
-      });
-
-      test('returns 0 for empty storage', () async {
-        expect(await storage.getCurrentCacheSize(), equals(0));
-      });
     });
 
     group('clearRecords', () {
       test('removes all records', () async {
         for (var i = 0; i < 5; i++) {
-          await storage.saveRecord(RecordInput.now(data: Uint8List.fromList([i]), partitionKey: 'pk-$i', streamName: 'stream'));
+          await storage.addRecord(RecordInput.now(data: Uint8List.fromList([i]), partitionKey: 'pk-$i', streamName: 'stream'));
         }
         expect(await getAllRecords(), hasLength(5));
 
         await storage.clearRecords();
 
         expect(await getAllRecords(), isEmpty);
-        expect(await storage.getCurrentCacheSize(), equals(0));
       });
     });
 
@@ -179,7 +145,7 @@ void main() {
       test('returns correct count', () async {
         expect(await storage.getRecordCount(), equals(0));
         for (var i = 0; i < 3; i++) {
-          await storage.saveRecord(RecordInput.now(data: Uint8List.fromList([i]), partitionKey: 'pk-$i', streamName: 'stream'));
+          await storage.addRecord(RecordInput.now(data: Uint8List.fromList([i]), partitionKey: 'pk-$i', streamName: 'stream'));
         }
         expect(await storage.getRecordCount(), equals(3));
       });

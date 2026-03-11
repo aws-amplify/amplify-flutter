@@ -533,17 +533,24 @@ void main() {
           expect(result, isA<Ok<void>>());
         }
 
+        // Single-pass flush: the storage limits each stream to 500 records
+        // and 10 MiB. With ~51 KB per record, ~195 fit in the first batch.
+        // The remainder is picked up in the second flush cycle.
         final flush1 = await largeClient.flush();
         expect(flush1, isA<Ok<FlushData>>());
-        expect(
-          (flush1 as Ok<FlushData>).value.recordsFlushed,
-          equals(recordCount),
-        );
+        final flushed1 = (flush1 as Ok<FlushData>).value.recordsFlushed;
+        expect(flushed1, greaterThan(0));
 
-        // Second flush: nothing left
         final flush2 = await largeClient.flush();
         expect(flush2, isA<Ok<FlushData>>());
-        expect((flush2 as Ok<FlushData>).value.recordsFlushed, equals(0));
+        final flushed2 = (flush2 as Ok<FlushData>).value.recordsFlushed;
+
+        expect(flushed1 + flushed2, equals(recordCount));
+
+        // Third flush: nothing left
+        final flush3 = await largeClient.flush();
+        expect(flush3, isA<Ok<FlushData>>());
+        expect((flush3 as Ok<FlushData>).value.recordsFlushed, equals(0));
       } finally {
         await largeClient.clearCache();
         await largeClient.close();
