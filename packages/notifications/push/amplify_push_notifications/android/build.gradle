@@ -51,7 +51,7 @@ android {
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
-        testImplementation 'org.mockito:mockito-core:5.21.0'
+        testImplementation 'org.mockito:mockito-core:5.22.0'
 
     }
 
@@ -67,11 +67,11 @@ android {
 dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
     
-    implementation(platform("com.google.firebase:firebase-bom:34.9.0"))
+    implementation(platform("com.google.firebase:firebase-bom:34.10.0"))
     api "com.google.firebase:firebase-messaging"
 
     // Import support library for Amplify push utils
-    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.33.0'
+    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.34.0'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0"
     implementation project(path: ':flutter_plugin_android_lifecycle')
     implementation 'androidx.test:core-ktx:1.7.0'

@@ -448,9 +448,6 @@
     get$hashCode$(receiver) {
       return J.getInterceptor$(receiver).get$hashCode(receiver);
     },
-    get$isEmpty$asx(receiver) {
-      return J.getInterceptor$asx(receiver).get$isEmpty(receiver);
-    },
     get$iterator$ax(receiver) {
       return J.getInterceptor$ax(receiver).get$iterator(receiver);
     },
@@ -582,6 +579,9 @@
     },
     LateError$fieldNI(fieldName) {
       return new A.LateError("Field '" + fieldName + "' has not been initialized.");
+    },
+    LateError$fieldAI(fieldName) {
+      return new A.LateError("Field '" + fieldName + "' has already been initialized.");
     },
     hexDigitValue(char) {
       var letter,
@@ -6760,11 +6760,6 @@
     ProcessStartMode: function ProcessStartMode(t0) {
       this._mode = t0;
     },
-    ProcessResult: function ProcessResult(t0, t1, t2) {
-      this.exitCode = t0;
-      this.stdout = t1;
-      this.stderr = t2;
-    },
     ProcessException: function ProcessException(t0, t1, t2) {
       this.executable = t0;
       this.$arguments = t1;
@@ -7022,14 +7017,6 @@
     NodeProcessManager: function NodeProcessManager(t0) {
       this._activeProcesses = t0;
     },
-    NodeProcessManager_run_closure: function NodeProcessManager_run_closure(t0, t1) {
-      this.echoOutput = t0;
-      this.stdout = t1;
-    },
-    NodeProcessManager_run_closure0: function NodeProcessManager_run_closure0(t0, t1) {
-      this.echoOutput = t0;
-      this.stderr = t1;
-    },
     NodeProcess: function NodeProcess(t0, t1, t2, t3, t4, t5) {
       var _ = this;
       _.executable = t0;
@@ -7046,11 +7033,11 @@
     NodeProcess__init_closure0: function NodeProcess__init_closure0(t0) {
       this.$this = t0;
     },
-    ShellScript_run(_this) {
+    ShellScript__run(_this, running) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
         fullScript, t1;
-      var $async$ShellScript_run = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+      var $async$ShellScript__run = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
         for (;;)
@@ -7061,18 +7048,28 @@
               t1 = init.G;
               A._asJSObject(t1.core).info("Running script:\n" + fullScript + "\n=======================================");
               $async$goto = 2;
-              return A._asyncAwait(A.FileSystem_withTempDir(A._asJSObject(t1.fs), "shell_script", new A.ShellScript_run_closure(fullScript, _this), type$.Null), $async$ShellScript_run);
+              return A._asyncAwait(A.FileSystem_withTempDir(A._asJSObject(t1.fs), "shell_script", new A.ShellScript__run_closure(fullScript, running, _this), type$.Null), $async$ShellScript__run);
             case 2:
               // returning from await.
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
       });
-      return A._asyncStartSync($async$ShellScript_run, $async$completer);
+      return A._asyncStartSync($async$ShellScript__run, $async$completer);
     },
-    ShellScript_run_closure: function ShellScript_run_closure(t0, t1) {
+    ShellScript__run_closure: function ShellScript__run_closure(t0, t1, t2) {
       this.fullScript = t0;
-      this._this = t1;
+      this.running = t1;
+      this._this = t2;
+    },
+    ShellScript__run__closure: function ShellScript__run__closure(t0) {
+      this.stdout = t0;
+    },
+    ShellScript__run__closure0: function ShellScript__run__closure0(t0) {
+      this.stderr = t0;
+    },
+    RunningScript: function RunningScript() {
+      this.__RunningScript__future_F = $;
     },
     unreachable() {
       return A.throwExpression(new A._UnreachableError());
@@ -7992,7 +7989,7 @@
     _runTestsWithTimeout$body(attempt, script, timeout) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$._AttemptResult),
-        $async$returnValue, $async$handler = 2, $async$errorStack = [], timeoutFuture, duration, e, st, duration0, e0, st0, duration1, t2, exception, t1, startTime, $async$exception;
+        $async$returnValue, $async$handler = 2, $async$errorStack = [], timeoutFuture, duration, e, st, duration0, e0, st0, duration1, t2, running, t3, exception, t1, startTime, $async$exception;
       var $async$_runTestsWithTimeout = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1) {
           $async$errorStack.push($async$result);
@@ -8008,8 +8005,12 @@
               t2 = type$.Null;
               timeoutFuture = A.Future_Future$delayed(timeout, type$.void).then$1$1(new A._runTestsWithTimeout_closure(t1, attempt, timeout), t2);
               $async$handler = 4;
+              running = new A.RunningScript();
+              t3 = A.ShellScript__run(script, running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t3;
               $async$goto = 7;
-              return A._asyncAwait(A.Future_any(A._setArrayType([A.ShellScript_run(script).then$1$1(new A._runTestsWithTimeout_closure0(t1, timeout), t2), timeoutFuture.then$1$1(new A._runTestsWithTimeout_closure1(attempt, timeout), type$.Never)], type$.JSArray_Future_Null), t2), $async$_runTestsWithTimeout);
+              return A._asyncAwait(A.Future_any(A._setArrayType([t3.then$1$1(new A._runTestsWithTimeout_closure0(t1, timeout), t2), timeoutFuture.then$1$1(new A._runTestsWithTimeout_closure1(attempt, timeout), type$.Never)], type$.JSArray_Future_Null), t2), $async$_runTestsWithTimeout);
             case 7:
               // returning from await.
               duration = new A.DateTime(Date.now(), 0, false).difference$1(startTime);
@@ -8099,7 +8100,7 @@
     _cleanupSimulator() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$handler = 1, $async$errorStack = [], e, e0, e1, e2, e3, exception, t1, $async$exception, $async$exception1, $async$exception2, $async$exception3, $async$exception4;
+        $async$handler = 1, $async$errorStack = [], e, e0, e1, e2, e3, running, t2, exception, t1, $async$exception, $async$exception1, $async$exception2, $async$exception3, $async$exception4;
       var $async$_cleanupSimulator = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1) {
           $async$errorStack.push($async$result);
@@ -8112,8 +8113,12 @@
               t1 = init.G;
               A._asJSObject(t1.core).info('Step 1/5: Shutting down "test" simulator...');
               $async$handler = 3;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("xcrun simctl shutdown test 2>/dev/null", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 6;
-              return A._asyncAwait(A.ShellScript_run("xcrun simctl shutdown test 2>/dev/null"), $async$_cleanupSimulator);
+              return A._asyncAwait(t2, $async$_cleanupSimulator);
             case 6:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 Simulator shutdown completed");
@@ -8139,8 +8144,12 @@
               // after finally
               A._asJSObject(t1.core).info('Step 2/5: Erasing "test" simulator content...');
               $async$handler = 8;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("xcrun simctl erase test 2>/dev/null", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 11;
-              return A._asyncAwait(A.ShellScript_run("xcrun simctl erase test 2>/dev/null"), $async$_cleanupSimulator);
+              return A._asyncAwait(t2, $async$_cleanupSimulator);
             case 11:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 Simulator content erased");
@@ -8166,8 +8175,12 @@
               // after finally
               A._asJSObject(t1.core).info("Step 3/5: Killing Simulator.app processes...");
               $async$handler = 13;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("pkill -9 Simulator 2>/dev/null", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 16;
-              return A._asyncAwait(A.ShellScript_run("pkill -9 Simulator 2>/dev/null"), $async$_cleanupSimulator);
+              return A._asyncAwait(t2, $async$_cleanupSimulator);
             case 16:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 Simulator.app kill completed");
@@ -8193,8 +8206,12 @@
               // after finally
               A._asJSObject(t1.core).info("Step 4/5: Killing launchd_sim processes...");
               $async$handler = 18;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("pkill -9 launchd_sim 2>/dev/null", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 21;
-              return A._asyncAwait(A.ShellScript_run("pkill -9 launchd_sim 2>/dev/null"), $async$_cleanupSimulator);
+              return A._asyncAwait(t2, $async$_cleanupSimulator);
             case 21:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 launchd_sim kill completed");
@@ -8225,8 +8242,12 @@
               // returning from await.
               A._asJSObject(t1.core).info("Step 5/5: Checking available disk space...");
               $async$handler = 24;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("df -h . | tail -1", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 27;
-              return A._asyncAwait(A.ShellScript_run("df -h . | tail -1"), $async$_cleanupSimulator);
+              return A._asyncAwait(t2, $async$_cleanupSimulator);
             case 27:
               // returning from await.
               $async$handler = 1;
@@ -8410,6 +8431,9 @@
     },
     throwLateFieldNI(fieldName) {
       throw A.initializeExceptionWrapper(A.LateError$fieldNI(fieldName), new Error());
+    },
+    throwLateFieldAI(fieldName) {
+      throw A.initializeExceptionWrapper(A.LateError$fieldAI(fieldName), new Error());
     },
     throwLateFieldADI(fieldName) {
       throw A.initializeExceptionWrapper(A.LateError$fieldADI(fieldName), new Error());
@@ -8889,9 +8913,6 @@
           return true;
       return false;
     },
-    get$isEmpty(receiver) {
-      return receiver.length === 0;
-    },
     toString$0(receiver) {
       return A.Iterable_iterableToFullString(receiver, "[", "]");
     },
@@ -9311,9 +9332,6 @@
     get$length(_) {
       return J.get$length$asx(this.get$_source());
     },
-    get$isEmpty(_) {
-      return J.get$isEmpty$asx(this.get$_source());
-    },
     skip$1(_, count) {
       var t1 = A._instanceType(this);
       return A.CastIterable_CastIterable(J.skip$1$ax(this.get$_source(), count), t1._precomputed1, t1._rest[1]);
@@ -9431,9 +9449,6 @@
     get$iterator(_) {
       var _this = this;
       return new A.ListIterator(_this, _this.get$length(_this), A._instanceType(_this)._eval$1("ListIterator<ListIterable.E>"));
-    },
-    get$isEmpty(_) {
-      return this.get$length(this) === 0;
     },
     contains$1(_, element) {
       var i, _this = this,
@@ -9616,9 +9631,6 @@
     get$length(_) {
       return J.get$length$asx(this.__internal$_iterable);
     },
-    get$isEmpty(_) {
-      return J.get$isEmpty$asx(this.__internal$_iterable);
-    },
     elementAt$1(_, index) {
       return this._f.call$1(J.elementAt$1$ax(this.__internal$_iterable, index));
     }
@@ -9796,9 +9808,6 @@
   A.EmptyIterable.prototype = {
     get$iterator(_) {
       return B.C_EmptyIterator;
-    },
-    get$isEmpty(_) {
-      return true;
     },
     get$length(_) {
       return 0;
@@ -10153,9 +10162,6 @@
     get$length(_) {
       return this.__js_helper$_map.__js_helper$_length;
     },
-    get$isEmpty(_) {
-      return this.__js_helper$_map.__js_helper$_length === 0;
-    },
     get$iterator(_) {
       var t1 = this.__js_helper$_map;
       return new A.LinkedHashMapKeyIterator(t1, t1._modifications, t1._first, this.$ti._eval$1("LinkedHashMapKeyIterator<1>"));
@@ -10188,9 +10194,6 @@
   A.LinkedHashMapValuesIterable.prototype = {
     get$length(_) {
       return this.__js_helper$_map.__js_helper$_length;
-    },
-    get$isEmpty(_) {
-      return this.__js_helper$_map.__js_helper$_length === 0;
     },
     get$iterator(_) {
       var t1 = this.__js_helper$_map;
@@ -12774,9 +12777,6 @@
     get$length(_) {
       return this._map._collection$_length;
     },
-    get$isEmpty(_) {
-      return this._map._collection$_length === 0;
-    },
     get$iterator(_) {
       var t1 = this._map;
       return new A._HashMapKeyIterator(t1, t1._computeKeys$0(), this.$ti._eval$1("_HashMapKeyIterator<1>"));
@@ -12821,9 +12821,6 @@
     elementAt$1(receiver, index) {
       return this.$index(receiver, index);
     },
-    get$isEmpty(receiver) {
-      return this.get$length(receiver) === 0;
-    },
     contains$1(receiver, element) {
       var i,
         $length = this.get$length(receiver);
@@ -12844,21 +12841,6 @@
     },
     take$1(receiver, count) {
       return A.SubListIterable$(receiver, 0, A.checkNotNullable(count, "count", type$.int), A.instanceType(receiver)._eval$1("ListBase.E"));
-    },
-    toList$1$growable(receiver, growable) {
-      var t1, first, result, i, _this = this;
-      if (_this.get$isEmpty(receiver)) {
-        t1 = J.JSArray_JSArray$growable(0, A.instanceType(receiver)._eval$1("ListBase.E"));
-        return t1;
-      }
-      first = _this.$index(receiver, 0);
-      result = A.List_List$filled(_this.get$length(receiver), first, true, A.instanceType(receiver)._eval$1("ListBase.E"));
-      for (i = 1; i < _this.get$length(receiver); ++i)
-        B.JSArray_methods.$indexSet(result, i, _this.$index(receiver, i));
-      return result;
-    },
-    toList$0(receiver) {
-      return this.toList$1$growable(receiver, true);
     },
     cast$1$0(receiver, $R) {
       return new A.CastList(receiver, A.instanceType(receiver)._eval$1("@<ListBase.E>")._bind$1($R)._eval$1("CastList<1,2>"));
@@ -12970,7 +12952,7 @@
         return null;
       else {
         result = t1[key];
-        return typeof result == "undefined" ? this._process$1(key) : result;
+        return typeof result == "undefined" ? this._convert$_process$1(key) : result;
       }
     },
     get$length(_) {
@@ -13012,7 +12994,7 @@
         keys = this._convert$_data = A._setArrayType(Object.keys(this._original), type$.JSArray_String);
       return keys;
     },
-    _process$1(key) {
+    _convert$_process$1(key) {
       var result;
       if (!Object.prototype.hasOwnProperty.call(this._original, key))
         return null;
@@ -15109,7 +15091,6 @@
       return B.List_3Rp[t1];
     }
   };
-  A.ProcessResult.prototype = {};
   A.ProcessException.prototype = {
     toString$0(_) {
       return "ProcessException: " + this.message + "\n  Command: " + this.executable + " " + B.JSArray_methods.join$1(this.$arguments, " ");
@@ -15230,7 +15211,7 @@
       });
       return A._asyncStartSync($async$call$2, $async$completer);
     },
-    $signature: 31
+    $signature: 34
   };
   A.wrapMain__closure.prototype = {
     call$0() {
@@ -15379,87 +15360,14 @@
     $signature: 30
   };
   A.NodeProcessManager.prototype = {
-    run$2$echoOutput(command, echoOutput) {
-      return this.run$body$NodeProcessManager(type$.List_Object._as(command), echoOutput);
+    start$2$mode(command, mode) {
+      return this.start$body$NodeProcessManager(type$.List_Object._as(command), mode);
     },
-    run$body$NodeProcessManager(command, echoOutput) {
-      var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.ProcessResult),
-        $async$returnValue, $async$handler = 2, $async$errorStack = [], $async$next = [], $async$self = this, stdoutSub, stderrSub, exitCode, process, pid, stdout, stderr, t1, t2;
-      var $async$run$2$echoOutput = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1) {
-          $async$errorStack.push($async$result);
-          $async$goto = $async$handler;
-        }
-        for (;;)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              $async$goto = 3;
-              return A._asyncAwait($async$self.start$7$environment$includeParentEnvironment$mode$pipe$runInShell$workingDirectory(command, null, true, B.ProcessStartMode_0, null, false, null), $async$run$2$echoOutput);
-            case 3:
-              // returning from await.
-              process = $async$result;
-              pid = process.get$pid();
-              stdout = new A.StringBuffer("");
-              stderr = new A.StringBuffer("");
-              t1 = process._stdout;
-              t2 = A._instanceType(t1)._eval$1("_ControllerStream<1>");
-              t1 = t2._eval$1("StreamTransformer<Stream.T,String>")._as(B.Utf8Decoder_true).bind$1(new A._ControllerStream(t1, t2));
-              stdoutSub = t1.$ti._eval$1("StreamTransformer<Stream.T,String>")._as(B.C_LineSplitter).bind$1(t1).listen$1(new A.NodeProcessManager_run_closure(echoOutput, stdout));
-              t1 = process._stderr;
-              t2 = A._instanceType(t1)._eval$1("_ControllerStream<1>");
-              t1 = t2._eval$1("StreamTransformer<Stream.T,String>")._as(B.Utf8Decoder_true).bind$1(new A._ControllerStream(t1, t2));
-              stderrSub = t1.$ti._eval$1("StreamTransformer<Stream.T,String>")._as(B.C_LineSplitter).bind$1(t1).listen$1(new A.NodeProcessManager_run_closure0(echoOutput, stderr));
-              $async$handler = 4;
-              $async$goto = 7;
-              return A._asyncAwait(process.get$exitCode(), $async$run$2$echoOutput);
-            case 7:
-              // returning from await.
-              exitCode = $async$result;
-              t1 = stdout._contents;
-              t2 = stderr._contents;
-              $async$returnValue = new A.ProcessResult(exitCode, t1.charCodeAt(0) == 0 ? t1 : t1, t2.charCodeAt(0) == 0 ? t2 : t2);
-              $async$next = [1];
-              // goto finally
-              $async$goto = 5;
-              break;
-              $async$next.push(6);
-              // goto finally
-              $async$goto = 5;
-              break;
-            case 4:
-              // uncaught
-              $async$next = [2];
-            case 5:
-              // finally
-              $async$handler = 2;
-              t1 = type$.void;
-              A.FutureExtensions_ignore(stdoutSub.cancel$0(), t1);
-              A.FutureExtensions_ignore(stderrSub.cancel$0(), t1);
-              // goto the next finally handler
-              $async$goto = $async$next.pop();
-              break;
-            case 6:
-              // after finally
-            case 1:
-              // return
-              return A._asyncReturn($async$returnValue, $async$completer);
-            case 2:
-              // rethrow
-              return A._asyncRethrow($async$errorStack.at(-1), $async$completer);
-          }
-      });
-      return A._asyncStartSync($async$run$2$echoOutput, $async$completer);
-    },
-    start$7$environment$includeParentEnvironment$mode$pipe$runInShell$workingDirectory(command, environment, includeParentEnvironment, mode, pipe, runInShell, workingDirectory) {
-      return this.start$body$NodeProcessManager(type$.List_Object._as(command), environment, true, mode, pipe, false, workingDirectory);
-    },
-    start$body$NodeProcessManager(command, environment, includeParentEnvironment, mode, pipe, runInShell, workingDirectory) {
+    start$body$NodeProcessManager(command, mode) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Process),
-        $async$returnValue, $async$self = this, executable, args, nodeProcess, t1, _0_0, t2;
-      var $async$start$7$environment$includeParentEnvironment$mode$pipe$runInShell$workingDirectory = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        $async$returnValue, $async$self = this, executable, args, jsProcess, nodeProcess, t1, _0_0, t2;
+      var $async$start$2$mode = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
         for (;;)
@@ -15479,13 +15387,17 @@
               if (!t2)
                 throw A.wrapException(A.StateError$("Pattern matching error"));
               t1 = A._asJSObject(init.G.childProcess);
-              t2 = type$.List_int;
-              nodeProcess = new A.NodeProcess(executable, args, A.ChildProcess_spawn(t1, executable, args, environment, true, mode, false, null, workingDirectory), A.StreamController_StreamController(true, t2), A.StreamController_StreamController(true, t2), A.StreamController_StreamController(true, t2));
+              jsProcess = A.ChildProcess_spawn(t1, executable, args, null, true, mode, false, null, null);
+              t1 = type$.List_int;
+              nodeProcess = new A.NodeProcess(executable, args, jsProcess, A.StreamController_StreamController(true, t1), A.StreamController_StreamController(true, t1), A.StreamController_StreamController(true, t1));
               $async$goto = 3;
-              return A._asyncAwait(nodeProcess._init$0(), $async$start$7$environment$includeParentEnvironment$mode$pipe$runInShell$workingDirectory);
+              return A._asyncAwait(nodeProcess._init$0(), $async$start$2$mode);
             case 3:
               // returning from await.
-              $async$self._activeProcesses.$indexSet(0, nodeProcess.get$pid(), nodeProcess);
+              t1 = A._asIntQ(jsProcess.pid);
+              if (t1 == null)
+                t1 = -1;
+              $async$self._activeProcesses.$indexSet(0, t1, nodeProcess);
               $async$returnValue = nodeProcess;
               // goto return
               $async$goto = 1;
@@ -15495,7 +15407,7 @@
               return A._asyncReturn($async$returnValue, $async$completer);
           }
       });
-      return A._asyncStartSync($async$start$7$environment$includeParentEnvironment$mode$pipe$runInShell$workingDirectory, $async$completer);
+      return A._asyncStartSync($async$start$2$mode, $async$completer);
     },
     close$0() {
       var $async$goto = 0,
@@ -15518,24 +15430,6 @@
       });
       return A._asyncStartSync($async$close$0, $async$completer);
     }
-  };
-  A.NodeProcessManager_run_closure.prototype = {
-    call$1(line) {
-      A._asString(line);
-      if (this.echoOutput)
-        A._asJSObject(init.G.core).info(line);
-      this.stdout._contents += line + "\n";
-    },
-    $signature: 25
-  };
-  A.NodeProcessManager_run_closure0.prototype = {
-    call$1(line) {
-      A._asString(line);
-      if (this.echoOutput)
-        A._asJSObject(init.G.core).info(line);
-      this.stderr._contents += line + "\n";
-    },
-    $signature: 25
   };
   A.NodeProcess.prototype = {
     _init$0() {
@@ -15602,12 +15496,11 @@
                 break;
               }
               $async$goto = 3;
-              return A._asyncAwait(A.Future_any(A._setArrayType([A.EventEmitter_once(t1, "close", type$.nullable_Object), A.EventEmitter_once(t1, "error", type$.JSObject), A.EventEmitter_once(t1, "exit", type$.double)], type$.JSArray_Future_void), type$.void), $async$get$exitCode);
+              return A._asyncAwait(A.Future_any(A._setArrayType([A.EventEmitter_once(t1, "close", type$.nullable_Object), A.EventEmitter_once(t1, "error", type$.JSObject), A.EventEmitter_once(t1, "exit", type$.nullable_double)], type$.JSArray_Future_void), type$.void), $async$get$exitCode);
             case 3:
               // returning from await.
               t1 = A._asIntQ(t1.exitCode);
-              t1.toString;
-              $async$returnValue = t1;
+              $async$returnValue = t1 == null ? -1 : t1;
               // goto return
               $async$goto = 1;
               break;
@@ -15617,10 +15510,6 @@
           }
       });
       return A._asyncStartSync($async$get$exitCode, $async$completer);
-    },
-    get$pid() {
-      var t1 = A._asIntQ(this._jsProcess.pid);
-      return t1 == null ? -1 : t1;
     },
     close$0() {
       var $async$goto = 0,
@@ -15674,23 +15563,25 @@
       type$.List_int._as(chunk);
       this._box_0.stdin.write(new Uint8Array(A._ensureNativeList(chunk)));
     },
-    $signature: 32
+    $signature: 31
   };
   A.NodeProcess__init_closure0.prototype = {
     call$1(error) {
       var t1 = this.$this;
       return A.throwExpression(A.ProcessException$(t1.executable, t1.$arguments, "Error spawning subprocess: " + A.S(A._asJSObject(error)), 0));
     },
-    $signature: 33
+    $signature: 32
   };
-  A.ShellScript_run_closure.prototype = {
+  A.ShellScript__run_closure.prototype = {
     call$1(tempDir) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$self = this, result, t1, scriptPath;
+        $async$handler = 1, $async$errorStack = [], $async$next = [], $async$self = this, process, stdout, stderr, stdoutSub, stderrSub, exitCode, t1, t2, scriptPath;
       var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
+        if ($async$errorCode === 1) {
+          $async$errorStack.push($async$result);
+          $async$goto = $async$handler;
+        }
         for (;;)
           switch ($async$goto) {
             case 0:
@@ -15698,20 +15589,80 @@
               scriptPath = A.join(tempDir, "script.sh");
               A._asJSObject(init.G.fs).writeFileSync(scriptPath, $async$self.fullScript);
               $async$goto = 2;
-              return A._asyncAwait($.$get$processManager().run$2$echoOutput(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), true), $async$call$1);
+              return A._asyncAwait($.$get$processManager().start$2$mode(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), B.ProcessStartMode_0), $async$call$1);
             case 2:
               // returning from await.
-              result = $async$result;
-              t1 = result.exitCode;
-              if (t1 !== 0)
-                throw A.wrapException(A.ProcessException$("/bin/bash", A._setArrayType([$async$self._this], type$.JSArray_String), result.stdout + "\n" + result.stderr, t1));
+              process = $async$result;
+              $async$self.running.set$_process(process);
+              stdout = new A.StringBuffer("");
+              stderr = new A.StringBuffer("");
+              t1 = process._stdout;
+              t2 = A._instanceType(t1)._eval$1("_ControllerStream<1>");
+              t1 = t2._eval$1("StreamTransformer<Stream.T,String>")._as(B.Utf8Decoder_true).bind$1(new A._ControllerStream(t1, t2));
+              stdoutSub = t1.$ti._eval$1("StreamTransformer<Stream.T,String>")._as(B.C_LineSplitter).bind$1(t1).listen$1(new A.ShellScript__run__closure(stdout));
+              t1 = process._stderr;
+              t2 = A._instanceType(t1)._eval$1("_ControllerStream<1>");
+              t1 = t2._eval$1("StreamTransformer<Stream.T,String>")._as(B.Utf8Decoder_true).bind$1(new A._ControllerStream(t1, t2));
+              stderrSub = t1.$ti._eval$1("StreamTransformer<Stream.T,String>")._as(B.C_LineSplitter).bind$1(t1).listen$1(new A.ShellScript__run__closure0(stderr));
+              $async$handler = 3;
+              $async$goto = 6;
+              return A._asyncAwait(process.get$exitCode(), $async$call$1);
+            case 6:
+              // returning from await.
+              exitCode = $async$result;
+              if (!J.$eq$(exitCode, 0)) {
+                t1 = A.ProcessException$("/bin/bash", A._setArrayType([$async$self._this], type$.JSArray_String), A.S(stdout) + "\n" + A.S(stderr), exitCode);
+                throw A.wrapException(t1);
+              }
+              $async$next.push(5);
+              // goto finally
+              $async$goto = 4;
+              break;
+            case 3:
+              // uncaught
+              $async$next = [1];
+            case 4:
+              // finally
+              $async$handler = 1;
+              t1 = type$.void;
+              A.FutureExtensions_ignore(stdoutSub.cancel$0(), t1);
+              A.FutureExtensions_ignore(stderrSub.cancel$0(), t1);
+              // goto the next finally handler
+              $async$goto = $async$next.pop();
+              break;
+            case 5:
+              // after finally
               // implicit return
               return A._asyncReturn(null, $async$completer);
+            case 1:
+              // rethrow
+              return A._asyncRethrow($async$errorStack.at(-1), $async$completer);
           }
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 34
+    $signature: 33
+  };
+  A.ShellScript__run__closure.prototype = {
+    call$1(line) {
+      A._asString(line);
+      A._asJSObject(init.G.core).info(line);
+      this.stdout._contents += line + "\n";
+    },
+    $signature: 25
+  };
+  A.ShellScript__run__closure0.prototype = {
+    call$1(line) {
+      A._asString(line);
+      A._asJSObject(init.G.core).info(line);
+      this.stderr._contents += line + "\n";
+    },
+    $signature: 25
+  };
+  A.RunningScript.prototype = {
+    set$_process(_process) {
+      type$.nullable_Process._as(_process);
+    }
   };
   A._UnreachableError.prototype = {};
   A.StreamForward_forward_closure.prototype = {
@@ -16822,12 +16773,12 @@
           if (!(i < t6))
             return A.ioore(t4, i);
           t6 = t4[i];
-          t7 = new A.CodeUnits(source);
-          t8 = A._setArrayType([0], t5);
-          t9 = A.Uri_parse(t6);
-          t8 = new A.SourceFile(t9, t8, new Uint32Array(A._ensureNativeList(t7.toList$0(t7))));
-          t8.SourceFile$decoded$2$url(t7, t6);
-          B.JSArray_methods.$indexSet(t3, i, t8);
+          t7 = A._setArrayType([0], t5);
+          t8 = A.Uri_parse(t6);
+          t9 = source.length;
+          t7 = new A.SourceFile(t8, t7, new Uint32Array(t9));
+          t7.SourceFile$_fromList$2$url(new A.CodeUnits(source), t6);
+          B.JSArray_methods.$indexSet(t3, i, t7);
         }
         ++i;
       }
@@ -17090,23 +17041,27 @@
     get$length(_) {
       return this._decodedChars.length;
     },
-    SourceFile$decoded$2$url(decodedChars, url) {
-      var t1, t2, t3, i, c, j, t4;
-      for (t1 = this._decodedChars, t2 = t1.length, t3 = this._lineStarts, i = 0; i < t2; ++i) {
-        c = t1[i];
+    SourceFile$_fromList$2$url(decodedChars, url) {
+      var t1, t2, t3, t4, t5, t6, i, c, j, t7;
+      for (t1 = this._decodedChars, t2 = t1.length, t3 = decodedChars.__internal$_string, t4 = t3.length, t5 = t1.$flags | 0, t6 = this._lineStarts, i = 0; i < t2; ++i) {
+        if (!(i < t4))
+          return A.ioore(t3, i);
+        c = t3.charCodeAt(i);
+        t5 & 2 && A.throwUnsupportedOperation(t1);
+        t1[i] = c;
         if (c === 13) {
           j = i + 1;
-          if (j < t2) {
-            if (!(j < t2))
-              return A.ioore(t1, j);
-            t4 = t1[j] !== 10;
+          if (j < t4) {
+            if (!(j < t4))
+              return A.ioore(t3, j);
+            t7 = t3.charCodeAt(j) !== 10;
           } else
-            t4 = true;
-          if (t4)
+            t7 = true;
+          if (t7)
             c = 10;
         }
         if (c === 10)
-          B.JSArray_methods.add$1(t3, i + 1);
+          B.JSArray_methods.add$1(t6, i + 1);
       }
     }
   };
@@ -18195,7 +18150,7 @@
       _inherit = hunkHelpers.inherit,
       _inheritMany = hunkHelpers.inheritMany;
     _inherit(A.Object, null);
-    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, A.SafeToStringHook, J.ArrayIterator, A.Iterable, A.CastIterator, A.MapBase, A.Closure, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A._Record, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.LinkedHashMapValueIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._UnmodifiableNativeByteBufferView, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A.AsyncError, A.TimeoutException, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A.StreamTransformerBase, A._StreamController, A._SyncStreamControllerDispatch, A._BufferingStreamSubscription, A._StreamSinkWrapper, A._AddStreamState, A._DelayedEvent, A._DelayedDone, A._PendingEvents, A._StreamIterator, A._EventSinkWrapper, A._ZoneFunction, A._Zone, A._ZoneDelegate, A._ZoneSpecification, A._HashMapKeyIterator, A.StringConversionSink, A.Codec, A.Converter, A._Base64Encoder, A.ByteConversionSink, A._ConverterStreamEventSink, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Expando, A._StreamSinkImpl, A.ProcessStartMode, A.ProcessResult, A.ProcessException, A.NullRejectionException, A.ActionContext, A.ExecResult, A.NodeProcessManager, A.NodeProcess, A.Context, A._PathDirection, A._PathRelation, A.Style, A.ParsedPath, A.PathException, A.Mapping, A.TargetLineEntry, A.TargetEntry, A._MappingTokenizer, A._TokenKind, A.SourceSpanMixin, A.SourceFile, A.SourceLocation, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.StackZoneSpecification, A._Node, A.Trace, A.UnparsedFrame, A._AttemptResult]);
+    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, A.SafeToStringHook, J.ArrayIterator, A.Iterable, A.CastIterator, A.MapBase, A.Closure, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A._Record, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.LinkedHashMapValueIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._UnmodifiableNativeByteBufferView, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A.AsyncError, A.TimeoutException, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A.StreamTransformerBase, A._StreamController, A._SyncStreamControllerDispatch, A._BufferingStreamSubscription, A._StreamSinkWrapper, A._AddStreamState, A._DelayedEvent, A._DelayedDone, A._PendingEvents, A._StreamIterator, A._EventSinkWrapper, A._ZoneFunction, A._Zone, A._ZoneDelegate, A._ZoneSpecification, A._HashMapKeyIterator, A.StringConversionSink, A.Codec, A.Converter, A._Base64Encoder, A.ByteConversionSink, A._ConverterStreamEventSink, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Expando, A._StreamSinkImpl, A.ProcessStartMode, A.ProcessException, A.NullRejectionException, A.ActionContext, A.ExecResult, A.NodeProcessManager, A.NodeProcess, A.RunningScript, A.Context, A._PathDirection, A._PathRelation, A.Style, A.ParsedPath, A.PathException, A.Mapping, A.TargetLineEntry, A.TargetEntry, A._MappingTokenizer, A._TokenKind, A.SourceSpanMixin, A.SourceFile, A.SourceLocation, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.StackZoneSpecification, A._Node, A.Trace, A.UnparsedFrame, A._AttemptResult]);
     _inheritMany(J.Interceptor, [J.JSBool, J.JSNull, J.JavaScriptObject, J.JavaScriptBigInt, J.JavaScriptSymbol, J.JSNumber, J.JSString]);
     _inheritMany(J.JavaScriptObject, [J.LegacyJavaScriptObject, J.JSArray, A.NativeByteBuffer, A.NativeTypedData]);
     _inheritMany(J.LegacyJavaScriptObject, [J.PlainJavaScriptObject, J.UnknownJavaScriptObject, J.JavaScriptFunction]);
@@ -18208,7 +18163,7 @@
     _inherit(A._CastListBase, A.__CastListBase__CastIterableBase_ListMixin);
     _inherit(A.CastList, A._CastListBase);
     _inheritMany(A.MapBase, [A.CastMap, A.JsLinkedHashMap, A._HashMap, A._JsonMap]);
-    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.Exec_exec_closure, A.Exec_exec_closure0, A.Exec_exec_closure1, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.ShellScript_run_closure, A.StreamForward_forward_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A._runTestsWithTimeout_closure, A._runTestsWithTimeout_closure0, A._runTestsWithTimeout_closure1, A.getRuntimeId_closure]);
+    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.Exec_exec_closure, A.Exec_exec_closure0, A.Exec_exec_closure1, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.ShellScript__run_closure, A.ShellScript__run__closure, A.ShellScript__run__closure0, A.StreamForward_forward_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A._runTestsWithTimeout_closure, A._runTestsWithTimeout_closure0, A._runTestsWithTimeout_closure1, A.getRuntimeId_closure]);
     _inheritMany(A.Closure2Args, [A.CastMap_forEach_closure, A.JsLinkedHashMap_addAll_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A.Future_wait_handleError, A.Future_any_onError, A._Future__propagateToListeners_handleWhenCompleteCallback_closure0, A.HashMap_HashMap$from_closure, A.MapBase_mapToString_closure, A.Uri_parseIPv6Address_error, A._StreamSinkImpl__controller_closure0, A.wrapMain_closure0, A.StreamForward_forward_closure1, A.SingleMapping$fromJson_closure, A.Frame_Frame$parseV8_closure_parseJsLocation, A.StackZoneSpecification__registerBinaryCallback_closure]);
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A.RuntimeError, A._Error, A.AssertionError, A.ArgumentError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError]);
     _inherit(A.UnmodifiableListBase, A.ListBase);
@@ -18278,7 +18233,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List", Object: "Object", Map: "Map", JSObject: "JSObject"},
     mangledNames: {},
-    types: ["~()", "bool(String)", "Future<~>()", "~(Object,StackTrace)", "Frame()", "Trace()", "Frame(String)", "Null()", "~(@)", "String(String)", "~(~())", "Null(@)", "~(NativeUint8List)", "~(Object?)", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "@()", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "Future<ExecResult>()", "String(Frame)", "Future<String?>()", "int(Frame)", "Null(~)", "String(Match)", "Null(Object,StackTrace)", "~(String)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "Trace(String)", "List<Frame>(Trace)", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "Future<~>(Object,Chain)", "~(List<int>)", "0&(JSObject)", "Future<Null>(String)", "Future<0&>()", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "Object?(Object?)", "~(String,@)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "Null(@,@)", "~([@])", "int(Trace)", "~(@,StackTrace?)", "String(Trace)", "0&(String,int?)", "_LineSplitterEventSink(EventSink<String>)", "Frame(String,String)", "0^(0^,0^)<num>", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "~(Object?,Object?)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "~(@,@)", "Chain()", "~(int,@)", "Future<_AttemptResult>()", "Null(@,StackTrace)", "~(JSObject)", "0&(Object?)", "bool(Map<String,Object?>)", "Future<Null>()", "@(String)", "Future<0^>([0^/?])<Object?>", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "int(String{onError:int(String)?,radix:int?})", "@(@,String)", "@(@)", "Null(~())"],
+    types: ["~()", "bool(String)", "Future<~>()", "~(Object,StackTrace)", "Frame()", "Trace()", "Frame(String)", "Null()", "~(@)", "String(String)", "~(~())", "Null(@)", "~(NativeUint8List)", "~(Object?)", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "@()", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "Future<ExecResult>()", "String(Frame)", "Future<String?>()", "int(Frame)", "Null(~)", "String(Match)", "Null(Object,StackTrace)", "~(String)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "Trace(String)", "List<Frame>(Trace)", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "~(List<int>)", "0&(JSObject)", "Future<Null>(String)", "Future<~>(Object,Chain)", "Future<0&>()", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "Object?(Object?)", "~(String,@)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "Null(@,@)", "~([@])", "int(Trace)", "~(@,StackTrace?)", "String(Trace)", "0&(String,int?)", "_LineSplitterEventSink(EventSink<String>)", "Frame(String,String)", "0^(0^,0^)<num>", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "~(Object?,Object?)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "~(@,@)", "Chain()", "~(int,@)", "Future<_AttemptResult>()", "Null(@,StackTrace)", "~(JSObject)", "0&(Object?)", "bool(Map<String,Object?>)", "Future<Null>()", "@(String)", "Future<0^>([0^/?])<Object?>", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "int(String{onError:int(String)?,radix:int?})", "@(@,String)", "@(@)", "Null(~())"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti"),
@@ -18362,7 +18317,6 @@
       Null: findType("Null"),
       Object: findType("Object"),
       Process: findType("Process"),
-      ProcessResult: findType("ProcessResult"),
       RangeError: findType("RangeError"),
       Record: findType("Record"),
       Record_0: findType("+()"),
@@ -18425,6 +18379,7 @@
       nullable_Map_dynamic_dynamic: findType("Map<@,@>?"),
       nullable_Map_of_nullable_Object_and_nullable_Object: findType("Map<Object?,Object?>?"),
       nullable_Object: findType("Object?"),
+      nullable_Process: findType("Process?"),
       nullable_SourceFile: findType("SourceFile?"),
       nullable_StackTrace: findType("StackTrace?"),
       nullable_String: findType("String?"),

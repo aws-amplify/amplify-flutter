@@ -215,7 +215,8 @@ final class NodeProcess implements Process, Closeable {
       _jsProcess.onError,
       _jsProcess.onExit,
     ]);
-    return _jsProcess.exitCode!;
+    // exitCode can be null when the process was killed
+    return _jsProcess.exitCode ?? -1;
   }
 
   @override

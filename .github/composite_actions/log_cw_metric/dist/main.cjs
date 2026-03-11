@@ -14670,12 +14670,11 @@
                 break;
               }
               $async$goto = 3;
-              return A._asyncAwait(A.Future_any(A._setArrayType([A.EventEmitter_once(t1, "close", type$.nullable_Object), A.EventEmitter_once(t1, "error", type$.JSObject), A.EventEmitter_once(t1, "exit", type$.double)], type$.JSArray_Future_void), type$.void), $async$get$exitCode);
+              return A._asyncAwait(A.Future_any(A._setArrayType([A.EventEmitter_once(t1, "close", type$.nullable_Object), A.EventEmitter_once(t1, "error", type$.JSObject), A.EventEmitter_once(t1, "exit", type$.nullable_double)], type$.JSArray_Future_void), type$.void), $async$get$exitCode);
             case 3:
               // returning from await.
               t1 = A._asIntQ(t1.exitCode);
-              t1.toString;
-              $async$returnValue = t1;
+              $async$returnValue = t1 == null ? -1 : t1;
               // goto return
               $async$goto = 1;
               break;

@@ -448,9 +448,6 @@
     get$hashCode$(receiver) {
       return J.getInterceptor$(receiver).get$hashCode(receiver);
     },
-    get$isEmpty$asx(receiver) {
-      return J.getInterceptor$asx(receiver).get$isEmpty(receiver);
-    },
     get$iterator$ax(receiver) {
       return J.getInterceptor$ax(receiver).get$iterator(receiver);
     },
@@ -588,6 +585,9 @@
     },
     LateError$fieldNI(fieldName) {
       return new A.LateError("Field '" + fieldName + "' has not been initialized.");
+    },
+    LateError$fieldAI(fieldName) {
+      return new A.LateError("Field '" + fieldName + "' has already been initialized.");
     },
     hexDigitValue(char) {
       var letter,
@@ -3558,12 +3558,12 @@
       return A._TimerImpl$(milliseconds < 0 ? 0 : milliseconds, callback);
     },
     _TimerImpl$(milliseconds, callback) {
-      var t1 = new A._TimerImpl();
+      var t1 = new A._TimerImpl(true);
       t1._TimerImpl$2(milliseconds, callback);
       return t1;
     },
     _TimerImpl$periodic(milliseconds, callback) {
-      var t1 = new A._TimerImpl();
+      var t1 = new A._TimerImpl(false);
       t1._TimerImpl$periodic$2(milliseconds, callback);
       return t1;
     },
@@ -3699,9 +3699,6 @@
     },
     FutureExtensions_ignore(_this, $T) {
       _this._ignore$0();
-    },
-    TimeoutException$(message, duration) {
-      return new A.TimeoutException(message, duration);
     },
     _interceptError(error, stackTrace) {
       var replacement, t1, t2,
@@ -4155,7 +4152,9 @@
     _AsyncRun__scheduleImmediateWithSetImmediate_internalCallback: function _AsyncRun__scheduleImmediateWithSetImmediate_internalCallback(t0) {
       this.callback = t0;
     },
-    _TimerImpl: function _TimerImpl() {
+    _TimerImpl: function _TimerImpl(t0) {
+      this._once = t0;
+      this._handle = null;
       this._tick = 0;
     },
     _TimerImpl_internalCallback: function _TimerImpl_internalCallback(t0, t1) {
@@ -4284,6 +4283,19 @@
     _Future__propagateToListeners_handleError: function _Future__propagateToListeners_handleError(t0, t1) {
       this._box_1 = t0;
       this._box_0 = t1;
+    },
+    _Future_timeout_closure: function _Future_timeout_closure(t0, t1) {
+      this._future = t0;
+      this.timeLimit = t1;
+    },
+    _Future_timeout_closure0: function _Future_timeout_closure0(t0, t1, t2) {
+      this._box_0 = t0;
+      this.$this = t1;
+      this._future = t2;
+    },
+    _Future_timeout_closure1: function _Future_timeout_closure1(t0, t1) {
+      this._box_0 = t0;
+      this._future = t1;
     },
     _AsyncCallbackEntry: function _AsyncCallbackEntry(t0) {
       this.callback = t0;
@@ -7198,11 +7210,11 @@
       this.index = t0;
       this._name = t1;
     },
-    ShellScript_run(_this) {
+    ShellScript__run(_this, running) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
         fullScript, t1;
-      var $async$ShellScript_run = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+      var $async$ShellScript__run = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
         for (;;)
@@ -7213,18 +7225,29 @@
               t1 = init.G;
               A._asJSObject(t1.core).info("Running script:\n" + fullScript + "\n=======================================");
               $async$goto = 2;
-              return A._asyncAwait(A.FileSystem_withTempDir(A._asJSObject(t1.fs), "shell_script", new A.ShellScript_run_closure(fullScript, _this), type$.Null), $async$ShellScript_run);
+              return A._asyncAwait(A.FileSystem_withTempDir(A._asJSObject(t1.fs), "shell_script", new A.ShellScript__run_closure(fullScript, running, _this), type$.Null), $async$ShellScript__run);
             case 2:
               // returning from await.
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
       });
-      return A._asyncStartSync($async$ShellScript_run, $async$completer);
+      return A._asyncStartSync($async$ShellScript__run, $async$completer);
     },
-    ShellScript_run_closure: function ShellScript_run_closure(t0, t1) {
+    ShellScript__run_closure: function ShellScript__run_closure(t0, t1, t2) {
       this.fullScript = t0;
-      this._this = t1;
+      this.running = t1;
+      this._this = t2;
+    },
+    ShellScript__run__closure: function ShellScript__run__closure(t0) {
+      this.stdout = t0;
+    },
+    ShellScript__run__closure0: function ShellScript__run__closure0(t0) {
+      this.stderr = t0;
+    },
+    RunningScript: function RunningScript() {
+      this._process = null;
+      this.__RunningScript__future_F = $;
     },
     unreachable() {
       return A.throwExpression(new A._UnreachableError());
@@ -8081,7 +8104,7 @@
     _runTestsWithTimeout$body(attempt, script, timeout) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$._AttemptResult),
-        $async$returnValue, $async$handler = 2, $async$errorStack = [], timeoutFuture, duration, e, st, duration0, e0, st0, duration1, t2, exception, t1, startTime, $async$exception;
+        $async$returnValue, $async$handler = 2, $async$errorStack = [], runningScript, duration, e, st, duration0, e0, st0, duration1, exception, startTime, running, t1, $async$exception;
       var $async$_runTestsWithTimeout = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1) {
           $async$errorStack.push($async$result);
@@ -8091,14 +8114,17 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              t1 = {};
               startTime = new A.DateTime(Date.now(), 0, false);
-              t1.timedOut = false;
-              t2 = type$.Null;
-              timeoutFuture = A.Future_Future$delayed(timeout, type$.void).then$1$1(new A._runTestsWithTimeout_closure(t1, attempt, timeout), t2);
+              running = new A.RunningScript();
+              t1 = A.ShellScript__run(script, running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t1;
+              runningScript = running;
               $async$handler = 4;
+              t1 = runningScript.__RunningScript__future_F;
+              t1 === $ && A.throwLateFieldNI("_future");
               $async$goto = 7;
-              return A._asyncAwait(A.Future_any(A._setArrayType([A.ShellScript_run(script).then$1$1(new A._runTestsWithTimeout_closure0(t1, timeout), t2), timeoutFuture.then$1$1(new A._runTestsWithTimeout_closure1(attempt, timeout), type$.Never)], type$.JSArray_Future_Null), t2), $async$_runTestsWithTimeout);
+              return A._asyncAwait(t1.timeout$1(timeout), $async$_runTestsWithTimeout);
             case 7:
               // returning from await.
               duration = new A.DateTime(Date.now(), 0, false).difference$1(startTime);
@@ -8115,21 +8141,31 @@
               // catch
               $async$handler = 3;
               $async$exception = $async$errorStack.pop();
-              t2 = A.unwrapException($async$exception);
-              if (t2 instanceof A.TimeoutException) {
-                e = t2;
+              t1 = A.unwrapException($async$exception);
+              if (t1 instanceof A.TimeoutException) {
+                e = t1;
                 st = A.getTraceFromException($async$exception);
+                t1 = A._asJSObject(init.G.core);
+                t1.warning("");
+                t1.warning(string$.u23f0_____);
+                t1.warning("\u23f0  TIMEOUT REACHED FOR ATTEMPT " + attempt);
+                t1.warning("\u23f0  Attempt exceeded " + B.JSInt_methods._tdivFast$1(timeout._duration, 60000000) + " minute limit");
+                t1.warning("\u23f0  Time: " + new A.DateTime(Date.now(), 0, false).toUtc$0().toIso8601String$0());
+                t1.warning("\u23f0  Killing test process...");
+                t1.warning(string$.u23f0_____);
+                t1.warning("");
+                runningScript.kill$0();
                 duration0 = new A.DateTime(Date.now(), 0, false).difference$1(startTime);
                 $async$returnValue = new A._AttemptResult(false, true, e, st);
                 // goto return
                 $async$goto = 1;
                 break;
               } else {
-                e0 = t2;
+                e0 = t1;
                 st0 = A.getTraceFromException($async$exception);
+                runningScript.kill$0();
                 duration1 = new A.DateTime(Date.now(), 0, false).difference$1(startTime);
-                t1 = t1.timedOut;
-                $async$returnValue = new A._AttemptResult(false, t1, e0, st0);
+                $async$returnValue = new A._AttemptResult(false, false, e0, st0);
                 // goto return
                 $async$goto = 1;
                 break;
@@ -8188,7 +8224,7 @@
     _cleanupEmulator() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$handler = 1, $async$errorStack = [], e, e0, e1, e2, e3, exception, t1, $async$exception, $async$exception1, $async$exception2, $async$exception3, $async$exception4;
+        $async$handler = 1, $async$errorStack = [], e, e0, e1, e2, e3, e4, running, t2, exception, t1, $async$exception, $async$exception1, $async$exception2, $async$exception3, $async$exception4, $async$exception5;
       var $async$_cleanupEmulator = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1) {
           $async$errorStack.push($async$result);
@@ -8199,10 +8235,14 @@
             case 0:
               // Function start
               t1 = init.G;
-              A._asJSObject(t1.core).info("Step 1/5: Killing emulator via adb emu kill...");
+              A._asJSObject(t1.core).info("Step 1/6: Killing emulator via adb emu kill...");
               $async$handler = 3;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("adb emu kill 2>/dev/null || true", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 6;
-              return A._asyncAwait(A.ShellScript_run("adb emu kill 2>/dev/null || true"), $async$_cleanupEmulator);
+              return A._asyncAwait(t2, $async$_cleanupEmulator);
             case 6:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 adb emu kill completed");
@@ -8226,10 +8266,14 @@
               break;
             case 5:
               // after finally
-              A._asJSObject(t1.core).info("Step 2/5: Killing qemu-system processes...");
+              A._asJSObject(t1.core).info("Step 2/6: Killing qemu-system processes...");
               $async$handler = 8;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("pkill -9 qemu-system 2>/dev/null || true", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 11;
-              return A._asyncAwait(A.ShellScript_run("pkill -9 qemu-system 2>/dev/null || true"), $async$_cleanupEmulator);
+              return A._asyncAwait(t2, $async$_cleanupEmulator);
             case 11:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 qemu-system kill completed");
@@ -8253,10 +8297,14 @@
               break;
             case 10:
               // after finally
-              A._asJSObject(t1.core).info("Step 3/5: Killing emulator processes...");
+              A._asJSObject(t1.core).info("Step 3/6: Killing emulator processes...");
               $async$handler = 13;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("pkill -9 emulator 2>/dev/null || true", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 16;
-              return A._asyncAwait(A.ShellScript_run("pkill -9 emulator 2>/dev/null || true"), $async$_cleanupEmulator);
+              return A._asyncAwait(t2, $async$_cleanupEmulator);
             case 16:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 emulator kill completed");
@@ -8280,10 +8328,14 @@
               break;
             case 15:
               // after finally
-              A._asJSObject(t1.core).info("Step 4/5: Stopping adb server...");
+              A._asJSObject(t1.core).info("Step 4/6: Stopping adb server...");
               $async$handler = 18;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("adb kill-server 2>/dev/null || true", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 21;
-              return A._asyncAwait(A.ShellScript_run("adb kill-server 2>/dev/null || true"), $async$_cleanupEmulator);
+              return A._asyncAwait(t2, $async$_cleanupEmulator);
             case 21:
               // returning from await.
               A._asJSObject(t1.core).info("   \u2713 adb kill-server completed");
@@ -8312,12 +8364,17 @@
               return A._asyncAwait(A.Future_Future$delayed(B.Duration_10000000, type$.void), $async$_cleanupEmulator);
             case 22:
               // returning from await.
-              A._asJSObject(t1.core).info("Step 5/5: Checking available disk space...");
+              A._asJSObject(t1.core).info('Step 5/6: Deleting AVD "test" to free disk space...');
               $async$handler = 24;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run('      echo "Existing AVDs before deletion:"\n      avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"\n\n      avdmanager delete avd -n test 2>/dev/null || echo "  AVD \'test\' not found or already deleted"\n\n      echo "Remaining AVDs after deletion:"\n      avdmanager list avd -c 2>/dev/null || echo "  Failed to list AVDs"\n    ', running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
               $async$goto = 27;
-              return A._asyncAwait(A.ShellScript_run("df -h . | tail -1"), $async$_cleanupEmulator);
+              return A._asyncAwait(t2, $async$_cleanupEmulator);
             case 27:
               // returning from await.
+              A._asJSObject(t1.core).info('   \u2713 AVD "test" deleted');
               $async$handler = 1;
               // goto after finally
               $async$goto = 26;
@@ -8327,7 +8384,7 @@
               $async$handler = 23;
               $async$exception4 = $async$errorStack.pop();
               e3 = A.unwrapException($async$exception4);
-              A._asJSObject(t1.core).warning("   \u26a0 Failed to check disk space: " + A.S(e3));
+              A._asJSObject(t1.core).warning("   \u26a0 Failed to delete AVD: " + A.S(e3));
               // goto after finally
               $async$goto = 26;
               break;
@@ -8337,6 +8394,36 @@
               $async$goto = 1;
               break;
             case 26:
+              // after finally
+              A._asJSObject(t1.core).info("Step 6/6: Checking available disk space...");
+              $async$handler = 29;
+              running = new A.RunningScript();
+              t2 = A.ShellScript__run("df -h . | tail -1", running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t2;
+              $async$goto = 32;
+              return A._asyncAwait(t2, $async$_cleanupEmulator);
+            case 32:
+              // returning from await.
+              $async$handler = 1;
+              // goto after finally
+              $async$goto = 31;
+              break;
+            case 29:
+              // catch
+              $async$handler = 28;
+              $async$exception5 = $async$errorStack.pop();
+              e4 = A.unwrapException($async$exception5);
+              A._asJSObject(t1.core).warning("   \u26a0 Failed to check disk space: " + A.S(e4));
+              // goto after finally
+              $async$goto = 31;
+              break;
+            case 28:
+              // uncaught
+              // goto rethrow
+              $async$goto = 1;
+              break;
+            case 31:
               // after finally
               A._asJSObject(t1.core).info("\u2705 Cleanup complete");
               // implicit return
@@ -8360,19 +8447,6 @@
       _.error = t2;
       _.stackTrace = t3;
     },
-    _runTestsWithTimeout_closure: function _runTestsWithTimeout_closure(t0, t1, t2) {
-      this._box_0 = t0;
-      this.attempt = t1;
-      this.timeout = t2;
-    },
-    _runTestsWithTimeout_closure0: function _runTestsWithTimeout_closure0(t0, t1) {
-      this._box_0 = t0;
-      this.timeout = t1;
-    },
-    _runTestsWithTimeout_closure1: function _runTestsWithTimeout_closure1(t0, t1) {
-      this.attempt = t0;
-      this.timeout = t1;
-    },
     printString(string) {
       if (typeof dartPrint == "function") {
         dartPrint(string);
@@ -8390,6 +8464,9 @@
     },
     throwLateFieldNI(fieldName) {
       throw A.initializeExceptionWrapper(A.LateError$fieldNI(fieldName), new Error());
+    },
+    throwLateFieldAI(fieldName) {
+      throw A.initializeExceptionWrapper(A.LateError$fieldAI(fieldName), new Error());
     },
     throwLateFieldADI(fieldName) {
       throw A.initializeExceptionWrapper(A.LateError$fieldADI(fieldName), new Error());
@@ -9009,9 +9086,6 @@
           return true;
       return false;
     },
-    get$isEmpty(receiver) {
-      return receiver.length === 0;
-    },
     toString$0(receiver) {
       return A.Iterable_iterableToFullString(receiver, "[", "]");
     },
@@ -9439,9 +9513,6 @@
     get$length(_) {
       return J.get$length$asx(this.get$_source());
     },
-    get$isEmpty(_) {
-      return J.get$isEmpty$asx(this.get$_source());
-    },
     skip$1(_, count) {
       var t1 = A._instanceType(this);
       return A.CastIterable_CastIterable(J.skip$1$ax(this.get$_source(), count), t1._precomputed1, t1._rest[1]);
@@ -9559,9 +9630,6 @@
     get$iterator(_) {
       var _this = this;
       return new A.ListIterator(_this, _this.get$length(_this), A._instanceType(_this)._eval$1("ListIterator<ListIterable.E>"));
-    },
-    get$isEmpty(_) {
-      return this.get$length(this) === 0;
     },
     contains$1(_, element) {
       var i, _this = this,
@@ -9744,9 +9812,6 @@
     get$length(_) {
       return J.get$length$asx(this.__internal$_iterable);
     },
-    get$isEmpty(_) {
-      return J.get$isEmpty$asx(this.__internal$_iterable);
-    },
     elementAt$1(_, index) {
       return this._f.call$1(J.elementAt$1$ax(this.__internal$_iterable, index));
     }
@@ -9924,9 +9989,6 @@
   A.EmptyIterable.prototype = {
     get$iterator(_) {
       return B.C_EmptyIterator;
-    },
-    get$isEmpty(_) {
-      return true;
     },
     get$length(_) {
       return 0;
@@ -10281,9 +10343,6 @@
     get$length(_) {
       return this._map.__js_helper$_length;
     },
-    get$isEmpty(_) {
-      return this._map.__js_helper$_length === 0;
-    },
     get$iterator(_) {
       var t1 = this._map;
       return new A.LinkedHashMapKeyIterator(t1, t1._modifications, t1._first, this.$ti._eval$1("LinkedHashMapKeyIterator<1>"));
@@ -10317,9 +10376,6 @@
     get$length(_) {
       return this._map.__js_helper$_length;
     },
-    get$isEmpty(_) {
-      return this._map.__js_helper$_length === 0;
-    },
     get$iterator(_) {
       var t1 = this._map;
       return new A.LinkedHashMapValueIterator(t1, t1._modifications, t1._first, this.$ti._eval$1("LinkedHashMapValueIterator<1>"));
@@ -10350,19 +10406,19 @@
     call$1(o) {
       return this.getTag(o);
     },
-    $signature: 29
+    $signature: 45
   };
   A.initHooks_closure0.prototype = {
     call$2(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 57
+    $signature: 29
   };
   A.initHooks_closure1.prototype = {
     call$1(tag) {
       return this.prototypeForTag(A._asString(tag));
     },
-    $signature: 67
+    $signature: 32
   };
   A._Record.prototype = {
     toString$0(_) {
@@ -10869,7 +10925,7 @@
       t1.storedCallback = null;
       f.call$0();
     },
-    $signature: 12
+    $signature: 13
   };
   A._AsyncRun__initializeScheduleImmediate_closure.prototype = {
     call$1(callback) {
@@ -10879,7 +10935,7 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 34
+    $signature: 72
   };
   A._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0() {
@@ -10896,21 +10952,36 @@
   A._TimerImpl.prototype = {
     _TimerImpl$2(milliseconds, callback) {
       if (self.setTimeout != null)
-        self.setTimeout(A.convertDartClosureToJS(new A._TimerImpl_internalCallback(this, callback), 0), milliseconds);
+        this._handle = self.setTimeout(A.convertDartClosureToJS(new A._TimerImpl_internalCallback(this, callback), 0), milliseconds);
       else
         throw A.wrapException(A.UnsupportedError$("`setTimeout()` not found."));
     },
     _TimerImpl$periodic$2(milliseconds, callback) {
       if (self.setTimeout != null)
-        self.setInterval(A.convertDartClosureToJS(new A._TimerImpl$periodic_closure(this, milliseconds, Date.now(), callback), 0), milliseconds);
+        this._handle = self.setInterval(A.convertDartClosureToJS(new A._TimerImpl$periodic_closure(this, milliseconds, Date.now(), callback), 0), milliseconds);
       else
         throw A.wrapException(A.UnsupportedError$("Periodic timer."));
+    },
+    cancel$0() {
+      if (self.setTimeout != null) {
+        var t1 = this._handle;
+        if (t1 == null)
+          return;
+        if (this._once)
+          self.clearTimeout(t1);
+        else
+          self.clearInterval(t1);
+        this._handle = null;
+      } else
+        throw A.wrapException(A.UnsupportedError$("Canceling a timer."));
     },
     $isTimer: 1
   };
   A._TimerImpl_internalCallback.prototype = {
     call$0() {
-      this.$this._tick = 1;
+      var t1 = this.$this;
+      t1._handle = null;
+      t1._tick = 1;
       this.callback.call$0();
     },
     $signature: 0
@@ -10967,13 +11038,13 @@
     call$2(error, stackTrace) {
       this.bodyFunction.call$2(1, new A.ExceptionAndStackTrace(error, type$.StackTrace._as(stackTrace)));
     },
-    $signature: 30
+    $signature: 52
   };
   A._wrapJsFunctionForAsync_closure.prototype = {
     call$2(errorCode, result) {
       this.$protected(A._asInt(errorCode), result);
     },
-    $signature: 32
+    $signature: 62
   };
   A.AsyncError.prototype = {
     toString$0(_) {
@@ -11338,6 +11409,19 @@
       this._state ^= 2;
       this._zone.scheduleMicrotask$1(new A._Future__asyncCompleteErrorObject_closure(this, error));
     },
+    timeout$1(timeLimit) {
+      var _future, _this = this, t1 = {};
+      if ((_this._state & 24) !== 0) {
+        t1 = new A._Future($.Zone__current, _this.$ti);
+        t1._asyncComplete$1(_this);
+        return t1;
+      }
+      _future = new A._Future($.Zone__current, _this.$ti);
+      t1.timer = null;
+      t1.timer = A.Timer_Timer(timeLimit, new A._Future_timeout_closure(_future, timeLimit));
+      _this.then$1$2$onError(new A._Future_timeout_closure0(t1, _this, _future), new A._Future_timeout_closure1(t1, _future), type$.Null);
+      return _future;
+    },
     $isFuture: 1
   };
   A._Future__addListener_closure.prototype = {
@@ -11417,7 +11501,7 @@
     call$1(__wc0_formal) {
       this.joinedResult._completeWithResultOf$1(this.originalSource);
     },
-    $signature: 12
+    $signature: 13
   };
   A._Future__propagateToListeners_handleWhenCompleteCallback_closure0.prototype = {
     call$2(e, s) {
@@ -11425,7 +11509,7 @@
       type$.StackTrace._as(s);
       this.joinedResult._completeErrorObject$1(new A.AsyncError(e, s));
     },
-    $signature: 20
+    $signature: 14
   };
   A._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0() {
@@ -11482,6 +11566,40 @@
       }
     },
     $signature: 0
+  };
+  A._Future_timeout_closure.prototype = {
+    call$0() {
+      var t1 = A.StackTrace_current();
+      this._future._completeErrorObject$1(new A.AsyncError(new A.TimeoutException("Future not completed", this.timeLimit), t1));
+    },
+    $signature: 0
+  };
+  A._Future_timeout_closure0.prototype = {
+    call$1(v) {
+      var t1;
+      this.$this.$ti._precomputed1._as(v);
+      t1 = this._box_0.timer;
+      if (t1._handle != null) {
+        t1.cancel$0();
+        this._future._completeWithValue$1(v);
+      }
+    },
+    $signature() {
+      return this.$this.$ti._eval$1("Null(1)");
+    }
+  };
+  A._Future_timeout_closure1.prototype = {
+    call$2(e, s) {
+      var t1;
+      A._asObject(e);
+      type$.StackTrace._as(s);
+      t1 = this._box_0.timer;
+      if (t1._handle != null) {
+        t1.cancel$0();
+        this._future._completeErrorObject$1(new A.AsyncError(e, s));
+      }
+    },
+    $signature: 14
   };
   A._AsyncCallbackEntry.prototype = {};
   A.Stream.prototype = {
@@ -12902,9 +13020,6 @@
     get$length(_) {
       return this._collection$_map._collection$_length;
     },
-    get$isEmpty(_) {
-      return this._collection$_map._collection$_length === 0;
-    },
     get$iterator(_) {
       var t1 = this._collection$_map;
       return new A._HashMapKeyIterator(t1, t1._computeKeys$0(), this.$ti._eval$1("_HashMapKeyIterator<1>"));
@@ -12940,7 +13055,7 @@
     call$2(k, v) {
       this.result.$indexSet(0, this.K._as(k), this.V._as(v));
     },
-    $signature: 74
+    $signature: 34
   };
   A.ListBase.prototype = {
     get$iterator(receiver) {
@@ -12948,9 +13063,6 @@
     },
     elementAt$1(receiver, index) {
       return this.$index(receiver, index);
-    },
-    get$isEmpty(receiver) {
-      return this.get$length(receiver) === 0;
     },
     contains$1(receiver, element) {
       var i,
@@ -12972,21 +13084,6 @@
     },
     take$1(receiver, count) {
       return A.SubListIterable$(receiver, 0, A.checkNotNullable(count, "count", type$.int), A.instanceType(receiver)._eval$1("ListBase.E"));
-    },
-    toList$1$growable(receiver, growable) {
-      var t1, first, result, i, _this = this;
-      if (_this.get$isEmpty(receiver)) {
-        t1 = J.JSArray_JSArray$growable(0, A.instanceType(receiver)._eval$1("ListBase.E"));
-        return t1;
-      }
-      first = _this.$index(receiver, 0);
-      result = A.List_List$filled(_this.get$length(receiver), first, true, A.instanceType(receiver)._eval$1("ListBase.E"));
-      for (i = 1; i < _this.get$length(receiver); ++i)
-        B.JSArray_methods.$indexSet(result, i, _this.$index(receiver, i));
-      return result;
-    },
-    toList$0(receiver) {
-      return this.toList$1$growable(receiver, true);
     },
     cast$1$0(receiver, $R) {
       return new A.CastList(receiver, A.instanceType(receiver)._eval$1("@<ListBase.E>")._bind$1($R)._eval$1("CastList<1,2>"));
@@ -13086,7 +13183,7 @@
       t2 = A.S(v);
       t1._contents += t2;
     },
-    $signature: 91
+    $signature: 27
   };
   A._JsonMap.prototype = {
     $index(_, key) {
@@ -13098,7 +13195,7 @@
         return null;
       else {
         result = t1[key];
-        return typeof result == "undefined" ? this._process$1(key) : result;
+        return typeof result == "undefined" ? this._convert$_process$1(key) : result;
       }
     },
     get$length(_) {
@@ -13140,7 +13237,7 @@
         keys = this._convert$_data = A._setArrayType(Object.keys(this._original), type$.JSArray_String);
       return keys;
     },
-    _process$1(key) {
+    _convert$_process$1(key) {
       var result;
       if (!Object.prototype.hasOwnProperty.call(this._original, key))
         return null;
@@ -13489,7 +13586,7 @@
     call$1(sink) {
       return new A._ConverterStreamEventSink(sink, this.$this.startChunkedConversion$1(sink), type$._ConverterStreamEventSink_dynamic_dynamic);
     },
-    $signature: 72
+    $signature: 57
   };
   A.Encoding.prototype = {};
   A.JsonCodec.prototype = {
@@ -13516,7 +13613,7 @@
       type$.EventSink_String._as(sink);
       return new A._LineSplitterEventSink(sink, new A._StringAdapterSink(sink));
     },
-    $signature: 41
+    $signature: 59
   };
   A._LineSplitterSink.prototype = {
     addSlice$4(chunk, start, end, isLast) {
@@ -14210,9 +14307,6 @@
     }
   };
   A.Duration.prototype = {
-    get$inMinutes() {
-      return B.JSInt_methods._tdivFast$1(this._duration, 60000000);
-    },
     $eq(_, other) {
       if (other == null)
         return false;
@@ -14582,7 +14676,7 @@
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv6 address, " + msg, this.host, position));
     },
-    $signature: 52
+    $signature: 60
   };
   A._Uri.prototype = {
     get$_text() {
@@ -15275,7 +15369,7 @@
       } else
         t1._closeTarget$0();
     },
-    $signature: 12
+    $signature: 13
   };
   A._StreamSinkImpl__controller_closure0.prototype = {
     call$2(error, stackTrace) {
@@ -15290,7 +15384,7 @@
       } else
         t1._completeDoneError$2(error, type$.nullable_StackTrace._as(stackTrace));
     },
-    $signature: 62
+    $signature: 65
   };
   A._IOSinkImpl.prototype = {$isStringSink: 1, $isIOSink: 1};
   A.ProcessStartMode.prototype = {
@@ -15338,7 +15432,7 @@
       } else
         return o;
     },
-    $signature: 63
+    $signature: 66
   };
   A.promiseToFuture_closure.prototype = {
     call$1(r) {
@@ -15387,7 +15481,7 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 65
+    $signature: 67
   };
   A.wrapMain__closure0.prototype = {
     call$0() {
@@ -15427,7 +15521,7 @@
       });
       return A._asyncStartSync($async$call$2, $async$completer);
     },
-    $signature: 66
+    $signature: 69
   };
   A.wrapMain__closure.prototype = {
     call$0() {
@@ -15724,7 +15818,7 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 69
+    $signature: 88
   };
   A.AvdManager__enableKvm_closure.prototype = {
     call$0() {
@@ -15781,13 +15875,13 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 90
+    $signature: 28
   };
   A.AvdManager__enableKvm_closure0.prototype = {
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        t1, t2;
+        t2, running, t1;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -15795,8 +15889,12 @@
           switch ($async$goto) {
             case 0:
               // Function start
+              running = new A.RunningScript();
+              t1 = A.ShellScript__run('echo \'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"\' | sudo tee /etc/udev/rules.d/99-kvm4all.rules', running);
+              running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+              running.__RunningScript__future_F = t1;
               $async$goto = 2;
-              return A._asyncAwait(A.ShellScript_run('echo \'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"\' | sudo tee /etc/udev/rules.d/99-kvm4all.rules'), $async$call$0);
+              return A._asyncAwait(t1, $async$call$0);
             case 2:
               // returning from await.
               t1 = $.$get$processManager();
@@ -15828,7 +15926,7 @@
     call$1(e) {
       return e instanceof A._BootNotCompleted;
     },
-    $signature: 45
+    $signature: 30
   };
   A.AvdManager__waitForBoot__closure0.prototype = {
     call$1(e) {
@@ -16248,7 +16346,7 @@
     call$0() {
       return A.throwExpression(A.ArgumentError$value(this.value, "value", "Invalid Android ABI. Expected one of: [" + B.JSArray_methods.join$1(A.AndroidAbi_allAbis(), ", ") + "]"));
     },
-    $signature: 13
+    $signature: 15
   };
   A.AndroidAbi_allAbis_closure.prototype = {
     call$1(el) {
@@ -16268,7 +16366,7 @@
     call$0() {
       throw A.wrapException(A.ArgumentError$value(this.apiLevel, "apiLevel", "Specified level is not a valid API level. Expected one of: [" + B.JSArray_methods.join$1(A.AndroidApiLevel_allApiLevels(), ", ") + "]"));
     },
-    $signature: 13
+    $signature: 15
   };
   A.AndroidApiLevel_parse_closure.prototype = {
     call$1(el) {
@@ -16300,7 +16398,7 @@
     call$0() {
       return A.throwExpression(A.ArgumentError$value(this.target, "target", "Invalid Android system image taget. Expected one of: [" + B.JSArray_methods.join$1(A.AndroidSystemImageTarget_allTags(), ", ") + "]"));
     },
-    $signature: 13
+    $signature: 15
   };
   A.AndroidSystemImageTarget_allTags_closure.prototype = {
     call$1(el) {
@@ -16335,7 +16433,7 @@
       t1.addError$1(error);
       t1.close$0();
     },
-    $signature: 28
+    $signature: 41
   };
   A.NodeReadableStream_get_stream_onDone.prototype = {
     call$1(__wc0_formal) {
@@ -16395,9 +16493,6 @@
   A.NodeProcessManager.prototype = {
     run$3$echoOutput$pipe(command, echoOutput, pipe) {
       return this.run$body$NodeProcessManager(type$.List_Object._as(command), echoOutput, pipe);
-    },
-    run$2$echoOutput(command, echoOutput) {
-      return this.run$3$echoOutput$pipe(command, echoOutput, null);
     },
     run$body$NodeProcessManager(command, echoOutput, pipe) {
       var $async$goto = 0,
@@ -16565,7 +16660,7 @@
         A._asJSObject(init.G.core).info(line);
       this.stdout._contents += line + "\n";
     },
-    $signature: 24
+    $signature: 12
   };
   A.NodeProcessManager_run_closure0.prototype = {
     call$1(line) {
@@ -16574,7 +16669,7 @@
         A._asJSObject(init.G.core).info(line);
       this.stderr._contents += line + "\n";
     },
-    $signature: 24
+    $signature: 12
   };
   A.NodeProcess.prototype = {
     _init$0() {
@@ -16641,12 +16736,11 @@
                 break;
               }
               $async$goto = 3;
-              return A._asyncAwait(A.Future_any(A._setArrayType([A.EventEmitter_once(t1, "close", type$.nullable_Object), A.EventEmitter_once(t1, "error", type$.JSObject), A.EventEmitter_once(t1, "exit", type$.double)], type$.JSArray_Future_void), type$.void), $async$get$exitCode);
+              return A._asyncAwait(A.Future_any(A._setArrayType([A.EventEmitter_once(t1, "close", type$.nullable_Object), A.EventEmitter_once(t1, "error", type$.JSObject), A.EventEmitter_once(t1, "exit", type$.nullable_double)], type$.JSArray_Future_void), type$.void), $async$get$exitCode);
             case 3:
               // returning from await.
               t1 = A._asIntQ(t1.exitCode);
-              t1.toString;
-              $async$returnValue = t1;
+              $async$returnValue = t1 == null ? -1 : t1;
               // goto return
               $async$goto = 1;
               break;
@@ -16732,14 +16826,16 @@
       return "Arch." + this._name;
     }
   };
-  A.ShellScript_run_closure.prototype = {
+  A.ShellScript__run_closure.prototype = {
     call$1(tempDir) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$self = this, result, t1, scriptPath;
+        $async$handler = 1, $async$errorStack = [], $async$next = [], $async$self = this, process, stdout, stderr, stdoutSub, stderrSub, exitCode, t1, t2, scriptPath;
       var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
+        if ($async$errorCode === 1) {
+          $async$errorStack.push($async$result);
+          $async$goto = $async$handler;
+        }
         for (;;)
           switch ($async$goto) {
             case 0:
@@ -16747,20 +16843,96 @@
               scriptPath = A.join(tempDir, "script.sh", null, null);
               A._asJSObject(init.G.fs).writeFileSync(scriptPath, $async$self.fullScript);
               $async$goto = 2;
-              return A._asyncAwait($.$get$processManager().run$2$echoOutput(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), true), $async$call$1);
+              return A._asyncAwait($.$get$processManager().start$2$mode(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), B.ProcessStartMode_0), $async$call$1);
             case 2:
               // returning from await.
-              result = $async$result;
-              t1 = result.exitCode;
-              if (t1 !== 0)
-                throw A.wrapException(A.ProcessException$("/bin/bash", A._setArrayType([$async$self._this], type$.JSArray_String), A.S(result.stdout) + "\n" + A.S(result.stderr), t1));
+              process = $async$result;
+              $async$self.running.set$_process(process);
+              stdout = new A.StringBuffer("");
+              stderr = new A.StringBuffer("");
+              t1 = process._stdout;
+              t2 = A._instanceType(t1)._eval$1("_ControllerStream<1>");
+              t1 = t2._eval$1("StreamTransformer<Stream.T,String>")._as(B.Utf8Decoder_true).bind$1(new A._ControllerStream(t1, t2));
+              stdoutSub = t1.$ti._eval$1("StreamTransformer<Stream.T,String>")._as(B.C_LineSplitter).bind$1(t1).listen$1(new A.ShellScript__run__closure(stdout));
+              t1 = process._stderr;
+              t2 = A._instanceType(t1)._eval$1("_ControllerStream<1>");
+              t1 = t2._eval$1("StreamTransformer<Stream.T,String>")._as(B.Utf8Decoder_true).bind$1(new A._ControllerStream(t1, t2));
+              stderrSub = t1.$ti._eval$1("StreamTransformer<Stream.T,String>")._as(B.C_LineSplitter).bind$1(t1).listen$1(new A.ShellScript__run__closure0(stderr));
+              $async$handler = 3;
+              $async$goto = 6;
+              return A._asyncAwait(process.get$exitCode(), $async$call$1);
+            case 6:
+              // returning from await.
+              exitCode = $async$result;
+              if (!J.$eq$(exitCode, 0)) {
+                t1 = A.ProcessException$("/bin/bash", A._setArrayType([$async$self._this], type$.JSArray_String), A.S(stdout) + "\n" + A.S(stderr), exitCode);
+                throw A.wrapException(t1);
+              }
+              $async$next.push(5);
+              // goto finally
+              $async$goto = 4;
+              break;
+            case 3:
+              // uncaught
+              $async$next = [1];
+            case 4:
+              // finally
+              $async$handler = 1;
+              t1 = type$.void;
+              A.FutureExtensions_ignore(stdoutSub.cancel$0(), t1);
+              A.FutureExtensions_ignore(stderrSub.cancel$0(), t1);
+              // goto the next finally handler
+              $async$goto = $async$next.pop();
+              break;
+            case 5:
+              // after finally
               // implicit return
               return A._asyncReturn(null, $async$completer);
+            case 1:
+              // rethrow
+              return A._asyncRethrow($async$errorStack.at(-1), $async$completer);
           }
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
     $signature: 48
+  };
+  A.ShellScript__run__closure.prototype = {
+    call$1(line) {
+      A._asString(line);
+      A._asJSObject(init.G.core).info(line);
+      this.stdout._contents += line + "\n";
+    },
+    $signature: 12
+  };
+  A.ShellScript__run__closure0.prototype = {
+    call$1(line) {
+      A._asString(line);
+      A._asJSObject(init.G.core).info(line);
+      this.stderr._contents += line + "\n";
+    },
+    $signature: 12
+  };
+  A.RunningScript.prototype = {
+    kill$0() {
+      var running, t1, t2,
+        process = this._process;
+      if (process == null)
+        return;
+      running = new A.RunningScript();
+      t1 = A.ShellScript__run("pkill -KILL -P " + process.get$pid() + " 2>/dev/null || true", running);
+      running.__RunningScript__future_F !== $ && A.throwLateFieldAI("_future");
+      running.__RunningScript__future_F = t1;
+      t2 = type$.void;
+      A.FutureExtensions_ignore(t1, t2);
+      A._asBool(process._jsProcess.kill("SIGKILL"));
+      t1 = this.__RunningScript__future_F;
+      t1 === $ && A.throwLateFieldNI("_future");
+      A.FutureExtensions_ignore(t1, t2);
+    },
+    set$_process(_process) {
+      this._process = type$.nullable_Process._as(_process);
+    }
   };
   A._UnreachableError.prototype = {};
   A.StreamForward_forward_closure.prototype = {
@@ -16784,7 +16956,7 @@
       if ((t1._state & 4) === 0)
         t1.addError$2(e, st);
     },
-    $signature: 20
+    $signature: 14
   };
   A.StreamForward_forward_closure0.prototype = {
     call$0() {
@@ -18028,12 +18200,12 @@
           if (!(i < t6))
             return A.ioore(t4, i);
           t6 = t4[i];
-          t7 = new A.CodeUnits(source);
-          t8 = A._setArrayType([0], t5);
-          t9 = A.Uri_parse(t6);
-          t8 = new A.SourceFile(t9, t8, new Uint32Array(A._ensureNativeList(t7.toList$0(t7))));
-          t8.SourceFile$decoded$2$url(t7, t6);
-          B.JSArray_methods.$indexSet(t3, i, t8);
+          t7 = A._setArrayType([0], t5);
+          t8 = A.Uri_parse(t6);
+          t9 = source.length;
+          t7 = new A.SourceFile(t8, t7, new Uint32Array(t9));
+          t7.SourceFile$_fromList$2$url(new A.CodeUnits(source), t6);
+          B.JSArray_methods.$indexSet(t3, i, t7);
         }
         ++i;
       }
@@ -18296,23 +18468,27 @@
     get$length(_) {
       return this._decodedChars.length;
     },
-    SourceFile$decoded$2$url(decodedChars, url) {
-      var t1, t2, t3, i, c, j, t4;
-      for (t1 = this._decodedChars, t2 = t1.length, t3 = this._lineStarts, i = 0; i < t2; ++i) {
-        c = t1[i];
+    SourceFile$_fromList$2$url(decodedChars, url) {
+      var t1, t2, t3, t4, t5, t6, i, c, j, t7;
+      for (t1 = this._decodedChars, t2 = t1.length, t3 = decodedChars.__internal$_string, t4 = t3.length, t5 = t1.$flags | 0, t6 = this._lineStarts, i = 0; i < t2; ++i) {
+        if (!(i < t4))
+          return A.ioore(t3, i);
+        c = t3.charCodeAt(i);
+        t5 & 2 && A.throwUnsupportedOperation(t1);
+        t1[i] = c;
         if (c === 13) {
           j = i + 1;
-          if (j < t2) {
-            if (!(j < t2))
-              return A.ioore(t1, j);
-            t4 = t1[j] !== 10;
+          if (j < t4) {
+            if (!(j < t4))
+              return A.ioore(t3, j);
+            t7 = t3.charCodeAt(j) !== 10;
           } else
-            t4 = true;
-          if (t4)
+            t7 = true;
+          if (t7)
             c = 10;
         }
         if (c === 10)
-          B.JSArray_methods.add$1(t3, i + 1);
+          B.JSArray_methods.add$1(t6, i + 1);
       }
     }
   };
@@ -18449,13 +18625,13 @@
         t2 = A._arrayInstanceType(t1);
       return new A.MappedListIterable(t1, t2._eval$1("int(1)")._as(new A.Chain_toString__closure0()), t2._eval$1("MappedListIterable<1,int>")).fold$1$2(0, 0, B.CONSTANT, type$.int);
     },
-    $signature: 59
+    $signature: 89
   };
   A.Chain_toString__closure0.prototype = {
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 15
+    $signature: 21
   };
   A.Chain_toString_closure.prototype = {
     call$1(trace) {
@@ -19093,7 +19269,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 15
+    $signature: 21
   };
   A.Trace_toString_closure.prototype = {
     call$1(frame) {
@@ -19132,35 +19308,6 @@
     $signature: 71
   };
   A._AttemptResult.prototype = {};
-  A._runTestsWithTimeout_closure.prototype = {
-    call$1(__wc0_formal) {
-      var t1;
-      this._box_0.timedOut = true;
-      t1 = A._asJSObject(init.G.core);
-      t1.warning("");
-      t1.warning(string$.u23f0_____);
-      t1.warning("\u23f0  TIMEOUT REACHED FOR ATTEMPT " + this.attempt);
-      t1.warning("\u23f0  Attempt exceeded " + B.JSInt_methods._tdivFast$1(this.timeout._duration, 60000000) + " minute limit");
-      t1.warning("\u23f0  Time: " + new A.DateTime(Date.now(), 0, false).toUtc$0().toIso8601String$0());
-      t1.warning(string$.u23f0_____);
-      t1.warning("");
-    },
-    $signature: 16
-  };
-  A._runTestsWithTimeout_closure0.prototype = {
-    call$1(__wc1_formal) {
-      if (this._box_0.timedOut)
-        throw A.wrapException(A.TimeoutException$("Attempt timed out", this.timeout));
-    },
-    $signature: 16
-  };
-  A._runTestsWithTimeout_closure1.prototype = {
-    call$1(__wc2_formal) {
-      var t1 = this.timeout;
-      throw A.wrapException(A.TimeoutException$("Attempt " + this.attempt + " timed out after " + t1.get$inMinutes() + " minutes", t1));
-    },
-    $signature: 73
-  };
   (function aliases() {
     var _ = J.LegacyJavaScriptObject.prototype;
     _.super$LegacyJavaScriptObject$toString = _.toString$0;
@@ -19186,48 +19333,48 @@
       _instance_1_u = hunkHelpers._instance_1u,
       _instance_0_u = hunkHelpers._instance_0u,
       _instance = hunkHelpers.installInstanceTearOff;
-    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 14);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 14);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 14);
+    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 16);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 16);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 16);
     _static(A, "async_Future___value_tearOff$closure", 0, null, ["call$1$1", "call$1", "call$0", "call$1$0"], ["Future___value_tearOff", function(value) {
       return A.Future___value_tearOff(value, type$.dynamic);
     }, function() {
       return A.Future___value_tearOff(null, type$.dynamic);
     }, function($T) {
       return A.Future___value_tearOff(null, $T);
-    }], 75, 0);
+    }], 73, 0);
     _static_0(A, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 0);
     _static_2(A, "async___nullErrorHandler$closure", "_nullErrorHandler", 4);
     _static_0(A, "async___nullDoneHandler$closure", "_nullDoneHandler", 0);
-    _static(A, "async___rootHandleUncaughtError$closure", 5, null, ["call$5"], ["_rootHandleUncaughtError"], 76, 0);
+    _static(A, "async___rootHandleUncaughtError$closure", 5, null, ["call$5"], ["_rootHandleUncaughtError"], 74, 0);
     _static(A, "async___rootRun$closure", 4, null, ["call$1$4", "call$4"], ["_rootRun", function($self, $parent, zone, f) {
       return A._rootRun($self, $parent, zone, f, type$.dynamic);
-    }], 77, 0);
+    }], 75, 0);
     _static(A, "async___rootRunUnary$closure", 5, null, ["call$2$5", "call$5"], ["_rootRunUnary", function($self, $parent, zone, f, arg) {
       var t1 = type$.dynamic;
       return A._rootRunUnary($self, $parent, zone, f, arg, t1, t1);
-    }], 78, 0);
-    _static(A, "async___rootRunBinary$closure", 6, null, ["call$3$6"], ["_rootRunBinary"], 79, 0);
+    }], 76, 0);
+    _static(A, "async___rootRunBinary$closure", 6, null, ["call$3$6"], ["_rootRunBinary"], 77, 0);
     _static(A, "async___rootRegisterCallback$closure", 4, null, ["call$1$4", "call$4"], ["_rootRegisterCallback", function($self, $parent, zone, f) {
       return A._rootRegisterCallback($self, $parent, zone, f, type$.dynamic);
-    }], 17, 0);
+    }], 23, 0);
     _static(A, "async___rootRegisterUnaryCallback$closure", 4, null, ["call$2$4", "call$4"], ["_rootRegisterUnaryCallback", function($self, $parent, zone, f) {
       var t1 = type$.dynamic;
       return A._rootRegisterUnaryCallback($self, $parent, zone, f, t1, t1);
-    }], 25, 0);
+    }], 24, 0);
     _static(A, "async___rootRegisterBinaryCallback$closure", 4, null, ["call$3$4", "call$4"], ["_rootRegisterBinaryCallback", function($self, $parent, zone, f) {
       var t1 = type$.dynamic;
       return A._rootRegisterBinaryCallback($self, $parent, zone, f, t1, t1, t1);
-    }], 26, 0);
-    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 27, 0);
-    _static(A, "async___rootScheduleMicrotask$closure", 4, null, ["call$4"], ["_rootScheduleMicrotask"], 80, 0);
-    _static(A, "async___rootCreateTimer$closure", 5, null, ["call$5"], ["_rootCreateTimer"], 81, 0);
-    _static(A, "async___rootCreatePeriodicTimer$closure", 5, null, ["call$5"], ["_rootCreatePeriodicTimer"], 82, 0);
-    _static(A, "async___rootPrint$closure", 4, null, ["call$4"], ["_rootPrint"], 83, 0);
-    _static(A, "async___rootFork$closure", 5, null, ["call$5"], ["_rootFork"], 84, 0);
+    }], 25, 0);
+    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 26, 0);
+    _static(A, "async___rootScheduleMicrotask$closure", 4, null, ["call$4"], ["_rootScheduleMicrotask"], 78, 0);
+    _static(A, "async___rootCreateTimer$closure", 5, null, ["call$5"], ["_rootCreateTimer"], 79, 0);
+    _static(A, "async___rootCreatePeriodicTimer$closure", 5, null, ["call$5"], ["_rootCreatePeriodicTimer"], 80, 0);
+    _static(A, "async___rootPrint$closure", 4, null, ["call$4"], ["_rootPrint"], 81, 0);
+    _static(A, "async___rootFork$closure", 5, null, ["call$5"], ["_rootFork"], 82, 0);
     _instance_2_u(A._Future.prototype, "get$_completeError", "_completeError$2", 4);
     var _;
-    _instance_1_u(_ = A._StreamController.prototype, "get$_async$_add", "_async$_add$1", 23);
+    _instance_1_u(_ = A._StreamController.prototype, "get$_async$_add", "_async$_add$1", 17);
     _instance_2_u(_, "get$_addError", "_addError$2", 4);
     _instance_0_u(_, "get$_close", "_close$0", 0);
     _instance_0_u(_ = A._ControllerSubscription.prototype, "get$_onPause", "_onPause$0", 0);
@@ -19236,21 +19383,21 @@
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
     _instance_0_u(_ = A._SinkTransformerStreamSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
-    _instance_1_u(_, "get$_handleData", "_handleData$1", 23);
+    _instance_1_u(_, "get$_handleData", "_handleData$1", 17);
     _instance_2_u(_, "get$_handleError", "_handleError$2", 4);
     _instance_0_u(_, "get$_handleDone", "_handleDone$0", 0);
     _static(A, "core_int_parse$closure", 1, null, ["call$3$onError$radix", "call$1"], ["int_parse", function(source) {
       return A.int_parse(source, null, null);
-    }], 85, 0);
+    }], 83, 0);
     _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 11);
     _instance_1_u(_ = A._StreamSinkImpl.prototype, "get$_completeDoneValue", "_completeDoneValue$1", 10);
-    _instance_2_u(_, "get$_completeDoneError", "_completeDoneError$2", 60);
+    _instance_2_u(_, "get$_completeDoneError", "_completeDoneError$2", 63);
     _static(A, "math__max$closure", 2, null, ["call$1$2", "call$2"], ["max", function(a, b) {
       return A.max(a, b, type$.num);
-    }], 86, 0);
-    _static_1(A, "types_AndroidAbi_parse$closure", "AndroidAbi_parse", 87);
-    _static_1(A, "types_AndroidApiLevel_parse$closure", "AndroidApiLevel_parse", 88);
-    _static_1(A, "types_AndroidSystemImageTarget_parse$closure", "AndroidSystemImageTarget_parse", 89);
+    }], 84, 0);
+    _static_1(A, "types_AndroidAbi_parse$closure", "AndroidAbi_parse", 85);
+    _static_1(A, "types_AndroidApiLevel_parse$closure", "AndroidApiLevel_parse", 86);
+    _static_1(A, "types_AndroidSystemImageTarget_parse$closure", "AndroidSystemImageTarget_parse", 87);
     _instance_0_u(A.NodeProcessManager.prototype, "get$close", "close$0", 3);
     _instance_0_u(A.Chain.prototype, "get$toTrace", "toTrace$0", 6);
     _static_1(A, "frame_Frame___parseVM_tearOff$closure", "Frame___parseVM_tearOff", 8);
@@ -19258,13 +19405,13 @@
     _static_1(A, "frame_Frame___parseFirefox_tearOff$closure", "Frame___parseFirefox_tearOff", 8);
     _static_1(A, "frame_Frame___parseFriendly_tearOff$closure", "Frame___parseFriendly_tearOff", 8);
     _instance_0_u(A.LazyChain.prototype, "get$toTrace", "toTrace$0", 6);
-    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 17, 0, 0);
-    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 25, 0, 0);
-    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 26, 0, 0);
+    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 23, 0, 0);
+    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 24, 0, 0);
+    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 25, 0, 0);
     _instance(_, "get$_handleUncaughtError", 0, 5, null, ["call$5"], ["_handleUncaughtError$5"], 68, 0, 0);
-    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 27, 0, 0);
-    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 21);
-    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 21);
+    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 26, 0, 0);
+    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 20);
+    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 20);
     _static_0(A, "launch_android_emulator___action$closure", "_action", 3);
     _static_0(A, "launch_android_emulator___cleanupAndWait$closure", "_cleanupAndWait", 3);
   })();
@@ -19273,7 +19420,7 @@
       _inherit = hunkHelpers.inherit,
       _inheritMany = hunkHelpers.inheritMany;
     _inherit(A.Object, null);
-    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, A.SafeToStringHook, J.ArrayIterator, A.Iterable, A.CastIterator, A.MapBase, A.Closure, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A._Record, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.LinkedHashMapValueIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._UnmodifiableNativeByteBufferView, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A.AsyncError, A.TimeoutException, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A.StreamTransformerBase, A._StreamController, A._SyncStreamControllerDispatch, A._BufferingStreamSubscription, A._StreamSinkWrapper, A._AddStreamState, A._DelayedEvent, A._DelayedDone, A._PendingEvents, A._StreamIterator, A._EventSinkWrapper, A._ZoneFunction, A._Zone, A._ZoneDelegate, A._ZoneSpecification, A._HashMapKeyIterator, A.StringConversionSink, A.Codec, A.Converter, A._Base64Encoder, A.ByteConversionSink, A._ConverterStreamEventSink, A._LineSplitIterator, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Expando, A._StreamSinkImpl, A.ProcessStartMode, A.ProcessResult, A.ProcessException, A.NullRejectionException, A._JSRandom, A.ActionContext, A.AndroidTool, A.AvdManager, A._BootNotCompleted, A.SdkManager, A.NodeProcessManager, A.NodeProcess, A.Context, A._PathDirection, A._PathRelation, A.Style, A.ParsedPath, A.PathException, A.RetryOptions, A.Mapping, A.TargetLineEntry, A.TargetEntry, A._MappingTokenizer, A._TokenKind, A.SourceSpanMixin, A.SourceFile, A.SourceLocation, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.StackZoneSpecification, A._Node, A.Trace, A.UnparsedFrame, A._AttemptResult]);
+    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, A.SafeToStringHook, J.ArrayIterator, A.Iterable, A.CastIterator, A.MapBase, A.Closure, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A._Record, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.LinkedHashMapValueIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._UnmodifiableNativeByteBufferView, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A.AsyncError, A.TimeoutException, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A.StreamTransformerBase, A._StreamController, A._SyncStreamControllerDispatch, A._BufferingStreamSubscription, A._StreamSinkWrapper, A._AddStreamState, A._DelayedEvent, A._DelayedDone, A._PendingEvents, A._StreamIterator, A._EventSinkWrapper, A._ZoneFunction, A._Zone, A._ZoneDelegate, A._ZoneSpecification, A._HashMapKeyIterator, A.StringConversionSink, A.Codec, A.Converter, A._Base64Encoder, A.ByteConversionSink, A._ConverterStreamEventSink, A._LineSplitIterator, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Expando, A._StreamSinkImpl, A.ProcessStartMode, A.ProcessResult, A.ProcessException, A.NullRejectionException, A._JSRandom, A.ActionContext, A.AndroidTool, A.AvdManager, A._BootNotCompleted, A.SdkManager, A.NodeProcessManager, A.NodeProcess, A.RunningScript, A.Context, A._PathDirection, A._PathRelation, A.Style, A.ParsedPath, A.PathException, A.RetryOptions, A.Mapping, A.TargetLineEntry, A.TargetEntry, A._MappingTokenizer, A._TokenKind, A.SourceSpanMixin, A.SourceFile, A.SourceLocation, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.StackZoneSpecification, A._Node, A.Trace, A.UnparsedFrame, A._AttemptResult]);
     _inheritMany(J.Interceptor, [J.JSBool, J.JSNull, J.JavaScriptObject, J.JavaScriptBigInt, J.JavaScriptSymbol, J.JSNumber, J.JSString]);
     _inheritMany(J.JavaScriptObject, [J.LegacyJavaScriptObject, J.JSArray, A.NativeByteBuffer, A.NativeTypedData]);
     _inheritMany(J.LegacyJavaScriptObject, [J.PlainJavaScriptObject, J.UnknownJavaScriptObject, J.JavaScriptFunction]);
@@ -19286,12 +19433,12 @@
     _inherit(A._CastListBase, A.__CastListBase__CastIterableBase_ListMixin);
     _inherit(A.CastList, A._CastListBase);
     _inheritMany(A.MapBase, [A.CastMap, A.JsLinkedHashMap, A._HashMap, A._JsonMap]);
-    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.AvdManager__waitForBoot__closure1, A.AvdManager__waitForBoot__closure0, A.SdkManager__ensureBuildTools_closure0, A.SdkManager__ensureBuildTools_closure1, A.AndroidAbi_parse_closure, A.AndroidAbi_allAbis_closure, A.AndroidApiLevel_parse_closure, A.AndroidApiLevel_allApiLevels_closure, A.AndroidSystemImageTarget_parse_closure, A.AndroidSystemImageTarget_allTags_closure, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.ShellScript_run_closure, A.StreamForward_forward_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A._runTestsWithTimeout_closure, A._runTestsWithTimeout_closure0, A._runTestsWithTimeout_closure1]);
-    _inheritMany(A.Closure2Args, [A.CastMap_forEach_closure, A.JsLinkedHashMap_addAll_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A.Future_wait_handleError, A.Future_any_onError, A._Future__propagateToListeners_handleWhenCompleteCallback_closure0, A.HashMap_HashMap$from_closure, A.MapBase_mapToString_closure, A.Uri_parseIPv6Address_error, A._StreamSinkImpl__controller_closure0, A.wrapMain_closure0, A.StreamForward_forward_closure1, A.SingleMapping$fromJson_closure, A.Frame_Frame$parseV8_closure_parseJsLocation, A.StackZoneSpecification__registerBinaryCallback_closure]);
+    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A._Future_timeout_closure0, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.AvdManager__waitForBoot__closure1, A.AvdManager__waitForBoot__closure0, A.SdkManager__ensureBuildTools_closure0, A.SdkManager__ensureBuildTools_closure1, A.AndroidAbi_parse_closure, A.AndroidAbi_allAbis_closure, A.AndroidApiLevel_parse_closure, A.AndroidApiLevel_allApiLevels_closure, A.AndroidSystemImageTarget_parse_closure, A.AndroidSystemImageTarget_allTags_closure, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.ShellScript__run_closure, A.ShellScript__run__closure, A.ShellScript__run__closure0, A.StreamForward_forward_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure]);
+    _inheritMany(A.Closure2Args, [A.CastMap_forEach_closure, A.JsLinkedHashMap_addAll_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A.Future_wait_handleError, A.Future_any_onError, A._Future__propagateToListeners_handleWhenCompleteCallback_closure0, A._Future_timeout_closure1, A.HashMap_HashMap$from_closure, A.MapBase_mapToString_closure, A.Uri_parseIPv6Address_error, A._StreamSinkImpl__controller_closure0, A.wrapMain_closure0, A.StreamForward_forward_closure1, A.SingleMapping$fromJson_closure, A.Frame_Frame$parseV8_closure_parseJsLocation, A.StackZoneSpecification__registerBinaryCallback_closure]);
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A.RuntimeError, A._Error, A.AssertionError, A.ArgumentError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError]);
     _inherit(A.UnmodifiableListBase, A.ListBase);
     _inherit(A.CodeUnits, A.UnmodifiableListBase);
-    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A.Future_Future$delayed_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainCoreFuture_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteErrorObject_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._Utf8Decoder__decoder_closure, A._Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.AvdManager_launchEmulator_closure, A.AvdManager__createEmulator_closure, A.AvdManager__startEmulator_closure, A.AvdManager__enableKvm_closure, A.AvdManager__enableKvm_closure0, A.AvdManager__enableKvm_closure1, A.AvdManager__waitForBoot_closure, A.AvdManager__waitForBoot__closure, A.SdkManager_ensureSdk_closure, A.SdkManager_ensureSdk_closure0, A.SdkManager__ensureCmdlineTools_closure, A.SdkManager__ensureBuildTools_closure, A.SdkManager__ensureBuildTools_closure2, A.SdkManager__ensureBuildTools_closure3, A.SdkManager__ensureBuildTools_closure4, A.SdkManager__ensureBuildTools_closure5, A.SdkManager__ensureBuildTools_closure6, A.AndroidAbi_parse_closure0, A.AndroidApiLevel_parse_invalidApiLevel, A.AndroidSystemImageTarget_parse_closure0, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.processManager_closure, A.StreamForward_forward_closure0, A._digits_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A._action_closure]);
+    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A.Future_Future$delayed_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainCoreFuture_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteErrorObject_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A._Future_timeout_closure, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._Utf8Decoder__decoder_closure, A._Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.AvdManager_launchEmulator_closure, A.AvdManager__createEmulator_closure, A.AvdManager__startEmulator_closure, A.AvdManager__enableKvm_closure, A.AvdManager__enableKvm_closure0, A.AvdManager__enableKvm_closure1, A.AvdManager__waitForBoot_closure, A.AvdManager__waitForBoot__closure, A.SdkManager_ensureSdk_closure, A.SdkManager_ensureSdk_closure0, A.SdkManager__ensureCmdlineTools_closure, A.SdkManager__ensureBuildTools_closure, A.SdkManager__ensureBuildTools_closure2, A.SdkManager__ensureBuildTools_closure3, A.SdkManager__ensureBuildTools_closure4, A.SdkManager__ensureBuildTools_closure5, A.SdkManager__ensureBuildTools_closure6, A.AndroidAbi_parse_closure0, A.AndroidApiLevel_parse_invalidApiLevel, A.AndroidSystemImageTarget_parse_closure0, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.processManager_closure, A.StreamForward_forward_closure0, A._digits_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A._action_closure]);
     _inheritMany(A.EfficientLengthIterable, [A.ListIterable, A.EmptyIterable, A.LinkedHashMapKeysIterable, A.LinkedHashMapValuesIterable, A._HashMapKeyIterable]);
     _inheritMany(A.ListIterable, [A.SubListIterable, A.MappedListIterable, A._JsonMapKeyIterable]);
     _inherit(A.EfficientLengthMappedIterable, A.MappedIterable);
@@ -19356,7 +19503,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List", Object: "Object", Map: "Map", JSObject: "JSObject"},
     mangledNames: {},
-    types: ["~()", "bool(String)", "Future<Null>()", "Future<~>()", "~(Object,StackTrace)", "Future<ProcessResult>()", "Trace()", "Frame()", "Frame(String)", "Null()", "~(@)", "String(String)", "Null(@)", "0&()", "~(~())", "int(Frame)", "Null(~)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "@()", "String(Match)", "Null(Object,StackTrace)", "Trace(String)", "String(Frame)", "~(Object?)", "~(String)", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "~(JSObject)", "@(@)", "Null(@,StackTrace)", "Future<~>(Exception)", "~(int,@)", "bool(AndroidAbi)", "Null(~())", "String(AndroidAbi)", "bool(AndroidApiLevel)", "int(AndroidApiLevel)", "bool(AndroidSystemImageTarget)", "String(AndroidSystemImageTarget)", "~(NativeUint8List)", "_LineSplitterEventSink(EventSink<String>)", "~([@])", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "bool(Exception)", "~(List<int>)", "0&(JSObject)", "Future<Null>(String)", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "0&(String,int?)", "~(String,@)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "@(@,String)", "List<Frame>(Trace)", "int(Trace)", "~(@,StackTrace?)", "String(Trace)", "Null(@,@)", "Object?(Object?)", "Frame(String,String)", "Future<0&>()", "Future<~>(Object,Chain)", "@(String)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "Future<Process>()", "Chain()", "Future<_AttemptResult>()", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "0&(Object?)", "~(@,@)", "Future<0^>([0^/?])<Object?>", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "int(String{onError:int(String)?,radix:int?})", "0^(0^,0^)<num>", "AndroidAbi(String)", "AndroidApiLevel(String)", "AndroidSystemImageTarget(String)", "Future<bool>()", "~(Object?,Object?)"],
+    types: ["~()", "bool(String)", "Future<Null>()", "Future<~>()", "~(Object,StackTrace)", "Future<ProcessResult>()", "Trace()", "Frame()", "Frame(String)", "Null()", "~(@)", "String(String)", "~(String)", "Null(@)", "Null(Object,StackTrace)", "0&()", "~(~())", "~(Object?)", "@()", "String(Match)", "Trace(String)", "int(Frame)", "String(Frame)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "~(Object?,Object?)", "Future<bool>()", "@(@,String)", "bool(Exception)", "Future<~>(Exception)", "@(String)", "bool(AndroidAbi)", "~(@,@)", "String(AndroidAbi)", "bool(AndroidApiLevel)", "int(AndroidApiLevel)", "bool(AndroidSystemImageTarget)", "String(AndroidSystemImageTarget)", "~(NativeUint8List)", "~(JSObject)", "~([@])", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "@(@)", "~(List<int>)", "0&(JSObject)", "Future<Null>(String)", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "Null(@,StackTrace)", "~(String,@)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "List<Frame>(Trace)", "_LineSplitterEventSink(EventSink<String>)", "0&(String,int?)", "String(Trace)", "~(int,@)", "~(@,StackTrace?)", "Frame(String,String)", "Null(@,@)", "Object?(Object?)", "Future<0&>()", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "Future<~>(Object,Chain)", "Chain()", "Future<_AttemptResult>()", "Null(~())", "Future<0^>([0^/?])<Object?>", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "int(String{onError:int(String)?,radix:int?})", "0^(0^,0^)<num>", "AndroidAbi(String)", "AndroidApiLevel(String)", "AndroidSystemImageTarget(String)", "Future<Process>()", "int(Trace)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti"),
@@ -19408,7 +19555,6 @@
       Iterable_dynamic: findType("Iterable<@>"),
       Iterable_int: findType("Iterable<int>"),
       JSArray_Frame: findType("JSArray<Frame>"),
-      JSArray_Future_Null: findType("JSArray<Future<Null>>"),
       JSArray_Future_dynamic: findType("JSArray<Future<@>>"),
       JSArray_Future_void: findType("JSArray<Future<~>>"),
       JSArray_Mapping: findType("JSArray<Mapping>"),
@@ -19514,6 +19660,7 @@
       nullable_Map_of_nullable_Object_and_nullable_Object: findType("Map<Object?,Object?>?"),
       nullable_NativeUint8List: findType("NativeUint8List?"),
       nullable_Object: findType("Object?"),
+      nullable_Process: findType("Process?"),
       nullable_SourceFile: findType("SourceFile?"),
       nullable_StackTrace: findType("StackTrace?"),
       nullable_String: findType("String?"),
