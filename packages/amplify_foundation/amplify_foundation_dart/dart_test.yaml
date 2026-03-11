@@ -1,0 +1,11 @@
+# Enable dart2wasm compiler for browser tests
+compilers:
+  - dart2wasm
+
+override_platforms:
+  chrome:
+    settings:
+      arguments: --headless
+  firefox:
+    settings:
+      arguments: -headless
