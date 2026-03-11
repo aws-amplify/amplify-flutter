@@ -1,8 +1,8 @@
 import { defineBackend } from '@aws-amplify/backend';
-import { auth } from './auth/resource';
-import * as kinesis from 'aws-cdk-lib/aws-kinesis';
 import { Duration } from 'aws-cdk-lib';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import * as kinesis from 'aws-cdk-lib/aws-kinesis';
+import { auth } from './auth/resource';
 
 const backend = defineBackend({
   auth,
@@ -16,13 +16,14 @@ const stream = new kinesis.Stream(kinesisStack, 'TestStream', {
   retentionPeriod: Duration.hours(24),
 });
 
+// grantWrite adds kinesis:PutRecord, kinesis:PutRecords, and the required
+// kms:GenerateDataKey permission for the stream's encryption key.
+stream.grantWrite(backend.auth.resources.authenticatedUserIamRole);
+
+// DescribeStream is not included in grantWrite, so add it explicitly.
 backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
   new PolicyStatement({
-    actions: [
-      'kinesis:PutRecord',
-      'kinesis:PutRecords',
-      'kinesis:DescribeStream',
-    ],
+    actions: ['kinesis:DescribeStream'],
     resources: [stream.streamArn],
   })
 );
