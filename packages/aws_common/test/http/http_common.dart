@@ -52,7 +52,10 @@ void clientTest(
             ..sink.add(protocol.value)
             ..sink.add(secure);
           httpServerQueue = StreamQueue(httpServerChannel.stream);
-          host = 'localhost:${await httpServerQueue.next}';
+          // Under dart2wasm, numbers from spawnHybridUri arrive as double
+          // (e.g. 63515.0 instead of 63515), so we must convert to int.
+          final port = (await httpServerQueue.next as num).toInt();
+          host = 'localhost:$port';
           client = debugClient..supportedProtocols = supportedProtocols;
         });
         tearDown(() async {

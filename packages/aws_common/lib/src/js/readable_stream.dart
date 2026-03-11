@@ -36,22 +36,30 @@ extension type UnderlyingSource<T extends JSAny>._(JSObject _)
       return cancel!.call(reason).toJS;
     }
 
-    return UnderlyingSource.__(
-      start: start == null ? undefined : promiseStart.toJS,
-      pull: pull == null ? undefined : promisePull.toJS,
-      cancel: cancel == null ? undefined : promiseCancel.toJS,
-      type: type.jsValue?.toJS ?? undefined,
-      autoAllocateChunkSize: autoAllocateChunkSize?.toJS ?? undefined,
-    );
+    // Build the JS object manually using js_interop_unsafe to avoid
+    // setting properties to `null`/`undefined` which dart2wasm may
+    // serialize differently than dart2js. The browser's ReadableStream
+    // constructor rejects `{type: null}` — the `type` property must
+    // either be `"bytes"` or completely absent for default streams.
+    final obj = JSObject();
+    if (start != null) {
+      obj['start'] = promiseStart.toJS;
+    }
+    if (pull != null) {
+      obj['pull'] = promisePull.toJS;
+    }
+    if (cancel != null) {
+      obj['cancel'] = promiseCancel.toJS;
+    }
+    final typeValue = type.jsValue;
+    if (typeValue != null) {
+      obj['type'] = typeValue.toJS;
+    }
+    if (autoAllocateChunkSize != null) {
+      obj['autoAllocateChunkSize'] = autoAllocateChunkSize.toJS;
+    }
+    return obj as UnderlyingSource<T>;
   }
-
-  external factory UnderlyingSource.__({
-    JSFunction? start,
-    JSFunction? pull,
-    JSFunction? cancel,
-    JSAny? type,
-    JSAny? autoAllocateChunkSize,
-  });
 
   /// This is a method, called immediately when the object is constructed.
   ///
@@ -222,11 +230,39 @@ final class ReadableStreamView extends StreamView<List<int>> {
         progressSink.add(bytesRead);
       }
     } on Object catch (e, st) {
-      sink.addError(e, st);
+      // Under dart2wasm, errors from ReadableStream's controller.error()
+      // arrive as JSValue-wrapped objects instead of being automatically
+      // unwrapped to Dart types (as dart2js does). Unwrap them so that
+      // downstream Dart code sees the original error value.
+      final error = _unwrapJSError(e);
+      sink.addError(error, st);
     } finally {
       unawaited(sink.close());
       unawaited(progressSink.close());
     }
+  }
+
+  /// Attempts to unwrap a JS error value to its Dart equivalent.
+  ///
+  /// Under dart2wasm, errors that pass through JS boundaries (e.g. via
+  /// `ReadableStream.controller.error()`) arrive as opaque `JSValue`
+  /// wrappers. Under dart2js they are automatically converted to Dart
+  /// types. This method normalizes the behavior.
+  static Object _unwrapJSError(Object error) {
+    if (error is JSAny) {
+      // Try to convert the JSAny to a Dart string if it's a JSString.
+      if (error.isA<JSString>()) {
+        return (error as JSString).toDart;
+      }
+      // For other JS types, try dartify for common conversions.
+      try {
+        final dartified = error.dartify();
+        if (dartified != null) return dartified;
+      } on Object {
+        // dartify may throw for unsupported types — fall through.
+      }
+    }
+    return error;
   }
 }
 
