@@ -1,0 +1,83 @@
+name: Package Score
+description: |
+  Run pana (pub.dev package analyzer) to compute the package score,
+  print a readable report to the workflow log, and upload the raw
+  markdown report as a workflow artifact (score_report.md).
+  The score is compared against the currently published version on
+  pub.dev — the build fails if the score regresses. If the package
+  has never been published, no threshold is enforced.
+
+inputs:
+  working-directory:
+    description: The working directory of the package (relative to repo root)
+    required: true
+  package-name:
+    description: The name of the package being scored
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install pana
+      shell: bash
+      run: dart pub global activate pana
+
+    - name: Fetch published score from pub.dev
+      id: published
+      shell: bash
+      run: |
+        PACKAGE_NAME="${{ inputs.package-name }}"
+        HTTP_CODE=$(curl -s -o "$RUNNER_TEMP/pubdev_score.json" -w "%{http_code}" \
+          "https://pub.dev/api/packages/${PACKAGE_NAME}/score")
+
+        if [ "$HTTP_CODE" = "200" ]; then
+          GRANTED=$(python3 -c "import json; d=json.load(open('$RUNNER_TEMP/pubdev_score.json')); print(d.get('grantedPoints', 0))")
+          MAX=$(python3 -c "import json; d=json.load(open('$RUNNER_TEMP/pubdev_score.json')); print(d.get('maxPoints', 160))")
+          THRESHOLD=$((MAX - GRANTED))
+          echo "published=true" >> "$GITHUB_OUTPUT"
+          echo "granted=$GRANTED" >> "$GITHUB_OUTPUT"
+          echo "max=$MAX" >> "$GITHUB_OUTPUT"
+          echo "threshold=$THRESHOLD" >> "$GITHUB_OUTPUT"
+          echo "Published score for ${PACKAGE_NAME}: ${GRANTED}/${MAX} (threshold: ${THRESHOLD})"
+        else
+          echo "published=false" >> "$GITHUB_OUTPUT"
+          echo "Package ${PACKAGE_NAME} not found on pub.dev (HTTP ${HTTP_CODE}) — skipping threshold enforcement"
+        fi
+
+    - name: Run pana
+      id: pana
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set +e
+        if [ "${{ steps.published.outputs.published }}" = "true" ]; then
+          echo "Enforcing threshold: score must be at least ${{ steps.published.outputs.granted }}/${{ steps.published.outputs.max }} (published score)"
+          dart pub global run pana \
+            --exit-code-threshold ${{ steps.published.outputs.threshold }} \
+            --no-warning . > "$RUNNER_TEMP/score_report.md" 2>&1
+        else
+          echo "No published score found — running pana without threshold"
+          dart pub global run pana \
+            --no-warning . > "$RUNNER_TEMP/score_report.md" 2>&1
+        fi
+        PANA_EXIT=$?
+        set -e
+        echo "pana_exit=$PANA_EXIT" >> "$GITHUB_OUTPUT"
+
+    - name: Print score report
+      shell: bash
+      run: python3 "$GITHUB_ACTION_PATH/render_score.py" "$RUNNER_TEMP/score_report.md"
+
+    - name: Upload score report
+      if: always()
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # 7.0.0
+      with:
+        name: score_report-${{ inputs.package-name }}-${{ github.run_id }}
+        path: ${{ runner.temp }}/score_report.md
+
+    - name: Enforce score threshold
+      if: steps.pana.outputs.pana_exit != '0'
+      shell: bash
+      run: |
+        echo "::error::Pana score regressed below the published score (${{ steps.published.outputs.granted }}/${{ steps.published.outputs.max }}) on pub.dev"
+        exit ${{ steps.pana.outputs.pana_exit }}
