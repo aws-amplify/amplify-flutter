@@ -16,25 +16,13 @@ class _$PutRecordsRequestEntry extends PutRecordsRequestEntry {
 
   factory _$PutRecordsRequestEntry([
     void Function(PutRecordsRequestEntryBuilder)? updates,
-  ]) => (new PutRecordsRequestEntryBuilder()..update(updates))._build();
+  ]) => (PutRecordsRequestEntryBuilder()..update(updates))._build();
 
   _$PutRecordsRequestEntry._({
     required this.data,
     this.explicitHashKey,
     required this.partitionKey,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      data,
-      r'PutRecordsRequestEntry',
-      'data',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      partitionKey,
-      r'PutRecordsRequestEntry',
-      'partitionKey',
-    );
-  }
-
+  }) : super._();
   @override
   PutRecordsRequestEntry rebuild(
     void Function(PutRecordsRequestEntryBuilder) updates,
@@ -42,7 +30,7 @@ class _$PutRecordsRequestEntry extends PutRecordsRequestEntry {
 
   @override
   PutRecordsRequestEntryBuilder toBuilder() =>
-      new PutRecordsRequestEntryBuilder()..replace(this);
+      PutRecordsRequestEntryBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -96,7 +84,6 @@ class PutRecordsRequestEntryBuilder
 
   @override
   void replace(PutRecordsRequestEntry other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutRecordsRequestEntry;
   }
 
@@ -111,7 +98,7 @@ class PutRecordsRequestEntryBuilder
   _$PutRecordsRequestEntry _build() {
     final _$result =
         _$v ??
-        new _$PutRecordsRequestEntry._(
+        _$PutRecordsRequestEntry._(
           data: BuiltValueNullFieldError.checkNotNull(
             data,
             r'PutRecordsRequestEntry',

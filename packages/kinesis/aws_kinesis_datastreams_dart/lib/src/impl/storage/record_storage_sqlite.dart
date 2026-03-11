@@ -8,29 +8,30 @@ import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_excep
     show defaultRecoverySuggestion;
 import 'package:aws_kinesis_datastreams_dart/src/exception/record_cache_exception.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart'
     show kKinesisMaxBatchBytes, kKinesisMaxRecordsPerBatch;
 import 'package:drift/drift.dart';
 
-/// {@template aws_kinesis_datastreams.record_storage}
-/// Manages SQLite database operations for record persistence.
+/// {@template aws_kinesis_datastreams.sqlite_record_storage}
+/// SQLite-backed [RecordStorage] implementation using Drift.
+///
+/// Used on VM (iOS, Android, macOS, Linux, Windows) platforms.
 /// {@endtemplate}
-final class RecordStorage {
-  /// {@macro aws_kinesis_datastreams.record_storage}
-  RecordStorage({
+final class SqliteRecordStorage extends RecordStorage {
+  /// {@macro aws_kinesis_datastreams.sqlite_record_storage}
+  SqliteRecordStorage({
     required KinesisRecordDatabase database,
-    required int maxCacheBytes,
-  }) : _db = database,
-       _maxCacheBytes = maxCacheBytes;
+    required super.maxCacheBytes,
+  }) : _db = database;
 
   final KinesisRecordDatabase _db;
-  final int _maxCacheBytes;
 
-  /// The maximum cache size in bytes.
-  int get maxCacheBytes => _maxCacheBytes;
+  /// Provides access to the underlying database (for testing).
+  KinesisRecordDatabase get database => _db;
 
-  /// Saves a record to the database using parameterized queries.
-  Future<void> saveRecord(KinesisRecord record) => _wrapDbError(
+  @override
+  Future<void> saveRecord(RecordInput record) => _wrapDbError(
     'Failed to add record to cache',
     () async {
       await _db.into(_db.kinesisRecords).insert(
@@ -45,11 +46,8 @@ final class RecordStorage {
     },
   );
 
-  /// Retrieves a batch of records sorted by stream_name, partition_key, id.
-  ///
-  /// Returns records up to [maxCount] records and [maxBytes] total size.
-  /// Uses window functions to efficiently limit at the database level.
-  Future<List<StoredRecord>> getRecordsBatch({
+  @override
+  Future<List<Record>> getRecordsBatch({
     int maxCount = kKinesisMaxRecordsPerBatch,
     int maxBytes = kKinesisMaxBatchBytes,
   }) => _wrapDbError(
@@ -73,21 +71,11 @@ final class RecordStorage {
           )
           .get();
 
-      return results.map((row) {
-        return StoredRecord(
-          id: row.read<int>('id'),
-          streamName: row.read<String>('stream_name'),
-          partitionKey: row.read<String>('partition_key'),
-          data: row.read<Uint8List>('data'),
-          dataSize: row.read<int>('data_size'),
-          retryCount: row.read<int>('retry_count'),
-          createdAt: row.read<int>('created_at'),
-        );
-      }).toList();
+      return results.map(_rowToRecord).toList();
     },
   );
 
-  /// Deletes records by their IDs.
+  @override
   Future<void> deleteRecords(Iterable<int> ids) => _wrapDbError(
     'Failed to delete records from cache',
     () async {
@@ -97,7 +85,7 @@ final class RecordStorage {
     },
   );
 
-  /// Increments the retry count for the specified records.
+  @override
   Future<void> incrementRetryCount(Iterable<int> ids) => _wrapDbError(
     'Failed to increment retry count',
     () async {
@@ -111,11 +99,8 @@ final class RecordStorage {
     },
   );
 
-  /// Retrieves records grouped by stream, excluding the given IDs.
-  ///
-  /// Each stream's records are limited by [maxCount] and [maxBytes].
-  /// Returns a map from stream name to the list of records for that stream.
-  Future<Map<String, List<StoredRecord>>> getRecordsByStream({
+  @override
+  Future<Map<String, List<Record>>> getRecordsByStream({
     Set<int> excludingIds = const {},
     int maxCount = kKinesisMaxRecordsPerBatch,
     int maxBytes = kKinesisMaxBatchBytes,
@@ -145,17 +130,9 @@ final class RecordStorage {
           )
           .get();
 
-      final recordsByStream = <String, List<StoredRecord>>{};
+      final recordsByStream = <String, List<Record>>{};
       for (final row in results) {
-        final record = StoredRecord(
-          id: row.read<int>('id'),
-          streamName: row.read<String>('stream_name'),
-          partitionKey: row.read<String>('partition_key'),
-          data: row.read<Uint8List>('data'),
-          dataSize: row.read<int>('data_size'),
-          retryCount: row.read<int>('retry_count'),
-          createdAt: row.read<int>('created_at'),
-        );
+        final record = _rowToRecord(row);
         recordsByStream
             .putIfAbsent(record.streamName, () => [])
             .add(record);
@@ -164,7 +141,7 @@ final class RecordStorage {
     },
   );
 
-  /// Returns the current total size of cached data in bytes.
+  @override
   Future<int> getCurrentCacheSize() => _wrapDbError(
     'Failed to get cache size',
     () async {
@@ -176,7 +153,7 @@ final class RecordStorage {
     },
   );
 
-  /// Returns the total number of cached records.
+  @override
   Future<int> getRecordCount() => _wrapDbError(
     'Failed to get record count',
     () async {
@@ -188,7 +165,7 @@ final class RecordStorage {
     },
   );
 
-  /// Deletes all records from the database.
+  @override
   Future<void> clear() => _wrapDbError(
     'Failed to clear cache',
     () async {
@@ -196,9 +173,22 @@ final class RecordStorage {
     },
   );
 
-  /// Closes the database connection.
+  @override
   Future<void> close() async {
     await _db.close();
+  }
+
+  /// Maps a Drift query row to a plain [Record].
+  Record _rowToRecord(QueryRow row) {
+    return Record(
+      id: row.read<int>('id'),
+      streamName: row.read<String>('stream_name'),
+      partitionKey: row.read<String>('partition_key'),
+      data: row.read<Uint8List>('data'),
+      dataSize: row.read<int>('data_size'),
+      retryCount: row.read<int>('retry_count'),
+      createdAt: row.read<int>('created_at'),
+    );
   }
 
   /// Wraps a database operation, converting non-[RecordCacheException] errors

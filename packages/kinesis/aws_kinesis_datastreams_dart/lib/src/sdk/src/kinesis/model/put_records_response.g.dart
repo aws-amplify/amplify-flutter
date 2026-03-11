@@ -16,20 +16,13 @@ class _$PutRecordsResponse extends PutRecordsResponse {
 
   factory _$PutRecordsResponse([
     void Function(PutRecordsResponseBuilder)? updates,
-  ]) => (new PutRecordsResponseBuilder()..update(updates))._build();
+  ]) => (PutRecordsResponseBuilder()..update(updates))._build();
 
   _$PutRecordsResponse._({
     this.failedRecordCount,
     required this.records,
     this.encryptionType,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      records,
-      r'PutRecordsResponse',
-      'records',
-    );
-  }
-
+  }) : super._();
   @override
   PutRecordsResponse rebuild(
     void Function(PutRecordsResponseBuilder) updates,
@@ -37,7 +30,7 @@ class _$PutRecordsResponse extends PutRecordsResponse {
 
   @override
   PutRecordsResponseBuilder toBuilder() =>
-      new PutRecordsResponseBuilder()..replace(this);
+      PutRecordsResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +63,7 @@ class PutRecordsResponseBuilder
 
   _i3.ListBuilder<PutRecordsResultEntry>? _records;
   _i3.ListBuilder<PutRecordsResultEntry> get records =>
-      _$this._records ??= new _i3.ListBuilder<PutRecordsResultEntry>();
+      _$this._records ??= _i3.ListBuilder<PutRecordsResultEntry>();
   set records(_i3.ListBuilder<PutRecordsResultEntry>? records) =>
       _$this._records = records;
 
@@ -94,7 +87,6 @@ class PutRecordsResponseBuilder
 
   @override
   void replace(PutRecordsResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutRecordsResponse;
   }
 
@@ -111,7 +103,7 @@ class PutRecordsResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$PutRecordsResponse._(
+          _$PutRecordsResponse._(
             failedRecordCount: failedRecordCount,
             records: records.build(),
             encryptionType: encryptionType,
@@ -122,7 +114,7 @@ class PutRecordsResponseBuilder
         _$failedField = 'records';
         records.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'PutRecordsResponse',
           _$failedField,
           e.toString(),

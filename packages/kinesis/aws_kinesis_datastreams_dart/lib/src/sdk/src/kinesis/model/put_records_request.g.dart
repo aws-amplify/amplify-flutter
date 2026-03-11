@@ -16,32 +16,20 @@ class _$PutRecordsRequest extends PutRecordsRequest {
 
   factory _$PutRecordsRequest([
     void Function(PutRecordsRequestBuilder)? updates,
-  ]) => (new PutRecordsRequestBuilder()..update(updates))._build();
+  ]) => (PutRecordsRequestBuilder()..update(updates))._build();
 
   _$PutRecordsRequest._({
     required this.records,
     required this.streamName,
     this.streamArn,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      records,
-      r'PutRecordsRequest',
-      'records',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      streamName,
-      r'PutRecordsRequest',
-      'streamName',
-    );
-  }
-
+  }) : super._();
   @override
   PutRecordsRequest rebuild(void Function(PutRecordsRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   PutRecordsRequestBuilder toBuilder() =>
-      new PutRecordsRequestBuilder()..replace(this);
+      PutRecordsRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +57,7 @@ class PutRecordsRequestBuilder
 
   _i3.ListBuilder<PutRecordsRequestEntry>? _records;
   _i3.ListBuilder<PutRecordsRequestEntry> get records =>
-      _$this._records ??= new _i3.ListBuilder<PutRecordsRequestEntry>();
+      _$this._records ??= _i3.ListBuilder<PutRecordsRequestEntry>();
   set records(_i3.ListBuilder<PutRecordsRequestEntry>? records) =>
       _$this._records = records;
 
@@ -96,7 +84,6 @@ class PutRecordsRequestBuilder
 
   @override
   void replace(PutRecordsRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutRecordsRequest;
   }
 
@@ -113,7 +100,7 @@ class PutRecordsRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$PutRecordsRequest._(
+          _$PutRecordsRequest._(
             records: records.build(),
             streamName: BuiltValueNullFieldError.checkNotNull(
               streamName,
@@ -128,7 +115,7 @@ class PutRecordsRequestBuilder
         _$failedField = 'records';
         records.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'PutRecordsRequest',
           _$failedField,
           e.toString(),

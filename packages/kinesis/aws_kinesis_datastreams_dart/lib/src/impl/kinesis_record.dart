@@ -5,9 +5,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 /// Internal representation of a record to be sent to Kinesis.
-final class KinesisRecord {
+final class RecordInput {
   /// Creates a new Kinesis record.
-  const KinesisRecord({
+  const RecordInput({
     required this.data,
     required this.partitionKey,
     required this.streamName,
@@ -15,12 +15,12 @@ final class KinesisRecord {
   });
 
   /// Creates a Kinesis record with the current timestamp.
-  factory KinesisRecord.now({
+  factory RecordInput.now({
     required Uint8List data,
     required String partitionKey,
     required String streamName,
   }) {
-    return KinesisRecord(
+    return RecordInput(
       data: data,
       partitionKey: partitionKey,
       streamName: streamName,

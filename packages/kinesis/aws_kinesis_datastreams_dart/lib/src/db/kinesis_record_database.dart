@@ -11,7 +11,7 @@ part 'kinesis_record_database.g.dart';
 /// Schema of the KinesisRecords table in SQLite.
 ///
 /// When updating this schema, please bump [KinesisRecordDatabase.schemaVersion].
-@DataClassName('StoredRecord')
+@DataClassName('DriftStoredRecord')
 class KinesisRecords extends Table {
   /// Auto-incrementing primary key.
   IntColumn get id => integer().autoIncrement()();
@@ -44,8 +44,7 @@ class KinesisRecordDatabase extends _$KinesisRecordDatabase {
   ///
   /// [identifier] is used to namespace the database (typically the AWS region).
   /// [storagePath] is the directory path for the database file on IO platforms;
-  /// it is ignored on web where sqlite3.wasm with an IndexedDB-backed VFS is
-  /// used instead.
+  /// it is ignored on web where IndexedDB is used instead.
   factory KinesisRecordDatabase({
     required String identifier,
     required FutureOr<String>? storagePath,

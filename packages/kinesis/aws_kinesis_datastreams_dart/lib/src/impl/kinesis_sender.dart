@@ -1,11 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:typed_data';
-
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     as foundation;
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_kinesis_datastreams_dart/src/model/record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/sdk/kinesis.dart';
 import 'package:aws_kinesis_datastreams_dart/src/sdk/sdk_bridge.dart';
 
@@ -26,18 +25,6 @@ final class PutRecordsResult {
 
   /// Indices of records that failed with retryable errors.
   final List<int> retryableRecordIndices;
-}
-
-/// A record to be sent to Kinesis.
-final class KinesisSenderRecord {
-  /// Creates a new [KinesisSenderRecord].
-  const KinesisSenderRecord({required this.data, required this.partitionKey});
-
-  /// The data blob to send.
-  final Uint8List data;
-
-  /// The partition key for the record.
-  final String partitionKey;
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_sender}
@@ -72,7 +59,7 @@ class KinesisSender {
   /// failed, or should be retried.
   Future<PutRecordsResult> putRecords({
     required String streamName,
-    required List<KinesisSenderRecord> records,
+    required List<Record> records,
   }) async {
     if (records.isEmpty) {
       return const PutRecordsResult(
@@ -115,13 +102,10 @@ class KinesisSender {
       final entry = resultEntries[i];
 
       if (entry.errorCode == null) {
-        // Success - record has sequenceNumber and shardId
         successfulIndices.add(i);
       } else if (_retryableErrorCodes.contains(entry.errorCode)) {
-        // Retryable error
         retryableIndices.add(i);
       } else {
-        // Non-retryable error
         failedIndices.add(i);
       }
     }

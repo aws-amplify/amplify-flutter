@@ -11,7 +11,8 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/auto_flush_scheduler.dart'
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/record_client.dart';
-import 'package:aws_kinesis_datastreams_dart/src/impl/record_storage.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_sqlite.dart';
 import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
@@ -29,7 +30,7 @@ void main() {
 
     setUp(() {
       final db = createTestDatabase();
-      storage = RecordStorage(
+      storage = SqliteRecordStorage(
         database: db,
         maxCacheBytes: 1024, // 1KB for testing
       );
@@ -57,7 +58,7 @@ void main() {
         client.disable();
 
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([1, 2, 3]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -70,7 +71,7 @@ void main() {
 
       test('accepts records when enabled', () async {
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([1, 2, 3]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -85,7 +86,7 @@ void main() {
           () async {
         // Fill the cache (1KB limit)
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List(900),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -95,7 +96,7 @@ void main() {
         // This should throw because 900 + 200 > 1024
         expect(
           () => client.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List(200),
               partitionKey: 'pk',
               streamName: 'stream',
@@ -116,7 +117,7 @@ void main() {
 
           expect(
             () => client.record(
-              KinesisRecord.now(
+              RecordInput.now(
                 data: oversizedData,
                 partitionKey: partitionKey,
                 streamName: 'stream',
@@ -131,7 +132,7 @@ void main() {
         'accepts record exactly at 10 MiB limit (partition key + data)',
         () async {
           final largeDb = createTestDatabase();
-          final largeStorage = RecordStorage(
+          final largeStorage = SqliteRecordStorage(
             database: largeDb,
             maxCacheBytes: 20 * 1024 * 1024,
           );
@@ -155,7 +156,7 @@ void main() {
           );
 
           await largeClient.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: exactLimitData,
               partitionKey: partitionKey,
               streamName: 'stream',
@@ -172,7 +173,7 @@ void main() {
       test('dataSize includes partition key size', () {
         const partitionKey = 'test-partition-key';
         final data = Uint8List.fromList([1, 2, 3]);
-        final record = KinesisRecord.now(
+        final record = RecordInput.now(
           data: data,
           partitionKey: partitionKey,
           streamName: 'stream',
@@ -191,7 +192,7 @@ void main() {
         expect(client.isEnabled, isFalse);
 
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -205,7 +206,7 @@ void main() {
         expect(client.isEnabled, isTrue);
 
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([2]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -221,7 +222,7 @@ void main() {
       test('sends all cached records and returns FlushData', () async {
         for (var i = 0; i < 3; i++) {
           await client.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -239,7 +240,7 @@ void main() {
 
       test('returns empty FlushData when disabled', () async {
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -260,7 +261,7 @@ void main() {
         'returns FlushData with flushInProgress when already flushing',
         () async {
           await client.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([1]),
               partitionKey: 'pk',
               streamName: 'stream',
@@ -275,7 +276,7 @@ void main() {
 
       test('respects batch size limits - 500 records', () async {
         final largeDb = createTestDatabase();
-        final largeStorage = RecordStorage(
+        final largeStorage = SqliteRecordStorage(
           database: largeDb,
           maxCacheBytes: 10 * 1024 * 1024,
         );
@@ -295,7 +296,7 @@ void main() {
 
         for (var i = 0; i < 600; i++) {
           await largeClient.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([i % 256]),
               partitionKey: 'pk',
               streamName: 'stream',
@@ -315,21 +316,21 @@ void main() {
 
       test('separates records by stream', () async {
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream-a',
           ),
         );
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([2]),
             partitionKey: 'pk',
             streamName: 'stream-b',
           ),
         );
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([3]),
             partitionKey: 'pk',
             streamName: 'stream-a',
@@ -349,7 +350,7 @@ void main() {
 
       test('deletes successful records after send', () async {
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -372,7 +373,7 @@ void main() {
         };
 
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -395,7 +396,7 @@ void main() {
         'retains record with incremented retry count after retryable failure',
         () async {
           final testDb = createTestDatabase();
-          final testStorage = RecordStorage(
+          final testStorage = SqliteRecordStorage(
             database: testDb,
             maxCacheBytes: 1024,
           );
@@ -420,7 +421,7 @@ void main() {
           );
 
           await testClient.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([1]),
               partitionKey: 'pk',
               streamName: 'stream',
@@ -448,7 +449,7 @@ void main() {
         );
 
         await client.record(
-          KinesisRecord.now(
+          RecordInput.now(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -466,7 +467,7 @@ void main() {
       test('handles mixed success and failure', () async {
         for (var i = 0; i < 3; i++) {
           await client.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -503,7 +504,7 @@ void main() {
         'invalid stream records do not block valid stream flushes',
         () async {
           final testDb = createTestDatabase();
-          final testStorage = RecordStorage(
+          final testStorage = SqliteRecordStorage(
             database: testDb,
             maxCacheBytes: 1024,
           );
@@ -535,14 +536,14 @@ void main() {
           };
 
           await testClient.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([1, 2, 3]),
               partitionKey: 'pk',
               streamName: 'invalid-stream',
             ),
           );
           await testClient.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([4, 5, 6]),
               partitionKey: 'pk',
               streamName: 'valid-stream',
@@ -566,7 +567,7 @@ void main() {
         'non-SDK errors abort the flush',
         () async {
           final testDb = createTestDatabase();
-          final testStorage = RecordStorage(
+          final testStorage = SqliteRecordStorage(
             database: testDb,
             maxCacheBytes: 1024,
           );
@@ -589,7 +590,7 @@ void main() {
           };
 
           await testClient.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([1, 2, 3]),
               partitionKey: 'pk',
               streamName: 'stream',
@@ -610,7 +611,7 @@ void main() {
       test('removes all cached records and returns ClearCacheData', () async {
         for (var i = 0; i < 5; i++) {
           await client.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -639,7 +640,7 @@ void main() {
 
         expect(
           () => client.record(
-            KinesisRecord.now(
+            RecordInput.now(
               data: Uint8List.fromList([1]),
               partitionKey: 'pk',
               streamName: 'stream',
@@ -662,10 +663,10 @@ void main() {
 class _TestKinesisSender implements KinesisSender {
   final List<_PutRecordsCall> putRecordsCalls = [];
   PutRecordsResult? nextResult;
-  PutRecordsResult Function(List<KinesisSenderRecord> records)? resultProvider;
+  PutRecordsResult Function(List<Record> records)? resultProvider;
   PutRecordsResult Function(
     String streamName,
-    List<KinesisSenderRecord> records,
+    List<Record> records,
   )? streamResultProvider;
 
   @override
@@ -678,7 +679,7 @@ class _TestKinesisSender implements KinesisSender {
   @override
   Future<PutRecordsResult> putRecords({
     required String streamName,
-    required List<KinesisSenderRecord> records,
+    required List<Record> records,
   }) async {
     putRecordsCalls.add(
       _PutRecordsCall(streamName: streamName, records: records),
@@ -708,5 +709,5 @@ class _PutRecordsCall {
   _PutRecordsCall({required this.streamName, required this.records});
 
   final String streamName;
-  final List<KinesisSenderRecord> records;
+  final List<Record> records;
 }
