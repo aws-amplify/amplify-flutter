@@ -1,0 +1,27 @@
+name: aws_kinesis_datastreams_example
+description: Demonstrates how to use the aws_kinesis_datastreams plugin.
+version: 0.1.0
+
+publish_to: "none"
+
+environment:
+  sdk: ^3.9.0
+  flutter: ">=3.35.0"
+
+dependencies:
+  amplify_foundation_dart: ">=1.0.0 <2.0.0"
+  aws_kinesis_datastreams:
+    path: ../
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../../amplify_lints
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
