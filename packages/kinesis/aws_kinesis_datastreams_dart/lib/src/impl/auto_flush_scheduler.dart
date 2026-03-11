@@ -5,81 +5,64 @@ import 'dart:async';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:aws_kinesis_datastreams_dart/src/flush_strategy/flush_strategy.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/record_client.dart';
 
 /// {@template aws_kinesis_datastreams.auto_flush_scheduler}
 /// Manages automatic flush scheduling based on the configured strategy.
+///
+/// Matches Android's `AutoFlushScheduler`: takes a [RecordClient] directly,
+/// has `start()` and `stop()` methods, and uses a delay-loop so the next
+/// interval doesn't start until the current flush completes.
 /// {@endtemplate}
 final class AutoFlushScheduler {
   /// {@macro aws_kinesis_datastreams.auto_flush_scheduler}
   AutoFlushScheduler({
     required KinesisDataStreamsFlushStrategy strategy,
-    required Future<void> Function() onFlush
+    required RecordClient client,
   }) : _strategy = strategy,
-       _onFlush = onFlush;
+       _client = client;
 
   final KinesisDataStreamsFlushStrategy _strategy;
-  final Future<void> Function() _onFlush;
+  final RecordClient _client;
   final Logger _logger = AmplifyLogging.logger('AutoFlushScheduler');
-  Timer? _timer;
-  bool _enabled = true;
-  bool _closed = false;
+  bool _running = false;
 
-  /// Whether the scheduler is currently enabled.
-  bool get isEnabled => _enabled;
-
-  /// Whether the scheduler has been closed.
-  bool get isClosed => _closed;
-
-  /// Starts the scheduler based on the configured strategy.
+  /// Starts the scheduler. If already running, cancels and restarts.
+  ///
+  /// Matches Android's `start()` which cancels any existing Job before
+  /// launching a new one.
   void start() {
-    if (_closed) return;
-    _cancelTimer();
-
+    _running = false; // stop any existing loop
     switch (_strategy) {
       case KinesisDataStreamsInterval(:final interval):
-        _timer = Timer.periodic(interval, (_) => _handleTimerTick());
+        _running = true;
+        unawaited(_run(interval));
       case KinesisDataStreamsNone():
         break;
     }
   }
 
-  /// Stops the scheduler and cancels any active timer.
+  /// Stops the scheduler. Matches Android's `disable()`.
   void stop() {
-    _cancelTimer();
+    _running = false;
   }
 
-  /// Enables the scheduler to trigger flushes.
-  void enable() {
-    _enabled = true;
-  }
-
-  /// Disables the scheduler from triggering flushes.
-  void disable() {
-    _enabled = false;
-  }
-
-  /// Closes the scheduler and releases resources.
-  Future<void> close() async {
-    _closed = true;
-    _cancelTimer();
-  }
-
-  void _cancelTimer() {
-    _timer?.cancel();
-    _timer = null;
-  }
-
-  void _handleTimerTick() {
-    if (!_enabled || _closed) return;
-    unawaited(_flushSilently());
-  }
-
-  Future<void> _flushSilently() async {
-    try {
-      await _onFlush();
-      _logger.debug('Auto-flush completed');
-    } catch (e) {
-      _logger.warn('Auto-flush failed', e);
+  /// Delay-loop: wait for the interval, flush, repeat.
+  /// The next delay doesn't start until the flush completes.
+  /// The loop exits when [_running] is set to false.
+  Future<void> _run(Duration interval) async {
+    while (_running) {
+      await Future<void>.delayed(interval);
+      if (!_running) break;
+      try {
+        final result = await _client.flush();
+        _logger.debug(
+          'Auto-flush completed: ${result.recordsFlushed} records flushed',
+        );
+      } on Object catch (e) {
+        // Defensive catch to prevent scheduler from crashing.
+        _logger.warn('Auto-flush failed', e);
+      }
     }
   }
 }

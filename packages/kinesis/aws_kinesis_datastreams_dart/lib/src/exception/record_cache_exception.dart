@@ -29,21 +29,30 @@ sealed class RecordCacheException implements Exception {
 /// Database operation failed.
 final class RecordCacheDatabaseException extends RecordCacheException {
   /// Creates a [RecordCacheDatabaseException].
-  RecordCacheDatabaseException(super.message, super.recoverySuggestion,
-      [super.cause]);
+  RecordCacheDatabaseException(
+    super.message,
+    super.recoverySuggestion, [
+    super.cause,
+  ]);
 }
 
 /// Cache limit exceeded — no space for new records.
 final class RecordCacheLimitExceededException extends RecordCacheException {
   /// Creates a [RecordCacheLimitExceededException].
-  RecordCacheLimitExceededException(super.message, super.recoverySuggestion,
-      [super.cause]);
+  RecordCacheLimitExceededException(
+    super.message,
+    super.recoverySuggestion, [
+    super.cause,
+  ]);
 }
 
 /// Record input validation failed (e.g. oversized record, invalid partition
 /// key).
 final class RecordCacheValidationException extends RecordCacheException {
   /// Creates a [RecordCacheValidationException].
-  RecordCacheValidationException(super.message, super.recoverySuggestion,
-      [super.cause]);
+  RecordCacheValidationException(
+    super.message,
+    super.recoverySuggestion, [
+    super.cause,
+  ]);
 }

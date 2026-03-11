@@ -13,37 +13,47 @@ void main() {
       expect(identical(result, original), isTrue);
     });
 
-    test('converts RecordCacheValidationException to KinesisValidationException',
-        () {
-      final cause = RecordCacheValidationException('bad input', 'fix it');
-      final result = AmplifyKinesisException.from(cause);
-      expect(result, isA<KinesisValidationException>());
-      expect(result.message, 'bad input');
-      expect(result.recoverySuggestion, 'fix it');
-    });
-
-    test('converts RecordCacheDatabaseException to KinesisStorageException',
-        () {
-      final underlying = Exception('sqlite error');
-      final cause =
-          RecordCacheDatabaseException('db error', 'retry', underlying);
-      final result = AmplifyKinesisException.from(cause);
-      expect(result, isA<KinesisStorageException>());
-      expect(result.message, 'db error');
-      expect(result.recoverySuggestion, 'retry');
-      expect(result.cause, underlying);
-    });
+    test(
+      'converts RecordCacheValidationException to KinesisValidationException',
+      () {
+        final cause = RecordCacheValidationException('bad input', 'fix it');
+        final result = AmplifyKinesisException.from(cause);
+        expect(result, isA<KinesisValidationException>());
+        expect(result.message, 'bad input');
+        expect(result.recoverySuggestion, 'fix it');
+      },
+    );
 
     test(
-        'converts RecordCacheLimitExceededException to KinesisLimitExceededException',
-        () {
-      final cause =
-          RecordCacheLimitExceededException('cache full', 'flush first');
-      final result = AmplifyKinesisException.from(cause);
-      expect(result, isA<KinesisLimitExceededException>());
-      expect(result.message, 'cache full');
-      expect(result.recoverySuggestion, 'flush first');
-    });
+      'converts RecordCacheDatabaseException to KinesisStorageException',
+      () {
+        final underlying = Exception('sqlite error');
+        final cause = RecordCacheDatabaseException(
+          'db error',
+          'retry',
+          underlying,
+        );
+        final result = AmplifyKinesisException.from(cause);
+        expect(result, isA<KinesisStorageException>());
+        expect(result.message, 'db error');
+        expect(result.recoverySuggestion, 'retry');
+        expect(result.cause, underlying);
+      },
+    );
+
+    test(
+      'converts RecordCacheLimitExceededException to KinesisLimitExceededException',
+      () {
+        final cause = RecordCacheLimitExceededException(
+          'cache full',
+          'flush first',
+        );
+        final result = AmplifyKinesisException.from(cause);
+        expect(result, isA<KinesisLimitExceededException>());
+        expect(result.message, 'cache full');
+        expect(result.recoverySuggestion, 'flush first');
+      },
+    );
 
     test('converts unknown Exception to KinesisUnknownException', () {
       final cause = Exception('something unexpected');

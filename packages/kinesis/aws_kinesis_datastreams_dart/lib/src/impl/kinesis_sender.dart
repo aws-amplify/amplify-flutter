@@ -1,71 +1,70 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    as foundation;
-import 'package:aws_common/aws_common.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/sdk/kinesis.dart';
-import 'package:aws_kinesis_datastreams_dart/src/sdk/sdk_bridge.dart';
 
 /// Result of a PutRecords operation.
+///
+/// Records are categorized into three buckets matching Android's
+/// `PutRecordsResponse`:
+/// - [successfulIds]: records that were accepted by Kinesis.
+/// - [retryableIds]: records that failed with any error code but have not
+///   yet exceeded the retry limit. These will be retried in the next flush.
+/// - [failedIds]: records that have exceeded the retry limit and should be
+///   deleted from the cache.
 final class PutRecordsResult {
   /// Creates a new [PutRecordsResult].
   const PutRecordsResult({
-    required this.successfulRecordIndices,
-    required this.failedRecordIndices,
-    required this.retryableRecordIndices,
+    required this.successfulIds,
+    required this.retryableIds,
+    required this.failedIds,
   });
 
-  /// Indices of records that were successfully sent.
-  final List<int> successfulRecordIndices;
+  /// IDs of records that were successfully sent.
+  final List<int> successfulIds;
 
-  /// Indices of records that failed with non-retryable errors.
-  final List<int> failedRecordIndices;
+  /// IDs of records that failed but can be retried (retry count < max).
+  final List<int> retryableIds;
 
-  /// Indices of records that failed with retryable errors.
-  final List<int> retryableRecordIndices;
+  /// IDs of records that exceeded the retry limit and should be deleted.
+  final List<int> failedIds;
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_sender}
 /// Handles communication with AWS Kinesis Data Streams.
+///
+/// Matches Android's `KinesisRecordSender`: takes a pre-configured
+/// [KinesisClient] and owns the retry-count categorization so that all
+/// error codes are treated as retryable until the record exceeds
+/// `maxRetries`.
 /// {@endtemplate}
 class KinesisSender {
   /// {@macro aws_kinesis_datastreams.kinesis_sender}
   KinesisSender({
-    required String region,
-    required foundation.AWSCredentialsProvider credentialsProvider,
-    AWSHttpClient? httpClient,
-  }) : _kinesisClient = WrappedKinesisClient(
-         region: region,
-         credentialsProvider: credentialsProvider,
-         httpClient: httpClient,
-       );
+    required KinesisClient kinesisClient,
+    required int maxRetries,
+  }) : _kinesisClient = kinesisClient,
+       _maxRetries = maxRetries;
 
   final KinesisClient _kinesisClient;
+  final int _maxRetries;
 
-  /// The underlying SDK client for direct access.
-  KinesisClient get sdkClient => _kinesisClient;
-
-  /// Error codes that indicate a retryable error.
-  static const _retryableErrorCodes = {
-    'ProvisionedThroughputExceededException',
-    'InternalFailure',
-  };
-
-  /// Sends records to a Kinesis stream.
+  /// Sends records to a Kinesis stream and categorizes the response.
   ///
-  /// Returns a [PutRecordsResult] indicating which records succeeded,
-  /// failed, or should be retried.
+  /// Each record in the response is categorized as:
+  /// - successful: no error code
+  /// - failed: has an error code AND retry count >= [_maxRetries]
+  /// - retryable: has an error code AND retry count < [_maxRetries]
   Future<PutRecordsResult> putRecords({
     required String streamName,
     required List<Record> records,
   }) async {
     if (records.isEmpty) {
       return const PutRecordsResult(
-        successfulRecordIndices: [],
-        failedRecordIndices: [],
-        retryableRecordIndices: [],
+        successfulIds: [],
+        retryableIds: [],
+        failedIds: [],
       );
     }
 
@@ -84,36 +83,44 @@ class KinesisSender {
     );
 
     final response = await _kinesisClient.putRecords(request).result;
-    return _parseResponse(response, records.length);
+    return _splitResponse(response, records);
   }
 
-  /// Parses the PutRecords response to identify successful and failed records.
-  PutRecordsResult _parseResponse(
+  /// Splits the PutRecords response into successful, retryable, and failed
+  /// record IDs based on error codes and retry counts.
+  ///
+  /// Mirrors Android's `KinesisRecordSender.splitResponse()`.
+  PutRecordsResult _splitResponse(
     PutRecordsResponse response,
-    int recordCount,
+    List<Record> records,
   ) {
-    final successfulIndices = <int>[];
-    final failedIndices = <int>[];
-    final retryableIndices = <int>[];
+    final successfulIds = <int>[];
+    final retryableIds = <int>[];
+    final failedIds = <int>[];
 
     final resultEntries = response.records.toList();
 
     for (var i = 0; i < resultEntries.length; i++) {
       final entry = resultEntries[i];
+      final recordId = records[i].id;
+      final retryCount = records[i].retryCount;
 
       if (entry.errorCode == null) {
-        successfulIndices.add(i);
-      } else if (_retryableErrorCodes.contains(entry.errorCode)) {
-        retryableIndices.add(i);
+        successfulIds.add(recordId);
+      } else if (retryCount >= _maxRetries) {
+        failedIds.add(recordId);
       } else {
-        failedIndices.add(i);
+        // Error codes can be: ProvisionedThroughputExceededException or
+        // InternalFailure. All are treated as retryable until the retry
+        // limit is reached.
+        retryableIds.add(recordId);
       }
     }
 
     return PutRecordsResult(
-      successfulRecordIndices: successfulIndices,
-      failedRecordIndices: failedIndices,
-      retryableRecordIndices: retryableIndices,
+      successfulIds: successfulIds,
+      retryableIds: retryableIds,
+      failedIds: failedIds,
     );
   }
 }

@@ -15,14 +15,12 @@ RecordStorage createPlatformRecordStorage({
   required int maxCacheBytes,
 }) {
   assert(storagePath != null, 'storagePath is required on VM platforms.');
-  AmplifyLogging.logger('RecordStorage')
-      .info('Using SQLite storage (path: $storagePath)');
+  AmplifyLogging.logger(
+    'RecordStorage',
+  ).info('Using SQLite storage (path: $storagePath)');
   final database = KinesisRecordDatabase(
     identifier: identifier,
     storagePath: storagePath,
   );
-  return SqliteRecordStorage(
-    database: database,
-    maxCacheBytes: maxCacheBytes,
-  );
+  return SqliteRecordStorage(database: database, maxCacheBytes: maxCacheBytes);
 }

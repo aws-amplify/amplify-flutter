@@ -10,52 +10,136 @@ import 'package:aws_kinesis_datastreams_dart/src/exception/record_cache_exceptio
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart'
-    show kKinesisMaxBatchBytes, kKinesisMaxRecordsPerBatch;
+    show kKinesisMaxBatchBytes, kKinesisMaxPartitionKeyLength,
+         kKinesisMaxRecordBytes, kKinesisMaxRecordsPerBatch;
 import 'package:drift/drift.dart';
+import 'package:meta/meta.dart';
 
 /// {@template aws_kinesis_datastreams.sqlite_record_storage}
 /// SQLite-backed [RecordStorage] implementation using Drift.
 ///
 /// Used on VM (iOS, Android, macOS, Linux, Windows) platforms.
+///
+/// Matches Android's `SQLiteRecordStorage`:
+/// - Limits are baked in at construction time (`maxRecordsPerStream`,
+///   `maxBytesPerStream`) and applied in the SQL query.
+/// - Maintains an in-memory cache size tracker (`_cachedSize`) that is
+///   incremented on writes and recalculated from DB after deletes.
+/// - `getCurrentCacheSize()` returns the cached value (O(1), no DB query).
+///
+/// ## Limitations vs Android
+///
+/// - Android uses a `Mutex` to serialize all DB operations. Drift handles
+///   concurrency internally, so no explicit mutex is needed. The in-memory
+///   cache size is not mutex-protected — concurrent `saveRecord` calls
+///   could race on the increment. This is mitigated by
+///   `RecordClient._recordLock` which serializes `record()` calls.
+///
+/// - Android uses explicit `BEGIN IMMEDIATE TRANSACTION` for
+///   `getRecordsByStream` and `clearRecords`. Drift wraps individual
+///   operations in implicit transactions.
 /// {@endtemplate}
 final class SqliteRecordStorage extends RecordStorage {
   /// {@macro aws_kinesis_datastreams.sqlite_record_storage}
   SqliteRecordStorage({
     required KinesisRecordDatabase database,
     required super.maxCacheBytes,
-  }) : _db = database;
+    int maxRecordsPerStream = kKinesisMaxRecordsPerBatch,
+    int maxBytesPerStream = kKinesisMaxBatchBytes,
+  }) : _db = database,
+       _maxRecordsPerStream = maxRecordsPerStream,
+       _maxBytesPerStream = maxBytesPerStream;
 
   final KinesisRecordDatabase _db;
+  final int _maxRecordsPerStream;
+  final int _maxBytesPerStream;
+
+  /// In-memory cache size tracker, matching Android's `cachedSize`.
+  /// Initialized lazily, then maintained incrementally.
+  int _cachedSize = 0;
+  bool _cacheSizeInitialized = false;
 
   /// Provides access to the underlying database (for testing).
   KinesisRecordDatabase get database => _db;
 
-  @override
-  Future<void> saveRecord(RecordInput record) => _wrapDbError(
-    'Failed to add record to cache',
-    () async {
-      await _db.into(_db.kinesisRecords).insert(
-        KinesisRecordsCompanion.insert(
-          streamName: record.streamName,
-          partitionKey: record.partitionKey,
-          data: record.data,
-          dataSize: record.dataSize,
-          createdAt: record.createdAt.millisecondsSinceEpoch,
-        ),
-      );
-    },
-  );
+  /// Ensures the in-memory cache size is initialized from the database.
+  Future<void> _ensureCacheSizeInitialized() async {
+    if (!_cacheSizeInitialized) {
+      _cachedSize = await _queryCacheSize();
+      _cacheSizeInitialized = true;
+    }
+  }
+
+  /// Recalculates the cache size from the database.
+  /// Matches Android's `resetCacheSizeFromDb()`.
+  Future<int> _queryCacheSize() async {
+    final query = _db.selectOnly(_db.kinesisRecords)
+      ..addColumns([_db.kinesisRecords.dataSize.sum()]);
+    final result = await query.getSingleOrNull();
+    if (result == null) return 0;
+    return result.read(_db.kinesisRecords.dataSize.sum()) ?? 0;
+  }
 
   @override
+  Future<void> addRecord(RecordInput record) =>
+      _wrapDbError('Failed to add record to cache', () async {
+        await _ensureCacheSizeInitialized();
+
+        // Validate partition key length (1–256 Unicode code points)
+        final codePoints = record.partitionKey.runes.length;
+        if (codePoints == 0 || codePoints > kKinesisMaxPartitionKeyLength) {
+          throw RecordCacheValidationException(
+            'Partition key length ($codePoints) is outside the allowed '
+                'range of 1–$kKinesisMaxPartitionKeyLength characters.',
+            'Use a partition key between 1 and '
+                '$kKinesisMaxPartitionKeyLength characters.',
+          );
+        }
+
+        // Validate per-record size limit
+        if (record.dataSize > kKinesisMaxRecordBytes) {
+          throw RecordCacheValidationException(
+            'Record size (${record.dataSize} bytes) exceeds the maximum '
+                'of $kKinesisMaxRecordBytes bytes (partition key + data blob).',
+            'Reduce the record payload size or use a shorter partition key.',
+          );
+        }
+
+        // Check cache size limit
+        if (_cachedSize + record.dataSize > maxCacheBytes) {
+          throw RecordCacheLimitExceededException(
+            'Cache size limit exceeded: '
+                '${_cachedSize + record.dataSize} bytes > $maxCacheBytes bytes',
+            'Call flush() to send cached records or increase cache size limit.',
+          );
+        }
+
+        await _db
+            .into(_db.kinesisRecords)
+            .insert(
+              KinesisRecordsCompanion.insert(
+                streamName: record.streamName,
+                partitionKey: record.partitionKey,
+                data: record.data,
+                dataSize: record.dataSize,
+                createdAt: record.createdAt.millisecondsSinceEpoch,
+              ),
+            );
+        _cachedSize += record.dataSize;
+      });
+
+  /// Retrieves a batch of records sorted by stream_name, partition_key, id.
+  ///
+  /// Not part of the [RecordStorage] interface — used only in tests to
+  /// inspect storage state.
+  @visibleForTesting
   Future<List<Record>> getRecordsBatch({
     int maxCount = kKinesisMaxRecordsPerBatch,
     int maxBytes = kKinesisMaxBatchBytes,
-  }) => _wrapDbError(
-    'Could not retrieve records from storage',
-    () async {
-      final results = await _db
-          .customSelect(
-            '''
+  }) => _wrapDbError('Could not retrieve records from storage', () async {
+    final results = await _db
+        .customSelect(
+          '''
       SELECT id, stream_name, partition_key, data, data_size, retry_count, created_at
       FROM (
         SELECT *,
@@ -66,112 +150,93 @@ final class SqliteRecordStorage extends RecordStorage {
       WHERE rn <= ?1 AND (running_size <= ?2 OR rn = 1)
       ORDER BY stream_name, partition_key, id
       ''',
-            variables: [Variable.withInt(maxCount), Variable.withInt(maxBytes)],
-            readsFrom: {_db.kinesisRecords},
-          )
-          .get();
+          variables: [Variable.withInt(maxCount), Variable.withInt(maxBytes)],
+          readsFrom: {_db.kinesisRecords},
+        )
+        .get();
 
-      return results.map(_rowToRecord).toList();
-    },
-  );
+    return results.map(_rowToRecord).toList();
+  });
 
   @override
   Future<void> deleteRecords(Iterable<int> ids) => _wrapDbError(
     'Failed to delete records from cache',
     () async {
       if (ids.isEmpty) return;
-      await (_db.delete(_db.kinesisRecords)..where((t) => t.id.isIn(ids)))
-          .go();
+      await (_db.delete(_db.kinesisRecords)..where((t) => t.id.isIn(ids))).go();
+      // Recalculate from DB after deletes, matching Android's
+      // resetCacheSizeFromDb() call in deleteRecords().
+      _cachedSize = await _queryCacheSize();
     },
   );
 
   @override
-  Future<void> incrementRetryCount(Iterable<int> ids) => _wrapDbError(
-    'Failed to increment retry count',
-    () async {
-      if (ids.isEmpty) return;
-      await (_db.update(_db.kinesisRecords)..where((t) => t.id.isIn(ids)))
-          .write(
-        KinesisRecordsCompanion.custom(
-          retryCount: _db.kinesisRecords.retryCount + const Constant(1),
-        ),
-      );
-    },
-  );
+  Future<void> incrementRetryCount(Iterable<int> ids) =>
+      _wrapDbError('Failed to increment retry count', () async {
+        if (ids.isEmpty) return;
+        await (_db.update(
+          _db.kinesisRecords,
+        )..where((t) => t.id.isIn(ids))).write(
+          KinesisRecordsCompanion.custom(
+            retryCount: _db.kinesisRecords.retryCount + const Constant(1),
+          ),
+        );
+      });
 
   @override
-  Future<Map<String, List<Record>>> getRecordsByStream({
-    Set<int> excludingIds = const {},
-    int maxCount = kKinesisMaxRecordsPerBatch,
-    int maxBytes = kKinesisMaxBatchBytes,
-  }) => _wrapDbError(
-    'Could not retrieve records from storage',
-    () async {
-      final excludeClause = excludingIds.isNotEmpty
-          ? 'WHERE id NOT IN (${excludingIds.join(',')})'
-          : '';
-
-      final results = await _db
-          .customSelect(
-            '''
+  Future<Map<String, List<Record>>> getRecordsByStream() =>
+      _wrapDbError('Could not retrieve records from storage', () async {
+    final results = await _db
+        .customSelect(
+          '''
       SELECT id, stream_name, partition_key, data, data_size, retry_count, created_at
       FROM (
         SELECT *,
           ROW_NUMBER() OVER (PARTITION BY stream_name ORDER BY id) as rn,
           SUM(data_size) OVER (PARTITION BY stream_name ORDER BY id) as running_size
         FROM kinesis_records
-        $excludeClause
       )
       WHERE rn <= ?1 AND running_size <= ?2
       ORDER BY stream_name, id
       ''',
-            variables: [Variable.withInt(maxCount), Variable.withInt(maxBytes)],
-            readsFrom: {_db.kinesisRecords},
-          )
-          .get();
+          variables: [
+            Variable.withInt(_maxRecordsPerStream),
+            Variable.withInt(_maxBytesPerStream),
+          ],
+          readsFrom: {_db.kinesisRecords},
+        )
+        .get();
 
-      final recordsByStream = <String, List<Record>>{};
-      for (final row in results) {
-        final record = _rowToRecord(row);
-        recordsByStream
-            .putIfAbsent(record.streamName, () => [])
-            .add(record);
-      }
-      return recordsByStream;
-    },
-  );
+    final recordsByStream = <String, List<Record>>{};
+    for (final row in results) {
+      final record = _rowToRecord(row);
+      recordsByStream.putIfAbsent(record.streamName, () => []).add(record);
+    }
+    return recordsByStream;
+  });
 
-  @override
-  Future<int> getCurrentCacheSize() => _wrapDbError(
-    'Failed to get cache size',
-    () async {
-      final query = _db.selectOnly(_db.kinesisRecords)
-        ..addColumns([_db.kinesisRecords.dataSize.sum()]);
-      final result = await query.getSingleOrNull();
-      if (result == null) return 0;
-      return result.read(_db.kinesisRecords.dataSize.sum()) ?? 0;
-    },
-  );
+  /// Returns the in-memory cached size directly (O(1), no DB query).
+  @visibleForTesting
+  Future<int> getCurrentCacheSize() async {
+    await _ensureCacheSizeInitialized();
+    return _cachedSize;
+  }
 
   @override
-  Future<int> getRecordCount() => _wrapDbError(
-    'Failed to get record count',
-    () async {
-      final query = _db.selectOnly(_db.kinesisRecords)
-        ..addColumns([_db.kinesisRecords.id.count()]);
-      final result = await query.getSingleOrNull();
-      if (result == null) return 0;
-      return result.read(_db.kinesisRecords.id.count()) ?? 0;
-    },
-  );
+  Future<int> getRecordCount() =>
+      _wrapDbError('Failed to get record count', () async {
+        final query = _db.selectOnly(_db.kinesisRecords)
+          ..addColumns([_db.kinesisRecords.id.count()]);
+        final result = await query.getSingleOrNull();
+        if (result == null) return 0;
+        return result.read(_db.kinesisRecords.id.count()) ?? 0;
+      });
 
   @override
-  Future<void> clear() => _wrapDbError(
-    'Failed to clear cache',
-    () async {
-      await _db.delete(_db.kinesisRecords).go();
-    },
-  );
+  Future<void> clearRecords() => _wrapDbError('Failed to clear cache', () async {
+    await _db.delete(_db.kinesisRecords).go();
+    _cachedSize = 0;
+  });
 
   @override
   Future<void> close() async {
@@ -202,11 +267,7 @@ final class SqliteRecordStorage extends RecordStorage {
     } on RecordCacheException {
       rethrow;
     } on Object catch (e) {
-      throw RecordCacheDatabaseException(
-        message,
-        defaultRecoverySuggestion,
-        e,
-      );
+      throw RecordCacheDatabaseException(message, defaultRecoverySuggestion, e);
     }
   }
 }

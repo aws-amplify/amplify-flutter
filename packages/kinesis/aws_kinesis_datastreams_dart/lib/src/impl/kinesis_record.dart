@@ -7,12 +7,12 @@ import 'dart:typed_data';
 /// Internal representation of a record to be sent to Kinesis.
 final class RecordInput {
   /// Creates a new Kinesis record.
-  const RecordInput({
+  RecordInput({
     required this.data,
     required this.partitionKey,
     required this.streamName,
     required this.createdAt,
-  });
+  }) : dataSize = data.length + utf8.encode(partitionKey).length;
 
   /// Creates a Kinesis record with the current timestamp.
   factory RecordInput.now({
@@ -40,8 +40,9 @@ final class RecordInput {
   /// The size of the record in bytes (data blob + partition key).
   ///
   /// Per AWS docs, the record size limit applies to the total size of the
-  /// partition key and data blob combined.
-  int get dataSize => data.length + utf8.encode(partitionKey).length;
+  /// partition key and data blob combined. Computed once at construction
+  /// to avoid repeated UTF-8 encoding of the partition key.
+  final int dataSize;
 
   /// Timestamp of when the record was created.
   final DateTime createdAt;

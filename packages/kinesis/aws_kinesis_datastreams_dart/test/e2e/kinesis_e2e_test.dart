@@ -198,8 +198,7 @@ void main() {
   // -----------------------------------------------------------------
 
   group('Error paths', () {
-    test('flush with nonexistent stream does not block valid stream',
-        () async {
+    test('flush with nonexistent stream does not block valid stream', () async {
       await client.record(
         data: Uint8List.fromList(utf8.encode('wrong-stream-record')),
         partitionKey: 'partition-1',
@@ -218,35 +217,39 @@ void main() {
       await client.clearCache();
     });
 
-    test('flush with invalid credentials returns success with zero flushed',
-        () async {
-      final badCredentials = _StaticCredentialsProvider();
-      final badClient = AmplifyKinesisClient(
-        region: testRegion,
-        credentialsProvider: badCredentials,
-        storagePath: tempDir.path,
-        options: AmplifyKinesisClientOptions(
-          flushStrategy: const KinesisDataStreamsNone(),
-        ),
-      );
-
-      try {
-        await badClient.record(
-          data: Uint8List.fromList(utf8.encode('bad-creds-record')),
-          partitionKey: 'partition-1',
-          streamName: testStreamName,
+    test(
+      'flush with invalid credentials returns success with zero flushed',
+      () async {
+        final badCredentials = _StaticCredentialsProvider();
+        final badClient = AmplifyKinesisClient(
+          region: testRegion,
+          credentialsProvider: badCredentials,
+          storagePath: tempDir.path,
+          options: AmplifyKinesisClientOptions(
+            flushStrategy: const KinesisDataStreamsNone(),
+          ),
         );
 
-        // SDK exceptions are handled silently — flush returns success
-        final flushResult = await badClient.flush();
-        expect(flushResult, isA<Ok<FlushData>>());
-        expect(
-            (flushResult as Ok<FlushData>).value.recordsFlushed, equals(0));
-      } finally {
-        await badClient.clearCache();
-        await badClient.close();
-      }
-    });
+        try {
+          await badClient.record(
+            data: Uint8List.fromList(utf8.encode('bad-creds-record')),
+            partitionKey: 'partition-1',
+            streamName: testStreamName,
+          );
+
+          // SDK exceptions are handled silently — flush returns success
+          final flushResult = await badClient.flush();
+          expect(flushResult, isA<Ok<FlushData>>());
+          expect(
+            (flushResult as Ok<FlushData>).value.recordsFlushed,
+            equals(0),
+          );
+        } finally {
+          await badClient.clearCache();
+          await badClient.close();
+        }
+      },
+    );
 
     test('oversized record is rejected and flush still works', () async {
       final largePartitionKey = 'k' * 256;
@@ -311,29 +314,27 @@ void main() {
         // First flush: valid record flushed, invalid stays
         final firstFlush = await retryClient.flush();
         expect(firstFlush, isA<Ok<FlushData>>());
-        expect(
-            (firstFlush as Ok<FlushData>).value.recordsFlushed, equals(1));
+        expect((firstFlush as Ok<FlushData>).value.recordsFlushed, equals(1));
 
         // Flush maxRetries more times to exhaust retries on the invalid record
         for (var i = 0; i < maxRetries; i++) {
           final result = await retryClient.flush();
           expect(result, isA<Ok<FlushData>>());
-          expect(
-              (result as Ok<FlushData>).value.recordsFlushed, equals(0));
+          expect((result as Ok<FlushData>).value.recordsFlushed, equals(0));
         }
 
         // Final flush: invalid record should have been evicted
         final finalFlush = await retryClient.flush();
         expect(finalFlush, isA<Ok<FlushData>>());
-        expect(
-            (finalFlush as Ok<FlushData>).value.recordsFlushed, equals(0));
+        expect((finalFlush as Ok<FlushData>).value.recordsFlushed, equals(0));
 
         // Confirm cache is truly empty
         final clearResult = await retryClient.clearCache();
         expect(clearResult, isA<Ok<ClearCacheData>>());
         expect(
-            (clearResult as Ok<ClearCacheData>).value.recordsCleared,
-            equals(0));
+          (clearResult as Ok<ClearCacheData>).value.recordsCleared,
+          equals(0),
+        );
       } finally {
         await retryClient.clearCache();
         await retryClient.close();
@@ -360,7 +361,9 @@ void main() {
       final flushResult = await client.flush();
       expect(flushResult, isA<Ok<FlushData>>());
       expect(
-          (flushResult as Ok<FlushData>).value.recordsFlushed, equals(count));
+        (flushResult as Ok<FlushData>).value.recordsFlushed,
+        equals(count),
+      );
     });
 
     test('repeated flush cycles', () async {
@@ -371,8 +374,7 @@ void main() {
       for (var cycle = 0; cycle < cycles; cycle++) {
         for (var i = 0; i < recordsPerCycle; i++) {
           await client.record(
-            data: Uint8List.fromList(
-                utf8.encode('cycle-$cycle-record-$i')),
+            data: Uint8List.fromList(utf8.encode('cycle-$cycle-record-$i')),
             partitionKey: 'partition-1',
             streamName: testStreamName,
           );
@@ -462,8 +464,7 @@ void main() {
         // After auto-flush, a manual flush should find nothing left
         final flushResult = await autoFlushClient.flush();
         expect(flushResult, isA<Ok<FlushData>>());
-        expect(
-            (flushResult as Ok<FlushData>).value.recordsFlushed, equals(0));
+        expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(0));
       } finally {
         await autoFlushClient.clearCache();
         await autoFlushClient.close();
@@ -486,7 +487,8 @@ void main() {
 
       final result = await client.record(
         data: Uint8List.fromList(
-            utf8.encode('test-data-with-emoji-partition-key')),
+          utf8.encode('test-data-with-emoji-partition-key'),
+        ),
         partitionKey: emojiPartitionKey,
         streamName: testStreamName,
       );
@@ -531,15 +533,24 @@ void main() {
           expect(result, isA<Ok<void>>());
         }
 
+        // Single-pass flush: the storage limits each stream to 500 records
+        // and 10 MiB. With ~51 KB per record, ~195 fit in the first batch.
+        // The remainder is picked up in the second flush cycle.
         final flush1 = await largeClient.flush();
         expect(flush1, isA<Ok<FlushData>>());
-        expect((flush1 as Ok<FlushData>).value.recordsFlushed,
-            equals(recordCount));
+        final flushed1 = (flush1 as Ok<FlushData>).value.recordsFlushed;
+        expect(flushed1, greaterThan(0));
 
-        // Second flush: nothing left
         final flush2 = await largeClient.flush();
         expect(flush2, isA<Ok<FlushData>>());
-        expect((flush2 as Ok<FlushData>).value.recordsFlushed, equals(0));
+        final flushed2 = (flush2 as Ok<FlushData>).value.recordsFlushed;
+
+        expect(flushed1 + flushed2, equals(recordCount));
+
+        // Third flush: nothing left
+        final flush3 = await largeClient.flush();
+        expect(flush3, isA<Ok<FlushData>>());
+        expect((flush3 as Ok<FlushData>).value.recordsFlushed, equals(0));
       } finally {
         await largeClient.clearCache();
         await largeClient.close();
@@ -573,8 +584,10 @@ void main() {
       try {
         final flushResult = await newClient.flush();
         expect(flushResult, isA<Ok<FlushData>>());
-        expect((flushResult as Ok<FlushData>).value.recordsFlushed,
-            greaterThan(0));
+        expect(
+          (flushResult as Ok<FlushData>).value.recordsFlushed,
+          greaterThan(0),
+        );
       } finally {
         await newClient.close();
       }
@@ -595,8 +608,8 @@ void main() {
 /// Static credentials provider with fake keys for testing error paths.
 class _StaticCredentialsProvider implements AWSCredentialsProvider {
   @override
-  Future<AWSCredentials> resolve() async => StaticCredentials(
-        'AKIAIOSFODNN7EXAMPLE',
-        'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
-      );
+  Future<AWSCredentials> resolve() async => const StaticCredentials(
+    'AKIAIOSFODNN7EXAMPLE',
+    'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+  );
 }

@@ -8,8 +8,6 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_indexeddb.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_memory.dart';
-import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart'
-    show kKinesisMaxBatchBytes, kKinesisMaxRecordsPerBatch;
 
 /// Creates a web [RecordStorage] instance.
 ///
@@ -32,10 +30,8 @@ RecordStorage createPlatformRecordStorage({
 
 /// Lazily resolves to IndexedDB or in-memory storage on first access.
 final class _WebRecordStorage extends RecordStorage {
-  _WebRecordStorage({
-    required String identifier,
-    required super.maxCacheBytes,
-  }) : _identifier = identifier;
+  _WebRecordStorage({required String identifier, required super.maxCacheBytes})
+    : _identifier = identifier;
 
   final String _identifier;
   final Logger _logger = AmplifyLogging.logger('RecordStorage');
@@ -58,27 +54,12 @@ final class _WebRecordStorage extends RecordStorage {
   }
 
   @override
-  Future<void> saveRecord(RecordInput record) async =>
-      (await _delegate).saveRecord(record);
+  Future<void> addRecord(RecordInput record) async =>
+      (await _delegate).addRecord(record);
 
   @override
-  Future<List<Record>> getRecordsBatch({
-    int maxCount = kKinesisMaxRecordsPerBatch,
-    int maxBytes = kKinesisMaxBatchBytes,
-  }) async =>
-      (await _delegate).getRecordsBatch(maxCount: maxCount, maxBytes: maxBytes);
-
-  @override
-  Future<Map<String, List<Record>>> getRecordsByStream({
-    Set<int> excludingIds = const {},
-    int maxCount = kKinesisMaxRecordsPerBatch,
-    int maxBytes = kKinesisMaxBatchBytes,
-  }) async =>
-      (await _delegate).getRecordsByStream(
-        excludingIds: excludingIds,
-        maxCount: maxCount,
-        maxBytes: maxBytes,
-      );
+  Future<Map<String, List<Record>>> getRecordsByStream() async =>
+      (await _delegate).getRecordsByStream();
 
   @override
   Future<void> deleteRecords(Iterable<int> ids) async =>
@@ -89,14 +70,10 @@ final class _WebRecordStorage extends RecordStorage {
       (await _delegate).incrementRetryCount(ids);
 
   @override
-  Future<int> getCurrentCacheSize() async =>
-      (await _delegate).getCurrentCacheSize();
-
-  @override
   Future<int> getRecordCount() async => (await _delegate).getRecordCount();
 
   @override
-  Future<void> clear() async => (await _delegate).clear();
+  Future<void> clearRecords() async => (await _delegate).clearRecords();
 
   @override
   Future<void> close() async => (await _delegate).close();
