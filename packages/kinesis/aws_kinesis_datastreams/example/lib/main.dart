@@ -4,10 +4,14 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show Error, Ok;
 import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart';
 import 'package:flutter/material.dart';
+
+import 'amplify_outputs.dart';
 
 void main() {
   runApp(const KinesisExampleApp());
@@ -22,11 +26,46 @@ class KinesisExampleApp extends StatefulWidget {
 
 class _KinesisExampleAppState extends State<KinesisExampleApp> {
   AmplifyKinesisClient? _client;
+  bool _amplifyConfigured = false;
   bool _isEnabled = true;
-  String _statusMessage = 'Client not initialized.';
-  String _streamName = '';
+  String _statusMessage = 'Not configured.';
+  String _streamName = 'amplify-kinesis-test-stream';
   String _partitionKey = 'partition-1';
   String _recordData = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _configureAmplify();
+  }
+
+  void _configureAmplify() async {
+    if (!mounted) return;
+
+    try {
+      // FIXME: In your app, make sure to remove this line and set up
+      /// Keychain Sharing in Xcode as described in the docs:
+      /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
+      final storageFactory = AmplifySecureStorage.factoryFrom(
+        // ignore: invalid_use_of_visible_for_testing_member
+        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+      );
+
+      await Amplify.addPlugins([
+        AmplifyAuthCognito(secureStorageFactory: storageFactory),
+      ]);
+      await Amplify.configure(amplifyConfig);
+
+      setState(() {
+        _amplifyConfigured = true;
+        _statusMessage = 'Amplify configured. Sign in to initialize client.';
+      });
+    } on Exception catch (e) {
+      setState(() {
+        _statusMessage = 'Amplify configuration failed: $e';
+      });
+    }
+  }
 
   void _updateStatus(String message) {
     setState(() {
@@ -129,6 +168,8 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
 
   @override
   Widget build(BuildContext context) {
+    final isClientReady = _client != null;
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -137,7 +178,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
         body: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            // Status section
+            // Configuration section
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -145,7 +186,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Status',
+                      'Configuration',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -155,9 +196,17 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
                     Text(_statusMessage),
                     const SizedBox(height: 8),
                     Text(
-                      'Client: ${_client != null ? 'initialized' : 'not initialized'}',
+                      'Amplify configured: $_amplifyConfigured',
                     ),
-                    Text('Enabled: $_isEnabled'),
+                    Text(
+                      'Client: ${isClientReady ? 'initialized' : 'not initialized'}',
+                    ),
+                    if (isClientReady) Text('Enabled: $_isEnabled'),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: _amplifyConfigured ? null : _configureAmplify,
+                      child: const Text('Configure Amplify'),
+                    ),
                   ],
                 ),
               ),
@@ -184,6 +233,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
                         labelText: 'Stream Name',
                         hintText: 'Enter Kinesis stream name',
                       ),
+                      controller: TextEditingController(text: _streamName),
                       onChanged: (text) => _streamName = text,
                     ),
                     TextField(
@@ -191,6 +241,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
                         labelText: 'Partition Key',
                         hintText: 'Enter partition key',
                       ),
+                      controller: TextEditingController(text: _partitionKey),
                       onChanged: (text) => _partitionKey = text,
                     ),
                     TextField(
@@ -202,7 +253,7 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
                     ),
                     const SizedBox(height: 8),
                     ElevatedButton(
-                      onPressed: _client != null ? _recordEvent : null,
+                      onPressed: isClientReady ? _recordEvent : null,
                       child: const Text('Record'),
                     ),
                   ],
@@ -231,21 +282,21 @@ class _KinesisExampleAppState extends State<KinesisExampleApp> {
                       runSpacing: 8,
                       children: [
                         ElevatedButton(
-                          onPressed: _client != null ? _flushEvents : null,
+                          onPressed: isClientReady ? _flushEvents : null,
                           child: const Text('Flush'),
                         ),
                         ElevatedButton(
-                          onPressed: _client != null ? _clearCache : null,
+                          onPressed: isClientReady ? _clearCache : null,
                           child: const Text('Clear Cache'),
                         ),
                         ElevatedButton(
-                          onPressed: _client != null ? _toggleEnabled : null,
+                          onPressed: isClientReady ? _toggleEnabled : null,
                           child: Text(
                             _isEnabled ? 'Disable' : 'Enable',
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: _client != null ? _closeClient : null,
+                          onPressed: isClientReady ? _closeClient : null,
                           child: const Text('Close Client'),
                         ),
                       ],
