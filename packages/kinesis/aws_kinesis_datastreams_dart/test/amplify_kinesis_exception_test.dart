@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 void main() {
   group('AmplifyKinesisException.from', () {
     test('passes through AmplifyKinesisException unchanged', () {
-      const original = KinesisStorageException('msg');
+      final original = KinesisStorageException('msg');
       final result = AmplifyKinesisException.from(original);
       expect(identical(result, original), isTrue);
     });
@@ -37,7 +37,7 @@ void main() {
         expect(result, isA<KinesisStorageException>());
         expect(result.message, 'db error');
         expect(result.recoverySuggestion, 'retry');
-        expect(result.underlyingException, underlying);
+        expect(result.cause, underlying);
       },
     );
 
@@ -59,7 +59,7 @@ void main() {
       final cause = Exception('something unexpected');
       final result = AmplifyKinesisException.from(cause);
       expect(result, isA<KinesisUnknownException>());
-      expect(result.underlyingException, cause);
+      expect(result.cause, cause);
     });
 
     test('converts non-Exception error to KinesisUnknownException', () {
@@ -67,7 +67,7 @@ void main() {
       final result = AmplifyKinesisException.from(error);
       expect(result, isA<KinesisUnknownException>());
       expect(result.message, 'a string error');
-      expect(result.underlyingException, isNull);
+      expect(result.cause, isNull);
     });
   });
 }
