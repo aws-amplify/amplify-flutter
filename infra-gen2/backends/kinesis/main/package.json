@@ -1,18 +1,5 @@
 {
   "name": "kinesis-main",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "sandbox": "npx ampx sandbox --outputs-format dart --outputs-out-dir ../frontend/lib",
-    "sandbox:once": "npx ampx sandbox --once --outputs-format dart --outputs-out-dir ../frontend/lib",
-    "sandbox:delete": "npx ampx sandbox delete"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@aws-amplify/backend": "^1.21.0",
-    "@aws-amplify/backend-cli": "^1.8.2",
-    "typescript": "^5.9.3"
-  }
+  "main": "index.js"
 }
