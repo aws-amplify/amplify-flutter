@@ -15,9 +15,10 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart'
+    hide AWSCredentialsProvider;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    as foundation show AWSCredentialsProvider, TemporaryCredentials;
+    show AWSCredentialsProvider, TemporaryCredentials;
 import 'package:aws_kinesis_datastreams_example/amplify_outputs.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -75,8 +76,7 @@ String _generateTestEmail() {
 
 /// Signs up and signs in a new test user using Amplify Auth.
 ///
-/// Returns a [foundation.AWSCredentialsProvider] backed by the
-/// authenticated session.
+/// Returns a [AWSCredentialsProvider] backed by the authenticated session.
 ///
 /// Adds a tearDown to sign out after the test completes.
 Future<AmplifyAuthCredentialsProvider> signInNewUser() async {
@@ -97,22 +97,21 @@ Future<AmplifyAuthCredentialsProvider> signInNewUser() async {
   return const AmplifyAuthCredentialsProvider();
 }
 
-/// An [foundation.AWSCredentialsProvider] that fetches credentials from
+/// An [AWSCredentialsProvider] that fetches credentials from
 /// Amplify Auth's current authenticated session.
 ///
 /// This is the same approach used by the example app's main.dart.
-class AmplifyAuthCredentialsProvider
-    implements foundation.AWSCredentialsProvider {
+class AmplifyAuthCredentialsProvider implements AWSCredentialsProvider {
   const AmplifyAuthCredentialsProvider();
 
   @override
-  Future<foundation.TemporaryCredentials> resolve() async {
+  Future<TemporaryCredentials> resolve() async {
     final session = await Amplify.Auth.fetchAuthSession(
       options: const FetchAuthSessionOptions(forceRefresh: false),
     ) as CognitoAuthSession;
 
     final credentials = session.credentialsResult.value;
-    return foundation.TemporaryCredentials(
+    return TemporaryCredentials(
       credentials.accessKeyId,
       credentials.secretAccessKey,
       credentials.sessionToken!,
