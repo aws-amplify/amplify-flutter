@@ -34,8 +34,8 @@ void main() {
     credentialsProvider = await signInNewUser();
   });
 
-  setUp(() {
-    client = AmplifyKinesisClient(
+  setUp(() async {
+    client = await AmplifyKinesisClient.create(
       region: testRegion,
       credentialsProvider: credentialsProvider,
       options: AmplifyKinesisClientOptions(
@@ -126,7 +126,7 @@ void main() {
 
   group('Cache behavior', () {
     testWidgets('cache limit exceeded returns error', (tester) async {
-      final smallCacheClient = AmplifyKinesisClient(
+      final smallCacheClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
         options: AmplifyKinesisClientOptions(
@@ -170,8 +170,7 @@ void main() {
 
       final clearResult = await client.clearCache();
       expect(clearResult, isA<Ok<ClearCacheData>>());
-      final cleared =
-          (clearResult as Ok<ClearCacheData>).value.recordsCleared;
+      final cleared = (clearResult as Ok<ClearCacheData>).value.recordsCleared;
       expect(cleared, greaterThan(0));
 
       final flushResult = await client.flush();
@@ -185,36 +184,32 @@ void main() {
   // -----------------------------------------------------------------
 
   group('Error paths', () {
-    testWidgets(
-      'flush with nonexistent stream does not block valid stream',
-      (tester) async {
-        await client.record(
-          data: Uint8List.fromList(utf8.encode('wrong-stream-record')),
-          partitionKey: 'partition-1',
-          streamName: 'nonexistent-stream-name',
-        );
-        await client.record(
-          data: Uint8List.fromList(utf8.encode('valid-stream-record')),
-          partitionKey: 'partition-1',
-          streamName: testStreamName,
-        );
+    testWidgets('flush with nonexistent stream does not block valid stream', (
+      tester,
+    ) async {
+      await client.record(
+        data: Uint8List.fromList(utf8.encode('wrong-stream-record')),
+        partitionKey: 'partition-1',
+        streamName: 'nonexistent-stream-name',
+      );
+      await client.record(
+        data: Uint8List.fromList(utf8.encode('valid-stream-record')),
+        partitionKey: 'partition-1',
+        streamName: testStreamName,
+      );
 
-        final flushResult = await client.flush();
-        expect(flushResult, isA<Ok<FlushData>>());
-        expect(
-          (flushResult as Ok<FlushData>).value.recordsFlushed,
-          equals(1),
-        );
+      final flushResult = await client.flush();
+      expect(flushResult, isA<Ok<FlushData>>());
+      expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
 
-        await client.clearCache();
-      },
-    );
+      await client.clearCache();
+    });
 
     testWidgets(
       'flush with invalid credentials returns success with zero flushed',
       (tester) async {
         final badCredentials = _StaticCredentialsProvider();
-        final badClient = AmplifyKinesisClient(
+        final badClient = await AmplifyKinesisClient.create(
           region: testRegion,
           credentialsProvider: badCredentials,
           options: AmplifyKinesisClientOptions(
@@ -243,39 +238,35 @@ void main() {
       },
     );
 
-    testWidgets(
-      'oversized record is rejected and flush still works',
-      (tester) async {
-        final largePartitionKey = 'k' * 256;
-        final oversizedData = Uint8List(10 * 1024 * 1024); // 10 MiB
+    testWidgets('oversized record is rejected and flush still works', (
+      tester,
+    ) async {
+      final largePartitionKey = 'k' * 256;
+      final oversizedData = Uint8List(10 * 1024 * 1024); // 10 MiB
 
-        final oversizedResult = await client.record(
-          data: oversizedData,
-          partitionKey: largePartitionKey,
-          streamName: testStreamName,
-        );
-        expect(oversizedResult, isA<Error<void>>());
-        expect(
-          (oversizedResult as Error<void>).error,
-          isA<KinesisValidationException>(),
-        );
+      final oversizedResult = await client.record(
+        data: oversizedData,
+        partitionKey: largePartitionKey,
+        streamName: testStreamName,
+      );
+      expect(oversizedResult, isA<Error<void>>());
+      expect(
+        (oversizedResult as Error<void>).error,
+        isA<KinesisValidationException>(),
+      );
 
-        // Client should still work after rejection
-        final validResult = await client.record(
-          data: Uint8List.fromList(utf8.encode('still-works')),
-          partitionKey: 'partition-1',
-          streamName: testStreamName,
-        );
-        expect(validResult, isA<Ok<void>>());
+      // Client should still work after rejection
+      final validResult = await client.record(
+        data: Uint8List.fromList(utf8.encode('still-works')),
+        partitionKey: 'partition-1',
+        streamName: testStreamName,
+      );
+      expect(validResult, isA<Ok<void>>());
 
-        final flushResult = await client.flush();
-        expect(flushResult, isA<Ok<FlushData>>());
-        expect(
-          (flushResult as Ok<FlushData>).value.recordsFlushed,
-          equals(1),
-        );
-      },
-    );
+      final flushResult = await client.flush();
+      expect(flushResult, isA<Ok<FlushData>>());
+      expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
+    });
   });
 
   // -----------------------------------------------------------------
@@ -283,72 +274,62 @@ void main() {
   // -----------------------------------------------------------------
 
   group('Retry exhaustion', () {
-    testWidgets(
-      'invalid stream record is dropped after maxRetries',
-      (tester) async {
-        const maxRetries = 5;
-        final retryClient = AmplifyKinesisClient(
-          region: testRegion,
-          credentialsProvider: credentialsProvider,
-          options: AmplifyKinesisClientOptions(
-            maxRetries: maxRetries,
-            flushStrategy: const KinesisDataStreamsNone(),
-          ),
+    testWidgets('invalid stream record is dropped after maxRetries', (
+      tester,
+    ) async {
+      const maxRetries = 5;
+      final retryClient = await AmplifyKinesisClient.create(
+        region: testRegion,
+        credentialsProvider: credentialsProvider,
+        options: AmplifyKinesisClientOptions(
+          maxRetries: maxRetries,
+          flushStrategy: const KinesisDataStreamsNone(),
+        ),
+      );
+
+      try {
+        await retryClient.clearCache();
+
+        await retryClient.record(
+          data: Uint8List.fromList(utf8.encode('invalid-stream-record')),
+          partitionKey: 'partition-1',
+          streamName: 'nonexistent-stream-name',
+        );
+        await retryClient.record(
+          data: Uint8List.fromList(utf8.encode('valid-stream-record')),
+          partitionKey: 'partition-1',
+          streamName: testStreamName,
         );
 
-        try {
-          await retryClient.clearCache();
+        // First flush: valid record flushed, invalid stays
+        final firstFlush = await retryClient.flush();
+        expect(firstFlush, isA<Ok<FlushData>>());
+        expect((firstFlush as Ok<FlushData>).value.recordsFlushed, equals(1));
 
-          await retryClient.record(
-            data: Uint8List.fromList(utf8.encode('invalid-stream-record')),
-            partitionKey: 'partition-1',
-            streamName: 'nonexistent-stream-name',
-          );
-          await retryClient.record(
-            data: Uint8List.fromList(utf8.encode('valid-stream-record')),
-            partitionKey: 'partition-1',
-            streamName: testStreamName,
-          );
-
-          // First flush: valid record flushed, invalid stays
-          final firstFlush = await retryClient.flush();
-          expect(firstFlush, isA<Ok<FlushData>>());
-          expect(
-            (firstFlush as Ok<FlushData>).value.recordsFlushed,
-            equals(1),
-          );
-
-          // Flush maxRetries more times to exhaust retries
-          for (var i = 0; i < maxRetries; i++) {
-            final result = await retryClient.flush();
-            expect(result, isA<Ok<FlushData>>());
-            expect(
-              (result as Ok<FlushData>).value.recordsFlushed,
-              equals(0),
-            );
-          }
-
-          // Final flush: invalid record should have been evicted
-          final finalFlush = await retryClient.flush();
-          expect(finalFlush, isA<Ok<FlushData>>());
-          expect(
-            (finalFlush as Ok<FlushData>).value.recordsFlushed,
-            equals(0),
-          );
-
-          // Confirm cache is truly empty
-          final clearResult = await retryClient.clearCache();
-          expect(clearResult, isA<Ok<ClearCacheData>>());
-          expect(
-            (clearResult as Ok<ClearCacheData>).value.recordsCleared,
-            equals(0),
-          );
-        } finally {
-          await retryClient.clearCache();
-          await retryClient.close();
+        // Flush maxRetries more times to exhaust retries
+        for (var i = 0; i < maxRetries; i++) {
+          final result = await retryClient.flush();
+          expect(result, isA<Ok<FlushData>>());
+          expect((result as Ok<FlushData>).value.recordsFlushed, equals(0));
         }
-      },
-    );
+
+        // Final flush: invalid record should have been evicted
+        final finalFlush = await retryClient.flush();
+        expect(finalFlush, isA<Ok<FlushData>>());
+        expect((finalFlush as Ok<FlushData>).value.recordsFlushed, equals(0));
+
+        // Confirm cache is truly empty
+        final clearResult = await retryClient.clearCache();
+        expect(clearResult, isA<Ok<ClearCacheData>>());
+        expect(
+          (clearResult as Ok<ClearCacheData>).value.recordsCleared,
+          equals(0),
+        );
+      } finally {
+        await retryClient.clearCache();
+        await retryClient.close();
+      }
+    });
   });
 
   // -----------------------------------------------------------------
@@ -383,9 +364,7 @@ void main() {
       for (var cycle = 0; cycle < cycles; cycle++) {
         for (var i = 0; i < recordsPerCycle; i++) {
           await client.record(
-            data: Uint8List.fromList(
-              utf8.encode('cycle-$cycle-record-$i'),
-            ),
+            data: Uint8List.fromList(utf8.encode('cycle-$cycle-record-$i')),
             partitionKey: 'partition-1',
             streamName: testStreamName,
           );
@@ -405,7 +384,7 @@ void main() {
 
   group('Auto-flush', () {
     testWidgets('auto-flush triggers and drains records', (tester) async {
-      final autoFlushClient = AmplifyKinesisClient(
+      final autoFlushClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
         options: AmplifyKinesisClientOptions(
@@ -428,10 +407,7 @@ void main() {
         // After auto-flush, a manual flush should find nothing left
         final flushResult = await autoFlushClient.flush();
         expect(flushResult, isA<Ok<FlushData>>());
-        expect(
-          (flushResult as Ok<FlushData>).value.recordsFlushed,
-          equals(0),
-        );
+        expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(0));
       } finally {
         await autoFlushClient.clearCache();
         await autoFlushClient.close();
@@ -444,33 +420,29 @@ void main() {
   // -----------------------------------------------------------------
 
   group('Partition key validation', () {
-    testWidgets(
-      'record with max 256 emoji code points and flush',
-      (tester) async {
-        // Each emoji (😀) is 1 Unicode code point but 4 bytes in UTF-8.
-        const emoji = '😀';
-        final emojiPartitionKey = emoji * 256;
+    testWidgets('record with max 256 emoji code points and flush', (
+      tester,
+    ) async {
+      // Each emoji (😀) is 1 Unicode code point but 4 bytes in UTF-8.
+      const emoji = '😀';
+      final emojiPartitionKey = emoji * 256;
 
-        expect(emojiPartitionKey.runes.length, equals(256));
-        expect(utf8.encode(emojiPartitionKey).length, equals(1024));
+      expect(emojiPartitionKey.runes.length, equals(256));
+      expect(utf8.encode(emojiPartitionKey).length, equals(1024));
 
-        final result = await client.record(
-          data: Uint8List.fromList(
-            utf8.encode('test-data-with-emoji-partition-key'),
-          ),
-          partitionKey: emojiPartitionKey,
-          streamName: testStreamName,
-        );
-        expect(result, isA<Ok<void>>());
+      final result = await client.record(
+        data: Uint8List.fromList(
+          utf8.encode('test-data-with-emoji-partition-key'),
+        ),
+        partitionKey: emojiPartitionKey,
+        streamName: testStreamName,
+      );
+      expect(result, isA<Ok<void>>());
 
-        final flushResult = await client.flush();
-        expect(flushResult, isA<Ok<FlushData>>());
-        expect(
-          (flushResult as Ok<FlushData>).value.recordsFlushed,
-          equals(1),
-        );
-      },
-    );
+      final flushResult = await client.flush();
+      expect(flushResult, isA<Ok<FlushData>>());
+      expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
+    });
   });
 
   // -----------------------------------------------------------------
@@ -478,9 +450,10 @@ void main() {
   // -----------------------------------------------------------------
 
   group('PutRecords size limits', () {
-    testWidgets('flush large payload with large partition keys',
-        (tester) async {
-      final largeClient = AmplifyKinesisClient(
+    testWidgets('flush large payload with large partition keys', (
+      tester,
+    ) async {
+      final largeClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
         options: AmplifyKinesisClientOptions(
@@ -539,7 +512,7 @@ void main() {
 class _StaticCredentialsProvider implements AWSCredentialsProvider {
   @override
   Future<AWSCredentials> resolve() async => const StaticCredentials(
-        'AKIAIOSFODNN7EXAMPLE',
-        'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
-      );
+    'AKIAIOSFODNN7EXAMPLE',
+    'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+  );
 }

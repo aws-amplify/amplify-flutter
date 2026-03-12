@@ -37,8 +37,8 @@ String get testRegion {
 /// Defaults to the stream name provisioned by the infra-gen2 backend.
 String get testStreamName =>
     const String.fromEnvironment('TEST_STREAM_NAME').isNotEmpty
-        ? const String.fromEnvironment('TEST_STREAM_NAME')
-        : 'amplify-kinesis-test-stream';
+    ? const String.fromEnvironment('TEST_STREAM_NAME')
+    : 'amplify-kinesis-test-stream';
 
 /// Whether the test environment is configured.
 ///
@@ -106,9 +106,11 @@ class AmplifyAuthCredentialsProvider implements AWSCredentialsProvider {
 
   @override
   Future<TemporaryCredentials> resolve() async {
-    final session = await Amplify.Auth.fetchAuthSession(
-      options: const FetchAuthSessionOptions(forceRefresh: false),
-    ) as CognitoAuthSession;
+    final session =
+        await Amplify.Auth.fetchAuthSession(
+              options: const FetchAuthSessionOptions(forceRefresh: false),
+            )
+            as CognitoAuthSession;
 
     final credentials = session.credentialsResult.value;
     return TemporaryCredentials(

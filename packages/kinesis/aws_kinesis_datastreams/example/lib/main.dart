@@ -8,7 +8,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart' hide LogLevel;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    as foundation show AWSCredentialsProvider, TemporaryCredentials;
+    as foundation
+    show AWSCredentialsProvider, TemporaryCredentials;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AmplifyLogging, AmplifySimplePrinterLogSink, Error, LogLevel, Ok;
 import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart';
@@ -33,9 +34,11 @@ class _AmplifyAuthCredentialsProvider
     implements foundation.AWSCredentialsProvider {
   @override
   Future<foundation.TemporaryCredentials> resolve() async {
-    final session = await Amplify.Auth.fetchAuthSession(
-      options: const FetchAuthSessionOptions(forceRefresh: false),
-    ) as CognitoAuthSession;
+    final session =
+        await Amplify.Auth.fetchAuthSession(
+              options: const FetchAuthSessionOptions(forceRefresh: false),
+            )
+            as CognitoAuthSession;
 
     final credentials = session.credentialsResult.value;
     return foundation.TemporaryCredentials(
@@ -151,7 +154,7 @@ class _KinesisHomePageState extends State<_KinesisHomePage> {
   Future<void> _initializeClient() async {
     try {
       final region = _parseRegionFromConfig();
-      final client = AmplifyKinesisClient(
+      final client = await AmplifyKinesisClient.create(
         region: region,
         credentialsProvider: _AmplifyAuthCredentialsProvider(),
       );
@@ -227,8 +230,10 @@ class _KinesisHomePageState extends State<_KinesisHomePage> {
 
     final result = await client.clearCache();
     if (result is Ok<ClearCacheData>) {
-      _updateStatus('Cleared ${result.value.recordsCleared} records '
-          'from cache.');
+      _updateStatus(
+        'Cleared ${result.value.recordsCleared} records '
+        'from cache.',
+      );
     } else if (result is Error<ClearCacheData>) {
       _updateStatus('Clear cache failed: ${result.error}');
     }
@@ -304,10 +309,7 @@ class _KinesisHomePageState extends State<_KinesisHomePage> {
                 children: [
                   const Text(
                     'Status',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(_statusMessage),
@@ -331,10 +333,7 @@ class _KinesisHomePageState extends State<_KinesisHomePage> {
                 children: [
                   const Text(
                     'Record',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   TextField(
@@ -380,10 +379,7 @@ class _KinesisHomePageState extends State<_KinesisHomePage> {
                 children: [
                   const Text(
                     'Actions',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Wrap(
@@ -400,9 +396,7 @@ class _KinesisHomePageState extends State<_KinesisHomePage> {
                       ),
                       ElevatedButton(
                         onPressed: isClientReady ? _toggleEnabled : null,
-                        child: Text(
-                          _isEnabled ? 'Disable' : 'Enable',
-                        ),
+                        child: Text(_isEnabled ? 'Disable' : 'Enable'),
                       ),
                       ElevatedButton(
                         onPressed: isClientReady ? _closeClient : null,
