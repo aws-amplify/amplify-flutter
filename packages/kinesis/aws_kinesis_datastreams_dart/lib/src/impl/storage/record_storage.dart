@@ -5,8 +5,7 @@ import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_excep
     show defaultRecoverySuggestion;
 import 'package:aws_kinesis_datastreams_dart/src/exception/record_cache_exception.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
-import 'package:aws_kinesis_datastreams_dart/src/kinesis_limits.dart'
-    as limits;
+import 'package:aws_kinesis_datastreams_dart/src/kinesis_limits.dart' as limits;
 import 'package:aws_kinesis_datastreams_dart/src/model/record.dart';
 import 'package:meta/meta.dart';
 
@@ -105,22 +104,20 @@ abstract class RecordStorage {
       });
 
   /// Increments the retry count for the specified records.
-  Future<void> incrementRetryCount(Iterable<int> ids) =>
-      _wrap(
-        'Failed to increment retry count',
-        () => doIncrementRetryCount(ids),
-      );
+  Future<void> incrementRetryCount(Iterable<int> ids) => _wrap(
+    'Failed to increment retry count',
+    () => doIncrementRetryCount(ids),
+  );
 
   /// Returns the total number of cached records.
   Future<int> getRecordCount() =>
       _wrap('Failed to get record count', doGetRecordCount);
 
   /// Deletes all records and resets [cachedSize] to 0.
-  Future<void> clearRecords() =>
-      _wrap('Failed to clear cache', () async {
-        await doClearRecords();
-        cachedSize = 0;
-      });
+  Future<void> clearRecords() => _wrap('Failed to clear cache', () async {
+    await doClearRecords();
+    cachedSize = 0;
+  });
 
   /// Closes the storage and releases resources.
   Future<void> close() => _wrap('Failed to close storage', doClose);
@@ -159,10 +156,7 @@ abstract class RecordStorage {
   @protected
   Future<void> doClose();
 
-  Future<T> _wrap<T>(
-    String message,
-    Future<T> Function() operation,
-  ) async {
+  Future<T> _wrap<T>(String message, Future<T> Function() operation) async {
     try {
       return await operation();
     } on RecordCacheException {

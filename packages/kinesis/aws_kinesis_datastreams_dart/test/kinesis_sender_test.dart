@@ -107,60 +107,60 @@ void main() {
       expect(captured.records[1].data, equals(Uint8List.fromList([4, 5, 6])));
     });
 
-    test('correctly categorizes response into success, retryable, failed',
-        () async {
-      // - Record 1 (retryCount=0): success (no error code)
-      // - Record 2 (retryCount=1): retryable (error code + under retry limit)
-      // - Record 3 (retryCount=maxRetries): failed (error code + at retry limit)
-      when(() => mockClient.putRecords(any())).thenReturn(
-        mockSmithyOperation(
-          () => PutRecordsResponse(
-            records: [
-              PutRecordsResultEntry(
-                sequenceNumber: 'seq1',
-                shardId: 'shard1',
-              ),
-              PutRecordsResultEntry(
-                errorCode: 'ProvisionedThroughputExceededException',
-              ),
-              PutRecordsResultEntry(
-                errorCode: 'InternalFailure',
-              ),
-            ],
+    test(
+      'correctly categorizes response into success, retryable, failed',
+      () async {
+        // - Record 1 (retryCount=0): success (no error code)
+        // - Record 2 (retryCount=1): retryable (error code + under retry limit)
+        // - Record 3 (retryCount=maxRetries): failed (error code + at retry limit)
+        when(() => mockClient.putRecords(any())).thenReturn(
+          mockSmithyOperation(
+            () => PutRecordsResponse(
+              records: [
+                PutRecordsResultEntry(
+                  sequenceNumber: 'seq1',
+                  shardId: 'shard1',
+                ),
+                PutRecordsResultEntry(
+                  errorCode: 'ProvisionedThroughputExceededException',
+                ),
+                PutRecordsResultEntry(errorCode: 'InternalFailure'),
+              ],
+            ),
           ),
-        ),
-      );
+        );
 
-      final sender = _DirectMockSender(mockClient, maxRetries: maxRetries);
+        final sender = _DirectMockSender(mockClient, maxRetries: maxRetries);
 
-      final result = await sender.putRecords(
-        streamName: 'test-stream',
-        records: [
-          _testRecord(
-            id: 1,
-            partitionKey: 'key1',
-            data: Uint8List.fromList([1]),
-            retryCount: 0,
-          ),
-          _testRecord(
-            id: 2,
-            partitionKey: 'key2',
-            data: Uint8List.fromList([2]),
-            retryCount: 1,
-          ),
-          _testRecord(
-            id: 3,
-            partitionKey: 'key3',
-            data: Uint8List.fromList([3]),
-            retryCount: maxRetries,
-          ),
-        ],
-      );
+        final result = await sender.putRecords(
+          streamName: 'test-stream',
+          records: [
+            _testRecord(
+              id: 1,
+              partitionKey: 'key1',
+              data: Uint8List.fromList([1]),
+              retryCount: 0,
+            ),
+            _testRecord(
+              id: 2,
+              partitionKey: 'key2',
+              data: Uint8List.fromList([2]),
+              retryCount: 1,
+            ),
+            _testRecord(
+              id: 3,
+              partitionKey: 'key3',
+              data: Uint8List.fromList([3]),
+              retryCount: maxRetries,
+            ),
+          ],
+        );
 
-      expect(result.successfulIds, equals([1]));
-      expect(result.retryableIds, equals([2]));
-      expect(result.failedIds, equals([3]));
-    });
+        expect(result.successfulIds, equals([1]));
+        expect(result.retryableIds, equals([2]));
+        expect(result.failedIds, equals([3]));
+      },
+    );
   });
 }
 

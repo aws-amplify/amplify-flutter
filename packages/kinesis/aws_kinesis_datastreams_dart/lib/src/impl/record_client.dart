@@ -73,9 +73,7 @@ class RecordClient {
           );
           await _handleFailedRequest(records);
         } catch (e) {
-          _logger.warn(
-            'Error flushing stream $streamName: $e. Aborting flush',
-          );
+          _logger.warn('Error flushing stream $streamName: $e. Aborting flush');
           await _handleFailedRequest(records);
           rethrow;
         }

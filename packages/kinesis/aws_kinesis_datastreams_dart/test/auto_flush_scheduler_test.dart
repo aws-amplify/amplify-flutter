@@ -16,8 +16,7 @@ void main() {
 
     setUp(() {
       mockClient = _MockRecordClient();
-      when(() => mockClient.flush())
-          .thenAnswer((_) async => const FlushData());
+      when(() => mockClient.flush()).thenAnswer((_) async => const FlushData());
     });
 
     tearDown(() {
@@ -72,15 +71,16 @@ void main() {
 
     test('rapid start/stop/start does not leak loops', () {
       fakeAsync((async) {
-        final scheduler = AutoFlushScheduler(
-          interval: const Duration(seconds: 1),
-          client: mockClient,
-        )
-          ..start()
-          ..stop()
-          ..start()
-          ..stop()
-          ..start();
+        final scheduler =
+            AutoFlushScheduler(
+                interval: const Duration(seconds: 1),
+                client: mockClient,
+              )
+              ..start()
+              ..stop()
+              ..start()
+              ..stop()
+              ..start();
 
         // Only one loop should be active.
         async.elapse(const Duration(milliseconds: 2500));

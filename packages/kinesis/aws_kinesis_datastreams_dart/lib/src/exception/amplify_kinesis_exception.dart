@@ -29,20 +29,16 @@ sealed class AmplifyKinesisException extends AmplifyException {
       e.message,
       recoverySuggestion: e.recoverySuggestion,
     ),
-    final RecordCacheLimitExceededException e =>
-      KinesisLimitExceededException(
-        message: e.message,
-        recoverySuggestion: e.recoverySuggestion,
-      ),
+    final RecordCacheLimitExceededException e => KinesisLimitExceededException(
+      message: e.message,
+      recoverySuggestion: e.recoverySuggestion,
+    ),
     final RecordCacheDatabaseException e => KinesisStorageException(
       e.message,
       recoverySuggestion: e.recoverySuggestion,
       cause: e.cause,
     ),
-    final Exception e => KinesisUnknownException(
-      e.toString(),
-      cause: e,
-    ),
+    final Exception e => KinesisUnknownException(e.toString(), cause: e),
     _ => KinesisUnknownException(error.toString()),
   };
 

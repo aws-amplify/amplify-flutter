@@ -39,11 +39,9 @@ final class PutRecordsResult {
 /// {@endtemplate}
 class KinesisSender {
   /// {@macro aws_kinesis_datastreams.kinesis_sender}
-  KinesisSender({
-    required KinesisClient kinesisClient,
-    required int maxRetries,
-  }) : _kinesisClient = kinesisClient,
-       _maxRetries = maxRetries;
+  KinesisSender({required KinesisClient kinesisClient, required int maxRetries})
+    : _kinesisClient = kinesisClient,
+      _maxRetries = maxRetries;
 
   final KinesisClient _kinesisClient;
   final int _maxRetries;

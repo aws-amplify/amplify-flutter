@@ -24,8 +24,7 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/record_client.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_sqlite.dart';
-import 'package:aws_kinesis_datastreams_dart/src/kinesis_limits.dart'
-    as limits;
+import 'package:aws_kinesis_datastreams_dart/src/kinesis_limits.dart' as limits;
 import 'package:test/test.dart';
 
 import 'helpers/test_database.dart';
@@ -49,10 +48,7 @@ void main() {
 
     setUp(() {
       final db = createTestDatabase();
-      storage = SqliteRecordStorage(
-        database: db,
-        maxCacheBytes: 10000,
-      );
+      storage = SqliteRecordStorage(database: db, maxCacheBytes: 10000);
       client = createClient(storage: storage);
     });
 
@@ -89,8 +85,7 @@ void main() {
           ),
         );
 
-        final records = (await largeStorage.getRecordsByStream())
-            .values
+        final records = (await largeStorage.getRecordsByStream()).values
             .expand((r) => r)
             .toList();
         expect(records, hasLength(1));
@@ -154,51 +149,53 @@ void main() {
     // ---------------------------------------------------------------
 
     group('cache size limit', () {
-      test('cache limit accounts for partition key in cumulative size',
-          () async {
-        final tightDb = createTestDatabase();
-        final tightStorage = SqliteRecordStorage(
-          database: tightDb,
-          maxCacheBytes: 80,
-        );
-        final tightClient = createClient(storage: tightStorage);
+      test(
+        'cache limit accounts for partition key in cumulative size',
+        () async {
+          final tightDb = createTestDatabase();
+          final tightStorage = SqliteRecordStorage(
+            database: tightDb,
+            maxCacheBytes: 80,
+          );
+          final tightClient = createClient(storage: tightStorage);
 
-        final partitionKey = 'k' * 10; // 10 bytes
-        final data = Uint8List(30); // 30 bytes
-        // Total per record = 40 bytes
+          final partitionKey = 'k' * 10; // 10 bytes
+          final data = Uint8List(30); // 30 bytes
+          // Total per record = 40 bytes
 
-        // First record: 40 bytes — fits in 80-byte cache
-        await tightClient.record(
-          RecordInput.now(
-            data: data,
-            partitionKey: partitionKey,
-            streamName: 'stream',
-          ),
-        );
-
-        // Second record: 40 more → total 80 — still fits
-        await tightClient.record(
-          RecordInput.now(
-            data: data,
-            partitionKey: partitionKey,
-            streamName: 'stream',
-          ),
-        );
-
-        // Third record: 40 more → total 120 > 80 limit
-        expect(
-          () => tightClient.record(
+          // First record: 40 bytes — fits in 80-byte cache
+          await tightClient.record(
             RecordInput.now(
               data: data,
               partitionKey: partitionKey,
               streamName: 'stream',
             ),
-          ),
-          throwsA(isA<RecordCacheLimitExceededException>()),
-        );
+          );
 
-        await tightClient.close();
-      });
+          // Second record: 40 more → total 80 — still fits
+          await tightClient.record(
+            RecordInput.now(
+              data: data,
+              partitionKey: partitionKey,
+              streamName: 'stream',
+            ),
+          );
+
+          // Third record: 40 more → total 120 > 80 limit
+          expect(
+            () => tightClient.record(
+              RecordInput.now(
+                data: data,
+                partitionKey: partitionKey,
+                streamName: 'stream',
+              ),
+            ),
+            throwsA(isA<RecordCacheLimitExceededException>()),
+          );
+
+          await tightClient.close();
+        },
+      );
     });
 
     // ---------------------------------------------------------------
@@ -219,8 +216,7 @@ void main() {
         );
       });
 
-      test('partition key at max length 256 code points is accepted',
-          () async {
+      test('partition key at max length 256 code points is accepted', () async {
         await client.record(
           RecordInput.now(
             data: Uint8List.fromList([1]),
@@ -229,8 +225,7 @@ void main() {
           ),
         );
 
-        final records = (await storage.getRecordsByStream())
-            .values
+        final records = (await storage.getRecordsByStream()).values
             .expand((r) => r)
             .toList();
         expect(records, hasLength(1));
@@ -261,28 +256,29 @@ void main() {
           ),
         );
 
-        final records = (await storage.getRecordsByStream())
-            .values
+        final records = (await storage.getRecordsByStream()).values
             .expand((r) => r)
             .toList();
         expect(records, hasLength(1));
       });
 
-      test('partition key exceeding 256 code points with emoji is rejected',
-          () async {
-        // 257 emoji = 257 code points > 256 limit
-        final partitionKey = '😀' * 257;
-        expect(
-          () => client.record(
-            RecordInput.now(
-              data: Uint8List.fromList([1]),
-              partitionKey: partitionKey,
-              streamName: 'stream',
+      test(
+        'partition key exceeding 256 code points with emoji is rejected',
+        () async {
+          // 257 emoji = 257 code points > 256 limit
+          final partitionKey = '😀' * 257;
+          expect(
+            () => client.record(
+              RecordInput.now(
+                data: Uint8List.fromList([1]),
+                partitionKey: partitionKey,
+                streamName: 'stream',
+              ),
             ),
-          ),
-          throwsA(isA<RecordCacheValidationException>()),
-        );
-      });
+            throwsA(isA<RecordCacheValidationException>()),
+          );
+        },
+      );
     });
 
     // ---------------------------------------------------------------
@@ -290,33 +286,35 @@ void main() {
     // ---------------------------------------------------------------
 
     group('recovery after rejection', () {
-      test('storage accepts valid records after rejecting oversized one',
-          () async {
-        // Oversized record should be rejected
-        expect(
-          () => client.record(
+      test(
+        'storage accepts valid records after rejecting oversized one',
+        () async {
+          // Oversized record should be rejected
+          expect(
+            () => client.record(
+              RecordInput.now(
+                data: Uint8List(limits.maxRecordSizeBytes),
+                partitionKey: 'k' * 20,
+                streamName: 'stream',
+              ),
+            ),
+            throwsA(isA<RecordCacheValidationException>()),
+          );
+
+          // Valid record should still work
+          await client.record(
             RecordInput.now(
-              data: Uint8List(limits.maxRecordSizeBytes),
-              partitionKey: 'k' * 20,
+              data: Uint8List.fromList([1, 2, 3]),
+              partitionKey: 'a',
               streamName: 'stream',
             ),
-          ),
-          throwsA(isA<RecordCacheValidationException>()),
-        );
+          );
 
-        // Valid record should still work
-        await client.record(
-          RecordInput.now(
-            data: Uint8List.fromList([1, 2, 3]),
-            partitionKey: 'a',
-            streamName: 'stream',
-          ),
-        );
-
-        final size = storage.getCurrentCacheSize();
-        // "a" (1) + data (3) = 4
-        expect(size, equals(4));
-      });
+          final size = storage.getCurrentCacheSize();
+          // "a" (1) + data (3) = 4
+          expect(size, equals(4));
+        },
+      );
     });
   });
 }

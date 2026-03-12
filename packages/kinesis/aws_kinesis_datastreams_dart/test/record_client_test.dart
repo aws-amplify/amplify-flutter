@@ -91,11 +91,13 @@ void main() {
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
-        ).thenAnswer((_) async => PutRecordsResult(
-          successfulIds: allRecords.map((r) => r.id).toList(),
-          retryableIds: [],
-          failedIds: [],
-        ));
+        ).thenAnswer(
+          (_) async => PutRecordsResult(
+            successfulIds: allRecords.map((r) => r.id).toList(),
+            retryableIds: [],
+            failedIds: [],
+          ),
+        );
 
         final result = await client.flush();
 
@@ -139,8 +141,7 @@ void main() {
             records: any(named: 'records'),
           ),
         ).thenAnswer((invocation) async {
-          final records =
-              invocation.namedArguments[#records] as List<Record>;
+          final records = invocation.namedArguments[#records] as List<Record>;
           return PutRecordsResult(
             successfulIds: records.map((r) => r.id).toList(),
             retryableIds: [],
@@ -174,11 +175,13 @@ void main() {
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
-        ).thenAnswer((_) async => PutRecordsResult(
-          successfulIds: allRecords.map((r) => r.id).toList(),
-          retryableIds: [],
-          failedIds: [],
-        ));
+        ).thenAnswer(
+          (_) async => PutRecordsResult(
+            successfulIds: allRecords.map((r) => r.id).toList(),
+            retryableIds: [],
+            failedIds: [],
+          ),
+        );
 
         await client.flush();
 
@@ -209,11 +212,13 @@ void main() {
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
-        ).thenAnswer((_) async => PutRecordsResult(
-          successfulIds: [allRecords[0].id],
-          retryableIds: [allRecords[1].id],
-          failedIds: [allRecords[2].id],
-        ));
+        ).thenAnswer(
+          (_) async => PutRecordsResult(
+            successfulIds: [allRecords[0].id],
+            retryableIds: [allRecords[1].id],
+            failedIds: [allRecords[2].id],
+          ),
+        );
 
         final result = await client.flush();
         expect(result.recordsFlushed, equals(1));
@@ -260,48 +265,46 @@ void main() {
         },
       );
 
-      test(
-        'deletes records at max retries when non-SDK error occurs',
-        () async {
-          for (var i = 0; i < 3; i++) {
-            await client.record(
-              RecordInput.now(
-                data: Uint8List.fromList([i]),
-                partitionKey: 'key$i',
-                streamName: 'stream',
-              ),
-            );
-          }
-
-          // Set records 2 and 3 to max retries (3)
-          final allRecords = await getAllRecords();
-          for (var i = 0; i < 3; i++) {
-            await storage.incrementRetryCount(
-              [allRecords[1].id, allRecords[2].id],
-            );
-          }
-
-          when(
-            () => mockSender.putRecords(
-              streamName: any(named: 'streamName'),
-              records: any(named: 'records'),
+      test('deletes records at max retries when non-SDK error occurs', () async {
+        for (var i = 0; i < 3; i++) {
+          await client.record(
+            RecordInput.now(
+              data: Uint8List.fromList([i]),
+              partitionKey: 'key$i',
+              streamName: 'stream',
             ),
-          ).thenThrow(Exception('Network error'));
+          );
+        }
 
-          try {
-            await client.flush();
-            fail('Expected flush to throw');
-          } on Exception {
-            // Expected — non-SDK errors are rethrown
-          }
+        // Set records 2 and 3 to max retries (3)
+        final allRecords = await getAllRecords();
+        for (var i = 0; i < 3; i++) {
+          await storage.incrementRetryCount([
+            allRecords[1].id,
+            allRecords[2].id,
+          ]);
+        }
 
-          // Only record 1 should remain (records 2 and 3 deleted at max retries)
-          final remaining = await getAllRecords();
-          expect(remaining, hasLength(1));
-          expect(remaining[0].id, equals(allRecords[0].id));
-          expect(remaining[0].retryCount, equals(1));
-        },
-      );
+        when(
+          () => mockSender.putRecords(
+            streamName: any(named: 'streamName'),
+            records: any(named: 'records'),
+          ),
+        ).thenThrow(Exception('Network error'));
+
+        try {
+          await client.flush();
+          fail('Expected flush to throw');
+        } on Exception {
+          // Expected — non-SDK errors are rethrown
+        }
+
+        // Only record 1 should remain (records 2 and 3 deleted at max retries)
+        final remaining = await getAllRecords();
+        expect(remaining, hasLength(1));
+        expect(remaining[0].id, equals(allRecords[0].id));
+        expect(remaining[0].retryCount, equals(1));
+      });
 
       test(
         'invalid stream records do not block valid stream flushes',
@@ -322,8 +325,9 @@ void main() {
           );
 
           final allRecords = await getAllRecords();
-          final validRecord =
-              allRecords.firstWhere((r) => r.streamName == 'valid-stream');
+          final validRecord = allRecords.firstWhere(
+            (r) => r.streamName == 'valid-stream',
+          );
 
           when(
             () => mockSender.putRecords(
@@ -337,11 +341,13 @@ void main() {
               streamName: 'valid-stream',
               records: any(named: 'records'),
             ),
-          ).thenAnswer((_) async => PutRecordsResult(
-            successfulIds: [validRecord.id],
-            retryableIds: [],
-            failedIds: [],
-          ));
+          ).thenAnswer(
+            (_) async => PutRecordsResult(
+              successfulIds: [validRecord.id],
+              retryableIds: [],
+              failedIds: [],
+            ),
+          );
 
           final result = await client.flush();
           expect(result.recordsFlushed, equals(1));

@@ -8,7 +8,7 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dar
 
 /// {@template aws_kinesis_datastreams.in_memory_record_storage}
 /// In-memory [RecordStorage] fallback for web when IndexedDB is unavailable.
-/// Records are not persisted. 
+/// Records are not persisted.
 /// {@endtemplate}
 final class InMemoryRecordStorage extends RecordStorage {
   /// {@macro aws_kinesis_datastreams.in_memory_record_storage}

@@ -18,11 +18,9 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/record_client.dart';
 /// {@endtemplate}
 final class AutoFlushScheduler {
   /// {@macro aws_kinesis_datastreams.auto_flush_scheduler}
-  AutoFlushScheduler({
-    required Duration interval,
-    required RecordClient client,
-  }) : _interval = interval,
-       _client = client;
+  AutoFlushScheduler({required Duration interval, required RecordClient client})
+    : _interval = interval,
+      _client = client;
 
   final Duration _interval;
   final RecordClient _client;

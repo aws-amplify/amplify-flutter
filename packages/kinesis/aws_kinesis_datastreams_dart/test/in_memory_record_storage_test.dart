@@ -111,9 +111,27 @@ void main() {
 
     group('getRecordsByStream', () {
       test('returns records grouped by stream name', () async {
-        await storage.addRecord(RecordInput.now(data: Uint8List.fromList([1]), partitionKey: 'pk', streamName: 'stream-a'));
-        await storage.addRecord(RecordInput.now(data: Uint8List.fromList([2]), partitionKey: 'pk', streamName: 'stream-b'));
-        await storage.addRecord(RecordInput.now(data: Uint8List.fromList([3]), partitionKey: 'pk', streamName: 'stream-a'));
+        await storage.addRecord(
+          RecordInput.now(
+            data: Uint8List.fromList([1]),
+            partitionKey: 'pk',
+            streamName: 'stream-a',
+          ),
+        );
+        await storage.addRecord(
+          RecordInput.now(
+            data: Uint8List.fromList([2]),
+            partitionKey: 'pk',
+            streamName: 'stream-b',
+          ),
+        );
+        await storage.addRecord(
+          RecordInput.now(
+            data: Uint8List.fromList([3]),
+            partitionKey: 'pk',
+            streamName: 'stream-a',
+          ),
+        );
 
         final result = await storage.getRecordsByStream();
         expect(result.keys, containsAll(['stream-a', 'stream-b']));
@@ -125,13 +143,18 @@ void main() {
         final result = await storage.getRecordsByStream();
         expect(result, isEmpty);
       });
-
     });
 
     group('clearRecords', () {
       test('removes all records', () async {
         for (var i = 0; i < 5; i++) {
-          await storage.addRecord(RecordInput.now(data: Uint8List.fromList([i]), partitionKey: 'pk-$i', streamName: 'stream'));
+          await storage.addRecord(
+            RecordInput.now(
+              data: Uint8List.fromList([i]),
+              partitionKey: 'pk-$i',
+              streamName: 'stream',
+            ),
+          );
         }
         expect(await getAllRecords(), hasLength(5));
 
@@ -145,7 +168,13 @@ void main() {
       test('returns correct count', () async {
         expect(await storage.getRecordCount(), equals(0));
         for (var i = 0; i < 3; i++) {
-          await storage.addRecord(RecordInput.now(data: Uint8List.fromList([i]), partitionKey: 'pk-$i', streamName: 'stream'));
+          await storage.addRecord(
+            RecordInput.now(
+              data: Uint8List.fromList([i]),
+              partitionKey: 'pk-$i',
+              streamName: 'stream',
+            ),
+          );
         }
         expect(await storage.getRecordCount(), equals(3));
       });

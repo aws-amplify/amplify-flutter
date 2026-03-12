@@ -121,9 +121,7 @@ final class SqliteRecordStorage extends RecordStorage {
   @override
   Future<void> doIncrementRetryCount(Iterable<int> ids) async {
     if (ids.isEmpty) return;
-    await (_db.update(
-      _db.kinesisRecords,
-    )..where((t) => t.id.isIn(ids))).write(
+    await (_db.update(_db.kinesisRecords)..where((t) => t.id.isIn(ids))).write(
       KinesisRecordsCompanion.custom(
         retryCount: _db.kinesisRecords.retryCount + const Constant(1),
       ),

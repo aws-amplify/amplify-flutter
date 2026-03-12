@@ -21,55 +21,60 @@ import 'helpers/test_database.dart';
 
 void main() {
   group('RecordClient concurrent flush', () {
-    test('concurrent flush should return flushInProgress for second caller',
-        () async {
-      final db = createTestDatabase();
-      final storage = SqliteRecordStorage(
-        database: db,
-        maxCacheBytes: 1024 * 1024,
-      );
-      final sender = _GatedSender();
-      final client = RecordClient(
-        storage: storage,
-        sender: sender,
-        maxRetries: 3,
-      );
-
-      // Seed records
-      for (var i = 0; i < 5; i++) {
-        await client.record(
-          RecordInput.now(
-            data: Uint8List.fromList([i]),
-            partitionKey: 'key$i',
-            streamName: 'test-stream',
-          ),
+    test(
+      'concurrent flush should return flushInProgress for second caller',
+      () async {
+        final db = createTestDatabase();
+        final storage = SqliteRecordStorage(
+          database: db,
+          maxCacheBytes: 1024 * 1024,
         );
-      }
+        final sender = _GatedSender();
+        final client = RecordClient(
+          storage: storage,
+          sender: sender,
+          maxRetries: 3,
+        );
 
-      // Launch flush1 — it will block inside putRecords until we complete
-      // the gate completer.
-      final flush1 = client.flush();
+        // Seed records
+        for (var i = 0; i < 5; i++) {
+          await client.record(
+            RecordInput.now(
+              data: Uint8List.fromList([i]),
+              partitionKey: 'key$i',
+              streamName: 'test-stream',
+            ),
+          );
+        }
 
-      // Wait for the sender to be entered, proving flush1 holds _flushing.
-      await sender.entered.future;
+        // Launch flush1 — it will block inside putRecords until we complete
+        // the gate completer.
+        final flush1 = client.flush();
 
-      // Now flush2 runs while flush1 is still in progress.
-      final flush2Result = await client.flush();
+        // Wait for the sender to be entered, proving flush1 holds _flushing.
+        await sender.entered.future;
 
-      // flush2 should return immediately with flushInProgress: true.
-      expect(flush2Result.flushInProgress, isTrue,
-          reason: 'Second flush should report flushInProgress');
-      expect(flush2Result.recordsFlushed, equals(0));
+        // Now flush2 runs while flush1 is still in progress.
+        final flush2Result = await client.flush();
 
-      // Unblock flush1 so it can complete.
-      sender.gate.complete();
-      final flush1Result = await flush1;
+        // flush2 should return immediately with flushInProgress: true.
+        expect(
+          flush2Result.flushInProgress,
+          isTrue,
+          reason: 'Second flush should report flushInProgress',
+        );
+        expect(flush2Result.recordsFlushed, equals(0));
 
-      expect(flush1Result.recordsFlushed, equals(5));
-      expect(flush1Result.flushInProgress, isFalse);
+        // Unblock flush1 so it can complete.
+        sender.gate.complete();
+        final flush1Result = await flush1;
 
-      await client.close();
-    });
+        expect(flush1Result.recordsFlushed, equals(5));
+        expect(flush1Result.flushInProgress, isFalse);
+
+        await client.close();
+      },
+    );
   });
 }
 

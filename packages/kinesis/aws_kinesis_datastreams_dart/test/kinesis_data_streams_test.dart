@@ -187,8 +187,7 @@ void main() {
       test('enable sets isEnabled to true', () {
         final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
-        )
-          ..disable();
+        )..disable();
         expect(client.isEnabled, isFalse);
 
         client.enable();

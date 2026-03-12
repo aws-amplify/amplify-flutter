@@ -196,8 +196,7 @@ final class IndexedDbRecordStorage extends RecordStorage {
       }
     }
 
-    final request = db.open(dbName, 1)
-      ..onupgradeneeded = onUpgradeNeeded.toJS;
+    final request = db.open(dbName, 1)..onupgradeneeded = onUpgradeNeeded.toJS;
     final result = await request.future;
     if (result.isA<IDBDatabase>()) {
       return result as IDBDatabase;
@@ -223,10 +222,9 @@ final class IndexedDbRecordStorage extends RecordStorage {
         final idbCursor = cursor as IDBCursorWithValue;
         final value = idbCursor.value;
         if (!value.isUndefinedOrNull) {
-          total +=
-              (value as JSObject)
-                  .getProperty<JSNumber>('data_size'.toJS)
-                  .toDartInt;
+          total += (value as JSObject)
+              .getProperty<JSNumber>('data_size'.toJS)
+              .toDartInt;
         }
         idbCursor.continue_();
       }).toJS
