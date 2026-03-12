@@ -115,7 +115,8 @@ class AmplifyKinesisClient {
   /// successfully flushed, or [Result.error] if a storage or network error
   /// occurs.
   ///
-  /// Returns [Result.ok] with zero records if the client is disabled.
+  /// Manual flushes are allowed even when the client is disabled, so that
+  /// callers can drain cached records without re-enabling collection.
   Future<Result<FlushData>> flush() => _delegate.flush();
 
   /// Clears all cached records from local storage.

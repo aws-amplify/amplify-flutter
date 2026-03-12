@@ -217,13 +217,11 @@ class AmplifyKinesisClient {
   /// successfully flushed, or [Result.error] if a storage or network error
   /// occurs.
   ///
-  /// Returns [Result.ok] with zero records if the client is disabled.
+  /// Manual flushes are allowed even when the client is disabled, so that
+  /// callers can drain cached records without re-enabling collection.
+  /// Only the automatic flush scheduler is paused when disabled.
   Future<Result<FlushData>> flush() async {
     if (_closed) return Result.error(ClientClosedException());
-    if (!isEnabled) {
-      _logger.debug('Flush skipped — client is disabled');
-      return const Result.ok(FlushData());
-    }
     _logger.verbose('Starting flush');
     return _wrapError(_recordClient.flush);
   }
