@@ -7,132 +7,51 @@ import 'dart:js_interop_unsafe';
 
 // ignore: implementation_imports
 import 'package:aws_common/src/js/indexed_db.dart';
-import 'package:aws_kinesis_datastreams_dart/src/exception/record_cache_exception.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
-import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart'
-    show kKinesisMaxBatchBytes, kKinesisMaxPartitionKeyLength,
-         kKinesisMaxRecordBytes, kKinesisMaxRecordsPerBatch;
 import 'package:web/web.dart';
 
 /// {@template aws_kinesis_datastreams.indexeddb_record_storage}
 /// IndexedDB-backed [RecordStorage] implementation for web.
+///
+/// Use [create] to open the database and eagerly compute the initial
+/// cache size before constructing the storage.
 /// {@endtemplate}
 final class IndexedDbRecordStorage extends RecordStorage {
-  /// {@macro aws_kinesis_datastreams.indexeddb_record_storage}
-  IndexedDbRecordStorage({
+  IndexedDbRecordStorage._({
     required super.maxCacheBytes,
+    required super.initialCachedSize,
+    required IDBDatabase database,
+  }) : _database = database;
+
+  /// {@macro aws_kinesis_datastreams.indexeddb_record_storage}
+  ///
+  /// Opens the IndexedDB database and eagerly computes the initial
+  /// cache size.
+  static Future<IndexedDbRecordStorage> create({
+    required int maxCacheBytes,
     required String identifier,
-    int maxRecordsPerStream = kKinesisMaxRecordsPerBatch,
-    int maxBytesPerStream = kKinesisMaxBatchBytes,
-  }) : _dbName = 'amplify_kinesis_$identifier',
-       _maxRecordsPerStream = maxRecordsPerStream,
-       _maxBytesPerStream = maxBytesPerStream;
-
-  final String _dbName;
-  final int _maxRecordsPerStream;
-  final int _maxBytesPerStream;
-  static const _storeName = 'kinesis_records';
-  static const _streamIndex = 'stream_name_idx';
-
-  late final Future<void> _openEvent = _openDatabase();
-  late IDBDatabase _database;
-
-  /// In-memory cache size tracker.
-  int _cachedSize = 0;
-  bool _cacheSizeInitialized = false;
-
-  Future<void> _openDatabase() async {
-    final db = indexedDB;
-    if (db == null) {
-      throw StateError('IndexedDB is not available');
-    }
-
-    void onUpgradeNeeded(IDBVersionChangeEvent event) {
-      final database = event.target?.getProperty<IDBDatabase>('result'.toJS);
-      final names = database?.objectStoreNames;
-      if (!(names?.contains(_storeName) ?? false)) {
-        database!
-            .createObjectStore(
-              _storeName,
-              IDBObjectStoreParameters(keyPath: 'id'.toJS, autoIncrement: true),
-            )
-            .createIndex(
-              _streamIndex,
-              'stream_name'.toJS,
-              IDBIndexParameters(unique: false),
-            );
-      }
-    }
-
-    final request = db.open(_dbName, 1)..onupgradeneeded = onUpgradeNeeded.toJS;
-    final result = await request.future;
-    if (result.isA<IDBDatabase>()) {
-      _database = result as IDBDatabase;
-    } else {
-      throw StateError('Failed to open IndexedDB: $_dbName');
-    }
+  }) async {
+    final database = await _openDatabase('amplify_kinesis_$identifier');
+    final initialSize = await _computeCacheSize(database);
+    return IndexedDbRecordStorage._(
+      maxCacheBytes: maxCacheBytes,
+      initialCachedSize: initialSize,
+      database: database,
+    );
   }
 
+  final IDBDatabase _database;
+  static const _storeName = 'kinesis_records';
+
   /// Returns an object store handle within a new transaction.
-  ///
-  /// IndexedDB auto-commits a transaction when all its requests complete
-  /// and the microtask queue is empty. Because Dart's `await` yields to
-  /// the microtask queue, each `await` inside a loop effectively commits
-  /// the current transaction.
-  ///
-  /// To batch operations in a single transaction, fire all requests
-  /// without intermediate awaits and then `Future.wait` them (see
-  /// [deleteRecords]). For `incrementRetryCount`, each iteration does
-  /// get+put which requires reading the result before writing, so those
-  /// cannot share a single transaction across iterations.
   IDBObjectStore _getStore([String mode = 'readwrite']) {
     final tx = _database.transaction(_storeName.toJS, mode);
     return tx.objectStore(_storeName);
   }
 
-  /// Ensures the in-memory cache size is initialized.
-  Future<void> _ensureCacheSizeInitialized() async {
-    if (!_cacheSizeInitialized) {
-      _cachedSize = await _computeCacheSizeFromDb();
-      _cacheSizeInitialized = true;
-    }
-  }
-
   @override
-  Future<void> addRecord(RecordInput record) async {
-    await _openEvent;
-    await _ensureCacheSizeInitialized();
-
-    // Validate partition key length
-    final codePoints = record.partitionKey.runes.length;
-    if (codePoints == 0 || codePoints > kKinesisMaxPartitionKeyLength) {
-      throw RecordCacheValidationException(
-        'Partition key length ($codePoints) is outside the allowed '
-            'range of 1–$kKinesisMaxPartitionKeyLength characters.',
-        'Use a partition key between 1 and '
-            '$kKinesisMaxPartitionKeyLength characters.',
-      );
-    }
-
-    // Validate per-record size limit
-    if (record.dataSize > kKinesisMaxRecordBytes) {
-      throw RecordCacheValidationException(
-        'Record size (${record.dataSize} bytes) exceeds the maximum '
-            'of $kKinesisMaxRecordBytes bytes (partition key + data blob).',
-        'Reduce the record payload size or use a shorter partition key.',
-      );
-    }
-
-    // Check cache size limit
-    if (_cachedSize + record.dataSize > maxCacheBytes) {
-      throw RecordCacheLimitExceededException(
-        'Cache size limit exceeded: '
-            '${_cachedSize + record.dataSize} bytes > $maxCacheBytes bytes',
-        'Call flush() to send cached records or increase cache size limit.',
-      );
-    }
-
+  Future<void> writeRecord(RecordInput record) async {
     final obj = JSObject()
       ..setProperty('stream_name'.toJS, record.streamName.toJS)
       ..setProperty('partition_key'.toJS, record.partitionKey.toJS)
@@ -144,12 +63,10 @@ final class IndexedDbRecordStorage extends RecordStorage {
         record.createdAt.millisecondsSinceEpoch.toJS,
       );
     await _getStore().add(obj).future;
-    _cachedSize += record.dataSize;
   }
 
   @override
-  Future<Map<String, List<Record>>> getRecordsByStream() async {
-    await _openEvent;
+  Future<Map<String, List<Record>>> doGetRecordsByStream() async {
     final all = await _getAllRecords();
     all.sort((a, b) {
       final cmp = a.streamName.compareTo(b.streamName);
@@ -165,8 +82,8 @@ final class IndexedDbRecordStorage extends RecordStorage {
       final stream = record.streamName;
       final count = streamCounts[stream] ?? 0;
       final size = streamSizes[stream] ?? 0;
-      if (count >= _maxRecordsPerStream) continue;
-      if (size + record.dataSize > _maxBytesPerStream) continue;
+      if (count >= maxRecordsPerStream) continue;
+      if (size + record.dataSize > maxBytesPerStream) continue;
 
       result.putIfAbsent(stream, () => []).add(record);
       streamCounts[stream] = count + 1;
@@ -176,23 +93,22 @@ final class IndexedDbRecordStorage extends RecordStorage {
   }
 
   @override
-  Future<void> deleteRecords(Iterable<int> ids) async {
+  Future<void> doDeleteRecords(Iterable<int> ids) async {
     if (ids.isEmpty) return;
-    await _openEvent;
     final store = _getStore();
     final futures = <Future<JSAny?>>[];
     for (final id in ids) {
       futures.add(store.delete(id.toJS).future);
     }
     await Future.wait(futures);
-    // Recalculate cache size after deletes.
-    _cachedSize = await _computeCacheSizeFromDb();
   }
 
   @override
-  Future<void> incrementRetryCount(Iterable<int> ids) async {
+  Future<int> doQueryCacheSize() => _computeCacheSize(_database);
+
+  @override
+  Future<void> doIncrementRetryCount(Iterable<int> ids) async {
     if (ids.isEmpty) return;
-    await _openEvent;
     final store = _getStore();
     for (final id in ids) {
       final request = store.get(id.toJS);
@@ -206,40 +122,8 @@ final class IndexedDbRecordStorage extends RecordStorage {
     }
   }
 
-  /// Computes cache size from DB using a cursor (avoids full deserialization).
-  Future<int> _computeCacheSizeFromDb() async {
-    final store = _getStore('readonly');
-    final request = store.openCursor();
-    final completer = Completer<int>();
-    var total = 0;
-
-    request.onsuccess = ((Event event) {
-      final cursor = request.result;
-      if (cursor == null || cursor.isUndefinedOrNull) {
-        completer.complete(total);
-        return;
-      }
-      final idbCursor = cursor as IDBCursorWithValue;
-      final value = idbCursor.value;
-      if (!value.isUndefinedOrNull) {
-        total +=
-            (value as JSObject).getProperty<JSNumber>('data_size'.toJS).toDartInt;
-      }
-      idbCursor.continue_();
-    }).toJS;
-
-    request.onerror = ((Event event) {
-      completer.completeError(
-        StateError('Failed to compute cache size from IndexedDB'),
-      );
-    }).toJS;
-
-    return completer.future;
-  }
-
   @override
-  Future<int> getRecordCount() async {
-    await _openEvent;
+  Future<int> doGetRecordCount() async {
     final store = _getStore();
     final request = store.count();
     await request.future;
@@ -251,16 +135,13 @@ final class IndexedDbRecordStorage extends RecordStorage {
   }
 
   @override
-  Future<void> clearRecords() async {
-    await _openEvent;
+  Future<void> doClearRecords() async {
     await _getStore().clear().future;
-    _cachedSize = 0;
   }
 
   @override
-  Future<void> close() async {
+  Future<void> doClose() async {
     try {
-      await _openEvent;
       _database.close();
     } on Object {
       // Ignore close errors.
@@ -279,7 +160,7 @@ final class IndexedDbRecordStorage extends RecordStorage {
     return jsArray.map(_jsToRecord).toList();
   }
 
-  Record _jsToRecord(JSObject obj) {
+  static Record _jsToRecord(JSObject obj) {
     return Record(
       id: obj.getProperty<JSNumber>('id'.toJS).toDartInt,
       streamName: obj.getProperty<JSString>('stream_name'.toJS).toDart,
@@ -289,6 +170,73 @@ final class IndexedDbRecordStorage extends RecordStorage {
       retryCount: obj.getProperty<JSNumber>('retry_count'.toJS).toDartInt,
       createdAt: obj.getProperty<JSNumber>('created_at'.toJS).toDartInt,
     );
+  }
+
+  /// Opens an IndexedDB database, creating the object store if needed.
+  static Future<IDBDatabase> _openDatabase(String dbName) async {
+    final db = indexedDB;
+    if (db == null) {
+      throw StateError('IndexedDB is not available');
+    }
+
+    void onUpgradeNeeded(IDBVersionChangeEvent event) {
+      final database = event.target?.getProperty<IDBDatabase>('result'.toJS);
+      final names = database?.objectStoreNames;
+      if (!(names?.contains(_storeName) ?? false)) {
+        database!
+            .createObjectStore(
+              _storeName,
+              IDBObjectStoreParameters(keyPath: 'id'.toJS, autoIncrement: true),
+            )
+            .createIndex(
+              'stream_name_idx',
+              'stream_name'.toJS,
+              IDBIndexParameters(unique: false),
+            );
+      }
+    }
+
+    final request = db.open(dbName, 1)
+      ..onupgradeneeded = onUpgradeNeeded.toJS;
+    final result = await request.future;
+    if (result.isA<IDBDatabase>()) {
+      return result as IDBDatabase;
+    }
+    throw StateError('Failed to open IndexedDB: $dbName');
+  }
+
+  /// Computes cache size from DB using a cursor.
+  static Future<int> _computeCacheSize(IDBDatabase database) async {
+    final tx = database.transaction(_storeName.toJS, 'readonly');
+    final store = tx.objectStore(_storeName);
+    final request = store.openCursor();
+    final completer = Completer<int>();
+    var total = 0;
+
+    request
+      ..onsuccess = ((Event event) {
+        final cursor = request.result;
+        if (cursor == null || cursor.isUndefinedOrNull) {
+          completer.complete(total);
+          return;
+        }
+        final idbCursor = cursor as IDBCursorWithValue;
+        final value = idbCursor.value;
+        if (!value.isUndefinedOrNull) {
+          total +=
+              (value as JSObject)
+                  .getProperty<JSNumber>('data_size'.toJS)
+                  .toDartInt;
+        }
+        idbCursor.continue_();
+      }).toJS
+      ..onerror = ((Event event) {
+        completer.completeError(
+          StateError('Failed to compute cache size from IndexedDB'),
+        );
+      }).toJS;
+
+    return completer.future;
   }
 
   /// Checks whether IndexedDB is available and functional.

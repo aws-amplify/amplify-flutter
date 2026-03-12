@@ -3,8 +3,7 @@
 
 /// End-to-end tests for the Kinesis Data Streams library.
 ///
-/// These tests mirror the Android instrumentation tests in
-/// `KinesisDataStreamsInstrumentationTest.kt` and verify the library works
+/// These tests verify the library works
 /// correctly against real AWS resources using Cognito-authenticated
 /// credentials.
 ///
@@ -40,14 +39,14 @@ void main() {
     await credentialsProvider.resolve();
   });
 
-  setUp(() {
-    client = AmplifyKinesisClient(
+  setUp(() async {
+    client = await AmplifyKinesisClient.create(
       region: testRegion,
       credentialsProvider: credentialsProvider,
       storagePath: tempDir.path,
-      options: AmplifyKinesisClientOptions(
+      options: const AmplifyKinesisClientOptions(
         maxRetries: 3,
-        flushStrategy: const KinesisDataStreamsNone(),
+        flushStrategy: KinesisDataStreamsNone(),
       ),
     );
   });
@@ -118,7 +117,7 @@ void main() {
 
       client.disable();
 
-      // Record while disabled — should be dropped
+      // Record while disabled - should be dropped
       await client.record(
         data: Uint8List.fromList(utf8.encode('while-disabled')),
         partitionKey: 'partition-1',
@@ -139,13 +138,13 @@ void main() {
 
   group('Cache behavior', () {
     test('cache limit exceeded returns error', () async {
-      final smallCacheClient = AmplifyKinesisClient(
+      final smallCacheClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
         storagePath: tempDir.path,
-        options: AmplifyKinesisClientOptions(
+        options: const AmplifyKinesisClientOptions(
           cacheMaxBytes: 100, // 100 bytes
-          flushStrategy: const KinesisDataStreamsNone(),
+          flushStrategy: KinesisDataStreamsNone(),
         ),
       );
 
@@ -214,19 +213,21 @@ void main() {
       expect(flushResult, isA<Ok<FlushData>>());
       expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
 
-      await client.clearCache();
+      final clearResult = await client.clearCache();
+      expect(clearResult, isA<Ok<ClearCacheData>>());
+      expect((clearResult as Ok<FlushData>), equals(1));
     });
 
     test(
       'flush with invalid credentials returns success with zero flushed',
       () async {
         final badCredentials = _StaticCredentialsProvider();
-        final badClient = AmplifyKinesisClient(
+        final badClient = await AmplifyKinesisClient.create(
           region: testRegion,
           credentialsProvider: badCredentials,
           storagePath: tempDir.path,
-          options: AmplifyKinesisClientOptions(
-            flushStrategy: const KinesisDataStreamsNone(),
+          options: const AmplifyKinesisClientOptions(
+            flushStrategy: KinesisDataStreamsNone(),
           ),
         );
 
@@ -237,7 +238,7 @@ void main() {
             streamName: testStreamName,
           );
 
-          // SDK exceptions are handled silently — flush returns success
+          // SDK exceptions are handled silently - flush returns success
           final flushResult = await badClient.flush();
           expect(flushResult, isA<Ok<FlushData>>());
           expect(
@@ -287,13 +288,13 @@ void main() {
   group('Retry exhaustion', () {
     test('invalid stream record is dropped after maxRetries', () async {
       const maxRetries = 5;
-      final retryClient = AmplifyKinesisClient(
+      final retryClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
         storagePath: tempDir.path,
-        options: AmplifyKinesisClientOptions(
+        options: const AmplifyKinesisClientOptions(
           maxRetries: maxRetries,
-          flushStrategy: const KinesisDataStreamsNone(),
+          flushStrategy: KinesisDataStreamsNone(),
         ),
       );
 
@@ -440,12 +441,12 @@ void main() {
 
   group('Auto-flush', () {
     test('auto-flush triggers and drains records', () async {
-      final autoFlushClient = AmplifyKinesisClient(
+      final autoFlushClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
         storagePath: tempDir.path,
-        options: AmplifyKinesisClientOptions(
-          flushStrategy: const KinesisDataStreamsInterval(
+        options: const AmplifyKinesisClientOptions(
+          flushStrategy: KinesisDataStreamsInterval(
             interval: Duration(seconds: 5),
           ),
         ),
@@ -506,13 +507,13 @@ void main() {
 
   group('PutRecords size limits', () {
     test('flush large payload with large partition keys', () async {
-      final largeClient = AmplifyKinesisClient(
+      final largeClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
         storagePath: tempDir.path,
-        options: AmplifyKinesisClientOptions(
+        options: const AmplifyKinesisClientOptions(
           cacheMaxBytes: 12 * 1024 * 1024, // 12 MB
-          flushStrategy: const KinesisDataStreamsNone(),
+          flushStrategy: KinesisDataStreamsNone(),
         ),
       );
 
@@ -572,12 +573,12 @@ void main() {
 
       await client.close();
 
-      final newClient = AmplifyKinesisClient(
+      final newClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
         storagePath: tempDir.path,
-        options: AmplifyKinesisClientOptions(
-          flushStrategy: const KinesisDataStreamsNone(),
+        options: const AmplifyKinesisClientOptions(
+          flushStrategy: KinesisDataStreamsNone(),
         ),
       );
 

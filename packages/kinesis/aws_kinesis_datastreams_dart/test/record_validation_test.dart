@@ -3,9 +3,6 @@
 
 /// Unit tests for PutRecords record-level validation.
 ///
-/// Mirrors Android's `RecordValidationTest.kt` and Swift's
-/// `RecordValidationTests.swift`.
-///
 /// Uses a small cache and maxRetries to keep allocations tiny while
 /// exercising the same boundary logic that applies to the real limits.
 ///
@@ -27,8 +24,8 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/record_client.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_sqlite.dart';
-import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart';
-import 'package:aws_kinesis_datastreams_dart/src/model/record.dart';
+import 'package:aws_kinesis_datastreams_dart/src/kinesis_limits.dart'
+    as limits;
 import 'package:test/test.dart';
 
 import 'helpers/test_database.dart';
@@ -38,7 +35,7 @@ void main() {
     late SqliteRecordStorage storage;
     late RecordClient client;
 
-    RecordClient _createClient({
+    RecordClient createClient({
       required RecordStorage storage,
       int maxRetries = 3,
     }) {
@@ -56,7 +53,7 @@ void main() {
         database: db,
         maxCacheBytes: 10000,
       );
-      client = _createClient(storage: storage);
+      client = createClient(storage: storage);
     });
 
     tearDown(() async {
@@ -69,19 +66,19 @@ void main() {
 
     group('per-record size limit', () {
       test('record exactly at max size is accepted', () async {
-        // RecordClient validates against kKinesisMaxRecordBytes (10 MiB).
+        // RecordClient validates against limits.maxRecordSizeBytes (10 MiB).
         // Use a large-cache client so the cache limit doesn't interfere.
         final largeDb = createTestDatabase();
         final largeStorage = SqliteRecordStorage(
           database: largeDb,
           maxCacheBytes: 20 * 1024 * 1024,
         );
-        final largeClient = _createClient(storage: largeStorage);
+        final largeClient = createClient(storage: largeStorage);
 
         const partitionKey = 'pk';
         final partitionKeyBytes = utf8.encode(partitionKey).length;
         final exactLimitData = Uint8List(
-          kKinesisMaxRecordBytes - partitionKeyBytes,
+          limits.maxRecordSizeBytes - partitionKeyBytes,
         );
 
         await largeClient.record(
@@ -92,7 +89,10 @@ void main() {
           ),
         );
 
-        final records = await largeStorage.getRecordsBatch();
+        final records = (await largeStorage.getRecordsByStream())
+            .values
+            .expand((r) => r)
+            .toList();
         expect(records, hasLength(1));
 
         await largeClient.close();
@@ -102,7 +102,7 @@ void main() {
         const partitionKey = 'pk';
         final partitionKeyBytes = utf8.encode(partitionKey).length;
         final oversizedData = Uint8List(
-          kKinesisMaxRecordBytes - partitionKeyBytes + 1,
+          limits.maxRecordSizeBytes - partitionKeyBytes + 1,
         );
 
         expect(
@@ -161,7 +161,7 @@ void main() {
           database: tightDb,
           maxCacheBytes: 80,
         );
-        final tightClient = _createClient(storage: tightStorage);
+        final tightClient = createClient(storage: tightStorage);
 
         final partitionKey = 'k' * 10; // 10 bytes
         final data = Uint8List(30); // 30 bytes
@@ -229,7 +229,10 @@ void main() {
           ),
         );
 
-        final records = await storage.getRecordsBatch();
+        final records = (await storage.getRecordsByStream())
+            .values
+            .expand((r) => r)
+            .toList();
         expect(records, hasLength(1));
       });
 
@@ -258,7 +261,10 @@ void main() {
           ),
         );
 
-        final records = await storage.getRecordsBatch();
+        final records = (await storage.getRecordsByStream())
+            .values
+            .expand((r) => r)
+            .toList();
         expect(records, hasLength(1));
       });
 
@@ -290,7 +296,7 @@ void main() {
         expect(
           () => client.record(
             RecordInput.now(
-              data: Uint8List(kKinesisMaxRecordBytes),
+              data: Uint8List(limits.maxRecordSizeBytes),
               partitionKey: 'k' * 20,
               streamName: 'stream',
             ),
@@ -307,7 +313,7 @@ void main() {
           ),
         );
 
-        final size = await storage.getCurrentCacheSize();
+        final size = storage.getCurrentCacheSize();
         // "a" (1) + data (3) = 4
         expect(size, equals(4));
       });

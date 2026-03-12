@@ -9,11 +9,11 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dar
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage_sqlite.dart';
 
 /// Creates a [SqliteRecordStorage] for VM platforms.
-RecordStorage createPlatformRecordStorage({
+Future<RecordStorage> createPlatformRecordStorage({
   required String identifier,
   required FutureOr<String>? storagePath,
   required int maxCacheBytes,
-}) {
+}) async {
   assert(storagePath != null, 'storagePath is required on VM platforms.');
   AmplifyLogging.logger(
     'RecordStorage',
@@ -22,5 +22,8 @@ RecordStorage createPlatformRecordStorage({
     identifier: identifier,
     storagePath: storagePath,
   );
-  return SqliteRecordStorage(database: database, maxCacheBytes: maxCacheBytes);
+  return SqliteRecordStorage.create(
+    database: database,
+    maxCacheBytes: maxCacheBytes,
+  );
 }

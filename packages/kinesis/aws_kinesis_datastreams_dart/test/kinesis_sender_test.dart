@@ -3,12 +3,8 @@
 
 /// Tests for KinesisSender request building and response categorization.
 ///
-/// Mirrors Android's `KinesisRecordSenderTest.kt` and Swift's
-/// `KinesisRecordSenderTests.swift`.
-///
 /// The sender owns retry-count categorization: all error codes are treated
-/// as retryable until the record exceeds maxRetries, matching Android's
-/// `KinesisRecordSender.splitResponse()`.
+/// as retryable until the record exceeds maxRetries.
 library;
 
 import 'dart:typed_data';
@@ -113,7 +109,6 @@ void main() {
 
     test('correctly categorizes response into success, retryable, failed',
         () async {
-      // Mirrors Android's KinesisRecordSenderTest:
       // - Record 1 (retryCount=0): success (no error code)
       // - Record 2 (retryCount=1): retryable (error code + under retry limit)
       // - Record 3 (retryCount=maxRetries): failed (error code + at retry limit)

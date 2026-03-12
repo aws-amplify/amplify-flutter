@@ -3,9 +3,6 @@
 
 /// Tests for concurrent flush behavior.
 ///
-/// Mirrors Android's `RecordClientConcurrentFlushTest.kt` and Swift's
-/// `RecordClientConcurrentFlushTests.swift`.
-///
 /// Uses a [Completer]-controlled sender instead of wall-clock delays so
 /// the test is deterministic and not timing-dependent.
 library;

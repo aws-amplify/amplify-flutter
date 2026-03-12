@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aws_kinesis_datastreams_dart/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/record_client.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
@@ -26,70 +25,68 @@ void main() {
       reset(mockClient);
     });
 
-    test('start begins periodic flushing', () {
+    test('start should begin periodic flushing', () {
       fakeAsync((async) {
         final scheduler = AutoFlushScheduler(
-          strategy: const KinesisDataStreamsInterval(
-            interval: Duration(seconds: 10),
-          ),
+          interval: const Duration(seconds: 1),
           client: mockClient,
         )..start();
 
-        verifyNever(() => mockClient.flush());
+        async.elapse(const Duration(milliseconds: 2500)); // 2.5 seconds
+        scheduler.stop();
 
-        async.elapse(const Duration(seconds: 10));
-        verify(() => mockClient.flush()).called(1);
-
-        async.elapse(const Duration(seconds: 10));
-        verify(() => mockClient.flush()).called(1);
-
-        async.elapse(const Duration(seconds: 25));
         verify(() => mockClient.flush()).called(2);
-
-        scheduler.stop();
       });
     });
 
-    test('stop prevents further flushes', () {
+    test('stop should stop periodic flushing', () {
       fakeAsync((async) {
         final scheduler = AutoFlushScheduler(
-          strategy: const KinesisDataStreamsInterval(
-            interval: Duration(seconds: 10),
-          ),
+          interval: const Duration(seconds: 1),
           client: mockClient,
         )..start();
 
-        async.elapse(const Duration(seconds: 10));
-        verify(() => mockClient.flush()).called(1);
-
+        async.elapse(const Duration(milliseconds: 1500)); // 1.5s — 1 flush
         scheduler.stop();
+        async.elapse(const Duration(milliseconds: 2000)); // 2s more — no flush
 
-        async.elapse(const Duration(seconds: 30));
-        verifyNever(() => mockClient.flush());
+        verify(() => mockClient.flush()).called(1);
       });
     });
 
-    test('start after stop restarts flushing', () {
+    test('start should cancel previous loop and restart', () {
       fakeAsync((async) {
         final scheduler = AutoFlushScheduler(
-          strategy: const KinesisDataStreamsInterval(
-            interval: Duration(seconds: 10),
-          ),
+          interval: const Duration(seconds: 1),
           client: mockClient,
         )..start();
 
-        async.elapse(const Duration(seconds: 10));
-        verify(() => mockClient.flush()).called(1);
-
+        async.elapse(const Duration(milliseconds: 500)); // 0.5s
+        scheduler.start(); // Restart — should cancel previous loop
+        async.elapse(const Duration(milliseconds: 1500)); // 1.5s more
         scheduler.stop();
-        async.elapse(const Duration(seconds: 20));
-        verifyNever(() => mockClient.flush());
 
-        scheduler.start();
-        async.elapse(const Duration(seconds: 10));
         verify(() => mockClient.flush()).called(1);
+      });
+    });
 
+    test('rapid start/stop/start does not leak loops', () {
+      fakeAsync((async) {
+        final scheduler = AutoFlushScheduler(
+          interval: const Duration(seconds: 1),
+          client: mockClient,
+        )
+          ..start()
+          ..stop()
+          ..start()
+          ..stop()
+          ..start();
+
+        // Only one loop should be active.
+        async.elapse(const Duration(milliseconds: 2500));
         scheduler.stop();
+
+        verify(() => mockClient.flush()).called(2);
       });
     });
   });

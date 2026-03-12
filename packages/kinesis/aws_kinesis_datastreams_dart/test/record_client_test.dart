@@ -3,9 +3,9 @@
 
 /// Tests for RecordClient.
 ///
-/// Uses mocktail mocks for KinesisSender (matching the pinpoint/storage
-/// testing pattern) with pre-built PutRecordsResult values and explicit
-/// IDs, rather than behavioral test doubles with callback logic.
+/// Uses mocktail mocks for KinesisSender with pre-built PutRecordsResult
+/// values and explicit IDs, rather than behavioral test doubles with
+/// callback logic.
 library;
 
 import 'dart:typed_data';
@@ -186,8 +186,6 @@ void main() {
       });
 
       test('handles mixed success, retryable, and failed', () async {
-        // Mirrors Android's RecordClientFlushTest:
-        // "flush should handle mixed record states correctly"
         for (var i = 0; i < 3; i++) {
           await client.record(
             RecordInput.now(
@@ -230,9 +228,6 @@ void main() {
       test(
         'increments retry count for all records when non-SDK error occurs',
         () async {
-          // Mirrors Android's RecordClientFlushTest:
-          // "flush should increment retry count for all records when request
-          //  fails with non-SDK error"
           for (var i = 0; i < 3; i++) {
             await client.record(
               RecordInput.now(
@@ -268,9 +263,6 @@ void main() {
       test(
         'deletes records at max retries when non-SDK error occurs',
         () async {
-          // Mirrors Android's RecordClientFlushTest:
-          // "flush should delete records at max retries when request fails
-          //  with non-SDK error"
           for (var i = 0; i < 3; i++) {
             await client.record(
               RecordInput.now(
@@ -314,8 +306,6 @@ void main() {
       test(
         'invalid stream records do not block valid stream flushes',
         () async {
-          // Mirrors Android's RecordClientFlushTest:
-          // "flush should continue processing streams when SDK errors occur"
           await client.record(
             RecordInput.now(
               data: Uint8List.fromList([1, 2, 3]),

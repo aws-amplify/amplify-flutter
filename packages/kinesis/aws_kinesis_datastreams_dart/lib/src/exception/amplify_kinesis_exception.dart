@@ -23,39 +23,28 @@ sealed class AmplifyKinesisException extends AmplifyException {
   /// subtype. If [error] is already an [AmplifyKinesisException], it is
   /// returned as-is. [RecordCacheException] subtypes are mapped to their
   /// corresponding public exception types.
-  static AmplifyKinesisException from(Object error) {
-    if (error is AmplifyKinesisException) return error;
-    if (error is RecordCacheValidationException) {
-      return KinesisValidationException(
-        error.message,
-        recoverySuggestion: error.recoverySuggestion,
-      );
-    }
-    if (error is RecordCacheLimitExceededException) {
-      return KinesisLimitExceededException(
-        message: error.message,
-        recoverySuggestion: error.recoverySuggestion,
-      );
-    }
-    if (error is RecordCacheDatabaseException) {
-      return KinesisStorageException(
-        error.message,
-        recoverySuggestion: error.recoverySuggestion,
-        cause: error.cause,
-      );
-    }
-    if (error is RecordCacheException) {
-      return KinesisStorageException(
-        error.message,
-        recoverySuggestion: error.recoverySuggestion,
-        cause: error.cause,
-      );
-    }
-    return KinesisUnknownException(
-      error.toString(),
-      cause: error is Exception ? error : null,
-    );
-  }
+  static AmplifyKinesisException from(Object error) => switch (error) {
+    final AmplifyKinesisException e => e,
+    final RecordCacheValidationException e => KinesisValidationException(
+      e.message,
+      recoverySuggestion: e.recoverySuggestion,
+    ),
+    final RecordCacheLimitExceededException e =>
+      KinesisLimitExceededException(
+        message: e.message,
+        recoverySuggestion: e.recoverySuggestion,
+      ),
+    final RecordCacheDatabaseException e => KinesisStorageException(
+      e.message,
+      recoverySuggestion: e.recoverySuggestion,
+      cause: e.cause,
+    ),
+    final Exception e => KinesisUnknownException(
+      e.toString(),
+      cause: e,
+    ),
+    _ => KinesisUnknownException(error.toString()),
+  };
 
   @override
   String toString() {

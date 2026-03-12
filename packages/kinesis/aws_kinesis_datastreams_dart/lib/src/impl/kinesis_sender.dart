@@ -6,8 +6,7 @@ import 'package:aws_kinesis_datastreams_dart/src/sdk/kinesis.dart';
 
 /// Result of a PutRecords operation.
 ///
-/// Records are categorized into three buckets matching Android's
-/// `PutRecordsResponse`:
+/// Records are categorized into three buckets:
 /// - [successfulIds]: records that were accepted by Kinesis.
 /// - [retryableIds]: records that failed with any error code but have not
 ///   yet exceeded the retry limit. These will be retried in the next flush.
@@ -34,10 +33,9 @@ final class PutRecordsResult {
 /// {@template aws_kinesis_datastreams.kinesis_sender}
 /// Handles communication with AWS Kinesis Data Streams.
 ///
-/// Matches Android's `KinesisRecordSender`: takes a pre-configured
-/// [KinesisClient] and owns the retry-count categorization so that all
-/// error codes are treated as retryable until the record exceeds
-/// `maxRetries`.
+/// Takes a pre-configured [KinesisClient] and owns the retry-count
+/// categorization so that all error codes are treated as retryable
+/// until the record exceeds `maxRetries`.
 /// {@endtemplate}
 class KinesisSender {
   /// {@macro aws_kinesis_datastreams.kinesis_sender}
@@ -88,8 +86,6 @@ class KinesisSender {
 
   /// Splits the PutRecords response into successful, retryable, and failed
   /// record IDs based on error codes and retry counts.
-  ///
-  /// Mirrors Android's `KinesisRecordSender.splitResponse()`.
   PutRecordsResult _splitResponse(
     PutRecordsResponse response,
     List<Record> records,

@@ -58,10 +58,10 @@ void main() {
       });
 
       test('initializes with custom options', () {
-        final customOptions = AmplifyKinesisClientOptions(
+        const customOptions = AmplifyKinesisClientOptions(
           cacheMaxBytes: 10 * 1024 * 1024,
           maxRetries: 10,
-          flushStrategy: const KinesisDataStreamsInterval(
+          flushStrategy: KinesisDataStreamsInterval(
             interval: Duration(minutes: 1),
           ),
         );
@@ -82,8 +82,8 @@ void main() {
       });
 
       test('supports None flush strategy', () {
-        final customOptions = AmplifyKinesisClientOptions(
-          flushStrategy: const KinesisDataStreamsNone(),
+        const customOptions = AmplifyKinesisClientOptions(
+          flushStrategy: KinesisDataStreamsNone(),
         );
 
         final client = AmplifyKinesisClient.withRecordClient(
@@ -187,9 +187,8 @@ void main() {
       test('enable sets isEnabled to true', () {
         final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
-        );
-
-        client.disable();
+        )
+          ..disable();
         expect(client.isEnabled, isFalse);
 
         client.enable();

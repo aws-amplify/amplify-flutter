@@ -3,9 +3,6 @@
 
 /// Tests for SQLite record storage cache accuracy.
 ///
-/// Mirrors Android's `SQLiteRecordStorageCacheAccuracyTest.kt` and Swift's
-/// `SQLiteRecordStorageCacheAccuracyTests.swift`.
-///
 /// Verifies that the cached size reported by `getCurrentCacheSize()` stays
 /// accurate through add, delete, clear, and mixed operations, and that
 /// `getRecordsByStream` correctly handles excludingIds and per-stream limits.
@@ -55,7 +52,7 @@ void main() {
         ),
       );
 
-      final cachedSize = await storage.getCurrentCacheSize();
+      final cachedSize = storage.getCurrentCacheSize();
       // "a"(1) + data(3) + "b"(1) + data(4) = 9
       expect(cachedSize, equals(9));
     });
@@ -83,11 +80,14 @@ void main() {
         ),
       );
 
-      final allRecords = await storage.getRecordsBatch();
+      final allRecords = (await storage.getRecordsByStream())
+          .values
+          .expand((r) => r)
+          .toList();
       final idsToDelete = allRecords.take(2).map((r) => r.id).toList();
       await storage.deleteRecords(idsToDelete);
 
-      final cachedSize = await storage.getCurrentCacheSize();
+      final cachedSize = storage.getCurrentCacheSize();
       // remaining: "c"(1) + data(2) = 3
       expect(cachedSize, equals(3));
     });
@@ -110,7 +110,7 @@ void main() {
 
       await storage.clearRecords();
 
-      final cachedSize = await storage.getCurrentCacheSize();
+      final cachedSize = storage.getCurrentCacheSize();
       expect(cachedSize, equals(0));
     });
 
@@ -132,14 +132,17 @@ void main() {
         ),
       );
 
-      var cachedSize = await storage.getCurrentCacheSize();
+      var cachedSize = storage.getCurrentCacheSize();
       expect(cachedSize, equals(10)); // 6 + 4
 
       // Delete the first record
-      final records = await storage.getRecordsBatch();
+      final records = (await storage.getRecordsByStream())
+          .values
+          .expand((r) => r)
+          .toList();
       await storage.deleteRecords([records.first.id]);
 
-      cachedSize = await storage.getCurrentCacheSize();
+      cachedSize = storage.getCurrentCacheSize();
       expect(cachedSize, equals(4));
 
       // Add another record: "c"(1) + data(2) = 3
@@ -151,7 +154,7 @@ void main() {
         ),
       );
 
-      cachedSize = await storage.getCurrentCacheSize();
+      cachedSize = storage.getCurrentCacheSize();
       expect(cachedSize, equals(7)); // 4 + 3
     });
 
@@ -208,7 +211,7 @@ void main() {
           .values
           .expand((r) => r)
           .toList();
-      final finalCacheSize = await storage.getCurrentCacheSize();
+      final finalCacheSize = storage.getCurrentCacheSize();
       final expectedCacheSize =
           finalRecords.fold<int>(0, (s, r) => s + r.dataSize);
 

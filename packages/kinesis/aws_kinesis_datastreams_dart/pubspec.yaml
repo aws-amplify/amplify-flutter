@@ -9,20 +9,20 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
-  amplify_core: ">=2.9.0 <2.10.0"
-  amplify_db_common_dart: ">=0.4.13 <0.5.0"
+  amplify_core: ">=2.10.0 <2.11.0"
+  amplify_db_common_dart: ">=0.4.14 <0.5.0"
   amplify_foundation_dart: ">=1.0.0 <2.0.0"
   amplify_foundation_dart_bridge: ">=1.0.0 <1.1.0"
-  aws_common: ">=0.7.11 <0.8.0"
-  aws_signature_v4: ">=0.6.9 <0.7.0"
+  aws_common: ">=0.7.12 <0.8.0"
+  aws_signature_v4: ">=0.6.10 <0.7.0"
   built_collection: ^5.1.1
   built_value: ^8.10.1
   drift: ^2.25.0
   meta: ^1.16.0
-  smithy: ">=0.7.9 <0.8.0"
-  smithy_aws: ">=0.7.9 <0.8.0"
+  smithy: ">=0.7.10 <0.8.0"
+  smithy_aws: ">=0.7.10 <0.8.0"
   synchronized: ^3.3.0
-  web: ^1.1.0
+  web: ^1.1.1
 
 dev_dependencies:
   amplify_lints: ">=3.1.4 <3.2.0"

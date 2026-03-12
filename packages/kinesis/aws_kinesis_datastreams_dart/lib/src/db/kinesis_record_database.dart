@@ -43,8 +43,7 @@ class KinesisRecordDatabase extends _$KinesisRecordDatabase {
   /// {@macro aws_kinesis_datastreams.kinesis_record_database}
   ///
   /// [identifier] is used to namespace the database (typically the AWS region).
-  /// [storagePath] is the directory path for the database file on IO platforms;
-  /// it is ignored on web where IndexedDB is used instead.
+  /// [storagePath] is the directory path for the database file
   factory KinesisRecordDatabase({
     required String identifier,
     required FutureOr<String>? storagePath,
@@ -70,10 +69,14 @@ class KinesisRecordDatabase extends _$KinesisRecordDatabase {
     return MigrationStrategy(
       onCreate: (Migrator m) async {
         await m.createAll();
-        // Create index for efficient batching queries
+        // Indices matching the Android schema.
         await customStatement(
-          'CREATE INDEX IF NOT EXISTS idx_stream_partition '
-          'ON kinesis_records(stream_name, partition_key, id)',
+          'CREATE INDEX IF NOT EXISTS idx_stream_id '
+          'ON kinesis_records(stream_name, id)',
+        );
+        await customStatement(
+          'CREATE INDEX IF NOT EXISTS idx_data_size '
+          'ON kinesis_records(data_size)',
         );
       },
     );

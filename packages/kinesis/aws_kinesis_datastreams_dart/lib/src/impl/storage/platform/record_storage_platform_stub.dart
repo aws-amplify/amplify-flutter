@@ -9,7 +9,7 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dar
 ///
 /// This stub throws [UnsupportedError] and should never be reached at
 /// runtime — the conditional export selects the VM or web variant.
-RecordStorage createPlatformRecordStorage({
+Future<RecordStorage> createPlatformRecordStorage({
   required String identifier,
   required FutureOr<String>? storagePath,
   required int maxCacheBytes,

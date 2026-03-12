@@ -15,19 +15,20 @@ import 'package:aws_kinesis_datastreams_dart/aws_kinesis_datastreams_dart.dart';
 /// Client for recording and streaming data to Amazon Kinesis Data Streams.
 ///
 /// Provides offline-capable data streaming with:
-/// - Local persistence for offline support (SQLite on all platforms, via sqlite3.wasm on web)
+/// - Local persistence for offline support (SQLite on native, IndexedDB on web, 
+///   with in-memory fallback)
 /// - Automatic retry for failed records
 /// - Configurable batching (up to 500 records or 5MB per batch)
 /// - Interval-based automatic flushing
 ///
 /// The storage path is resolved automatically using the platform's
 /// application support directory. The [region] is used as the database
-/// identifier, matching the Android and Swift implementations.
+/// identifier.
 ///
 /// ## Usage
 ///
 /// ```dart
-/// final client = AmplifyKinesisClient(
+/// final client = await AmplifyKinesisClient.create(
 ///   region: 'us-east-1',
 ///   credentialsProvider: myCredentialsProvider,
 /// );
@@ -49,27 +50,28 @@ import 'package:aws_kinesis_datastreams_dart/aws_kinesis_datastreams_dart.dart';
 /// ```
 /// {@endtemplate}
 class AmplifyKinesisClient {
+  AmplifyKinesisClient._(this._delegate);
+
   /// {@macro aws_kinesis_datastreams.amplify_kinesis_client}
   ///
   /// The storage path is resolved automatically via `path_provider`.
   /// On IO platforms, this uses `getApplicationSupportDirectory()`.
-  /// On web, the path is unused (Drift uses sqlite3.wasm with an
-  /// IndexedDB-backed virtual file system).
-  AmplifyKinesisClient({
+  /// On web, the path is unused (IndexedDB storage is used instead,
+  /// with an in-memory fallback).
+  static Future<AmplifyKinesisClient> create({
     required String region,
     required AWSCredentialsProvider credentialsProvider,
     AmplifyKinesisClientOptions? options,
-  }) : _delegate = dart_client.AmplifyKinesisClient(
-         region: region,
-         credentialsProvider: credentialsProvider,
-         // getStoragePath() returns Future<String?>.
-         // On IO: resolves to the application support directory path.
-         // On web: resolves to null, but connect_html.dart ignores the
-         // path (it uses sqlite3.wasm + IndexedDB VFS), so we pass an
-         // empty string fallback.
-         storagePath: getStoragePath().then((p) => p ?? ''),
-         options: options,
-       );
+  }) async {
+    final storagePath = await getStoragePath() ?? '';
+    final delegate = await dart_client.AmplifyKinesisClient.create(
+      region: region,
+      credentialsProvider: credentialsProvider,
+      storagePath: storagePath,
+      options: options,
+    );
+    return AmplifyKinesisClient._(delegate);
+  }
 
   final dart_client.AmplifyKinesisClient _delegate;
 

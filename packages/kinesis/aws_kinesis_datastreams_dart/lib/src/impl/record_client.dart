@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
-import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
+import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
@@ -12,7 +12,6 @@ import 'package:smithy/smithy.dart' show SmithyHttpException;
 /// {@template aws_kinesis_datastreams.record_client}
 /// Orchestrates record operations: storage, sending, and retry logic.
 ///
-/// Matches Android's `RecordClient`:
 /// - `record()` delegates directly to `storage.addRecord()` (validation
 ///   and cache limit checks happen inside the storage layer).
 /// - `flush()` is a single-pass operation that retrieves one batch per
@@ -38,7 +37,7 @@ class RecordClient {
   /// Records data to the local cache.
   ///
   /// Delegates to [RecordStorage.addRecord] which handles validation
-  /// and cache limit checks, matching Android's `RecordClient.record()`.
+  /// and cache limit checks.
   Future<void> record(RecordInput record) => _storage.addRecord(record);
 
   /// Flushes cached records to Kinesis.
@@ -129,7 +128,7 @@ class RecordClient {
           'of $_maxRetries',
         );
       }
-    } catch (e) {
+    } on Object catch (e) {
       _logger.error('Failed to update records for failed request: $e', e);
     }
   }

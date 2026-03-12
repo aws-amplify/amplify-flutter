@@ -7,6 +7,7 @@ import 'dart:typed_data';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:amplify_foundation_dart_bridge/amplify_foundation_dart_bridge.dart';
 import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_exception.dart';
+import 'package:aws_kinesis_datastreams_dart/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/auto_flush_scheduler.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
@@ -39,7 +40,7 @@ const _userAgentComponent =
 /// ## Usage
 ///
 /// ```dart
-/// final client = AmplifyKinesisClient(
+/// final client = await AmplifyKinesisClient.create(
 ///   region: 'us-east-1',
 ///   credentialsProvider: myCredentialsProvider,
 ///   storagePath: '/path/to/app/support',
@@ -62,51 +63,20 @@ const _userAgentComponent =
 /// ```
 /// {@endtemplate}
 class AmplifyKinesisClient {
-  /// {@macro aws_kinesis_datastreams.amplify_kinesis_client}
-  ///
-  /// [storagePath] is the directory path for the database file on IO
-  /// platforms. On web, pass `null` (the path is unused; IndexedDB storage
-  /// is used instead, with an in-memory fallback).
-  /// The [region] is used as the database identifier to namespace
-  /// the database file (e.g. `kinesis_records_us-east-1`).
-  AmplifyKinesisClient({
+  /// Private constructor — use [create] or
+  /// [AmplifyKinesisClient.withRecordClient] instead.
+  AmplifyKinesisClient._({
     required String region,
-    required AWSCredentialsProvider credentialsProvider,
-    required FutureOr<String>? storagePath,
-    AmplifyKinesisClientOptions? options,
+    required AmplifyKinesisClientOptions options,
+    required RecordClient recordClient,
+    required KinesisClient kinesisClient,
+    AutoFlushScheduler? scheduler,
   }) : _region = region,
-       _options = options ?? AmplifyKinesisClientOptions() {
-    _logger = AmplifyLogging.logger('AmplifyKinesisClient');
-
-    final storage = createPlatformRecordStorage(
-      identifier: region,
-      storagePath: storagePath,
-      maxCacheBytes: _options.cacheMaxBytes,
-    );
-
-    _kinesisClient = KinesisClient(
-      region: region,
-      credentialsProvider:
-          SmithyCredentialsProviderBridge(credentialsProvider),
-      requestInterceptors: [
-        const WithUserAgent(_userAgentComponent),
-      ],
-    );
-
-    _recordClient = RecordClient(
-      storage: storage,
-      sender: KinesisSender(
-        kinesisClient: _kinesisClient,
-        maxRetries: _options.maxRetries,
-      ),
-      maxRetries: _options.maxRetries,
-    );
-
-    _scheduler = AutoFlushScheduler(
-      strategy: _options.flushStrategy,
-      client: _recordClient,
-    )..start();
-  }
+       _options = options,
+       _recordClient = recordClient,
+       _kinesisClient = kinesisClient,
+       _scheduler = scheduler,
+       _logger = AmplifyLogging.logger('AmplifyKinesisClient');
 
   /// Creates a client with a pre-configured [RecordClient] (for testing).
   AmplifyKinesisClient.withRecordClient({
@@ -114,17 +84,71 @@ class AmplifyKinesisClient {
     String region = 'us-east-1',
     AmplifyKinesisClientOptions? options,
   }) : _region = region,
-       _options = options ?? AmplifyKinesisClientOptions(),
-       _recordClient = recordClient {
-    _logger = AmplifyLogging.logger('AmplifyKinesisClient');
+       _options = options ?? const AmplifyKinesisClientOptions(),
+       _recordClient = recordClient,
+       _kinesisClient = null,
+       _scheduler = null,
+       _logger = AmplifyLogging.logger('AmplifyKinesisClient');
+
+  /// {@macro aws_kinesis_datastreams.amplify_kinesis_client}
+  ///
+  /// [storagePath] is the directory path for the database file on IO
+  /// platforms. On web, pass `null` (the path is unused; IndexedDB storage
+  /// is used instead, with an in-memory fallback).
+  /// The [region] is used as the database identifier to namespace
+  /// the database file (e.g. `kinesis_records_us-east-1`).
+  static Future<AmplifyKinesisClient> create({
+    required String region,
+    required AWSCredentialsProvider credentialsProvider,
+    required FutureOr<String>? storagePath,
+    AmplifyKinesisClientOptions? options,
+  }) async {
+    final opts = options ?? const AmplifyKinesisClientOptions();
+
+    final storage = await createPlatformRecordStorage(
+      identifier: region,
+      storagePath: storagePath,
+      maxCacheBytes: opts.cacheMaxBytes,
+    );
+
+    final kinesisClient = KinesisClient(
+      region: region,
+      credentialsProvider: SmithyCredentialsProviderBridge(credentialsProvider),
+      requestInterceptors: [const WithUserAgent(_userAgentComponent)],
+    );
+
+    final recordClient = RecordClient(
+      storage: storage,
+      sender: KinesisSender(
+        kinesisClient: kinesisClient,
+        maxRetries: opts.maxRetries,
+      ),
+      maxRetries: opts.maxRetries,
+    );
+
+    final scheduler = switch (opts.flushStrategy) {
+      KinesisDataStreamsInterval(:final interval) => AutoFlushScheduler(
+        interval: interval,
+        client: recordClient,
+      )..start(),
+      KinesisDataStreamsNone() => null,
+    };
+
+    return AmplifyKinesisClient._(
+      region: region,
+      options: opts,
+      recordClient: recordClient,
+      kinesisClient: kinesisClient,
+      scheduler: scheduler,
+    );
   }
 
   final String _region;
   final AmplifyKinesisClientOptions _options;
-  late final RecordClient _recordClient;
-  late final KinesisClient _kinesisClient;
-  late final Logger _logger;
-  AutoFlushScheduler? _scheduler;
+  final RecordClient _recordClient;
+  final KinesisClient? _kinesisClient;
+  final Logger _logger;
+  final AutoFlushScheduler? _scheduler;
   bool _enabled = true;
   bool _closed = false;
 
@@ -145,8 +169,17 @@ class AmplifyKinesisClient {
   /// Use this for advanced operations not covered by this client's API.
   ///
   /// Note: This getter is only available when the client was created with
-  /// the default constructor (not [AmplifyKinesisClient.withRecordClient]).
-  KinesisClient get kinesisClient => _kinesisClient;
+  /// [create] (not [AmplifyKinesisClient.withRecordClient]).
+  KinesisClient get kinesisClient {
+    final client = _kinesisClient;
+    if (client == null) {
+      throw StateError(
+        'kinesisClient is not available on clients created with '
+        'withRecordClient.',
+      );
+    }
+    return client;
+  }
 
   /// Records data to be sent to a Kinesis Data Stream.
   ///
@@ -192,7 +225,7 @@ class AmplifyKinesisClient {
       return const Result.ok(FlushData());
     }
     _logger.verbose('Starting flush');
-    return _wrapError(() => _recordClient.flush());
+    return _wrapError(_recordClient.flush);
   }
 
   /// Clears all cached records from local storage.
@@ -202,7 +235,7 @@ class AmplifyKinesisClient {
   Future<Result<ClearCacheData>> clearCache() async {
     if (_closed) return Result.error(ClientClosedException());
     _logger.verbose('Clearing cache');
-    return _wrapError(() => _recordClient.clearCache());
+    return _wrapError(_recordClient.clearCache);
   }
 
   /// Enables the client to accept and flush records.

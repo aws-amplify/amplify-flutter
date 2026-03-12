@@ -4,11 +4,12 @@
 /// Amplify Kinesis Data Streams client for Dart.
 library;
 
-// Main client
-export 'src/amplify_kinesis_client.dart';
 // Credentials provider (from amplify_foundation_dart)
 export 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AWSCredentialsProvider;
+
+// Main client
+export 'src/amplify_kinesis_client.dart';
 // Exceptions
 export 'src/exception/amplify_kinesis_exception.dart';
 // Flush strategies
@@ -19,4 +20,10 @@ export 'src/kinesis_data_streams_options.dart';
 export 'src/model/clear_cache_data.dart';
 export 'src/model/flush_data.dart';
 // SDK client (for escape hatch)
-export 'src/sdk/kinesis.dart' show KinesisClient;
+export 'src/sdk/kinesis.dart'
+    show
+        KinesisClient,
+        PutRecordsRequest,
+        PutRecordsRequestEntry,
+        PutRecordsResponse,
+        PutRecordsResultEntry;

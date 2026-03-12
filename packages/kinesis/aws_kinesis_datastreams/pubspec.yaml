@@ -19,7 +19,8 @@ platforms:
   web:
 
 dependencies:
-  aws_kinesis_datastreams_dart: ">=0.1.0 <0.2.0"
+  amplify_foundation_dart: ">=1.0.0 <2.0.0"
+  aws_kinesis_datastreams_dart: ">=0.1.0 <0.1.1"
   flutter:
     sdk: flutter
   path_provider: ^2.1.0

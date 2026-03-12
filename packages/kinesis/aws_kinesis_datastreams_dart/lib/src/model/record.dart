@@ -7,7 +7,7 @@ import 'dart:typed_data';
 /// A record persisted in local storage, ready to be flushed to Kinesis.
 ///
 /// This is a plain Dart class with no ORM coupling, shared across all
-/// storage backends (SQLite, IndexedDB). Matches Android's `Record` data class.
+/// storage backends (SQLite, IndexedDB, In-Memory).
 /// {@endtemplate}
 final class Record {
   /// {@macro aws_kinesis_datastreams.record}
