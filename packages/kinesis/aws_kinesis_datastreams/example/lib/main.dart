@@ -6,17 +6,24 @@ import 'dart:typed_data';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart' hide LogLevel;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     as foundation show AWSCredentialsProvider, TemporaryCredentials;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    show Error, Ok;
+    show AmplifyLogging, AmplifySimplePrinterLogSink, Error, LogLevel, Ok;
 import 'package:aws_kinesis_datastreams/aws_kinesis_datastreams.dart';
 import 'package:flutter/material.dart';
 
 import 'amplify_outputs.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Register a verbose log sink so all Kinesis internal logs are visible.
+  AmplifyLogging.addSink(
+    AmplifySimplePrinterLogSink(logLevel: LogLevel.verbose),
+  );
+
   runApp(const KinesisExampleApp());
 }
 
