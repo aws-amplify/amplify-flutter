@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_kinesis_datastreams_dart/src/exception/record_cache_exception.dart';
 
 /// Default recovery suggestion for errors.
@@ -13,10 +13,10 @@ const String defaultRecoverySuggestion =
 /// {@endtemplate}
 sealed class AmplifyKinesisException extends AmplifyException {
   /// {@macro aws_kinesis_datastreams.amplify_kinesis_exception}
-  AmplifyKinesisException({
-    required super.message,
-    required super.recoverySuggestion,
-    super.cause,
+  const AmplifyKinesisException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
   });
 
   /// Maps an arbitrary error into the appropriate [AmplifyKinesisException]
@@ -36,21 +36,14 @@ sealed class AmplifyKinesisException extends AmplifyException {
     final RecordCacheDatabaseException e => KinesisStorageException(
       e.message,
       recoverySuggestion: e.recoverySuggestion,
-      cause: e.cause,
+      underlyingException: e.cause,
     ),
-    final Exception e => KinesisUnknownException(e.toString(), cause: e),
+    final Exception e => KinesisUnknownException(
+      e.toString(),
+      underlyingException: e,
+    ),
     _ => KinesisUnknownException(error.toString()),
   };
-
-  @override
-  String toString() {
-    final buf = StringBuffer('AmplifyKinesisException: $message');
-    if (recoverySuggestion.isNotEmpty) {
-      buf.write('\nRecovery suggestion: $recoverySuggestion');
-    }
-    if (cause != null) buf.write('\nCaused by: $cause');
-    return buf.toString();
-  }
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_storage_exception}
@@ -58,14 +51,14 @@ sealed class AmplifyKinesisException extends AmplifyException {
 /// {@endtemplate}
 final class KinesisStorageException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_storage_exception}
-  KinesisStorageException(
-    String message, {
-    String? recoverySuggestion,
-    super.cause,
-  }) : super(
-         message: message,
-         recoverySuggestion: recoverySuggestion ?? defaultRecoverySuggestion,
-       );
+  const KinesisStorageException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'KinesisStorageException';
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
@@ -73,12 +66,17 @@ final class KinesisStorageException extends AmplifyKinesisException {
 /// {@endtemplate}
 final class KinesisLimitExceededException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_limit_exceeded_exception}
-  KinesisLimitExceededException({String? message, String? recoverySuggestion})
-    : super(
-        message: message ?? 'Cache is full',
-        recoverySuggestion:
-            recoverySuggestion ?? 'Call flush() or clearCache().',
-      );
+  const KinesisLimitExceededException({
+    String? message,
+    String? recoverySuggestion,
+  }) : super(
+         message ?? 'Cache is full',
+         recoverySuggestion:
+             recoverySuggestion ?? 'Call flush() or clearCache().',
+       );
+
+  @override
+  String get runtimeTypeName => 'KinesisLimitExceededException';
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_validation_exception}
@@ -87,11 +85,10 @@ final class KinesisLimitExceededException extends AmplifyKinesisException {
 /// {@endtemplate}
 final class KinesisValidationException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_validation_exception}
-  KinesisValidationException(String message, {String? recoverySuggestion})
-    : super(
-        message: message,
-        recoverySuggestion: recoverySuggestion ?? defaultRecoverySuggestion,
-      );
+  const KinesisValidationException(super.message, {super.recoverySuggestion});
+
+  @override
+  String get runtimeTypeName => 'KinesisValidationException';
 }
 
 /// {@template aws_kinesis_datastreams.kinesis_unknown_exception}
@@ -99,8 +96,10 @@ final class KinesisValidationException extends AmplifyKinesisException {
 /// {@endtemplate}
 final class KinesisUnknownException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.kinesis_unknown_exception}
-  KinesisUnknownException(String message, {super.cause})
-    : super(message: message, recoverySuggestion: defaultRecoverySuggestion);
+  const KinesisUnknownException(super.message, {super.underlyingException});
+
+  @override
+  String get runtimeTypeName => 'KinesisUnknownException';
 }
 
 /// {@template aws_kinesis_datastreams.client_closed_exception}
@@ -108,9 +107,12 @@ final class KinesisUnknownException extends AmplifyKinesisException {
 /// {@endtemplate}
 final class ClientClosedException extends AmplifyKinesisException {
   /// {@macro aws_kinesis_datastreams.client_closed_exception}
-  ClientClosedException()
+  const ClientClosedException()
     : super(
-        message: 'Client has been closed',
+        'Client has been closed',
         recoverySuggestion: 'Create a new AmplifyKinesisClient instance.',
       );
+
+  @override
+  String get runtimeTypeName => 'ClientClosedException';
 }
