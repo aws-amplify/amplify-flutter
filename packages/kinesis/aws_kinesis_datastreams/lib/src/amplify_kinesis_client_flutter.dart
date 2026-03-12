@@ -15,7 +15,7 @@ import 'package:aws_kinesis_datastreams_dart/aws_kinesis_datastreams_dart.dart';
 /// Client for recording and streaming data to Amazon Kinesis Data Streams.
 ///
 /// Provides offline-capable data streaming with:
-/// - Local persistence for offline support (SQLite on native, IndexedDB on web, 
+/// - Local persistence for offline support (SQLite on native, IndexedDB on web,
 ///   with in-memory fallback)
 /// - Automatic retry for failed records
 /// - Configurable batching (up to 500 records or 5MB per batch)

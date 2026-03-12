@@ -48,9 +48,6 @@ final class SmithyCredentialsProviderBridge
         creds.expiration,
       );
     }
-    return sig_v4.AWSCredentials(
-      creds.accessKeyId,
-      creds.secretAccessKey,
-    );
+    return sig_v4.AWSCredentials(creds.accessKeyId, creds.secretAccessKey);
   }
 }
