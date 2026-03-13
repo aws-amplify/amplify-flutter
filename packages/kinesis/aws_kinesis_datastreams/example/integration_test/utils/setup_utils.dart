@@ -16,9 +16,9 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart'
     hide AWSCredentialsProvider;
-import 'package:amplify_test/amplify_test.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AWSCredentialsProvider, TemporaryCredentials;
+import 'package:amplify_test/amplify_test.dart';
 import 'package:aws_kinesis_datastreams_example/amplify_outputs.dart';
 import 'package:flutter_test/flutter_test.dart';
 
