@@ -318,6 +318,77 @@ void main() {
         final result = await getUrlOperation.result;
         expect(result, testResult);
       });
+
+      test(
+        'should forward options with method PUT to StorageS3Service.getUrl() API',
+        () async {
+          const testOptions = StorageGetUrlOptions(
+            pluginOptions: S3GetUrlPluginOptions(
+              expiresIn: Duration(minutes: 5),
+              method: StorageAccessMethod.put,
+            ),
+          );
+
+          when(
+            () => storageS3Service.getUrl(
+              path: testPath,
+              options: any(named: 'options'),
+            ),
+          ).thenAnswer((_) async => testResult);
+
+          final getUrlOperation = storageS3Plugin.getUrl(
+            path: testPath,
+            options: testOptions,
+          );
+
+          final capturedOptions = verify(
+            () => storageS3Service.getUrl(
+              path: testPath,
+              options: captureAny<StorageGetUrlOptions>(named: 'options'),
+            ),
+          ).captured.last;
+
+          expect(capturedOptions, isA<StorageGetUrlOptions>());
+          final options = capturedOptions as StorageGetUrlOptions;
+          expect(options.pluginOptions, isA<S3GetUrlPluginOptions>());
+          final pluginOptions = options.pluginOptions! as S3GetUrlPluginOptions;
+          expect(pluginOptions.method, StorageAccessMethod.put);
+          expect(pluginOptions.expiresIn, const Duration(minutes: 5));
+
+          final result = await getUrlOperation.result;
+          expect(result, testResult);
+        },
+      );
+
+      test(
+        'should default method to GET when not specified in plugin options',
+        () async {
+          const testOptions = StorageGetUrlOptions(
+            pluginOptions: S3GetUrlPluginOptions(),
+          );
+
+          when(
+            () => storageS3Service.getUrl(
+              path: testPath,
+              options: any(named: 'options'),
+            ),
+          ).thenAnswer((_) async => testResult);
+
+          storageS3Plugin.getUrl(path: testPath, options: testOptions);
+
+          final capturedOptions = verify(
+            () => storageS3Service.getUrl(
+              path: testPath,
+              options: captureAny<StorageGetUrlOptions>(named: 'options'),
+            ),
+          ).captured.last;
+
+          expect(capturedOptions, isA<StorageGetUrlOptions>());
+          final options = capturedOptions as StorageGetUrlOptions;
+          final pluginOptions = options.pluginOptions! as S3GetUrlPluginOptions;
+          expect(pluginOptions.method, StorageAccessMethod.get);
+        },
+      );
     });
 
     group('downloadData() API', () {
