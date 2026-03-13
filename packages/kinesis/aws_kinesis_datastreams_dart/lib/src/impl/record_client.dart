@@ -7,6 +7,8 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
+import 'package:aws_kinesis_datastreams_dart/src/model/record_data.dart'
+    show RecordData;
 import 'package:smithy/smithy.dart'
     show SmithyHttpException, UnknownSmithyHttpException;
 
@@ -39,7 +41,12 @@ class RecordClient {
   ///
   /// Delegates to [RecordStorage.addRecord] which handles validation
   /// and cache limit checks.
-  Future<void> record(RecordInput record) => _storage.addRecord(record);
+  ///
+  /// Returns [RecordData] with the size of the recorded entry.
+  Future<RecordData> record(RecordInput record) async {
+    await _storage.addRecord(record);
+    return RecordData(recordSize: record.dataSize);
+  }
 
   /// Flushes cached records to Kinesis.
   ///
