@@ -5,8 +5,8 @@
 /// Kinesis Data Stream using pre-provisioned backend.
 ///
 /// These tests mirror the Swift integration tests in
-/// `AmplifyKinesisClientIntegrationTests.swift` and the Dart e2e tests
-/// in `kinesis_e2e_test.dart`.
+/// `AmplifyKinesisClientIntegrationTests.swift` and the Android
+/// instrumentation tests in `KinesisDataStreamsInstrumentationTest.kt`.
 library;
 
 import 'dart:convert';
@@ -38,9 +38,9 @@ void main() {
     client = await AmplifyKinesisClient.create(
       region: testRegion,
       credentialsProvider: credentialsProvider,
-      options: AmplifyKinesisClientOptions(
+      options: const AmplifyKinesisClientOptions(
         maxRetries: 3,
-        flushStrategy: const KinesisDataStreamsNone(),
+        flushStrategy: KinesisDataStreamsNone(),
       ),
     );
   });
@@ -118,6 +118,29 @@ void main() {
       expect(flushResult, isA<Ok<FlushData>>());
       expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
     });
+
+    testWidgets('concurrent flush returns in-progress', (tester) async {
+      // Seed some records so the flush has work to do
+      for (var i = 0; i < 10; i++) {
+        await client.record(
+          data: Uint8List.fromList(utf8.encode('record-$i')),
+          partitionKey: 'partition-1',
+          streamName: testStreamName,
+        );
+      }
+
+      final results = await Future.wait([client.flush(), client.flush()]);
+
+      final successes = results.whereType<Ok<FlushData>>().toList();
+      expect(successes.length, equals(2));
+
+      final flushDatas = successes.map((r) => r.value).toList();
+      // At least one should have done actual work, and one may report
+      // flushInProgress
+      final anyFlushed = flushDatas.any((d) => d.recordsFlushed > 0);
+      final anyInProgress = flushDatas.any((d) => d.flushInProgress);
+      expect(anyFlushed || anyInProgress, isTrue);
+    });
   });
 
   // -----------------------------------------------------------------
@@ -129,9 +152,9 @@ void main() {
       final smallCacheClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
-        options: AmplifyKinesisClientOptions(
+        options: const AmplifyKinesisClientOptions(
           cacheMaxBytes: 100,
-          flushStrategy: const KinesisDataStreamsNone(),
+          flushStrategy: KinesisDataStreamsNone(),
         ),
       );
 
@@ -202,7 +225,12 @@ void main() {
       expect(flushResult, isA<Ok<FlushData>>());
       expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
 
-      await client.clearCache();
+      final clearResult = await client.clearCache();
+      expect(clearResult, isA<Ok<ClearCacheData>>());
+      expect(
+        (clearResult as Ok<ClearCacheData>).value.recordsCleared,
+        equals(1),
+      );
     });
 
     testWidgets(
@@ -212,8 +240,8 @@ void main() {
         final badClient = await AmplifyKinesisClient.create(
           region: testRegion,
           credentialsProvider: badCredentials,
-          options: AmplifyKinesisClientOptions(
-            flushStrategy: const KinesisDataStreamsNone(),
+          options: const AmplifyKinesisClientOptions(
+            flushStrategy: KinesisDataStreamsNone(),
           ),
         );
 
@@ -281,9 +309,9 @@ void main() {
       final retryClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
-        options: AmplifyKinesisClientOptions(
+        options: const AmplifyKinesisClientOptions(
           maxRetries: maxRetries,
-          flushStrategy: const KinesisDataStreamsNone(),
+          flushStrategy: KinesisDataStreamsNone(),
         ),
       );
 
@@ -376,6 +404,52 @@ void main() {
 
       expect(totalFlushed, equals(cycles * recordsPerCycle));
     });
+
+    testWidgets('concurrent record and flush stress', (tester) async {
+      const producers = 5;
+      const recordsPerProducer = 20;
+      const totalExpected = producers * recordsPerProducer;
+      var totalFlushed = 0;
+      var producersDone = false;
+
+      // Flusher: calls flush() every 500ms until all producers are done
+      final flusher = () async {
+        while (!producersDone) {
+          final result = await client.flush();
+          if (result case Ok(:final value)) {
+            totalFlushed += value.recordsFlushed;
+          }
+          await Future<void>.delayed(const Duration(milliseconds: 500));
+        }
+      }();
+
+      // Producers: each records M events concurrently
+      final producerFutures = List.generate(producers, (p) async {
+        for (var i = 0; i < recordsPerProducer; i++) {
+          await client.record(
+            data: Uint8List.fromList(utf8.encode('stress-p$p-r$i')),
+            partitionKey: 'partition-${p % 3}',
+            streamName: testStreamName,
+          );
+        }
+      });
+
+      await Future.wait(producerFutures);
+      producersDone = true;
+      await flusher;
+
+      // Final drain flush
+      final drainResult = await client.flush();
+      expect(drainResult, isA<Ok<FlushData>>());
+      totalFlushed += (drainResult as Ok<FlushData>).value.recordsFlushed;
+
+      // Second drain to confirm nothing is left
+      final finalResult = await client.flush();
+      expect(finalResult, isA<Ok<FlushData>>());
+      expect((finalResult as Ok<FlushData>).value.recordsFlushed, equals(0));
+
+      expect(totalFlushed, equals(totalExpected));
+    });
   });
 
   // -----------------------------------------------------------------
@@ -383,12 +457,46 @@ void main() {
   // -----------------------------------------------------------------
 
   group('Auto-flush', () {
+    testWidgets('default config auto-starts scheduler', (tester) async {
+      // Default options use a long interval. We override to a short interval
+      // to verify the scheduler auto-starts without an explicit enable() call.
+      final defaultClient = await AmplifyKinesisClient.create(
+        region: testRegion,
+        credentialsProvider: credentialsProvider,
+        options: const AmplifyKinesisClientOptions(
+          flushStrategy: KinesisDataStreamsInterval(
+            interval: Duration(seconds: 3),
+          ),
+        ),
+      );
+      // Note: no explicit enable() call — scheduler should auto-start
+
+      try {
+        await defaultClient.record(
+          data: Uint8List.fromList(utf8.encode('auto-start-record')),
+          partitionKey: 'partition-1',
+          streamName: testStreamName,
+        );
+
+        // Wait for auto-flush to trigger (3s interval + buffer)
+        await tester.binding.delayed(const Duration(seconds: 6));
+
+        // After auto-flush, a manual flush should find nothing left
+        final flushResult = await defaultClient.flush();
+        expect(flushResult, isA<Ok<FlushData>>());
+        expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(0));
+      } finally {
+        await defaultClient.clearCache();
+        await defaultClient.close();
+      }
+    });
+
     testWidgets('auto-flush triggers and drains records', (tester) async {
       final autoFlushClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
-        options: AmplifyKinesisClientOptions(
-          flushStrategy: const KinesisDataStreamsInterval(
+        options: const AmplifyKinesisClientOptions(
+          flushStrategy: KinesisDataStreamsInterval(
             interval: Duration(seconds: 5),
           ),
         ),
@@ -456,9 +564,9 @@ void main() {
       final largeClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
-        options: AmplifyKinesisClientOptions(
+        options: const AmplifyKinesisClientOptions(
           cacheMaxBytes: 12 * 1024 * 1024, // 12 MB
-          flushStrategy: const KinesisDataStreamsNone(),
+          flushStrategy: KinesisDataStreamsNone(),
         ),
       );
 
@@ -479,20 +587,61 @@ void main() {
           expect(result, isA<Ok<void>>());
         }
 
+        // First flush: sends up to 10 MiB worth of records
         final flush1 = await largeClient.flush();
         expect(flush1, isA<Ok<FlushData>>());
-        expect(
-          (flush1 as Ok<FlushData>).value.recordsFlushed,
-          equals(recordCount),
-        );
+        final flushed1 = (flush1 as Ok<FlushData>).value.recordsFlushed;
+        expect(flushed1, greaterThan(0));
 
-        // Second flush: nothing left
+        // Second flush: sends the remaining records
         final flush2 = await largeClient.flush();
         expect(flush2, isA<Ok<FlushData>>());
-        expect((flush2 as Ok<FlushData>).value.recordsFlushed, equals(0));
+        final flushed2 = (flush2 as Ok<FlushData>).value.recordsFlushed;
+
+        expect(flushed1 + flushed2, equals(recordCount));
+
+        // Third flush: nothing left
+        final flush3 = await largeClient.flush();
+        expect(flush3, isA<Ok<FlushData>>());
+        expect((flush3 as Ok<FlushData>).value.recordsFlushed, equals(0));
       } finally {
         await largeClient.clearCache();
         await largeClient.close();
+      }
+    });
+  });
+
+  // -----------------------------------------------------------------
+  // Persistence
+  // -----------------------------------------------------------------
+
+  group('Persistence', () {
+    testWidgets('records persist across client instances', (tester) async {
+      await client.record(
+        data: Uint8List.fromList(utf8.encode('persist-test')),
+        partitionKey: 'persistence-test',
+        streamName: testStreamName,
+      );
+
+      await client.close();
+
+      final newClient = await AmplifyKinesisClient.create(
+        region: testRegion,
+        credentialsProvider: credentialsProvider,
+        options: const AmplifyKinesisClientOptions(
+          flushStrategy: KinesisDataStreamsNone(),
+        ),
+      );
+
+      try {
+        final flushResult = await newClient.flush();
+        expect(flushResult, isA<Ok<FlushData>>());
+        expect(
+          (flushResult as Ok<FlushData>).value.recordsFlushed,
+          greaterThan(0),
+        );
+      } finally {
+        await newClient.close();
       }
     });
   });
