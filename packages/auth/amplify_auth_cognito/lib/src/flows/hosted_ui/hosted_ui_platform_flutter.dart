@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
@@ -29,7 +28,8 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
   HostedUiPlatformImpl(super.dependencyManager);
 
   static bool get _isMobile {
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (defaultTargetPlatform == TargetPlatform.android ||
+        defaultTargetPlatform == TargetPlatform.iOS) {
       return true;
     }
     // Allow overrides for tests
@@ -138,7 +138,9 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
     }
     // Launching the sign out url is not needed on iOS if isPreferPrivateSession
     // is true.
-    if (Platform.isIOS && options.isPreferPrivateSession) return;
+    if (defaultTargetPlatform == TargetPlatform.iOS &&
+        options.isPreferPrivateSession)
+      return;
     final signOutUri = getSignOutUri();
     await _nativeAuthBridge.signOutWithUrl(
       signOutUri.toString(),

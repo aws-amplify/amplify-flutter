@@ -3,7 +3,7 @@
 
 // ignore_for_file: invalid_use_of_internal_member, implementation_imports
 
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/amplify_class_impl.dart' as core;
@@ -15,7 +15,7 @@ import 'package:meta/meta.dart';
 class AmplifyClassImpl extends core.AmplifyClassImpl {
   /// {@macro amplify_flutter.amplify_class}
   factory AmplifyClassImpl() {
-    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+    if (!zIsWeb && (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS)) {
       return AmplifyHybridImpl();
     }
     return AmplifyClassImpl.protected();

@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:io';
-
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_android.dart';
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_ios.dart';
 // ignore: implementation_imports
@@ -14,6 +12,7 @@ import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
+import 'package:flutter/foundation.dart';
 
 /// {@template amplify_auth_cognito.legacy_credential_provider_impl}
 /// The implementation of [LegacyCredentialProvider] for migrating
@@ -27,10 +26,10 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
 
   late final LegacyCredentialProvider? _instance = () {
     if (zIsWeb) return null;
-    if (Platform.isIOS) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
       return LegacyCredentialProviderIOS(_stateMachine);
     }
-    if (Platform.isAndroid) {
+    if (defaultTargetPlatform == TargetPlatform.android) {
       return LegacyCredentialProviderAndroid(_stateMachine);
     }
     return null;
