@@ -25,17 +25,20 @@ MaterialBanner createMaterialBanner(
     key: keyAuthenticatorBanner,
     backgroundColor: colorsChoices.background,
     leading: Icon(type.icon, color: colorsChoices.foreground),
-    content: Center(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Text(
-              message.trim(),
-              style: TextStyle(color: colorsChoices.foreground),
+    content: Semantics(
+      liveRegion: true,
+      child: Center(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Text(
+                message.trim(),
+                style: TextStyle(color: colorsChoices.foreground),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
     actions: [
@@ -70,18 +73,21 @@ SnackBar createSnackBar(
   return SnackBar(
     key: keyAuthenticatorBanner,
     backgroundColor: colorsChoices.background,
-    content: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(type.icon, color: fallbackIconColor),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Text(
-            message.trim(),
-            style: TextStyle(color: colorsChoices.foreground),
+    content: Semantics(
+      liveRegion: true,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(type.icon, color: fallbackIconColor),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              message.trim(),
+              style: TextStyle(color: colorsChoices.foreground),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }

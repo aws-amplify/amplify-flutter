@@ -153,4 +153,10 @@ class AuthenticatorInputLocalizationsEn
   @override
   String get totpCodePrompt =>
       'Please enter the code from your registered Authenticator app';
+
+  @override
+  String get showPassword => 'Show password';
+
+  @override
+  String get hidePassword => 'Hide password';
 }

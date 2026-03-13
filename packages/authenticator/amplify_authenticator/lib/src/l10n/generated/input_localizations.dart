@@ -306,6 +306,18 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'Please enter the code from your registered Authenticator app'**
   String get totpCodePrompt;
+
+  /// Tooltip for the button to show the password when it is currently hidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Show password'**
+  String get showPassword;
+
+  /// Tooltip for the button to hide the password when it is currently visible.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide password'**
+  String get hidePassword;
 }
 
 class _AuthenticatorInputLocalizationsDelegate
