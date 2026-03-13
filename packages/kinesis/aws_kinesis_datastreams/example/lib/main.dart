@@ -201,7 +201,7 @@ class _KinesisHomePageState extends State<_KinesisHomePage> {
 
     if (result is Ok) {
       _updateStatus('Record queued successfully.');
-    } else if (result is Error<void>) {
+    } else if (result is Error<RecordData>) {
       _updateStatus('Record failed: ${result.error}');
     }
   }

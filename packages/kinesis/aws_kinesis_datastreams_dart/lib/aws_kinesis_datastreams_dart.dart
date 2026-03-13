@@ -19,6 +19,7 @@ export 'src/kinesis_data_streams_options.dart';
 // Return types
 export 'src/model/clear_cache_data.dart';
 export 'src/model/flush_data.dart';
+export 'src/model/record_data.dart';
 // SDK client (for escape hatch)
 export 'src/sdk/kinesis.dart'
     show

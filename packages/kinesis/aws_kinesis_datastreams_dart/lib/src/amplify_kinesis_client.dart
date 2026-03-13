@@ -16,6 +16,7 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/storage/platform/record_st
 import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
+import 'package:aws_kinesis_datastreams_dart/src/model/record_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/sdk/kinesis.dart';
 import 'package:aws_kinesis_datastreams_dart/src/version.dart';
 import 'package:smithy/smithy.dart' show WithUserAgent;
@@ -186,11 +187,11 @@ class AmplifyKinesisClient {
   /// The record is persisted to local storage and will be sent during
   /// the next flush operation (automatic or manual).
   ///
-  /// Returns [Result.ok] on success, or [Result.error] with the appropriate
-  /// [AmplifyKinesisException] subtype on failure.
+  /// Returns [Result.ok] with [RecordData] on success, or [Result.error]
+  /// with the appropriate [AmplifyKinesisException] subtype on failure.
   ///
   /// Returns [Result.ok] silently if the client is disabled.
-  Future<Result<void>> record({
+  Future<Result<RecordData>> record({
     required Uint8List data,
     required String partitionKey,
     required String streamName,
@@ -198,7 +199,7 @@ class AmplifyKinesisClient {
     if (_closed) return const Result.error(ClientClosedException());
     if (!isEnabled) {
       _logger.debug('Record collection is disabled, dropping record');
-      return const Result.ok(null);
+      return const Result.ok(RecordData(recordSize: 0));
     }
     _logger.verbose('Recording to stream: $streamName');
     final kinesisRecord = RecordInput.now(
@@ -206,9 +207,7 @@ class AmplifyKinesisClient {
       partitionKey: partitionKey,
       streamName: streamName,
     );
-    return _wrapError(() async {
-      await _recordClient.record(kinesisRecord);
-    });
+    return _wrapError(() => _recordClient.record(kinesisRecord));
   }
 
   /// Flushes all cached records to Kinesis Data Streams.

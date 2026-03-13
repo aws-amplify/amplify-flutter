@@ -12,6 +12,7 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
 import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
+import 'package:aws_kinesis_datastreams_dart/src/model/record_data.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -30,7 +31,9 @@ void main() {
     setUp(() {
       mockRecordClient = MockRecordClient();
 
-      when(() => mockRecordClient.record(any())).thenAnswer((_) async {});
+      when(
+        () => mockRecordClient.record(any()),
+      ).thenAnswer((_) async => const RecordData(recordSize: 0));
       when(
         () => mockRecordClient.flush(),
       ).thenAnswer((_) async => const FlushData());
@@ -97,12 +100,16 @@ void main() {
 
     group('record()', () {
       test('delegates to RecordClient with correct KinesisRecord', () async {
+        when(
+          () => mockRecordClient.record(any()),
+        ).thenAnswer((_) async => const RecordData(recordSize: 19));
+
         final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
         final data = Uint8List.fromList([1, 2, 3, 4, 5]);
-        await client.record(
+        final result = await client.record(
           data: data,
           partitionKey: 'test-partition',
           streamName: 'test-stream',
@@ -116,15 +123,22 @@ void main() {
         expect(captured.partitionKey, equals('test-partition'));
         expect(captured.streamName, equals('test-stream'));
         expect(captured.dataSize, equals(19));
+
+        expect(result, isA<Ok<RecordData>>());
+        expect((result as Ok<RecordData>).value.recordSize, equals(19));
       });
 
       test('creates record with correct data size', () async {
+        when(
+          () => mockRecordClient.record(any()),
+        ).thenAnswer((_) async => const RecordData(recordSize: 1002));
+
         final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         );
 
         final data = Uint8List(1000);
-        await client.record(
+        final result = await client.record(
           data: data,
           partitionKey: 'pk',
           streamName: 'stream',
@@ -135,6 +149,25 @@ void main() {
                 as RecordInput;
 
         expect(captured.dataSize, equals(1002));
+
+        expect(result, isA<Ok<RecordData>>());
+        expect((result as Ok<RecordData>).value.recordSize, equals(1002));
+      });
+
+      test('returns RecordData with zero size when disabled', () async {
+        final client = AmplifyKinesisClient.withRecordClient(
+          recordClient: mockRecordClient,
+        )..disable();
+
+        final result = await client.record(
+          data: Uint8List.fromList([1]),
+          partitionKey: 'pk',
+          streamName: 'stream',
+        );
+
+        verifyNever(() => mockRecordClient.record(any()));
+        expect(result, isA<Ok<RecordData>>());
+        expect((result as Ok<RecordData>).value.recordSize, equals(0));
       });
     });
 
@@ -240,8 +273,11 @@ void main() {
           partitionKey: 'pk',
           streamName: 'stream',
         );
-        expect(result, isA<Error<void>>());
-        expect((result as Error<void>).error, isA<ClientClosedException>());
+        expect(result, isA<Error<RecordData>>());
+        expect(
+          (result as Error<RecordData>).error,
+          isA<ClientClosedException>(),
+        );
       });
 
       test('flush returns Result.error with ClientClosedException', () async {
