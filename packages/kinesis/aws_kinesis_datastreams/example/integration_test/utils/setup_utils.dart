@@ -71,7 +71,8 @@ Future<void> configureAmplify() async {
 ///
 /// Returns a [AWSCredentialsProvider] backed by the authenticated session.
 ///
-/// Adds a tearDown to sign out after the test completes.
+/// Adds a tearDown to delete the user and sign out after the test completes.
+/// This follows the same pattern used by the storage integration tests.
 Future<AmplifyAuthCredentialsProvider> signInNewUser() async {
   final password = generatePassword();
   final email = generateEmail();
@@ -81,9 +82,9 @@ Future<AmplifyAuthCredentialsProvider> signInNewUser() async {
 
   addTearDown(() async {
     try {
-      await Amplify.Auth.signOut();
+      await Amplify.Auth.deleteUser();
     } on Object {
-      // Best-effort sign out.
+      // Best-effort delete — also handles sign-out.
     }
   });
 
