@@ -12,13 +12,13 @@
 library;
 
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart'
     hide AWSCredentialsProvider;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AWSCredentialsProvider, TemporaryCredentials;
+import 'package:amplify_test/amplify_test.dart';
 import 'package:aws_kinesis_datastreams_example/amplify_outputs.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -67,30 +67,24 @@ Future<void> configureAmplify() async {
   addTearDown(Amplify.reset);
 }
 
-/// Generates a random test email address.
-String _generateTestEmail() {
-  final random = Random();
-  final suffix = random.nextInt(999999).toString().padLeft(6, '0');
-  return 'kinesis-flutter-e2e-$suffix@test.example.com';
-}
-
 /// Signs up and signs in a new test user using Amplify Auth.
 ///
 /// Returns a [AWSCredentialsProvider] backed by the authenticated session.
 ///
-/// Adds a tearDown to sign out after the test completes.
+/// Adds a tearDown to delete the user and sign out after the test completes.
+/// This follows the same pattern used by the storage integration tests.
 Future<AmplifyAuthCredentialsProvider> signInNewUser() async {
-  const password = 'Test@12345678';
-  final email = _generateTestEmail();
+  final password = generatePassword();
+  final email = generateEmail();
 
   await Amplify.Auth.signUp(username: email, password: password);
   await Amplify.Auth.signIn(username: email, password: password);
 
   addTearDown(() async {
     try {
-      await Amplify.Auth.signOut();
+      await Amplify.Auth.deleteUser();
     } on Object {
-      // Best-effort sign out.
+      // Best-effort delete — also handles sign-out.
     }
   });
 

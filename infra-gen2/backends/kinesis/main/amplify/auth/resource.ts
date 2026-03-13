@@ -1,12 +1,15 @@
-import { defineAuth } from '@aws-amplify/backend';
+import { defineAuth, defineFunction } from "@aws-amplify/backend";
+
+export const preSignUp = defineFunction({
+  name: "pre-sign-up",
+  entry: "./pre-sign-up-handler.ts",
+});
 
 export const auth = defineAuth({
   loginWith: {
     email: true,
   },
-  senders: {
-    email: {
-      fromEmail: "ktruon@amazon.com",
-    },
+  triggers: {
+    preSignUp,
   },
 });

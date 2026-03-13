@@ -7,7 +7,8 @@ import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_sender.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/storage/record_storage.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
-import 'package:smithy/smithy.dart' show SmithyHttpException;
+import 'package:smithy/smithy.dart'
+    show SmithyHttpException, UnknownSmithyHttpException;
 
 /// {@template aws_kinesis_datastreams.record_client}
 /// Orchestrates record operations: storage, sending, and retry logic.
@@ -67,8 +68,11 @@ class RecordClient {
           final flushed = await _sendStreamBatch(streamName, records);
           totalFlushed += flushed;
         } on SmithyHttpException catch (e) {
+          final details = e is UnknownSmithyHttpException
+              ? 'HTTP ${e.statusCode}: ${e.body}'
+              : e.message;
           _logger.warn(
-            'Kinesis SDK error flushing stream $streamName: ${e.message}. '
+            'Kinesis SDK error flushing stream $streamName: $details. '
             'Skipping',
           );
           await _handleFailedRequest(records);

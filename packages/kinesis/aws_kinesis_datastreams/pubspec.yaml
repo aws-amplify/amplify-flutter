@@ -5,6 +5,13 @@ homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/kinesis/aws_kinesis_datastreams
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
+topics:
+  - aws
+  - kinesis
+  - streaming
+  - analytics
+  - aws-amplify
+
 environment:
   sdk: ^3.9.0
   flutter: ">=3.35.0"

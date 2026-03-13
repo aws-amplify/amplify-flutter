@@ -3,10 +3,6 @@
 
 /// Integration tests for AmplifyKinesisClient (Flutter) against a real
 /// Kinesis Data Stream using pre-provisioned backend.
-///
-/// These tests mirror the Swift integration tests in
-/// `AmplifyKinesisClientIntegrationTests.swift` and the Android
-/// instrumentation tests in `KinesisDataStreamsInstrumentationTest.kt`.
 library;
 
 import 'dart:convert';
