@@ -6,10 +6,10 @@ import 'dart:typed_data';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show Error, Ok;
 import 'package:aws_kinesis_datastreams_dart/src/amplify_kinesis_client.dart';
+import 'package:aws_kinesis_datastreams_dart/src/amplify_kinesis_client_options.dart';
 import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_exception.dart';
 import 'package:aws_kinesis_datastreams_dart/src/flush_strategy/flush_strategy.dart';
 import 'package:aws_kinesis_datastreams_dart/src/impl/kinesis_record.dart';
-import 'package:aws_kinesis_datastreams_dart/src/kinesis_data_streams_options.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/clear_cache_data.dart';
 import 'package:aws_kinesis_datastreams_dart/src/model/flush_data.dart';
 import 'package:mocktail/mocktail.dart';
