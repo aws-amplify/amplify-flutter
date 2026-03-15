@@ -196,7 +196,7 @@ class AmplifyKinesisClient {
     required String partitionKey,
     required String streamName,
   }) async {
-    if (_closed) return Result.error(ClientClosedException());
+    if (_closed) return const Result.error(ClientClosedException());
     if (!isEnabled) {
       _logger.debug('Record collection is disabled, dropping record');
       return const Result.ok(RecordData(recordSize: 0));
@@ -220,7 +220,7 @@ class AmplifyKinesisClient {
   /// callers can drain cached records without re-enabling collection.
   /// Only the automatic flush scheduler is paused when disabled.
   Future<Result<FlushData>> flush() async {
-    if (_closed) return Result.error(ClientClosedException());
+    if (_closed) return const Result.error(ClientClosedException());
     _logger.verbose('Starting flush');
     return _wrapError(_recordClient.flush);
   }
@@ -230,7 +230,7 @@ class AmplifyKinesisClient {
   /// Returns [Result.ok] with [ClearCacheData] containing the count of
   /// records cleared, or [Result.error] if a storage error occurs.
   Future<Result<ClearCacheData>> clearCache() async {
-    if (_closed) return Result.error(ClientClosedException());
+    if (_closed) return const Result.error(ClientClosedException());
     _logger.verbose('Clearing cache');
     return _wrapError(_recordClient.clearCache);
   }
