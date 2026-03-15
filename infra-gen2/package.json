@@ -9,6 +9,7 @@
     "backends/analytics/*",
     "backends/api/*",
     "backends/auth/*",
+    "backends/kinesis/*",
     "backends/storage/*"
   ],
   "dependencies": {
