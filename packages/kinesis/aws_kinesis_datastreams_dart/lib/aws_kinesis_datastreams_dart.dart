@@ -19,6 +19,7 @@ export 'src/flush_strategy/flush_strategy.dart';
 // Return types
 export 'src/model/clear_cache_data.dart';
 export 'src/model/flush_data.dart';
+export 'src/model/record_data.dart';
 // SDK client (for escape hatch)
 export 'src/sdk/kinesis.dart'
     show

@@ -95,11 +95,11 @@ class AmplifyKinesisClient {
   /// The record is persisted to local storage and will be sent during
   /// the next flush operation (automatic or manual).
   ///
-  /// Returns [Result.ok] on success, or [Result.error] with the appropriate
-  /// [AmplifyKinesisException] subtype on failure.
+  /// Returns [Result.ok] with [RecordData] on success, or [Result.error]
+  /// with the appropriate [AmplifyKinesisException] subtype on failure.
   ///
   /// Returns [Result.ok] silently if the client is disabled.
-  Future<Result<void>> record({
+  Future<Result<RecordData>> record({
     required Uint8List data,
     required String partitionKey,
     required String streamName,
