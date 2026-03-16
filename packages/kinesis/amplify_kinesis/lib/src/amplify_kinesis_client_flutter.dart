@@ -18,7 +18,7 @@ import 'package:amplify_kinesis_dart/amplify_kinesis_dart.dart';
 /// - Local persistence for offline support (SQLite on native, IndexedDB on web,
 ///   with in-memory fallback)
 /// - Automatic retry for failed records
-/// - Configurable batching (up to 500 records or 5MB per batch)
+/// - Batching (up to 500 records or 5MB per batch)
 /// - Interval-based automatic flushing
 ///
 /// The storage path is resolved automatically using the platform's
