@@ -134,7 +134,7 @@ const List<AmplifyBackendGroup> infraConfig = [
   ),
   AmplifyBackendGroup(
     category: Category.kinesis,
-    defaultOutput: 'packages/kinesis/aws_kinesis_datastreams_dart/lib',
+    defaultOutput: 'packages/kinesis/amplify_kinesis_dart/lib',
     backends: [
       AmplifyBackend(
         name: 'main',
