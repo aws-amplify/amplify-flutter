@@ -6,11 +6,8 @@
 /// {@endtemplate}
 final class RecordData {
   /// {@macro amplify_kinesis.record_data}
-  const RecordData({required this.recordSize});
-
-  /// The size of the recorded data in bytes (data + partition key).
-  final int recordSize;
+  const RecordData();
 
   @override
-  String toString() => 'RecordData(recordSize: $recordSize)';
+  String toString() => 'RecordData()';
 }

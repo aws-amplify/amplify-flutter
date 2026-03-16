@@ -5,10 +5,10 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    hide packageVersion;
-import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     as foundation
     show packageVersion;
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    hide packageVersion;
 import 'package:amplify_foundation_dart_bridge/amplify_foundation_dart_bridge.dart';
 import 'package:amplify_kinesis_dart/src/amplify_kinesis_client_options.dart';
 import 'package:amplify_kinesis_dart/src/exception/amplify_kinesis_exception.dart';
@@ -203,7 +203,7 @@ class AmplifyKinesisClient {
     if (_closed) return const Result.error(ClientClosedException());
     if (!isEnabled) {
       _logger.debug('Record collection is disabled, dropping record');
-      return const Result.ok(RecordData(recordSize: 0));
+      return const Result.ok(RecordData());
     }
     _logger.verbose('Recording to stream: $streamName');
     final kinesisRecord = RecordInput.now(

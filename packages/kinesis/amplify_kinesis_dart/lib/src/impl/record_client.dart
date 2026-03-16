@@ -45,7 +45,7 @@ class RecordClient {
   /// Returns [RecordData] with the size of the recorded entry.
   Future<RecordData> record(RecordInput record) async {
     await _storage.addRecord(record);
-    return RecordData(recordSize: record.dataSize);
+    return const RecordData();
   }
 
   /// Flushes cached records to Kinesis.

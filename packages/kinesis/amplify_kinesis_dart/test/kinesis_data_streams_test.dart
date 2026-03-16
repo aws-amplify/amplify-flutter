@@ -33,7 +33,7 @@ void main() {
 
       when(
         () => mockRecordClient.record(any()),
-      ).thenAnswer((_) async => const RecordData(recordSize: 0));
+      ).thenAnswer((_) async => const RecordData());
       when(
         () => mockRecordClient.flush(),
       ).thenAnswer((_) async => const FlushData());
@@ -100,7 +100,7 @@ void main() {
       test('delegates to RecordClient with correct KinesisRecord', () async {
         when(
           () => mockRecordClient.record(any()),
-        ).thenAnswer((_) async => const RecordData(recordSize: 19));
+        ).thenAnswer((_) async => const RecordData());
 
         final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
@@ -123,13 +123,12 @@ void main() {
         expect(captured.dataSize, equals(19));
 
         expect(result, isA<Ok<RecordData>>());
-        expect((result as Ok<RecordData>).value.recordSize, equals(19));
       });
 
       test('creates record with correct data size', () async {
         when(
           () => mockRecordClient.record(any()),
-        ).thenAnswer((_) async => const RecordData(recordSize: 1002));
+        ).thenAnswer((_) async => const RecordData());
 
         final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
@@ -149,10 +148,9 @@ void main() {
         expect(captured.dataSize, equals(1002));
 
         expect(result, isA<Ok<RecordData>>());
-        expect((result as Ok<RecordData>).value.recordSize, equals(1002));
       });
 
-      test('returns RecordData with zero size when disabled', () async {
+      test('returns RecordData when disabled', () async {
         final client = AmplifyKinesisClient.withRecordClient(
           recordClient: mockRecordClient,
         )..disable();
@@ -165,7 +163,6 @@ void main() {
 
         verifyNever(() => mockRecordClient.record(any()));
         expect(result, isA<Ok<RecordData>>());
-        expect((result as Ok<RecordData>).value.recordSize, equals(0));
       });
     });
 
