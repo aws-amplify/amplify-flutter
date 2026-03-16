@@ -191,8 +191,11 @@ class AmplifyKinesisClient {
   /// The record is persisted to local storage and will be sent during
   /// the next flush operation (automatic or manual).
   ///
-  /// Returns [Result.ok] with [RecordData] on success, or [Result.error]
-  /// with the appropriate [AmplifyKinesisException] subtype on failure.
+  /// Returns [Result.ok] with [RecordData] on success, or [Result.error] with:
+  /// - [KinesisValidationException] for invalid input (e.g. oversized record,
+  ///   empty or too-long partition key)
+  /// - [KinesisLimitExceededException] if the cache is full
+  /// - [KinesisStorageException] for database errors
   ///
   /// Returns [Result.ok] silently if the client is disabled.
   Future<Result<RecordData>> record({
@@ -214,11 +217,24 @@ class AmplifyKinesisClient {
     return _wrapError(() => _recordClient.record(kinesisRecord));
   }
 
-  /// Flushes all cached records to Kinesis Data Streams.
+  /// Flushes cached records to their respective Kinesis streams.
   ///
-  /// Returns [Result.ok] with [FlushData] containing the count of records
-  /// successfully flushed, or [Result.error] if a storage or network error
-  /// occurs.
+  /// Each invocation sends at most one batch per stream, limited by the Kinesis
+  /// `PutRecords` constraints (up to 500 records or 5 MB per stream). If the
+  /// cache contains more records than a single batch can hold, the remaining
+  /// records are sent on subsequent flush invocations — either manually or via
+  /// the auto-flush scheduler.
+  ///
+  /// Records that fail within a batch are marked for retry on the next flush.
+  /// Records that exceed [AmplifyKinesisClientOptions.maxRetries] are removed
+  /// from the cache.
+  ///
+  /// SDK Kinesis errors (throttling, invalid stream, etc.) are logged and
+  /// skipped so other streams can still flush. Non-SDK errors (e.g. network,
+  /// storage) abort the flush and are returned as [Result.error].
+  ///
+  /// If a flush is already in progress, the call returns immediately with
+  /// `FlushData(recordsFlushed: 0, flushInProgress: true)`.
   ///
   /// Manual flushes are allowed even when the client is disabled, so that
   /// callers can drain cached records without re-enabling collection.
@@ -232,7 +248,8 @@ class AmplifyKinesisClient {
   /// Clears all cached records from local storage.
   ///
   /// Returns [Result.ok] with [ClearCacheData] containing the count of
-  /// records cleared, or [Result.error] if a storage error occurs.
+  /// records cleared, or [Result.error] with:
+  /// - [KinesisStorageException] for database errors
   Future<Result<ClearCacheData>> clearCache() async {
     if (_closed) return const Result.error(ClientClosedException());
     _logger.verbose('Clearing cache');
@@ -246,10 +263,11 @@ class AmplifyKinesisClient {
     _scheduler?.start();
   }
 
-  /// Disables the client from accepting and flushing records.
+  /// Disables record collection and automatic flushing.
   ///
-  /// Existing cached records are preserved and will be sent when
-  /// the client is re-enabled.
+  /// Records submitted while disabled are silently dropped. Already-cached
+  /// records remain in storage and will be sent on the next flush after
+  /// re-enabling.
   void disable() {
     _logger.info('Disabling record collection and automatic flushing');
     _enabled = false;
