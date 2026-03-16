@@ -1,6 +1,6 @@
 {
-    "name": "aws_kinesis_datastreams_example",
-    "short_name": "aws_kinesis_datastreams_example",
+    "name": "amplify_kinesis_example",
+    "short_name": "amplify_kinesis_example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

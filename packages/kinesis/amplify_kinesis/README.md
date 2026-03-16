@@ -1,4 +1,4 @@
-# aws_kinesis_datastreams
+# amplify_kinesis
 
 A Flutter implementation for streaming data to Amazon Kinesis Data Streams with offline support.
 

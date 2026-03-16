@@ -1,4 +1,4 @@
-package com.amazonaws.amplify.aws_kinesis_datastreams_example
+package com.amazonaws.amplify.amplify_kinesis_example
 
 import io.flutter.embedding.android.FlutterActivity
 

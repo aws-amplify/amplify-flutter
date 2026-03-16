@@ -1,11 +1,11 @@
-# aws_kinesis_datastreams example
+# amplify_kinesis example
 
-Example app and integration test host for the `aws_kinesis_datastreams` Flutter package.
+Example app and integration test host for the `amplify_kinesis` Flutter package.
 
 ## Running the Example App
 
 ```bash
-cd packages/kinesis/aws_kinesis_datastreams/example
+cd packages/kinesis/amplify_kinesis/example
 flutter run
 ```
 

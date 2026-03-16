@@ -102,10 +102,10 @@ aft:
         - amplify_secure_storage
         - amplify_secure_storage_dart
     - name: Kinesis
-      summary: aws_kinesis_datastreams
+      summary: amplify_kinesis
       packages:
-        - aws_kinesis_datastreams
-        - aws_kinesis_datastreams_dart
+        - amplify_kinesis
+        - amplify_kinesis_dart
     - name: AWS Common
       summary: aws_common
       propagate: none
