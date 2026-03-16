@@ -2570,7 +2570,7 @@ updates:
         patterns:
           - "build_web_compilers"
   - package-ecosystem: "pub"
-    directory: "packages/kinesis/amplify_kinesis_datastreams"
+    directory: "packages/kinesis/amplify_kinesis"
     schedule:
       interval: "daily"
     ignore:
@@ -2579,7 +2579,7 @@ updates:
         update-types:
           - "version-update:semver-patch"
       # Ignore all repo packages
-      - dependency-name: "amplify_kinesis_datastreams_dart"
+      - dependency-name: "amplify_kinesis_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -2590,7 +2590,7 @@ updates:
       - dependency-name: "smithy"
       - dependency-name: "smithy_aws"
   - package-ecosystem: "pub"
-    directory: "packages/kinesis/amplify_kinesis_datastreams_dart"
+    directory: "packages/kinesis/amplify_kinesis_dart"
     schedule:
       interval: "daily"
     ignore:
