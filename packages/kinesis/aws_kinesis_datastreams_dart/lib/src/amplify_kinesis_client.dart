@@ -7,7 +7,8 @@ import 'dart:typed_data';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     hide packageVersion;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    as foundation show packageVersion;
+    as foundation
+    show packageVersion;
 import 'package:amplify_foundation_dart_bridge/amplify_foundation_dart_bridge.dart';
 import 'package:aws_kinesis_datastreams_dart/src/amplify_kinesis_client_options.dart';
 import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_exception.dart';
