@@ -4,10 +4,6 @@
 /// Amplify Kinesis Data Streams client for Dart.
 library;
 
-// Credentials provider (from amplify_foundation_dart)
-export 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    show AWSCredentialsProvider;
-
 // Main client
 export 'src/amplify_kinesis_client.dart';
 // Options

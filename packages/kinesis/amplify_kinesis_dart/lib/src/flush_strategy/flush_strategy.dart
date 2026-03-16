@@ -5,7 +5,7 @@
 /// Determines when automatic flushing of cached records occurs.
 ///
 /// Available strategies:
-/// - [FlushInterval]: Flush at a fixed time interval (default)
+/// - [FlushInterval]: Flush at a fixed time interval (default 30s)
 /// - [FlushNone]: Disable automatic flushing entirely
 /// {@endtemplate}
 sealed class FlushStrategy {
