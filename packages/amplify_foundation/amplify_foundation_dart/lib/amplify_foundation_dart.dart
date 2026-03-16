@@ -22,3 +22,5 @@ export 'package:amplify_foundation_dart/src/result/result.dart';
 // Utils
 export 'package:amplify_foundation_dart/src/util/globals.dart';
 export 'package:amplify_foundation_dart/src/util/print.dart';
+// Version
+export 'package:amplify_foundation_dart/src/version.dart';

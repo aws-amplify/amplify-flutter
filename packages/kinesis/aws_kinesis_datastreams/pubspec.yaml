@@ -26,7 +26,7 @@ platforms:
   web:
 
 dependencies:
-  amplify_foundation_dart: ">=1.0.0 <2.0.0"
+  amplify_foundation_dart: ">=2.10.0 <2.11.0"
   aws_kinesis_datastreams_dart: ">=0.1.0 <0.1.1"
   flutter:
     sdk: flutter

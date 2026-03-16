@@ -4,7 +4,10 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    hide packageVersion;
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    as foundation show packageVersion;
 import 'package:amplify_foundation_dart_bridge/amplify_foundation_dart_bridge.dart';
 import 'package:aws_kinesis_datastreams_dart/src/amplify_kinesis_client_options.dart';
 import 'package:aws_kinesis_datastreams_dart/src/exception/amplify_kinesis_exception.dart';
@@ -23,7 +26,7 @@ import 'package:smithy/smithy.dart' show WithUserAgent;
 
 /// User agent component identifying this library.
 const _userAgentComponent =
-    'md/amplify-kinesis#$packageVersion lib/amplify-flutter#$packageVersion';
+    'md/amplify-kinesis#$packageVersion lib/amplify-flutter#${foundation.packageVersion}';
 
 /// {@template aws_kinesis_datastreams.amplify_kinesis_client}
 /// Client for recording and streaming data to Amazon Kinesis Data Streams.
