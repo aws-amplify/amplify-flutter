@@ -131,11 +131,11 @@ class AmplifyKinesisClient {
     );
 
     final scheduler = switch (opts.flushStrategy) {
-      KinesisDataStreamsInterval(:final interval) => AutoFlushScheduler(
+      FlushInterval(:final interval) => AutoFlushScheduler(
         interval: interval,
         client: recordClient,
       )..start(),
-      KinesisDataStreamsNone() => null,
+      FlushNone() => null,
     };
 
     return AmplifyKinesisClient._(

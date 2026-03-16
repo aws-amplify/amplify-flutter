@@ -36,7 +36,7 @@ void main() {
       credentialsProvider: credentialsProvider,
       options: const AmplifyKinesisClientOptions(
         maxRetries: 3,
-        flushStrategy: KinesisDataStreamsNone(),
+        flushStrategy: FlushNone(),
       ),
     );
   });
@@ -150,7 +150,7 @@ void main() {
         credentialsProvider: credentialsProvider,
         options: const AmplifyKinesisClientOptions(
           cacheMaxBytes: 100,
-          flushStrategy: KinesisDataStreamsNone(),
+          flushStrategy: FlushNone(),
         ),
       );
 
@@ -237,7 +237,7 @@ void main() {
           region: testRegion,
           credentialsProvider: badCredentials,
           options: const AmplifyKinesisClientOptions(
-            flushStrategy: KinesisDataStreamsNone(),
+            flushStrategy: FlushNone(),
           ),
         );
 
@@ -307,7 +307,7 @@ void main() {
         credentialsProvider: credentialsProvider,
         options: const AmplifyKinesisClientOptions(
           maxRetries: maxRetries,
-          flushStrategy: KinesisDataStreamsNone(),
+          flushStrategy: FlushNone(),
         ),
       );
 
@@ -460,7 +460,7 @@ void main() {
         region: testRegion,
         credentialsProvider: credentialsProvider,
         options: const AmplifyKinesisClientOptions(
-          flushStrategy: KinesisDataStreamsInterval(
+          flushStrategy: FlushInterval(
             interval: Duration(seconds: 3),
           ),
         ),
@@ -492,7 +492,7 @@ void main() {
         region: testRegion,
         credentialsProvider: credentialsProvider,
         options: const AmplifyKinesisClientOptions(
-          flushStrategy: KinesisDataStreamsInterval(
+          flushStrategy: FlushInterval(
             interval: Duration(seconds: 5),
           ),
         ),
@@ -562,7 +562,7 @@ void main() {
         credentialsProvider: credentialsProvider,
         options: const AmplifyKinesisClientOptions(
           cacheMaxBytes: 12 * 1024 * 1024, // 12 MB
-          flushStrategy: KinesisDataStreamsNone(),
+          flushStrategy: FlushNone(),
         ),
       );
 
@@ -625,7 +625,7 @@ void main() {
         region: testRegion,
         credentialsProvider: credentialsProvider,
         options: const AmplifyKinesisClientOptions(
-          flushStrategy: KinesisDataStreamsNone(),
+          flushStrategy: FlushNone(),
         ),
       );
 
