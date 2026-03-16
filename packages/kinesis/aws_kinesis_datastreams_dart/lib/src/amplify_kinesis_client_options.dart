@@ -13,7 +13,7 @@ final class AmplifyKinesisClientOptions {
   const AmplifyKinesisClientOptions({
     this.cacheMaxBytes = 5 * 1024 * 1024,
     this.maxRetries = 5,
-    this.flushStrategy = const KinesisDataStreamsInterval(),
+    this.flushStrategy = const FlushInterval(),
   });
 
   /// Maximum size of the local cache in bytes.
@@ -28,6 +28,6 @@ final class AmplifyKinesisClientOptions {
 
   /// Strategy for automatic flushing of cached records.
   ///
-  /// Defaults to [KinesisDataStreamsInterval] with a 30-second interval.
-  final KinesisDataStreamsFlushStrategy flushStrategy;
+  /// Defaults to [FlushInterval] with a 30-second interval.
+  final FlushStrategy flushStrategy;
 }

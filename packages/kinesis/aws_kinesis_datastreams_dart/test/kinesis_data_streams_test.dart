@@ -57,16 +57,14 @@ void main() {
         expect(client.region, equals('us-east-1'));
         expect(client.options.cacheMaxBytes, equals(5 * 1024 * 1024));
         expect(client.options.maxRetries, equals(5));
-        expect(client.options.flushStrategy, isA<KinesisDataStreamsInterval>());
+        expect(client.options.flushStrategy, isA<FlushInterval>());
       });
 
       test('initializes with custom options', () {
         const customOptions = AmplifyKinesisClientOptions(
           cacheMaxBytes: 10 * 1024 * 1024,
           maxRetries: 10,
-          flushStrategy: KinesisDataStreamsInterval(
-            interval: Duration(minutes: 1),
-          ),
+          flushStrategy: FlushInterval(interval: Duration(minutes: 1)),
         );
 
         final client = AmplifyKinesisClient.withRecordClient(
@@ -79,14 +77,14 @@ void main() {
         expect(client.options.cacheMaxBytes, equals(10 * 1024 * 1024));
         expect(client.options.maxRetries, equals(10));
         expect(
-          (client.options.flushStrategy as KinesisDataStreamsInterval).interval,
+          (client.options.flushStrategy as FlushInterval).interval,
           equals(const Duration(minutes: 1)),
         );
       });
 
       test('supports None flush strategy', () {
         const customOptions = AmplifyKinesisClientOptions(
-          flushStrategy: KinesisDataStreamsNone(),
+          flushStrategy: FlushNone(),
         );
 
         final client = AmplifyKinesisClient.withRecordClient(
@@ -94,7 +92,7 @@ void main() {
           options: customOptions,
         );
 
-        expect(client.options.flushStrategy, isA<KinesisDataStreamsNone>());
+        expect(client.options.flushStrategy, isA<FlushNone>());
       });
     });
 
