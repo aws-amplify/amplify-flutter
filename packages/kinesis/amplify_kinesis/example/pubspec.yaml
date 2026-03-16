@@ -14,9 +14,9 @@ dependencies:
   amplify_flutter: ">=1.0.0-next.8 <1.0.0-next.9"
   amplify_foundation_dart: ">=2.10.0 <2.11.0"
   amplify_foundation_dart_bridge: ">=2.10.0 <2.11.0"
-  aws_common: ">=0.7.12 <0.8.0"
   amplify_kinesis:
     path: ../
+  aws_common: ">=0.7.12 <0.8.0"
   flutter:
     sdk: flutter
 

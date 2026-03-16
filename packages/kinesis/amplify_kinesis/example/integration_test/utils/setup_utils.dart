@@ -18,8 +18,8 @@ import 'package:amplify_flutter/amplify_flutter.dart'
     hide AWSCredentialsProvider;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AWSCredentialsProvider, TemporaryCredentials;
-import 'package:amplify_test/amplify_test.dart';
 import 'package:amplify_kinesis_example/amplify_outputs.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The Amplify config string from the example app.

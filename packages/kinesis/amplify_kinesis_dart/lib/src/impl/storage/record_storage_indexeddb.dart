@@ -5,10 +5,10 @@ import 'dart:async';
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
-// ignore: implementation_imports
-import 'package:aws_common/src/js/indexed_db.dart';
 import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
 import 'package:amplify_kinesis_dart/src/impl/storage/record_storage.dart';
+// ignore: implementation_imports
+import 'package:aws_common/src/js/indexed_db.dart';
 import 'package:web/web.dart';
 
 /// {@template amplify_kinesis.indexeddb_record_storage}
