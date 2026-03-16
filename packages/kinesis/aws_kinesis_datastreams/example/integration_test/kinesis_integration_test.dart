@@ -460,9 +460,7 @@ void main() {
         region: testRegion,
         credentialsProvider: credentialsProvider,
         options: const AmplifyKinesisClientOptions(
-          flushStrategy: FlushInterval(
-            interval: Duration(seconds: 3),
-          ),
+          flushStrategy: FlushInterval(interval: Duration(seconds: 3)),
         ),
       );
       // Note: no explicit enable() call — scheduler should auto-start
@@ -492,9 +490,7 @@ void main() {
         region: testRegion,
         credentialsProvider: credentialsProvider,
         options: const AmplifyKinesisClientOptions(
-          flushStrategy: FlushInterval(
-            interval: Duration(seconds: 5),
-          ),
+          flushStrategy: FlushInterval(interval: Duration(seconds: 5)),
         ),
       );
 
@@ -624,9 +620,7 @@ void main() {
       final newClient = await AmplifyKinesisClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
-        options: const AmplifyKinesisClientOptions(
-          flushStrategy: FlushNone(),
-        ),
+        options: const AmplifyKinesisClientOptions(flushStrategy: FlushNone()),
       );
 
       try {
