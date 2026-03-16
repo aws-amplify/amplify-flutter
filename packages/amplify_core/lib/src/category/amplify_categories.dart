@@ -50,10 +50,7 @@ enum Category {
   storage,
 
   /// Push Notifications
-  pushNotifications,
-
-  /// Kinesis streaming (Data Streams + Firehose)
-  kinesis;
+  pushNotifications;
 
   String get name => switch (this) {
     Category.analytics => 'Analytics',
@@ -63,7 +60,6 @@ enum Category {
     Category.hub => 'Hub',
     Category.storage => 'Storage',
     Category.pushNotifications => 'PushNotifications',
-    Category.kinesis => 'Kinesis',
   };
 }
 
