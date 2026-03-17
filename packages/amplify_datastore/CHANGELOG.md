@@ -1,3 +1,9 @@
+## 2.10.2
+
+### Fixes
+- fix(datastore): Catch invalid JSON ([#6669](https://github.com/aws-amplify/amplify-flutter/pull/6669))
+- fix(datastore): Fix error callbacks (android) ([#6742](https://github.com/aws-amplify/amplify-flutter/pull/6742))
+
 ## 2.10.1
 
 - Minor bug fixes and improvements

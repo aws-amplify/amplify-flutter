@@ -1,3 +1,8 @@
+## 0.11.19
+
+### Fixes
+- fix(cognito): Add `invalidTokenException` to `SignOutPartialFailure.props` - fixes the state machine ([#6751](https://github.com/aws-amplify/amplify-flutter/pull/6751))
+
 ## 0.11.18
 
 ### Fixes

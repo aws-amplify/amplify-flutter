@@ -1,3 +1,8 @@
+## 0.3.10
+
+### Features
+- Add Web Assembly support ([#6613](https://github.com/aws-amplify/amplify-flutter/pull/6613))
+
 ## 0.3.9
 
 - Minor bug fixes and improvements
