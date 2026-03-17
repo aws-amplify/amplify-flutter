@@ -7544,7 +7544,7 @@
                 throw A.wrapException(A.Exception_Exception("test-type input of " + testType + " must be one of: canary, e2e, unit"));
               workingDirectory = A.Core_getRequiredInput(A._asJSObject(t1.core), "working-directory");
               t3 = type$.String;
-              category = A.IterableExtension_firstWhereOrNull(A._setArrayType(["canaries", "analytics", "api", "auth", "authenticator", "core", "datastore", "db_common", "push", "secure_storage", "storage", "aws_common", "aws_signature_v4", "smithy", "worker_bee", "amplify_flutter", "amplify_foundation_dart_bridge", "amplify_foundation_dart", "amplify_lints", "amplify_native_legacy_wrapper", "pub_server"], t2), B.JSString_methods.get$contains(workingDirectory), t3);
+              category = A.IterableExtension_firstWhereOrNull(A._setArrayType(["canaries", "analytics", "api", "auth", "authenticator", "core", "datastore", "db_common", "push", "secure_storage", "storage", "aws_common", "aws_signature_v4", "smithy", "worker_bee", "amplify_flutter", "amplify_foundation_dart_bridge", "amplify_foundation_dart", "amplify_lints", "amplify_native_legacy_wrapper", "kinesis", "pub_server"], t2), B.JSString_methods.get$contains(workingDirectory), t3);
               if (category == null)
                 throw A.wrapException(A.Exception_Exception("WorkingDirectory input of " + workingDirectory + " must contain a valid category."));
               t4 = A._asString(A._asJSObject(A._asJSObject(t1.github).context).workflow);
@@ -7702,7 +7702,7 @@
     },
     IterableExtension_firstWhereOrNull(_this, test, $T) {
       var _i, element;
-      for (_i = 0; _i < 21; ++_i) {
+      for (_i = 0; _i < 22; ++_i) {
         element = _this[_i];
         if (test.call$1(element))
           return element;

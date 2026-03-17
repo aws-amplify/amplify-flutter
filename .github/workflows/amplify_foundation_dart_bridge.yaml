@@ -19,6 +19,8 @@ on:
       - 'packages/amplify_lints/pubspec.yaml'
       - 'packages/aws_common/lib/**/*.dart'
       - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
   pull_request:
     paths:
       - '.github/workflows/amplify_foundation_dart_bridge.yaml'
@@ -34,6 +36,8 @@ on:
       - 'packages/amplify_lints/pubspec.yaml'
       - 'packages/aws_common/lib/**/*.dart'
       - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
   schedule:
     - cron: "0 13 * * 1" # Every Monday at 06:00 PST
   workflow_dispatch:
