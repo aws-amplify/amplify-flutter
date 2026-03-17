@@ -54,8 +54,8 @@ Future<void> logMetric() async {
   final runId = '${github.context.runId}';
 
   // Temporarily disable.
-  // Cloudwatch metrics are identified uniquely by dimension key and value. 
-  // Since failingStep value can vary, it causes multiple metrics to be created from the same job, confusing our data.   
+  // Cloudwatch metrics are identified uniquely by dimension key and value.
+  // Since failingStep value can vary, it causes multiple metrics to be created from the same job, confusing our data.
   final failingStep = isFailed
       ? await getFailingStep(jobIdentifier, githubToken, repo, runId)
       : '';
@@ -93,6 +93,7 @@ Future<void> logMetric() async {
     'amplify_foundation_dart',
     'amplify_lints',
     'amplify_native_legacy_wrapper',
+    'kinesis',
     'pub_server',
   ];
 
