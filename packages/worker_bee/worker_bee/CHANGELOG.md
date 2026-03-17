@@ -1,3 +1,8 @@
+## 0.3.11
+
+### Features
+- feat(worker_bee): Add Web Assembly support ([#6613](https://github.com/aws-amplify/amplify-flutter/pull/6613))
+
 ## 0.3.10
 
 - Minor bug fixes and improvements
