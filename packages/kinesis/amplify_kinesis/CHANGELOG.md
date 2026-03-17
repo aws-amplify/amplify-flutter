@@ -1,3 +1,3 @@
-## 2.10.0
+## 2.11.0
 
-- Initial release
+- Initial release ([#6516](https://github.com/aws-amplify/amplify-flutter/pull/6516))

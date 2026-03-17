@@ -1,3 +1,8 @@
+## 0.4.17
+
+### Features
+- Validate bundled WASM code on web ([#6516](https://github.com/aws-amplify/amplify-flutter/pull/6516))
+
 ## 0.4.16
 
 - Minor bug fixes and improvements
