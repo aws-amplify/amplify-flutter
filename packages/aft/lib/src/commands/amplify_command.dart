@@ -187,6 +187,12 @@ abstract class AmplifyCommand extends Command<void>
     final uri = Uri.parse('https://pub.dev/packages/$package');
     final request = AWSHttpRequest.get(uri);
     final resp = await httpClient.send(request).response;
+
+    if (resp.statusCode != 200) {
+      // Assume that's a package we are publishing for the first time
+      return true;
+    }
+
     final body = await resp.decodeBody();
     return body.contains('[pending analysis]');
   }
