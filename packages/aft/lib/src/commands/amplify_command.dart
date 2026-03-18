@@ -188,9 +188,13 @@ abstract class AmplifyCommand extends Command<void>
     final request = AWSHttpRequest.get(uri);
     final resp = await httpClient.send(request).response;
 
-    if (resp.statusCode != 200) {
+    if (resp.statusCode == 404) {
       // Assume that's a package we are publishing for the first time
       return true;
+    } else if (resp.statusCode != 200) {
+      throw Exception(
+        'Failed to fetch score for $package: ${resp.statusCode} $body',
+      );
     }
 
     final body = await resp.decodeBody();
