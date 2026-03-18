@@ -1,37 +1,27 @@
 # Project Info
 
-## Ecosystem
+## Setup
 
-**Ecosystem:** Dart/Flutter
+```bash
+git submodule update --init --recursive
+dart pub global activate -spath packages/aft
+aft bootstrap
+```
 
-**Key Files Found:**
-- `pubspec.yaml` - Flutter/Dart monorepo configuration with multiple packages
+## Linting
 
-## Linters
-
-All three tools are available. Here are the available commands:
-
+Changes MUST pass:
 ```
 flutter analyze
-dart format --output=none --set-exit-if-changed .
-dart analyze
 ```
-
-## Best Practices
-
-Now I have a comprehensive understanding of the project. Let me compile my findings:
-
----
 
 ## Project Coding Conventions & Patterns Summary
 
 ### Project Overview
-- **Repository**: `amplify-flutter` — AWS Amplify SDK for Flutter/Dart
-- **Default Branch**: `main`
 - **Language**: Dart (Flutter + pure Dart)
 - **Architecture**: Monorepo with ~25+ packages under `packages/`
 - **Tooling**: Custom `aft` (Amplify Flutter Tool) for bootstrapping, formatting, analysis, testing
-- **SDK Constraints**: Dart `^3.9.0`, Flutter `>=3.35.0`
+- Root `pubspec.yaml` - Flutter/Dart monorepo configuration with multiple packages
 
 ---
 
@@ -50,23 +40,10 @@ Now I have a comprehensive understanding of the project. Let me compile my findi
 Enforced via `tool/license.sh` and CI checks.
 
 ### 3. Code Style & Lint Rules
-- Two lint profiles in `packages/amplify_lints/`:
-  - **`library.yaml`**: Strict profile for library packages (extends `package:lints/recommended.yaml`)
-  - **`app.yaml`**: Relaxed profile for apps/examples (extends `package:flutter_lints/flutter.yaml`)
-- **Strict mode enabled**: `strict-casts: true`, `strict-inference: true`, `strict-raw-types: true`
-- Key enforced rules:
-  - `prefer_single_quotes` — Single quotes everywhere
-  - `prefer_final_locals` / `prefer_final_in_for_each` — Immutable local variables
-  - `omit_local_variable_types` — Type inference for locals (use `final` not `final Type`)
-  - `always_use_package_imports` — No relative imports
-  - `public_member_api_docs` — All public APIs must be documented (library profile)
-  - `avoid_catches_without_on_clauses` — Typed catch blocks
-  - `avoid_dynamic_calls` / `avoid_print` / `avoid_type_to_string`
-  - `unawaited_futures` — Explicit handling of all futures
-  - `flutter_style_todos` — TODOs must reference issues: `// TODO(username): ...`
-  - `sort_constructors_first` — Constructors before methods in classes
-  - `directives_ordering` — Organized imports
-  - `eol_at_end_of_file`
+- Every `analysis_options.yaml` MUST include a shared lint profile from `packages/amplify_lints/`:
+  - **Library packages**: `include: package:amplify_lints/library.yaml`
+  - **Example/app packages**: `include: package:amplify_lints/app.yaml`
+- The profiles handle all lint rules, strict mode settings, and enforced conventions. Packages may add local overrides (e.g., excluding `.g.dart` files) but must not replace the base include.
 
 ### 4. Documentation Patterns
 - **Dartdoc template/macro system** used extensively:
