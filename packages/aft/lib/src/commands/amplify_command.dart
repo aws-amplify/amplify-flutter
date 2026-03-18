@@ -193,7 +193,7 @@ abstract class AmplifyCommand extends Command<void>
       return true;
     } else if (resp.statusCode != 200) {
       throw Exception(
-        'Failed to fetch score for $package: ${resp.statusCode} $body',
+        'Failed to get package page for $package: ${resp.statusCode}',
       );
     }
 
