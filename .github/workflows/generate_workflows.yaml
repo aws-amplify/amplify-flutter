@@ -19,7 +19,7 @@ jobs:
           submodules: true
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@03a180dbe1de8ea7fb700663cbb7d24ca4bbe82c # main
+        uses: dart-lang/setup-dart@6e0ff0bc3a029a9532ae6a86b1ea4906038921bc # main
         with:
           sdk: stable
 
