@@ -35,7 +35,11 @@ sealed class SignUpEvent extends AuthEvent<SignUpEventType, SignUpStateType> {
   }) = SignUpConfirm;
 
   /// {@macro amplify_auth_cognito.sign_up_succeeded}
-  const factory SignUpEvent.succeeded({String? userId}) = SignUpSucceeded;
+  const factory SignUpEvent.succeeded({
+    String? username,
+    String? userId,
+    String? session,
+  }) = SignUpSucceeded;
 
   @override
   String get runtimeTypeName => 'SignUpEvent';
@@ -111,14 +115,20 @@ final class SignUpConfirm extends SignUpEvent {
 /// {@endtemplate}
 final class SignUpSucceeded extends SignUpEvent {
   /// {@macro amplify_auth_cognito.sign_up_succeeded}
-  const SignUpSucceeded({this.userId}) : super._();
+  const SignUpSucceeded({this.username, this.userId, this.session}) : super._();
+
+  /// The username of the user.
+  final String? username;
 
   /// The ID of the user.
   final String? userId;
+
+  /// The sign up session
+  final String? session;
 
   @override
   SignUpEventType get type => SignUpEventType.succeeded;
 
   @override
-  List<Object?> get props => [type, userId];
+  List<Object?> get props => [type, username, userId, session];
 }

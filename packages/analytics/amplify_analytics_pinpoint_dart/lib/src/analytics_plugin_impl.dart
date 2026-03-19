@@ -85,6 +85,14 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
+    _logger.warn(
+      'AWS will end support for Amazon Pinpoint on October 30, 2026. '
+      'The guidance is to use AWS End User Messaging for push notifications and SMS, '
+      'Amazon Simple Email Service for sending emails, Amazon Connect for campaigns, journeys, endpoints, '
+      'and engagement analytics. Pinpoint recommends Amazon Kinesis for event collection and mobile analytics. '
+      'See https://docs.aws.amazon.com/pinpoint/latest/userguide/migrate.html for more details.',
+    );
+
     // Parse config values from amplifyconfiguration.json
     if (config?.analytics?.amazonPinpoint == null) {
       throw ConfigurationError('No analytics config available.');

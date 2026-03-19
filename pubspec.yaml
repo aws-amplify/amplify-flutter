@@ -101,6 +101,11 @@ aft:
       packages:
         - amplify_secure_storage
         - amplify_secure_storage_dart
+    - name: Kinesis
+      summary: amplify_kinesis
+      packages:
+        - amplify_kinesis
+        - amplify_kinesis_dart
     - name: AWS Common
       summary: aws_common
       propagate: none

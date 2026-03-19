@@ -23,5 +23,5 @@ abstract class SignUpParameters
   String get username;
 
   /// The new user's password.
-  String get password;
+  String? get password;
 }

@@ -29,7 +29,7 @@ class AmplifyAuthTestPlugin extends AmplifyAuthCognito {
   @override
   Future<CognitoSignUpResult> signUp({
     required String username,
-    required String password,
+    String? password,
     SignUpOptions? options,
   }) {
     if (hasApiPlugin) {

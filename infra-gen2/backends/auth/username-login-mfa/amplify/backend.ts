@@ -14,6 +14,9 @@ const { userPool, cfnResources } = resources;
 const { stack } = userPool;
 const { cfnUserPool } = cfnResources;
 
+// Set User Pool tier to PLUS to support MFA
+cfnUserPool.userPoolTier = "PLUS";
+
 // Adds infra for creating/deleting users via App Sync and fetching confirmation
 // and MFA codes from App Sync.
 const customOutputs = addAuthUserExtensions({

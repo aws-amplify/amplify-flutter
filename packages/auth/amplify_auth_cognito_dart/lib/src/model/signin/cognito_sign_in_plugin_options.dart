@@ -13,6 +13,7 @@ class CognitoSignInPluginOptions extends SignInPluginOptions {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_plugin_options}
   const CognitoSignInPluginOptions({
     this.authFlowType,
+    this.preferredFirstFactor,
     this.clientMetadata = const {},
   });
 
@@ -24,6 +25,12 @@ class CognitoSignInPluginOptions extends SignInPluginOptions {
   /// Runtime override of the Authentication flow to use for sign in.
   /// {@endtemplate}
   final AuthenticationFlowType? authFlowType;
+
+  /// {@template amplify_auth_cognito_dart.cognito_sign_in_plugin_options.preferred_first_factor}
+  /// The auth factor type the user should begin signing with if available. If the preferred
+  /// first factor is not available, the flow would fallback to provide available first factors.
+  /// {@endtemplate}
+  final AuthFactorType? preferredFirstFactor;
 
   /// {@template amplify_auth_cognito_dart.cognito_sign_in_plugin_options.client_metadata}
   /// A map of custom key-value pairs that you can provide as input for certain

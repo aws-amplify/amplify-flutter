@@ -22,7 +22,11 @@ enum AuthenticationFlowType {
   /// Authentication flow which starts without SRP and directly moves to custom
   /// auth flow.
   @JsonValue('CUSTOM_AUTH_WITHOUT_SRP')
-  customAuthWithoutSrp('CUSTOM_AUTH_WITHOUT_SRP');
+  customAuthWithoutSrp('CUSTOM_AUTH_WITHOUT_SRP'),
+
+  /// Authentication flow used for user discovering enabled first factors for a user.
+  @JsonValue('USER_AUTH')
+  userAuth('USER_AUTH');
 
   const AuthenticationFlowType(this.value);
 

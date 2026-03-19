@@ -37,7 +37,7 @@ jobs:
           - channel: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
 
       - name: Git Submodules
         run: git submodule update --init
@@ -88,6 +88,13 @@ jobs:
         run: flutter analyze --fatal-infos --fatal-warnings .
         working-directory: ${{ inputs.working-directory }}
 
+      - name: Package Score
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
+        uses: ./.github/composite_actions/package_score
+        with:
+          working-directory: ${{ inputs.working-directory }}
+          package-name: ${{ inputs.package-name }}
+
       - name: Run Tests
         id: testJob
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
@@ -96,7 +103,7 @@ jobs:
 
       - name: Archive golden failures
         if: "always() && inputs.has-goldens && steps.testJob.conclusion == 'failure'"
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # 4.6.2
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # 7.0.0
         with:
           name: golden-failures-${{ matrix.channel }}-${{ matrix.flutter-version }}
           path: ${{ inputs.working-directory }}/test/ui/failures/

@@ -1,3 +1,14 @@
+## 2.10.0
+
+### Features
+- feat(auth): Passwordless login ([#6538](https://github.com/aws-amplify/amplify-flutter/pull/6538))
+- feat(auth): Disable social sign-in button on awaiting actions ([#6517](https://github.com/aws-amplify/amplify-flutter/pull/6517))
+- feat(auth): Add cognito error message translation feature for authenticator ([#6541](https://github.com/aws-amplify/amplify-flutter/pull/6541))
+
+### Fixes
+- fix(datastore): UninitializedPropertyAccessException crash on Android when amplify_datastore is included but not used ([#6485](https://github.com/aws-amplify/amplify-flutter/pull/6485))
+- fix(auth): Fix login autofill on login ([#6554](https://github.com/aws-amplify/amplify-flutter/pull/6554))
+
 ## 2.9.0
 
 ### Features

@@ -1,3 +1,7 @@
+## 0.4.17
+
+- Minor bug fixes and improvements
+
 ## 0.4.16
 
 - Minor bug fixes and improvements

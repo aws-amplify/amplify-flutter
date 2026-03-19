@@ -1,3 +1,15 @@
+## 2.10.2
+
+- Minor bug fixes and improvements
+
+## 2.10.1
+
+- Minor bug fixes and improvements
+
+## 2.10.0
+
+- Minor bug fixes and improvements
+
 ## 2.9.0
 
 - Minor bug fixes and improvements

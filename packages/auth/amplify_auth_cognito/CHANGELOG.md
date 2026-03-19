@@ -1,3 +1,8 @@
+## 2.10.0
+
+### Features
+- feat(auth): Passwordless login ([#6538](https://github.com/aws-amplify/amplify-flutter/pull/6538))
+
 ## 2.9.0
 
 ### Features

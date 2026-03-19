@@ -7,7 +7,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_core.dart' show UUID;
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 
@@ -20,7 +20,7 @@ import 'package:path/path.dart' as p;
 /// 4. Run `dart tool/deploy_gen2.dart` to deploy the backend
 const List<AmplifyBackendGroup> infraConfig = [
   AmplifyBackendGroup(
-    category: Category.api,
+    category: 'API',
     defaultOutput: 'packages/api/amplify_api/example/lib',
     backends: [
       AmplifyBackend(
@@ -31,7 +31,7 @@ const List<AmplifyBackendGroup> infraConfig = [
     ],
   ),
   AmplifyBackendGroup(
-    category: Category.auth,
+    category: 'Auth',
     defaultOutput: 'packages/auth/amplify_auth_cognito/example/lib',
     sharedOutputs: [
       'packages/auth/amplify_auth_cognito_dart/example/lib',
@@ -96,7 +96,7 @@ const List<AmplifyBackendGroup> infraConfig = [
     ],
   ),
   AmplifyBackendGroup(
-    category: Category.storage,
+    category: 'Storage',
     defaultOutput: 'packages/storage/amplify_storage_s3/example/lib',
     backends: [
       AmplifyBackend(
@@ -112,7 +112,7 @@ const List<AmplifyBackendGroup> infraConfig = [
     ],
   ),
   AmplifyBackendGroup(
-    category: Category.analytics,
+    category: 'Analytics',
     defaultOutput: 'packages/analytics/amplify_analytics_pinpoint/example/lib',
     backends: [
       AmplifyBackend(
@@ -132,6 +132,17 @@ const List<AmplifyBackendGroup> infraConfig = [
       ),
     ],
   ),
+  AmplifyBackendGroup(
+    category: 'Kinesis',
+    defaultOutput: 'packages/kinesis/amplify_kinesis_dart/lib',
+    backends: [
+      AmplifyBackend(
+        name: 'main',
+        identifier: 'main',
+        pathToSource: 'infra-gen2/backends/kinesis/main',
+      ),
+    ],
+  ),
 ];
 
 const pathToBackends = 'infra-gen2/backends';
@@ -148,16 +159,16 @@ void main(List<String> arguments) async {
 
   print('🚀 Deploying Gen 2 backends!');
   for (final backendGroup in infraConfig) {
-    if (categoryToDeploy != null &&
-        backendGroup.category.name != categoryToDeploy) {
+    if (categoryToDeploy != null && backendGroup.category != categoryToDeploy) {
       continue;
     }
     // TODO(equartey): Could be removed when all backends are defined.
     if (backendGroup.backends.isEmpty) {
       continue;
     }
-    var amplifyEnvironments = <String, String>{};
-    final categoryName = backendGroup.category.name;
+    var gen2Environments = <String, String>{};
+    var gen1Environments = <String, String>{};
+    final categoryName = backendGroup.category;
     final outputPath = p.join(repoRoot.path, backendGroup.defaultOutput);
     final amplifyOutputs = File(p.join(outputPath, 'amplify_outputs.dart'));
     final amplifyConfiguration = File(
@@ -195,15 +206,20 @@ void main(List<String> arguments) async {
       }
 
       // Cache the config contents to create environments map
-      amplifyEnvironments = {
-        ...amplifyEnvironments,
+      gen2Environments = {
+        ...gen2Environments,
         ..._cacheConfigContents(backendName, amplifyOutputs),
+      };
+      gen1Environments = {
+        ...gen1Environments,
+        ..._cacheConfigContents(backendName, amplifyConfiguration),
       };
     }
 
     // Only append environments if there are multiple backends
     if (backendGroup.backends.length > 1) {
-      _appendEnvironments(amplifyEnvironments, backendGroup, amplifyOutputs);
+      _appendEnvironments(gen2Environments, backendGroup, amplifyOutputs);
+      _appendEnvironments(gen1Environments, backendGroup, amplifyConfiguration);
     }
 
     // Copy config files to shared paths
@@ -250,7 +266,7 @@ ArgResults _parseArgs(List<String> args) {
       'category',
       abbr: 'c',
       help: 'Specify the category to deploy.',
-      allowed: Category.values.map((e) => e.name).toList(),
+      allowed: infraConfig.map((e) => e.category).toList(),
       defaultsTo: null,
     );
 
@@ -259,14 +275,17 @@ ArgResults _parseArgs(List<String> args) {
 
 /// Deploy Sandbox for a given backend backend
 Future<String> _deployBackend(
-  Category category,
+  String category,
   AmplifyBackend backend,
   String outputPath,
   bool verbose,
 ) async {
-  print(
-    '🏖️  Deploying ${category.name} ${backend.name}, this may take a while...',
-  );
+  print('🏖️  Deploying $category ${backend.name}, this may take a while...');
+
+  final outputFile = File(p.join(outputPath, 'amplify_outputs.dart'));
+  if (outputFile.existsSync()) {
+    outputFile.deleteSync();
+  }
 
   // Deploy the backend
   final process = await Process.start('npx', [
@@ -280,6 +299,7 @@ Future<String> _deployBackend(
     backend.identifier,
     '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
     '--once',
+    '--debug',
   ], workingDirectory: p.join(repoRoot.path, backend.pathToSource));
 
   if (verbose) {
@@ -290,28 +310,79 @@ Future<String> _deployBackend(
 
   var stackID = '';
 
+  // About deployment errors
+  var postedDeploymentError = false;
+  var postedDeploymentErrorReason = false;
+  var postedDeploymentUpdateFailed = false;
+
+  // About CDK build errors
+  var postingBackendBuildError = false;
+  var postedBackendBuildError = false;
+
+  var previousLine = '';
+
   // Listen to stdout for stack ID
   await for (final String line
       in process.stdout
           .transform(utf8.decoder)
           .transform(const LineSplitter())) {
+    if (!line.startsWith('    at ') && line.trim().isNotEmpty) {
+      // This line does not belong to a cdk build error
+      postingBackendBuildError = false;
+    }
+
     if (verbose) {
       print(line);
+    } else if (line.contains(' [ERROR]')) {
+      print('❌   $line');
+      postedDeploymentError = true;
+    } else if (line.contains('  ∟ Caused by: ')) {
+      print('    $line');
+      postedDeploymentErrorReason = true;
+    } else if (line.contains(' | UPDATE_FAILED | ')) {
+      postedDeploymentUpdateFailed = true;
+    } else if (!postingBackendBuildError && line.startsWith('    at ')) {
+      // This line and the previous line log a cdk build error
+      print('❌   $previousLine');
+      print('    $line');
+      postedBackendBuildError = true;
+      postingBackendBuildError = true;
+    } else if (line.startsWith('    at ')) {
+      // This line logs a cdk build error
+      print('    $line');
     }
+
     // Save Stack ID
     if (line.contains('Stack:')) {
       stackID = line.split('Stack:').last.trim();
     }
+
+    // Needed for printing cdk build errors
+    previousLine = line;
   }
 
   final exitCode = await process.exitCode;
 
   if (exitCode != 0) {
     throw Exception(
-      '❌ Error deploying ${category.name} ${backend.identifier} sandbox',
+      '❌ Error deploying $category ${backend.identifier} sandbox',
+    );
+  } else if (postedDeploymentError &&
+      postedDeploymentErrorReason &&
+      postedDeploymentUpdateFailed) {
+    throw Exception(
+      '❌ Error deploying $category ${backend.identifier} sandbox: Update failed',
+    );
+  } else if (postedBackendBuildError) {
+    throw Exception(
+      '❌ Error deploying $category ${backend.identifier} sandbox - CDK build failed',
+    );
+  } else if (!outputFile.existsSync()) {
+    throw Exception(
+      '❌ Error deploying $category ${backend.identifier} sandbox - Output file not generated',
     );
   } else {
-    print('👍 ${category.name} ${backend.identifier} sandbox deployed');
+    print('👍 $category ${backend.identifier} sandbox deployed');
     return stackID;
   }
 }
@@ -334,7 +405,7 @@ Map<String, String> _cacheConfigContents(
   final exp = RegExp(r"'''(.*?)'''", dotAll: true);
   final configMap = exp.firstMatch(rawConfigContent)?.group(1) ?? '';
 
-  return {backendName: '\'\'\'$configMap\'\'\''};
+  return {backendName: 'r\'\'\'$configMap\'\'\''};
 }
 
 /// Append the environments to amplify_outputs.dart
@@ -388,7 +459,7 @@ void _copyConfigFile(List<String> outputPaths, List<File> configFiles) {
 
 /// Create a unique bucket name
 String _createBucketName(String base) {
-  final uniqueShort = uuid().substring(0, 8);
+  final uniqueShort = UUID.getUUID().substring(0, 8);
   return '${base.toLowerCase()}-gen2-integ-$uniqueShort';
 }
 
@@ -487,14 +558,17 @@ void _uploadConfigFileToS3(String bucketName, List<File> configFiles) {
 
 /// Generates gen 1 amplifyconfiguration.dart file
 void _generateGen1Config(
-  Category category,
+  String category,
   AmplifyBackend backend,
   String outputPath,
   String stack,
 ) {
-  print(
-    '📁 Generating gen 1 config file for ${category.name} ${backend.name}...',
-  );
+  print('📁 Generating gen 1 config file for $category ${backend.name}...');
+
+  final outputFile = File(p.join(outputPath, 'amplifyconfiguration.dart'));
+  if (outputFile.existsSync()) {
+    outputFile.deleteSync();
+  }
 
   // Deploy the backend
   final process = Process.runSync('npx', [
@@ -516,12 +590,14 @@ void _generateGen1Config(
 
   if (process.exitCode != 0) {
     throw Exception(
-      '❌ Error generating gen 1 config file for ${category.name} ${backend.name}:: ${process.stdout}',
+      '❌ Error generating gen 1 config file for $category ${backend.name}:: ${process.stdout}',
+    );
+  } else if (!outputFile.existsSync()) {
+    throw Exception(
+      '❌ Error generating gen 1 config file for $category ${backend.identifier} - Output file not generated',
     );
   } else {
-    print(
-      '👍 Gen 1 config file for ${category.name} ${backend.name} generated',
-    );
+    print('👍 Gen 1 config file for $category ${backend.name} generated');
   }
 }
 
@@ -534,7 +610,7 @@ class AmplifyBackendGroup {
   });
 
   /// This is the category of the integration group
-  final Category category;
+  final String category;
 
   /// This is the list of backends for the group
   final List<AmplifyBackend> backends;

@@ -146,6 +146,7 @@ abstract class AuthenticatorPage {
     await tester.pumpAndSettle();
     expect(dialCode, findsOneWidget);
     await tester.tap(dialCode);
+    await tester.pumpAndSettle();
   }
 
   /// When I click "Sign out"

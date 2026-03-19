@@ -80,7 +80,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         if (shape.isOutputShape || shape.isError) fromResponseConstructor,
       ])
       ..methods.addAll([
-        if (_initializer case final init?) init,
+        ?_initializer,
         ..._fieldGetters(isPayload: false),
         ..._httpInputOverrides,
         if (shape.isInputShape || hasPayload) _getPayload,
@@ -110,7 +110,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       ..mixins.addAll([DartTypes.awsCommon.awsEquatable(payloadSymbol)])
       ..constructors.addAll([_payloadFactoryConstructor, _privateConstructor])
       ..methods.addAll([
-        if (_payloadInitializer case final init?) init,
+        ?_payloadInitializer,
         ..._fieldGetters(isPayload: true),
         _props(payloadMembers),
         _toString(isPayload: true),
@@ -212,9 +212,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
 
     return Parameter(
       (p) => p
-        ..annotations.addAll([
-          if (deprecatedAnnotation != null) deprecatedAnnotation,
-        ])
+        ..annotations.addAll([?deprecatedAnnotation])
         ..required = !isNullable
         ..name = member.dartName(ShapeType.structure)
         ..named = true

@@ -1,10 +1,82 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smithy/smithy.dart';
+
+/// Enum representing all Cognito exception types for type-safe error handling
+enum CognitoErrorType {
+  userNotFound('UserNotFound'),
+  userNotConfirmed('UserNotConfirmed'),
+  usernameExists('UsernameExists'),
+  aliasExists('AliasExists'),
+  invalidPassword('InvalidPassword'),
+  invalidParameter('InvalidParameter'),
+  expiredCode('ExpiredCode'),
+  codeMismatch('CodeMismatch'),
+  codeDeliveryFailure('CodeDeliveryFailure'),
+  limitExceeded('LimitExceeded'),
+  mfaMethodNotFound('MfaMethodNotFound'),
+  notAuthorized('NotAuthorized'),
+  resourceNotFound('ResourceNotFound'),
+  softwareTokenMfaNotFound('SoftwareTokenMfaNotFound'),
+  tooManyFailedAttempts('TooManyFailedAttempts'),
+  tooManyRequests('TooManyRequests'),
+  passwordResetRequired('PasswordResetRequired'),
+  enableSoftwareTokenMfa('EnableSoftwareTokenMFA'),
+  userLambdaValidation('UserLambdaValidation'),
+  unknown('Unknown');
+
+  const CognitoErrorType(this.errorType);
+
+  /// The actual error name
+  final String errorType;
+
+  /// Returns the ARB key for this exception type
+  String get arbKey => 'authenticatorCognitoError$errorType';
+
+  /// Creates enum from error type string, returns unknown if not found
+  static CognitoErrorType fromErrorType(String errorType) {
+    // Strip Exception suffix and ServiceException, since e.g. NotAuthorizedServiceException has the latter suffix
+    errorType = errorType
+        .replaceFirst('ServiceException', '')
+        .replaceFirst('Exception', '');
+    for (final type in CognitoErrorType.values) {
+      if (type.errorType == errorType) return type;
+    }
+    return CognitoErrorType.unknown;
+  }
+}
+
+/// {@template amplify_authenticator.cognito_authenticator_exception}
+/// A specialized AuthenticatorException for Cognito-specific errors that
+/// provides access to the underlying Cognito exception for localization.
+/// {@endtemplate}
+class CognitoAuthenticatorException extends AuthenticatorException {
+  /// {@macro amplify_authenticator.cognito_authenticator_exception}
+  const CognitoAuthenticatorException._(
+    super.message, {
+    super.showBanner = true,
+    super.underlyingException,
+  }) : super._();
+
+  /// Returns the underlying Cognito service exception
+  CognitoServiceException get cognitoException =>
+      underlyingException as CognitoServiceException;
+
+  /// Returns the Cognito exception type enum for type-safe error handling.
+  CognitoErrorType getCognitoErrorType() =>
+      CognitoErrorType.fromErrorType(cognitoException.runtimeType.toString());
+
+  /// Returns the ARB resource key for this exception.
+  ///
+  /// ARB keys follow the format `authenticatorCognitoError{ErrorType}`.
+  /// For example, a [UserNotFoundException] returns `authenticatorCognitoErrorUserNotFound`.
+  String getArbKey() => getCognitoErrorType().arbKey;
+}
 
 /// {@template amplify_authenticator.authenticator_exception}
 /// An exception originating within the Authenticator as part of the sign up/
@@ -16,6 +88,13 @@ class AuthenticatorException extends AmplifyException {
     String message;
     if (exception is String) {
       message = exception;
+    } else if (exception is CognitoServiceException) {
+      message = exception.message;
+      return CognitoAuthenticatorException._(
+        message,
+        showBanner: showBanner,
+        underlyingException: exception,
+      );
     } else if (exception is AmplifyException) {
       message = exception.message;
     } else if (exception is SmithyException) {

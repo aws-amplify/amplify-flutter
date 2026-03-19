@@ -44,7 +44,11 @@ sealed class SignUpState extends AuthState<SignUpStateType> {
   const factory SignUpState.confirming() = SignUpConfirming;
 
   /// {@macro amplify_auth_cognito.sign_up_success}
-  const factory SignUpState.success({String? userId}) = SignUpSuccess;
+  const factory SignUpState.success({
+    String? username,
+    String? userId,
+    String? session,
+  }) = SignUpSuccess;
 
   /// {@macro amplify_auth_cognito.sign_up_failure}
   const factory SignUpState.failure(
@@ -126,16 +130,22 @@ final class SignUpConfirming extends SignUpState {
 /// {@endtemplate}
 final class SignUpSuccess extends SignUpState with SuccessState {
   /// {@macro amplify_auth_cognito.sign_up_success}
-  const SignUpSuccess({this.userId}) : super._();
+  const SignUpSuccess({this.username, this.userId, this.session}) : super._();
+
+  /// The username of the user.
+  final String? username;
 
   /// The ID of the user.
   final String? userId;
+
+  /// The sign up session
+  final String? session;
 
   @override
   SignUpStateType get type => SignUpStateType.success;
 
   @override
-  List<Object?> get props => [type, userId];
+  List<Object?> get props => [type, username, userId, session];
 }
 
 /// {@template amplify_auth_cognito.sign_up_failure}

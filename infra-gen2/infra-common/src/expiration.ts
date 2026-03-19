@@ -14,7 +14,9 @@ import * as cdk from "aws-cdk-lib";
  */
 export const inOneYear = (): cdk.Expiration => {
   const now = new Date();
-  const oneYearMillis = cdk.Duration.days(365).toMilliseconds();
+  // Use 364 days to provide a buffer for timezone differences between
+  // the local machine and AWS servers (max allowed is 365 days, one day less to avoid overflows)
+  const oneYearMillis = cdk.Duration.days(364).toMilliseconds();
   const oneYear = new Date(now.getTime() + oneYearMillis);
   oneYear.setHours(0, 0, 0, 0);
   return cdk.Expiration.atDate(oneYear);

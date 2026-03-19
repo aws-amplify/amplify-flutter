@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:convert';
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore/src/types/observe_query_executor.dart';
@@ -172,10 +174,12 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) async {
     try {
       await _setUpObserveIfNeeded();
+      final serializedModel = model.toJson();
+      _validateModelJson(serializedModel);
       var methodChannelDeleteInput = <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
         if (where != null) 'queryPredicate': where.serializeAsMap(),
-        'serializedModel': model.toJson(),
+        'serializedModel': serializedModel,
       };
       await _channel.invokeMethod('delete', methodChannelDeleteInput);
     } on PlatformException catch (e) {
@@ -187,14 +191,51 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   Future<void> save<T extends Model>(T model, {QueryPredicate? where}) async {
     try {
       await _setUpObserveIfNeeded();
+      final serializedModel = model.toJson();
+      _validateModelJson(serializedModel);
       var methodChannelSaveInput = <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
         if (where != null) 'queryPredicate': where.serializeAsMap(),
-        'serializedModel': model.toJson(),
+        'serializedModel': serializedModel,
       };
       await _channel.invokeMethod('save', methodChannelSaveInput);
     } on PlatformException catch (e) {
       throw _deserializeException(e);
+    }
+  }
+
+  /// Validates that a model's serialized JSON map can be encoded to JSON.
+  ///
+  /// This catches values that are not representable in JSON (e.g. NaN,
+  /// Infinity, or unexpected non-serializable objects) before they reach
+  /// the native platform, where they would cause crashes such as iOS
+  /// NSInvalidArgumentException from NSJSONSerialization.
+  /// See: https://github.com/aws-amplify/amplify-flutter/issues/5891
+  static void _validateModelJson(Map<String, dynamic> json) {
+    try {
+      jsonEncode(json);
+    } on JsonUnsupportedObjectError catch (e) {
+      if (e.unsupportedObject is double) {
+        final value = e.unsupportedObject as double;
+        throw DataStoreException(
+          'Model contains a non-finite double value '
+          '(${value.isNaN ? "NaN" : value}). '
+          'NaN and Infinity are not valid JSON values and cannot be '
+          'serialized for DataStore operations.',
+          recoverySuggestion:
+              'Ensure all double fields contain finite values before saving. '
+              'You can check with value.isFinite, or replace non-finite values '
+              'with null or a valid default.',
+        );
+      }
+      throw DataStoreException(
+        'Model contains a value that cannot be serialized to JSON: '
+        '${e.unsupportedObject} (${e.unsupportedObject.runtimeType}). '
+        '${e.cause ?? ''}',
+        recoverySuggestion:
+            'Ensure all model fields contain JSON-serializable values '
+            '(String, int, finite double, bool, null, Map, or List).',
+      );
     }
   }
 

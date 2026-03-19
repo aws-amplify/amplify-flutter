@@ -1,3 +1,18 @@
+## 2.10.2
+
+### Fixes
+- fix(datastore): Catch invalid JSON ([#6669](https://github.com/aws-amplify/amplify-flutter/pull/6669))
+- fix(datastore): Fix error callbacks (android) ([#6742](https://github.com/aws-amplify/amplify-flutter/pull/6742))
+
+## 2.10.1
+
+- Minor bug fixes and improvements
+
+## 2.10.0
+
+### Fixes
+- fix(datastore): UninitializedPropertyAccessException crash on Android when amplify_datastore is included but not used ([#6485](https://github.com/aws-amplify/amplify-flutter/pull/6485))
+
 ## 2.9.0
 
 - Minor bug fixes and improvements

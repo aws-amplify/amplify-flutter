@@ -16,7 +16,7 @@ class MockAuthService extends Mock implements AmplifyAuthService {
   @override
   Future<SignUpResult> signUp(
     String username,
-    String password,
+    String? password,
     Map<CognitoUserAttributeKey, String> attributes,
   ) {
     capturedUsername = username;
@@ -40,7 +40,7 @@ class MockAuthPlugin extends AmplifyAuthCognitoStub {
   @override
   Future<SignUpResult> signUp({
     required String username,
-    required String password,
+    String? password,
     SignUpOptions? options,
   }) {
     return authService.signUp(username, password, attributes);
