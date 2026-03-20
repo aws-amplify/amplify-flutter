@@ -1,3 +1,8 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+
+
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'aws_liveness_method_channel.dart';
