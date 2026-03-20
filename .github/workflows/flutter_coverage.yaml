@@ -78,25 +78,10 @@ jobs:
             echo "No coverage data generated" >> $GITHUB_STEP_SUMMARY
           fi
 
-      # - name: Upload to Codecov
-      #   if: always()
-      #   uses: codecov/codecov-action@v5
-      #   with:
-      #     files: coverage/merged_lcov.info
-      #     flags: flutter
-      #     name: flutter-coverage
-      #     fail_ci_if_error: false
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      # 
-      # - name: Log success/failure
-      #   if: always()
-      #   uses: ./.github/composite_actions/log_cw_metric_wrapper
-      #   with:
-      #     role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-      #     aws-region: ${{ secrets.AWS_REGION }}
-      #     job-status: ${{ job.status }}
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     test-type: unit
-      #     working-directory: .
-      #     framework: flutter
-      #     flutter-dart-channel: stable
+      - name: Upload to Codecov
+        if: always()
+        uses: codecov/codecov-action@v5
+        with:
+          name: report
+          files: coverage/merged_lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
