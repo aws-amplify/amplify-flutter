@@ -82,6 +82,7 @@ jobs:
         if: always()
         uses: codecov/codecov-action@v5
         with:
-          name: report
+          name: flutter-dart-coverage
+          flags: flutter-tests
           files: coverage/merged_lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
