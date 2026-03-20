@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:aws_liveness/aws_liveness.dart';
