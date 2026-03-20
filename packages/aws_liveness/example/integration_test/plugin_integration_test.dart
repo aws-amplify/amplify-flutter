@@ -1,3 +1,7 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+
 // This is a basic Flutter integration test.
 //
 // Since integration tests run in a full Flutter application, they can interact
