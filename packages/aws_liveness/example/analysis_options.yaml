@@ -3,6 +3,4 @@ include: package:amplify_lints/library.yaml
 analyzer:
   exclude:
     - '**/*.g.dart'
-    - '**/*.freezed.dart'
-  errors:
-    todo: ignore
+    - 'lib/src/sdk/src/**'
