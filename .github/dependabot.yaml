@@ -1097,9 +1097,6 @@ updates:
       built_value:
         patterns:
           - "built_value"
-      http:
-        patterns:
-          - "http"
       json_annotation:
         patterns:
           - "json_annotation"
@@ -2175,63 +2172,6 @@ updates:
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "smithy_codegen"
       - dependency-name: "amplify_flutter"
-  - package-ecosystem: "pub"
-    directory: "packages/aws_liveness"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_lints"
-  - package-ecosystem: "gradle"
-    directory: "packages/aws_liveness/android"
-    schedule:
-      interval: "weekly"
-    ignore:
-      # Ignore Kotlin updates since we should always match Flutter stable
-      # to ensure users can have Kt versions >= Flutter stable.
-      - dependency-name: "kotlin_version"
-      - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-      
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-    groups:
-      amplify-android:
-        patterns:
-          - "com.amplifyframework:*"
-          - "com.amazonaws:*"
-      mockito:
-        patterns:
-          - "org.mockito:*"
-  - package-ecosystem: "pub"
-    directory: "packages/aws_liveness/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "aws_liveness"
-      - dependency-name: "amplify_lints"
-  - package-ecosystem: "pub"
-    directory: "packages/aws_liveness/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "aws_liveness"
-      - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
     directory: "packages/aws_signature_v4/example"
     schedule:
