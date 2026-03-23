@@ -4,5 +4,6 @@
 /// Amplify Amazon Data Firehose client for Dart.
 library;
 
-// SDK client (for escape hatch)
-// Exports will be added as implementation PRs land.
+// Exceptions
+export 'src/exception/amplify_firehose_exception.dart'
+    hide defaultRecoverySuggestion;
