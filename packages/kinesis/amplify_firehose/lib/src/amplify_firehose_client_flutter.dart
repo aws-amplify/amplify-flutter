@@ -26,7 +26,7 @@ import 'package:amplify_firehose_dart/amplify_firehose_dart.dart';
 /// ## Usage
 ///
 /// ```dart
-/// final client = AmplifyFirehoseClient(
+/// final client = await AmplifyFirehoseClient.create(
 ///   region: 'us-east-1',
 ///   credentialsProvider: myCredentialsProvider,
 /// );
@@ -56,8 +56,8 @@ class AmplifyFirehoseClient {
     required AWSCredentialsProvider credentialsProvider,
     AmplifyFirehoseClientOptions? options,
   }) async {
-    final storagePath = await getStoragePath() ?? '';
-    final delegate = dart_client.AmplifyFirehoseClient(
+    final storagePath = await getStoragePath();
+    final delegate = await dart_client.AmplifyFirehoseClient.create(
       region: region,
       credentialsProvider: credentialsProvider,
       storagePath: storagePath,
@@ -84,9 +84,6 @@ class AmplifyFirehoseClient {
   ///
   /// The record is persisted to local storage and will be sent during
   /// the next flush operation (automatic or manual).
-  ///
-  /// Throws [FirehoseLimitExceededException] if the local cache is full.
-  /// Records are silently ignored if the client is disabled.
   Future<void> record({
     required Uint8List data,
     required String deliveryStreamName,

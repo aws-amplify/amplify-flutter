@@ -61,8 +61,8 @@ void main() {
     await credentialsProvider.resolve();
   });
 
-  setUp(() {
-    client = AmplifyFirehoseClient(
+  setUp(() async {
+    client = await AmplifyFirehoseClient.create(
       region: testRegion,
       credentialsProvider: credentialsProvider,
       storagePath: tempDir.path,
@@ -228,7 +228,7 @@ void main() {
 
       await client.close();
 
-      final newClient = AmplifyFirehoseClient(
+      final newClient = await AmplifyFirehoseClient.create(
         region: testRegion,
         credentialsProvider: credentialsProvider,
         storagePath: tempDir.path,

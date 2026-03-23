@@ -1,204 +1,162 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:async';
-
-import 'package:amplify_firehose_dart/src/amazon_data_firehose_options.dart';
-import 'package:amplify_firehose_dart/src/db/firehose_record_database.dart';
-import 'package:amplify_firehose_dart/src/exception/amplify_firehose_exception.dart';
-import 'package:amplify_firehose_dart/src/impl/auto_flush_scheduler.dart';
 import 'package:amplify_firehose_dart/src/impl/firehose_record.dart';
 import 'package:amplify_firehose_dart/src/impl/firehose_sender.dart';
-import 'package:amplify_firehose_dart/src/impl/record_storage.dart';
+import 'package:amplify_firehose_dart/src/impl/storage/record_storage.dart';
 import 'package:amplify_firehose_dart/src/model/clear_cache_data.dart';
 import 'package:amplify_firehose_dart/src/model/flush_data.dart';
+import 'package:amplify_firehose_dart/src/model/record_data.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 
 /// {@template amplify_firehose_dart.record_client}
-/// Orchestrates record operations, managing the flow between storage,
-/// scheduling, and sending.
+/// Orchestrates record operations: storage, sending, and retry logic.
+///
+/// - `record()` delegates directly to `storage.addRecord()` (validation
+///   and cache limit checks happen inside the storage layer).
+/// - `flush()` is a single-pass operation that retrieves one batch per
+///   stream and sends it.
 /// {@endtemplate}
 class RecordClient {
   /// {@macro amplify_firehose_dart.record_client}
   RecordClient({
     required RecordStorage storage,
     required FirehoseSender sender,
-    required AutoFlushScheduler scheduler,
     required int maxRetries,
-    int maxRecords = 500,
   })  : _storage = storage,
         _sender = sender,
-        _scheduler = scheduler,
-        _maxRetries = maxRetries,
-        _maxRecords = maxRecords;
+        _maxRetries = maxRetries;
 
   final RecordStorage _storage;
   final FirehoseSender _sender;
-  final AutoFlushScheduler _scheduler;
   final int _maxRetries;
-  final int _maxRecords;
+  final Logger _logger = AmplifyLogging.logger('RecordClient');
 
-  bool _enabled = true;
-  bool _closed = false;
   bool _flushing = false;
-
-  /// Maximum batch size in bytes (4MB Firehose limit).
-  static const int maxBatchSizeBytes = 4 * 1024 * 1024;
-
-  /// Whether the client is currently enabled.
-  bool get isEnabled => _enabled;
-
-  /// Whether the client has been closed.
-  bool get isClosed => _closed;
 
   /// Records data to the local cache.
   ///
-  /// Throws [ClientClosedException] if the client has been closed.
-  /// Throws [FirehoseRecordTooLargeException] if the record exceeds the
-  /// per-record size limit (1,000 KB).
-  /// Throws [FirehoseLimitExceededException] if the cache is full.
-  Future<void> record(FirehoseDataRecord record) async {
-    if (_closed) throw ClientClosedException();
-    if (!_enabled) return;
-
-    if (record.dataSize > kFirehoseMaxRecordBytes) {
-      throw FirehoseRecordTooLargeException(
-        recordBytes: record.dataSize,
-        maxBytes: kFirehoseMaxRecordBytes,
-      );
-    }
-
-    final currentSize = await _storage.getCurrentCacheSize();
-    if (currentSize + record.dataSize > _storage.maxCacheBytes) {
-      throw FirehoseLimitExceededException();
-    }
-
-    await _storage.saveRecord(record);
+  /// Delegates to [RecordStorage.addRecord] which handles validation
+  /// and cache limit checks.
+  ///
+  /// Returns [RecordData] with the size of the recorded entry.
+  Future<RecordData> record(RecordInput record) async {
+    await _storage.addRecord(record);
+    return const RecordData();
   }
 
-  /// Flushes all cached records to Firehose.
+  /// Flushes cached records to Firehose.
   ///
-  /// Returns [FlushData] with the count of records successfully flushed.
-  ///
-  /// Throws [ClientClosedException] if the client has been closed.
+  /// Single-pass: retrieves one batch of records per stream, sends each
+  /// batch, and returns. Records beyond the per-stream limit are picked
+  /// up in the next flush cycle.
   Future<FlushData> flush() async {
-    if (_closed) throw ClientClosedException();
-    if (!_enabled) return const FlushData();
-
     if (_flushing) return const FlushData(flushInProgress: true);
     _flushing = true;
 
-    var totalFlushed = 0;
-
     try {
-      while (true) {
-        final batch = await _storage.getRecordsBatch(
-          maxCount: _maxRecords,
-          maxBytes: maxBatchSizeBytes,
+      final recordsByStream = await _storage.getRecordsByStream();
+      _logger.debug(
+        'Retrieved ${recordsByStream.length} stream(s) with records to flush',
+      );
+
+      var totalFlushed = 0;
+      for (final entry in recordsByStream.entries) {
+        final streamName = entry.key;
+        final records = entry.value;
+        _logger.verbose(
+          'Flushing ${records.length} records to stream: $streamName',
         );
 
-        if (batch.isEmpty) break;
-
-        // Group records by stream name
-        final recordsByStream = <String, List<StoredRecord>>{};
-        for (final record in batch) {
-          recordsByStream
-              .putIfAbsent(record.streamName, () => [])
-              .add(record);
-        }
-
-        // Send each stream's records separately
-        for (final entry in recordsByStream.entries) {
-          final flushed = await _sendStreamBatch(entry.key, entry.value);
+        try {
+          final flushed = await _sendStreamBatch(streamName, records);
           totalFlushed += flushed;
+        } on Exception catch (e) {
+          _logger.warn(
+            'Error flushing stream $streamName: $e. Skipping',
+          );
+          await _handleFailedRequest(records);
         }
-
-        // Clean up records that exceeded max retries
-        await _storage.deleteRecordsExceedingRetries(_maxRetries);
       }
+
+      return FlushData(recordsFlushed: totalFlushed);
     } finally {
       _flushing = false;
     }
-
-    return FlushData(recordsFlushed: totalFlushed);
   }
 
-  /// Sends a batch of records for a single stream.
-  /// Returns the number of successfully sent records.
   Future<int> _sendStreamBatch(
     String streamName,
-    List<StoredRecord> records,
+    List<Record> records,
   ) async {
     final senderRecords = records
-        .map(
-          (r) => FirehoseSenderRecord(data: r.data),
-        )
+        .map((r) => FirehoseSenderRecord(data: r.data))
         .toList();
 
+    final result = await _sender.putRecordBatch(
+      deliveryStreamName: streamName,
+      records: senderRecords,
+    );
+
+    // Delete successful records
+    final successfulIds =
+        result.successfulRecordIndices.map((i) => records[i].id);
+    await _storage.deleteRecords(successfulIds);
+
+    // Delete non-retryable failed records
+    final failedIds = result.failedRecordIndices.map((i) => records[i].id);
+    await _storage.deleteRecords(failedIds);
+
+    // Increment retry count for retryable failures
+    final retryableIds =
+        result.retryableRecordIndices.map((i) => records[i].id);
+    await _storage.incrementRetryCount(retryableIds);
+
+    _logger.debug(
+      'Stream $streamName: ${result.successfulRecordIndices.length} succeeded, '
+      '${result.retryableRecordIndices.length} retryable, '
+      '${result.failedRecordIndices.length} failed',
+    );
+
+    return result.successfulRecordIndices.length;
+  }
+
+  Future<void> _handleFailedRequest(List<Record> records) async {
     try {
-      final result = await _sender.putRecordBatch(
-        deliveryStreamName: streamName,
-        records: senderRecords,
-      );
+      final idsToRetry = <int>[];
+      final idsToDelete = <int>[];
 
-      // Delete successful records
-      final successfulIds =
-          result.successfulRecordIndices.map((i) => records[i].id);
-      await _storage.deleteRecords(successfulIds);
+      for (final record in records) {
+        if (record.retryCount < _maxRetries) {
+          idsToRetry.add(record.id);
+        } else {
+          idsToDelete.add(record.id);
+        }
+      }
 
-      // Increment retry count for retryable failures
-      final retryableIds =
-          result.retryableRecordIndices.map((i) => records[i].id);
-      await _storage.incrementRetryCount(retryableIds);
+      await _storage.incrementRetryCount(idsToRetry);
+      await _storage.deleteRecords(idsToDelete);
 
-      // Delete non-retryable failed records
-      final failedIds = result.failedRecordIndices.map((i) => records[i].id);
-      await _storage.deleteRecords(failedIds);
-
-      return result.successfulRecordIndices.length;
-    } on Exception {
-      // On network/other errors, increment retry count for all records
-      final allIds = records.map((r) => r.id);
-      await _storage.incrementRetryCount(allIds);
-      return 0;
+      if (idsToDelete.isNotEmpty) {
+        _logger.warn(
+          'Deleted ${idsToDelete.length} records that exceeded retry limit '
+          'of $_maxRetries',
+        );
+      }
+    } on Object catch (e) {
+      _logger.error('Failed to update records for failed request: $e', e);
     }
   }
 
   /// Clears all cached records.
-  ///
-  /// Returns [ClearCacheData] with the count of records cleared.
   Future<ClearCacheData> clearCache() async {
-    final batch = await _storage.getRecordsBatch();
-    final count = batch.length;
-    await _storage.clear();
+    final count = await _storage.getRecordCount();
+    await _storage.clearRecords();
     return ClearCacheData(recordsCleared: count);
   }
 
-  /// Enables the client to accept and flush records.
-  void enable() {
-    _enabled = true;
-    _scheduler.enable();
-  }
-
-  /// Disables the client from accepting and flushing records.
-  void disable() {
-    _enabled = false;
-    _scheduler.disable();
-  }
-
-  /// Enables automatic flush operations.
-  void enableAutoFlush() {
-    _scheduler.enable();
-  }
-
-  /// Disables automatic flush operations.
-  void disableAutoFlush() {
-    _scheduler.disable();
-  }
-
-  /// Closes the client and releases all resources.
+  /// Closes the storage and releases resources.
   Future<void> close() async {
-    _closed = true;
-    await _scheduler.close();
     await _storage.close();
   }
 }

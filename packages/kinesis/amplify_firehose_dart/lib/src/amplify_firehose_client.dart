@@ -1,25 +1,26 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:amplify_firehose_dart/src/amazon_data_firehose_options.dart';
-import 'package:amplify_firehose_dart/src/db/firehose_record_database.dart';
 import 'package:amplify_firehose_dart/src/impl/auto_flush_scheduler.dart';
 import 'package:amplify_firehose_dart/src/impl/firehose_record.dart';
 import 'package:amplify_firehose_dart/src/impl/firehose_sender.dart';
 import 'package:amplify_firehose_dart/src/impl/record_client.dart';
-import 'package:amplify_firehose_dart/src/impl/record_storage.dart';
+import 'package:amplify_firehose_dart/src/impl/storage/platform/record_storage_platform.dart';
+import 'package:amplify_firehose_dart/src/impl/storage/record_storage.dart';
 import 'package:amplify_firehose_dart/src/model/clear_cache_data.dart';
 import 'package:amplify_firehose_dart/src/model/flush_data.dart';
 import 'package:amplify_firehose_dart/src/sdk/firehose.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 
 /// {@template amplify_firehose_dart.amplify_firehose_client}
 /// Client for recording and streaming data to Amazon Data Firehose.
 ///
 /// Provides offline-capable data streaming with:
-/// - Local SQLite persistence for offline support
+/// - Local persistence for offline support (SQLite on VM, IndexedDB on web)
 /// - Automatic retry for failed records
 /// - Configurable batching (up to 500 records or 4MB per batch)
 /// - Interval-based automatic flushing
@@ -27,7 +28,7 @@ import 'package:amplify_firehose_dart/src/sdk/firehose.dart';
 /// ## Usage
 ///
 /// ```dart
-/// final client = AmplifyFirehoseClient(
+/// final client = await AmplifyFirehoseClient.create(
 ///   region: 'us-east-1',
 ///   credentialsProvider: myCredentialsProvider,
 /// );
@@ -44,52 +45,62 @@ import 'package:amplify_firehose_dart/src/sdk/firehose.dart';
 /// ```
 /// {@endtemplate}
 class AmplifyFirehoseClient {
+  AmplifyFirehoseClient._({
+    required String region,
+    required AmplifyFirehoseClientOptions options,
+    required RecordClient recordClient,
+    required AutoFlushScheduler scheduler,
+    FirehoseSender? firehoseSender,
+  })  : _region = region,
+        _options = options,
+        _recordClient = recordClient,
+        _scheduler = scheduler,
+        _firehoseSender = firehoseSender;
+
   /// {@macro amplify_firehose_dart.amplify_firehose_client}
-  AmplifyFirehoseClient({
+  ///
+  /// Creates a client with platform-appropriate storage (SQLite on VM,
+  /// IndexedDB on web, in-memory fallback).
+  static Future<AmplifyFirehoseClient> create({
     required String region,
     required AWSCredentialsProvider credentialsProvider,
     AmplifyFirehoseClientOptions? options,
-    String? storagePath,
-  }) : this._internal(
-          region: region,
-          credentialsProvider: credentialsProvider,
-          options: options ?? AmplifyFirehoseClientOptions(),
-          storagePath: storagePath ?? 'amazon_data_firehose',
-        );
+    FutureOr<String>? storagePath,
+  }) async {
+    final opts = options ?? AmplifyFirehoseClientOptions();
 
-  AmplifyFirehoseClient._internal({
-    required String region,
-    required AWSCredentialsProvider credentialsProvider,
-    required AmplifyFirehoseClientOptions options,
-    required String storagePath,
-  })  : _region = region,
-        _options = options {
-    final database = FirehoseRecordDatabase(storagePath);
-    final storage = RecordStorage(
-      database: database,
-      maxCacheBytes: options.cacheMaxBytes,
+    final storage = await createPlatformRecordStorage(
+      identifier: region,
+      storagePath: storagePath,
+      maxCacheBytes: opts.cacheMaxBytes,
     );
-    _firehoseSender = FirehoseSender(
+
+    final firehoseSender = FirehoseSender(
       region: region,
       credentialsProvider: credentialsProvider,
     );
 
-    late final AutoFlushScheduler scheduler;
-    late final RecordClient recordClient;
-
-    recordClient = RecordClient(
+    return _buildClient(
+      region: region,
+      options: opts,
       storage: storage,
-      sender: _firehoseSender,
-      scheduler: scheduler = AutoFlushScheduler(
-        strategy: options.flushStrategy,
-        onFlush: () => recordClient.flush(),
-      ),
-      maxRetries: options.maxRetries,
-      maxRecords: options.maxRecords,
+      firehoseSender: firehoseSender,
     );
+  }
 
-    _recordClient = recordClient;
-    scheduler.start();
+  /// Creates a client with a pre-configured [RecordStorage] (for testing).
+  static AmplifyFirehoseClient withStorage({
+    required RecordStorage storage,
+    required FirehoseSender sender,
+    String region = 'us-east-1',
+    AmplifyFirehoseClientOptions? options,
+  }) {
+    return _buildClient(
+      region: region,
+      options: options ?? AmplifyFirehoseClientOptions(),
+      storage: storage,
+      firehoseSender: sender,
+    );
   }
 
   /// Creates a client with a pre-configured [RecordClient] (for testing).
@@ -99,12 +110,50 @@ class AmplifyFirehoseClient {
     AmplifyFirehoseClientOptions? options,
   })  : _region = region,
         _options = options ?? AmplifyFirehoseClientOptions(),
-        _recordClient = recordClient;
+        _recordClient = recordClient,
+        _scheduler = null,
+        _firehoseSender = null;
+
+  static AmplifyFirehoseClient _buildClient({
+    required String region,
+    required AmplifyFirehoseClientOptions options,
+    required RecordStorage storage,
+    required FirehoseSender firehoseSender,
+  }) {
+    late final AutoFlushScheduler scheduler;
+    late final RecordClient recordClient;
+
+    recordClient = RecordClient(
+      storage: storage,
+      sender: firehoseSender,
+      maxRetries: options.maxRetries,
+    );
+
+    scheduler = AutoFlushScheduler(
+      strategy: options.flushStrategy,
+      onFlush: () => recordClient.flush(),
+    );
+
+    final client = AmplifyFirehoseClient._(
+      region: region,
+      options: options,
+      recordClient: recordClient,
+      scheduler: scheduler,
+      firehoseSender: firehoseSender,
+    );
+
+    scheduler.start();
+    return client;
+  }
 
   final String _region;
   final AmplifyFirehoseClientOptions _options;
-  late final RecordClient _recordClient;
-  late final FirehoseSender _firehoseSender;
+  final RecordClient _recordClient;
+  final AutoFlushScheduler? _scheduler;
+  final FirehoseSender? _firehoseSender;
+
+  bool _closed = false;
+  bool _enabled = true;
 
   /// The AWS region for this client.
   String get region => _region;
@@ -113,31 +162,33 @@ class AmplifyFirehoseClient {
   AmplifyFirehoseClientOptions get options => _options;
 
   /// Whether the client is currently enabled.
-  bool get isEnabled => _recordClient.isEnabled;
+  bool get isEnabled => _enabled;
 
   /// Whether the client has been closed.
-  bool get isClosed => _recordClient.isClosed;
+  bool get isClosed => _closed;
 
   /// Direct access to the underlying Firehose SDK client.
   ///
   /// Use this for advanced operations not covered by this client's API.
   ///
   /// Note: This getter is only available when the client was created with
-  /// the default constructor (not [withRecordClient]).
-  FirehoseClient get firehoseClient => _firehoseSender.sdkClient;
+  /// [create] or [withStorage] (not [withRecordClient]).
+  FirehoseClient get firehoseClient => _firehoseSender!.sdkClient;
 
   /// Records data to be sent to a Firehose delivery stream.
   ///
   /// The record is persisted to local storage and will be sent during
   /// the next flush operation (automatic or manual).
-  ///
-  /// Throws [FirehoseLimitExceededException] if the local cache is full.
-  /// Records are silently ignored if the client is disabled.
   Future<void> record({
     required Uint8List data,
     required String deliveryStreamName,
   }) async {
-    final firehoseRecord = FirehoseDataRecord(
+    if (_closed) {
+      throw StateError('Client has been closed');
+    }
+    if (!_enabled) return;
+
+    final firehoseRecord = RecordInput.now(
       data: data,
       streamName: deliveryStreamName,
     );
@@ -150,6 +201,10 @@ class AmplifyFirehoseClient {
   ///
   /// Does nothing if the client is disabled.
   Future<FlushData> flush() async {
+    if (_closed) {
+      throw StateError('Client has been closed');
+    }
+    if (!_enabled) return const FlushData();
     return _recordClient.flush();
   }
 
@@ -162,7 +217,8 @@ class AmplifyFirehoseClient {
 
   /// Enables the client to accept and flush records.
   void enable() {
-    _recordClient.enable();
+    _enabled = true;
+    _scheduler?.enable();
   }
 
   /// Disables the client from accepting and flushing records.
@@ -170,25 +226,26 @@ class AmplifyFirehoseClient {
   /// Existing cached records are preserved and will be sent when
   /// the client is re-enabled.
   void disable() {
-    _recordClient.disable();
+    _enabled = false;
+    _scheduler?.disable();
   }
 
   /// Enables automatic flush operations.
   void enableAutoFlush() {
-    _recordClient.enableAutoFlush();
+    _scheduler?.enable();
   }
 
   /// Disables automatic flush operations.
   void disableAutoFlush() {
-    _recordClient.disableAutoFlush();
+    _scheduler?.disable();
   }
 
   /// Closes the client and releases all resources.
   ///
   /// The client cannot be reused after closing.
   Future<void> close() async {
+    _closed = true;
+    await _scheduler?.close();
     await _recordClient.close();
   }
 }
-
-

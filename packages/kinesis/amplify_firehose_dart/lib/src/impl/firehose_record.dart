@@ -3,28 +3,41 @@
 
 import 'dart:typed_data';
 
-/// {@template amplify_firehose_dart.firehose_data_record}
-/// Represents a record to be sent to Amazon Data Firehose.
+/// Internal representation of a record to be sent to Firehose.
 ///
 /// Unlike Kinesis Data Streams, Firehose records do not have a partition key.
-/// {@endtemplate}
-class FirehoseDataRecord {
-  /// {@macro amplify_firehose_dart.firehose_data_record}
-  FirehoseDataRecord({
+/// The [dataSize] is simply the length of the data blob.
+final class RecordInput {
+  /// Creates a new Firehose record.
+  RecordInput({
     required this.data,
     required this.streamName,
-    DateTime? createdAt,
-  }) : createdAt = createdAt ?? DateTime.now();
+    required this.createdAt,
+  }) : dataSize = data.length;
 
-  /// The data blob to send.
+  /// Creates a Firehose record with the current timestamp.
+  factory RecordInput.now({
+    required Uint8List data,
+    required String streamName,
+  }) {
+    return RecordInput(
+      data: data,
+      streamName: streamName,
+      createdAt: DateTime.now(),
+    );
+  }
+
+  /// The data blob to send to Firehose.
   final Uint8List data;
 
   /// The delivery stream name.
   final String streamName;
 
-  /// When the record was created.
-  final DateTime createdAt;
+  /// The size of the data in bytes.
+  ///
+  /// For Firehose, this is simply the data blob length (no partition key).
+  final int dataSize;
 
-  /// Size of the data in bytes.
-  int get dataSize => data.length;
+  /// Timestamp of when the record was created.
+  final DateTime createdAt;
 }
