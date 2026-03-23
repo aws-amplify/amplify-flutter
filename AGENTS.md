@@ -15,6 +15,13 @@ Changes MUST pass:
 flutter analyze
 ```
 
+### Auto format:
+```
+dart pub get # crucial to run this!
+dart fix --apply .
+dart format  .
+```
+
 ## Project Coding Conventions & Patterns Summary
 
 ### Project Overview
@@ -140,15 +147,10 @@ Enforced via `tool/license.sh` and CI checks.
 - Generated code in `.g.dart` files, excluded from analysis
 
 ### 9. Naming Conventions
-- **Classes**: `PascalCase` — `AmplifyAuthCognitoDart`, `SignInStateMachine`
 - **Constants**: `lowerCamelCase` with `z` prefix for internal/library-wide constants: `zAmplifySerializable`, `zIsFlutter`, `zDefaultLogLevel`, `zAssertsEnabled`
 - **Enums**: `PascalCase` type, `lowerCamelCase` values
-- **Private classes**: `_` prefix: `_AmplifyException`, `_ScopedDependencyManager`
-- **Protected/internal**: `@protected`, `@visibleForTesting`, `@internal` annotations from `package:meta`
+- Use visibility annotations (`@protected`, `@visibleForTesting`, `@internal`) from `package:meta`
 - **Factory constructors**: Named after source — `fromJson`, `fromMap`
-- **Singleton**: Top-level getter pattern: `AmplifyClass get Amplify => ...`
-- **AWS prefix**: Types in `aws_common` use `AWS` prefix: `AWSHttpRequest`, `AWSResult`, `AWSLogger`
-- **Amplify prefix**: Types in `amplify_core` use `Amplify` prefix: `AmplifyException`, `AmplifyClass`
 
 ### 10. Testing Patterns
 - Tests use `package:test` (not `flutter_test`) for pure Dart
