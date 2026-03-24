@@ -7,7 +7,11 @@
 /// AmplifyFirehoseClient boundary via `AmplifyFirehoseException.from`.
 sealed class RecordCacheException implements Exception {
   /// Creates a [RecordCacheException].
-  const RecordCacheException(this.message, this.recoverySuggestion, [this.cause]);
+  const RecordCacheException(
+    this.message,
+    this.recoverySuggestion, [
+    this.cause,
+  ]);
 
   /// A message describing the error.
   final String message;
