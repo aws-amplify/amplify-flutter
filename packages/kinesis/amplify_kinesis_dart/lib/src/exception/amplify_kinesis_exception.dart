@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_kinesis_dart/src/exception/record_cache_exception.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 
 /// Default recovery suggestion for errors.
 const String defaultRecoverySuggestion =

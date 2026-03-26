@@ -8,11 +8,8 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
 import 'package:amplify_kinesis_dart/src/amplify_kinesis_client.dart';
 import 'package:amplify_kinesis_dart/src/amplify_kinesis_client_options.dart';
 import 'package:amplify_kinesis_dart/src/exception/amplify_kinesis_exception.dart';
-import 'package:amplify_kinesis_dart/src/flush_strategy/flush_strategy.dart';
 import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_kinesis_dart/src/model/clear_cache_data.dart';
-import 'package:amplify_kinesis_dart/src/model/flush_data.dart';
-import 'package:amplify_kinesis_dart/src/model/record_data.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -24,7 +21,11 @@ void main() {
 
     setUpAll(() {
       registerFallbackValue(
-        RecordInput.now(data: Uint8List(0), partitionKey: '', streamName: ''),
+        createKinesisRecordInputNow(
+          data: Uint8List(0),
+          partitionKey: '',
+          streamName: '',
+        ),
       );
     });
 

@@ -2,17 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_kinesis_dart/src/impl/kinesis_sender.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage.dart';
-import 'package:amplify_kinesis_dart/src/model/clear_cache_data.dart';
-import 'package:amplify_kinesis_dart/src/model/flush_data.dart';
-import 'package:amplify_kinesis_dart/src/model/record_data.dart'
-    show RecordData;
+import 'package:amplify_record_cache_dart/src/model/clear_cache_data.dart';
+import 'package:amplify_record_cache_dart/src/model/flush_data.dart';
+import 'package:amplify_record_cache_dart/src/model/record_data.dart';
+import 'package:amplify_record_cache_dart/src/model/record_input.dart';
+import 'package:amplify_record_cache_dart/src/sender/sender.dart';
+import 'package:amplify_record_cache_dart/src/storage/record_storage.dart';
 import 'package:smithy/smithy.dart'
     show SmithyHttpException, UnknownSmithyHttpException;
 
-/// {@template amplify_kinesis.record_client}
+/// {@template amplify_record_cache.record_client}
 /// Orchestrates record operations: storage, sending, and retry logic.
 ///
 /// - `record()` delegates directly to `storage.addRecord()` (validation
@@ -21,21 +20,24 @@ import 'package:smithy/smithy.dart'
 ///   stream and sends it.
 /// {@endtemplate}
 class RecordClient {
-  /// {@macro amplify_kinesis.record_client}
+  /// {@macro amplify_record_cache.record_client}
   RecordClient({
     required RecordStorage storage,
-    required KinesisSender sender,
+    required Sender sender,
     required int maxRetries,
   }) : _storage = storage,
        _sender = sender,
        _maxRetries = maxRetries;
 
   final RecordStorage _storage;
-  final KinesisSender _sender;
+  final Sender _sender;
   final int _maxRetries;
   final Logger _logger = AmplifyLogging.logger('RecordClient');
 
   bool _flushing = false;
+
+  /// Provides access to the underlying storage (for testing).
+  RecordStorage get storage => _storage;
 
   /// Records data to the local cache.
   ///
@@ -48,7 +50,7 @@ class RecordClient {
     return const RecordData();
   }
 
-  /// Flushes cached records to Kinesis.
+  /// Flushes cached records to the streaming service.
   ///
   /// Single-pass: retrieves one batch of records per stream, sends each
   /// batch, and returns. Records beyond the per-stream limit are picked
@@ -79,8 +81,7 @@ class RecordClient {
               ? 'HTTP ${e.statusCode}: ${e.body}'
               : e.message;
           _logger.warn(
-            'Kinesis SDK error flushing stream $streamName: $details. '
-            'Skipping',
+            'SDK error flushing stream $streamName: $details. Skipping',
           );
           await _handleFailedRequest(records);
         } catch (e) {
@@ -97,7 +98,7 @@ class RecordClient {
   }
 
   Future<int> _sendStreamBatch(String streamName, List<Record> records) async {
-    final result = await _sender.putRecords(
+    final result = await _sender.sendBatch(
       streamName: streamName,
       records: records,
     );

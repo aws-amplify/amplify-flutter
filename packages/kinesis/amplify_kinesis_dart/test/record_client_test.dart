@@ -3,7 +3,7 @@
 
 /// Tests for RecordClient.
 ///
-/// Uses mocktail mocks for KinesisSender with pre-built PutRecordsResult
+/// Uses mocktail mocks for KinesisSender with pre-built SendResult
 /// values and explicit IDs, rather than behavioral test doubles with
 /// callback logic.
 library;
@@ -11,13 +11,8 @@ library;
 import 'dart:typed_data';
 
 import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_kinesis_dart/src/impl/kinesis_sender.dart';
-import 'package:amplify_kinesis_dart/src/impl/record_client.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage_sqlite.dart';
-import 'package:amplify_kinesis_dart/src/model/clear_cache_data.dart';
-import 'package:amplify_kinesis_dart/src/model/flush_data.dart';
 import 'package:amplify_kinesis_dart/src/sdk/kinesis.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -34,7 +29,10 @@ void main() {
       final db = createTestDatabase();
       storage = SqliteRecordStorage(
         database: db,
-        maxCacheBytes: 1024, // 1KB for testing
+        maxCacheBytes: 1024,
+        maxRecordsPerBatch: 500,
+        maxBytesPerBatch: 5 * 1024 * 1024,
+        maxRecordSizeBytes: 10 * 1024 * 1024,
       );
       mockSender = MockKinesisSender();
       client = RecordClient(
@@ -59,7 +57,7 @@ void main() {
     group('record()', () {
       test('accepts records when enabled', () async {
         await client.record(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([1, 2, 3]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -75,7 +73,7 @@ void main() {
       test('sends all cached records and returns FlushData', () async {
         for (var i = 0; i < 3; i++) {
           await client.record(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -85,14 +83,13 @@ void main() {
 
         final allRecords = await getAllRecords();
 
-        // Mock: all records succeed
         when(
-          () => mockSender.putRecords(
+          () => mockSender.sendBatch(
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
         ).thenAnswer(
-          (_) async => PutRecordsResult(
+          (_) async => SendResult(
             successfulIds: allRecords.map((r) => r.id).toList(),
             retryableIds: [],
             failedIds: [],
@@ -104,7 +101,7 @@ void main() {
         expect(result, isA<FlushData>());
         expect(result.recordsFlushed, equals(3));
         verify(
-          () => mockSender.putRecords(
+          () => mockSender.sendBatch(
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
@@ -113,36 +110,35 @@ void main() {
 
       test('separates records by stream', () async {
         await client.record(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream-a',
           ),
         );
         await client.record(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([2]),
             partitionKey: 'pk',
             streamName: 'stream-b',
           ),
         );
         await client.record(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([3]),
             partitionKey: 'pk',
             streamName: 'stream-a',
           ),
         );
 
-        // Mock: all records succeed for any stream
         when(
-          () => mockSender.putRecords(
+          () => mockSender.sendBatch(
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
         ).thenAnswer((invocation) async {
           final records = invocation.namedArguments[#records] as List<Record>;
-          return PutRecordsResult(
+          return SendResult(
             successfulIds: records.map((r) => r.id).toList(),
             retryableIds: [],
             failedIds: [],
@@ -153,7 +149,7 @@ void main() {
 
         expect(result.recordsFlushed, equals(3));
         verify(
-          () => mockSender.putRecords(
+          () => mockSender.sendBatch(
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
@@ -162,7 +158,7 @@ void main() {
 
       test('deletes successful records after send', () async {
         await client.record(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -171,12 +167,12 @@ void main() {
 
         final allRecords = await getAllRecords();
         when(
-          () => mockSender.putRecords(
+          () => mockSender.sendBatch(
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
         ).thenAnswer(
-          (_) async => PutRecordsResult(
+          (_) async => SendResult(
             successfulIds: allRecords.map((r) => r.id).toList(),
             retryableIds: [],
             failedIds: [],
@@ -191,7 +187,7 @@ void main() {
       test('handles mixed success, retryable, and failed', () async {
         for (var i = 0; i < 3; i++) {
           await client.record(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -206,14 +202,13 @@ void main() {
           await storage.incrementRetryCount([allRecords[2].id]);
         }
 
-        // Mock: record 1 succeeds, record 2 retryable, record 3 failed
         when(
-          () => mockSender.putRecords(
+          () => mockSender.sendBatch(
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
         ).thenAnswer(
-          (_) async => PutRecordsResult(
+          (_) async => SendResult(
             successfulIds: [allRecords[0].id],
             retryableIds: [allRecords[1].id],
             failedIds: [allRecords[2].id],
@@ -235,7 +230,7 @@ void main() {
         () async {
           for (var i = 0; i < 3; i++) {
             await client.record(
-              RecordInput.now(
+              createKinesisRecordInputNow(
                 data: Uint8List.fromList([i]),
                 partitionKey: 'key$i',
                 streamName: 'stream',
@@ -244,7 +239,7 @@ void main() {
           }
 
           when(
-            () => mockSender.putRecords(
+            () => mockSender.sendBatch(
               streamName: any(named: 'streamName'),
               records: any(named: 'records'),
             ),
@@ -265,59 +260,62 @@ void main() {
         },
       );
 
-      test('deletes records at max retries when non-SDK error occurs', () async {
-        for (var i = 0; i < 3; i++) {
-          await client.record(
-            RecordInput.now(
-              data: Uint8List.fromList([i]),
-              partitionKey: 'key$i',
-              streamName: 'stream',
+      test(
+        'deletes records at max retries when non-SDK error occurs',
+        () async {
+          for (var i = 0; i < 3; i++) {
+            await client.record(
+              createKinesisRecordInputNow(
+                data: Uint8List.fromList([i]),
+                partitionKey: 'key$i',
+                streamName: 'stream',
+              ),
+            );
+          }
+
+          // Set records 2 and 3 to max retries (3)
+          final allRecords = await getAllRecords();
+          for (var i = 0; i < 3; i++) {
+            await storage.incrementRetryCount([
+              allRecords[1].id,
+              allRecords[2].id,
+            ]);
+          }
+
+          when(
+            () => mockSender.sendBatch(
+              streamName: any(named: 'streamName'),
+              records: any(named: 'records'),
             ),
-          );
-        }
+          ).thenThrow(Exception('Network error'));
 
-        // Set records 2 and 3 to max retries (3)
-        final allRecords = await getAllRecords();
-        for (var i = 0; i < 3; i++) {
-          await storage.incrementRetryCount([
-            allRecords[1].id,
-            allRecords[2].id,
-          ]);
-        }
+          try {
+            await client.flush();
+            fail('Expected flush to throw');
+          } on Exception {
+            // Expected — non-SDK errors are rethrown
+          }
 
-        when(
-          () => mockSender.putRecords(
-            streamName: any(named: 'streamName'),
-            records: any(named: 'records'),
-          ),
-        ).thenThrow(Exception('Network error'));
-
-        try {
-          await client.flush();
-          fail('Expected flush to throw');
-        } on Exception {
-          // Expected — non-SDK errors are rethrown
-        }
-
-        // Only record 1 should remain (records 2 and 3 deleted at max retries)
-        final remaining = await getAllRecords();
-        expect(remaining, hasLength(1));
-        expect(remaining[0].id, equals(allRecords[0].id));
-        expect(remaining[0].retryCount, equals(1));
-      });
+          // Only record 1 should remain (records 2 and 3 at max retries)
+          final remaining = await getAllRecords();
+          expect(remaining, hasLength(1));
+          expect(remaining[0].id, equals(allRecords[0].id));
+          expect(remaining[0].retryCount, equals(1));
+        },
+      );
 
       test(
         'invalid stream records do not block valid stream flushes',
         () async {
           await client.record(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: Uint8List.fromList([1, 2, 3]),
               partitionKey: 'pk',
               streamName: 'invalid-stream',
             ),
           );
           await client.record(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: Uint8List.fromList([4, 5, 6]),
               partitionKey: 'pk',
               streamName: 'valid-stream',
@@ -330,19 +328,19 @@ void main() {
           );
 
           when(
-            () => mockSender.putRecords(
+            () => mockSender.sendBatch(
               streamName: 'invalid-stream',
               records: any(named: 'records'),
             ),
           ).thenThrow(ResourceNotFoundException(message: 'Stream not found'));
 
           when(
-            () => mockSender.putRecords(
+            () => mockSender.sendBatch(
               streamName: 'valid-stream',
               records: any(named: 'records'),
             ),
           ).thenAnswer(
-            (_) async => PutRecordsResult(
+            (_) async => SendResult(
               successfulIds: [validRecord.id],
               retryableIds: [],
               failedIds: [],
@@ -356,7 +354,7 @@ void main() {
 
       test('non-SDK errors abort the flush', () async {
         await client.record(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([1, 2, 3]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -364,7 +362,7 @@ void main() {
         );
 
         when(
-          () => mockSender.putRecords(
+          () => mockSender.sendBatch(
             streamName: any(named: 'streamName'),
             records: any(named: 'records'),
           ),
@@ -378,7 +376,7 @@ void main() {
       test('removes all cached records and returns ClearCacheData', () async {
         for (var i = 0; i < 5; i++) {
           await client.record(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
