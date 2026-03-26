@@ -4,8 +4,7 @@
 import 'dart:typed_data';
 
 import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage_memory.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -13,7 +12,12 @@ void main() {
     late InMemoryRecordStorage storage;
 
     setUp(() {
-      storage = InMemoryRecordStorage(maxCacheBytes: 10 * 1024 * 1024);
+      storage = InMemoryRecordStorage(
+        maxCacheBytes: 10 * 1024 * 1024,
+        maxRecordsPerBatch: 500,
+        maxBytesPerBatch: 5 * 1024 * 1024,
+        maxRecordSizeBytes: 10 * 1024 * 1024,
+      );
     });
 
     tearDown(() async {
@@ -29,7 +33,7 @@ void main() {
     group('addRecord', () {
       test('saves and retrieves a record', () async {
         await storage.addRecord(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([1, 2, 3, 4, 5]),
             partitionKey: 'test-partition',
             streamName: 'test-stream',
@@ -52,7 +56,7 @@ void main() {
       test('removes correct records by ID', () async {
         for (var i = 0; i < 5; i++) {
           await storage.addRecord(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -74,7 +78,7 @@ void main() {
 
       test('handles empty ID list gracefully', () async {
         await storage.addRecord(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -89,7 +93,7 @@ void main() {
     group('incrementRetryCount', () {
       test('increments retry count correctly', () async {
         await storage.addRecord(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream',
@@ -112,21 +116,21 @@ void main() {
     group('getRecordsByStream', () {
       test('returns records grouped by stream name', () async {
         await storage.addRecord(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([1]),
             partitionKey: 'pk',
             streamName: 'stream-a',
           ),
         );
         await storage.addRecord(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([2]),
             partitionKey: 'pk',
             streamName: 'stream-b',
           ),
         );
         await storage.addRecord(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([3]),
             partitionKey: 'pk',
             streamName: 'stream-a',
@@ -149,7 +153,7 @@ void main() {
       test('removes all records', () async {
         for (var i = 0; i < 5; i++) {
           await storage.addRecord(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',
@@ -169,7 +173,7 @@ void main() {
         expect(await storage.getRecordCount(), equals(0));
         for (var i = 0; i < 3; i++) {
           await storage.addRecord(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: Uint8List.fromList([i]),
               partitionKey: 'pk-$i',
               streamName: 'stream',

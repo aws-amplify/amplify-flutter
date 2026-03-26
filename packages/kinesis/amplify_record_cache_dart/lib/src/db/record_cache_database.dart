@@ -6,26 +6,30 @@ import 'dart:async';
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:drift/drift.dart';
 
-part 'kinesis_record_database.g.dart';
+part 'record_cache_database.g.dart';
 
-/// Schema of the KinesisRecords table in SQLite.
+/// Schema of the cached records table in SQLite.
 ///
-/// When updating this schema, please bump [KinesisRecordDatabase.schemaVersion].
+/// The `partitionKey` column is present for Kinesis Data Streams
+/// compatibility. Firehose clients write an empty string.
+///
+/// When updating this schema, please bump
+/// [RecordCacheDatabase.schemaVersion].
 @DataClassName('DriftStoredRecord')
-class KinesisRecords extends Table {
+class CachedRecords extends Table {
   /// Auto-incrementing primary key.
   IntColumn get id => integer().autoIncrement()();
 
-  /// The name of the Kinesis Data Stream.
+  /// The name of the target stream.
   TextColumn get streamName => text()();
 
-  /// The partition key for the record.
-  TextColumn get partitionKey => text()();
+  /// The partition key (empty string for services that don't use it).
+  TextColumn get partitionKey => text().withDefault(const Constant(''))();
 
-  /// The data blob to send to Kinesis.
+  /// The data blob to send.
   BlobColumn get data => blob()();
 
-  /// The size of the data blob in bytes.
+  /// The size of the record in bytes.
   IntColumn get dataSize => integer()();
 
   /// The number of times this record has been retried.
@@ -35,30 +39,33 @@ class KinesisRecords extends Table {
   IntColumn get createdAt => integer()();
 }
 
-/// {@template amplify_kinesis.kinesis_record_database}
-/// Drift database for managing stored Kinesis records.
+/// {@template amplify_record_cache.record_cache_database}
+/// Drift database for managing cached records.
 /// {@endtemplate}
-@DriftDatabase(tables: [KinesisRecords])
-class KinesisRecordDatabase extends _$KinesisRecordDatabase {
-  /// {@macro amplify_kinesis.kinesis_record_database}
+@DriftDatabase(tables: [CachedRecords])
+class RecordCacheDatabase extends _$RecordCacheDatabase {
+  /// {@macro amplify_record_cache.record_cache_database}
   ///
+  /// [dbPrefix] is the database name prefix (e.g. `kinesis_records`,
+  /// `firehose_records`).
   /// [identifier] is used to namespace the database (typically the AWS region).
-  /// [storagePath] is the directory path for the database file
-  factory KinesisRecordDatabase({
+  /// [storagePath] is the directory path for the database file.
+  factory RecordCacheDatabase({
+    required String dbPrefix,
     required String identifier,
     required FutureOr<String>? storagePath,
   }) {
     final driftQueryExecutor = connect(
-      name: 'kinesis_records_$identifier',
+      name: '${dbPrefix}_$identifier',
       path: storagePath,
     );
-    return KinesisRecordDatabase._(driftQueryExecutor);
+    return RecordCacheDatabase._(driftQueryExecutor);
   }
 
   /// Creates a database with a custom query executor (for testing).
-  KinesisRecordDatabase.forTesting(super.executor);
+  RecordCacheDatabase.forTesting(super.executor);
 
-  KinesisRecordDatabase._(super.driftQueryExecutor);
+  RecordCacheDatabase._(super.driftQueryExecutor);
 
   // Bump this number whenever you change or add a table definition.
   @override
@@ -69,14 +76,13 @@ class KinesisRecordDatabase extends _$KinesisRecordDatabase {
     return MigrationStrategy(
       onCreate: (Migrator m) async {
         await m.createAll();
-        // Indices matching the Android schema.
         await customStatement(
           'CREATE INDEX IF NOT EXISTS idx_stream_id '
-          'ON kinesis_records(stream_name, id)',
+          'ON cached_records(stream_name, id)',
         );
         await customStatement(
           'CREATE INDEX IF NOT EXISTS idx_data_size '
-          'ON kinesis_records(data_size)',
+          'ON cached_records(data_size)',
         );
       },
     );

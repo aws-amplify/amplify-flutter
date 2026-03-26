@@ -3,7 +3,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage.dart';
+import 'package:amplify_record_cache_dart/src/storage/record_storage.dart';
 
 /// Creates a platform-specific [RecordStorage] instance.
 ///
@@ -13,6 +13,11 @@ Future<RecordStorage> createPlatformRecordStorage({
   required String identifier,
   required FutureOr<String>? storagePath,
   required int maxCacheBytes,
+  required int maxRecordsPerBatch,
+  required int maxBytesPerBatch,
+  required int maxRecordSizeBytes,
+  required String dbPrefix,
+  required String storeName,
 }) {
   throw UnsupportedError(
     'Cannot create RecordStorage: no platform implementation available.',
