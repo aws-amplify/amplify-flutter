@@ -7,13 +7,17 @@ library;
 // Re-export shared types used in the public API
 export 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart'
     show
-        FlushStrategy,
+        ClearCacheData,
+        FlushData,
         FlushInterval,
         FlushNone,
-        FlushData,
-        RecordData,
-        ClearCacheData;
+        FlushStrategy,
+        RecordData;
 
+// Main client
+export 'src/amplify_firehose_client.dart';
+// Options
+export 'src/amplify_firehose_client_options.dart';
 // Exceptions
 export 'src/exception/amplify_firehose_exception.dart';
 // SDK client (for escape hatch)
