@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@03a180dbe1de8ea7fb700663cbb7d24ca4bbe82c # main
+        uses: dart-lang/setup-dart@cb7127289503113089d94a9c7247ada34feeb436 # main
         with:
           sdk: 3.9.0
 
@@ -61,7 +61,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@03a180dbe1de8ea7fb700663cbb7d24ca4bbe82c # main
+        uses: dart-lang/setup-dart@cb7127289503113089d94a9c7247ada34feeb436 # main
         with:
           sdk: 3.9.0
 
