@@ -76,7 +76,7 @@ void main() {
           database: largeDb,
           maxCacheBytes: 20 * 1024 * 1024,
           maxRecordsPerBatch: 500,
-          maxBytesPerBatch: 5 * 1024 * 1024,
+          maxBytesPerBatch: 20 * 1024 * 1024,
           maxRecordSizeBytes: 10 * 1024 * 1024,
         );
         final largeClient = createClient(storage: largeStorage);
