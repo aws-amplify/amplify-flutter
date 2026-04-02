@@ -68,8 +68,9 @@ void main() {
 
     group('per-record size limit', () {
       test('record exactly at max size is accepted', () async {
-        // RecordClient validates against limits.maxRecordSizeBytes (10 MiB).
-        // Use a large-cache client so the cache limit doesn't interfere.
+        // Close the default client so we can create one with a larger cache.
+        await client.close();
+
         final largeDb = createTestDatabase();
         final largeStorage = SqliteRecordStorage(
           database: largeDb,
@@ -99,7 +100,8 @@ void main() {
             .toList();
         expect(records, hasLength(1));
 
-        await largeClient.close();
+        // Reassign so tearDown closes this client instead.
+        client = largeClient;
       });
 
       test('record exceeding max size by one byte is rejected', () async {
