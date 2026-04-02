@@ -90,12 +90,17 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     final nativeBridge = NativeAuthBridge();
     final webAuthnBridge = WebAuthnBridgeApi();
     final webAuthnPlatform = PigeonWebAuthnCredentialPlatform(webAuthnBridge);
-    stateMachine
-      ..addInstance(nativeBridge)
-      ..addInstance<ASFDeviceInfoCollector>(
+    stateMachine.addInstance(nativeBridge);
+
+    // macOS uses FFI for ASF device info collection (ASFDeviceInfoMacOS),
+    // while iOS and Android use the Pigeon method channel bridge.
+    if (Platform.isAndroid || Platform.isIOS) {
+      stateMachine.addInstance<ASFDeviceInfoCollector>(
         _NativeASFDeviceInfoCollector(nativeBridge),
-      )
-      ..addInstance<WebAuthnCredentialPlatform>(webAuthnPlatform);
+      );
+    }
+
+    stateMachine.addInstance<WebAuthnCredentialPlatform>(webAuthnPlatform);
 
     final legacyCredentialProvider = LegacyCredentialProviderImpl(stateMachine);
     stateMachine.addInstance<LegacyCredentialProvider>(
