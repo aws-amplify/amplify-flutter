@@ -52,7 +52,7 @@ void main() {
         database: db,
         maxCacheBytes: 10000,
         maxRecordsPerBatch: 500,
-        maxBytesPerBatch: 5 * 1024 * 1024,
+        maxBytesPerBatch: 10 * 1024 * 1024,
         maxRecordSizeBytes: 10 * 1024 * 1024,
       );
       client = createClient(storage: storage);
@@ -168,7 +168,7 @@ void main() {
             database: tightDb,
             maxCacheBytes: 80,
             maxRecordsPerBatch: 500,
-            maxBytesPerBatch: 5 * 1024 * 1024,
+            maxBytesPerBatch: 10 * 1024 * 1024,
             maxRecordSizeBytes: 10 * 1024 * 1024,
           );
           final tightClient = createClient(storage: tightStorage);

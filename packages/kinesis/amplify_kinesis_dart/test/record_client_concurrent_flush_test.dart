@@ -26,7 +26,7 @@ void main() {
           database: db,
           maxCacheBytes: 1024 * 1024,
           maxRecordsPerBatch: 500,
-          maxBytesPerBatch: 5 * 1024 * 1024,
+          maxBytesPerBatch: 10 * 1024 * 1024,
           maxRecordSizeBytes: 10 * 1024 * 1024,
         );
         final sender = _GatedSender();
