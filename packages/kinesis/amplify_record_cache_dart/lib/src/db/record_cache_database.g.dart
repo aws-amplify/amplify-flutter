@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'kinesis_record_database.dart';
+part of 'record_cache_database.dart';
 
 // ignore_for_file: type=lint
-class $KinesisRecordsTable extends KinesisRecords
-    with TableInfo<$KinesisRecordsTable, DriftStoredRecord> {
+class $CachedRecordsTable extends CachedRecords
+    with TableInfo<$CachedRecordsTable, DriftStoredRecord> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $KinesisRecordsTable(this.attachedDatabase, [this._alias]);
+  $CachedRecordsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -42,7 +42,8 @@ class $KinesisRecordsTable extends KinesisRecords
     aliasedName,
     false,
     type: DriftSqlType.string,
-    requiredDuringInsert: true,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
   );
   static const VerificationMeta _dataMeta = const VerificationMeta('data');
   @override
@@ -101,7 +102,7 @@ class $KinesisRecordsTable extends KinesisRecords
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'kinesis_records';
+  static const String $name = 'cached_records';
   @override
   VerificationContext validateIntegrity(
     Insertable<DriftStoredRecord> instance, {
@@ -128,8 +129,6 @@ class $KinesisRecordsTable extends KinesisRecords
           _partitionKeyMeta,
         ),
       );
-    } else if (isInserting) {
-      context.missing(_partitionKeyMeta);
     }
     if (data.containsKey('data')) {
       context.handle(
@@ -202,8 +201,8 @@ class $KinesisRecordsTable extends KinesisRecords
   }
 
   @override
-  $KinesisRecordsTable createAlias(String alias) {
-    return $KinesisRecordsTable(attachedDatabase, alias);
+  $CachedRecordsTable createAlias(String alias) {
+    return $CachedRecordsTable(attachedDatabase, alias);
   }
 }
 
@@ -212,16 +211,16 @@ class DriftStoredRecord extends DataClass
   /// Auto-incrementing primary key.
   final int id;
 
-  /// The name of the Kinesis Data Stream.
+  /// The name of the target stream.
   final String streamName;
 
-  /// The partition key for the record.
+  /// The partition key (empty string for services that don't use it).
   final String partitionKey;
 
-  /// The data blob to send to Kinesis.
+  /// The data blob to send.
   final Uint8List data;
 
-  /// The size of the data blob in bytes.
+  /// The size of the record in bytes.
   final int dataSize;
 
   /// The number of times this record has been retried.
@@ -251,8 +250,8 @@ class DriftStoredRecord extends DataClass
     return map;
   }
 
-  KinesisRecordsCompanion toCompanion(bool nullToAbsent) {
-    return KinesisRecordsCompanion(
+  CachedRecordsCompanion toCompanion(bool nullToAbsent) {
+    return CachedRecordsCompanion(
       id: Value(id),
       streamName: Value(streamName),
       partitionKey: Value(partitionKey),
@@ -309,7 +308,7 @@ class DriftStoredRecord extends DataClass
     retryCount: retryCount ?? this.retryCount,
     createdAt: createdAt ?? this.createdAt,
   );
-  DriftStoredRecord copyWithCompanion(KinesisRecordsCompanion data) {
+  DriftStoredRecord copyWithCompanion(CachedRecordsCompanion data) {
     return DriftStoredRecord(
       id: data.id.present ? data.id.value : this.id,
       streamName: data.streamName.present
@@ -364,7 +363,7 @@ class DriftStoredRecord extends DataClass
           other.createdAt == this.createdAt);
 }
 
-class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
+class CachedRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
   final Value<int> id;
   final Value<String> streamName;
   final Value<String> partitionKey;
@@ -372,7 +371,7 @@ class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
   final Value<int> dataSize;
   final Value<int> retryCount;
   final Value<int> createdAt;
-  const KinesisRecordsCompanion({
+  const CachedRecordsCompanion({
     this.id = const Value.absent(),
     this.streamName = const Value.absent(),
     this.partitionKey = const Value.absent(),
@@ -381,16 +380,15 @@ class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
     this.retryCount = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
-  KinesisRecordsCompanion.insert({
+  CachedRecordsCompanion.insert({
     this.id = const Value.absent(),
     required String streamName,
-    required String partitionKey,
+    this.partitionKey = const Value.absent(),
     required Uint8List data,
     required int dataSize,
     this.retryCount = const Value.absent(),
     required int createdAt,
   }) : streamName = Value(streamName),
-       partitionKey = Value(partitionKey),
        data = Value(data),
        dataSize = Value(dataSize),
        createdAt = Value(createdAt);
@@ -414,7 +412,7 @@ class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
     });
   }
 
-  KinesisRecordsCompanion copyWith({
+  CachedRecordsCompanion copyWith({
     Value<int>? id,
     Value<String>? streamName,
     Value<String>? partitionKey,
@@ -423,7 +421,7 @@ class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
     Value<int>? retryCount,
     Value<int>? createdAt,
   }) {
-    return KinesisRecordsCompanion(
+    return CachedRecordsCompanion(
       id: id ?? this.id,
       streamName: streamName ?? this.streamName,
       partitionKey: partitionKey ?? this.partitionKey,
@@ -463,7 +461,7 @@ class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
 
   @override
   String toString() {
-    return (StringBuffer('KinesisRecordsCompanion(')
+    return (StringBuffer('CachedRecordsCompanion(')
           ..write('id: $id, ')
           ..write('streamName: $streamName, ')
           ..write('partitionKey: $partitionKey, ')
@@ -476,30 +474,29 @@ class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
   }
 }
 
-abstract class _$KinesisRecordDatabase extends GeneratedDatabase {
-  _$KinesisRecordDatabase(QueryExecutor e) : super(e);
-  $KinesisRecordDatabaseManager get managers =>
-      $KinesisRecordDatabaseManager(this);
-  late final $KinesisRecordsTable kinesisRecords = $KinesisRecordsTable(this);
+abstract class _$RecordCacheDatabase extends GeneratedDatabase {
+  _$RecordCacheDatabase(QueryExecutor e) : super(e);
+  $RecordCacheDatabaseManager get managers => $RecordCacheDatabaseManager(this);
+  late final $CachedRecordsTable cachedRecords = $CachedRecordsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [kinesisRecords];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [cachedRecords];
 }
 
-typedef $$KinesisRecordsTableCreateCompanionBuilder =
-    KinesisRecordsCompanion Function({
+typedef $$CachedRecordsTableCreateCompanionBuilder =
+    CachedRecordsCompanion Function({
       Value<int> id,
       required String streamName,
-      required String partitionKey,
+      Value<String> partitionKey,
       required Uint8List data,
       required int dataSize,
       Value<int> retryCount,
       required int createdAt,
     });
-typedef $$KinesisRecordsTableUpdateCompanionBuilder =
-    KinesisRecordsCompanion Function({
+typedef $$CachedRecordsTableUpdateCompanionBuilder =
+    CachedRecordsCompanion Function({
       Value<int> id,
       Value<String> streamName,
       Value<String> partitionKey,
@@ -509,9 +506,9 @@ typedef $$KinesisRecordsTableUpdateCompanionBuilder =
       Value<int> createdAt,
     });
 
-class $$KinesisRecordsTableFilterComposer
-    extends Composer<_$KinesisRecordDatabase, $KinesisRecordsTable> {
-  $$KinesisRecordsTableFilterComposer({
+class $$CachedRecordsTableFilterComposer
+    extends Composer<_$RecordCacheDatabase, $CachedRecordsTable> {
+  $$CachedRecordsTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -554,9 +551,9 @@ class $$KinesisRecordsTableFilterComposer
   );
 }
 
-class $$KinesisRecordsTableOrderingComposer
-    extends Composer<_$KinesisRecordDatabase, $KinesisRecordsTable> {
-  $$KinesisRecordsTableOrderingComposer({
+class $$CachedRecordsTableOrderingComposer
+    extends Composer<_$RecordCacheDatabase, $CachedRecordsTable> {
+  $$CachedRecordsTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -599,9 +596,9 @@ class $$KinesisRecordsTableOrderingComposer
   );
 }
 
-class $$KinesisRecordsTableAnnotationComposer
-    extends Composer<_$KinesisRecordDatabase, $KinesisRecordsTable> {
-  $$KinesisRecordsTableAnnotationComposer({
+class $$CachedRecordsTableAnnotationComposer
+    extends Composer<_$RecordCacheDatabase, $CachedRecordsTable> {
+  $$CachedRecordsTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -636,41 +633,41 @@ class $$KinesisRecordsTableAnnotationComposer
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 }
 
-class $$KinesisRecordsTableTableManager
+class $$CachedRecordsTableTableManager
     extends
         RootTableManager<
-          _$KinesisRecordDatabase,
-          $KinesisRecordsTable,
+          _$RecordCacheDatabase,
+          $CachedRecordsTable,
           DriftStoredRecord,
-          $$KinesisRecordsTableFilterComposer,
-          $$KinesisRecordsTableOrderingComposer,
-          $$KinesisRecordsTableAnnotationComposer,
-          $$KinesisRecordsTableCreateCompanionBuilder,
-          $$KinesisRecordsTableUpdateCompanionBuilder,
+          $$CachedRecordsTableFilterComposer,
+          $$CachedRecordsTableOrderingComposer,
+          $$CachedRecordsTableAnnotationComposer,
+          $$CachedRecordsTableCreateCompanionBuilder,
+          $$CachedRecordsTableUpdateCompanionBuilder,
           (
             DriftStoredRecord,
             BaseReferences<
-              _$KinesisRecordDatabase,
-              $KinesisRecordsTable,
+              _$RecordCacheDatabase,
+              $CachedRecordsTable,
               DriftStoredRecord
             >,
           ),
           DriftStoredRecord,
           PrefetchHooks Function()
         > {
-  $$KinesisRecordsTableTableManager(
-    _$KinesisRecordDatabase db,
-    $KinesisRecordsTable table,
+  $$CachedRecordsTableTableManager(
+    _$RecordCacheDatabase db,
+    $CachedRecordsTable table,
   ) : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$KinesisRecordsTableFilterComposer($db: db, $table: table),
+              $$CachedRecordsTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$KinesisRecordsTableOrderingComposer($db: db, $table: table),
+              $$CachedRecordsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$KinesisRecordsTableAnnotationComposer($db: db, $table: table),
+              $$CachedRecordsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -680,7 +677,7 @@ class $$KinesisRecordsTableTableManager
                 Value<int> dataSize = const Value.absent(),
                 Value<int> retryCount = const Value.absent(),
                 Value<int> createdAt = const Value.absent(),
-              }) => KinesisRecordsCompanion(
+              }) => CachedRecordsCompanion(
                 id: id,
                 streamName: streamName,
                 partitionKey: partitionKey,
@@ -693,12 +690,12 @@ class $$KinesisRecordsTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 required String streamName,
-                required String partitionKey,
+                Value<String> partitionKey = const Value.absent(),
                 required Uint8List data,
                 required int dataSize,
                 Value<int> retryCount = const Value.absent(),
                 required int createdAt,
-              }) => KinesisRecordsCompanion.insert(
+              }) => CachedRecordsCompanion.insert(
                 id: id,
                 streamName: streamName,
                 partitionKey: partitionKey,
@@ -715,21 +712,21 @@ class $$KinesisRecordsTableTableManager
       );
 }
 
-typedef $$KinesisRecordsTableProcessedTableManager =
+typedef $$CachedRecordsTableProcessedTableManager =
     ProcessedTableManager<
-      _$KinesisRecordDatabase,
-      $KinesisRecordsTable,
+      _$RecordCacheDatabase,
+      $CachedRecordsTable,
       DriftStoredRecord,
-      $$KinesisRecordsTableFilterComposer,
-      $$KinesisRecordsTableOrderingComposer,
-      $$KinesisRecordsTableAnnotationComposer,
-      $$KinesisRecordsTableCreateCompanionBuilder,
-      $$KinesisRecordsTableUpdateCompanionBuilder,
+      $$CachedRecordsTableFilterComposer,
+      $$CachedRecordsTableOrderingComposer,
+      $$CachedRecordsTableAnnotationComposer,
+      $$CachedRecordsTableCreateCompanionBuilder,
+      $$CachedRecordsTableUpdateCompanionBuilder,
       (
         DriftStoredRecord,
         BaseReferences<
-          _$KinesisRecordDatabase,
-          $KinesisRecordsTable,
+          _$RecordCacheDatabase,
+          $CachedRecordsTable,
           DriftStoredRecord
         >,
       ),
@@ -737,9 +734,9 @@ typedef $$KinesisRecordsTableProcessedTableManager =
       PrefetchHooks Function()
     >;
 
-class $KinesisRecordDatabaseManager {
-  final _$KinesisRecordDatabase _db;
-  $KinesisRecordDatabaseManager(this._db);
-  $$KinesisRecordsTableTableManager get kinesisRecords =>
-      $$KinesisRecordsTableTableManager(_db, _db.kinesisRecords);
+class $RecordCacheDatabaseManager {
+  final _$RecordCacheDatabase _db;
+  $RecordCacheDatabaseManager(this._db);
+  $$CachedRecordsTableTableManager get cachedRecords =>
+      $$CachedRecordsTableTableManager(_db, _db.cachedRecords);
 }
