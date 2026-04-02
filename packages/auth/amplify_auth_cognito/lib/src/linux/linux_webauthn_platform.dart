@@ -27,7 +27,7 @@ const int _maxDevices = 64;
 class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
   /// {@macro amplify_auth_cognito.linux_webauthn_platform}
   ///
-  /// Attempts to load `libfido2.so` and initialize the library. If the library
+  /// Attempts to load `libfido2` and initialize the library. If the library
   /// is not available, the platform operates in degraded mode where all
   /// operations report passkeys as unsupported.
   ///
@@ -37,14 +37,29 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
       _bindings = bindings;
       return;
     }
-    try {
-      final lib = DynamicLibrary.open('libfido2.so');
-      _bindings = LibFido2Bindings(lib);
-      _bindings!.fidoInit(0);
-    } on ArgumentError {
-      // libfido2 not installed — passkeys not supported.
-      _bindings = null;
+
+    // Try loading libfido2 with version suffixes first, then unversioned.
+    // On Linux, the shared library typically has a SONAME like 'libfido2.so.1',
+    // while 'libfido2.so' is only present when the -dev package is installed.
+    const libraryNames = [
+      'libfido2.so.1',  // Common SONAME on most distributions
+      'libfido2.so',    // Development symlink (may not exist in runtime-only installations)
+    ];
+
+    for (final name in libraryNames) {
+      try {
+        final lib = DynamicLibrary.open(name);
+        _bindings = LibFido2Bindings(lib);
+        _bindings!.fidoInit(0);
+        return; // Successfully loaded
+      } on ArgumentError {
+        // Try next library name
+        continue;
+      }
     }
+
+    // libfido2 not installed — passkeys not supported.
+    _bindings = null;
   }
 
   LibFido2Bindings? _bindings;
