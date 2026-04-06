@@ -71,15 +71,19 @@ class MockWebAuthnBindings extends WebAuthnBindings {
           const jsonResponse = '{"id":"mock-credential-id"}';
           final jsonBytes = utf8.encode(jsonResponse);
 
-          // Write cbRegistrationResponseJSON at offset 152 (DWORD = Uint32)
-          (mockStruct + 152).cast<Uint32>().value = jsonBytes.length;
+          // Write cbRegistrationResponseJSON at offset 176 (DWORD = Uint32)
+          (mockStruct + CredentialAttestationOffsets.cbRegistrationResponseJSON)
+              .cast<Uint32>()
+              .value = jsonBytes.length;
 
-          // Allocate JSON bytes buffer and write pointer at offset 160
+          // Allocate JSON bytes buffer and write pointer at offset 184
           final jsonBuffer = calloc<Uint8>(jsonBytes.length);
           for (var i = 0; i < jsonBytes.length; i++) {
             (jsonBuffer + i).value = jsonBytes[i];
           }
-          (mockStruct + 160).cast<Pointer<Uint8>>().value = jsonBuffer;
+          (mockStruct + CredentialAttestationOffsets.pbRegistrationResponseJSON)
+              .cast<Pointer<Uint8>>()
+              .value = jsonBuffer;
 
           ppResult.value = mockStruct.cast();
         }
@@ -101,15 +105,19 @@ class MockWebAuthnBindings extends WebAuthnBindings {
       const jsonResponse = '{"id":"mock-assertion-id"}';
       final jsonBytes = utf8.encode(jsonResponse);
 
-      // Write cbAuthenticationResponseJSON at offset 104 (DWORD = Uint32)
-      (mockStruct + 104).cast<Uint32>().value = jsonBytes.length;
+      // Write cbAuthenticationResponseJSON at offset 136 (DWORD = Uint32)
+      (mockStruct + AssertionOffsets.cbAuthenticationResponseJSON)
+          .cast<Uint32>()
+          .value = jsonBytes.length;
 
-      // Allocate JSON bytes buffer and write pointer at offset 112
+      // Allocate JSON bytes buffer and write pointer at offset 144
       final jsonBuffer = calloc<Uint8>(jsonBytes.length);
       for (var i = 0; i < jsonBytes.length; i++) {
         (jsonBuffer + i).value = jsonBytes[i];
       }
-      (mockStruct + 112).cast<Pointer<Uint8>>().value = jsonBuffer;
+      (mockStruct + AssertionOffsets.pbAuthenticationResponseJSON)
+          .cast<Pointer<Uint8>>()
+          .value = jsonBuffer;
 
       ppResult.value = mockStruct.cast();
     }
@@ -120,7 +128,8 @@ class MockWebAuthnBindings extends WebAuthnBindings {
   void Function(Pointer) get freeCredentialAttestation => (pAttestation) {
     // Free the mock struct and JSON buffer we allocated.
     if (pAttestation != nullptr) {
-      final pbJson = (pAttestation.cast<Uint8>() + 160)
+      final pbJson = (pAttestation.cast<Uint8>() +
+              CredentialAttestationOffsets.pbRegistrationResponseJSON)
           .cast<Pointer<Uint8>>()
           .value;
       if (pbJson != nullptr) {
@@ -134,7 +143,8 @@ class MockWebAuthnBindings extends WebAuthnBindings {
   void Function(Pointer) get freeAssertion => (pAssertion) {
     // Free the mock struct and JSON buffer we allocated.
     if (pAssertion != nullptr) {
-      final pbJson = (pAssertion.cast<Uint8>() + 112)
+      final pbJson = (pAssertion.cast<Uint8>() +
+              AssertionOffsets.pbAuthenticationResponseJSON)
           .cast<Pointer<Uint8>>()
           .value;
       if (pbJson != nullptr) {
@@ -156,12 +166,9 @@ void main() {
       });
 
       test(
-        'returns true when API version >= 4 and authenticator is available',
+        'returns true when API version >= 4',
         () async {
-          final bindings = MockWebAuthnBindings(
-            mockApiVersion: 4,
-            mockIsAvailable: true,
-          );
+          final bindings = MockWebAuthnBindings(mockApiVersion: 4);
           final platform = WindowsWebAuthnPlatform(bindings: bindings);
 
           expect(await platform.isPasskeySupported(), isTrue);
@@ -169,15 +176,20 @@ void main() {
       );
 
       test(
-        'returns false when API version >= 4 but authenticator is unavailable',
+        'returns true when API version >= 4 regardless of '
+        'IsUserVerifyingPlatformAuthenticatorAvailable',
         () async {
+          // On some Windows machines, Windows Hello is configured with PIN only
+          // (no biometrics), causing IsUserVerifyingPlatformAuthenticatorAvailable
+          // to return false even though passkeys work via the PIN prompt.
+          // The API version check alone is sufficient.
           final bindings = MockWebAuthnBindings(
-            mockApiVersion: 4,
+            mockApiVersion: 9,
             mockIsAvailable: false,
           );
           final platform = WindowsWebAuthnPlatform(bindings: bindings);
 
-          expect(await platform.isPasskeySupported(), isFalse);
+          expect(await platform.isPasskeySupported(), isTrue);
         },
       );
 

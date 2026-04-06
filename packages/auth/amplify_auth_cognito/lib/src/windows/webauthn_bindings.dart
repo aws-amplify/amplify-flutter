@@ -90,7 +90,7 @@ typedef WebAuthNAuthenticatorMakeCredentialDart =
       Pointer<Pointer> ppResult,
     );
 
-/// `HRESULT WebAuthNGetAssertion(
+/// `HRESULT WebAuthNAuthenticatorGetAssertion(
 ///   HWND hWnd,
 ///   LPCWSTR pwszRpId,
 ///   PCWEBAUTHN_CLIENT_DATA pWebAuthNClientData,
@@ -130,6 +130,182 @@ typedef WebAuthNFreeAssertionDart = void Function(Pointer pAssertion);
 typedef GetActiveWindowNative = IntPtr Function();
 typedef GetActiveWindowDart = int Function();
 
+/// `HWND GetForegroundWindow(void)` from user32.dll
+///
+/// Returns the handle to the foreground window — the window with which
+/// the user is currently working. Unlike [GetActiveWindow], which only
+/// returns the active window of the calling thread's message queue,
+/// this function returns the system-wide foreground window regardless
+/// of which thread owns it.
+typedef GetForegroundWindowNative = IntPtr Function();
+typedef GetForegroundWindowDart = int Function();
+
+/// `BOOL SetForegroundWindow(HWND hWnd)` from user32.dll
+///
+/// Brings the specified window to the foreground and activates it.
+/// The system restricts which processes can call this function
+/// successfully — the calling process must currently be the foreground
+/// process, or the foreground process must have started the calling
+/// process, among other conditions.
+typedef SetForegroundWindowNative = Int32 Function(IntPtr hWnd);
+typedef SetForegroundWindowDart = int Function(int hWnd);
+
+/// `BOOL AllowSetForegroundWindow(DWORD dwProcessId)` from user32.dll
+///
+/// Enables the specified process to set the foreground window using
+/// [SetForegroundWindow]. Pass `ASFW_ANY` (0xFFFFFFFF / -1) to allow
+/// any process to set the foreground window.
+///
+/// This is useful before calling WebAuthn APIs, as the Windows Hello
+/// dialog is created by a system process that needs permission to
+/// bring itself to the foreground.
+typedef AllowSetForegroundWindowNative = Int32 Function(Uint32 dwProcessId);
+typedef AllowSetForegroundWindowDart = int Function(int dwProcessId);
+
+/// Special value for [AllowSetForegroundWindowDart] that allows any
+/// process to set the foreground window.
+const int ASFW_ANY = -1;
+
+/// `HWND FindWindowW(LPCWSTR lpClassName, LPCWSTR lpWindowName)` from
+/// user32.dll.
+///
+/// Finds a top-level window by class name and/or window name.
+/// Pass `nullptr` for either parameter to match any value.
+typedef FindWindowWNative = IntPtr Function(
+  Pointer<Utf16> lpClassName,
+  Pointer<Utf16> lpWindowName,
+);
+typedef FindWindowWDart = int Function(
+  Pointer<Utf16> lpClassName,
+  Pointer<Utf16> lpWindowName,
+);
+
+/// `HWND GetAncestor(HWND hwnd, UINT gaFlags)` from user32.dll.
+///
+/// Retrieves the handle to the ancestor of the specified window.
+/// Use [GA_ROOT] to get the top-level window in the parent chain.
+typedef GetAncestorNative = IntPtr Function(IntPtr hwnd, Uint32 gaFlags);
+typedef GetAncestorDart = int Function(int hwnd, int gaFlags);
+
+/// Flag for [GetAncestorDart]: retrieves the root (top-level) window.
+const int GA_ROOT = 2;
+
+/// `DWORD GetWindowThreadProcessId(HWND hWnd, LPDWORD lpdwProcessId)`
+/// from user32.dll.
+///
+/// Returns the thread ID that created the specified window.
+/// Optionally writes the process ID to the provided pointer.
+typedef GetWindowThreadProcessIdNative = Uint32 Function(
+  IntPtr hWnd,
+  Pointer<Uint32> lpdwProcessId,
+);
+typedef GetWindowThreadProcessIdDart = int Function(
+  int hWnd,
+  Pointer<Uint32> lpdwProcessId,
+);
+
+/// `DWORD GetCurrentThreadId(void)` from kernel32.dll.
+typedef GetCurrentThreadIdNative = Uint32 Function();
+typedef GetCurrentThreadIdDart = int Function();
+
+/// `BOOL AttachThreadInput(DWORD idAttach, DWORD idAttachTo, BOOL fAttach)`
+/// from user32.dll.
+///
+/// Attaches or detaches the input processing mechanism of one thread
+/// to that of another thread. This allows a thread to call
+/// [SetForegroundWindow] on a window owned by another thread.
+typedef AttachThreadInputNative = Int32 Function(
+  Uint32 idAttach,
+  Uint32 idAttachTo,
+  Int32 fAttach,
+);
+typedef AttachThreadInputDart = int Function(
+  int idAttach,
+  int idAttachTo,
+  int fAttach,
+);
+
+/// `BOOL BringWindowToTop(HWND hWnd)` from user32.dll.
+typedef BringWindowToTopNative = Int32 Function(IntPtr hWnd);
+typedef BringWindowToTopDart = int Function(int hWnd);
+
+/// `BOOL EnableWindow(HWND hWnd, BOOL bEnable)` from user32.dll.
+///
+/// Enables or disables mouse and keyboard input to the specified window.
+/// When disabled, the window does not receive input such as mouse clicks
+/// and key presses. Use this to simulate modal dialog behavior by
+/// disabling the application window while the WebAuthn dialog is open.
+typedef EnableWindowNative = Int32 Function(IntPtr hWnd, Int32 bEnable);
+typedef EnableWindowDart = int Function(int hWnd, int bEnable);
+
+/// `BOOL ShowWindow(HWND hWnd, int nCmdShow)` from user32.dll.
+typedef ShowWindowNative = Int32 Function(IntPtr hWnd, Int32 nCmdShow);
+typedef ShowWindowDart = int Function(int hWnd, int nCmdShow);
+
+/// `BOOL SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int X, int Y,
+///   int cx, int cy, UINT uFlags)` from user32.dll.
+///
+/// Changes the size, position, and Z order of a window.
+/// Use with [HWND_TOPMOST] to make a window always-on-top.
+typedef SetWindowPosNative = Int32 Function(
+  IntPtr hWnd,
+  IntPtr hWndInsertAfter,
+  Int32 x,
+  Int32 y,
+  Int32 cx,
+  Int32 cy,
+  Uint32 uFlags,
+);
+typedef SetWindowPosDart = int Function(
+  int hWnd,
+  int hWndInsertAfter,
+  int x,
+  int y,
+  int cx,
+  int cy,
+  int uFlags,
+);
+
+/// Special HWND value: places the window above all non-topmost windows.
+const int HWND_TOPMOST = -1;
+
+/// Special HWND value: places the window above all non-topmost windows
+/// but behind any topmost windows (removes topmost status).
+const int HWND_NOTOPMOST = -2;
+
+/// Special HWND value: places the window at the bottom of the Z order.
+///
+/// Use before calling WebAuthn APIs to push the Flutter window behind
+/// the Windows Security dialog, preventing it from covering the dialog
+/// when the user clicks on it.
+const int HWND_BOTTOM = 1;
+
+/// SetWindowPos flag: retains the current position (ignores X and Y).
+const int SWP_NOMOVE = 0x0002;
+
+/// SetWindowPos flag: retains the current size (ignores cx and cy).
+const int SWP_NOSIZE = 0x0001;
+
+/// SetWindowPos flag: displays the window.
+const int SWP_SHOWWINDOW = 0x0040;
+
+/// SetWindowPos flag: does not activate the window.
+///
+/// Use with [HWND_BOTTOM] to push a window to the back of the Z order
+/// without changing which window has input focus.
+const int SWP_NOACTIVATE = 0x0010;
+
+/// ShowWindow command: activates and displays the window.
+const int SW_SHOW = 5;
+
+/// ShowWindow command: activates the window and displays it as restored.
+const int SW_RESTORE = 9;
+
+/// The class name used by the Flutter Windows runner for its top-level
+/// window. Used with [FindWindowW] to locate the Flutter application
+/// window from Dart FFI.
+const String kFlutterWindowClassName = 'FLUTTER_RUNNER_WIN32_WINDOW';
+
 /// {@template amplify_auth_cognito.webauthn_bindings}
 /// FFI bindings to `webauthn.dll` and `user32.dll` for Windows WebAuthn
 /// (Windows Hello FIDO2) API access.
@@ -140,12 +316,17 @@ typedef GetActiveWindowDart = int Function();
 /// {@endtemplate}
 class WebAuthnBindings {
   /// {@macro amplify_auth_cognito.webauthn_bindings}
-  WebAuthnBindings({DynamicLibrary? webauthnLib, DynamicLibrary? user32Lib})
-    : _webauthn = webauthnLib ?? DynamicLibrary.open('webauthn.dll'),
-      _user32 = user32Lib ?? DynamicLibrary.open('user32.dll');
+  WebAuthnBindings({
+    DynamicLibrary? webauthnLib,
+    DynamicLibrary? user32Lib,
+    DynamicLibrary? kernel32Lib,
+  }) : _webauthn = webauthnLib ?? DynamicLibrary.open('webauthn.dll'),
+       _user32 = user32Lib ?? DynamicLibrary.open('user32.dll'),
+       _kernel32 = kernel32Lib ?? DynamicLibrary.open('kernel32.dll');
 
   final DynamicLibrary _webauthn;
   final DynamicLibrary _user32;
+  final DynamicLibrary _kernel32;
 
   /// Returns the API version number supported by the platform.
   late final WebAuthNGetApiVersionNumberDart getApiVersionNumber = _webauthn
@@ -182,7 +363,7 @@ class WebAuthnBindings {
   /// `WEBAUTHN_ASSERTION` struct that must be freed with [freeAssertion].
   late final WebAuthNGetAssertionDart getAssertion = _webauthn
       .lookupFunction<WebAuthNGetAssertionNative, WebAuthNGetAssertionDart>(
-        'WebAuthNGetAssertion',
+        'WebAuthNAuthenticatorGetAssertion',
       );
 
   /// Frees a `WEBAUTHN_CREDENTIAL_ATTESTATION` struct returned by
@@ -201,12 +382,108 @@ class WebAuthnBindings {
 
   /// Returns the handle to the active window (from `user32.dll`).
   ///
-  /// Used to obtain the `HWND` parameter required by
-  /// [makeCredential] and [getAssertion].
+  /// Returns the active window attached to the calling thread's message
+  /// queue. May return 0 if the calling thread has no active window.
+  ///
+  /// **Note:** Prefer [getForegroundWindow] for obtaining the HWND to pass
+  /// to WebAuthn APIs, as it returns the system-wide foreground window
+  /// regardless of thread affinity.
   late final GetActiveWindowDart getActiveWindow = _user32
       .lookupFunction<GetActiveWindowNative, GetActiveWindowDart>(
         'GetActiveWindow',
       );
+
+  /// Returns the handle to the foreground window (from `user32.dll`).
+  ///
+  /// Returns the window the user is currently interacting with. Unlike
+  /// [getActiveWindow], this works across threads and returns the
+  /// system-wide foreground window.
+  ///
+  /// This is the preferred HWND source for WebAuthn API calls, as it
+  /// ensures the Windows Hello security dialog appears as a child of
+  /// the foreground window and is displayed in front of the application.
+  late final GetForegroundWindowDart getForegroundWindow = _user32
+      .lookupFunction<GetForegroundWindowNative, GetForegroundWindowDart>(
+        'GetForegroundWindow',
+      );
+
+  /// Brings the specified window to the foreground and activates it.
+  late final SetForegroundWindowDart setForegroundWindow = _user32
+      .lookupFunction<SetForegroundWindowNative, SetForegroundWindowDart>(
+        'SetForegroundWindow',
+      );
+
+  /// Enables the specified process to set the foreground window.
+  ///
+  /// Call with [ASFW_ANY] before WebAuthn API calls to allow the
+  /// Windows Hello system process to bring its dialog to the foreground.
+  late final AllowSetForegroundWindowDart allowSetForegroundWindow = _user32
+      .lookupFunction<
+        AllowSetForegroundWindowNative,
+        AllowSetForegroundWindowDart
+      >('AllowSetForegroundWindow');
+
+  /// Finds a top-level window by class name.
+  ///
+  /// Used to locate the Flutter application window by its well-known
+  /// class name [kFlutterWindowClassName].
+  late final FindWindowWDart findWindowW = _user32
+      .lookupFunction<FindWindowWNative, FindWindowWDart>('FindWindowW');
+
+  /// Retrieves the ancestor of the specified window.
+  ///
+  /// Use with [GA_ROOT] to get the top-level (root) window.
+  late final GetAncestorDart getAncestor = _user32
+      .lookupFunction<GetAncestorNative, GetAncestorDart>('GetAncestor');
+
+  /// Returns the thread ID that created the specified window.
+  late final GetWindowThreadProcessIdDart getWindowThreadProcessId = _user32
+      .lookupFunction<
+        GetWindowThreadProcessIdNative,
+        GetWindowThreadProcessIdDart
+      >('GetWindowThreadProcessId');
+
+  /// Returns the calling thread's ID.
+  late final GetCurrentThreadIdDart getCurrentThreadId = _kernel32
+      .lookupFunction<GetCurrentThreadIdNative, GetCurrentThreadIdDart>(
+        'GetCurrentThreadId',
+      );
+
+  /// Attaches or detaches the input processing of two threads.
+  ///
+  /// Used with the `AttachThreadInput` trick to allow cross-thread
+  /// [SetForegroundWindow] calls.
+  late final AttachThreadInputDart attachThreadInput = _user32
+      .lookupFunction<AttachThreadInputNative, AttachThreadInputDart>(
+        'AttachThreadInput',
+      );
+
+  /// Brings the specified window to the top of the Z order.
+  late final BringWindowToTopDart bringWindowToTop = _user32
+      .lookupFunction<BringWindowToTopNative, BringWindowToTopDart>(
+        'BringWindowToTop',
+      );
+
+  /// Sets the specified window's show state.
+  late final ShowWindowDart showWindow = _user32
+      .lookupFunction<ShowWindowNative, ShowWindowDart>('ShowWindow');
+
+  /// Enables or disables mouse and keyboard input to the specified window.
+  ///
+  /// Pass `0` (FALSE) to disable, `1` (TRUE) to enable.
+  /// Used to simulate modal dialog behavior by disabling the Flutter
+  /// window while the WebAuthn security dialog is open.
+  late final EnableWindowDart enableWindow = _user32
+      .lookupFunction<EnableWindowNative, EnableWindowDart>('EnableWindow');
+
+  /// Changes the size, position, and Z order of a window.
+  ///
+  /// Use with [HWND_BOTTOM] to push the Flutter window to the back of
+  /// the Z order before a WebAuthn call, preventing it from covering
+  /// the Windows Security dialog. Use with [HWND_NOTOPMOST] to restore
+  /// normal Z order after the call completes.
+  late final SetWindowPosDart setWindowPos = _user32
+      .lookupFunction<SetWindowPosNative, SetWindowPosDart>('SetWindowPos');
 }
 
 // ---------------------------------------------------------------------------
@@ -325,6 +602,24 @@ abstract final class MakeCredentialOptionsOffsets {
   /// `DWORD dwTimeoutMilliseconds` at offset 4.
   static const int dwTimeoutMilliseconds = 4;
 
+  // Version 1 fields (needed as fallback when JSON pass-through is ignored):
+
+  /// `DWORD dwAuthenticatorAttachment` at offset 40.
+  ///
+  /// Set to 0 (WEBAUTHN_AUTHENTICATOR_ATTACHMENT_ANY) or specific value.
+  static const int dwAuthenticatorAttachment = 40;
+
+  /// `BOOL bRequireResidentKey` at offset 44.
+  ///
+  /// Must be set to 1 (TRUE) to ensure the authenticator creates a
+  /// discoverable/resident credential that persists on the device.
+  /// Without this, Windows Hello may create a non-resident credential
+  /// that is not stored and cannot be used for passkey sign-in.
+  static const int bRequireResidentKey = 44;
+
+  /// `DWORD dwUserVerificationRequirement` at offset 48.
+  static const int dwUserVerificationRequirement = 48;
+
   // Version 5 JSON pass-through fields (appended after v4 fields):
 
   /// `DWORD cbPublicKeyCredentialCreationOptionsJSON` — byte length of JSON.
@@ -372,10 +667,17 @@ abstract final class GetAssertionOptionsOffsets {
 /// These are at the end of the v3 struct + extensions.
 abstract final class CredentialAttestationOffsets {
   /// `DWORD cbRegistrationResponseJSON` — byte length of JSON response.
-  static const int cbRegistrationResponseJSON = 152;
+  ///
+  /// Empirically determined offset for version 8 of the attestation struct
+  /// on 64-bit Windows. Verified by scanning the struct for a plausible
+  /// (length, pointer-to-JSON) pair after a successful MakeCredential call.
+  static const int cbRegistrationResponseJSON = 176;
 
   /// `PBYTE pbRegistrationResponseJSON` — pointer to JSON response bytes.
-  static const int pbRegistrationResponseJSON = 160;
+  ///
+  /// Immediately follows [cbRegistrationResponseJSON] with 4 bytes of
+  /// padding to reach 8-byte pointer alignment.
+  static const int pbRegistrationResponseJSON = 184;
 }
 
 /// Key offsets within `WEBAUTHN_ASSERTION` for reading the JSON
@@ -387,8 +689,16 @@ abstract final class CredentialAttestationOffsets {
 /// Added in version 3 of the assertion struct.
 abstract final class AssertionOffsets {
   /// `DWORD cbAuthenticationResponseJSON` — byte length of JSON response.
-  static const int cbAuthenticationResponseJSON = 104;
+  ///
+  /// Empirically determined offset for version 6 of the assertion struct
+  /// on 64-bit Windows. Verified by dumping DWORD values at all offsets
+  /// after a successful GetAssertion call and identifying the plausible
+  /// (length, pointer-to-JSON) pair.
+  static const int cbAuthenticationResponseJSON = 136;
 
   /// `PBYTE pbAuthenticationResponseJSON` — pointer to JSON response bytes.
-  static const int pbAuthenticationResponseJSON = 112;
+  ///
+  /// Immediately follows [cbAuthenticationResponseJSON] with 4 bytes of
+  /// padding to reach 8-byte pointer alignment.
+  static const int pbAuthenticationResponseJSON = 144;
 }
