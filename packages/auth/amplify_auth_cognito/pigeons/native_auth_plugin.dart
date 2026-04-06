@@ -12,7 +12,7 @@
     ),
     kotlinOut:
         'android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/pigeons/NativeAuthPluginBindingsPigeon.kt',
-    swiftOut: 'darwin/classes/pigeons/messages.g.swift',
+    swiftOut: 'darwin/amplify_auth_cognito/Sources/amplify_auth_cognito/messages.g.swift',
   ),
 )
 library;
