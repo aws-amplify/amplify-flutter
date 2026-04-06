@@ -21,11 +21,20 @@ const int fidoErrNotAllowed = 0x27;
 /// libfido2 return code: action timed out.
 const int fidoErrActionTimeout = 0x2F;
 
+/// libfido2 return code: PIN invalid (wrong PIN).
+const int fidoErrPinInvalid = 0x31;
+
+/// libfido2 return code: PIN auth blocked (too many consecutive failures).
+const int fidoErrPinAuthBlocked = 0x34;
+
 /// libfido2 return code: PIN required.
 const int fidoErrPinRequired = 0x36;
 
 /// libfido2 return code: user verification blocked.
 const int fidoErrUvBlocked = 0x3C;
+
+/// libfido2 return code: PIN policy violation (too short/long/simple).
+const int fidoErrPinPolicyViolation = 0x6b;
 
 /// COSE algorithm identifier for ES256 (ECDSA w/ SHA-256).
 const int coseEs256 = -7;
@@ -77,6 +86,10 @@ typedef _FidoDevOpenDart = int Function(Pointer dev, Pointer<Utf8> path);
 
 typedef _FidoDevCloseC = Int32 Function(Pointer dev);
 typedef _FidoDevCloseDart = int Function(Pointer dev);
+
+// Device cancel — sends CTAPHID_CANCEL to abort a pending operation
+typedef _FidoDevCancelC = Int32 Function(Pointer dev);
+typedef _FidoDevCancelDart = int Function(Pointer dev);
 
 // Credential creation
 typedef _FidoCredNewC = Pointer Function();
@@ -179,6 +192,33 @@ typedef _FidoAssertIdxPtrGetterDart =
 typedef _FidoAssertIdxLenGetterC = Size Function(Pointer assert_, Size idx);
 typedef _FidoAssertIdxLenGetterDart = int Function(Pointer assert_, int idx);
 
+// CBOR info (device capabilities)
+typedef _FidoCborInfoNewC = Pointer Function();
+typedef _FidoCborInfoNewDart = Pointer Function();
+
+typedef _FidoCborInfoFreeC = Void Function(Pointer<Pointer> ci);
+typedef _FidoCborInfoFreeDart = void Function(Pointer<Pointer> ci);
+
+typedef _FidoDevGetCborInfoC = Int32 Function(Pointer dev, Pointer ci);
+typedef _FidoDevGetCborInfoDart = int Function(Pointer dev, Pointer ci);
+
+typedef _FidoCborInfoOptionsNamePtrC =
+    Pointer<Pointer<Utf8>> Function(Pointer ci);
+typedef _FidoCborInfoOptionsNamePtrDart =
+    Pointer<Pointer<Utf8>> Function(Pointer ci);
+
+typedef _FidoCborInfoOptionsValuePtrC = Pointer<Bool> Function(Pointer ci);
+typedef _FidoCborInfoOptionsValuePtrDart = Pointer<Bool> Function(Pointer ci);
+
+typedef _FidoCborInfoOptionsLenC = Size Function(Pointer ci);
+typedef _FidoCborInfoOptionsLenDart = int Function(Pointer ci);
+
+// PIN retry count
+typedef _FidoDevGetRetryCntC =
+    Int32 Function(Pointer dev, Pointer<Int32> retries);
+typedef _FidoDevGetRetryCntDart =
+    int Function(Pointer dev, Pointer<Int32> retries);
+
 // ── Bindings class ───────────────────────────────────────────────────────────
 
 /// FFI bindings to `libfido2.so` for Linux FIDO2 security key operations.
@@ -252,6 +292,12 @@ class LibFido2Bindings {
   /// Close a FIDO2 device. Returns error code.
   late final fidoDevClose = _lib
       .lookupFunction<_FidoDevCloseC, _FidoDevCloseDart>('fido_dev_close');
+
+  /// Send a CTAPHID_CANCEL command to the device, causing any pending
+  /// blocking operation (e.g. `fido_dev_make_cred`, `fido_dev_get_assert`)
+  /// to abort and return immediately. Returns error code.
+  late final fidoDevCancel = _lib
+      .lookupFunction<_FidoDevCancelC, _FidoDevCancelDart>('fido_dev_cancel');
 
   // ── Credential creation ──────────────────────────────────────────────────
 
@@ -465,5 +511,53 @@ class LibFido2Bindings {
   late final fidoAssertIdLen = _lib
       .lookupFunction<_FidoAssertIdxLenGetterC, _FidoAssertIdxLenGetterDart>(
         'fido_assert_id_len',
+      );
+
+  // ── CBOR info (device capabilities) ──────────────────────────────────────
+
+  /// Allocate a new CBOR info object.
+  late final fidoCborInfoNew = _lib
+      .lookupFunction<_FidoCborInfoNewC, _FidoCborInfoNewDart>(
+        'fido_cbor_info_new',
+      );
+
+  /// Free a CBOR info object.
+  late final fidoCborInfoFree = _lib
+      .lookupFunction<_FidoCborInfoFreeC, _FidoCborInfoFreeDart>(
+        'fido_cbor_info_free',
+      );
+
+  /// Retrieve CBOR info from an open device. Returns error code.
+  late final fidoDevGetCborInfo = _lib
+      .lookupFunction<_FidoDevGetCborInfoC, _FidoDevGetCborInfoDart>(
+        'fido_dev_get_cbor_info',
+      );
+
+  /// Pointer to array of option name strings in CBOR info.
+  late final fidoCborInfoOptionsNamePtr = _lib
+      .lookupFunction<
+        _FidoCborInfoOptionsNamePtrC,
+        _FidoCborInfoOptionsNamePtrDart
+      >('fido_cbor_info_options_name_ptr');
+
+  /// Pointer to array of option boolean values in CBOR info.
+  late final fidoCborInfoOptionsValuePtr = _lib
+      .lookupFunction<
+        _FidoCborInfoOptionsValuePtrC,
+        _FidoCborInfoOptionsValuePtrDart
+      >('fido_cbor_info_options_value_ptr');
+
+  /// Number of options in CBOR info.
+  late final fidoCborInfoOptionsLen = _lib
+      .lookupFunction<_FidoCborInfoOptionsLenC, _FidoCborInfoOptionsLenDart>(
+        'fido_cbor_info_options_len',
+      );
+
+  // ── PIN retry count ──────────────────────────────────────────────────────
+
+  /// Get the number of PIN retries remaining. Returns error code.
+  late final fidoDevGetRetryCnt = _lib
+      .lookupFunction<_FidoDevGetRetryCntC, _FidoDevGetRetryCntDart>(
+        'fido_dev_get_retry_count',
       );
 }
