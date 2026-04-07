@@ -4,10 +4,6 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 
-/// Default recovery suggestion for errors.
-const String defaultRecoverySuggestion =
-    'Inspect the underlying error for more details.';
-
 /// {@template amplify_firehose.amplify_firehose_exception}
 /// Base exception for Amplify Firehose errors.
 /// {@endtemplate}
