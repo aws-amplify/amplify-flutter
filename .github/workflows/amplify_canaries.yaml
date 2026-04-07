@@ -191,19 +191,15 @@ jobs:
           scope: amplified_todo
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - name: Launch iOS simulator
+      - name: Launch iOS simulator and run tests
         uses: ./.github/composite_actions/launch_ios_simulator
-        timeout-minutes: 20
+        timeout-minutes: 90
         with:
           ios-version: ${{ matrix.ios-version }}
-
-      - name: Run iOS integration tests
-        timeout-minutes: 45
-        working-directory: canaries
-        run: |
-          # Perform a build to reduce startup time of `flutter test` and prevent timeout 
-          flutter build ios --simulator --target=integration_test/main_test.dart
-          flutter test -d test integration_test/main_test.dart --verbose
+          script: |
+            cd canaries
+            flutter build ios --simulator --target=integration_test/main_test.dart
+            flutter test -d test integration_test/main_test.dart --verbose
 
       - name: Log success/failure
         if: always()
