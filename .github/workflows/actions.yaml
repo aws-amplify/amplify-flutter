@@ -103,13 +103,13 @@ jobs:
     # incredibly slow otherwise.
     runs-on: macos-26-xlarge
     # Timeout as a stop-gap for further investigating. This action should never need more
-    # than 20 minutes to do its work.
-    timeout-minutes: 20
+    # than 30 minutes to do its work (may need to download older simulator runtimes).
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
         ios-version:
-          - "26.0"
+          - "16.4"
           - "26.4"
     steps:
       - name: Git Checkout
