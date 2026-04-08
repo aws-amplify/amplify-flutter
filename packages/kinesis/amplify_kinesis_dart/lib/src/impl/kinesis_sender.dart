@@ -37,7 +37,7 @@ class KinesisSender implements Sender {
         .map(
           (record) => PutRecordsRequestEntry(
             data: record.data,
-            partitionKey: record.partitionKey ?? '',
+            partitionKey: record.partitionKey!,
           ),
         )
         .toList();
