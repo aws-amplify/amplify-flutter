@@ -16,7 +16,7 @@ part 'record_cache_database.g.dart';
 /// When updating this schema, please bump
 /// [RecordCacheDatabase.schemaVersion].
 @DataClassName('DriftStoredRecord')
-class CachedRecords extends Table {
+class KinesisRecords extends Table {
   /// Auto-incrementing primary key.
   IntColumn get id => integer().autoIncrement()();
 
@@ -42,7 +42,7 @@ class CachedRecords extends Table {
 /// {@template amplify_record_cache.record_cache_database}
 /// Drift database for managing cached records.
 /// {@endtemplate}
-@DriftDatabase(tables: [CachedRecords])
+@DriftDatabase(tables: [KinesisRecords])
 class RecordCacheDatabase extends _$RecordCacheDatabase {
   /// {@macro amplify_record_cache.record_cache_database}
   ///
@@ -78,11 +78,11 @@ class RecordCacheDatabase extends _$RecordCacheDatabase {
         await m.createAll();
         await customStatement(
           'CREATE INDEX IF NOT EXISTS idx_stream_id '
-          'ON cached_records(stream_name, id)',
+          'ON kinesis_records(stream_name, id)',
         );
         await customStatement(
           'CREATE INDEX IF NOT EXISTS idx_data_size '
-          'ON cached_records(data_size)',
+          'ON kinesis_records(data_size)',
         );
       },
     );
