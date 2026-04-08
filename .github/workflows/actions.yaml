@@ -86,8 +86,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
-          - macos-14
+          - macos-26
           - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -102,8 +101,7 @@ jobs:
     # It is recommended that all actions requiring a simulator be run on XL runners
     # since the process of installing new runtimes and building with Xcode can be
     # incredibly slow otherwise.
-    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
-    runs-on: macos-14-xlarge
+    runs-on: macos-26-xlarge
     # Timeout as a stop-gap for further investigating. This action should never need more
     # than 20 minutes to do its work.
     timeout-minutes: 20
