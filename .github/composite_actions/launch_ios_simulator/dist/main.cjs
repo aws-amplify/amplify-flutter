@@ -7955,7 +7955,7 @@
     _launchSimulator(runtimeIdentifier) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        t2, iosMajor, deviceType, t1;
+        t1, t2;
       var $async$_launchSimulator = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -7963,13 +7963,10 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              iosMajor = A.Primitives_parseInt(B.JSArray_methods.get$first(B.JSArray_methods.get$last(runtimeIdentifier.split("iOS-")).split("-")), null);
-              deviceType = (iosMajor == null ? 26 : iosMajor) >= 26 ? "iPhone 17" : "iPhone 13";
               t1 = init.G;
-              A._asJSObject(t1.core).info('Using device type "' + deviceType + '" for runtime ' + runtimeIdentifier);
               t2 = type$.ExecResult;
               $async$goto = 2;
-              return A._asyncAwait(A.Core_withGroup(A._asJSObject(t1.core), "Create simulator", new A._launchSimulator_closure(deviceType, runtimeIdentifier), t2), $async$_launchSimulator);
+              return A._asyncAwait(A.Core_withGroup(A._asJSObject(t1.core), "Create simulator", new A._launchSimulator_closure(runtimeIdentifier), t2), $async$_launchSimulator);
             case 2:
               // returning from await.
               if ($async$result.exitCode !== 0)
@@ -8384,9 +8381,8 @@
       this.attempt = t1;
       this.script = t2;
     },
-    _launchSimulator_closure: function _launchSimulator_closure(t0, t1) {
-      this.deviceType = t0;
-      this.runtimeIdentifier = t1;
+    _launchSimulator_closure: function _launchSimulator_closure(t0) {
+      this.runtimeIdentifier = t0;
     },
     _launchSimulator_closure0: function _launchSimulator_closure0() {
     },
@@ -17948,7 +17944,7 @@
   };
   A._launchSimulator_closure.prototype = {
     call$0() {
-      return A.Exec_exec(A._asJSObject(init.G.exec), "xcrun", A._setArrayType(["simctl", "create", "test", this.deviceType, this.runtimeIdentifier], type$.JSArray_String), true);
+      return A.Exec_exec(A._asJSObject(init.G.exec), "xcrun", A._setArrayType(["simctl", "create", "test", "iPhone 13", this.runtimeIdentifier], type$.JSArray_String), true);
     },
     $signature: 18
   };

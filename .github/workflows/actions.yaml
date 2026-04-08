@@ -109,7 +109,7 @@ jobs:
       fail-fast: false
       matrix:
         ios-version:
-          - "15.0"
+          - "16.4"
           - "26.4"
     steps:
       - name: Git Checkout
