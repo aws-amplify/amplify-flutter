@@ -133,7 +133,7 @@ typedef GetActiveWindowDart = int Function();
 /// `HWND GetForegroundWindow(void)` from user32.dll
 ///
 /// Returns the handle to the foreground window — the window with which
-/// the user is currently working. Unlike [GetActiveWindow], which only
+/// the user is currently working. Unlike `GetActiveWindow`, which only
 /// returns the active window of the calling thread's message queue,
 /// this function returns the system-wide foreground window regardless
 /// of which thread owns it.
@@ -153,7 +153,7 @@ typedef SetForegroundWindowDart = int Function(int hWnd);
 /// `BOOL AllowSetForegroundWindow(DWORD dwProcessId)` from user32.dll
 ///
 /// Enables the specified process to set the foreground window using
-/// [SetForegroundWindow]. Pass `ASFW_ANY` (0xFFFFFFFF / -1) to allow
+/// `SetForegroundWindow`. Pass `ASFW_ANY` (0xFFFFFFFF / -1) to allow
 /// any process to set the foreground window.
 ///
 /// This is useful before calling WebAuthn APIs, as the Windows Hello
@@ -213,7 +213,7 @@ typedef GetCurrentThreadIdDart = int Function();
 ///
 /// Attaches or detaches the input processing mechanism of one thread
 /// to that of another thread. This allows a thread to call
-/// [SetForegroundWindow] on a window owned by another thread.
+/// `SetForegroundWindow` on a window owned by another thread.
 typedef AttachThreadInputNative = Int32 Function(
   Uint32 idAttach,
   Uint32 idAttachTo,
@@ -302,7 +302,7 @@ const int SW_SHOW = 5;
 const int SW_RESTORE = 9;
 
 /// The class name used by the Flutter Windows runner for its top-level
-/// window. Used with [FindWindowW] to locate the Flutter application
+/// window. Used with `FindWindowW` to locate the Flutter application
 /// window from Dart FFI.
 const String kFlutterWindowClassName = 'FLUTTER_RUNNER_WIN32_WINDOW';
 
@@ -452,7 +452,7 @@ class WebAuthnBindings {
   /// Attaches or detaches the input processing of two threads.
   ///
   /// Used with the `AttachThreadInput` trick to allow cross-thread
-  /// [SetForegroundWindow] calls.
+  /// `SetForegroundWindow` calls.
   late final AttachThreadInputDart attachThreadInput = _user32
       .lookupFunction<AttachThreadInputNative, AttachThreadInputDart>(
         'AttachThreadInput',

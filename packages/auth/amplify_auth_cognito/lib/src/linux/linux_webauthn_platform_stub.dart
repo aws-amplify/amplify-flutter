@@ -8,13 +8,19 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 
 /// Stub for web. Never instantiated on web (guarded by `zIsWeb` in addPlugin).
 class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
+  /// Always returns `false` since this stub is only used on web where
+  /// the Linux platform is not applicable.
   @override
   Future<bool> isPasskeySupported() => Future.value(false);
 
+  /// Throws [UnsupportedError] — Linux credential creation is not available
+  /// on web.
   @override
   Future<String> createCredential(String optionsJson) =>
       throw UnsupportedError('Not supported on web');
 
+  /// Throws [UnsupportedError] — Linux credential retrieval is not available
+  /// on web.
   @override
   Future<String> getCredential(String optionsJson) =>
       throw UnsupportedError('Not supported on web');
