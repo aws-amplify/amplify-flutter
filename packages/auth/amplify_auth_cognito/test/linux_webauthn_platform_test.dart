@@ -335,6 +335,8 @@ class MockLibFido2Bindings extends LibFido2Bindings {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('LinuxWebAuthnPlatform', () {
     group('isPasskeySupported', () {
       test('returns false when libfido2 is not available', () async {

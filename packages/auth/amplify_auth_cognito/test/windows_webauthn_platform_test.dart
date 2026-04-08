@@ -21,6 +21,7 @@ class MockWebAuthnBindings extends WebAuthnBindings {
   }) : super(
          webauthnLib: DynamicLibrary.process(),
          user32Lib: DynamicLibrary.process(),
+         kernel32Lib: DynamicLibrary.process(),
        );
 
   final int mockApiVersion;
