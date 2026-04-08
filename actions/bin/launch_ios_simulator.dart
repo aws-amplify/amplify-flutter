@@ -185,7 +185,7 @@ Future<void> _launchSimulator(String runtimeIdentifier) async {
       'simctl',
       'create',
       'test',
-      'iPhone 11',
+      'iPhone 17',
       runtimeIdentifier,
     ]),
   );
