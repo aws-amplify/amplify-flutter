@@ -261,7 +261,7 @@ void main() {
         const optionsJson = '''
 {
   "rp": {"id": "example.com", "name": "Example"},
-  "user": {"id": "user123", "name": "testuser", "displayName": "Test User"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
   "challenge": "Y2hhbGxlbmdl",
   "pubKeyCredParams": [{"type": "public-key", "alg": -7}]
 }
@@ -281,7 +281,7 @@ void main() {
         const optionsJson = '''
 {
   "rp": {"id": "example.com", "name": "Example"},
-  "user": {"id": "user123", "name": "testuser", "displayName": "Test User"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
   "challenge": "Y2hhbGxlbmdl",
   "pubKeyCredParams": []
 }
@@ -305,7 +305,7 @@ void main() {
           const optionsJson = '''
 {
   "rp": {"id": "example.com", "name": "Example"},
-  "user": {"id": "user123", "name": "testuser", "displayName": "Test User"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
   "challenge": "Y2hhbGxlbmdl",
   "pubKeyCredParams": []
 }
@@ -330,7 +330,7 @@ void main() {
           const optionsJson = '''
 {
   "rp": {"id": "example.com", "name": "Example"},
-  "user": {"id": "user123", "name": "testuser", "displayName": "Test User"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
   "challenge": "Y2hhbGxlbmdl",
   "pubKeyCredParams": []
 }
@@ -352,7 +352,7 @@ void main() {
           const optionsJson = '''
 {
   "rp": {"id": "example.com", "name": "Example"},
-  "user": {"id": "user123", "name": "testuser", "displayName": "Test User"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
   "challenge": "Y2hhbGxlbmdl",
   "pubKeyCredParams": []
 }
@@ -377,7 +377,7 @@ void main() {
           const optionsJson = '''
 {
   "rp": {"id": "example.com", "name": "Example"},
-  "user": {"id": "user123", "name": "testuser", "displayName": "Test User"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
   "challenge": "Y2hhbGxlbmdl",
   "pubKeyCredParams": []
 }

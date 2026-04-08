@@ -140,7 +140,12 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
   /// operations report passkeys as unsupported.
   ///
   /// An optional [bindings] parameter can be provided for testing.
-  LinuxWebAuthnPlatform({LibFido2Bindings? bindings}) {
+  /// When [bindings] is provided, [useIsolate] defaults to `false` so that
+  /// blocking FFI calls run on the main thread using the mock bindings
+  /// instead of spawning a background isolate (which would re-open
+  /// `libfido2.so` and bypass the mock).
+  LinuxWebAuthnPlatform({LibFido2Bindings? bindings, bool? useIsolate}) {
+    _useIsolate = useIsolate ?? (bindings == null);
     if (bindings != null) {
       _bindings = bindings;
       _logger.debug('Using provided LibFido2Bindings (test mode).');
@@ -166,6 +171,11 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
   }
 
   LibFido2Bindings? _bindings;
+
+  /// Whether to run blocking FFI calls in a background isolate.
+  /// Defaults to `true` in production and `false` when test bindings are
+  /// provided (since isolates cannot share mock bindings).
+  late final bool _useIsolate;
 
   /// Tracks the pending deferred cleanup future from a cancelled touch
   /// operation. When the user cancels the touch dialog, the background
@@ -451,11 +461,10 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
           // Run the blocking FFI call in a separate isolate so the main UI
           // thread is free to animate the touch dialog.
-          final computeFuture = compute(_isolateMakeCred, [
-            dev.address,
-            cred.address,
-            pinNative.address,
-          ]);
+          final addrs = [dev.address, cred.address, pinNative.address];
+          final computeFuture = _useIsolate
+              ? compute(_isolateMakeCred, addrs)
+              : Future(() => _makeCred(b, dev, cred, pinNative));
 
           // Race: if cancel wins, throw immediately for responsive UX.
           // The background isolate will eventually complete; we schedule
@@ -743,11 +752,10 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
           final touchHandle = showFidoTouchDialog();
           await Future<void>.delayed(const Duration(milliseconds: 50));
 
-          final computeFuture = compute(_isolateGetAssert, [
-            dev.address,
-            assert_.address,
-            pinNative.address,
-          ]);
+          final assertAddrs = [dev.address, assert_.address, pinNative.address];
+          final computeFuture = _useIsolate
+              ? compute(_isolateGetAssert, assertAddrs)
+              : Future(() => _getAssert(b, dev, assert_, pinNative));
 
           // Race: if cancel wins, throw immediately for responsive UX.
           final cancelCompleter = Completer<int>();
@@ -1490,6 +1498,36 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
       padded = padded.padRight(padded.length + (4 - remainder), '=');
     }
     return base64Url.decode(padded);
+  }
+
+  /// Runs `fido_dev_make_cred` synchronously on the current thread using the
+  /// instance's [_bindings]. Used in test mode (when [_useIsolate] is false)
+  /// so mock bindings are exercised instead of spawning an isolate.
+  int _makeCred(
+    LibFido2Bindings b,
+    Pointer dev,
+    Pointer cred,
+    Pointer<Utf8> pin,
+  ) {
+    final savedMask = _blockProfilerSignal();
+    final rc = b.fidoDevMakeCred(dev, cred, pin);
+    _restoreSignals(savedMask);
+    return rc;
+  }
+
+  /// Runs `fido_dev_get_assert` synchronously on the current thread using the
+  /// instance's [_bindings]. Used in test mode (when [_useIsolate] is false)
+  /// so mock bindings are exercised instead of spawning an isolate.
+  int _getAssert(
+    LibFido2Bindings b,
+    Pointer dev,
+    Pointer assert_,
+    Pointer<Utf8> pin,
+  ) {
+    final savedMask = _blockProfilerSignal();
+    final rc = b.fidoDevGetAssert(dev, assert_, pin);
+    _restoreSignals(savedMask);
+    return rc;
   }
 }
 
