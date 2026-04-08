@@ -105,7 +105,10 @@ class MockWebAuthnBindings extends WebAuthnBindings {
     if (mockGetAssertionResult == S_OK) {
       // Allocate a mock result struct with JSON response.
       final mockStruct = calloc<Uint8>(256);
-      const jsonResponse = '{"id":"mock-assertion-id"}';
+      const jsonResponse =
+          '{"id":"mock-assertion-id","type":"public-key",'
+          '"response":{"authenticatorData":"AAAA","signature":"AQID",'
+          '"clientDataJSON":"eyJ0eXBlIjoid2ViYXV0aG4uZ2V0In0"}}';
       final jsonBytes = utf8.encode(jsonResponse);
 
       // Write cbAuthenticationResponseJSON at offset 136 (DWORD = Uint32)
