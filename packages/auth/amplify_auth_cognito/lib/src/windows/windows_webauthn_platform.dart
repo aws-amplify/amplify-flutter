@@ -272,11 +272,23 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
         'WebAuthNAuthenticatorMakeCredential (JSON pass-through v7)...',
       );
 
-      // Start a background monitor that will find the Windows Security
-      // dialog and bring it to the foreground. This is needed because
-      // the dialog may appear behind the application window.
-      // Pass the Flutter window handle so the monitor can push it behind
-      // the dialog when the user clicks on it.
+      // Windows Security Dialog Z-Order Workaround
+      // ───────────────────────────────────────────
+      // Windows starts the Hello/Security dialog in a BACKGROUND process,
+      // which means it often appears BEHIND the Flutter app window. This
+      // is very confusing for customers who don't see the dialog and think
+      // the app is frozen.
+      //
+      // We work around this by:
+      // 1. Calling AllowSetForegroundWindow(ASFW_ANY) before the ceremony
+      // 2. Running a background monitor that detects the dialog and brings
+      //    it forward
+      // 3. Disabling the Flutter window to simulate modal dialog behavior
+      // 4. Using AttachThreadInput trick to restore foreground after
+      //    ceremony
+      //
+      // This complexity is unavoidable due to Windows' security model for
+      // foreground window activation.
       final stopMonitor = await _startDialogMonitor(hWnd);
 
       // Disable the Flutter window to simulate modal dialog behavior.

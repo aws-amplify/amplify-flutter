@@ -549,6 +549,17 @@ void main() {
         },
       );
     });
+    group('struct offset validation', () {
+      test('CredentialAttestationOffsets match expected layout', () {
+        expect(CredentialAttestationOffsets.cbRegistrationResponseJSON, 176);
+        expect(CredentialAttestationOffsets.pbRegistrationResponseJSON, 184);
+      });
+
+      test('AssertionOffsets match expected layout', () {
+        expect(AssertionOffsets.cbAuthenticationResponseJSON, 136);
+        expect(AssertionOffsets.pbAuthenticationResponseJSON, 144);
+      });
+    });
   });
 }
 
