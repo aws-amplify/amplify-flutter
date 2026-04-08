@@ -160,6 +160,56 @@ class MockWebAuthnBindings extends WebAuthnBindings {
       calloc.free(pAssertion);
     }
   };
+
+  // ── user32 / kernel32 stubs (not available on Linux CI) ─────────────
+
+  @override
+  int Function() get getForegroundWindow =>
+      () => mockActiveWindow;
+
+  @override
+  int Function(int hWnd) get setForegroundWindow =>
+      (_) => 1;
+
+  @override
+  int Function(int dwProcessId) get allowSetForegroundWindow =>
+      (_) => 1;
+
+  @override
+  int Function(Pointer<Utf16>, Pointer<Utf16>) get findWindowW =>
+      (_, _) => mockActiveWindow;
+
+  @override
+  int Function(int hWnd, int gaFlags) get getAncestor =>
+      (hWnd, _) => hWnd;
+
+  @override
+  int Function(int hWnd, Pointer<Uint32>) get getWindowThreadProcessId =>
+      (_, _) => 1;
+
+  @override
+  int Function() get getCurrentThreadId =>
+      () => 1;
+
+  @override
+  int Function(int, int, int) get attachThreadInput =>
+      (_, _, _) => 1;
+
+  @override
+  int Function(int hWnd) get bringWindowToTop =>
+      (_) => 1;
+
+  @override
+  int Function(int hWnd, int nCmdShow) get showWindow =>
+      (_, _) => 1;
+
+  @override
+  int Function(int hWnd, int bEnable) get enableWindow =>
+      (_, _) => 1;
+
+  @override
+  int Function(int, int, int, int, int, int, int) get setWindowPos =>
+      (_, _, _, _, _, _, _) => 1;
 }
 
 void main() {
@@ -505,6 +555,7 @@ class _ThrowingMockBindings extends WebAuthnBindings {
     : super(
         webauthnLib: DynamicLibrary.process(),
         user32Lib: DynamicLibrary.process(),
+        kernel32Lib: DynamicLibrary.process(),
       );
 
   @override
