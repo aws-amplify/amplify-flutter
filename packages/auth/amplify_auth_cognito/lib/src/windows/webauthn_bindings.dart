@@ -171,14 +171,10 @@ const int ASFW_ANY = -1;
 ///
 /// Finds a top-level window by class name and/or window name.
 /// Pass `nullptr` for either parameter to match any value.
-typedef FindWindowWNative = IntPtr Function(
-  Pointer<Utf16> lpClassName,
-  Pointer<Utf16> lpWindowName,
-);
-typedef FindWindowWDart = int Function(
-  Pointer<Utf16> lpClassName,
-  Pointer<Utf16> lpWindowName,
-);
+typedef FindWindowWNative =
+    IntPtr Function(Pointer<Utf16> lpClassName, Pointer<Utf16> lpWindowName);
+typedef FindWindowWDart =
+    int Function(Pointer<Utf16> lpClassName, Pointer<Utf16> lpWindowName);
 
 /// `HWND GetAncestor(HWND hwnd, UINT gaFlags)` from user32.dll.
 ///
@@ -195,14 +191,10 @@ const int GA_ROOT = 2;
 ///
 /// Returns the thread ID that created the specified window.
 /// Optionally writes the process ID to the provided pointer.
-typedef GetWindowThreadProcessIdNative = Uint32 Function(
-  IntPtr hWnd,
-  Pointer<Uint32> lpdwProcessId,
-);
-typedef GetWindowThreadProcessIdDart = int Function(
-  int hWnd,
-  Pointer<Uint32> lpdwProcessId,
-);
+typedef GetWindowThreadProcessIdNative =
+    Uint32 Function(IntPtr hWnd, Pointer<Uint32> lpdwProcessId);
+typedef GetWindowThreadProcessIdDart =
+    int Function(int hWnd, Pointer<Uint32> lpdwProcessId);
 
 /// `DWORD GetCurrentThreadId(void)` from kernel32.dll.
 typedef GetCurrentThreadIdNative = Uint32 Function();
@@ -214,16 +206,10 @@ typedef GetCurrentThreadIdDart = int Function();
 /// Attaches or detaches the input processing mechanism of one thread
 /// to that of another thread. This allows a thread to call
 /// `SetForegroundWindow` on a window owned by another thread.
-typedef AttachThreadInputNative = Int32 Function(
-  Uint32 idAttach,
-  Uint32 idAttachTo,
-  Int32 fAttach,
-);
-typedef AttachThreadInputDart = int Function(
-  int idAttach,
-  int idAttachTo,
-  int fAttach,
-);
+typedef AttachThreadInputNative =
+    Int32 Function(Uint32 idAttach, Uint32 idAttachTo, Int32 fAttach);
+typedef AttachThreadInputDart =
+    int Function(int idAttach, int idAttachTo, int fAttach);
 
 /// `BOOL BringWindowToTop(HWND hWnd)` from user32.dll.
 typedef BringWindowToTopNative = Int32 Function(IntPtr hWnd);
@@ -247,24 +233,26 @@ typedef ShowWindowDart = int Function(int hWnd, int nCmdShow);
 ///
 /// Changes the size, position, and Z order of a window.
 /// Use with [HWND_TOPMOST] to make a window always-on-top.
-typedef SetWindowPosNative = Int32 Function(
-  IntPtr hWnd,
-  IntPtr hWndInsertAfter,
-  Int32 x,
-  Int32 y,
-  Int32 cx,
-  Int32 cy,
-  Uint32 uFlags,
-);
-typedef SetWindowPosDart = int Function(
-  int hWnd,
-  int hWndInsertAfter,
-  int x,
-  int y,
-  int cx,
-  int cy,
-  int uFlags,
-);
+typedef SetWindowPosNative =
+    Int32 Function(
+      IntPtr hWnd,
+      IntPtr hWndInsertAfter,
+      Int32 x,
+      Int32 y,
+      Int32 cx,
+      Int32 cy,
+      Uint32 uFlags,
+    );
+typedef SetWindowPosDart =
+    int Function(
+      int hWnd,
+      int hWndInsertAfter,
+      int x,
+      int y,
+      int cx,
+      int cy,
+      int uFlags,
+    );
 
 /// Special HWND value: places the window above all non-topmost windows.
 const int HWND_TOPMOST = -1;

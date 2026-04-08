@@ -283,6 +283,55 @@ class MockLibFido2Bindings extends LibFido2Bindings {
   @override
   int Function(Pointer assert_, int idx) get fidoAssertIdLen =>
       (_, __) => utf8.encode('mock-cred-id').length;
+
+  // ── CBOR info mocks (for PIN checking) ────────────────────────────────
+
+  Pointer? _mockCborInfo;
+
+  @override
+  Pointer Function() get fidoCborInfoNew => () {
+    _mockCborInfo = calloc<Uint8>(256);
+    return _mockCborInfo!;
+  };
+
+  @override
+  void Function(Pointer<Pointer> ci) get fidoCborInfoFree => (ci) {
+    if (_mockCborInfo != null && _mockCborInfo != nullptr) {
+      calloc.free(_mockCborInfo!);
+      _mockCborInfo = null;
+    }
+  };
+
+  @override
+  int Function(Pointer dev, Pointer ci) get fidoDevGetCborInfo =>
+      (_, __) => fidoOk;
+
+  @override
+  int Function(Pointer ci) get fidoCborInfoOptionsLen =>
+      (_) => 0;
+
+  @override
+  Pointer<Pointer<Utf8>> Function(Pointer ci) get fidoCborInfoOptionsNamePtr =>
+      (_) => calloc<Pointer<Utf8>>(1);
+
+  @override
+  Pointer<Bool> Function(Pointer ci) get fidoCborInfoOptionsValuePtr =>
+      (_) => calloc<Bool>(1);
+
+  // ── PIN retry count mock ──────────────────────────────────────────────
+
+  @override
+  int Function(Pointer dev, Pointer<Int32> retries) get fidoDevGetRetryCnt =>
+      (_, retries) {
+        retries.value = 8;
+        return fidoOk;
+      };
+
+  // ── Device cancel mock ────────────────────────────────────────────────
+
+  @override
+  int Function(Pointer dev) get fidoDevCancel =>
+      (_) => fidoOk;
 }
 
 void main() {
@@ -307,14 +356,12 @@ void main() {
     });
 
     group('_ensureSupported', () {
-      test(
-        'throws PasskeyNotSupportedException when no devices found',
-        () async {
-          // Use mock bindings that report zero devices to test the unsupported path
-          final bindings = MockLibFido2Bindings(mockDeviceCount: 0);
-          final platform = LinuxWebAuthnPlatform(bindings: bindings);
+      test('throws PasskeyNotSupportedException when no devices found', () async {
+        // Use mock bindings that report zero devices to test the unsupported path
+        final bindings = MockLibFido2Bindings(mockDeviceCount: 0);
+        final platform = LinuxWebAuthnPlatform(bindings: bindings);
 
-          const optionsJson = '''
+        const optionsJson = '''
 {
   "rp": {"id": "example.com", "name": "Example"},
   "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
@@ -323,12 +370,11 @@ void main() {
 }
 ''';
 
-          expect(
-            () => platform.createCredential(optionsJson),
-            throwsA(isA<PasskeyNotSupportedException>()),
-          );
-        },
-      );
+        expect(
+          () => platform.createCredential(optionsJson),
+          throwsA(isA<PasskeyNotSupportedException>()),
+        );
+      });
     });
 
     group('createCredential', () {

@@ -14,8 +14,9 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:ffi/ffi.dart';
 
 /// Logger for Windows WebAuthn platform operations.
-final AmplifyLogger _logger = AmplifyLogger.category(Category.auth)
-    .createChild('WindowsWebAuthn');
+final AmplifyLogger _logger = AmplifyLogger.category(
+  Category.auth,
+).createChild('WindowsWebAuthn');
 
 /// {@template amplify_auth_cognito.windows_webauthn_platform}
 /// Windows implementation of [WebAuthnCredentialPlatform] using the
@@ -46,8 +47,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
   Future<bool> isPasskeySupported() async {
     _logger.debug('isPasskeySupported: checking Windows WebAuthn support...');
     try {
-      _logger.debug('isPasskeySupported: API version = $_apiVersion '
-          '(required >= $WEBAUTHN_API_VERSION_4)');
+      _logger.debug(
+        'isPasskeySupported: API version = $_apiVersion '
+        '(required >= $WEBAUTHN_API_VERSION_4)',
+      );
 
       // Check if the API version supports JSON pass-through (version 4+).
       //
@@ -81,8 +84,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
     _logger.debug('createCredential: API version=$_apiVersion');
     if (_apiVersion < WEBAUTHN_API_VERSION_4) {
-      _logger.error('createCredential: API version $_apiVersion < '
-          '$WEBAUTHN_API_VERSION_4, passkeys not supported');
+      _logger.error(
+        'createCredential: API version $_apiVersion < '
+        '$WEBAUTHN_API_VERSION_4, passkeys not supported',
+      );
       throw const PasskeyNotSupportedException(
         'Windows WebAuthn API version 4+ is required for passkey support',
       );
@@ -262,8 +267,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
       );
 
       // --- Call MakeCredential ---
-      _logger.debug('createCredential: calling '
-          'WebAuthNAuthenticatorMakeCredential (JSON pass-through v7)...');
+      _logger.debug(
+        'createCredential: calling '
+        'WebAuthNAuthenticatorMakeCredential (JSON pass-through v7)...',
+      );
 
       // Start a background monitor that will find the Windows Security
       // dialog and bring it to the foreground. This is needed because
@@ -303,12 +310,16 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
         _ensureForeground(hWnd);
       }
 
-      _logger.debug('createCredential: MakeCredential returned '
-          'HRESULT=0x${hr.toRadixString(16).padLeft(8, '0')}');
+      _logger.debug(
+        'createCredential: MakeCredential returned '
+        'HRESULT=0x${hr.toRadixString(16).padLeft(8, '0')}',
+      );
 
       if (hr != S_OK) {
-        _logger.error('createCredential: MakeCredential FAILED with '
-            'HRESULT=0x${hr.toRadixString(16).padLeft(8, '0')}');
+        _logger.error(
+          'createCredential: MakeCredential FAILED with '
+          'HRESULT=0x${hr.toRadixString(16).padLeft(8, '0')}',
+        );
         _throwHResultError(hr, isRegistration: true);
       }
 
@@ -330,8 +341,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
       );
 
       if (cbJson == 0 || pbJson == nullptr) {
-        _logger.error('createCredential: empty registration response '
-            '(cbJson=$cbJson, pbJson=$pbJson)');
+        _logger.error(
+          'createCredential: empty registration response '
+          '(cbJson=$cbJson, pbJson=$pbJson)',
+        );
         throw const PasskeyRegistrationFailedException(
           'Windows WebAuthn returned empty registration response',
         );
@@ -341,8 +354,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
         Uint8List.fromList(pbJson.cast<Uint8>().asTypedList(cbJson)),
       );
 
-      _logger.debug('createCredential: received registration response '
-          '(${jsonString.length} chars)');
+      _logger.debug(
+        'createCredential: received registration response '
+        '(${jsonString.length} chars)',
+      );
 
       // Ensure clientExtensionResults is present (required by Dart model)
       final result = _ensureClientExtensionResults(jsonString);
@@ -375,8 +390,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
     _logger.debug('getCredential: API version=$_apiVersion');
     if (_apiVersion < WEBAUTHN_API_VERSION_4) {
-      _logger.error('getCredential: API version $_apiVersion < '
-          '$WEBAUTHN_API_VERSION_4, passkeys not supported');
+      _logger.error(
+        'getCredential: API version $_apiVersion < '
+        '$WEBAUTHN_API_VERSION_4, passkeys not supported',
+      );
       throw const PasskeyNotSupportedException(
         'Windows WebAuthn API version 4+ is required for passkey support',
       );
@@ -458,8 +475,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
       );
 
       // --- Call GetAssertion ---
-      _logger.debug('getCredential: calling '
-          'WebAuthNAuthenticatorGetAssertion (JSON pass-through v7)...');
+      _logger.debug(
+        'getCredential: calling '
+        'WebAuthNAuthenticatorGetAssertion (JSON pass-through v7)...',
+      );
 
       // Start a background monitor that will find the Windows Security
       // dialog and bring it to the foreground.
@@ -493,12 +512,16 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
         _ensureForeground(hWnd);
       }
 
-      _logger.debug('getCredential: GetAssertion returned '
-          'HRESULT=0x${hr.toRadixString(16).padLeft(8, '0')}');
+      _logger.debug(
+        'getCredential: GetAssertion returned '
+        'HRESULT=0x${hr.toRadixString(16).padLeft(8, '0')}',
+      );
 
       if (hr != S_OK) {
-        _logger.error('getCredential: GetAssertion FAILED with '
-            'HRESULT=0x${hr.toRadixString(16).padLeft(8, '0')}');
+        _logger.error(
+          'getCredential: GetAssertion FAILED with '
+          'HRESULT=0x${hr.toRadixString(16).padLeft(8, '0')}',
+        );
         _throwHResultError(hr, isRegistration: false);
       }
 
@@ -512,10 +535,9 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
       String? jsonPassThroughResponse;
       for (final candidateOffset in [136, 152, 160, 168]) {
         try {
-          final cbCandidate =
-              (pAssertion.cast<Uint8>() + candidateOffset)
-                  .cast<Uint32>()
-                  .value;
+          final cbCandidate = (pAssertion.cast<Uint8>() + candidateOffset)
+              .cast<Uint32>()
+              .value;
           if (cbCandidate > 50 && cbCandidate < 10000) {
             final pbCandidate = _readPointerAt(
               pAssertion.cast<Uint8>(),
@@ -532,29 +554,34 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
               if (candidateStr.contains('"id"') &&
                   candidateStr.contains('"response"')) {
                 jsonPassThroughResponse = candidateStr;
-                _logger.debug('getCredential: found JSON response '
-                    'at offset $candidateOffset');
+                _logger.debug(
+                  'getCredential: found JSON response '
+                  'at offset $candidateOffset',
+                );
                 break;
               }
             }
           }
         } on Object catch (e) {
-          _logger.debug('getCredential: candidate[$candidateOffset] '
-              'failed: $e');
+          _logger.debug(
+            'getCredential: candidate[$candidateOffset] '
+            'failed: $e',
+          );
         }
       }
 
       // If we found a valid JSON pass-through response, use it directly.
       if (jsonPassThroughResponse != null) {
-        final result =
-            _ensureClientExtensionResults(jsonPassThroughResponse);
+        final result = _ensureClientExtensionResults(jsonPassThroughResponse);
         _logger.debug('getCredential: END (success, JSON pass-through)');
         return result;
       }
 
       // --- Fallback: build response from raw struct fields ---
-      _logger.debug('getCredential: no JSON pass-through response found, '
-          'building response from raw struct fields');
+      _logger.debug(
+        'getCredential: no JSON pass-through response found, '
+        'building response from raw struct fields',
+      );
 
       // The WEBAUTHN_ASSERTION struct layout (version 6, 64-bit):
       //   0: DWORD dwVersion
@@ -572,29 +599,33 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
       //  64: PBYTE pbUserId
 
       // Read authenticatorData
-      final cbAuthData =
-          (pAssertion.cast<Uint8>() + 4).cast<Uint32>().value;
+      final cbAuthData = (pAssertion.cast<Uint8>() + 4).cast<Uint32>().value;
       final pbAuthData = _readPointerAt(pAssertion.cast<Uint8>(), 8);
       _logger.debug('getCredential: cbAuthenticatorData=$cbAuthData');
 
       // Read signature
-      final cbSignature =
-          (pAssertion.cast<Uint8>() + 16).cast<Uint32>().value;
+      final cbSignature = (pAssertion.cast<Uint8>() + 16).cast<Uint32>().value;
       final pbSignature = _readPointerAt(pAssertion.cast<Uint8>(), 24);
       _logger.debug('getCredential: cbSignature=$cbSignature');
 
       // Read credential ID from embedded WEBAUTHN_CREDENTIAL
-      final cbCredentialId =
-          (pAssertion.cast<Uint8>() + 36).cast<Uint32>().value;
+      final cbCredentialId = (pAssertion.cast<Uint8>() + 36)
+          .cast<Uint32>()
+          .value;
       final pbCredentialId = _readPointerAt(pAssertion.cast<Uint8>(), 40);
       _logger.debug('getCredential: cbCredentialId=$cbCredentialId');
 
-      if (cbAuthData == 0 || pbAuthData == nullptr ||
-          cbSignature == 0 || pbSignature == nullptr ||
-          cbCredentialId == 0 || pbCredentialId == nullptr) {
-        _logger.error('getCredential: missing assertion data '
-            '(authData=$cbAuthData, sig=$cbSignature, '
-            'credId=$cbCredentialId)');
+      if (cbAuthData == 0 ||
+          pbAuthData == nullptr ||
+          cbSignature == 0 ||
+          pbSignature == nullptr ||
+          cbCredentialId == 0 ||
+          pbCredentialId == nullptr) {
+        _logger.error(
+          'getCredential: missing assertion data '
+          '(authData=$cbAuthData, sig=$cbSignature, '
+          'credId=$cbCredentialId)',
+        );
         throw const PasskeyAssertionFailedException(
           'Windows WebAuthn returned incomplete assertion data',
         );
@@ -620,8 +651,7 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
       );
 
       // Read userId if available
-      final cbUserId =
-          (pAssertion.cast<Uint8>() + 56).cast<Uint32>().value;
+      final cbUserId = (pAssertion.cast<Uint8>() + 56).cast<Uint32>().value;
       String? userHandleB64;
       if (cbUserId > 0) {
         final pbUserId = _readPointerAt(pAssertion.cast<Uint8>(), 64);
@@ -682,13 +712,12 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
     // Step 1: Find the Flutter window by its well-known class name.
     final classNamePtr = kFlutterWindowClassName.toNativeUtf16();
     try {
-      final flutterHwnd = _bindings.findWindowW(
-        classNamePtr,
-        nullptr.cast(),
+      final flutterHwnd = _bindings.findWindowW(classNamePtr, nullptr.cast());
+      _logger.debug(
+        '_getWindowHandle: FindWindowW('
+        '$kFlutterWindowClassName) = '
+        '0x${flutterHwnd.toRadixString(16)}',
       );
-      _logger.debug('_getWindowHandle: FindWindowW('
-          '$kFlutterWindowClassName) = '
-          '0x${flutterHwnd.toRadixString(16)}');
 
       int hWnd;
       if (flutterHwnd != 0) {
@@ -696,18 +725,22 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
         // HWND may be a child window; we need the top-level parent.
         final rootHwnd = _bindings.getAncestor(flutterHwnd, GA_ROOT);
         hWnd = rootHwnd != 0 ? rootHwnd : flutterHwnd;
-        _logger.debug('_getWindowHandle: GetAncestor(GA_ROOT) = '
-            '0x${rootHwnd.toRadixString(16)}, using= '
-            '0x${hWnd.toRadixString(16)}');
+        _logger.debug(
+          '_getWindowHandle: GetAncestor(GA_ROOT) = '
+          '0x${rootHwnd.toRadixString(16)}, using= '
+          '0x${hWnd.toRadixString(16)}',
+        );
       } else {
         // Fallback: try GetForegroundWindow / GetActiveWindow.
         final foreground = _bindings.getForegroundWindow();
         final active = _bindings.getActiveWindow();
         hWnd = foreground != 0 ? foreground : active;
-        _logger.debug('_getWindowHandle: FindWindowW failed, '
-            'fallback foreground=0x${foreground.toRadixString(16)}, '
-            'active=0x${active.toRadixString(16)}, '
-            'using=0x${hWnd.toRadixString(16)}');
+        _logger.debug(
+          '_getWindowHandle: FindWindowW failed, '
+          'fallback foreground=0x${foreground.toRadixString(16)}, '
+          'active=0x${active.toRadixString(16)}, '
+          'using=0x${hWnd.toRadixString(16)}',
+        );
       }
 
       if (hWnd != 0) {
@@ -724,8 +757,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
         // the security dialog) permission to bring its window to the
         // foreground.
         final asfwResult = _bindings.allowSetForegroundWindow(ASFW_ANY);
-        _logger.debug('_getWindowHandle: '
-            'AllowSetForegroundWindow(ASFW_ANY)=$asfwResult');
+        _logger.debug(
+          '_getWindowHandle: '
+          'AllowSetForegroundWindow(ASFW_ANY)=$asfwResult',
+        );
       }
 
       return hWnd;
@@ -749,13 +784,15 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
         : 0;
     final currentThreadId = _bindings.getCurrentThreadId();
 
-    _logger.debug('_ensureForeground: currentForeground= '
-        '0x${currentForeground.toRadixString(16)}, '
-        'foregroundThread=$foregroundThreadId, '
-        'currentThread=$currentThreadId');
+    _logger.debug(
+      '_ensureForeground: currentForeground= '
+      '0x${currentForeground.toRadixString(16)}, '
+      'foregroundThread=$foregroundThreadId, '
+      'currentThread=$currentThreadId',
+    );
 
-    final needsAttach = foregroundThreadId != 0 &&
-        foregroundThreadId != currentThreadId;
+    final needsAttach =
+        foregroundThreadId != 0 && foregroundThreadId != currentThreadId;
 
     if (needsAttach) {
       // Attach our thread's input to the foreground thread's input.
@@ -799,10 +836,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
   /// Returns a function that stops the monitor when called.
   Future<void Function()> _startDialogMonitor(int flutterHwnd) async {
     final receivePort = ReceivePort();
-    final isolate = await Isolate.spawn(
-      _dialogMonitorEntry,
-      [receivePort.sendPort, flutterHwnd],
-    );
+    final isolate = await Isolate.spawn(_dialogMonitorEntry, [
+      receivePort.sendPort,
+      flutterHwnd,
+    ]);
 
     // Wait for the isolate to send back its SendPort for control.
     final controlPort = await receivePort.first as SendPort;
@@ -847,17 +884,19 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
         .lookupFunction<GetForegroundWindowNative, GetForegroundWindowDart>(
           'GetForegroundWindow',
         );
-    final showWindow = user32
-        .lookupFunction<ShowWindowNative, ShowWindowDart>('ShowWindow');
+    final showWindow = user32.lookupFunction<ShowWindowNative, ShowWindowDart>(
+      'ShowWindow',
+    );
     final setWindowPos = user32
         .lookupFunction<SetWindowPosNative, SetWindowPosDart>('SetWindowPos');
 
     // Load kernel32.dll for Sleep.
     final kernel32 = DynamicLibrary.open('kernel32.dll');
-    final sleep = kernel32.lookupFunction<
-      Void Function(Uint32 dwMilliseconds),
-      void Function(int dwMilliseconds)
-    >('Sleep');
+    final sleep = kernel32
+        .lookupFunction<
+          Void Function(Uint32 dwMilliseconds),
+          void Function(int dwMilliseconds)
+        >('Sleep');
 
     // The Windows Security dialog may appear with different titles
     // depending on the operation (PIN entry, passkey selection, etc.).
@@ -911,7 +950,10 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
           setWindowPos(
             dialogHwnd,
             HWND_TOPMOST,
-            0, 0, 0, 0,
+            0,
+            0,
+            0,
+            0,
             SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW,
           );
 
