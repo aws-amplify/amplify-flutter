@@ -17944,7 +17944,7 @@
   };
   A._launchSimulator_closure.prototype = {
     call$0() {
-      return A.Exec_exec(A._asJSObject(init.G.exec), "xcrun", A._setArrayType(["simctl", "create", "test", "iPhone 13", this.runtimeIdentifier], type$.JSArray_String), true);
+      return A.Exec_exec(A._asJSObject(init.G.exec), "xcrun", A._setArrayType(["simctl", "create", "test", "iPhone 13 Pro Max", this.runtimeIdentifier], type$.JSArray_String), true);
     },
     $signature: 18
   };

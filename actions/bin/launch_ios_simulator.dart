@@ -185,7 +185,7 @@ Future<void> _launchSimulator(String runtimeIdentifier) async {
       'simctl',
       'create',
       'test',
-      'iPhone 13',
+      'iPhone 13 Pro Max',
       runtimeIdentifier,
     ]),
   );
