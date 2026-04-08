@@ -179,13 +179,20 @@ Future<void> launch() async {
 
 /// Launches the iOS simulator with the given runtime identifier.
 Future<void> _launchSimulator(String runtimeIdentifier) async {
+  // Pick a device type that exists in the target iOS runtime.
+  // iOS 26+ only ships iPhone 17-series simulators; older runtimes have iPhone 13.
+  final iosMajor = int.tryParse(
+    runtimeIdentifier.split('iOS-').last.split('-').first,
+  ) ?? 26;
+  final deviceType = iosMajor >= 26 ? 'iPhone 17' : 'iPhone 13';
+  core.info('Using device type "$deviceType" for runtime $runtimeIdentifier');
   final createRes = await core.withGroup(
     'Create simulator',
     () => exec.exec('xcrun', [
       'simctl',
       'create',
       'test',
-      'iPhone 13',
+      deviceType,
       runtimeIdentifier,
     ]),
   );
