@@ -14,8 +14,9 @@ void main() {
     late MockAuthenticatorState mockState;
     setUp(() {
       mockState = MockAuthenticatorState();
-      when(() => mockState.signIn(buttonKey: any(named: 'buttonKey')))
-          .thenAnswer((_) async {
+      when(
+        () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+      ).thenAnswer((_) async {
         mockState.isBusy = true;
         await Future<void>.delayed(Duration.zero);
         mockState.isBusy = false;
@@ -87,7 +88,9 @@ void main() {
       verifyNever(() => mockState.signIn(buttonKey: any(named: 'buttonKey')));
       await signInWithKeyboard(tester);
       await tester.pumpAndSettle();
-      verify(() => mockState.signIn(buttonKey: any(named: 'buttonKey'))).called(1);
+      verify(
+        () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+      ).called(1);
     });
 
     testWidgets('form should submit when enter is pressed from a text field', (
@@ -114,7 +117,9 @@ void main() {
       verifyNever(() => mockState.signIn(buttonKey: any(named: 'buttonKey')));
       await signInWithKeyboard(tester, submitViaTextField: true);
       await tester.pumpAndSettle();
-      verify(() => mockState.signIn(buttonKey: any(named: 'buttonKey'))).called(1);
+      verify(
+        () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+      ).called(1);
     });
 
     testWidgets(
@@ -147,7 +152,9 @@ void main() {
           submitViaTextField: true,
         );
         await tester.pumpAndSettle();
-        verify(() => mockState.signIn(buttonKey: any(named: 'buttonKey'))).called(1);
+        verify(
+          () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+        ).called(1);
       },
     );
 
@@ -195,7 +202,9 @@ void main() {
         verifyNever(() => mockState.signIn(buttonKey: any(named: 'buttonKey')));
         await signInWithKeyboard(tester);
         await tester.pumpAndSettle();
-        verify(() => mockState.signIn(buttonKey: any(named: 'buttonKey'))).called(1);
+        verify(
+          () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+        ).called(1);
       },
     );
   });
