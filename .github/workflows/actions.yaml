@@ -108,9 +108,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ios-version:
-          - "16.4"
-          - "26.4"
+        include:
+          - ios-version: "16.4"
+            device: "iPhone 13 Pro Max"
+          - ios-version: "26.4"
+            device: "iPhone 17 Pro Max"
     steps:
       - name: Git Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
@@ -119,6 +121,7 @@ jobs:
         uses: ./.github/composite_actions/launch_ios_simulator
         with:
           ios-version: ${{ matrix.ios-version }}
+          device: ${{ matrix.device }}
           script: echo "Success!"
 
   test_launch_android_emulator:

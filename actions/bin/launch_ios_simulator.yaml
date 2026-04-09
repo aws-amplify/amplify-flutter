@@ -4,6 +4,9 @@ inputs:
   ios-version:
     description: The iOS version
     default: "26.1"
+  device:
+    description: The simulator device type to create (e.g. "iPhone 13 Pro Max")
+    default: "iPhone 17 Pro Max"
   script:
     required: true
     description: The script to run once the simulator is booted.
