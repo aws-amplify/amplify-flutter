@@ -10,6 +10,7 @@ library;
 import 'dart:typed_data';
 
 import 'package:amplify_kinesis_dart/src/impl/kinesis_sender.dart';
+import 'package:amplify_kinesis_dart/src/model/kinesis_record.dart';
 import 'package:amplify_kinesis_dart/src/sdk/kinesis.dart';
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:mocktail/mocktail.dart';
@@ -23,7 +24,7 @@ Record _testRecord({
   required Uint8List data,
   int retryCount = 0,
 }) {
-  return Record(
+  return KinesisRecord(
     id: id,
     streamName: 'test-stream',
     partitionKey: partitionKey,

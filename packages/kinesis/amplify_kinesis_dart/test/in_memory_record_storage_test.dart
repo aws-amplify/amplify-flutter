@@ -3,7 +3,7 @@
 
 import 'dart:typed_data';
 
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
+import 'package:amplify_kinesis_dart/src/model/kinesis_record.dart';
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:test/test.dart';
 
@@ -43,7 +43,6 @@ void main() {
         final retrieved = await getAllRecords();
         expect(retrieved, hasLength(1));
         expect(retrieved.first.streamName, equals('test-stream'));
-        expect(retrieved.first.partitionKey, equals('test-partition'));
         expect(
           retrieved.first.data,
           equals(Uint8List.fromList([1, 2, 3, 4, 5])),

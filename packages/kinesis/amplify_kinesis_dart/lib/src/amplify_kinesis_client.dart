@@ -12,9 +12,10 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
 import 'package:amplify_foundation_dart_bridge/amplify_foundation_dart_bridge.dart';
 import 'package:amplify_kinesis_dart/src/amplify_kinesis_client_options.dart';
 import 'package:amplify_kinesis_dart/src/exception/amplify_kinesis_exception.dart';
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
 import 'package:amplify_kinesis_dart/src/impl/kinesis_sender.dart';
+import 'package:amplify_kinesis_dart/src/impl/storage/platform/kinesis_storage_platform.dart';
 import 'package:amplify_kinesis_dart/src/kinesis_limits.dart' as limits;
+import 'package:amplify_kinesis_dart/src/model/kinesis_record.dart';
 import 'package:amplify_kinesis_dart/src/sdk/kinesis.dart';
 import 'package:amplify_kinesis_dart/src/version.dart';
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
@@ -112,8 +113,6 @@ class AmplifyKinesisClient {
       maxRecordsPerBatch: limits.maxRecordsPerStream,
       maxBytesPerBatch: limits.maxPutRecordsSizeBytes,
       maxRecordSizeBytes: limits.maxRecordSizeBytes,
-      dbPrefix: 'kinesis_records',
-      storeName: 'kinesis_records',
     );
 
     final kinesisClient = KinesisClient(

@@ -3,12 +3,9 @@
 
 import 'dart:async';
 
-import 'package:amplify_record_cache_dart/src/storage/record_storage.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 
-/// Creates a platform-specific [RecordStorage] instance.
-///
-/// This stub throws [UnsupportedError] and should never be reached at
-/// runtime — the conditional export selects the VM or web variant.
+/// Stub implementation — throws at runtime on unsupported platforms.
 Future<RecordStorage> createPlatformRecordStorage({
   required String identifier,
   required FutureOr<String>? storagePath,
@@ -16,10 +13,8 @@ Future<RecordStorage> createPlatformRecordStorage({
   required int maxRecordsPerBatch,
   required int maxBytesPerBatch,
   required int maxRecordSizeBytes,
-  required String dbPrefix,
-  required String storeName,
 }) {
   throw UnsupportedError(
-    'Cannot create RecordStorage: no platform implementation available.',
+    'KDS record storage is not supported on this platform.',
   );
 }

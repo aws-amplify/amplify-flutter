@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_kinesis_dart/src/model/kinesis_record.dart';
 import 'package:amplify_kinesis_dart/src/sdk/kinesis.dart';
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 
@@ -37,7 +38,7 @@ class KinesisSender implements Sender {
         .map(
           (record) => PutRecordsRequestEntry(
             data: record.data,
-            partitionKey: record.partitionKey!,
+            partitionKey: (record as KinesisRecord).partitionKey,
           ),
         )
         .toList();

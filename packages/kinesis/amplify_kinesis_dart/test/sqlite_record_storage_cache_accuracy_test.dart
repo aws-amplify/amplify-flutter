@@ -10,8 +10,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
+import 'package:amplify_kinesis_dart/src/impl/storage/kinesis_sqlite_record_storage.dart';
+import 'package:amplify_kinesis_dart/src/model/kinesis_record.dart';
 import 'package:test/test.dart';
 
 import 'helpers/test_database.dart';
@@ -26,7 +26,7 @@ void main() {
         database: db,
         maxCacheBytes: 1024 * 1024,
         maxRecordsPerBatch: 500,
-        maxBytesPerBatch: 10 * 1024 * 1024,
+        maxBytesPerBatch: 5 * 1024 * 1024,
         maxRecordSizeBytes: 10 * 1024 * 1024,
       );
     });
@@ -47,6 +47,7 @@ void main() {
           streamName: 'stream1',
         ),
       );
+
       await storage.addRecord(
         createKinesisRecordInputNow(
           data: Uint8List.fromList([4, 5, 6, 7]),
@@ -198,9 +199,9 @@ void main() {
             final byStream = await storage.getRecordsByStream();
             final records = byStream.values.expand((r) => r).toList();
             if (records.isNotEmpty) {
-              final toDelete = records.first;
+              final toDelete = records.first as KinesisRecord;
               await storage.deleteRecords([toDelete.id]);
-              deleted.add(toDelete.partitionKey ?? '');
+              deleted.add(toDelete.partitionKey);
             }
           }
           deletedKeys.add(deleted);
@@ -222,7 +223,7 @@ void main() {
 
         // Verify every created key is either in DB or was deleted
         final remainingKeys = finalRecords
-            .map((r) => r.partitionKey ?? '')
+            .map((r) => (r as KinesisRecord).partitionKey)
             .toSet();
         final allCreatedKeys = createdKeys.values
             .expand((keys) => keys)

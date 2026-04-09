@@ -7,8 +7,6 @@ library;
 // Client
 export 'src/client/auto_flush_scheduler.dart';
 export 'src/client/record_client.dart';
-// Database
-export 'src/db/record_cache_database.dart' show RecordCacheDatabase;
 // Exceptions
 export 'src/exception/record_cache_exception.dart';
 // Flush strategy
@@ -22,7 +20,5 @@ export 'src/model/record_input.dart';
 // Sender
 export 'src/sender/sender.dart';
 // Storage
-export 'src/storage/platform/record_storage_platform.dart';
 export 'src/storage/record_storage.dart';
 export 'src/storage/record_storage_memory.dart';
-export 'src/storage/record_storage_sqlite.dart';

@@ -10,7 +10,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
+import 'package:amplify_kinesis_dart/src/impl/storage/kinesis_sqlite_record_storage.dart';
+import 'package:amplify_kinesis_dart/src/model/kinesis_record.dart';
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:test/test.dart';
 
