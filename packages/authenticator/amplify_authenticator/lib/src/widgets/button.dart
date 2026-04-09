@@ -109,10 +109,14 @@ class _AmplifyElevatedButtonState
   Widget build(BuildContext context) {
     final buttonResolver = stringResolver.buttons;
     final loadingIndicator = widget.loadingIndicator;
+    final isThisButtonBusy = state.isBusyFor(widget.labelKey);
+    final isBusyNoKey = state.isBusy && state.busyButtonKey == null;
+    final showSpinner =
+        (isThisButtonBusy || isBusyNoKey) && loadingIndicator != null;
     final onPressed = state.isBusy
         ? null
         : () => widget.onPressed(context, state);
-    final child = state.isBusy && loadingIndicator != null
+    final child = showSpinner
         ? loadingIndicator
         : Row(
             mainAxisSize: MainAxisSize.min,
@@ -181,7 +185,7 @@ class SignInButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
-      state.signIn();
+      state.signIn(buttonKey: labelKey);
 }
 
 /// A sign-in button that always uses the password flow, bypassing any
@@ -194,7 +198,7 @@ class SignInWithPasswordButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
-      state.signInWithPassword();
+      state.signInWithPassword(buttonKey: labelKey);
 }
 
 /// Password sign-in button with "Sign in with password" label.
@@ -206,7 +210,7 @@ class SignInWithPasswordLabeledButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
-      state.signInWithPassword();
+      state.signInWithPassword(buttonKey: labelKey);
 }
 
 /// A sign-in button that uses the passkey (passwordless) flow.
@@ -218,7 +222,7 @@ class SignInWithPasskeyButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
-      state.signIn();
+      state.signIn(buttonKey: labelKey);
 }
 
 /// A sign-in button for a specific [AuthFactorType] (passwordless).
@@ -243,7 +247,7 @@ class FactorSignInButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
-      state.signInWithFactor(factor);
+      state.signInWithFactor(factor, buttonKey: labelKey);
 }
 
 /// {@category Prebuilt Widgets}

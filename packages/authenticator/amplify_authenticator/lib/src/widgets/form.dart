@@ -931,6 +931,9 @@ class _ContinueSignInWithFirstFactorSelectionFormState
   bool _isPasskeySupported = false;
   bool _isPasskeySupportChecked = false;
   bool _isSubmitting = false;
+
+  /// Tracks which action initiated the submission (password or a factor key).
+  String? _submittingAction;
   final _passwordController = TextEditingController();
 
   @override
@@ -1003,7 +1006,10 @@ class _ContinueSignInWithFirstFactorSelectionFormState
     final password = _passwordController.text.trim();
     if (password.isEmpty) return;
 
-    setState(() => _isSubmitting = true);
+    setState(() {
+      _isSubmitting = true;
+      _submittingAction = 'password';
+    });
 
     final confirm = AuthConfirmSignInData(confirmationValue: password);
     final bloc = InheritedAuthBloc.of(context, listen: false);
@@ -1012,12 +1018,18 @@ class _ContinueSignInWithFirstFactorSelectionFormState
     await state.nextBlocEvent();
 
     if (mounted) {
-      setState(() => _isSubmitting = false);
+      setState(() {
+        _isSubmitting = false;
+        _submittingAction = null;
+      });
     }
   }
 
   Future<void> _selectFactor(AuthFactorType factor) async {
-    setState(() => _isSubmitting = true);
+    setState(() {
+      _isSubmitting = true;
+      _submittingAction = factor.value;
+    });
 
     final confirm = AuthConfirmSignInData(confirmationValue: factor.value);
     final bloc = InheritedAuthBloc.of(context, listen: false);
@@ -1026,7 +1038,10 @@ class _ContinueSignInWithFirstFactorSelectionFormState
     await state.nextBlocEvent();
 
     if (mounted) {
-      setState(() => _isSubmitting = false);
+      setState(() {
+        _isSubmitting = false;
+        _submittingAction = null;
+      });
     }
   }
 
@@ -1088,10 +1103,10 @@ class _ContinueSignInWithFirstFactorSelectionFormState
             const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
-              child: _isSubmitting
+              child: _submittingAction == 'password'
                   ? const Center(child: CircularProgressIndicator())
                   : ElevatedButton(
-                      onPressed: _submitPassword,
+                      onPressed: _isSubmitting ? null : _submitPassword,
                       child: Text(
                         buttonResolver.resolve(
                           context,
@@ -1127,15 +1142,19 @@ class _ContinueSignInWithFirstFactorSelectionFormState
               padding: const EdgeInsets.only(bottom: 8),
               child: SizedBox(
                 width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: _isSubmitting ? null : () => _selectFactor(factor),
-                  child: Text(
-                    buttonResolver.resolve(
-                      context,
-                      _buttonKeyForFactor(factor),
-                    ),
-                  ),
-                ),
+                child: _submittingAction == factor.value
+                    ? const Center(child: CircularProgressIndicator())
+                    : OutlinedButton(
+                        onPressed: _isSubmitting
+                            ? null
+                            : () => _selectFactor(factor),
+                        child: Text(
+                          buttonResolver.resolve(
+                            context,
+                            _buttonKeyForFactor(factor),
+                          ),
+                        ),
+                      ),
               ),
             ),
           ),

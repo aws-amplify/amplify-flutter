@@ -234,6 +234,12 @@ class MockAuthenticatorState extends Mock implements AuthenticatorState {
   @override
   bool get isBusy => _isBusy;
 
+  @override
+  ButtonResolverKey? get busyButtonKey => null;
+
+  @override
+  bool isBusyFor(ButtonResolverKey key) => _isBusy && busyButtonKey == key;
+
   set isBusy(bool busy) {
     _isBusy = busy;
   }
