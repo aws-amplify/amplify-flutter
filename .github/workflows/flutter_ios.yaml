@@ -18,8 +18,7 @@ on:
 
 jobs:
   flutter-ios-build-and-test:
-    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
-    runs-on: macos-14-xlarge
+    runs-on: macos-26-xlarge
     timeout-minutes: 30
     strategy:
       # Allows other matrix items to run if one fails
@@ -39,7 +38,7 @@ jobs:
         run: git submodule update --init
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # 2.23.0
         with:
           cache: true
           channel: ${{ matrix.channel }}
@@ -60,7 +59,7 @@ jobs:
         if: inputs.has-native-tests
         run: |
           set -o pipefail
-          XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 16 Pro Max,OS=latest"
+          XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 17 Pro Max,OS=latest"
           xcodebuild test \
               -workspace Runner.xcworkspace \
               -scheme Runner \

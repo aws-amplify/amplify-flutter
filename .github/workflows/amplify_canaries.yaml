@@ -16,8 +16,7 @@ concurrency:
 jobs:
   # Ensure an app pulling in published Amplify libraries can build properly
   build:
-    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available
-    runs-on: macos-14
+    runs-on: macos-26
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -148,8 +147,7 @@ jobs:
           platform-version: ${{ matrix.ios-version }}
 
   e2e-ios:
-    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-availabl
-    runs-on: macos-14-xlarge
+    runs-on: macos-26-xlarge
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
