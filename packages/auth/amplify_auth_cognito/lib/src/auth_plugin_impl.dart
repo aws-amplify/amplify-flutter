@@ -14,7 +14,6 @@ import 'package:amplify_auth_cognito/src/linux/linux_webauthn_platform_stub.dart
     if (dart.library.io) 'package:amplify_auth_cognito/src/linux/linux_webauthn_platform.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito/src/pigeon_webauthn_credential_platform.dart';
-import 'package:amplify_auth_cognito/src/webauthn_bridge.g.dart';
 import 'package:amplify_auth_cognito/src/windows/windows_webauthn_platform_stub.dart'
     if (dart.library.io) 'package:amplify_auth_cognito/src/windows/windows_webauthn_platform.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';

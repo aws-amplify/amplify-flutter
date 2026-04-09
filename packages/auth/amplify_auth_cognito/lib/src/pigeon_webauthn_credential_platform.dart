@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito/src/webauthn_bridge.g.dart';
+import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/model/webauthn/webauthn_credential_platform.dart';
 import 'package:amplify_core/amplify_core.dart';

@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.ios.dependency 'Flutter'
   s.osx.dependency 'FlutterMacOS'
 
-  s.ios.framework = 'UIKit'
+  s.ios.frameworks = 'UIKit', 'AuthenticationServices'
   s.osx.frameworks = 'AppKit', 'IOKit', 'AuthenticationServices'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 
