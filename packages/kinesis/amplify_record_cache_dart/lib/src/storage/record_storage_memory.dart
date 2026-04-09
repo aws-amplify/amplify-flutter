@@ -28,7 +28,6 @@ final class InMemoryRecordStorage extends RecordStorage {
     _records[id] = Record(
       id: id,
       streamName: record.streamName,
-      partitionKey: record.partitionKey,
       data: record.data,
       dataSize: record.dataSize,
       retryCount: 0,
@@ -87,7 +86,6 @@ final class InMemoryRecordStorage extends RecordStorage {
       _records[id] = Record(
         id: record.id,
         streamName: record.streamName,
-        partitionKey: record.partitionKey,
         data: record.data,
         dataSize: record.dataSize,
         retryCount: record.retryCount + 1,

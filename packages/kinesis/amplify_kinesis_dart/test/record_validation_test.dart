@@ -22,8 +22,9 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show Error, Ok;
 import 'package:amplify_kinesis_dart/src/amplify_kinesis_client.dart';
 import 'package:amplify_kinesis_dart/src/exception/amplify_kinesis_exception.dart';
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
+import 'package:amplify_kinesis_dart/src/impl/storage/kinesis_sqlite_record_storage.dart';
 import 'package:amplify_kinesis_dart/src/kinesis_limits.dart' as limits;
+import 'package:amplify_kinesis_dart/src/model/kinesis_record.dart';
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:test/test.dart';
 

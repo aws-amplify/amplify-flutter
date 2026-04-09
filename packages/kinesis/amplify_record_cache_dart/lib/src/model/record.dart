@@ -9,8 +9,11 @@ import 'dart:typed_data';
 ///
 /// This is a plain Dart class with no ORM coupling, shared across all
 /// storage backends (SQLite, IndexedDB, In-Memory).
+///
+/// Service-specific fields (e.g. partition key for KDS) should be stored
+/// in a service-specific subclass or wrapper.
 /// {@endtemplate}
-final class Record {
+class Record {
   /// {@macro amplify_record_cache.record}
   const Record({
     required this.id,
@@ -19,7 +22,6 @@ final class Record {
     required this.dataSize,
     required this.retryCount,
     required this.createdAt,
-    this.partitionKey,
   });
 
   /// Auto-incrementing primary key.
@@ -27,9 +29,6 @@ final class Record {
 
   /// The name of the target stream.
   final String streamName;
-
-  /// Optional partition key (used by Kinesis Data Streams, null for Firehose).
-  final String? partitionKey;
 
   /// The data blob to send.
   final Uint8List data;

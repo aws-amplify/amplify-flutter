@@ -8,7 +8,7 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
 import 'package:amplify_kinesis_dart/src/amplify_kinesis_client.dart';
 import 'package:amplify_kinesis_dart/src/amplify_kinesis_client_options.dart';
 import 'package:amplify_kinesis_dart/src/exception/amplify_kinesis_exception.dart';
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
+import 'package:amplify_kinesis_dart/src/model/kinesis_record.dart';
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -116,7 +116,7 @@ void main() {
 
         final captured =
             verify(() => mockRecordClient.record(captureAny())).captured.single
-                as RecordInput;
+                as KinesisRecordInput;
 
         expect(captured.data, equals(data));
         expect(captured.partitionKey, equals('test-partition'));
@@ -144,7 +144,7 @@ void main() {
 
         final captured =
             verify(() => mockRecordClient.record(captureAny())).captured.single
-                as RecordInput;
+                as KinesisRecordInput;
 
         expect(captured.dataSize, equals(1002));
 
