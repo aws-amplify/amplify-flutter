@@ -15,7 +15,7 @@ on:
         required: true
         type: string
       os:
-        description: The runner OS to use (e.g. macos-14, ubuntu-latest)
+        description: The runner OS to use (e.g. macos-26, ubuntu-latest)
         required: true
         type: string
 
