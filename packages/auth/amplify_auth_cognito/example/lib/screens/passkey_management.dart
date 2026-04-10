@@ -38,6 +38,22 @@ class _PasskeyManagementScreenState extends State<PasskeyManagementScreen> {
     }
   }
 
+  Future<void> _addPasskey() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    try {
+      await Amplify.Auth.associateWebAuthnCredential();
+      await _load();
+    } on Exception catch (e) {
+      setState(() {
+        _error = e.toString();
+        _loading = false;
+      });
+    }
+  }
+
   Future<void> _delete(String credentialId) async {
     setState(() => _loading = true);
     try {
@@ -51,6 +67,17 @@ class _PasskeyManagementScreenState extends State<PasskeyManagementScreen> {
     }
   }
 
+  String _transportLabel(List<String>? transports) {
+    if (transports == null || transports.isEmpty) return 'Unknown';
+    return transports.map((t) => switch (t) {
+      'internal' => 'Built-in',
+      'usb' => 'USB',
+      'nfc' => 'NFC',
+      'ble' => 'Bluetooth',
+      _ => t,
+    }).join(', ');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +86,10 @@ class _PasskeyManagementScreenState extends State<PasskeyManagementScreen> {
         actions: [
           IconButton(icon: const Icon(Icons.refresh), onPressed: _load),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _loading ? null : _addPasskey,
+        child: const Icon(Icons.add),
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
@@ -88,8 +119,12 @@ class _PasskeyManagementScreenState extends State<PasskeyManagementScreen> {
                             c.friendlyName ?? c.credentialId.substring(0, 8),
                           ),
                           subtitle: Text(
-                            c.createdAt.toLocal().toString().split('.').first,
+                            'Created: ${c.createdAt.toLocal().toString().split('.').first}\n'
+                            'RP: ${c.relyingPartyId}\n'
+                            'Attachment: ${c.authenticatorAttachment ?? 'N/A'}\n'
+                            'Transport: ${_transportLabel(c.authenticatorTransports)}',
                           ),
+                          isThreeLine: true,
                           trailing: IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () => _delete(c.credentialId),
