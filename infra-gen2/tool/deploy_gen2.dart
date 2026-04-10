@@ -141,6 +141,11 @@ const List<AmplifyBackendGroup> infraConfig = [
         identifier: 'main',
         pathToSource: 'infra-gen2/backends/kinesis/main',
       ),
+      AmplifyBackend(
+        name: 'firehose',
+        identifier: 'firehose',
+        pathToSource: 'infra-gen2/backends/kinesis/firehose',
+      ),
     ],
   ),
 ];
