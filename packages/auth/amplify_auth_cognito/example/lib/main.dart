@@ -108,6 +108,7 @@ class _MyAppState extends State<MyApp> {
       preferPrivateSession: true,
       signInForm: SignInForm(),
       passwordlessSettings: const PasswordlessSettings(
+        preferredAuthMethod: AuthFactorType.webAuthn,
         passkeyRegistrationPrompts: PasskeyRegistrationPrompts.enabled(),
       ),
       child: MaterialApp.router(
