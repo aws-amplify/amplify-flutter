@@ -69,13 +69,17 @@ class _PasskeyManagementScreenState extends State<PasskeyManagementScreen> {
 
   String _transportLabel(List<String>? transports) {
     if (transports == null || transports.isEmpty) return 'Unknown';
-    return transports.map((t) => switch (t) {
-      'internal' => 'Built-in',
-      'usb' => 'USB',
-      'nfc' => 'NFC',
-      'ble' => 'Bluetooth',
-      _ => t,
-    }).join(', ');
+    return transports
+        .map(
+          (t) => switch (t) {
+            'internal' => 'Built-in',
+            'usb' => 'USB',
+            'nfc' => 'NFC',
+            'ble' => 'Bluetooth',
+            _ => t,
+          },
+        )
+        .join(', ');
   }
 
   @override
