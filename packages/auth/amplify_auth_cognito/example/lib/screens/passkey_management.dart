@@ -102,7 +102,7 @@ class _PasskeyManagementScreenState extends State<PasskeyManagementScreen> {
                 if (_error != null)
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
+                    child: SelectableText(
                       _error!,
                       style: const TextStyle(color: Colors.red),
                     ),
