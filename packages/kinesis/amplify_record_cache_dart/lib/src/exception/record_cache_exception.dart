@@ -1,13 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+/// {@template amplify_record_cache.record_cache_exception}
 /// Internal error type used by RecordClient / RecordStorage.
 ///
-/// Mapped to the public AmplifyKinesisException hierarchy at the
-/// AmplifyKinesisClient boundary via `AmplifyKinesisException.from`.
+/// Mapped to the public exception hierarchy at the client boundary
+/// (e.g. `AmplifyKinesisException.from` or `AmplifyFirehoseException.from`).
+/// {@endtemplate}
 sealed class RecordCacheException implements Exception {
   /// Creates a [RecordCacheException].
-  RecordCacheException(this.message, this.recoverySuggestion, [this.cause]);
+  const RecordCacheException(
+    this.message,
+    this.recoverySuggestion, [
+    this.cause,
+  ]);
 
   /// A message describing the error.
   final String message;
@@ -29,7 +35,7 @@ sealed class RecordCacheException implements Exception {
 /// Database operation failed.
 final class RecordCacheDatabaseException extends RecordCacheException {
   /// Creates a [RecordCacheDatabaseException].
-  RecordCacheDatabaseException(
+  const RecordCacheDatabaseException(
     super.message,
     super.recoverySuggestion, [
     super.cause,
@@ -39,18 +45,17 @@ final class RecordCacheDatabaseException extends RecordCacheException {
 /// Cache limit exceeded — no space for new records.
 final class RecordCacheLimitExceededException extends RecordCacheException {
   /// Creates a [RecordCacheLimitExceededException].
-  RecordCacheLimitExceededException(
+  const RecordCacheLimitExceededException(
     super.message,
     super.recoverySuggestion, [
     super.cause,
   ]);
 }
 
-/// Record input validation failed (e.g. oversized record, invalid partition
-/// key).
+/// Record input validation failed (e.g. oversized record).
 final class RecordCacheValidationException extends RecordCacheException {
   /// Creates a [RecordCacheValidationException].
-  RecordCacheValidationException(
+  const RecordCacheValidationException(
     super.message,
     super.recoverySuggestion, [
     super.cause,
