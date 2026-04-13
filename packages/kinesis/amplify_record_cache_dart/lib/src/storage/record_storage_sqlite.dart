@@ -57,11 +57,11 @@ final class SqliteRecordStorage extends RecordStorage {
 
   /// Queries the current cache size from the database.
   static Future<int> _queryCacheSize(RecordCacheDatabase db) async {
-    final query = db.selectOnly(db.cachedRecords)
-      ..addColumns([db.cachedRecords.dataSize.sum()]);
+    final query = db.selectOnly(db.kinesisRecords)
+      ..addColumns([db.kinesisRecords.dataSize.sum()]);
     final result = await query.getSingleOrNull();
     if (result == null) return 0;
-    return result.read(db.cachedRecords.dataSize.sum()) ?? 0;
+    return result.read(db.kinesisRecords.dataSize.sum()) ?? 0;
   }
 
   /// Returns the in-memory cached size directly (O(1), no DB query).
@@ -71,9 +71,9 @@ final class SqliteRecordStorage extends RecordStorage {
   @override
   Future<void> writeRecord(RecordInput record) async {
     await _db
-        .into(_db.cachedRecords)
+        .into(_db.kinesisRecords)
         .insert(
-          CachedRecordsCompanion.insert(
+          KinesisRecordsCompanion.insert(
             streamName: record.streamName,
             partitionKey: Value(record.partitionKey ?? ''),
             data: record.data,
@@ -95,7 +95,7 @@ final class SqliteRecordStorage extends RecordStorage {
           ROW_NUMBER() OVER (PARTITION BY stream_name ORDER BY id) as rn,
           SUM(data_size) OVER (PARTITION BY stream_name ORDER BY id)
             as running_size
-        FROM cached_records
+        FROM kinesis_records
       )
       WHERE rn <= ?1 AND running_size <= ?2
       ORDER BY stream_name, id
@@ -104,7 +104,7 @@ final class SqliteRecordStorage extends RecordStorage {
             Variable.withInt(maxRecordsPerBatch),
             Variable.withInt(maxBytesPerBatch),
           ],
-          readsFrom: {_db.cachedRecords},
+          readsFrom: {_db.kinesisRecords},
         )
         .get();
 
@@ -119,7 +119,7 @@ final class SqliteRecordStorage extends RecordStorage {
   @override
   Future<void> doDeleteRecords(Iterable<int> ids) async {
     if (ids.isEmpty) return;
-    await (_db.delete(_db.cachedRecords)..where((t) => t.id.isIn(ids))).go();
+    await (_db.delete(_db.kinesisRecords)..where((t) => t.id.isIn(ids))).go();
   }
 
   @override
@@ -128,25 +128,25 @@ final class SqliteRecordStorage extends RecordStorage {
   @override
   Future<void> doIncrementRetryCount(Iterable<int> ids) async {
     if (ids.isEmpty) return;
-    await (_db.update(_db.cachedRecords)..where((t) => t.id.isIn(ids))).write(
-      CachedRecordsCompanion.custom(
-        retryCount: _db.cachedRecords.retryCount + const Constant(1),
+    await (_db.update(_db.kinesisRecords)..where((t) => t.id.isIn(ids))).write(
+      KinesisRecordsCompanion.custom(
+        retryCount: _db.kinesisRecords.retryCount + const Constant(1),
       ),
     );
   }
 
   @override
   Future<int> doGetRecordCount() async {
-    final query = _db.selectOnly(_db.cachedRecords)
-      ..addColumns([_db.cachedRecords.id.count()]);
+    final query = _db.selectOnly(_db.kinesisRecords)
+      ..addColumns([_db.kinesisRecords.id.count()]);
     final result = await query.getSingleOrNull();
     if (result == null) return 0;
-    return result.read(_db.cachedRecords.id.count()) ?? 0;
+    return result.read(_db.kinesisRecords.id.count()) ?? 0;
   }
 
   @override
   Future<void> doClearRecords() async {
-    await _db.delete(_db.cachedRecords).go();
+    await _db.delete(_db.kinesisRecords).go();
   }
 
   @override

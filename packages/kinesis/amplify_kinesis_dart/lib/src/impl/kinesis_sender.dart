@@ -37,7 +37,7 @@ class KinesisSender implements Sender {
         .map(
           (record) => PutRecordsRequestEntry(
             data: record.data,
-            partitionKey: record.partitionKey ?? '',
+            partitionKey: record.partitionKey!,
           ),
         )
         .toList();
@@ -70,6 +70,9 @@ class KinesisSender implements Sender {
       } else if (retryCount >= _maxRetries) {
         failedIds.add(recordId);
       } else {
+        // Error codes can be: ProvisionedThroughputExceededException or
+        // InternalFailure. All are treated as retryable until the retry
+        // limit is reached.
         retryableIds.add(recordId);
       }
     }

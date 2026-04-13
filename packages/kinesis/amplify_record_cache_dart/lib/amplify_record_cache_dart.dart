@@ -23,6 +23,6 @@ export 'src/model/record_input.dart';
 export 'src/sender/sender.dart';
 // Storage
 export 'src/storage/platform/record_storage_platform.dart';
-export 'src/storage/record_storage.dart' hide defaultRecoverySuggestion;
+export 'src/storage/record_storage.dart';
 export 'src/storage/record_storage_memory.dart';
 export 'src/storage/record_storage_sqlite.dart';
