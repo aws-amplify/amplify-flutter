@@ -45,37 +45,13 @@ class FirehoseSender implements Sender {
     );
 
     final response = await _firehoseClient.putRecordBatch(request).result;
-    return _splitResponse(response, records);
-  }
 
-  SendResult _splitResponse(
-    sdk.PutRecordBatchOutput response,
-    List<Record> records,
-  ) {
-    final successfulIds = <int>[];
-    final retryableIds = <int>[];
-    final failedIds = <int>[];
-
-    final resultEntries = response.requestResponses.toList();
-
-    for (var i = 0; i < resultEntries.length; i++) {
-      final entry = resultEntries[i];
-      final recordId = records[i].id;
-      final retryCount = records[i].retryCount;
-
-      if (entry.errorCode == null) {
-        successfulIds.add(recordId);
-      } else if (retryCount >= _maxRetries) {
-        failedIds.add(recordId);
-      } else {
-        retryableIds.add(recordId);
-      }
-    }
-
-    return SendResult(
-      successfulIds: successfulIds,
-      retryableIds: retryableIds,
-      failedIds: failedIds,
+    final errorCodes =
+        response.requestResponses.map((e) => e.errorCode).toList();
+    return splitResults(
+      errorCodes: errorCodes,
+      records: records,
+      maxRetries: _maxRetries,
     );
   }
 }
