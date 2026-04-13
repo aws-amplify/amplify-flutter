@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/// {@template amplify_kinesis.flush_data}
+/// {@template amplify_record_cache.flush_data}
 /// Data returned from a flush operation.
 /// {@endtemplate}
 final class FlushData {
-  /// {@macro amplify_kinesis.flush_data}
+  /// {@macro amplify_record_cache.flush_data}
   const FlushData({this.recordsFlushed = 0, this.flushInProgress = false});
 
   /// The number of records successfully flushed.
@@ -16,5 +16,6 @@ final class FlushData {
 
   @override
   String toString() =>
-      'FlushData(recordsFlushed: $recordsFlushed, flushInProgress: $flushInProgress)';
+      'FlushData(recordsFlushed: $recordsFlushed, '
+      'flushInProgress: $flushInProgress)';
 }

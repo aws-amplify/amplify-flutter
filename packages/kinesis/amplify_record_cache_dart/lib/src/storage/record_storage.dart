@@ -1,23 +1,27 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_kinesis_dart/src/exception/amplify_kinesis_exception.dart'
-    show defaultRecoverySuggestion;
-import 'package:amplify_kinesis_dart/src/exception/record_cache_exception.dart';
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_kinesis_dart/src/kinesis_limits.dart' as limits;
-import 'package:amplify_kinesis_dart/src/model/record.dart';
+import 'package:amplify_record_cache_dart/src/exception/record_cache_exception.dart';
+import 'package:amplify_record_cache_dart/src/model/record.dart';
+import 'package:amplify_record_cache_dart/src/model/record_input.dart';
 import 'package:meta/meta.dart';
 
-export 'package:amplify_kinesis_dart/src/model/record.dart';
+export 'package:amplify_record_cache_dart/src/model/record.dart';
 
-/// {@template amplify_kinesis.record_storage}
+/// Default recovery suggestion for wrapped database errors.
+const defaultRecoverySuggestion =
+    'This is an internal error. Please report it as a bug.';
+
+/// {@template amplify_record_cache.record_storage}
 /// Abstract base class for record persistence.
 ///
 /// Implementations provide platform-specific storage (SQLite on VM,
-/// IndexedDB on web, in-memory fallback). Validation of partition key
-/// length, record size, and cache limits is handled here in [addRecord];
-/// subclasses implement [writeRecord] for the actual write.
+/// IndexedDB on web, in-memory fallback). Validation of record size
+/// and cache limits is handled here in [addRecord]; subclasses
+/// implement [writeRecord] for the actual write.
+///
+/// Service-specific validation (e.g. partition key length for KDS)
+/// should be performed by the client before calling [addRecord].
 ///
 /// All public methods wrap unexpected errors as
 /// [RecordCacheDatabaseException]. Subclasses throw
@@ -25,26 +29,23 @@ export 'package:amplify_kinesis_dart/src/model/record.dart';
 /// caught and wrapped automatically.
 /// {@endtemplate}
 abstract class RecordStorage {
-  /// {@macro amplify_kinesis.record_storage}
+  /// {@macro amplify_record_cache.record_storage}
   RecordStorage({
     required int maxCacheBytes,
-    int maxRecordsPerStream = limits.maxRecordsPerStream,
-    int maxBytesPerStream = limits.maxPutRecordsSizeBytes,
-    int maxRecordSizeBytes = limits.maxRecordSizeBytes,
-    int maxPartitionKeyLength = limits.maxPartitionKeyLength,
+    required int maxRecordsPerBatch,
+    required int maxBytesPerBatch,
+    required int maxRecordSizeBytes,
     int initialCachedSize = 0,
   }) : _maxCacheBytes = maxCacheBytes,
-       _maxRecordsPerStream = maxRecordsPerStream,
-       _maxBytesPerStream = maxBytesPerStream,
+       _maxRecordsPerBatch = maxRecordsPerBatch,
+       _maxBytesPerBatch = maxBytesPerBatch,
        _maxRecordSizeBytes = maxRecordSizeBytes,
-       _maxPartitionKeyLength = maxPartitionKeyLength,
        cachedSize = initialCachedSize;
 
   final int _maxCacheBytes;
-  final int _maxRecordsPerStream;
-  final int _maxBytesPerStream;
+  final int _maxRecordsPerBatch;
+  final int _maxBytesPerBatch;
   final int _maxRecordSizeBytes;
-  final int _maxPartitionKeyLength;
 
   /// The current total cached size in bytes.
   @protected
@@ -53,11 +54,11 @@ abstract class RecordStorage {
   /// The maximum cache size in bytes.
   int get maxCacheBytes => _maxCacheBytes;
 
-  /// Maximum number of records per stream in a single batch.
-  int get maxRecordsPerStream => _maxRecordsPerStream;
+  /// Maximum number of records per batch.
+  int get maxRecordsPerBatch => _maxRecordsPerBatch;
 
-  /// Maximum total bytes per stream in a single batch.
-  int get maxBytesPerStream => _maxBytesPerStream;
+  /// Maximum total bytes per batch.
+  int get maxBytesPerBatch => _maxBytesPerBatch;
 
   /// Validates and saves a record to storage.
   /// Throws [RecordCacheValidationException] on invalid input.
@@ -65,20 +66,11 @@ abstract class RecordStorage {
   /// Throws [RecordCacheDatabaseException] on storage errors.
   Future<void> addRecord(RecordInput record) =>
       _wrap('Failed to add record to cache', () async {
-        final codePoints = record.partitionKey.runes.length;
-        if (codePoints == 0 || codePoints > _maxPartitionKeyLength) {
-          throw RecordCacheValidationException(
-            'Partition key length ($codePoints) is outside the allowed '
-                'range of 1-$_maxPartitionKeyLength characters.',
-            'Use a partition key between 1 and '
-                '$_maxPartitionKeyLength characters.',
-          );
-        }
         if (record.dataSize > _maxRecordSizeBytes) {
           throw RecordCacheValidationException(
             'Record size (${record.dataSize} bytes) exceeds the maximum '
-                'of $_maxRecordSizeBytes bytes (partition key + data blob).',
-            'Reduce the record payload size or use a shorter partition key.',
+                'of $_maxRecordSizeBytes bytes.',
+            'Reduce the record payload size.',
           );
         }
         if (cachedSize + record.dataSize > _maxCacheBytes) {

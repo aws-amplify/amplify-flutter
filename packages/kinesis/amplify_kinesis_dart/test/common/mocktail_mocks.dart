@@ -9,8 +9,8 @@ import 'dart:async';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     as foundation;
 import 'package:amplify_kinesis_dart/src/impl/kinesis_sender.dart';
-import 'package:amplify_kinesis_dart/src/impl/record_client.dart';
 import 'package:amplify_kinesis_dart/src/sdk/src/kinesis/kinesis_client.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
@@ -20,13 +20,6 @@ import 'package:smithy/smithy.dart';
 // =============================================================================
 
 /// Creates a mock [SmithyOperation] that returns the result of [fn].
-///
-/// Use this helper to mock SDK client method returns:
-/// ```dart
-/// when(() => mockClient.putRecords(any())).thenReturn(
-///   mockSmithyOperation(() => PutRecordsResponse(...)),
-/// );
-/// ```
 SmithyOperation<T> mockSmithyOperation<T>(FutureOr<T> Function() fn) =>
     SmithyOperation(
       CancelableOperation.fromFuture(Future.value(fn())),
@@ -39,13 +32,6 @@ SmithyOperation<T> mockSmithyOperation<T>(FutureOr<T> Function() fn) =>
 class MockKinesisClient extends Mock implements KinesisClient {}
 
 /// Mock implementation of [SmithyOperation].
-///
-/// Use when you need to throw exceptions from SDK operations:
-/// ```dart
-/// final mockOperation = MockSmithyOperation<PutRecordsResponse>();
-/// when(() => mockOperation.result).thenThrow(SomeException());
-/// when(() => mockClient.putRecords(any())).thenReturn(mockOperation);
-/// ```
 class MockSmithyOperation<T> extends Mock implements SmithyOperation<T> {}
 
 /// Mock implementation of [AWSHttpException].
