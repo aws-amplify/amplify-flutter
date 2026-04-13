@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // upload a file to the S3 bucket
   Future<void> _uploadFile() async {
-    final result = await FilePicker.platform.pickFiles(
+    final result = await FilePicker.pickFiles(
       type: FileType.image,
       withReadStream: true,
       withData: false,

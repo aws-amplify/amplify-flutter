@@ -53,7 +53,7 @@ jobs:
         run: git submodule update --init
 
       - name: Cache Pub dependencies
-        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # 5.0.3
+        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # 5.0.4
         with:
           path: |
             ~/.pub-cache/hosted
@@ -65,7 +65,7 @@ jobs:
             os:ubuntu-latest
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # 2.23.0
         with:
           cache: true
           channel: stable
