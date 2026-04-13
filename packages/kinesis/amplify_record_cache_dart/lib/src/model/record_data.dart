@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/// {@template amplify_kinesis.record_data}
+/// {@template amplify_record_cache.record_data}
 /// Data returned from a record operation.
 /// {@endtemplate}
 final class RecordData {
-  /// {@macro amplify_kinesis.record_data}
+  /// {@macro amplify_record_cache.record_data}
   const RecordData();
 
   @override

@@ -11,7 +11,7 @@ library;
 import 'dart:typed_data';
 
 import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage_sqlite.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:test/test.dart';
 
 import 'helpers/test_database.dart';
@@ -22,7 +22,13 @@ void main() {
 
     setUp(() {
       final db = createTestDatabase();
-      storage = SqliteRecordStorage(database: db, maxCacheBytes: 1024 * 1024);
+      storage = SqliteRecordStorage(
+        database: db,
+        maxCacheBytes: 1024 * 1024,
+        maxRecordsPerBatch: 500,
+        maxBytesPerBatch: 10 * 1024 * 1024,
+        maxRecordSizeBytes: 10 * 1024 * 1024,
+      );
     });
 
     tearDown(() async {
@@ -35,14 +41,14 @@ void main() {
 
     test('cached size matches database after add operations', () async {
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([1, 2, 3]),
           partitionKey: 'a',
           streamName: 'stream1',
         ),
       );
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([4, 5, 6, 7]),
           partitionKey: 'b',
           streamName: 'stream1',
@@ -56,21 +62,21 @@ void main() {
 
     test('cached size matches database after delete operations', () async {
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([1, 2, 3]),
           partitionKey: 'a',
           streamName: 'stream1',
         ),
       );
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([4, 5, 6, 7]),
           partitionKey: 'b',
           streamName: 'stream1',
         ),
       );
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([8, 9]),
           partitionKey: 'c',
           streamName: 'stream2',
@@ -90,14 +96,14 @@ void main() {
 
     test('cached size matches database after clear operations', () async {
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([1, 2, 3]),
           partitionKey: 'a',
           streamName: 'stream1',
         ),
       );
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([4, 5]),
           partitionKey: 'b',
           streamName: 'stream2',
@@ -113,7 +119,7 @@ void main() {
     test('cached size remains accurate through mixed operations', () async {
       // "a"(1) + data(5) = 6
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([1, 2, 3, 4, 5]),
           partitionKey: 'a',
           streamName: 'stream1',
@@ -121,7 +127,7 @@ void main() {
       );
       // "b"(1) + data(3) = 4
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([6, 7, 8]),
           partitionKey: 'b',
           streamName: 'stream2',
@@ -142,7 +148,7 @@ void main() {
 
       // Add another record: "c"(1) + data(2) = 3
       await storage.addRecord(
-        RecordInput.now(
+        createKinesisRecordInputNow(
           data: Uint8List.fromList([9, 10]),
           partitionKey: 'c',
           streamName: 'stream3',
@@ -174,7 +180,7 @@ void main() {
           for (var i = 0; i < recordsPerProducer; i++) {
             final key = 'producer${p}_record$i';
             await storage.addRecord(
-              RecordInput.now(
+              createKinesisRecordInputNow(
                 data: Uint8List(recordSize),
                 partitionKey: key,
                 streamName: 'stream$p',
@@ -194,7 +200,7 @@ void main() {
             if (records.isNotEmpty) {
               final toDelete = records.first;
               await storage.deleteRecords([toDelete.id]);
-              deleted.add(toDelete.partitionKey);
+              deleted.add(toDelete.partitionKey ?? '');
             }
           }
           deletedKeys.add(deleted);
@@ -215,7 +221,9 @@ void main() {
         expect(finalCacheSize, equals(expectedCacheSize));
 
         // Verify every created key is either in DB or was deleted
-        final remainingKeys = finalRecords.map((r) => r.partitionKey).toSet();
+        final remainingKeys = finalRecords
+            .map((r) => r.partitionKey ?? '')
+            .toSet();
         final allCreatedKeys = createdKeys.values
             .expand((keys) => keys)
             .toSet();
@@ -253,21 +261,21 @@ void main() {
       'getRecordsByStream with empty excludingIds returns all records',
       () async {
         await storage.addRecord(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([1]),
             partitionKey: 'key1',
             streamName: 'stream1',
           ),
         );
         await storage.addRecord(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([2]),
             partitionKey: 'key2',
             streamName: 'stream1',
           ),
         );
         await storage.addRecord(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: Uint8List.fromList([3]),
             partitionKey: 'key3',
             streamName: 'stream2',

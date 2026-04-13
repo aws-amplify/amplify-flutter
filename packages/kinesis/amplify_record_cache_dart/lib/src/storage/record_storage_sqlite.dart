@@ -3,55 +3,60 @@
 
 import 'dart:async';
 
-import 'package:amplify_kinesis_dart/src/db/kinesis_record_database.dart';
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage.dart';
+import 'package:amplify_record_cache_dart/src/db/record_cache_database.dart';
+import 'package:amplify_record_cache_dart/src/model/record_input.dart';
+import 'package:amplify_record_cache_dart/src/storage/record_storage.dart';
 import 'package:drift/drift.dart';
 import 'package:meta/meta.dart';
 
-/// {@template amplify_kinesis.sqlite_record_storage}
+/// {@template amplify_record_cache.sqlite_record_storage}
 /// SQLite-backed [RecordStorage] implementation using Drift.
 ///
 /// Used on VM (iOS, macOS, Linux, Windows, Android) platforms.
 /// {@endtemplate}
 final class SqliteRecordStorage extends RecordStorage {
-  /// {@macro amplify_kinesis.sqlite_record_storage}
+  /// {@macro amplify_record_cache.sqlite_record_storage}
   ///
   /// Prefer [create] for production use — it eagerly queries the cache
   /// size from the database. This constructor is available for tests
   /// where the database starts empty.
   SqliteRecordStorage({
-    required KinesisRecordDatabase database,
+    required RecordCacheDatabase database,
     required super.maxCacheBytes,
-    super.maxRecordsPerStream,
-    super.maxBytesPerStream,
-    super.maxRecordSizeBytes,
-    super.maxPartitionKeyLength,
+    required super.maxRecordsPerBatch,
+    required super.maxBytesPerBatch,
+    required super.maxRecordSizeBytes,
     super.initialCachedSize,
   }) : _db = database;
 
-  /// {@macro amplify_kinesis.sqlite_record_storage}
+  /// {@macro amplify_record_cache.sqlite_record_storage}
   ///
-  /// Opens the database.
+  /// Opens the database and eagerly queries the cache size.
   static Future<SqliteRecordStorage> create({
-    required KinesisRecordDatabase database,
+    required RecordCacheDatabase database,
     required int maxCacheBytes,
+    required int maxRecordsPerBatch,
+    required int maxBytesPerBatch,
+    required int maxRecordSizeBytes,
   }) async {
     final initialSize = await _queryCacheSize(database);
     return SqliteRecordStorage(
       database: database,
       maxCacheBytes: maxCacheBytes,
+      maxRecordsPerBatch: maxRecordsPerBatch,
+      maxBytesPerBatch: maxBytesPerBatch,
+      maxRecordSizeBytes: maxRecordSizeBytes,
       initialCachedSize: initialSize,
     );
   }
 
-  final KinesisRecordDatabase _db;
+  final RecordCacheDatabase _db;
 
   /// Provides access to the underlying database (for testing).
-  KinesisRecordDatabase get database => _db;
+  RecordCacheDatabase get database => _db;
 
   /// Queries the current cache size from the database.
-  static Future<int> _queryCacheSize(KinesisRecordDatabase db) async {
+  static Future<int> _queryCacheSize(RecordCacheDatabase db) async {
     final query = db.selectOnly(db.kinesisRecords)
       ..addColumns([db.kinesisRecords.dataSize.sum()]);
     final result = await query.getSingleOrNull();
@@ -70,7 +75,7 @@ final class SqliteRecordStorage extends RecordStorage {
         .insert(
           KinesisRecordsCompanion.insert(
             streamName: record.streamName,
-            partitionKey: record.partitionKey,
+            partitionKey: Value(record.partitionKey ?? ''),
             data: record.data,
             dataSize: record.dataSize,
             createdAt: record.createdAt.millisecondsSinceEpoch,
@@ -83,19 +88,21 @@ final class SqliteRecordStorage extends RecordStorage {
     final results = await _db
         .customSelect(
           '''
-      SELECT id, stream_name, partition_key, data, data_size, retry_count, created_at
+      SELECT id, stream_name, partition_key, data, data_size, retry_count,
+             created_at
       FROM (
         SELECT *,
           ROW_NUMBER() OVER (PARTITION BY stream_name ORDER BY id) as rn,
-          SUM(data_size) OVER (PARTITION BY stream_name ORDER BY id) as running_size
+          SUM(data_size) OVER (PARTITION BY stream_name ORDER BY id)
+            as running_size
         FROM kinesis_records
       )
       WHERE rn <= ?1 AND running_size <= ?2
       ORDER BY stream_name, id
       ''',
           variables: [
-            Variable.withInt(maxRecordsPerStream),
-            Variable.withInt(maxBytesPerStream),
+            Variable.withInt(maxRecordsPerBatch),
+            Variable.withInt(maxBytesPerBatch),
           ],
           readsFrom: {_db.kinesisRecords},
         )
@@ -148,10 +155,11 @@ final class SqliteRecordStorage extends RecordStorage {
   }
 
   Record _rowToRecord(QueryRow row) {
+    final pk = row.read<String>('partition_key');
     return Record(
       id: row.read<int>('id'),
       streamName: row.read<String>('stream_name'),
-      partitionKey: row.read<String>('partition_key'),
+      partitionKey: pk.isEmpty ? null : pk,
       data: row.read<Uint8List>('data'),
       dataSize: row.read<int>('data_size'),
       retryCount: row.read<int>('retry_count'),

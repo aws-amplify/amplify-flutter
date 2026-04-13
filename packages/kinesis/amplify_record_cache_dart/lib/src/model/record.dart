@@ -3,37 +3,38 @@
 
 import 'dart:typed_data';
 
-/// {@template amplify_kinesis.record}
-/// A record persisted in local storage, ready to be flushed to Kinesis.
+/// {@template amplify_record_cache.record}
+/// A record persisted in local storage, ready to be flushed to a streaming
+/// service (Kinesis Data Streams, Firehose, etc.).
 ///
 /// This is a plain Dart class with no ORM coupling, shared across all
 /// storage backends (SQLite, IndexedDB, In-Memory).
 /// {@endtemplate}
 final class Record {
-  /// {@macro amplify_kinesis.record}
+  /// {@macro amplify_record_cache.record}
   const Record({
     required this.id,
     required this.streamName,
-    required this.partitionKey,
     required this.data,
     required this.dataSize,
     required this.retryCount,
     required this.createdAt,
+    this.partitionKey,
   });
 
   /// Auto-incrementing primary key.
   final int id;
 
-  /// The name of the Kinesis Data Stream.
+  /// The name of the target stream.
   final String streamName;
 
-  /// The partition key for the record.
-  final String partitionKey;
+  /// Optional partition key (used by Kinesis Data Streams, null for Firehose).
+  final String? partitionKey;
 
-  /// The data blob to send to Kinesis.
+  /// The data blob to send.
   final Uint8List data;
 
-  /// The size of the data blob in bytes.
+  /// The size of the record in bytes.
   final int dataSize;
 
   /// The number of times this record has been retried.
@@ -45,6 +46,5 @@ final class Record {
   @override
   String toString() =>
       'Record(id: $id, streamName: $streamName, '
-      'partitionKey: $partitionKey, dataSize: $dataSize, '
-      'retryCount: $retryCount)';
+      'dataSize: $dataSize, retryCount: $retryCount)';
 }

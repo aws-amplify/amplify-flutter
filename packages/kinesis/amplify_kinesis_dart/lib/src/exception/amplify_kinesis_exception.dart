@@ -2,11 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_kinesis_dart/src/exception/record_cache_exception.dart';
-
-/// Default recovery suggestion for errors.
-const String defaultRecoverySuggestion =
-    'Inspect the underlying error for more details.';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 
 /// {@template amplify_kinesis.amplify_kinesis_exception}
 /// Base exception for Amplify Kinesis Data Streams errors.
