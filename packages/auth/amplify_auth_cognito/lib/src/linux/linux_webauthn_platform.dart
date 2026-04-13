@@ -420,8 +420,25 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
           true,
         );
 
-        // Set resident key.
+        // Set resident key — but first verify the device actually supports
+        // discoverable credentials. Keys like the ZUKEY 2 FIDO silently
+        // accept the rk flag but create a non-resident credential, causing
+        // registration to appear successful while login later fails.
         if (residentKey == 'required' || residentKey == 'preferred') {
+          final supportsRk = _checkDeviceSupportsResidentKey(b, dev);
+          if (!supportsRk) {
+            _logger.error(
+              'Security key does not support resident/discoverable '
+              'credentials (rk option missing or false in CBOR info). '
+              'residentKey=$residentKey. A non-resident credential would '
+              'be useless for passwordless sign-in.',
+            );
+            throw const PasskeyRegistrationFailedException(
+              'This security key does not support passkeys (discoverable '
+              'credentials). Please use a compatible key such as a '
+              'YubiKey 5 or similar FIDO2 key with resident key support.',
+            );
+          }
           _checkFido(b.fidoCredSetRk(cred, fidoOptTrue), 'set rk', true);
         }
 
@@ -1012,6 +1029,61 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         }
       }
 
+      return false;
+    } finally {
+      b.fidoCborInfoFree(ciPtr);
+      calloc.free(ciPtr);
+    }
+  }
+
+  /// Queries the device's CBOR info to check if it supports resident
+  /// (discoverable) credentials via the `rk` option.
+  ///
+  /// Returns `true` if the device advertises `rk: true` in its CTAP2 CBOR
+  /// info options, meaning it can store discoverable credentials on-device.
+  /// Returns `false` if the `rk` option is absent, explicitly `false`, or
+  /// if CBOR info cannot be retrieved.
+  ///
+  /// This is critical for passwordless flows: keys like the ZUKEY 2 FIDO
+  /// that don't support resident credentials will silently create a
+  /// non-resident credential when `rk` is requested, causing registration
+  /// to appear successful but login to fail later because the passkey
+  /// isn't discoverable.
+  bool _checkDeviceSupportsResidentKey(LibFido2Bindings b, Pointer dev) {
+    final ci = b.fidoCborInfoNew();
+    final ciPtr = calloc<Pointer>();
+    ciPtr.value = ci;
+
+    try {
+      final savedMask = _blockProfilerSignal();
+      final rc = b.fidoDevGetCborInfo(dev, ci);
+      _restoreSignals(savedMask);
+
+      if (rc != fidoOk) {
+        _logger.warn(
+          'Could not retrieve CBOR info from device (error: $rc). '
+          'Cannot determine resident key support.',
+        );
+        return false;
+      }
+
+      final optCount = b.fidoCborInfoOptionsLen(ci);
+      final namesPtr = b.fidoCborInfoOptionsNamePtr(ci);
+      final valuesPtr = b.fidoCborInfoOptionsValuePtr(ci);
+
+      for (var i = 0; i < optCount; i++) {
+        final name = namesPtr[i].toDartString();
+        final value = valuesPtr[i];
+        if (name == 'rk') {
+          _logger.debug('Device CBOR info: rk=$value');
+          return value;
+        }
+      }
+
+      _logger.debug(
+        'Device CBOR info does not include "rk" option — '
+        'resident credentials are not supported.',
+      );
       return false;
     } finally {
       b.fidoCborInfoFree(ciPtr);

@@ -115,6 +115,11 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
     _logger.debug('createCredential: rpId="$rpId", userName="$userName"');
 
+    // Extract authenticatorSelection options from the server response.
+    final authSelection =
+        optionsMap['authenticatorSelection'] as Map<String, dynamic>? ?? {};
+    final residentKey = authSelection['residentKey'] as String?;
+
     // Extract the challenge for building proper clientDataJSON.
     final challenge = optionsMap['challenge'] as String? ?? '';
 
@@ -235,12 +240,32 @@ class WindowsWebAuthnPlatform implements WebAuthnCredentialPlatform {
         120000,
       );
 
-      // Require a resident/discoverable credential so the passkey is stored
-      // on the device and can be used for sign-in later.
+      // Set resident/discoverable credential requirement based on the
+      // server's authenticatorSelection.residentKey option. For passwordless
+      // flows, Cognito sends 'required' or 'preferred'. The Windows API
+      // will show an error dialog to the user if the security key can't
+      // create a resident credential when required.
+      final int requireResidentKey;
+      switch (residentKey) {
+        case 'required':
+        case 'preferred':
+          // For passwordless, we need a discoverable credential even when
+          // the server says 'preferred' — a non-resident credential would
+          // register successfully but be unusable for sign-in.
+          requireResidentKey = 1; // TRUE
+        case 'discouraged':
+          requireResidentKey = 0; // FALSE
+        default:
+          requireResidentKey = 0; // FALSE — safe default
+      }
+      _logger.debug(
+        'createCredential: residentKey=$residentKey → '
+        'bRequireResidentKey=$requireResidentKey',
+      );
       _writeUint32At(
         options,
         MakeCredentialOptionsOffsets.bRequireResidentKey,
-        1, // TRUE
+        requireResidentKey,
       );
 
       // Require user verification (PIN, biometric, etc.)

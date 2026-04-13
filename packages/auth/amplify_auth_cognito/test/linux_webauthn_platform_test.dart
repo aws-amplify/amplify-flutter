@@ -334,6 +334,78 @@ class MockLibFido2Bindings extends LibFido2Bindings {
       (_) => fidoOk;
 }
 
+/// Mock bindings that report `rk: true` in CBOR info options,
+/// simulating a key that supports resident/discoverable credentials
+/// (e.g. YubiKey 5).
+class MockLibFido2BindingsWithRk extends MockLibFido2Bindings {
+  MockLibFido2BindingsWithRk({
+    super.mockDeviceCount,
+    super.mockManifestResult,
+    super.mockOpenResult,
+    super.mockMakeCredResult,
+    super.mockGetAssertResult,
+  });
+
+  late Pointer<Pointer<Utf8>> _optionNames;
+  late Pointer<Bool> _optionValues;
+
+  @override
+  int Function(Pointer ci) get fidoCborInfoOptionsLen =>
+      (_) => 2;
+
+  @override
+  Pointer<Pointer<Utf8>> Function(Pointer ci) get fidoCborInfoOptionsNamePtr =>
+      (_) {
+        _optionNames = calloc<Pointer<Utf8>>(2);
+        _optionNames[0] = 'rk'.toNativeUtf8();
+        _optionNames[1] = 'clientPin'.toNativeUtf8();
+        return _optionNames;
+      };
+
+  @override
+  Pointer<Bool> Function(Pointer ci) get fidoCborInfoOptionsValuePtr => (_) {
+    _optionValues = calloc<Bool>(2);
+    _optionValues[0] = true; // rk = true
+    _optionValues[1] = false; // clientPin = false
+    return _optionValues;
+  };
+}
+
+/// Mock bindings that report `rk: false` in CBOR info options,
+/// simulating a key that does NOT support resident/discoverable
+/// credentials (e.g. ZUKEY 2 FIDO).
+class MockLibFido2BindingsWithoutRk extends MockLibFido2Bindings {
+  MockLibFido2BindingsWithoutRk({
+    super.mockDeviceCount,
+    super.mockManifestResult,
+    super.mockOpenResult,
+    super.mockMakeCredResult,
+    super.mockGetAssertResult,
+  });
+
+  late Pointer<Pointer<Utf8>> _optionNames;
+  late Pointer<Bool> _optionValues;
+
+  @override
+  int Function(Pointer ci) get fidoCborInfoOptionsLen =>
+      (_) => 1;
+
+  @override
+  Pointer<Pointer<Utf8>> Function(Pointer ci) get fidoCborInfoOptionsNamePtr =>
+      (_) {
+        _optionNames = calloc<Pointer<Utf8>>(1);
+        _optionNames[0] = 'clientPin'.toNativeUtf8();
+        return _optionNames;
+      };
+
+  @override
+  Pointer<Bool> Function(Pointer ci) get fidoCborInfoOptionsValuePtr => (_) {
+    _optionValues = calloc<Bool>(1);
+    _optionValues[0] = false;
+    return _optionValues;
+  };
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -509,6 +581,128 @@ void main() {
             () => platform.createCredential(optionsJson),
             throwsA(isA<PasskeyNotSupportedException>()),
           );
+        },
+      );
+    });
+
+    group('resident key capability check', () {
+      test(
+        'succeeds when residentKey=required and device supports rk',
+        () async {
+          final bindings = MockLibFido2BindingsWithRk();
+          final platform = LinuxWebAuthnPlatform(bindings: bindings);
+
+          const optionsJson = '''
+{
+  "rp": {"id": "example.com", "name": "Example"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
+  "challenge": "Y2hhbGxlbmdl",
+  "pubKeyCredParams": [{"type": "public-key", "alg": -7}],
+  "authenticatorSelection": {"residentKey": "required", "userVerification": "preferred"}
+}
+''';
+
+          final result = await platform.createCredential(optionsJson);
+          final decoded = jsonDecode(result) as Map<String, dynamic>;
+          expect(decoded['type'], 'public-key');
+          expect(decoded['id'], isNotEmpty);
+        },
+      );
+
+      test(
+        'throws PasskeyRegistrationFailedException when residentKey=required '
+        'and device does NOT support rk',
+        () async {
+          final bindings = MockLibFido2BindingsWithoutRk();
+          final platform = LinuxWebAuthnPlatform(bindings: bindings);
+
+          const optionsJson = '''
+{
+  "rp": {"id": "example.com", "name": "Example"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
+  "challenge": "Y2hhbGxlbmdl",
+  "pubKeyCredParams": [{"type": "public-key", "alg": -7}],
+  "authenticatorSelection": {"residentKey": "required", "userVerification": "preferred"}
+}
+''';
+
+          expect(
+            () => platform.createCredential(optionsJson),
+            throwsA(
+              isA<PasskeyRegistrationFailedException>().having(
+                (e) => e.message,
+                'message',
+                contains('does not support passkeys'),
+              ),
+            ),
+          );
+        },
+      );
+
+      test(
+        'throws PasskeyRegistrationFailedException when residentKey=preferred '
+        'and device does NOT support rk',
+        () async {
+          final bindings = MockLibFido2BindingsWithoutRk();
+          final platform = LinuxWebAuthnPlatform(bindings: bindings);
+
+          const optionsJson = '''
+{
+  "rp": {"id": "example.com", "name": "Example"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
+  "challenge": "Y2hhbGxlbmdl",
+  "pubKeyCredParams": [{"type": "public-key", "alg": -7}],
+  "authenticatorSelection": {"residentKey": "preferred", "userVerification": "preferred"}
+}
+''';
+
+          expect(
+            () => platform.createCredential(optionsJson),
+            throwsA(isA<PasskeyRegistrationFailedException>()),
+          );
+        },
+      );
+
+      test(
+        'succeeds without authenticatorSelection (no rk check needed)',
+        () async {
+          final bindings = MockLibFido2Bindings();
+          final platform = LinuxWebAuthnPlatform(bindings: bindings);
+
+          const optionsJson = '''
+{
+  "rp": {"id": "example.com", "name": "Example"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
+  "challenge": "Y2hhbGxlbmdl",
+  "pubKeyCredParams": [{"type": "public-key", "alg": -7}]
+}
+''';
+
+          final result = await platform.createCredential(optionsJson);
+          final decoded = jsonDecode(result) as Map<String, dynamic>;
+          expect(decoded['type'], 'public-key');
+        },
+      );
+
+      test(
+        'succeeds when residentKey=discouraged even without rk support',
+        () async {
+          final bindings = MockLibFido2BindingsWithoutRk();
+          final platform = LinuxWebAuthnPlatform(bindings: bindings);
+
+          const optionsJson = '''
+{
+  "rp": {"id": "example.com", "name": "Example"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
+  "challenge": "Y2hhbGxlbmdl",
+  "pubKeyCredParams": [{"type": "public-key", "alg": -7}],
+  "authenticatorSelection": {"residentKey": "discouraged"}
+}
+''';
+
+          final result = await platform.createCredential(optionsJson);
+          final decoded = jsonDecode(result) as Map<String, dynamic>;
+          expect(decoded['type'], 'public-key');
         },
       );
     });
