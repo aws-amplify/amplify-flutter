@@ -46,17 +46,17 @@ class KinesisRecords extends Table {
 class RecordCacheDatabase extends _$RecordCacheDatabase {
   /// {@macro amplify_record_cache.record_cache_database}
   ///
-  /// [dbPrefix] is the database name prefix (e.g. `kinesis_records`,
+  /// [storageName] is the database name prefix (e.g. `kinesis_records`,
   /// `firehose_records`).
   /// [identifier] is used to namespace the database (typically the AWS region).
   /// [storagePath] is the directory path for the database file.
   factory RecordCacheDatabase({
-    required String dbPrefix,
+    required String storageName,
     required String identifier,
     required FutureOr<String>? storagePath,
   }) {
     final driftQueryExecutor = connect(
-      name: '${dbPrefix}_$identifier',
+      name: '${storageName}_$identifier',
       path: storagePath,
     );
     return RecordCacheDatabase._(driftQueryExecutor);

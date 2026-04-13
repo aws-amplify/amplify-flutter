@@ -34,21 +34,21 @@ final class IndexedDbRecordStorage extends RecordStorage {
   /// Opens the IndexedDB database and eagerly computes the initial
   /// cache size.
   ///
-  /// [dbPrefix] is used to namespace the database (e.g. `amplify_kinesis_`,
-  /// `amplify_firehose_`).
-  /// [storeName] is the object store name (e.g. `kinesis_records`,
-  /// `firehose_records`).
+  /// [storageName] is used to namespace the database and as the object store
+  /// name (e.g. `kinesis_records`, `firehose_records`).
   static Future<IndexedDbRecordStorage> create({
     required int maxCacheBytes,
     required int maxRecordsPerBatch,
     required int maxBytesPerBatch,
     required int maxRecordSizeBytes,
     required String identifier,
-    required String dbPrefix,
-    required String storeName,
+    required String storageName,
   }) async {
-    final database = await _openDatabase('$dbPrefix$identifier', storeName);
-    final initialSize = await _computeCacheSize(database, storeName);
+    final database = await _openDatabase(
+      'amplify_${storageName}_$identifier',
+      storageName,
+    );
+    final initialSize = await _computeCacheSize(database, storageName);
     return IndexedDbRecordStorage._(
       maxCacheBytes: maxCacheBytes,
       maxRecordsPerBatch: maxRecordsPerBatch,
@@ -56,7 +56,7 @@ final class IndexedDbRecordStorage extends RecordStorage {
       maxRecordSizeBytes: maxRecordSizeBytes,
       initialCachedSize: initialSize,
       database: database,
-      storeName: storeName,
+      storeName: storageName,
     );
   }
 

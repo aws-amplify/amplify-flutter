@@ -79,8 +79,7 @@ class AmplifyFirehoseClient {
       maxRecordsPerBatch: limits.maxRecordsPerBatch,
       maxBytesPerBatch: limits.maxBatchSizeBytes,
       maxRecordSizeBytes: limits.maxRecordSizeBytes,
-      dbPrefix: 'firehose_records',
-      storeName: 'firehose_records',
+      storageName: 'firehose_records',
     );
 
     final firehoseClient = sdk.FirehoseClient(

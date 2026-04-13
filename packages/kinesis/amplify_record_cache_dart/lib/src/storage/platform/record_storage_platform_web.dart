@@ -19,8 +19,7 @@ Future<RecordStorage> createPlatformRecordStorage({
   required int maxRecordsPerBatch,
   required int maxBytesPerBatch,
   required int maxRecordSizeBytes,
-  required String dbPrefix,
-  required String storeName,
+  required String storageName,
 }) async {
   final logger = AmplifyLogging.logger('RecordStorage');
   // storagePath is ignored on web.
@@ -32,8 +31,7 @@ Future<RecordStorage> createPlatformRecordStorage({
       maxRecordsPerBatch: maxRecordsPerBatch,
       maxBytesPerBatch: maxBytesPerBatch,
       maxRecordSizeBytes: maxRecordSizeBytes,
-      dbPrefix: dbPrefix,
-      storeName: storeName,
+      storageName: storageName,
     );
   }
   logger.warn(

@@ -16,8 +16,7 @@ Future<RecordStorage> createPlatformRecordStorage({
   required int maxRecordsPerBatch,
   required int maxBytesPerBatch,
   required int maxRecordSizeBytes,
-  required String dbPrefix,
-  required String storeName,
+  required String storageName,
 }) {
   throw UnsupportedError(
     'Cannot create RecordStorage: no platform implementation available.',
