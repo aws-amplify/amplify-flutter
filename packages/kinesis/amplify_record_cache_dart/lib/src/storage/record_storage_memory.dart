@@ -3,21 +3,20 @@
 
 import 'dart:collection';
 
-import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage.dart';
+import 'package:amplify_record_cache_dart/src/model/record_input.dart';
+import 'package:amplify_record_cache_dart/src/storage/record_storage.dart';
 
-/// {@template amplify_kinesis.in_memory_record_storage}
+/// {@template amplify_record_cache.in_memory_record_storage}
 /// In-memory [RecordStorage] fallback for web when IndexedDB is unavailable.
 /// Records are not persisted.
 /// {@endtemplate}
 final class InMemoryRecordStorage extends RecordStorage {
-  /// {@macro amplify_kinesis.in_memory_record_storage}
+  /// {@macro amplify_record_cache.in_memory_record_storage}
   InMemoryRecordStorage({
     required super.maxCacheBytes,
-    super.maxRecordsPerStream,
-    super.maxBytesPerStream,
-    super.maxRecordSizeBytes,
-    super.maxPartitionKeyLength,
+    required super.maxRecordsPerBatch,
+    required super.maxBytesPerBatch,
+    required super.maxRecordSizeBytes,
   });
 
   int _nextId = 1;
@@ -54,8 +53,8 @@ final class InMemoryRecordStorage extends RecordStorage {
       final stream = record.streamName;
       final count = streamCounts[stream] ?? 0;
       final size = streamSizes[stream] ?? 0;
-      if (count >= maxRecordsPerStream) continue;
-      if (size + record.dataSize > maxBytesPerStream) continue;
+      if (count >= maxRecordsPerBatch) continue;
+      if (size + record.dataSize > maxBytesPerBatch) continue;
 
       result.putIfAbsent(stream, () => []).add(record);
       streamCounts[stream] = count + 1;

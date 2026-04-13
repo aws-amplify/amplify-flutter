@@ -18,13 +18,13 @@ library;
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:amplify_kinesis_dart/src/exception/record_cache_exception.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    show Error, Ok;
+import 'package:amplify_kinesis_dart/src/amplify_kinesis_client.dart';
+import 'package:amplify_kinesis_dart/src/exception/amplify_kinesis_exception.dart';
 import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
-import 'package:amplify_kinesis_dart/src/impl/kinesis_sender.dart';
-import 'package:amplify_kinesis_dart/src/impl/record_client.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage.dart';
-import 'package:amplify_kinesis_dart/src/impl/storage/record_storage_sqlite.dart';
 import 'package:amplify_kinesis_dart/src/kinesis_limits.dart' as limits;
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:test/test.dart';
 
 import 'helpers/test_database.dart';
@@ -48,7 +48,13 @@ void main() {
 
     setUp(() {
       final db = createTestDatabase();
-      storage = SqliteRecordStorage(database: db, maxCacheBytes: 10000);
+      storage = SqliteRecordStorage(
+        database: db,
+        maxCacheBytes: 10000,
+        maxRecordsPerBatch: 500,
+        maxBytesPerBatch: 10 * 1024 * 1024,
+        maxRecordSizeBytes: 10 * 1024 * 1024,
+      );
       client = createClient(storage: storage);
     });
 
@@ -62,12 +68,16 @@ void main() {
 
     group('per-record size limit', () {
       test('record exactly at max size is accepted', () async {
-        // RecordClient validates against limits.maxRecordSizeBytes (10 MiB).
-        // Use a large-cache client so the cache limit doesn't interfere.
+        // Close the default client so we can create one with a larger cache.
+        await client.close();
+
         final largeDb = createTestDatabase();
         final largeStorage = SqliteRecordStorage(
           database: largeDb,
           maxCacheBytes: 20 * 1024 * 1024,
+          maxRecordsPerBatch: 500,
+          maxBytesPerBatch: 20 * 1024 * 1024,
+          maxRecordSizeBytes: 10 * 1024 * 1024,
         );
         final largeClient = createClient(storage: largeStorage);
 
@@ -78,7 +88,7 @@ void main() {
         );
 
         await largeClient.record(
-          RecordInput.now(
+          createKinesisRecordInputNow(
             data: exactLimitData,
             partitionKey: partitionKey,
             streamName: 'stream',
@@ -90,7 +100,8 @@ void main() {
             .toList();
         expect(records, hasLength(1));
 
-        await largeClient.close();
+        // Reassign so tearDown closes this client instead.
+        client = largeClient;
       });
 
       test('record exceeding max size by one byte is rejected', () async {
@@ -102,7 +113,7 @@ void main() {
 
         expect(
           () => client.record(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: oversizedData,
               partitionKey: partitionKey,
               streamName: 'stream',
@@ -121,7 +132,7 @@ void main() {
       test('dataSize accounts for partition key bytes', () {
         final partitionKey = 'k' * 10; // 10 bytes UTF-8
         final data = Uint8List(50);
-        final record = RecordInput.now(
+        final record = createKinesisRecordInputNow(
           data: data,
           partitionKey: partitionKey,
           streamName: 'stream',
@@ -134,7 +145,7 @@ void main() {
         // Each emoji is 4 bytes in UTF-8, 2 emojis = 8 bytes
         const partitionKey = '😀😀';
         final data = Uint8List(10);
-        final record = RecordInput.now(
+        final record = createKinesisRecordInputNow(
           data: data,
           partitionKey: partitionKey,
           streamName: 'stream',
@@ -156,6 +167,9 @@ void main() {
           final tightStorage = SqliteRecordStorage(
             database: tightDb,
             maxCacheBytes: 80,
+            maxRecordsPerBatch: 500,
+            maxBytesPerBatch: 10 * 1024 * 1024,
+            maxRecordSizeBytes: 10 * 1024 * 1024,
           );
           final tightClient = createClient(storage: tightStorage);
 
@@ -165,7 +179,7 @@ void main() {
 
           // First record: 40 bytes — fits in 80-byte cache
           await tightClient.record(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: data,
               partitionKey: partitionKey,
               streamName: 'stream',
@@ -174,7 +188,7 @@ void main() {
 
           // Second record: 40 more → total 80 — still fits
           await tightClient.record(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: data,
               partitionKey: partitionKey,
               streamName: 'stream',
@@ -184,7 +198,7 @@ void main() {
           // Third record: 40 more → total 120 > 80 limit
           expect(
             () => tightClient.record(
-              RecordInput.now(
+              createKinesisRecordInputNow(
                 data: data,
                 partitionKey: partitionKey,
                 streamName: 'stream',
@@ -203,27 +217,34 @@ void main() {
     // ---------------------------------------------------------------
 
     group('partition key validation', () {
+      late AmplifyKinesisClient kinesisClient;
+
+      setUp(() {
+        kinesisClient = AmplifyKinesisClient.withRecordClient(
+          recordClient: client,
+        );
+      });
+
       test('empty partition key is rejected', () async {
+        final result = await kinesisClient.record(
+          data: Uint8List.fromList([1, 2, 3]),
+          partitionKey: '',
+          streamName: 'stream',
+        );
+        expect(result, isA<Error<RecordData>>());
         expect(
-          () => client.record(
-            RecordInput.now(
-              data: Uint8List.fromList([1, 2, 3]),
-              partitionKey: '',
-              streamName: 'stream',
-            ),
-          ),
-          throwsA(isA<RecordCacheValidationException>()),
+          (result as Error<RecordData>).error,
+          isA<KinesisValidationException>(),
         );
       });
 
       test('partition key at max length 256 code points is accepted', () async {
-        await client.record(
-          RecordInput.now(
-            data: Uint8List.fromList([1]),
-            partitionKey: 'k' * 256,
-            streamName: 'stream',
-          ),
+        final result = await kinesisClient.record(
+          data: Uint8List.fromList([1]),
+          partitionKey: 'k' * 256,
+          streamName: 'stream',
         );
+        expect(result, isA<Ok<RecordData>>());
 
         final records = (await storage.getRecordsByStream()).values
             .expand((r) => r)
@@ -232,15 +253,15 @@ void main() {
       });
 
       test('partition key exceeding 256 code points is rejected', () async {
+        final result = await kinesisClient.record(
+          data: Uint8List.fromList([1]),
+          partitionKey: 'k' * 257,
+          streamName: 'stream',
+        );
+        expect(result, isA<Error<RecordData>>());
         expect(
-          () => client.record(
-            RecordInput.now(
-              data: Uint8List.fromList([1]),
-              partitionKey: 'k' * 257,
-              streamName: 'stream',
-            ),
-          ),
-          throwsA(isA<RecordCacheValidationException>()),
+          (result as Error<RecordData>).error,
+          isA<KinesisValidationException>(),
         );
       });
 
@@ -248,13 +269,12 @@ void main() {
         // Each emoji (😀) is 1 code point but 4 bytes in UTF-8.
         // 10 emoji = 10 code points (within 256 limit).
         final partitionKey = '😀' * 10;
-        await client.record(
-          RecordInput.now(
-            data: Uint8List.fromList([1]),
-            partitionKey: partitionKey,
-            streamName: 'stream',
-          ),
+        final result = await kinesisClient.record(
+          data: Uint8List.fromList([1]),
+          partitionKey: partitionKey,
+          streamName: 'stream',
         );
+        expect(result, isA<Ok<RecordData>>());
 
         final records = (await storage.getRecordsByStream()).values
             .expand((r) => r)
@@ -267,15 +287,15 @@ void main() {
         () async {
           // 257 emoji = 257 code points > 256 limit
           final partitionKey = '😀' * 257;
+          final result = await kinesisClient.record(
+            data: Uint8List.fromList([1]),
+            partitionKey: partitionKey,
+            streamName: 'stream',
+          );
+          expect(result, isA<Error<RecordData>>());
           expect(
-            () => client.record(
-              RecordInput.now(
-                data: Uint8List.fromList([1]),
-                partitionKey: partitionKey,
-                streamName: 'stream',
-              ),
-            ),
-            throwsA(isA<RecordCacheValidationException>()),
+            (result as Error<RecordData>).error,
+            isA<KinesisValidationException>(),
           );
         },
       );
@@ -292,7 +312,7 @@ void main() {
           // Oversized record should be rejected
           expect(
             () => client.record(
-              RecordInput.now(
+              createKinesisRecordInputNow(
                 data: Uint8List(limits.maxRecordSizeBytes),
                 partitionKey: 'k' * 20,
                 streamName: 'stream',
@@ -303,7 +323,7 @@ void main() {
 
           // Valid record should still work
           await client.record(
-            RecordInput.now(
+            createKinesisRecordInputNow(
               data: Uint8List.fromList([1, 2, 3]),
               partitionKey: 'a',
               streamName: 'stream',
@@ -320,16 +340,13 @@ void main() {
 }
 
 /// No-op sender for validation tests that don't need to send records.
-class _NoOpSender implements KinesisSender {
+class _NoOpSender implements Sender {
   @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
-
-  @override
-  Future<PutRecordsResult> putRecords({
+  Future<SendResult> sendBatch({
     required String streamName,
     required List<Record> records,
   }) async {
-    return PutRecordsResult(
+    return SendResult(
       successfulIds: records.map((r) => r.id).toList(),
       failedIds: const [],
       retryableIds: const [],

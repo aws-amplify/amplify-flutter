@@ -4,9 +4,9 @@
 import 'dart:async';
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
-import 'package:amplify_kinesis_dart/src/impl/record_client.dart';
+import 'package:amplify_record_cache_dart/src/client/record_client.dart';
 
-/// {@template amplify_kinesis.auto_flush_scheduler}
+/// {@template amplify_record_cache.auto_flush_scheduler}
 /// Manages automatic flush scheduling at a fixed interval.
 ///
 /// Takes a [Duration] interval and a [RecordClient].
@@ -17,7 +17,7 @@ import 'package:amplify_kinesis_dart/src/impl/record_client.dart';
 /// a new one, preventing duplicate concurrent loops.
 /// {@endtemplate}
 final class AutoFlushScheduler {
-  /// {@macro amplify_kinesis.auto_flush_scheduler}
+  /// {@macro amplify_record_cache.auto_flush_scheduler}
   AutoFlushScheduler({required Duration interval, required RecordClient client})
     : _interval = interval,
       _client = client;
