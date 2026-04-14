@@ -24,7 +24,7 @@ Future<RecordStorage> createPlatformRecordStorage({
     'RecordStorage',
   ).info('Using SQLite storage (path: $storagePath)');
   final database = RecordCacheDatabase(
-    dbPrefix: dbPrefix,
+    storeName: storeName,
     identifier: identifier,
     storagePath: storagePath,
   );

@@ -1,0 +1,122 @@
+{
+  "/KinesisTestApp/AwsCdkKinesisEncryptedStreamsUnsupportedRegions": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AwsCdkKinesisEncryptedStreamsUnsupportedRegions"
+    }
+  ],
+  "/KinesisTestApp/TestIdentityPool": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TestIdentityPool"
+    }
+  ],
+  "/KinesisTestApp/RoleAttachment": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RoleAttachment"
+    }
+  ],
+  "/KinesisTestApp/UserPoolId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolId"
+    }
+  ],
+  "/KinesisTestApp/UserPoolClientId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolClientId"
+    }
+  ],
+  "/KinesisTestApp/IdentityPoolId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IdentityPoolId"
+    }
+  ],
+  "/KinesisTestApp/Region": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Region"
+    }
+  ],
+  "/KinesisTestApp/StreamName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "StreamName"
+    }
+  ],
+  "/KinesisTestApp/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/KinesisTestApp/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/KinesisTestApp/TestStream/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TestStreamE6F40222"
+    }
+  ],
+  "/KinesisTestApp/TestUserPool/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TestUserPool83C2ABD0"
+    }
+  ],
+  "/KinesisTestApp/TestUserPool/PreSignUpCognito": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TestUserPoolPreSignUpCognitoDAE6A167"
+    }
+  ],
+  "/KinesisTestApp/AutoConfirmFn/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AutoConfirmFnB2CDC6E9"
+    }
+  ],
+  "/KinesisTestApp/AuthRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuthRole900B840B"
+    }
+  ],
+  "/KinesisTestApp/UnauthRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UnauthRole74358E81"
+    }
+  ],
+  "/KinesisTestApp/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    }
+  ],
+  "/KinesisTestApp/TestUserPool/TestAppClient/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TestUserPoolTestAppClientFA26542C"
+    }
+  ],
+  "/KinesisTestApp/AutoConfirmFn/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AutoConfirmFnServiceRole0DE1F9EC"
+    }
+  ],
+  "/KinesisTestApp/AuthRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuthRoleDefaultPolicyD77E3A7F"
+    }
+  ]
+}
