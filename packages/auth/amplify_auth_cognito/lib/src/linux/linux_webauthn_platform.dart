@@ -1085,17 +1085,11 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
   // ── Touch-to-Identify ──────────────────────────────────────────────────────
 
-  /// Identifies which FIDO2 device the user wants by using libfido2's
-  /// touch detection API.
+  /// Uses libfido2's touch detection to identify which device the user wants.
   ///
-  /// Calls `fido_dev_get_touch_begin()` on all devices (causing them all
-  /// to blink), then polls `fido_dev_get_touch_status()` in a round-robin
-  /// loop. The first device where `touched == 1` is the winner.
-  ///
-  /// **No PIN is required** — this is purely a physical presence check.
-  ///
+  /// All devices blink; the first one touched is selected. No PIN required.
   /// Returns the index of the touched device in [devices].
-  /// Throws [PasskeyCancelledException] if the user cancels or times out.
+  /// Throws [PasskeyCancelledException] on cancel or timeout.
   Future<int> _identifyDeviceByTouch(
     LibFido2Bindings b,
     List<_OpenedDevice> devices,
@@ -1205,19 +1199,12 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
     }
   }
 
-  // ── PIN helpers ────────────────────────────────────────────────────────────
+  // ── CBOR info helpers ──────────────────────────────────────────────────────
 
-  /// Returns the PIN status of a device by examining CBOR info options.
+  /// Reads and parses the CBOR info from an open device.
   ///
-  /// The `clientPin` option in CBOR info indicates:
-  ///   - **absent** → device does not support PIN at all
-  ///     (e.g. budget keys like ZUKEY 2 FIDO).
-  ///   - **`true`** → PIN is configured and required for operations.
-  ///   - **`false`** → PIN is supported but **not yet configured**.
-  ///     The device cannot perform user verification until a PIN is set.
-  ///     This is the state Chrome warns about: "Your security key is not
-  ///     protected with a PIN."
-  _PinStatus _getDevicePinStatus(LibFido2Bindings b, Pointer dev) {
+  /// Returns `null` if the info cannot be retrieved (e.g. CTAP 1/U2F key).
+  _DeviceCborInfo? _readCborInfo(LibFido2Bindings b, Pointer dev) {
     final ci = b.fidoCborInfoNew();
     final ciPtr = calloc<Pointer>();
     ciPtr.value = ci;
@@ -1227,105 +1214,91 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
       final rc = b.fidoDevGetCborInfo(dev, ci);
       _restoreSignals(savedMask);
 
-      if (rc != fidoOk) {
-        return _PinStatus.unknown;
-      }
+      if (rc != fidoOk) return null;
 
+      // Parse options map.
       final optCount = b.fidoCborInfoOptionsLen(ci);
       final namesPtr = b.fidoCborInfoOptionsNamePtr(ci);
       final valuesPtr = b.fidoCborInfoOptionsValuePtr(ci);
-
+      final options = <String, bool>{};
       for (var i = 0; i < optCount; i++) {
-        final name = namesPtr[i].toDartString();
-        if (name == 'clientPin') {
-          return valuesPtr[i]
-              ? _PinStatus.configured
-              : _PinStatus.supportedButNotSet;
-        }
+        options[namesPtr[i].toDartString()] = valuesPtr[i];
       }
 
-      return _PinStatus.notSupported;
+      // Parse versions list.
+      final versionsLen = b.fidoCborInfoVersionsLen(ci);
+      final versionsPtr = b.fidoCborInfoVersionsPtr(ci);
+      final versions = <String>[
+        for (var i = 0; i < versionsLen; i++) versionsPtr[i].toDartString(),
+      ];
+
+      return _DeviceCborInfo(
+        options: options,
+        versions: versions,
+        rkRemaining: b.fidoCborInfoRkRemaining(ci),
+      );
     } finally {
       b.fidoCborInfoFree(ciPtr);
       calloc.free(ciPtr);
     }
   }
 
-  /// Queries the device's CBOR info to check if it supports resident
-  /// (discoverable) credentials via the `rk` option.
+  // ── PIN helpers ────────────────────────────────────────────────────────────
+
+  /// Returns the PIN status of a device.
+  ///
+  /// The `clientPin` CBOR option means:
+  ///   - **absent** → device does not support PIN (e.g. ZUKEY 2 FIDO).
+  ///   - **`true`** → PIN is configured and required.
+  ///   - **`false`** → PIN is supported but not yet set.
+  _PinStatus _getDevicePinStatus(LibFido2Bindings b, Pointer dev) {
+    final info = _readCborInfo(b, dev);
+    if (info == null) return _PinStatus.unknown;
+    final clientPin = info.options['clientPin'];
+    if (clientPin == null) return _PinStatus.notSupported;
+    return clientPin ? _PinStatus.configured : _PinStatus.supportedButNotSet;
+  }
+
+  /// Checks if a device supports resident (discoverable) credentials.
   bool _checkDeviceSupportsResidentKey(
     LibFido2Bindings b,
     Pointer dev,
     String devicePath,
   ) {
-    final ci = b.fidoCborInfoNew();
-    final ciPtr = calloc<Pointer>();
-    ciPtr.value = ci;
-
-    try {
-      final savedMask = _blockProfilerSignal();
-      final rc = b.fidoDevGetCborInfo(dev, ci);
-      _restoreSignals(savedMask);
-
-      if (rc != fidoOk) {
-        _logger.warn(
-          'Could not retrieve CBOR info from device (error: $rc). '
-          'Cannot determine resident key support.',
-        );
-        return false;
-      }
-
-      final optCount = b.fidoCborInfoOptionsLen(ci);
-      final namesPtr = b.fidoCborInfoOptionsNamePtr(ci);
-      final valuesPtr = b.fidoCborInfoOptionsValuePtr(ci);
-
-      var rkOption = false;
-      String clientPinStatus = 'absent';
-      for (var i = 0; i < optCount; i++) {
-        final name = namesPtr[i].toDartString();
-        final value = valuesPtr[i];
-        if (name == 'rk') {
-          rkOption = value;
-        } else if (name == 'clientPin') {
-          clientPinStatus = value ? 'true (configured)' : 'false (not set)';
-        }
-      }
-
-      if (!rkOption) {
-        _logger.debug(
-          'Device CBOR info does not include "rk" option or rk=false — '
-          'resident credentials are not supported.',
-        );
-        return false;
-      }
-
-      final rkRemaining = b.fidoCborInfoRkRemaining(ci);
-
-      final versionsLen = b.fidoCborInfoVersionsLen(ci);
-      final versionsPtr = b.fidoCborInfoVersionsPtr(ci);
-      final versions = <String>[];
-      for (var i = 0; i < versionsLen; i++) {
-        versions.add(versionsPtr[i].toDartString());
-      }
-
-      _logger.debug(
-        'Device $devicePath CBOR info: rk=true, rkRemaining=$rkRemaining, '
-        'clientPin=$clientPinStatus, versions=$versions',
+    final info = _readCborInfo(b, dev);
+    if (info == null) {
+      _logger.warn(
+        'Could not retrieve CBOR info from $devicePath. '
+        'Cannot determine resident key support.',
       );
-
-      if (rkRemaining == 0) {
-        _logger.warn(
-          'Device $devicePath reports rk=true but rkRemaining=0 '
-          '(no slots left). This key cannot store new passkeys.',
-        );
-        return false;
-      }
-
-      return true;
-    } finally {
-      b.fidoCborInfoFree(ciPtr);
-      calloc.free(ciPtr);
+      return false;
     }
+
+    final rkOption = info.options['rk'] ?? false;
+    if (!rkOption) {
+      _logger.debug(
+        'Device $devicePath: rk option absent or false — '
+        'resident credentials not supported.',
+      );
+      return false;
+    }
+
+    _logger.debug(
+      'Device $devicePath CBOR info: rk=true, '
+      'rkRemaining=${info.rkRemaining}, '
+      'clientPin=${info.options['clientPin'] ?? 'absent'}, '
+      'versions=${info.versions}',
+    );
+
+    if (info.rkRemaining == 0) {
+      _logger.warn(
+        'Device $devicePath reports rk=true but rkRemaining=0 '
+        '(no slots left). Cannot store new passkeys.',
+      );
+      return false;
+    }
+
+    return true;
   }
 
   /// Returns the number of PIN retries remaining on the device.
@@ -1832,6 +1805,27 @@ class _MultiDeviceResult {
 
   /// The device info list (must be freed with `fido_dev_info_free`).
   final Pointer devInfoList;
+}
+
+/// Parsed CBOR info from a FIDO2 device.
+///
+/// Contains the device's option map (`rk`, `clientPin`, `credMgmt`, etc.),
+/// supported protocol version strings, and remaining resident key slots.
+class _DeviceCborInfo {
+  const _DeviceCborInfo({
+    required this.options,
+    required this.versions,
+    required this.rkRemaining,
+  });
+
+  /// CBOR option name → value map (e.g. `{'rk': true, 'clientPin': true}`).
+  final Map<String, bool> options;
+
+  /// Supported protocol versions (e.g. `['FIDO_2_0', 'FIDO_2_1']`).
+  final List<String> versions;
+
+  /// Remaining resident key slots, or -1 if not reported.
+  final int rkRemaining;
 }
 
 /// PIN configuration status of a FIDO2 device.
