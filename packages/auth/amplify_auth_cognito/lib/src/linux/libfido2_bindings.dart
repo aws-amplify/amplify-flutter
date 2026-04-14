@@ -225,6 +225,15 @@ typedef _FidoCborInfoVersionsPtrDart =
 typedef _FidoCborInfoVersionsLenC = Size Function(Pointer ci);
 typedef _FidoCborInfoVersionsLenDart = int Function(Pointer ci);
 
+// Touch detection (device identification without PIN)
+typedef _FidoDevGetTouchBeginC = Int32 Function(Pointer dev);
+typedef _FidoDevGetTouchBeginDart = int Function(Pointer dev);
+
+typedef _FidoDevGetTouchStatusC =
+    Int32 Function(Pointer dev, Pointer<Int32> touched, Size ms);
+typedef _FidoDevGetTouchStatusDart =
+    int Function(Pointer dev, Pointer<Int32> touched, int ms);
+
 // PIN retry count
 typedef _FidoDevGetRetryCntC =
     Int32 Function(Pointer dev, Pointer<Int32> retries);
@@ -599,6 +608,35 @@ class LibFido2Bindings {
         _FidoCborInfoVersionsLenC,
         _FidoCborInfoVersionsLenDart
       >('fido_cbor_info_versions_len');
+
+  // ── Touch detection ──────────────────────────────────────────────────────
+
+  /// Begin touch detection on a device.
+  ///
+  /// Sends a CTAPHID command that causes the device to start blinking,
+  /// signaling the user to touch it. No PIN is required — this is purely
+  /// a physical presence check.
+  ///
+  /// After calling this, poll with [fidoDevGetTouchStatus] to detect when
+  /// the user touches the device.
+  late final fidoDevGetTouchBegin = _lib
+      .lookupFunction<_FidoDevGetTouchBeginC, _FidoDevGetTouchBeginDart>(
+        'fido_dev_get_touch_begin',
+      );
+
+  /// Poll for a touch on a device.
+  ///
+  /// Blocks for up to [ms] milliseconds. On return, `*touched` is set to
+  /// 1 if the user touched the device, or 0 if no touch was detected
+  /// within the timeout.
+  ///
+  /// Call this repeatedly in a round-robin loop across multiple devices
+  /// after calling [fidoDevGetTouchBegin] on each. The first device where
+  /// `touched == 1` is the user's selected device.
+  late final fidoDevGetTouchStatus = _lib
+      .lookupFunction<_FidoDevGetTouchStatusC, _FidoDevGetTouchStatusDart>(
+        'fido_dev_get_touch_status',
+      );
 
   // ── PIN retry count ──────────────────────────────────────────────────────
 

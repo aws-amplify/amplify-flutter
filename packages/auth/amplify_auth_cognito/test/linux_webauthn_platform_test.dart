@@ -346,6 +346,22 @@ class MockLibFido2Bindings extends LibFido2Bindings {
   @override
   int Function(Pointer dev) get fidoDevCancel =>
       (_) => fidoOk;
+
+  // ── Touch detection mocks ─────────────────────────────────────────────
+
+  @override
+  int Function(Pointer dev) get fidoDevGetTouchBegin =>
+      (_) => fidoOk;
+
+  @override
+  int Function(Pointer dev, Pointer<Int32> touched, int ms)
+  get fidoDevGetTouchStatus =>
+      (_, touched, __) {
+        // Default: immediately report touch detected (for single-device
+        // tests, touch-to-identify is skipped anyway).
+        touched.value = 1;
+        return fidoOk;
+      };
 }
 
 /// Mock bindings that report `rk: true` in CBOR info options,
@@ -947,12 +963,21 @@ void main() {
       );
 
       test(
-        'throws PasskeyAssertionFailedException for fidoErrPinRequired',
+        'throws PasskeyCancelledException for fidoErrPinRequired when '
+        'user cancels PIN entry',
         () async {
+          // With the touch-first flow, fidoErrPinRequired triggers the
+          // PIN prompt loop (the user touched a key that needs a PIN).
+          // If the user cancels PIN entry, it throws
+          // PasskeyCancelledException — not PasskeyAssertionFailedException.
           final bindings = MockLibFido2Bindings(
             mockGetAssertResult: fidoErrPinRequired,
           );
           final platform = LinuxWebAuthnPlatform(bindings: bindings);
+
+          // Set pinProvider to return null (simulates user cancelling).
+          LinuxWebAuthnPlatform.pinProvider =
+              ({required int retriesRemaining}) async => null;
 
           const optionsJson = '''
 {
@@ -962,10 +987,14 @@ void main() {
 }
 ''';
 
-          expect(
-            () => platform.getCredential(optionsJson),
-            throwsA(isA<PasskeyAssertionFailedException>()),
-          );
+          try {
+            expect(
+              () => platform.getCredential(optionsJson),
+              throwsA(isA<PasskeyCancelledException>()),
+            );
+          } finally {
+            LinuxWebAuthnPlatform.pinProvider = null;
+          }
         },
       );
 

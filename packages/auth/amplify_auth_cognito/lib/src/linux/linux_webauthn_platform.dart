@@ -24,6 +24,12 @@ final AmplifyLogger _logger = AmplifyLogger.category(
 /// Maximum number of FIDO2 devices to discover.
 const int _maxDevices = 64;
 
+/// Polling interval for touch detection (milliseconds).
+const int _touchPollIntervalMs = 200;
+
+/// Timeout for touch detection (milliseconds).
+const int _touchTimeoutMs = 30000;
+
 // ── Signal blocking helpers ──────────────────────────────────────────────────
 //
 // The Dart VM uses POSIX signals (e.g. SIGPROF for profiling) that interrupt
@@ -116,6 +122,30 @@ typedef FidoTouchNotifier = void Function() Function();
 ///
 /// When `libfido2.so` is not installed, [isPasskeySupported] returns `false`
 /// and all ceremony operations throw [PasskeyNotSupportedException].
+///
+/// ## Multi-Device Flow (Touch-to-Identify)
+///
+/// When multiple FIDO2 keys are connected, we use libfido2's touch detection
+/// API (`fido_dev_get_touch_begin`/`fido_dev_get_touch_status`) to identify
+/// which device the user wants to use — **without requiring a PIN**. All
+/// connected keys blink simultaneously; the first one the user touches is
+/// selected. Then, if that device requires a PIN, we prompt for it. Finally,
+/// the actual CTAP2 operation runs on the selected device (requiring a
+/// second touch).
+///
+/// **Flow:**
+/// 1. Touch dialog: "Touch your security key"
+/// 2. All devices blink (touch detection, no PIN)
+/// 3. User touches a key → device identified
+/// 4. If device needs PIN → PIN dialog → user enters PIN
+/// 5. Touch dialog: "Touch your security key again"
+/// 6. CTAP2 operation runs on selected device → success
+///
+/// ## Single-Device Flow
+///
+/// With only one device, we skip touch-to-identify and run the CTAP2
+/// operation directly. If it returns `PIN_REQUIRED`, we prompt for PIN
+/// and retry (requiring a second touch).
 ///
 /// ## PIN Support
 ///
@@ -357,16 +387,12 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
     final clientDataHash = sha256.convert(clientDataBytes).bytes;
 
     // Discover and open ALL devices (awaits pending cleanup from cancelled ops).
-    // When multiple USB keys are connected, we open all of them so the
-    // blocking fido_dev_make_cred can run on each in parallel — whichever
-    // the user touches first wins.
     final multiResult = await _discoverAndOpenAllDevices(b);
     final allDevices = multiResult.devices;
     final devInfoList = multiResult.devInfoList;
 
     // For registration, filter to devices that support resident keys if
-    // required. Each device gets its own credential object so the results
-    // are independent.
+    // required.
     final candidateDevices = <_OpenedDevice>[];
     if (residentKey == 'required' || residentKey == 'preferred') {
       for (final opened in allDevices) {
@@ -397,18 +423,57 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
       candidateDevices.addAll(allDevices);
     }
 
-    // Use the first candidate device for PIN check (all keys from the same
-    // user typically share the same PIN requirement).
-    final primaryDev = candidateDevices.first.device;
+    // ── Phase 1: Touch-to-Identify (multi-device only) ──────────────────
+    // When multiple candidate devices are connected, use touch detection
+    // to identify which device the user wants. All keys blink; user
+    // touches one to select it. No PIN needed for this step.
+    //
+    // For single device, skip this phase — we use it directly.
+    var selectedIdx = 0;
+    if (candidateDevices.length > 1) {
+      try {
+        selectedIdx = await _identifyDeviceByTouch(b, candidateDevices);
+      } on Object {
+        // Touch-to-identify failed or was cancelled. Close ALL devices
+        // and free the device info list so the next attempt starts fresh.
+        _logger.info(
+          'Touch-to-identify cancelled/failed. Closing all devices...',
+        );
+        _closeAllDevices(b, allDevices);
+        _freeDevInfoList(b, devInfoList);
+        rethrow;
+      }
+      _logger.info(
+        'Touch-to-identify: user selected device '
+        '${candidateDevices[selectedIdx].path}.',
+      );
+    }
+    final selectedDevice = candidateDevices[selectedIdx];
 
-    // Allocate one credential object per candidate device so parallel
-    // isolates each write to independent memory.
-    final credHandles = <Pointer>[];
-    final credFreePointers = <Pointer<Pointer>>[];
+    // Cancel touch detection on all devices and close non-selected ones.
+    // fido_dev_cancel() is needed to clear the pending touch state from
+    // fido_dev_get_touch_begin(). Without this, the HID-level touch state
+    // persists and on retry the previously-touched key immediately reports
+    // touched=1 again, preventing the user from switching keys.
+    for (var i = 0; i < allDevices.length; i++) {
+      final opened = allDevices[i];
+      b.fidoDevCancel(opened.device);
+      if (opened.device.address != selectedDevice.device.address) {
+        b.fidoDevClose(opened.device);
+        final devPtr = calloc<Pointer>();
+        devPtr.value = opened.device;
+        b.fidoDevFree(devPtr);
+        calloc.free(devPtr);
+      }
+    }
 
-    // When the user cancels the touch dialog, we must NOT free native
-    // resources immediately because the background isolates are still using
-    // them. We schedule deferred cleanup and skip the finally block.
+    // Allocate a credential object for the selected device.
+    final cred = b.fidoCredNew();
+    final credFreePtr = calloc<Pointer>();
+    credFreePtr.value = cred;
+
+    // When the user cancels, we must NOT free native resources immediately
+    // because the background isolate may still be using them.
     var deferredCleanup = false;
 
     try {
@@ -428,48 +493,60 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
         final uvOpt = _parseUserVerification(userVerification);
 
-        // Create and configure a credential object for each candidate device.
-        for (var i = 0; i < candidateDevices.length; i++) {
-          final cred = b.fidoCredNew();
-          credHandles.add(cred);
-          final credPtr = calloc<Pointer>();
-          credPtr.value = cred;
-          credFreePointers.add(credPtr);
-
-          _checkFido(b.fidoCredSetType(cred, algorithm), 'set type', true);
-          _checkFido(
-            b.fidoCredSetClientdataHash(cred, hashPtr, clientDataHash.length),
-            'set clientdata hash',
-            true,
-          );
-          _checkFido(
-            b.fidoCredSetRp(cred, rpIdNative, rpNameNative),
-            'set rp',
-            true,
-          );
-          // Pass nullptr for icon — CTAP2.1 removed the icon field.
-          _checkFido(
-            b.fidoCredSetUser(
-              cred,
-              userIdPtr,
-              userId.length,
-              userNameNative,
-              displayNameNative,
-              nullptr.cast<Utf8>(),
-            ),
-            'set user',
-            true,
-          );
-          if (residentKey == 'required' || residentKey == 'preferred') {
-            _checkFido(b.fidoCredSetRk(cred, fidoOptTrue), 'set rk', true);
-          }
-          if (uvOpt != fidoOptOmit) {
-            _checkFido(b.fidoCredSetUv(cred, uvOpt), 'set uv', true);
-          }
+        // Configure the credential object.
+        _checkFido(b.fidoCredSetType(cred, algorithm), 'set type', true);
+        _checkFido(
+          b.fidoCredSetClientdataHash(cred, hashPtr, clientDataHash.length),
+          'set clientdata hash',
+          true,
+        );
+        _checkFido(
+          b.fidoCredSetRp(cred, rpIdNative, rpNameNative),
+          'set rp',
+          true,
+        );
+        _checkFido(
+          b.fidoCredSetUser(
+            cred,
+            userIdPtr,
+            userId.length,
+            userNameNative,
+            displayNameNative,
+            nullptr.cast<Utf8>(),
+          ),
+          'set user',
+          true,
+        );
+        if (residentKey == 'required' || residentKey == 'preferred') {
+          _checkFido(b.fidoCredSetRk(cred, fidoOptTrue), 'set rk', true);
+        }
+        if (uvOpt != fidoOptOmit) {
+          _checkFido(b.fidoCredSetUv(cred, uvOpt), 'set uv', true);
         }
 
-        // Check if PIN is required and obtain it.
-        var pinNative = await _obtainPinIfRequired(b, primaryDev, arena);
+        // ── Phase 2: PIN (if needed) ────────────────────────────────────
+        // Check if the selected device requires a PIN. If so, prompt now
+        // — before the CTAP2 operation. This ensures the operation can
+        // block for touch instead of returning PIN_REQUIRED instantly.
+        var pinNative = nullptr.cast<Utf8>();
+        final needsPin = _getDevicePinStatus(b, selectedDevice.device) ==
+            _PinStatus.configured;
+        if (needsPin) {
+          final retries = _getRetryCount(b, selectedDevice.device);
+          _logger.info(
+            'Selected device ${selectedDevice.path} requires a PIN. '
+            'Retries remaining: $retries',
+          );
+          if (retries <= 0) {
+            throw const PasskeyAssertionFailedException(
+              'PIN retries exhausted. The authenticator PIN is locked.',
+            );
+          }
+          pinNative = await _promptForPin(
+            retries: retries,
+            errorMessage: 'Enter PIN for your security key',
+          );
+        }
 
         _logger.debug(
           'createCredential: params ready — '
@@ -477,30 +554,28 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
           'userId=${userId.length}B, '
           'clientDataHash=${clientDataHash.length}B, '
           'residentKey=$residentKey, uv=$userVerification (opt=$uvOpt), '
-          'pinProvided=${pinNative != nullptr}, '
-          'candidateDevices=${candidateDevices.length}',
+          'selectedDevice=${selectedDevice.path}',
         );
 
-        // PIN retry loop.
+        // ── Phase 3: CTAP2 Operation ────────────────────────────────────
+        // Run fido_dev_make_cred on the selected device. This blocks
+        // until the user touches the key (or timeout).
+        // PIN retry loop: if PIN was wrong, re-prompt and retry.
         var rc = fidoOk;
-        var winnerIdx = 0;
         while (true) {
           final touchHandle = showFidoTouchDialog();
           await Future<void>.delayed(const Duration(milliseconds: 50));
 
-          // Launch a parallel probe on each candidate device.
-          final futures = <Future<int>>[];
-          for (var i = 0; i < candidateDevices.length; i++) {
-            final dev = candidateDevices[i].device;
-            final cred = credHandles[i];
-            final addrs = [dev.address, cred.address, pinNative.address];
-            final f = _useIsolate
-                ? compute(_isolateMakeCred, addrs)
-                : Future(() => _makeCred(b, dev, cred, pinNative));
-            futures.add(f);
+          final dev = selectedDevice.device;
+          final addrs = [dev.address, cred.address, pinNative.address];
+          final Future<int> f;
+          if (_useIsolate) {
+            f = compute(_isolateMakeCred, addrs);
+          } else {
+            f = Future(() => _makeCred(b, dev, cred, pinNative));
           }
 
-          // Race: first device to succeed wins. Also race against cancel.
+          // Race against cancel.
           final cancelCompleter = Completer<int>();
           unawaited(
             touchHandle.cancelled.then((wasCancelled) {
@@ -513,112 +588,58 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
               }
             }),
           );
-
-          // Monitor each device's future; first FIDO_OK wins.
-          for (var i = 0; i < futures.length; i++) {
-            unawaited(
-              futures[i].then((result) {
-                if (result == fidoOk && !cancelCompleter.isCompleted) {
-                  cancelCompleter.complete(i);
-                }
-              }),
-            );
-          }
-          // Also: if ALL futures complete without any FIDO_OK, report the
-          // last non-OK result so we can handle PIN errors etc.
           unawaited(
-            Future.wait(futures).then((results) {
+            f.then((result) {
               if (!cancelCompleter.isCompleted) {
-                // No device succeeded — find the most informative error.
-                // Prefer PIN-related errors over timeouts.
-                var bestIdx = 0;
-                for (var i = 0; i < results.length; i++) {
-                  if (results[i] == fidoErrPinInvalid ||
-                      results[i] == fidoErrPinAuthBlocked) {
-                    bestIdx = i;
-                    break;
-                  }
-                }
-                // Complete with a negative value to signal "no winner";
-                // encode the best error index as -(index + 1).
-                cancelCompleter.complete(-(bestIdx + 1));
+                cancelCompleter.complete(result);
               }
             }),
           );
 
           try {
-            final result = await cancelCompleter.future;
-            if (result >= 0) {
-              // A device succeeded!
-              winnerIdx = result;
-              rc = fidoOk;
-            } else {
-              // No device succeeded — extract error from best device.
-              final errIdx = -(result + 1);
-              winnerIdx = errIdx;
-              rc = await futures[errIdx];
-            }
+            rc = await cancelCompleter.future;
           } on PasskeyCancelledException {
             _logger.info(
-              'User cancelled touch — sending CTAPHID_CANCEL to all '
-              'devices and scheduling deferred cleanup...',
+              'User cancelled touch — sending CTAPHID_CANCEL and '
+              'scheduling deferred cleanup...',
             );
             touchHandle.dismiss();
-            for (final opened in candidateDevices) {
-              final cancelRc = b.fidoDevCancel(opened.device);
-              _logger.debug(
-                'fido_dev_cancel(${opened.path}) returned: $cancelRc',
-              );
-            }
+            b.fidoDevCancel(selectedDevice.device);
             deferredCleanup = true;
-            final cleanupFuture = Future.wait(futures)
-                .then((_) {
-                  _logger.debug(
-                    'Deferred cleanup: all background isolates finished '
-                    'after cancel. Freeing native resources...',
-                  );
-                  _sanitizePin(pinNative);
-                  _closeAllDevices(b, allDevices);
-                  for (final cp in credFreePointers) {
-                    b.fidoCredFree(cp);
-                    calloc.free(cp);
-                  }
-                  _freeDevInfoList(b, devInfoList);
-                })
-                .catchError((Object e) {
-                  _logger.warn(
-                    'Deferred cleanup: error: $e. Freeing anyway...',
-                  );
-                  _sanitizePin(pinNative);
-                  _closeAllDevices(b, allDevices);
-                  for (final cp in credFreePointers) {
-                    b.fidoCredFree(cp);
-                    calloc.free(cp);
-                  }
-                  _freeDevInfoList(b, devInfoList);
-                });
-            _pendingDeviceCleanup = cleanupFuture;
+            _pendingDeviceCleanup = f.then((_) {
+              _logger.debug(
+                'Deferred cleanup: isolate finished after cancel.',
+              );
+              _sanitizePin(pinNative);
+              _closeDevice(b, selectedDevice);
+              b.fidoCredFree(credFreePtr);
+              calloc.free(credFreePtr);
+              _freeDevInfoList(b, devInfoList);
+            }).catchError((Object e) {
+              _logger.warn('Deferred cleanup error: $e. Freeing anyway...');
+              _sanitizePin(pinNative);
+              _closeDevice(b, selectedDevice);
+              b.fidoCredFree(credFreePtr);
+              calloc.free(credFreePtr);
+              _freeDevInfoList(b, devInfoList);
+            });
             rethrow;
           }
           touchHandle.dismiss();
 
-          // Cancel non-winning devices so they release promptly.
-          for (var i = 0; i < candidateDevices.length; i++) {
-            if (i != winnerIdx) {
-              b.fidoDevCancel(candidateDevices[i].device);
+          // Handle PIN errors with retry loop.
+          if (rc == fidoErrPinRequired || rc == fidoErrPinInvalid) {
+            if (rc == fidoErrPinRequired) {
+              _logger.info(
+                'Device ${selectedDevice.path} requires a PIN. '
+                'Prompting user...',
+              );
+            } else {
+              _logger.warn('Wrong PIN entered. Re-prompting user...');
             }
-          }
-          // Wait for all futures to finish before proceeding.
-          await Future.wait(futures).catchError((_) => <int>[]);
-
-          // Handle wrong PIN.
-          if (rc == fidoErrPinInvalid) {
-            _logger.warn('Wrong PIN entered. Re-prompting user...');
             _sanitizePin(pinNative);
-            final retries = _getRetryCount(b, primaryDev);
-            _logger.info(
-              'PIN retries remaining after failed attempt: $retries',
-            );
+            final retries = _getRetryCount(b, selectedDevice.device);
+            _logger.info('PIN retries remaining: $retries');
             if (retries <= 0) {
               throw const PasskeyAssertionFailedException(
                 'PIN retries exhausted. The authenticator PIN is locked.',
@@ -626,7 +647,9 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
             }
             pinNative = await _promptForPin(
               retries: retries,
-              errorMessage: 'Wrong PIN — please try again',
+              errorMessage: rc == fidoErrPinInvalid
+                  ? 'Wrong PIN — please try again'
+                  : 'Enter PIN for your security key',
             );
             continue;
           }
@@ -645,9 +668,7 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         _sanitizePin(pinNative);
         _checkFido(rc, 'make credential', true);
 
-        // Read result fields from the winning credential object.
-        final cred = credHandles[winnerIdx];
-
+        // Read result fields from the credential object.
         final credIdPtr = b.fidoCredIdPtr(cred);
         final credIdLen = b.fidoCredIdLen(cred);
         final credIdBytes = _copyNativeBytes(credIdPtr, credIdLen);
@@ -658,11 +679,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         final authdataBytes = _stripCborByteStringHeader(authdataCborBytes);
 
         // Post-creation verification: check authenticator data flags.
-        // If we requested rk=required, the credential MUST have the UV
-        // (User Verified) flag set (bit 2 = 0x04). Discoverable credentials
-        // require user verification — if UV is not set, the authenticator
-        // silently created a non-discoverable credential (e.g. ZUKEY 2 FIDO)
-        // which will fail at login time.
         if ((residentKey == 'required' || residentKey == 'preferred') &&
             authdataBytes.length > 32) {
           final flags = authdataBytes[32];
@@ -673,26 +689,17 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
             '(UP=${upSet ? 1 : 0}, UV=${uvSet ? 1 : 0})',
           );
           if (!uvSet) {
-            // UV not set means the authenticator did NOT perform user
-            // verification. For discoverable credentials this is fatal —
-            // the credential won't work for passwordless login.
-            //
-            // Check PIN status to give the most helpful error message.
-            final winnerDev = candidateDevices[winnerIdx].device;
-            final winnerPinStatus = _getDevicePinStatus(b, winnerDev);
+            final winnerPinStatus = _getDevicePinStatus(
+              b,
+              selectedDevice.device,
+            );
             _logger.warn(
               'Credential created with rk=$residentKey but UV flag is '
               'NOT set (flags=0x${flags.toRadixString(16)}). '
-              'PIN status: $winnerPinStatus. The credential is likely '
-              'non-discoverable and will fail at login.',
+              'PIN status: $winnerPinStatus.',
             );
 
             if (winnerPinStatus == _PinStatus.supportedButNotSet) {
-              // PIN supported but not configured. This could be:
-              // 1. A capable key (YubiKey) that just needs a PIN set, OR
-              // 2. A budget key (ZUKEY) that claims PIN support but can't
-              //    actually store discoverable credentials regardless.
-              // We can't distinguish these cases, so give advice for both.
               throw const PasskeyRegistrationFailedException(
                 'This security key did not perform user verification, '
                 'so the passkey was not stored as a discoverable '
@@ -704,7 +711,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
               );
             }
 
-            // PIN is not supported or status unknown.
             throw const PasskeyRegistrationFailedException(
               'This security key does not support passkeys (discoverable '
               'credentials). It silently created a non-discoverable '
@@ -726,8 +732,7 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         final fmt = fmtPtr.toDartString();
 
         _logger.debug(
-          'createCredential: result from device '
-          '${candidateDevices[winnerIdx].path} — '
+          'createCredential: result from device ${selectedDevice.path} — '
           'credId=${credIdBytes.length}B, authdata=${authdataBytes.length}B, '
           'sig=${sigBytes.length}B, x5c=${x5cBytes.length}B, fmt=$fmt',
         );
@@ -767,11 +772,9 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
       });
     } finally {
       if (!deferredCleanup) {
-        _closeAllDevices(b, allDevices);
-        for (final cp in credFreePointers) {
-          b.fidoCredFree(cp);
-          calloc.free(cp);
-        }
+        _closeDevice(b, selectedDevice);
+        b.fidoCredFree(credFreePtr);
+        calloc.free(credFreePtr);
         _freeDevInfoList(b, devInfoList);
       }
     }
@@ -786,9 +789,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
     // Parse options.
     final rpId = options['rpId'] as String;
-    // Keep the original challenge string exactly as Cognito sent it.
-    // IMPORTANT: Do NOT decode and re-encode — that can change base64url
-    // padding which breaks Cognito's SHA256(clientDataJSON) verification.
     final challengeB64 = options['challenge'] as String;
     final userVerification = options['userVerification'] as String?;
     final allowCredentials =
@@ -803,20 +803,52 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
     final clientDataBytes = utf8.encode(clientData);
     final clientDataHash = sha256.convert(clientDataBytes).bytes;
 
-    // Discover and open ALL devices (awaits pending cleanup from cancelled
-    // ops). For authentication, we probe all connected keys in parallel —
-    // whichever the user touches first wins.
+    // Discover and open ALL devices.
     final multiResult = await _discoverAndOpenAllDevices(b);
     final allDevices = multiResult.devices;
     final devInfoList = multiResult.devInfoList;
 
-    // Use the first device for PIN check.
-    final primaryDev = allDevices.first.device;
+    // ── Phase 1: Touch-to-Identify (multi-device only) ──────────────────
+    var selectedIdx = 0;
+    if (allDevices.length > 1) {
+      try {
+        selectedIdx = await _identifyDeviceByTouch(b, allDevices);
+      } on Object {
+        // Touch-to-identify failed or was cancelled. Close ALL devices
+        // and free the device info list so the next attempt starts fresh.
+        _logger.info(
+          'Touch-to-identify cancelled/failed. Closing all devices...',
+        );
+        _closeAllDevices(b, allDevices);
+        _freeDevInfoList(b, devInfoList);
+        rethrow;
+      }
+      _logger.info(
+        'Touch-to-identify: user selected device '
+        '${allDevices[selectedIdx].path}.',
+      );
+    }
+    final selectedDevice = allDevices[selectedIdx];
 
-    // Allocate one assertion object per device so parallel isolates each
-    // write to independent memory.
-    final assertHandles = <Pointer>[];
-    final assertFreePointers = <Pointer<Pointer>>[];
+    // Cancel touch detection on all devices and close non-selected ones.
+    // fido_dev_cancel() clears the pending touch state from
+    // fido_dev_get_touch_begin() so retries start fresh.
+    for (var i = 0; i < allDevices.length; i++) {
+      final opened = allDevices[i];
+      b.fidoDevCancel(opened.device);
+      if (opened.device.address != selectedDevice.device.address) {
+        b.fidoDevClose(opened.device);
+        final devPtr = calloc<Pointer>();
+        devPtr.value = opened.device;
+        b.fidoDevFree(devPtr);
+        calloc.free(devPtr);
+      }
+    }
+
+    // Allocate an assertion object for the selected device.
+    final assert_ = b.fidoAssertNew();
+    final assertFreePtr = calloc<Pointer>();
+    assertFreePtr.value = assert_;
 
     var deferredCleanup = false;
 
@@ -829,73 +861,79 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         final rpIdNative = rpId.toNativeUtf8(allocator: arena);
         final uvOpt = _parseUserVerification(userVerification);
 
-        // Create and configure an assertion object for each device.
-        for (var i = 0; i < allDevices.length; i++) {
-          final assert_ = b.fidoAssertNew();
-          assertHandles.add(assert_);
-          final assertPtr = calloc<Pointer>();
-          assertPtr.value = assert_;
-          assertFreePointers.add(assertPtr);
+        // Configure the assertion object.
+        _checkFido(
+          b.fidoAssertSetClientdataHash(
+            assert_,
+            hashPtr,
+            clientDataHash.length,
+          ),
+          'set clientdata hash',
+          false,
+        );
+        _checkFido(
+          b.fidoAssertSetRp(assert_, rpIdNative),
+          'set rp',
+          false,
+        );
+        _checkFido(
+          b.fidoAssertSetUv(assert_, uvOpt),
+          'set uv',
+          false,
+        );
 
-          _checkFido(
-            b.fidoAssertSetClientdataHash(
-              assert_,
-              hashPtr,
-              clientDataHash.length,
-            ),
-            'set clientdata hash',
-            false,
-          );
-          _checkFido(
-            b.fidoAssertSetRp(assert_, rpIdNative),
-            'set rp',
-            false,
-          );
-          _checkFido(
-            b.fidoAssertSetUv(assert_, uvOpt),
-            'set uv',
-            false,
-          );
-
-          // Add allowed credentials.
-          for (final cred in allowCredentials) {
-            final credMap = cred as Map<String, dynamic>;
-            final credIdBytes = _base64UrlDecode(credMap['id'] as String);
-            final credIdPtr = arena<Uint8>(credIdBytes.length);
-            for (var j = 0; j < credIdBytes.length; j++) {
-              credIdPtr[j] = credIdBytes[j];
-            }
-            _checkFido(
-              b.fidoAssertAllowCred(assert_, credIdPtr, credIdBytes.length),
-              'allow cred',
-              false,
-            );
+        // Add allowed credentials.
+        for (final cred in allowCredentials) {
+          final credMap = cred as Map<String, dynamic>;
+          final credIdBytes = _base64UrlDecode(credMap['id'] as String);
+          final credIdPtr = arena<Uint8>(credIdBytes.length);
+          for (var j = 0; j < credIdBytes.length; j++) {
+            credIdPtr[j] = credIdBytes[j];
           }
+          _checkFido(
+            b.fidoAssertAllowCred(assert_, credIdPtr, credIdBytes.length),
+            'allow cred',
+            false,
+          );
         }
 
-        // Check if PIN is required and obtain it.
-        var pinNative = await _obtainPinIfRequired(b, primaryDev, arena);
+        // ── Phase 2: PIN (if needed) ────────────────────────────────────
+        var pinNative = nullptr.cast<Utf8>();
+        final needsPin = _getDevicePinStatus(b, selectedDevice.device) ==
+            _PinStatus.configured;
+        if (needsPin) {
+          final retries = _getRetryCount(b, selectedDevice.device);
+          _logger.info(
+            'Selected device ${selectedDevice.path} requires a PIN. '
+            'Retries remaining: $retries',
+          );
+          if (retries <= 0) {
+            throw const PasskeyAssertionFailedException(
+              'PIN retries exhausted. The authenticator PIN is locked.',
+            );
+          }
+          pinNative = await _promptForPin(
+            retries: retries,
+            errorMessage: 'Enter PIN for your security key',
+          );
+        }
 
-        // PIN retry loop.
+        // ── Phase 3: CTAP2 Operation ────────────────────────────────────
         var rc = fidoOk;
-        var winnerIdx = 0;
         while (true) {
           final touchHandle = showFidoTouchDialog();
           await Future<void>.delayed(const Duration(milliseconds: 50));
 
-          // Launch a parallel probe on each device.
-          final futures = <Future<int>>[];
-          for (var i = 0; i < allDevices.length; i++) {
-            final dev = allDevices[i].device;
-            final assert_ = assertHandles[i];
-            final addrs = [dev.address, assert_.address, pinNative.address];
-            final f = _useIsolate
-                ? compute(_isolateGetAssert, addrs)
-                : Future(() => _getAssert(b, dev, assert_, pinNative));
-            futures.add(f);
+          final dev = selectedDevice.device;
+          final addrs = [dev.address, assert_.address, pinNative.address];
+          final Future<int> f;
+          if (_useIsolate) {
+            f = compute(_isolateGetAssert, addrs);
+          } else {
+            f = Future(() => _getAssert(b, dev, assert_, pinNative));
           }
 
-          // Race: first device to succeed wins. Also race against cancel.
+          // Race against cancel.
           final cancelCompleter = Completer<int>();
           unawaited(
             touchHandle.cancelled.then((wasCancelled) {
@@ -908,106 +946,60 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
               }
             }),
           );
-
-          // Monitor each device's future; first FIDO_OK wins.
-          for (var i = 0; i < futures.length; i++) {
-            unawaited(
-              futures[i].then((result) {
-                if (result == fidoOk && !cancelCompleter.isCompleted) {
-                  cancelCompleter.complete(i);
-                }
-              }),
-            );
-          }
-          // If ALL futures complete without any FIDO_OK, report best error.
           unawaited(
-            Future.wait(futures).then((results) {
+            f.then((result) {
               if (!cancelCompleter.isCompleted) {
-                var bestIdx = 0;
-                for (var i = 0; i < results.length; i++) {
-                  if (results[i] == fidoErrPinInvalid ||
-                      results[i] == fidoErrPinAuthBlocked) {
-                    bestIdx = i;
-                    break;
-                  }
-                }
-                cancelCompleter.complete(-(bestIdx + 1));
+                cancelCompleter.complete(result);
               }
             }),
           );
 
           try {
-            final result = await cancelCompleter.future;
-            if (result >= 0) {
-              winnerIdx = result;
-              rc = fidoOk;
-            } else {
-              final errIdx = -(result + 1);
-              winnerIdx = errIdx;
-              rc = await futures[errIdx];
-            }
+            rc = await cancelCompleter.future;
           } on PasskeyCancelledException {
             _logger.info(
-              'User cancelled touch — sending CTAPHID_CANCEL to all '
-              'devices and scheduling deferred cleanup...',
+              'User cancelled touch — sending CTAPHID_CANCEL and '
+              'scheduling deferred cleanup...',
             );
             touchHandle.dismiss();
-            for (final opened in allDevices) {
-              final cancelRc = b.fidoDevCancel(opened.device);
-              _logger.debug(
-                'fido_dev_cancel(${opened.path}) returned: $cancelRc',
-              );
-            }
+            b.fidoDevCancel(selectedDevice.device);
             deferredCleanup = true;
-            final cleanupFuture = Future.wait(futures)
-                .then((_) {
-                  _logger.debug(
-                    'Deferred cleanup (assert): all isolates finished. '
-                    'Freeing native resources...',
-                  );
-                  _sanitizePin(pinNative);
-                  _closeAllDevices(b, allDevices);
-                  for (final ap in assertFreePointers) {
-                    b.fidoAssertFree(ap);
-                    calloc.free(ap);
-                  }
-                  _freeDevInfoList(b, devInfoList);
-                })
-                .catchError((Object e) {
-                  _logger.warn(
-                    'Deferred cleanup (assert): error: $e. '
-                    'Freeing anyway...',
-                  );
-                  _sanitizePin(pinNative);
-                  _closeAllDevices(b, allDevices);
-                  for (final ap in assertFreePointers) {
-                    b.fidoAssertFree(ap);
-                    calloc.free(ap);
-                  }
-                  _freeDevInfoList(b, devInfoList);
-                });
-            _pendingDeviceCleanup = cleanupFuture;
+            _pendingDeviceCleanup = f.then((_) {
+              _logger.debug(
+                'Deferred cleanup (assert): isolate finished after cancel.',
+              );
+              _sanitizePin(pinNative);
+              _closeDevice(b, selectedDevice);
+              b.fidoAssertFree(assertFreePtr);
+              calloc.free(assertFreePtr);
+              _freeDevInfoList(b, devInfoList);
+            }).catchError((Object e) {
+              _logger.warn(
+                'Deferred cleanup (assert): error: $e. Freeing anyway...',
+              );
+              _sanitizePin(pinNative);
+              _closeDevice(b, selectedDevice);
+              b.fidoAssertFree(assertFreePtr);
+              calloc.free(assertFreePtr);
+              _freeDevInfoList(b, devInfoList);
+            });
             rethrow;
           }
           touchHandle.dismiss();
 
-          // Cancel non-winning devices so they release promptly.
-          for (var i = 0; i < allDevices.length; i++) {
-            if (i != winnerIdx) {
-              b.fidoDevCancel(allDevices[i].device);
+          // Handle PIN errors with retry loop.
+          if (rc == fidoErrPinRequired || rc == fidoErrPinInvalid) {
+            if (rc == fidoErrPinRequired) {
+              _logger.info(
+                'Device ${selectedDevice.path} requires a PIN. '
+                'Prompting user...',
+              );
+            } else {
+              _logger.warn('Wrong PIN entered (assert). Re-prompting...');
             }
-          }
-          // Wait for all futures to finish before proceeding.
-          await Future.wait(futures).catchError((_) => <int>[]);
-
-          // Handle wrong PIN.
-          if (rc == fidoErrPinInvalid) {
-            _logger.warn('Wrong PIN entered (assert). Re-prompting user...');
             _sanitizePin(pinNative);
-            final retries = _getRetryCount(b, primaryDev);
-            _logger.info(
-              'PIN retries remaining after failed attempt: $retries',
-            );
+            final retries = _getRetryCount(b, selectedDevice.device);
+            _logger.info('PIN retries remaining: $retries');
             if (retries <= 0) {
               throw const PasskeyAssertionFailedException(
                 'PIN retries exhausted. The authenticator PIN is locked.',
@@ -1015,7 +1007,9 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
             }
             pinNative = await _promptForPin(
               retries: retries,
-              errorMessage: 'Wrong PIN — please try again',
+              errorMessage: rc == fidoErrPinInvalid
+                  ? 'Wrong PIN — please try again'
+                  : 'Enter PIN for your security key',
             );
             continue;
           }
@@ -1034,15 +1028,11 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         _sanitizePin(pinNative);
         _checkFido(rc, 'get assertion', false);
 
-        // Read result from the winning assertion object.
-        final assert_ = assertHandles[winnerIdx];
+        // Read result from the assertion object.
         const idx = 0;
         final authdataPtr = b.fidoAssertAuthdataPtr(assert_, idx);
         final authdataLen = b.fidoAssertAuthdataLen(assert_, idx);
         final authdataCborBytes = _copyNativeBytes(authdataPtr, authdataLen);
-        // libfido2 returns authenticator data wrapped in a CBOR byte string
-        // (major type 2). Strip the header to get the raw authData bytes,
-        // just like we do in createCredential.
         final authdataBytes = _stripCborByteStringHeader(authdataCborBytes);
 
         final sigPtr = b.fidoAssertSigPtr(assert_, idx);
@@ -1063,8 +1053,7 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         );
 
         _logger.debug(
-          'getCredential: result from device '
-          '${allDevices[winnerIdx].path}',
+          'getCredential: result from device ${selectedDevice.path}',
         );
 
         final responseMap = <String, dynamic>{
@@ -1086,77 +1075,137 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
       });
     } finally {
       if (!deferredCleanup) {
-        _closeAllDevices(b, allDevices);
-        for (final ap in assertFreePointers) {
-          b.fidoAssertFree(ap);
-          calloc.free(ap);
-        }
+        _closeDevice(b, selectedDevice);
+        b.fidoAssertFree(assertFreePtr);
+        calloc.free(assertFreePtr);
         _freeDevInfoList(b, devInfoList);
       }
     }
   }
 
-  // ── PIN helpers ────────────────────────────────────────────────────────────
+  // ── Touch-to-Identify ──────────────────────────────────────────────────────
 
-  /// Checks whether the opened device requires a FIDO2 client PIN by querying
-  /// CBOR info. If so, checks the retry count, invokes [pinProvider], and
-  /// returns a native UTF-8 pointer to the PIN (allocated in [arena]).
+  /// Identifies which FIDO2 device the user wants by using libfido2's
+  /// touch detection API.
   ///
-  /// Returns [nullptr] (as `Pointer<Utf8>`) if PIN is not required.
-  /// Throws [PasskeyCancelledException] if the user cancels PIN entry.
-  /// Throws [PasskeyAssertionFailedException] if PIN retries are exhausted
-  /// or no [pinProvider] callback is set.
-  Future<Pointer<Utf8>> _obtainPinIfRequired(
+  /// Calls `fido_dev_get_touch_begin()` on all devices (causing them all
+  /// to blink), then polls `fido_dev_get_touch_status()` in a round-robin
+  /// loop. The first device where `touched == 1` is the winner.
+  ///
+  /// **No PIN is required** — this is purely a physical presence check.
+  ///
+  /// Returns the index of the touched device in [devices].
+  /// Throws [PasskeyCancelledException] if the user cancels or times out.
+  Future<int> _identifyDeviceByTouch(
     LibFido2Bindings b,
-    Pointer dev,
-    Arena arena,
+    List<_OpenedDevice> devices,
   ) async {
-    // Step 1: Query CBOR info to check if clientPin is enabled.
-    final requiresPin = _checkDeviceRequiresPin(b, dev);
-    if (!requiresPin) {
-      _logger.debug('PIN not required by this authenticator.');
-      return nullptr.cast<Utf8>();
-    }
+    _logger.debug(
+      'Touch-to-identify: starting on ${devices.length} devices...',
+    );
 
-    _logger.info('Authenticator requires a PIN.');
+    final touchHandle = showFidoTouchDialog();
+    await Future<void>.delayed(const Duration(milliseconds: 50));
 
-    // Step 2: Check retry count — abort if exhausted to prevent lockout.
-    final retries = _getRetryCount(b, dev);
-    _logger.info('PIN retries remaining: $retries');
-    if (retries <= 0) {
-      _logger.error(
-        'PIN retries exhausted. The authenticator is locked. '
-        'Reset the FIDO2 PIN using ykman or a similar tool.',
-      );
-      throw const PasskeyAssertionFailedException(
-        'PIN retries exhausted. The authenticator PIN is locked.',
-      );
-    }
+    try {
+      // Start touch detection on all devices.
+      final touchActive = List<bool>.filled(devices.length, false);
+      for (var i = 0; i < devices.length; i++) {
+        final savedMask = _blockProfilerSignal();
+        final rc = b.fidoDevGetTouchBegin(devices[i].device);
+        _restoreSignals(savedMask);
+        if (rc == fidoOk) {
+          touchActive[i] = true;
+          _logger.debug(
+            'Touch detection started on ${devices[i].path}.',
+          );
+        } else {
+          _logger.warn(
+            'Touch detection failed on ${devices[i].path} '
+            '(error: $rc). Skipping.',
+          );
+        }
+      }
 
-    // Step 3: Request the PIN — use custom pinProvider if set, otherwise
-    // show the built-in Flutter dialog from fido_pin_dialog.dart.
-    final String? pin;
-    if (pinProvider != null) {
-      pin = await pinProvider!(retriesRemaining: retries);
-    } else {
-      _logger.debug('Using built-in FIDO2 PIN dialog.');
-      pin = await showFidoPinDialog(retriesRemaining: retries);
-    }
-    if (pin == null || pin.isEmpty) {
-      _logger.info('User cancelled PIN entry.');
+      if (!touchActive.contains(true)) {
+        _logger.warn(
+          'Touch detection not supported on any device. '
+          'Falling back to first device.',
+        );
+        return 0;
+      }
+
+      // Poll for touch in round-robin.
+      final touchedPtr = calloc<Int32>();
+      try {
+        var elapsed = 0;
+        while (elapsed < _touchTimeoutMs) {
+          // Check for cancel from touch dialog.
+          final cancelled = await Future.any([
+            touchHandle.cancelled,
+            Future.delayed(
+              const Duration(milliseconds: 1),
+              () => false,
+            ),
+          ]);
+          if (cancelled) {
+            throw const PasskeyCancelledException(
+              'User cancelled device selection.',
+            );
+          }
+
+          for (var i = 0; i < devices.length; i++) {
+            if (!touchActive[i]) continue;
+
+            touchedPtr.value = 0;
+            final savedMask = _blockProfilerSignal();
+            final rc = b.fidoDevGetTouchStatus(
+              devices[i].device,
+              touchedPtr,
+              _touchPollIntervalMs,
+            );
+            _restoreSignals(savedMask);
+
+            if (rc != fidoOk) {
+              _logger.warn(
+                'Lost contact with ${devices[i].path} '
+                '(error: $rc). Removing from poll.',
+              );
+              touchActive[i] = false;
+              continue;
+            }
+
+            if (touchedPtr.value != 0) {
+              _logger.info(
+                'Touch detected on device [$i]: ${devices[i].path}.',
+              );
+              return i;
+            }
+          }
+
+          elapsed += _touchPollIntervalMs;
+
+          if (!touchActive.contains(true)) {
+            _logger.error('All devices lost during touch polling.');
+            throw const PasskeyNotSupportedException(
+              'All security keys disconnected during device selection.',
+            );
+          }
+        }
+      } finally {
+        calloc.free(touchedPtr);
+      }
+
+      // Timeout — no touch detected.
       throw const PasskeyCancelledException(
-        'PIN entry was cancelled by the user.',
+        'No touch detected within timeout. Please try again.',
       );
+    } finally {
+      touchHandle.dismiss();
     }
-
-    _logger.debug('PIN obtained from user (${pin.length} chars).');
-
-    // Step 4: Convert to native UTF-8 string.
-    // NOTE: We do NOT use the arena allocator for the PIN — we allocate
-    // with calloc so we can explicitly zero the memory after use.
-    final pinNative = pin.toNativeUtf8();
-    return pinNative;
   }
+
+  // ── PIN helpers ────────────────────────────────────────────────────────────
 
   /// Returns the PIN status of a device by examining CBOR info options.
   ///
@@ -1202,57 +1251,8 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
     }
   }
 
-  /// Queries the device's CBOR info to check if `clientPin` option is `true`.
-  bool _checkDeviceRequiresPin(LibFido2Bindings b, Pointer dev) {
-    final ci = b.fidoCborInfoNew();
-    final ciPtr = calloc<Pointer>();
-    ciPtr.value = ci;
-
-    try {
-      final savedMask = _blockProfilerSignal();
-      final rc = b.fidoDevGetCborInfo(dev, ci);
-      _restoreSignals(savedMask);
-
-      if (rc != fidoOk) {
-        _logger.warn(
-          'Could not retrieve CBOR info from device (error: $rc). '
-          'Assuming PIN is not required.',
-        );
-        return false;
-      }
-
-      final optCount = b.fidoCborInfoOptionsLen(ci);
-      final namesPtr = b.fidoCborInfoOptionsNamePtr(ci);
-      final valuesPtr = b.fidoCborInfoOptionsValuePtr(ci);
-
-      for (var i = 0; i < optCount; i++) {
-        final name = namesPtr[i].toDartString();
-        final value = valuesPtr[i];
-        if (name == 'clientPin' && value) {
-          return true;
-        }
-      }
-
-      return false;
-    } finally {
-      b.fidoCborInfoFree(ciPtr);
-      calloc.free(ciPtr);
-    }
-  }
-
   /// Queries the device's CBOR info to check if it supports resident
   /// (discoverable) credentials via the `rk` option.
-  ///
-  /// Returns `true` if the device advertises `rk: true` in its CTAP2 CBOR
-  /// info options, meaning it can store discoverable credentials on-device.
-  /// Returns `false` if the `rk` option is absent, explicitly `false`, or
-  /// if CBOR info cannot be retrieved.
-  ///
-  /// This is critical for passwordless flows: keys like the ZUKEY 2 FIDO
-  /// that don't support resident credentials will silently create a
-  /// non-resident credential when `rk` is requested, causing registration
-  /// to appear successful but login to fail later because the passkey
-  /// isn't discoverable.
   bool _checkDeviceSupportsResidentKey(
     LibFido2Bindings b,
     Pointer dev,
@@ -1275,12 +1275,10 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         return false;
       }
 
-      // Check the rk option in CBOR info.
       final optCount = b.fidoCborInfoOptionsLen(ci);
       final namesPtr = b.fidoCborInfoOptionsNamePtr(ci);
       final valuesPtr = b.fidoCborInfoOptionsValuePtr(ci);
 
-      // Read all options for logging and decision making.
       var rkOption = false;
       String clientPinStatus = 'absent';
       for (var i = 0; i < optCount; i++) {
@@ -1301,26 +1299,8 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         return false;
       }
 
-      // The rk option is true. Cross-check with rkRemaining to catch keys
-      // that are definitively full (rkRemaining == 0).
-      //
-      // rkRemaining semantics (from fido_cbor_info_rk_remaining):
-      //   > 0  — key reports capacity for discoverable credentials → accept.
-      //   == 0 — key has no remaining slots → reject (proven full).
-      //   == -1 — field not reported. Many keys don't report this field:
-      //           • CTAP 2.0 keys (e.g. YubiKey 5 fw 5.2.x) legitimately
-      //             omit it and genuinely support rk.
-      //           • CTAP 2.1_PRE keys (e.g. YubiKey 5 fw 5.4.x) may also
-      //             omit it despite genuine rk support.
-      //           • Some budget keys (e.g. ZUKEY 2 FIDO) claim rk=true but
-      //             silently create non-discoverable credentials.
-      //           We cannot reliably distinguish these cases from CBOR info
-      //           alone, so we trust rk=true and let the user proceed. If
-      //           the key creates a non-discoverable credential, the server
-      //           will reject it at login time.
       final rkRemaining = b.fidoCborInfoRkRemaining(ci);
 
-      // Gather version strings for logging.
       final versionsLen = b.fidoCborInfoVersionsLen(ci);
       final versionsPtr = b.fidoCborInfoVersionsPtr(ci);
       final versions = <String>[];
@@ -1341,7 +1321,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         return false;
       }
 
-      // rkRemaining > 0 or -1 (not reported) — trust rk=true.
       return true;
     } finally {
       b.fidoCborInfoFree(ciPtr);
@@ -1371,8 +1350,7 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
     }
   }
 
-  /// Prompts the user for a PIN after a failed attempt, showing an error
-  /// message and the updated retry count.
+  /// Prompts the user for a PIN, showing an error message and retry count.
   ///
   /// Uses [pinProvider] if set, otherwise shows the built-in dialog.
   /// Throws [PasskeyCancelledException] if the user cancels.
@@ -1382,7 +1360,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
   }) async {
     final String? pin;
     if (pinProvider != null) {
-      // Custom providers don't support errorMessage yet — just pass retries.
       pin = await pinProvider!(retriesRemaining: retries);
     } else {
       pin = await showFidoPinDialog(
@@ -1404,7 +1381,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
   /// compiler optimization from eliding the zeroing.
   void _sanitizePin(Pointer<Utf8> pinNative) {
     if (pinNative == nullptr) return;
-    // Calculate the length of the native UTF-8 string.
     final ptr = pinNative.cast<Uint8>();
     var len = 0;
     while (ptr[len] != 0) {
@@ -1420,40 +1396,21 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
   /// Discovers connected FIDO2 devices and opens **all** that respond to the
   /// CTAPHID_INIT handshake.
-  ///
-  /// When multiple USB security keys are plugged in simultaneously (e.g. a
-  /// YubiKey 5 and a ZUKEY 2), all of them are opened so that a FIDO2
-  /// operation can be started on each one in parallel. The first device that
-  /// receives a user touch wins; the others are cancelled.
-  ///
-  /// If a previous operation was cancelled and the background isolate is
-  /// still holding a device open (deferred cleanup), this method waits
-  /// for that cleanup to finish before attempting to re-open devices.
-  /// Without this wait, `fido_dev_open` would fail with error -9 (device
-  /// busy) because the old isolate still has the HID file descriptor open.
-  ///
-  /// Returns a [_MultiDeviceResult] containing the list of opened devices
-  /// and the device info list (which the caller must free).
   Future<_MultiDeviceResult> _discoverAndOpenAllDevices(
     LibFido2Bindings b,
   ) async {
     // Wait for any pending deferred cleanup from a previous cancelled
-    // operation. The background isolate may still be holding the device
-    // open (blocked in fido_dev_make_cred/fido_dev_get_assert until the
-    // ~30s CTAP timeout fires).
+    // operation.
     if (_pendingDeviceCleanup != null) {
       _logger.info(
         'Waiting for pending device cleanup from previous '
         'cancelled operation before opening device...',
       );
-      // Show a "Preparing..." dialog so the user knows what's happening
-      // instead of staring at an unexplained loading spinner.
       final dismissPreparing = showFidoPreparingDialog();
       try {
         await _pendingDeviceCleanup;
       } on Object {
-        // Cleanup future may have completed with an error — that's fine,
-        // the resources were freed in the catchError handler.
+        // Cleanup future may have completed with an error — that's fine.
       }
       _pendingDeviceCleanup = null;
       dismissPreparing();
@@ -1488,10 +1445,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
       _logger.debug('Found $deviceCount FIDO2 device(s). Opening all...');
 
-      // Try to open every discovered device. Some security keys (e.g.
-      // YubiKey) expose multiple HID interfaces (OTP and FIDO). Only the
-      // FIDO interface will successfully complete the CTAPHID_INIT
-      // handshake, so non-FIDO interfaces are silently skipped.
       final openedDevices = <_OpenedDevice>[];
       int? lastError;
       String? lastPath;
@@ -1502,8 +1455,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
         _logger.debug('Trying FIDO2 device [$i]: $pathStr');
 
         final dev = b.fidoDevNew();
-        // Block signals during fido_dev_open to prevent Dart VM's
-        // SIGPROF from interrupting libfido2's ppoll() with EINTR.
         final savedMask = _blockProfilerSignal();
         final openRc = b.fidoDevOpen(dev, path);
         _restoreSignals(savedMask);
@@ -1511,7 +1462,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
           _logger.info('FIDO2 device at $pathStr opened successfully.');
           openedDevices.add(_OpenedDevice(device: dev, path: pathStr));
         } else {
-          // Open failed — free this handle and try the next device.
           _logger.debug(
             'Could not open $pathStr (libfido2 error: $openRc). '
             'Skipping...',
@@ -1526,16 +1476,10 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
       }
 
       if (openedDevices.isEmpty) {
-        // None of the discovered devices could be opened.
         _logger.error(
           'None of the $deviceCount discovered FIDO2 device(s) could be '
           'opened. Last device tried: $lastPath '
-          '(libfido2 error: $lastError). '
-          'If the error is -2 (RX), the device may expose multiple HID '
-          'interfaces and none responded to the FIDO2 protocol. '
-          'If the error is -1 (TX) or related to permissions, '
-          'ensure the current user has read/write access to the hidraw '
-          'device files (add udev rules if needed).',
+          '(libfido2 error: $lastError).',
         );
         throw PasskeyNotSupportedException(
           'Could not open any of the $deviceCount discovered FIDO2 '
@@ -1566,12 +1510,17 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
   /// Closes and frees all opened device handles.
   void _closeAllDevices(LibFido2Bindings b, List<_OpenedDevice> devices) {
     for (final opened in devices) {
-      b.fidoDevClose(opened.device);
-      final devPtr = calloc<Pointer>();
-      devPtr.value = opened.device;
-      b.fidoDevFree(devPtr);
-      calloc.free(devPtr);
+      _closeDevice(b, opened);
     }
+  }
+
+  /// Closes and frees a single device handle.
+  void _closeDevice(LibFido2Bindings b, _OpenedDevice opened) {
+    b.fidoDevClose(opened.device);
+    final devPtr = calloc<Pointer>();
+    devPtr.value = opened.device;
+    b.fidoDevFree(devPtr);
+    calloc.free(devPtr);
   }
 
   /// Checks a libfido2 return code and throws the appropriate
@@ -1629,23 +1578,12 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
     }
   }
 
-  /// Maps a WebAuthn `userVerification` preference string to a libfido2 UV
-  /// option constant.
   /// Maps a WebAuthn `userVerification` preference to a libfido2 UV option.
-  ///
-  /// For USB security keys, `preferred` should map to `fidoOptOmit` (not
-  /// `fidoOptTrue`) because setting `uv: true` tells the authenticator
-  /// that the platform has already collected PIN/UV auth, which requires
-  /// providing a `pinUvAuthParam`. Since we handle PIN collection
-  /// separately via [pinProvider], we omit UV and let the authenticator
-  /// handle it through the PIN protocol.
   static int _parseUserVerification(String? uv) {
     switch (uv) {
       case 'required':
         return fidoOptTrue;
       case 'preferred':
-        // Omit UV for USB keys — the authenticator will prompt for
-        // PIN/biometric if needed, without requiring pinUvAuthParam.
         return fidoOptOmit;
       case 'discouraged':
         return fidoOptFalse;
@@ -1680,23 +1618,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
   /// Builds a CBOR-encoded attestation object matching the format produced
   /// by CTAP2 authenticators.
-  ///
-  /// **IMPORTANT**: The CTAP2 `authenticatorMakeCredential` response uses
-  /// **integer keys** (not text strings) for the top-level map:
-  ///   - 0x01 = fmt (text string value)
-  ///   - 0x02 = authData (byte string value)
-  ///   - 0x03 = attStmt (map value)
-  ///
-  /// Browsers pass this raw CBOR directly as `attestationObject` to the
-  /// relying party. Cognito (and other servers) expect this exact format.
-  /// Our previous implementation used text string keys ("fmt", "attStmt",
-  /// "authData") which caused Cognito to reject with "Credential data is
-  /// not valid".
-  ///
-  /// The inner `attStmt` map uses text string keys per the WebAuthn spec:
-  ///   - "alg": COSE algorithm identifier
-  ///   - "sig": signature bytes
-  ///   - "x5c": array of certificate bytes (optional)
   static Uint8List _buildCborAttestationObject({
     required String fmt,
     required Uint8List authData,
@@ -1709,32 +1630,24 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
     // CBOR map with 3 entries
     out.addByte(0xa3);
 
-    // Key "fmt" (text string key per WebAuthn spec §6.5.4)
-    // NOTE: The WebAuthn spec defines attestationObject with text string
-    // keys, NOT CTAP2 integer keys. Browsers translate the CTAP2 integer
-    // keys (1,2,3) to text string keys ("fmt","authData","attStmt") when
-    // constructing the attestationObject returned to the relying party.
+    // Key "fmt"
     _cborWriteTextString(out, 'fmt');
     _cborWriteTextString(out, fmt);
 
     // Key "attStmt"
     _cborWriteTextString(out, 'attStmt');
-    // Value: map with 2 or 3 entries
     if (x5c.isNotEmpty) {
       out.addByte(0xa3); // 3 entries: alg, sig, x5c
     } else {
       out.addByte(0xa2); // 2 entries: alg, sig
     }
 
-    // attStmt.alg (text key + negative int value)
     _cborWriteTextString(out, 'alg');
-    _cborWriteNegativeInt(out, algorithm); // e.g. -7
+    _cborWriteNegativeInt(out, algorithm);
 
-    // attStmt.sig (text key + byte string value)
     _cborWriteTextString(out, 'sig');
     _cborWriteByteString(out, sig);
 
-    // attStmt.x5c (text key + array of byte strings)
     if (x5c.isNotEmpty) {
       _cborWriteTextString(out, 'x5c');
       out.addByte(0x81); // array of 1 item
@@ -1743,7 +1656,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
     // Key "authData"
     _cborWriteTextString(out, 'authData');
-    // Value: byte string (raw authenticator data)
     _cborWriteByteString(out, authData);
 
     return Uint8List.fromList(out.toBytes());
@@ -1763,13 +1675,10 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
   }
 
   /// Writes a CBOR negative integer (major type 1).
-  /// For COSE algorithm IDs like -7, CBOR encodes as 1-based: value = -1 - n.
   static void _cborWriteNegativeInt(BytesBuilder out, int value) {
     if (value >= 0) {
-      // Positive int (major type 0)
       _cborWriteTypeAndLength(out, 0, value);
     } else {
-      // Negative int (major type 1): encode -1-value
       _cborWriteTypeAndLength(out, 1, -1 - value);
     }
   }
@@ -1800,43 +1709,25 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
   }
 
   /// Strips the CBOR byte string header from data returned by libfido2.
-  ///
-  /// libfido2's `fido_cred_authdata_ptr()` returns the authenticator data
-  /// wrapped in a CBOR byte string (major type 2). For example, 180 bytes
-  /// of raw authData are returned as:
-  ///   `58 b4` + 180 raw bytes  (0x58 = byte string with 1-byte length)
-  ///
-  /// We need to strip this CBOR header to get the raw authenticator data
-  /// bytes for use in both:
-  ///  1. Our reconstructed attestation object
-  ///  2. The `authenticatorData` field in the W3C response JSON
-  ///
-  /// CBOR byte string encoding (major type 2 = 0x40):
-  ///   - 0x40..0x57: length 0..23 encoded in the initial byte
-  ///   - 0x58 + 1 byte: length 24..255
-  ///   - 0x59 + 2 bytes: length 256..65535
-  ///   - 0x5a + 4 bytes: length 65536..2^32-1
   static Uint8List _stripCborByteStringHeader(Uint8List cborBytes) {
     if (cborBytes.isEmpty) return cborBytes;
 
     final firstByte = cborBytes[0];
     final majorType = firstByte >> 5;
 
-    // If it's not a CBOR byte string (major type 2), return as-is.
     if (majorType != 2) return cborBytes;
 
     final additionalInfo = firstByte & 0x1f;
     int headerLen;
     if (additionalInfo < 24) {
-      headerLen = 1; // length encoded in initial byte
+      headerLen = 1;
     } else if (additionalInfo == 24) {
-      headerLen = 2; // 1 byte length follows
+      headerLen = 2;
     } else if (additionalInfo == 25) {
-      headerLen = 3; // 2 byte length follows
+      headerLen = 3;
     } else if (additionalInfo == 26) {
-      headerLen = 5; // 4 byte length follows
+      headerLen = 5;
     } else {
-      // Unknown encoding — return as-is.
       return cborBytes;
     }
 
@@ -1851,7 +1742,6 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 
   /// Decodes a base64url string (with or without padding) to bytes.
   static Uint8List _base64UrlDecode(String input) {
-    // Add padding if needed.
     var padded = input;
     final remainder = padded.length % 4;
     if (remainder != 0) {
@@ -1860,9 +1750,7 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
     return base64Url.decode(padded);
   }
 
-  /// Runs `fido_dev_make_cred` synchronously on the current thread using the
-  /// instance's [_bindings]. Used in test mode (when [_useIsolate] is false)
-  /// so mock bindings are exercised instead of spawning an isolate.
+  /// Runs `fido_dev_make_cred` synchronously using the instance's [_bindings].
   int _makeCred(
     LibFido2Bindings b,
     Pointer dev,
@@ -1875,9 +1763,7 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
     return rc;
   }
 
-  /// Runs `fido_dev_get_assert` synchronously on the current thread using the
-  /// instance's [_bindings]. Used in test mode (when [_useIsolate] is false)
-  /// so mock bindings are exercised instead of spawning an isolate.
+  /// Runs `fido_dev_get_assert` synchronously using the instance's [_bindings].
   int _getAssert(
     LibFido2Bindings b,
     Pointer dev,
@@ -1892,19 +1778,8 @@ class LinuxWebAuthnPlatform implements WebAuthnCredentialPlatform {
 }
 
 // ── Isolate helpers for non-blocking FIDO2 operations ────────────────────────
-//
-// The libfido2 functions fido_dev_make_cred() and fido_dev_get_assert() block
-// for several seconds while waiting for the user to touch the security key.
-// Running them on the main isolate freezes the Flutter UI (no animations,
-// no Cancel button). These top-level functions are designed to run inside
-// Isolate.run() — they re-open libfido2.so (since DynamicLibrary handles
-// are per-isolate), reconstruct the native pointers from integer addresses
-// (which are valid across isolates in the same process), block SIGPROF, and
-// call the blocking FFI function.
 
 /// Runs `fido_dev_make_cred` in a background isolate via `compute()`.
-/// [addrs] is `[devAddr, credAddr, pinAddr]` — raw pointer addresses from the
-/// main isolate. Returns the libfido2 result code.
 int _isolateMakeCred(List<int> addrs) {
   final lib = DynamicLibrary.open('libfido2.so');
   final bindings = LibFido2Bindings(lib);
@@ -1921,8 +1796,6 @@ int _isolateMakeCred(List<int> addrs) {
 }
 
 /// Runs `fido_dev_get_assert` in a background isolate via `compute()`.
-/// [addrs] is `[devAddr, assertAddr, pinAddr]` — raw pointer addresses from
-/// the main isolate. Returns the libfido2 result code.
 int _isolateGetAssert(List<int> addrs) {
   final lib = DynamicLibrary.open('libfido2.so');
   final bindings = LibFido2Bindings(lib);
@@ -1967,7 +1840,6 @@ enum _PinStatus {
   configured,
 
   /// Device supports PIN but none has been set yet (`clientPin: false`).
-  /// The key cannot perform user verification until a PIN is configured.
   supportedButNotSet,
 
   /// Device does not support PIN (no `clientPin` option in CBOR info).
