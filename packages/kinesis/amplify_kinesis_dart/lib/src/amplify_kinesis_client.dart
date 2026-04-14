@@ -112,7 +112,8 @@ class AmplifyKinesisClient {
       maxRecordsPerBatch: limits.maxRecordsPerStream,
       maxBytesPerBatch: limits.maxPutRecordsSizeBytes,
       maxRecordSizeBytes: limits.maxRecordSizeBytes,
-      storageName: 'kinesis_records',
+      dbPrefix: 'kinesis_records',
+      storeName: 'kinesis_records',
     );
 
     final kinesisClient = KinesisClient(

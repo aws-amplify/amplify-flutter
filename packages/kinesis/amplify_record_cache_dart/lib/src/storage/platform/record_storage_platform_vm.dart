@@ -16,14 +16,15 @@ Future<RecordStorage> createPlatformRecordStorage({
   required int maxRecordsPerBatch,
   required int maxBytesPerBatch,
   required int maxRecordSizeBytes,
-  required String storageName,
+  required String dbPrefix,
+  required String storeName,
 }) async {
   assert(storagePath != null, 'storagePath is required on VM platforms.');
   AmplifyLogging.logger(
     'RecordStorage',
   ).info('Using SQLite storage (path: $storagePath)');
   final database = RecordCacheDatabase(
-    storageName: storageName,
+    dbPrefix: dbPrefix,
     identifier: identifier,
     storagePath: storagePath,
   );
