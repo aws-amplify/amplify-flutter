@@ -213,6 +213,18 @@ typedef _FidoCborInfoOptionsValuePtrDart = Pointer<Bool> Function(Pointer ci);
 typedef _FidoCborInfoOptionsLenC = Size Function(Pointer ci);
 typedef _FidoCborInfoOptionsLenDart = int Function(Pointer ci);
 
+// CBOR info — remaining resident key slots
+typedef _FidoCborInfoRkRemainingC = Int64 Function(Pointer ci);
+typedef _FidoCborInfoRkRemainingDart = int Function(Pointer ci);
+
+// CBOR info — supported protocol versions
+typedef _FidoCborInfoVersionsPtrC = Pointer<Pointer<Utf8>> Function(Pointer ci);
+typedef _FidoCborInfoVersionsPtrDart =
+    Pointer<Pointer<Utf8>> Function(Pointer ci);
+
+typedef _FidoCborInfoVersionsLenC = Size Function(Pointer ci);
+typedef _FidoCborInfoVersionsLenDart = int Function(Pointer ci);
+
 // PIN retry count
 typedef _FidoDevGetRetryCntC =
     Int32 Function(Pointer dev, Pointer<Int32> retries);
@@ -552,6 +564,41 @@ class LibFido2Bindings {
       .lookupFunction<_FidoCborInfoOptionsLenC, _FidoCborInfoOptionsLenDart>(
         'fido_cbor_info_options_len',
       );
+
+  /// Number of remaining resident key (discoverable credential) slots.
+  ///
+  /// Returns the value of `remainingDiscoverableCredentials` from the
+  /// authenticator's CBOR info. A value of 0 means the key has no capacity
+  /// for resident credentials — even if the `rk` option is `true`.
+  /// Some keys (e.g. ZUKEY 2 FIDO) advertise `rk: true` but have 0
+  /// remaining slots and cannot actually store discoverable credentials.
+  /// Returns -1 if the information is not available (e.g. CTAP 2.0 keys
+  /// that don't report this field).
+  late final fidoCborInfoRkRemaining = _lib
+      .lookupFunction<
+        _FidoCborInfoRkRemainingC,
+        _FidoCborInfoRkRemainingDart
+      >('fido_cbor_info_rk_remaining');
+
+  // ── CBOR info (protocol versions) ────────────────────────────────────────
+
+  /// Pointer to an array of version strings from CBOR info.
+  ///
+  /// Each entry is a NUL-terminated string such as `"FIDO_2_0"`,
+  /// `"FIDO_2_1_PRE"`, `"FIDO_2_1"`, or `"U2F_V2"`. Use together
+  /// with [fidoCborInfoVersionsLen] to iterate the array.
+  late final fidoCborInfoVersionsPtr = _lib
+      .lookupFunction<
+        _FidoCborInfoVersionsPtrC,
+        _FidoCborInfoVersionsPtrDart
+      >('fido_cbor_info_versions_ptr');
+
+  /// Number of version strings in the CBOR info.
+  late final fidoCborInfoVersionsLen = _lib
+      .lookupFunction<
+        _FidoCborInfoVersionsLenC,
+        _FidoCborInfoVersionsLenDart
+      >('fido_cbor_info_versions_len');
 
   // ── PIN retry count ──────────────────────────────────────────────────────
 

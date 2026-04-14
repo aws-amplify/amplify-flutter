@@ -152,8 +152,10 @@ class MockLibFido2Bindings extends LibFido2Bindings {
 
   @override
   Pointer<Uint8> Function(Pointer cred) get fidoCredAuthdataPtr => (_) {
-    // Return mock authenticator data (32-byte rpIdHash + flags + counter + AAGUID + credId + pubKey)
+    // Return mock authenticator data (32-byte rpIdHash + flags + counter)
+    // Flags byte at offset 32: UP=1 + UV=1 + AT=1 = 0x45
     final mockAuthData = Uint8List(37);
+    mockAuthData[32] = 0x45; // UP | UV | AT flags
     final ptr = calloc<Uint8>(mockAuthData.length);
     ptr.asTypedList(mockAuthData.length).setAll(0, mockAuthData);
     return ptr;
@@ -307,6 +309,10 @@ class MockLibFido2Bindings extends LibFido2Bindings {
       (_, __) => fidoOk;
 
   @override
+  int Function(Pointer ci) get fidoCborInfoRkRemaining =>
+      (_) => -1; // Not reported — default mock
+
+  @override
   int Function(Pointer ci) get fidoCborInfoOptionsLen =>
       (_) => 0;
 
@@ -317,6 +323,14 @@ class MockLibFido2Bindings extends LibFido2Bindings {
   @override
   Pointer<Bool> Function(Pointer ci) get fidoCborInfoOptionsValuePtr =>
       (_) => calloc<Bool>(1);
+
+  @override
+  int Function(Pointer ci) get fidoCborInfoVersionsLen =>
+      (_) => 0;
+
+  @override
+  Pointer<Pointer<Utf8>> Function(Pointer ci) get fidoCborInfoVersionsPtr =>
+      (_) => calloc<Pointer<Utf8>>(1);
 
   // ── PIN retry count mock ──────────────────────────────────────────────
 
@@ -348,6 +362,103 @@ class MockLibFido2BindingsWithRk extends MockLibFido2Bindings {
 
   late Pointer<Pointer<Utf8>> _optionNames;
   late Pointer<Bool> _optionValues;
+
+  @override
+  int Function(Pointer ci) get fidoCborInfoRkRemaining =>
+      (_) => 25; // Simulate key with 25 remaining rk slots
+
+  @override
+  int Function(Pointer ci) get fidoCborInfoOptionsLen =>
+      (_) => 1; // Only rk, no clientPin — simulates no PIN support
+
+  @override
+  Pointer<Pointer<Utf8>> Function(Pointer ci) get fidoCborInfoOptionsNamePtr =>
+      (_) {
+        _optionNames = calloc<Pointer<Utf8>>(1);
+        _optionNames[0] = 'rk'.toNativeUtf8();
+        return _optionNames;
+      };
+
+  @override
+  Pointer<Bool> Function(Pointer ci) get fidoCborInfoOptionsValuePtr => (_) {
+    _optionValues = calloc<Bool>(1);
+    _optionValues[0] = true; // rk = true
+    return _optionValues;
+  };
+}
+
+/// Mock bindings that report `rk: true` + `rkRemaining=-1` (not reported),
+/// simulating a device that claims rk support without reporting remaining
+/// slots. PIN is not in CBOR options (no PIN support), so PIN check passes.
+class MockLibFido2BindingsWithFalseRk extends MockLibFido2Bindings {
+  MockLibFido2BindingsWithFalseRk({
+    super.mockDeviceCount,
+    super.mockManifestResult,
+    super.mockOpenResult,
+    super.mockMakeCredResult,
+    super.mockGetAssertResult,
+  });
+
+  late Pointer<Pointer<Utf8>> _optionNames;
+  late Pointer<Bool> _optionValues;
+
+  @override
+  int Function(Pointer ci) get fidoCborInfoRkRemaining =>
+      (_) => -1; // Not reported
+
+  @override
+  int Function(Pointer ci) get fidoCborInfoOptionsLen =>
+      (_) => 1; // Only rk, no clientPin
+
+  @override
+  Pointer<Pointer<Utf8>> Function(Pointer ci) get fidoCborInfoOptionsNamePtr =>
+      (_) {
+        _optionNames = calloc<Pointer<Utf8>>(1);
+        _optionNames[0] = 'rk'.toNativeUtf8();
+        return _optionNames;
+      };
+
+  @override
+  Pointer<Bool> Function(Pointer ci) get fidoCborInfoOptionsValuePtr => (_) {
+    _optionValues = calloc<Bool>(1);
+    _optionValues[0] = true; // rk = true
+    return _optionValues;
+  };
+
+  // Report FIDO_2_1 — CTAP 2.1+ keys MUST report rkRemaining.
+  // Since rkRemaining=-1, this device is lying about rk support.
+  @override
+  int Function(Pointer ci) get fidoCborInfoVersionsLen =>
+      (_) => 2;
+
+  @override
+  Pointer<Pointer<Utf8>> Function(Pointer ci) get fidoCborInfoVersionsPtr =>
+      (_) {
+        final ptr = calloc<Pointer<Utf8>>(2);
+        ptr[0] = 'FIDO_2_0'.toNativeUtf8();
+        ptr[1] = 'FIDO_2_1'.toNativeUtf8();
+        return ptr;
+      };
+}
+
+/// Mock bindings that report `rk: true` + `rkRemaining=0` (no slots left),
+/// simulating a key that genuinely supported rk at some point but has
+/// exhausted all discoverable credential slots.
+class MockLibFido2BindingsWithRkFull extends MockLibFido2Bindings {
+  MockLibFido2BindingsWithRkFull({
+    super.mockDeviceCount,
+    super.mockManifestResult,
+    super.mockOpenResult,
+    super.mockMakeCredResult,
+    super.mockGetAssertResult,
+  });
+
+  late Pointer<Pointer<Utf8>> _optionNames;
+  late Pointer<Bool> _optionValues;
+
+  @override
+  int Function(Pointer ci) get fidoCborInfoRkRemaining =>
+      (_) => 0; // No slots remaining
 
   @override
   int Function(Pointer ci) get fidoCborInfoOptionsLen =>
@@ -681,6 +792,64 @@ void main() {
           final result = await platform.createCredential(optionsJson);
           final decoded = jsonDecode(result) as Map<String, dynamic>;
           expect(decoded['type'], 'public-key');
+        },
+      );
+
+      test(
+        'succeeds when residentKey=required and device claims rk=true '
+        'with rkRemaining=-1 (not reported — trusted)',
+        () async {
+          // When rkRemaining is not reported (-1), we trust rk=true because
+          // many legitimate keys (YubiKey 5 with FIDO_2_1_PRE firmware)
+          // don't report rkRemaining. Budget keys that lie about rk=true
+          // will fail at login time when the server rejects the
+          // non-discoverable credential.
+          final bindings = MockLibFido2BindingsWithFalseRk();
+          final platform = LinuxWebAuthnPlatform(bindings: bindings);
+
+          const optionsJson = '''
+{
+  "rp": {"id": "example.com", "name": "Example"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
+  "challenge": "Y2hhbGxlbmdl",
+  "pubKeyCredParams": [{"type": "public-key", "alg": -7}],
+  "authenticatorSelection": {"residentKey": "required", "userVerification": "preferred"}
+}
+''';
+
+          final result = await platform.createCredential(optionsJson);
+          final decoded = jsonDecode(result) as Map<String, dynamic>;
+          expect(decoded['type'], 'public-key');
+        },
+      );
+
+      test(
+        'throws PasskeyRegistrationFailedException when residentKey=required '
+        'and device has rk=true but rkRemaining=0 (storage full)',
+        () async {
+          final bindings = MockLibFido2BindingsWithRkFull();
+          final platform = LinuxWebAuthnPlatform(bindings: bindings);
+
+          const optionsJson = '''
+{
+  "rp": {"id": "example.com", "name": "Example"},
+  "user": {"id": "dXNlcjEyMw", "name": "testuser", "displayName": "Test User"},
+  "challenge": "Y2hhbGxlbmdl",
+  "pubKeyCredParams": [{"type": "public-key", "alg": -7}],
+  "authenticatorSelection": {"residentKey": "required", "userVerification": "preferred"}
+}
+''';
+
+          expect(
+            () => platform.createCredential(optionsJson),
+            throwsA(
+              isA<PasskeyRegistrationFailedException>().having(
+                (e) => e.message,
+                'message',
+                contains('does not support passkeys'),
+              ),
+            ),
+          );
         },
       );
 
