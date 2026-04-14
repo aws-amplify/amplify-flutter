@@ -52,7 +52,8 @@ class KinesisSender implements Sender {
     // Error codes can be: ProvisionedThroughputExceededException or
     // InternalFailure. All are treated as retryable until the retry
     // limit is reached.
-    final errorCodes = response.records.map((e) => e.errorCode).toList();
+    final errorCodes =
+        response.records.map((e) => e.errorCode).toList();
     return splitResults(
       errorCodes: errorCodes,
       records: records,

@@ -46,9 +46,8 @@ class FirehoseSender implements Sender {
 
     final response = await _firehoseClient.putRecordBatch(request).result;
 
-    final errorCodes = response.requestResponses
-        .map((e) => e.errorCode)
-        .toList();
+    final errorCodes =
+        response.requestResponses.map((e) => e.errorCode).toList();
     return splitResults(
       errorCodes: errorCodes,
       records: records,
