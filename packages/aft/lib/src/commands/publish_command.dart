@@ -213,6 +213,14 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
         'dry-run',
         help: 'Passes `--dry-run` flag to `dart` or `flutter` publish command',
         negatable: false,
+      )
+      ..addFlag(
+        'tags',
+        help:
+            'Prints the list of GitHub tags that would be created for '
+            'packages to be published, one per line, in the format '
+            r'"${package}-v${version}".',
+        negatable: false,
       );
   }
 
@@ -221,6 +229,8 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
 
   @override
   late final bool dryRun = argResults!['dry-run'] as bool;
+
+  late final bool tags = argResults!['tags'] as bool;
 
   @override
   String get description =>
@@ -248,6 +258,16 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
 
     if (packagesNeedingPublish.isEmpty) {
       logger.info('No packages need publishing!');
+      return;
+    }
+
+    // If --tags is set, print the GitHub tags and exit.
+    if (tags) {
+      stdout.writeln();
+      for (final package in packagesNeedingPublish) {
+        final version = package.pubspecInfo.pubspec.version;
+        stdout.writeln('New tag: ${package.name}-v$version');
+      }
       return;
     }
 
