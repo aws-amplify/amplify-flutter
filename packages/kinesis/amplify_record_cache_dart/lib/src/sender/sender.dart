@@ -27,6 +27,42 @@ final class SendResult {
   final List<int> failedIds;
 }
 
+/// Splits a batch response into success/retry/fail buckets based on
+/// per-record error codes.
+///
+/// [errorCodes] contains the error code for each record in the same order
+/// as [records]. A `null` error code means success.
+///
+/// This is shared logic used by both KDS and Firehose senders.
+SendResult splitResults({
+  required List<String?> errorCodes,
+  required List<Record> records,
+  required int maxRetries,
+}) {
+  final successfulIds = <int>[];
+  final retryableIds = <int>[];
+  final failedIds = <int>[];
+
+  for (var i = 0; i < errorCodes.length; i++) {
+    final recordId = records[i].id;
+    final retryCount = records[i].retryCount;
+
+    if (errorCodes[i] == null) {
+      successfulIds.add(recordId);
+    } else if (retryCount >= maxRetries) {
+      failedIds.add(recordId);
+    } else {
+      retryableIds.add(recordId);
+    }
+  }
+
+  return SendResult(
+    successfulIds: successfulIds,
+    retryableIds: retryableIds,
+    failedIds: failedIds,
+  );
+}
+
 /// {@template amplify_record_cache.sender}
 /// Abstract interface for sending a batch of records to a streaming service.
 ///

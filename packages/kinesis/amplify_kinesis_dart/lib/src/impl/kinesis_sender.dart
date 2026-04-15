@@ -48,39 +48,15 @@ class KinesisSender implements Sender {
     );
 
     final response = await _kinesisClient.putRecords(request).result;
-    return _splitResponse(response, records);
-  }
 
-  /// Splits the PutRecords response into successful, retryable, and failed
-  /// record IDs based on error codes and retry counts.
-  SendResult _splitResponse(PutRecordsResponse response, List<Record> records) {
-    final successfulIds = <int>[];
-    final retryableIds = <int>[];
-    final failedIds = <int>[];
-
-    final resultEntries = response.records.toList();
-
-    for (var i = 0; i < resultEntries.length; i++) {
-      final entry = resultEntries[i];
-      final recordId = records[i].id;
-      final retryCount = records[i].retryCount;
-
-      if (entry.errorCode == null) {
-        successfulIds.add(recordId);
-      } else if (retryCount >= _maxRetries) {
-        failedIds.add(recordId);
-      } else {
-        // Error codes can be: ProvisionedThroughputExceededException or
-        // InternalFailure. All are treated as retryable until the retry
-        // limit is reached.
-        retryableIds.add(recordId);
-      }
-    }
-
-    return SendResult(
-      successfulIds: successfulIds,
-      retryableIds: retryableIds,
-      failedIds: failedIds,
+    // Error codes can be: ProvisionedThroughputExceededException or
+    // InternalFailure. All are treated as retryable until the retry
+    // limit is reached.
+    final errorCodes = response.records.map((e) => e.errorCode).toList();
+    return splitResults(
+      errorCodes: errorCodes,
+      records: records,
+      maxRetries: _maxRetries,
     );
   }
 }
