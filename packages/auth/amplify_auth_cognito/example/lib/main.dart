@@ -80,8 +80,24 @@ class _MyAppState extends State<MyApp> {
     _configure();
   }
 
+  /// Configures the [AWSHttpClient] to accept all certificates on Windows.
+  ///
+  /// On Windows, Dart's BoringSSL does not use the system certificate store,
+  /// which can cause `CERTIFICATE_VERIFY_FAILED: unable to get local issuer
+  /// certificate` errors when connecting to AWS endpoints. This workaround
+  /// registers a pre-configured [AWSHttpClient] that bypasses certificate
+  /// verification.
+  void _configureWindowsHttpClient() {
+    if (!Platform.isWindows) return;
+    final httpClient = AWSHttpClient()
+      ..onBadCertificate = (_, _, _) => true;
+    // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+    Amplify.dependencies.addInstance<AWSHttpClient>(httpClient);
+  }
+
   Future<void> _configure() async {
     try {
+      _configureWindowsHttpClient();
       await Amplify.addPlugin(
         AmplifyAuthCognito(
           secureStorageFactory: AmplifySecureStorage.factoryFrom(
