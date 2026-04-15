@@ -4,4 +4,4 @@
 
 set -e
 
-aws s3 cp s3://$AFS_KINESIS_GEN2_BUCKET_NAME/firehose_amplify_outputs.dart lib/amplify_outputs.dart
+aws s3 cp s3://$AFS_FIREHOSE_GEN2_BUCKET_NAME/amplify_outputs.dart lib/amplify_outputs.dart
