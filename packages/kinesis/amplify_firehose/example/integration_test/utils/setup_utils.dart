@@ -28,8 +28,8 @@ String get testRegion {
 /// Name of the Firehose delivery stream to use for testing.
 String get testStreamName =>
     const String.fromEnvironment('TEST_STREAM_NAME').isNotEmpty
-        ? const String.fromEnvironment('TEST_STREAM_NAME')
-        : 'amplify-firehose-test-stream';
+    ? const String.fromEnvironment('TEST_STREAM_NAME')
+    : 'amplify-firehose-test-stream';
 
 /// Whether the test environment is configured.
 bool get isConfigured {
