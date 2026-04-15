@@ -1,0 +1,145 @@
+name: Version Bump
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  version-bump:
+    name: Version Bump
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Git Config
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          USER_NAME=$(gh api "/users/${{ github.actor }}" --jq '.name // "${{ github.actor }}"')
+          USER_EMAIL="${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git config --global user.email "$USER_EMAIL"
+          git config --global user.name "$USER_NAME"
+
+      - name: Determine branch name
+        id: branch
+        run: |
+          BASE_BRANCH="chore/release/version-bump/$(date -u +'%Y-%m-%d')"
+
+          # Check if base branch already exists on remote
+          if git ls-remote --exit-code --heads origin "$BASE_BRANCH" > /dev/null 2>&1; then
+            # Base branch exists, find the next available suffix
+            N=2
+            while git ls-remote --exit-code --heads origin "${BASE_BRANCH}__${N}" > /dev/null 2>&1; do
+              N=$((N + 1))
+            done
+            BRANCH="${BASE_BRANCH}__${N}"
+          else
+            BRANCH="$BASE_BRANCH"
+          fi
+
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          echo "Using branch: $BRANCH"
+
+      - name: Create branch
+        run: |
+          git checkout -b "${{ steps.branch.outputs.branch }}"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1 # v2.16.0
+        with:
+          channel: stable
+
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
+
+      - name: Verify clean working tree
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Working tree is not clean. Unexpected changes detected before running aft version-bump."
+            git status
+            exit 1
+          fi
+
+      - name: Run aft version-bump
+        run: |
+          # Unset GitHub Actions refs which are empty strings for workflow_dispatch
+          # and would cause aft to pass "" to git, crashing with "cannot be an empty string"
+          unset GITHUB_BASE_REF
+          unset GITHUB_HEAD_REF
+          aft version-bump
+
+      - name: Collect version changes and prepare PR body
+        run: |
+          SUMMARY=""
+          # Find all pubspec.yaml files that were modified
+          for pubspec in $(git diff --name-only -- '**/pubspec.yaml'); do
+            # Get the package name from the pubspec
+            PKG_NAME=$(grep -m1 '^name:' "$pubspec" | sed 's/name: *//')
+            # Get the old version from git
+            OLD_VERSION=$(git show HEAD:"$pubspec" 2>/dev/null | grep -m1 '^version:' | sed 's/version: *//')
+            # Get the new version from the working tree
+            NEW_VERSION=$(grep -m1 '^version:' "$pubspec" | sed 's/version: *//')
+            if [ -n "$OLD_VERSION" ] && [ -n "$NEW_VERSION" ] && [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
+              SUMMARY="${SUMMARY}- \`${PKG_NAME}\`: \`${OLD_VERSION}\` → \`${NEW_VERSION}\`"$'\n'
+            fi
+          done
+
+          if [ -z "$SUMMARY" ]; then
+            SUMMARY="No version changes detected."
+          fi
+
+          # Write PR body to a file to avoid bash interpreting backticks
+          cat > /tmp/pr_body.md <<'HEREDOC_END'
+          Automated version bump created by the **Version Bump** workflow.
+          HEREDOC_END
+
+          {
+            echo ""
+            echo "**Branch:** \`${{ steps.branch.outputs.branch }}\`"
+            echo "**Triggered by:** @${{ github.actor }}"
+            echo ""
+            echo "### Affected Packages"
+            echo ""
+            echo "$SUMMARY"
+          } >> /tmp/pr_body.md
+
+      - name: Commit and push changes
+        run: |
+          CHANGED_FILES=$(git status --porcelain)
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "::warning::No files were changed by aft version-bump. Nothing to commit."
+            exit 0
+          fi
+
+          echo "Files changed by aft version-bump:"
+          echo "$CHANGED_FILES"
+
+          git add -A
+          git commit -m "chore(version): Version bump"
+          git push origin "${{ steps.branch.outputs.branch }}"
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --title "chore(version): Version bump" \
+            --body-file /tmp/pr_body.md \
+            --base "${{ github.ref_name }}" \
+            --head "${{ steps.branch.outputs.branch }}" \
+            --assignee "${{ github.actor }}"
