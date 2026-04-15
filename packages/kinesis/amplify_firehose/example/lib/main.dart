@@ -64,6 +64,7 @@ class _FirehoseExampleAppState extends State<FirehoseExampleApp> {
   Future<void> _configureAmplify() async {
     try {
       final storageFactory = AmplifySecureStorage.factoryFrom(
+        // ignore: invalid_use_of_visible_for_testing_member
         macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
       );
       await Amplify.addPlugins([
@@ -84,8 +85,8 @@ class _FirehoseExampleAppState extends State<FirehoseExampleApp> {
         home: _amplifyConfigured
             ? const _FirehoseDemo()
             : _configError.isNotEmpty
-                ? Center(child: Text('Error: $_configError'))
-                : const Center(child: CircularProgressIndicator()),
+            ? Center(child: Text('Error: $_configError'))
+            : const Center(child: CircularProgressIndicator()),
       ),
     );
   }
@@ -118,7 +119,9 @@ class _FirehoseDemoState extends State<_FirehoseDemo> {
     if (client == null) return;
     final result = await client.record(
       data: Uint8List.fromList(
-        utf8.encode('{"event":"test","ts":${DateTime.now().millisecondsSinceEpoch}}'),
+        utf8.encode(
+          '{"event":"test","ts":${DateTime.now().millisecondsSinceEpoch}}',
+        ),
       ),
       streamName: 'amplify-firehose-test-stream',
     );
@@ -158,10 +161,7 @@ class _FirehoseDemoState extends State<_FirehoseDemo> {
               onPressed: _sendRecord,
               child: const Text('Send Record'),
             ),
-            ElevatedButton(
-              onPressed: _flush,
-              child: const Text('Flush'),
-            ),
+            ElevatedButton(onPressed: _flush, child: const Text('Flush')),
           ],
         ),
       ),
