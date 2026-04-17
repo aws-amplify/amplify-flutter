@@ -98,12 +98,9 @@ const amplifyEnvironments = <String, String>{};
 
   @override
   Future<void> run() async {
-    final totalStopwatch = Stopwatch()..start();
     await super.run();
 
-    var phaseStopwatch = Stopwatch()..start();
     await linkPackages();
-    logger.info('linkPackages completed in ${phaseStopwatch.elapsed}');
 
     final bootstrapPackagesWithDups = commandPackages.values
         .where(
@@ -186,18 +183,9 @@ const amplifyEnvironments = <String, String>{};
     final pubArguments = [if (upgrade) 'upgrade' else 'get'];
     logger.info(
       'Running pub ${upgrade ? 'upgrade' : 'get'} for '
-      '${bootstrapPackages.length} packages '
-      '(concurrency: $maxConcurrency)...',
+      '${bootstrapPackages.length} packages...',
     );
-    if (buildRunnerPackages.isNotEmpty) {
-      logger.info(
-        'Will pipeline build_runner for '
-        '${buildRunnerPackages.length} packages: '
-        '${buildRunnerPackages.map((p) => p.name).join(', ')}',
-      );
-    }
 
-    phaseStopwatch = Stopwatch()..start();
     final pubErrors = <String>[];
     final allFutures = <Future<void>>[];
     final waiters = <Completer<void>>[];
@@ -213,7 +201,6 @@ const amplifyEnvironments = <String, String>{};
           await buildDone[dep]!.future;
         }
         try {
-          final brWatch = Stopwatch()..start();
           logger.info('Starting build_runner for ${package.name}...');
           await runBuildRunner(
             package,
@@ -222,7 +209,7 @@ const amplifyEnvironments = <String, String>{};
             throwOnError: true,
             skipPubGet: true,
           );
-          logger.info('build_runner for ${package.name} done in ${brWatch.elapsed}.');
+          logger.info('build_runner for ${package.name} done.');
         } on Exception catch (e) {
           pubErrors.add('build_runner ${package.name}: $e');
         } finally {
@@ -260,7 +247,6 @@ const amplifyEnvironments = <String, String>{};
     }
 
     await Future.wait(allFutures);
-    logger.info('All tasks completed in ${phaseStopwatch.elapsed}');
 
     if (pubErrors.isNotEmpty) {
       if (failFast) {
@@ -273,8 +259,6 @@ const amplifyEnvironments = <String, String>{};
       }
     }
 
-    logger.info(
-      'Repo successfully bootstrapped in ${totalStopwatch.elapsed}!',
-    );
+    logger.info('Repo successfully bootstrapped!');
   }
 }
