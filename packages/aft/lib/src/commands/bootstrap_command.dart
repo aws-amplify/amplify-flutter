@@ -131,7 +131,51 @@ const amplifyEnvironments = <String, String>{};
         .nonNulls
         .toList();
 
+    // Identify build_runner packages and sort topologically.
+    final buildRunnerPackages = <PackageInfo>[];
+    if (build) {
+      final buildPackageSet = <PackageInfo>{};
+      final packageGraph = repo.getPackageGraph(includeDevDependencies: true);
+      for (final package in bootstrapPackages) {
+        dfs(packageGraph, root: package, (package) {
+          final needsBuild =
+              package.needsBuildRunner &&
+              (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
+                  false) &&
+              package.flavor == PackageFlavor.dart;
+          if (needsBuild) {
+            buildPackageSet.add(package);
+          }
+        });
+      }
+      buildRunnerPackages.addAll(buildPackageSet);
+      sortPackagesTopologically(
+        buildRunnerPackages,
+        (pkg) => pkg.pubspecInfo.pubspec,
+      );
+    }
+
+    // Build a set of build_runner package names and their inter-dependencies.
+    final buildRunnerNames = buildRunnerPackages.map((p) => p.name).toSet();
+    final buildRunnerDeps = <String, List<String>>{
+      for (final pkg in buildRunnerPackages)
+        pkg.name: [
+          ...pkg.pubspecInfo.pubspec.dependencies.keys,
+          ...pkg.pubspecInfo.pubspec.devDependencies.keys,
+        ].where(buildRunnerNames.contains).toList(),
+    };
+
+    // Per-package signals: pub upgrade done, build_runner done.
+    final pubDone = <String, Completer<void>>{
+      for (final pkg in bootstrapPackages) pkg.name: Completer<void>(),
+    };
+    final buildDone = <String, Completer<void>>{
+      for (final pkg in buildRunnerPackages) pkg.name: Completer<void>(),
+    };
+
     // Run pub get/upgrade in parallel with bounded concurrency.
+    // After each package's pub get completes, fire config creation and
+    // potentially build_runner.
     final maxConcurrency = math.min(Platform.numberOfProcessors, 25);
     final pubArguments = [if (upgrade) 'upgrade' else 'get'];
     logger.info(
@@ -139,12 +183,47 @@ const amplifyEnvironments = <String, String>{};
       '${bootstrapPackages.length} packages '
       '(concurrency: $maxConcurrency)...',
     );
+    if (buildRunnerPackages.isNotEmpty) {
+      logger.info(
+        'Will pipeline build_runner for '
+        '${buildRunnerPackages.length} packages: '
+        '${buildRunnerPackages.map((p) => p.name).join(', ')}',
+      );
+    }
+
     phaseStopwatch = Stopwatch()..start();
     final pubErrors = <String>[];
     final allFutures = <Future<void>>[];
     final waiters = <Completer<void>>[];
     var running = 0;
 
+    // Launch build_runner pipeline tasks — they await their own signals.
+    for (final package in buildRunnerPackages) {
+      allFutures.add(() async {
+        // Wait for this package's own pub upgrade to finish.
+        await pubDone[package.name]!.future;
+        // Wait for build_runner of all build_runner dependencies.
+        for (final dep in buildRunnerDeps[package.name]!) {
+          await buildDone[dep]!.future;
+        }
+        try {
+          logger.info('Starting build_runner for ${package.name}...');
+          await runBuildRunner(
+            package,
+            logger: logger,
+            verbose: verbose,
+            throwOnError: true,
+          );
+          logger.info('build_runner for ${package.name} done.');
+        } on Exception catch (e) {
+          pubErrors.add('build_runner ${package.name}: $e');
+        } finally {
+          buildDone[package.name]!.complete();
+        }
+      }());
+    }
+
+    // Launch pub get/upgrade tasks with concurrency limiting.
     for (final package in bootstrapPackages) {
       if (running >= maxConcurrency) {
         final waiter = Completer<void>();
@@ -159,6 +238,10 @@ const amplifyEnvironments = <String, String>{};
           } on Exception catch (e) {
             pubErrors.add('${package.name}: $e');
           } finally {
+            // Signal that this package's pub upgrade is done.
+            pubDone[package.name]!.complete();
+            // Fire config creation immediately (non-blocking).
+            unawaited(_createEmptyConfig(package));
             running--;
             if (waiters.isNotEmpty) {
               waiters.removeAt(0).complete();
@@ -167,54 +250,19 @@ const amplifyEnvironments = <String, String>{};
         }(),
       );
     }
+
     await Future.wait(allFutures);
-    logger.info(
-      'pub ${upgrade ? 'upgrade' : 'get'} completed in '
-      '${phaseStopwatch.elapsed}',
-    );
-    if (pubErrors.isNotEmpty && failFast) {
-      throw Exception(
-        'pub ${upgrade ? 'upgrade' : 'get'} failed for:\n'
-        '${pubErrors.join('\n')}',
-      );
-    }
+    logger.info('All tasks completed in ${phaseStopwatch.elapsed}');
 
-    phaseStopwatch = Stopwatch()..start();
-    await Future.wait([
-      for (final package in bootstrapPackages) _createEmptyConfig(package),
-    ]);
-    logger.info('createEmptyConfig completed in ${phaseStopwatch.elapsed}');
-
-    if (build) {
-      phaseStopwatch = Stopwatch()..start();
-      final buildPackages = <PackageInfo>{};
-      final packageGraph = repo.getPackageGraph(includeDevDependencies: true);
-      for (final package in bootstrapPackages) {
-        dfs(packageGraph, root: package, (package) {
-          final needsBuild =
-              package.needsBuildRunner &&
-              (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
-                  false) &&
-              package.flavor == PackageFlavor.dart;
-          if (needsBuild) {
-            buildPackages.add(package);
-          }
-        });
+    if (pubErrors.isNotEmpty) {
+      if (failFast) {
+        throw Exception(
+          'Bootstrap had errors:\n${pubErrors.join('\n')}',
+        );
       }
-      // Sort topologically so dependencies are built before dependents.
-      final sortedBuildPackages = buildPackages.toList();
-      sortPackagesTopologically(
-        sortedBuildPackages,
-        (pkg) => pkg.pubspecInfo.pubspec,
-      );
-      logger.info(
-        'Running build_runner for ${sortedBuildPackages.length} packages: '
-        '${sortedBuildPackages.map((p) => p.name).join(', ')}',
-      );
-      for (final package in sortedBuildPackages) {
-        await runBuildRunner(package, logger: logger, verbose: verbose);
+      for (final error in pubErrors) {
+        logger.error(error);
       }
-      logger.info('build_runner completed in ${phaseStopwatch.elapsed}');
     }
 
     logger.info(
