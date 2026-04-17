@@ -98,24 +98,18 @@ const amplifyEnvironments = <String, String>{};
 
   @override
   Future<void> run() async {
+    final totalStopwatch = Stopwatch()..start();
     await super.run();
+
+    var phaseStopwatch = Stopwatch()..start();
     await linkPackages();
+    logger.info('linkPackages completed in ${phaseStopwatch.elapsed}');
 
     final bootstrapPackages = commandPackages.values
         .where(
-          // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
-          // run with the native command, and running it again with the embedded
-          // command could cause issues later on, esp. when the native `pub`
-          // command is significantly newer/older than the embedded one.
           (pkg) => pkg.name != 'aft',
         )
         .where(
-          // Skip bootstrapping packages which set incompatible Dart SDK constraints,
-          // e.g. packages which are leveraging preview features.
-          //
-          // The problem of packages setting incorrect constraints, for example setting
-          // `^3.0.5` when the current repo constraint is `^3.0.0` and we're running
-          // `aft` with `3.0.1` is a different issue handled by the constraints commands.
           (pkg) {
             final compatibleWithActiveSdk = pkg.compatibleWithActiveSdk;
             if (!compatibleWithActiveSdk) {
@@ -139,9 +133,9 @@ const amplifyEnvironments = <String, String>{};
       '${bootstrapPackages.length} packages '
       '(concurrency: $maxConcurrency)...',
     );
+    phaseStopwatch = Stopwatch()..start();
     final pubErrors = <String>[];
     final allFutures = <Future<void>>[];
-    // Simple semaphore: a queue of completers waiting for a free slot.
     final waiters = <Completer<void>>[];
     var running = 0;
 
@@ -168,6 +162,10 @@ const amplifyEnvironments = <String, String>{};
       );
     }
     await Future.wait(allFutures);
+    logger.info(
+      'pub ${upgrade ? 'upgrade' : 'get'} completed in '
+      '${phaseStopwatch.elapsed}',
+    );
     if (pubErrors.isNotEmpty && failFast) {
       throw Exception(
         'pub ${upgrade ? 'upgrade' : 'get'} failed for:\n'
@@ -175,16 +173,18 @@ const amplifyEnvironments = <String, String>{};
       );
     }
 
+    phaseStopwatch = Stopwatch()..start();
     await Future.wait([
       for (final package in bootstrapPackages) _createEmptyConfig(package),
     ]);
+    logger.info('createEmptyConfig completed in ${phaseStopwatch.elapsed}');
+
     if (build) {
+      phaseStopwatch = Stopwatch()..start();
       final buildPackages = <PackageInfo>{};
       final packageGraph = repo.getPackageGraph(includeDevDependencies: true);
       for (final package in bootstrapPackages) {
         dfs(packageGraph, root: package, (package) {
-          // Only run build_runner for packages which need it for development,
-          // i.e. those packages which specify worker JS files in their assets.
           final needsBuild =
               package.needsBuildRunner &&
               (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
@@ -198,8 +198,11 @@ const amplifyEnvironments = <String, String>{};
       for (final package in buildPackages) {
         await runBuildRunner(package, logger: logger, verbose: verbose);
       }
+      logger.info('build_runner completed in ${phaseStopwatch.elapsed}');
     }
 
-    logger.info('Repo successfully bootstrapped!');
+    logger.info(
+      'Repo successfully bootstrapped in ${totalStopwatch.elapsed}!',
+    );
   }
 }
