@@ -105,7 +105,7 @@ const amplifyEnvironments = <String, String>{};
     await linkPackages();
     logger.info('linkPackages completed in ${phaseStopwatch.elapsed}');
 
-    final bootstrapPackages = commandPackages.values
+    final bootstrapPackagesWithDups = commandPackages.values
         .where(
           // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
           // run with the native command, and running it again with the embedded
@@ -128,8 +128,14 @@ const amplifyEnvironments = <String, String>{};
           },
         )
         .expand((pkg) => [pkg, pkg.example, pkg.docs])
-        .nonNulls
-        .toList();
+        .nonNulls;
+    // Deduplicate by name: the expand above can produce the same package
+    // from both a parent and its own entry in commandPackages.
+    final seenNames = <String>{};
+    final bootstrapPackages = <PackageInfo>[
+      for (final pkg in bootstrapPackagesWithDups)
+        if (seenNames.add(pkg.name)) pkg,
+    ];
 
     // Identify build_runner packages and sort topologically.
     final buildRunnerPackages = <PackageInfo>[];
