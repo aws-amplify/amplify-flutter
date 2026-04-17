@@ -107,9 +107,15 @@ const amplifyEnvironments = <String, String>{};
 
     final bootstrapPackages = commandPackages.values
         .where(
+          // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
+          // run with the native command, and running it again with the embedded
+          // command could cause issues later on, esp. when the native `pub`
+          // command is significantly newer/older than the embedded one.
           (pkg) => pkg.name != 'aft',
         )
         .where(
+          // Skip bootstrapping packages which set incompatible Dart SDK
+          // constraints, e.g. packages which are leveraging preview features.
           (pkg) {
             final compatibleWithActiveSdk = pkg.compatibleWithActiveSdk;
             if (!compatibleWithActiveSdk) {
