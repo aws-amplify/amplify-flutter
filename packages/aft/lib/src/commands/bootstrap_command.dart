@@ -213,14 +213,16 @@ const amplifyEnvironments = <String, String>{};
           await buildDone[dep]!.future;
         }
         try {
+          final brWatch = Stopwatch()..start();
           logger.info('Starting build_runner for ${package.name}...');
           await runBuildRunner(
             package,
             logger: logger,
             verbose: verbose,
             throwOnError: true,
+            skipPubGet: true,
           );
-          logger.info('build_runner for ${package.name} done.');
+          logger.info('build_runner for ${package.name} done in ${brWatch.elapsed}.');
         } on Exception catch (e) {
           pubErrors.add('build_runner ${package.name}: $e');
         } finally {

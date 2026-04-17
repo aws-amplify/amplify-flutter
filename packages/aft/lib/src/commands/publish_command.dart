@@ -325,12 +325,15 @@ Future<void> runBuildRunner(
   required bool verbose,
   bool force = false,
   bool throwOnError = false,
+  bool skipPubGet = false,
 }) async {
   if (!package.needsBuildRunner && !force) {
     return;
   }
-  // Run `pub get` to ensure `build_runner` is available.
-  await runPub(package.flavor, ['get'], package, verbose: verbose);
+  if (!skipPubGet) {
+    // Run `pub get` to ensure `build_runner` is available.
+    await runPub(package.flavor, ['get'], package, verbose: verbose);
+  }
   logger.debug('Running build_runner for ${package.name}...');
   final buildRunnerCmd = await Process.start(
     package.flavor.entrypoint,
