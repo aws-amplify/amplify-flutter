@@ -324,6 +324,7 @@ Future<void> runBuildRunner(
   required AWSLogger logger,
   required bool verbose,
   bool force = false,
+  bool throwOnError = false,
 }) async {
   if (!package.needsBuildRunner && !force) {
     return;
@@ -356,6 +357,9 @@ Future<void> runBuildRunner(
     logger.error('Failed to run `build_runner` for ${package.name}: ');
     if (!verbose) {
       logger.error(output.toString());
+    }
+    if (throwOnError) {
+      throw Exception('build_runner failed for ${package.name}');
     }
     exit(1);
   }
