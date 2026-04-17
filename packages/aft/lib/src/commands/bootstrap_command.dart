@@ -2,10 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/options/fail_fast_option.dart';
 import 'package:aft/src/options/glob_options.dart';
+import 'package:async/async.dart';
 import 'package:path/path.dart' as path;
 
 /// Command to bootstrap/link Dart/Flutter packages in the repo.
@@ -126,13 +128,38 @@ const amplifyEnvironments = <String, String>{};
           },
         )
         .expand((pkg) => [pkg, pkg.example, pkg.docs])
-        .nonNulls;
-    for (final package in bootstrapPackages) {
-      await pubAction(
-        arguments: [if (upgrade) 'upgrade' else 'get'],
-        package: package,
+        .nonNulls
+        .toList();
+
+    // Run pub get/upgrade in parallel with bounded concurrency.
+    final concurrency = math.min(Platform.numberOfProcessors, 25);
+    logger.info(
+      'Running pub ${upgrade ? 'upgrade' : 'get'} for '
+      '${bootstrapPackages.length} packages (concurrency: $concurrency)...',
+    );
+    final pool = Pool(concurrency);
+    final pubErrors = <String>[];
+    await Future.wait([
+      for (final package in bootstrapPackages)
+        pool.withResource(() async {
+          try {
+            await pubAction(
+              arguments: [if (upgrade) 'upgrade' else 'get'],
+              package: package,
+            );
+          } on Exception catch (e) {
+            pubErrors.add('${package.name}: $e');
+          }
+        }),
+    ]);
+    pool.close();
+    if (pubErrors.isNotEmpty && failFast) {
+      throw Exception(
+        'pub ${upgrade ? 'upgrade' : 'get'} failed for:\n'
+        '${pubErrors.join('\n')}',
       );
     }
+
     await Future.wait([
       for (final package in bootstrapPackages) _createEmptyConfig(package),
     ]);
