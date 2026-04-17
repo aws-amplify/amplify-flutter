@@ -195,49 +195,20 @@ const amplifyEnvironments = <String, String>{};
           }
         });
       }
-      logger.info(
-        'Running build_runner for ${buildPackages.length} packages: '
-        '${buildPackages.map((p) => p.name).join(', ')}',
+      // Sort topologically so dependencies are built before dependents.
+      final sortedBuildPackages = buildPackages.toList();
+      sortPackagesTopologically(
+        sortedBuildPackages,
+        (pkg) => pkg.pubspecInfo.pubspec,
       );
-      // Run build_runner in parallel with bounded concurrency.
-      final buildErrors = <String>[];
-      final buildFutures = <Future<void>>[];
-      final buildWaiters = <Completer<void>>[];
-      var buildRunning = 0;
-      for (final package in buildPackages) {
-        if (buildRunning >= maxConcurrency) {
-          final waiter = Completer<void>();
-          buildWaiters.add(waiter);
-          await waiter.future;
-        }
-        buildRunning++;
-        buildFutures.add(
-          () async {
-            try {
-              await runBuildRunner(
-                package,
-                logger: logger,
-                verbose: verbose,
-                throwOnError: true,
-              );
-            } on Exception catch (e) {
-              buildErrors.add('${package.name}: $e');
-            } finally {
-              buildRunning--;
-              if (buildWaiters.isNotEmpty) {
-                buildWaiters.removeAt(0).complete();
-              }
-            }
-          }(),
-        );
+      logger.info(
+        'Running build_runner for ${sortedBuildPackages.length} packages: '
+        '${sortedBuildPackages.map((p) => p.name).join(', ')}',
+      );
+      for (final package in sortedBuildPackages) {
+        await runBuildRunner(package, logger: logger, verbose: verbose);
       }
-      await Future.wait(buildFutures);
       logger.info('build_runner completed in ${phaseStopwatch.elapsed}');
-      if (buildErrors.isNotEmpty) {
-        logger.error(
-          'build_runner failed for:\n${buildErrors.join('\n')}',
-        );
-      }
     }
 
     logger.info(
