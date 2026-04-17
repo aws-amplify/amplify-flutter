@@ -1,14 +1,13 @@
 # Generated with aft. To update, run: `aft generate workflows`
-name: amplify_firehose_dart
+name: amplify_firehose
 on:
   push:
     branches:
       - main
       - stable
     paths:
-      - '.github/workflows/amplify_firehose_dart.yaml'
-      - '.github/workflows/dart_native.yaml'
-      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/amplify_firehose.yaml'
+      - '.github/workflows/flutter_vm.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
       - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
@@ -23,10 +22,12 @@ on:
       - 'packages/aws_signature_v4/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
-      - 'packages/kinesis/amplify_firehose_dart/**/*.dart'
-      - 'packages/kinesis/amplify_firehose_dart/**/*.yaml'
-      - 'packages/kinesis/amplify_firehose_dart/lib/**/*'
-      - 'packages/kinesis/amplify_firehose_dart/test/**/*'
+      - 'packages/kinesis/amplify_firehose/**/*.dart'
+      - 'packages/kinesis/amplify_firehose/**/*.yaml'
+      - 'packages/kinesis/amplify_firehose/lib/**/*'
+      - 'packages/kinesis/amplify_firehose/test/**/*'
+      - 'packages/kinesis/amplify_firehose_dart/lib/**/*.dart'
+      - 'packages/kinesis/amplify_firehose_dart/pubspec.yaml'
       - 'packages/kinesis/amplify_record_cache_dart/lib/**/*.dart'
       - 'packages/kinesis/amplify_record_cache_dart/pubspec.yaml'
       - 'packages/smithy/smithy/lib/**/*.dart'
@@ -35,9 +36,8 @@ on:
       - 'packages/smithy/smithy_aws/pubspec.yaml'
   pull_request:
     paths:
-      - '.github/workflows/amplify_firehose_dart.yaml'
-      - '.github/workflows/dart_native.yaml'
-      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/amplify_firehose.yaml'
+      - '.github/workflows/flutter_vm.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
       - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
@@ -52,10 +52,12 @@ on:
       - 'packages/aws_signature_v4/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
-      - 'packages/kinesis/amplify_firehose_dart/**/*.dart'
-      - 'packages/kinesis/amplify_firehose_dart/**/*.yaml'
-      - 'packages/kinesis/amplify_firehose_dart/lib/**/*'
-      - 'packages/kinesis/amplify_firehose_dart/test/**/*'
+      - 'packages/kinesis/amplify_firehose/**/*.dart'
+      - 'packages/kinesis/amplify_firehose/**/*.yaml'
+      - 'packages/kinesis/amplify_firehose/lib/**/*'
+      - 'packages/kinesis/amplify_firehose/test/**/*'
+      - 'packages/kinesis/amplify_firehose_dart/lib/**/*.dart'
+      - 'packages/kinesis/amplify_firehose_dart/pubspec.yaml'
       - 'packages/kinesis/amplify_record_cache_dart/lib/**/*.dart'
       - 'packages/kinesis/amplify_record_cache_dart/pubspec.yaml'
       - 'packages/smithy/smithy/lib/**/*.dart'
@@ -82,15 +84,9 @@ concurrency:
 
 jobs:
   test:
-    uses: ./.github/workflows/dart_vm.yaml
+    uses: ./.github/workflows/flutter_vm.yaml
     secrets: inherit
     with:
-      package-name: amplify_firehose_dart
-      working-directory: packages/kinesis/amplify_firehose_dart
-  native_test:
-    needs: test
-    uses: ./.github/workflows/dart_native.yaml
-    secrets: inherit 
-    with:
-      package-name: amplify_firehose_dart
-      working-directory: packages/kinesis/amplify_firehose_dart
+      package-name: amplify_firehose
+      working-directory: packages/kinesis/amplify_firehose
+      has-goldens: false
