@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 
@@ -130,29 +131,43 @@ const amplifyEnvironments = <String, String>{};
         .nonNulls
         .toList();
 
-    // Run pub get/upgrade in parallel in batches.
-    final batchSize = math.min(Platform.numberOfProcessors, 25);
+    // Run pub get/upgrade in parallel with bounded concurrency.
+    final maxConcurrency = math.min(Platform.numberOfProcessors, 25);
     final pubArguments = [if (upgrade) 'upgrade' else 'get'];
     logger.info(
       'Running pub ${upgrade ? 'upgrade' : 'get'} for '
-      '${bootstrapPackages.length} packages (batch size: $batchSize)...',
+      '${bootstrapPackages.length} packages '
+      '(concurrency: $maxConcurrency)...',
     );
     final pubErrors = <String>[];
-    for (var i = 0; i < bootstrapPackages.length; i += batchSize) {
-      final batch = bootstrapPackages.sublist(
-        i,
-        math.min(i + batchSize, bootstrapPackages.length),
-      );
-      await Future.wait(
-        batch.map((package) async {
+    final allFutures = <Future<void>>[];
+    // Simple semaphore: a queue of completers waiting for a free slot.
+    final waiters = <Completer<void>>[];
+    var running = 0;
+
+    for (final package in bootstrapPackages) {
+      if (running >= maxConcurrency) {
+        final waiter = Completer<void>();
+        waiters.add(waiter);
+        await waiter.future;
+      }
+      running++;
+      allFutures.add(
+        () async {
           try {
             await pubAction(arguments: pubArguments, package: package);
           } on Exception catch (e) {
             pubErrors.add('${package.name}: $e');
+          } finally {
+            running--;
+            if (waiters.isNotEmpty) {
+              waiters.removeAt(0).complete();
+            }
           }
-        }),
+        }(),
       );
     }
+    await Future.wait(allFutures);
     if (pubErrors.isNotEmpty && failFast) {
       throw Exception(
         'pub ${upgrade ? 'upgrade' : 'get'} failed for:\n'
