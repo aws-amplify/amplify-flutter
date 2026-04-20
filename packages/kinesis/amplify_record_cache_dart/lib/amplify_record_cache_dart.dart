@@ -5,10 +5,7 @@
 ///
 /// This package is internal to the Amplify Flutter monorepo and is not
 /// intended for direct use by customers.
-@internal
 library;
-
-import 'package:meta/meta.dart';
 
 // Client
 export 'src/client/auto_flush_scheduler.dart';
