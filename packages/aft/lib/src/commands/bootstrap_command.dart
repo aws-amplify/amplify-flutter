@@ -113,18 +113,18 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
   /// Identifies packages that need `build_runner` and returns them in
   /// topological order so dependencies are built first.
   ///
-  /// Only packages present in [bootstrapPackages] are considered so that
-  /// every returned package has had `pub get`/`pub upgrade` run already.
+  /// DFS traverses the full dependency graph from each bootstrap root so
+  /// that transitive dependencies with generated assets (e.g.
+  /// `amplify_secure_storage_dart`) are also built. `runBuildRunner` runs
+  /// `pub get` on each package before invoking `build_runner`.
   List<PackageInfo> _collectBuildRunnerPackages(
     List<PackageInfo> bootstrapPackages,
   ) {
-    final bootstrapNames = bootstrapPackages.map((p) => p.name).toSet();
     final packageGraph = repo.getPackageGraph(includeDevDependencies: true);
     final buildPackageSet = <PackageInfo>{};
 
     for (final package in bootstrapPackages) {
       dfs(packageGraph, root: package, (pkg) {
-        if (!bootstrapNames.contains(pkg.name)) return;
         final needsBuild =
             pkg.needsBuildRunner &&
             (pkg.pubspecInfo.pubspec.flutter?.containsKey('assets') ?? false) &&
