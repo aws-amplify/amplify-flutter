@@ -26,9 +26,7 @@ import 'package:meta/meta.dart';
 @immutable
 class AuthPluginOptions with AWSDebuggable {
   /// {@macro amplify_auth_cognito_dart.auth_plugin_options}
-  const AuthPluginOptions({
-    this.headers,
-  });
+  const AuthPluginOptions({this.headers});
 
   /// An optional async function that returns custom headers to be included
   /// in every Cognito Auth HTTP request.

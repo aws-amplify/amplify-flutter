@@ -40,9 +40,7 @@ void main() {
         () async => {'x-existing': 'new-value'},
       );
 
-      final request = _createRequest(
-        headers: {'x-existing': 'old-value'},
-      );
+      final request = _createRequest(headers: {'x-existing': 'old-value'});
       final result = await interceptor.intercept(request);
 
       expect(result.headers['x-existing'], 'new-value');
@@ -53,9 +51,7 @@ void main() {
         () async => {'x-custom': 'custom-value'},
       );
 
-      final request = _createRequest(
-        headers: {'x-existing': 'existing-value'},
-      );
+      final request = _createRequest(headers: {'x-existing': 'existing-value'});
       final result = await interceptor.intercept(request);
 
       expect(result.headers['x-existing'], 'existing-value');
@@ -63,13 +59,9 @@ void main() {
     });
 
     test('handles empty headers from callback', () async {
-      final interceptor = WithCustomHeaders(
-        () async => {},
-      );
+      final interceptor = WithCustomHeaders(() async => {});
 
-      final request = _createRequest(
-        headers: {'x-existing': 'existing-value'},
-      );
+      final request = _createRequest(headers: {'x-existing': 'existing-value'});
       final result = await interceptor.intercept(request);
 
       expect(result.headers['x-existing'], 'existing-value');
@@ -88,10 +80,7 @@ void main() {
         return AWSHttpResponse(
           statusCode: 200,
           body: utf8.encode(
-            json.encode({
-              'UserConfirmed': false,
-              'UserSub': 'test-user-sub',
-            }),
+            json.encode({'UserConfirmed': false, 'UserSub': 'test-user-sub'}),
           ),
         );
       });
@@ -138,23 +127,18 @@ void main() {
         return AWSHttpResponse(
           statusCode: 200,
           body: utf8.encode(
-            json.encode({
-              'UserConfirmed': false,
-              'UserSub': 'test-user-sub',
-            }),
+            json.encode({'UserConfirmed': false, 'UserSub': 'test-user-sub'}),
           ),
         );
       });
 
       // No WithCustomHeaders interceptor -- only the standard one.
-      final client = CognitoIdentityProviderClient(
+      const client = CognitoIdentityProviderClient(
         region: 'us-east-1',
-        credentialsProvider: const AWSCredentialsProvider(
+        credentialsProvider: AWSCredentialsProvider(
           AWSCredentials('accessKeyId', 'secretAccessKey'),
         ),
-        requestInterceptors: const [
-          WithHeader(AWSHeaders.cacheControl, 'no-store'),
-        ],
+        requestInterceptors: [WithHeader(AWSHeaders.cacheControl, 'no-store')],
       );
 
       await client

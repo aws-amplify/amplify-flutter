@@ -39,11 +39,11 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     SecureStorageFactory? secureStorageFactory,
     AuthPluginOptions? authPluginOptions,
   }) : super(
-        secureStorageFactory:
-            secureStorageFactory ?? AmplifySecureStorage.factoryFrom(),
-        hostedUiPlatformFactory: HostedUiPlatformImpl.new,
-        authPluginOptions: authPluginOptions,
-      );
+         secureStorageFactory:
+             secureStorageFactory ?? AmplifySecureStorage.factoryFrom(),
+         hostedUiPlatformFactory: HostedUiPlatformImpl.new,
+         authPluginOptions: authPluginOptions,
+       );
 
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
   /// a Cognito-specific Auth category interface.

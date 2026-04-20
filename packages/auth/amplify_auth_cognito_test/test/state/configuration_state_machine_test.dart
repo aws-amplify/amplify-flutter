@@ -160,108 +160,103 @@ void main() {
     });
 
     group('custom headers', () {
-      test('configure succeeds with AuthPluginOptions headers callback',
-          () async {
-        stateMachine.addInstance<AuthPluginOptions>(
-          AuthPluginOptions(
-            headers: () async => {
-              'x-aws-waf-token': 'test-waf-token',
-              'x-custom-header': 'custom-value',
-            },
-          ),
-        );
+      test(
+        'configure succeeds with AuthPluginOptions headers callback',
+        () async {
+          stateMachine.addInstance<AuthPluginOptions>(
+            AuthPluginOptions(
+              headers: () async => {
+                'x-aws-waf-token': 'test-waf-token',
+                'x-custom-header': 'custom-value',
+              },
+            ),
+          );
 
-        final configurationStateMachine = stateMachine.getOrCreate(
-          ConfigurationStateMachine.type,
-        );
+          final configurationStateMachine = stateMachine.getOrCreate(
+            ConfigurationStateMachine.type,
+          );
 
-        stateMachine
-            .dispatch(ConfigurationEvent.configure(mockConfig))
-            .ignore();
-        await expectLater(
-          configurationStateMachine.stream.startWith(
-            configurationStateMachine.currentState,
-          ),
-          emitsInOrder(<Matcher>[
-            isA<NotConfigured>(),
-            isA<Configuring>(),
-            isA<Configured>(),
-          ]),
-        );
+          stateMachine
+              .dispatch(ConfigurationEvent.configure(mockConfig))
+              .ignore();
+          await expectLater(
+            configurationStateMachine.stream.startWith(
+              configurationStateMachine.currentState,
+            ),
+            emitsInOrder(<Matcher>[
+              isA<NotConfigured>(),
+              isA<Configuring>(),
+              isA<Configured>(),
+            ]),
+          );
 
-        // Verify that a CognitoIdentityProviderClient was registered.
-        expect(
-          stateMachine.get<CognitoIdentityProviderClient>(),
-          isNotNull,
-        );
+          // Verify that a CognitoIdentityProviderClient was registered.
+          expect(stateMachine.get<CognitoIdentityProviderClient>(), isNotNull);
 
-        await stateMachine.close();
-      });
+          await stateMachine.close();
+        },
+      );
 
       test(
-          'configure succeeds without AuthPluginOptions (no custom headers)',
-          () async {
-        // Do not add AuthPluginOptions -- simulates default behavior.
-        final configurationStateMachine = stateMachine.getOrCreate(
-          ConfigurationStateMachine.type,
-        );
+        'configure succeeds without AuthPluginOptions (no custom headers)',
+        () async {
+          // Do not add AuthPluginOptions -- simulates default behavior.
+          final configurationStateMachine = stateMachine.getOrCreate(
+            ConfigurationStateMachine.type,
+          );
 
-        stateMachine
-            .dispatch(ConfigurationEvent.configure(mockConfig))
-            .ignore();
-        await expectLater(
-          configurationStateMachine.stream.startWith(
-            configurationStateMachine.currentState,
-          ),
-          emitsInOrder(<Matcher>[
-            isA<NotConfigured>(),
-            isA<Configuring>(),
-            isA<Configured>(),
-          ]),
-        );
+          stateMachine
+              .dispatch(ConfigurationEvent.configure(mockConfig))
+              .ignore();
+          await expectLater(
+            configurationStateMachine.stream.startWith(
+              configurationStateMachine.currentState,
+            ),
+            emitsInOrder(<Matcher>[
+              isA<NotConfigured>(),
+              isA<Configuring>(),
+              isA<Configured>(),
+            ]),
+          );
 
-        // Verify that a CognitoIdentityProviderClient was still registered.
-        expect(
-          stateMachine.get<CognitoIdentityProviderClient>(),
-          isNotNull,
-        );
+          // Verify that a CognitoIdentityProviderClient was still registered.
+          expect(stateMachine.get<CognitoIdentityProviderClient>(), isNotNull);
 
-        await stateMachine.close();
-      });
+          await stateMachine.close();
+        },
+      );
 
       test(
-          'configure succeeds with AuthPluginOptions without headers callback',
-          () async {
-        // AuthPluginOptions with null headers (default).
-        stateMachine.addInstance<AuthPluginOptions>(
-          const AuthPluginOptions(),
-        );
+        'configure succeeds with AuthPluginOptions without headers callback',
+        () async {
+          // AuthPluginOptions with null headers (default).
+          stateMachine.addInstance<AuthPluginOptions>(
+            const AuthPluginOptions(),
+          );
 
-        final configurationStateMachine = stateMachine.getOrCreate(
-          ConfigurationStateMachine.type,
-        );
+          final configurationStateMachine = stateMachine.getOrCreate(
+            ConfigurationStateMachine.type,
+          );
 
-        stateMachine
-            .dispatch(ConfigurationEvent.configure(mockConfig))
-            .ignore();
-        await expectLater(
-          configurationStateMachine.stream.startWith(
-            configurationStateMachine.currentState,
-          ),
-          emitsInOrder(<Matcher>[
-            isA<NotConfigured>(),
-            isA<Configuring>(),
-            isA<Configured>(),
-          ]),
-        );
+          stateMachine
+              .dispatch(ConfigurationEvent.configure(mockConfig))
+              .ignore();
+          await expectLater(
+            configurationStateMachine.stream.startWith(
+              configurationStateMachine.currentState,
+            ),
+            emitsInOrder(<Matcher>[
+              isA<NotConfigured>(),
+              isA<Configuring>(),
+              isA<Configured>(),
+            ]),
+          );
 
-        expect(
-          stateMachine.get<CognitoIdentityProviderClient>(),
-          isNotNull,
-        );
+          expect(stateMachine.get<CognitoIdentityProviderClient>(), isNotNull);
 
-        await stateMachine.close();
-      });
+          await stateMachine.close();
+        },
+      );
     });
   });
 }
