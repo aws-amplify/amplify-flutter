@@ -75,7 +75,7 @@ final class SqliteRecordStorage extends RecordStorage {
         .insert(
           KinesisRecordsCompanion.insert(
             streamName: record.streamName,
-            partitionKey: Value(record.partitionKey ?? ''),
+            partitionKey: Value(record.partitionKey),
             data: record.data,
             dataSize: record.dataSize,
             createdAt: record.createdAt.millisecondsSinceEpoch,

@@ -8,6 +8,7 @@ import 'package:amplify_record_cache_dart/src/model/record_data.dart';
 import 'package:amplify_record_cache_dart/src/model/record_input.dart';
 import 'package:amplify_record_cache_dart/src/sender/sender.dart';
 import 'package:amplify_record_cache_dart/src/storage/record_storage.dart';
+import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart'
     show SmithyHttpException, UnknownSmithyHttpException;
 
@@ -37,6 +38,7 @@ class RecordClient {
   bool _flushing = false;
 
   /// Provides access to the underlying storage (for testing).
+  @visibleForTesting
   RecordStorage get storage => _storage;
 
   /// Records data to the local cache.
