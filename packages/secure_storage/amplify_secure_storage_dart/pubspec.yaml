@@ -29,7 +29,7 @@ dependencies:
   meta: ^1.16.0
   path: ^1.8.0
   web: ^1.1.1
-  win32: ^5.14.0
+  win32: ">=5.14.0 <7.0.0"
   worker_bee: ">=0.3.10 <0.4.0"
 
 dev_dependencies:
