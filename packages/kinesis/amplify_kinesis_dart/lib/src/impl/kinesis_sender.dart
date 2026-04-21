@@ -33,14 +33,16 @@ class KinesisSender implements Sender {
       );
     }
 
-    final requestEntries = records
-        .map(
-          (record) => PutRecordsRequestEntry(
-            data: record.data,
-            partitionKey: record.partitionKey!,
-          ),
-        )
-        .toList();
+    final requestEntries = records.map((record) {
+      final pk = record.partitionKey;
+      if (pk == null) {
+        throw StateError(
+          'KinesisSender requires a non-null partitionKey for every '
+          'record, but record ${record.id} has a null partitionKey.',
+        );
+      }
+      return PutRecordsRequestEntry(data: record.data, partitionKey: pk);
+    }).toList();
 
     final request = PutRecordsRequest(
       streamName: streamName,

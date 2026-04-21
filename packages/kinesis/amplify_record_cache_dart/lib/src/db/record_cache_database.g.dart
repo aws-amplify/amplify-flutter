@@ -40,10 +40,9 @@ class $KinesisRecordsTable extends KinesisRecords
   late final GeneratedColumn<String> partitionKey = GeneratedColumn<String>(
     'partition_key',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant(''),
   );
   static const VerificationMeta _dataMeta = const VerificationMeta('data');
   @override
@@ -180,7 +179,7 @@ class $KinesisRecordsTable extends KinesisRecords
       partitionKey: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}partition_key'],
-      )!,
+      ),
       data: attachedDatabase.typeMapping.read(
         DriftSqlType.blob,
         data['${effectivePrefix}data'],
@@ -214,8 +213,8 @@ class DriftStoredRecord extends DataClass
   /// The name of the target stream.
   final String streamName;
 
-  /// The partition key (empty string for services that don't use it).
-  final String partitionKey;
+  /// The partition key (null for services that don't use it, e.g. Firehose).
+  final String? partitionKey;
 
   /// The data blob to send.
   final Uint8List data;
@@ -231,7 +230,7 @@ class DriftStoredRecord extends DataClass
   const DriftStoredRecord({
     required this.id,
     required this.streamName,
-    required this.partitionKey,
+    this.partitionKey,
     required this.data,
     required this.dataSize,
     required this.retryCount,
@@ -242,7 +241,9 @@ class DriftStoredRecord extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['stream_name'] = Variable<String>(streamName);
-    map['partition_key'] = Variable<String>(partitionKey);
+    if (!nullToAbsent || partitionKey != null) {
+      map['partition_key'] = Variable<String>(partitionKey);
+    }
     map['data'] = Variable<Uint8List>(data);
     map['data_size'] = Variable<int>(dataSize);
     map['retry_count'] = Variable<int>(retryCount);
@@ -254,7 +255,9 @@ class DriftStoredRecord extends DataClass
     return KinesisRecordsCompanion(
       id: Value(id),
       streamName: Value(streamName),
-      partitionKey: Value(partitionKey),
+      partitionKey: partitionKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(partitionKey),
       data: Value(data),
       dataSize: Value(dataSize),
       retryCount: Value(retryCount),
@@ -270,7 +273,7 @@ class DriftStoredRecord extends DataClass
     return DriftStoredRecord(
       id: serializer.fromJson<int>(json['id']),
       streamName: serializer.fromJson<String>(json['streamName']),
-      partitionKey: serializer.fromJson<String>(json['partitionKey']),
+      partitionKey: serializer.fromJson<String?>(json['partitionKey']),
       data: serializer.fromJson<Uint8List>(json['data']),
       dataSize: serializer.fromJson<int>(json['dataSize']),
       retryCount: serializer.fromJson<int>(json['retryCount']),
@@ -283,7 +286,7 @@ class DriftStoredRecord extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'streamName': serializer.toJson<String>(streamName),
-      'partitionKey': serializer.toJson<String>(partitionKey),
+      'partitionKey': serializer.toJson<String?>(partitionKey),
       'data': serializer.toJson<Uint8List>(data),
       'dataSize': serializer.toJson<int>(dataSize),
       'retryCount': serializer.toJson<int>(retryCount),
@@ -294,7 +297,7 @@ class DriftStoredRecord extends DataClass
   DriftStoredRecord copyWith({
     int? id,
     String? streamName,
-    String? partitionKey,
+    Value<String?> partitionKey = const Value.absent(),
     Uint8List? data,
     int? dataSize,
     int? retryCount,
@@ -302,7 +305,7 @@ class DriftStoredRecord extends DataClass
   }) => DriftStoredRecord(
     id: id ?? this.id,
     streamName: streamName ?? this.streamName,
-    partitionKey: partitionKey ?? this.partitionKey,
+    partitionKey: partitionKey.present ? partitionKey.value : this.partitionKey,
     data: data ?? this.data,
     dataSize: dataSize ?? this.dataSize,
     retryCount: retryCount ?? this.retryCount,
@@ -366,7 +369,7 @@ class DriftStoredRecord extends DataClass
 class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
   final Value<int> id;
   final Value<String> streamName;
-  final Value<String> partitionKey;
+  final Value<String?> partitionKey;
   final Value<Uint8List> data;
   final Value<int> dataSize;
   final Value<int> retryCount;
@@ -415,7 +418,7 @@ class KinesisRecordsCompanion extends UpdateCompanion<DriftStoredRecord> {
   KinesisRecordsCompanion copyWith({
     Value<int>? id,
     Value<String>? streamName,
-    Value<String>? partitionKey,
+    Value<String?>? partitionKey,
     Value<Uint8List>? data,
     Value<int>? dataSize,
     Value<int>? retryCount,
@@ -489,7 +492,7 @@ typedef $$KinesisRecordsTableCreateCompanionBuilder =
     KinesisRecordsCompanion Function({
       Value<int> id,
       required String streamName,
-      Value<String> partitionKey,
+      Value<String?> partitionKey,
       required Uint8List data,
       required int dataSize,
       Value<int> retryCount,
@@ -499,7 +502,7 @@ typedef $$KinesisRecordsTableUpdateCompanionBuilder =
     KinesisRecordsCompanion Function({
       Value<int> id,
       Value<String> streamName,
-      Value<String> partitionKey,
+      Value<String?> partitionKey,
       Value<Uint8List> data,
       Value<int> dataSize,
       Value<int> retryCount,
@@ -672,7 +675,7 @@ class $$KinesisRecordsTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 Value<String> streamName = const Value.absent(),
-                Value<String> partitionKey = const Value.absent(),
+                Value<String?> partitionKey = const Value.absent(),
                 Value<Uint8List> data = const Value.absent(),
                 Value<int> dataSize = const Value.absent(),
                 Value<int> retryCount = const Value.absent(),
@@ -690,7 +693,7 @@ class $$KinesisRecordsTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 required String streamName,
-                Value<String> partitionKey = const Value.absent(),
+                Value<String?> partitionKey = const Value.absent(),
                 required Uint8List data,
                 required int dataSize,
                 Value<int> retryCount = const Value.absent(),

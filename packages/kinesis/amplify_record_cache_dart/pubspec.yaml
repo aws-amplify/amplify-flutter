@@ -1,7 +1,9 @@
 name: amplify_record_cache_dart
 description: Shared record caching infrastructure for Amplify streaming clients (Kinesis Data Streams, Firehose). Provides offline storage, batching, retry logic, and auto-flush scheduling.
 version: 0.1.0
-publish_to: none
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/kinesis/amplify_record_cache_dart
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
   sdk: ^3.9.0

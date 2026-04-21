@@ -8,6 +8,7 @@ import 'package:amplify_record_cache_dart/src/model/record_data.dart';
 import 'package:amplify_record_cache_dart/src/model/record_input.dart';
 import 'package:amplify_record_cache_dart/src/sender/sender.dart';
 import 'package:amplify_record_cache_dart/src/storage/record_storage.dart';
+import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart'
     show SmithyHttpException, UnknownSmithyHttpException;
 
@@ -37,6 +38,7 @@ class RecordClient {
   bool _flushing = false;
 
   /// Provides access to the underlying storage (for testing).
+  @visibleForTesting
   RecordStorage get storage => _storage;
 
   /// Records data to the local cache.
@@ -55,6 +57,25 @@ class RecordClient {
   /// Single-pass: retrieves one batch of records per stream, sends each
   /// batch, and returns. Records beyond the per-stream limit are picked
   /// up in the next flush cycle.
+  ///
+  /// ## Error handling
+  ///
+  /// When `Sender.sendBatch` (e.g. `PutRecordBatch` / `PutRecords`)
+  /// succeeds at the HTTP level, the response may contain per-record
+  /// errors. These are categorized by [splitResults]:
+  /// - Successful records are deleted from the cache.
+  /// - Retryable records (retry count < maxRetries) have their retry
+  ///   count incremented and remain in the cache for the next flush.
+  /// - Failed records (retry count >= maxRetries) are deleted.
+  ///
+  /// When the entire SDK call fails with a [SmithyHttpException]
+  /// (e.g. throttling, invalid stream, auth error), the error is
+  /// logged and that stream is skipped — other streams can still
+  /// flush. All records in the failed batch have their retry count
+  /// incremented (or are deleted if they've exceeded maxRetries).
+  ///
+  /// Non-SDK errors (e.g. network failure, storage error) abort the
+  /// flush entirely and are rethrown to the caller.
   Future<FlushData> flush() async {
     if (_flushing) return const FlushData(flushInProgress: true);
     _flushing = true;

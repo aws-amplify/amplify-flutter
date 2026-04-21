@@ -75,7 +75,7 @@ final class SqliteRecordStorage extends RecordStorage {
         .insert(
           KinesisRecordsCompanion.insert(
             streamName: record.streamName,
-            partitionKey: Value(record.partitionKey ?? ''),
+            partitionKey: Value(record.partitionKey),
             data: record.data,
             dataSize: record.dataSize,
             createdAt: record.createdAt.millisecondsSinceEpoch,
@@ -155,11 +155,11 @@ final class SqliteRecordStorage extends RecordStorage {
   }
 
   Record _rowToRecord(QueryRow row) {
-    final pk = row.read<String>('partition_key');
+    final pk = row.readNullable<String>('partition_key');
     return Record(
       id: row.read<int>('id'),
       streamName: row.read<String>('stream_name'),
-      partitionKey: pk.isEmpty ? null : pk,
+      partitionKey: (pk == null || pk.isEmpty) ? null : pk,
       data: row.read<Uint8List>('data'),
       dataSize: row.read<int>('data_size'),
       retryCount: row.read<int>('retry_count'),

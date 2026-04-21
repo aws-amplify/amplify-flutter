@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Shared record caching infrastructure for Amplify streaming clients.
+///
+/// This package is internal to the Amplify Flutter monorepo and is not
+/// intended for direct use by customers.
 library;
 
 // Client

@@ -23,8 +23,8 @@ class KinesisRecords extends Table {
   /// The name of the target stream.
   TextColumn get streamName => text()();
 
-  /// The partition key (empty string for services that don't use it).
-  TextColumn get partitionKey => text().withDefault(const Constant(''))();
+  /// The partition key (null for services that don't use it, e.g. Firehose).
+  TextColumn get partitionKey => text().nullable()();
 
   /// The data blob to send.
   BlobColumn get data => blob()();
