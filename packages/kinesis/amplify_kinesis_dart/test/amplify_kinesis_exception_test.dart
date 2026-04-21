@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_kinesis_dart/src/exception/amplify_kinesis_exception.dart';
-import 'package:amplify_kinesis_dart/src/exception/record_cache_exception.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -16,7 +16,7 @@ void main() {
     test(
       'converts RecordCacheValidationException to KinesisValidationException',
       () {
-        final cause = RecordCacheValidationException('bad input', 'fix it');
+        const cause = RecordCacheValidationException('bad input', 'fix it');
         final result = AmplifyKinesisException.from(cause);
         expect(result, isA<KinesisValidationException>());
         expect(result.message, 'bad input');
@@ -44,7 +44,7 @@ void main() {
     test(
       'converts RecordCacheLimitExceededException to KinesisLimitExceededException',
       () {
-        final cause = RecordCacheLimitExceededException(
+        const cause = RecordCacheLimitExceededException(
           'cache full',
           'flush first',
         );
