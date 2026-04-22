@@ -1,5 +1,3 @@
 # amplify_record_cache_dart
 
-Shared record caching infrastructure for Amplify streaming clients (Kinesis Data Streams, Firehose).
-
-This package is internal to the Amplify Flutter monorepo and is not published to pub.dev.
+Dart-only implementation of the shared infrastructure of the Kinesis and Firehose plugins. For internal use in the amplify_firehose and amplify_kinesis Flutter libraries.
