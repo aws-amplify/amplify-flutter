@@ -36,13 +36,12 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   /// provide a [SecureStorageFactory] value. If no value is provided,
   /// storage will be configured with default [AmplifySecureStorageConfig] values.
   AmplifyAuthCognito({
+    super.authPluginOptions,
     SecureStorageFactory? secureStorageFactory,
-    AuthPluginOptions? authPluginOptions,
   }) : super(
          secureStorageFactory:
              secureStorageFactory ?? AmplifySecureStorage.factoryFrom(),
          hostedUiPlatformFactory: HostedUiPlatformImpl.new,
-         authPluginOptions: authPluginOptions,
        );
 
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
