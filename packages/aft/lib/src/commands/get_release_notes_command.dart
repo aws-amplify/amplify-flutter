@@ -94,6 +94,8 @@ final class ReleaseNotesEmpty extends ReleaseNotesResult {
 /// * Matches a header when the first whitespace-separated token after `## `
 ///   equals [version] exactly. This allows headers such as
 ///   `## 1.0.0-next.0 (2022-08-02)` to match version `1.0.0-next.0`.
+/// * Supports common changelog decorations: strips `[`, `]`, and leading `v`
+///   from version tokens, so `## [1.0.0]` and `## v1.0.0` both match `1.0.0`.
 /// * Strips leading and trailing blank lines from the extracted section while
 ///   preserving blank lines inside the body.
 ///
@@ -102,8 +104,14 @@ final class ReleaseNotesEmpty extends ReleaseNotesResult {
 /// error codes.
 @visibleForTesting
 ReleaseNotesResult extractReleaseNotes(String changelogMd, String version) {
+  // Strip UTF-8 BOM if present (EF BB BF)
+  var content = changelogMd;
+  if (content.startsWith('\uFEFF')) {
+    content = content.substring(1);
+  }
+
   // Normalize line endings so CRLF and LF files produce identical output.
-  final lines = changelogMd.replaceAll('\r\n', '\n').split('\n');
+  final lines = content.replaceAll('\r\n', '\n').split('\n');
 
   var inTargetSection = false;
   var inCodeBlock = false;
@@ -166,8 +174,10 @@ ReleaseNotesResult extractReleaseNotes(String changelogMd, String version) {
   return ReleaseNotesFound(buffer.join('\n'));
 }
 
-/// Returns the first whitespace-separated token after the `## ` prefix, or an
-/// empty string if the header has no content.
+/// Returns the first whitespace-separated token after the `## ` prefix,
+/// with common changelog decorations stripped (brackets and leading `v`).
+///
+/// Returns an empty string if the header has no content.
 String _parseHeaderVersion(String line) {
   // Strip the leading '## ' (3 chars) and everything after the first run of
   // whitespace, keeping behavior stable for tabs and multiple spaces.
@@ -176,10 +186,19 @@ String _parseHeaderVersion(String line) {
     return '';
   }
   final whitespaceIndex = rest.indexOf(RegExp(r'\s'));
-  if (whitespaceIndex < 0) {
-    return rest.trimRight();
+  var token = whitespaceIndex < 0
+      ? rest.trimRight()
+      : rest.substring(0, whitespaceIndex);
+
+  // Strip common changelog decorations:
+  // - Square brackets: [1.0.0] -> 1.0.0
+  // - Leading v: v1.0.0 -> 1.0.0
+  token = token.replaceAll(RegExp(r'^\[|\]$'), '');
+  if (token.startsWith('v')) {
+    token = token.substring(1);
   }
-  return rest.substring(0, whitespaceIndex);
+
+  return token;
 }
 
 /// Matches a Markdown fenced code-block delimiter. We recognize both backtick
