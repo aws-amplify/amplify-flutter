@@ -44,6 +44,7 @@ void main() {
             'packages/common/amplify_db_common/example',
             'packages/common/amplify_db_common_dart/example',
             'packages/example_common/example',
+            'packages/kinesis/amplify_firehose/example',
             'packages/kinesis/amplify_kinesis/example',
             'packages/notifications/push/amplify_push_notifications/example',
             'packages/notifications/push/amplify_push_notifications_pinpoint/example',
@@ -128,6 +129,7 @@ void main() {
         matchesPackagePaths([
           'canaries',
           'packages/amplify/amplify_flutter/example',
+          'packages/kinesis/amplify_firehose/example',
           'packages/amplify_core/doc',
           'packages/amplify_datastore/example',
           'packages/amplify_native_legacy_wrapper/example',
