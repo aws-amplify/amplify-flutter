@@ -1,6 +1,6 @@
 name: amplify_firehose_dart
 description: A Dart-only implementation for streaming data to Amazon Data Firehose with offline support. For internal use in the amplify_firehose Flutter library.
-version: 0.1.0
+version: 2.12.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/kinesis/amplify_firehose_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -16,10 +16,10 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
-  amplify_core: ">=2.10.0 <2.11.0"
+  amplify_core: ">=2.11.0 <2.12.0"
   amplify_foundation_dart: ">=2.11.0 <2.12.0"
   amplify_foundation_dart_bridge: ">=2.11.0 <2.12.0"
-  amplify_record_cache_dart: ">=0.1.0 <0.2.0"
+  amplify_record_cache_dart: ">=0.1.1 <0.2.0"
   aws_common: ">=0.7.12 <0.8.0"
   aws_signature_v4: ">=0.6.10 <0.7.0"
   built_collection: ^5.1.1

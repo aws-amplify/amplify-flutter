@@ -1,3 +1,8 @@
+## 2.11.0
+
+### Features
+- feat(storage): Support pre-signed upload URLs ([#6673](https://github.com/aws-amplify/amplify-flutter/pull/6673))
+
 ## 2.10.1
 
 ### Fixes
