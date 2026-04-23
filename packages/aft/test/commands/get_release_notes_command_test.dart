@@ -652,14 +652,58 @@ void main() {}
       expect(result.stderr, contains("package 'does_not_exist_xyz' not found"));
       expect(result.stdout, isEmpty);
     });
+
+    test('defaults --version to pubspec.yaml version when omitted', () async {
+      // amplify_datastore's pubspec.yaml version should be present in its
+      // CHANGELOG.md for the fork to be in a releasable state. The command
+      // without --version should therefore succeed and emit notes.
+      final result = await runCommand([
+        'get-release-notes',
+        '--package',
+        'amplify_datastore',
+      ]);
+      expect(
+        result.exitCode,
+        0,
+        reason: 'stdout=${result.stdout}\nstderr=${result.stderr}',
+      );
+      final stdout = result.stdout as String;
+      expect(stdout, startsWith('\nChangelog:\n'));
+      // There must be actual body content past the marker.
+      final extracted = stripChangelogMarker(stdout);
+      expect(extracted.trim(), isNotEmpty);
+    });
+
+    test('exits 1 with clean usage error (no stack trace) '
+        'when --package is missing', () async {
+      final result = await runCommand(['get-release-notes']);
+      expect(result.exitCode, 1);
+      final stderr = result.stderr as String;
+      expect(stderr, contains('Missing required option: --package'));
+      // Must NOT leak a raw Dart stack trace.
+      expect(stderr, isNot(contains('#0 ')));
+      expect(stderr, isNot(contains('package:aft/')));
+      expect(stderr, isNot(contains('<asynchronous suspension>')));
+      expect(result.stdout, isEmpty);
+    });
+
+    test('exits 1 with clean usage error (no stack trace) '
+        'when --package is missing but --version is provided', () async {
+      final result = await runCommand([
+        'get-release-notes',
+        '--version',
+        '1.0.0',
+      ]);
+      expect(result.exitCode, 1);
+      final stderr = result.stderr as String;
+      expect(stderr, contains('Missing required option: --package'));
+      expect(stderr, isNot(contains('#0 ')));
+      expect(stderr, isNot(contains('<asynchronous suspension>')));
+      expect(result.stdout, isEmpty);
+    });
   });
 
   group('Changelog: marker semantics', () {
-    test('releaseNotesMarker constant is exactly "Changelog:"', () {
-      // Callers (awk one-liner, workflow YAML) rely on this exact string.
-      expect(releaseNotesMarker, 'Changelog:');
-    });
-
     test(
       "awk extraction preserves a literal 'Changelog:' line in the body",
       () {

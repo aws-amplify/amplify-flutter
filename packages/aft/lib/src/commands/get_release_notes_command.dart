@@ -16,22 +16,28 @@ import 'package:path/path.dart' as p;
 ///
 /// Successful stdout is prefixed with a blank line and a `Changelog:`
 /// marker line; callers should strip everything up to and including that
-/// first marker with awk, and use shell `||` for the fallback. `set -o
-/// pipefail` is required so the `||` fires on non-zero [exitCode] rather
-/// than on awk's exit status:
+/// first marker with awk and use an empty-check for the fallback. The
+/// marker is only written on success (exit 0), so on any non-zero exit
+/// awk produces no output and the empty check fires the fallback — no
+/// shell options required:
 ///
 /// ```sh
-/// set -o pipefail
 /// NOTES=$(aft get-release-notes --package X --version Y \
-///   | awk '/^Changelog:$/{f=1;next} f') \
-///   || NOTES="Release X vY"
+///   | awk '/^Changelog:$/{f=1;next} f')
+/// [ -z "$NOTES" ] && NOTES="Release X vY"
 /// ```
+///
+/// If you prefer `||`, that also works but requires `set -o pipefail` so
+/// the `||` fires on a non-zero [code] rather than on awk's exit status:
+/// `set -o pipefail; NOTES=$(...) || NOTES="Release X vY"`.
 ///
 /// Only the FIRST `Changelog:` line is the marker; later occurrences in
 /// the notes body pass through the awk filter unchanged.
 ///
 /// * [success] — notes printed to stdout (preceded by the marker).
-/// * [usageError] — missing/invalid arguments or unknown package.
+/// * [usageError] — missing/invalid arguments, unknown package, or the
+///   package's `pubspec.yaml` has no `version` field when `--version` was
+///   omitted.
 /// * [versionNotFound] — `CHANGELOG.md` exists but does not contain a
 ///   matching `## <version>` header.
 /// * [sectionEmpty] — the matching version header was found but its section
@@ -239,17 +245,22 @@ bool _isCodeFence(String line) {
 /// marker lets callers strip that noise deterministically regardless of
 /// whether it appeared.
 ///
-/// Extract the notes with awk, and fall back via shell `||` on any
-/// non-zero exit. Note that bash's default is to report the LAST pipe
-/// stage's exit code, so `set -o pipefail` is REQUIRED for the `||`
-/// fallback to fire when this command fails upstream of awk:
+/// Extract the notes with awk, then fall back via an empty check on any
+/// non-zero exit. The `Changelog:` marker is only written on success
+/// (exit 0); on any non-zero exit, awk produces no output, so the empty
+/// check fires the fallback — no shell options required:
 ///
 /// ```sh
-/// set -o pipefail
 /// NOTES=$(aft get-release-notes --package X --version Y \
-///   | awk '/^Changelog:$/{f=1;next} f') \
-///   || NOTES="Release X vY"
+///   | awk '/^Changelog:$/{f=1;next} f')
+/// [ -z "$NOTES" ] && NOTES="Release X vY"
 /// ```
+///
+/// If you prefer the `||` form, it also works but requires
+/// `set -o pipefail` so the `||` fires on this command's exit code rather
+/// than on awk's exit status (bash's default is to report the LAST pipe
+/// stage's status):
+/// `set -o pipefail; NOTES=$(...) || NOTES="Release X vY"`.
 ///
 /// Only the FIRST `Changelog:` line is treated as the marker; any later
 /// `Changelog:` lines that happen to appear in the notes body are printed
@@ -258,7 +269,13 @@ bool _isCodeFence(String line) {
 /// Usage:
 ///
 /// ```
+/// # Extract notes for an explicit version.
 /// aft get-release-notes --package amplify_core --version 2.10.1
+///
+/// # Omit --version to default to the current pubspec.yaml version.
+/// # This is the common case during a release: the pubspec has just been
+/// # bumped, and you want the notes for the version about to ship.
+/// aft get-release-notes --package amplify_datastore
 /// ```
 /// {@endtemplate}
 class GetReleaseNotesCommand extends AmplifyCommand {
@@ -270,14 +287,13 @@ class GetReleaseNotesCommand extends AmplifyCommand {
         help:
             'Name of the package whose CHANGELOG.md to read '
             '(e.g. amplify_core).',
-        mandatory: true,
       )
       ..addOption(
         'version',
         help:
             'Exact version string to extract, matched against the first '
-            'token after the `## ` header (e.g. 2.10.1, 2.10.1-dev.0).',
-        mandatory: true,
+            'token after the `## ` header (e.g. 2.10.1, 2.10.1-dev.0). '
+            "Defaults to the version in the package's pubspec.yaml.",
       );
   }
 
@@ -298,20 +314,9 @@ class GetReleaseNotesCommand extends AmplifyCommand {
     }
     await super.run();
 
-    final packageName = argResults!['package'] as String;
-    final version = argResults!['version'] as String;
-
-    if (packageName.isEmpty) {
-      exitError(
-        'Error: --package must be a non-empty package name',
-        GetReleaseNotesExitCode.usageError.code,
-      );
-    }
-    if (version.isEmpty) {
-      exitError(
-        'Error: --version must be a non-empty version string',
-        GetReleaseNotesExitCode.usageError.code,
-      );
+    final packageName = argResults!['package'] as String?;
+    if (packageName == null || packageName.isEmpty) {
+      usageException('Missing required option: --package');
     }
 
     final package = repoPackages[packageName];
@@ -320,6 +325,39 @@ class GetReleaseNotesCommand extends AmplifyCommand {
         "Error: package '$packageName' not found in workspace",
         GetReleaseNotesExitCode.usageError.code,
       );
+    }
+
+    // Resolve the version: use the explicit `--version` if provided, otherwise
+    // fall back to the version declared in the package's pubspec.yaml. This
+    // matches the common release-automation use case: the pubspec has just
+    // been bumped to the version being tagged, and the CHANGELOG already
+    // has a section for it.
+    var version = argResults!['version'] as String?;
+    if (version == null || version.isEmpty) {
+      final pubspecVersion = package.pubspecInfo.pubspec.version;
+      if (pubspecVersion == null) {
+        final pubspecRelative = p.relative(
+          p.join(package.path, 'pubspec.yaml'),
+          from: rootDir.path,
+        );
+        exitError(
+          'Error: --version not provided and $pubspecRelative has no '
+          'version field',
+          GetReleaseNotesExitCode.usageError.code,
+        );
+      }
+      version = pubspecVersion.toString();
+      if (version.isEmpty) {
+        final pubspecRelative = p.relative(
+          p.join(package.path, 'pubspec.yaml'),
+          from: rootDir.path,
+        );
+        exitError(
+          'Error: --version not provided and $pubspecRelative has an '
+          'empty version field',
+          GetReleaseNotesExitCode.usageError.code,
+        );
+      }
     }
 
     final changelogPath = p.join(package.path, 'CHANGELOG.md');
@@ -345,7 +383,7 @@ class GetReleaseNotesCommand extends AmplifyCommand {
         // snapshot is stale and pub falls back to `dart pub -v global run`).
         stdout
           ..writeln()
-          ..writeln(releaseNotesMarker)
+          ..writeln('Changelog:')
           ..writeln(notes);
       case ReleaseNotesVersionNotFound():
         exitError(
@@ -360,13 +398,3 @@ class GetReleaseNotesCommand extends AmplifyCommand {
     }
   }
 }
-
-/// The marker line printed on the success path, directly before the
-/// extracted notes body. A blank line is emitted immediately before the
-/// marker to separate it from any preceding stdout noise.
-///
-/// Callers should treat only the FIRST occurrence of this line (as a whole
-/// line) as the marker; later occurrences in the notes body must be
-/// preserved. The canonical extraction one-liner is
-/// `awk '/^Changelog:$/{f=1;next} f'`.
-const String releaseNotesMarker = 'Changelog:';
