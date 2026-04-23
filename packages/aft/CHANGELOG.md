@@ -1,3 +1,9 @@
+## 0.2.2
+
+- Support bootstrapping packages for CI/CD deployments
+- Fix bumping versions
+- Get version logs
+
 ## 0.2.1
 
 - Improve pub.dev analysis detection
