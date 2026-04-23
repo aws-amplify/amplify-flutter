@@ -6,3 +6,4 @@ include: package:amplify_lints/library.yaml
 analyzer:
   exclude:
     - "lib/src/sdk/src/**"
+    - 'lib/src/version.dart'
