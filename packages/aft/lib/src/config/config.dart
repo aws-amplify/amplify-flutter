@@ -331,9 +331,17 @@ class PackageInfo
   }
 
   /// The parsed `CHANGELOG.md`.
+  ///
+  /// If the `CHANGELOG.md` file does not exist, an empty [Changelog] is
+  /// returned. This allows newly-added packages without a changelog to be
+  /// handled gracefully during `version-bump` — a new `CHANGELOG.md` will
+  /// be written on disk by [Repo.writeChanges] if the package gets bumped.
   Changelog get changelog {
-    final changelogMd = File(p.join(path, 'CHANGELOG.md')).readAsStringSync();
-    return Changelog.parse(changelogMd);
+    final changelogFile = File(p.join(path, 'CHANGELOG.md'));
+    if (!changelogFile.existsSync()) {
+      return Changelog.empty();
+    }
+    return Changelog.parse(changelogFile.readAsStringSync());
   }
 
   /// The current version in `pubspec.yaml`.
