@@ -30,6 +30,8 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ">=3.1.4 <3.2.0"
+  build_runner: ^2.4.15
+  build_version: ^2.1.1
   # drift is a dev dependency because it's only needed for tests
   # (NativeDatabase.memory()). Runtime drift comes transitively via
   # amplify_record_cache_dart.
