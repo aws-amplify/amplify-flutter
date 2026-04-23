@@ -16,7 +16,7 @@
     "@types/babel__traverse": "^7.20.7",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.6.0",
-    "aws-cdk": "2.1118.0",
+    "aws-cdk": "2.1119.0",
     "esbuild": "^0.28.0",
     "jest": "^30.3.0",
     "ts-jest": "^29.4.5",
