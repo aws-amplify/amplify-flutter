@@ -12,11 +12,25 @@ import 'package:path/path.dart' as p;
 /// Exit codes returned by [GetReleaseNotesCommand].
 ///
 /// The command is fail-closed: any content-level problem produces a
-/// distinct non-zero exit code and a descriptive message on stderr. Callers
-/// that want a fallback should use shell-level composition, e.g.
-/// `NOTES=$(aft get-release-notes ...) || NOTES="fallback text"`.
+/// distinct non-zero exit code and a descriptive message on stderr.
 ///
-/// * [success] — notes printed to stdout.
+/// Successful stdout is prefixed with a blank line and a `Changelog:`
+/// marker line; callers should strip everything up to and including that
+/// first marker with awk, and use shell `||` for the fallback. `set -o
+/// pipefail` is required so the `||` fires on non-zero [exitCode] rather
+/// than on awk's exit status:
+///
+/// ```sh
+/// set -o pipefail
+/// NOTES=$(aft get-release-notes --package X --version Y \
+///   | awk '/^Changelog:$/{f=1;next} f') \
+///   || NOTES="Release X vY"
+/// ```
+///
+/// Only the FIRST `Changelog:` line is the marker; later occurrences in
+/// the notes body pass through the awk filter unchanged.
+///
+/// * [success] — notes printed to stdout (preceded by the marker).
 /// * [usageError] — missing/invalid arguments or unknown package.
 /// * [versionNotFound] — `CHANGELOG.md` exists but does not contain a
 ///   matching `## <version>` header.
@@ -215,12 +229,31 @@ bool _isCodeFence(String line) {
 /// Intended for use in release automation (e.g. GitHub Actions) where a
 /// deterministic, testable extractor is preferable to ad-hoc shell parsing.
 /// The command is fail-closed — callers that need a fallback should use the
-/// shell, e.g.
+/// shell.
 ///
-/// ```
-/// NOTES=$(aft get-release-notes --package X --version Y) \
+/// Successful output is prefixed with a blank line and a `Changelog:` marker
+/// line so callers can reliably skip any preceding noise written to stdout
+/// by the Dart tooling. In particular, when the activated aft wrapper
+/// snapshot is stale, pub falls back to `dart pub -v global run aft …` and
+/// emits resolver output to stdout before the command proper runs — the
+/// marker lets callers strip that noise deterministically regardless of
+/// whether it appeared.
+///
+/// Extract the notes with awk, and fall back via shell `||` on any
+/// non-zero exit. Note that bash's default is to report the LAST pipe
+/// stage's exit code, so `set -o pipefail` is REQUIRED for the `||`
+/// fallback to fire when this command fails upstream of awk:
+///
+/// ```sh
+/// set -o pipefail
+/// NOTES=$(aft get-release-notes --package X --version Y \
+///   | awk '/^Changelog:$/{f=1;next} f') \
 ///   || NOTES="Release X vY"
 /// ```
+///
+/// Only the FIRST `Changelog:` line is treated as the marker; any later
+/// `Changelog:` lines that happen to appear in the notes body are printed
+/// as-is and preserved through the awk filter.
 ///
 /// Usage:
 ///
@@ -306,7 +339,14 @@ class GetReleaseNotesCommand extends AmplifyCommand {
 
     switch (result) {
       case ReleaseNotesFound(:final notes):
-        stdout.writeln(notes);
+        // Emit a blank line and a `Changelog:` marker before the notes so
+        // callers can deterministically skip any noise written to stdout
+        // before us (e.g. pub resolver output when the activated aft
+        // snapshot is stale and pub falls back to `dart pub -v global run`).
+        stdout
+          ..writeln()
+          ..writeln(releaseNotesMarker)
+          ..writeln(notes);
       case ReleaseNotesVersionNotFound():
         exitError(
           'Error: version $version not found in $relativePath',
@@ -320,3 +360,13 @@ class GetReleaseNotesCommand extends AmplifyCommand {
     }
   }
 }
+
+/// The marker line printed on the success path, directly before the
+/// extracted notes body. A blank line is emitted immediately before the
+/// marker to separate it from any preceding stdout noise.
+///
+/// Callers should treat only the FIRST occurrence of this line (as a whole
+/// line) as the marker; later occurrences in the notes body must be
+/// preserved. The canonical extraction one-liner is
+/// `awk '/^Changelog:$/{f=1;next} f'`.
+const String releaseNotesMarker = 'Changelog:';

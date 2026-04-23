@@ -568,6 +568,27 @@ void main() {}
       ], workingDirectory: repoRoot);
     }
 
+    /// Applies the documented awk one-liner
+    /// `awk '/^Changelog:$/{f=1;next} f'` in pure Dart: drops every
+    /// line up to and including the first `Changelog:` marker line, then
+    /// returns the remaining lines joined with `\n`. Mirrors awk's behavior
+    /// of always appending a trailing newline between printed lines but not
+    /// after the last one (which matters for trailing-newline assertions).
+    String stripChangelogMarker(String stdout) {
+      final lines = stdout.split('\n');
+      var markerIndex = -1;
+      for (var i = 0; i < lines.length; i++) {
+        if (lines[i] == 'Changelog:') {
+          markerIndex = i;
+          break;
+        }
+      }
+      if (markerIndex < 0) {
+        return '';
+      }
+      return lines.sublist(markerIndex + 1).join('\n');
+    }
+
     test('exits 0 and prints notes for a real package/version', () async {
       final result = await runCommand([
         'get-release-notes',
@@ -581,8 +602,28 @@ void main() {}
         0,
         reason: 'stdout=${result.stdout}\nstderr=${result.stderr}',
       );
-      expect(result.stdout, contains('### Fixes'));
-      expect(result.stdout, contains('SMS_OTP'));
+      final stdout = result.stdout as String;
+      // The success output is prefixed with a blank line and the
+      // `Changelog:` marker, then the notes body.
+      expect(stdout, startsWith('\nChangelog:\n'));
+      expect(stdout, contains('### Fixes'));
+      expect(stdout, contains('SMS_OTP'));
+    });
+
+    test('extracted output (via awk) contains only the notes', () async {
+      final result = await runCommand([
+        'get-release-notes',
+        '--package',
+        'amplify_core',
+        '--version',
+        '2.10.1',
+      ]);
+      expect(result.exitCode, 0);
+      final extracted = stripChangelogMarker(result.stdout as String);
+      expect(extracted, startsWith('### Fixes'));
+      expect(extracted, contains('SMS_OTP'));
+      // Marker itself must not appear in the extracted content.
+      expect(extracted, isNot(contains('Changelog:')));
     });
 
     test('exits 2 when version is not in the CHANGELOG', () async {
@@ -595,6 +636,7 @@ void main() {}
       ]);
       expect(result.exitCode, 2);
       expect(result.stderr, contains('version 99.99.99 not found'));
+      // Error paths must never emit the marker on stdout.
       expect(result.stdout, isEmpty);
     });
 
@@ -608,6 +650,72 @@ void main() {}
       ]);
       expect(result.exitCode, 1);
       expect(result.stderr, contains("package 'does_not_exist_xyz' not found"));
+      expect(result.stdout, isEmpty);
+    });
+  });
+
+  group('Changelog: marker semantics', () {
+    test('releaseNotesMarker constant is exactly "Changelog:"', () {
+      // Callers (awk one-liner, workflow YAML) rely on this exact string.
+      expect(releaseNotesMarker, 'Changelog:');
+    });
+
+    test(
+      "awk extraction preserves a literal 'Changelog:' line in the body",
+      () {
+        // Pure-Dart mirror of `awk '/^Changelog:$/{f=1;next} f'`.
+        String awkExtract(String input) {
+          final lines = input.split('\n');
+          final buffer = <String>[];
+          var found = false;
+          for (final line in lines) {
+            if (found) {
+              buffer.add(line);
+              continue;
+            }
+            if (line == 'Changelog:') {
+              found = true;
+            }
+          }
+          return buffer.join('\n');
+        }
+
+        // Simulate a command-produced stdout that itself contains a
+        // literal `Changelog:` line inside the notes body. Only the FIRST
+        // marker should be consumed; the second must survive.
+        const raw =
+            '\n'
+            'Changelog:\n'
+            '- intro bullet\n'
+            'Changelog:\n'
+            '- trailing bullet\n';
+        final extracted = awkExtract(raw);
+        expect(extracted, contains('Changelog:'));
+        expect(extracted, contains('- intro bullet'));
+        expect(extracted, contains('- trailing bullet'));
+      },
+    );
+  });
+
+  group('extractReleaseNotes is marker-free', () {
+    // Regression guard: the pure extractor must NOT add the marker. That is
+    // exclusively the CLI's job so extractReleaseNotes stays trivially
+    // testable and reusable.
+    test('returned notes never contain the Changelog: marker', () {
+      const md = '''
+## 1.0.0
+
+### Fixes
+- fix: something
+
+## 0.9.0
+- older
+''';
+      final result = extractReleaseNotes(md, '1.0.0');
+      expect(result, isA<ReleaseNotesFound>());
+      final notes = (result as ReleaseNotesFound).notes;
+      expect(notes, isNot(contains('Changelog:')));
+      expect(notes, isNot(startsWith('\n')));
     });
   });
 }
