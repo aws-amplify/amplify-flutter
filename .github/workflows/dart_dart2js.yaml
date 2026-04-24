@@ -81,5 +81,9 @@ jobs:
 
       - name: Run Tests
         if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: dart run build_runner build test --release --delete-conflicting-outputs && dart test -p ${{ matrix.browser }}
+        # `--force-jit` works around a Dart 3.10.x regression where AOT
+        # compilation of the build_runner entrypoint fails on package graphs
+        # containing native-assets build hooks. Fixed in Dart 3.11+; see
+        # https://github.com/dart-lang/build/issues/4343.
+        run: dart run build_runner build test --force-jit --release --delete-conflicting-outputs && dart test -p ${{ matrix.browser }}
         working-directory: ${{ inputs.working-directory }}
