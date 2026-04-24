@@ -8,7 +8,11 @@ import 'dart:typed_data';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/utils.dart';
 import 'package:ffi/ffi.dart';
 import 'package:win32/win32.dart'
-    show CryptProtectData, CryptUnprotectData, CRYPT_INTEGER_BLOB, ERROR_SUCCESS;
+    show
+        CryptProtectData,
+        CryptUnprotectData,
+        CRYPT_INTEGER_BLOB,
+        ERROR_SUCCESS;
 
 /// Encrypts the provided string as a [Uint8List].
 Uint8List encryptString(String value) {
