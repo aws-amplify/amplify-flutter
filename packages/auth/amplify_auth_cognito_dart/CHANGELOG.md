@@ -1,3 +1,7 @@
+## 0.11.20
+
+- Minor bug fixes and improvements
+
 ## 0.11.19
 
 ### Fixes

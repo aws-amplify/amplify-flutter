@@ -1,3 +1,3 @@
-## 0.1.0
+# amplify_firehose_dart
 
-- Initial release
+Dart-only implementation. For internal use in the `amplify_firehose` Flutter library.
