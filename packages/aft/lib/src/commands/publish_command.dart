@@ -361,7 +361,9 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
 
   /// Bootstraps new packages by publishing minimal placeholder versions to
   /// pub.dev, reserving the package names for future automated publishes.
-  Future<void> _runNewPackageBootstrap(List<PackageInfo> packagesNeedingPublish) async {
+  Future<void> _runNewPackageBootstrap(
+    List<PackageInfo> packagesNeedingPublish,
+  ) async {
     final newPackages = packagesNeedingPublish
         .where((pkg) => _newPackages.contains(pkg.name))
         .toList();
@@ -451,8 +453,9 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     pubspecYaml
       ..writeln('environment:')
       ..writeln("  sdk: '$sdkConstraint'");
-    File(p.join(pkgDir.path, 'pubspec.yaml'))
-        .writeAsStringSync(pubspecYaml.toString());
+    File(
+      p.join(pkgDir.path, 'pubspec.yaml'),
+    ).writeAsStringSync(pubspecYaml.toString());
 
     // Overwrite README.md
     File(p.join(pkgDir.path, 'README.md')).writeAsStringSync(
@@ -473,8 +476,8 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     File(p.join(pkgDir.path, 'LICENSE')).writeAsStringSync(apacheLicenseText);
 
     final adminUrl = 'https://pub.dev/packages/$pkgName/admin';
-    final repoInfo = pubspec.repository?.toString() ??
-        pubspec.homepage?.toString();
+    final repoInfo =
+        pubspec.repository?.toString() ?? pubspec.homepage?.toString();
 
     if (dryRun) {
       stdout
@@ -553,6 +556,12 @@ Future<void> runBuildRunner(
   // Run `pub get` to ensure `build_runner` is available.
   await runPub(package.flavor, ['get'], package, verbose: verbose);
   logger.debug('Running build_runner for ${package.name}...');
+  // Force JIT compilation to avoid a regression in Dart 3.10.x where
+  // `dart compile exe` (used by `build_runner`'s default AOT path) fails when
+  // the package graph contains native-assets build hooks (e.g. from `win32`,
+  // `sqlite3`). See https://github.com/dart-lang/build/issues/4343 and
+  // https://github.com/dart-lang/sdk/issues/62593. The fix ships in Dart 3.11+;
+  // forcing JIT keeps bootstrap working on the minimum supported SDK (3.10.0).
   final buildRunnerCmd = await Process.start(
     package.flavor.entrypoint,
     [
@@ -560,6 +569,7 @@ Future<void> runBuildRunner(
       'run',
       'build_runner',
       'build',
+      '--force-jit',
       '--delete-conflicting-outputs',
     ],
     runInShell: true,
