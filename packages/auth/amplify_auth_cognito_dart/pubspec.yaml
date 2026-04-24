@@ -34,8 +34,8 @@ dependencies:
   stream_transform: ^2.1.0
   uuid: ^4.5.1
   web: ^1.1.1
-  win32: ^5.14.0
-  win32_registry: ^2.1.0
+  win32: ^6.1.0
+  win32_registry: ^3.0.3
   worker_bee: ">=0.3.9 <0.4.0"
 
 dev_dependencies:

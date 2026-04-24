@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:convert';
 import 'dart:ffi';
 import 'dart:typed_data';
@@ -5,15 +8,7 @@ import 'dart:typed_data';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/utils.dart';
 import 'package:ffi/ffi.dart';
 import 'package:win32/win32.dart'
-    show
-        CryptProtectData,
-        CryptUnprotectData,
-        CRYPT_INTEGER_BLOB,
-        GetLastError,
-        // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
-        // higher
-        // ignore: deprecated_member_use
-        ERROR_SUCCESS;
+    show CryptProtectData, CryptUnprotectData, CRYPT_INTEGER_BLOB, ERROR_SUCCESS;
 
 /// Encrypts the provided string as a [Uint8List].
 Uint8List encryptString(String value) {
@@ -35,21 +30,16 @@ Uint8List encrypt(Uint8List list) {
       ..ref.cbData = list.length
       ..ref.pbData = blob;
     final encryptedPtr = arena<CRYPT_INTEGER_BLOB>();
-    CryptProtectData(
+    final result = CryptProtectData(
       dataPtr,
-      nullptr, // no label
-      nullptr, // no added entropy
-      nullptr, // reserved
-      nullptr, // no prompt
+      null, // no label
+      null, // no added entropy
+      null, // no prompt
       0, // default flag
       encryptedPtr,
     );
-    final errorCode = GetLastError();
-    // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
-    // higher
-    // ignore: deprecated_member_use
-    if (errorCode != ERROR_SUCCESS) {
-      throw getExceptionFromErrorCode(errorCode);
+    if (result.error != ERROR_SUCCESS) {
+      throw getExceptionFromErrorCode(result.error);
     }
     final encryptedBlob = encryptedPtr.ref;
     return encryptedBlob.pbData.asTypedList(encryptedBlob.cbData);
@@ -64,21 +54,16 @@ Uint8List decrypt(Uint8List list) {
       ..ref.cbData = list.length
       ..ref.pbData = blob;
     final unencryptedPtr = arena<CRYPT_INTEGER_BLOB>();
-    CryptUnprotectData(
+    final result = CryptUnprotectData(
       dataPtr,
-      nullptr, // no label
-      nullptr, // no added entropy
-      nullptr, // reserved
-      nullptr, // no prompt
+      null, // no label
+      null, // no added entropy
+      null, // no prompt
       0, // default flag
       unencryptedPtr,
     );
-    final errorCode = GetLastError();
-    // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
-    // higher
-    // ignore: deprecated_member_use
-    if (errorCode != ERROR_SUCCESS) {
-      throw getExceptionFromErrorCode(errorCode);
+    if (result.error != ERROR_SUCCESS) {
+      throw getExceptionFromErrorCode(result.error);
     }
     final unencryptedDataBlob = unencryptedPtr.ref;
     final unencryptedBlob = unencryptedDataBlob.pbData.asTypedList(
