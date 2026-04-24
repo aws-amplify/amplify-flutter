@@ -62,10 +62,15 @@ jobs:
       - name: Enable running PowerShell scripts
         run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
+      - name: Enable Windows desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: Build Windows app (runs native-assets build hooks to download win32 DLL)
+        run: dart pub global run aft exec --include=${{ inputs.package-name }} -- flutter build windows --debug
+
       - name: Run integration tests
         timeout-minutes: 320
         run: |
-          flutter config --enable-windows-desktop
           ${{ github.workspace }}/build-support/windows_timeout_attempts.ps1 5 60 "dart pub global run aft exec --include=${{ inputs.package-name }} -- flutter test integration_test/main_test.dart -d windows"
 
       - name: Log success/failure
