@@ -8,11 +8,7 @@ import 'dart:typed_data';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/utils.dart';
 import 'package:ffi/ffi.dart';
 import 'package:win32/win32.dart'
-    show
-        CryptProtectData,
-        CryptUnprotectData,
-        CRYPT_INTEGER_BLOB,
-        ERROR_SUCCESS;
+    show CryptProtectData, CryptUnprotectData, CRYPT_INTEGER_BLOB;
 
 /// Encrypts the provided string as a [Uint8List].
 Uint8List encryptString(String value) {
@@ -42,7 +38,7 @@ Uint8List encrypt(Uint8List list) {
       0, // default flag
       encryptedPtr,
     );
-    if (result.error != ERROR_SUCCESS) {
+    if (!result.value) {
       throw getExceptionFromErrorCode(result.error);
     }
     final encryptedBlob = encryptedPtr.ref;
@@ -66,7 +62,7 @@ Uint8List decrypt(Uint8List list) {
       0, // default flag
       unencryptedPtr,
     );
-    if (result.error != ERROR_SUCCESS) {
+    if (!result.value) {
       throw getExceptionFromErrorCode(result.error);
     }
     final unencryptedDataBlob = unencryptedPtr.ref;
