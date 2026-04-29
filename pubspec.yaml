@@ -24,10 +24,10 @@ dependencies:
   # This must roughly match what's included in `dart format`
   # on stable so that CI checks pass for generated code.
   dart_style: ^3.0.1
-  device_info_plus: ^12.0.0
-  drift: ^2.25.0
-  drift_dev: ^2.25.1
-  ffigen: ^9.0.0
+  device_info_plus: ^13.1.0
+  drift: ^2.32.1
+  drift_dev: ^2.32.1
+  ffigen: ^20.1.1
   file: ^7.0.1
   flutter_plugin_android_lifecycle: ^2.0.9
   graphs: ^2.1.0
@@ -37,13 +37,13 @@ dependencies:
   json_serializable: ^6.11.0
   mime: ^2.0.0
   oauth2: ^2.0.2
-  package_info_plus: ^9.0.0
+  package_info_plus: ^10.1.0
   pigeon: ^26.0.0
-  sqlite3: ^2.7.6
+  sqlite3: ^3.3.1
   source_gen: ^4.0.0
   stack_trace: ^1.10.0
   uuid: ^4.5.1
-  win32: ^5.14.0
+  win32: ^6.1.0
   xml: ^6.5.0
   test: ^1.22.1
 
