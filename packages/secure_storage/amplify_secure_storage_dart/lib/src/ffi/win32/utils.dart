@@ -6,11 +6,11 @@ import 'dart:typed_data';
 
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
-import 'package:win32/win32.dart'
-    show Uint8ListBlobConversion, WindowsException, HRESULT_FROM_WIN32;
+import 'package:win32/win32.dart' show WindowsException, WIN32_ERROR;
 
 extension Uint8ListBlobConversionX on Uint8List {
-  /// Alternative to [allocatePointer] from win32, which accepts an allocator
+  /// Copies the bytes of this [Uint8List] into a native `Pointer<Uint8>`
+  /// using the provided [allocator].
   Pointer<Uint8> allocatePointerWith(Allocator allocator) {
     final blob = allocator<Uint8>(length);
     blob.asTypedList(length).setAll(0, this);
@@ -18,9 +18,9 @@ extension Uint8ListBlobConversionX on Uint8List {
   }
 }
 
-/// Returns a [SecureStorageException] from the Win32 error code
+/// Returns a [SecureStorageException] from the Win32 error code.
 SecureStorageException getExceptionFromErrorCode(int errorCode) {
-  final underlying = WindowsException(HRESULT_FROM_WIN32(errorCode));
+  final underlying = WindowsException(WIN32_ERROR(errorCode).toHRESULT());
   return UnknownException(
     'An unknown exception occurred.',
     recoverySuggestion: SecureStorageException.missingRecovery,

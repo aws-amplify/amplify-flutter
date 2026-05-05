@@ -293,10 +293,15 @@ override_platforms:
     }
 
     // Run built_value generator
+    // `--force-jit` avoids a Dart 3.10.x regression where AOT compilation of
+    // the build_runner entrypoint fails when the package graph contains
+    // native-assets build hooks. Fixed in Dart 3.11+; see
+    // https://github.com/dart-lang/build/issues/4343.
     final buildRunnerCmd = await Process.start('dart', [
       'run',
       'build_runner',
       'build',
+      '--force-jit',
       '--delete-conflicting-outputs',
     ], workingDirectory: outputPath);
     buildRunnerCmd.stdout

@@ -4,8 +4,8 @@ version: 0.1.0
 publish_to: none
 
 environment:
-  sdk: ^3.9.0
-  flutter: ">=3.35.0"
+  sdk: ^3.10.0
+  flutter: ">=3.38.1"
 
 dependencies:
   amplify_auth_cognito: any
@@ -14,7 +14,7 @@ dependencies:
   amplify_flutter: any
   amplify_secure_storage: any
   amplify_storage_s3: any
-  file_picker: any
+  file_selector: ^1.1.0
   flutter:
     sdk: flutter
   go_router: ^6.5.7

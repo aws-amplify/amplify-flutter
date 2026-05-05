@@ -3,8 +3,8 @@ description: Example app for amplify_firehose.
 publish_to: none
 
 environment:
-  sdk: ^3.9.0
-  flutter: ">=3.35.0"
+  sdk: ^3.10.0
+  flutter: ">=3.38.1"
 
 dependencies:
   amplify_auth_cognito: ">=2.10.0 <2.11.0"
