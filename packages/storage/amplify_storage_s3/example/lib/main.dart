@@ -6,7 +6,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
@@ -125,26 +125,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // upload a file to the S3 bucket
   Future<void> _uploadFile() async {
-    final result = await FilePicker.pickFiles(
-      type: FileType.image,
-      withReadStream: true,
-      withData: false,
+    const typeGroup = XTypeGroup(
+      label: 'images',
+      extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'],
+      mimeTypes: ['image/*'],
+      uniformTypeIdentifiers: ['public.image'],
     );
+    final file = await openFile(acceptedTypeGroups: [typeGroup]);
 
-    if (result == null) {
+    if (file == null) {
       _logger.debug('No file selected');
       return;
     }
 
-    final platformFile = result.files.single;
-
     try {
+      final size = await file.length();
       await Amplify.Storage.uploadFile(
-        localFile: AWSFile.fromStream(
-          platformFile.readStream!,
-          size: platformFile.size,
-        ),
-        path: StoragePath.fromString('public/${platformFile.name}'),
+        localFile: AWSFile.fromStream(file.openRead(), size: size),
+        path: StoragePath.fromString('public/${file.name}'),
         onProgress: (p) =>
             _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
       ).result;

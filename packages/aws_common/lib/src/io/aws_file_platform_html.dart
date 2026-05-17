@@ -179,8 +179,10 @@ class AWSFilePlatform extends AWSFile {
     late http.Response response;
     try {
       response = await BrowserClient().get(Uri.parse(path));
-    } on ProgressEvent catch (e) {
-      if (e.type == 'error') {
+    } on Object catch (e) {
+      final jsError = e as JSAny?;
+      if (jsError.isA<ProgressEvent>() &&
+          (jsError as ProgressEvent).type == 'error') {
         throw const InvalidFileException(
           message: 'Could resolve file blob from provide path.',
           recoverySuggestion:

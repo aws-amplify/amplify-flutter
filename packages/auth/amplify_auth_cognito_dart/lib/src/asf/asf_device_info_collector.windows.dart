@@ -29,8 +29,8 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
   /// {@macro amplify_auth_cognito_dart.asf.asf_device_info_windows}
   ASFDeviceInfoWindows() : super.base();
 
-  WindowsException get _lastException =>
-      WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+  WindowsException _exceptionFor(WIN32_ERROR error) =>
+      WindowsException(error.toHRESULT());
 
   /// Retrieves the package information.
   /// Adapted from:
@@ -38,29 +38,39 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
   /// - https://github.com/dart-windows/win32/blob/5f305167bfe181abbc663a7f7f2a0787910fac21/example/filever.dart#L22
   /// - https://learn.microsoft.com/en-us/windows/win32/api/winver/nf-winver-verqueryvaluea
   late final PackageInfo? _packageInfo = using((arena) {
-    final lptstrFilename = wsalloc(MAX_PATH);
-    arena.onReleaseAll(() => free(lptstrFilename));
-    if (FAILED(GetModuleFileName(0, lptstrFilename, MAX_PATH))) {
-      logger.error('Could not retrieve filename', _lastException);
+    final lptstrFilename = wsalloc(MAX_PATH, arena);
+    final fileNameResult = GetModuleFileName(null, lptstrFilename, MAX_PATH);
+    if (fileNameResult.value == 0) {
+      logger.error(
+        'Could not retrieve filename',
+        _exceptionFor(fileNameResult.error),
+      );
       return null;
     }
-    final verSize = GetFileVersionInfoSize(lptstrFilename, nullptr);
+    final filenamePcwstr = PCWSTR(lptstrFilename);
+    final verSizeResult = GetFileVersionInfoSize(filenamePcwstr, null);
+    final verSize = verSizeResult.value;
     if (verSize == 0) {
-      logger.error('Could not retrieve file info size', _lastException);
+      logger.error(
+        'Could not retrieve file info size',
+        _exceptionFor(verSizeResult.error),
+      );
       return null;
     }
     final verData = arena<BYTE>(verSize);
-    if (FAILED(GetFileVersionInfo(lptstrFilename, NULL, verSize, verData))) {
-      logger.error('Could not retrieve file info', _lastException);
+    final verInfoResult = GetFileVersionInfo(filenamePcwstr, verSize, verData);
+    if (!verInfoResult.value) {
+      logger.error(
+        'Could not retrieve file info',
+        _exceptionFor(verInfoResult.error),
+      );
       return null;
     }
 
     final fileInfoPtr = arena<Pointer<VS_FIXEDFILEINFO>>();
     final lenFileInfo = arena<UINT>();
-    final lpSubBlock = TEXT(r'\');
-    arena.onReleaseAll(() => free(lpSubBlock));
-    if (FAILED(VerQueryValue(verData, lpSubBlock, fileInfoPtr, lenFileInfo))) {
-      logger.error('Could not query file info', _lastException);
+    if (!VerQueryValue(verData, arena.pcwstr(r'\'), fileInfoPtr, lenFileInfo)) {
+      logger.error('Could not query file info');
       return null;
     }
 
@@ -74,12 +84,14 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
 
     final lpTranslate = arena<Pointer<_LANGANDCODEPAGE>>();
     final lenTranslate = arena<UINT>();
-    final lpTranslateSubBlock = TEXT(r'\VarFileInfo\Translation');
-    arena.onReleaseAll(() => free(lpTranslateSubBlock));
-    if (FAILED(
-      VerQueryValue(verData, lpTranslateSubBlock, lpTranslate, lenTranslate),
+    final lpTranslateSubBlock = arena.pcwstr(r'\VarFileInfo\Translation');
+    if (!VerQueryValue(
+      verData,
+      lpTranslateSubBlock,
+      lpTranslate,
+      lenTranslate,
     )) {
-      logger.error('Could not retrieve translation info', _lastException);
+      logger.error('Could not retrieve translation info');
     }
 
     String toHex(int value) => value.toRadixString(16).padLeft(4, '0');
@@ -88,20 +100,17 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
       final langCodepageArr = lpTranslate.value;
       final n = lenTranslate.value / sizeOf<_LANGANDCODEPAGE>();
       final langCodepages = [
-        // TODO(equartey): `.elementAt(i)` is depreciated in Dart 3.3.0. Use `(langCodepageArr + i).ref` when min Dart version is 3.3.0 or higher
-        // ignore: deprecated_member_use
-        for (var i = 0; i < n; i++) langCodepageArr.elementAt(i).ref,
+        for (var i = 0; i < n; i++) (langCodepageArr + i).ref,
       ];
       for (final _LANGANDCODEPAGE(:wLanguage, :wCodepage) in langCodepages) {
         final lpBuffer = arena<LPWSTR>();
         final puLen = arena<UINT>();
         final lang = toHex(wLanguage);
         final codepage = toHex(wCodepage);
-        final lpSubBlock = TEXT('\\StringFileInfo\\$lang$codepage\\$name');
-        arena.onReleaseAll(() => free(lpSubBlock));
-        if (SUCCEEDED(
-          VerQueryValue(lpTranslateSubBlock, lpSubBlock, lpBuffer, puLen),
-        )) {
+        final lpSubBlock = arena.pcwstr(
+          '\\StringFileInfo\\$lang$codepage\\$name',
+        );
+        if (VerQueryValue(lpTranslateSubBlock, lpSubBlock, lpBuffer, puLen)) {
           if (lpBuffer != nullptr && puLen.value > 0) {
             return lpBuffer.value.toDartString(length: puLen.value);
           }
@@ -134,32 +143,28 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
   // https://github.com/fluttercommunity/plus_plugins/blob/e8d3b445ce52012456126a3844ddb49b92c5c850/packages/device_info_plus/device_info_plus/lib/src/device_info_plus_windows.dart
 
   late final _WindowsDeviceInfo _systemInfo = using((arena) {
-    // TODO(dnys1): Use better mechanism for determining OS version.
-    // See:
-    // - https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversionexw
-    // - https://github.com/dart-windows/win32/blob/5f305167bfe181abbc663a7f7f2a0787910fac21/example/manifest/README.md
+    // See: https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-rtlgetversion
     var osVersion = 'Windows';
     final osVersionInfo = arena<OSVERSIONINFO>()
       ..ref.dwOSVersionInfoSize = sizeOf<OSVERSIONINFO>();
-    if (SUCCEEDED(GetVersionEx(osVersionInfo))) {
+    final status = RtlGetVersion(osVersionInfo);
+    if (status.isOk) {
       final OSVERSIONINFO(:dwMajorVersion, :dwMinorVersion, :dwBuildNumber) =
           osVersionInfo.ref;
       osVersion += '/$dwMajorVersion.$dwMinorVersion.$dwBuildNumber';
     } else {
-      logger.error('Error retrieving OS version', _lastException);
+      logger.error('Error retrieving OS version: $status');
     }
-    if (IsWindows10OrGreater() == TRUE) {
+    if (IsWindows10OrGreater()) {
       osVersion += '/10+';
     }
-    if (IsWindowsServer() == TRUE) {
+    if (IsWindowsServer()) {
       osVersion += '/Server';
     }
     // See: https://stackoverflow.com/a/65912938
-    final sqmClientKey = Registry.openPath(
-      RegistryHive.localMachine,
-      path: r'SOFTWARE\Microsoft\SQMClient',
-    );
-    final deviceId = sqmClientKey.getStringValue('MachineId');
+    final sqmClientKey = LOCAL_MACHINE.open(r'SOFTWARE\Microsoft\SQMClient');
+    final deviceId = sqmClientKey.getString('MachineId');
+    sqmClientKey.close();
     return (osVersion: osVersion, deviceId: deviceId);
   });
 
@@ -170,12 +175,16 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
   late final Future<String?> deviceLanguage = using((arena) async {
     // From: https://learn.microsoft.com/en-us/windows/win32/intl/locale-name-constants
     const LOCALE_NAME_MAX_LENGTH = 85;
-    final lpLocaleName = wsalloc(LOCALE_NAME_MAX_LENGTH);
-    arena.onReleaseAll(() => free(lpLocaleName));
-    if (FAILED(
-      GetUserDefaultLocaleName(lpLocaleName, LOCALE_NAME_MAX_LENGTH),
-    )) {
-      logger.error('Could not retrieve device language', _lastException);
+    final lpLocaleName = wsalloc(LOCALE_NAME_MAX_LENGTH, arena);
+    final result = GetUserDefaultLocaleName(
+      lpLocaleName,
+      LOCALE_NAME_MAX_LENGTH,
+    );
+    if (result.value == 0) {
+      logger.error(
+        'Could not retrieve device language',
+        _exceptionFor(result.error),
+      );
       return null;
     }
     return lpLocaleName.toDartString();
@@ -185,25 +194,23 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
   late final Future<String?> deviceName = using((arena) async {
     // Retrieves the computer's name using `GetComputerName`:
     // https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getcomputernamew
-    final lpBuffer = arena<Uint16>(256).cast<Utf16>();
+    final lpBuffer = wsalloc(256, arena);
     final nSize = arena<DWORD>()..value = 256;
-    if (FAILED(GetComputerName(lpBuffer, nSize))) {
-      logger.error('Could not retrieve computer name', _lastException);
+    final result = GetComputerName(lpBuffer, nSize);
+    if (!result.value) {
+      logger.error(
+        'Could not retrieve computer name',
+        _exceptionFor(result.error),
+      );
       return null;
     }
     return lpBuffer.toDartString(length: nSize.value);
   });
 
   @override
-  // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
-  // higher
-  // ignore: deprecated_member_use
   Future<int?> get screenHeightPixels async => GetSystemMetrics(SM_CYSCREEN);
 
   @override
-  // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
-  // higher
-  // ignore: deprecated_member_use
   Future<int?> get screenWidthPixels async => GetSystemMetrics(SM_CXSCREEN);
 
   @override

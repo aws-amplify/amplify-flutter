@@ -1,9 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_kinesis_dart/src/impl/auto_flush_scheduler.dart';
-import 'package:amplify_kinesis_dart/src/impl/record_client.dart';
-import 'package:amplify_kinesis_dart/src/model/flush_data.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';

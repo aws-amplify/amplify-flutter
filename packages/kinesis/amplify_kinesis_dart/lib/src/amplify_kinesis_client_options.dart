@@ -3,7 +3,7 @@
 
 import 'package:amplify_kinesis_dart/src/amplify_kinesis_client.dart'
     show AmplifyKinesisClient;
-import 'package:amplify_kinesis_dart/src/flush_strategy/flush_strategy.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 
 /// {@template amplify_kinesis.amplify_kinesis_client_options}
 /// Configuration options for [AmplifyKinesisClient].

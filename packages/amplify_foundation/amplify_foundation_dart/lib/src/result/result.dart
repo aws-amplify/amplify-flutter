@@ -18,10 +18,10 @@ sealed class Result<T> {
   const Result();
 
   /// Creates a successful [Result] with the specified [value].
-  const factory Result.ok(T value) = Ok._;
+  const factory Result.ok(T value) = Ok<T>._;
 
   /// Creates an error [Result] with the specified [error].
-  const factory Result.error(Exception error) = Error._;
+  const factory Result.error(Exception error) = Error<T>._;
 }
 
 /// {@template amplify_foundation_dart.ok}

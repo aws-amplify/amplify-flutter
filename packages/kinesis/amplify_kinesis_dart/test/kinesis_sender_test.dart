@@ -10,8 +10,8 @@ library;
 import 'dart:typed_data';
 
 import 'package:amplify_kinesis_dart/src/impl/kinesis_sender.dart';
-import 'package:amplify_kinesis_dart/src/model/record.dart';
 import 'package:amplify_kinesis_dart/src/sdk/kinesis.dart';
+import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -79,7 +79,7 @@ void main() {
 
       final sender = _DirectMockSender(mockClient, maxRetries: maxRetries);
 
-      await sender.putRecords(
+      await sender.sendBatch(
         streamName: 'my-stream',
         records: [
           _testRecord(
@@ -132,7 +132,7 @@ void main() {
 
         final sender = _DirectMockSender(mockClient, maxRetries: maxRetries);
 
-        final result = await sender.putRecords(
+        final result = await sender.sendBatch(
           streamName: 'test-stream',
           records: [
             _testRecord(

@@ -22,7 +22,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - "3.9.0"
+          - "3.10.0"
           - stable
           - beta
         browser:
@@ -33,7 +33,7 @@ jobs:
           - sdk: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Cache Pub dependencies
-        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # 5.0.4
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # 5.0.5
         with:
           path: |
             ~/.pub-cache/hosted
@@ -81,5 +81,9 @@ jobs:
 
       - name: Run Tests
         if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: dart run build_runner build test --release --delete-conflicting-outputs && dart test -p ${{ matrix.browser }}
+        # `--force-jit` works around a Dart 3.10.x regression where AOT
+        # compilation of the build_runner entrypoint fails on package graphs
+        # containing native-assets build hooks. Fixed in Dart 3.11+; see
+        # https://github.com/dart-lang/build/issues/4343.
+        run: dart run build_runner build test --force-jit --release --delete-conflicting-outputs && dart test -p ${{ matrix.browser }}
         working-directory: ${{ inputs.working-directory }}

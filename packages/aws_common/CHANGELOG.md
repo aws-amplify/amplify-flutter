@@ -1,3 +1,8 @@
+## 0.7.13
+
+### Fixes
+- fix(aws_common): Use isA for JS interop type check in catch clause ([#6859](https://github.com/aws-amplify/amplify-flutter/pull/6859))
+
 ## 0.7.12
 
 - Minor bug fixes and improvements

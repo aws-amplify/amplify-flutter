@@ -1,6 +1,6 @@
 name: amplify_kinesis
 description: A Flutter implementation for streaming data to Amazon Kinesis Data Streams with offline support.
-version: 2.11.0
+version: 2.11.1
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/kinesis/amplify_kinesis
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -13,8 +13,8 @@ topics:
   - aws-amplify
 
 environment:
-  sdk: ^3.9.0
-  flutter: ">=3.35.0"
+  sdk: ^3.10.0
+  flutter: ">=3.38.1"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:

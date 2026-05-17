@@ -8,7 +8,7 @@ void main() {
   group('Result Tests', () {
     group('Ok', () {
       const payload = 'payload';
-      const ok = Result.ok(payload);
+      const ok = Result<String>.ok(payload);
 
       test('value', () {
         expect((ok as Ok<String>).value, payload);
