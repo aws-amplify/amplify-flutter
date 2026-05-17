@@ -26,6 +26,7 @@ class StateMachineBloc
     required this.preferPrivateSession,
     this.initialStep = AuthenticatorStep.signIn,
     this.totpOptions,
+    this.passwordlessSettings,
   }) : _authService = authService {
     _hubSubscription = _authService.hubEvents.listen(_mapHubEvent);
     final blocStream = _authEventStream.asyncExpand((event) async* {
@@ -42,6 +43,10 @@ class StateMachineBloc
   final bool preferPrivateSession;
   final AuthenticatorStep initialStep;
   final TotpOptions? totpOptions;
+  final PasswordlessSettings? passwordlessSettings;
+
+  /// Tracks whether the current sign-in flow originated from a sign-up.
+  bool _isSignUpFlow = false;
 
   @override
   String get runtimeTypeName => 'StateMachineBloc';
@@ -135,6 +140,10 @@ class StateMachineBloc
       yield const AuthenticatedState();
     } else if (event is AuthResendSignUpCode) {
       yield* _resendSignUpCode(event.username);
+    } else if (event is AuthPasskeyRegister) {
+      yield* _registerPasskey();
+    } else if (event is AuthPasskeySkip) {
+      yield const AuthenticatedState();
     }
   }
 
@@ -152,7 +161,8 @@ class StateMachineBloc
         // AuthenticatedState will be emitted by the bloc when the verification
         // is completed successfully.
         if (currentState is VerifyUserFlow ||
-            currentState is AttributeVerificationSent) {
+            currentState is AttributeVerificationSent ||
+            currentState is PasskeyPromptState) {
           break;
         }
         nextState = const AuthenticatedState();
@@ -262,18 +272,14 @@ class StateMachineBloc
           }
           yield* _checkUserVerification();
         case AuthSignInStep.continueSignInWithFirstFactorSelection:
-        case AuthSignInStep.confirmSignInWithOtp:
-        case AuthSignInStep.confirmSignInWithPassword:
-          // TODO(cadivus): Implement Passwordless Authenticator. See:
-          // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html#amazon-cognito-user-pools-authentication-flow-methods-passkey
-          // https://docs.amplify.aws/react/build-a-backend/auth/concepts/passwordless/#webauthn-passkey
-          _exceptionController.add(
-            AuthenticatorException(
-              'Passwordless is not supported at this time. Please try again.',
-              showBanner: true,
-            ),
+          yield ContinueSignInWithFirstFactorSelection(
+            availableFactors: result.nextStep.availableFactors,
           );
-          yield* _changeScreen(initialStep);
+        case AuthSignInStep.confirmSignInWithOtp:
+          _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
+          yield UnauthenticatedState.confirmSignInWithOtpCode;
+        case AuthSignInStep.confirmSignInWithPassword:
+          yield UnauthenticatedState.confirmSignInNewPassword;
       }
     } on AuthNotAuthorizedException {
       /// The .failAuthentication flag available in the DefineAuthChallenge Lambda trigger
@@ -374,6 +380,17 @@ class StateMachineBloc
             _emit(state);
           }
         }
+      case AuthSignInStep.continueSignInWithFirstFactorSelection:
+        _emit(
+          ContinueSignInWithFirstFactorSelection(
+            availableFactors: result.nextStep.availableFactors,
+          ),
+        );
+      case AuthSignInStep.confirmSignInWithOtp:
+        _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
+        _emit(UnauthenticatedState.confirmSignInWithOtpCode);
+      case AuthSignInStep.confirmSignInWithPassword:
+        _emit(UnauthenticatedState.confirmSignInNewPassword);
       default:
         break;
     }
@@ -388,6 +405,12 @@ class StateMachineBloc
 
       if (data is AuthUsernamePasswordSignInData) {
         final result = await _authService.signIn(data.username, data.password);
+        await _processSignInResult(result, isSocialSignIn: false);
+      } else if (data is AuthPasswordlessSignInData) {
+        final result = await _authService.signInPasswordless(
+          data.username,
+          preferredFactor: data.preferredFactor,
+        );
         await _processSignInResult(result, isSocialSignIn: false);
       } else if (data is AuthSocialSignInData) {
         await _authService
@@ -435,6 +458,8 @@ class StateMachineBloc
   }
 
   Stream<AuthState> _checkUserVerification() async* {
+    final isSignUp = _isSignUpFlow;
+    _isSignUpFlow = false;
     try {
       final attributeVerificationStatus = await _authService
           .getAttributeVerificationStatus();
@@ -445,11 +470,72 @@ class StateMachineBloc
       if (verifiedAttributes.isEmpty && unverifiedAttributes.isNotEmpty) {
         yield VerifyUserFlow(unverifiedAttributeKeys: unverifiedAttributes);
       } else {
-        yield const AuthenticatedState();
+        yield* _checkPasskeyRegistrationPrompt(isSignUp: isSignUp);
       }
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e, showBanner: false));
       yield const AuthenticatedState();
+    }
+  }
+
+  Stream<AuthState> _checkPasskeyRegistrationPrompt({
+    required bool isSignUp,
+  }) async* {
+    try {
+      final promptConfig = passwordlessSettings?.passkeyRegistrationPrompts;
+      if (promptConfig == null) {
+        yield const AuthenticatedState();
+        return;
+      }
+
+      final shouldPrompt = isSignUp
+          ? promptConfig.isEnabledAfterSignUp
+          : promptConfig.isEnabledAfterSignIn;
+
+      if (!shouldPrompt) {
+        yield const AuthenticatedState();
+        return;
+      }
+
+      // Check if passkeys are supported on this platform
+      try {
+        final supported = await Amplify.Auth.isPasskeySupported();
+        if (!supported) {
+          yield const AuthenticatedState();
+          return;
+        }
+      } on Exception {
+        yield const AuthenticatedState();
+        return;
+      }
+
+      // Check if user already has passkeys — skip prompt if they do
+      try {
+        final credentials = await Amplify.Auth.listWebAuthnCredentials();
+        if (credentials.isNotEmpty) {
+          yield const AuthenticatedState();
+          return;
+        }
+      } on Exception {
+        // listWebAuthnCredentials failed — still show the prompt
+      }
+
+      // Show prompt
+      yield const PasskeyPromptState();
+    } on Exception catch (e) {
+      // If checking fails, proceed to authenticated (don't block sign-in)
+      _exceptionController.add(AuthenticatorException(e, showBanner: false));
+      yield const AuthenticatedState();
+    }
+  }
+
+  Stream<AuthState> _registerPasskey() async* {
+    yield const PasskeyPromptState(isRegistering: true);
+    try {
+      await Amplify.Auth.associateWebAuthnCredential();
+      yield const AuthenticatedState();
+    } on Exception catch (e) {
+      yield PasskeyPromptState(errorMessage: e.toString());
     }
   }
 
@@ -466,6 +552,7 @@ class StateMachineBloc
           _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
           yield UnauthenticatedState.confirmSignUp;
         case AuthSignUpStep.done:
+          _isSignUpFlow = true;
           final authSignInData = AuthUsernamePasswordSignInData(
             username: data.username,
             password: data.password,

@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
   s.ios.dependency 'Flutter'
   s.osx.dependency 'FlutterMacOS'
 
-  s.ios.framework = 'UIKit'
-  s.osx.frameworks = 'AppKit', 'IOKit'
+  s.ios.frameworks = 'UIKit', 'AuthenticationServices'
+  s.osx.frameworks = 'AppKit', 'IOKit', 'AuthenticationServices'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 
   # Flutter.framework does not contain a i386 slice.
@@ -27,6 +27,6 @@ Pod::Spec.new do |s|
 
   # These are needed to support async/await and ASWebAuthenticationSession
   s.ios.deployment_target = '13.0'
-  s.osx.deployment_target = '10.15'
+  s.osx.deployment_target = '13.5'
   s.swift_version = '5.9'
 end

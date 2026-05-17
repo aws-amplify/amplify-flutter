@@ -17,6 +17,7 @@ part 'auth/session_expired_exception.dart';
 part 'auth/signed_out_exception.dart';
 part 'auth/user_cancelled_exception.dart';
 part 'auth/validation_exception.dart';
+part 'auth/passkey_exception.dart';
 part 'network_exception.dart';
 part 'push/push_notification_exception.dart';
 part 'storage/access_denied_exception.dart';

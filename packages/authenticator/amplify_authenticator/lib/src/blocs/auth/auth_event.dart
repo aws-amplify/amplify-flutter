@@ -87,3 +87,15 @@ class AuthResendSignUpCode extends AuthEvent {
 
   final String username;
 }
+
+/// Event dispatched when the user taps "Create a passkey" or "Set up another passkey"
+/// on the passkey registration prompt screen.
+class AuthPasskeyRegister extends AuthEvent {
+  const AuthPasskeyRegister();
+}
+
+/// Event dispatched when the user taps "Continue without a passkey" or "Continue"
+/// on the passkey registration prompt screen to proceed to authenticated state.
+class AuthPasskeySkip extends AuthEvent {
+  const AuthPasskeySkip();
+}

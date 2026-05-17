@@ -82,6 +82,32 @@ abstract class NativeAuthBridge {
   void deleteLegacyDeviceSecrets(String username, String userPoolId);
 }
 
+/// Pigeon bridge for WebAuthn/passkey operations.
+///
+/// Platform implementations (iOS/macOS via `ASAuthorizationController`,
+/// Android via `CredentialManager`) handle the native ceremony and return
+/// JSON-serialized W3C WebAuthn Level 3 response objects.
+@HostApi()
+abstract class WebAuthnBridgeApi {
+  /// Creates a new passkey credential on the device.
+  ///
+  /// [optionsJson] is a JSON-serialized `PublicKeyCredentialCreationOptions`.
+  /// Returns a JSON-serialized `RegistrationResponseJSON`.
+  @async
+  String createCredential(String optionsJson);
+
+  /// Retrieves a passkey credential assertion for authentication.
+  ///
+  /// [optionsJson] is a JSON-serialized `PublicKeyCredentialRequestOptions`.
+  /// Returns a JSON-serialized `AuthenticationResponseJSON`.
+  @async
+  String getCredential(String optionsJson);
+
+  /// Returns whether the current device/platform supports passkeys.
+  @async
+  bool isPasskeySupported();
+}
+
 class NativeUserContextData {
   String? deviceName;
   String? thirdPartyDeviceId;

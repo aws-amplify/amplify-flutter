@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: diagnostic_describe_all_properties
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/keys.dart';
@@ -9,6 +10,7 @@ import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/progress.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -107,10 +109,14 @@ class _AmplifyElevatedButtonState
   Widget build(BuildContext context) {
     final buttonResolver = stringResolver.buttons;
     final loadingIndicator = widget.loadingIndicator;
+    final isThisButtonBusy = state.isBusyFor(widget.labelKey);
+    final isBusyNoKey = state.isBusy && state.busyButtonKey == null;
+    final showSpinner =
+        (isThisButtonBusy || isBusyNoKey) && loadingIndicator != null;
     final onPressed = state.isBusy
         ? null
         : () => widget.onPressed(context, state);
-    final child = state.isBusy && loadingIndicator != null
+    final child = showSpinner
         ? loadingIndicator
         : Row(
             mainAxisSize: MainAxisSize.min,
@@ -179,7 +185,69 @@ class SignInButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
-      state.signIn();
+      state.signIn(buttonKey: labelKey);
+}
+
+/// A sign-in button that always uses the password flow, bypassing any
+/// passwordless preference. Used in the "Other sign-in options" view.
+class SignInWithPasswordButton extends AuthenticatorElevatedButton {
+  const SignInWithPasswordButton({super.key}) : super();
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.signIn;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.signInWithPassword(buttonKey: labelKey);
+}
+
+/// Password sign-in button with "Sign in with password" label.
+class SignInWithPasswordLabeledButton extends AuthenticatorElevatedButton {
+  const SignInWithPasswordLabeledButton({super.key}) : super();
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.signInWithPassword;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.signInWithPassword(buttonKey: labelKey);
+}
+
+/// A sign-in button that uses the passkey (passwordless) flow.
+class SignInWithPasskeyButton extends AuthenticatorElevatedButton {
+  const SignInWithPasskeyButton({super.key}) : super();
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.signInWithPasskey;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.signIn(buttonKey: labelKey);
+}
+
+/// A sign-in button for a specific [AuthFactorType] (passwordless).
+class FactorSignInButton extends AuthenticatorElevatedButton {
+  const FactorSignInButton({required this.factor, super.key}) : super();
+
+  final AuthFactorType factor;
+
+  @override
+  ButtonResolverKey get labelKey {
+    switch (factor) {
+      case AuthFactorType.webAuthn:
+        return ButtonResolverKey.signInWithPasskey;
+      case AuthFactorType.emailOtp:
+        return ButtonResolverKey.signInWithEmail;
+      case AuthFactorType.smsOtp:
+        return ButtonResolverKey.signInWithSms;
+      default:
+        return ButtonResolverKey.signIn;
+    }
+  }
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.signInWithFactor(factor, buttonKey: labelKey);
 }
 
 /// {@category Prebuilt Widgets}

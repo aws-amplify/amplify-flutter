@@ -21,4 +21,16 @@ class AuthenticatorMessageLocalizationsEn
 
   @override
   String get copyFailed => 'Copy to clipboard failed.';
+
+  @override
+  String get passkeyRegistrationFailed =>
+      'Passkey registration failed. Please try again or continue without a passkey.';
+
+  @override
+  String get passkeyCeremonyFailed =>
+      'Passkey sign-in failed. Please try again or choose another method.';
+
+  @override
+  String get passkeyPromptDescription =>
+      "Passkeys let you sign in securely using your device's built-in authentication.";
 }

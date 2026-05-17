@@ -1,11 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: diagnostic_describe_all_properties, cascade_invocations
+
 library;
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
+import 'package:amplify_authenticator/src/state/auth_state.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
@@ -400,8 +406,211 @@ class SignInForm extends AuthenticatorForm {
   AuthenticatorFormState<SignInForm> createState() => _SignInFormState();
 }
 
+class _PrimaryView extends StatelessWidget {
+  const _PrimaryView({
+    super.key,
+    required this.preferred,
+    required this.otherMethods,
+    required this.buttonResolver,
+    required this.onShowOther,
+  });
+
+  final AuthFactorType preferred;
+  final List<AuthFactorType> otherMethods;
+  final ButtonResolver buttonResolver;
+  final VoidCallback onShowOther;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SignInFormField.username(),
+        const SizedBox(height: 16),
+        FactorSignInButton(factor: preferred),
+        if (otherMethods.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Center(
+            child: TextButton(
+              onPressed: onShowOther,
+              child: Text(
+                buttonResolver.resolve(
+                  context,
+                  ButtonResolverKey.otherSignInOptions,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _OtherOptionsView extends StatelessWidget {
+  const _OtherOptionsView({
+    super.key,
+    required this.preferred,
+    required this.otherMethods,
+    required this.buttonResolver,
+    required this.stringResolver,
+    required this.onBack,
+  });
+
+  final AuthFactorType preferred;
+  final List<AuthFactorType> otherMethods;
+  final ButtonResolver buttonResolver;
+  final AuthStringResolver stringResolver;
+  final VoidCallback onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final username = InheritedAuthenticatorState.of(context).username;
+    final hasPassword = otherMethods.contains(AuthFactorType.password);
+    // Include the preferred method as a passwordless option on this screen
+    final passwordlessMethods = [
+      if (preferred != AuthFactorType.password) preferred,
+      ...otherMethods.where((m) => m != AuthFactorType.password),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // Read-only username
+        TextFormField(
+          initialValue: username,
+          readOnly: true,
+          enabled: false,
+          decoration: const InputDecoration(labelText: 'Email'),
+        ),
+        const SizedBox(height: 16),
+
+        // Password section
+        if (hasPassword) ...[
+          SignInFormField.password(),
+          const SizedBox(height: 8),
+          const SignInWithPasswordLabeledButton(),
+        ],
+
+        // "or" divider
+        if (hasPassword && passwordlessMethods.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              const Expanded(child: Divider()),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Text('or', style: Theme.of(context).textTheme.bodySmall),
+              ),
+              const Expanded(child: Divider()),
+            ],
+          ),
+          const SizedBox(height: 8),
+        ],
+
+        // Passwordless buttons
+        ...passwordlessMethods.map(
+          (factor) => Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: FactorSignInButton(factor: factor),
+          ),
+        ),
+
+        const SizedBox(height: 4),
+        Center(
+          child: TextButton(
+            onPressed: onBack,
+            child: Text(
+              stringResolver.buttons.backTo(context, AuthenticatorStep.signIn),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _SignInFormState extends AuthenticatorFormState<SignInForm> {
   _SignInFormState() : super();
+
+  bool _showOtherOptions = false;
+
+  PasswordlessSettings? get _passwordlessSettings {
+    return InheritedAuthBloc.of(context, listen: false).passwordlessSettings;
+  }
+
+  AuthFactorType? get _preferred {
+    // Explicit setting takes priority
+    final explicit = _passwordlessSettings?.preferredAuthMethod;
+    if (explicit != null) return explicit;
+    // Fall back to backend config
+    return InheritedConfig.of(
+      context,
+    ).amplifyOutputs?.auth?.passwordless?.preferredChallenge;
+  }
+
+  List<AuthFactorType> get _otherMethods {
+    final preferred = _preferred;
+    if (preferred == null) return [];
+    // Use explicit list if provided, otherwise derive from backend config
+    final settings = _passwordlessSettings;
+    if (settings?.availableAuthMethods != null) {
+      return settings!.otherAuthMethods;
+    }
+    final outputs = InheritedConfig.of(
+      context,
+    ).amplifyOutputs?.auth?.passwordless;
+    final all = <AuthFactorType>[
+      AuthFactorType.webAuthn,
+      if (outputs?.emailOtpEnabled ?? false) AuthFactorType.emailOtp,
+      if (outputs?.smsOtpEnabled ?? false) AuthFactorType.smsOtp,
+      AuthFactorType.password,
+    ];
+    final hidden = settings?.hiddenAuthMethods ?? [];
+    return all.where((m) => m != preferred && !hidden.contains(m)).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final preferred = _preferred;
+    // No preferred method set — use standard password form
+    if (preferred == null || preferred == AuthFactorType.password) {
+      return super.build(context);
+    }
+
+    final formKey = InheritedAuthenticatorState.of(context).formKey;
+    final buttonResolver = stringResolver.buttons;
+    final otherMethods = _otherMethods;
+
+    return Form(
+      key: formKey,
+      child: AutofillGroup(
+        child: AnimatedSwitcher(
+          duration: Duration.zero,
+          child: _showOtherOptions
+              ? _OtherOptionsView(
+                  key: const ValueKey('other'),
+                  preferred: preferred,
+                  otherMethods: otherMethods,
+                  buttonResolver: buttonResolver,
+                  stringResolver: stringResolver,
+                  onBack: () => setState(() => _showOtherOptions = false),
+                )
+              : _PrimaryView(
+                  key: const ValueKey('primary'),
+                  preferred: preferred,
+                  otherMethods: otherMethods,
+                  buttonResolver: buttonResolver,
+                  onShowOther: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      setState(() => _showOtherOptions = true);
+                    }
+                  },
+                ),
+        ),
+      ),
+    );
+  }
 
   @override
   List<Widget> runtimeActions(BuildContext context) {
@@ -694,6 +903,500 @@ class ConfirmVerifyUserForm extends AuthenticatorForm {
   @override
   AuthenticatorFormState<ConfirmVerifyUserForm> createState() =>
       AuthenticatorFormState<ConfirmVerifyUserForm>();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_with_first_factor_selection_form}
+/// A prebuilt form for selecting a first-factor authentication method.
+///
+/// This form renders a challenge selection screen with:
+/// - A read-only username display at the top
+/// - An inline password field + submit button if PASSWORD is available
+/// - A divider between password and passwordless methods
+/// - Full-width buttons for each passwordless method (passkey, email OTP, SMS OTP)
+/// - A back-to-sign-in link at the bottom
+/// {@endtemplate}
+class ContinueSignInWithFirstFactorSelectionForm extends AuthenticatorForm {
+  /// {@macro amplify_authenticator.continue_sign_in_with_first_factor_selection_form}
+  const ContinueSignInWithFirstFactorSelectionForm({super.key})
+    : super._(fields: const [], actions: const []);
+
+  @override
+  AuthenticatorFormState<ContinueSignInWithFirstFactorSelectionForm>
+  createState() => _ContinueSignInWithFirstFactorSelectionFormState();
+}
+
+class _ContinueSignInWithFirstFactorSelectionFormState
+    extends AuthenticatorFormState<ContinueSignInWithFirstFactorSelectionForm> {
+  bool _isPasskeySupported = false;
+  bool _isPasskeySupportChecked = false;
+  bool _isSubmitting = false;
+
+  /// Tracks which action initiated the submission (password or a factor key).
+  String? _submittingAction;
+  final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _checkPasskeySupport();
+  }
+
+  Future<void> _checkPasskeySupport() async {
+    try {
+      final supported = await Amplify.Auth.isPasskeySupported();
+      if (mounted) {
+        setState(() {
+          _isPasskeySupported = supported;
+          _isPasskeySupportChecked = true;
+        });
+      }
+    } on Exception {
+      if (mounted) {
+        setState(() {
+          _isPasskeySupported = false;
+          _isPasskeySupportChecked = true;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Set<AuthFactorType> get _availableFactors {
+    final bloc = InheritedAuthBloc.of(context, listen: false);
+    final currentState = bloc.currentState;
+    if (currentState is ContinueSignInWithFirstFactorSelection) {
+      return currentState.availableFactors;
+    }
+    return const {};
+  }
+
+  Set<AuthFactorType> get _filteredFactors {
+    final factors = Set<AuthFactorType>.from(_availableFactors);
+
+    // Remove passkey if not supported on this platform
+    if (!_isPasskeySupported) {
+      factors.remove(AuthFactorType.webAuthn);
+    }
+
+    // Apply hiddenAuthMethods from PasswordlessSettings if available
+    final authenticator = context
+        .findAncestorWidgetOfExactType<Authenticator>();
+    final hiddenMethods =
+        authenticator?.passwordlessSettings?.hiddenAuthMethods;
+    if (hiddenMethods != null) {
+      factors.removeAll(hiddenMethods);
+    }
+
+    return factors;
+  }
+
+  bool get _hasPassword => _filteredFactors.contains(AuthFactorType.password);
+
+  List<AuthFactorType> get _passwordlessMethods {
+    return _filteredFactors.where((f) => f != AuthFactorType.password).toList();
+  }
+
+  Future<void> _submitPassword() async {
+    final password = _passwordController.text.trim();
+    if (password.isEmpty) return;
+
+    setState(() {
+      _isSubmitting = true;
+      _submittingAction = 'password';
+    });
+
+    final confirm = AuthConfirmSignInData(confirmationValue: password);
+    final bloc = InheritedAuthBloc.of(context, listen: false);
+    bloc.add(AuthConfirmSignIn(confirm));
+    // ignore: invalid_use_of_visible_for_testing_member
+    await state.nextBlocEvent();
+
+    if (mounted) {
+      setState(() {
+        _isSubmitting = false;
+        _submittingAction = null;
+      });
+    }
+  }
+
+  Future<void> _selectFactor(AuthFactorType factor) async {
+    setState(() {
+      _isSubmitting = true;
+      _submittingAction = factor.value;
+    });
+
+    final confirm = AuthConfirmSignInData(confirmationValue: factor.value);
+    final bloc = InheritedAuthBloc.of(context, listen: false);
+    bloc.add(AuthConfirmSignIn(confirm));
+    // ignore: invalid_use_of_visible_for_testing_member
+    await state.nextBlocEvent();
+
+    if (mounted) {
+      setState(() {
+        _isSubmitting = false;
+        _submittingAction = null;
+      });
+    }
+  }
+
+  ButtonResolverKey _buttonKeyForFactor(AuthFactorType factor) {
+    switch (factor) {
+      case AuthFactorType.webAuthn:
+        return ButtonResolverKey.signInWithPasskey;
+      case AuthFactorType.emailOtp:
+        return ButtonResolverKey.signInWithEmail;
+      case AuthFactorType.smsOtp:
+        return ButtonResolverKey.signInWithSms;
+      default:
+        return ButtonResolverKey.continueLabel;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_isPasskeySupportChecked) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final buttonResolver = stringResolver.buttons;
+    final formKey = InheritedAuthenticatorState.of(context).formKey;
+    final passwordlessMethods = _passwordlessMethods;
+
+    return Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Username display (read-only)
+          if (state.username.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Text(
+                state.username,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              ),
+            ),
+
+          // Password section
+          if (_hasPassword) ...[
+            TextFormField(
+              controller: _passwordController,
+              obscureText: true,
+              enabled: !_isSubmitting,
+              decoration: InputDecoration(
+                labelText: buttonResolver.resolve(
+                  context,
+                  ButtonResolverKey.signInWithPassword,
+                ),
+              ),
+              onFieldSubmitted: (_) => _submitPassword(),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: _submittingAction == 'password'
+                  ? const Center(child: CircularProgressIndicator())
+                  : ElevatedButton(
+                      onPressed: _isSubmitting ? null : _submitPassword,
+                      child: Text(
+                        buttonResolver.resolve(
+                          context,
+                          ButtonResolverKey.signInWithPassword,
+                        ),
+                      ),
+                    ),
+            ),
+          ],
+
+          // Divider between password and passwordless methods
+          if (_hasPassword && passwordlessMethods.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                const Expanded(child: Divider()),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'or',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                const Expanded(child: Divider()),
+              ],
+            ),
+            const SizedBox(height: 16),
+          ],
+
+          // Passwordless method buttons
+          ...passwordlessMethods.map(
+            (factor) => Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: SizedBox(
+                width: double.infinity,
+                child: _submittingAction == factor.value
+                    ? const Center(child: CircularProgressIndicator())
+                    : OutlinedButton(
+                        onPressed: _isSubmitting
+                            ? null
+                            : () => _selectFactor(factor),
+                        child: Text(
+                          buttonResolver.resolve(
+                            context,
+                            _buttonKeyForFactor(factor),
+                          ),
+                        ),
+                      ),
+              ),
+            ),
+          ),
+
+          // Back to sign in
+          const SizedBox(height: 4),
+          const BackToSignInButton(),
+        ],
+      ),
+    );
+  }
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.passkey_prompt_form}
+/// A prebuilt form for the post-authentication passkey registration prompt.
+///
+/// This form has three visual states:
+/// - **Initial**: Heading, description, passkey icon, create button, skip link
+/// - **Loading**: Same layout with disabled buttons and progress indicator
+/// - **Success**: Success icon, credential list, set up another link, continue button
+/// {@endtemplate}
+class PasskeyPromptForm extends AuthenticatorForm {
+  /// {@macro amplify_authenticator.passkey_prompt_form}
+  const PasskeyPromptForm({super.key})
+    : super._(fields: const [], actions: const []);
+
+  @override
+  AuthenticatorFormState<PasskeyPromptForm> createState() =>
+      _PasskeyPromptFormState();
+}
+
+class _PasskeyPromptFormState
+    extends AuthenticatorFormState<PasskeyPromptForm> {
+  PasskeyPromptState get _promptState {
+    final bloc = InheritedAuthBloc.of(context, listen: false);
+    final currentState = bloc.currentState;
+    if (currentState is PasskeyPromptState) {
+      return currentState;
+    }
+    return const PasskeyPromptState();
+  }
+
+  void _createPasskey() {
+    final bloc = InheritedAuthBloc.of(context, listen: false);
+    bloc.add(const AuthPasskeyRegister());
+  }
+
+  void _skipPasskey() {
+    final bloc = InheritedAuthBloc.of(context, listen: false);
+    bloc.add(const AuthPasskeySkip());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final promptState = _promptState;
+    final titleResolver = stringResolver.titles;
+    final buttonResolver = stringResolver.buttons;
+    final messageResolver = stringResolver.messages;
+    final theme = Theme.of(context);
+    final formKey = InheritedAuthenticatorState.of(context).formKey;
+
+    if (promptState.isSuccess) {
+      return _buildSuccessView(
+        context,
+        formKey: formKey,
+        promptState: promptState,
+        titleResolver: titleResolver,
+        buttonResolver: buttonResolver,
+        theme: theme,
+      );
+    }
+
+    return _buildPromptView(
+      context,
+      formKey: formKey,
+      promptState: promptState,
+      titleResolver: titleResolver,
+      buttonResolver: buttonResolver,
+      messageResolver: messageResolver,
+      theme: theme,
+    );
+  }
+
+  Widget _buildPromptView(
+    BuildContext context, {
+    required Key formKey,
+    required PasskeyPromptState promptState,
+    required TitleResolver titleResolver,
+    required ButtonResolver buttonResolver,
+    required MessageResolver messageResolver,
+    required ThemeData theme,
+  }) {
+    final isRegistering = promptState.isRegistering;
+
+    return Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Passkey icon
+          Icon(Icons.fingerprint, size: 64, color: theme.colorScheme.primary),
+          const SizedBox(height: 16),
+
+          // Description text
+          Text(
+            messageResolver.passkeyPromptDescription(context),
+            style: theme.textTheme.bodyMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+
+          // Error message (if any)
+          if (promptState.errorMessage != null) ...[
+            Text(
+              promptState.errorMessage!,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.error,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+          ],
+
+          // Create a passkey button
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: isRegistering ? null : _createPasskey,
+              child: isRegistering
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : Text(
+                      buttonResolver.resolve(
+                        context,
+                        ButtonResolverKey.createPasskey,
+                      ),
+                    ),
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // Continue without a passkey link
+          Center(
+            child: TextButton(
+              onPressed: isRegistering ? null : _skipPasskey,
+              child: Text(
+                buttonResolver.resolve(
+                  context,
+                  ButtonResolverKey.continueWithoutPasskey,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSuccessView(
+    BuildContext context, {
+    required Key formKey,
+    required PasskeyPromptState promptState,
+    required TitleResolver titleResolver,
+    required ButtonResolver buttonResolver,
+    required ThemeData theme,
+  }) {
+    return Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Success icon
+          const Icon(Icons.check_circle, color: Colors.green, size: 64),
+          const SizedBox(height: 16),
+
+          // Success title
+          Text(
+            titleResolver.passkeyCreatedSuccess(context),
+            style: theme.textTheme.titleLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+
+          // Registered credentials list
+          if (promptState.registeredCredentials.isNotEmpty) ...[
+            ...promptState.registeredCredentials.map(
+              (credential) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: ListTile(
+                  leading: const Icon(Icons.key),
+                  title: Text(
+                    credential.friendlyName ??
+                        credential.credentialId.substring(
+                          0,
+                          credential.credentialId.length.clamp(0, 8),
+                        ),
+                  ),
+                  subtitle: Text(
+                    credential.createdAt.toLocal().toString().split('.').first,
+                  ),
+                  dense: true,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+
+          // Set up another passkey link
+          Center(
+            child: TextButton(
+              onPressed: _createPasskey,
+              child: Text(
+                buttonResolver.resolve(
+                  context,
+                  ButtonResolverKey.setupAnotherPasskey,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // Continue button
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: _skipPasskey,
+              child: Text(
+                buttonResolver.resolve(
+                  context,
+                  ButtonResolverKey.continueLabel,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 String _duplicateFieldLog(String alias, String field) {
