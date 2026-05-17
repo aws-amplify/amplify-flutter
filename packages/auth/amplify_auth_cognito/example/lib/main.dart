@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:io';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/screens/confirm_user_attribute.dart';
 import 'package:amplify_auth_cognito_example/screens/passkey_management.dart';
@@ -89,8 +90,7 @@ class _MyAppState extends State<MyApp> {
   /// verification.
   void _configureWindowsHttpClient() {
     if (!Platform.isWindows) return;
-    final httpClient = AWSHttpClient()
-      ..onBadCertificate = (_, _, _) => true;
+    final httpClient = AWSHttpClient()..onBadCertificate = (_, _, _) => true;
     // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
     Amplify.dependencies.addInstance<AWSHttpClient>(httpClient);
   }
