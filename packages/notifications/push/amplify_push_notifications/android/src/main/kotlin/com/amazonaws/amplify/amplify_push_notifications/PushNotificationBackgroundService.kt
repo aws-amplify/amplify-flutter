@@ -55,8 +55,10 @@ class PushNotificationBackgroundWorker(
     private val serviceStarted = AtomicBoolean(false)
 
     /**
-     * The Background Channel that is used to send messages to the callback dispatcher
+     * Latch to wait for the Dart callback dispatcher to signal readiness.
      */
+    private val dartReadyLatch = CountDownLatch(1)
+
     private lateinit var backgroundChannel: MethodChannel
 
     override fun doWork(): Result {
