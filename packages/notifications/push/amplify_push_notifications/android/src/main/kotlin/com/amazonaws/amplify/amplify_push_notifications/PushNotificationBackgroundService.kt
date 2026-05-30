@@ -7,7 +7,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.util.Log
-import androidx.core.app.JobIntentService
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.Worker
+import androidx.work.WorkerParameters
 import com.amplifyframework.annotations.InternalAmplifyApi
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
@@ -17,13 +21,23 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.view.FlutterCallbackInformation
 import java.util.*
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
 private const val TAG = "PushBackgroundService"
 
-//TODO(Samaritan1011001): Replace deprecated JobIntentService
+/**
+ * Processes push notifications in the background via WorkManager.
+ *
+ * Spins up a background Flutter engine, executes the registered Dart callback
+ * dispatcher, and forwards the notification payload to Dart.
+ */
 @InternalAmplifyApi
-class PushNotificationBackgroundService : JobIntentService(), MethodChannel.MethodCallHandler {
+class PushNotificationBackgroundWorker(
+    context: Context,
+    params: WorkerParameters
+) : Worker(context, params), MethodChannel.MethodCallHandler {
 
     /**
      * The work queue
@@ -45,57 +59,68 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
      */
     private lateinit var backgroundChannel: MethodChannel
 
-    companion object {
-        private val JOB_ID = UUID.randomUUID().mostSignificantBits.toInt()
-        fun enqueueWork(context: Context, work: Intent) {
-            enqueueWork(context, PushNotificationBackgroundService::class.java, JOB_ID, work)
-        }
-    }
+    override fun doWork(): Result {
+        val payload = inputData.keyValueMap
+        if (payload.isEmpty()) return Result.success()
 
-    override fun onCreate() {
-        super.onCreate()
-        startPushNotificationService(this)
+        Log.i(TAG, "Handling work in PushNotificationBackgroundWorker")
+
+        val intent = Intent().apply {
+            for ((key, value) in payload) {
+                when (value) {
+                    is String -> putExtra(key, value)
+                    is Int -> putExtra(key, value)
+                    is Long -> putExtra(key, value)
+                    is Boolean -> putExtra(key, value)
+                    else -> if (value != null) putExtra(key, value.toString())
+                }
+            }
+        }
+
+        startPushNotificationService(applicationContext)
+
+        if (!dartReadyLatch.await(30, TimeUnit.SECONDS)) {
+            Log.w(TAG, "Timed out waiting for Dart callback dispatcher")
+            return Result.retry()
+        }
+
+        synchronized(serviceStarted) {
+            if (!serviceStarted.get()) {
+                queue.add(intent)
+            } else {
+                sendToDart(intent)
+            }
+        }
+
+        return Result.success()
     }
 
     private fun startPushNotificationService(context: Context) {
-        if (backgroundFlutterEngine != null) {
-            return
-        }
+        if (backgroundFlutterEngine != null) return
         try {
-
             Log.i(TAG, "Starting PushNotificationBackgroundService")
-
-            synchronized(serviceStarted) {
-                val mainHandler = Handler(context.mainLooper)
-                mainHandler.post {
-                    val loader = FlutterLoader()
-                    loader.startInitialization(context)
-                    loader.ensureInitializationCompleteAsync(
-                        context,
-                        null,
-                        mainHandler,
-                    ) {
-                        createAndRunBackgroundEngine(context, loader, null)
-                    }
+            val latch = CountDownLatch(1)
+            val mainHandler = Handler(context.mainLooper)
+            mainHandler.post {
+                val loader = FlutterLoader()
+                loader.startInitialization(context)
+                loader.ensureInitializationCompleteAsync(context, null, mainHandler) {
+                    createAndRunBackgroundEngine(context, loader, null)
+                    latch.countDown()
                 }
             }
+            latch.await(15, TimeUnit.SECONDS)
         } catch (exception: Exception) {
             Log.e(TAG, "Fatal error retrieving background processor info: $exception")
         }
     }
 
-    fun createAndRunBackgroundEngine(context: Context, loader: FlutterLoader, flutterEngine: FlutterEngine? ){
-
-        // Get the background engine from FlutterEngineCache, returns null if not found
+    fun createAndRunBackgroundEngine(context: Context, loader: FlutterLoader, flutterEngine: FlutterEngine?) {
         backgroundFlutterEngine = FlutterEngineCache.getInstance()
             .get(PushNotificationPluginConstants.BACKGROUND_ENGINE_ID)
 
-        // If the Flutter engine is not found in cache, create and put into cache
         if (backgroundFlutterEngine == null) {
-            // Create a background Flutter Engine
             backgroundFlutterEngine = flutterEngine ?: FlutterEngine(context)
-            // Put it into cache so the next notification coming through in killed state
-            // can use the same Flutter engine.
             FlutterEngineCache.getInstance().put(
                 PushNotificationPluginConstants.BACKGROUND_ENGINE_ID,
                 backgroundFlutterEngine,
@@ -107,13 +132,8 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
         ).getLong(
             PushNotificationPluginConstants.BACKGROUND_FUNCTION_KEY, 0
         )
-        if (callbackHandle == 0L) {
-//            Log.w(
-//                TAG,
-//                "Warning: Background service could not start. Callback dispatcher not found."
-//            )
-            return
-        }
+        if (callbackHandle == 0L) return
+
         val callbackInfo =
             FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
                 ?: throw Exception("Fatal - failed to find callback in Flutter cache")
@@ -128,8 +148,8 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
             PushNotificationPluginConstants.BACKGROUND_METHOD_CHANNEL,
         )
         backgroundChannel.setMethodCallHandler(this)
-
     }
+
     private fun sendToDart(intent: Intent) {
         intent.extras?.let { bundle ->
             bundle.getNotificationPayload()?.let {
@@ -144,9 +164,8 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "amplifyBackgroundProcessorFinished" -> {
-                // The dart side is now ready to receive events
                 serviceStarted.set(true)
-                // If events were added to the queue when the background processor was initializing, emits those
+                dartReadyLatch.countDown()
                 while (!queue.isEmpty()) {
                     sendToDart(queue.removeFirst())
                 }
@@ -155,16 +174,32 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
         }
         result.success(null)
     }
+}
 
-    override fun onHandleWork(intent: Intent) {
-        Log.i(TAG, "Handling work in PushNotificationBackgroundService")
-        synchronized(serviceStarted) {
-            if (!serviceStarted.get()) {
-                // Queue up notification events while background processor is being executed
-                queue.add(intent)
-            } else {
-                sendToDart(intent)
+/**
+ * Static entry point for enqueuing background push notification work.
+ * Preserves the existing API so callers don't need changes.
+ */
+@InternalAmplifyApi
+object PushNotificationBackgroundService {
+    fun enqueueWork(context: Context, work: Intent) {
+        val extras = work.extras ?: return
+        val dataBuilder = Data.Builder()
+        for (key in extras.keySet()) {
+            when (val value = extras.get(key)) {
+                is String -> dataBuilder.putString(key, value)
+                is Int -> dataBuilder.putInt(key, value)
+                is Long -> dataBuilder.putLong(key, value)
+                is Boolean -> dataBuilder.putBoolean(key, value)
+                is Float -> dataBuilder.putFloat(key, value)
+                is Double -> dataBuilder.putDouble(key, value)
+                is ByteArray -> dataBuilder.putByteArray(key, value)
+                else -> if (value != null) dataBuilder.putString(key, value.toString())
             }
         }
+        val workRequest = OneTimeWorkRequestBuilder<PushNotificationBackgroundWorker>()
+            .setInputData(dataBuilder.build())
+            .build()
+        WorkManager.getInstance(context).enqueue(workRequest)
     }
 }
