@@ -36,3 +36,4 @@ flutter:
         pluginClass: AmplifyDataStorePlugin
       ios:
         pluginClass: SwiftAmplifyDataStorePlugin
+        sharedDarwinSource: true
