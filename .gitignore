@@ -43,6 +43,10 @@ amplify_outputs*.dart
 # Smithy
 .smithy.lsp.log
 
+# Swift Package Manager
+.build/
+.swiftpm/
+
 # Custom Actions output
 **/*.cjs.deps
 .flutter-plugins-dependencies
