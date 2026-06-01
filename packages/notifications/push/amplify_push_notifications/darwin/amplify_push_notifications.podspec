@@ -13,7 +13,8 @@ The iOS native module for amplify_push_notifications.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Amazon Web Services' => 'amazonwebservices' }
   s.source           = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
-  s.source_files     = 'Classes/**/*'
+  s.source_files     = 'amplify_push_notifications/Sources/amplify_push_notifications/**/*',
+                       'amplify_push_notifications/Sources/amplify_push_notifications_objc/**/*'
   s.platform         = :ios, '13.0'
 
   s.dependency 'Flutter'
