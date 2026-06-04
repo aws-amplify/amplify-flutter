@@ -22,7 +22,7 @@ enum ModelOperation {
   SEARCH,
 }
 
-enum AuthRuleProvider { APIKEY, OIDC, IAM, USERPOOLS, FUNCTION }
+enum AuthRuleProvider { APIKEY, OIDC, IAM, IDENTITYPOOL, USERPOOLS, FUNCTION }
 
 @immutable
 class AuthRule {
