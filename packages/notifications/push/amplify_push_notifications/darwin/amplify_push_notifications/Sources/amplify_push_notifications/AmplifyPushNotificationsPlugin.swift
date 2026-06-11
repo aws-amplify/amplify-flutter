@@ -3,6 +3,7 @@
 
 import Flutter
 import AmplifyUtilsNotifications
+import amplify_push_notifications_objc
 
 public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotificationsHostApi {
     // The notification that has been tapped by an end user to launch the App from terminated state

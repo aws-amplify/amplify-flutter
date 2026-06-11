@@ -3,6 +3,7 @@
 
 import Foundation
 import Flutter
+import amplify_push_notifications_objc
 
 extension AmplifyPushNotificationsPlugin {
     public func application(
