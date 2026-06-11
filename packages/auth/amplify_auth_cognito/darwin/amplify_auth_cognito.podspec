@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.license = 'Apache License, Version 2.0'
   s.author = { 'Amazon Web Services' => 'amazonwebservices' }
   s.source = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'amplify_auth_cognito/Sources/amplify_auth_cognito/**/*.swift'
 
   s.ios.dependency 'Flutter'
   s.osx.dependency 'FlutterMacOS'
