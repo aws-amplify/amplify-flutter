@@ -80,7 +80,7 @@ jobs:
 
       - name: Upload to Codecov
         if: always()
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           name: flutter-dart-coverage
           flags: flutter-tests
