@@ -1,10 +1,10 @@
 import Flutter
 import UIKit
 
-public class SwiftAmplifySecureStoragePlugin: NSObject, FlutterPlugin, NSUserDefaultsPigeon {
+public class AmplifySecureStoragePlugin: NSObject, FlutterPlugin, NSUserDefaultsPigeon {
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let instance = SwiftAmplifySecureStoragePlugin()
+        let instance = AmplifySecureStoragePlugin()
         NSUserDefaultsPigeonSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
     }
     

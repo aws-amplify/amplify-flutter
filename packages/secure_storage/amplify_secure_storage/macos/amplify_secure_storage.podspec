@@ -14,11 +14,11 @@ A new Flutter plugin project.
   s.author           = { 'Your Company' => 'email@example.com' }
 
   s.source           = { :path => '.' }
-  s.source_files     = 'Classes/**/*'
+  s.source_files     = 'amplify_secure_storage/Sources/amplify_secure_storage/**/*'
   s.dependency 'FlutterMacOS'
 
   s.platform = :osx, '10.15'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.9'
-  s.resource_bundles = {'amplify_secure_storage_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'amplify_secure_storage_privacy' => ['amplify_secure_storage/Sources/amplify_secure_storage/PrivacyInfo.xcprivacy']}
 end
