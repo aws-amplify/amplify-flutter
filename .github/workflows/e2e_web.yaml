@@ -43,6 +43,14 @@ jobs:
         uses: ./.github/composite_actions/install_dependencies
         with:
           channel: ${{ matrix.channel }}
+          # Pin the stable web e2e to 3.41.9: the newest stable Flutter that does not
+          # exhibit the web focus-traversal regression (flutter/flutter#178109) that
+          # crashes these tests on 3.44.x with "Cannot get renderObject of inactive
+          # element" via didChangeViewFocus -> findFirstFocus. 3.41.9 is the newest
+          # buildable version (repo requires Dart ^3.10.0 / Flutter >=3.38.1) for which
+          # the crash was reported non-reproducible. Beta is left unpinned so the beta
+          # canary keeps testing the latest channel build.
+          flutter-version: ${{ matrix.channel == 'stable' && '3.41.9' || '' }}
 
       - name: Pub Upgrade
         run: aft exec --include=${{ inputs.package-name }} -- flutter pub upgrade
