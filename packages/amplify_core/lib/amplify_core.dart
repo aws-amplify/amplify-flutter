@@ -121,6 +121,11 @@ export 'src/types/temporal/temporal_timestamp.dart';
 
 /// Util
 export 'src/util/parsers.dart';
+// `zAmplifyOutputsSerializable` and `zConfigMapSerializable` are `@internal`
+// codegen annotations that are consumed across this package via this barrel,
+// so they must stay exported here. They are intentionally not part of the
+// supported public API (note the `z` prefix and `@internal` annotation).
+// ignore: invalid_export_of_internal_element
 export 'src/util/serializable.dart';
 export 'src/util/uuid.dart';
 

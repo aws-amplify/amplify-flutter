@@ -6,7 +6,14 @@ library;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
 
-export 'package:amplify_core/amplify_core.dart' hide Amplify, WebSocketOptions;
+export 'package:amplify_core/amplify_core.dart'
+    hide
+        Amplify,
+        WebSocketOptions,
+        // `@internal` serializers re-exported by amplify_core's barrel; not
+        // part of the supported public API.
+        zAmplifyOutputsSerializable,
+        zConfigMapSerializable;
 export 'package:amplify_secure_storage/amplify_secure_storage.dart';
 
 /// Top level singleton Amplify object.
