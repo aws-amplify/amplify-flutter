@@ -20,13 +20,13 @@ void main() {
     });
 
     test('core types are functional', () {
-      final creds = StaticCredentials('accessKeyId', 'secretAccessKey');
+      const creds = StaticCredentials('accessKeyId', 'secretAccessKey');
       expect(creds.accessKeyId, 'accessKeyId');
       expect(creds.secretAccessKey, 'secretAccessKey');
     });
 
     test('Result type works', () {
-      final result = Result<String>.ok('hello');
+      const result = Result<String>.ok('hello');
       switch (result) {
         case Ok(:final value):
           expect(value, 'hello');

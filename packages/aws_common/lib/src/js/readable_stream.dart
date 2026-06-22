@@ -249,6 +249,11 @@ final class ReadableStreamView extends StreamView<List<int>> {
   /// wrappers. Under dart2js they are automatically converted to Dart
   /// types. This method normalizes the behavior.
   static Object _unwrapJSError(Object error) {
+    // Under dart2wasm, JS errors arrive as opaque interop values and this
+    // runtime check is the intended way to detect them. The lint guards
+    // against platform-inconsistent checks, which is acceptable here since
+    // this code only runs on web.
+    // ignore: invalid_runtime_check_with_js_interop_types
     if (error is JSAny) {
       // Try to convert the JSAny to a Dart string if it's a JSString.
       if (error.isA<JSString>()) {
