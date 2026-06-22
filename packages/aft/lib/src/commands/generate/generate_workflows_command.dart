@@ -241,6 +241,7 @@ ${dependabotGroups.join('\n')}
 
     const ddcWorkflow = 'dart_ddc.yaml';
     const dart2JsWorkflow = 'dart_dart2js.yaml';
+    const dart2WasmWorkflow = 'dart_dart2wasm.yaml';
     const nativeWorkflow = 'dart_native.yaml';
     final e2eWorkflows = {
       'android': 'e2e_android.yaml',
@@ -259,6 +260,10 @@ ${dependabotGroups.join('\n')}
     final needsNativeTest = isDartPackage && package.unitTestDirectory != null;
     final needsWebTest = package.pubspecInfo.pubspec.devDependencies
         .containsKey('build_test');
+    // A package opts into dart2wasm browser coverage by adding a
+    // `test/wasm_smoke_test.dart` file. This is additive to (not a
+    // replacement for) the default dart2js web test job.
+    final needsWasmTest = needsWebTest && package.hasWasmTest;
     // TODO(dnys1): Enable E2E runs for Dart packages
     final needsE2ETest =
         package.flavor == PackageFlavor.flutter &&
@@ -275,6 +280,7 @@ ${dependabotGroups.join('\n')}
       analyzeAndTestWorkflow,
       if (needsNativeTest) nativeWorkflow,
       if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
+      if (needsWasmTest) dart2WasmWorkflow,
       if (needsE2ETest) ...e2eWorkflows.values,
       if (hasFfigen) ffigenWorkflow,
     ];
@@ -395,6 +401,17 @@ jobs:
       package-name: ${package.name}
       working-directory: $repoRelativePath
 ''');
+        if (needsWasmTest) {
+          workflowContents.write('''
+  dart2wasm_test:
+    needs: test
+    uses: ./.github/workflows/$dart2WasmWorkflow
+    secrets: inherit
+    with:
+      package-name: ${package.name}
+      working-directory: $repoRelativePath
+''');
+        }
       }
     }
 
@@ -403,6 +420,7 @@ jobs:
         'test',
         if (needsNativeTest) 'native_test',
         if (needsWebTest) ...['ddc_test', 'dart2js_test'],
+        if (needsWasmTest) 'dart2wasm_test',
       ];
       final needsAwsConfig = File(
         p.join(package.path, 'tool', 'pull_test_backend.sh'),

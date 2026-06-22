@@ -237,6 +237,18 @@ class PackageInfo
     return dir.existsSync();
   }
 
+  /// Whether this package opts into `dart2wasm` browser test coverage.
+  ///
+  /// A package opts in by adding a `test/wasm_smoke_test.dart` file. This
+  /// is additive: the default (dart2js) browser test job still runs for all
+  /// web packages — opting in adds a parallel `dart2wasm` run so both web
+  /// compilers stay covered. Packages turn this on as their web code is
+  /// verified to compile and pass under `dart2wasm`.
+  bool get hasWasmTest {
+    final expectedPath = p.join(path, 'test', 'wasm_smoke_test.dart');
+    return File(expectedPath).existsSync();
+  }
+
   /// The integration test directory within the enclosing directory, if any
   Directory? get integrationTestDirectory {
     final expectedPath = p.join(path, 'integration_test');

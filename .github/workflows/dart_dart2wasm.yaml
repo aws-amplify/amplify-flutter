@@ -1,0 +1,93 @@
+name: Dart (dart2wasm)
+on:
+  workflow_call:
+    inputs:
+      package-name:
+        description: The name of the package being tested
+        required: true
+        type: string
+      working-directory:
+        description: The working directory relative to the repo root
+        required: true
+        type: string
+
+jobs:
+  test-dart-2wasm:
+    # These tests heavily leverage build_runner which benefits from faster runners
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      # Allows other matrix items to run if one fails
+      fail-fast: false
+      matrix:
+        sdk:
+          # Minimum supported Dart version
+          - "3.10.0"
+          - stable
+          - beta
+        browser:
+          - chrome
+          - firefox
+        # Skips 'beta' tests on PRs
+        exclude:
+          - sdk: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
+    steps:
+      - name: Cache Pub dependencies
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # 5.0.5
+        with:
+          path: |
+            ~/.pub-cache/hosted
+            ~/.pub-cache/git
+          key: os:ubuntu-latest;sdk:${{ matrix.sdk }};packages:${{ inputs.working-directory }}
+          restore-keys: |
+            os:ubuntu-latest;sdk:${{ matrix.sdk }};packages:${{ inputs.working-directory }}
+            os:ubuntu-latest;sdk:${{ matrix.sdk }}
+            os:ubuntu-latest
+
+      - name: Git Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+
+      - name: Git Submodules
+        run: git submodule update --init
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@03a180dbe1de8ea7fb700663cbb7d24ca4bbe82c # main
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: Setup aft
+        shell: bash # Run in bash regardless of platform
+        run: dart pub global activate -spath packages/aft
+
+      - name: Setup Firefox
+        if: ${{ matrix.browser == 'firefox' }}
+        uses: ./.github/composite_actions/setup_firefox
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
+
+      - name: Setup Package
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        shell: bash # Run in bash regardless of platform
+        working-directory: ${{ inputs.working-directory }}
+        run: |
+          if [ -e tool/setup.sh ]; then
+            ./tool/setup.sh
+          fi
+
+      - name: Run Tests
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        # `--force-jit` works around a Dart 3.10.x regression where AOT
+        # compilation of the build_runner entrypoint fails on package graphs
+        # containing native-assets build hooks. Fixed in Dart 3.11+; see
+        # https://github.com/dart-lang/build/issues/4343.
+        #
+        # `-c dart2wasm` opts this run into the WASM compiler. The default
+        # (dart2js) path is exercised separately by dart_dart2js.yaml so both
+        # web compilers stay covered.
+        run: dart run build_runner build test --force-jit --release --delete-conflicting-outputs && dart test -p ${{ matrix.browser }} -c dart2wasm
+        working-directory: ${{ inputs.working-directory }}
