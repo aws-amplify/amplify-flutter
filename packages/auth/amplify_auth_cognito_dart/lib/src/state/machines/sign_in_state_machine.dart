@@ -1327,7 +1327,7 @@ final class SignInStateMachine
       _challengeParameters = challengeResp.challengeParameters ?? BuiltMap();
       _session = challengeResp.session;
 
-      return _processChallenge();
+      return await _processChallenge();
     } on ResourceNotFoundException {
       // For device flows, retry with normal SRP sign-in when the device is not
       // found. This protects against the case where a device has been removed
