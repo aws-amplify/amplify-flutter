@@ -62,7 +62,7 @@ Future<void> signUpUser({
       password: password,
       options: SignUpOptions(userAttributes: userAttributes),
     );
-    return _handleSignUpResult(result);
+    return await _handleSignUpResult(result);
   } on AuthException catch (e) {
     safePrint('Error signing up user: ${e.message}');
   }
@@ -79,7 +79,7 @@ Future<void> confirmUser({
       username: username,
       confirmationCode: confirmationCode,
     );
-    return _handleSignUpResult(result);
+    return await _handleSignUpResult(result);
   } on AuthException catch (e) {
     safePrint('Error confirming user: ${e.message}');
   }
@@ -203,7 +203,7 @@ Future<void> signInUser(String username, String password) async {
       username: username,
       password: password,
     );
-    return _handleSignInResult(result);
+    return await _handleSignInResult(result);
   } on AuthException catch (e) {
     safePrint('Error signing in: ${e.message}');
   }
@@ -216,7 +216,7 @@ Future<void> socialSignIn() async {
     final result = await Amplify.Auth.signInWithWebUI(
       provider: AuthProvider.google,
     );
-    return _handleSignInResult(result);
+    return await _handleSignInResult(result);
   } on AuthException catch (e) {
     safePrint('Error signing in: ${e.message}');
   }
@@ -239,7 +239,7 @@ Future<void> _handleResetPasswordResult(ResetPasswordResult result) async {
 Future<void> confirmMfaUser(String mfaCode) async {
   try {
     final result = await Amplify.Auth.confirmSignIn(confirmationValue: mfaCode);
-    return _handleSignInResult(result);
+    return await _handleSignInResult(result);
   } on AuthException catch (e) {
     safePrint('Error confirming MFA code: ${e.message}');
   }
@@ -260,7 +260,7 @@ Future<void> _handleMfaSelection(MfaType selection) async {
     final result = await Amplify.Auth.confirmSignIn(
       confirmationValue: selection.confirmationValue,
     );
-    return _handleSignInResult(result);
+    return await _handleSignInResult(result);
   } on AuthException catch (e) {
     safePrint('Error selecting MFA type: ${e.message}');
   }
@@ -283,7 +283,7 @@ Future<void> _handleFirstFactorSelection(AuthFactorType selection) async {
     final result = await Amplify.Auth.confirmSignIn(
       confirmationValue: selection.value,
     );
-    return _handleSignInResult(result);
+    return await _handleSignInResult(result);
   } on AuthException catch (e) {
     safePrint('Error selecting first factor preference: ${e.message}');
   }
@@ -340,7 +340,7 @@ Future<void> updatePassword({
 Future<void> resetPassword(String username) async {
   try {
     final result = await Amplify.Auth.resetPassword(username: username);
-    return _handleResetPasswordResult(result);
+    return await _handleResetPasswordResult(result);
   } on AuthException catch (e) {
     safePrint('Error resetting password: ${e.message}');
   }
