@@ -3,7 +3,9 @@
 
 import Foundation
 import Flutter
+#if SWIFT_PACKAGE
 import amplify_push_notifications_objc
+#endif
 
 extension AmplifyPushNotificationsPlugin {
     public func application(
