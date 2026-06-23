@@ -9,6 +9,7 @@ on:
       - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/amplify_core.yaml'
       - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_dart2wasm.yaml'
       - '.github/workflows/dart_ddc.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
@@ -27,6 +28,7 @@ on:
       - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/amplify_core.yaml'
       - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_dart2wasm.yaml'
       - '.github/workflows/dart_ddc.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
@@ -82,6 +84,13 @@ jobs:
   dart2js_test:
     needs: test
     uses: ./.github/workflows/dart_dart2js.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_core
+      working-directory: packages/amplify_core
+  dart2wasm_test:
+    needs: test
+    uses: ./.github/workflows/dart_dart2wasm.yaml
     secrets: inherit
     with:
       package-name: amplify_core
