@@ -17,9 +17,7 @@ import 'package:test/test.dart';
 void main() {
   group('UnderlyingSource branch coverage', () {
     test('default type => no "type" key is set on the JS object', () {
-      final source = UnderlyingSource<JSAny>(
-        start: (_) async {},
-      );
+      final source = UnderlyingSource<JSAny>(start: (_) async {});
       final obj = source as JSObject;
       // The whole point of the fix: default streams must NOT carry a `type`
       // property (neither null nor undefined-as-a-set-key).
