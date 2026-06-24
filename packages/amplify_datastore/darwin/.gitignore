@@ -7,6 +7,9 @@
 *.swp
 profile
 
+.build/
+.swiftpm/
+
 DerivedData/
 build/
 GeneratedPluginRegistrant.h
@@ -29,10 +32,8 @@ xcuserdata
 *.moved-aside
 
 *.pyc
-*sync/*
 Icon?
 .tags*
 
 /Flutter/Generated.xcconfig
 /Flutter/flutter_export_environment.sh
-!internal/*
