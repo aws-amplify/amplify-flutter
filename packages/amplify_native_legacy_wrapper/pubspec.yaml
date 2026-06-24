@@ -22,6 +22,7 @@ flutter:
     platforms:
       ios:
         pluginClass: AmplifyNativeLegacyWrapperPlugin
+        sharedDarwinSource: true
       android:
         package: com.amazonaws.amplify.amplify_native_legacy_wrapper
         pluginClass: AmplifyNativeLegacyWrapperPlugin

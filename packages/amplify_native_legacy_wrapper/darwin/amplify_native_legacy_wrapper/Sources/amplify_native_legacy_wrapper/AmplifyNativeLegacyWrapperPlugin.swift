@@ -2,7 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Flutter
+#if canImport(AmplifyPlugins)
 import AmplifyPlugins
+#else
+import AWSCognitoAuthPlugin
+#endif
 import AWSPluginsCore
 import Amplify
 import UIKit

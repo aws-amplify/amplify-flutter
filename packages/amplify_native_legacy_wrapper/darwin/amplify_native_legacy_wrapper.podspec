@@ -13,7 +13,7 @@ A new Flutter plugin project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'amplify_native_legacy_wrapper/Sources/amplify_native_legacy_wrapper/**/*.swift'
   s.dependency 'Flutter'
   s.dependency 'Amplify', '1.29.2'
   s.dependency 'AWSPluginsCore', '1.29.2'
