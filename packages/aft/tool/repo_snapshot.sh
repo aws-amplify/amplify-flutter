@@ -44,11 +44,13 @@ find "$PACKAGES_DIR" \( -name "pubspec.yaml" -o -name "CHANGELOG.md" \) | while 
     if [[ "$file" == *.md ]]; then
         process_markdown "$file" "$DEST_DIR/$RELATIVE_PATH"
     else
-        # Copy non-markdown files as is
-        cp "$file" "$DEST_DIR/$RELATIVE_PATH"
+        # Copy pubspec.yaml files with a `.snapshot` suffix (see README.md) so
+        # pub.dev/pana repository verification does not treat them as duplicate
+        # `pubspec.yaml` files when cloning the git tree.
+        cp "$file" "$DEST_DIR/$RELATIVE_PATH.snapshot"
     fi
 done
 
-cp "$ROOT_DIR/pubspec.yaml" "$SNAPOSHOT_DIR/pubspec.yaml"
+cp "$ROOT_DIR/pubspec.yaml" "$SNAPOSHOT_DIR/pubspec.yaml.snapshot"
 
 echo "Snapshot copy complete."
