@@ -180,11 +180,6 @@ final class AWSModelReconciliationQueue: ModelReconciliationQueue {
     private func receive(_ receive: IncomingSubscriptionEventPublisherEvent) {
         switch receive {
         case .mutationEvent(let remoteModel):
-            if let predicate = modelPredicate {
-                guard predicate.evaluate(target: remoteModel.model.instance) else {
-                    return
-                }
-            }
             incomingSubscriptionEventQueue.addOperation(CancelAwareBlockOperation { [weak self] in
                 self?.enqueue([remoteModel])
             })

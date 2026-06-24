@@ -340,7 +340,14 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             try Amplify.add(plugin: dataStorePlugin)
 
             Amplify.Logging.logLevel = .info
-            print("Amplify configured with DataStore plugin")
+            print("[DataStore] Amplify configured with DataStore plugin")
+            print("[DataStore] Sync expressions count: \(syncExpressions.count)")
+            
+            // Listen to Hub events for debugging
+            _ = Amplify.Hub.listen(to: .dataStore) { payload in
+                print("[DataStore] Hub event: \(payload.eventName)")
+            }
+            
             result(true)
         } catch ModelSchemaError.parse(let className, let fieldName, let desiredType) {
             FlutterDataStoreErrorHandler.handleDataStoreError(
@@ -528,22 +535,25 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
 
     public func onSetUpObserve(flutterResult: @escaping FlutterResult) {
         do {
+            print("[DataStore] Setting up observe subscription. Current subscription exists: \(observeSubscription != nil)")
             observeSubscription = try observeSubscription ?? bridge.onObserve().sink { completion in
                 switch completion {
                 case .failure(let error):
+                    print("[DataStore] Observe subscription failed: \(error)")
                     let flutterError = FlutterError(code: "DataStoreException",
                                                     message: ErrorMessages.defaultFallbackErrorMessage,
                                                     details: FlutterDataStoreErrorHandler.createSerializedError(error: error))
                     self.dataStoreObserveEventStreamHandler?.sendError(flutterError: flutterError)
                 case .finished:
-                    print("finished")
+                    print("[DataStore] Observe subscription finished")
                 }
 
             } receiveValue: { mutationEvent in
+                print("[DataStore] Received mutation event: \(mutationEvent.mutationType) for model: \(mutationEvent.modelName)")
                 do {
                     let serializedEvent = try mutationEvent.decodeModel(as: FlutterSerializedModel.self)
                     guard let eventType = EventType(rawValue: mutationEvent.mutationType) else {
-                        print("Received mutation event for an unknown mutation type \(mutationEvent.mutationType).")
+                        print("[DataStore] Unknown mutation type: \(mutationEvent.mutationType)")
                         return
                     }
                     let flutterSubscriptionEvent = FlutterSubscriptionEvent.init(
@@ -556,14 +566,15 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                             modelName: mutationEvent.modelName
                         )
                     )
+                    print("[DataStore] Successfully sent event to Flutter")
                 } catch {
-                    print("Failed to parse the event \(error)")
-                    // TODO communicate using datastore error handler?
+                    print("[DataStore] Failed to parse event: \(error)")
                 }
             }
+            print("[DataStore] Observe subscription setup complete")
             flutterResult(true)
         } catch {
-            print("Failed to get the datastore plugin \(error)")
+            print("[DataStore] Failed to setup observe: \(error)")
             flutterResult(false)
         }
     }
@@ -599,8 +610,31 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                         error: error,
                         flutterResult: flutterResult)
                 case .success():
-                    print("Successfully started datastore cloud syncing")
-                    flutterResult(nil)
+                    print("[DataStore] Successfully started datastore cloud syncing")
+                    print("[DataStore] Resetting observe subscription to reconnect with active publisher")
+                    self.observeSubscription?.cancel()
+                    self.observeSubscription = nil
+                    
+                    // Wait for DataStore to be fully ready before completing
+                    var hasCompleted = false
+                    let readyToken = Amplify.Hub.listen(to: .dataStore) { payload in
+                        if payload.eventName == HubPayload.EventName.DataStore.ready && !hasCompleted {
+                            print("[DataStore] DataStore ready event received")
+                            hasCompleted = true
+                            Amplify.Hub.removeListener(readyToken)
+                            flutterResult(nil)
+                        }
+                    }
+                    
+                    // Fallback timeout in case ready event doesn't fire
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                        if !hasCompleted {
+                            print("[DataStore] Ready event timeout, completing anyway")
+                            hasCompleted = true
+                            Amplify.Hub.removeListener(readyToken)
+                            flutterResult(nil)
+                        }
+                    }
                 }
             }
         } catch {
@@ -645,23 +679,22 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
 
     private func createSyncExpressions(syncExpressionList: [[String: Any]]) throws -> [DataStoreSyncExpression] {
         return try syncExpressionList.map { syncExpression in
-            let id = syncExpression["id"] as! String
             let modelName = syncExpression["modelName"] as! String
-            let queryPredicate = try QueryPredicateBuilder.fromSerializedMap(syncExpression["queryPredicate"] as? [String: Any])
             let modelSchema = modelSchemaRegistry.modelSchemas[modelName]
+            
+            // Capture the predicate map at configuration time
+            let predicateMap = syncExpression["queryPredicate"] as? [String: Any]
+            
             return DataStoreSyncExpression.syncExpression(modelSchema!) {
-                var resolvedQueryPredicate = queryPredicate
-                let semaphore = DispatchSemaphore(value: 0)
-                self.channel!.invokeMethod("resolveQueryPredicate", arguments: id) { result in
-                    do {
-                        resolvedQueryPredicate = try QueryPredicateBuilder.fromSerializedMap(result as? [String: Any])
-                    } catch {
-                        print("Failed to resolve query predicate. Reverting to original query predicate.")
-                    }
-                    semaphore.signal()
+                // Build predicate synchronously from captured map
+                // This predicate is evaluated at sync time, not configuration time
+                do {
+                    return try QueryPredicateBuilder.fromSerializedMap(predicateMap)
+                } catch {
+                    print("[DataStore] Error building sync expression predicate: \(error)")
+                    print("[DataStore] Falling back to .all for model \(modelName)")
+                    return QueryPredicateConstant.all
                 }
-                semaphore.wait()
-                return resolvedQueryPredicate
             }
         }
     }

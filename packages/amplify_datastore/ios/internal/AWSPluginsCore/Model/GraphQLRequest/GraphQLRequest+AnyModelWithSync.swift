@@ -37,12 +37,14 @@ protocol ModelSyncGraphQLRequestFactory {
 
     static func subscription(to modelSchema: ModelSchema,
                              subscriptionType: GraphQLSubscriptionType,
-                             authType: AWSAuthorizationType?) -> GraphQLRequest<MutationSyncResult>
+                             authType: AWSAuthorizationType?,
+                             filter: QueryPredicate?) -> GraphQLRequest<MutationSyncResult>
 
     static func subscription(to modelSchema: ModelSchema,
                              subscriptionType: GraphQLSubscriptionType,
                              claims: IdentityClaimsDictionary,
-                             authType: AWSAuthorizationType?) -> GraphQLRequest<MutationSyncResult>
+                             authType: AWSAuthorizationType?,
+                             filter: QueryPredicate?) -> GraphQLRequest<MutationSyncResult>
 
     static func syncQuery(modelSchema: ModelSchema,
                           where predicate: QueryPredicate?,
@@ -169,12 +171,16 @@ extension GraphQLRequest: ModelSyncGraphQLRequestFactory {
 
     public static func subscription(to modelSchema: ModelSchema,
                                     subscriptionType: GraphQLSubscriptionType,
-                                    authType: AWSAuthorizationType? = nil) -> GraphQLRequest<MutationSyncResult> {
+                                    authType: AWSAuthorizationType? = nil,
+                                    filter: QueryPredicate? = nil) -> GraphQLRequest<MutationSyncResult> {
 
         var documentBuilder = ModelBasedGraphQLDocumentBuilder(modelSchema: modelSchema,
                                                                operationType: .subscription,
                                                                primaryKeysOnly: true)
         documentBuilder.add(decorator: DirectiveNameDecorator(type: subscriptionType))
+        if let predicate = filter {
+            documentBuilder.add(decorator: FilterDecorator(filter: predicate.graphQLFilter(for: modelSchema)))
+        }
         documentBuilder.add(decorator: ConflictResolutionDecorator(graphQLType: .subscription, primaryKeysOnly: true))
         documentBuilder.add(decorator: AuthRuleDecorator(.subscription(subscriptionType, nil), authType: authType))
         let document = documentBuilder.build()
@@ -191,12 +197,16 @@ extension GraphQLRequest: ModelSyncGraphQLRequestFactory {
     public static func subscription(to modelSchema: ModelSchema,
                                     subscriptionType: GraphQLSubscriptionType,
                                     claims: IdentityClaimsDictionary,
-                                    authType: AWSAuthorizationType? = nil) -> GraphQLRequest<MutationSyncResult> {
+                                    authType: AWSAuthorizationType? = nil,
+                                    filter: QueryPredicate? = nil) -> GraphQLRequest<MutationSyncResult> {
 
         var documentBuilder = ModelBasedGraphQLDocumentBuilder(modelSchema: modelSchema,
                                                                operationType: .subscription,
                                                                primaryKeysOnly: true)
         documentBuilder.add(decorator: DirectiveNameDecorator(type: subscriptionType))
+        if let predicate = filter {
+            documentBuilder.add(decorator: FilterDecorator(filter: predicate.graphQLFilter(for: modelSchema)))
+        }
         documentBuilder.add(decorator: ConflictResolutionDecorator(graphQLType: .subscription, primaryKeysOnly: true))
         documentBuilder.add(decorator: AuthRuleDecorator(.subscription(subscriptionType, claims), authType: authType))
         let document = documentBuilder.build()
