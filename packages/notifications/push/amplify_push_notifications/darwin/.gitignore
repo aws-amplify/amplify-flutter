@@ -7,6 +7,9 @@
 *.swp
 profile
 
+.build/
+.swiftpm/
+
 DerivedData/
 build/
 GeneratedPluginRegistrant.h
@@ -29,7 +32,6 @@ xcuserdata
 *.moved-aside
 
 *.pyc
-*sync/
 Icon?
 .tags*
 

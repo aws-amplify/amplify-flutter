@@ -40,3 +40,4 @@ flutter:
         pluginClass: AmplifyPushNotificationsPlugin
       ios:
         pluginClass: AmplifyPushNotificationsPlugin
+        sharedDarwinSource: true
