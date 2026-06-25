@@ -1,26 +1,50 @@
 (async () => {
-const thisScript = document.currentScript;
+const isWorker = typeof document === 'undefined';
+const thisScript = isWorker ? undefined : document.currentScript;
 
 function relativeURL(ref) {
+  if (isWorker) {
+    return new URL(ref, self.location.href).toString();
+  }
   const base = thisScript?.src ?? document.baseURI;
   return new URL(ref, base).toString();
 }
 
-const searchParams = new URLSearchParams(window.location.search);
-const forceJS = searchParams.get('force_js');
+const forceJS = (() => {
+  if (thisScript && thisScript.src) {
+    const fromScript = new URL(thisScript.src).searchParams.get('force_js');
+    if (fromScript) return fromScript;
+  }
+  return new URLSearchParams(self.location.search).get('force_js');
+})();
 if (!forceJS && (WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,0,0,1,5,1,95,1,120,0])))) {
 
-let { compileStreaming } = await import("./workers.mjs");
+const moduleLoadingCache = new Map();
+function getModuleBytes(m, callback) {
+  const cached = moduleLoadingCache.get(m);
+  if (!!cached) return cached;
+  const loadPromise = fetch(relativeURL(`./${m}`)).then((b) => callback(m, b));
+  moduleLoadingCache.set(m, loadPromise);
+  return loadPromise;
+}
+function loadDeferredModules(modules, handleWasmBytes) {
+  return Promise.all(modules.map((m) => getModuleBytes(m, handleWasmBytes)));
+}
+let { compileStreaming } = await import(relativeURL("./workers.mjs"));
 
 let app = await compileStreaming(fetch(relativeURL("workers.wasm")));
-let module = await app.instantiate({});
+let module = await app.instantiate({}, {loadDeferredModules: loadDeferredModules});
 module.invokeMain();
 
 } else {
-const scriptTag = document.createElement("script");
-scriptTag.type = "application/javascript";
-scriptTag.src = relativeURL("./workers.dart2js.js");
-document.head.append(scriptTag);
+if (isWorker) {
+  importScripts(relativeURL("./workers.dart2js.js"));
+} else {
+  const scriptTag = document.createElement("script");
+  scriptTag.type = "application/javascript";
+  scriptTag.src = relativeURL("./workers.dart2js.js");
+  document.head.append(scriptTag);
+}
 }
 
 })();
