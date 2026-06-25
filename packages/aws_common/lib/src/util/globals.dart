@@ -30,7 +30,11 @@ const bool zReleaseMode = bool.fromEnvironment('dart.vm.product');
 
 /// Whether running on the Web.
 ///
-/// Since JS does not support integers, an int and a double will be identical
-/// when representing the same value. However, this will not be true for all
-/// other compilation targets.
-const bool zIsWeb = identical(0, 0.0);
+/// This checks for the availability of the `dart:js_interop` library,
+/// which is present for both the `dart2js` (pure JS) and `dart2wasm`
+/// (Wasm + JS glue) compilation targets, and absent on VM/native.
+///
+/// The previous implementation (`identical(0, 0.0)`) is broken under
+/// `dart2wasm` because WASM has distinct integer and double types,
+/// causing `identical(0, 0.0)` to return `false` even on web.
+const bool zIsWeb = bool.fromEnvironment('dart.library.js_interop');
