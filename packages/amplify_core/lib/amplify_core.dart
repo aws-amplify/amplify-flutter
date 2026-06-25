@@ -12,7 +12,7 @@ export 'package:aws_signature_v4/aws_signature_v4.dart'
 
 export 'src/amplify_class.dart';
 
-/// Categories
+/// Categories TMP
 export 'src/category/amplify_auth_category.dart';
 export 'src/category/amplify_categories.dart';
 

@@ -41,12 +41,120 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
   late final bool upgrade = argResults!['upgrade'] as bool;
   late final bool build = argResults!['build'] as bool;
 
-  /// Creates an empty `amplifyconfiguration.dart` file.
-  Future<void> _createEmptyConfig(PackageInfo package) async {
-    // Only create for example apps.
-    if (!package.isExample) {
-      return;
+  @override
+  Future<void> run() async {
+    await super.run();
+    await linkPackages();
+
+    final bootstrapPackages = _collectBootstrapPackages();
+    final pubArguments = [if (upgrade) 'upgrade' else 'get'];
+    logger.info(
+      'Running pub ${upgrade ? 'upgrade' : 'get'} for '
+      '${bootstrapPackages.length} packages...',
+    );
+
+    final errors = <String>[];
+
+    // Run pub sequentially to avoid concurrent pub cache conflicts.
+    for (final package in bootstrapPackages) {
+      try {
+        await pubAction(arguments: pubArguments, package: package);
+      } on Exception catch (e) {
+        errors.add('${package.name}: $e');
+        if (failFast) break;
+      }
     }
+
+    // Create empty config files for example apps and await completion.
+    await Future.wait([
+      for (final package in bootstrapPackages) _createEmptyConfig(package),
+    ]);
+
+    _reportErrors(errors);
+
+    if (build) {
+      final buildPackages = _collectBuildRunnerPackages(bootstrapPackages);
+      for (final package in buildPackages) {
+        await runBuildRunner(package, logger: logger, verbose: verbose);
+      }
+    }
+    logger.info('Repo successfully bootstrapped!');
+  }
+
+  /// Filters [commandPackages] down to those eligible for bootstrapping
+  /// and deduplicates by package name.
+  List<PackageInfo> _collectBootstrapPackages() {
+    final withDups = commandPackages.values
+        .where(_isBootstrappable)
+        .expand((pkg) => [pkg, pkg.example, pkg.docs])
+        .nonNulls;
+
+    final seenNames = <String>{};
+    return [
+      for (final pkg in withDups)
+        if (seenNames.add(pkg.name)) pkg,
+    ];
+  }
+
+  /// Returns `true` if [pkg] should be included in the bootstrap.
+  bool _isBootstrappable(PackageInfo pkg) {
+    if (pkg.name == 'aft') return false;
+
+    final compatible = pkg.compatibleWithActiveSdk;
+    if (!compatible) {
+      logger.info(
+        'Skipping package ${pkg.name} since it sets an incompatible '
+        'Dart SDK constraint: ${pkg.dartSdkConstraint}',
+      );
+    }
+    return compatible;
+  }
+
+  /// Identifies packages that need `build_runner` and returns them in
+  /// topological order so dependencies are built first.
+  ///
+  /// DFS traverses the full dependency graph from each bootstrap root so
+  /// that transitive dependencies with generated assets (e.g.
+  /// `amplify_secure_storage_dart`) are also built. `runBuildRunner` runs
+  /// `pub get` on each package before invoking `build_runner`.
+  List<PackageInfo> _collectBuildRunnerPackages(
+    List<PackageInfo> bootstrapPackages,
+  ) {
+    final packageGraph = repo.getPackageGraph(includeDevDependencies: true);
+    final buildPackageSet = <PackageInfo>{};
+
+    for (final package in bootstrapPackages) {
+      dfs(packageGraph, root: package, (pkg) {
+        final needsBuild =
+            pkg.needsBuildRunner &&
+            (pkg.pubspecInfo.pubspec.flutter?.containsKey('assets') ?? false) &&
+            pkg.flavor == PackageFlavor.dart;
+        if (needsBuild) {
+          buildPackageSet.add(pkg);
+        }
+      });
+    }
+
+    final result = buildPackageSet.toList();
+    sortPackagesTopologically(result, (pkg) => pkg.pubspecInfo.pubspec);
+    return result;
+  }
+
+  /// Logs or throws collected errors from pub get/upgrade and build_runner.
+  void _reportErrors(List<String> errors) {
+    if (errors.isEmpty) return;
+    if (failFast) {
+      throw Exception('Bootstrap had errors:\n${errors.join('\n')}');
+    }
+    for (final error in errors) {
+      logger.error(error);
+    }
+  }
+
+  /// Creates empty Amplify configuration files for example apps so they
+  /// compile without a real backend.
+  Future<void> _createEmptyConfig(PackageInfo package) async {
+    if (!package.isExample) return;
     await _createEmptyGen1Config(package);
     await _createEmptyGen2Config(package);
   }
@@ -60,7 +168,6 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
       return;
     }
     await file.create();
-    // formatting is important to avoid lint errors
     await file.writeAsString('''
 const amplifyconfig = \'\'\'{
   "UserAgent": "aws-amplify-cli/2.0",
@@ -78,13 +185,11 @@ const amplifyEnvironments = <String, String>{};
 
   Future<void> _createEmptyGen2Config(PackageInfo package) async {
     final file = File(path.join(package.path, 'lib', 'amplify_outputs.dart'));
-
     if (await file.exists() ||
         !await Directory(path.join(package.path, 'lib')).exists()) {
       return;
     }
     await file.create();
-    // formatting is important to avoid lint errors
     await file.writeAsString('''
 const amplifyConfig = \'\'\'{
   "version": "1"
@@ -92,72 +197,5 @@ const amplifyConfig = \'\'\'{
 
 const amplifyEnvironments = <String, String>{};
 ''');
-  }
-
-  @override
-  Future<void> run() async {
-    await super.run();
-    await linkPackages();
-
-    final bootstrapPackages = commandPackages.values
-        .where(
-          // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
-          // run with the native command, and running it again with the embedded
-          // command could cause issues later on, esp. when the native `pub`
-          // command is significantly newer/older than the embedded one.
-          (pkg) => pkg.name != 'aft',
-        )
-        .where(
-          // Skip bootstrapping packages which set incompatible Dart SDK constraints,
-          // e.g. packages which are leveraging preview features.
-          //
-          // The problem of packages setting incorrect constraints, for example setting
-          // `^3.0.5` when the current repo constraint is `^3.0.0` and we're running
-          // `aft` with `3.0.1` is a different issue handled by the constraints commands.
-          (pkg) {
-            final compatibleWithActiveSdk = pkg.compatibleWithActiveSdk;
-            if (!compatibleWithActiveSdk) {
-              logger.info(
-                'Skipping package ${pkg.name} since it sets an incompatible Dart SDK constraint: '
-                '${pkg.dartSdkConstraint}',
-              );
-            }
-            return compatibleWithActiveSdk;
-          },
-        )
-        .expand((pkg) => [pkg, pkg.example, pkg.docs])
-        .nonNulls;
-    for (final package in bootstrapPackages) {
-      await pubAction(
-        arguments: [if (upgrade) 'upgrade' else 'get'],
-        package: package,
-      );
-    }
-    await Future.wait([
-      for (final package in bootstrapPackages) _createEmptyConfig(package),
-    ]);
-    if (build) {
-      final buildPackages = <PackageInfo>{};
-      final packageGraph = repo.getPackageGraph(includeDevDependencies: true);
-      for (final package in bootstrapPackages) {
-        dfs(packageGraph, root: package, (package) {
-          // Only run build_runner for packages which need it for development,
-          // i.e. those packages which specify worker JS files in their assets.
-          final needsBuild =
-              package.needsBuildRunner &&
-              (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
-                  false) &&
-              package.flavor == PackageFlavor.dart;
-          if (needsBuild) {
-            buildPackages.add(package);
-          }
-        });
-      }
-      for (final package in buildPackages) {
-        await runBuildRunner(package, logger: logger, verbose: verbose);
-      }
-    }
-
-    logger.info('Repo successfully bootstrapped!');
   }
 }

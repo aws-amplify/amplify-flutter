@@ -549,12 +549,16 @@ Future<void> runBuildRunner(
   required AWSLogger logger,
   required bool verbose,
   bool force = false,
+  bool throwOnError = false,
+  bool skipPubGet = false,
 }) async {
   if (!package.needsBuildRunner && !force) {
     return;
   }
-  // Run `pub get` to ensure `build_runner` is available.
-  await runPub(package.flavor, ['get'], package, verbose: verbose);
+  if (!skipPubGet) {
+    // Run `pub get` to ensure `build_runner` is available.
+    await runPub(package.flavor, ['get'], package, verbose: verbose);
+  }
   logger.debug('Running build_runner for ${package.name}...');
   // Force JIT compilation to avoid a regression in Dart 3.10.x where
   // `dart compile exe` (used by `build_runner`'s default AOT path) fails when
@@ -588,6 +592,9 @@ Future<void> runBuildRunner(
     logger.error('Failed to run `build_runner` for ${package.name}: ');
     if (!verbose) {
       logger.error(output.toString());
+    }
+    if (throwOnError) {
+      throw Exception('build_runner failed for ${package.name}');
     }
     exit(1);
   }
