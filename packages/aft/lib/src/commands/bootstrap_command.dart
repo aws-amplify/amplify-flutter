@@ -24,6 +24,15 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
         help: 'Runs build_runner for packages which need it',
         negatable: true,
         defaultsTo: true,
+      )
+      ..addFlag(
+        'example',
+        help:
+            'Also run `pub get`/`upgrade` in each `example/`. Disable when '
+            'Flutter is unavailable (e.g. Dart-only CI jobs) to skip resolving '
+            'a Flutter example.',
+        negatable: true,
+        defaultsTo: true,
       );
   }
 
@@ -40,6 +49,7 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
 
   late final bool upgrade = argResults!['upgrade'] as bool;
   late final bool build = argResults!['build'] as bool;
+  late final bool example = argResults!['example'] as bool;
 
   /// Creates an empty `amplifyconfiguration.dart` file.
   Future<void> _createEmptyConfig(PackageInfo package) async {
@@ -129,7 +139,12 @@ const amplifyEnvironments = <String, String>{};
         .nonNulls;
     for (final package in bootstrapPackages) {
       await pubAction(
-        arguments: [if (upgrade) 'upgrade' else 'get'],
+        // Examples are bootstrapped as their own packages above, so pub's
+        // implicit `example/` resolution can be skipped with `--no-example`.
+        arguments: [
+          if (upgrade) 'upgrade' else 'get',
+          if (!example) '--no-example',
+        ],
         package: package,
       );
     }
