@@ -152,7 +152,7 @@ extension PropsReadableStreamReader on ReadableStreamReader {
   /// consumer. The supplied reason argument will be given to the underlying
   /// source, which may or may not use it.
   Future<void> cancel([String? reason]) =>
-      getProperty<JSPromise>('cancel'.toJS).toDart;
+      callMethod<JSPromise>('cancel'.toJS, reason?.toJS).toDart;
 
   /// Releases the reader's lock on the stream.
   external void releaseLock();
