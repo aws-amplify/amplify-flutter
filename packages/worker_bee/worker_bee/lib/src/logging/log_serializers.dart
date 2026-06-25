@@ -47,9 +47,11 @@ class LogEntrySerializer implements StructuredSerializer<LogEntry> {
         case 'loggerName':
           loggerName = value as String;
         case 'time':
+          // dart2wasm surfaces the serialized microseconds as a double, which
+          // built_value's DateTime serializer can't cast to int. Coerce first.
           time =
               serializers.deserialize(
-                    value,
+                    value is double ? value.toInt() : value,
                     specifiedType: const FullType(DateTime),
                   )
                   as DateTime;
