@@ -72,7 +72,9 @@ jobs:
       - name: Bootstrap
         id: bootstrap
         timeout-minutes: 20
-        run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
+        # Example apps aren't needed here, and `--no-example` avoids
+        # resolving a Dart package's Flutter example without a Flutter SDK.
+        run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --no-example --verbose
 
       - name: Setup Package
         if: "always() && steps.bootstrap.conclusion == 'success'"
