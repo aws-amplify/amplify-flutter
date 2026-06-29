@@ -1,5 +1,5 @@
 name: aft
-description: Amplify Flutter repo tools.
+description: Amplify Flutter monorepo tooling
 version: 0.2.3
 publish_to: none
 
