@@ -1,7 +1,7 @@
 ## 2.12.0
 
 ### Features
-- feat(auth): add Swift Package Manager support to amplify_auth_cognito ([#6847](https://github.com/aws-amplify/amplify-flutter/pull/6847))
+- feat(auth): Add Swift Package Manager support to amplify_auth_cognito ([#6847](https://github.com/aws-amplify/amplify-flutter/pull/6847))
 
 ## 2.11.0
 
