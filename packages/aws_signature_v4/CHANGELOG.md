@@ -1,7 +1,6 @@
 ## 0.6.11
 
-### Fixes
-- fix(analyzer): Resolve invalid_export_of_internal_element ([#7033](https://github.com/aws-amplify/amplify-flutter/pull/7033))
+- Minor bug fixes and improvements
 
 ## 0.6.10
 
