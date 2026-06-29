@@ -1,6 +1,5 @@
 ## 2.5.3
 
-### Fixes
 - Minor bug fixes and improvements
 
 ## 2.5.2
