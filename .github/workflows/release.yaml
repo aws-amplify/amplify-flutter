@@ -66,6 +66,9 @@ jobs:
       - name: Install aft
         run: dart pub global activate -spath packages/aft
 
+      - name: Link packages
+        run: aft link
+
       - name: Check for new tags
         id: check-tags
         run: |
