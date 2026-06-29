@@ -1,7 +1,7 @@
 ## 2.12.0
 
 ### Features
-- feat(datastore): add Swift Package Manager support ([#7004](https://github.com/aws-amplify/amplify-flutter/pull/7004))
+- feat(datastore): Add Swift Package Manager support ([#7004](https://github.com/aws-amplify/amplify-flutter/pull/7004))
 
 ## 2.11.0
 
