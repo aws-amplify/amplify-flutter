@@ -1,7 +1,7 @@
 ## 0.7.11
 
 ### Fixes
-- fix(smithy): Await Future return in try block (Dart 3.13 beta lint) ([#7040](https://github.com/aws-amplify/amplify-flutter/pull/7040))
+- Minor bug fixes and improvements
 
 ## 0.7.10
 
