@@ -1,7 +1,7 @@
 ## 2.12.0
 
 ### Features
-- feat: Add wasm support to `amplify_core`, `amplify_foundation` and `aws_common` ([#7032](https://github.com/aws-amplify/amplify-flutter/pull/7032))
+- Minor bug fixes and improvements
 
 ## 2.11.1
 
