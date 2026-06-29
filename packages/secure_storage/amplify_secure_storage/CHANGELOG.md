@@ -1,7 +1,7 @@
 ## 0.5.18
 
 ### Features
-- feat(secure_storage): add Swift Package Manager support to amplify_secure_storage ([#6848](https://github.com/aws-amplify/amplify-flutter/pull/6848))
+- feat(secure_storage): Add Swift Package Manager support to amplify_secure_storage ([#6848](https://github.com/aws-amplify/amplify-flutter/pull/6848))
 
 ### Fixes
 - fix(secure_storage): Await Future return in try block (Dart 3.13 beta lint) ([#7039](https://github.com/aws-amplify/amplify-flutter/pull/7039))
