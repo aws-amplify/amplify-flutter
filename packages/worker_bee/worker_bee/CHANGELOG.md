@@ -1,3 +1,8 @@
+## 0.3.12
+
+### Features
+- feat(worker_bee): Improve wasm compatibility ([#7059](https://github.com/aws-amplify/amplify-flutter/pull/7059))
+
 ## 0.3.11
 
 ### Features

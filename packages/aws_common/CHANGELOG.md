@@ -1,3 +1,8 @@
+## 0.7.14
+
+### Fixes
+- fix(aws_common): Invoke `ReadableStreamReader.cancel` instead of reading the property ([#7047](https://github.com/aws-amplify/amplify-flutter/pull/7047))
+
 ## 0.7.13
 
 ### Fixes

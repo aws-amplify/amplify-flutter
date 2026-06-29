@@ -1,3 +1,8 @@
+## 0.5.18
+
+### Features
+- feat(secure_storage): Add Swift Package Manager support to amplify_secure_storage ([#6848](https://github.com/aws-amplify/amplify-flutter/pull/6848))
+
 ## 0.5.17
 
 - Minor bug fixes and improvements

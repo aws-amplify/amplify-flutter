@@ -1,3 +1,8 @@
+## 2.12.0
+
+### Features
+- feat(push_notifications): Add Swift Package Manager support ([#7005](https://github.com/aws-amplify/amplify-flutter/pull/7005))
+
 ## 2.11.0
 
 - Minor bug fixes and improvements
