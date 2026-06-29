@@ -1,7 +1,6 @@
 ## 0.5.11
 
-### Fixes
-- fix(secure_storage): Await Future return in try block (Dart 3.13 beta lint) ([#7039](https://github.com/aws-amplify/amplify-flutter/pull/7039))
+- Minor bug fixes and improvements
 
 ## 0.5.10
 
