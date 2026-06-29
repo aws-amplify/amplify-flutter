@@ -1,6 +1,5 @@
 ## 0.7.11
 
-### Fixes
 - Minor bug fixes and improvements
 
 ## 0.7.10
