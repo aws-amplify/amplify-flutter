@@ -1,7 +1,7 @@
 ## 2.5.3
 
 ### Fixes
-- fix(authenticator): Make web e2e resilient to focus-traversal regression ([#7063](https://github.com/aws-amplify/amplify-flutter/pull/7063))
+- Minor bug fixes and improvements
 
 ## 2.5.2
 
