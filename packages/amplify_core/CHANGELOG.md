@@ -1,3 +1,13 @@
+## 2.12.0
+
+### Features
+- feat: Add wasm support to `amplify_core`, `amplify_foundation` and `aws_common` ([#7032](https://github.com/aws-amplify/amplify-flutter/pull/7032))
+
+### Fixes
+- fix(analyzer): Resolve invalid_export_of_internal_element ([#7033](https://github.com/aws-amplify/amplify-flutter/pull/7033))
+- fix(auth): Await Future returns in try blocks (Dart 3.13 beta lint) ([#7042](https://github.com/aws-amplify/amplify-flutter/pull/7042))
+- fix(core): Satisfy Dart 3.13 beta analyzer (await in try blocks + super parameter) ([#7041](https://github.com/aws-amplify/amplify-flutter/pull/7041))
+
 ## 2.11.0
 
 ### Features
