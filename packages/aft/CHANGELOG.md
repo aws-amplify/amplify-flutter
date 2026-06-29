@@ -1,3 +1,7 @@
+## 0.2.3
+
+- Support exluding example from bootstrap
+
 ## 0.2.2
 
 - Support bootstrapping packages for CI/CD deployments
