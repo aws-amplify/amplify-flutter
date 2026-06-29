@@ -1,6 +1,6 @@
 name: aft
 description: Amplify Flutter repo tools.
-version: 0.2.2
+version: 0.2.3
 publish_to: none
 
 environment:
