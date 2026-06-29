@@ -4,7 +4,6 @@
 - feat: Add wasm support to `amplify_core`, `amplify_foundation` and `aws_common` ([#7032](https://github.com/aws-amplify/amplify-flutter/pull/7032))
 
 ### Fixes
-- fix(analyzer): Resolve invalid_export_of_internal_element ([#7033](https://github.com/aws-amplify/amplify-flutter/pull/7033))
 - fix(aws_common): Invoke `ReadableStreamReader.cancel` instead of reading the property ([#7047](https://github.com/aws-amplify/amplify-flutter/pull/7047))
 
 ## 0.7.13
