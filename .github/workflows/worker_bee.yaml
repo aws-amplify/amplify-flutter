@@ -6,6 +6,11 @@ on:
       - main
       - stable
     paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_dart2wasm.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/worker_bee.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
@@ -18,6 +23,11 @@ on:
       - 'packages/worker_bee/worker_bee/test/**/*'
   pull_request:
     paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_dart2wasm.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/worker_bee.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
@@ -49,6 +59,34 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
+    secrets: inherit
+    with:
+      package-name: worker_bee
+      working-directory: packages/worker_bee/worker_bee
+  native_test:
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    secrets: inherit 
+    with:
+      package-name: worker_bee
+      working-directory: packages/worker_bee/worker_bee
+  ddc_test:
+    needs: test
+    uses: ./.github/workflows/dart_ddc.yaml
+    secrets: inherit
+    with:
+      package-name: worker_bee
+      working-directory: packages/worker_bee/worker_bee
+  dart2js_test:
+    needs: test
+    uses: ./.github/workflows/dart_dart2js.yaml
+    secrets: inherit
+    with:
+      package-name: worker_bee
+      working-directory: packages/worker_bee/worker_bee
+  dart2wasm_test:
+    needs: test
+    uses: ./.github/workflows/dart_dart2wasm.yaml
     secrets: inherit
     with:
       package-name: worker_bee

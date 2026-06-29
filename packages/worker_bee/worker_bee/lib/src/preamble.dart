@@ -11,6 +11,11 @@ import 'package:worker_bee/worker_bee.dart';
 
 export 'vm/preamble.dart' if (dart.library.js_interop) 'js/preamble.dart';
 
+/// Posted by a worker once it's listening, so the spawner knows when to send
+/// the assignment. A `Worker` drops messages sent before a listener exists.
+@internal
+const String workerOnlineSignal = '__worker_bee_online__';
+
 /// {@template worker_bee.worker_assignment}
 /// The worker bee assignment sent from the main thread.
 /// {@endtemplate}
