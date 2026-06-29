@@ -1,7 +1,6 @@
 ## 0.11.21
 
-### Fixes
-- fix(auth): Await Future returns in try blocks (Dart 3.13 beta lint) ([#7042](https://github.com/aws-amplify/amplify-flutter/pull/7042))
+- Minor bug fixes and improvements
 
 ## 0.11.20
 
