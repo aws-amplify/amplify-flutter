@@ -26,7 +26,7 @@ jobs:
     #   3. Set build timeout to at least 12 hours avoid interrupting releases.
     #   See: https://docs.aws.amazon.com/codebuild/latest/userguide/action-runner.html
     runs-on:
-      - codebuild-amplify-flutter-${{ github.run_id }}-${{ github.run_attempt }}
+      - codebuild-amplify-flutter-release-${{ github.run_id }}-${{ github.run_attempt }}
       - image:ubuntu-8.0
       - instance-size:medium
     steps:
