@@ -1,0 +1,121 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/pubspec.yaml'
+
+# IMPORTANT: Never cancel a release in progress. Queue subsequent runs.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  release:
+    name: Release packages
+    # Runs on a CodeBuild-hosted GitHub Actions runner.
+    # Prerequisites (one-time setup):
+    #   1. Create a CodeBuild "Runner project" named "amplify-flutter-release"
+    #      connected to this GitHub repository with a webhook.
+    #   2. Use Ubuntu 8.0 image (24.04), instance size "medium".
+    #   3. Set build timeout to at least 12 hours avoid interrupting releases.
+    #   See: https://docs.aws.amazon.com/codebuild/latest/userguide/action-runner.html
+    runs-on:
+      - codebuild-amplify-flutter-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:ubuntu-8.0
+      - instance-size:medium
+    steps:
+      - name: Set up runner
+        run: |
+          cat /etc/os-release
+
+          # Install dependencies
+          apt-get update -y
+          apt-get install -y git libicu-dev curl xz-utils clang cmake ninja-build pkg-config libgtk-3-dev jq
+          
+          # Install Github CLI
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt-get update -y
+          sudo apt-get install -y gh
+
+          # Fix Git ownership fix
+          git config --global --add safe.directory '*'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # 2.23.0
+        with:
+          channel: stable
+
+      - name: Git Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+
+      - name: Create publishing token (pub.dev)
+        run: |
+          set -eo pipefail
+          PUB_TOKEN=$(curl --retry 5 --retry-connrefused -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://pub.dev" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r '.value')
+          echo "PUB_TOKEN=${PUB_TOKEN}" >> $GITHUB_ENV
+          export PUB_TOKEN
+          flutter pub token add https://pub.dev --env-var PUB_TOKEN
+
+      - name: Install aft
+        run: dart pub global activate -spath packages/aft
+
+      - name: Check for new tags
+        id: check-tags
+        run: |
+          aft publish --tags 2>&1 | tee "$RUNNER_TEMP/tags_output.txt"
+          TAGS=$(grep "^New tag:" "$RUNNER_TEMP/tags_output.txt" | sed 's/^New tag: //' || true)
+          if [ -z "$TAGS" ]; then
+            echo "No new tags to create. Nothing to release."
+            echo "has_tags=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "New tags found:"
+            echo "$TAGS"
+            echo "has_tags=true" >> "$GITHUB_OUTPUT"
+            echo "$TAGS" > "$RUNNER_TEMP/new_tags.txt"
+          fi
+
+      - name: Verify publish (pre-tag dry run)
+        if: steps.check-tags.outputs.has_tags == 'true'
+        run: aft publish --dry-run --force
+
+      - name: Create and push tags
+        if: steps.check-tags.outputs.has_tags == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          while IFS= read -r tag; do
+            echo "Creating tag: $tag"
+            git tag "$tag"
+          done < "$RUNNER_TEMP/new_tags.txt"
+          git push origin --tags
+
+      - name: Publish to pub.dev
+        if: steps.check-tags.outputs.has_tags == 'true'
+        run: aft publish --force
+
+      - name: Create GitHub releases
+        if: steps.check-tags.outputs.has_tags == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          while IFS= read -r tag; do
+            PACKAGE="${tag%-v*}"
+            VERSION="${tag##*-v}"
+
+            NOTES=$(aft get-release-notes --package "$PACKAGE" --version "$VERSION" \
+              | awk '/^Changelog:$/{f=1;next} f')
+            [ -z "$NOTES" ] && NOTES="Release ${PACKAGE} v${VERSION}"
+
+            echo "Creating GitHub release for: $tag"
+            gh release create "$tag" \
+              --title "${PACKAGE} v${VERSION}" \
+              --notes "$NOTES" \
+              --target main
+          done < "$RUNNER_TEMP/new_tags.txt"
