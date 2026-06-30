@@ -1,0 +1,2 @@
+Place your google-services.json file here (downloaded from Firebase Console).
+This file is gitignored — each developer must supply their own.
