@@ -9,7 +9,7 @@ environment:
   sdk: ^3.10.0
 
 dependencies:
-  amplify_foundation_dart: ">=2.11.2 <2.12.0"
+  amplify_foundation_dart: ">=2.12.0 <2.13.0"
   aws_common: ">=0.7.14 <0.8.0"
   aws_signature_v4: ">=0.6.11 <0.7.0"
 

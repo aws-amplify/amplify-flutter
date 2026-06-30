@@ -26,7 +26,7 @@ platforms:
 
 dependencies:
   amplify_firehose_dart: ">=0.1.1 <0.2.0"
-  amplify_foundation_dart: ">=2.11.2 <2.12.0"
+  amplify_foundation_dart: ">=2.12.0 <2.13.0"
   flutter:
     sdk: flutter
   path_provider: ^2.1.0

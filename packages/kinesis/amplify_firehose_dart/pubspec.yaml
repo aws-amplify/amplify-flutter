@@ -17,7 +17,7 @@ environment:
 
 dependencies:
   amplify_core: ">=2.12.0 <2.13.0"
-  amplify_foundation_dart: ">=2.11.2 <2.12.0"
+  amplify_foundation_dart: ">=2.12.0 <2.13.0"
   amplify_foundation_dart_bridge: ">=2.11.1 <2.12.0"
   amplify_record_cache_dart: ">=0.1.1 <0.2.0"
   aws_common: ">=0.7.14 <0.8.0"
