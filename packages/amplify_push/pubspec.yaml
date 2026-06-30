@@ -27,7 +27,6 @@ flutter:
 
 dependencies:
   amplify_foundation_dart: ">=2.11.0 <2.12.0"
-  async: ^2.11.0
   flutter:
     sdk: flutter
   flutter_plugin_android_lifecycle: ^2.0.9

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_push/src/push_notification_message.dart';
+import 'package:flutter/foundation.dart';
 
 /// The type of push notification event.
 enum PushEventType {
@@ -16,6 +17,7 @@ enum PushEventType {
 }
 
 /// A push notification event with type and payload.
+@immutable
 class PushEvent {
   /// Creates a push event.
   const PushEvent({required this.type, required this.notification});
@@ -25,6 +27,19 @@ class PushEvent {
 
   /// The notification payload.
   final PushNotificationMessage notification;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PushEvent &&
+          other.type == type &&
+          other.notification == notification;
+
+  @override
+  int get hashCode => Object.hash(type, notification);
+
+  @override
+  String toString() => 'PushEvent(type: $type, notification: $notification)';
 }
 
 /// Optional backend provider for device registration and push analytics.

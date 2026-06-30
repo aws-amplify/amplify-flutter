@@ -27,13 +27,15 @@ sealed class AmplifyPushException extends AmplifyException {
   };
 }
 
-/// Thrown when the client has not been initialized via `AmplifyPushClient.create`.
-final class PushNotConfiguredException extends AmplifyPushException {
-  /// Creates a [PushNotConfiguredException].
-  const PushNotConfiguredException()
+/// Thrown when `AmplifyPushClient.create()` is called while an instance already
+/// exists. Call `close()` on the existing instance before creating a new one.
+final class PushAlreadyConfiguredException extends AmplifyPushException {
+  /// Creates a [PushAlreadyConfiguredException].
+  const PushAlreadyConfiguredException()
     : super(
-        message: 'Push client has not been initialized.',
-        recoverySuggestion: 'Call AmplifyPushClient.create() first.',
+        message: 'An AmplifyPushClient instance already exists.',
+        recoverySuggestion:
+            'Call close() on the existing instance before creating a new one.',
       );
 }
 

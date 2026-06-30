@@ -16,7 +16,7 @@ import io.flutter.embedding.engine.loader.FlutterLoader
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.view.FlutterCallbackInformation
-import java.util.*
+import java.util.ArrayDeque
 import java.util.concurrent.atomic.AtomicBoolean
 
 private const val TAG = "PushBackgroundService"
@@ -46,7 +46,7 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
     private lateinit var backgroundChannel: MethodChannel
 
     companion object {
-        private val JOB_ID = UUID.randomUUID().mostSignificantBits.toInt()
+        private const val JOB_ID = 1092
         fun enqueueWork(context: Context, work: Intent) {
             enqueueWork(context, PushNotificationBackgroundService::class.java, JOB_ID, work)
         }
@@ -108,10 +108,10 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
             PushNotificationPluginConstants.BACKGROUND_FUNCTION_KEY, 0
         )
         if (callbackHandle == 0L) {
-//            Log.w(
-//                TAG,
-//                "Warning: Background service could not start. Callback dispatcher not found."
-//            )
+            Log.w(
+                TAG,
+                "Warning: Background service could not start. Callback dispatcher not found."
+            )
             return
         }
         val callbackInfo =
@@ -133,7 +133,7 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
     private fun sendToDart(intent: Intent) {
         intent.extras?.let { bundle ->
             bundle.getNotificationPayload()?.let {
-                AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
+                AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
                     it.toWritableMap(),
                     NoOpVoidResult()
                 )

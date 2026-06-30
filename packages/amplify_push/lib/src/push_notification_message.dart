@@ -1,7 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:flutter/foundation.dart';
+
 /// Push notification message representing both FCM and APNs payloads.
+@immutable
 class PushNotificationMessage {
   /// Creates a push notification message.
   const PushNotificationMessage({
@@ -32,10 +35,7 @@ class PushNotificationMessage {
           _ => null,
         };
         final imageUrl = data['media-url'] as String?;
-        final deeplinkUrl = switch (data) {
-          {'pinpoint': {'deeplink': final String deeplink}} => deeplink,
-          _ => null,
-        };
+        final deeplinkUrl = data['deeplink'] as String?;
         final apnsOptions = ApnsPlatformOptions(
           subtitle: switch (aps) {
             {'alert': {'subtitle': final String subtitle}} => subtitle,
@@ -47,7 +47,6 @@ class PushNotificationMessage {
           body: body,
           imageUrl: imageUrl,
           deeplinkUrl: deeplinkUrl,
-          goToUrl: deeplinkUrl,
           apnsOptions: apnsOptions,
           data: data,
         );
@@ -109,9 +108,42 @@ class PushNotificationMessage {
 
   /// Raw data payload from the notification.
   final Map<String, Object?> data;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PushNotificationMessage &&
+          other.title == title &&
+          other.body == body &&
+          other.imageUrl == imageUrl &&
+          other.deeplinkUrl == deeplinkUrl &&
+          other.goToUrl == goToUrl &&
+          other.fcmOptions == fcmOptions &&
+          other.apnsOptions == apnsOptions &&
+          mapEquals(other.data, data);
+
+  @override
+  int get hashCode => Object.hash(
+    title,
+    body,
+    imageUrl,
+    deeplinkUrl,
+    goToUrl,
+    fcmOptions,
+    apnsOptions,
+  );
+
+  @override
+  String toString() =>
+      'PushNotificationMessage('
+      'title: $title, '
+      'body: $body, '
+      'deeplinkUrl: $deeplinkUrl, '
+      'goToUrl: $goToUrl)';
 }
 
 /// FCM-specific notification options.
+@immutable
 class FcmPlatformOptions {
   /// Creates FCM platform options.
   const FcmPlatformOptions({this.channelId, this.messageId});
@@ -121,13 +153,39 @@ class FcmPlatformOptions {
 
   /// Unique message ID.
   final String? messageId;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FcmPlatformOptions &&
+          other.channelId == channelId &&
+          other.messageId == messageId;
+
+  @override
+  int get hashCode => Object.hash(channelId, messageId);
+
+  @override
+  String toString() =>
+      'FcmPlatformOptions(channelId: $channelId, messageId: $messageId)';
 }
 
 /// APNs-specific notification options.
+@immutable
 class ApnsPlatformOptions {
   /// Creates APNs platform options.
   const ApnsPlatformOptions({this.subtitle});
 
   /// Notification subtitle.
   final String? subtitle;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ApnsPlatformOptions && other.subtitle == subtitle;
+
+  @override
+  int get hashCode => subtitle.hashCode;
+
+  @override
+  String toString() => 'ApnsPlatformOptions(subtitle: $subtitle)';
 }

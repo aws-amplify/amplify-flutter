@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'amplify_push'
-  s.version          = '0.0.1'
+  s.version          = '0.1.0'
   s.summary          = 'The iOS native module for amplify_push.'
   s.description      = <<-DESC
 The iOS native module for amplify_push.

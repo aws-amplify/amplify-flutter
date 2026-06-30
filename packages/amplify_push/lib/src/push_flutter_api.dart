@@ -50,6 +50,11 @@ class PushFlutterApi implements PushNotificationsFlutterApi {
     _backgroundCallbacks.add(callback);
   }
 
+  /// Clear all registered background callbacks.
+  void clearBackgroundCallbacks() {
+    _backgroundCallbacks.clear();
+  }
+
   /// Set callback to nullify launch notification after it's been consumed.
   set onNullifyLaunchNotification(void Function() callback) {
     _onNullifyLaunchNotification = callback;

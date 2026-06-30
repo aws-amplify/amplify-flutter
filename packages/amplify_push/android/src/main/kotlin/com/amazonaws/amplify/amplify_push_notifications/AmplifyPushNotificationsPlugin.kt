@@ -169,7 +169,7 @@ class AmplifyPushNotificationsPlugin(
                     AmplifyPushNotificationsPlugin.launchNotification = notificationHashMap.toMutableMap()
                 }
             }
-            StreamHandlers.notificationOpened!!.send(
+            StreamHandlers.notificationOpened?.send(
                 notificationHashMap
             )
         }
@@ -266,8 +266,9 @@ class AmplifyPushNotificationsPlugin(
     }
 
     private fun shouldShowRequestPermissionRationale(): Boolean {
+        val activity = mainActivity ?: return false
         return ActivityCompat.shouldShowRequestPermissionRationale(
-            mainActivity!!, PushNotificationPluginConstants.PERMISSION
+            activity, PushNotificationPluginConstants.PERMISSION
         )
     }
 }
