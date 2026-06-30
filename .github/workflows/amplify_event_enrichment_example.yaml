@@ -1,0 +1,64 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_event_enrichment_example
+on:
+  push:
+    branches:
+      - main
+      - stable
+    paths:
+      - '.github/workflows/amplify_event_enrichment_example.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/example/**/*.dart'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/example/**/*.yaml'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/example/lib/**/*'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/example/test/**/*'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/lib/**/*.dart'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/pubspec.yaml'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment_dart/lib/**/*.dart'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment_dart/pubspec.yaml'
+      - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
+      - 'packages/amplify_foundation/amplify_foundation_dart/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+  pull_request:
+    paths:
+      - '.github/workflows/amplify_event_enrichment_example.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/example/**/*.dart'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/example/**/*.yaml'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/example/lib/**/*'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/example/test/**/*'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/lib/**/*.dart'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment/pubspec.yaml'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment_dart/lib/**/*.dart'
+      - 'packages/amplify_event_enrichment/amplify_event_enrichment_dart/pubspec.yaml'
+      - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
+      - 'packages/amplify_foundation/amplify_foundation_dart/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+  schedule:
+    - cron: "0 13 * * 1" # Every Monday at 06:00 PST
+  workflow_dispatch:
+defaults:
+  run:
+    shell: bash
+
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_event_enrichment_example
+      working-directory: packages/amplify_event_enrichment/amplify_event_enrichment/example
+      has-goldens: false
