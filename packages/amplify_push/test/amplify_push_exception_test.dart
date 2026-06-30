@@ -30,7 +30,7 @@ void main() {
     });
 
     test('wraps unknown Exception as PushUnknownException', () {
-      final unknown = FormatException('bad');
+      const unknown = FormatException('bad');
       final result = AmplifyPushException.from(unknown);
       expect(result, isA<PushUnknownException>());
       expect(result.cause, unknown);

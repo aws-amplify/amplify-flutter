@@ -25,17 +25,13 @@ void main() {
     });
 
     test('parses standard iOS message with title and body', () {
-      final msg = PushNotificationMessage.fromJson(
-        standardiOSMessage.cast(),
-      );
+      final msg = PushNotificationMessage.fromJson(standardiOSMessage.cast());
       expect(msg.title, 'TITLE');
       expect(msg.body, 'BODY');
     });
 
     test('parses url and deeplink from Android', () {
-      final msg = PushNotificationMessage.fromJson(
-        urlsAndroidMessage.cast(),
-      );
+      final msg = PushNotificationMessage.fromJson(urlsAndroidMessage.cast());
       expect(msg.goToUrl, 'URL');
       expect(msg.deeplinkUrl, 'DEEPLINK');
     });
@@ -54,9 +50,7 @@ void main() {
     });
 
     test('parses imageUrl from iOS', () {
-      final msg = PushNotificationMessage.fromJson(
-        imageUrliOSMessage.cast(),
-      );
+      final msg = PushNotificationMessage.fromJson(imageUrliOSMessage.cast());
       expect(msg.imageUrl, 'TEST_URL');
     });
   });

@@ -1,33 +1,37 @@
 # Generated with aft. To update, run: `aft generate workflows`
-name: amplify_push
+name: amplify_push_example
 on:
   push:
     branches:
       - main
       - stable
     paths:
-      - '.github/workflows/amplify_push.yaml'
+      - '.github/workflows/amplify_push_example.yaml'
       - '.github/workflows/flutter_vm.yaml'
       - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
       - 'packages/amplify_foundation/amplify_foundation_dart/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
       - 'packages/amplify_lints/pubspec.yaml'
-      - 'packages/amplify_push/**/*.dart'
-      - 'packages/amplify_push/**/*.yaml'
-      - 'packages/amplify_push/lib/**/*'
-      - 'packages/amplify_push/test/**/*'
+      - 'packages/amplify_push/example/**/*.dart'
+      - 'packages/amplify_push/example/**/*.yaml'
+      - 'packages/amplify_push/example/lib/**/*'
+      - 'packages/amplify_push/example/test/**/*'
+      - 'packages/amplify_push/lib/**/*.dart'
+      - 'packages/amplify_push/pubspec.yaml'
   pull_request:
     paths:
-      - '.github/workflows/amplify_push.yaml'
+      - '.github/workflows/amplify_push_example.yaml'
       - '.github/workflows/flutter_vm.yaml'
       - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
       - 'packages/amplify_foundation/amplify_foundation_dart/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
       - 'packages/amplify_lints/pubspec.yaml'
-      - 'packages/amplify_push/**/*.dart'
-      - 'packages/amplify_push/**/*.yaml'
-      - 'packages/amplify_push/lib/**/*'
-      - 'packages/amplify_push/test/**/*'
+      - 'packages/amplify_push/example/**/*.dart'
+      - 'packages/amplify_push/example/**/*.yaml'
+      - 'packages/amplify_push/example/lib/**/*'
+      - 'packages/amplify_push/example/test/**/*'
+      - 'packages/amplify_push/lib/**/*.dart'
+      - 'packages/amplify_push/pubspec.yaml'
   schedule:
     - cron: "0 13 * * 1" # Every Monday at 06:00 PST
   workflow_dispatch:
@@ -51,6 +55,6 @@ jobs:
     uses: ./.github/workflows/flutter_vm.yaml
     secrets: inherit
     with:
-      package-name: amplify_push
-      working-directory: packages/amplify_push
+      package-name: amplify_push_example
+      working-directory: packages/amplify_push/example
       has-goldens: false

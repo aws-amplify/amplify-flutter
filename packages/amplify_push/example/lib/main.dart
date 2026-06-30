@@ -220,7 +220,7 @@ class _PushHomePageState extends State<PushHomePage> {
             ),
             const SizedBox(height: 4),
             Expanded(
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(8),

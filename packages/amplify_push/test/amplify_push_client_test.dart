@@ -39,8 +39,9 @@ void main() {
   group('AmplifyPushClient.create', () {
     test('creates client in standalone mode (no provider)', () async {
       when(() => mockHostApi.requestInitialToken()).thenAnswer((_) async {});
-      when(() => mockHostApi.getLaunchNotification())
-          .thenAnswer((_) async => null);
+      when(
+        () => mockHostApi.getLaunchNotification(),
+      ).thenAnswer((_) async => null);
 
       final result = await AmplifyPushClient.create(
         hostApi: mockHostApi,
@@ -57,12 +58,12 @@ void main() {
 
     test('creates client with provider and registers token', () async {
       final mockProvider = MockPushServiceProvider();
-      when(() => mockProvider.onTokenReceived(any()))
-          .thenAnswer((_) async {});
+      when(() => mockProvider.onTokenReceived(any())).thenAnswer((_) async {});
       when(() => mockProvider.onPushEvent(any())).thenAnswer((_) async {});
       when(() => mockHostApi.requestInitialToken()).thenAnswer((_) async {});
-      when(() => mockHostApi.getLaunchNotification())
-          .thenAnswer((_) async => null);
+      when(
+        () => mockHostApi.getLaunchNotification(),
+      ).thenAnswer((_) async => null);
 
       // Note: In a real test we'd need to simulate the token event channel
       // firing. Since we can't easily do that without the full binding,
@@ -78,8 +79,9 @@ void main() {
 
     test('returns launch notification when present', () async {
       when(() => mockHostApi.requestInitialToken()).thenAnswer((_) async {});
-      when(() => mockHostApi.getLaunchNotification())
-          .thenAnswer((_) async => standardAndroidPushMessage.cast());
+      when(
+        () => mockHostApi.getLaunchNotification(),
+      ).thenAnswer((_) async => standardAndroidPushMessage.cast());
 
       final result = await AmplifyPushClient.create(
         hostApi: mockHostApi,
@@ -100,12 +102,12 @@ void main() {
 
     test('notifies provider of launch notification', () async {
       final mockProvider = MockPushServiceProvider();
-      when(() => mockProvider.onTokenReceived(any()))
-          .thenAnswer((_) async {});
+      when(() => mockProvider.onTokenReceived(any())).thenAnswer((_) async {});
       when(() => mockProvider.onPushEvent(any())).thenAnswer((_) async {});
       when(() => mockHostApi.requestInitialToken()).thenAnswer((_) async {});
-      when(() => mockHostApi.getLaunchNotification())
-          .thenAnswer((_) async => standardAndroidPushMessage.cast());
+      when(
+        () => mockHostApi.getLaunchNotification(),
+      ).thenAnswer((_) async => standardAndroidPushMessage.cast());
 
       await AmplifyPushClient.create(
         provider: mockProvider,
@@ -113,9 +115,9 @@ void main() {
         flutterApi: flutterApi,
       );
 
-      final captured = verify(() => mockProvider.onPushEvent(captureAny()))
-          .captured
-          .single as PushEvent;
+      final captured =
+          verify(() => mockProvider.onPushEvent(captureAny())).captured.single
+              as PushEvent;
       expect(captured.type, PushEventType.opened);
       expect(captured.notification.title, 'TITLE');
     });
@@ -126,8 +128,9 @@ void main() {
 
     setUp(() async {
       when(() => mockHostApi.requestInitialToken()).thenAnswer((_) async {});
-      when(() => mockHostApi.getLaunchNotification())
-          .thenAnswer((_) async => null);
+      when(
+        () => mockHostApi.getLaunchNotification(),
+      ).thenAnswer((_) async => null);
 
       final result = await AmplifyPushClient.create(
         hostApi: mockHostApi,
@@ -138,9 +141,8 @@ void main() {
 
     test('getPermissionStatus returns granted', () async {
       when(() => mockHostApi.getPermissionStatus()).thenAnswer(
-        (_) async => GetPermissionStatusResult(
-          status: PermissionStatus.granted,
-        ),
+        (_) async =>
+            GetPermissionStatusResult(status: PermissionStatus.granted),
       );
 
       final result = await client.getPermissionStatus();
@@ -154,9 +156,7 @@ void main() {
 
     test('getPermissionStatus returns denied', () async {
       when(() => mockHostApi.getPermissionStatus()).thenAnswer(
-        (_) async => GetPermissionStatusResult(
-          status: PermissionStatus.denied,
-        ),
+        (_) async => GetPermissionStatusResult(status: PermissionStatus.denied),
       );
 
       final result = await client.getPermissionStatus();
@@ -164,16 +164,18 @@ void main() {
     });
 
     test('requestPermissions returns true when granted', () async {
-      when(() => mockHostApi.requestPermissions(any()))
-          .thenAnswer((_) async => true);
+      when(
+        () => mockHostApi.requestPermissions(any()),
+      ).thenAnswer((_) async => true);
 
       final result = await client.requestPermissions();
       expect((result as Ok).value, isTrue);
     });
 
     test('requestPermissions returns false when denied', () async {
-      when(() => mockHostApi.requestPermissions(any()))
-          .thenAnswer((_) async => false);
+      when(
+        () => mockHostApi.requestPermissions(any()),
+      ).thenAnswer((_) async => false);
 
       final result = await client.requestPermissions();
       expect((result as Ok).value, isFalse);
@@ -185,8 +187,9 @@ void main() {
 
     setUp(() async {
       when(() => mockHostApi.requestInitialToken()).thenAnswer((_) async {});
-      when(() => mockHostApi.getLaunchNotification())
-          .thenAnswer((_) async => null);
+      when(
+        () => mockHostApi.getLaunchNotification(),
+      ).thenAnswer((_) async => null);
 
       final result = await AmplifyPushClient.create(
         hostApi: mockHostApi,
@@ -203,8 +206,7 @@ void main() {
     });
 
     test('setBadgeCount calls native', () {
-      when(() => mockHostApi.setBadgeCount(any()))
-          .thenAnswer((_) async {});
+      when(() => mockHostApi.setBadgeCount(any())).thenAnswer((_) async {});
 
       client.setBadgeCount(42);
       verify(() => mockHostApi.setBadgeCount(42)).called(1);
@@ -216,8 +218,9 @@ void main() {
 
     setUp(() async {
       when(() => mockHostApi.requestInitialToken()).thenAnswer((_) async {});
-      when(() => mockHostApi.getLaunchNotification())
-          .thenAnswer((_) async => null);
+      when(
+        () => mockHostApi.getLaunchNotification(),
+      ).thenAnswer((_) async => null);
 
       final result = await AmplifyPushClient.create(
         hostApi: mockHostApi,

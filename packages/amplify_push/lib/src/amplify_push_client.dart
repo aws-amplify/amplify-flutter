@@ -90,10 +90,9 @@ class AmplifyPushClient {
   }) async {
     try {
       final api = hostApi ?? PushNotificationsHostApi();
-      final flutter = flutterApi ?? PushFlutterApi.instance;
-
       // Wire provider into flutter API for background dispatch
-      flutter.provider = provider;
+      final flutter = (flutterApi ?? PushFlutterApi.instance)
+        ..provider = provider;
 
       // Register background callback (Android)
       if (onBackgroundMessage != null) {

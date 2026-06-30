@@ -37,9 +37,9 @@ void main() {
       standardAndroidPushMessage.cast(),
     );
 
-    final captured = verify(() => mockProvider.onPushEvent(captureAny()))
-        .captured
-        .single as PushEvent;
+    final captured =
+        verify(() => mockProvider.onPushEvent(captureAny())).captured.single
+            as PushEvent;
     expect(captured.type, PushEventType.backgroundReceived);
     expect(captured.notification.title, 'TITLE');
   });
@@ -87,6 +87,7 @@ void main() {
   test('nullifyLaunchNotification calls registered callback', () {
     var called = false;
     flutterApi.onNullifyLaunchNotification = () => called = true;
+    // ignore: cascade_invocations
     flutterApi.nullifyLaunchNotification();
     expect(called, isTrue);
   });

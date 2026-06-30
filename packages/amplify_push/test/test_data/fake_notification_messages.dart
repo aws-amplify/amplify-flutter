@@ -3,12 +3,12 @@
 
 /// Erase types on maps to mimic how maps come back from the platform.
 Map<Object?, Object?> _eraseTypes(Map<Object?, Object?> map) => {
-      for (final MapEntry(:key, :value) in map.entries)
-        key: switch (value) {
-          final Map<Object?, Object?> map => _eraseTypes(map),
-          _ => value,
-        },
-    };
+  for (final MapEntry(:key, :value) in map.entries)
+    key: switch (value) {
+      final Map<Object?, Object?> map => _eraseTypes(map),
+      _ => value,
+    },
+};
 
 final standardAndroidPushMessage = _eraseTypes({
   'title': 'TITLE',
