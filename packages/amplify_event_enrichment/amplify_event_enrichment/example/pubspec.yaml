@@ -1,0 +1,25 @@
+name: amplify_event_enrichment_example
+description: Demonstrates the amplify_event_enrichment plugin.
+version: 0.1.0
+
+publish_to: "none"
+
+environment:
+  sdk: ^3.10.0
+  flutter: ">=3.38.1"
+
+dependencies:
+  amplify_event_enrichment:
+    path: ../
+  amplify_foundation_dart: any
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../../amplify_lints
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
