@@ -25,10 +25,12 @@ class LocatePackageCommand extends AmplifyCommand {
     if (!verbose) {
       AWSLogger().logLevel = LogLevel.warn;
     }
+    // Called only to satisfy `@mustCallSuper`; its Repo.open / GitDir.fromExisting
+    // git setup is unused here and can fail in shallow or sparse checkouts.
     await super.run();
 
     final rest = argResults!.rest;
-    if (rest.length != 1 || rest.single.isEmpty) {
+    if (rest.length != 1 || rest.single.trim().isEmpty) {
       usageException('Expected exactly one argument: <name-or-tag>');
     }
     final nameOrTag = rest.single;

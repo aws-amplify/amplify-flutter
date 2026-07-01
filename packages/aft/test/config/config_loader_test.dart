@@ -120,17 +120,17 @@ aft:
   group('locatePackage', () {
     late AftConfig config;
 
-    setUp(() async {
-      d.Descriptor package(String name, String version) => d.dir(name, [
-        d.file('pubspec.yaml', '''
+    d.Descriptor package(String name, String version) => d.dir(name, [
+      d.file('pubspec.yaml', '''
 name: $name
 version: $version
 
 environment:
   sdk: ^3.9.0
 '''),
-      ]);
+    ]);
 
+    setUp(() async {
       await d.dir('repo', [
         d.file('pubspec.yaml', '''
 name: my_repo
@@ -184,6 +184,10 @@ environment:
 
     test('returns null for an unknown package', () {
       check(config.locatePackage('does_not_exist')).isNull();
+    });
+
+    test('treats a tag-like string without -v<digit> as a plain name', () {
+      check(config.locatePackage('amplify_core-vbeta')).isNull();
     });
   });
 }

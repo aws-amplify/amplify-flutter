@@ -500,7 +500,5 @@ final Version activeDartSdkVersion = () {
 
 final _versionRegex = RegExp(r'\d+\.\d+\.\d+(-[a-zA-Z\d]+)?');
 
-// Captures the package name from a `$name-v$version` publish tag. The `\d`
-// after `-v` anchors on the version, so `_v` in names like `aws_signature_v4`
-// is not treated as a separator. Lazy `.+?` matches the first `-v<digit>`.
+// Strips the -v<version> suffix; anchoring on a digit avoids splitting _v in names like aws_signature_v4.
 final _packageTagPattern = RegExp(r'^(.+?)-v\d');
