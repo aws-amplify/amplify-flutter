@@ -7,12 +7,12 @@ environment:
   flutter: ">=3.38.1"
 
 dependencies:
-  amplify_auth_cognito: ">=2.10.0 <2.11.0"
-  amplify_authenticator: ">=2.10.0 <2.11.0"
+  amplify_auth_cognito: any
+  amplify_authenticator: any
   amplify_firehose:
     path: ../
-  amplify_flutter: ">=2.10.0 <2.11.0"
-  amplify_foundation_dart: ">=2.11.0 <2.12.0"
+  amplify_flutter: any
+  amplify_foundation_dart: any
   flutter:
     sdk: flutter
 
