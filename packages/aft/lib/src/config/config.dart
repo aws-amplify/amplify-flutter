@@ -96,6 +96,21 @@ abstract class AftConfig
         packageName;
   }
 
+  /// Locates the package identified by [nameOrTag] in [allPackages].
+  ///
+  /// [nameOrTag] may be a package name (`amplify_core`) or a publish tag of
+  /// the form `$name-v$version` as emitted by `aft publish --tags`
+  /// (`amplify_core-v2.10.1`); the trailing `-v$version` is stripped to recover
+  /// the name. Anchoring on `-v` + a digit (never `_v`) leaves names like
+  /// `aws_signature_v4` intact.
+  ///
+  /// Throws if no such package exists, matching the `Repo` `[]` operator.
+  PackageInfo locatePackage(String nameOrTag) {
+    final name =
+        _packageTagPattern.firstMatch(nameOrTag)?.group(1) ?? nameOrTag;
+    return allPackages[name]!;
+  }
+
   @override
   String get runtimeTypeName => 'AftConfig';
 
@@ -485,3 +500,8 @@ final Version activeDartSdkVersion = () {
 }();
 
 final _versionRegex = RegExp(r'\d+\.\d+\.\d+(-[a-zA-Z\d]+)?');
+
+// Captures the package name from a `$name-v$version` publish tag. The `\d`
+// after `-v` anchors on the version, so `_v` in names like `aws_signature_v4`
+// is not treated as a separator. Lazy `.+?` matches the first `-v<digit>`.
+final _packageTagPattern = RegExp(r'^(.+?)-v\d');

@@ -3,6 +3,7 @@
 
 import 'dart:io';
 
+import 'package:aft/src/config/config.dart';
 import 'package:aft/src/config/config_loader.dart';
 import 'package:checks/checks.dart';
 import 'package:path/path.dart' as p;
@@ -113,6 +114,76 @@ aft:
             ..containsKey('license')
             ..containsKey('format'),
         );
+    });
+  });
+
+  group('locatePackage', () {
+    late AftConfig config;
+
+    setUp(() async {
+      d.Descriptor package(String name, String version) => d.dir(name, [
+        d.file('pubspec.yaml', '''
+name: $name
+version: $version
+
+environment:
+  sdk: ^3.9.0
+'''),
+      ]);
+
+      await d.dir('repo', [
+        d.file('pubspec.yaml', '''
+name: my_repo
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+'''),
+        d.dir('packages', [
+          package('amplify_core', '2.10.1'),
+          package('aws_common', '0.7.6'),
+          package('aws_signature_v4', '0.7.1'),
+        ]),
+      ]).create();
+
+      config = AftConfigLoader(
+        workingDirectory: Directory(p.normalize(d.path('repo'))),
+      ).load();
+    });
+
+    test('resolves a plain package name to its path', () {
+      check(
+        p.normalize(config.locatePackage('amplify_core').path),
+      ).equals(p.normalize(d.path('repo/packages/amplify_core')));
+    });
+
+    test('resolves a tag to the same path as the plain name', () {
+      check(
+        config.locatePackage('amplify_core-v2.10.1').path,
+      ).equals(config.locatePackage('amplify_core').path);
+    });
+
+    test('resolves a name containing `_v` by name and by tag', () {
+      final expectedPath = p.normalize(
+        d.path('repo/packages/aws_signature_v4'),
+      );
+
+      // The `_v4` in the plain name is not mistaken for a tag separator.
+      check(config.locatePackage('aws_signature_v4'))
+        ..has((pkg) => pkg.name, 'name').equals('aws_signature_v4')
+        ..has((pkg) => p.normalize(pkg.path), 'path').equals(expectedPath);
+
+      // The tag form strips only the trailing `-v0.7.1`, not `_v4`.
+      check(config.locatePackage('aws_signature_v4-v0.7.1'))
+        ..has((pkg) => pkg.name, 'name').equals('aws_signature_v4')
+        ..has((pkg) => p.normalize(pkg.path), 'path').equals(expectedPath);
+    });
+
+    test('throws for an unknown package, like the `Repo` `[]` operator', () {
+      expect(
+        () => config.locatePackage('does_not_exist'),
+        throwsA(isA<TypeError>()),
+      );
     });
   });
 }
