@@ -152,15 +152,18 @@ environment:
     });
 
     test('resolves a plain package name to its path', () {
-      check(
-        p.normalize(config.locatePackage('amplify_core').path),
-      ).equals(p.normalize(d.path('repo/packages/amplify_core')));
+      check(config.locatePackage('amplify_core'))
+          .isNotNull()
+          .has((pkg) => p.normalize(pkg.path), 'path')
+          .equals(p.normalize(d.path('repo/packages/amplify_core')));
     });
 
     test('resolves a tag to the same path as the plain name', () {
+      final byName = config.locatePackage('amplify_core');
+      check(byName).isNotNull();
       check(
-        config.locatePackage('amplify_core-v2.10.1').path,
-      ).equals(config.locatePackage('amplify_core').path);
+        config.locatePackage('amplify_core-v2.10.1'),
+      ).isNotNull().has((pkg) => pkg.path, 'path').equals(byName!.path);
     });
 
     test('resolves a name containing `_v` by name and by tag', () {
@@ -169,21 +172,18 @@ environment:
       );
 
       // The `_v4` in the plain name is not mistaken for a tag separator.
-      check(config.locatePackage('aws_signature_v4'))
+      check(config.locatePackage('aws_signature_v4')).isNotNull()
         ..has((pkg) => pkg.name, 'name').equals('aws_signature_v4')
         ..has((pkg) => p.normalize(pkg.path), 'path').equals(expectedPath);
 
       // The tag form strips only the trailing `-v0.7.1`, not `_v4`.
-      check(config.locatePackage('aws_signature_v4-v0.7.1'))
+      check(config.locatePackage('aws_signature_v4-v0.7.1')).isNotNull()
         ..has((pkg) => pkg.name, 'name').equals('aws_signature_v4')
         ..has((pkg) => p.normalize(pkg.path), 'path').equals(expectedPath);
     });
 
-    test('throws for an unknown package, like the `Repo` `[]` operator', () {
-      expect(
-        () => config.locatePackage('does_not_exist'),
-        throwsA(isA<TypeError>()),
-      );
+    test('returns null for an unknown package', () {
+      check(config.locatePackage('does_not_exist')).isNull();
     });
   });
 }
