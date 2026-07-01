@@ -115,7 +115,11 @@ class AmplifyPushNotificationsPlugin(
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = null
-        _flutterEngineCache.clear()
+        // Remove only the engines this plugin created rather than clearing the
+        // process-wide cache, which would evict other plugins' and add-to-app
+        // engines. Removing a key that was never added is a safe no-op.
+        _flutterEngineCache.remove(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
+        _flutterEngineCache.remove(PushNotificationPluginConstants.BACKGROUND_ENGINE_ID)
         StreamHandlers.deInit()
         PushNotificationsHostApi.setUp(binding.binaryMessenger, null)
         flutterApi = null
@@ -227,25 +231,32 @@ class AmplifyPushNotificationsPlugin(
         result: PushNotificationsHostApiBindings.Result<Boolean>
     ) {
         scope.launch {
-            val res = PushNotificationPermission(applicationContext).requestPermission()
+            try {
+                val res = PushNotificationPermission(applicationContext).requestPermission()
 
-            if (res is PermissionRequestResult.Granted) {
-                result.success(true)
-            } else if (res is PermissionRequestResult.NotGranted){
-                // If permission was not granted and the shouldShowRequestPermissionRationale flag
-                // is true then user must have denied for the first time. We will set the
-                // wasPermissionPreviouslyDenied value to true only in this scenario since it's
-                // possible to dismiss the permission request without explicitly denying as well.
-                if (res.shouldShowRationale) {
-                    with(sharedPreferences.edit()) {
-                        putBoolean(
-                            PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, true
-                        )
-                        apply()
+                when (res) {
+                    is PermissionRequestResult.Granted -> result.success(true)
+                    is PermissionRequestResult.NotGranted -> {
+                        // If permission was not granted and the shouldShowRequestPermissionRationale flag
+                        // is true then user must have denied for the first time. We will set the
+                        // wasPermissionPreviouslyDenied value to true only in this scenario since it's
+                        // possible to dismiss the permission request without explicitly denying as well.
+                        if (res.shouldShowRationale) {
+                            with(sharedPreferences.edit()) {
+                                putBoolean(
+                                    PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, true
+                                )
+                                apply()
+                            }
+                        }
+                        result.success(false)
                     }
+                    // Any unexpected result must still complete the Dart future so
+                    // callers are not left hanging.
+                    else -> result.success(false)
                 }
-                result.success(false)
-                return@launch
+            } catch (e: Throwable) {
+                result.error(e)
             }
         }
     }

@@ -92,11 +92,19 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
     }
 
     public func getBadgeCountWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> NSNumber? {
+        // `applicationIconBadgeNumber` is deprecated as of iOS 17, but there is
+        // no replacement API for reading the current badge count (Apple
+        // recommends tracking it locally). Keep using it until it is removed.
         return UIApplication.shared.applicationIconBadgeNumber as NSNumber
     }
 
     public func setBadgeCountWithBadgeCount(_ withBadgeCount: NSInteger, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
-        UIApplication.shared.applicationIconBadgeNumber = withBadgeCount
+        if #available(iOS 16.0, *) {
+            UNUserNotificationCenter.current().setBadgeCount(withBadgeCount)
+        } else {
+            // Fallback for iOS < 16 where `setBadgeCount` is unavailable.
+            UIApplication.shared.applicationIconBadgeNumber = withBadgeCount
+        }
     }
     
     public func registerCallbackFunctionCallbackHandle(_ callbackHandle: NSInteger, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {

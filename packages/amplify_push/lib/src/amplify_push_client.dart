@@ -46,30 +46,21 @@ final Logger _logger = AmplifyLogging.logger('AmplifyPushClient');
 /// Standalone on-device push notification client.
 ///
 /// Handles token lifecycle, notification routing, permissions, background
-/// processing, and badge count. Backend-agnostic — optionally accepts a
-/// [PushServiceProvider] for device registration and push analytics.
-///
-/// ```dart
-/// final push = await AmplifyPushClient.create(
-///   onBackgroundMessage: myBackgroundHandler,
-/// );
-///
-/// push.onTokenReceived.listen((token) => print('Token: $token'));
-/// push.onNotificationReceivedInForeground.listen((msg) => print(msg.title));
-/// ```
+/// processing, and badge count. Optionally accepts a [PushServiceProvider]
+/// for device registration and push analytics.
 /// {@endtemplate}
 class AmplifyPushClient {
   AmplifyPushClient._({
     required PushNotificationsHostApi hostApi,
     required PushFlutterApi flutterApi,
-    required Stream<String> tokenBroadcastStream,
+    required StreamController<String> tokenController,
     required Stream<PushNotificationMessage> foregroundStream,
     required Stream<PushNotificationMessage> openedStream,
     required List<StreamSubscription<Object?>> providerSubscriptions,
     PushNotificationMessage? launchNotification,
   }) : _hostApi = hostApi,
        _flutterApi = flutterApi,
-       _tokenBroadcastStream = tokenBroadcastStream,
+       _tokenController = tokenController,
        _foregroundStream = foregroundStream,
        _openedStream = openedStream,
        _providerSubscriptions = providerSubscriptions,
@@ -84,17 +75,9 @@ class AmplifyPushClient {
   @visibleForTesting
   static void resetForTesting() => _instance = null;
 
-  /// {@macro amplify_push.amplify_push_client}
+  /// Creates the singleton push client and begins listening for push events.
   ///
-  /// Initializes the native push bridge, requests the initial device token,
-  /// and begins listening for push events.
-  ///
-  /// Only one instance may exist at a time. Calling [create] a second time
-  /// without first calling [close] throws a [PushAlreadyConfiguredException].
-  ///
-  /// [provider] — optional backend for device registration and analytics.
-  /// [onBackgroundMessage] — callback invoked when a notification arrives
-  /// while the app is in the background (Android isolate / iOS background).
+  /// Throws [PushAlreadyConfiguredException] if called again before [close].
   static Future<Result<AmplifyPushClient>> create({
     PushServiceProvider? provider,
     OnRemoteMessageCallback? onBackgroundMessage,
@@ -188,15 +171,20 @@ class AmplifyPushClient {
       // deduplicating the initial token that was already dispatched above.
       if (provider != null) {
         providerSubscriptions.add(
-          tokenController.stream.listen((token) {
-            if (token == lastDispatchedToken) {
-              // Skip the initial token already dispatched during create().
+          tokenController.stream.listen(
+            (token) {
+              if (token == lastDispatchedToken) {
+                // Skip the initial token already dispatched during create().
+                lastDispatchedToken = null;
+                return;
+              }
               lastDispatchedToken = null;
-              return;
-            }
-            lastDispatchedToken = null;
-            unawaited(provider.onTokenReceived(token));
-          }),
+              unawaited(provider.onTokenReceived(token));
+            },
+            onError: (Object e, StackTrace st) {
+              _logger.error('Error on device token stream', e, st);
+            },
+          ),
         );
       }
 
@@ -204,25 +192,35 @@ class AmplifyPushClient {
       if (provider != null) {
         providerSubscriptions
           ..add(
-            foregroundStream.listen((msg) {
-              unawaited(
-                provider.onPushEvent(
-                  PushEvent(
-                    type: PushEventType.foregroundReceived,
-                    notification: msg,
+            foregroundStream.listen(
+              (msg) {
+                unawaited(
+                  provider.onPushEvent(
+                    PushEvent(
+                      type: PushEventType.foregroundReceived,
+                      notification: msg,
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              },
+              onError: (Object e, StackTrace st) {
+                _logger.error('Error on foreground notification stream', e, st);
+              },
+            ),
           )
           ..add(
-            openedStream.listen((msg) {
-              unawaited(
-                provider.onPushEvent(
-                  PushEvent(type: PushEventType.opened, notification: msg),
-                ),
-              );
-            }),
+            openedStream.listen(
+              (msg) {
+                unawaited(
+                  provider.onPushEvent(
+                    PushEvent(type: PushEventType.opened, notification: msg),
+                  ),
+                );
+              },
+              onError: (Object e, StackTrace st) {
+                _logger.error('Error on opened notification stream', e, st);
+              },
+            ),
           );
       }
 
@@ -246,7 +244,7 @@ class AmplifyPushClient {
       final client = AmplifyPushClient._(
         hostApi: api,
         flutterApi: flutter,
-        tokenBroadcastStream: tokenController.stream,
+        tokenController: tokenController,
         foregroundStream: foregroundStream,
         openedStream: openedStream,
         providerSubscriptions: providerSubscriptions,
@@ -269,7 +267,7 @@ class AmplifyPushClient {
 
   final PushNotificationsHostApi _hostApi;
   final PushFlutterApi _flutterApi;
-  final Stream<String> _tokenBroadcastStream;
+  final StreamController<String> _tokenController;
   final Stream<PushNotificationMessage> _foregroundStream;
   final Stream<PushNotificationMessage> _openedStream;
   final List<StreamSubscription<Object?>> _providerSubscriptions;
@@ -283,7 +281,7 @@ class AmplifyPushClient {
   /// [PushServiceProvider]).
   Stream<String> get onTokenReceived {
     if (_closed) throw const PushClientClosedException();
-    return _tokenBroadcastStream;
+    return _tokenController.stream;
   }
 
   /// Stream of notifications received while the app is in the foreground.
@@ -298,11 +296,12 @@ class AmplifyPushClient {
     return _openedStream;
   }
 
-  /// The notification that launched the app, if any.
+  /// Returns the notification that launched the app, or `null` if the app was
+  /// launched by other means.
   ///
-  /// Returns `null` if the app was launched by other means.
-  /// Consumed on first read (subsequent reads return `null`).
-  PushNotificationMessage? get launchNotification {
+  /// This consumes the launch notification: the first call returns it and
+  /// subsequent calls return `null`.
+  PushNotificationMessage? consumeLaunchNotification() {
     if (_closed) throw const PushClientClosedException();
     final result = _launchNotification;
     _launchNotification = null;
@@ -370,8 +369,9 @@ class AmplifyPushClient {
 
   /// Release resources held by this client.
   ///
-  /// Cancels all provider subscriptions, clears background callbacks, and
-  /// disconnects the provider. The client cannot be reused after closing.
+  /// Cancels all provider subscriptions, closes the buffered token stream,
+  /// clears background callbacks, and disconnects the provider. The client
+  /// cannot be reused after closing.
   Future<void> close() async {
     if (_closed) return;
     _closed = true;
@@ -381,6 +381,9 @@ class AmplifyPushClient {
       unawaited(sub.cancel());
     }
     _providerSubscriptions.clear();
+
+    // Close the buffered token stream so its broadcast controller releases.
+    unawaited(_tokenController.close());
 
     // Disconnect provider and clear background callbacks.
     _flutterApi
