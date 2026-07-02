@@ -226,6 +226,24 @@ abstract class AmplifyCommand extends Command<void>
     }
   }
 
+  /// Waits until [version] of [package] is live on `pub.dev`, so its analysis
+  /// has started before we await it.
+  Future<void> awaitPublishedVersion(String package, Version version) async {
+    final qaDurations = Platform.environment.containsKey('QA_DURATIONS');
+
+    final pollInterval = qaDurations
+        ? const Duration(seconds: 1)
+        : const Duration(seconds: 15);
+
+    while (true) {
+      final versionInfo = await resolveVersionInfo(package);
+      if (versionInfo?.allVersions.contains(version) ?? false) {
+        return;
+      }
+      await Future<void>.delayed(pollInterval);
+    }
+  }
+
   @override
   @mustCallSuper
   Future<void> run() async {

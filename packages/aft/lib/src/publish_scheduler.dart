@@ -224,7 +224,9 @@ class PublishScheduler {
   /// order and call [_publishPackage] for each one.
   Future<void> _runDryRun() async {
     for (final package in _packages) {
-      stdout.writeln('Publishing ${package.name} (${package.version}) [dry run]');
+      stdout.writeln(
+        'Publishing ${package.name} (${package.version}) [dry run]',
+      );
       await _publishPackage(package);
       stdout.writeln('');
     }
@@ -274,15 +276,22 @@ class PublishScheduler {
       await _publishPackage(package);
       published.add(package.name);
 
-      // Kick off analysis in the background. When it completes, update
-      // the adjacency lists and potentially enqueue new packages.
+      // Await the published version, then its analysis, in the background.
+      // When analysis completes, update the adjacency lists and potentially
+      // enqueue new packages.
       final packageName = package.name;
-      final analysisFuture = _command.awaitPendingAnalysis(packageName).then((
-        _,
-      ) {
-        _markAnalysisComplete(adjacencyLists, packageName, published, enqueued);
-        completedAnalyses.add(packageName);
-      });
+      final analysisFuture = _command
+          .awaitPublishedVersion(packageName, package.version)
+          .then((_) => _command.awaitPendingAnalysis(packageName))
+          .then((_) {
+            _markAnalysisComplete(
+              adjacencyLists,
+              packageName,
+              published,
+              enqueued,
+            );
+            completedAnalyses.add(packageName);
+          });
       pendingAnalyses[packageName] = analysisFuture;
     }
 
