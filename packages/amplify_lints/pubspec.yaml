@@ -11,3 +11,6 @@ environment:
 dependencies:
   flutter_lints: ^6.0.0
   lints: ^6.0.0
+
+dev_dependencies:
+  test: ^1.24.0

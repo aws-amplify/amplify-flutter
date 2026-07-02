@@ -12,6 +12,7 @@ on:
       - 'packages/amplify_lints/**/*.yaml'
       - 'packages/amplify_lints/lib/**/*'
       - 'packages/amplify_lints/test/**/*'
+      - 'tool/check_license_headers.dart'
   pull_request:
     paths:
       - '.github/workflows/amplify_lints.yaml'
@@ -20,6 +21,7 @@ on:
       - 'packages/amplify_lints/**/*.yaml'
       - 'packages/amplify_lints/lib/**/*'
       - 'packages/amplify_lints/test/**/*'
+      - 'tool/check_license_headers.dart'
   schedule:
     - cron: "0 13 * * 1" # Every Monday at 06:00 PST
   workflow_dispatch:
@@ -45,3 +47,12 @@ jobs:
     with:
       package-name: amplify_lints
       working-directory: packages/amplify_lints
+  check-license-headers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Check license headers
+        run: dart tool/check_license_headers.dart
