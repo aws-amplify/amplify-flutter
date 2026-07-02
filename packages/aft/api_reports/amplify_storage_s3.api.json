@@ -1,0 +1,43 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyStorageS3",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AmplifyStorageS3Dart",
+        "StoragePluginInterface",
+        "AmplifyPluginInterface",
+        "Object",
+        "AWSDebuggable",
+        "AWSLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyStorageS3",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "StoragePluginKey<AmplifyStorageS3>",
+          "name": "pluginKey",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    }
+  ]
+}

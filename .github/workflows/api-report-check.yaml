@@ -1,0 +1,115 @@
+name: API Report Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'packages/**/*.dart'
+      - 'packages/**/pubspec.yaml'
+      - '!packages/**/example/**'
+      - '!packages/**/test/**'
+
+jobs:
+  check-api-reports:
+    name: Check API Reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          cache: true
+          channel: 'stable'
+          flutter-version: '3.32.4'
+
+      - name: Setup aft
+        run: flutter pub global activate -spath packages/aft
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast --include=aft --verbose
+
+      - name: Install dart_apitool
+        run: flutter pub global activate dart_apitool
+
+      - name: Generate API reports
+        run: aft generate api-report
+
+      - name: Check for changes in API reports
+        id: check-changes
+        run: |
+          # Debug: Print git status
+          echo "=== DEBUG: Git status ==="
+          git status --porcelain
+          
+          # Check API JSON files for changes
+          API_JSON_CHANGES=$(git status --porcelain | grep 'packages/aft/api_reports/.*\.api\.json' || true)
+          
+          if [[ -n "$API_JSON_CHANGES" ]]; then
+            echo "API report files have changes. Checking if they are actual API changes..."
+            git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'
+            
+            ACTUAL_API_CHANGES=false
+            
+            # Compare API interfaces using sets instead of text diff
+            # We're comparing the PR's committed API reports vs freshly generated ones
+            for file in $(git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'); do
+              echo "=== Checking API changes in: $file ==="
+              
+              # Get the version from the PR (what developer committed)
+              git show HEAD:"$file" | jq -r '.interfaceDeclarations[] | tostring' > /tmp/pr_interfaces.txt 2>/dev/null || touch /tmp/pr_interfaces.txt
+              
+              # Get the freshly generated version (what CI just created)
+              jq -r '.interfaceDeclarations[] | tostring' "$file" > /tmp/generated_interfaces.txt
+              
+              # Compare the interface sets
+              if ! cmp -s /tmp/pr_interfaces.txt /tmp/generated_interfaces.txt; then
+                echo "=== ACTUAL API CHANGES DETECTED in: $file ==="
+                echo "The API report in your PR doesn't match the current code. Please run 'aft generate api-report' and commit the changes."
+                echo "Full diff for debugging:"
+                git diff "$file"
+                ACTUAL_API_CHANGES=true
+              else
+                echo "API report is up-to-date for: $file"
+              fi
+              
+              rm -f /tmp/pr_interfaces.txt /tmp/generated_interfaces.txt
+            done
+            
+            if [[ "$ACTUAL_API_CHANGES" == "true" ]]; then
+              echo "ERROR: API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
+              exit 1
+            else
+              echo "All API reports are up-to-date (detected only ordering differences)."
+            fi
+          else
+            echo "API report files are up-to-date."
+          fi
+
+      - name: Check if API reports are included in PR
+        run: |
+          # Get the list of changed files in the PR
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+          
+          # Check if any Dart files were modified
+          DART_FILES=$(echo "$CHANGED_FILES" | grep -E '\.dart$' || true)
+          if [[ -z "$DART_FILES" ]]; then
+            echo "No Dart files were modified, skipping API report check."
+            exit 0
+          fi
+          
+          # Check if API report files are included
+          API_REPORTS=$(echo "$CHANGED_FILES" | grep -E 'packages/aft/api_reports/.*\.api\.json' || true)
+          if [[ -z "$API_REPORTS" ]]; then
+            echo "Error: API report files are not included in this PR."
+            echo "Please run 'aft generate api-report' and commit the changes."
+            exit 1
+          fi
+          
+          echo "API report files are included in the PR."
