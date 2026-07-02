@@ -110,11 +110,13 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
     required String region,
     required AWSCredentialsProvider credentialsProvider,
     required DependencyManager dependencyManager,
+    List<HttpRequestInterceptor> additionalRequestInterceptors = const [],
   }) : _base = CognitoIdentityClient(
          region: region,
          credentialsProvider: credentialsProvider,
-         requestInterceptors: const [
-           WithHeader(AWSHeaders.cacheControl, 'no-store'),
+         requestInterceptors: [
+           const WithHeader(AWSHeaders.cacheControl, 'no-store'),
+           ...additionalRequestInterceptors,
          ],
        ),
        _dependencyManager = dependencyManager;
@@ -183,6 +185,7 @@ class WrappedCognitoIdentityProviderClient
     String? endpoint,
     required AWSCredentialsProvider credentialsProvider,
     required DependencyManager dependencyManager,
+    List<HttpRequestInterceptor> additionalRequestInterceptors = const [],
   }) : _base = CognitoIdentityProviderClient(
          region: region,
          credentialsProvider: credentialsProvider,
@@ -191,8 +194,9 @@ class WrappedCognitoIdentityProviderClient
              : (endpoint.startsWith('http')
                    ? Uri.parse(endpoint)
                    : Uri.parse('https://$endpoint')),
-         requestInterceptors: const [
-           WithHeader(AWSHeaders.cacheControl, 'no-store'),
+         requestInterceptors: [
+           const WithHeader(AWSHeaders.cacheControl, 'no-store'),
+           ...additionalRequestInterceptors,
          ],
        ),
        _dependencyManager = dependencyManager;
