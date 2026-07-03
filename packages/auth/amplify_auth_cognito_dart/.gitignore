@@ -9,10 +9,15 @@ build/
 # https://dart.dev/guides/libraries/private-files#pubspeclock.
 pubspec.lock
 
-# JS outputs
+# JS/Wasm worker outputs
 *.js
 *.js.map
 *.js.deps
+*.mjs
+*.wasm
+*.wasm.map
+lib/src/workers/workers.debug.dart
+lib/src/workers/workers.release.dart
 
 doc/api
 coverage/
