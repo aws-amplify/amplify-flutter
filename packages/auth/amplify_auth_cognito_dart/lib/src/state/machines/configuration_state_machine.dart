@@ -97,12 +97,13 @@ final class ConfigurationStateMachine
       );
     }
 
-    waiters.add(manager.loadCredentials());
+    waiters
+      ..add(manager.loadCredentials())
+      // Register before emitting `Configured`, or consumers can read the
+      // metadata back null (raced under dart2wasm).
+      ..add(_registerAnalyticsMetadata(event.config.analytics));
 
     await _waitForConfiguration(event.config, waiters);
-
-    // Setup AnalyticsMetadataType
-    await _registerAnalyticsMetadata(event.config.analytics);
   }
 
   Future<void> _waitForConfiguration(
