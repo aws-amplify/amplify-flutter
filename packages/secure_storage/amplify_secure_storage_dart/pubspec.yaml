@@ -48,5 +48,3 @@ flutter:
   assets:
     - lib/src/worker/workers.min.js
     - lib/src/worker/workers.min.js.map
-    - lib/src/worker/workers.js
-    - lib/src/worker/workers.js.map
