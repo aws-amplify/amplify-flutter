@@ -11,11 +11,13 @@ class SrpDevicePasswordVerifierWorkerImpl
 
   @override
   String get jsEntrypoint {
-    // Flutter web release builds must use the bundled asset.
-    if (zIsFlutter && !zDebugMode) {
+    // Flutter web builds must use the bundled asset. The minified worker is used
+    // in both debug and release modes so that only a single asset needs to be
+    // declared and shipped (see each package's `pubspec.yaml`).
+    if (zIsFlutter) {
       return 'assets/packages/amplify_auth_cognito_dart/lib/src/workers/workers.min.js';
     }
-    // Default to the compiled, published worker.
+    // Default to the compiled, published worker (pure Dart / build_runner).
     return zDebugMode
         ? 'packages/amplify_auth_cognito_dart/src/workers/workers.js'
         : 'packages/amplify_auth_cognito_dart/src/workers/workers.min.js';

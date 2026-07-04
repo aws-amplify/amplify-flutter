@@ -9,18 +9,6 @@ class EchoWorkerImpl extends EchoWorker {
   String get name => 'EchoWorker';
 
   @override
-  String get jsEntrypoint {
-    // Flutter web release builds must use the bundled asset.
-    if (zIsFlutter && !zDebugMode) {
-      return 'assets/packages/worker_bee_example/lib/workers.min.js';
-    }
-    // Default to the compiled, published worker.
-    return zDebugMode
-        ? 'packages/worker_bee_example/workers.js'
-        : 'packages/worker_bee_example/workers.min.js';
-  }
-
-  @override
   List<String> get fallbackUrls {
     // When running in a test, we need to find the `packages` directory which
     // is symlinked in the root `test/` directory.
