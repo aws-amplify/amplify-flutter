@@ -39,3 +39,18 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # The web worker is spawned from a Flutter asset URL. Because this package is
+  # the application being run (not a dependency), its assets are served under
+  # `assets/lib/...` (see EchoWorker.jsEntrypoint). Declaring the worker outputs
+  # here makes them available under that URL in all Flutter web modes.
+  # workers.min.js is the loader bootstrap; it fetches the dart2wasm worker
+  # (workers.min.mjs + workers.min.wasm) where supported, falling back to the
+  # dart2js worker (workers.min.dart2js.js).
+  assets:
+    - lib/workers.min.js
+    - lib/workers.min.dart2js.js
+    - lib/workers.min.dart2js.js.map
+    - lib/workers.min.mjs
+    - lib/workers.min.wasm
+    - lib/workers.min.wasm.map
