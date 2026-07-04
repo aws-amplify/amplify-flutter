@@ -10,11 +10,13 @@ class SecureStorageWorkerImpl extends SecureStorageWorker {
 
   @override
   String get jsEntrypoint {
-    // Flutter web release builds must use the bundled asset.
-    if (zIsFlutter && !zDebugMode) {
-      return 'assets/packages/amplify_secure_storage_dart/lib/src/worker/workers.min.js';
+    // Flutter web builds must use the bundled asset.
+    if (zIsFlutter) {
+      return zDebugMode
+          ? 'assets/packages/amplify_secure_storage_dart/lib/src/worker/workers.js'
+          : 'assets/packages/amplify_secure_storage_dart/lib/src/worker/workers.min.js';
     }
-    // Default to the compiled, published worker.
+    // Default to the compiled, published worker (pure Dart / build_runner).
     return zDebugMode
         ? 'packages/amplify_secure_storage_dart/src/worker/workers.js'
         : 'packages/amplify_secure_storage_dart/src/worker/workers.min.js';

@@ -59,17 +59,19 @@ class JsGenerator extends ImplGenerator {
 
   Code get _jsEntrypoint {
     // Flutter uses a special assets URL which includes the `lib/` path prefix.
-    final flutterUrl =
+    final flutterDebugUrl =
+        'assets/packages/$_packageName/${_workersJs.path}';
+    final flutterReleaseUrl =
         'assets/packages/$_packageName/${_minifiedWorkersJs.path}';
 
     return Code.scope(
       (allocate) =>
           '''
-// Flutter web release builds must use the bundled asset.
-if (${allocate(DartTypes.awsCommon.zIsFlutter)} && !${allocate(DartTypes.awsCommon.zDebugMode)}) {
-  return '$flutterUrl';
+// Flutter web builds must use the bundled asset.
+if (${allocate(DartTypes.awsCommon.zIsFlutter)}) {
+  return ${allocate(DartTypes.awsCommon.zDebugMode)} ? '$flutterDebugUrl' : '$flutterReleaseUrl';
 }
-    // Default to the compiled, published worker.
+    // Default to the compiled, published worker (pure Dart / build_runner).
 return ${allocate(DartTypes.awsCommon.zDebugMode)} ? '$_workersJsPath' : '$_minifiedWorkersJsPath';
 ''',
     );

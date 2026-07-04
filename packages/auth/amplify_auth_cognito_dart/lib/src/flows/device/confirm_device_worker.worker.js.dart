@@ -10,11 +10,13 @@ class ConfirmDeviceWorkerImpl extends ConfirmDeviceWorker {
 
   @override
   String get jsEntrypoint {
-    // Flutter web release builds must use the bundled asset.
-    if (zIsFlutter && !zDebugMode) {
-      return 'assets/packages/amplify_auth_cognito_dart/lib/src/workers/workers.min.js';
+    // Flutter web builds must use the bundled asset.
+    if (zIsFlutter) {
+      return zDebugMode
+          ? 'assets/packages/amplify_auth_cognito_dart/lib/src/workers/workers.js'
+          : 'assets/packages/amplify_auth_cognito_dart/lib/src/workers/workers.min.js';
     }
-    // Default to the compiled, published worker.
+    // Default to the compiled, published worker (pure Dart / build_runner).
     return zDebugMode
         ? 'packages/amplify_auth_cognito_dart/src/workers/workers.js'
         : 'packages/amplify_auth_cognito_dart/src/workers/workers.min.js';
