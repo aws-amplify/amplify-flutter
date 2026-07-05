@@ -46,5 +46,13 @@ dev_dependencies:
 
 flutter:
   assets:
+    # The worker loader bootstrap. Feature-detects WebAssembly and loads the
+    # dart2wasm worker (workers.min.mjs + workers.min.wasm) where supported,
+    # falling back to the dart2js worker (workers.min.dart2js.js).
     - lib/src/worker/workers.min.js
     - lib/src/worker/workers.min.js.map
+    - lib/src/worker/workers.min.dart2js.js
+    - lib/src/worker/workers.min.dart2js.js.map
+    - lib/src/worker/workers.min.mjs
+    - lib/src/worker/workers.min.wasm
+    - lib/src/worker/workers.min.wasm.map
