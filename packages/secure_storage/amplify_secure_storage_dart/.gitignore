@@ -16,3 +16,5 @@ pubspec.lock
 *.mjs
 *.wasm
 *.wasm.map
+lib/src/worker/workers.debug.dart
+lib/src/worker/workers.release.dart
