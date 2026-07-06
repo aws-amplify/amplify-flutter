@@ -34,6 +34,16 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: Mitigate Windows Network & Disk Bottlenecks
+        shell: powershell
+        run: |
+          # 1. Force disable real-time monitoring for the job duration
+          Set-MpPreference -DisableRealtimeMonitoring $true -ErrorAction SilentlyContinue
+          # 2. Exclude your exact workspace path from active scans
+          Set-MpPreference -ExclusionPath "${{ github.workspace }}" -ErrorAction SilentlyContinue
+          # 3. Aggressively lower TCP timed-out port reuse limits (helps local socket recycling)
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'TcpTimedWaitDelay' -Value 30 -ErrorAction SilentlyContinue
+
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
         with:
           persist-credentials: false
