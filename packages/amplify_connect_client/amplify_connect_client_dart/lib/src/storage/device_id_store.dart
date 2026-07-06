@@ -5,11 +5,10 @@ import 'package:uuid/uuid.dart';
 
 /// Storage key for the stable device identifier.
 ///
-/// This matches the key used by the event enrichment client so a device
-/// resolves to one identifier across Amplify packages. Note that the Flutter
-/// implementations currently use different backing stores (secure storage here
-/// versus shared preferences in enrichment); unifying the store is tracked as
-/// a follow-up.
+/// This matches the key used by the event enrichment client, and both packages
+/// use the same plain store (shared preferences on Android, `NSUserDefaults`
+/// on iOS) with read-or-create semantics, so a device resolves to one shared
+/// identifier across Amplify packages.
 const connectDeviceIdKey = 'com.amplifyframework.device_id';
 
 /// Storage key for the last `ProfileObjectUniqueKey` returned when the device
@@ -45,8 +44,9 @@ abstract interface class DeviceIdStore {
 /// An in-memory [DeviceIdStore] with no persistence.
 ///
 /// Useful for tests and for the pure-Dart core. Flutter apps should use the
-/// secure-storage-backed implementation from the `amplify_connect_client`
-/// package so the id survives restarts.
+/// shared-preferences-backed implementation from the `amplify_connect_client`
+/// package so the id survives restarts and is shared with other Amplify
+/// packages.
 /// {@endtemplate}
 class InMemoryDeviceIdStore implements DeviceIdStore {
   /// {@macro amplify_connect_client.in_memory_device_id_store}

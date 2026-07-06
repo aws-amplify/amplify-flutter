@@ -24,13 +24,24 @@ import 'package:meta/meta.dart';
 /// This pure-Dart core resolves AWS credentials and the Cognito identity
 /// through an injected [ConnectCredentialsProvider], and persists the device
 /// identifier through an injected [DeviceIdStore]. The `amplify_connect_client`
-/// Flutter package wires these to Amplify Auth and secure storage.
+/// Flutter package wires these to Amplify Auth and shared preferences.
 ///
 /// ## Identity flow
 ///
 /// `identifyUser` resolves (or creates) the profile for the signed-in Cognito
 /// user, then applies user attributes. `registerDevice` attaches an
 /// `AmplifyDevice` profile object keyed by a stable device id.
+///
+/// ## IAM tradeoff
+///
+/// Because `PutProfileObject` returns only a `ProfileObjectUniqueKey` (never a
+/// `ProfileId`, which `UpdateProfile` requires), the mobile Cognito
+/// authenticated role holds `profile:SearchProfiles`, `profile:CreateProfile`,
+/// and `profile:AddProfileKey` in addition to update/put/delete. Customer
+/// Profiles has no per-profile IAM scoping, so these actions are scoped to the
+/// specific Connect domain resource. This is a known, deliberate tradeoff
+/// (the same domain-scoped model Pinpoint used); the profile id is derived
+/// from the Cognito `sub` and profile data is targeting metadata.
 ///
 /// ## Deferred (Phase 2)
 ///

@@ -28,9 +28,9 @@ dependencies:
   amplify_auth_cognito: ">=2.12.0 <3.0.0"
   amplify_connect_client_dart: ">=0.1.0 <0.2.0"
   amplify_flutter: ">=2.12.0 <3.0.0"
-  amplify_secure_storage: ">=0.5.18 <0.6.0"
   flutter:
     sdk: flutter
+  shared_preferences: ^2.3.0
   uuid: ^4.5.0
 
 dev_dependencies:

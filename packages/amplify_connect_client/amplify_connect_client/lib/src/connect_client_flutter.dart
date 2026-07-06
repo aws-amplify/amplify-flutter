@@ -4,14 +4,15 @@
 import 'dart:io';
 
 import 'package:amplify_connect_client/src/cognito_connect_credentials_provider.dart';
-import 'package:amplify_connect_client/src/secure_storage_device_id_store.dart';
+import 'package:amplify_connect_client/src/shared_preferences_device_id_store.dart';
 import 'package:amplify_connect_client_dart/amplify_connect_client_dart.dart';
 
 /// {@template amplify_connect_client.amplify_connect_client_flutter}
 /// Flutter entry point for the Amazon Connect Customer Profiles client.
 ///
 /// Wires the pure-Dart [AmplifyConnectClient] to Amplify Auth (for credentials
-/// and the Cognito identity) and secure storage (for the device id).
+/// and the Cognito identity) and shared preferences (for the device id, shared
+/// with other Amplify packages under `com.amplifyframework.device_id`).
 ///
 /// ## Usage
 ///
@@ -39,7 +40,7 @@ class AmplifyConnectClientFlutter {
   /// {@macro amplify_connect_client.amplify_connect_client_flutter}
   ///
   /// By default resolves credentials from Amplify Auth and persists the device
-  /// id in secure storage. Both can be overridden for testing. When
+  /// id in shared preferences. Both can be overridden for testing. When
   /// [validateObjectType] is `true` (the default), the `AmplifyDevice` object
   /// type is validated on the domain before returning, throwing
   /// [ConnectObjectTypeMissingException] if it is missing.
@@ -54,7 +55,7 @@ class AmplifyConnectClientFlutter {
       configuration: configuration,
       credentialsProvider:
           credentialsProvider ?? const CognitoConnectCredentialsProvider(),
-      deviceIdStore: deviceIdStore ?? SecureStorageDeviceIdStore(),
+      deviceIdStore: deviceIdStore ?? SharedPreferencesDeviceIdStore(),
       platform: _platformName(),
       appVersion: appVersion,
     );
