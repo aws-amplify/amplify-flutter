@@ -34,6 +34,9 @@ WORKER_STARTUP_WAIT_S = 3
 MESSAGE_RESPONSE_WAIT_S = 2
 SERVER_READY_TIMEOUT_S = 120  # Flutter compile can be slow
 HEADLESS = True
+# When set, launch Chrome with WebAssembly disabled to test the worker loader's
+# dart2js fallback.
+DISABLE_WASM = os.environ.get("WORKER_BEE_DISABLE_WASM") == "1"
 
 # ── Colors ───────────────────────────────────────────────────────────────────────
 
@@ -184,7 +187,15 @@ def start_browser():
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
+    # When WORKER_BEE_DISABLE_WASM is set, launch Chrome without WebAssembly
+    # support so the worker loader must fall back to the dart2js build.
+    if DISABLE_WASM:
+        chrome_options.add_argument("--js-flags=--noexpose-wasm")
+
     driver = webdriver.Chrome(options=chrome_options)
+    if DISABLE_WASM:
+        wasm_type = driver.execute_script("return typeof WebAssembly")
+        log(f"WebAssembly disabled (typeof WebAssembly = {wasm_type!r}).")
     log("Headless Chrome started.")
     return driver
 

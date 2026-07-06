@@ -45,6 +45,13 @@ jobs:
   example-web-test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        wasm:
+          - wasm-support
+          - no-wasm-support
+    name: example-web-test (${{ matrix.wasm }})
     steps:
       - name: Git Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 4.0.0
@@ -89,4 +96,6 @@ jobs:
         run: pip install -r packages/worker_bee/worker_bee/example/tool/example_web_tester/requirements.txt
 
       - name: Run build and run test (generate files and test them)
+        env:
+          WORKER_BEE_DISABLE_WASM: ${{ matrix.wasm == 'no-wasm-support' && '1' || '0' }}
         run: python3 packages/worker_bee/worker_bee/example/tool/example_web_tester/example_web_tester.py
