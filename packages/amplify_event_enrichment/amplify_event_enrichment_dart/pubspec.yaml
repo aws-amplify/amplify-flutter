@@ -1,5 +1,5 @@
 name: amplify_event_enrichment_dart
-description: A Dart-only standalone on-device event enrichment client that collects device/app/session context and produces structured analytics events in Pinpoint-compatible JSON format. For internal use in the amplify_event_enrichment Flutter library.
+description: A Dart-only standalone on-device event enrichment client that collects device/app/session context and produces structured analytics events in a standard JSON envelope format. For internal use in the amplify_event_enrichment Flutter library.
 version: 0.1.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_event_enrichment/amplify_event_enrichment_dart
