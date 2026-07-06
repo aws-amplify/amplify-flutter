@@ -87,15 +87,16 @@ void main() {
       client.addGlobalAttribute('key', 'global');
       final event =
           (client.record('test', attributes: {'key': 'local'})
-              as Ok<EnrichedEvent>).value;
+                  as Ok<EnrichedEvent>)
+              .value;
       expect(event.attributes['key'], 'local');
     });
 
     test('per-event metrics override globals', () {
-      client.addGlobalMetric('m', 1.0);
+      client.addGlobalMetric('m', 1);
       final event =
-          (client.record('test', metrics: {'m': 2.0})
-              as Ok<EnrichedEvent>).value;
+          (client.record('test', metrics: {'m': 2.0}) as Ok<EnrichedEvent>)
+              .value;
       expect(event.metrics['m'], 2.0);
     });
 
@@ -106,8 +107,9 @@ void main() {
     });
 
     test('removed global attributes do not appear', () {
-      client.addGlobalAttribute('env', 'prod');
-      client.removeGlobalAttribute('env');
+      client
+        ..addGlobalAttribute('env', 'prod')
+        ..removeGlobalAttribute('env');
       final event = (client.record('test') as Ok<EnrichedEvent>).value;
       expect(event.attributes.containsKey('env'), isFalse);
     });
@@ -119,8 +121,9 @@ void main() {
     });
 
     test('setUserId(null) clears userId', () {
-      client.setUserId('user-1');
-      client.setUserId(null);
+      client
+        ..setUserId('user-1')
+        ..setUserId(null);
       final event = (client.record('test') as Ok<EnrichedEvent>).value;
       expect(event.userId, isNull);
     });
@@ -129,8 +132,9 @@ void main() {
       final firstEvent = (client.record('before') as Ok<EnrichedEvent>).value;
       final sessionId = firstEvent.session.id;
 
-      client.handleAppPaused();
-      client.handleAppResumed();
+      client
+        ..handleAppPaused()
+        ..handleAppResumed();
 
       final secondEvent = (client.record('after') as Ok<EnrichedEvent>).value;
       expect(secondEvent.session.id, sessionId);
