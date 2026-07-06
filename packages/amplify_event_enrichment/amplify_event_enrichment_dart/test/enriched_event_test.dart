@@ -11,31 +11,31 @@ void main() {
     late EnrichedEvent event;
 
     setUp(() {
-      event = EnrichedEvent(
+      event = const EnrichedEvent(
         eventId: 'test-event-id',
         eventType: 'product_viewed',
         eventTimestamp: 1700000000000,
-        session: const Session(
+        session: Session(
           id: 'testApp1-uuid0000-20231114-120000000',
           startTimestamp: '2023-11-14T12:00:00.000Z',
         ),
         attributes: {'category': 'electronics'},
         metrics: {'price': 29.99},
-        device: const DeviceMetadata(
+        device: DeviceMetadata(
           platform: 'iOS',
           platformVersion: '17.0',
           manufacturer: 'Apple',
           model: 'iPhone 15',
           locale: 'en_US',
         ),
-        app: const AppMetadata(
+        app: AppMetadata(
           appId: 'testApp1',
           packageName: 'com.example.app',
           versionName: '1.0.0',
           versionCode: '1',
           title: 'Test App',
         ),
-        sdk: const SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
+        sdk: SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
         clientId: 'device-uuid-123',
         userId: 'user-42',
       );
@@ -79,16 +79,16 @@ void main() {
     });
 
     test('omits user_id when null', () {
-      final noUser = EnrichedEvent(
+      const noUser = EnrichedEvent(
         eventId: 'id',
         eventType: 'test',
         eventTimestamp: 0,
-        session: const Session(id: 's', startTimestamp: 't'),
-        attributes: const {},
-        metrics: const {},
-        device: const DeviceMetadata(),
-        app: const AppMetadata(appId: 'a'),
-        sdk: const SdkMetadata(name: 'n', version: 'v'),
+        session: Session(id: 's', startTimestamp: 't'),
+        attributes: {},
+        metrics: {},
+        device: DeviceMetadata(),
+        app: AppMetadata(appId: 'a'),
+        sdk: SdkMetadata(name: 'n', version: 'v'),
         clientId: 'c',
       );
       final map = jsonDecode(noUser.toJson()) as Map<String, dynamic>;
@@ -121,16 +121,16 @@ void main() {
     });
 
     test('omits attributes and metrics when empty', () {
-      final empty = EnrichedEvent(
+      const empty = EnrichedEvent(
         eventId: 'id',
         eventType: 'test',
         eventTimestamp: 0,
-        session: const Session(id: 's', startTimestamp: 't'),
-        attributes: const {},
-        metrics: const {},
-        device: const DeviceMetadata(),
-        app: const AppMetadata(appId: 'a'),
-        sdk: const SdkMetadata(name: 'n', version: 'v'),
+        session: Session(id: 's', startTimestamp: 't'),
+        attributes: {},
+        metrics: {},
+        device: DeviceMetadata(),
+        app: AppMetadata(appId: 'a'),
+        sdk: SdkMetadata(name: 'n', version: 'v'),
         clientId: 'c',
       );
       final map = jsonDecode(empty.toJson()) as Map<String, dynamic>;

@@ -23,14 +23,16 @@ void main() {
     });
 
     test('addAttribute overwrites existing key', () {
-      manager.addAttribute('key1', 'value1');
-      manager.addAttribute('key1', 'value2');
+      manager
+        ..addAttribute('key1', 'value1')
+        ..addAttribute('key1', 'value2');
       expect(manager.attributes['key1'], 'value2');
     });
 
     test('removeAttribute removes key', () {
-      manager.addAttribute('key1', 'value1');
-      manager.removeAttribute('key1');
+      manager
+        ..addAttribute('key1', 'value1')
+        ..removeAttribute('key1');
       expect(manager.attributes, isEmpty);
     });
 
@@ -45,8 +47,9 @@ void main() {
     });
 
     test('removeMetric removes key', () {
-      manager.addMetric('metric1', 1.0);
-      manager.removeMetric('metric1');
+      manager
+        ..addMetric('metric1', 1)
+        ..removeMetric('metric1');
       expect(manager.metrics, isEmpty);
     });
 
@@ -59,7 +62,7 @@ void main() {
     });
 
     test('metrics view is unmodifiable', () {
-      manager.addMetric('key', 1.0);
+      manager.addMetric('key', 1);
       expect(
         () => manager.metrics['new'] = 2.0,
         throwsA(isA<UnsupportedError>()),

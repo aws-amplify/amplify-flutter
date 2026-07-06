@@ -17,8 +17,7 @@ void main() {
         appId: 'testApp1',
         sessionTimeout: const Duration(seconds: 5),
         generateId: () => 'uuid0000-fake-uuid-value',
-      );
-      sessionManager.startSession();
+      )..startSession();
       observer = FlutterLifecycleObserver(sessionManager: sessionManager);
     });
 
@@ -32,8 +31,9 @@ void main() {
     });
 
     test('onResume calls sessionManager.handleAppResumed', () {
-      observer.onPause();
-      observer.onResume();
+      observer
+        ..onPause()
+        ..onResume();
       expect(sessionManager.state, SessionState.active);
     });
 
@@ -48,16 +48,17 @@ void main() {
     });
 
     test('didChangeAppLifecycleState resumed triggers onResume', () {
-      observer.didChangeAppLifecycleState(AppLifecycleState.paused);
-      observer.didChangeAppLifecycleState(AppLifecycleState.resumed);
+      observer
+        ..didChangeAppLifecycleState(AppLifecycleState.paused)
+        ..didChangeAppLifecycleState(AppLifecycleState.resumed);
       expect(sessionManager.state, SessionState.active);
     });
 
     test('dispose removes observer without error', () {
-      // Should not throw.
-      observer.dispose();
-      // Calling again should be safe (removeObserver is idempotent).
-      observer.dispose();
+      // Calling dispose twice should be safe (removeObserver is idempotent).
+      observer
+        ..dispose()
+        ..dispose();
     });
   });
 }
