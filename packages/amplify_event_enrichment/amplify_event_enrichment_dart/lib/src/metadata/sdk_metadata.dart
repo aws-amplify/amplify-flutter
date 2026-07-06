@@ -9,10 +9,7 @@ import 'package:meta/meta.dart';
 @immutable
 final class SdkMetadata {
   /// {@macro amplify_event_enrichment.sdk_metadata}
-  const SdkMetadata({
-    required this.name,
-    required this.version,
-  });
+  const SdkMetadata({required this.name, required this.version});
 
   /// SDK name (e.g. "amplify-flutter").
   final String name;
