@@ -318,6 +318,17 @@ def run_tests(driver):
 
     if worker_started:
         log_lines = [l for l in last_logs.split("\n") if l.strip()]
+
+        # Surface the worker's own runtime (js vs wasm), which it logs as
+        # "Echo worker running as: <runtime>" from inside the worker isolate.
+        runtime_lines = [l for l in log_lines if "running as:" in l]
+        if runtime_lines:
+            runtime = runtime_lines[0].split("running as:", 1)[1].strip()
+            print(f"  {BOLD}{CYAN}🧭 Worker runtime: {runtime}{RESET}")
+            results["workerRuntime"] = runtime
+        else:
+            log_info("Worker runtime not reported in logs.")
+
         error_lines = [
             l for l in log_lines
             if "❌" in l or "error" in l.lower() or "fail" in l.lower()
@@ -421,6 +432,8 @@ def print_report(results):
     print(f"\n  Tests passed: {GREEN}{results['passed']}{RESET}")
     failed_color = RED if results["failed"] > 0 else GREEN
     print(f"  Tests failed: {failed_color}{results['failed']}{RESET}")
+    if results.get("workerRuntime"):
+        print(f"  Worker runtime: {CYAN}{results['workerRuntime']}{RESET}")
     print()
 
     for test in results["tests"]:
