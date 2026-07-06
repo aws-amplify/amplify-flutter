@@ -209,6 +209,23 @@ ${dependabotGroups.join('\n')}
     }
   }
 
+  /// Whether the E2E web run for [package] should also exercise `dart2wasm`.
+  ///
+  /// E2E tests run from a `*_example` package, but the `dart2wasm` opt-in
+  /// marker (`test/wasm_smoke_test.dart`) lives in the sibling `*_test`
+  /// package. Map the example to its test package by naming convention and
+  /// reuse its [PackageInfo.hasWasmTest] signal.
+  bool _e2eNeedsWasm(PackageInfo package) {
+    if (package.hasWasmTest) return true;
+    const exampleSuffix = '_example';
+    if (!package.name.endsWith(exampleSuffix)) return false;
+    final base = package.name.substring(
+      0,
+      package.name.length - exampleSuffix.length,
+    );
+    return repo.allPackages['${base}_test']?.hasWasmTest ?? false;
+  }
+
   Future<void> generateForPackage(
     PackageInfo package, {
     required String repoRelativePath,
@@ -425,6 +442,7 @@ jobs:
       final needsAwsConfig = File(
         p.join(package.path, 'tool', 'pull_test_backend.sh'),
       ).existsSync();
+      final e2eNeedsWasm = _e2eNeedsWasm(package);
       for (final MapEntry(key: platform, value: e2eWorkflow)
           in e2eWorkflows.entries) {
         workflowContents.write('''
@@ -437,6 +455,13 @@ jobs:
       working-directory: $repoRelativePath
       needs-aws-config: $needsAwsConfig
 ''');
+        // Only the web E2E workflow understands `run-wasm`, and only emit it
+        // when opted in to keep the generated diff minimal for other packages.
+        if (platform == 'web' && e2eNeedsWasm) {
+          workflowContents.write('''
+      run-wasm: true
+''');
+        }
       }
     }
 

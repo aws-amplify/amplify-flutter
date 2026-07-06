@@ -14,9 +14,18 @@ on:
         description: Whether the E2E workflow needs configuration pulled from AWS
         required: true
         type: boolean
+      run-wasm:
+        description: >-
+          Whether to additionally run the E2E suite compiled to WebAssembly.
+          Opted into by packages whose test package has a
+          `test/wasm_smoke_test.dart`; defaults to off.
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   e2e-test-web:
+    name: e2e-test-web (${{ matrix.compiler }}, ${{ matrix.channel }})
     runs-on: ubuntu-latest
     strategy:
       # Allows other matrix items to run if one fails
@@ -25,9 +34,14 @@ jobs:
         channel:
           - beta
           - stable
-        # Skips e2e tests against beta on PRs
+        compiler:
+          - js
+          - wasm
+        # Skips e2e tests against beta on PRs, and skips the wasm compiler
+        # unless the caller opted in via `run-wasm`.
         exclude:
           - channel: ${{ (github.event_name == 'pull_request' && 'beta') || 'NONE' }}
+          - compiler: ${{ inputs.run-wasm && 'NONE' || 'wasm' }}
 
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
@@ -60,11 +74,14 @@ jobs:
 
       - name: Run integration tests
         timeout-minutes: 320
+        env:
+          # Appends `--wasm` to the flutter drive runs on the wasm matrix leg.
+          WASM_FLAG: ${{ matrix.compiler == 'wasm' && '--wasm' || '' }}
         run: |
           # 5 attemps
           # 60 minutes timeout each
           chromedriver --port=4444 &
-          "${{ github.workspace }}/build-support/linux_timeout_attempts.sh" 5 60 "aft exec --include=${{ inputs.package-name }} -- ${{ github.workspace }}/build-support/integ_test.sh -d web-server"
+          "${{ github.workspace }}/build-support/linux_timeout_attempts.sh" 5 60 "aft exec --include=${{ inputs.package-name }} -- ${{ github.workspace }}/build-support/integ_test.sh -d web-server $WASM_FLAG"
 
       - name: Log success/failure
         if: always()
