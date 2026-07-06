@@ -7,6 +7,25 @@ import 'workers/echo_worker.dart';
 import 'js_interop_stub.dart'
     if (dart.library.js_interop) 'js_interop_web.dart';
 
+/// Whether the app is running on the web (dart2js or dart2wasm).
+///
+/// `dart.library.js_interop` is available on both web compilers and absent on
+/// native/VM targets.
+const bool _isWeb = bool.fromEnvironment('dart.library.js_interop');
+
+/// A human-readable description of the runtime the app is compiled for:
+/// `native`, `wasm (dart2wasm)`, or `js (dart2js)`.
+///
+/// Web compiler detection relies on a difference in the numeric type system:
+/// dart2wasm has distinct `int` and `double` representations, so `1` and `1.0`
+/// are not identical, whereas dart2js compiles both to a single JS `number`
+/// where they are. This is the same signal that makes `postMessage` round-trips
+/// return `double` for whole numbers under dart2wasm.
+String get runtimeDescription {
+  if (!_isWeb) return 'native';
+  return identical(1, 1.0) ? 'js (dart2js)' : 'wasm (dart2wasm)';
+}
+
 // Global key to access the demo state
 final GlobalKey<_EchoWorkerDemoState> _demoKey =
     GlobalKey<_EchoWorkerDemoState>();
@@ -134,6 +153,7 @@ class _EchoWorkerDemoState extends State<EchoWorkerDemo> {
       setState(() {
         _isWorkerRunning = true;
         _messages.add('✅ Worker started successfully!');
+        _messages.add('🧭 Runtime: $runtimeDescription');
         _messages.add('');
       });
     } catch (e) {
