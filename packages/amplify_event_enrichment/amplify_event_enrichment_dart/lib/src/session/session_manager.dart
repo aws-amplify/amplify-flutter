@@ -82,6 +82,19 @@ class SessionManager {
     _state = SessionState.stopped;
   }
 
+  /// Clears the current session without recording stop metadata.
+  ///
+  /// Unlike [stopSession], which records a stop timestamp and duration and
+  /// leaves the stopped session readable, this drops the session entirely and
+  /// returns the manager to the stopped state. Used when disposing the client
+  /// so no stale session remains readable after close.
+  void clearSession() {
+    _cancelTimer();
+    _session = null;
+    _sessionStart = null;
+    _state = SessionState.stopped;
+  }
+
   /// Called when the app moves to background.
   void handleAppPaused() {
     if (_state != SessionState.active) return;

@@ -23,7 +23,6 @@ final class EventEnrichmentClosedException extends EventEnrichmentException {
   const EventEnrichmentClosedException()
     : super(
         message: 'Client has been closed',
-        recoverySuggestion:
-            'Create a new EventEnrichmentClient instance.',
+        recoverySuggestion: 'Create a new EventEnrichmentClient instance.',
       );
 }

@@ -17,7 +17,7 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
 /// - [FlutterLifecycleObserver] for automatic session lifecycle tracking
 ///
 /// For richer device info (manufacturer, model), supply a custom
-/// [DeviceMetadataProvider] via the [deviceMetadataProvider] parameter.
+/// [DeviceMetadataProvider] via the `deviceMetadataProvider` parameter.
 ///
 /// ## Usage
 ///
@@ -45,6 +45,11 @@ class EventEnrichmentClientFlutter {
     EventEnrichmentClientOptions? options,
     EventSink? sink,
   }) async {
+    assert(
+      appMetadata == null || appMetadata.appId == appId,
+      'appMetadata.appId ("${appMetadata.appId}") does not match the appId '
+      '"$appId". When both are provided they must be the same value.',
+    );
     final metadataProvider =
         deviceMetadataProvider ?? const IODeviceMetadataProvider();
     const clientIdProvider = SharedPreferencesClientIdProvider();
