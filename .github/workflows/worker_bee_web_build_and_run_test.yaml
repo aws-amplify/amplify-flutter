@@ -77,8 +77,10 @@ jobs:
           cache: true
           channel: stable
 
-      - name: Setup ChromeDriver
-        uses: ./.github/composite_actions/setup_chromedriver
+      - name: Setup Firefox
+        uses: ./.github/composite_actions/setup_firefox
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup aft
         run: dart pub global activate -spath packages/aft

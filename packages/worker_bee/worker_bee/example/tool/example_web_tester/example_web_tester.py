@@ -5,7 +5,7 @@ Worker Bee Example - Automated Test Runner
 Automates the full test cycle:
 1. Run dart build_runner code generation
 2. Start Flutter web dev server
-3. Launch headless Chrome via Selenium
+3. Launch headless Firefox via Selenium
 4. Run worker startup & message tests
 5. Report results (pass/fail, errors, stack traces)
 6. Clean up (close browser, kill dev server)
@@ -20,8 +20,7 @@ import traceback
 from pathlib import Path
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 # ── Configuration ────────────────────────────────────────────────────────────────
 
@@ -34,8 +33,8 @@ WORKER_STARTUP_WAIT_S = 3
 MESSAGE_RESPONSE_WAIT_S = 2
 SERVER_READY_TIMEOUT_S = 120  # Flutter compile can be slow
 HEADLESS = True
-# When set, launch Chrome with WebAssembly disabled to test the worker loader's
-# dart2js fallback.
+# When set, launch Firefox with WebAssembly disabled to test the worker
+# loader's dart2js fallback.
 DISABLE_WASM = os.environ.get("WORKER_BEE_DISABLE_WASM") == "1"
 
 # ── Colors ───────────────────────────────────────────────────────────────────────
@@ -175,28 +174,27 @@ def start_dev_server():
     )
 
 
-# ── Step 3: Start Headless Chrome ────────────────────────────────────────────────
+# ── Step 3: Start Headless Firefox ───────────────────────────────────────────────
 
 def start_browser():
-    log_step(3, "Launching headless Chrome via Selenium")
+    log_step(3, "Launching headless Firefox via Selenium")
 
-    chrome_options = ChromeOptions()
+    firefox_options = FirefoxOptions()
     if HEADLESS:
-        chrome_options.add_argument("--headless=new")
-    chrome_options.add_argument("--window-size=1280,800")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
+        firefox_options.add_argument("-headless")
+    firefox_options.add_argument("--width=1280")
+    firefox_options.add_argument("--height=800")
 
-    # When WORKER_BEE_DISABLE_WASM is set, launch Chrome without WebAssembly
-    # support so the worker loader must fall back to the dart2js build.
+    # When WORKER_BEE_DISABLE_WASM is set, disable WebAssembly so the worker
+    # loader must fall back to the dart2js build.
     if DISABLE_WASM:
-        chrome_options.add_argument("--js-flags=--noexpose-wasm")
+        firefox_options.set_preference("javascript.options.wasm", False)
 
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Firefox(options=firefox_options)
     if DISABLE_WASM:
         wasm_type = driver.execute_script("return typeof WebAssembly")
         log(f"WebAssembly disabled (typeof WebAssembly = {wasm_type!r}).")
-    log("Headless Chrome started.")
+    log("Headless Firefox started.")
     return driver
 
 
