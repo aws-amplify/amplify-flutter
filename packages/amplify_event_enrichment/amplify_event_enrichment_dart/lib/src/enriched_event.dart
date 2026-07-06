@@ -12,7 +12,7 @@ import 'package:meta/meta.dart';
 /// {@template amplify_event_enrichment.enriched_event}
 /// An analytics event enriched with device, app, session, and SDK metadata.
 ///
-/// Use [toJson] to serialize to a Pinpoint-compatible JSON envelope.
+/// Use [toJson] to serialize to a structured analytics JSON envelope.
 /// {@endtemplate}
 @immutable
 final class EnrichedEvent {
@@ -64,9 +64,17 @@ final class EnrichedEvent {
   /// Optional user identifier.
   final String? userId;
 
+  /// Version of the analytics event envelope schema, emitted as
+  /// `event_version`.
+  ///
+  /// "3.1" identifies the layout of the envelope (the event, application,
+  /// client, device, and session sections and their field names) so
+  /// downstream consumers can tell which schema they are parsing. Bump this
+  /// only when the envelope structure changes in a way consumers must handle;
+  /// it is independent of the package version.
   static const _eventVersion = '3.1';
 
-  /// Serializes to a Pinpoint-compatible JSON string.
+  /// Serializes to the analytics event envelope as a JSON string.
   String toJson() {
     final deviceMap = <String, dynamic>{};
     final platformMap = <String, dynamic>{};
@@ -82,6 +90,9 @@ final class EnrichedEvent {
     final map = <String, dynamic>{
       'event_type': eventType,
       'event_timestamp': eventTimestamp,
+      // On-device enrichment has no server ingestion step, so this reflects
+      // client-side arrival and mirrors event_timestamp. Retained for
+      // envelope compatibility.
       'arrival_timestamp': eventTimestamp,
       'event_version': _eventVersion,
       'application': {
@@ -90,15 +101,9 @@ final class EnrichedEvent {
         if (app.versionName != null) 'version_name': app.versionName,
         if (app.versionCode != null) 'version_code': app.versionCode,
         if (app.title != null) 'title': app.title,
-        'sdk': {
-          'name': sdk.name,
-          'version': sdk.version,
-        },
+        'sdk': {'name': sdk.name, 'version': sdk.version},
       },
-      'client': {
-        'client_id': clientId,
-        if (userId != null) 'user_id': userId,
-      },
+      'client': {'client_id': clientId, if (userId != null) 'user_id': userId},
       'device': deviceMap,
       'session': {
         'id': session.id,

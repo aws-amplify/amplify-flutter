@@ -17,7 +17,8 @@ import 'package:uuid/uuid.dart';
 /// Client for recording enriched analytics events.
 ///
 /// Collects device, app, session, and SDK metadata and produces
-/// [EnrichedEvent] instances with Pinpoint-compatible JSON output.
+/// [EnrichedEvent] instances that serialize to a structured analytics
+/// JSON envelope.
 ///
 /// ## Usage
 ///
@@ -92,7 +93,11 @@ class EventEnrichmentClient {
   }) {
     if (_closed) return const Result.error(EventEnrichmentClosedException());
 
-    if (_sessionManager.session == null) {
+    // A stopped session is still exposed by the manager for inspection, so
+    // start a fresh one instead of stamping the stopped session (which carries
+    // a stop_timestamp) onto a new event.
+    if (_sessionManager.session == null ||
+        _sessionManager.state == SessionState.stopped) {
       _sessionManager.startSession();
     }
 
@@ -137,6 +142,9 @@ class EventEnrichmentClient {
   void handleAppResumed() => _sessionManager.handleAppResumed();
 
   /// Sets the user identifier stamped on subsequent events.
+  // Kept as an imperative method (rather than a setter) to stay consistent
+  // with the other mutators on this client and the equivalent native APIs.
+  // ignore: use_setters_to_change_properties
   void setUserId(String? userId) => _userId = userId;
 
   /// Adds a global attribute stamped on every subsequent event.
@@ -144,8 +152,7 @@ class EventEnrichmentClient {
       _globalFields.addAttribute(key, value);
 
   /// Removes a global attribute.
-  void removeGlobalAttribute(String key) =>
-      _globalFields.removeAttribute(key);
+  void removeGlobalAttribute(String key) => _globalFields.removeAttribute(key);
 
   /// Adds a global metric stamped on every subsequent event.
   void addGlobalMetric(String key, double value) =>
@@ -159,7 +166,11 @@ class EventEnrichmentClient {
   /// The client cannot be reused after closing.
   void close() {
     _closed = true;
-    _sessionManager.stopSession();
+    // Stop the session to record its end, then drop it so no stale session is
+    // readable after close.
+    _sessionManager
+      ..stopSession()
+      ..clearSession();
     _logger.info('Client closed');
   }
 }
