@@ -4,6 +4,7 @@ DEFAULT_DEVICE_ID="sdk"
 DEFAULT_ENABLE_CLOUD_SYNC="true"
 DEFAULT_RETRIES=0
 DEFAULT_SMALL="false"
+DEFAULT_WASM="false"
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -23,6 +24,13 @@ while [ $# -gt 0 ]; do
         --retries)
             retries="$2"
             ;;
+        # Compile web-server runs to WebAssembly instead of JavaScript.
+        # Value-less flag, so shift only once.
+        -w|--wasm)
+            wasm="true"
+            shift
+            continue
+            ;;
         *)
             echo "Invalid arguments"
             exit 1
@@ -35,6 +43,14 @@ deviceId=${deviceId:-$DEFAULT_DEVICE_ID}
 enableCloudSync=${enableCloudSync:-$DEFAULT_ENABLE_CLOUD_SYNC}
 retries=${retries:-$DEFAULT_RETRIES}
 small=${small:-$DEFAULT_SMALL}
+wasm=${wasm:-$DEFAULT_WASM}
+
+# When targeting the web-server device, optionally compile to WebAssembly.
+# Passed through to the `flutter drive` invocations below.
+declare -a webCompileArgs=()
+if [[ $wasm == "true" ]]; then
+    webCompileArgs+=(--wasm)
+fi
 
 if [[ "$OSTYPE" == "linux-gnu"* && $deviceId == "linux"* ]]; then
     echo "::group::Set up Linux"
@@ -80,6 +96,7 @@ do
         --driver=test_driver/integration_test.dart \
         --target=$TARGET \
         --dart-define CI=true \
+        "${webCompileArgs[@]}" \
         -d web-server
     then
         resultsList+=(0)
@@ -132,6 +149,7 @@ for ENTRY in $TEST_ENTRIES; do
             --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
             --dart-define CI=true \
             --target=$ENTRY \
+            "${webCompileArgs[@]}" \
             -d web-server
         then
             resultsList+=(0)
