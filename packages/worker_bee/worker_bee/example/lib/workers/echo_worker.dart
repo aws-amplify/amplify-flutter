@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
 import '../models/echo_message.dart';
+import '../runtime_info.dart';
 import 'echo_worker.worker.dart';
 
 part 'echo_worker.g.dart';
@@ -36,6 +37,10 @@ abstract class EchoWorker extends WorkerBeeBase<EchoMessage, EchoResponse> {
     Stream<EchoMessage> listen,
     StreamSink<EchoResponse> respond,
   ) async {
+    // Reported from inside the worker, so this reflects which worker build
+    // actually loaded (wasm module vs. dart2js fallback), independent of how
+    // the host app was compiled.
+    logger.info('Echo worker running as: $runtimeDescription');
     logger.info('Echo worker started and ready to process messages');
 
     await for (final message in listen) {
