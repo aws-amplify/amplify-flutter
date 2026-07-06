@@ -135,5 +135,25 @@ void main() {
       final secondEvent = (client.record('after') as Ok<EnrichedEvent>).value;
       expect(secondEvent.session.id, sessionId);
     });
+
+    test('record() after stopSession() starts a fresh session', () {
+      final firstEvent = (client.record('first') as Ok<EnrichedEvent>).value;
+      final firstSessionId = firstEvent.session.id;
+      expect(firstEvent.session.stopTimestamp, isNull);
+
+      client.stopSession();
+
+      final secondEvent = (client.record('second') as Ok<EnrichedEvent>).value;
+      expect(
+        secondEvent.session.id,
+        isNot(firstSessionId),
+        reason: 'a stopped session must not be reused on the next record()',
+      );
+      expect(
+        secondEvent.session.stopTimestamp,
+        isNull,
+        reason: 'the fresh session must not carry a stop_timestamp',
+      );
+    });
   });
 }
