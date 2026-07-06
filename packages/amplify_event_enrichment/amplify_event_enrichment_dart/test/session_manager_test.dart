@@ -32,18 +32,21 @@ void main() {
       expect(manager.session!.id, contains('testApp1'));
     });
 
-    test('session ID follows format: appId(8)-uniqueId(8)-yyyyMMdd-HHmmssSSS',
-        () {
-      manager.startSession();
-      final id = manager.session!.id;
-      expect(id.startsWith('testApp1-'), isTrue);
-      final afterPrefix = id.substring(9);
-      expect(afterPrefix.startsWith('abcd0000'), isTrue);
-    });
+    test(
+      'session ID follows format: appId(8)-uniqueId(8)-yyyyMMdd-HHmmssSSS',
+      () {
+        manager.startSession();
+        final id = manager.session!.id;
+        expect(id.startsWith('testApp1-'), isTrue);
+        final afterPrefix = id.substring(9);
+        expect(afterPrefix.startsWith('abcd0000'), isTrue);
+      },
+    );
 
     test('stopSession transitions to stopped with duration', () {
-      manager.startSession();
-      manager.stopSession();
+      manager
+        ..startSession()
+        ..stopSession();
       expect(manager.state, SessionState.stopped);
       expect(manager.session!.stopTimestamp, isNotNull);
       expect(manager.session!.duration, isNotNull);
@@ -51,8 +54,9 @@ void main() {
 
     test('handleAppPaused transitions active to paused', () {
       fakeAsync((async) {
-        manager.startSession();
-        manager.handleAppPaused();
+        manager
+          ..startSession()
+          ..handleAppPaused();
         expect(manager.state, SessionState.paused);
       });
     });
@@ -71,8 +75,9 @@ void main() {
 
     test('timeout expiry stops session', () {
       fakeAsync((async) {
-        manager.startSession();
-        manager.handleAppPaused();
+        manager
+          ..startSession()
+          ..handleAppPaused();
         async.elapse(timeout);
         expect(manager.state, SessionState.stopped);
         expect(manager.session!.stopTimestamp, isNotNull);
@@ -108,8 +113,7 @@ void main() {
         appId: 'ab',
         sessionTimeout: timeout,
         generateId: () => 'uuid0000-fake-uuid-value',
-      );
-      shortManager.startSession();
+      )..startSession();
       final id = shortManager.session!.id;
       expect(id.substring(0, 8), '______ab');
     });
