@@ -21,6 +21,14 @@ abstract class EchoWorker extends WorkerBeeBase<EchoMessage, EchoResponse> {
 
   factory EchoWorker.create() = EchoWorkerImpl;
 
+  // This package is itself the application being run (not a dependency), so
+  // Flutter serves its assets under `assets/<path>` rather than the
+  // `assets/packages/<name>/<path>` prefix used for dependencies. Override the
+  // generated entrypoint (which assumes the dependency layout) with the
+  // root-application path so the worker loads on Flutter web.
+  @override
+  String get jsEntrypoint => 'assets/lib/workers.min.js';
+
   int _messageCount = 0;
 
   @override
