@@ -7,71 +7,86 @@ import 'package:meta/meta.dart';
 /// {@template amplify_connect_client.configuration}
 /// Configuration for `AmplifyConnectClient`.
 ///
-/// The client needs only the Customer Profiles domain name and its region.
-/// AWS credentials are resolved separately from Amplify Auth (the Cognito
-/// Identity Pool), so no API keys or application IDs are required here.
+/// Points the client at the Customer Profiles identify endpoint (an HTTP API
+/// fronting the backend Lambda) and the region used to SigV4-sign guest
+/// requests. Credentials are resolved separately from Amplify Auth.
 /// {@endtemplate}
 @immutable
 class ConnectClientConfiguration {
   /// {@macro amplify_connect_client.configuration}
   const ConnectClientConfiguration({
-    required this.domainName,
+    required this.endpoint,
     required this.region,
   });
 
-  /// Parses the configuration from the `connect` section of a decoded
+  /// Parses the configuration from the
+  /// `analytics.amazon_connect_customer_profiles` section of a decoded
   /// `amplify_outputs.json` map.
   ///
   /// Expects a shape of:
   /// ```json
   /// {
-  ///   "connect": {
-  ///     "domain_name": "my-profiles-domain",
-  ///     "region": "us-east-1"
+  ///   "analytics": {
+  ///     "amazon_connect_customer_profiles": {
+  ///       "aws_region": "us-east-1",
+  ///       "endpoint": "https://abc123.execute-api.us-east-1.amazonaws.com"
+  ///     }
   ///   }
   /// }
   /// ```
   ///
-  /// Throws [ConnectConfigurationException] if the `connect` section or either
-  /// required field is missing.
+  /// Throws [ConnectConfigurationException] if the section or either required
+  /// field is missing.
   factory ConnectClientConfiguration.fromAmplifyOutputs(
     Map<String, dynamic> amplifyOutputs,
   ) {
-    final connect = amplifyOutputs['connect'];
-    if (connect is! Map<String, dynamic>) {
+    final analytics = amplifyOutputs['analytics'];
+    final section = analytics is Map<String, dynamic>
+        ? analytics['amazon_connect_customer_profiles']
+        : null;
+    if (section is! Map<String, dynamic>) {
       throw const ConnectConfigurationException(
-        'Missing "connect" section in amplify_outputs.',
+        'Missing "analytics.amazon_connect_customer_profiles" section in '
+        'amplify_outputs.',
       );
     }
-    final domainName = connect['domain_name'];
-    final region = connect['region'];
-    if (domainName is! String || domainName.isEmpty) {
+    final endpoint = section['endpoint'];
+    final region = section['aws_region'];
+    if (endpoint is! String || endpoint.isEmpty) {
       throw const ConnectConfigurationException(
-        'Missing "connect.domain_name" in amplify_outputs.',
+        'Missing "analytics.amazon_connect_customer_profiles.endpoint" in '
+        'amplify_outputs.',
       );
     }
     if (region is! String || region.isEmpty) {
       throw const ConnectConfigurationException(
-        'Missing "connect.region" in amplify_outputs.',
+        'Missing "analytics.amazon_connect_customer_profiles.aws_region" in '
+        'amplify_outputs.',
       );
     }
-    return ConnectClientConfiguration(domainName: domainName, region: region);
+    return ConnectClientConfiguration(
+      endpoint: _trimTrailingSlash(endpoint),
+      region: region,
+    );
   }
 
-  /// The Customer Profiles domain name that owns the user profiles.
-  final String domainName;
+  static String _trimTrailingSlash(String value) =>
+      value.endsWith('/') ? value.substring(0, value.length - 1) : value;
 
-  /// The AWS region the Customer Profiles domain lives in (for example
-  /// `us-east-1`).
+  /// The base identify endpoint URL. Clients call `POST {endpoint}/identify-user`
+  /// and `POST {endpoint}/identify-user-guest`.
+  final String endpoint;
+
+  /// The AWS region used to SigV4-sign guest (`execute-api`) requests.
   final String region;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ConnectClientConfiguration &&
-          other.domainName == domainName &&
+          other.endpoint == endpoint &&
           other.region == region;
 
   @override
-  int get hashCode => Object.hash(domainName, region);
+  int get hashCode => Object.hash(endpoint, region);
 }

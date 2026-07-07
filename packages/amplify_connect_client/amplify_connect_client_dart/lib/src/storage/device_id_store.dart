@@ -8,18 +8,13 @@ import 'package:uuid/uuid.dart';
 /// This matches the key used by the event enrichment client, and both packages
 /// use the same plain store (shared preferences on Android, `NSUserDefaults`
 /// on iOS) with read-or-create semantics, so a device resolves to one shared
-/// identifier across Amplify packages.
+/// identifier across Amplify packages. The device id is passed to the identify
+/// endpoint as `options.deviceId`.
 const connectDeviceIdKey = 'com.amplifyframework.device_id';
 
-/// Storage key for the last `ProfileObjectUniqueKey` returned when the device
-/// was registered. Needed to delete the object later, since the mobile IAM
-/// policy does not permit `ListProfileObjects`.
-const connectProfileObjectKey =
-    'com.amplifyframework.connect.device_object_key';
-
 /// {@template amplify_connect_client.device_id_store}
-/// Persists the stable device identifier and the server-generated
-/// `ProfileObjectUniqueKey` for the registered `AmplifyDevice` object.
+/// Persists the stable device identifier used as `options.deviceId` when
+/// registering a device through the identify endpoint.
 /// {@endtemplate}
 abstract interface class DeviceIdStore {
   /// Returns the persisted device id, generating and persisting a new UUID v4
@@ -29,14 +24,7 @@ abstract interface class DeviceIdStore {
   /// Returns the persisted device id, or `null` if none exists.
   Future<String?> readDeviceId();
 
-  /// Returns the persisted `ProfileObjectUniqueKey`, or `null` if the device
-  /// has not been registered.
-  Future<String?> readProfileObjectKey();
-
-  /// Persists the `ProfileObjectUniqueKey` returned by `PutProfileObject`.
-  Future<void> writeProfileObjectKey(String key);
-
-  /// Clears the device id and the stored `ProfileObjectUniqueKey`.
+  /// Clears the persisted device id.
   Future<void> clear();
 }
 
@@ -54,7 +42,6 @@ class InMemoryDeviceIdStore implements DeviceIdStore {
 
   final Uuid _uuid;
   String? _deviceId;
-  String? _objectKey;
 
   @override
   Future<String> getOrCreateDeviceId() async => _deviceId ??= _uuid.v4();
@@ -63,14 +50,5 @@ class InMemoryDeviceIdStore implements DeviceIdStore {
   Future<String?> readDeviceId() async => _deviceId;
 
   @override
-  Future<String?> readProfileObjectKey() async => _objectKey;
-
-  @override
-  Future<void> writeProfileObjectKey(String key) async => _objectKey = key;
-
-  @override
-  Future<void> clear() async {
-    _deviceId = null;
-    _objectKey = null;
-  }
+  Future<void> clear() async => _deviceId = null;
 }

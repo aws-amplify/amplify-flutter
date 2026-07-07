@@ -1,22 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_connect_client_dart/src/models/demographic.dart';
+import 'package:amplify_connect_client_dart/src/models/location.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_connect_client.user_profile}
-/// User-level attributes applied to a Connect Customer Profile via
-/// `AmplifyConnectClient.identifyUser`.
+/// User attributes sent to the Customer Profiles identify endpoint.
 ///
-/// All fields are optional. Provided values map onto the standard Customer
-/// Profiles fields and the profile `Attributes` map:
-///
-/// | Field              | Destination                          |
-/// |--------------------|--------------------------------------|
-/// | [name]             | `FirstName` + `LastName`             |
-/// | [email]            | `EmailAddress`                       |
-/// | [phoneNumber]      | `PhoneNumber`                        |
-/// | [plan]             | `Attributes['plan']`                 |
-/// | [customAttributes] | merged into `Attributes`             |
+/// Mirrors the endpoint's `userProfile` object. All fields are optional. Note
+/// that free-form attributes go in [customProperties] as `key -> list of
+/// values` (for example `{'phoneNumber': ['555-555-5555']}`).
 /// {@endtemplate}
 @immutable
 class UserProfile {
@@ -24,52 +18,43 @@ class UserProfile {
   const UserProfile({
     this.name,
     this.email,
-    this.phoneNumber,
     this.plan,
-    this.customAttributes,
+    this.customProperties,
+    this.demographic,
+    this.location,
+    this.metrics,
   });
 
-  /// The user's full name. Split on the first space into `FirstName` and
-  /// `LastName` when written to the standard profile.
+  /// The user's name.
   final String? name;
 
-  /// The user's email address, mapped to the standard `EmailAddress` field.
+  /// The user's email address.
   final String? email;
 
-  /// The user's phone number, mapped to the standard `PhoneNumber` field.
-  final String? phoneNumber;
-
-  /// The user's plan or tier, stored as the custom attribute `plan`.
+  /// The user's plan or tier.
   final String? plan;
 
-  /// Additional custom attributes merged into the profile `Attributes` map.
-  final Map<String, String>? customAttributes;
+  /// Custom string properties, each mapping a key to a list of values.
+  final Map<String, List<String>>? customProperties;
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is UserProfile &&
-          other.name == name &&
-          other.email == email &&
-          other.phoneNumber == phoneNumber &&
-          other.plan == plan &&
-          _mapEquals(other.customAttributes, customAttributes);
+  /// Device/app demographic information.
+  final Demographic? demographic;
 
-  @override
-  int get hashCode => Object.hash(
-    name,
-    email,
-    phoneNumber,
-    plan,
-    Object.hashAllUnordered(customAttributes?.entries.map((e) => e.key) ?? []),
-  );
+  /// Location information.
+  final Location? location;
 
-  static bool _mapEquals(Map<String, String>? a, Map<String, String>? b) {
-    if (identical(a, b)) return true;
-    if (a == null || b == null || a.length != b.length) return false;
-    for (final entry in a.entries) {
-      if (b[entry.key] != entry.value) return false;
-    }
-    return true;
-  }
+  /// Numeric metrics keyed by name.
+  final Map<String, num>? metrics;
+
+  /// Serializes to the endpoint's `userProfile` shape, omitting null fields.
+  Map<String, dynamic> toJson() => {
+    'name': ?name,
+    'email': ?email,
+    'plan': ?plan,
+    if (customProperties != null && customProperties!.isNotEmpty)
+      'customProperties': customProperties,
+    'demographic': ?demographic?.toJson(),
+    'location': ?location?.toJson(),
+    if (metrics != null && metrics!.isNotEmpty) 'metrics': metrics,
+  };
 }

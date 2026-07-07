@@ -8,18 +8,19 @@ import 'package:amplify_connect_client/src/shared_preferences_device_id_store.da
 import 'package:amplify_connect_client_dart/amplify_connect_client_dart.dart';
 
 /// {@template amplify_connect_client.amplify_connect_client_flutter}
-/// Flutter entry point for the Amazon Connect Customer Profiles client.
+/// Flutter entry point for the Amazon Connect Customer Profiles identify
+/// endpoint.
 ///
-/// Wires the pure-Dart [AmplifyConnectClient] to Amplify Auth (for credentials
-/// and the Cognito identity) and shared preferences (for the device id, shared
-/// with other Amplify packages under `com.amplifyframework.device_id`).
+/// Wires the pure-Dart [AmplifyConnectClient] to Amplify Auth (for the access
+/// token or guest credentials) and shared preferences (for the device id,
+/// shared with other Amplify packages under `com.amplifyframework.device_id`).
 ///
 /// ## Usage
 ///
 /// ```dart
 /// final client = await AmplifyConnectClientFlutter.create(
 ///   configuration: ConnectClientConfiguration(
-///     domainName: 'my-profiles-domain',
+///     endpoint: 'https://abc123.execute-api.us-east-1.amazonaws.com',
 ///     region: 'us-east-1',
 ///   ),
 /// );
@@ -39,18 +40,14 @@ class AmplifyConnectClientFlutter {
 
   /// {@macro amplify_connect_client.amplify_connect_client_flutter}
   ///
-  /// By default resolves credentials from Amplify Auth and persists the device
-  /// id in shared preferences. Both can be overridden for testing. When
-  /// [validateObjectType] is `true` (the default), the `AmplifyDevice` object
-  /// type is validated on the domain before returning, throwing
-  /// [ConnectObjectTypeMissingException] if it is missing.
-  static Future<AmplifyConnectClientFlutter> create({
+  /// By default resolves the session from Amplify Auth and persists the device
+  /// id in shared preferences. Both can be overridden for testing.
+  static AmplifyConnectClientFlutter create({
     required ConnectClientConfiguration configuration,
     ConnectCredentialsProvider? credentialsProvider,
     DeviceIdStore? deviceIdStore,
     String? appVersion,
-    bool validateObjectType = true,
-  }) async {
+  }) {
     final client = AmplifyConnectClient(
       configuration: configuration,
       credentialsProvider:
@@ -59,20 +56,17 @@ class AmplifyConnectClientFlutter {
       platform: _platformName(),
       appVersion: appVersion,
     );
-    if (validateObjectType) {
-      await client.initialize();
-    }
     return AmplifyConnectClientFlutter._(client);
   }
 
   /// Creates a client from a decoded `amplify_outputs.json` map, reading the
-  /// `connect` section for the domain name and region.
-  static Future<AmplifyConnectClientFlutter> createFromAmplifyOutputs({
+  /// `analytics.amazon_connect_customer_profiles` section for the endpoint and
+  /// region.
+  static AmplifyConnectClientFlutter createFromAmplifyOutputs({
     required Map<String, dynamic> amplifyOutputs,
     ConnectCredentialsProvider? credentialsProvider,
     DeviceIdStore? deviceIdStore,
     String? appVersion,
-    bool validateObjectType = true,
   }) => create(
     configuration: ConnectClientConfiguration.fromAmplifyOutputs(
       amplifyOutputs,
@@ -80,29 +74,36 @@ class AmplifyConnectClientFlutter {
     credentialsProvider: credentialsProvider,
     deviceIdStore: deviceIdStore,
     appVersion: appVersion,
-    validateObjectType: validateObjectType,
   );
 
   final AmplifyConnectClient _delegate;
 
-  /// The `ProfileId` resolved for the current session, if any.
-  String? get profileId => _delegate.profileId;
-
-  /// {@macro amplify_connect_client.amplify_connect_client}
-  ///
   /// See [AmplifyConnectClient.identifyUser].
   Future<void> identifyUser({
-    required String userId,
-    UserProfile? userProfile,
-  }) => _delegate.identifyUser(userId: userId, userProfile: userProfile);
+    required UserProfile userProfile,
+    String? userId,
+    IdentifyUserOptions? options,
+  }) => _delegate.identifyUser(
+    userProfile: userProfile,
+    userId: userId,
+    options: options,
+  );
 
   /// See [AmplifyConnectClient.registerDevice].
   Future<void> registerDevice({
     required String deviceToken,
     required ChannelType channelType,
+    String? userId,
+    UserProfile userProfile = const UserProfile(),
+    String? appVersion,
+    String? previousGuestIdentityId,
   }) => _delegate.registerDevice(
     deviceToken: deviceToken,
     channelType: channelType,
+    userId: userId,
+    userProfile: userProfile,
+    appVersion: appVersion,
+    previousGuestIdentityId: previousGuestIdentityId,
   );
 
   /// See [AmplifyConnectClient.removeDevice].
