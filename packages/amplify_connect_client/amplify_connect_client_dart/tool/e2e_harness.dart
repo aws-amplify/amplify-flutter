@@ -48,7 +48,8 @@ class LoggingHttpClient extends AWSBaseHttpClient {
     stdout.writeln('  -> ${request.method.value} ${request.uri}');
     final headerKeys = request.headers.keys.toList()..sort();
     stdout.writeln('  -> header keys: ${headerKeys.join(', ')}');
-    final auth = request.headers['authorization'] ?? request.headers['Authorization'];
+    final auth =
+        request.headers['authorization'] ?? request.headers['Authorization'];
     if (auth != null) {
       final scheme = auth.split(' ').first;
       stdout.writeln('  -> authorization scheme: $scheme');
@@ -103,13 +104,19 @@ ConnectSession _authedSession() =>
     ConnectSession(accessToken: _env('ACCESS_TOKEN'));
 
 ConnectSession _guestSession() => ConnectSession(
-  credentials: AWSCredentials(_env('GUEST_AK'), _env('GUEST_SK'), _env('GUEST_ST')),
+  credentials: AWSCredentials(
+    _env('GUEST_AK'),
+    _env('GUEST_SK'),
+    _env('GUEST_ST'),
+  ),
   identityId: _env('GUEST_ID'),
 );
 
 Future<void> main(List<String> args) async {
   if (args.isEmpty) {
-    stderr.writeln('usage: dart run tool/e2e_harness.dart <authed|guest|device|merge>');
+    stderr.writeln(
+      'usage: dart run tool/e2e_harness.dart <authed|guest|device|merge>',
+    );
     exit(2);
   }
   final flow = args.first;
@@ -134,29 +141,38 @@ Future<void> main(List<String> args) async {
             plan: 'gold',
           ),
         );
-        stdout.writeln('RESULT authed: identifyUser returned (2xx, no exception)');
+        stdout.writeln(
+          'RESULT authed: identifyUser returned (2xx, no exception)',
+        );
 
       case 'guest':
-        stdout.writeln('FLOW guest — SigV4 execute-api to /identify-user-guest');
+        stdout.writeln(
+          'FLOW guest — SigV4 execute-api to /identify-user-guest',
+        );
         await _client(_guestSession()).identifyUser(
           userId: 'poc-guest-1',
-          userProfile: const UserProfile(
-            name: 'POC Guest User',
-            plan: 'free',
-          ),
+          userProfile: const UserProfile(name: 'POC Guest User', plan: 'free'),
         );
-        stdout.writeln('RESULT guest: identifyUser returned (2xx, no exception)');
+        stdout.writeln(
+          'RESULT guest: identifyUser returned (2xx, no exception)',
+        );
 
       case 'device':
         final deviceId = _env('DEVICE_ID');
-        stdout.writeln('FLOW device — registerDevice folds into identifyUser options; deviceId=$deviceId');
-        await _client(_authedSession(), deviceId: deviceId).registerDevice(
-          deviceToken: _env('DEVICE_TOKEN'),
-          channelType: ChannelType.gcm,
+        stdout.writeln(
+          'FLOW device — device registration folds into identifyUser options; deviceId=$deviceId',
+        );
+        await _client(_authedSession(), deviceId: deviceId).identifyUser(
           userId: 'poc-authed-1',
           userProfile: const UserProfile(name: 'POC Authed User'),
+          options: IdentifyUserOptions(
+            address: _env('DEVICE_TOKEN'),
+            channelType: ChannelType.gcm,
+          ),
         );
-        stdout.writeln('RESULT device: registerDevice returned (2xx, no exception)');
+        stdout.writeln(
+          'RESULT device: identifyUser (device options) returned (2xx, no exception)',
+        );
 
       case 'merge':
         // Two-step: (1) guest registers a device, (2) authed signs in with
@@ -164,24 +180,35 @@ Future<void> main(List<String> args) async {
         final step = args.length > 1 ? args[1] : 'both';
         final deviceId = _env('DEVICE_ID');
         if (step == 'guest' || step == 'both') {
-          stdout.writeln('FLOW merge/guest — guest registers device $deviceId under identity ${_env('GUEST_ID')}');
-          await _client(_guestSession(), deviceId: deviceId).registerDevice(
-            deviceToken: _env('DEVICE_TOKEN'),
-            channelType: ChannelType.gcm,
+          stdout.writeln(
+            'FLOW merge/guest — guest registers device $deviceId under identity ${_env('GUEST_ID')}',
+          );
+          await _client(_guestSession(), deviceId: deviceId).identifyUser(
             userProfile: const UserProfile(name: 'POC Merge Guest'),
+            options: IdentifyUserOptions(
+              address: _env('DEVICE_TOKEN'),
+              channelType: ChannelType.gcm,
+            ),
           );
           stdout.writeln('RESULT merge/guest: guest device registered (2xx)');
         }
         if (step == 'signin' || step == 'both') {
-          stdout.writeln('FLOW merge/signin — authed identify with previousGuestIdentityId=${_env('GUEST_ID')}');
+          stdout.writeln(
+            'FLOW merge/signin — authed identify with previousGuestIdentityId=${_env('GUEST_ID')}',
+          );
           await _client(_authedSession()).identifyUser(
             userId: 'poc-authed-1',
-            userProfile: const UserProfile(name: 'POC Authed User', plan: 'gold'),
+            userProfile: const UserProfile(
+              name: 'POC Authed User',
+              plan: 'gold',
+            ),
             options: IdentifyUserOptions(
               previousGuestIdentityId: _env('GUEST_ID'),
             ),
           );
-          stdout.writeln('RESULT merge/signin: authed identify with merge hint returned (2xx)');
+          stdout.writeln(
+            'RESULT merge/signin: authed identify with merge hint returned (2xx)',
+          );
         }
 
       default:

@@ -4,7 +4,6 @@
 import 'package:amplify_connect_client_dart/src/connect_client_configuration.dart';
 import 'package:amplify_connect_client_dart/src/connect_credentials_provider.dart';
 import 'package:amplify_connect_client_dart/src/exception/connect_client_exception.dart';
-import 'package:amplify_connect_client_dart/src/models/channel_type.dart';
 import 'package:amplify_connect_client_dart/src/models/identify_user_options.dart';
 import 'package:amplify_connect_client_dart/src/models/user_profile.dart';
 import 'package:amplify_connect_client_dart/src/services/identify_user_service.dart';
@@ -17,16 +16,20 @@ import 'package:meta/meta.dart';
 /// A standalone, online-only client for the Amazon Connect Customer Profiles
 /// identify endpoint (a backend Lambda fronted by an HTTP API).
 ///
-/// The client is a thin authorized `POST`: it resolves the caller's session
-/// through an injected [ConnectCredentialsProvider] and sends the request to
-/// the authenticated or guest route accordingly. Device registration is folded
-/// into [identifyUser] via [IdentifyUserOptions] — there is no separate device
-/// route in the backend contract.
+/// The single public method is [identifyUser]: it resolves the caller's session
+/// through an injected [ConnectCredentialsProvider] and sends an authorized
+/// `POST` to the authenticated or guest route accordingly.
 ///
-/// This pure-Dart core signs guest requests with SigV4 (`execute-api`) and
-/// reads the stable device id through an injected [DeviceIdStore]. The
-/// `amplify_connect_client` Flutter package wires these to Amplify Auth and
-/// shared preferences.
+/// Device registration is expressed through [IdentifyUserOptions] on
+/// [identifyUser] (a channel type and push token) rather than a separate
+/// method — there is no device route in the backend contract. When the caller
+/// registers a device, the client fills in the stable device id (from the
+/// injected [DeviceIdStore]) and the platform/app version defaults if the
+/// caller left them unset.
+///
+/// This pure-Dart core signs guest requests with SigV4 (`execute-api`). The
+/// `amplify_connect_client` Flutter package wires the session and device id to
+/// Amplify Auth and shared preferences.
 ///
 /// ## Deferred (Phase 2)
 ///
@@ -37,8 +40,9 @@ import 'package:meta/meta.dart';
 class AmplifyConnectClient {
   /// {@macro amplify_connect_client.amplify_connect_client}
   ///
-  /// [platform] and [appVersion] are optional device context folded into
-  /// [registerDevice]; the Flutter wrapper supplies [platform] from the OS.
+  /// [platform] and [appVersion] are optional device context applied to device
+  /// registrations when the caller does not set them in options; the Flutter
+  /// wrapper supplies [platform] from the OS.
   AmplifyConnectClient({
     required ConnectClientConfiguration configuration,
     required ConnectCredentialsProvider credentialsProvider,
@@ -74,75 +78,54 @@ class AmplifyConnectClient {
   /// endpoint (SigV4 `execute-api`, keyed on the Identity Pool `identityId`).
   ///
   /// [userId] is optional; it is stored only as an attribute and is never the
-  /// identity key. Device registration and merge-on-sign-in are expressed via
-  /// [options].
+  /// identity key.
+  ///
+  /// To register a device, pass [options] with a `channelType` and `address`
+  /// (the push token). The client fills in the stable `deviceId` and the
+  /// `platform` / `appVersion` defaults when they are not set. To fold a prior
+  /// guest profile into the authenticated one on sign-in, pass
+  /// `options.previousGuestIdentityId`.
   Future<void> identifyUser({
     required UserProfile userProfile,
     String? userId,
     IdentifyUserOptions? options,
   }) async {
     final session = await _credentialsProvider.fetchSession();
+    final effectiveOptions = await _withDeviceContext(options);
     final body = <String, dynamic>{
       'userId': ?userId,
       'userProfile': userProfile.toJson(),
-      if (options != null && !options.isEmpty) 'options': options.toJson(),
+      if (effectiveOptions != null && !effectiveOptions.isEmpty)
+        'options': effectiveOptions.toJson(),
     };
     await _service.identify(session: session, body: body);
     _logger.info(
-      'identifyUser sent (${session.isAuthenticated ? 'authenticated' : 'guest'})',
+      'identifyUser sent '
+      '(${session.isAuthenticated ? 'authenticated' : 'guest'})',
     );
   }
 
-  /// Registers the current device's push token.
-  ///
-  /// Folds into [identifyUser]: the token, the stable device id, and the
-  /// channel are sent as [IdentifyUserOptions] on an identify call. Re-calling
-  /// with the same device upserts in place (the backend keys the device object
-  /// on `deviceId`). Provide [userProfile] to also update user attributes in
-  /// the same call.
-  Future<void> registerDevice({
-    required String deviceToken,
-    required ChannelType channelType,
-    String? userId,
-    UserProfile userProfile = const UserProfile(),
-    String? appVersion,
-    String? previousGuestIdentityId,
-  }) async {
-    final deviceId = await _deviceIdStore.getOrCreateDeviceId();
-    await identifyUser(
-      userId: userId,
-      userProfile: userProfile,
-      options: IdentifyUserOptions(
-        address: deviceToken,
-        deviceId: deviceId,
-        channelType: channelType,
-        platform: _platform,
-        appVersion: appVersion ?? _appVersion,
-        previousGuestIdentityId: previousGuestIdentityId,
-      ),
-    );
-    _logger.info('registerDevice sent for channel ${channelType.value}');
-  }
+  /// Fills in device context (stable id, platform, app version) when [options]
+  /// expresses a device registration and the caller left those unset.
+  Future<IdentifyUserOptions?> _withDeviceContext(
+    IdentifyUserOptions? options,
+  ) async {
+    if (options == null) return null;
+    final registersDevice =
+        options.channelType != null || options.address != null;
+    if (!registersDevice) return options;
 
-  /// Device removal is not supported by the current backend contract.
-  ///
-  /// The identify endpoint exposes no device-deletion route, and the `optOut`
-  /// option is accepted but has no effect. This throws until the backend adds
-  /// a client-facing removal route.
-  Future<void> removeDevice() async {
-    throw const ConnectUnsupportedOperationException(
-      'removeDevice is not supported: the identify endpoint has no '
-      'device-removal route.',
+    final deviceId =
+        options.deviceId ?? await _deviceIdStore.getOrCreateDeviceId();
+    return IdentifyUserOptions(
+      userAttributes: options.userAttributes,
+      address: options.address,
+      deviceId: deviceId,
+      channelType: options.channelType,
+      platform: options.platform ?? _platform,
+      appVersion: options.appVersion ?? _appVersion,
+      optOut: options.optOut,
+      previousGuestIdentityId: options.previousGuestIdentityId,
     );
-  }
-
-  /// Clears in-memory session state.
-  ///
-  /// The client holds no cross-call identity state in the endpoint model, so
-  /// this is a no-op beyond logging; call on sign-out for symmetry. The shared
-  /// device id is intentionally retained (it identifies the device, not the
-  /// user).
-  void reset() {
-    _logger.info('Client reset');
   }
 }

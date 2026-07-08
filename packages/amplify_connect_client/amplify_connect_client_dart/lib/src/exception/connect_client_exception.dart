@@ -30,21 +30,6 @@ final class ConnectNotSignedInException extends ConnectClientException {
       );
 }
 
-/// {@template amplify_connect_client.unsupported_operation_exception}
-/// Thrown for operations the backend identify endpoint does not expose.
-/// {@endtemplate}
-final class ConnectUnsupportedOperationException
-    extends ConnectClientException {
-  /// {@macro amplify_connect_client.unsupported_operation_exception}
-  const ConnectUnsupportedOperationException(String detail)
-    : super(
-        message: detail,
-        recoverySuggestion:
-            'This operation has no client-facing route in the current backend '
-            'construct. Track backend support before relying on it.',
-      );
-}
-
 /// {@template amplify_connect_client.network_exception}
 /// Thrown when a request fails due to connectivity or transport errors.
 /// {@endtemplate}

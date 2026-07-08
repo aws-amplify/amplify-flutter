@@ -15,23 +15,34 @@ import 'package:amplify_connect_client_dart/amplify_connect_client_dart.dart';
 /// token or guest credentials) and shared preferences (for the device id,
 /// shared with other Amplify packages under `com.amplifyframework.device_id`).
 ///
+/// [identifyUser] is the only public method. Register a device by passing
+/// [IdentifyUserOptions] with a `channelType` and `address` (push token); the
+/// client fills in the stable device id and platform.
+///
 /// ## Usage
 ///
 /// ```dart
-/// final client = await AmplifyConnectClientFlutter.create(
+/// final client = AmplifyConnectClientFlutter.create(
 ///   configuration: ConnectClientConfiguration(
 ///     endpoint: 'https://abc123.execute-api.us-east-1.amazonaws.com',
 ///     region: 'us-east-1',
 ///   ),
 /// );
 ///
+/// // Identify a user.
 /// await client.identifyUser(
 ///   userId: 'user-123',
 ///   userProfile: const UserProfile(email: 'user@example.com'),
 /// );
-/// await client.registerDevice(
-///   deviceToken: fcmToken,
-///   channelType: ChannelType.gcm,
+///
+/// // Register a device (folded into identifyUser via options).
+/// await client.identifyUser(
+///   userId: 'user-123',
+///   userProfile: const UserProfile(),
+///   options: IdentifyUserOptions(
+///     address: fcmToken,
+///     channelType: ChannelType.gcm,
+///   ),
 /// );
 /// ```
 /// {@endtemplate}
@@ -88,29 +99,6 @@ class AmplifyConnectClientFlutter {
     userId: userId,
     options: options,
   );
-
-  /// See [AmplifyConnectClient.registerDevice].
-  Future<void> registerDevice({
-    required String deviceToken,
-    required ChannelType channelType,
-    String? userId,
-    UserProfile userProfile = const UserProfile(),
-    String? appVersion,
-    String? previousGuestIdentityId,
-  }) => _delegate.registerDevice(
-    deviceToken: deviceToken,
-    channelType: channelType,
-    userId: userId,
-    userProfile: userProfile,
-    appVersion: appVersion,
-    previousGuestIdentityId: previousGuestIdentityId,
-  );
-
-  /// See [AmplifyConnectClient.removeDevice].
-  Future<void> removeDevice() => _delegate.removeDevice();
-
-  /// See [AmplifyConnectClient.reset].
-  void reset() => _delegate.reset();
 
   static String _platformName() {
     if (Platform.isAndroid) return 'Android';

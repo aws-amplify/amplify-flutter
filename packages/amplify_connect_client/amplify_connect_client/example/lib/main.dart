@@ -179,13 +179,16 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
 
   Future<void> _registerDevice() => _run('Register device', () async {
     _append(
-      '  registerDevice → identifyUser options '
+      '  identifyUser options '
       '{address: <token>, deviceId: <stable>, channelType: GCM}',
     );
-    await _client.registerDevice(
-      deviceToken: _deviceToken.text.trim(),
-      channelType: ChannelType.gcm,
+    await _client.identifyUser(
       userId: _signedIn ? 'example-authed-1' : null,
+      userProfile: const UserProfile(),
+      options: IdentifyUserOptions(
+        address: _deviceToken.text.trim(),
+        channelType: ChannelType.gcm,
+      ),
     );
   });
 
