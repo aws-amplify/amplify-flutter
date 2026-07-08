@@ -12,6 +12,11 @@ class _MockSink implements EventSink {
   void send(EnrichedEvent event) => events.add(event);
 }
 
+class _ThrowingSink implements EventSink {
+  @override
+  void send(EnrichedEvent event) => throw StateError('sink failure');
+}
+
 void main() {
   group('EventEnrichmentClient', () {
     late EventEnrichmentClient client;
@@ -157,6 +162,25 @@ void main() {
         secondEvent.session.stopTimestamp,
         isNull,
         reason: 'the fresh session must not carry a stop_timestamp',
+      );
+    });
+
+    test('record() surfaces a sink failure through Result.error', () {
+      final throwingClient = EventEnrichmentClient(
+        appMetadata: app,
+        deviceMetadata: device,
+        sdkMetadata: sdk,
+        clientId: 'device-123',
+        sink: _ThrowingSink(),
+      );
+      addTearDown(throwingClient.close);
+
+      // Must return an Error result rather than throwing out of record().
+      final result = throwingClient.record('boom');
+      expect(result, isA<Error<EnrichedEvent>>());
+      expect(
+        (result as Error<EnrichedEvent>).error,
+        isA<EventEnrichmentRecordException>(),
       );
     });
   });
