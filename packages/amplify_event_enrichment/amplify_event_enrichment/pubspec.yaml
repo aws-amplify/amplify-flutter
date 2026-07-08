@@ -12,8 +12,8 @@ topics:
   - aws-amplify
 
 environment:
-  sdk: ^3.10.0
-  flutter: ">=3.38.1"
+  sdk: ^3.11.0
+  flutter: ">=3.41.0"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:
@@ -29,7 +29,7 @@ dependencies:
   amplify_foundation_dart: ">=2.11.0 <2.12.0"
   flutter:
     sdk: flutter
-  shared_preferences: ^2.3.0
+  shared_preferences: ^2.0.15
   uuid: ^4.5.0
 
 dev_dependencies:

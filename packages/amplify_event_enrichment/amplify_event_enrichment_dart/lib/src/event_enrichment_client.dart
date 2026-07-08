@@ -84,8 +84,9 @@ class EventEnrichmentClient {
 
   /// Records an event and returns the enriched result.
   ///
-  /// Returns [Result.error] with [EventEnrichmentClosedException] if the
-  /// client has been closed.
+  /// Returns [Result.error] with an [EventEnrichmentClosedException] if the
+  /// client has been closed, or an [EventEnrichmentRecordException] if
+  /// recording fails unexpectedly (for example, a custom sink that throws).
   Result<EnrichedEvent> record(
     String eventType, {
     Map<String, String>? attributes,
@@ -93,40 +94,45 @@ class EventEnrichmentClient {
   }) {
     if (_closed) return const Result.error(EventEnrichmentClosedException());
 
-    // A stopped session is still exposed by the manager for inspection, so
-    // start a fresh one instead of stamping the stopped session (which carries
-    // a stop_timestamp) onto a new event.
-    if (_sessionManager.session == null ||
-        _sessionManager.state == SessionState.stopped) {
-      _sessionManager.startSession();
+    try {
+      // A stopped session is still exposed by the manager for inspection, so
+      // start a fresh one instead of stamping the stopped session (which
+      // carries a stop_timestamp) onto a new event.
+      if (_sessionManager.session == null ||
+          _sessionManager.state == SessionState.stopped) {
+        _sessionManager.startSession();
+      }
+
+      final mergedAttributes = <String, String>{
+        ..._globalFields.attributes,
+        ...?attributes,
+      };
+      final mergedMetrics = <String, double>{
+        ..._globalFields.metrics,
+        ...?metrics,
+      };
+
+      final event = EnrichedEvent(
+        eventId: const Uuid().v4(),
+        eventType: eventType,
+        eventTimestamp: DateTime.now().millisecondsSinceEpoch,
+        session: _sessionManager.session!,
+        attributes: mergedAttributes,
+        metrics: mergedMetrics,
+        device: _deviceMetadata,
+        app: _appMetadata,
+        sdk: _sdkMetadata,
+        clientId: _clientId,
+        userId: _userId,
+      );
+
+      _sink?.send(event);
+      _logger.verbose('Recorded event: $eventType');
+      return Result.ok(event);
+    } on Object catch (e, st) {
+      _logger.error('Failed to record event: $eventType', e, st);
+      return Result.error(EventEnrichmentRecordException(cause: e));
     }
-
-    final mergedAttributes = <String, String>{
-      ..._globalFields.attributes,
-      ...?attributes,
-    };
-    final mergedMetrics = <String, double>{
-      ..._globalFields.metrics,
-      ...?metrics,
-    };
-
-    final event = EnrichedEvent(
-      eventId: const Uuid().v4(),
-      eventType: eventType,
-      eventTimestamp: DateTime.now().millisecondsSinceEpoch,
-      session: _sessionManager.session!,
-      attributes: mergedAttributes,
-      metrics: mergedMetrics,
-      device: _deviceMetadata,
-      app: _appMetadata,
-      sdk: _sdkMetadata,
-      clientId: _clientId,
-      userId: _userId,
-    );
-
-    _sink?.send(event);
-    _logger.verbose('Recorded event: $eventType');
-    return Result.ok(event);
   }
 
   /// Starts a new session manually.
