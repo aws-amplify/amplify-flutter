@@ -26,3 +26,19 @@ final class EventEnrichmentClosedException extends EventEnrichmentException {
         recoverySuggestion: 'Create a new EventEnrichmentClient instance.',
       );
 }
+
+/// {@template amplify_event_enrichment.record_exception}
+/// Returned as [Result.error] when recording an event fails unexpectedly.
+///
+/// The underlying failure is available via [cause].
+/// {@endtemplate}
+final class EventEnrichmentRecordException extends EventEnrichmentException {
+  /// {@macro amplify_event_enrichment.record_exception}
+  const EventEnrichmentRecordException({required super.cause})
+    : super(
+        message: 'Failed to record event',
+        recoverySuggestion:
+            'Inspect the underlying cause. If a custom event sink was '
+            'provided, ensure its send method does not throw.',
+      );
+}

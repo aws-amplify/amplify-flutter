@@ -5,14 +5,15 @@ import 'package:amplify_event_enrichment/src/flutter_lifecycle_observer.dart';
 import 'package:amplify_event_enrichment/src/shared_preferences_client_id_provider.dart';
 import 'package:amplify_event_enrichment_dart/amplify_event_enrichment.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
-    show Result;
+    show AmplifyLogging, Result;
+import 'package:uuid/uuid.dart';
 
 /// {@template amplify_event_enrichment.event_enrichment_client_flutter}
 /// Flutter convenience wrapper that creates an [EventEnrichmentClient] with
 /// platform-specific providers wired automatically.
 ///
 /// Uses:
-/// - [IODeviceMetadataProvider] for device metadata (OS name/version)
+/// - [PlatformDeviceMetadataProvider] for device metadata (OS name/version)
 /// - [SharedPreferencesClientIdProvider] for persistent client ID
 /// - [FlutterLifecycleObserver] for automatic session lifecycle tracking
 ///
@@ -51,19 +52,40 @@ class EventEnrichmentClientFlutter {
       '"$appId". When both are provided they must be the same value.',
     );
     final metadataProvider =
-        deviceMetadataProvider ?? const IODeviceMetadataProvider();
+        deviceMetadataProvider ?? const PlatformDeviceMetadataProvider();
     const clientIdProvider = SharedPreferencesClientIdProvider();
+    final logger = AmplifyLogging.logger('EventEnrichmentClientFlutter');
 
-    final results = await (
-      metadataProvider.getDeviceMetadata(),
-      clientIdProvider.getClientId(),
-    ).wait;
+    // Resolve device metadata and client ID independently so a failure in
+    // either provider degrades gracefully rather than throwing out of create().
+    var deviceMetadata = const DeviceMetadata();
+    try {
+      deviceMetadata = await metadataProvider.getDeviceMetadata();
+    } on Object catch (e, st) {
+      logger.warn(
+        'Failed to resolve device metadata; continuing with empty metadata.',
+        e,
+        st,
+      );
+    }
+
+    String clientId;
+    try {
+      clientId = await clientIdProvider.getClientId();
+    } on Object catch (e, st) {
+      clientId = const Uuid().v4();
+      logger.warn(
+        'Failed to resolve a persistent client ID; using an ephemeral one.',
+        e,
+        st,
+      );
+    }
 
     final delegate = EventEnrichmentClient(
       appMetadata: appMetadata ?? AppMetadata(appId: appId),
-      deviceMetadata: results.$1,
+      deviceMetadata: deviceMetadata,
       sdkMetadata: sdkMetadata,
-      clientId: results.$2,
+      clientId: clientId,
       options: options,
       sink: sink,
     );
