@@ -13,8 +13,6 @@ import 'package:flutter/foundation.dart';
 class AmplifyClassImpl extends core.AmplifyClassImpl {
   /// {@macro amplify_flutter.amplify_class}
   factory AmplifyClassImpl() {
-    // `defaultTargetPlatform` instead of `dart:io`'s `Platform` keeps this
-    // compatible with the `wasm` runtime.
     final isMobile =
         defaultTargetPlatform == TargetPlatform.android ||
         defaultTargetPlatform == TargetPlatform.iOS;
