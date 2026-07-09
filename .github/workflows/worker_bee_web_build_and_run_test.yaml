@@ -53,7 +53,7 @@ jobs:
         run: git submodule update --init
 
       - name: Cache Pub dependencies
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # 5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # 6.1.0
         with:
           path: |
             ~/.pub-cache/hosted
