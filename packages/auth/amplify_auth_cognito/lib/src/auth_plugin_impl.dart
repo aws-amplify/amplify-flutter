@@ -179,8 +179,7 @@ class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<AmplifyAuthCognito> {
   String get runtimeTypeName => 'AmplifyAuthCognito';
 }
 
-// WASM-safe iOS/Android check. Avoids `dart:io`'s `Platform`, which is not
-// compatible with the `wasm` runtime.
+// WASM-safe iOS/Android check
 bool get _isMobile =>
     defaultTargetPlatform == TargetPlatform.android ||
     defaultTargetPlatform == TargetPlatform.iOS;
