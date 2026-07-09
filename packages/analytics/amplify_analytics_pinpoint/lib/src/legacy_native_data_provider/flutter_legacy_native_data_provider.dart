@@ -16,8 +16,6 @@ import 'package:flutter/foundation.dart';
 class FlutterLegacyNativeDataProvider implements LegacyNativeDataProvider {
   /// {@macro amplify_analytics_pinpoint.flutter_legacy_native_data_provider}
   factory FlutterLegacyNativeDataProvider() {
-    // `defaultTargetPlatform` instead of `dart:io`'s `Platform` keeps this
-    // compatible with the `wasm` runtime.
     switch (defaultTargetPlatform) {
       case TargetPlatform.iOS when !zIsWeb:
         return FlutterLegacyNativeDataProvider._(DataProviderIos());
