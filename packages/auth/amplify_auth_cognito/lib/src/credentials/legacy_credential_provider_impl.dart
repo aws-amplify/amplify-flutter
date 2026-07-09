@@ -26,8 +26,7 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
 
   late final LegacyCredentialProvider? _instance = () {
     if (zIsWeb) return null;
-    // Uses `defaultTargetPlatform` rather than `dart:io`'s `Platform` to stay
-    // compatible with the `wasm` runtime.
+
     switch (defaultTargetPlatform) {
       case TargetPlatform.iOS:
         return LegacyCredentialProviderIOS(_stateMachine);
