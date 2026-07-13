@@ -12,7 +12,7 @@ topics:
   - aws-amplify
 
 environment:
-  sdk: ^3.11.0
+  sdk: ^3.10.0
 
 dependencies:
   amplify_foundation_dart: ">=2.11.0 <2.12.0"
