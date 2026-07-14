@@ -15,54 +15,48 @@ class PushNotificationsFixTests: XCTestCase {
 
     // MARK: - Bug #2: FlutterStandardCodec crash prevention
 
-    func testFlutterErrorWithNilDetailsIsCodecSafe() {
-        // The fix changes FlutterError.details from `error` (NSError) to `nil`
-        let flutterError = FlutterError(
-            code: "DeviceTokenError",
-            message: "no valid aps-environment",
-            details: nil
+    func testTokenErrorDetailsMapHasExactKeysAndTypes() {
+        // Simulate what the plugin now does: bridge Error → NSError → details map
+        let nsError = NSError(
+            domain: "com.apple.devicecheck",
+            code: 3000,
+            userInfo: [NSLocalizedDescriptionKey: "no valid aps-environment"]
         )
+        let details: [String: Any] = ["domain": nsError.domain, "code": nsError.code]
 
-        // FlutterStandardCodec must be able to encode this without throwing
-        let codec = FlutterStandardMessageCodec.sharedInstance()
-        let encoded = codec.encode(flutterError)
-        // If we reach here without NSInternalInconsistencyException, the fix works
-        XCTAssertNotNil(flutterError)
-        XCTAssertEqual(flutterError.code, "DeviceTokenError")
-        XCTAssertEqual(flutterError.message, "no valid aps-environment")
-        XCTAssertNil(flutterError.details)
+        // Exact key set
+        XCTAssertEqual(Set(details.keys), Set(["domain", "code"]))
+        // Value types
+        XCTAssertTrue(details["domain"] is String)
+        XCTAssertTrue(details["code"] is Int)
+        // Values
+        XCTAssertEqual(details["domain"] as? String, "com.apple.devicecheck")
+        XCTAssertEqual(details["code"] as? Int, 3000)
     }
 
-    func testFlutterErrorWithStringDetailsIsCodecSafe() {
-        // Alternative: using localizedDescription string as details
-        let flutterError = FlutterError(
-            code: "DeviceTokenError",
-            message: "no valid aps-environment",
-            details: "The operation couldn't be completed. (NSCocoaErrorDomain error 3000.)"
-        )
-
-        let codec = FlutterStandardMessageCodec.sharedInstance()
-        // This should not throw — strings are supported by FlutterStandardCodec
-        let encoded = codec.encode(flutterError)
-        XCTAssertNotNil(flutterError)
-    }
-
-    func testNSErrorIsNotCodecSafe() {
-        // Demonstrates the original crash: NSError is NOT supported by FlutterStandardCodec.
-        // This test documents the bug by showing the codec cannot handle NSError.
+    func testTokenErrorDetailsIsCodecSafe() {
         let nsError = NSError(
             domain: NSCocoaErrorDomain,
             code: 3000,
             userInfo: [NSLocalizedDescriptionKey: "no valid aps-environment"]
         )
+        let details: [String: Any] = ["domain": nsError.domain, "code": nsError.code]
+        let flutterError = FlutterError(
+            code: "DeviceTokenError",
+            message: nsError.localizedDescription,
+            details: details
+        )
 
+        // FlutterStandardCodec must encode without throwing
         let codec = FlutterStandardMessageCodec.sharedInstance()
-        // Encoding raw NSError throws NSInternalInconsistencyException
-        // We just verify the type is NOT one of the supported types
-        let supportedTypes: [Any] = [
-            NSNull(), NSNumber(value: 1), "string" as NSString,
-            [1, 2] as NSArray, ["key": "value"] as NSDictionary
-        ]
+        let encoded = codec.encode(details as [String: Any])
+        XCTAssertNotNil(encoded, "Details map must be encodable by FlutterStandardCodec")
+        XCTAssertEqual(flutterError.code, "DeviceTokenError")
+        XCTAssertEqual(flutterError.message, "no valid aps-environment")
+    }
+
+    func testNSErrorIsNotCodecSafe() {
+        let nsError = NSError(domain: NSCocoaErrorDomain, code: 3000, userInfo: nil)
         XCTAssertFalse(nsError is NSNull)
         XCTAssertFalse(nsError is NSNumber)
         XCTAssertFalse(nsError is NSString)
