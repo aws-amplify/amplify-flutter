@@ -17,15 +17,25 @@ class EchoWorkerImpl extends EchoWorker {
         .takeWhile((segment) => segment != 'test')
         .map(Uri.encodeComponent)
         .join('/');
-    const relativePath = zDebugMode
-        ? 'packages/worker_bee_example/workers.debug.dart.js'
-        : 'packages/worker_bee_example/workers.release.dart.js';
-    final testRelativePath = Uri(
-      scheme: baseUri.scheme,
-      host: baseUri.host,
-      port: baseUri.port,
-      path: '$basePath/test/$relativePath',
-    ).toString();
-    return [relativePath, testRelativePath];
+    const relativePaths = zDebugMode
+        ? [
+            'packages/worker_bee_example/workers.js',
+            'packages/worker_bee_example/workers.debug.dart.js',
+          ]
+        : [
+            'packages/worker_bee_example/workers.min.js',
+            'packages/worker_bee_example/workers.release.dart.js',
+          ];
+    return [
+      for (final relativePath in relativePaths) ...[
+        relativePath,
+        Uri(
+          scheme: baseUri.scheme,
+          host: baseUri.host,
+          port: baseUri.port,
+          path: '$basePath/test/$relativePath',
+        ).toString(),
+      ],
+    ];
   }
 }
