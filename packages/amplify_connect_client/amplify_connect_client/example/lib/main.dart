@@ -40,8 +40,8 @@ class ConnectPocHome extends StatefulWidget {
 
 class _ConnectPocHomeState extends State<ConnectPocHome> {
   final _log = <String>[];
-  final _email = TextEditingController(text: 'poc-user@example.com');
-  final _password = TextEditingController(text: '');
+  final _email = TextEditingController();
+  final _password = TextEditingController();
   final _deviceToken = TextEditingController(
     text: 'gcm-token-from-example-app',
   );
@@ -149,7 +149,7 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
   Future<void> _identifyAuthed() => _run('Identify (authed)', () async {
     const profile = UserProfile(
       name: 'POC Example User',
-      email: 'poc-user@example.com',
+      email: 'example-user@example.com',
       plan: 'gold',
     );
     _append(

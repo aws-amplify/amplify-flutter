@@ -1,7 +1,7 @@
 {
   "auth": {
     "user_pool_id": "us-east-1_EXAMPLE",
-    "aws_region": "us-west-2",
+    "aws_region": "us-east-1",
     "user_pool_client_id": "EXAMPLE_CLIENT_ID",
     "identity_pool_id": "us-east-1:00000000-0000-0000-0000-000000000000",
     "mfa_methods": [],
@@ -29,12 +29,12 @@
   "custom": {
     "CustomerProfiles": {
       "endpoint": "https://your-api-id.execute-api.us-east-1.amazonaws.com",
-      "region": "us-west-2"
+      "region": "us-east-1"
     }
   },
   "analytics": {
     "amazon_connect_customer_profiles": {
-      "aws_region": "us-west-2",
+      "aws_region": "us-east-1",
       "endpoint": "https://your-api-id.execute-api.us-east-1.amazonaws.com"
     }
   }

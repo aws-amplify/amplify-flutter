@@ -20,9 +20,11 @@ section, and configures Amplify Auth from the `auth` section.
 > copy (the non-standard `analytics`/`custom` keys are stripped) so Auth
 > configures cleanly.
 
-To point the app at a different sandbox, replace `amplify_outputs.json` with the
-sandbox output augmented with the `analytics.amazon_connect_customer_profiles`
-section.
+The bundled `amplify_outputs.json` ships with placeholder values only. Before
+running, replace it with the `amplify_outputs.json` from your own deployed
+backend, then add the `analytics.amazon_connect_customer_profiles` section
+(`aws_region` + `endpoint`) pointing at your identify endpoint. Do not commit
+real values back to the repo.
 
 ## Running (macOS)
 
@@ -44,8 +46,8 @@ flutter run -d macos
 
 ## Using the app
 
-1. Sign in with a Cognito user (default fields are pre-filled for the POC user)
-   to exercise the authenticated route, or stay signed out for the guest route.
+1. Sign in by typing a Cognito user's email and password to exercise the
+   authenticated route, or stay signed out for the guest route.
 2. Tap "Identify (authed)" while signed in, or "Guest identify" while signed
    out.
 3. "Register device" folds a device token into an identify call.

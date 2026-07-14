@@ -17,7 +17,8 @@ enum ChannelType {
   /// Apple Push Notification service, sandbox (development) environment.
   apnsSandbox('APNS_SANDBOX'),
 
-  /// In-app messaging channel.
+  /// In-app messaging channel. `IN_APP` registrations are stored on the
+  /// profile but are not a push-deliverable channel.
   inApp('IN_APP');
 
   /// {@macro amplify_connect_client.channel_type}

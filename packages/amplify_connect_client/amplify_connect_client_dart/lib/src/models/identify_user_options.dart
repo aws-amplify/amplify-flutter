@@ -63,7 +63,8 @@ class IdentifyUserOptions {
   /// App version recorded on the device object.
   final String? appVersion;
 
-  /// Opt-out preference. Accepted for compatibility; has no backend effect.
+  /// Opt-out preference. The backend currently accepts this field but does not
+  /// act on it yet, so setting it has no effect for now.
   final OptOut? optOut;
 
   /// On an authenticated call, the caller's prior guest Identity Pool
