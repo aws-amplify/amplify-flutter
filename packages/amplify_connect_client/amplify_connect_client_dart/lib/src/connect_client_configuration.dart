@@ -19,17 +19,17 @@ class ConnectClientConfiguration {
     required this.region,
   });
 
-  /// Parses the configuration from the
-  /// `analytics.amazon_connect_customer_profiles` section of a decoded
-  /// `amplify_outputs.json` map.
+  /// Parses the configuration from the `custom.CustomerProfiles` section of a
+  /// decoded `amplify_outputs.json` map (the canonical output written by the
+  /// backend construct).
   ///
   /// Expects a shape of:
   /// ```json
   /// {
-  ///   "analytics": {
-  ///     "amazon_connect_customer_profiles": {
-  ///       "aws_region": "us-east-1",
-  ///       "endpoint": "https://abc123.execute-api.us-east-1.amazonaws.com"
+  ///   "custom": {
+  ///     "CustomerProfiles": {
+  ///       "endpoint": "https://abc123.execute-api.us-east-1.amazonaws.com",
+  ///       "region": "us-east-1"
   ///     }
   ///   }
   /// }
@@ -40,28 +40,25 @@ class ConnectClientConfiguration {
   factory ConnectClientConfiguration.fromAmplifyOutputs(
     Map<String, dynamic> amplifyOutputs,
   ) {
-    final analytics = amplifyOutputs['analytics'];
-    final section = analytics is Map<String, dynamic>
-        ? analytics['amazon_connect_customer_profiles']
+    final custom = amplifyOutputs['custom'];
+    final section = custom is Map<String, dynamic>
+        ? custom['CustomerProfiles']
         : null;
     if (section is! Map<String, dynamic>) {
       throw const ConnectConfigurationException(
-        'Missing "analytics.amazon_connect_customer_profiles" section in '
-        'amplify_outputs.',
+        'Missing "custom.CustomerProfiles" section in amplify_outputs.',
       );
     }
     final endpoint = section['endpoint'];
-    final region = section['aws_region'];
+    final region = section['region'];
     if (endpoint is! String || endpoint.isEmpty) {
       throw const ConnectConfigurationException(
-        'Missing "analytics.amazon_connect_customer_profiles.endpoint" in '
-        'amplify_outputs.',
+        'Missing "custom.CustomerProfiles.endpoint" in amplify_outputs.',
       );
     }
     if (region is! String || region.isEmpty) {
       throw const ConnectConfigurationException(
-        'Missing "analytics.amazon_connect_customer_profiles.aws_region" in '
-        'amplify_outputs.',
+        'Missing "custom.CustomerProfiles.region" in amplify_outputs.',
       );
     }
     return ConnectClientConfiguration(

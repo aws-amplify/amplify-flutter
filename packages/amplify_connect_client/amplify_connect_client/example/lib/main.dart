@@ -67,21 +67,16 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
       final outputs = jsonDecode(raw) as Map<String, dynamic>;
 
       // Amplify.configure only understands its own sections; strip the
-      // non-standard analytics.amazon_connect_customer_profiles + custom keys
-      // so Auth configures cleanly. (This is the config-key bridge in action:
-      // the construct emits custom.CustomerProfiles, the client reads
-      // analytics.amazon_connect_customer_profiles — see amplify_outputs.json.)
-      final authOnly = Map<String, dynamic>.from(outputs)
-        ..remove('analytics')
-        ..remove('custom');
+      // non-standard custom.CustomerProfiles key so Auth configures cleanly.
+      final authOnly = Map<String, dynamic>.from(outputs)..remove('custom');
 
       await Amplify.addPlugin(AmplifyAuthCognito());
       if (!Amplify.isConfigured) {
         await Amplify.configure(jsonEncode(authOnly));
       }
 
-      // The Connect client reads the (bridged) analytics section for its
-      // endpoint + region.
+      // The Connect client reads custom.CustomerProfiles for its endpoint +
+      // region (the canonical output written by the backend construct).
       _client = AmplifyConnectClientFlutter.createFromAmplifyOutputs(
         amplifyOutputs: outputs,
         appVersion: '1.0.0',
@@ -89,12 +84,10 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
 
       await _refreshAuthState();
       setState(() => _ready = true);
-      final analytics = outputs['analytics'] as Map<String, dynamic>;
-      final cp =
-          analytics['amazon_connect_customer_profiles'] as Map<String, dynamic>;
+      final custom = outputs['custom'] as Map<String, dynamic>;
+      final cp = custom['CustomerProfiles'] as Map<String, dynamic>;
       _append(
-        'Configured. Endpoint from '
-        'analytics.amazon_connect_customer_profiles.endpoint = '
+        'Configured. Endpoint from custom.CustomerProfiles.endpoint = '
         '${cp['endpoint']}',
       );
     } on Object catch (e) {

@@ -9,22 +9,18 @@ merge-on-sign-in. Each action prints the request it sends and the result.
 ## Configuration
 
 The app loads `amplify_outputs.json` (bundled as an asset) at startup. It reads
-the endpoint and region from the `analytics.amazon_connect_customer_profiles`
-section, and configures Amplify Auth from the `auth` section.
+the endpoint and region from the `custom.CustomerProfiles` section (the
+canonical output written by the backend construct), and configures Amplify Auth
+from the `auth` section.
 
-> Note on the config bridge: the construct writes its endpoint under
-> `custom.CustomerProfiles { endpoint, region }`, while the client reads
-> `analytics.amazon_connect_customer_profiles { aws_region, endpoint }`. The
-> bundled `amplify_outputs.json` carries both, so the app works until the two
-> teams reconcile on a single key. `Amplify.configure` is given an auth-only
-> copy (the non-standard `analytics`/`custom` keys are stripped) so Auth
-> configures cleanly.
+> Note: `Amplify.configure` only understands its own sections, so the app gives
+> it an auth-only copy (the non-standard `custom` key is stripped). The Connect
+> client reads `custom.CustomerProfiles { endpoint, region }` directly.
 
 The bundled `amplify_outputs.json` ships with placeholder values only. Before
 running, replace it with the `amplify_outputs.json` from your own deployed
-backend, then add the `analytics.amazon_connect_customer_profiles` section
-(`aws_region` + `endpoint`) pointing at your identify endpoint. Do not commit
-real values back to the repo.
+backend (it already carries the `custom.CustomerProfiles` section with your
+`endpoint` and `region`). Do not commit real values back to the repo.
 
 ## Running (macOS)
 
