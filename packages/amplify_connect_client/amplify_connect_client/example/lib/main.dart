@@ -67,16 +67,17 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
       final outputs = jsonDecode(raw) as Map<String, dynamic>;
 
       // Amplify.configure only understands its own sections; strip the
-      // non-standard custom.CustomerProfiles key so Auth configures cleanly.
-      final authOnly = Map<String, dynamic>.from(outputs)..remove('custom');
+      // notifications key so Auth configures cleanly.
+      final authOnly = Map<String, dynamic>.from(outputs)
+        ..remove('notifications');
 
       await Amplify.addPlugin(AmplifyAuthCognito());
       if (!Amplify.isConfigured) {
         await Amplify.configure(jsonEncode(authOnly));
       }
 
-      // The Connect client reads custom.CustomerProfiles for its endpoint +
-      // region (the canonical output written by the backend construct).
+      // The Connect client reads notifications.amazon_connect_customer_profiles
+      // for its endpoint + region (the canonical backend construct output).
       _client = AmplifyConnectClientFlutter.createFromAmplifyOutputs(
         amplifyOutputs: outputs,
         appVersion: '1.0.0',
@@ -84,10 +85,13 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
 
       await _refreshAuthState();
       setState(() => _ready = true);
-      final custom = outputs['custom'] as Map<String, dynamic>;
-      final cp = custom['CustomerProfiles'] as Map<String, dynamic>;
+      final notifications = outputs['notifications'] as Map<String, dynamic>;
+      final cp =
+          notifications['amazon_connect_customer_profiles']
+              as Map<String, dynamic>;
       _append(
-        'Configured. Endpoint from custom.CustomerProfiles.endpoint = '
+        'Configured. Endpoint from '
+        'notifications.amazon_connect_customer_profiles.endpoint = '
         '${cp['endpoint']}',
       );
     } on Object catch (e) {

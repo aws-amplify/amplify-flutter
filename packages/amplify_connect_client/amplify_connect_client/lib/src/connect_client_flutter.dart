@@ -71,7 +71,8 @@ class AmplifyConnectClientFlutter {
   }
 
   /// Creates a client from a decoded `amplify_outputs.json` map, reading the
-  /// `custom.CustomerProfiles` section for the endpoint and region.
+  /// `notifications.amazon_connect_customer_profiles` section for the endpoint
+  /// and region.
   static AmplifyConnectClientFlutter createFromAmplifyOutputs({
     required Map<String, dynamic> amplifyOutputs,
     ConnectCredentialsProvider? credentialsProvider,

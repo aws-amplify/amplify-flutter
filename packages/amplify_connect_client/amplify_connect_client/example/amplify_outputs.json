@@ -26,10 +26,10 @@
     "unauthenticated_identities_enabled": true
   },
   "version": "1.4",
-  "custom": {
-    "CustomerProfiles": {
-      "endpoint": "https://your-api-id.execute-api.us-east-1.amazonaws.com",
-      "region": "us-east-1"
+  "notifications": {
+    "amazon_connect_customer_profiles": {
+      "aws_region": "us-east-1",
+      "endpoint": "https://your-api-id.execute-api.us-east-1.amazonaws.com"
     }
   }
 }

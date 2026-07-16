@@ -9,18 +9,21 @@ merge-on-sign-in. Each action prints the request it sends and the result.
 ## Configuration
 
 The app loads `amplify_outputs.json` (bundled as an asset) at startup. It reads
-the endpoint and region from the `custom.CustomerProfiles` section (the
-canonical output written by the backend construct), and configures Amplify Auth
-from the `auth` section.
+the endpoint and region from the `notifications.amazon_connect_customer_profiles`
+section (the canonical output written by the backend construct), and configures
+Amplify Auth from the `auth` section.
 
 > Note: `Amplify.configure` only understands its own sections, so the app gives
-> it an auth-only copy (the non-standard `custom` key is stripped). The Connect
-> client reads `custom.CustomerProfiles { endpoint, region }` directly.
+> it an auth-only copy (the non-standard `notifications` key is stripped). The
+> Connect client reads
+> `notifications.amazon_connect_customer_profiles { aws_region, endpoint }`
+> directly.
 
 The bundled `amplify_outputs.json` ships with placeholder values only. Before
 running, replace it with the `amplify_outputs.json` from your own deployed
-backend (it already carries the `custom.CustomerProfiles` section with your
-`endpoint` and `region`). Do not commit real values back to the repo.
+backend (it already carries the `notifications.amazon_connect_customer_profiles`
+section with your `aws_region` and `endpoint`). Do not commit real values back
+to the repo.
 
 ## Running (macOS)
 
