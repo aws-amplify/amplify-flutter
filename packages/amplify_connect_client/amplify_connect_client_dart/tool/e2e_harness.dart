@@ -9,13 +9,13 @@
 //
 // Usage:
 //   dart run tool/e2e_harness.dart <flow>
-// where <flow> is one of: authed | guest | device | merge
+// where <flow> is one of: authed | guest | device
 //
 // Required env:
 //   ENDPOINT, REGION
-//   ACCESS_TOKEN                (authed, device, merge)
-//   GUEST_AK, GUEST_SK, GUEST_ST, GUEST_ID   (guest, merge)
-//   DEVICE_ID, DEVICE_TOKEN     (device, merge)
+//   ACCESS_TOKEN                (authed, device)
+//   GUEST_AK, GUEST_SK, GUEST_ST, GUEST_ID   (guest)
+//   DEVICE_ID, DEVICE_TOKEN     (device)
 
 import 'dart:async';
 import 'dart:convert';
@@ -115,7 +115,7 @@ ConnectSession _guestSession() => ConnectSession(
 Future<void> main(List<String> args) async {
   if (args.isEmpty) {
     stderr.writeln(
-      'usage: dart run tool/e2e_harness.dart <authed|guest|device|merge>',
+      'usage: dart run tool/e2e_harness.dart <authed|guest|device>',
     );
     exit(2);
   }
@@ -173,43 +173,6 @@ Future<void> main(List<String> args) async {
         stdout.writeln(
           'RESULT device: identifyUser (device options) returned (2xx, no exception)',
         );
-
-      case 'merge':
-        // Two-step: (1) guest registers a device, (2) authed signs in with
-        // previousGuestIdentityId to fold the guest profile+device in.
-        final step = args.length > 1 ? args[1] : 'both';
-        final deviceId = _env('DEVICE_ID');
-        if (step == 'guest' || step == 'both') {
-          stdout.writeln(
-            'FLOW merge/guest — guest registers device $deviceId under identity ${_env('GUEST_ID')}',
-          );
-          await _client(_guestSession(), deviceId: deviceId).identifyUser(
-            userProfile: const UserProfile(name: 'POC Merge Guest'),
-            options: IdentifyUserOptions(
-              address: _env('DEVICE_TOKEN'),
-              channelType: ChannelType.gcm,
-            ),
-          );
-          stdout.writeln('RESULT merge/guest: guest device registered (2xx)');
-        }
-        if (step == 'signin' || step == 'both') {
-          stdout.writeln(
-            'FLOW merge/signin — authed identify with previousGuestIdentityId=${_env('GUEST_ID')}',
-          );
-          await _client(_authedSession()).identifyUser(
-            userId: 'poc-authed-1',
-            userProfile: const UserProfile(
-              name: 'POC Authed User',
-              plan: 'gold',
-            ),
-            options: IdentifyUserOptions(
-              previousGuestIdentityId: _env('GUEST_ID'),
-            ),
-          );
-          stdout.writeln(
-            'RESULT merge/signin: authed identify with merge hint returned (2xx)',
-          );
-        }
 
       default:
         stderr.writeln('unknown flow: $flow');

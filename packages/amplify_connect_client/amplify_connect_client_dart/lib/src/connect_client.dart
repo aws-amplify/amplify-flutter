@@ -82,9 +82,7 @@ class AmplifyConnectClient {
   ///
   /// To register a device, pass [options] with a `channelType` and `address`
   /// (the push token). The client fills in the stable `deviceId` and the
-  /// `platform` / `appVersion` defaults when they are not set. To fold a prior
-  /// guest profile into the authenticated one on sign-in, pass
-  /// `options.previousGuestIdentityId`.
+  /// `platform` / `appVersion` defaults when they are not set.
   Future<void> identifyUser({
     required UserProfile userProfile,
     String? userId,
@@ -125,7 +123,6 @@ class AmplifyConnectClient {
       platform: options.platform ?? _platform,
       appVersion: options.appVersion ?? _appVersion,
       optOut: options.optOut,
-      previousGuestIdentityId: options.previousGuestIdentityId,
     );
   }
 }

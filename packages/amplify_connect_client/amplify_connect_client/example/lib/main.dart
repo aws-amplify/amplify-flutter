@@ -49,7 +49,6 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
   late AmplifyConnectClientFlutter _client;
   bool _ready = false;
   bool _signedIn = false;
-  String? _lastGuestIdentityId;
 
   @override
   void initState() {
@@ -103,13 +102,8 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
     try {
       final session = await Amplify.Auth.fetchAuthSession();
       final signedIn = session.isSignedIn;
-      String? guestId;
-      if (session is CognitoAuthSession) {
-        guestId = session.identityIdResult.valueOrNull;
-      }
       setState(() {
         _signedIn = signedIn;
-        if (!signedIn && guestId != null) _lastGuestIdentityId = guestId;
       });
     } on Object catch (e) {
       _append('auth state error: $e');
@@ -166,7 +160,6 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
       await _refreshAuthState();
     }
     const profile = UserProfile(name: 'POC Example Guest', plan: 'free');
-    _append('  guest identityId: ${_lastGuestIdentityId ?? '(resolving)'}');
     _append(
       '  POST /identify-user-guest (SigV4) body: '
       '${jsonEncode({'userId': 'example-guest-1', 'userProfile': profile.toJson()})}',
@@ -186,29 +179,6 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
         address: _deviceToken.text.trim(),
         channelType: ChannelType.gcm,
       ),
-    );
-  });
-
-  Future<void> _mergeOnSignIn() => _run('Merge on sign-in', () async {
-    final guestId = _lastGuestIdentityId;
-    if (guestId == null) {
-      throw StateError(
-        'No guest identityId captured yet. Run "Guest identify" while '
-        'signed out first, then sign in and merge.',
-      );
-    }
-    if (!_signedIn) {
-      _append('  signing in first…');
-      await Amplify.Auth.signIn(
-        username: _email.text.trim(),
-        password: _password.text,
-      );
-    }
-    _append('  POST /identify-user with previousGuestIdentityId=$guestId');
-    await _client.identifyUser(
-      userId: 'example-authed-1',
-      userProfile: const UserProfile(name: 'POC Example User', plan: 'gold'),
-      options: IdentifyUserOptions(previousGuestIdentityId: guestId),
     );
   });
 
@@ -284,10 +254,6 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
                       FilledButton.tonal(
                         onPressed: _registerDevice,
                         child: const Text('Register device'),
-                      ),
-                      FilledButton.tonal(
-                        onPressed: _mergeOnSignIn,
-                        child: const Text('Merge on sign-in'),
                       ),
                     ],
                   ),

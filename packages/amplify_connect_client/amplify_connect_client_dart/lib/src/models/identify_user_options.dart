@@ -41,7 +41,6 @@ class IdentifyUserOptions {
     this.platform,
     this.appVersion,
     this.optOut,
-    this.previousGuestIdentityId,
   });
 
   /// Additional string user attributes, each key mapping to a list of values.
@@ -67,11 +66,6 @@ class IdentifyUserOptions {
   /// act on it yet, so setting it has no effect for now.
   final OptOut? optOut;
 
-  /// On an authenticated call, the caller's prior guest Identity Pool
-  /// `identityId`. When present, the backend folds the guest profile (and its
-  /// devices) into the authenticated profile (merge-on-sign-in).
-  final String? previousGuestIdentityId;
-
   /// Serializes to the endpoint's `options` shape, omitting null fields.
   Map<String, dynamic> toJson() => {
     if (userAttributes != null && userAttributes!.isNotEmpty)
@@ -82,7 +76,6 @@ class IdentifyUserOptions {
     'platform': ?platform,
     'appVersion': ?appVersion,
     'optOut': ?optOut?.value,
-    'previousGuestIdentityId': ?previousGuestIdentityId,
   };
 
   /// Whether every field is null/empty (nothing to send).
