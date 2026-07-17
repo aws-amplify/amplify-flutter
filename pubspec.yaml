@@ -127,6 +127,15 @@ aft:
       packages:
         - worker_bee
         - worker_bee_builder
+    - name: Foundation Dart
+      packages:
+        - amplify_foundation_dart
+    - name: Foundation Dart Bridge
+      packages:
+        - amplify_foundation_dart_bridge
+    - name: Record Cache Dart
+      packages:
+        - amplify_record_cache_dart
 
   # Scripts which are runnable via `aft run <script-name>`.
   scripts:
