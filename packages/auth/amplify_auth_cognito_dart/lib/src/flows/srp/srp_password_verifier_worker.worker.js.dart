@@ -31,15 +31,25 @@ class SrpPasswordVerifierWorkerImpl extends SrpPasswordVerifierWorker {
         .takeWhile((segment) => segment != 'test')
         .map(Uri.encodeComponent)
         .join('/');
-    const relativePath = zDebugMode
-        ? 'packages/amplify_auth_cognito_dart/src/workers/workers.debug.dart.js'
-        : 'packages/amplify_auth_cognito_dart/src/workers/workers.release.dart.js';
-    final testRelativePath = Uri(
-      scheme: baseUri.scheme,
-      host: baseUri.host,
-      port: baseUri.port,
-      path: '$basePath/test/$relativePath',
-    ).toString();
-    return [relativePath, testRelativePath];
+    const relativePaths = zDebugMode
+        ? [
+            'packages/amplify_auth_cognito_dart/src/workers/workers.js',
+            'packages/amplify_auth_cognito_dart/src/workers/workers.debug.dart.js',
+          ]
+        : [
+            'packages/amplify_auth_cognito_dart/src/workers/workers.min.js',
+            'packages/amplify_auth_cognito_dart/src/workers/workers.release.dart.js',
+          ];
+    return [
+      for (final relativePath in relativePaths) ...[
+        relativePath,
+        Uri(
+          scheme: baseUri.scheme,
+          host: baseUri.host,
+          port: baseUri.port,
+          path: '$basePath/test/$relativePath',
+        ).toString(),
+      ],
+    ];
   }
 }

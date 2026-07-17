@@ -78,35 +78,35 @@ return ${allocate(DartTypes.awsCommon.zDebugMode)} ? '$_workersJsPath' : '$_mini
   }
 
   Code get _fallbackUrls {
-    return Block.of([
-      const Code('''
-    // When running in a test, we need to find the `packages` directory which
-    // is symlinked in the root `test/` directory.
-    final baseUri = Uri.base;
-    final basePath = baseUri.pathSegments
-        .takeWhile((segment) => segment != 'test')
-        .map(Uri.encodeComponent)
-        .join('/');'''),
-      declareConst('relativePath')
-          .assign(
-            DartTypes.awsCommon.zDebugMode.conditional(
-              literalString(_debugWorkersJsPath),
-              literalString(_releaseWorkersJsPath),
-            ),
-          )
-          .statement,
-      const Code(r'''
-    final testRelativePath = Uri(
+    // Offer both the copy-builder output names (`workers.js` / `workers.min.js`)
+    // and the raw build_web_compilers names (`*.debug.dart.js` /
+    // `*.release.dart.js`), each also under the `test/` symlink used by tests.
+    return Code.scope(
+      (allocate) =>
+          '''
+// When running in a test, we need to find the `packages` directory which
+// is symlinked in the root `test/` directory.
+final baseUri = Uri.base;
+final basePath = baseUri.pathSegments
+    .takeWhile((segment) => segment != 'test')
+    .map(Uri.encodeComponent)
+    .join('/');
+const relativePaths = ${allocate(DartTypes.awsCommon.zDebugMode)}
+    ? ['$_workersJsPath', '$_debugWorkersJsPath']
+    : ['$_minifiedWorkersJsPath', '$_releaseWorkersJsPath'];
+return [
+  for (final relativePath in relativePaths) ...[
+    relativePath,
+    Uri(
       scheme: baseUri.scheme,
       host: baseUri.host,
       port: baseUri.port,
-      path: '$basePath/test/$relativePath',
-    ).toString();'''),
-      literalList([
-        refer('relativePath'),
-        refer('testRelativePath'),
-      ]).returned.statement,
-    ]);
+      path: '\$basePath/test/\$relativePath',
+    ).toString(),
+  ],
+];
+''',
+    );
   }
 
   Class get _workerClass => Class(

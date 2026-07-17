@@ -31,15 +31,25 @@ class SecureStorageWorkerImpl extends SecureStorageWorker {
         .takeWhile((segment) => segment != 'test')
         .map(Uri.encodeComponent)
         .join('/');
-    const relativePath = zDebugMode
-        ? 'packages/amplify_secure_storage_dart/src/worker/workers.debug.dart.js'
-        : 'packages/amplify_secure_storage_dart/src/worker/workers.release.dart.js';
-    final testRelativePath = Uri(
-      scheme: baseUri.scheme,
-      host: baseUri.host,
-      port: baseUri.port,
-      path: '$basePath/test/$relativePath',
-    ).toString();
-    return [relativePath, testRelativePath];
+    const relativePaths = zDebugMode
+        ? [
+            'packages/amplify_secure_storage_dart/src/worker/workers.js',
+            'packages/amplify_secure_storage_dart/src/worker/workers.debug.dart.js',
+          ]
+        : [
+            'packages/amplify_secure_storage_dart/src/worker/workers.min.js',
+            'packages/amplify_secure_storage_dart/src/worker/workers.release.dart.js',
+          ];
+    return [
+      for (final relativePath in relativePaths) ...[
+        relativePath,
+        Uri(
+          scheme: baseUri.scheme,
+          host: baseUri.host,
+          port: baseUri.port,
+          path: '$basePath/test/$relativePath',
+        ).toString(),
+      ],
+    ];
   }
 }
