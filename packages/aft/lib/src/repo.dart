@@ -14,6 +14,7 @@ import 'package:collection/collection.dart';
 import 'package:git/git.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
+import 'package:pubspec_parse/pubspec_parse.dart';
 
 /// Encapsulates all repository functionality including package and Git
 /// management.
@@ -342,29 +343,32 @@ class Repo {
             pkg.pubspecInfo.pubspec.dependencies.keys.contains(package.name) ||
             pkg.pubspecInfo.pubspec.devDependencies.keys.contains(package.name),
       );
-      if (commit.isBreakingChange || propagateToComponent) {
-        // Back-propagate to all dependent packages for breaking changes or
-        // changes that need to propagate to a component.
-        //
-        // Since we set semantic version constraints, only a breaking change in
-        // a direct dependency or a change that requires propagation
-        // necessitates a version bump.
-        logger.verbose(
-          'Breaking change. Performing dfs on dependent packages...',
-        );
-        for (final dependent in packageDependents) {
-          logger.verbose('found dependent package ${dependent.name}');
-          if (dependent.isPublishable && canBump(dependent)) {
-            bumpVersion(
-              dependent,
-              commit: commit,
-              type: VersionBumpType.patch,
-              canBump: canBump,
-              includeInChangelog: false,
-            );
-          }
-          updateConstraint(package, dependent);
+      // Widen a dependent's constraint (and patch-bump it) when the change is
+      // breaking or propagates to a component, OR when `newVersion` falls
+      // outside the dependent's existing constraint on `package`. The latter
+      // catches minor/major bumps that cross a dependent's `<nextMinor` cap
+      // even for component-less packages, so dependents aren't stranded. Patch
+      // bumps that stay in range don't trigger it.
+      final backPropagate = commit.isBreakingChange || propagateToComponent;
+      for (final dependent in packageDependents) {
+        final existingConstraint = dependent.hostedConstraintOn(package.name);
+        final outOfRange =
+            existingConstraint != null &&
+            !existingConstraint.allows(newVersion);
+        if (!backPropagate && !outOfRange) {
+          continue;
         }
+        logger.verbose('found dependent package ${dependent.name}');
+        if (dependent.isPublishable && canBump(dependent)) {
+          bumpVersion(
+            dependent,
+            commit: commit,
+            type: VersionBumpType.patch,
+            canBump: canBump,
+            includeInChangelog: false,
+          );
+        }
+        updateConstraint(package, dependent);
       }
 
       // Propagate to all component packages.
@@ -436,6 +440,20 @@ class Repo {
         package.name,
       ], newConstraint);
     }
+  }
+}
+
+extension on PackageInfo {
+  /// The hosted version constraint this package declares on [dependencyName],
+  /// or `null` if it is absent or not a hosted (versioned) dependency.
+  VersionConstraint? hostedConstraintOn(String dependencyName) {
+    final dependency =
+        pubspecInfo.pubspec.dependencies[dependencyName] ??
+        pubspecInfo.pubspec.devDependencies[dependencyName];
+    return switch (dependency) {
+      HostedDependency(:final version) => version,
+      _ => null,
+    };
   }
 }
 
