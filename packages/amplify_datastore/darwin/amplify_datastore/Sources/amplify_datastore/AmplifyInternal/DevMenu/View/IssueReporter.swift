@@ -155,7 +155,9 @@ final class MultilineTextField: UIViewRepresentable {
         view.text = placeHolderText
 
         /// add a dismiss button in UIToolbar for keyboard
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
+        let toolbarWidth = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?
+            .screen.bounds.width ?? 320
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: toolbarWidth, height: 35))
         let emptySpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let dismissButton = UIBarButtonItem(title: "Dismiss", style: .done,
                                             target: self, action: #selector(dismissKeyboard))

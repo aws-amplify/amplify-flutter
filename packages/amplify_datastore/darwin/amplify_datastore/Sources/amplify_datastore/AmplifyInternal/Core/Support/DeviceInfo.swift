@@ -120,7 +120,8 @@ public struct DeviceInfo {
     #if canImport(WatchKit)
         .zero
     #elseif canImport(UIKit)
-        UIScreen.main.nativeBounds
+        (UIApplication.shared.connectedScenes.first as? UIWindowScene)?
+            .screen.nativeBounds ?? .zero
     #elseif canImport(AppKit)
         NSScreen.main?.visibleFrame ?? .zero
     #endif

@@ -156,7 +156,8 @@ public class AmplifyAuthCognitoPlugin: NSObject, FlutterPlugin, NativeAuthBridge
         contextData.deviceOsReleaseVersion = osVersion
         
         // ScreenWidthPixels / ScreenHeightPixels
-        let bounds = UIScreen.main.nativeBounds.size
+        let bounds = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?
+            .screen.nativeBounds.size ?? .zero
         contextData.screenWidthPixels = Int64(bounds.width)
         contextData.screenHeightPixels = Int64(bounds.height)
     
