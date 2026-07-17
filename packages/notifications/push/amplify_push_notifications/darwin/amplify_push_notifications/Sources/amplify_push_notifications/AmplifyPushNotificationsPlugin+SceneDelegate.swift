@@ -19,7 +19,7 @@ extension AmplifyPushNotificationsPlugin {
         }
 
         let userInfo = notificationResponse.notification.request.content.userInfo
-        if UIApplication.shared.applicationState != .background {
+        if scene.activationState != .background {
             launchNotification = userInfo as? [AnyHashable: Any]
         }
         return true

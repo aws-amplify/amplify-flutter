@@ -83,4 +83,22 @@ class PushNotificationsFixTests: XCTestCase {
         // but we can verify the selector string is correct
         XCTAssertEqual(NSStringFromSelector(selector), "addSceneDelegate:")
     }
+
+    // MARK: - Bug #3: Per-scene activation state in willConnect
+
+    @available(iOS 13.0, *)
+    func testSceneActivationStateSemantics() {
+        // During willConnectTo the scene is .unattached (cold launch).
+        // The fix records launch notification when activationState != .background,
+        // matching the original AppDelegate behavior that excluded only .background.
+        let validStates: [UIScene.ActivationState] = [
+            .unattached, .foregroundActive, .foregroundInactive
+        ]
+        for state in validStates {
+            XCTAssertNotEqual(state, .background,
+                              "State \(state.rawValue) should record launch notification")
+        }
+        XCTAssertEqual(UIScene.ActivationState.background, .background,
+                       "Only .background should suppress launch notification")
+    }
 }
