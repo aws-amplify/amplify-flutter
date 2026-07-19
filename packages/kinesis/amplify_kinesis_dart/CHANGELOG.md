@@ -1,3 +1,8 @@
+## 0.1.3
+
+### Fixes
+- fix: Dependency bump ([#7080](https://github.com/aws-amplify/amplify-flutter/pull/7080))
+
 ## 0.1.2
 
 - Minor bug fixes and improvements
