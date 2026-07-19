@@ -61,6 +61,12 @@ jobs:
         run: dart format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
 
+      - name: Check version.dart
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
+        uses: ./.github/composite_actions/check_version_dart
+        with:
+          working-directory: ${{ inputs.working-directory }}
+
       - name: Check for Tests
         id: testCheck
         if: "always() && steps.bootstrap.conclusion == 'success'"
