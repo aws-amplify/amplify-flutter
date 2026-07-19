@@ -61,12 +61,6 @@ jobs:
         run: dart format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
 
-      - name: Check version.dart
-        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
-        uses: ./.github/composite_actions/check_version_dart
-        with:
-          working-directory: ${{ inputs.working-directory }}
-
       - name: Check for Tests
         id: testCheck
         if: "always() && steps.bootstrap.conclusion == 'success'"
@@ -112,6 +106,15 @@ jobs:
         with:
           name: golden-failures-${{ matrix.channel }}-${{ matrix.flutter-version }}
           path: ${{ inputs.working-directory }}/test/ui/failures/
+
+        # Runs last: the full build_runner run mutates the build cache and
+        # temporarily deletes generated files, so it must not precede
+        # analysis or tests.
+      - name: Check version.dart
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
+        uses: ./.github/composite_actions/check_version_dart
+        with:
+          working-directory: ${{ inputs.working-directory }}
 
       - name: Log success/failure
         if: always()
