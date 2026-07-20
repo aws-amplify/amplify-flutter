@@ -58,8 +58,9 @@ jobs:
 
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
-        run: dart format --set-exit-if-changed .
-        working-directory: ${{ inputs.working-directory }}
+        uses: ./.github/composite_actions/dart_format_check
+        with:
+          working-directory: ${{ inputs.working-directory }}
 
       - name: Check for Tests
         id: testCheck
