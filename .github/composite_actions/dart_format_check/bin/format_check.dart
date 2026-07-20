@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:glob/glob.dart';
@@ -9,10 +8,10 @@ import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
 /// Runs `dart format --output=none --set-exit-if-changed` on a package,
-/// skipping files matched by the `analyzer.exclude` globs declared in its
-/// `analysis_options.yaml` (and any files it `include:`s) — e.g. generated
-/// `*.g.dart`. This keeps a single source of truth for exclusions instead of
-/// hardcoding a pathspec in the workflow.
+/// skipping files matched by the `analyzer.exclude` globs in the package's own
+/// `analysis_options.yaml` (e.g. generated `*.g.dart`) — which `dart format`
+/// itself cannot exclude. The package's analysis options are the single source
+/// of truth for what to skip.
 ///
 /// Usage: `dart run bin/format_check.dart <package-directory>`
 void main(List<String> args) {
@@ -22,9 +21,8 @@ void main(List<String> args) {
     exit(2);
   }
 
-  final excludeGlobs = collectExcludeGlobs(
+  final excludeGlobs = readExcludeGlobs(
     p.join(targetDir, 'analysis_options.yaml'),
-    targetDir,
   );
   final globs = excludeGlobs.map(Glob.new).toList();
 
@@ -98,20 +96,15 @@ void main(List<String> args) {
   exit(changedOrErrored ? 1 : 0);
 }
 
-/// Collects the union of `analyzer.exclude` globs from [optionsPath] and any
-/// `include:`d options files, resolving `package:` and relative includes.
-/// [pkgRoot] is the package directory used to locate `package_config.json`.
-Set<String> collectExcludeGlobs(
-  String optionsPath,
-  String pkgRoot, [
-  Set<String>? seen,
-]) {
-  seen ??= <String>{};
+/// Reads the `analyzer.exclude` globs from the analysis options at
+/// [optionsPath]. Returns an empty set when the file is absent or declares no
+/// excludes. Only the package's own options are read — in this repo the shared
+/// `amplify_lints` profiles define no `analyzer.exclude`, so there is nothing
+/// to inherit via `include:`.
+Set<String> readExcludeGlobs(String optionsPath) {
   final result = <String>{};
   final file = File(optionsPath);
-  final canonical = p.canonicalize(optionsPath);
-  if (seen.contains(canonical) || !file.existsSync()) return result;
-  seen.add(canonical);
+  if (!file.existsSync()) return result;
 
   final Object? doc;
   try {
@@ -128,75 +121,7 @@ Set<String> collectExcludeGlobs(
       if (e is String) result.add(e);
     }
   }
-
-  final include = doc['include'];
-  final includes = <String>[
-    if (include is String) include,
-    if (include is YamlList)
-      for (final i in include)
-        if (i is String) i,
-  ];
-  for (final inc in includes) {
-    final resolved = resolveInclude(inc, optionsPath, pkgRoot);
-    if (resolved != null) {
-      result.addAll(collectExcludeGlobs(resolved, pkgRoot, seen));
-    } else {
-      stderr.writeln(
-        'dart_format_check: could not resolve include "$inc"; '
-        'using local excludes only.',
-      );
-    }
-  }
   return result;
-}
-
-/// Resolves an analysis-options `include:` value to a filesystem path.
-/// Handles `package:<name>/<path>` (via `package_config.json`) and relative
-/// paths. Returns `null` when it cannot be resolved.
-String? resolveInclude(String include, String fromFile, String pkgRoot) {
-  if (include.startsWith('package:')) {
-    final rest = include.substring('package:'.length);
-    final slash = rest.indexOf('/');
-    if (slash < 0) return null;
-    final libDir = packageLibDir(rest.substring(0, slash), pkgRoot);
-    return libDir == null ? null : p.join(libDir, rest.substring(slash + 1));
-  }
-  return p.normalize(p.join(p.dirname(fromFile), include));
-}
-
-/// Finds a package's `lib/` directory by reading the nearest
-/// `.dart_tool/package_config.json` at or above [pkgRoot].
-String? packageLibDir(String packageName, String pkgRoot) {
-  var dir = Directory(pkgRoot);
-  while (true) {
-    final cfg = File(p.join(dir.path, '.dart_tool', 'package_config.json'));
-    if (cfg.existsSync()) {
-      try {
-        final json = jsonDecode(cfg.readAsStringSync()) as Map<String, dynamic>;
-        for (final entry in json['packages'] as List<dynamic>) {
-          final m = entry as Map<String, dynamic>;
-          if (m['name'] == packageName) {
-            final base = p.dirname(cfg.path);
-            final root = _resolveUri(m['rootUri'] as String, base);
-            final pkgUri = (m['packageUri'] as String?) ?? 'lib/';
-            return p.normalize(p.join(root, pkgUri));
-          }
-        }
-      } on Object catch (e) {
-        stderr.writeln('dart_format_check: could not read ${cfg.path}: $e');
-      }
-      return null;
-    }
-    final parent = dir.parent;
-    if (parent.path == dir.path) return null;
-    dir = parent;
-  }
-}
-
-String _resolveUri(String uri, String baseDir) {
-  final parsed = Uri.parse(uri);
-  if (parsed.scheme == 'file') return parsed.toFilePath();
-  return p.normalize(p.join(baseDir, parsed.path.isEmpty ? uri : parsed.path));
 }
 
 /// Lists tracked `.dart` files under [dir] (relative paths), falling back to a
