@@ -124,6 +124,15 @@ jobs:
         run: dart test --exclude-tags=build
         working-directory: ${{ inputs.working-directory }}
 
+        # Runs last: its build_runner run would regenerate files that
+        # bootstrap failed to produce, masking bootstrap failures from
+        # analysis and tests, and it mutates the build cache.
+      - name: Check version.dart
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
+        uses: ./.github/composite_actions/check_version_dart
+        with:
+          working-directory: ${{ inputs.working-directory }}
+
       - name: Log success/failure
         if: always()
         uses: ./.github/composite_actions/log_cw_metric_wrapper
