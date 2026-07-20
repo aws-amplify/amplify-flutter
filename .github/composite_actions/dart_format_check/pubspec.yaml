@@ -1,0 +1,15 @@
+name: dart_format_check
+description: >-
+  Internal CI helper. Runs `dart format --set-exit-if-changed` on a package
+  while skipping files matched by the `analyzer.exclude` globs declared in the
+  package's `analysis_options.yaml` (and any files it `include:`s), so that
+  generated sources such as `*.g.dart` are not format-checked.
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  glob: ^2.1.0
+  path: ^1.9.0
+  yaml: ^3.1.1
