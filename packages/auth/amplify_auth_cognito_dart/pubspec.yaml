@@ -1,6 +1,6 @@
 name: amplify_auth_cognito_dart
 description: A Dart-only implementation of the Amplify Auth plugin for Cognito.
-version: 0.11.21
+version: 0.11.22
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/auth/amplify_auth_cognito_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -9,12 +9,12 @@ environment:
   sdk: ^3.11.0
 
 dependencies:
-  amplify_analytics_pinpoint_dart: ">=0.4.17 <0.5.0"
-  amplify_core: ">=2.12.0 <2.13.0"
-  amplify_secure_storage_dart: ">=0.5.11 <0.6.0"
+  amplify_analytics_pinpoint_dart: ">=0.4.18 <0.5.0"
+  amplify_core: ">=2.12.1 <2.13.0"
+  amplify_secure_storage_dart: ">=0.5.12 <0.6.0"
   async: ^2.10.0
-  aws_common: ">=0.7.14 <0.8.0"
-  aws_signature_v4: ">=0.6.11 <0.7.0"
+  aws_common: ">=0.7.15 <0.8.0"
+  aws_signature_v4: ">=0.6.12 <0.7.0"
   built_collection: ^5.1.1
   built_value: ^8.10.1
   clock: ^1.1.1
@@ -29,17 +29,17 @@ dependencies:
   meta: ^1.16.0
   oauth2: ^2.0.2
   path: ^1.8.0
-  smithy: ">=0.7.11 <0.8.0"
-  smithy_aws: ">=0.7.11 <0.8.0"
+  smithy: ">=0.7.12 <0.8.0"
+  smithy_aws: ">=0.7.12 <0.8.0"
   stream_transform: ^2.1.0
   uuid: ^4.5.1
   web: ^1.1.1
   win32: ^6.0.1
   win32_registry: ^3.0.3
-  worker_bee: ">=0.3.12 <0.4.0"
+  worker_bee: ">=0.3.13 <0.4.0"
 
 dev_dependencies:
-  amplify_lints: ">=3.1.5 <3.2.0"
+  amplify_lints: ">=3.1.6 <3.2.0"
   build: ^4.0.0
   build_runner: ^2.4.15
   build_verify: ^3.0.0
@@ -51,7 +51,7 @@ dev_dependencies:
   smithy_codegen:
     path: ../../smithy/smithy_codegen
   test: ^1.22.1
-  worker_bee_builder: ">=0.3.11 <0.4.0"
+  worker_bee_builder: ">=0.3.12 <0.4.0"
 
 flutter:
   assets:

@@ -1,3 +1,7 @@
+## 0.5.19
+
+- Minor bug fixes and improvements
+
 ## 0.5.18
 
 - Minor bug fixes and improvements

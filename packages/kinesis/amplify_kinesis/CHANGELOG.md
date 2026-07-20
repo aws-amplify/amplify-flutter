@@ -1,3 +1,7 @@
+## 2.11.3
+
+- Minor bug fixes and improvements
+
 ## 2.11.2
 
 - Minor bug fixes and improvements

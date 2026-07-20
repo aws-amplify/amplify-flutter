@@ -1,3 +1,12 @@
+## 2.12.1
+
+### Features
+- feat(auth): Add wasm support ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+- feat(secure_storage): Add wasm support ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+
+### Fixes
+- fix: Drop `dart:io` for better wasm support ([#7099](https://github.com/aws-amplify/amplify-flutter/pull/7099))
+
 ## 2.12.0
 
 ### Features
