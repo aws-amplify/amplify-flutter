@@ -300,8 +300,23 @@ object PushNotificationBackgroundService {
             )
             return
         }
+        val inputData = try {
+            extras.toWorkData()
+        } catch (exception: IllegalStateException) {
+            // Data.Builder.build() throws once the serialized payload exceeds
+            // Data.MAX_DATA_BYTES (10KB). FCM caps message payloads at 4KB, so this is
+            // unreachable for real notifications — but never crash the messaging
+            // service over it.
+            Log.e(
+                TAG,
+                "Notification payload exceeds the ${Data.MAX_DATA_BYTES}-byte WorkManager " +
+                    "limit, dropping background notification.",
+                exception
+            )
+            return
+        }
         val workRequest = OneTimeWorkRequestBuilder<PushNotificationBackgroundWorker>()
-            .setInputData(extras.toWorkData())
+            .setInputData(inputData)
             .build()
         // Serialize work onto a single chain so concurrent workers don't race on the
         // shared background Flutter engine.
@@ -313,21 +328,50 @@ object PushNotificationBackgroundService {
     }
 }
 
+private fun logDroppedExtra(key: String, value: Any) {
+    Log.w(
+        TAG,
+        "Dropping extra \"$key\" (${value.javaClass.simpleName}): not representable in " +
+            "WorkManager Data. The Dart payload is unaffected — it is built from String " +
+            "extras only."
+    )
+}
+
 /**
  * Copies [Bundle] extras into WorkManager [Data]. Inverse of [Data.toIntent].
+ *
+ * Copies every type [Data] can represent. Anything else (Parcelable, Bundle, …) is
+ * dropped with a warning instead of being coerced to a String: the Dart payload is built
+ * from String extras only (see [Bundle.getNotificationPayload]), so a String coercion
+ * could inject values into the payload that the previous JobIntentService implementation
+ * never delivered.
  */
 internal fun Bundle.toWorkData(): Data {
     val builder = Data.Builder()
     for (key in keySet()) {
+        @Suppress("DEPRECATION")
         when (val value = get(key)) {
+            null -> Unit
             is String -> builder.putString(key, value)
+            is Boolean -> builder.putBoolean(key, value)
+            is Byte -> builder.putByte(key, value)
             is Int -> builder.putInt(key, value)
             is Long -> builder.putLong(key, value)
-            is Boolean -> builder.putBoolean(key, value)
             is Float -> builder.putFloat(key, value)
             is Double -> builder.putDouble(key, value)
+            is BooleanArray -> builder.putBooleanArray(key, value)
             is ByteArray -> builder.putByteArray(key, value)
-            else -> if (value != null) builder.putString(key, value.toString())
+            is IntArray -> builder.putIntArray(key, value)
+            is LongArray -> builder.putLongArray(key, value)
+            is FloatArray -> builder.putFloatArray(key, value)
+            is DoubleArray -> builder.putDoubleArray(key, value)
+            is Array<*> -> if (value.isArrayOf<String>()) {
+                @Suppress("UNCHECKED_CAST")
+                builder.putStringArray(key, value as Array<String?>)
+            } else {
+                logDroppedExtra(key, value)
+            }
+            else -> logDroppedExtra(key, value)
         }
     }
     return builder.build()
@@ -335,19 +379,39 @@ internal fun Bundle.toWorkData(): Data {
 
 /**
  * Rebuilds an [Intent] carrying the [Data] key/value pairs as extras. Inverse of
- * [Bundle.toWorkData].
+ * [Bundle.toWorkData]. [Data] stores primitive arrays boxed (e.g. an [IntArray] comes
+ * back as `Array<Int>`), so arrays are unboxed here to restore the primitive array type
+ * the original [Bundle] held.
  */
 internal fun Data.toIntent(): Intent = Intent().apply {
     for ((key, value) in keyValueMap) {
         when (value) {
+            null -> Unit
             is String -> putExtra(key, value)
+            is Boolean -> putExtra(key, value)
+            is Byte -> putExtra(key, value)
             is Int -> putExtra(key, value)
             is Long -> putExtra(key, value)
-            is Boolean -> putExtra(key, value)
             is Float -> putExtra(key, value)
             is Double -> putExtra(key, value)
-            is ByteArray -> putExtra(key, value)
-            else -> if (value != null) putExtra(key, value.toString())
+            is Array<*> -> when {
+                value.isArrayOf<String>() ->
+                    putExtra(key, value.map { it as String? }.toTypedArray())
+                value.isArrayOf<Boolean>() ->
+                    putExtra(key, value.map { it as Boolean }.toBooleanArray())
+                value.isArrayOf<Byte>() ->
+                    putExtra(key, value.map { it as Byte }.toByteArray())
+                value.isArrayOf<Int>() ->
+                    putExtra(key, value.map { it as Int }.toIntArray())
+                value.isArrayOf<Long>() ->
+                    putExtra(key, value.map { it as Long }.toLongArray())
+                value.isArrayOf<Float>() ->
+                    putExtra(key, value.map { it as Float }.toFloatArray())
+                value.isArrayOf<Double>() ->
+                    putExtra(key, value.map { it as Double }.toDoubleArray())
+                else -> logDroppedExtra(key, value)
+            }
+            else -> logDroppedExtra(key, value)
         }
     }
 }

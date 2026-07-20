@@ -200,6 +200,7 @@ class PushNotificationBackgroundServiceTest {
             putBoolean("boolean", true)
             putFloat("float", 1.5f)
             putDouble("double", 2.5)
+            putByte("byte", 7)
         }
 
         val intent = bundle.toWorkData().toIntent()
@@ -210,5 +211,59 @@ class PushNotificationBackgroundServiceTest {
         assertTrue(intent.getBooleanExtra("boolean", false))
         assertEquals(1.5f, intent.getFloatExtra("float", 0f), 0f)
         assertEquals(2.5, intent.getDoubleExtra("double", 0.0), 0.0)
+        assertEquals(7.toByte(), intent.getByteExtra("byte", 0))
+    }
+
+    @Test
+    fun `toWorkData and toIntent round-trip array types`() {
+        val bundle = Bundle().apply {
+            putStringArray("strings", arrayOf("a", "b"))
+            putBooleanArray("booleans", booleanArrayOf(true, false))
+            putByteArray("bytes", byteArrayOf(1, 2))
+            putIntArray("ints", intArrayOf(3, 4))
+            putLongArray("longs", longArrayOf(5L, 6L))
+            putFloatArray("floats", floatArrayOf(1.5f))
+            putDoubleArray("doubles", doubleArrayOf(2.5))
+        }
+
+        val intent = bundle.toWorkData().toIntent()
+
+        assertArrayEquals(arrayOf("a", "b"), intent.getStringArrayExtra("strings"))
+        assertArrayEquals(booleanArrayOf(true, false), intent.getBooleanArrayExtra("booleans"))
+        assertArrayEquals(byteArrayOf(1, 2), intent.getByteArrayExtra("bytes"))
+        assertArrayEquals(intArrayOf(3, 4), intent.getIntArrayExtra("ints"))
+        assertArrayEquals(longArrayOf(5L, 6L), intent.getLongArrayExtra("longs"))
+        assertArrayEquals(floatArrayOf(1.5f), intent.getFloatArrayExtra("floats"), 0f)
+        assertArrayEquals(doubleArrayOf(2.5), intent.getDoubleArrayExtra("doubles"), 0.0)
+    }
+
+    @Test
+    fun `toWorkData drops extras Data cannot represent instead of stringifying them`() {
+        val bundle = Bundle().apply {
+            putString("string", "value")
+            putBundle("nested", Bundle().apply { putString("inner", "x") })
+            putStringArrayList("list", arrayListOf("a", "b"))
+        }
+
+        val data = bundle.toWorkData()
+
+        assertEquals("value", data.getString("string"))
+        assertEquals(setOf("string"), data.keyValueMap.keys)
+    }
+
+    @Test
+    fun `enqueueWork drops payloads exceeding the Data size limit without throwing`() {
+        val intent = Intent().apply {
+            putExtras(Bundle().apply {
+                putString("huge", "x".repeat(Data.MAX_DATA_BYTES + 1))
+            })
+        }
+
+        PushNotificationBackgroundService.enqueueWork(appContext, intent)
+
+        val workInfos = WorkManager.getInstance(appContext)
+            .getWorkInfosForUniqueWork("amplify_push_notification_background_work")
+            .get()
+        assertEquals(0, workInfos.size)
     }
 }
