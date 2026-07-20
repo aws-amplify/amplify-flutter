@@ -18,7 +18,7 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: |
         if [ ! -f lib/src/version.dart ]; then
-          echo "No lib/src/version.dart — skipping"
+          echo "No lib/src/version.dart - skipping"
           exit 0
         fi
         cp lib/src/version.dart "$RUNNER_TEMP/version.dart.orig"
