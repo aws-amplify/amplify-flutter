@@ -29,18 +29,46 @@ void main(List<String> args) {
   final globs = excludeGlobs.map(Glob.new).toList();
 
   final dartFiles = listDartFiles(targetDir);
+  final excluded = <String>[];
   final toFormat = <String>[];
   for (final rel in dartFiles) {
     final posixRel = p.split(rel).join('/');
-    if (globs.any((g) => g.matches(posixRel))) continue;
-    toFormat.add(rel);
+    if (globs.any((g) => g.matches(posixRel))) {
+      excluded.add(rel);
+    } else {
+      toFormat.add(rel);
+    }
   }
 
+  // Drop tracked-but-missing files (e.g. deleted on disk) so an absent path
+  // can't crash `dart format`.
+  final missing = <String>[];
+  toFormat.retainWhere((rel) {
+    if (File(p.join(targetDir, rel)).existsSync()) return true;
+    missing.add(rel);
+    return false;
+  });
+
+  excluded.sort();
   stdout.writeln(
-    'dart_format_check: ${toFormat.length} file(s) to check, '
-    '${dartFiles.length - toFormat.length} excluded by '
-    '${excludeGlobs.isEmpty ? '(none)' : excludeGlobs.join(', ')}',
+    'dart_format_check: checking ${toFormat.length} file(s); '
+    '${excluded.length} excluded by '
+    '${excludeGlobs.isEmpty ? '(no analyzer.exclude globs)' : excludeGlobs.join(', ')}.',
   );
+  if (excluded.isNotEmpty) {
+    stdout.writeln('Excluded (${excluded.length}):');
+    for (final f in excluded) {
+      stdout.writeln('  $f');
+    }
+  }
+  if (missing.isNotEmpty) {
+    missing.sort();
+    stdout.writeln('Skipped ${missing.length} missing file(s):');
+    for (final f in missing) {
+      stdout.writeln('  $f');
+    }
+  }
+
   if (toFormat.isEmpty) {
     stdout.writeln('dart_format_check: nothing to format.');
     return;

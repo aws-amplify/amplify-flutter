@@ -75,6 +75,8 @@ jobs:
         timeout-minutes: 20
         run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
 
+      # Equivalent to `dart format --set-exit-if-changed .`, but respects the
+      # analyzer.exclude globs in analysis_options.yaml (skips generated files).
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
         uses: ./.github/composite_actions/dart_format_check
