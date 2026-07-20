@@ -1,3 +1,9 @@
+## 0.3.12
+
+### Fixes
+- fix(worker_bee): Fix loading wasm file ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+- fix(worker_bee): Point `fallbackUrls` at real filenames after `copy_builder` use ([#7111](https://github.com/aws-amplify/amplify-flutter/pull/7111))
+
 ## 0.3.11
 
 - Minor bug fixes and improvements

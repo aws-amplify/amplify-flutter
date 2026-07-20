@@ -1,6 +1,6 @@
 name: worker_bee
 description: A cross-platform isolated worker runtime for Dart Web, VM, and Flutter.
-version: 0.3.12
+version: 0.3.13
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/worker_bee/worker_bee
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   async: ^2.10.0
-  aws_common: ">=0.7.14 <0.8.0"
+  aws_common: ">=0.7.15 <0.8.0"
   built_collection: ^5.1.1
   built_value: ^8.10.1
   collection: ^1.18.0
@@ -22,7 +22,7 @@ dependencies:
   web: ^1.1.1
 
 dev_dependencies:
-  amplify_lints: ">=3.1.5 <3.2.0"
+  amplify_lints: ">=3.1.6 <3.2.0"
   build_runner: ^2.4.15
   build_test: ^3.1.1
   build_web_compilers: ^4.1.4

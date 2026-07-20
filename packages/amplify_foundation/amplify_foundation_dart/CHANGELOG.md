@@ -1,3 +1,8 @@
+## 2.12.1
+
+### Fixes
+- fix(foundation): Autogenerate `version.dart` ([#7129](https://github.com/aws-amplify/amplify-flutter/pull/7129))
+
 ## 2.12.0
 
 - Minor bug fixes and improvements
