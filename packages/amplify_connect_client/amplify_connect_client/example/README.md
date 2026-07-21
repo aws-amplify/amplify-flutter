@@ -45,11 +45,11 @@ flutter run -d macos
 
 ## Using the app
 
-1. Sign in by typing a Cognito user's email and password to exercise the
-   authenticated route, or stay signed out for the guest route.
-2. Tap "Identify (authed)" while signed in, or "Guest identify" while signed
-   out.
-3. "Register device" folds a device token into an identify call.
-4. For "Merge on sign-in": run "Guest identify" while signed out (captures the
-   guest identity id), then tap "Merge on sign-in" to sign in and fold the guest
-   profile into the authenticated one.
+1. Sign in by typing a Cognito user's email and password to sign requests with
+   authenticated credentials, or stay signed out to sign with guest
+   credentials. Either way the request is SigV4-signed.
+2. Tap "Identify" to create or update the profile.
+3. Tap "Register device" to register the token from the field (the device id,
+   platform, and channel type are supplied by the library). Push channels only
+   exist on Android and iOS, so this reports unsupported on desktop.
+4. Tap "Remove device" to remove this device from the profile.

@@ -4,8 +4,8 @@
 /// {@template amplify_connect_client.channel_type}
 /// The push notification channel a registered device token belongs to.
 ///
-/// The [value] is the wire format sent to the Customer Profiles identify
-/// endpoint and matches the channel type names used by push providers.
+/// The [value] is the wire format sent to the register-device endpoint and
+/// matches the channel type names used by push providers.
 /// {@endtemplate}
 enum ChannelType {
   /// Firebase Cloud Messaging, used for Android devices.
@@ -15,11 +15,7 @@ enum ChannelType {
   apns('APNS'),
 
   /// Apple Push Notification service, sandbox (development) environment.
-  apnsSandbox('APNS_SANDBOX'),
-
-  /// In-app messaging channel. `IN_APP` registrations are stored on the
-  /// profile but are not a push-deliverable channel.
-  inApp('IN_APP');
+  apnsSandbox('APNS_SANDBOX');
 
   /// {@macro amplify_connect_client.channel_type}
   const ChannelType(this.value);

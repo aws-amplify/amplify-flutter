@@ -5,45 +5,28 @@ import 'package:amplify_connect_client/src/cognito_connect_credentials_provider.
 import 'package:amplify_connect_client/src/shared_preferences_device_id_store.dart';
 import 'package:amplify_connect_client_dart/amplify_connect_client_dart.dart';
 import 'package:flutter/foundation.dart'
-    show TargetPlatform, defaultTargetPlatform;
+    show TargetPlatform, defaultTargetPlatform, kDebugMode;
 
 /// {@template amplify_connect_client.amplify_connect_client_flutter}
-/// Flutter entry point for the Amazon Connect Customer Profiles identify
-/// endpoint.
+/// Flutter entry point for the Amazon Connect Customer Profiles write endpoint.
 ///
-/// Wires the pure-Dart [AmplifyConnectClient] to Amplify Auth (for the access
-/// token or guest credentials) and shared preferences (for the device id,
-/// shared with other Amplify packages under `com.amplifyframework.device_id`).
-///
-/// [identifyUser] is the only public method. Register a device by passing
-/// [IdentifyUserOptions] with a `channelType` and `address` (push token); the
-/// client fills in the stable device id and platform.
+/// Wires the pure-Dart [AmplifyConnectClient] to Amplify Auth (for the AWS
+/// credentials used to sign requests) and shared preferences (for the device
+/// id, shared with other Amplify packages under `com.amplifyframework.device_id`).
+/// The push channel type is resolved from the platform and build mode.
 ///
 /// ## Usage
 ///
 /// ```dart
-/// final client = AmplifyConnectClientFlutter.create(
-///   configuration: ConnectClientConfiguration(
-///     endpoint: 'https://abc123.execute-api.us-east-1.amazonaws.com',
-///     region: 'us-east-1',
-///   ),
+/// final client = AmplifyConnectClientFlutter.createFromAmplifyOutputs(
+///   amplifyOutputs: amplifyOutputs,
 /// );
 ///
-/// // Identify a user.
 /// await client.identifyUser(
-///   userId: 'user-123',
 ///   userProfile: const UserProfile(email: 'user@example.com'),
 /// );
-///
-/// // Register a device (folded into identifyUser via options).
-/// await client.identifyUser(
-///   userId: 'user-123',
-///   userProfile: const UserProfile(),
-///   options: IdentifyUserOptions(
-///     address: fcmToken,
-///     channelType: ChannelType.gcm,
-///   ),
-/// );
+/// await client.registerDevice(token: fcmToken);
+/// await client.removeDevice();
 /// ```
 /// {@endtemplate}
 class AmplifyConnectClientFlutter {
@@ -51,7 +34,7 @@ class AmplifyConnectClientFlutter {
 
   /// {@macro amplify_connect_client.amplify_connect_client_flutter}
   ///
-  /// By default resolves the session from Amplify Auth and persists the device
+  /// By default resolves credentials from Amplify Auth and persists the device
   /// id in shared preferences. Both can be overridden for testing.
   static AmplifyConnectClientFlutter create({
     required ConnectClientConfiguration configuration,
@@ -66,6 +49,7 @@ class AmplifyConnectClientFlutter {
       deviceIdStore: deviceIdStore ?? SharedPreferencesDeviceIdStore(),
       platform: _platformName(),
       appVersion: appVersion,
+      channelType: _resolveChannelType(),
     );
     return AmplifyConnectClientFlutter._(client);
   }
@@ -90,15 +74,33 @@ class AmplifyConnectClientFlutter {
   final AmplifyConnectClient _delegate;
 
   /// See [AmplifyConnectClient.identifyUser].
-  Future<void> identifyUser({
-    required UserProfile userProfile,
-    String? userId,
-    IdentifyUserOptions? options,
-  }) => _delegate.identifyUser(
-    userProfile: userProfile,
-    userId: userId,
-    options: options,
-  );
+  Future<void> identifyUser({required UserProfile userProfile}) =>
+      _delegate.identifyUser(userProfile: userProfile);
+
+  /// See [AmplifyConnectClient.registerDevice].
+  Future<void> registerDevice({required String token}) =>
+      _delegate.registerDevice(token: token);
+
+  /// See [AmplifyConnectClient.removeDevice].
+  Future<void> removeDevice() => _delegate.removeDevice();
+
+  /// Resolves the push channel from the platform and build mode. Returns null
+  /// on platforms without a push channel (device registration is unsupported
+  /// there).
+  static ChannelType? _resolveChannelType() {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return ChannelType.gcm;
+      case TargetPlatform.iOS:
+        // Debug builds register with the APNs sandbox.
+        return kDebugMode ? ChannelType.apnsSandbox : ChannelType.apns;
+      case TargetPlatform.macOS:
+      case TargetPlatform.windows:
+      case TargetPlatform.linux:
+      case TargetPlatform.fuchsia:
+        return null;
+    }
+  }
 
   static String _platformName() {
     switch (defaultTargetPlatform) {

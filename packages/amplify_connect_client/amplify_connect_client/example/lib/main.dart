@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// Manual test app for the reworked amplify_connect_client against a deployed
-// backend-notifications construct (Amazon Connect Customer Profiles identify
-// endpoint). Sign in with a Cognito user to exercise the authenticated route,
-// or stay signed out to exercise the guest (SigV4) route.
+// Manual test app for the amplify_connect_client against a deployed
+// backend-notifications construct (Amazon Connect Customer Profiles write
+// endpoint). Every request is SigV4-signed with the caller's AWS credentials;
+// sign in to sign with authenticated credentials, or stay signed out for guest.
 
 import 'dart:convert';
 
@@ -137,49 +137,24 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
     await Amplify.Auth.signOut();
   });
 
-  Future<void> _identifyAuthed() => _run('Identify (authed)', () async {
+  Future<void> _identify() => _run('Identify', () async {
     const profile = UserProfile(
       name: 'POC Example User',
       email: 'example-user@example.com',
-      plan: 'gold',
+      customAttributes: {'plan': 'gold'},
     );
-    _append(
-      '  POST /identify-user body: '
-      '${jsonEncode({'userId': 'example-authed-1', 'userProfile': profile.toJson()})}',
-    );
-    await _client.identifyUser(
-      userId: 'example-authed-1',
-      userProfile: profile,
-    );
-  });
-
-  Future<void> _identifyGuest() => _run('Guest identify', () async {
-    // Guest route requires being signed out.
-    if (_signedIn) {
-      await Amplify.Auth.signOut();
-      await _refreshAuthState();
-    }
-    const profile = UserProfile(name: 'POC Example Guest', plan: 'free');
-    _append(
-      '  POST /identify-user-guest (SigV4) body: '
-      '${jsonEncode({'userId': 'example-guest-1', 'userProfile': profile.toJson()})}',
-    );
-    await _client.identifyUser(userId: 'example-guest-1', userProfile: profile);
+    _append('  POST /identify-user body: ${jsonEncode(profile.toJson())}');
+    await _client.identifyUser(userProfile: profile);
   });
 
   Future<void> _registerDevice() => _run('Register device', () async {
-    _append(
-      '  identifyUser options '
-      '{address: <token>, deviceId: <stable>, channelType: GCM}',
-    );
-    await _client.identifyUser(
-      userId: _signedIn ? 'example-authed-1' : null,
-      userProfile: const UserProfile(),
-      options: IdentifyUserOptions(
-        address: _deviceToken.text.trim(),
-        channelType: ChannelType.gcm,
-      ),
-    );
+    _append('  POST /register-device (token from field, deviceId internal)');
+    await _client.registerDevice(token: _deviceToken.text.trim());
+  });
+
+  Future<void> _removeDevice() => _run('Remove device', () async {
+    _append('  POST /remove-device (deviceId internal)');
+    await _client.removeDevice();
   });
 
   @override
@@ -244,16 +219,16 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
                         child: const Text('Sign out'),
                       ),
                       FilledButton.tonal(
-                        onPressed: _identifyAuthed,
-                        child: const Text('Identify (authed)'),
-                      ),
-                      FilledButton.tonal(
-                        onPressed: _identifyGuest,
-                        child: const Text('Guest identify'),
+                        onPressed: _identify,
+                        child: const Text('Identify'),
                       ),
                       FilledButton.tonal(
                         onPressed: _registerDevice,
                         child: const Text('Register device'),
+                      ),
+                      FilledButton.tonal(
+                        onPressed: _removeDevice,
+                        child: const Text('Remove device'),
                       ),
                     ],
                   ),

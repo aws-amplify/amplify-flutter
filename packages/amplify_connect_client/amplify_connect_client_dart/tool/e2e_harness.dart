@@ -1,24 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// Live e2e harness for the reworked amplify_connect_client_dart core against a
-// deployed backend-notifications construct. NOT part of the package — a scratch
-// tool for the golden POC. Drives the REAL AmplifyConnectClient; auth material
-// (Cognito access token / Identity Pool guest creds) is supplied out-of-band
-// via environment variables so the harness stays pure-Dart.
+// Live e2e harness for the amplify_connect_client_dart core against a deployed
+// backend-notifications construct. NOT part of the package — a scratch tool.
+// Drives the REAL AmplifyConnectClient; AWS credentials are supplied
+// out-of-band via environment variables so the harness stays pure-Dart.
 //
 // Usage:
-//   dart run tool/e2e_harness.dart <flow>
-// where <flow> is one of: authed | guest | device
+//   dart run tool/e2e_harness.dart <identify|register|remove>
 //
 // Required env:
-//   ENDPOINT, REGION
-//   ACCESS_TOKEN                (authed, device)
-//   GUEST_AK, GUEST_SK, GUEST_ST, GUEST_ID   (guest)
-//   DEVICE_ID, DEVICE_TOKEN     (device)
+//   ENDPOINT, REGION, AK, SK, ST
+//   DEVICE_ID     (optional; defaults to a fixed harness id)
+//   DEVICE_TOKEN  (register)
 
-import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:amplify_connect_client_dart/amplify_connect_client_dart.dart';
@@ -33,50 +28,17 @@ String _env(String k) {
   return v;
 }
 
-/// Logs the exact on-the-wire request + response status, then delegates to the
-/// real network client. Concrete evidence of route, auth header, and HTTP code.
-class LoggingHttpClient extends AWSBaseHttpClient {
-  final AWSHttpClient _base = AWSHttpClient();
-
+/// A [ConnectCredentialsProvider] returning fixed credentials from the env.
+class _StaticCredentialsProvider implements ConnectCredentialsProvider {
+  _StaticCredentialsProvider(this._credentials);
+  final AWSCredentials _credentials;
   @override
-  AWSHttpClient? get baseClient => _base;
-
-  @override
-  Future<AWSBaseHttpRequest> transformRequest(
-    AWSBaseHttpRequest request,
-  ) async {
-    stdout.writeln('  -> ${request.method.value} ${request.uri}');
-    final headerKeys = request.headers.keys.toList()..sort();
-    stdout.writeln('  -> header keys: ${headerKeys.join(', ')}');
-    final auth =
-        request.headers['authorization'] ?? request.headers['Authorization'];
-    if (auth != null) {
-      final scheme = auth.split(' ').first;
-      stdout.writeln('  -> authorization scheme: $scheme');
-    }
-    return request;
-  }
-
-  @override
-  Future<AWSBaseHttpResponse> transformResponse(
-    AWSBaseHttpResponse response,
-  ) async {
-    stdout.writeln('  <- HTTP ${response.statusCode}');
-    return response;
-  }
-}
-
-/// Returns a fixed [ConnectSession] built from the supplied auth material.
-class StaticCredentialsProvider implements ConnectCredentialsProvider {
-  StaticCredentialsProvider(this._session);
-  final ConnectSession _session;
-  @override
-  Future<ConnectSession> fetchSession() async => _session;
+  Future<AWSCredentials> fetchCredentials() async => _credentials;
 }
 
 /// A [DeviceIdStore] that returns a caller-supplied fixed device id.
-class FixedDeviceIdStore implements DeviceIdStore {
-  FixedDeviceIdStore(this._id);
+class _FixedDeviceIdStore implements DeviceIdStore {
+  _FixedDeviceIdStore(this._id);
   final String _id;
   @override
   Future<String> getOrCreateDeviceId() async => _id;
@@ -86,93 +48,56 @@ class FixedDeviceIdStore implements DeviceIdStore {
   Future<void> clear() async {}
 }
 
-AmplifyConnectClient _client(ConnectSession session, {String? deviceId}) {
-  return AmplifyConnectClient(
-    configuration: ConnectClientConfiguration(
-      endpoint: _env('ENDPOINT'),
-      region: _env('REGION'),
-    ),
-    credentialsProvider: StaticCredentialsProvider(session),
-    deviceIdStore: FixedDeviceIdStore(deviceId ?? 'harness-device'),
-    platform: 'Android',
-    appVersion: '1.0.0',
-    httpClient: LoggingHttpClient(),
-  );
-}
-
-ConnectSession _authedSession() =>
-    ConnectSession(accessToken: _env('ACCESS_TOKEN'));
-
-ConnectSession _guestSession() => ConnectSession(
-  credentials: AWSCredentials(
-    _env('GUEST_AK'),
-    _env('GUEST_SK'),
-    _env('GUEST_ST'),
+AmplifyConnectClient _client() => AmplifyConnectClient(
+  configuration: ConnectClientConfiguration(
+    endpoint: _env('ENDPOINT'),
+    region: _env('REGION'),
   ),
-  identityId: _env('GUEST_ID'),
+  credentialsProvider: _StaticCredentialsProvider(
+    AWSCredentials(_env('AK'), _env('SK'), _env('ST')),
+  ),
+  deviceIdStore: _FixedDeviceIdStore(
+    Platform.environment['DEVICE_ID'] ?? 'harness-device',
+  ),
+  platform: 'Android',
+  appVersion: '1.0.0',
+  channelType: ChannelType.gcm,
 );
 
 Future<void> main(List<String> args) async {
   if (args.isEmpty) {
     stderr.writeln(
-      'usage: dart run tool/e2e_harness.dart <authed|guest|device>',
+      'usage: dart run tool/e2e_harness.dart <identify|register|remove>',
     );
     exit(2);
   }
   final flow = args.first;
+  final client = _client();
   try {
     switch (flow) {
-      case 'authed':
-        final body = {
-          'userProfile': const UserProfile(
-            name: 'POC Authed User',
-            email: 'poc-user@example.com',
-            plan: 'gold',
-          ).toJson(),
-          'userId': 'poc-authed-1',
-        };
-        stdout.writeln('FLOW authed — request body:');
-        stdout.writeln('  ${jsonEncode(body)}');
-        await _client(_authedSession()).identifyUser(
-          userId: 'poc-authed-1',
+      case 'identify':
+        stdout.writeln(
+          'FLOW identify — POST /identify-user (SigV4 execute-api)',
+        );
+        await client.identifyUser(
           userProfile: const UserProfile(
-            name: 'POC Authed User',
+            name: 'POC User',
             email: 'poc-user@example.com',
-            plan: 'gold',
           ),
         );
-        stdout.writeln(
-          'RESULT authed: identifyUser returned (2xx, no exception)',
-        );
+        stdout.writeln('RESULT identify: returned (2xx, no exception)');
 
-      case 'guest':
+      case 'register':
         stdout.writeln(
-          'FLOW guest — SigV4 execute-api to /identify-user-guest',
+          'FLOW register — POST /register-device (SigV4 execute-api)',
         );
-        await _client(_guestSession()).identifyUser(
-          userId: 'poc-guest-1',
-          userProfile: const UserProfile(name: 'POC Guest User', plan: 'free'),
-        );
-        stdout.writeln(
-          'RESULT guest: identifyUser returned (2xx, no exception)',
-        );
+        await client.registerDevice(token: _env('DEVICE_TOKEN'));
+        stdout.writeln('RESULT register: returned (2xx, no exception)');
 
-      case 'device':
-        final deviceId = _env('DEVICE_ID');
-        stdout.writeln(
-          'FLOW device — device registration folds into identifyUser options; deviceId=$deviceId',
-        );
-        await _client(_authedSession(), deviceId: deviceId).identifyUser(
-          userId: 'poc-authed-1',
-          userProfile: const UserProfile(name: 'POC Authed User'),
-          options: IdentifyUserOptions(
-            address: _env('DEVICE_TOKEN'),
-            channelType: ChannelType.gcm,
-          ),
-        );
-        stdout.writeln(
-          'RESULT device: identifyUser (device options) returned (2xx, no exception)',
-        );
+      case 'remove':
+        stdout.writeln('FLOW remove — POST /remove-device (SigV4 execute-api)');
+        await client.removeDevice();
+        stdout.writeln('RESULT remove: returned (2xx, no exception)');
 
       default:
         stderr.writeln('unknown flow: $flow');

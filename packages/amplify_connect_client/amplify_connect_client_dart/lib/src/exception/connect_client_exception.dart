@@ -16,17 +16,33 @@ sealed class ConnectClientException extends AmplifyException {
 }
 
 /// {@template amplify_connect_client.not_signed_in_exception}
-/// Thrown when neither a Cognito user-pool access token nor guest Identity
-/// Pool credentials can be resolved, so the request cannot be authorized.
+/// Thrown when no AWS credentials (authenticated or guest) can be resolved, so
+/// the request cannot be signed.
 /// {@endtemplate}
 final class ConnectNotSignedInException extends ConnectClientException {
   /// {@macro amplify_connect_client.not_signed_in_exception}
   const ConnectNotSignedInException({super.cause})
     : super(
-        message: 'No Cognito access token or guest credentials were found.',
+        message: 'No AWS credentials were found to sign the request.',
         recoverySuggestion:
             'Ensure Amplify Auth is configured with a Cognito Identity Pool '
-            '(guest access) or sign the user in before calling identifyUser.',
+            '(guest access enabled), or sign the user in first.',
+      );
+}
+
+/// {@template amplify_connect_client.unsupported_operation_exception}
+/// Thrown for operations not supported on the current platform (for example
+/// device registration on a platform without a push channel).
+/// {@endtemplate}
+final class ConnectUnsupportedOperationException
+    extends ConnectClientException {
+  /// {@macro amplify_connect_client.unsupported_operation_exception}
+  const ConnectUnsupportedOperationException(String detail)
+    : super(
+        message: detail,
+        recoverySuggestion:
+            'This operation is only supported on platforms with a push '
+            'channel (Android via GCM, iOS via APNS).',
       );
 }
 
@@ -58,8 +74,8 @@ final class ConnectThrottlingException extends ConnectClientException {
 }
 
 /// {@template amplify_connect_client.access_denied_exception}
-/// Thrown when the request is not authorized (bad token or missing guest
-/// `execute-api` permissions).
+/// Thrown when the request is not authorized (missing `execute-api` invoke
+/// permission on the write routes).
 /// {@endtemplate}
 final class ConnectAccessDeniedException extends ConnectClientException {
   /// {@macro amplify_connect_client.access_denied_exception}
@@ -67,9 +83,8 @@ final class ConnectAccessDeniedException extends ConnectClientException {
     : super(
         message: 'Access was denied by the Customer Profiles endpoint.',
         recoverySuggestion:
-            'Ensure the caller is signed in (valid access token) or that the '
-            'guest role can invoke execute-api on the identify-user-guest '
-            'route.',
+            'Ensure the caller\'s IAM role can invoke execute-api on the '
+            'write routes.',
       );
 }
 
@@ -119,13 +134,12 @@ final class ConnectServiceException extends ConnectClientException {
 /// [ConnectClientException].
 ///
 /// [statusCode] is the HTTP status and [body] is the (possibly empty) decoded
-/// response body, which may carry an `error` message.
+/// response body, which may carry a `message`.
 ConnectClientException connectExceptionFromResponse(
   int statusCode,
   Map<String, dynamic> body,
 ) {
-  final detail = (body['error'] ?? body['message'] ?? body['Message'])
-      ?.toString();
+  final detail = (body['message'] ?? body['Message'])?.toString();
   if (statusCode == 429) {
     return const ConnectThrottlingException();
   }
