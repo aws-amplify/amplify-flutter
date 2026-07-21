@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:io';
-
 import 'package:amplify_connect_client/src/cognito_connect_credentials_provider.dart';
 import 'package:amplify_connect_client/src/shared_preferences_device_id_store.dart';
 import 'package:amplify_connect_client_dart/amplify_connect_client_dart.dart';
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform;
 
 /// {@template amplify_connect_client.amplify_connect_client_flutter}
 /// Flutter entry point for the Amazon Connect Customer Profiles identify
@@ -101,11 +101,19 @@ class AmplifyConnectClientFlutter {
   );
 
   static String _platformName() {
-    if (Platform.isAndroid) return 'Android';
-    if (Platform.isIOS) return 'iOS';
-    if (Platform.isMacOS) return 'macOS';
-    if (Platform.isWindows) return 'Windows';
-    if (Platform.isLinux) return 'Linux';
-    return Platform.operatingSystem;
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return 'Android';
+      case TargetPlatform.iOS:
+        return 'iOS';
+      case TargetPlatform.macOS:
+        return 'macOS';
+      case TargetPlatform.windows:
+        return 'Windows';
+      case TargetPlatform.linux:
+        return 'Linux';
+      case TargetPlatform.fuchsia:
+        return 'Fuchsia';
+    }
   }
 }

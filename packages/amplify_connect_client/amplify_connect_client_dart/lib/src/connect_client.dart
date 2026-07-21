@@ -90,11 +90,11 @@ class AmplifyConnectClient {
   }) async {
     final session = await _credentialsProvider.fetchSession();
     final effectiveOptions = await _withDeviceContext(options);
+    final optionsJson = effectiveOptions?.toJson();
     final body = <String, dynamic>{
       'userId': ?userId,
       'userProfile': userProfile.toJson(),
-      if (effectiveOptions != null && !effectiveOptions.isEmpty)
-        'options': effectiveOptions.toJson(),
+      if (optionsJson != null && optionsJson.isNotEmpty) 'options': optionsJson,
     };
     await _service.identify(session: session, body: body);
     _logger.info(
@@ -115,14 +115,10 @@ class AmplifyConnectClient {
 
     final deviceId =
         options.deviceId ?? await _deviceIdStore.getOrCreateDeviceId();
-    return IdentifyUserOptions(
-      userAttributes: options.userAttributes,
-      address: options.address,
+    return options.copyWith(
       deviceId: deviceId,
-      channelType: options.channelType,
       platform: options.platform ?? _platform,
       appVersion: options.appVersion ?? _appVersion,
-      optOut: options.optOut,
     );
   }
 }

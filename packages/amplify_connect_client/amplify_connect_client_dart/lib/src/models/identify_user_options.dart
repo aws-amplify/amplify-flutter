@@ -66,6 +66,22 @@ class IdentifyUserOptions {
   /// act on it yet, so setting it has no effect for now.
   final OptOut? optOut;
 
+  /// Returns a copy with the device-context fields overridden. Used to fill in
+  /// the resolved device id and platform defaults for a device registration.
+  IdentifyUserOptions copyWith({
+    String? deviceId,
+    String? platform,
+    String? appVersion,
+  }) => IdentifyUserOptions(
+    userAttributes: userAttributes,
+    address: address,
+    deviceId: deviceId ?? this.deviceId,
+    channelType: channelType,
+    platform: platform ?? this.platform,
+    appVersion: appVersion ?? this.appVersion,
+    optOut: optOut,
+  );
+
   /// Serializes to the endpoint's `options` shape, omitting null fields.
   Map<String, dynamic> toJson() => {
     if (userAttributes != null && userAttributes!.isNotEmpty)

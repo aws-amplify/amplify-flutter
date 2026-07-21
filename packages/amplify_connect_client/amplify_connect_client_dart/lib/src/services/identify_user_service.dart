@@ -86,7 +86,10 @@ class IdentifyUserService {
           ),
         );
       } on Exception catch (e) {
-        throw ConnectNetworkException(cause: e);
+        throw ConnectServiceException(
+          detail: 'Failed to sign the guest request.',
+          cause: e,
+        );
       }
     }
 
