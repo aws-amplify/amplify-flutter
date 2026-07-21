@@ -1,3 +1,11 @@
+## 0.3.13
+
+### Fixes
+- fix(worker_bee): Coerce int-backed types for wasm ([#7082](https://github.com/aws-amplify/amplify-flutter/pull/7082))
+- fix(worker_bee): Exclude example from default build target ([#7071](https://github.com/aws-amplify/amplify-flutter/pull/7071))
+- fix(worker_bee): Fix loading wasm file ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+- fix(worker_bee): Point `fallbackUrls` at real filenames after `copy_builder` use ([#7111](https://github.com/aws-amplify/amplify-flutter/pull/7111))
+
 ## 0.3.12
 
 ### Features

@@ -1,3 +1,8 @@
+## 0.5.19
+
+### Features
+- feat(secure_storage): Add wasm support ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+
 ## 0.5.18
 
 ### Features
