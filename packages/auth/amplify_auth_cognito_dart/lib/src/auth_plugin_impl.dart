@@ -64,9 +64,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   AmplifyAuthCognitoDart({
     SecureStorageFactory? secureStorageFactory,
     @protected HostedUiPlatformFactory? hostedUiPlatformFactory,
+    AuthPluginOptions? authPluginOptions,
   }) : _secureStorageFactory =
            secureStorageFactory ?? AmplifySecureStorageWorker.factoryFrom(),
-       _hostedUiPlatformFactory = hostedUiPlatformFactory;
+       _hostedUiPlatformFactory = hostedUiPlatformFactory,
+       _authPluginOptions = authPluginOptions ?? const AuthPluginOptions();
 
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
   /// a Cognito-specific Auth category interface.
@@ -97,6 +99,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   /// }
   /// ```
   final HostedUiPlatformFactory? _hostedUiPlatformFactory;
+
+  /// The plugin options, including the optional custom headers callback.
+  final AuthPluginOptions _authPluginOptions;
 
   late CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine(
     dependencyManager: dependencies,
@@ -163,7 +168,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       ..addInstance<SecureStorageInterface>(
         _secureStorageFactory(AmplifySecureStorageScope.awsCognitoAuthPlugin),
       )
-      ..addInstance<AmplifyLogger>(logger);
+      ..addInstance<AmplifyLogger>(logger)
+      ..addInstance<AuthPluginOptions>(_authPluginOptions);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder<HostedUiPlatform>(_hostedUiPlatformFactory);
     }
