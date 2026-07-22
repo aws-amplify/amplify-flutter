@@ -276,13 +276,15 @@ class PublishScheduler {
       await _publishPackage(package);
       published.add(package.name);
 
-      // Await the published version, then its analysis, in the background.
-      // When analysis completes, update the adjacency lists and potentially
-      // enqueue new packages.
+      // Wait until the version is resolvable by `pub get` in the background,
+      // then update the adjacency lists and enqueue any unblocked packages.
       final packageName = package.name;
       final analysisFuture = _command
-          .awaitPublishedVersion(packageName, package.version)
-          .then((_) => _command.awaitPendingAnalysis(packageName))
+          .awaitVersionResolvable(
+            packageName,
+            package.version,
+            flavor: package.flavor,
+          )
           .then((_) {
             _markAnalysisComplete(
               adjacencyLists,
