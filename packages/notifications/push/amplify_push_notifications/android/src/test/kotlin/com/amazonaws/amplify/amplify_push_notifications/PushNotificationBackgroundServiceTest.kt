@@ -178,12 +178,12 @@ class PushNotificationBackgroundServiceTest {
     }
 
     @Test
-    fun `doWork returns failure once retry cap is reached`() {
+    fun `doWork returns success (not failure) once retry cap is reached to avoid cancelling queued work`() {
         val worker = TestListenableWorkerBuilder<PushNotificationBackgroundWorker>(appContext)
             .setInputData(Data.Builder().putString("from", "test").build())
             .setRunAttemptCount(3)
             .build()
-        assertEquals(ListenableWorker.Result.failure(), worker.doWork())
+        assertEquals(ListenableWorker.Result.success(), worker.doWork())
     }
 
     // Note: the REUSED-engine delivery path and the WorkManager-not-initialized guard

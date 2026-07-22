@@ -240,18 +240,33 @@ class PushNotificationBackgroundWorker(
             return Result.success()
         }
 
+        // Never return Result.failure() from this worker: failure cancels all
+        // work APPENDed behind this one on the unique chain, so one bad
+        // notification would silently kill every queued notification after it.
+        // Log and return success instead so the chain keeps processing.
+
         // WorkManager has no built-in retry cap; bail out so a permanent failure
         // (e.g. a misconfigured app) can't retry indefinitely.
         if (runAttemptCount >= MAX_RETRY_ATTEMPTS) {
-            Log.w(TAG, "Giving up after $runAttemptCount attempts to process push notification.")
-            return Result.failure()
+            Log.e(
+                TAG,
+                "Giving up after $runAttemptCount attempts to process push notification; " +
+                    "dropping it so queued notifications still process."
+            )
+            return Result.success()
         }
 
         Log.i(TAG, "Handling work in PushNotificationBackgroundWorker")
 
         when (startPushNotificationService(applicationContext)) {
             // No Dart callback registered — retrying can't fix a missing handle.
-            EngineStartResult.CALLBACK_NOT_REGISTERED -> return Result.failure()
+            EngineStartResult.CALLBACK_NOT_REGISTERED -> {
+                Log.e(
+                    TAG,
+                    "No Dart background callback registered; dropping notification."
+                )
+                return Result.success()
+            }
 
             // Transient startup failure; let WorkManager retry with backoff.
             EngineStartResult.FAILED -> return Result.retry()
