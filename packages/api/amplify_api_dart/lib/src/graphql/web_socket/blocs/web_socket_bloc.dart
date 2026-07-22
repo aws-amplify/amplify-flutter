@@ -17,7 +17,6 @@ import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
 import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:async/async.dart';
 import 'package:meta/meta.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 part '../types/web_socket_event.dart';
 
@@ -71,11 +70,21 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   final StreamController<WebSocketState> _wsStateController =
       StreamController<WebSocketState>.broadcast(sync: true);
 
-  /// The stream of bloc state changes.
+  /// The [currentState] followed by all subsequent state changes.
   ///
-  /// Emits the [currentState] followed by all subsequent state changes.
+  /// Subscribes to the broadcast source synchronously before emitting
+  /// [currentState], so no state emitted in between is dropped.
   Stream<WebSocketState> get stream {
-    return _wsStateController.stream.startWith(_currentState);
+    return Stream<WebSocketState>.multi((controller) {
+      final subscription = _wsStateController.stream.listen(
+        controller.add,
+        onError: controller.addError,
+        onDone: controller.close,
+      );
+      controller
+        ..add(_currentState)
+        ..onCancel = subscription.cancel;
+    }, isBroadcast: true);
   }
 
   final StreamController<WebSocketEvent> _wsEventController =
