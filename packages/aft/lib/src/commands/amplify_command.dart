@@ -3,6 +3,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/config/config_loader.dart';
@@ -179,67 +180,64 @@ abstract class AmplifyCommand extends Command<void>
     return PubVersionInfo(semvers..sort());
   }
 
-  /// Checks whether [package] still has a pending analysis on pub.dev.
+  /// Whether [version] of [package] can be resolved by `pub get`.
   ///
-  /// Returns `true` if the package page contains `[pending analysis]`,
-  /// `false` otherwise.
-  Future<bool> isPendingAnalysis(String package) async {
-    final uri = Uri.parse('https://pub.dev/packages/$package');
-    final request = AWSHttpRequest.get(uri);
-    final resp = await httpClient.send(request).response;
+  /// Writes a throwaway pubspec depending on `$package: $version` and runs
+  /// `pub get`. Success means dependents can resolve it — pub.dev analysis
+  /// need not have finished. [flavor] picks the `dart`/`flutter` entrypoint;
+  /// both share one pub cache, so a single check suffices.
+  Future<bool> canResolveVersion(
+    String package,
+    Version version, {
+    PackageFlavor flavor = PackageFlavor.flutter,
+  }) async {
+    final tempDir = Directory.systemTemp.createTempSync('aft_resolve_');
+    try {
+      final rand = Random();
+      final suffix = List.generate(
+        12,
+        (_) => rand.nextInt(36).toRadixString(36),
+      ).join();
+      File(p.join(tempDir.path, 'pubspec.yaml')).writeAsStringSync('''
+name: tmp_test_$suffix
+description: Test version
+version: 0.0.1
+publish_to: none
 
-    if (resp.statusCode == 404) {
-      // Assume that's a package we are publishing for the first time
-      return true;
-    } else if (resp.statusCode != 200) {
-      throw Exception(
-        'Failed to get package page for $package: ${resp.statusCode}',
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  $package: $version
+''');
+      final result = await Process.run(
+        flavor.entrypoint,
+        ['pub', 'get'],
+        workingDirectory: tempDir.path,
+        runInShell: true,
       );
-    }
-
-    final body = await resp.decodeBody();
-    return body.contains('[pending analysis]');
-  }
-
-  /// Await a pending analysis on pub.dev for [package].
-  ///
-  /// Polls the pub.dev package page until the analysis is complete.
-  Future<void> awaitPendingAnalysis(String package) async {
-    final qaDurations = Platform.environment.containsKey('QA_DURATIONS');
-
-    var pollInterval = qaDurations
-        ? const Duration(seconds: 1)
-        : const Duration(seconds: 15);
-
-    final stopwatch = Stopwatch()..start();
-
-    while (await isPendingAnalysis(package)) {
-      final elapsed = stopwatch.elapsed;
-
-      if (!qaDurations && elapsed >= const Duration(seconds: 10 * 60)) {
-        pollInterval = const Duration(seconds: 30);
-      } else if (!qaDurations && elapsed >= const Duration(seconds: 3 * 60)) {
-        pollInterval = const Duration(seconds: 20);
+      if (result.exitCode != 0) {
+        logger.verbose('$package $version not resolvable yet: ${result.stderr}');
       }
-
-      await Future<void>.delayed(pollInterval);
+      return result.exitCode == 0;
+    } finally {
+      tempDir.deleteSync(recursive: true);
     }
   }
 
-  /// Waits until [version] of [package] is live on `pub.dev`, so its analysis
-  /// has started before we await it.
-  Future<void> awaitPublishedVersion(String package, Version version) async {
+  /// Waits until [version] of [package] can be resolved by `pub get`.
+  Future<void> awaitVersionResolvable(
+    String package,
+    Version version, {
+    PackageFlavor flavor = PackageFlavor.flutter,
+  }) async {
     final qaDurations = Platform.environment.containsKey('QA_DURATIONS');
 
     final pollInterval = qaDurations
         ? const Duration(seconds: 1)
         : const Duration(seconds: 15);
 
-    while (true) {
-      final versionInfo = await resolveVersionInfo(package);
-      if (versionInfo?.allVersions.contains(version) ?? false) {
-        return;
-      }
+    while (!await canResolveVersion(package, version, flavor: flavor)) {
       await Future<void>.delayed(pollInterval);
     }
   }
