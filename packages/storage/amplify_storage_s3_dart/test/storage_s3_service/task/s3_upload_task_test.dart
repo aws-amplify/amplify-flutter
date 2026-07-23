@@ -2065,16 +2065,20 @@ void main() {
             // add a manual delay to ensure upload parts are scheduled before
             // canceling
             await Future<void>.delayed(const Duration(milliseconds: 500));
+
+            // Listen before canceling: cancel() errors `result`, which surfaces
+            // as an uncaught error under wasm if nothing is listening yet.
+            final expectation = expectLater(
+              uploadTask.result,
+              throwsA(isA<StorageOperationCanceledException>()),
+            );
             await uploadTask.cancel();
 
             completer1.complete();
             completer2.complete();
             completer3.complete();
 
-            await expectLater(
-              uploadTask.result,
-              throwsA(isA<StorageOperationCanceledException>()),
-            );
+            await expectation;
 
             verify(uploadPartSmithyOperation1.cancel).called(1);
             verify(uploadPartSmithyOperation2.cancel).called(1);
