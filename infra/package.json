@@ -24,10 +24,10 @@
     "typescript": "~5.8.3"
   },
   "dependencies": {
-    "@aws-crypto/client-node": "^4.2.1",
-    "@aws-sdk/client-amplify": "^3.1030.0",
-    "@aws-sdk/client-cognito-identity-provider": "^3.1030.0",
-    "@aws-sdk/client-s3": "^3.1030.0",
+    "@aws-crypto/client-node": "^5.0.0",
+    "@aws-sdk/client-amplify": "^3.1093.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.1093.0",
+    "@aws-sdk/client-s3": "^3.1093.0",
     "aws-cdk-lib": "2.261.0",
     "constructs": "^10.7.0",
     "node-fetch": "^3.3.2",
