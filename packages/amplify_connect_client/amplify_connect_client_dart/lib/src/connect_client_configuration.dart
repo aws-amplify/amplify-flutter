@@ -14,7 +14,24 @@ import 'package:meta/meta.dart';
 @immutable
 class ConnectClientConfiguration {
   /// {@macro amplify_connect_client.configuration}
-  const ConnectClientConfiguration({
+  ///
+  /// Throws [ConnectConfigurationException] if [endpoint] is not an absolute
+  /// `https://` URL — SigV4 session tokens must never travel over cleartext
+  /// `http://`.
+  factory ConnectClientConfiguration({
+    required String endpoint,
+    required String region,
+  }) {
+    final uri = Uri.tryParse(endpoint);
+    if (uri == null || !uri.isAbsolute || uri.scheme != 'https') {
+      throw const ConnectConfigurationException(
+        'endpoint must be an absolute https:// URL.',
+      );
+    }
+    return ConnectClientConfiguration._(endpoint: endpoint, region: region);
+  }
+
+  const ConnectClientConfiguration._({
     required this.endpoint,
     required this.region,
   });

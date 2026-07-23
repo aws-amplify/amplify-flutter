@@ -73,6 +73,7 @@ class AmplifyConnectClient {
 
   /// Creates or updates the caller's Customer Profile with [userProfile].
   Future<void> identifyUser({required UserProfile userProfile}) async {
+    _validateProfile(userProfile);
     final credentials = await _credentialsProvider.fetchCredentials();
     await _service.identifyUser(
       credentials: credentials,
@@ -91,6 +92,7 @@ class AmplifyConnectClient {
   /// Throws [ConnectUnsupportedOperationException] on platforms without a push
   /// channel.
   Future<void> registerDevice({required String token}) async {
+    _checkLength('token', token);
     final channelType = _channelType;
     if (channelType == null) {
       throw const ConnectUnsupportedOperationException(
@@ -120,5 +122,41 @@ class AmplifyConnectClient {
     final deviceId = await _deviceIdStore.getOrCreateDeviceId();
     await _service.removeDevice(credentials: credentials, deviceId: deviceId);
     _logger.info('removeDevice sent');
+  }
+
+  /// Maximum length (in characters) the backend accepts for a single
+  /// attribute. Mirrors the backend `MAX_ATTRIBUTE_LENGTH` exactly — length
+  /// only, no count caps or character-class rules — to avoid client/server
+  /// validation drift.
+  static const _maxAttributeLength = 255;
+
+  void _validateProfile(UserProfile profile) {
+    _checkLength('email', profile.email);
+    _checkLength('name', profile.name);
+    _checkLength('phone', profile.phone);
+    final location = profile.location;
+    if (location != null) {
+      _checkLength('location.city', location.city);
+      _checkLength('location.country', location.country);
+      _checkLength('location.postalCode', location.postalCode);
+      _checkLength('location.region', location.region);
+    }
+    final attributes = profile.customAttributes;
+    if (attributes != null) {
+      for (final entry in attributes.entries) {
+        _checkLength("customAttributes key '${entry.key}'", entry.key);
+        _checkLength("customAttributes value for '${entry.key}'", entry.value);
+      }
+    }
+  }
+
+  void _checkLength(String field, String? value) {
+    if (value != null && value.length > _maxAttributeLength) {
+      throw ConnectValidationException(
+        detail:
+            '$field exceeds the maximum length of $_maxAttributeLength '
+            'characters.',
+      );
+    }
   }
 }
