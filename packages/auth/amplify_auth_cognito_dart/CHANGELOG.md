@@ -1,3 +1,7 @@
+## 0.11.23
+
+- Minor bug fixes and improvements
+
 ## 0.11.22
 
 ### Features
