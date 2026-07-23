@@ -1,3 +1,11 @@
+## 2.13.0
+
+### Features
+- feat(api): Add wasm support for Amplify API ([#7145](https://github.com/aws-amplify/amplify-flutter/pull/7145))
+
+### Fixes
+- fix(push_notifications): Migrate from deprecated JobIntentService to WorkManager ([#7000](https://github.com/aws-amplify/amplify-flutter/pull/7000))
+
 ## 2.12.1
 
 ### Features

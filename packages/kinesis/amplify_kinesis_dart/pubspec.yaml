@@ -1,6 +1,6 @@
 name: amplify_kinesis_dart
 description: A Dart-only implementation for streaming data to Amazon Kinesis Data Streams with offline support. For internal use in the amplify_kinesis Flutter library.
-version: 0.1.3
+version: 0.1.4
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/kinesis/amplify_kinesis_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -16,7 +16,7 @@ environment:
   sdk: ^3.11.0
 
 dependencies:
-  amplify_core: ">=2.12.1 <2.13.0"
+  amplify_core: ">=2.13.0 <2.14.0"
   amplify_foundation_dart: ">=2.12.1 <2.13.0"
   amplify_foundation_dart_bridge: ">=2.11.2 <2.12.0"
   amplify_record_cache_dart: ">=0.1.2 <0.2.0"

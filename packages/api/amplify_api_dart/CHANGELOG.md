@@ -1,3 +1,8 @@
+## 0.5.20
+
+### Features
+- feat(api): Add wasm support for Amplify API ([#7145](https://github.com/aws-amplify/amplify-flutter/pull/7145))
+
 ## 0.5.19
 
 - Minor bug fixes and improvements

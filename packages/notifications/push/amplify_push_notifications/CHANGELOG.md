@@ -1,3 +1,8 @@
+## 2.13.0
+
+### Fixes
+- fix(push_notifications): Migrate from deprecated JobIntentService to WorkManager ([#7000](https://github.com/aws-amplify/amplify-flutter/pull/7000))
+
 ## 2.12.1
 
 - Minor bug fixes and improvements

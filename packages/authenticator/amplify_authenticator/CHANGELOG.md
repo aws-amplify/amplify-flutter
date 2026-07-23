@@ -1,3 +1,7 @@
+## 2.5.5
+
+- Minor bug fixes and improvements
+
 ## 2.5.4
 
 - Minor bug fixes and improvements
