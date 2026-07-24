@@ -1,0 +1,35 @@
+{
+  "auth": {
+    "user_pool_id": "us-east-1_EXAMPLE",
+    "aws_region": "us-east-1",
+    "user_pool_client_id": "EXAMPLE_CLIENT_ID",
+    "identity_pool_id": "us-east-1:00000000-0000-0000-0000-000000000000",
+    "mfa_methods": [],
+    "standard_required_attributes": [
+      "email"
+    ],
+    "username_attributes": [
+      "email"
+    ],
+    "user_verification_types": [
+      "email"
+    ],
+    "groups": [],
+    "mfa_configuration": "NONE",
+    "password_policy": {
+      "min_length": 8,
+      "require_lowercase": true,
+      "require_numbers": true,
+      "require_symbols": true,
+      "require_uppercase": true
+    },
+    "unauthenticated_identities_enabled": true
+  },
+  "version": "1.4",
+  "notifications": {
+    "amazon_connect_customer_profiles": {
+      "aws_region": "us-east-1",
+      "endpoint": "https://your-api-id.execute-api.us-east-1.amazonaws.com"
+    }
+  }
+}

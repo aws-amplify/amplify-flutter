@@ -1,0 +1,29 @@
+name: amplify_connect_client_example
+description: Manual test app for the Amplify Connect client against the backend-notifications construct.
+version: 0.1.0
+
+publish_to: "none"
+
+environment:
+  sdk: ^3.10.0
+  flutter: ">=3.38.1"
+
+dependencies:
+  amplify_auth_cognito: any
+  amplify_connect_client:
+    path: ../
+  amplify_flutter: any
+  aws_common: any
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../../amplify_lints
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - amplify_outputs.json
