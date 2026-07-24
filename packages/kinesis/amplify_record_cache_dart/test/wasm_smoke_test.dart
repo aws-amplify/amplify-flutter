@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-@TestOn('browser')
 library;
 
 import 'dart:typed_data';
@@ -12,19 +11,32 @@ import 'package:test/test.dart';
 
 /// Smoke test: proves the web storage path compiles and runs under dart2wasm.
 ///
-/// The IndexedDB implementation is heavy on `dart:js_interop` number
-/// conversions (`toDartInt`, `JSNumber`), which behave differently on wasm
-/// than dart2js. This exercises a real round-trip so those conversions are
-/// verified, not just compiled.
+/// The file name is the `aft` opt-in marker for dart2wasm coverage, so it must
+/// also run on the VM (which has no IndexedDB) — hence the platform-neutral
+/// test and the browser-only `testOn`.
 ///
 /// Run with: dart test test/wasm_smoke_test.dart -p chrome -c dart2wasm
 void main() {
   group('WASM smoke test', () {
-    test('zIsWeb is true on web targets', () {
-      expect(zIsWeb, isTrue);
+    // Runs on every platform so the VM test job has something to run.
+    test('RecordInput carries its fields', () {
+      final data = Uint8List.fromList([1, 2, 3, 4, 5]);
+      final input = RecordInput.now(
+        data: data,
+        streamName: 'stream-a',
+        dataSize: data.length,
+      );
+      expect(input.data, data);
+      expect(input.streamName, 'stream-a');
+      expect(input.dataSize, 5);
     });
 
+    // The IndexedDB implementation is heavy on `dart:js_interop` number
+    // conversions (`toDartInt`, `JSNumber`), which behave differently on wasm
+    // than dart2js. This exercises a real round-trip so those conversions are
+    // verified, not just compiled.
     test('IndexedDB round-trip preserves record fields', () async {
+      expect(zIsWeb, isTrue);
       final storage = await createPlatformRecordStorage(
         identifier: 'smoke',
         storagePath: null,
@@ -62,6 +74,6 @@ void main() {
 
       await storage.deleteRecords([record.id]);
       expect(await storage.getRecordCount(), 0);
-    });
+    }, testOn: 'browser');
   });
 }
