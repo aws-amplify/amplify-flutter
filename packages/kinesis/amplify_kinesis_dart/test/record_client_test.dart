@@ -6,6 +6,9 @@
 /// Uses mocktail mocks for KinesisSender with pre-built SendResult
 /// values and explicit IDs, rather than behavioral test doubles with
 /// callback logic.
+///
+/// Uses [InMemoryRecordStorage] so this runs on all platforms, including
+/// wasm — the batching/retry logic is storage-agnostic.
 library;
 
 import 'dart:typed_data';
@@ -17,18 +20,15 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'common/mocktail_mocks.dart';
-import 'helpers/test_database.dart';
 
 void main() {
   group('RecordClient', () {
-    late SqliteRecordStorage storage;
+    late InMemoryRecordStorage storage;
     late MockKinesisSender mockSender;
     late RecordClient client;
 
     setUp(() {
-      final db = createTestDatabase();
-      storage = SqliteRecordStorage(
-        database: db,
+      storage = InMemoryRecordStorage(
         maxCacheBytes: 1024,
         maxRecordsPerBatch: 500,
         maxBytesPerBatch: 10 * 1024 * 1024,

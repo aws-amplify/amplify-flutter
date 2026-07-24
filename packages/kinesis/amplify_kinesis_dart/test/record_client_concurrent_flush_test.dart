@@ -5,6 +5,9 @@
 ///
 /// Uses a [Completer]-controlled sender instead of wall-clock delays so
 /// the test is deterministic and not timing-dependent.
+///
+/// Uses [InMemoryRecordStorage] so this runs on all platforms, including
+/// wasm — the concurrency logic is storage-agnostic.
 library;
 
 import 'dart:async';
@@ -14,16 +17,12 @@ import 'package:amplify_kinesis_dart/src/impl/kinesis_record.dart';
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:test/test.dart';
 
-import 'helpers/test_database.dart';
-
 void main() {
   group('RecordClient concurrent flush', () {
     test(
       'concurrent flush should return flushInProgress for second caller',
       () async {
-        final db = createTestDatabase();
-        final storage = SqliteRecordStorage(
-          database: db,
+        final storage = InMemoryRecordStorage(
           maxCacheBytes: 1024 * 1024,
           maxRecordsPerBatch: 500,
           maxBytesPerBatch: 10 * 1024 * 1024,

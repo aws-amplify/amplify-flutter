@@ -7,7 +7,6 @@ import 'package:amplify_record_cache_dart/src/db/record_cache_database.dart';
 import 'package:amplify_record_cache_dart/src/model/record_input.dart';
 import 'package:amplify_record_cache_dart/src/storage/record_storage.dart';
 import 'package:drift/drift.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_record_cache.sqlite_record_storage}
 /// SQLite-backed [RecordStorage] implementation using Drift.
@@ -63,10 +62,6 @@ final class SqliteRecordStorage extends RecordStorage {
     if (result == null) return 0;
     return result.read(db.kinesisRecords.dataSize.sum()) ?? 0;
   }
-
-  /// Returns the in-memory cached size directly (O(1), no DB query).
-  @visibleForTesting
-  int getCurrentCacheSize() => cachedSize;
 
   @override
   Future<void> writeRecord(RecordInput record) async {
