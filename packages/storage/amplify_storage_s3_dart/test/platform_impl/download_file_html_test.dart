@@ -80,7 +80,11 @@ void main() {
         final operation = downloadFile(
           path: const StoragePath.fromString('public/$testKey'),
           localFile: AWSFile.fromPath('file_name.jpg'),
-          options: const StorageDownloadFileOptions(),
+          // The plugin always sets pluginOptions before calling this; a null
+          // never reaches here.
+          options: const StorageDownloadFileOptions(
+            pluginOptions: S3DownloadFilePluginOptions(),
+          ),
           storageOutputs: testStorageOutputs,
           storageS3Service: storageS3Service,
           appPathProvider: const DummyPathProvider(),
