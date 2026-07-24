@@ -1,0 +1,92 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyPushNotifications",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "PushNotificationsPluginInterface",
+        "AmplifyPluginInterface",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyPushNotifications",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "serviceProviderClient",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceProviderClient"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "backgroundProcessor",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Future<void> Function()"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "dependencyManager",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DependencyManager?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "PushNotificationMessage?",
+          "name": "launchNotification",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<String>",
+          "name": "onTokenReceived",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<PushNotificationMessage>",
+          "name": "onNotificationReceivedInForeground",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<PushNotificationMessage>",
+          "name": "onNotificationOpened",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    }
+  ]
+}
