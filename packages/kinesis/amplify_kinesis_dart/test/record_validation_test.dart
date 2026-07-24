@@ -14,8 +14,8 @@
 ///
 /// See: https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecordsRequestEntry.html
 ///
-/// VM-only: uses NativeDatabase (SQLite/FFI), which can't compile to Wasm.
-@TestOn('vm')
+/// Uses [InMemoryRecordStorage] so this runs on all platforms, including
+/// wasm — the validation logic is storage-agnostic.
 library;
 
 import 'dart:convert';
@@ -30,11 +30,9 @@ import 'package:amplify_kinesis_dart/src/kinesis_limits.dart' as limits;
 import 'package:amplify_record_cache_dart/amplify_record_cache_dart.dart';
 import 'package:test/test.dart';
 
-import 'helpers/test_database.dart';
-
 void main() {
   group('RecordValidation', () {
-    late SqliteRecordStorage storage;
+    late InMemoryRecordStorage storage;
     late RecordClient client;
 
     RecordClient createClient({
@@ -50,9 +48,7 @@ void main() {
     }
 
     setUp(() {
-      final db = createTestDatabase();
-      storage = SqliteRecordStorage(
-        database: db,
+      storage = InMemoryRecordStorage(
         maxCacheBytes: 10000,
         maxRecordsPerBatch: 500,
         maxBytesPerBatch: 10 * 1024 * 1024,
@@ -74,9 +70,7 @@ void main() {
         // Close the default client so we can create one with a larger cache.
         await client.close();
 
-        final largeDb = createTestDatabase();
-        final largeStorage = SqliteRecordStorage(
-          database: largeDb,
+        final largeStorage = InMemoryRecordStorage(
           maxCacheBytes: 20 * 1024 * 1024,
           maxRecordsPerBatch: 500,
           maxBytesPerBatch: 20 * 1024 * 1024,
@@ -166,9 +160,7 @@ void main() {
       test(
         'cache limit accounts for partition key in cumulative size',
         () async {
-          final tightDb = createTestDatabase();
-          final tightStorage = SqliteRecordStorage(
-            database: tightDb,
+          final tightStorage = InMemoryRecordStorage(
             maxCacheBytes: 80,
             maxRecordsPerBatch: 500,
             maxBytesPerBatch: 10 * 1024 * 1024,
