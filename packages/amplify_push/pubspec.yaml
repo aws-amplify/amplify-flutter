@@ -1,0 +1,40 @@
+name: amplify_push
+description: Standalone on-device push notification handling for Flutter. Token lifecycle, notification routing, permissions, background processing. Backend-agnostic with optional provider integration.
+version: 0.1.0
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_push
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+
+topics:
+  - aws
+  - push-notifications
+  - fcm
+  - apns
+  - aws-amplify
+
+environment:
+  sdk: ^3.10.0
+  flutter: ">=3.38.1"
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.amazonaws.amplify.amplify_push_notifications
+        pluginClass: AmplifyPushNotificationsPlugin
+      ios:
+        pluginClass: AmplifyPushNotificationsPlugin
+
+dependencies:
+  amplify_foundation_dart: ">=2.11.0 <2.12.0"
+  flutter:
+    sdk: flutter
+  flutter_plugin_android_lifecycle: ^2.0.9
+  meta: ^1.16.0
+  shared_preferences: ^2.2.0
+
+dev_dependencies:
+  amplify_lints: ">=3.1.4 <3.2.0"
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.0

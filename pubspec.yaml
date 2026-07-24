@@ -111,6 +111,10 @@ aft:
       packages:
         - amplify_firehose
         - amplify_firehose_dart
+    - name: Push
+      summary: amplify_push
+      packages:
+        - amplify_push
     - name: AWS Common
       summary: aws_common
       propagate: none
