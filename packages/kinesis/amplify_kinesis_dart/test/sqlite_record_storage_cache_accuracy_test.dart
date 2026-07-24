@@ -6,6 +6,9 @@
 /// Verifies that the cached size reported by `getCurrentCacheSize()` stays
 /// accurate through add, delete, clear, and mixed operations, and that
 /// `getRecordsByStream` correctly handles excludingIds and per-stream limits.
+///
+/// VM-only: uses NativeDatabase (SQLite/FFI), which can't compile to Wasm.
+@TestOn('vm')
 library;
 
 import 'dart:typed_data';
