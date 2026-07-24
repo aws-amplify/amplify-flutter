@@ -1,0 +1,39 @@
+name: amplify_event_enrichment
+description: A Flutter implementation for on-device event enrichment with automatic lifecycle tracking, device metadata collection, and persistent client ID.
+version: 0.1.0
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_event_enrichment/amplify_event_enrichment
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+
+topics:
+  - aws
+  - analytics
+  - event-enrichment
+  - aws-amplify
+
+environment:
+  sdk: ^3.10.0
+  flutter: ">=3.38.1"
+
+# Helps `pana` since we do not use Flutter plugins for most platforms
+platforms:
+  ios:
+  android:
+  macos:
+  windows:
+  linux:
+  web:
+
+dependencies:
+  amplify_event_enrichment_dart: ">=0.1.0 <0.2.0"
+  amplify_foundation_dart: ">=2.11.0 <2.12.0"
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.0.15
+  uuid: ^4.5.0
+
+dev_dependencies:
+  amplify_lints: ">=3.1.4 <3.2.0"
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.0
