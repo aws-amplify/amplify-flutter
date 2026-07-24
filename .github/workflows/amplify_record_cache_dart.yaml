@@ -6,7 +6,12 @@ on:
       - main
       - stable
     paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/amplify_record_cache_dart.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_dart2wasm.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
@@ -28,7 +33,12 @@ on:
       - 'packages/smithy/smithy/pubspec.yaml'
   pull_request:
     paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/amplify_record_cache_dart.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_dart2wasm.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
@@ -69,6 +79,34 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_record_cache_dart
+      working-directory: packages/kinesis/amplify_record_cache_dart
+  native_test:
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    secrets: inherit 
+    with:
+      package-name: amplify_record_cache_dart
+      working-directory: packages/kinesis/amplify_record_cache_dart
+  ddc_test:
+    needs: test
+    uses: ./.github/workflows/dart_ddc.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_record_cache_dart
+      working-directory: packages/kinesis/amplify_record_cache_dart
+  dart2js_test:
+    needs: test
+    uses: ./.github/workflows/dart_dart2js.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_record_cache_dart
+      working-directory: packages/kinesis/amplify_record_cache_dart
+  dart2wasm_test:
+    needs: test
+    uses: ./.github/workflows/dart_dart2wasm.yaml
     secrets: inherit
     with:
       package-name: amplify_record_cache_dart
