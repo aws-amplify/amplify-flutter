@@ -6,6 +6,9 @@
 /// Uses mocktail mocks for KinesisSender with pre-built SendResult
 /// values and explicit IDs, rather than behavioral test doubles with
 /// callback logic.
+///
+/// VM-only: uses NativeDatabase (SQLite/FFI), which can't compile to Wasm.
+@TestOn('vm')
 library;
 
 import 'dart:typed_data';

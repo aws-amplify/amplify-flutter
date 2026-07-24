@@ -5,6 +5,9 @@
 ///
 /// Uses a [Completer]-controlled sender instead of wall-clock delays so
 /// the test is deterministic and not timing-dependent.
+///
+/// VM-only: uses NativeDatabase (SQLite/FFI), which can't compile to Wasm.
+@TestOn('vm')
 library;
 
 import 'dart:async';

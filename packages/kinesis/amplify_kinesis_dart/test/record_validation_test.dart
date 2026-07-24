@@ -13,6 +13,9 @@
 /// - dataSize should account for both partition key bytes (UTF-8) and data blob
 ///
 /// See: https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecordsRequestEntry.html
+///
+/// VM-only: uses NativeDatabase (SQLite/FFI), which can't compile to Wasm.
+@TestOn('vm')
 library;
 
 import 'dart:convert';
