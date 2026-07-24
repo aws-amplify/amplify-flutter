@@ -94,6 +94,8 @@ Future<void> logMetric() async {
     'amplify_lints',
     'amplify_native_legacy_wrapper',
     'kinesis',
+    'event_enrichment',
+    'connect_client',
     'pub_server',
   ];
 
