@@ -182,6 +182,7 @@ jobs:
       package-name: amplify_analytics_pinpoint_example
       working-directory: packages/analytics/amplify_analytics_pinpoint/example
       needs-aws-config: true
+      run-wasm: true
   e2e_linux_test:
     needs: [test]
     uses: ./.github/workflows/e2e_linux.yaml

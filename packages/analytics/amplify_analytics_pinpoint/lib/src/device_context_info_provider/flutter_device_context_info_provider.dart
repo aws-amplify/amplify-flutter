@@ -1,12 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/app_info.dart';
+import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/app_info_provider/app_info_provider.dart';
 import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/device_info_provider/device_info_provider.dart';
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 /// {@template amplify_analytics_pinpoint.flutter_device_context_info_provider}
 /// Provide information required for Pinpoint EndpointDemographic object.
@@ -19,7 +18,7 @@ class FlutterDeviceContextInfoProvider implements DeviceContextInfoProvider {
 
   @override
   Future<DeviceContextInfo> getDeviceInfoDetails() async {
-    final appInfo = await _getAppInfo();
+    final appInfo = await getAppInfo();
     final deviceInfo = await getDeviceInfo();
     return DeviceContextInfo(
       countryCode:
@@ -34,10 +33,5 @@ class FlutterDeviceContextInfoProvider implements DeviceContextInfoProvider {
       platform: deviceInfo.platform,
       platformVersion: deviceInfo.platformVersion,
     );
-  }
-
-  Future<AppInfo> _getAppInfo() async {
-    final info = await PackageInfo.fromPlatform();
-    return AppInfo(info.appName, info.packageName, info.version);
   }
 }
