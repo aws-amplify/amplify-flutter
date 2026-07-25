@@ -630,12 +630,18 @@ void main() {
       );
 
       try {
-        final flushResult = await newClient.flush();
-        expect(flushResult, isA<Ok<FlushData>>());
-        expect(
-          (flushResult as Ok<FlushData>).value.recordsFlushed,
-          greaterThan(0),
-        );
+        // Retry across flushes: the record is proven persisted the moment it
+        // flushes, but the service may throttle it on any given attempt.
+        var totalFlushed = 0;
+        for (var i = 0; i < 10 && totalFlushed == 0; i++) {
+          final flushResult = await newClient.flush();
+          expect(flushResult, isA<Ok<FlushData>>());
+          totalFlushed += (flushResult as Ok<FlushData>).value.recordsFlushed;
+          if (totalFlushed == 0) {
+            await tester.binding.delayed(const Duration(seconds: 1));
+          }
+        }
+        expect(totalFlushed, greaterThan(0));
       } finally {
         await newClient.close();
       }
