@@ -1,0 +1,10 @@
+# Browser tests default to dart2js. To run under dart2wasm (opt-in), pass
+# `-c dart2wasm` on the command line, e.g.:
+#   dart test test/wasm_smoke_test.dart -p chrome -c dart2wasm
+override_platforms:
+  chrome:
+    settings:
+      arguments: --headless
+  firefox:
+    settings:
+      arguments: -headless
