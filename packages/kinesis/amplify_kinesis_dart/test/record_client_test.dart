@@ -7,8 +7,8 @@
 /// values and explicit IDs, rather than behavioral test doubles with
 /// callback logic.
 ///
-/// Uses [InMemoryRecordStorage] so this runs on all platforms, including
-/// wasm — the batching/retry logic is storage-agnostic.
+/// Uses [createTestStorage] (SQLite on VM, in-memory on web) since the
+/// batching/retry logic is storage-agnostic.
 library;
 
 import 'dart:typed_data';
@@ -20,15 +20,16 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'common/mocktail_mocks.dart';
+import 'helpers/test_storage.dart';
 
 void main() {
   group('RecordClient', () {
-    late InMemoryRecordStorage storage;
+    late RecordStorage storage;
     late MockKinesisSender mockSender;
     late RecordClient client;
 
     setUp(() {
-      storage = InMemoryRecordStorage(
+      storage = createTestStorage(
         maxCacheBytes: 1024,
         maxRecordsPerBatch: 500,
         maxBytesPerBatch: 10 * 1024 * 1024,
