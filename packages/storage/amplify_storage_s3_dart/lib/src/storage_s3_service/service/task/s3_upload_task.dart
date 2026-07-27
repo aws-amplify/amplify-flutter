@@ -25,6 +25,25 @@ import 'package:smithy_aws/smithy_aws.dart' as smithy_aws;
 // https://www.iana.org/assignments/media-types/application/octet-stream
 const fallbackContentType = 'application/octet-stream';
 
+/// Simple lock for serializing async operations.
+class _Lock {
+  Future<dynamic>? _last;
+
+  Future<T> synchronized<T>(FutureOr<T> Function() func) async {
+    final prev = _last;
+    final completer = Completer<void>.sync();
+    _last = completer.future;
+    try {
+      if (prev != null) await prev;
+      final result = func();
+      return result is Future ? await result : result;
+    } finally {
+      if (identical(_last, completer.future)) _last = null;
+      completer.complete();
+    }
+  }
+}
+
 /// {@template amplify_storage_s3_dart.upload_task}
 /// A task created to fulfill an upload operation.
 ///
@@ -179,6 +198,7 @@ class S3UploadTask {
   int _currentSubTaskId = 0;
   final Completer<void> _determineUploadModeCompleter = Completer();
   Completer<void>? _uploadPartBatchingCompleter;
+  final _stateLock = _Lock();
 
   FutureOr<void> get _uploadModeDetermined =>
       _determineUploadModeCompleter.future;
@@ -262,16 +282,22 @@ class S3UploadTask {
   /// but it doesn't cancel any ongoing parts upload (as AWSHttpOperation is
   /// currently not returned from S3Client APIs).
   Future<void> pause() async {
-    // can pause when upload is actually started
     await _uploadModeDetermined;
-    if (!_isMultipartUpload || _state != StorageTransferState.inProgress) {
-      return;
+    final shouldDrain = await _stateLock.synchronized(() async {
+      if (!_isMultipartUpload || _state != StorageTransferState.inProgress) {
+        return false;
+      }
+      _state = StorageTransferState.paused;
+      await _uploadPartBatchingCompleted;
+      _subtasksStreamSubscription.pause();
+      return true;
+    });
+    // Drain outside the lock to avoid holding it during potentially long waits
+    if (shouldDrain) {
+      await Future.wait(
+        _ongoingSubtasks.values.map((subtask) => subtask.request).toList(),
+      );
     }
-    _state = StorageTransferState.paused;
-
-    await _uploadPartBatchingCompleted;
-
-    _subtasksStreamSubscription.pause();
   }
 
   /// Resumes the [S3UploadTask] that is in a [StorageTransferState.paused] state.
@@ -279,15 +305,15 @@ class S3UploadTask {
   /// For single putObject, resume doesn't take any effect.
   /// For multipart upload, resume reschedules remaining subtasks.
   Future<void> resume() async {
-    // can resume when the upload is multipart upload and paused
     await _uploadModeDetermined;
-    if (!_isMultipartUpload || _state != StorageTransferState.paused) {
-      return;
-    }
-    _state = StorageTransferState.inProgress;
-    await _uploadPartBatchingCompleted;
-
-    _subtasksStreamSubscription.resume();
+    return _stateLock.synchronized(() async {
+      if (!_isMultipartUpload || _state != StorageTransferState.paused) {
+        return;
+      }
+      _state = StorageTransferState.inProgress;
+      await _uploadPartBatchingCompleted;
+      _subtasksStreamSubscription.resume();
+    });
   }
 
   /// Cancels the [S3UploadTask].
