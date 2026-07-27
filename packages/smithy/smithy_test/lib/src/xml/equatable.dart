@@ -87,9 +87,9 @@ class _EquatableVisitor with XmlVisitor {
   /// Visit an [XmlText] node.
   @override
   void visitText(XmlText node) {
-    final text = node.text.trim();
+    final text = node.value.trim();
     if (text.isNotEmpty) {
-      props.add(node.text);
+      props.add(node.value);
     }
   }
 }

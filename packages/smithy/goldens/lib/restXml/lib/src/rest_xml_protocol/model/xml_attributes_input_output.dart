@@ -124,7 +124,7 @@ class XmlAttributesInputOutputRestXmlSerializer
     if (attr != null) {
       result$.add(
         _i3.XmlAttribute(
-          _i3.XmlName('test'),
+          _i3.XmlName.parts('test'),
           (serializers.serialize(attr, specifiedType: const FullType(String))
               as String),
         ),
