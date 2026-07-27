@@ -208,6 +208,19 @@ abstract class AmplifyPushNotifications
     AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
+    // Push notifications are backed by native iOS/Android code only; there is
+    // no web, macOS, Windows or Linux implementation. Fail fast with a clear
+    // message instead of the cryptic MissingPluginException that the native
+    // channel calls below would otherwise throw on unsupported platforms.
+    if (!os.isIOS && !os.isAndroid) {
+      throw const PushNotificationException(
+        'Push notifications are only supported on iOS and Android.',
+        recoverySuggestion:
+            'Only add the push notifications plugin on iOS and Android, e.g. '
+            'guard `Amplify.addPlugin` with a platform check.',
+      );
+    }
+
     final notificationsConfig = config?.notifications;
     if (notificationsConfig == null) {
       throw const PushNotificationException(
