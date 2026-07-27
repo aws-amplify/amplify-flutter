@@ -290,9 +290,6 @@ class S3UploadTask {
       _state = StorageTransferState.paused;
       await _uploadPartBatchingCompleted;
       _subtasksStreamSubscription.pause();
-      await Future.wait(
-        _ongoingSubtasks.values.map((subtask) => subtask.request).toList(),
-      );
     });
   }
 
