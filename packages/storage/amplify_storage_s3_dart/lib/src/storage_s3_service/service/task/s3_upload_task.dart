@@ -282,6 +282,7 @@ class S3UploadTask {
   /// but it doesn't cancel any ongoing parts upload (as AWSHttpOperation is
   /// currently not returned from S3Client APIs).
   Future<void> pause() async {
+    // can pause when upload is actually started
     await _uploadModeDetermined;
     return _stateLock.synchronized(() async {
       if (!_isMultipartUpload || _state != StorageTransferState.inProgress) {
@@ -298,6 +299,7 @@ class S3UploadTask {
   /// For single putObject, resume doesn't take any effect.
   /// For multipart upload, resume reschedules remaining subtasks.
   Future<void> resume() async {
+    // can resume when the upload is multipart upload and paused
     await _uploadModeDetermined;
     return _stateLock.synchronized(() async {
       if (!_isMultipartUpload || _state != StorageTransferState.paused) {
