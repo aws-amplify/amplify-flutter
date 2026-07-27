@@ -579,23 +579,29 @@ void main() {
           expect(result, isA<Ok<void>>());
         }
 
-        // First flush: sends up to 10 MiB worth of records
-        final flush1 = await largeClient.flush();
-        expect(flush1, isA<Ok<FlushData>>());
-        final flushed1 = (flush1 as Ok<FlushData>).value.recordsFlushed;
-        expect(flushed1, greaterThan(0));
+        // The payload exceeds one 10 MiB batch, and the service may throttle
+        // records back into the cache, so drain across multiple flushes.
+        var totalFlushed = 0;
+        var flushCount = 0;
+        while (totalFlushed < recordCount && flushCount < 10) {
+          final flushResult = await largeClient.flush();
+          expect(flushResult, isA<Ok<FlushData>>());
+          totalFlushed += (flushResult as Ok<FlushData>).value.recordsFlushed;
+          flushCount++;
+          if (totalFlushed < recordCount) {
+            // Let throttled shards recover before retrying.
+            await tester.binding.delayed(const Duration(seconds: 1));
+          }
+        }
 
-        // Second flush: sends the remaining records
-        final flush2 = await largeClient.flush();
-        expect(flush2, isA<Ok<FlushData>>());
-        final flushed2 = (flush2 as Ok<FlushData>).value.recordsFlushed;
+        // Took more than one flush (payload split) and every record landed.
+        expect(flushCount, greaterThan(1));
+        expect(totalFlushed, equals(recordCount));
 
-        expect(flushed1 + flushed2, equals(recordCount));
-
-        // Third flush: nothing left
-        final flush3 = await largeClient.flush();
-        expect(flush3, isA<Ok<FlushData>>());
-        expect((flush3 as Ok<FlushData>).value.recordsFlushed, equals(0));
+        // Nothing left to flush.
+        final finalFlush = await largeClient.flush();
+        expect(finalFlush, isA<Ok<FlushData>>());
+        expect((finalFlush as Ok<FlushData>).value.recordsFlushed, equals(0));
       } finally {
         await largeClient.clearCache();
         await largeClient.close();
@@ -624,12 +630,18 @@ void main() {
       );
 
       try {
-        final flushResult = await newClient.flush();
-        expect(flushResult, isA<Ok<FlushData>>());
-        expect(
-          (flushResult as Ok<FlushData>).value.recordsFlushed,
-          greaterThan(0),
-        );
+        // Retry across flushes: the record is proven persisted the moment it
+        // flushes, but the service may throttle it on any given attempt.
+        var totalFlushed = 0;
+        for (var i = 0; i < 10 && totalFlushed == 0; i++) {
+          final flushResult = await newClient.flush();
+          expect(flushResult, isA<Ok<FlushData>>());
+          totalFlushed += (flushResult as Ok<FlushData>).value.recordsFlushed;
+          if (totalFlushed == 0) {
+            await tester.binding.delayed(const Duration(seconds: 1));
+          }
+        }
+        expect(totalFlushed, greaterThan(0));
       } finally {
         await newClient.close();
       }

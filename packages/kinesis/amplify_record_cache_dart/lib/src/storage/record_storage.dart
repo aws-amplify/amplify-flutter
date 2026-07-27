@@ -51,6 +51,10 @@ abstract class RecordStorage {
   @protected
   int cachedSize;
 
+  /// Returns the in-memory cached size directly (O(1), no storage query).
+  @visibleForTesting
+  int getCurrentCacheSize() => cachedSize;
+
   /// The maximum cache size in bytes.
   int get maxCacheBytes => _maxCacheBytes;
 
