@@ -2085,6 +2085,77 @@ void main() {
             verify(uploadPartSmithyOperation3.cancel).called(1);
           },
         );
+
+        // Regression for a race that surfaces reliably on dart2wasm: pause()
+        // cancels in-flight parts but used not to wait for them to settle, so
+        // the CancellationException could land after resume() flipped state
+        // back to inProgress and be mistaken for a real failure (failing the
+        // upload with "Bad state: Future already completed"). pause() must not
+        // return until the parts it cancels have settled.
+        test(
+          'pause() waits for in-flight parts to settle before returning',
+          () async {
+            final uploadTask = S3UploadTask.fromAWSFile(
+              testLocalFile,
+              s3Client: s3Client,
+              s3ClientConfig: defaultS3ClientConfig,
+              pathResolver: pathResolver,
+              bucket: testBucket,
+              awsRegion: testRegion,
+              path: const StoragePath.fromString(testKey),
+              options: testUploadDataOptions,
+              logger: logger,
+              transferDatabase: transferDatabase,
+            );
+
+            // Gate the in-flight parts so their CancellationException is only
+            // delivered when we release it.
+            final releaseCancel = Completer<void>();
+            Future<Never> gatedCancel(Invocation _) async {
+              await releaseCancel.future;
+              throw const CancellationException();
+            }
+
+            when(
+              () => uploadPartSmithyOperation1.result,
+            ).thenAnswer(gatedCancel);
+            when(
+              () => uploadPartSmithyOperation2.result,
+            ).thenAnswer(gatedCancel);
+            when(
+              () => uploadPartSmithyOperation3.result,
+            ).thenAnswer(gatedCancel);
+
+            unawaited(uploadTask.start());
+
+            var paused = false;
+            final pauseFuture = uploadTask.pause().then((_) => paused = true);
+
+            // pause() is blocked draining the in-flight parts until we release
+            // their cancellation.
+            await pumpEventQueue();
+            expect(paused, isFalse);
+
+            releaseCancel.complete();
+            await pauseFuture;
+            expect(paused, isTrue);
+
+            // Resumed upload succeeds.
+            when(
+              () => uploadPartSmithyOperation1.result,
+            ).thenAnswer((_) async => testUploadPartOutput1);
+            when(
+              () => uploadPartSmithyOperation2.result,
+            ).thenAnswer((_) async => testUploadPartOutput2);
+            when(
+              () => uploadPartSmithyOperation3.result,
+            ).thenAnswer((_) async => testUploadPartOutput3);
+
+            await uploadTask.resume();
+            final result = await uploadTask.result;
+            expect(result.path, TestPathResolver.path);
+          },
+        );
       });
     });
 

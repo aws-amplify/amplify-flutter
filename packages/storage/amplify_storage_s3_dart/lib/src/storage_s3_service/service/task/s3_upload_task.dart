@@ -272,6 +272,15 @@ class S3UploadTask {
     await _uploadPartBatchingCompleted;
 
     _subtasksStreamSubscription.pause();
+
+    // pause() (via onPause) cancels the in-flight parts but doesn't await their
+    // handlers. Drain them here so their CancellationExceptions are handled
+    // while _state is still `paused`. Otherwise a delayed cancellation can land
+    // after resume() flips _state back to inProgress (e.g. dart2wasm) and be
+    // mistaken for a real failure.
+    await Future.wait(
+      _ongoingSubtasks.values.map((subtask) => subtask.request).toList(),
+    );
   }
 
   /// Resumes the [S3UploadTask] that is in a [StorageTransferState.paused] state.
