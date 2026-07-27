@@ -8,8 +8,6 @@ environment:
   sdk: ^3.11.0
   flutter: ">=3.41.0"
 
-# Push notifications are iOS/Android only. Declaring platforms explicitly stops
-# pana from inferring (and reporting) unsupported platforms like web/desktop.
 platforms:
   ios:
   android:
