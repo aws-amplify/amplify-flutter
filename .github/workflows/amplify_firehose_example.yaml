@@ -198,6 +198,7 @@ jobs:
       package-name: amplify_firehose_example
       working-directory: packages/kinesis/amplify_firehose/example
       needs-aws-config: true
+      run-wasm: true
   e2e_linux_test:
     needs: [test]
     uses: ./.github/workflows/e2e_linux.yaml
