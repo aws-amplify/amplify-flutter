@@ -24,8 +24,8 @@ cp -r $ROOT_DIR/canaries/lib .
 cp $ROOT_DIR/build-support/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 
 # Android
-sed -i '' -e "s/id(\"com.android.application\") .*/id(\"com.android.application\") version \"8.12.1\" apply false/" ./android/settings.gradle.kts
-sed -i '' -e "s/id(\"org.jetbrains.kotlin.android\") .*/id(\"org.jetbrains.kotlin.android\") version \"2.2.0\" apply false/" ./android/settings.gradle.kts
+sed -i '' -e "s/id(\"com.android.application\") .*/id(\"com.android.application\") version \"8.11.1\" apply false/" ./android/settings.gradle.kts
+sed -i '' -e "s/id(\"org.jetbrains.kotlin.android\") .*/id(\"org.jetbrains.kotlin.android\") version \"2.2.20\" apply false/" ./android/settings.gradle.kts
 cat ./android/settings.gradle.kts
 
 # TODO(khatruong2009): remove this line after the next stable release (3.22.0 or 4.0)
