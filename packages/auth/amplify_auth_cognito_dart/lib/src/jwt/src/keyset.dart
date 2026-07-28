@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/src/jwt/src/key.dart';
-import 'package:amplify_auth_cognito_dart/src/jwt/src/prefs.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 part 'keyset.g.dart';
@@ -13,7 +13,12 @@ part 'keyset.g.dart';
 /// [JsonWebKey]s.
 /// {@endtemplate}
 @immutable
-@jwtSerializable
+// [fromJson] is hand-written to skip unparseable keys.
+@JsonSerializable(
+  includeIfNull: false,
+  explicitToJson: true,
+  createFactory: false,
+)
 class JsonWebKeySet with AWSEquatable<JsonWebKeySet>, AWSSerializable {
   /// {@macro amplify_auth_cognito.json_web_key_set}
   const JsonWebKeySet(this.keys);
@@ -46,6 +51,7 @@ class JsonWebKeySet with AWSEquatable<JsonWebKeySet>, AWSSerializable {
   final List<JsonWebKey> keys;
 
   @override
+  @JsonKey(includeToJson: false)
   List<Object?> get props => [keys];
 
   @override
