@@ -5,7 +5,7 @@ import 'package:amplify_connect_client/src/cognito_connect_credentials_provider.
 import 'package:amplify_connect_client/src/shared_preferences_device_id_store.dart';
 import 'package:amplify_connect_client_dart/amplify_connect_client_dart.dart';
 import 'package:flutter/foundation.dart'
-    show TargetPlatform, defaultTargetPlatform, kDebugMode;
+    show TargetPlatform, defaultTargetPlatform, kDebugMode, kIsWeb;
 
 /// {@template amplify_connect_client.amplify_connect_client_flutter}
 /// Flutter entry point for the Amazon Connect Customer Profiles write endpoint.
@@ -88,6 +88,11 @@ class AmplifyConnectClientFlutter {
   /// on platforms without a push channel (device registration is unsupported
   /// there).
   static ChannelType? _resolveChannelType() {
+    // On web, defaultTargetPlatform reports the browser's host OS (android/
+    // iOS in mobile browsers), so check kIsWeb first.
+    if (kIsWeb) {
+      return null;
+    }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return ChannelType.gcm;
@@ -103,6 +108,9 @@ class AmplifyConnectClientFlutter {
   }
 
   static String _platformName() {
+    if (kIsWeb) {
+      return 'Web';
+    }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return 'Android';
