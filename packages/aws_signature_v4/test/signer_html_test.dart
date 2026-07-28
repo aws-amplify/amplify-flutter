@@ -19,7 +19,10 @@ Future<void> main() async {
     final channel = spawnHybridUri('c_test_suite/c_test_suite.dart');
     final stream = StreamSplitter<dynamic>(channel.stream);
 
-    final numTests = await stream.split().first as int;
+    // The count arrives over a `spawnHybridUri` channel. Under dart2wasm,
+    // numbers cross that boundary with JS semantics (as `double`), so cast
+    // through `num` rather than directly to `int`.
+    final numTests = (await stream.split().first as num).toInt();
     final testCases = stream.split().skip(1).cast<String>().take(numTests);
 
     await for (final testCaseJson in testCases) {
