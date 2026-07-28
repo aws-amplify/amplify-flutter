@@ -8,6 +8,10 @@ environment:
   sdk: ^3.11.0
   flutter: ">=3.41.0"
 
+platforms:
+  ios:
+  android:
+
 dependencies:
   amplify_core: ">=2.13.0 <2.14.0"
   amplify_secure_storage: ">=0.5.19 <0.6.0"
