@@ -142,9 +142,11 @@ void main() {
   });
 
   group('removeDevice', () {
-    test('SigV4-POSTs the deviceId to /remove-device', () async {
+    test('SigV4-POSTs the persisted deviceId to /remove-device', () async {
       final capture = <AWSHttpRequest>[];
       final store = InMemoryDeviceIdStore();
+      // Persist an id first, as registerDevice would have.
+      final deviceId = await store.getOrCreateDeviceId();
       final client = _client(
         httpClient: _mock(capture: capture),
         deviceIdStore: store,
@@ -155,7 +157,21 @@ void main() {
       final req = capture.single;
       expect(req.uri.path, '/remove-device');
       _expectSigV4(req);
-      expect(_bodyOf(req)['deviceId'], await store.readDeviceId());
+      expect(_bodyOf(req)['deviceId'], deviceId);
+    });
+
+    test('is a no-op when no device id has been persisted', () async {
+      final capture = <AWSHttpRequest>[];
+      final store = InMemoryDeviceIdStore();
+      final client = _client(
+        httpClient: _mock(capture: capture),
+        deviceIdStore: store,
+      );
+
+      await client.removeDevice();
+
+      expect(capture, isEmpty);
+      expect(await store.readDeviceId(), isNull);
     });
   });
 
