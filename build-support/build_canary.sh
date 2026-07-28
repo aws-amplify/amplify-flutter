@@ -48,7 +48,7 @@ sed -i '' -e "s/compileOptions {.*/compileOptions {\n\t\tisCoreLibraryDesugaring
 sed -i '' -e "s/flutter {.*/dependencies {\n\tcoreLibraryDesugaring(\"com.android.tools:desugar_jdk_libs:2.1.5\")\n}\n\nflutter {/" ./android/app/build.gradle.kts
 cat ./android/app/build.gradle.kts
 
-sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.13-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
+sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.14-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
 cat ./android/gradle/wrapper/gradle-wrapper.properties
 
 
