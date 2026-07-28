@@ -2,7 +2,6 @@ group 'com.amazonaws.amplify.amplify_datastore'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '2.2.20'
     repositories {
         mavenLocal()
         google()
@@ -14,7 +13,6 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:8.11.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.jlleitschuh.gradle:ktlint-gradle:14.2.0'
     }
 }
@@ -28,7 +26,12 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+if (agpMajor < 9) {
+    apply plugin: 'kotlin-android'
+}
+
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
@@ -59,10 +62,6 @@ android {
 
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-    
-    kotlinOptions {
-        jvmTarget = '17'
     }
 
     testOptions {
@@ -97,4 +96,10 @@ dependencies {
     testImplementation 'com.fasterxml.jackson.core:jackson-core:2.22.0'
     testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.22'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.22.0'
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
 }
