@@ -116,10 +116,17 @@ class AmplifyConnectClient {
 
   /// Removes this device from the caller's profile.
   ///
-  /// Resolves the stable device id from storage (the same id used to register).
+  /// Resolves the stable device id from storage (the same id used to
+  /// register). If no device id has ever been persisted (fresh install, or
+  /// [registerDevice] was never called), this is a no-op — there is nothing
+  /// registered to remove.
   Future<void> removeDevice() async {
+    final deviceId = await _deviceIdStore.readDeviceId();
+    if (deviceId == null || deviceId.isEmpty) {
+      _logger.info('removeDevice skipped: no device id persisted');
+      return;
+    }
     final credentials = await _credentialsProvider.fetchCredentials();
-    final deviceId = await _deviceIdStore.getOrCreateDeviceId();
     await _service.removeDevice(credentials: credentials, deviceId: deviceId);
     _logger.info('removeDevice sent');
   }

@@ -36,11 +36,19 @@ class AmplifyConnectClientFlutter {
   ///
   /// By default resolves credentials from Amplify Auth and persists the device
   /// id in shared preferences. Both can be overridden for testing.
+  ///
+  /// [channelType] overrides the automatic channel resolution. The default
+  /// derives the APNs environment from the build mode (`kDebugMode` →
+  /// sandbox), which is wrong for distributions that pair a release-mode
+  /// build with a development-signed sandbox token (e.g. profile-mode runs on
+  /// a dev-provisioned device). Pass an explicit value when you know the
+  /// delivery environment.
   static AmplifyConnectClientFlutter create({
     required ConnectClientConfiguration configuration,
     ConnectCredentialsProvider? credentialsProvider,
     DeviceIdStore? deviceIdStore,
     String? appVersion,
+    ChannelType? channelType,
   }) {
     final client = AmplifyConnectClient(
       configuration: configuration,
@@ -49,7 +57,7 @@ class AmplifyConnectClientFlutter {
       deviceIdStore: deviceIdStore ?? SharedPreferencesDeviceIdStore(),
       platform: _platformName(),
       appVersion: appVersion,
-      channelType: _resolveChannelType(),
+      channelType: channelType ?? _resolveChannelType(),
     );
     return AmplifyConnectClientFlutter._(client);
   }
@@ -62,6 +70,7 @@ class AmplifyConnectClientFlutter {
     ConnectCredentialsProvider? credentialsProvider,
     DeviceIdStore? deviceIdStore,
     String? appVersion,
+    ChannelType? channelType,
   }) => create(
     configuration: ConnectClientConfiguration.fromAmplifyOutputs(
       amplifyOutputs,
@@ -69,6 +78,7 @@ class AmplifyConnectClientFlutter {
     credentialsProvider: credentialsProvider,
     deviceIdStore: deviceIdStore,
     appVersion: appVersion,
+    channelType: channelType,
   );
 
   final AmplifyConnectClient _delegate;

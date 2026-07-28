@@ -9,9 +9,15 @@ import 'package:uuid/uuid.dart';
 /// A [DeviceIdStore] backed by `shared_preferences`.
 ///
 /// The device id uses read-or-create semantics under [connectDeviceIdKey] —
-/// the same key, store, and behavior as the event enrichment client's client-id
-/// provider — so both packages resolve the identical id for a device. Whichever
-/// package initializes first generates the UUID; the other reads it.
+/// the same key, store, and behavior as the Flutter event enrichment client's
+/// client-id provider — so both Flutter packages resolve the identical id for
+/// a device. Whichever package initializes first generates the UUID; the other
+/// reads it.
+///
+/// Note: `shared_preferences` namespaces keys internally (a `flutter.` prefix
+/// on the stored entry), so the id is shared across Flutter packages in an
+/// app, but not with native Amplify SDKs reading the raw platform store — a
+/// hybrid app embedding both would resolve two ids, each stable per install.
 ///
 /// The device id is a random identifier, not a credential, so plain storage is
 /// appropriate. Cognito credentials remain in secure storage, managed by

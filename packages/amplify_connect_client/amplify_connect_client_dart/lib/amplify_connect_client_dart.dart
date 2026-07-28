@@ -12,5 +12,4 @@ export 'src/exception/connect_client_exception.dart';
 export 'src/models/channel_type.dart';
 export 'src/models/location.dart';
 export 'src/models/user_profile.dart';
-export 'src/services/connect_write_service.dart';
 export 'src/storage/device_id_store.dart';

@@ -7,9 +7,9 @@ import 'package:meta/meta.dart';
 /// {@template amplify_connect_client.configuration}
 /// Configuration for `AmplifyConnectClient`.
 ///
-/// Points the client at the Customer Profiles identify endpoint (an HTTP API
-/// fronting the backend Lambda) and the region used to SigV4-sign guest
-/// requests. Credentials are resolved separately from Amplify Auth.
+/// Points the client at the Customer Profiles write endpoint (an HTTP API
+/// fronting the backend Lambda) and the region used to SigV4-sign requests.
+/// Credentials are resolved separately from Amplify Auth.
 /// {@endtemplate}
 @immutable
 class ConnectClientConfiguration {
@@ -91,11 +91,11 @@ class ConnectClientConfiguration {
   static String _trimTrailingSlash(String value) =>
       value.endsWith('/') ? value.substring(0, value.length - 1) : value;
 
-  /// The base identify endpoint URL. Clients call `POST {endpoint}/identify-user`
-  /// and `POST {endpoint}/identify-user-guest`.
+  /// The base endpoint URL. Clients call `POST {endpoint}/identify-user`,
+  /// `POST {endpoint}/register-device`, and `POST {endpoint}/remove-device`.
   final String endpoint;
 
-  /// The AWS region used to SigV4-sign guest (`execute-api`) requests.
+  /// The AWS region used to SigV4-sign (`execute-api`) requests.
   final String region;
 
   @override
