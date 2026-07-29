@@ -2,15 +2,13 @@ group 'com.amazonaws.amplify.amplify_db_common'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '2.2.0'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.12.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:8.11.1'
     }
 }
 
@@ -22,7 +20,17 @@ allprojects {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+
+// Apply the Kotlin plugin unless the consuming app has AGP's built-in Kotlin
+// enabled (AGP 9+ with android.builtInKotlin=true), where applying it is an
+// error. This keeps already-released versions of this package building across
+// a future Flutter that turns built-in Kotlin on. Fully dropping the apply
+// (built-in Kotlin migration, #7014) lands once the Flutter floor is 3.47+.
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = project.findProperty('android.builtInKotlin')?.toString()?.toBoolean() ?: false
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'kotlin-android'
+}
 
 android {
     compileSdk 36
@@ -30,10 +38,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = '17'
     }
 
     sourceSets {
@@ -50,4 +54,10 @@ android {
 dependencies {
     // Keep in sync with: https://github.com/simolus3/sqlite3.dart/blob/main/sqlite3_flutter_libs/android/build.gradle
     implementation 'eu.simonbinder:sqlite3-native-library:3.51.2'
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
 }
