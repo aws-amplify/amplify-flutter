@@ -7,6 +7,7 @@ on:
       - stable
     paths:
       - '.github/workflows/amplify_connect_client_dart.yaml'
+      - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_connect_client/amplify_connect_client_dart/**/*.dart'
       - 'packages/amplify_connect_client/amplify_connect_client_dart/**/*.yaml'
@@ -23,6 +24,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/amplify_connect_client_dart.yaml'
+      - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_connect_client/amplify_connect_client_dart/**/*.dart'
       - 'packages/amplify_connect_client/amplify_connect_client_dart/**/*.yaml'
@@ -58,6 +60,13 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     secrets: inherit
+    with:
+      package-name: amplify_connect_client_dart
+      working-directory: packages/amplify_connect_client/amplify_connect_client_dart
+  native_test:
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    secrets: inherit 
     with:
       package-name: amplify_connect_client_dart
       working-directory: packages/amplify_connect_client/amplify_connect_client_dart
