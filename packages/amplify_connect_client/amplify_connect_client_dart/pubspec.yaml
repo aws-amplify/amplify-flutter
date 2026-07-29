@@ -1,0 +1,26 @@
+name: amplify_connect_client_dart
+description: A Dart-only standalone client for Amazon Connect Customer Profiles that identifies users and registers device push tokens via SigV4-signed REST calls. For internal use in the amplify_connect_client Flutter library.
+version: 0.1.0
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_connect_client/amplify_connect_client_dart
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+
+topics:
+  - aws
+  - connect
+  - customer-profiles
+  - aws-amplify
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  amplify_foundation_dart: ">=2.11.0 <2.12.0"
+  aws_common: ">=0.7.14 <0.8.0"
+  aws_signature_v4: ">=0.6.11 <0.7.0"
+  meta: ^1.16.0
+  uuid: ^4.5.0
+
+dev_dependencies:
+  amplify_lints: ">=3.1.4 <3.2.0"
+  test: ^1.22.1

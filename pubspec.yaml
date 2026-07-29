@@ -111,6 +111,11 @@ aft:
       packages:
         - amplify_firehose
         - amplify_firehose_dart
+    - name: Connect
+      summary: amplify_connect_client
+      packages:
+        - amplify_connect_client
+        - amplify_connect_client_dart
     - name: AWS Common
       summary: aws_common
       propagate: none
