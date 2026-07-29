@@ -10,8 +10,9 @@ class XmlNamespace with AWSEquatable<XmlNamespace> {
   final String uri;
   final String? prefix;
 
-  XmlName get xmlName =>
-      prefix == null ? XmlName('xmlns') : XmlName(prefix!, 'xmlns');
+  XmlName get xmlName => prefix == null
+      ? const XmlName.parts('xmlns')
+      : XmlName.parts(prefix!, prefix: 'xmlns');
 
   @override
   List<Object?> get props => [uri, prefix];
