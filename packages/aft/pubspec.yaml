@@ -17,7 +17,7 @@ dependencies:
   code_builder: ^4.10.1
   collection: ^1.18.0
   file: ^7.0.1
-  git: ^2.2.0
+  git: ^2.3.2
   glob: ^2.1.0
   graphs: ^2.1.0
   io: ^1.0.4
@@ -50,10 +50,6 @@ dependency_overrides:
     path: ../aws_common
   aws_signature_v4:
     path: ../aws_signature_v4
-  git:
-    git:
-      url: https://github.com/tyllark/git
-      ref: feat/existing-worktree
   pub_server:
     path: ../test/pub_server
   smithy:
