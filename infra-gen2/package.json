@@ -9,6 +9,7 @@
     "backends/analytics/*",
     "backends/api/*",
     "backends/auth/*",
+    "backends/connect/*",
     "backends/kinesis/*",
     "backends/storage/*"
   ],
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@aws-amplify/backend": "^1.24.0",
     "@aws-amplify/backend-cli": "^1.9.0",
+    "@aws-amplify/backend-notifications": "^1.0.0",
     "@aws-crypto/client-node": "^4.2.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.1035.0",
     "aws-cdk": "^2.1134.0",

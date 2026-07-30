@@ -154,6 +154,18 @@ const List<AmplifyBackendGroup> infraConfig = [
       ),
     ],
   ),
+  AmplifyBackendGroup(
+    category: 'Connect',
+    defaultOutput:
+        'packages/amplify_connect_client/amplify_connect_client/example/lib',
+    backends: [
+      AmplifyBackend(
+        name: 'main',
+        identifier: 'connect',
+        pathToSource: 'infra-gen2/backends/connect/main',
+      ),
+    ],
+  ),
 ];
 
 const pathToBackends = 'infra-gen2/backends';
