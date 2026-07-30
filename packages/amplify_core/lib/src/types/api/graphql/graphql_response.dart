@@ -16,7 +16,7 @@ class GraphQLResponse<T> {
 
   /// Response data matching the type of the request.
   ///
-  /// Per GraphQL, [data] and [errors] are separate response fields: [data] may 
+  /// Per GraphQL, [data] and [errors] are separate response fields: [data] may
   /// be non-null when [errors] is non-empty (partial success). Check [hasErrors]
   /// before treating the response as fully successful.
   final T? data;
