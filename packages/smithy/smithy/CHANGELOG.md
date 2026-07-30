@@ -1,3 +1,8 @@
+## 0.7.13
+
+### Features
+- feat(smithy): Add wasm support to Smithy runtime ([#7188](https://github.com/aws-amplify/amplify-flutter/pull/7188))
+
 ## 0.7.12
 
 - Minor bug fixes and improvements

@@ -1,3 +1,10 @@
+## 2.14.0
+
+### Features
+- feat(analytics): Add wasm support for Analytics Pinpoint ([#7162](https://github.com/aws-amplify/amplify-flutter/pull/7162))
+- feat(notifications): Fail fast when push is used on an unsupported platform ([#7185](https://github.com/aws-amplify/amplify-flutter/pull/7185))
+- feat(storage): Add wasm support ([#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148))
+
 ## 2.13.0
 
 ### Features

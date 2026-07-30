@@ -1,3 +1,8 @@
+## 0.4.20
+
+### Features
+- feat(analytics): Add wasm support for Analytics Pinpoint ([#7162](https://github.com/aws-amplify/amplify-flutter/pull/7162))
+
 ## 0.4.19
 
 - Minor bug fixes and improvements
