@@ -1,3 +1,8 @@
+## 0.11.24
+
+### Fixes
+- fix(auth): Don't generate unused `JsonWebKeySet.fromJson` ([#7194](https://github.com/aws-amplify/amplify-flutter/pull/7194))
+
 ## 0.11.23
 
 - Minor bug fixes and improvements
