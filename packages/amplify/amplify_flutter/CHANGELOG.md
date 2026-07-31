@@ -11,6 +11,7 @@
   - smithy: [#7188](https://github.com/aws-amplify/amplify-flutter/pull/7188)
   - storage: [#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148)
 - feat(notifications): Fail fast when push is used on an unsupported platform ([#7185](https://github.com/aws-amplify/amplify-flutter/pull/7185))
+- feat(connect): Introduce Amplify Connect client for Customer Profiles ([#7109](https://github.com/aws-amplify/amplify-flutter/pull/7109))
 
 ## 2.13.0
 
