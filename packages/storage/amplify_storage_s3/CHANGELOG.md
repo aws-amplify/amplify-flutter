@@ -1,3 +1,8 @@
+## 2.14.0
+
+### Features
+- feat(storage): Add wasm support ([#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148))
+
 ## 2.13.0
 
 - Minor bug fixes and improvements

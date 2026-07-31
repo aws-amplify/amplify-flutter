@@ -1,3 +1,8 @@
+## 2.14.0
+
+### Features
+- feat(notifications): Fail fast when push is used on an unsupported platform ([#7185](https://github.com/aws-amplify/amplify-flutter/pull/7185))
+
 ## 2.13.0
 
 ### Fixes

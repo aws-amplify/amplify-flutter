@@ -1,3 +1,13 @@
+## 2.14.0
+
+### Features
+- feat(analytics): Add wasm support for Analytics Pinpoint ([#7162](https://github.com/aws-amplify/amplify-flutter/pull/7162))
+- feat(storage): Add wasm support ([#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148))
+
+### Fixes
+- fix(auth): Don't generate unused `JsonWebKeySet.fromJson` ([#7194](https://github.com/aws-amplify/amplify-flutter/pull/7194))
+- fix(storage): Don't fail resumed multipart upload on stale part cancellation ([#7178](https://github.com/aws-amplify/amplify-flutter/pull/7178))
+
 ## 2.13.0
 
 ### Features

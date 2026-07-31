@@ -1,3 +1,8 @@
+## 2.6.0
+
+### Features
+- feat(authenticator): Add wasm support ([#7195](https://github.com/aws-amplify/amplify-flutter/pull/7195))
+
 ## 2.5.5
 
 - Minor bug fixes and improvements

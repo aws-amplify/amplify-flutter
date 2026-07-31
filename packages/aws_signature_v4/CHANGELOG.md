@@ -1,3 +1,8 @@
+## 0.6.13
+
+### Features
+- feat(sigv4): Add wasm support ([#7187](https://github.com/aws-amplify/amplify-flutter/pull/7187))
+
 ## 0.6.12
 
 - Minor bug fixes and improvements
