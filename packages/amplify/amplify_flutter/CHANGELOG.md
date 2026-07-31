@@ -1,9 +1,16 @@
 ## 2.14.0
 
 ### Features
-- feat(analytics): Add wasm support for Analytics Pinpoint ([#7162](https://github.com/aws-amplify/amplify-flutter/pull/7162))
+- Completing initial wasm support for web packages
+  - analytics: [#7162](https://github.com/aws-amplify/amplify-flutter/pull/7162)
+  - authenticator: [#7195](https://github.com/aws-amplify/amplify-flutter/pull/7195)
+  - db_common: [#7186](https://github.com/aws-amplify/amplify-flutter/pull/7186)
+  - firehose: [#7168](https://github.com/aws-amplify/amplify-flutter/pull/7168)
+  - kinesis: [#7172](https://github.com/aws-amplify/amplify-flutter/pull/7172)
+  - sigv4: [#7187](https://github.com/aws-amplify/amplify-flutter/pull/7187)
+  - smithy: [#7188](https://github.com/aws-amplify/amplify-flutter/pull/7188)
+  - storage: [#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148)
 - feat(notifications): Fail fast when push is used on an unsupported platform ([#7185](https://github.com/aws-amplify/amplify-flutter/pull/7185))
-- feat(storage): Add wasm support ([#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148))
 
 ## 2.13.0
 
