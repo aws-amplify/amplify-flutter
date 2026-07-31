@@ -25,7 +25,7 @@ platforms:
   web:
 
 dependencies:
-  amplify_firehose_dart: ">=2.13.0 <2.14.0"
+  amplify_firehose_dart: ">=0.1.4 <0.2.0"
   amplify_foundation_dart: ">=2.12.1 <2.13.0"
   flutter:
     sdk: flutter

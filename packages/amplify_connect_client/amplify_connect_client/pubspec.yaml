@@ -1,6 +1,6 @@
 name: amplify_connect_client
 description: A Flutter client for Amazon Connect Customer Profiles that identifies users and registers device push tokens, backed by Amplify Auth credentials and secure storage.
-version: 0.1.1
+version: 0.1.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_connect_client/amplify_connect_client
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -12,8 +12,8 @@ topics:
   - aws-amplify
 
 environment:
-  sdk: ^3.10.0
-  flutter: ">=3.38.1"
+  sdk: ^3.11.0
+  flutter: ">=3.41.0"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:
@@ -26,7 +26,7 @@ platforms:
 
 dependencies:
   amplify_auth_cognito: ">=2.14.0 <2.15.0"
-  amplify_connect_client_dart: ">=0.1.1 <0.2.0"
+  amplify_connect_client_dart: ">=0.1.0 <0.2.0"
   amplify_flutter: ">=2.14.0 <2.15.0"
   flutter:
     sdk: flutter
@@ -34,7 +34,7 @@ dependencies:
   uuid: ^4.5.0
 
 dev_dependencies:
-  amplify_lints: ">=3.1.4 <3.2.0"
+  amplify_lints: ">=3.1.6 <3.2.0"
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.0
