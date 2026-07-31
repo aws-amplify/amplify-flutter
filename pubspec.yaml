@@ -80,6 +80,9 @@ aft:
         - amplify_storage_s3
         - amplify_push_notifications
         - amplify_push_notifications_pinpoint
+        # Constraint-locked to `amplify_flutter`/`amplify_auth_cognito`, so it
+        # must move in lockstep with them to keep resolving.
+        - amplify_connect_client
     - name: Amplify Dart
       summary: amplify_core
       propagate: none
@@ -118,9 +121,14 @@ aft:
         - amplify_firehose
         - amplify_firehose_dart
     - name: Connect
+      # `amplify_connect_client` is the summary but is *not* a member: it lives
+      # in the `Amplify Flutter` component so it versions with `amplify_flutter`
+      # (see `Amplify Dart`, which aggregates into `amplify_core` the same way).
+      # This package is versioned on its own pre-1.0 line and must never be
+      # pulled onto the wrapper's 2.x version.
       summary: amplify_connect_client
+      propagate: none
       packages:
-        - amplify_connect_client
         - amplify_connect_client_dart
     - name: AWS Common
       summary: aws_common
