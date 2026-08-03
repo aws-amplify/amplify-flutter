@@ -1,0 +1,57 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose' version '2.0.0'   // REQUIRED for Kotlin 2.0+
+}
+
+android {
+    namespace "com.solvian.aws_liveness"
+    compileSdkVersion 34
+
+    defaultConfig {
+        minSdkVersion 24
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.3'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.10"
+    
+    // AWS Liveness UI (Compose) - UPGRADED to 1.6.0 for timeout bug fixes
+    implementation 'com.amplifyframework.ui:liveness:1.6.0'
+    
+    // CRITICAL: AWS Amplify Predictions plugin (REQUIRED for Face Liveness to work)
+    implementation 'com.amplifyframework:aws-predictions:2.15.0'
+    implementation 'com.amplifyframework:core:2.15.0'
+    implementation 'com.amplifyframework:aws-auth-cognito:2.15.0'
+    
+    // Compose dependencies
+    implementation 'androidx.compose.ui:ui:1.5.4'
+    implementation 'androidx.compose.material3:material3:1.1.2'
+    implementation 'androidx.activity:activity-compose:1.8.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
+
+    // Permission handling
+    implementation 'com.google.accompanist:accompanist-permissions:0.32.0'
+}
