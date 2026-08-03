@@ -90,6 +90,17 @@ class PinpointProvider implements ServiceProviderClient {
         final region = config.awsRegion;
         final appId = config.amazonPinpointAppId;
 
+        if (region == null || appId == null) {
+          throw ConfigurationError(
+            'No Pinpoint configuration found for the Notifications category. '
+            'Notifications may be present without Pinpoint being configured — '
+            'for example when only Amazon Connect is provisioned.',
+            recoverySuggestion:
+                'Make sure Amazon Pinpoint is configured in the Notifications '
+                'category of your Amplify configuration.',
+          );
+        }
+
         final secureStorageFactory = AmplifySecureStorage.factoryFrom();
 
         final endpointStorage = secureStorageFactory(
