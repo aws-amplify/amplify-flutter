@@ -156,10 +156,16 @@ public class AmplifyAuthCognitoPlugin: NSObject, FlutterPlugin, NativeAuthBridge
         contextData.deviceOsReleaseVersion = osVersion
         
         // ScreenWidthPixels / ScreenHeightPixels
-        let bounds = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?
-            .screen.nativeBounds.size ?? .zero
-        contextData.screenWidthPixels = Int64(bounds.width)
-        contextData.screenHeightPixels = Int64(bounds.height)
+        // Replaces UIScreen.main, deprecated as of iOS 26. connectedScenes is unordered,
+        // so prefer a foreground scene over an arbitrary one.
+        let windowScenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+        let activeScene = windowScenes.first { $0.activationState == .foregroundActive }
+            ?? windowScenes.first { $0.activationState == .foregroundInactive }
+            ?? windowScenes.first
+        if let bounds = activeScene?.screen.nativeBounds.size {
+            contextData.screenWidthPixels = Int64(bounds.width)
+            contextData.screenHeightPixels = Int64(bounds.height)
+        }
     
         return contextData
 #endif
