@@ -5,6 +5,9 @@ import XCTest
 import Flutter
 
 @testable import amplify_push_notifications
+// The pigeon generated types are Objective C and live in their own module, which
+// @testable import above does not re-export.
+@testable import amplify_push_notifications_objc
 
 let fakePointer = AutoreleasingUnsafeMutablePointer<FlutterError?>(bitPattern: 1)!
 let expectedNotification = [
@@ -215,7 +218,7 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
         )
 
         let expectedBadgeNumber = 1000
-        pluginInstance!.setBadgeCountWithBadgeCount(expectedBadgeNumber as NSNumber, error: fakePointer)
+        pluginInstance!.setBadgeCountWithBadgeCount(expectedBadgeNumber, error: fakePointer)
 
         XCTAssertEqual(
             pluginInstance!.getBadgeCountWithError(fakePointer)?.intValue, expectedBadgeNumber
@@ -568,6 +571,14 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
 class MockFlutterPluginRegistrar: NSObject, FlutterPluginRegistrar {
     var instance: Any?
     var sceneDelegate: Any?
+
+    var viewController: UIViewController? {
+        return nil
+    }
+
+    func valuePublished(byPlugin pluginKey: String) -> NSObject? {
+        return nil
+    }
 
     func messenger() -> FlutterBinaryMessenger {
         return MockFlutterBinaryMessenger()
