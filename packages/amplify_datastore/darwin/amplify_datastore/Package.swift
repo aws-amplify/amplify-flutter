@@ -9,7 +9,7 @@ import PackageDescription
 let package = Package(
     name: "amplify_datastore",
     platforms: [
-        .iOS("13.0")
+        .iOS("15.0")
     ],
     products: [
         .library(name: "amplify-datastore", targets: ["amplify_datastore"])
