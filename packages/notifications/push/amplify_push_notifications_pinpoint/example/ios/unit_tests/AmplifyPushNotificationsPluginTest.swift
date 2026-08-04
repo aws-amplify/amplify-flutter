@@ -24,6 +24,7 @@ var hasNotificationOpenedHandlerBeenCalled = false
 var hasForegroundMessageReceivedHandlerBeenCalled = false
 var hasTokenReceivedHandlerBeenCalled = false
 var hasTokenReceivedErrorHandlerBeenCalled = false
+var hasNullifyLaunchNotificationBeenCalled = false
 
 final class AmplifyPushNotificationsPluginTest: XCTestCase {
     var originalApplicationStateGetter: Method?
@@ -39,6 +40,7 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
         hasForegroundMessageReceivedHandlerBeenCalled = false
         hasTokenReceivedHandlerBeenCalled = false
         hasTokenReceivedErrorHandlerBeenCalled = false
+        hasNullifyLaunchNotificationBeenCalled = false
 
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -419,10 +421,153 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
 
         XCTAssertTrue(hasTokenReceivedErrorHandlerBeenCalled)
     }
+
+    // Passing the NSError as details makes FlutterStandardCodec raise an
+    // NSInternalInconsistencyException, which terminates the host App.
+    func testDidFailToRegisterForRemoteNotificationsWithError_detailsAreCodecSafe() {
+        let mockError = NSError(
+            domain: NSCocoaErrorDomain,
+            code: 3000,
+            userInfo: [
+                NSLocalizedDescriptionKey: expectedErrorLocalizedDescription,
+                // A value the codec cannot encode, it must not be forwarded
+                NSUnderlyingErrorKey: NSError(domain: "underlying", code: 1)
+            ]
+        )
+
+        class MockTokenReceivedHandler: PushNotificationEventsStreamHandler {
+            override func sendError(error: FlutterError) {
+                hasTokenReceivedErrorHandlerBeenCalled = true
+
+                let details = error.details as? [String: Any]
+                XCTAssertNotNil(details, "details should be a dictionary, not an NSError")
+                XCTAssertEqual(details?["domain"] as? String, NSCocoaErrorDomain)
+                XCTAssertEqual(details?["code"] as? Int, 3000)
+                XCTAssertEqual(Set(details!.keys), Set(["domain", "code"]))
+                XCTAssertNotNil(FlutterStandardMessageCodec.sharedInstance().encode(details!))
+            }
+        }
+
+        let plugin = AmplifyPushNotificationsPlugin(
+            sharedEventsStreamHandlers: MockEventsStreamHandlers(
+                tokenReceived: MockTokenReceivedHandler(
+                    eventType: NativeEvent.tokenReceived, binaryMessenger: MockFlutterBinaryMessenger()
+                ),
+                notificationOpened: PushNotificationEventsStreamHandler(
+                    eventType: NativeEvent.notificationOpened, binaryMessenger: MockFlutterBinaryMessenger()
+                ),
+                foregroundMessageReceived: PushNotificationEventsStreamHandler(
+                    eventType: NativeEvent.foregroundMessageReceived, binaryMessenger: MockFlutterBinaryMessenger()
+                )
+            ),
+            flutterApi: PushNotificationsFlutterApi()
+        )
+
+        plugin.application(UIApplication.shared, didFailToRegisterForRemoteNotificationsWithError: mockError)
+
+        XCTAssertTrue(hasTokenReceivedErrorHandlerBeenCalled)
+    }
+
+    // MARK: - UIScene life cycle
+
+    @available(iOS 13.0, *)
+    func testRegisterAddsBothApplicationAndSceneDelegate() {
+        let registrar = MockFlutterPluginRegistrar()
+        AmplifyPushNotificationsPlugin.register(with: registrar)
+
+        // The AppDelegate path stays registered for hosts that have not adopted UIScene
+        XCTAssertTrue(registrar.instance is AmplifyPushNotificationsPlugin)
+        XCTAssertTrue(registrar.sceneDelegate is AmplifyPushNotificationsPlugin)
+        XCTAssertIdentical(registrar.instance as? AmplifyPushNotificationsPlugin,
+                           registrar.sceneDelegate as? AmplifyPushNotificationsPlugin)
+    }
+
+    // Returning true would stop Flutter forwarding the event, and nil out the
+    // connectionOptions, for the plugins registered after this one.
+    @available(iOS 13.0, *)
+    func testSceneWillConnectDoesNotConsumeTheEvent() {
+        let scene = UIApplication.shared.connectedScenes.first!
+
+        let handled = pluginInstance!.scene(
+            scene,
+            willConnectTo: scene.session,
+            options: nil
+        )
+
+        XCTAssertFalse(handled)
+    }
+
+    // nil connectionOptions means a plugin ahead of this one already handled the
+    // connection, which must not discard what the AppDelegate path recorded.
+    @available(iOS 13.0, *)
+    func testSceneWillConnectWithoutOptionsKeepsLaunchNotification() {
+        fakeUIApplicationState = UIApplication.State.inactive
+        _ = pluginInstance!.application(
+            UIApplication.shared,
+            didFinishLaunchingWithOptions: [
+                UIApplication.LaunchOptionsKey.remoteNotification: expectedNotification
+            ]
+        )
+
+        let scene = UIApplication.shared.connectedScenes.first!
+        _ = pluginInstance!.scene(scene, willConnectTo: scene.session, options: nil)
+
+        let result = pluginInstance!.getLaunchNotificationWithError(fakePointer)
+        XCTAssertNotNil(result)
+        XCTAssertTrue(NSDictionary(dictionary: result!).isEqual(to: expectedNotification))
+    }
+
+    @available(iOS 13.0, *)
+    func testSceneDidBecomeActiveRegistersForRemoteNotifications() {
+        let original = class_getInstanceMethod(
+            UIApplication.self,
+            #selector(UIApplication.shared.registerForRemoteNotifications as () -> Void)
+        )
+        let mocked = class_getInstanceMethod(
+            MockUIApplicationRegisterForRemoteNotifications.self,
+            #selector(MockUIApplicationRegisterForRemoteNotifications.registerForRemoteNotifications)
+        )
+        method_exchangeImplementations(original!, mocked!)
+        defer { method_exchangeImplementations(mocked!, original!) }
+
+        // Single scene test host, so this scene becoming active means the App did too
+        pluginInstance!.sceneDidBecomeActive(UIApplication.shared.connectedScenes.first!)
+
+        XCTAssertTrue(hasCalledRegisterForRemoteNotifications)
+    }
+
+    @available(iOS 13.0, *)
+    func testSceneDidEnterBackgroundNullifiesLaunchNotification() {
+        class MockPushNotificationsFlutterApi: PushNotificationsFlutterApi {
+            override func nullifyLaunchNotification(completion: @escaping (FlutterError?) -> Void) {
+                hasNullifyLaunchNotificationBeenCalled = true
+                completion(nil)
+            }
+        }
+
+        let plugin = AmplifyPushNotificationsPlugin(
+            sharedEventsStreamHandlers: EventsStreamHandlers(binaryMessenger: MockFlutterBinaryMessenger()),
+            flutterApi: MockPushNotificationsFlutterApi()
+        )
+
+        fakeUIApplicationState = UIApplication.State.inactive
+        _ = plugin.application(
+            UIApplication.shared,
+            didFinishLaunchingWithOptions: [
+                UIApplication.LaunchOptionsKey.remoteNotification: expectedNotification
+            ]
+        )
+
+        plugin.sceneDidEnterBackground(UIApplication.shared.connectedScenes.first!)
+
+        XCTAssertTrue(hasNullifyLaunchNotificationBeenCalled)
+        XCTAssertNil(plugin.getLaunchNotificationWithError(fakePointer))
+    }
 }
 
 class MockFlutterPluginRegistrar: NSObject, FlutterPluginRegistrar {
     var instance: Any?
+    var sceneDelegate: Any?
 
     func messenger() -> FlutterBinaryMessenger {
         return MockFlutterBinaryMessenger()
@@ -458,6 +603,11 @@ class MockFlutterPluginRegistrar: NSObject, FlutterPluginRegistrar {
 
     func addApplicationDelegate(_ delegate: FlutterPlugin) {
         instance = delegate
+    }
+
+    @available(iOS 13.0, *)
+    func addSceneDelegate(_ delegate: FlutterSceneLifeCycleDelegate) {
+        sceneDelegate = delegate
     }
 }
 
