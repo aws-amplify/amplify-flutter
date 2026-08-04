@@ -113,6 +113,8 @@ jobs:
             device: "iPhone 13 Pro Max"
           - ios-version: "26.4"
             device: "iPhone 17 Pro Max"
+          - ios-version: "27.0"
+            device: "iPhone 17 Pro Max"
     steps:
       - name: Git Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
