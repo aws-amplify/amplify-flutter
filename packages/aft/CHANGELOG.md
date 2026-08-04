@@ -1,3 +1,21 @@
+## 0.2.3
+
+- Support exluding example from bootstrap
+
+## 0.2.2
+
+- Support bootstrapping packages for CI/CD deployments
+- Fix bumping versions
+- Get version logs
+
+## 0.2.1
+
+- Improve pub.dev analysis detection
+
+## 0.2.0
+
+- Auto await pub.dev analysis
+
 ## 0.1.1
 
 - Minor bug fixes and improvements

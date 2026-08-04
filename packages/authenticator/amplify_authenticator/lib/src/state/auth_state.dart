@@ -3,9 +3,9 @@
 
 import 'package:amplify_authenticator/src/enums/authenticator_step.dart';
 import 'package:amplify_authenticator/src/models/totp_options.dart';
+import 'package:amplify_authenticator/src/utils/package_info/package_info.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 abstract class AuthState {
   const AuthState();
@@ -146,7 +146,7 @@ class ContinueSignInTotpSetup extends UnauthenticatedState {
       appName:
           totpOptions?.issuer ??
           // TODO(equartey): Update this once we have our own method of getting the app name
-          (await PackageInfo.fromPlatform()).appName,
+          await getAppName(),
     );
 
     return ContinueSignInTotpSetup(totpSetupDetails, setupUri);

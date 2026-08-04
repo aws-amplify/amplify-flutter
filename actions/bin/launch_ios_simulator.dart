@@ -15,6 +15,7 @@ Future<void> main(List<String> args) => wrapMain(launch);
 // https://github.com/XcodesOrg/xcodes/releases/tag/1.5.0
 Future<void> launch() async {
   final iosVersionArg = core.getInput('ios-version');
+  final device = core.getInput('device', defaultValue: 'iPhone 17 Pro Max');
   final script = core.getRequiredInput('script');
   final maxRetries = core.getTypedInput(
     'max-retries',
@@ -74,7 +75,7 @@ Future<void> launch() async {
     // Phase 1: Launch simulator
     ({bool success, Object? error, Object? stackTrace}) launchResult;
     try {
-      await _launchSimulator(runtimeIdentifier);
+      await _launchSimulator(runtimeIdentifier, device: device);
       core.info('✅ Simulator launched successfully');
       launchResult = (success: true, error: null, stackTrace: null);
     } on Object catch (e, st) {
@@ -178,14 +179,15 @@ Future<void> launch() async {
 }
 
 /// Launches the iOS simulator with the given runtime identifier.
-Future<void> _launchSimulator(String runtimeIdentifier) async {
+Future<void> _launchSimulator(String runtimeIdentifier, {required String device}) async {
+  core.info('Creating simulator with device "$device" for runtime $runtimeIdentifier');
   final createRes = await core.withGroup(
     'Create simulator',
     () => exec.exec('xcrun', [
       'simctl',
       'create',
       'test',
-      'iPhone 11',
+      device,
       runtimeIdentifier,
     ]),
   );

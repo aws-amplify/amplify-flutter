@@ -44,12 +44,15 @@ void main() {
             'packages/common/amplify_db_common/example',
             'packages/common/amplify_db_common_dart/example',
             'packages/example_common/example',
+            'packages/kinesis/amplify_firehose/example',
+            'packages/kinesis/amplify_kinesis/example',
             'packages/notifications/push/amplify_push_notifications/example',
             'packages/notifications/push/amplify_push_notifications_pinpoint/example',
             'packages/secure_storage/amplify_secure_storage/example',
             'packages/secure_storage/amplify_secure_storage_dart/example',
             'packages/storage/amplify_storage_s3/example',
             'packages/storage/amplify_storage_s3_dart/example',
+            'packages/worker_bee/worker_bee/example',
           ]),
         );
       });
@@ -126,6 +129,7 @@ void main() {
         matchesPackagePaths([
           'canaries',
           'packages/amplify/amplify_flutter/example',
+          'packages/kinesis/amplify_firehose/example',
           'packages/amplify_core/doc',
           'packages/amplify_datastore/example',
           'packages/amplify_native_legacy_wrapper/example',
@@ -136,6 +140,8 @@ void main() {
           'packages/notifications/push/amplify_push_notifications_pinpoint/example',
           'packages/secure_storage/amplify_secure_storage/example',
           'packages/storage/amplify_storage_s3/example',
+          'packages/kinesis/amplify_kinesis/example',
+          'packages/worker_bee/worker_bee/example',
         ]),
       );
     });

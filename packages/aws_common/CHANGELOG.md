@@ -1,3 +1,17 @@
+## 0.7.15
+
+- Minor bug fixes and improvements
+
+## 0.7.14
+
+### Fixes
+- fix(aws_common): Invoke `ReadableStreamReader.cancel` instead of reading the property ([#7047](https://github.com/aws-amplify/amplify-flutter/pull/7047))
+
+## 0.7.13
+
+### Fixes
+- fix(aws_common): Use isA for JS interop type check in catch clause ([#6859](https://github.com/aws-amplify/amplify-flutter/pull/6859))
+
 ## 0.7.12
 
 - Minor bug fixes and improvements

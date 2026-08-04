@@ -8,6 +8,7 @@ import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -29,6 +30,15 @@ Future<void> loadAuthenticator({
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   if (!binding.sendFramesToEngine) binding.allowFirstFrame();
+
+  // Unfocus before swapping the tree to reduce web focus-change crashes; the
+  // guard below ignores the ones that still fire mid-test. See _isWebFocusCrash.
+  if (kIsWeb) {
+    _installFocusCrashGuard();
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pumpAndSettle();
+  }
+
   await tester.pumpWidget(authenticator);
   await tester.pumpAndSettle();
 }
@@ -66,4 +76,37 @@ extension BlocAccess on WidgetTester {
     );
     return inheritedBloc.authBloc;
   }
+}
+
+FlutterExceptionHandler? _previousOnError;
+
+// Ignore the benign "Cannot get renderObject of inactive element" assertion
+// that web focus traversal throws on a torn-down tree (flutter/flutter#178109).
+// Installed from the test body because the binding resets onError per test.
+void _installFocusCrashGuard() {
+  final current = FlutterError.onError;
+  if (current == _onFlutterError) return;
+  _previousOnError = current;
+  FlutterError.onError = _onFlutterError;
+}
+
+void _onFlutterError(FlutterErrorDetails details) {
+  if (_isWebFocusCrash(details)) return;
+  (_previousOnError ?? FlutterError.presentError)(details);
+}
+
+// Match the message and the focus-traversal stack so other errors still fail.
+bool _isWebFocusCrash(FlutterErrorDetails details) {
+  if (!kIsWeb) return false;
+  if (!details.exceptionAsString().contains(
+    'Cannot get renderObject of inactive element',
+  )) {
+    return false;
+  }
+  final text = '${details.context}${details.stack}';
+  return text.contains('didChangeViewFocus') ||
+      text.contains('findFirstFocus') ||
+      text.contains('focus_traversal.dart') ||
+      text.contains('FocusNode.rect') ||
+      (text.contains('focus_manager.dart') && text.contains('rect'));
 }

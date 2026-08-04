@@ -1,0 +1,25 @@
+name: amplify_firehose_example
+description: Example app for amplify_firehose.
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+  flutter: ">=3.41.0"
+
+dependencies:
+  amplify_auth_cognito: any
+  amplify_authenticator: any
+  amplify_firehose:
+    path: ../
+  amplify_flutter: any
+  amplify_foundation_dart: any
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints: ">=3.1.4 <3.2.0"
+  amplify_test: ">=0.5.0 <0.6.0"
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter

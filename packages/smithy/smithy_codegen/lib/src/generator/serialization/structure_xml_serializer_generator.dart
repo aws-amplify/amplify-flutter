@@ -238,7 +238,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
             .property('add')
             .call([
               DartTypes.xml.xmlAttribute.newInstance([
-                DartTypes.xml.xmlName.newInstance([
+                DartTypes.xml.xmlName.newInstanceNamed('parts', [
                   literalString(serializeMemberWireName(member)),
                 ]),
                 serializerFor(member, memberRef).asA(DartTypes.core.string),

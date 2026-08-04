@@ -184,7 +184,15 @@ Future<void> copyDirectory(Directory source, Directory destination) async {
     if (!File(e.path).existsSync()) {
       continue;
     }
-    final path = e.path.replaceFirst(source.path, '');
+    var path = e.path.replaceFirst(source.path, '');
+    // Snapshot fixture pubspec.yaml files are stored with a `.snapshot`
+    // suffix so pub.dev/pana repository verification does not treat them as
+    // duplicate `pubspec.yaml` files when cloning the git tree. Strip the
+    // suffix when materializing the temp repo so the contents are identical.
+    const snapshotSuffix = '.snapshot';
+    if (path.endsWith('pubspec.yaml$snapshotSuffix')) {
+      path = path.substring(0, path.length - snapshotSuffix.length);
+    }
     logger.verbose('copying to ${destination.path}/$path');
     final file = File('${destination.path}/$path');
     await file.create(recursive: true);

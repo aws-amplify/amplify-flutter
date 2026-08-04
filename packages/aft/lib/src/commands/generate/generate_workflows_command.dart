@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:path/path.dart' as p;
+import 'package:yaml/yaml.dart';
 
 /// Command for generating GitHub Actions workflows for all packages in the
 /// repo.
@@ -208,6 +209,23 @@ ${dependabotGroups.join('\n')}
     }
   }
 
+  /// Whether the E2E web run for [package] should also exercise `dart2wasm`.
+  ///
+  /// E2E tests run from a `*_example` package, but the `dart2wasm` opt-in
+  /// marker (`test/wasm_smoke_test.dart`) lives in the sibling `*_test`
+  /// package. Map the example to its test package by naming convention and
+  /// reuse its [PackageInfo.hasWasmTest] signal.
+  bool _e2eNeedsWasm(PackageInfo package) {
+    if (package.hasWasmTest) return true;
+    const exampleSuffix = '_example';
+    if (!package.name.endsWith(exampleSuffix)) return false;
+    final base = package.name.substring(
+      0,
+      package.name.length - exampleSuffix.length,
+    );
+    return repo.allPackages['${base}_test']?.hasWasmTest ?? false;
+  }
+
   Future<void> generateForPackage(
     PackageInfo package, {
     required String repoRelativePath,
@@ -240,6 +258,7 @@ ${dependabotGroups.join('\n')}
 
     const ddcWorkflow = 'dart_ddc.yaml';
     const dart2JsWorkflow = 'dart_dart2js.yaml';
+    const dart2WasmWorkflow = 'dart_dart2wasm.yaml';
     const nativeWorkflow = 'dart_native.yaml';
     final e2eWorkflows = {
       'android': 'e2e_android.yaml',
@@ -258,6 +277,10 @@ ${dependabotGroups.join('\n')}
     final needsNativeTest = isDartPackage && package.unitTestDirectory != null;
     final needsWebTest = package.pubspecInfo.pubspec.devDependencies
         .containsKey('build_test');
+    // A package opts into dart2wasm browser coverage by adding a
+    // `test/wasm_smoke_test.dart` file. This is additive to (not a
+    // replacement for) the default dart2js web test job.
+    final needsWasmTest = needsWebTest && package.hasWasmTest;
     // TODO(dnys1): Enable E2E runs for Dart packages
     final needsE2ETest =
         package.flavor == PackageFlavor.flutter &&
@@ -265,11 +288,18 @@ ${dependabotGroups.join('\n')}
     final hasGoldens =
         package.flavor == PackageFlavor.flutter &&
         package.goldensTestDirectory != null;
+    // Detect ffigen configurations
+    const ffigenWorkflow = 'ffigen_validate.yaml';
+    final ffigenConfigs = _detectFfigenConfigs(package);
+    final hasFfigen = ffigenConfigs.isNotEmpty;
+
     final workflows = <String>[
       analyzeAndTestWorkflow,
       if (needsNativeTest) nativeWorkflow,
       if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
+      if (needsWasmTest) dart2WasmWorkflow,
       if (needsE2ETest) ...e2eWorkflows.values,
+      if (hasFfigen) ffigenWorkflow,
     ];
 
     // Collect all the paths for which this workflow will run. This includes
@@ -388,6 +418,17 @@ jobs:
       package-name: ${package.name}
       working-directory: $repoRelativePath
 ''');
+        if (needsWasmTest) {
+          workflowContents.write('''
+  dart2wasm_test:
+    needs: test
+    uses: ./.github/workflows/$dart2WasmWorkflow
+    secrets: inherit
+    with:
+      package-name: ${package.name}
+      working-directory: $repoRelativePath
+''');
+        }
       }
     }
 
@@ -396,10 +437,12 @@ jobs:
         'test',
         if (needsNativeTest) 'native_test',
         if (needsWebTest) ...['ddc_test', 'dart2js_test'],
+        if (needsWasmTest) 'dart2wasm_test',
       ];
       final needsAwsConfig = File(
         p.join(package.path, 'tool', 'pull_test_backend.sh'),
       ).existsSync();
+      final e2eNeedsWasm = _e2eNeedsWasm(package);
       for (final MapEntry(key: platform, value: e2eWorkflow)
           in e2eWorkflows.entries) {
         workflowContents.write('''
@@ -411,6 +454,32 @@ jobs:
       package-name: ${package.name}
       working-directory: $repoRelativePath
       needs-aws-config: $needsAwsConfig
+''');
+        // Only the web E2E workflow understands `run-wasm`, and only emit it
+        // when opted in to keep the generated diff minimal for other packages.
+        if (platform == 'web' && e2eNeedsWasm) {
+          workflowContents.write('''
+      run-wasm: true
+''');
+        }
+      }
+    }
+
+    // Add ffigen validation jobs
+    if (hasFfigen) {
+      for (final MapEntry(key: os, value: configs) in ffigenConfigs.entries) {
+        final osLabel = os.startsWith('macos') ? 'macos' : 'linux';
+        final configFiles = configs.join(' ');
+        workflowContents.write('''
+  ffigen_${osLabel}_test:
+    needs: test
+    uses: ./.github/workflows/$ffigenWorkflow
+    secrets: inherit
+    with:
+      package-name: ${package.name}
+      working-directory: $repoRelativePath
+      ffigen-configs: '$configFiles'
+      os: $os
 ''');
       }
     }
@@ -617,6 +686,73 @@ jobs:
 ''';
 
     writeWorkflowFile(iosWorkflowFile, iosWorkflowContents);
+  }
+
+  /// Detects ffigen configuration files in the package directory and groups
+  /// them by the OS runner needed.
+  ///
+  /// Returns a map of runner OS -> list of config file names.
+  Map<String, List<String>> _detectFfigenConfigs(PackageInfo package) {
+    final packageDir = Directory(package.path);
+    final ffigenConfigFiles = packageDir
+        .listSync()
+        .whereType<File>()
+        .where(
+          (f) =>
+              p.basename(f.path).startsWith('ffigen') &&
+              p.basename(f.path).endsWith('.yaml'),
+        )
+        .toList();
+
+    if (ffigenConfigFiles.isEmpty) {
+      return {};
+    }
+
+    // Group configs by OS runner
+    final configsByOs = <String, List<String>>{};
+    for (final configFile in ffigenConfigFiles) {
+      final configName = p.basename(configFile.path);
+      final os = _ffigenConfigOs(configFile);
+      configsByOs.putIfAbsent(os, () => []).add(configName);
+    }
+
+    // Sort config names within each OS group for deterministic output
+    for (final configs in configsByOs.values) {
+      configs.sort();
+    }
+
+    // Return with sorted keys for deterministic job ordering
+    return Map.fromEntries(
+      configsByOs.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+    );
+  }
+
+  /// Determines the OS runner needed for a given ffigen config file.
+  ///
+  /// Checks for macOS indicators (Xcode paths, ObjC language) in the config.
+  /// Defaults to `ubuntu-latest` for Linux-based configs.
+  String _ffigenConfigOs(File configFile) {
+    try {
+      final content = configFile.readAsStringSync();
+      final yaml = loadYaml(content);
+      if (yaml is YamlMap) {
+        // Check for ObjC language (requires macOS)
+        final language = yaml['language'];
+        if (language is String && language == 'objc') {
+          return 'macos-26';
+        }
+
+        // Check for macOS SDK paths in headers or compiler-opts
+        if (content.contains('MacOSX.platform') ||
+            content.contains('MacOSX.sdk') ||
+            content.contains('Xcode.app')) {
+          return 'macos-26';
+        }
+      }
+    } on Object {
+      // If we can't parse the config, default to Linux
+    }
+    return 'ubuntu-latest';
   }
 
   void writeWorkflowFile(File workflowFile, String content) {

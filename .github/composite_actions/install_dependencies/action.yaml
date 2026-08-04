@@ -21,8 +21,12 @@ runs:
     #  Install aft from path, links packages and runs build runner where needed.
     - name: Partial aft bootstrap
       shell: bash
+      # `--force-jit` on the build_runner invocation works around a Dart 3.10.x
+      # regression (AOT compile fails when native-assets build hooks are in the
+      # package graph). Fixed in Dart 3.11+; see
+      # https://github.com/dart-lang/build/issues/4343.
       run: |
         git submodule update --init
         dart pub global activate -spath packages/aft
         dart pub global run aft link
-        dart pub global run aft exec --include="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --delete-conflicting-outputs
+        dart pub global run aft exec --include="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --force-jit --delete-conflicting-outputs

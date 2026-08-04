@@ -11,11 +11,13 @@ class SrpDevicePasswordVerifierWorkerImpl
 
   @override
   String get jsEntrypoint {
-    // Flutter web release builds must use the bundled asset.
-    if (zIsFlutter && !zDebugMode) {
+    // Flutter web builds must use the bundled asset. The minified worker is used
+    // in both debug and release modes so that only a single asset needs to be
+    // declared and shipped (see each package's `pubspec.yaml`).
+    if (zIsFlutter) {
       return 'assets/packages/amplify_auth_cognito_dart/lib/src/workers/workers.min.js';
     }
-    // Default to the compiled, published worker.
+    // Default to the compiled, published worker (pure Dart / build_runner).
     return zDebugMode
         ? 'packages/amplify_auth_cognito_dart/src/workers/workers.js'
         : 'packages/amplify_auth_cognito_dart/src/workers/workers.min.js';
@@ -30,15 +32,25 @@ class SrpDevicePasswordVerifierWorkerImpl
         .takeWhile((segment) => segment != 'test')
         .map(Uri.encodeComponent)
         .join('/');
-    const relativePath = zDebugMode
-        ? 'packages/amplify_auth_cognito_dart/src/workers/workers.debug.dart.js'
-        : 'packages/amplify_auth_cognito_dart/src/workers/workers.release.dart.js';
-    final testRelativePath = Uri(
-      scheme: baseUri.scheme,
-      host: baseUri.host,
-      port: baseUri.port,
-      path: '$basePath/test/$relativePath',
-    ).toString();
-    return [relativePath, testRelativePath];
+    const relativePaths = zDebugMode
+        ? [
+            'packages/amplify_auth_cognito_dart/src/workers/workers.js',
+            'packages/amplify_auth_cognito_dart/src/workers/workers.debug.dart.js',
+          ]
+        : [
+            'packages/amplify_auth_cognito_dart/src/workers/workers.min.js',
+            'packages/amplify_auth_cognito_dart/src/workers/workers.release.dart.js',
+          ];
+    return [
+      for (final relativePath in relativePaths) ...[
+        relativePath,
+        Uri(
+          scheme: baseUri.scheme,
+          host: baseUri.host,
+          port: baseUri.port,
+          path: '$basePath/test/$relativePath',
+        ).toString(),
+      ],
+    ];
   }
 }

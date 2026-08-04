@@ -10,7 +10,8 @@ import 'package:pigeon/pigeon.dart';
 @ConfigurePigeon(
   PigeonOptions(
     dartOut: 'lib/src/pigeons/ns_user_defaults_pigeon.g.dart',
-    swiftOut: 'ios/Classes/pigeons/NSUserDefaultsPigeon.swift',
+    swiftOut:
+        'ios/amplify_secure_storage/Sources/amplify_secure_storage/NSUserDefaultsPigeon.swift',
     copyrightHeader: 'pigeons/copyright.txt',
   ),
 )

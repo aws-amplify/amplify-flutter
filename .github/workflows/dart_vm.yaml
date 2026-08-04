@@ -21,7 +21,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - "3.9.0"
+          - "3.11.0"
           - stable
           - beta
         # Skips 'beta' tests on PRs
@@ -29,7 +29,7 @@ jobs:
           - sdk: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Cache Pub dependencies
-        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # 5.0.3
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # 5.0.5
         with:
           path: |
             ~/.pub-cache/hosted
@@ -41,7 +41,7 @@ jobs:
             os:ubuntu-latest
 
       - name: Git Checkout
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
 
       - name: Git Submodules
         run: git submodule update --init
@@ -53,13 +53,13 @@ jobs:
       # TODO(dnys1): Create mapping of Flutter->Dart versions so we can just use Dart
       # vended by Flutter.
       - name: Setup Flutter
-        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # 2.23.0
         with:
           cache: true
           channel: stable
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@21e68f4d54916e6c2f68f8c290b2aed9b02cbd3e # main
+        uses: dart-lang/setup-dart@43c102f4dc9b9829c862401f0b64c7c9184eab4e # main
         with:
           sdk: ${{ matrix.sdk }}
 
@@ -75,10 +75,13 @@ jobs:
         timeout-minutes: 20
         run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
 
+      # Equivalent to `dart format --set-exit-if-changed .`, but respects the
+      # analyzer.exclude globs in analysis_options.yaml (skips generated files).
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
-        run: dart format --set-exit-if-changed .
-        working-directory: ${{ inputs.working-directory }}
+        uses: ./.github/composite_actions/dart_format_check
+        with:
+          working-directory: ${{ inputs.working-directory }}
 
       - name: Check for Tests
         id: testCheck
@@ -106,6 +109,13 @@ jobs:
         run: dart analyze --fatal-infos --fatal-warnings .
         working-directory: ${{ inputs.working-directory }}
 
+      - name: Package Score
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
+        uses: ./.github/composite_actions/package_score
+        with:
+          working-directory: ${{ inputs.working-directory }}
+          package-name: ${{ inputs.package-name }}
+
       - name: Run Tests (stable)
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true' && matrix.sdk == 'stable'"
         run: dart test
@@ -116,6 +126,15 @@ jobs:
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true' && matrix.sdk != 'stable'"
         run: dart test --exclude-tags=build
         working-directory: ${{ inputs.working-directory }}
+
+        # Runs last: its build_runner run would regenerate files that
+        # bootstrap failed to produce, masking bootstrap failures from
+        # analysis and tests, and it mutates the build cache.
+      - name: Check version.dart
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
+        uses: ./.github/composite_actions/check_version_dart
+        with:
+          working-directory: ${{ inputs.working-directory }}
 
       - name: Log success/failure
         if: always()

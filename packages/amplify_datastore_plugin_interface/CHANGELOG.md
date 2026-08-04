@@ -1,3 +1,27 @@
+## 2.14.0
+
+- Minor bug fixes and improvements
+
+## 2.13.0
+
+- Minor bug fixes and improvements
+
+## 2.12.1
+
+- Minor bug fixes and improvements
+
+## 2.12.0
+
+- Minor bug fixes and improvements
+
+## 2.11.0
+
+- Minor bug fixes and improvements
+
+## 2.10.1
+
+- Minor bug fixes and improvements
+
 ## 2.10.0
 
 - Minor bug fixes and improvements

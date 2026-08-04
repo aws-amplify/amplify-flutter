@@ -560,50 +560,60 @@ void main() {
         );
       });
 
-      test('should invoke AWSSigV4Signer.presign with correct parameters', () {
-        runZoned(() async {
-          const testOptions = StorageGetUrlOptions(
-            pluginOptions: S3GetUrlPluginOptions(expiresIn: testExpiresIn),
-          );
+      test(
+        'should invoke AWSSigV4Signer.presign with correct parameters',
+        () async {
+          // Must await, or the assertions inside never run.
+          await runZoned(() async {
+            const testOptions = StorageGetUrlOptions(
+              pluginOptions: S3GetUrlPluginOptions(expiresIn: testExpiresIn),
+            );
 
-          when(
-            () => awsSigV4Signer.presign(
-              any(),
-              credentialScope: any(named: 'credentialScope'),
-              serviceConfiguration: any(named: 'serviceConfiguration'),
-              expiresIn: any(named: 'expiresIn'),
-            ),
-          ).thenAnswer((_) async => testUrl);
-
-          getUrlResult = await storageS3Service.getUrl(
-            path: testPath,
-            options: testOptions,
-          );
-          final capturedParams = verify(
-            () => awsSigV4Signer.presign(
-              captureAny<AWSHttpRequest>(),
-              credentialScope: captureAny<AWSCredentialScope>(
-                named: 'credentialScope',
+            when(
+              () => awsSigV4Signer.presign(
+                any(),
+                credentialScope: any(named: 'credentialScope'),
+                serviceConfiguration: any(named: 'serviceConfiguration'),
+                expiresIn: any(named: 'expiresIn'),
               ),
-              expiresIn: captureAny<Duration>(named: 'expiresIn'),
-              serviceConfiguration: captureAny<S3ServiceConfiguration>(
-                named: 'serviceConfiguration',
+            ).thenAnswer((_) async => testUrl);
+
+            getUrlResult = await storageS3Service.getUrl(
+              path: testPath,
+              options: testOptions,
+            );
+
+            // Select by type, not position: capture order isn't stable across
+            // compilers.
+            final capturedParams = verify(
+              () => awsSigV4Signer.presign(
+                captureAny<AWSHttpRequest>(),
+                credentialScope: any(named: 'credentialScope'),
+                serviceConfiguration: captureAny<S3ServiceConfiguration>(
+                  named: 'serviceConfiguration',
+                ),
+                expiresIn: captureAny<Duration>(named: 'expiresIn'),
               ),
-            ),
-          ).captured;
+            ).captured;
 
-          expect(capturedParams.first is AWSHttpRequest, isTrue);
-          final requestParam = capturedParams.first as AWSHttpRequest;
-          expect(requestParam.uri.toString(), endsWith(TestPathResolver.path));
+            final requestParam = capturedParams
+                .whereType<AWSHttpRequest>()
+                .last;
+            expect(
+              requestParam.uri.toString(),
+              endsWith(TestPathResolver.path),
+            );
 
-          expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
-          final configParam = capturedParams[2] as S3ServiceConfiguration;
-          expect(configParam.signBody, false);
-          expect(configParam.chunked, false);
+            final configParam = capturedParams
+                .whereType<S3ServiceConfiguration>()
+                .last;
+            expect(configParam.signBody, false);
+            expect(configParam.chunked, false);
 
-          expect(capturedParams.last, testExpiresIn);
-        }, zoneValues: {testDateTimeNowOverride: testBaseDateTime});
-      });
+            expect(capturedParams.whereType<Duration>().last, testExpiresIn);
+          }, zoneValues: {testDateTimeNowOverride: testBaseDateTime});
+        },
+      );
 
       test('should return correct url result', () {
         expect(getUrlResult.url, testUrl);
@@ -759,6 +769,179 @@ void main() {
           ),
         );
       });
+
+      test(
+        'should use AWSHttpMethod.get by default when method is not specified',
+        () async {
+          const testOptions = StorageGetUrlOptions(
+            pluginOptions: S3GetUrlPluginOptions(expiresIn: testExpiresIn),
+          );
+
+          when(
+            () => awsSigV4Signer.presign(
+              any(),
+              credentialScope: any(named: 'credentialScope'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+              expiresIn: any(named: 'expiresIn'),
+            ),
+          ).thenAnswer((_) async => testUrl);
+
+          await storageS3Service.getUrl(path: testPath, options: testOptions);
+
+          final capturedRequest = verify(
+            () => awsSigV4Signer.presign(
+              captureAny<AWSHttpRequest>(),
+              credentialScope: any(named: 'credentialScope'),
+              expiresIn: any(named: 'expiresIn'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+            ),
+          ).captured.first;
+
+          expect(capturedRequest, isA<AWSHttpRequest>());
+          final request = capturedRequest as AWSHttpRequest;
+          expect(request.method, AWSHttpMethod.get);
+        },
+      );
+
+      test(
+        'should use AWSHttpMethod.get when method is StorageAccessMethod.get',
+        () async {
+          const testOptions = StorageGetUrlOptions(
+            pluginOptions: S3GetUrlPluginOptions(
+              expiresIn: testExpiresIn,
+              method: StorageAccessMethod.get,
+            ),
+          );
+
+          when(
+            () => awsSigV4Signer.presign(
+              any(),
+              credentialScope: any(named: 'credentialScope'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+              expiresIn: any(named: 'expiresIn'),
+            ),
+          ).thenAnswer((_) async => testUrl);
+
+          await storageS3Service.getUrl(path: testPath, options: testOptions);
+
+          final capturedRequest = verify(
+            () => awsSigV4Signer.presign(
+              captureAny<AWSHttpRequest>(),
+              credentialScope: any(named: 'credentialScope'),
+              expiresIn: any(named: 'expiresIn'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+            ),
+          ).captured.first;
+
+          expect(capturedRequest, isA<AWSHttpRequest>());
+          final request = capturedRequest as AWSHttpRequest;
+          expect(request.method, AWSHttpMethod.get);
+        },
+      );
+
+      test(
+        'should use AWSHttpMethod.put when method is StorageAccessMethod.put',
+        () async {
+          const testOptions = StorageGetUrlOptions(
+            pluginOptions: S3GetUrlPluginOptions(
+              expiresIn: testExpiresIn,
+              method: StorageAccessMethod.put,
+            ),
+          );
+
+          when(
+            () => awsSigV4Signer.presign(
+              any(),
+              credentialScope: any(named: 'credentialScope'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+              expiresIn: any(named: 'expiresIn'),
+            ),
+          ).thenAnswer((_) async => testUrl);
+
+          await storageS3Service.getUrl(path: testPath, options: testOptions);
+
+          final capturedRequest = verify(
+            () => awsSigV4Signer.presign(
+              captureAny<AWSHttpRequest>(),
+              credentialScope: any(named: 'credentialScope'),
+              expiresIn: any(named: 'expiresIn'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+            ),
+          ).captured.first;
+
+          expect(capturedRequest, isA<AWSHttpRequest>());
+          final request = capturedRequest as AWSHttpRequest;
+          expect(request.method, AWSHttpMethod.put);
+        },
+      );
+
+      test(
+        'should return correct url and expiresAt when method is StorageAccessMethod.put',
+        () {
+          runZoned(() async {
+            const testOptions = StorageGetUrlOptions(
+              pluginOptions: S3GetUrlPluginOptions(
+                expiresIn: testExpiresIn,
+                method: StorageAccessMethod.put,
+              ),
+            );
+
+            when(
+              () => awsSigV4Signer.presign(
+                any(),
+                credentialScope: any(named: 'credentialScope'),
+                serviceConfiguration: any(named: 'serviceConfiguration'),
+                expiresIn: any(named: 'expiresIn'),
+              ),
+            ).thenAnswer((_) async => testUrl);
+
+            final result = await storageS3Service.getUrl(
+              path: testPath,
+              options: testOptions,
+            );
+
+            expect(result.url, testUrl);
+            expect(result.expiresAt, testBaseDateTime.add(testExpiresIn));
+          }, zoneValues: {testDateTimeNowOverride: testBaseDateTime});
+        },
+      );
+
+      test(
+        'should generate transfer acceleration enabled URL with PUT method',
+        () async {
+          const testOptions = StorageGetUrlOptions(
+            pluginOptions: S3GetUrlPluginOptions(
+              useAccelerateEndpoint: true,
+              method: StorageAccessMethod.put,
+            ),
+          );
+
+          when(
+            () => awsSigV4Signer.presign(
+              any(),
+              credentialScope: any(named: 'credentialScope'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+              expiresIn: any(named: 'expiresIn'),
+            ),
+          ).thenAnswer((_) async => testUrl);
+
+          await storageS3Service.getUrl(path: testPath, options: testOptions);
+
+          final capturedRequest = verify(
+            () => awsSigV4Signer.presign(
+              captureAny<AWSHttpRequest>(),
+              credentialScope: any(named: 'credentialScope'),
+              expiresIn: any(named: 'expiresIn'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+            ),
+          ).captured.first;
+
+          expect(capturedRequest, isA<AWSHttpRequest>());
+          final request = capturedRequest as AWSHttpRequest;
+          expect(request.method, AWSHttpMethod.put);
+          expect(request.uri.host, contains('.s3-accelerate.'));
+        },
+      );
 
       group('bucket name has dots (".")', () {
         late AWSSigV4Signer pathStyleAwsSigV4Signer;

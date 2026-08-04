@@ -398,8 +398,7 @@ class GraphQLRequestFactory {
         final parentIdFieldName =
             primaryKeyIndex?.fields[i] ?? _defaultIdFieldName;
         final belongsToValue =
-            (modelJson[belongsToModelName] as Map?)?[parentIdFieldName]
-                as String?;
+            (modelJson[belongsToModelName] as Map?)?[parentIdFieldName];
 
         // Assign the parent ID(s) if the model has a parent.
         if (belongsToValue != null) {

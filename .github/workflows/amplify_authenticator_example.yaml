@@ -186,6 +186,7 @@ jobs:
       package-name: amplify_authenticator_example
       working-directory: packages/authenticator/amplify_authenticator/example
       needs-aws-config: true
+      run-wasm: true
   e2e_linux_test:
     needs: [test]
     uses: ./.github/workflows/e2e_linux.yaml

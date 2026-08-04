@@ -17,8 +17,7 @@ on:
 
 jobs:
   test-flutter-vm:
-    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
-    runs-on: ${{ inputs.has-goldens && 'macos-14' || 'ubuntu-latest' }}
+    runs-on: ${{ inputs.has-goldens && 'macos-26' || 'ubuntu-latest' }}
     timeout-minutes: 60
     strategy:
       # Allows other matrix items to run if one fails
@@ -31,19 +30,19 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.35.0"
+            flutter-version: "3.41.0"
         # Skips 'beta' tests on PRs
         exclude:
           - channel: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
 
       - name: Git Submodules
         run: git submodule update --init
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # 2.21.0
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # 2.23.0
         with:
           cache: true
           channel: ${{ matrix.channel }}
@@ -57,10 +56,13 @@ jobs:
         timeout-minutes: 20
         run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
 
+      # Equivalent to `dart format --set-exit-if-changed .`, but respects the
+      # analyzer.exclude globs in analysis_options.yaml (skips generated files).
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
-        run: dart format --set-exit-if-changed .
-        working-directory: ${{ inputs.working-directory }}
+        uses: ./.github/composite_actions/dart_format_check
+        with:
+          working-directory: ${{ inputs.working-directory }}
 
       - name: Check for Tests
         id: testCheck
@@ -88,6 +90,13 @@ jobs:
         run: flutter analyze --fatal-infos --fatal-warnings .
         working-directory: ${{ inputs.working-directory }}
 
+      - name: Package Score
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
+        uses: ./.github/composite_actions/package_score
+        with:
+          working-directory: ${{ inputs.working-directory }}
+          package-name: ${{ inputs.package-name }}
+
       - name: Run Tests
         id: testJob
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
@@ -96,10 +105,19 @@ jobs:
 
       - name: Archive golden failures
         if: "always() && inputs.has-goldens && steps.testJob.conclusion == 'failure'"
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # 6.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # 7.0.1
         with:
           name: golden-failures-${{ matrix.channel }}-${{ matrix.flutter-version }}
           path: ${{ inputs.working-directory }}/test/ui/failures/
+
+        # Runs last: its build_runner run would regenerate files that
+        # bootstrap failed to produce, masking bootstrap failures from
+        # analysis and tests, and it mutates the build cache.
+      - name: Check version.dart
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
+        uses: ./.github/composite_actions/check_version_dart
+        with:
+          working-directory: ${{ inputs.working-directory }}
 
       - name: Log success/failure
         if: always()

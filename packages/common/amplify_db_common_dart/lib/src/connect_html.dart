@@ -14,6 +14,9 @@ import 'package:web/web.dart';
 
 final _sqlite3Memo = AsyncMemoizer<Uint8List>();
 
+/// WebAssembly binary magic number: `\0asm` (§5.5.1 of the Wasm spec).
+const _wasmMagicBytes = [0x00, 0x61, 0x73, 0x6d];
+
 const _loadSqlRecoveryMessage =
     'sqlite3.wasm needs to be included in your /web dir. '
     'See Amplify Platform Setup docs for more info: '
@@ -62,7 +65,21 @@ Future<Uint8List> loadSqlite3([
           '$_loadSqlRecoveryMessage',
         );
       }
-      return (await response.bodyBytes) as Uint8List;
+      final bytes = (await response.bodyBytes) as Uint8List;
+      if (bytes.length < _wasmMagicBytes.length ||
+          bytes[0] != _wasmMagicBytes[0] ||
+          bytes[1] != _wasmMagicBytes[1] ||
+          bytes[2] != _wasmMagicBytes[2] ||
+          bytes[3] != _wasmMagicBytes[3]) {
+        throw AWSHttpException(
+          request,
+          'The response from sqlite3.wasm is not a valid WebAssembly binary. '
+          'This usually means the server returned an HTML fallback page '
+          'instead of the .wasm file.\n\n'
+          '$_loadSqlRecoveryMessage',
+        );
+      }
+      return bytes;
     } on Object catch (e) {
       if (e is AmplifyException) rethrow;
       throw AWSHttpException(

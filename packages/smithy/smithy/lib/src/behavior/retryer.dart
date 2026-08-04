@@ -43,7 +43,7 @@ class Retryer {
           currentOperation = operation;
           final result = await operation.valueOrCancellation();
           if (result is! R || operation.isCanceled) {
-            return completer.operation.cancel();
+            return await completer.operation.cancel();
           }
           return completer.complete(result);
         } on Exception catch (e) {

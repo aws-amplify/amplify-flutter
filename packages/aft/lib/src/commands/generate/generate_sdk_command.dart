@@ -251,9 +251,18 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
 
     // Run built_value generator
     logger.info('Running build_runner...');
+    // `--force-jit`: see https://github.com/dart-lang/build/issues/4343
+    // AOT compile fails on Dart 3.10.x when native-assets build hooks are
+    // present in the package graph. Fixed in Dart 3.11+.
     final buildRunnerCmd = await Process.start(
       'dart',
-      ['run', 'build_runner', 'build', '--delete-conflicting-outputs'],
+      [
+        'run',
+        'build_runner',
+        'build',
+        '--force-jit',
+        '--delete-conflicting-outputs',
+      ],
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
       workingDirectory: package.path,
     );

@@ -1,3 +1,34 @@
+## 2.14.0
+
+- Minor bug fixes and improvements
+
+## 2.13.0
+
+- Minor bug fixes and improvements
+
+## 2.12.1
+
+- Minor bug fixes and improvements
+
+## 2.12.0
+
+### Features
+- feat(datastore): Add Swift Package Manager support ([#7004](https://github.com/aws-amplify/amplify-flutter/pull/7004))
+
+## 2.11.0
+
+- Minor bug fixes and improvements
+
+## 2.10.2
+
+### Fixes
+- fix(datastore): Catch invalid JSON ([#6669](https://github.com/aws-amplify/amplify-flutter/pull/6669))
+- fix(datastore): Fix error callbacks (android) ([#6742](https://github.com/aws-amplify/amplify-flutter/pull/6742))
+
+## 2.10.1
+
+- Minor bug fixes and improvements
+
 ## 2.10.0
 
 ### Fixes

@@ -1,3 +1,29 @@
+## 0.5.21
+
+- Minor bug fixes and improvements
+
+## 0.5.20
+
+### Features
+- feat(api): Add wasm support ([#7145](https://github.com/aws-amplify/amplify-flutter/pull/7145))
+
+## 0.5.19
+
+- Minor bug fixes and improvements
+
+## 0.5.18
+
+- Minor bug fixes and improvements
+
+## 0.5.17
+
+- Minor bug fixes and improvements
+
+## 0.5.16
+
+### Fixes
+- fix(graphql): Keep type when parsing data ([#6657](https://github.com/aws-amplify/amplify-flutter/pull/6657))
+
 ## 0.5.15
 
 - Minor bug fixes and improvements

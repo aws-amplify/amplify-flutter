@@ -19,7 +19,8 @@ export 'package:stream_transform/stream_transform.dart';
 export 'package:worker_bee/src/exception/worker_bee_exception.dart'
     show WorkerBeeException;
 export 'package:worker_bee/src/logging/worker_log_entry.dart';
-export 'package:worker_bee/src/preamble.dart' hide runTraced;
+export 'package:worker_bee/src/preamble.dart'
+    hide runTraced, workerOnlineSignal;
 export 'package:worker_bee/src/worker_bee_vm.dart'
     if (dart.library.js_interop) 'package:worker_bee/src/worker_bee_js.dart';
 

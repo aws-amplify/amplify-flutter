@@ -1,3 +1,24 @@
+## 2.14.0
+
+- Minor bug fixes and improvements
+
+## 2.13.0
+
+### Features
+- feat(api): Add wasm support ([#7145](https://github.com/aws-amplify/amplify-flutter/pull/7145))
+
+## 2.12.1
+
+- Minor bug fixes and improvements
+
+## 2.12.0
+
+- Minor bug fixes and improvements
+
+## 2.11.0
+
+- Minor bug fixes and improvements
+
 ## 2.10.0
 
 - Minor bug fixes and improvements

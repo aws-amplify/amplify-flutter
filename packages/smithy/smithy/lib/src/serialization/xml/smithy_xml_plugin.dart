@@ -4,7 +4,7 @@
 import 'package:built_value/serializer.dart';
 import 'package:collection/collection.dart';
 import 'package:smithy/smithy.dart';
-import 'package:xml/xml.dart';
+import 'package:xml/xml.dart' hide XmlNamespace;
 
 class SmithyXmlPlugin implements SerializerPlugin {
   const SmithyXmlPlugin();
@@ -40,7 +40,7 @@ class SmithyXmlPlugin implements SerializerPlugin {
       wireName.name,
       nest: () {
         if (namespace != null) {
-          builder.namespace(namespace.uri, namespace.prefix);
+          builder.namespaceUri(namespace.prefix, namespace.uri);
         }
         while (iterator.moveNext()) {
           final key = iterator.current;
@@ -81,10 +81,10 @@ class SmithyXmlPlugin implements SerializerPlugin {
             XmlAttribute(key.namespace!.xmlName, key.namespace!.uri),
           );
         }
-        key = XmlName(key.name);
+        key = XmlName.parts(key.name);
       } else {
         if (key is! XmlName) {
-          key = XmlName(key as String);
+          key = XmlName.parts(key as String);
         }
       }
       key as XmlName;
@@ -129,15 +129,15 @@ class SmithyXmlPlugin implements SerializerPlugin {
       elementName = key.name;
       namespace = key.namespace;
     }
-    final namespaces = <String, String>{
-      if (namespace != null) namespace.uri: namespace.prefix ?? '',
+    final namespaceUris = <String?, String?>{
+      if (namespace != null) namespace.prefix: namespace.uri,
     };
 
     if (value is Iterable<XmlNode> || value is! Iterable<Object?>) {
       if (value is XmlElement) {
         builder.element(
           elementName,
-          namespaces: namespaces,
+          namespaceUris: namespaceUris,
           attributes: _toAttributeMap([...attributes, ...value.attributes]),
           nest: value.children,
         );
@@ -145,7 +145,7 @@ class SmithyXmlPlugin implements SerializerPlugin {
         builder.element(
           elementName,
           attributes: _toAttributeMap(attributes),
-          namespaces: namespaces,
+          namespaceUris: namespaceUris,
           nest: value,
         );
       }
@@ -155,7 +155,7 @@ class SmithyXmlPlugin implements SerializerPlugin {
     builder.element(
       elementName,
       attributes: _toAttributeMap(attributes),
-      namespaces: namespaces,
+      namespaceUris: namespaceUris,
       nest: () {
         final values = value.toList();
         for (var i = 0; i < values.length; i++) {

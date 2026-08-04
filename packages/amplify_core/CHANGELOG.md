@@ -1,3 +1,39 @@
+## 2.14.0
+
+### Features
+- feat(analytics): Add wasm support for Analytics Pinpoint ([#7162](https://github.com/aws-amplify/amplify-flutter/pull/7162))
+- feat(storage): Add wasm support ([#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148))
+
+### Fixes
+- fix(auth): Don't generate unused `JsonWebKeySet.fromJson` ([#7194](https://github.com/aws-amplify/amplify-flutter/pull/7194))
+- fix(storage): Don't fail resumed multipart upload on stale part cancellation ([#7178](https://github.com/aws-amplify/amplify-flutter/pull/7178))
+
+## 2.13.0
+
+### Features
+- feat(api): Add wasm support ([#7145](https://github.com/aws-amplify/amplify-flutter/pull/7145))
+
+## 2.12.1
+
+### Features
+- feat(auth): Add wasm support ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+- feat(secure_storage): Add wasm support ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+
+## 2.12.0
+
+- Minor bug fixes and improvements
+
+## 2.11.0
+
+### Features
+- feat(storage): Support pre-signed upload URLs ([#6673](https://github.com/aws-amplify/amplify-flutter/pull/6673))
+
+## 2.10.1
+
+### Fixes
+- fix(auth): handle SMS_OTP challenge in USER_AUTH flow ([#6632](https://github.com/aws-amplify/amplify-flutter/pull/6632))
+- fix(graphql): Keep type when parsing data ([#6657](https://github.com/aws-amplify/amplify-flutter/pull/6657))
+
 ## 2.10.0
 
 ### Features

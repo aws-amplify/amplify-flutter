@@ -31,6 +31,9 @@ class ServeCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
   bool get dryRun => false;
 
   @override
+  bool get bootstrap => false;
+
+  @override
   String get description =>
       'Serves all packages in the Amplify Flutter repo '
       'on a local pub server.';

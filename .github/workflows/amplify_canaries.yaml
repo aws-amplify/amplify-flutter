@@ -16,8 +16,7 @@ concurrency:
 jobs:
   # Ensure an app pulling in published Amplify libraries can build properly
   build:
-    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available
-    runs-on: macos-14
+    runs-on: macos-26
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -32,9 +31,9 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.35.0"
+            flutter-version: "3.41.0"
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
         with:
           persist-credentials: false
 
@@ -88,9 +87,9 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.35.0"
+            flutter-version: "3.41.0"
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
         with:
           persist-credentials: false
           submodules: true
@@ -148,8 +147,7 @@ jobs:
           platform-version: ${{ matrix.ios-version }}
 
   e2e-ios:
-    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-availabl
-    runs-on: macos-14-xlarge
+    runs-on: macos-26-xlarge
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -164,12 +162,12 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.35.0"
+            flutter-version: "3.41.0"
         ios-version:
           - "15.0"
           - "17.5"
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
         with:
           persist-credentials: false
           submodules: true

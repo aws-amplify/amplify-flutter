@@ -16,7 +16,9 @@ class GraphQLResponse<T> {
 
   /// Response data matching the type of the request.
   ///
-  /// This will be `null` if there are any GraphQL errors during execution.
+  /// Per GraphQL, [data] and [errors] are separate response fields: [data] may
+  /// be non-null when [errors] is non-empty (partial success). Check [hasErrors]
+  /// before treating the response as fully successful.
   final T? data;
 
   /// A list of errors from execution. If no errors, it will be an empty list.

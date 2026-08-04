@@ -1,3 +1,28 @@
+## 0.4.22
+
+### Features
+- feat(storage): Add wasm support ([#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148))
+
+### Fixes
+- fix(storage): Don't fail resumed multipart upload on stale part cancellation ([#7178](https://github.com/aws-amplify/amplify-flutter/pull/7178))
+
+## 0.4.21
+
+- Minor bug fixes and improvements
+
+## 0.4.20
+
+- Minor bug fixes and improvements
+
+## 0.4.19
+
+- Minor bug fixes and improvements
+
+## 0.4.18
+
+### Features
+- feat(storage): Support pre-signed upload URLs ([#6673](https://github.com/aws-amplify/amplify-flutter/pull/6673))
+
 ## 0.4.17
 
 - Minor bug fixes and improvements

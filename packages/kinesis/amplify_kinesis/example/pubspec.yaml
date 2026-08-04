@@ -1,0 +1,34 @@
+name: amplify_kinesis_example
+description: Demonstrates how to use the amplify_kinesis plugin.
+version: 0.1.0
+
+publish_to: "none"
+
+environment:
+  sdk: ^3.11.0
+  flutter: ">=3.41.0"
+
+dependencies:
+  amplify_auth_cognito: any
+  amplify_authenticator: any
+  amplify_flutter: any
+  amplify_foundation_dart: any
+  amplify_foundation_dart_bridge: any
+  amplify_kinesis:
+    path: ../
+  aws_common: any
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../../amplify_lints
+  amplify_test:
+    path: ../../../test/amplify_test
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

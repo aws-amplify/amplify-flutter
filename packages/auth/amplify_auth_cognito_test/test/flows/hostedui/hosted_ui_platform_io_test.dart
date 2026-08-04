@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-@TestOn('windows || mac-os || linux')
+@TestOn('vm && (windows || mac-os || linux)')
 library;
 
 import 'dart:async';

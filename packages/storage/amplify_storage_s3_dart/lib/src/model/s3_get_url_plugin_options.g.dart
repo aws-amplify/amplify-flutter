@@ -24,6 +24,12 @@ S3GetUrlPluginOptions _$S3GetUrlPluginOptionsFromJson(
       'useAccelerateEndpoint',
       (v) => v as bool? ?? false,
     ),
+    method: $checkedConvert(
+      'method',
+      (v) =>
+          $enumDecodeNullable(_$StorageAccessMethodEnumMap, v) ??
+          StorageAccessMethod.get,
+    ),
   );
   return val;
 });
@@ -34,4 +40,10 @@ Map<String, dynamic> _$S3GetUrlPluginOptionsToJson(
   'expiresIn': instance.expiresIn.inMicroseconds,
   'validateObjectExistence': instance.validateObjectExistence,
   'useAccelerateEndpoint': instance.useAccelerateEndpoint,
+  'method': _$StorageAccessMethodEnumMap[instance.method]!,
+};
+
+const _$StorageAccessMethodEnumMap = {
+  StorageAccessMethod.get: 'get',
+  StorageAccessMethod.put: 'put',
 };

@@ -1,3 +1,28 @@
+## 2.14.0
+
+### Features
+- feat(storage): Add wasm support ([#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148))
+
+## 2.13.0
+
+- Minor bug fixes and improvements
+
+## 2.12.1
+
+- Minor bug fixes and improvements
+
+## 2.12.0
+
+- Minor bug fixes and improvements
+
+## 2.11.0
+
+### Features
+- feat(storage): Support pre-signed upload URLs ([#6673](https://github.com/aws-amplify/amplify-flutter/pull/6673))
+
+### Fixes
+- fix(storage): Resolve flutter analyze error in amplify_storage_s3 example ([#6853](https://github.com/aws-amplify/amplify-flutter/pull/6853))
+
 ## 2.10.0
 
 - Minor bug fixes and improvements

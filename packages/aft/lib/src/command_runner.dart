@@ -21,7 +21,9 @@ Future<void> run(List<String> args) async {
       hide: true,
     )
     ..addCommand(GenerateCommand())
+    ..addCommand(GetReleaseNotesCommand())
     ..addCommand(ListPackagesCommand())
+    ..addCommand(LocatePackageCommand())
     ..addCommand(ConstraintsCommand())
     ..addCommand(LinkCommand())
     ..addCommand(CleanCommand())

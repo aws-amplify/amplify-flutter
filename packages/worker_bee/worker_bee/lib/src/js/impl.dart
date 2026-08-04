@@ -73,6 +73,11 @@ mixin WorkerBeeImpl<Request extends Object, Response>
   /// Deserializes an object using the registered `built_value` serializers.
   @optionalTypeArgs
   T _deserialize<T extends Object?>(Object? object) {
+    // Convert JS types (JSArray, JSString, etc.) to native Dart types
+    // (List, String, etc.) so that built_value can deserialize them.
+    // Data received via postMessage arrives as JS types which are not
+    // assignable to Dart collection types like List<Object?>.
+    object = (object as JSAny?)?.dartify();
     final deserialized = runZoned(
       () =>
           serializers.deserialize(
@@ -92,7 +97,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
       final serialized = _serialize(error);
       error = serialized.value!;
       self.postMessage(
-        serialized.value?.toJSBoxOrCast,
+        serialized.value.jsify(),
         serialized.transfer.toJSBoxOrCast,
       );
     }
@@ -123,7 +128,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
           logger.verbose('Sending message: $message');
           final serialized = _serialize(message);
           self.postMessage(
-            serialized.value?.toJSBoxOrCast,
+            serialized.value.jsify(),
             serialized.transfer.toJSBoxOrCast,
           );
         }),
@@ -139,7 +144,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
 
       final serializedResult = _serialize(result);
       self.postMessage(
-        serializedResult.value?.toJSBoxOrCast,
+        serializedResult.value.jsify(),
         serializedResult.transfer.toJSBoxOrCast,
       );
 
@@ -170,6 +175,9 @@ mixin WorkerBeeImpl<Request extends Object, Response>
         try {
           /// Captures errors occurring before a `ready` event is received.
           final errorBeforeReady = Completer<void>();
+
+          /// Completes when the worker signals it's ready for its assignment.
+          final online = Completer<void>.sync();
 
           // Whether `run` has completed on the web worker.
           var done = false;
@@ -231,7 +239,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
               final serialized = _serialize(message);
 
               _worker!.postMessage(
-                serialized.value?.toJSBoxOrCast,
+                serialized.value.jsify(),
                 serialized.transfer.toJSBoxOrCast,
               );
             }),
@@ -244,6 +252,13 @@ mixin WorkerBeeImpl<Request extends Object, Response>
               eventData as JSString;
               final state = eventData.toDart;
 
+              if (state == workerOnlineSignal) {
+                logger.verbose('Worker is online');
+                if (!online.isCompleted) {
+                  online.complete();
+                }
+                return;
+              }
               if (state == 'ready') {
                 logger.verbose('Received ready event');
                 ready.complete();
@@ -291,6 +306,16 @@ mixin WorkerBeeImpl<Request extends Object, Response>
               logsController.add(message);
             }),
           );
+
+          // Wait for the worker to start listening before sending it the
+          // assignment, otherwise the message is dropped and `spawn` hangs.
+          // The timeout falls back to the old behavior for workers built
+          // before the online signal existed.
+          await Future.any<void>([
+            online.future,
+            errorBeforeReady.future,
+            Future<void>.delayed(const Duration(seconds: 1)),
+          ]);
 
           _worker!.postMessage(name.toJS, [jsLogsChannel.port2].toJS);
 

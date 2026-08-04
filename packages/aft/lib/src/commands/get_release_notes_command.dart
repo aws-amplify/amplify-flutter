@@ -1,0 +1,400 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+import 'dart:io';
+
+import 'package:aft/aft.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:meta/meta.dart';
+import 'package:path/path.dart' as p;
+
+/// {@template aft.get_release_notes.exit_code}
+/// Exit codes returned by [GetReleaseNotesCommand].
+///
+/// The command is fail-closed: any content-level problem produces a
+/// distinct non-zero exit code and a descriptive message on stderr.
+///
+/// Successful stdout is prefixed with a blank line and a `Changelog:`
+/// marker line; callers should strip everything up to and including that
+/// first marker with awk and use an empty-check for the fallback. The
+/// marker is only written on success (exit 0), so on any non-zero exit
+/// awk produces no output and the empty check fires the fallback — no
+/// shell options required:
+///
+/// ```sh
+/// NOTES=$(aft get-release-notes --package X --version Y \
+///   | awk '/^Changelog:$/{f=1;next} f')
+/// [ -z "$NOTES" ] && NOTES="Release X vY"
+/// ```
+///
+/// If you prefer `||`, that also works but requires `set -o pipefail` so
+/// the `||` fires on a non-zero [code] rather than on awk's exit status:
+/// `set -o pipefail; NOTES=$(...) || NOTES="Release X vY"`.
+///
+/// Only the FIRST `Changelog:` line is the marker; later occurrences in
+/// the notes body pass through the awk filter unchanged.
+///
+/// * [success] — notes printed to stdout (preceded by the marker).
+/// * [usageError] — missing/invalid arguments, unknown package, or the
+///   package's `pubspec.yaml` has no `version` field when `--version` was
+///   omitted.
+/// * [versionNotFound] — `CHANGELOG.md` exists but does not contain a
+///   matching `## <version>` header.
+/// * [sectionEmpty] — the matching version header was found but its section
+///   contains no content.
+/// * [changelogMissing] — the package has no `CHANGELOG.md` file on disk.
+/// {@endtemplate}
+enum GetReleaseNotesExitCode {
+  /// Notes printed successfully.
+  success(0),
+
+  /// Missing arguments or unknown package name.
+  usageError(1),
+
+  /// The version was not found in the CHANGELOG.
+  versionNotFound(2),
+
+  /// The version header was found but its section is empty.
+  sectionEmpty(3),
+
+  /// The package's CHANGELOG.md file does not exist on disk.
+  changelogMissing(4);
+
+  const GetReleaseNotesExitCode(this.code);
+
+  /// The numeric exit code reported to the shell.
+  final int code;
+}
+
+/// {@template aft.get_release_notes.result}
+/// The outcome of parsing a CHANGELOG for a single version.
+/// {@endtemplate}
+sealed class ReleaseNotesResult {
+  const ReleaseNotesResult();
+}
+
+/// {@template aft.get_release_notes.result.found}
+/// A non-empty release notes section was extracted successfully.
+/// {@endtemplate}
+final class ReleaseNotesFound extends ReleaseNotesResult {
+  /// {@macro aft.get_release_notes.result.found}
+  const ReleaseNotesFound(this.notes);
+
+  /// The extracted notes with leading/trailing blank lines stripped.
+  final String notes;
+}
+
+/// {@template aft.get_release_notes.result.version_not_found}
+/// No `## <version>` header was found in the CHANGELOG.
+/// {@endtemplate}
+final class ReleaseNotesVersionNotFound extends ReleaseNotesResult {
+  /// {@macro aft.get_release_notes.result.version_not_found}
+  const ReleaseNotesVersionNotFound();
+}
+
+/// {@template aft.get_release_notes.result.empty}
+/// The matching `## <version>` header was found but the body was empty
+/// (either immediately followed by another version header, or contained
+/// only whitespace).
+/// {@endtemplate}
+final class ReleaseNotesEmpty extends ReleaseNotesResult {
+  /// {@macro aft.get_release_notes.result.empty}
+  const ReleaseNotesEmpty();
+}
+
+/// Extracts release notes for [version] from [changelogMd].
+///
+/// The parser:
+///
+/// * Handles both `LF` and `CRLF` line endings.
+/// * Scans the entire file so version headers are matched regardless of
+///   position (not just the first one encountered).
+/// * Ignores `## ` sequences that appear inside fenced code blocks (delimited
+///   by triple backticks or tildes).
+/// * Matches a header when the first whitespace-separated token after `## `
+///   equals [version] exactly. This allows headers such as
+///   `## 1.0.0-next.0 (2022-08-02)` to match version `1.0.0-next.0`.
+/// * Supports common changelog decorations: strips `[`, `]`, and leading `v`
+///   from version tokens, so `## [1.0.0]` and `## v1.0.0` both match `1.0.0`.
+/// * Strips leading and trailing blank lines from the extracted section while
+///   preserving blank lines inside the body.
+///
+/// The returned [ReleaseNotesResult] distinguishes between a found section,
+/// a missing version, and an empty section so callers can surface precise
+/// error codes.
+@visibleForTesting
+ReleaseNotesResult extractReleaseNotes(String changelogMd, String version) {
+  // Strip UTF-8 BOM if present (EF BB BF)
+  var content = changelogMd;
+  if (content.startsWith('\uFEFF')) {
+    content = content.substring(1);
+  }
+
+  // Normalize line endings so CRLF and LF files produce identical output.
+  final lines = content.replaceAll('\r\n', '\n').split('\n');
+
+  var inTargetSection = false;
+  var inCodeBlock = false;
+  var versionSeen = false;
+  final buffer = <String>[];
+
+  for (final line in lines) {
+    // A fenced code block begins/ends when a line's first non-whitespace
+    // content is ``` or ~~~ (allowing optional language tag after).
+    if (_isCodeFence(line)) {
+      inCodeBlock = !inCodeBlock;
+      if (inTargetSection) {
+        buffer.add(line);
+      }
+      continue;
+    }
+
+    if (inCodeBlock) {
+      if (inTargetSection) {
+        buffer.add(line);
+      }
+      continue;
+    }
+
+    if (line.startsWith('## ')) {
+      final headerVersion = _parseHeaderVersion(line);
+      if (inTargetSection) {
+        // The next header terminates the current section.
+        break;
+      }
+      if (headerVersion == version) {
+        inTargetSection = true;
+        versionSeen = true;
+      }
+      continue;
+    }
+
+    if (inTargetSection) {
+      buffer.add(line);
+    }
+  }
+
+  if (!versionSeen) {
+    return const ReleaseNotesVersionNotFound();
+  }
+
+  // Trim leading blank lines.
+  while (buffer.isNotEmpty && buffer.first.trim().isEmpty) {
+    buffer.removeAt(0);
+  }
+  // Trim trailing blank lines.
+  while (buffer.isNotEmpty && buffer.last.trim().isEmpty) {
+    buffer.removeLast();
+  }
+
+  if (buffer.isEmpty) {
+    return const ReleaseNotesEmpty();
+  }
+
+  return ReleaseNotesFound(buffer.join('\n'));
+}
+
+/// Returns the first whitespace-separated token after the `## ` prefix,
+/// with common changelog decorations stripped (brackets and leading `v`).
+///
+/// Returns an empty string if the header has no content.
+String _parseHeaderVersion(String line) {
+  // Strip the leading '## ' (3 chars) and everything after the first run of
+  // whitespace, keeping behavior stable for tabs and multiple spaces.
+  final rest = line.substring(3).trimLeft();
+  if (rest.isEmpty) {
+    return '';
+  }
+  final whitespaceIndex = rest.indexOf(RegExp(r'\s'));
+  var token = whitespaceIndex < 0
+      ? rest.trimRight()
+      : rest.substring(0, whitespaceIndex);
+
+  // Strip common changelog decorations:
+  // - Square brackets: [1.0.0] -> 1.0.0
+  // - Leading v: v1.0.0 -> 1.0.0
+  token = token.replaceAll(RegExp(r'^\[|\]$'), '');
+  if (token.startsWith('v')) {
+    token = token.substring(1);
+  }
+
+  return token;
+}
+
+/// Matches a Markdown fenced code-block delimiter. We recognize both backtick
+/// (` ``` `) and tilde (`~~~`) fences. Leading whitespace up to three spaces
+/// is allowed per the CommonMark spec.
+bool _isCodeFence(String line) {
+  final match = RegExp(r'^ {0,3}(`{3,}|~{3,})').firstMatch(line);
+  return match != null;
+}
+
+/// {@template aft.get_release_notes.command}
+/// Extracts per-package release notes from `CHANGELOG.md` by version.
+///
+/// Intended for use in release automation (e.g. GitHub Actions) where a
+/// deterministic, testable extractor is preferable to ad-hoc shell parsing.
+/// The command is fail-closed — callers that need a fallback should use the
+/// shell.
+///
+/// Successful output is prefixed with a blank line and a `Changelog:` marker
+/// line so callers can reliably skip any preceding noise written to stdout
+/// by the Dart tooling. In particular, when the activated aft wrapper
+/// snapshot is stale, pub falls back to `dart pub -v global run aft …` and
+/// emits resolver output to stdout before the command proper runs — the
+/// marker lets callers strip that noise deterministically regardless of
+/// whether it appeared.
+///
+/// Extract the notes with awk, then fall back via an empty check on any
+/// non-zero exit. The `Changelog:` marker is only written on success
+/// (exit 0); on any non-zero exit, awk produces no output, so the empty
+/// check fires the fallback — no shell options required:
+///
+/// ```sh
+/// NOTES=$(aft get-release-notes --package X --version Y \
+///   | awk '/^Changelog:$/{f=1;next} f')
+/// [ -z "$NOTES" ] && NOTES="Release X vY"
+/// ```
+///
+/// If you prefer the `||` form, it also works but requires
+/// `set -o pipefail` so the `||` fires on this command's exit code rather
+/// than on awk's exit status (bash's default is to report the LAST pipe
+/// stage's status):
+/// `set -o pipefail; NOTES=$(...) || NOTES="Release X vY"`.
+///
+/// Only the FIRST `Changelog:` line is treated as the marker; any later
+/// `Changelog:` lines that happen to appear in the notes body are printed
+/// as-is and preserved through the awk filter.
+///
+/// Usage:
+///
+/// ```
+/// # Extract notes for an explicit version.
+/// aft get-release-notes --package amplify_core --version 2.10.1
+///
+/// # Omit --version to default to the current pubspec.yaml version.
+/// # This is the common case during a release: the pubspec has just been
+/// # bumped, and you want the notes for the version about to ship.
+/// aft get-release-notes --package amplify_datastore
+/// ```
+/// {@endtemplate}
+class GetReleaseNotesCommand extends AmplifyCommand {
+  /// {@macro aft.get_release_notes.command}
+  GetReleaseNotesCommand() {
+    argParser
+      ..addOption(
+        'package',
+        help:
+            'Name of the package whose CHANGELOG.md to read '
+            '(e.g. amplify_core).',
+      )
+      ..addOption(
+        'version',
+        help:
+            'Exact version string to extract, matched against the first '
+            'token after the `## ` header (e.g. 2.10.1, 2.10.1-dev.0). '
+            "Defaults to the version in the package's pubspec.yaml.",
+      );
+  }
+
+  @override
+  String get description =>
+      'Extract release notes for a package/version from its CHANGELOG.md.';
+
+  @override
+  String get name => 'get-release-notes';
+
+  @override
+  Future<void> run() async {
+    // Suppress default info-level logging so stdout is reserved exclusively
+    // for the extracted release notes. Warnings and errors still go to
+    // stderr. `--verbose` re-enables the default behavior.
+    if (!(globalResults?['verbose'] as bool? ?? false)) {
+      AWSLogger().logLevel = LogLevel.warn;
+    }
+    await super.run();
+
+    final packageName = argResults!['package'] as String?;
+    if (packageName == null || packageName.isEmpty) {
+      usageException('Missing required option: --package');
+    }
+
+    final package = repoPackages[packageName];
+    if (package == null) {
+      exitError(
+        "Error: package '$packageName' not found in workspace",
+        GetReleaseNotesExitCode.usageError.code,
+      );
+    }
+
+    // Resolve the version: use the explicit `--version` if provided, otherwise
+    // fall back to the version declared in the package's pubspec.yaml. This
+    // matches the common release-automation use case: the pubspec has just
+    // been bumped to the version being tagged, and the CHANGELOG already
+    // has a section for it.
+    var version = argResults!['version'] as String?;
+    if (version == null || version.isEmpty) {
+      final pubspecVersion = package.pubspecInfo.pubspec.version;
+      if (pubspecVersion == null) {
+        final pubspecRelative = p.relative(
+          p.join(package.path, 'pubspec.yaml'),
+          from: rootDir.path,
+        );
+        exitError(
+          'Error: --version not provided and $pubspecRelative has no '
+          'version field',
+          GetReleaseNotesExitCode.usageError.code,
+        );
+      }
+      version = pubspecVersion.toString();
+      if (version.isEmpty) {
+        final pubspecRelative = p.relative(
+          p.join(package.path, 'pubspec.yaml'),
+          from: rootDir.path,
+        );
+        exitError(
+          'Error: --version not provided and $pubspecRelative has an '
+          'empty version field',
+          GetReleaseNotesExitCode.usageError.code,
+        );
+      }
+    }
+
+    final changelogPath = p.join(package.path, 'CHANGELOG.md');
+    final relativePath = p.relative(changelogPath, from: rootDir.path);
+    final changelogFile = File(changelogPath);
+
+    if (!changelogFile.existsSync()) {
+      exitError(
+        "Error: CHANGELOG.md not found for package '$packageName' at "
+        '$relativePath',
+        GetReleaseNotesExitCode.changelogMissing.code,
+      );
+    }
+
+    final changelogMd = changelogFile.readAsStringSync();
+    final result = extractReleaseNotes(changelogMd, version);
+
+    switch (result) {
+      case ReleaseNotesFound(:final notes):
+        // Emit a blank line and a `Changelog:` marker before the notes so
+        // callers can deterministically skip any noise written to stdout
+        // before us (e.g. pub resolver output when the activated aft
+        // snapshot is stale and pub falls back to `dart pub -v global run`).
+        stdout
+          ..writeln()
+          ..writeln('Changelog:')
+          ..writeln(notes);
+      case ReleaseNotesVersionNotFound():
+        exitError(
+          'Error: version $version not found in $relativePath',
+          GetReleaseNotesExitCode.versionNotFound.code,
+        );
+      case ReleaseNotesEmpty():
+        exitError(
+          'Error: section for $version in $relativePath is empty',
+          GetReleaseNotesExitCode.sectionEmpty.code,
+        );
+    }
+  }
+}

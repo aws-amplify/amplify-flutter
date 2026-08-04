@@ -116,7 +116,7 @@ final class HostedUiStateMachine
         state: event.state,
         codeVerifier: event.codeVerifier,
       );
-      return resolve(HostedUiEvent.exchange(parameters));
+      return await resolve(HostedUiEvent.exchange(parameters));
     } on SignedOutException {
       emit(const HostedUiState.signedOut());
     }

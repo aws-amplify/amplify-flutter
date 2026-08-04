@@ -1,3 +1,50 @@
+## 2.14.0
+
+### Features
+- Completing initial wasm support for web packages
+  - analytics: [#7162](https://github.com/aws-amplify/amplify-flutter/pull/7162)
+  - authenticator: [#7195](https://github.com/aws-amplify/amplify-flutter/pull/7195)
+  - db_common: [#7186](https://github.com/aws-amplify/amplify-flutter/pull/7186)
+  - firehose: [#7168](https://github.com/aws-amplify/amplify-flutter/pull/7168)
+  - kinesis: [#7172](https://github.com/aws-amplify/amplify-flutter/pull/7172)
+  - sigv4: [#7187](https://github.com/aws-amplify/amplify-flutter/pull/7187)
+  - smithy: [#7188](https://github.com/aws-amplify/amplify-flutter/pull/7188)
+  - storage: [#7148](https://github.com/aws-amplify/amplify-flutter/pull/7148)
+- feat(notifications): Fail fast when push is used on an unsupported platform ([#7185](https://github.com/aws-amplify/amplify-flutter/pull/7185))
+- feat(connect): Introduce Amplify Connect client for Customer Profiles ([#7109](https://github.com/aws-amplify/amplify-flutter/pull/7109))
+
+## 2.13.0
+
+### Features
+- feat(api): Add wasm support ([#7145](https://github.com/aws-amplify/amplify-flutter/pull/7145))
+
+### Fixes
+- fix(push_notifications): Migrate from deprecated JobIntentService to WorkManager ([#7000](https://github.com/aws-amplify/amplify-flutter/pull/7000))
+
+## 2.12.1
+
+### Features
+- feat(auth): Add wasm support ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+- feat(secure_storage): Add wasm support ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+
+### Fixes
+- fix: Drop `dart:io` for better wasm support ([#7099](https://github.com/aws-amplify/amplify-flutter/pull/7099))
+
+## 2.12.0
+
+### Features
+- feat(auth): Add Swift Package Manager support to amplify_auth_cognito ([#6847](https://github.com/aws-amplify/amplify-flutter/pull/6847))
+- feat(datastore): Add Swift Package Manager support ([#7004](https://github.com/aws-amplify/amplify-flutter/pull/7004))
+- feat(push_notifications): Add Swift Package Manager support ([#7005](https://github.com/aws-amplify/amplify-flutter/pull/7005))
+
+## 2.11.0
+
+### Features
+- feat(storage): Support pre-signed upload URLs ([#6673](https://github.com/aws-amplify/amplify-flutter/pull/6673))
+
+### Fixes
+- fix(storage): Resolve flutter analyze error in amplify_storage_s3 example ([#6853](https://github.com/aws-amplify/amplify-flutter/pull/6853))
+
 ## 2.10.0
 
 ### Features

@@ -1,0 +1,21 @@
+name: Dart Format Check
+description: >-
+  Runs `dart format --set-exit-if-changed` on a package, skipping files matched
+  by the `analyzer.exclude` globs in the package's analysis_options.yaml (e.g.
+  generated `*.g.dart`). Config-driven — the excludes are read from the analysis
+  options (a single source of truth), not hardcoded in the workflow.
+
+inputs:
+  working-directory:
+    description: The working directory of the package (relative to repo root)
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check formatting
+      shell: bash
+      run: |
+        cd "$GITHUB_ACTION_PATH"
+        dart pub get
+        dart run bin/format_check.dart "$GITHUB_WORKSPACE/${{ inputs.working-directory }}"

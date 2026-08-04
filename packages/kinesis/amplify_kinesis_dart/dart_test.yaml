@@ -1,0 +1,3 @@
+tags:
+  e2e:
+    skip: "E2E tests require backend configuration"

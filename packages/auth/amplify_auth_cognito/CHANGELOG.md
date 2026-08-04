@@ -1,3 +1,28 @@
+## 2.14.0
+
+- Minor bug fixes and improvements
+
+## 2.13.0
+
+- Minor bug fixes and improvements
+
+## 2.12.1
+
+### Features
+- feat(auth): Add wasm support ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+
+### Fixes
+- fix: Drop `dart:io` for better wasm support ([#7099](https://github.com/aws-amplify/amplify-flutter/pull/7099))
+
+## 2.12.0
+
+### Features
+- feat(auth): Add Swift Package Manager support to amplify_auth_cognito ([#6847](https://github.com/aws-amplify/amplify-flutter/pull/6847))
+
+## 2.11.0
+
+- Minor bug fixes and improvements
+
 ## 2.10.0
 
 ### Features
