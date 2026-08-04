@@ -18,7 +18,7 @@ on:
 
 jobs:
   flutter-ios-build-and-test:
-    runs-on: macos-26-xlarge
+    runs-on: xcode-27-xlarge
     timeout-minutes: 30
     strategy:
       # Allows other matrix items to run if one fails
