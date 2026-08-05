@@ -468,7 +468,7 @@ jobs:
     // Add ffigen validation jobs
     if (hasFfigen) {
       for (final MapEntry(key: os, value: configs) in ffigenConfigs.entries) {
-        final osLabel = os.startsWith('macos') ? 'macos' : 'linux';
+        final osLabel = os.startsWith('ubuntu') ? 'linux' : 'macos';
         final configFiles = configs.join(' ');
         workflowContents.write('''
   ffigen_${osLabel}_test:
