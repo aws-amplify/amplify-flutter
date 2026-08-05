@@ -739,14 +739,14 @@ jobs:
         // Check for ObjC language (requires macOS)
         final language = yaml['language'];
         if (language is String && language == 'objc') {
-          return 'macos-26';
+          return 'xcode-27';
         }
 
         // Check for macOS SDK paths in headers or compiler-opts
         if (content.contains('MacOSX.platform') ||
             content.contains('MacOSX.sdk') ||
             content.contains('Xcode.app')) {
-          return 'macos-26';
+          return 'xcode-27';
         }
       }
     } on Object {
