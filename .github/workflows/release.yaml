@@ -12,7 +12,6 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  id-token: write
   contents: write
 
 jobs:
@@ -59,14 +58,6 @@ jobs:
           persist-credentials: false
           # `aft publish --ci` errors out on tags which already exist.
           fetch-tags: true
-
-      - name: Create publishing token (pub.dev)
-        run: |
-          set -eo pipefail
-          PUB_TOKEN=$(curl --retry 5 --retry-connrefused -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://pub.dev" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r '.value')
-          echo "PUB_TOKEN=${PUB_TOKEN}" >> $GITHUB_ENV
-          export PUB_TOKEN
-          flutter pub token add https://pub.dev --env-var PUB_TOKEN
 
       - name: Install aft
         run: dart pub global activate -spath packages/aft
@@ -115,10 +106,6 @@ jobs:
           git config user.email "flutter-release[bot]@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
           aft publish --ci
-
-      - name: Publish to pub.dev
-        if: steps.check-tags.outputs.has_tags == 'true'
-        run: aft publish --force
 
       - name: Create GitHub releases
         if: steps.check-tags.outputs.has_tags == 'true'
