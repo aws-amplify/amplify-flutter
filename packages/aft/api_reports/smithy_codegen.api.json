@@ -1,0 +1,3295 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "CodegenConfig",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CodegenConfig",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "output",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "inputFile",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/config.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "listen",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_codegen/src/config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "packageName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/config.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "server",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_codegen/src/config.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "client",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_codegen/src/config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "smithyPath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/config.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/config.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "output",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "inputFile",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "listen",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "packageName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "server",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "client",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "smithyPath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/config.dart"
+    },
+    {
+      "name": "ConfigOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "Uri",
+          "name": "outputUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/config.dart"
+    },
+    {
+      "name": "CodegenException",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Exception"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CodegenException",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "message",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/exception.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/exception.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "message",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/exception.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/exception.dart"
+    },
+    {
+      "name": "GeneratedOutput",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "GeneratedOutput",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "context",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CodegenContext",
+              "relativePath": "package:smithy_codegen/src/generate.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "libraries",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<GeneratedLibrary>",
+              "relativePath": "package:smithy_codegen/src/generate.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generate.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "CodegenContext",
+          "name": "context",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generate.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<GeneratedLibrary>",
+          "name": "libraries",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generate.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/generate.dart"
+    },
+    {
+      "name": "CodegenContext",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Shape",
+          "name": "shapeFor",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "shapeId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ShapeId",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart"
+        },
+        {
+          "returnTypeName": "Reference",
+          "name": "symbolFor",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "shapeId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ShapeId",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "parent",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Shape?",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasSymbolOverrideFor",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "shape",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Shape",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart"
+        },
+        {
+          "returnTypeName": "ShapeOverrides?",
+          "name": "overridesFor",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "shape",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Shape",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart"
+        },
+        {
+          "returnTypeName": "Reference?",
+          "name": "symbolOverrideFor",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "shape",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Shape",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart"
+        },
+        {
+          "returnTypeName": "R",
+          "name": "run",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "action",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "R Function()",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "R"
+          ],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart"
+        },
+        {
+          "returnTypeName": "CodegenContext",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "smithyVersion",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SmithyVersion",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "metadata",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object>",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "shapes",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ShapeMap",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "packageName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceShapeId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ShapeId?",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "basePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Pubspec?",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "additionalShapes",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Iterable<ShapeId>",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "generateServer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "shapeOverrides",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<ShapeId, ShapeOverrides>?",
+              "relativePath": "package:smithy_codegen/src/generator/context.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "SmithyVersion",
+          "name": "smithyVersion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, Object>",
+          "name": "metadata",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ShapeMap",
+          "name": "shapes",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<Reference, Set<String>>",
+          "name": "generatedTypes",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<Reference, Expression>",
+          "name": "builderFactories",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "packageName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "basePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ShapeId?",
+          "name": "serviceShapeId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Pubspec?",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<ShapeId, ShapeOverrides>",
+          "name": "shapeOverrides",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ServiceShape?",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<ProtocolDefinitionTrait>",
+          "name": "serviceProtocols",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary",
+          "name": "serviceSerializersLibrary",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary",
+          "name": "endpointResolverLibrary",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Reference",
+          "name": "serializersRef",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Reference",
+          "name": "builderFactoriesRef",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary",
+          "name": "serviceClientLibrary",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "generateServer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary",
+          "name": "serviceServerLibrary",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "serviceServerName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "serviceClientName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary",
+          "name": "serviceLibrary",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "serviceName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/context.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/generator/context.dart"
+    },
+    {
+      "name": "ShapeOverrides",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Expression",
+          "name": "transformFromFriendly",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "ref",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "isNullable",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+        },
+        {
+          "returnTypeName": "Expression",
+          "name": "transformToFriendly",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "ref",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "isNullable",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "isConst",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+        },
+        {
+          "returnTypeName": "ShapeOverrides",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "symbol",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Reference",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializerSymbol",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Reference?",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+        },
+        {
+          "returnTypeName": "ShapeOverrides",
+          "name": "friendly",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "symbol",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Reference?",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializerSymbol",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Reference?",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "friendlySymbol",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Reference",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "transformFromFriendly",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression Function(Expression, {required bool isNullable})",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "transformToFriendly",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression Function(Expression, {required bool isConst, required bool isNullable})",
+              "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Reference?",
+          "name": "symbol",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Reference?",
+          "name": "serializerSymbol",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Reference?",
+          "name": "friendlySymbol",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/generator/shape_overrides.dart"
+    },
+    {
+      "name": "SmithyLibrary",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "GeneratedMessage",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "clone",
+          "isDeprecated": true,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "copyWith",
+          "isDeprecated": true,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "updates",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(SmithyLibrary)",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "create",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "createEmptyInstance",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "PbList<SmithyLibrary>",
+          "name": "createRepeated",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "getDefault",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasPackageName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearPackageName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasServiceName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearServiceName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasLibraryType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearLibraryType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasFilename",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearFilename",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasBasePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearBasePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "packageName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "libraryType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SmithyLibrary_LibraryType?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "filename",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "basePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "fromBuffer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "i",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "r",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ExtensionRegistry",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "i",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "r",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ExtensionRegistry",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "BuilderInfo",
+          "name": "info_",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "packageName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String",
+          "name": "serviceName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "SmithyLibrary_LibraryType",
+          "name": "libraryType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String",
+          "name": "filename",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String",
+          "name": "basePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+    },
+    {
+      "name": "SmithyLibrary_LibraryType",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "ProtobufEnum",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SmithyLibrary_LibraryType?",
+          "name": "valueOf",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "value",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "SmithyLibrary_LibraryType",
+          "name": "MODEL",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary_LibraryType",
+          "name": "CLIENT",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary_LibraryType",
+          "name": "SERVICE",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary_LibraryType",
+          "name": "OPERATION",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary_LibraryType",
+          "name": "COMMON",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary_LibraryType",
+          "name": "TEST",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary_LibraryType",
+          "name": "SERVER",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary_LibraryType",
+          "name": "WAITERS",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<SmithyLibrary_LibraryType>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/service/codegen.pbenum.dart"
+    },
+    {
+      "name": "GeneratedLibrary",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSEquatable<GeneratedLibrary>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "String",
+          "name": "emit",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "withPrefixingStrategy",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "PrefixStrategy",
+              "relativePath": "package:smithy_codegen/src/generator/generated_library.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/generated_library.dart"
+        },
+        {
+          "returnTypeName": "GeneratedLibrary",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "smithyLibrary",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SmithyLibrary",
+              "relativePath": "package:smithy_codegen/src/generator/generated_library.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "library",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Library",
+              "relativePath": "package:smithy_codegen/src/generator/generated_library.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "libraryDocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/generator/generated_library.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/generated_library.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "SmithyLibrary",
+          "name": "smithyLibrary",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/generated_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Library",
+          "name": "library",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/generated_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Set<String>",
+          "name": "dependencies",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/generated_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "libraryDocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/generated_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Object?>",
+          "name": "props",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/generated_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/generator/generated_library.dart"
+    },
+    {
+      "name": "PrefixStrategy",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "PrefixStrategy",
+          "name": "always",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/allocator.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "PrefixStrategy",
+          "name": "never",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/allocator.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "PrefixStrategy",
+          "name": "runtimeOnly",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/allocator.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<PrefixStrategy>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/allocator.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:smithy_codegen/src/generator/allocator.dart"
+    },
+    {
+      "name": "SmithyLibraryX",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "create",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "packageName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "serviceName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "libraryType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SmithyLibrary_LibraryType",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "filename",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "basePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "fromLibraryName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "libraryName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "basePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "fromParts",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parts",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<String>",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "basePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "fromPath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "packageName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "basePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "sanitizedFilename",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/model/smithy_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "libRelativePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/model/smithy_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "projectRelativePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/model/smithy_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "libraryName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/model/smithy_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "libraryUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/model/smithy_library.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/model/smithy_library.dart"
+    },
+    {
+      "name": "CodegenRequest",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "GeneratedMessage",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CodegenRequest",
+          "name": "clone",
+          "isDeprecated": true,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenRequest",
+          "name": "copyWith",
+          "isDeprecated": true,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "updates",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(CodegenRequest)",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenRequest",
+          "name": "create",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenRequest",
+          "name": "createEmptyInstance",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "PbList<CodegenRequest>",
+          "name": "createRepeated",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenRequest",
+          "name": "getDefault",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasServiceName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearServiceName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenRequest",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "settings",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenRequest",
+          "name": "fromBuffer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "i",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "r",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ExtensionRegistry",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenRequest",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "i",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "r",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ExtensionRegistry",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "BuilderInfo",
+          "name": "info_",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, String>",
+          "name": "settings",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "serviceName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String",
+          "name": "json",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+    },
+    {
+      "name": "CodegenResponse_Library",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "GeneratedMessage",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CodegenResponse_Library",
+          "name": "clone",
+          "isDeprecated": true,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse_Library",
+          "name": "copyWith",
+          "isDeprecated": true,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "updates",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(CodegenResponse_Library)",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse_Library",
+          "name": "create",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse_Library",
+          "name": "createEmptyInstance",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "PbList<CodegenResponse_Library>",
+          "name": "createRepeated",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse_Library",
+          "name": "getDefault",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasMetadata",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearMetadata",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "SmithyLibrary",
+          "name": "ensureMetadata",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasDefinition",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearDefinition",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse_Library",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "metadata",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SmithyLibrary?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "definition",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse_Library",
+          "name": "fromBuffer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "i",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "r",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ExtensionRegistry",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse_Library",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "i",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "r",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ExtensionRegistry",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "BuilderInfo",
+          "name": "info_",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SmithyLibrary",
+          "name": "metadata",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String",
+          "name": "definition",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+    },
+    {
+      "name": "CodegenResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "GeneratedMessage",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CodegenResponse",
+          "name": "clone",
+          "isDeprecated": true,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse",
+          "name": "copyWith",
+          "isDeprecated": true,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "updates",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(CodegenResponse)",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse",
+          "name": "create",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse",
+          "name": "createEmptyInstance",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "PbList<CodegenResponse>",
+          "name": "createRepeated",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse",
+          "name": "getDefault",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasSuccess",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearSuccess",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasError",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearError",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "bool",
+          "name": "hasPubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "clearPubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "success",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "libraries",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Iterable<CodegenResponse_Library>?",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse",
+          "name": "fromBuffer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "i",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "r",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ExtensionRegistry",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        },
+        {
+          "returnTypeName": "CodegenResponse",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "i",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "r",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ExtensionRegistry",
+              "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "BuilderInfo",
+          "name": "info_",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "success",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "List<CodegenResponse_Library>",
+          "name": "libraries",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/service/codegen.pb.dart"
+    },
+    {
+      "name": "Dependency",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSEquatable<Dependency>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Dependency",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "semver",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "type",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DependencyType?",
+              "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+        },
+        {
+          "returnTypeName": "Dependency",
+          "name": "dev",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "semver",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "type",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DependencyType?",
+              "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "semver",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DependencyType?",
+          "name": "type",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "isDevDependency",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Object?>",
+          "name": "props",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+    },
+    {
+      "name": "DependencyType",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "DependencyType",
+          "name": "aws",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DependencyType",
+          "name": "smithy",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<DependencyType>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+    },
+    {
+      "name": "PubspecGenerator",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Generator<String>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "String",
+          "name": "dependencyYaml",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "dependency",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Dependency",
+              "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+        },
+        {
+          "returnTypeName": "PubspecGenerator",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Pubspec",
+              "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "_dependencies",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Iterable<String>",
+              "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "smithyPath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+        },
+        {
+          "returnTypeName": "T",
+          "name": "generate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/generator/generator.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Pubspec",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "smithyPath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Iterable<String>",
+          "name": "dependencies",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Iterable<String>",
+          "name": "devDependencies",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_codegen/src/util/pubspec.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_codegen.dart"
+      ],
+      "relativePath": "package:smithy_codegen/src/util/pubspec.dart"
+    }
+  ]
+}
