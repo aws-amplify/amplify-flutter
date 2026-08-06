@@ -20,8 +20,10 @@ extension AmplifyPushNotificationsPlugin {
         _ application: UIApplication,
         didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
+        let nsError = error as NSError
+        let details: [String: Any] = ["domain": nsError.domain, "code": nsError.code]
         sharedEventsStreamHandlers.tokenReceived.sendError(
-            error: FlutterError(code: "DeviceTokenError", message: error.localizedDescription, details: error)
+            error: FlutterError(code: "DeviceTokenError", message: nsError.localizedDescription, details: details)
         )
     }
 

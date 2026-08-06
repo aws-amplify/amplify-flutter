@@ -9,7 +9,7 @@ import PackageDescription
 let package = Package(
     name: "amplify_secure_storage",
     platforms: [
-        .iOS("13.0")
+        .iOS("15.0")
     ],
     products: [
         .library(name: "amplify-secure-storage", targets: ["amplify_secure_storage"])
