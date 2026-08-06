@@ -7,7 +7,7 @@ import AmplifyUtilsNotifications
 import amplify_push_notifications_objc
 #endif
 
-public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotificationsHostApi {
+public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, FlutterSceneLifeCycleDelegate, PushNotificationsHostApi {
     // The notification that has been tapped by an end user to launch the App from terminated state
     // to the foregound.
     var launchNotification: [AnyHashable: Any]?
@@ -33,6 +33,9 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
         SetUpPushNotificationsHostApi(messenger, pluginInstance)
 
         registrar.addApplicationDelegate(pluginInstance)
+        if #available(iOS 13.0, *) {
+            registrar.addSceneDelegate(pluginInstance)
+        }
     }
 
     public func requestInitialTokenWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {

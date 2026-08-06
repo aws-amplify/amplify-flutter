@@ -17,7 +17,7 @@ on:
 
 jobs:
   e2e-test-ios:
-    runs-on: macos-26-xlarge
+    runs-on: xcode-27-xlarge
     strategy:
       # Allows other matrix items to run if one fails
       fail-fast: false

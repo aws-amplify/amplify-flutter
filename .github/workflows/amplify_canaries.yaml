@@ -16,7 +16,7 @@ concurrency:
 jobs:
   # Ensure an app pulling in published Amplify libraries can build properly
   build:
-    runs-on: macos-26
+    runs-on: xcode-27
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -147,7 +147,7 @@ jobs:
           platform-version: ${{ matrix.ios-version }}
 
   e2e-ios:
-    runs-on: macos-26-xlarge
+    runs-on: xcode-27-xlarge
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write

@@ -86,7 +86,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-26
+          - xcode-27
           - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -101,7 +101,7 @@ jobs:
     # It is recommended that all actions requiring a simulator be run on XL runners
     # since the process of installing new runtimes and building with Xcode can be
     # incredibly slow otherwise.
-    runs-on: macos-26-xlarge
+    runs-on: xcode-27-xlarge
     # Timeout as a stop-gap for further investigating. This action should never need more
     # than 30 minutes to do its work (may need to download older simulator runtimes).
     timeout-minutes: 30
@@ -112,6 +112,8 @@ jobs:
           - ios-version: "16.4"
             device: "iPhone 13 Pro Max"
           - ios-version: "26.4"
+            device: "iPhone 17 Pro Max"
+          - ios-version: "27.0"
             device: "iPhone 17 Pro Max"
     steps:
       - name: Git Checkout
