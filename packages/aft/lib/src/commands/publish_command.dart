@@ -205,6 +205,44 @@ mixin PublishHelpers on AmplifyCommand {
       }
     }
   }
+
+  /// The release tag for [package], e.g. `amplify_auth_cognito-v2.6.1`.
+  String releaseTag(PackageInfo package) =>
+      '${package.name}-v${package.version}';
+
+  /// Whether [tag] already exists in the local repo.
+  Future<bool> tagExists(String tag) async {
+    final result = await repo.git.runCommand([
+      'rev-parse',
+      '--verify',
+      '--quiet',
+      'refs/tags/$tag',
+    ], throwOnError: false);
+    return result.exitCode == 0;
+  }
+
+  /// Creates and pushes the release tag for [package] in lieu of publishing it
+  /// with `pub`.
+  Future<void> publishTag(PackageInfo package) async {
+    final tag = releaseTag(package);
+    if (await tagExists(tag)) {
+      exitError('Tag $tag already exists');
+    }
+    if (dryRun) {
+      logger.info('Would create and push tag $tag');
+      return;
+    }
+    logger.info('Creating tag $tag...');
+    await runGit([
+      'tag',
+      '-a',
+      tag,
+      '-m',
+      'Release ${package.name} ${package.version}',
+    ]);
+    await runGit(['push', 'origin', 'refs/tags/$tag']);
+    logger.info('Pushed tag $tag');
+  }
 }
 
 /// Command to publish all Dart/Flutter packages in the repo.
@@ -233,6 +271,14 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
         negatable: false,
       )
       ..addFlag(
+        'ci',
+        help:
+            'Does not publish with `pub`. Instead, creates and pushes a '
+            r'"${package}-v${version}" tag for each package to be published, '
+            'which triggers publishing from CI.',
+        negatable: false,
+      )
+      ..addFlag(
         'bootstrap',
         help:
             'Bootstraps new (previously unpublished) packages by publishing '
@@ -249,6 +295,8 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
   late final bool dryRun = argResults!['dry-run'] as bool;
 
   late final bool tags = argResults!['tags'] as bool;
+
+  late final bool ci = argResults!['ci'] as bool;
 
   @override
   late final bool bootstrap = argResults!['bootstrap'] as bool;
@@ -286,8 +334,7 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     if (tags) {
       stdout.writeln();
       for (final package in packagesNeedingPublish) {
-        final version = package.pubspecInfo.pubspec.version;
-        stdout.writeln('New tag: ${package.name}-v$version');
+        stdout.writeln('New tag: ${releaseTag(package)}');
       }
       return;
     }
@@ -311,6 +358,11 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
         'Run locally: aft publish --bootstrap',
       );
       exit(1);
+    }
+
+    if (ci) {
+      await _pushReleaseTags(packagesNeedingPublish);
+      return;
     }
 
     stdout
@@ -356,6 +408,27 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
       dryRun
           ? 'All packages passed pre-publish checks'
           : 'All packages were successfully published',
+    );
+  }
+
+  /// Creates and pushes a release tag for each package in
+  /// [packagesNeedingPublish], which triggers publishing from CI.
+  Future<void> _pushReleaseTags(
+    List<PackageInfo> packagesNeedingPublish,
+  ) async {
+    stdout
+      ..writeln('Tagging for release${dryRun ? ' (dry run)' : ''}: ')
+      ..writeln(packagesNeedingPublish.map(releaseTag).join('\n'))
+      ..writeln();
+
+    for (final package in packagesNeedingPublish) {
+      await publishTag(package);
+    }
+
+    stdout.writeln(
+      dryRun
+          ? 'All release tags are available'
+          : 'All release tags were successfully pushed',
     );
   }
 
