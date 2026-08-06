@@ -105,7 +105,7 @@ jobs:
           git config user.name "flutter-release[bot]"
           git config user.email "flutter-release[bot]@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
-          aft publish --ci
+          aft publish --ci --force
 
       - name: Create GitHub releases
         if: steps.check-tags.outputs.has_tags == 'true'
