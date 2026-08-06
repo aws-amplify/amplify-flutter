@@ -10,6 +10,17 @@ import 'package:path/path.dart' as p;
 /// Prints the repo-relative path of a package identified by name or publish
 /// tag, e.g. `aft locate-package amplify_core-v2.10.1` -> `packages/amplify_core`.
 class LocatePackageCommand extends AmplifyCommand {
+  LocatePackageCommand() {
+    argParser.addFlag(
+      'flavor',
+      help:
+          'Prints the package flavor entrypoint (`dart` or `flutter`) instead '
+          'of its path.',
+      negatable: false,
+    );
+  }
+
+  late final bool flavor = argResults!['flavor'] as bool;
   @override
   String get description =>
       'Prints the repo-relative path of a package by name or publish tag.';
@@ -40,6 +51,10 @@ class LocatePackageCommand extends AmplifyCommand {
       exitError("Error: package '$nameOrTag' not found in workspace");
     }
 
-    stdout.writeln(p.relative(package.path, from: rootDir.path));
+    stdout.writeln(
+      flavor
+          ? package.flavor.entrypoint
+          : p.relative(package.path, from: rootDir.path),
+    );
   }
 }
