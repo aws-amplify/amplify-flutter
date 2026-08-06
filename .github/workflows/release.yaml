@@ -56,7 +56,6 @@ jobs:
         with:
           # Keeps `GITHUB_TOKEN` from shadowing the App token used to push tags.
           persist-credentials: false
-          # `aft publish --ci` errors out on tags which already exist.
           fetch-tags: true
 
       - name: Install aft
@@ -101,10 +100,13 @@ jobs:
         if: steps.check-tags.outputs.has_tags == 'true'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
         run: |
+          # Keeps the token out of `.git/config` once the push is done.
+          trap 'git remote set-url origin "https://github.com/$REPO.git"' EXIT
           git config user.name "flutter-release[bot]"
           git config user.email "flutter-release[bot]@users.noreply.github.com"
-          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/$REPO.git"
           aft publish --ci --force
 
       - name: Create GitHub releases
