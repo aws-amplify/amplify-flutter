@@ -240,8 +240,22 @@ mixin PublishHelpers on AmplifyCommand {
       '-m',
       'Release ${package.name} ${package.version}',
     ]);
-    await runGit(['push', 'origin', 'refs/tags/$tag']);
+    try {
+      await runGit(['push', 'origin', 'refs/tags/$tag']);
+    } on Exception catch (e) {
+      // A leftover local tag would block a retry.
+      await _deleteLocalTag(tag);
+      exitError('Failed to push tag $tag: $e');
+    }
     logger.info('Pushed tag $tag');
+  }
+
+  Future<void> _deleteLocalTag(String tag) async {
+    try {
+      await runGit(['tag', '-d', tag]);
+    } on Exception catch (e) {
+      logger.warn('Could not delete local tag $tag', e);
+    }
   }
 }
 
