@@ -54,6 +54,11 @@ jobs:
 
       - name: Git Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+        with:
+          # Keeps `GITHUB_TOKEN` from shadowing the App token used to push tags.
+          persist-credentials: false
+          # `aft publish --ci` errors out on tags which already exist.
+          fetch-tags: true
 
       - name: Create publishing token (pub.dev)
         run: |
@@ -88,16 +93,28 @@ jobs:
         if: steps.check-tags.outputs.has_tags == 'true'
         run: aft publish --dry-run --force
 
+      # Minted right before the push so the 1 hour token cannot go stale.
+      # v3+ requires Actions Runner >= 2.327.1, which CodeBuild runners may not
+      # have yet.
+      - name: Generate GitHub App token
+        id: app-token
+        if: steps.check-tags.outputs.has_tags == 'true'
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.2
+        with:
+          app-id: ${{ vars.FLUTTER_RELEASE_APP_ID }}
+          private-key: ${{ secrets.FLUTTER_RELEASE_APP_PRIVATE_KEY }}
+
+      # `aft publish --ci` pushes the tags. Pushing as the App rather than with
+      # `GITHUB_TOKEN` is what lets the tags trigger downstream workflows.
       - name: Create and push tags
         if: steps.check-tags.outputs.has_tags == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          while IFS= read -r tag; do
-            echo "Creating tag: $tag"
-            git tag "$tag"
-          done < "$RUNNER_TEMP/new_tags.txt"
-          git push origin --tags
+          git config user.name "flutter-release[bot]"
+          git config user.email "flutter-release[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          aft publish --ci
 
       - name: Publish to pub.dev
         if: steps.check-tags.outputs.has_tags == 'true'
