@@ -1,0 +1,75 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      # aft release tags: <package>-v<version>, e.g. amplify_core-v2.6.1
+      - '*-v[0-9]*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  publish:
+    name: Publish to pub.dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@43c102f4dc9b9829c862401f0b64c7c9184eab4e # main
+        with:
+          sdk: stable
+
+      - name: Install aft
+        run: dart pub global activate -spath packages/aft
+
+      # aft resolves the tag to a package and reports its dart/flutter flavor.
+      # `tail -n1` guards against `pub` writing resolution output to stdout.
+      - name: Resolve package
+        id: package
+        run: |
+          set -eo pipefail
+          TAG="${GITHUB_REF#refs/tags/}"
+          VERSION="${TAG##*-v}"
+          PACKAGE_DIR=$(aft locate-package "$TAG" | tail -n1)
+          FLAVOR=$(aft locate-package "$TAG" --flavor | tail -n1)
+
+          PACKAGE=$(sed -n 's/^name:[[:space:]]*//p' "$PACKAGE_DIR/pubspec.yaml" | head -n1)
+          PUBSPEC_VERSION=$(sed -n 's/^version:[[:space:]]*//p' "$PACKAGE_DIR/pubspec.yaml" | head -n1)
+          if [ "$PUBSPEC_VERSION" != "$VERSION" ]; then
+            echo "::error::Tag $TAG does not match $PACKAGE_DIR/pubspec.yaml version $PUBSPEC_VERSION"
+            exit 1
+          fi
+
+          echo "package=$PACKAGE" >> "$GITHUB_OUTPUT"
+          echo "flavor=$FLAVOR" >> "$GITHUB_OUTPUT"
+          echo "Publishing $PACKAGE $VERSION ($FLAVOR) from $PACKAGE_DIR" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Setup Flutter
+        if: steps.package.outputs.flavor == 'flutter'
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # 2.23.0
+        with:
+          channel: stable
+
+      - name: Create publishing token (pub.dev)
+        run: |
+          set -eo pipefail
+          PUB_TOKEN=$(curl --retry 5 --retry-connrefused -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://pub.dev" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r '.value')
+          echo "PUB_TOKEN=${PUB_TOKEN}" >> $GITHUB_ENV
+          export PUB_TOKEN
+          dart pub token add https://pub.dev --env-var PUB_TOKEN
+
+      # aft runs `dart pub publish` or `flutter pub publish` per package flavor.
+      - name: Publish to pub.dev
+        run: aft publish --include "${{ steps.package.outputs.package }}" --force
