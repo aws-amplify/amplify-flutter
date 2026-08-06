@@ -68,6 +68,30 @@ void main() {
     );
 
     test(
+      'deletes the local tag when the push fails',
+      () async {
+        await _git(repoDir, [
+          'remote',
+          'set-url',
+          'origin',
+          p.join(tempDir.path, 'missing.git'),
+        ]);
+
+        final result = await _runAft(repoDir, ['publish', '--ci']);
+        printOnFailure('${result.stdout}\n${result.stderr}');
+
+        expect(result.exitCode, 1);
+        expect(result.stderr, contains('Failed to push tag $_tag'));
+        expect(
+          await _tagExists(repoDir, _tag),
+          isFalse,
+          reason: 'a leftover local tag would block a retry',
+        );
+      },
+      timeout: const Timeout(Duration(minutes: 3)),
+    );
+
+    test(
       '--dry-run does not create or push a tag',
       () async {
         final result = await _runAft(repoDir, ['publish', '--ci', '--dry-run']);
