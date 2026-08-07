@@ -111,23 +111,15 @@ void main() {
       timeout: const Timeout(Duration(minutes: 3)),
     );
 
-    test(
-      '--dry-run does not create or push a tag',
-      () async {
-        final result = await _runAft(repoDir, ['publish', '--ci', '--dry-run']);
-        printOnFailure('${result.stdout}\n${result.stderr}');
+    test('rejects --dry-run', () async {
+      final result = await _runAft(repoDir, ['publish', '--ci', '--dry-run']);
+      printOnFailure('${result.stdout}\n${result.stderr}');
 
-        expect(result.exitCode, 0);
-        expect(result.stdout, contains('Would create and push tag $_tag'));
-        expect(await _tagExists(repoDir, _tag), isFalse, reason: 'local tag');
-        expect(
-          await _tagExists(remoteDir, _tag),
-          isFalse,
-          reason: 'remote tag',
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+      expect(result.exitCode, isNot(0));
+      expect(result.stderr, contains('--ci cannot be combined with --dry-run'));
+      expect(await _tagExists(repoDir, _tag), isFalse, reason: 'local tag');
+      expect(await _tagExists(remoteDir, _tag), isFalse, reason: 'remote tag');
+    }, timeout: const Timeout(Duration(minutes: 3)));
 
     test('--tags only prints the tags', () async {
       final result = await _runAft(repoDir, ['publish', '--tags']);
