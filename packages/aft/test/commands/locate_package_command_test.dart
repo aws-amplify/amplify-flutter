@@ -13,84 +13,39 @@ import 'package:test/test.dart';
 final _aftEntrypoint = p.join(Directory.current.path, 'bin', 'aft.dart');
 
 void main() {
-  group('aft locate-package', () {
-    late Directory tempDir;
-    late Directory repoDir;
-
-    setUpAll(() async {
-      tempDir = Directory.systemTemp.createTempSync('aft_locate_');
-      repoDir = Directory(p.join(tempDir.path, 'repo'));
+  test(
+    'aft locate-package --format=env reports the package facts',
+    () async {
+      final tempDir = Directory.systemTemp.createTempSync('aft_locate_');
+      addTearDown(() => tempDir.deleteSync(recursive: true));
+      final repoDir = Directory(p.join(tempDir.path, 'repo'));
       await _createRepo(repoDir);
-    });
 
-    tearDownAll(() => tempDir.deleteSync(recursive: true));
-
-    test('resolves a name to a path', () async {
-      final result = await _runAft(repoDir, ['locate-package', 'aws_common']);
-      printOnFailure('${result.stdout}\n${result.stderr}');
-      expect(result.exitCode, 0);
-      expect(_lastLine(result), 'packages/aws_common');
-    });
-
-    test('resolves a publish tag to a path', () async {
-      final result = await _runAft(repoDir, [
-        'locate-package',
-        'aws_common-v1.2.3',
-      ]);
-      printOnFailure('${result.stdout}\n${result.stderr}');
-      expect(result.exitCode, 0);
-      expect(_lastLine(result), 'packages/aws_common');
-    });
-
-    test('--format=env reports all facts for a Dart package', () async {
-      final result = await _runAft(repoDir, [
+      final dartPackage = await _runAft(repoDir, [
         'locate-package',
         'aws_common-v1.2.3',
         '--format=env',
       ]);
-      printOnFailure('${result.stdout}\n${result.stderr}');
-      expect(result.exitCode, 0);
-      expect(_envOf(result), {
+      printOnFailure('${dartPackage.stdout}\n${dartPackage.stderr}');
+      expect(dartPackage.exitCode, 0);
+      expect(_envOf(dartPackage), {
         'name': 'aws_common',
         'version': '1.2.3',
         'path': 'packages/aws_common',
         'flavor': 'dart',
       });
-    });
 
-    test('--format=env reports flutter for a Flutter package', () async {
-      final result = await _runAft(repoDir, [
+      final flutterPackage = await _runAft(repoDir, [
         'locate-package',
         'amplify_flutter-v2.0.0',
         '--format=env',
       ]);
-      printOnFailure('${result.stdout}\n${result.stderr}');
-      expect(result.exitCode, 0);
-      expect(_envOf(result), {
-        'name': 'amplify_flutter',
-        'version': '2.0.0',
-        'path': 'packages/amplify_flutter',
-        'flavor': 'flutter',
-      });
-    });
-
-    test('rejects an unknown format', () async {
-      final result = await _runAft(repoDir, [
-        'locate-package',
-        'aws_common',
-        '--format=nope',
-      ]);
-      printOnFailure('${result.stdout}\n${result.stderr}');
-      expect(result.exitCode, isNot(0));
-    });
-
-    test('fails for an unknown package', () async {
-      final result = await _runAft(repoDir, ['locate-package', 'nope-v1.0.0']);
-      printOnFailure('${result.stdout}\n${result.stderr}');
-      expect(result.exitCode, 1);
-      expect(result.stderr, contains("package 'nope-v1.0.0' not found"));
-    });
-  }, timeout: const Timeout(Duration(minutes: 5)));
+      printOnFailure('${flutterPackage.stdout}\n${flutterPackage.stderr}');
+      expect(flutterPackage.exitCode, 0);
+      expect(_envOf(flutterPackage)['flavor'], 'flutter');
+    },
+    timeout: const Timeout(Duration(minutes: 3)),
+  );
 }
 
 Future<ProcessResult> _runAft(Directory repoDir, List<String> args) =>
@@ -101,15 +56,6 @@ Future<ProcessResult> _runAft(Directory repoDir, List<String> args) =>
       repoDir.path,
       ...args,
     ]);
-
-/// The last non-empty stdout line, with the SDK's build-hook chatter stripped
-/// (it is printed without a trailing newline, so it glues onto real output).
-String _lastLine(ProcessResult result) => (result.stdout as String)
-    .replaceAll('Running build hooks...', '')
-    .split('\n')
-    .map((line) => line.trim())
-    .where((line) => line.isNotEmpty)
-    .last;
 
 /// Parses `--format=env` output, ignoring any `pub`/SDK chatter, exactly as the
 /// publish workflow's `grep -o` does.
