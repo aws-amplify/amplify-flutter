@@ -238,10 +238,6 @@ mixin PublishHelpers on AmplifyCommand {
       logger.info('Tag $tag already exists at HEAD, skipping');
       return;
     }
-    if (dryRun) {
-      logger.info('Would create and push tag $tag');
-      return;
-    }
     logger.info('Creating tag $tag...');
     await runGit([
       'tag',
@@ -299,7 +295,8 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
         help:
             'Does not publish with `pub`. Instead, creates and pushes a '
             r'"${package}-v${version}" tag for each package to be published, '
-            'which triggers publishing from CI.',
+            'which triggers publishing from CI. Cannot be combined with '
+            '`--dry-run`.',
         negatable: false,
       )
       ..addFlag(
@@ -335,6 +332,9 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
 
   @override
   Future<void> run() async {
+    if (ci && dryRun) {
+      exitError('--ci cannot be combined with --dry-run');
+    }
     await super.run();
     // Gather packages which can be published.
     final publishablePackages = repo.publishablePackages(commandPackages);
@@ -441,7 +441,7 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     List<PackageInfo> packagesNeedingPublish,
   ) async {
     stdout
-      ..writeln('Tagging for release${dryRun ? ' (dry run)' : ''}: ')
+      ..writeln('Tagging for release: ')
       ..writeln(packagesNeedingPublish.map(releaseTag).join('\n'))
       ..writeln();
 
@@ -449,11 +449,7 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
       await publishTag(package);
     }
 
-    stdout.writeln(
-      dryRun
-          ? 'All release tags are available'
-          : 'All release tags were successfully pushed',
-    );
+    stdout.writeln('All release tags were successfully pushed');
   }
 
   /// Bootstraps new packages by publishing minimal placeholder versions to
