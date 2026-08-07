@@ -22,7 +22,8 @@ class ModelQueriesFactory {
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
   }) {
-    final variables = modelIdentifier.serializeAsMap();
+    final variables = GraphQLRequestFactory.instance
+        .buildVariablesForGetRequest(modelIdentifier: modelIdentifier);
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
       modelIdentifier: modelIdentifier,

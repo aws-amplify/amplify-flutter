@@ -224,6 +224,30 @@ void main() {
       expect(res.errors, isEmpty);
     });
 
+    test('Query for a model with a TemporalDateTime in its custom identifier '
+        'serializes without throwing (regression test for #6298)', () {
+      const hwid = '94B216FCC67F';
+      final sessionStart = TemporalDateTime.fromString(
+        '2025-03-28T23:07:34.000Z',
+      );
+      final serializedDate = sessionStart.toString();
+      final expectedDoc =
+          'query getCpkTemporalPrimaryKey { getCpkTemporalPrimaryKey(hwid: "$hwid", sessionStart: "$serializedDate") { hwid sessionStart } }';
+
+      final req = ModelQueries.get<CpkTemporalPrimaryKey>(
+        CpkTemporalPrimaryKey.classType,
+        CpkTemporalPrimaryKeyModelIdentifier(
+          hwid: hwid,
+          sessionStart: sessionStart,
+        ),
+      );
+
+      // document asserts
+      expect(req.document, expectedDoc);
+      // variables must be JSON-encodable
+      expect(() => json.encode(req.variables), returnsNormally);
+    });
+
     test(
       'Mutation.create returns proper response.data for Models with custom types',
       () async {
