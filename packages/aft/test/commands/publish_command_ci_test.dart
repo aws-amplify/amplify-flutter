@@ -54,17 +54,37 @@ void main() {
     );
 
     test(
-      'fails when the tag already exists',
+      'skips a tag which already exists at HEAD',
       () async {
         final first = await _runAft(repoDir, ['publish', '--ci']);
         expect(first.exitCode, 0);
 
         final second = await _runAft(repoDir, ['publish', '--ci']);
         printOnFailure('${second.stdout}\n${second.stderr}');
-        expect(second.exitCode, 1);
-        expect(second.stderr, contains('Tag $_tag already exists'));
+        expect(second.exitCode, 0);
+        expect(second.stdout, contains('already exists at HEAD, skipping'));
+        expect(await _tagExists(repoDir, _tag), isTrue, reason: 'local tag');
       },
       timeout: const Timeout(Duration(minutes: 4)),
+    );
+
+    test(
+      'fails when the tag exists on another commit',
+      () async {
+        await _git(repoDir, ['tag', '-a', _tag, '-m', 'stale']);
+        await _git(repoDir, ['commit', '--allow-empty', '-m', 'Next commit']);
+
+        final result = await _runAft(repoDir, ['publish', '--ci']);
+        printOnFailure('${result.stdout}\n${result.stderr}');
+        expect(result.exitCode, 1);
+        expect(result.stderr, contains('Tag $_tag already exists at'));
+        expect(
+          await _tagExists(remoteDir, _tag),
+          isFalse,
+          reason: 'nothing should be pushed on a conflict',
+        );
+      },
+      timeout: const Timeout(Duration(minutes: 3)),
     );
 
     test(
