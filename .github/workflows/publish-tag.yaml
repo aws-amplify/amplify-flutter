@@ -35,26 +35,29 @@ jobs:
         run: dart pub global activate -spath packages/aft
 
       # aft resolves the tag to a package and reports its dart/flutter flavor.
-      # `tail -n1` guards against `pub` writing resolution output to stdout.
+      # `grep -o` drops any `pub`/SDK chatter that lands on stdout.
       - name: Resolve package
         id: package
         run: |
           set -eo pipefail
           TAG="${GITHUB_REF#refs/tags/}"
-          VERSION="${TAG##*-v}"
-          PACKAGE_DIR=$(aft locate-package "$TAG" | tail -n1)
-          FLAVOR=$(aft locate-package "$TAG" --flavor | tail -n1)
+          TAG_VERSION="${TAG##*-v}"
+          aft locate-package "$TAG" --format=env \
+            | grep -oE '(name|version|path|flavor)=[^[:space:]]+' \
+            > "$RUNNER_TEMP/package.env"
+          . "$RUNNER_TEMP/package.env"
+          : "${name:?aft reported no package name}"
+          : "${version:?aft reported no package version}"
+          : "${flavor:?aft reported no package flavor}"
 
-          PACKAGE=$(sed -n 's/^name:[[:space:]]*//p' "$PACKAGE_DIR/pubspec.yaml" | head -n1)
-          PUBSPEC_VERSION=$(sed -n 's/^version:[[:space:]]*//p' "$PACKAGE_DIR/pubspec.yaml" | head -n1)
-          if [ "$PUBSPEC_VERSION" != "$VERSION" ]; then
-            echo "::error::Tag $TAG does not match $PACKAGE_DIR/pubspec.yaml version $PUBSPEC_VERSION"
+          if [ "$version" != "$TAG_VERSION" ]; then
+            echo "::error::Tag $TAG does not match $path/pubspec.yaml version $version"
             exit 1
           fi
 
-          echo "package=$PACKAGE" >> "$GITHUB_OUTPUT"
-          echo "flavor=$FLAVOR" >> "$GITHUB_OUTPUT"
-          echo "Publishing $PACKAGE $VERSION ($FLAVOR) from $PACKAGE_DIR" >> "$GITHUB_STEP_SUMMARY"
+          echo "package=$name" >> "$GITHUB_OUTPUT"
+          echo "flavor=$flavor" >> "$GITHUB_OUTPUT"
+          echo "Publishing $name $version ($flavor) from $path" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Setup Flutter
         if: steps.package.outputs.flavor == 'flutter'

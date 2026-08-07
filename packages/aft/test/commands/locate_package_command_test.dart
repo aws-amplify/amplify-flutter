@@ -42,26 +42,46 @@ void main() {
       expect(_lastLine(result), 'packages/aws_common');
     });
 
-    test('--flavor reports dart for a Dart package', () async {
+    test('--format=env reports all facts for a Dart package', () async {
       final result = await _runAft(repoDir, [
         'locate-package',
         'aws_common-v1.2.3',
-        '--flavor',
+        '--format=env',
       ]);
       printOnFailure('${result.stdout}\n${result.stderr}');
       expect(result.exitCode, 0);
-      expect(_lastLine(result), 'dart');
+      expect(_envOf(result), {
+        'name': 'aws_common',
+        'version': '1.2.3',
+        'path': 'packages/aws_common',
+        'flavor': 'dart',
+      });
     });
 
-    test('--flavor reports flutter for a Flutter package', () async {
+    test('--format=env reports flutter for a Flutter package', () async {
       final result = await _runAft(repoDir, [
         'locate-package',
         'amplify_flutter-v2.0.0',
-        '--flavor',
+        '--format=env',
       ]);
       printOnFailure('${result.stdout}\n${result.stderr}');
       expect(result.exitCode, 0);
-      expect(_lastLine(result), 'flutter');
+      expect(_envOf(result), {
+        'name': 'amplify_flutter',
+        'version': '2.0.0',
+        'path': 'packages/amplify_flutter',
+        'flavor': 'flutter',
+      });
+    });
+
+    test('rejects an unknown format', () async {
+      final result = await _runAft(repoDir, [
+        'locate-package',
+        'aws_common',
+        '--format=nope',
+      ]);
+      printOnFailure('${result.stdout}\n${result.stderr}');
+      expect(result.exitCode, isNot(0));
     });
 
     test('fails for an unknown package', () async {
@@ -90,6 +110,16 @@ String _lastLine(ProcessResult result) => (result.stdout as String)
     .map((line) => line.trim())
     .where((line) => line.isNotEmpty)
     .last;
+
+/// Parses `--format=env` output, ignoring any `pub`/SDK chatter, exactly as the
+/// publish workflow's `grep -o` does.
+Map<String, String> _envOf(ProcessResult result) {
+  final entry = RegExp(r'(name|version|path|flavor)=(\S+)');
+  return {
+    for (final match in entry.allMatches(result.stdout as String))
+      match.group(1)!: match.group(2)!,
+  };
+}
 
 Future<void> _createRepo(Directory repoDir) async {
   File(p.join(repoDir.path, 'pubspec.yaml'))
