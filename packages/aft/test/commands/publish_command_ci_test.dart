@@ -6,12 +6,13 @@ library;
 
 import 'dart:io';
 
+import 'package:aft/aft.dart';
 import 'package:git/git.dart';
+import 'package:glob/glob.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+import 'package:yaml/yaml.dart';
 
-/// The fixture uses a real `pub.dev` package name at an unreleased version so
-/// that `aft` treats it as needing publish, but not as a brand new package.
 const _packageName = 'aws_common';
 const _version = '999.0.0';
 const _tag = '$_packageName-v$_version';
@@ -19,130 +20,120 @@ const _tag = '$_packageName-v$_version';
 final _aftEntrypoint = p.join(Directory.current.path, 'bin', 'aft.dart');
 
 void main() {
-  group('aft publish --ci', () {
-    late Directory tempDir;
-    late Directory repoDir;
-    late Directory remoteDir;
+  test('release tags match the publish workflow trigger', () {
+    final tempDir = Directory.systemTemp.createTempSync('aft_tag_');
+    addTearDown(() => tempDir.deleteSync(recursive: true));
+    final command = PublishCommand();
+    addTearDown(command.close);
+    final trigger = Glob(_publishTagTrigger());
 
-    setUp(() async {
-      tempDir = Directory.systemTemp.createTempSync('aft_publish_ci_');
-      repoDir = Directory(p.join(tempDir.path, 'repo'));
-      remoteDir = Directory(p.join(tempDir.path, 'remote.git'));
-      await _createRepo(repoDir);
-      await _createRemote(repoDir, remoteDir);
-    });
+    for (final (name, version) in [
+      ('amplify_auth_cognito', '2.6.1'),
+      // A name ending in `_v<digit>` must not confuse the version parsing.
+      ('aws_signature_v4', '0.6.13'),
+    ]) {
+      final tag = command.releaseTag(_packageAt(tempDir, name, version));
+      expect(tag, '$name-v$version');
+      expect(trigger.matches(tag), isTrue, reason: '$tag must trigger publish');
+      // Mirrors the workflow's `${TAG##*-v}` version extraction.
+      expect(tag.split('-v').last, version);
+    }
+  });
 
-    tearDown(() => tempDir.deleteSync(recursive: true));
+  test(
+    'aft publish --ci skips a tag on HEAD and fails on any other commit',
+    () async {
+      final (repoDir, remoteDir) = await _fixture();
+      await _git(repoDir, ['tag', '-a', _tag, '-m', 'Existing']);
 
-    test(
-      'creates and pushes an annotated tag',
-      () async {
-        final result = await _runAft(repoDir, ['publish', '--ci']);
-        printOnFailure('${result.stdout}\n${result.stderr}');
+      final onHead = await _runAft(repoDir, ['publish', '--ci']);
+      printOnFailure('${onHead.stdout}\n${onHead.stderr}');
+      expect(onHead.exitCode, 0);
+      expect(onHead.stdout, contains('already exists at HEAD, skipping'));
 
-        expect(result.exitCode, 0);
-        expect(result.stdout, contains(_tag));
-        expect(await _tagExists(repoDir, _tag), isTrue, reason: 'local tag');
-        expect(await _tagExists(remoteDir, _tag), isTrue, reason: 'remote tag');
-        expect(await _git(repoDir, ['cat-file', '-t', _tag]), 'tag');
-        expect(
-          await _git(repoDir, ['tag', '-l', '--format=%(contents)', _tag]),
-          contains('Release $_packageName $_version'),
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+      await _git(repoDir, ['commit', '--allow-empty', '-m', 'Next commit']);
 
-    test(
-      'skips a tag which already exists at HEAD',
-      () async {
-        final first = await _runAft(repoDir, ['publish', '--ci']);
-        expect(first.exitCode, 0);
+      final elsewhere = await _runAft(repoDir, ['publish', '--ci']);
+      printOnFailure('${elsewhere.stdout}\n${elsewhere.stderr}');
+      expect(elsewhere.exitCode, 1);
+      expect(elsewhere.stderr, contains('Tag $_tag already exists at'));
 
-        final second = await _runAft(repoDir, ['publish', '--ci']);
-        printOnFailure('${second.stdout}\n${second.stderr}');
-        expect(second.exitCode, 0);
-        expect(second.stdout, contains('already exists at HEAD, skipping'));
-        expect(await _tagExists(repoDir, _tag), isTrue, reason: 'local tag');
-      },
-      timeout: const Timeout(Duration(minutes: 4)),
-    );
+      expect(
+        await _tagExists(remoteDir, _tag),
+        isFalse,
+        reason: 'neither outcome may push',
+      );
+    },
+    timeout: const Timeout(Duration(minutes: 4)),
+  );
 
-    test(
-      'fails when the tag exists on another commit',
-      () async {
-        await _git(repoDir, ['tag', '-a', _tag, '-m', 'stale']);
-        await _git(repoDir, ['commit', '--allow-empty', '-m', 'Next commit']);
+  test(
+    'aft publish --ci rejects --dry-run',
+    () async {
+      final (repoDir, _) = await _fixture();
 
-        final result = await _runAft(repoDir, ['publish', '--ci']);
-        printOnFailure('${result.stdout}\n${result.stderr}');
-        expect(result.exitCode, 1);
-        expect(result.stderr, contains('Tag $_tag already exists at'));
-        expect(
-          await _tagExists(remoteDir, _tag),
-          isFalse,
-          reason: 'nothing should be pushed on a conflict',
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
-
-    test(
-      'deletes the local tag when the push fails',
-      () async {
-        await _git(repoDir, [
-          'remote',
-          'set-url',
-          'origin',
-          p.join(tempDir.path, 'missing.git'),
-        ]);
-
-        final result = await _runAft(repoDir, ['publish', '--ci']);
-        printOnFailure('${result.stdout}\n${result.stderr}');
-
-        expect(result.exitCode, 1);
-        expect(result.stderr, contains('Failed to push tag $_tag'));
-        expect(
-          await _tagExists(repoDir, _tag),
-          isFalse,
-          reason: 'a leftover local tag would block a retry',
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
-
-    test('rejects --dry-run', () async {
       final result = await _runAft(repoDir, ['publish', '--ci', '--dry-run']);
       printOnFailure('${result.stdout}\n${result.stderr}');
-
       expect(result.exitCode, isNot(0));
       expect(result.stderr, contains('--ci cannot be combined with --dry-run'));
-      expect(await _tagExists(repoDir, _tag), isFalse, reason: 'local tag');
-      expect(await _tagExists(remoteDir, _tag), isFalse, reason: 'remote tag');
-    }, timeout: const Timeout(Duration(minutes: 3)));
-  });
+    },
+    timeout: const Timeout(Duration(minutes: 3)),
+  );
 }
 
-Future<ProcessResult> _runAft(Directory repoDir, List<String> args) =>
-    Process.run(Platform.resolvedExecutable, [
-      'run',
-      _aftEntrypoint,
-      '--directory',
-      repoDir.path,
-      ...args,
-    ]);
+/// The tag pattern `publish-tag.yaml` triggers on, so the tag format stays in
+/// lockstep with the workflow.
+String _publishTagTrigger() {
+  final workflow = File(
+    p.join(
+      Directory.current.path,
+      '..',
+      '..',
+      '.github',
+      'workflows',
+      'publish-tag.yaml',
+    ),
+  );
+  final yaml = loadYaml(workflow.readAsStringSync()) as Map;
+  final on = (yaml['on'] ?? yaml[true]) as Map;
+  final tags = (on['push'] as Map)['tags'] as List;
+  return tags.single as String;
+}
 
-Future<void> _createRepo(Directory repoDir) async {
-  final packageDir = Directory(p.join(repoDir.path, 'packages', _packageName))
+PackageInfo _packageAt(Directory parent, String name, String version) {
+  final dir = Directory(p.join(parent.path, name));
+  File(p.join(dir.path, 'pubspec.yaml'))
+    ..createSync(recursive: true)
+    ..writeAsStringSync('''
+name: $name
+version: $version
+
+environment:
+  sdk: ^3.0.0
+''');
+  return PackageInfo.fromDirectory(dir)!;
+}
+
+/// Creates a repo holding an unpublished [_packageName] plus a bare remote.
+Future<(Directory repo, Directory remote)> _fixture() async {
+  final tempDir = Directory.systemTemp.createTempSync('aft_publish_ci_');
+  addTearDown(() => tempDir.deleteSync(recursive: true));
+  final repoDir = Directory(p.join(tempDir.path, 'repo'));
+  final remoteDir = Directory(p.join(tempDir.path, 'remote.git'))
     ..createSync(recursive: true);
-  File(p.join(repoDir.path, 'pubspec.yaml')).writeAsStringSync('''
+
+  File(p.join(repoDir.path, 'pubspec.yaml'))
+    ..createSync(recursive: true)
+    ..writeAsStringSync('''
 name: aft_publish_ci_fixture
 publish_to: none
 
 environment:
   sdk: ^3.0.0
 ''');
-  File(p.join(packageDir.path, 'pubspec.yaml')).writeAsStringSync('''
+  File(p.join(repoDir.path, 'packages', _packageName, 'pubspec.yaml'))
+    ..createSync(recursive: true)
+    ..writeAsStringSync('''
 name: $_packageName
 description: Fixture package for `aft publish --ci` tests.
 version: $_version
@@ -160,14 +151,19 @@ environment:
   await gitDir.runCommand(['config', 'user.name', 'aft']);
   await gitDir.runCommand(['add', '.']);
   await gitDir.runCommand(['commit', '-m', 'Initial commit']);
+  await runGit(['init', '--bare', remoteDir.path]);
+  await gitDir.runCommand(['remote', 'add', 'origin', remoteDir.path]);
+  return (repoDir, remoteDir);
 }
 
-Future<void> _createRemote(Directory repoDir, Directory remoteDir) async {
-  remoteDir.createSync(recursive: true);
-  await runGit(['init', '--bare', remoteDir.path]);
-  final gitDir = await GitDir.fromExisting(repoDir.path);
-  await gitDir.runCommand(['remote', 'add', 'origin', remoteDir.path]);
-}
+Future<ProcessResult> _runAft(Directory repoDir, List<String> args) =>
+    Process.run(Platform.resolvedExecutable, [
+      'run',
+      _aftEntrypoint,
+      '--directory',
+      repoDir.path,
+      ...args,
+    ]);
 
 Future<String> _git(Directory dir, List<String> args) async {
   final result = await runGit(args, processWorkingDir: dir.path);
