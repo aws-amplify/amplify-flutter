@@ -12,7 +12,8 @@ concurrency:
 
 permissions:
   id-token: write
-  contents: read
+  # `gh release create`; OIDC above still authenticates the pub.dev publish.
+  contents: write
 
 defaults:
   run:
@@ -56,7 +57,9 @@ jobs:
           fi
 
           echo "package=$name" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "flavor=$flavor" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "Publishing $name $version ($flavor) from $path" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Setup Flutter
@@ -78,3 +81,33 @@ jobs:
         env:
           PACKAGE: ${{ steps.package.outputs.package }}
         run: aft publish --include "$PACKAGE" --force
+
+      # Runs only once the publish succeeded, so a release never points at a
+      # version which is missing from pub.dev.
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PACKAGE: ${{ steps.package.outputs.package }}
+          VERSION: ${{ steps.package.outputs.version }}
+          TAG: ${{ steps.package.outputs.tag }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "Release $TAG already exists, skipping"
+            exit 0
+          fi
+
+          NOTES="$RUNNER_TEMP/release_notes.md"
+          # aft exits non-zero when the CHANGELOG has no entry for the version,
+          # so the empty check below selects the fallback body.
+          aft get-release-notes --package "$PACKAGE" --version "$VERSION" \
+            | awk '/^Changelog:$/{f=1;next} f' > "$NOTES" || true
+          if [ ! -s "$NOTES" ]; then
+            echo "::warning::No changelog entry for $PACKAGE $VERSION"
+            echo "Release $PACKAGE v$VERSION" > "$NOTES"
+          fi
+
+          gh release create "$TAG" \
+            --title "$PACKAGE v$VERSION" \
+            --notes-file "$NOTES" \
+            --verify-tag
+          echo "Created release $TAG" >> "$GITHUB_STEP_SUMMARY"
