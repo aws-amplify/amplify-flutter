@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:aft/src/commands/apache_license.dart';
 import 'package:aft/src/constraints_checker.dart';
+import 'package:aft/src/git.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:aft/src/publish_scheduler.dart';
 import 'package:aws_common/aws_common.dart';
@@ -223,10 +224,19 @@ mixin PublishHelpers on AmplifyCommand {
 
   /// Creates and pushes the release tag for [package] in lieu of publishing it
   /// with `pub`.
+  ///
+  /// An existing tag on the current commit is skipped so a partially completed
+  /// release can be re-run; one on any other commit is a conflict.
   Future<void> publishTag(PackageInfo package) async {
     final tag = releaseTag(package);
     if (await tagExists(tag)) {
-      exitError('Tag $tag already exists');
+      final head = await repo.git.revParse('HEAD');
+      final tagged = await repo.git.revParse('refs/tags/$tag^{commit}');
+      if (tagged != head) {
+        exitError('Tag $tag already exists at $tagged, but HEAD is $head');
+      }
+      logger.info('Tag $tag already exists at HEAD, skipping');
+      return;
     }
     if (dryRun) {
       logger.info('Would create and push tag $tag');
