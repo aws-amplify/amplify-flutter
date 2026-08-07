@@ -11,16 +11,17 @@ import 'package:path/path.dart' as p;
 /// tag, e.g. `aft locate-package amplify_core-v2.10.1` -> `packages/amplify_core`.
 class LocatePackageCommand extends AmplifyCommand {
   LocatePackageCommand() {
-    argParser.addFlag(
-      'flavor',
+    argParser.addOption(
+      'format',
+      allowed: ['path', 'env'],
+      defaultsTo: 'path',
       help:
-          'Prints the package flavor entrypoint (`dart` or `flutter`) instead '
-          'of its path.',
-      negatable: false,
+          'Output the package path, or `key=value` lines for its name, '
+          'version, path and flavor.',
     );
   }
 
-  late final bool flavor = argResults!['flavor'] as bool;
+  late final String format = argResults!['format'] as String;
   @override
   String get description =>
       'Prints the repo-relative path of a package by name or publish tag.';
@@ -51,10 +52,20 @@ class LocatePackageCommand extends AmplifyCommand {
       exitError("Error: package '$nameOrTag' not found in workspace");
     }
 
-    stdout.writeln(
-      flavor
-          ? package.flavor.entrypoint
-          : p.relative(package.path, from: rootDir.path),
-    );
+    final relativePath = p.relative(package.path, from: rootDir.path);
+    if (format != 'env') {
+      stdout.writeln(relativePath);
+      return;
+    }
+
+    final version = package.pubspecInfo.pubspec.version;
+    if (version == null) {
+      exitError('Error: package ${package.name} has no version');
+    }
+    stdout
+      ..writeln('name=${package.name}')
+      ..writeln('version=$version')
+      ..writeln('path=$relativePath')
+      ..writeln('flavor=${package.flavor.entrypoint}');
   }
 }
