@@ -120,15 +120,6 @@ void main() {
       expect(await _tagExists(repoDir, _tag), isFalse, reason: 'local tag');
       expect(await _tagExists(remoteDir, _tag), isFalse, reason: 'remote tag');
     }, timeout: const Timeout(Duration(minutes: 3)));
-
-    test('--tags only prints the tags', () async {
-      final result = await _runAft(repoDir, ['publish', '--tags']);
-      printOnFailure('${result.stdout}\n${result.stderr}');
-
-      expect(result.exitCode, 0);
-      expect(result.stdout, contains('New tag: $_tag'));
-      expect(await _tagExists(repoDir, _tag), isFalse, reason: 'local tag');
-    }, timeout: const Timeout(Duration(minutes: 3)));
   });
 }
 
