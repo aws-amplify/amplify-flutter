@@ -93,6 +93,7 @@ jobs:
           export PUB_TOKEN
           dart pub token add https://pub.dev --env-var PUB_TOKEN
 
+      # Runbook parity: every fresh checkout links before publishing.
       - name: Link packages
         if: steps.package.outputs.publish == 'true'
         run: aft link
