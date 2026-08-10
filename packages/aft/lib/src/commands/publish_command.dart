@@ -384,13 +384,11 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
       exit(1);
     }
 
-    if (ci) {
-      await _pushReleaseTags(packagesNeedingPublish);
-      return;
-    }
-
     stdout
-      ..writeln('Preparing to publish${dryRun ? ' (dry run)' : ''}: ')
+      ..writeln(
+        'Preparing to ${ci ? 'tag for release' : 'publish'}'
+        '${dryRun ? ' (dry run)' : ''}: ',
+      )
       ..writeln(
         packagesNeedingPublish
             .map((pkg) => '${pkg.pubspecInfo.pubspec.version} ${pkg.name}')
@@ -404,7 +402,7 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
             .join('\n'),
       );
 
-    if (!force) {
+    if (!force && !ci) {
       final shouldProceed = prompt('Proceed with publish (y/N)? ') == 'y';
       if (!shouldProceed) {
         return;
@@ -421,7 +419,13 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
       packages: packagesNeedingPublish,
       publishPackage: (package) async {
         await prePublish(package);
-        await publish(package);
+        // The tag triggers the publish from CI, so the scheduler's wait for
+        // the version to become resolvable is what orders dependents.
+        if (ci) {
+          await publishTag(package);
+        } else {
+          await publish(package);
+        }
       },
       command: this,
       dryRun: dryRun,
@@ -431,25 +435,10 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     stdout.writeln(
       dryRun
           ? 'All packages passed pre-publish checks'
+          : ci
+          ? 'All release tags were successfully pushed'
           : 'All packages were successfully published',
     );
-  }
-
-  /// Creates and pushes a release tag for each package in
-  /// [packagesNeedingPublish], which triggers publishing from CI.
-  Future<void> _pushReleaseTags(
-    List<PackageInfo> packagesNeedingPublish,
-  ) async {
-    stdout
-      ..writeln('Tagging for release: ')
-      ..writeln(packagesNeedingPublish.map(releaseTag).join('\n'))
-      ..writeln();
-
-    for (final package in packagesNeedingPublish) {
-      await publishTag(package);
-    }
-
-    stdout.writeln('All release tags were successfully pushed');
   }
 
   /// Bootstraps new packages by publishing minimal placeholder versions to
