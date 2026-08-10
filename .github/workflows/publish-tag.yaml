@@ -61,7 +61,6 @@ jobs:
           echo "package=$name" >> "$GITHUB_OUTPUT"
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "flavor=$flavor" >> "$GITHUB_OUTPUT"
-          echo "path=$path" >> "$GITHUB_OUTPUT"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
           # Keeps a re-run, or a stray tag push, from failing on a version
@@ -98,18 +97,15 @@ jobs:
         if: steps.package.outputs.publish == 'true'
         run: aft link
 
-      # The `aft link` overrides are removed first: with them in place `pub`
-      # resolves siblings from local paths, so it would never check that the
-      # constraints consumers get can actually resolve from pub.dev.
+      # `aft publish` adds the pre-publish work plain `pub publish` skips: it
+      # drops the `aft link` overrides, runs `pub upgrade`, and regenerates code
+      # with `build_runner` — some published web workers exist only as its
+      # output. It also tolerates this repo's known-benign pub warnings.
       - name: Publish to pub.dev
         if: steps.package.outputs.publish == 'true'
         env:
-          PACKAGE_PATH: ${{ steps.package.outputs.path }}
-          FLAVOR: ${{ steps.package.outputs.flavor }}
-        run: |
-          rm -f "$PACKAGE_PATH/pubspec_overrides.yaml"
-          cd "$PACKAGE_PATH"
-          "$FLAVOR" pub publish --force
+          PACKAGE: ${{ steps.package.outputs.package }}
+        run: aft publish --include "$PACKAGE" --force
 
       # Not gated on the publish step, so a re-run can still create a release
       # for a version which is already on pub.dev.
