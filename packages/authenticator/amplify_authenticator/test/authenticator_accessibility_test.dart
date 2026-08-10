@@ -18,6 +18,7 @@ void main() {
     testWidgets(
       'exposes a "Show password" accessible name while the password is hidden',
       (tester) async {
+        final semantics = tester.ensureSemantics();
         await tester.pumpWidget(const MockAuthenticatorApp());
         await tester.pumpAndSettle();
 
@@ -26,12 +27,21 @@ void main() {
         // Password starts obscured, so the toggle offers to show it
         expect(find.byTooltip('Show password'), findsOneWidget);
         expect(find.byTooltip('Hide password'), findsNothing);
+
+        // The accessibility node carries the "Show password" label
+        expect(
+          tester.getSemantics(find.byTooltip('Show password')),
+          isSemantics(tooltip: 'Show password'),
+        );
+
+        semantics.dispose();
       },
     );
 
     testWidgets(
       'flips the accessible name to "Hide password" once the password is shown',
       (tester) async {
+        final semantics = tester.ensureSemantics();
         await tester.pumpWidget(const MockAuthenticatorApp());
         await tester.pumpAndSettle();
 
@@ -44,6 +54,14 @@ void main() {
         // Password is now visible, so the toggle offers to hide it
         expect(find.byTooltip('Hide password'), findsOneWidget);
         expect(find.byTooltip('Show password'), findsNothing);
+
+        // The accessibility node now carries the "Hide password" label
+        expect(
+          tester.getSemantics(find.byTooltip('Hide password')),
+          isSemantics(tooltip: 'Hide password'),
+        );
+
+        semantics.dispose();
       },
     );
   });
