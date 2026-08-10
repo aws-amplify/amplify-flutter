@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.ios.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' } 
 
   # These are needed to support async/await and ASWebAuthenticationSession
-  s.ios.deployment_target = '13.0'
+  s.ios.deployment_target = '15.0'
   s.osx.deployment_target = '10.15'
   s.swift_version = '5.9'
 end
