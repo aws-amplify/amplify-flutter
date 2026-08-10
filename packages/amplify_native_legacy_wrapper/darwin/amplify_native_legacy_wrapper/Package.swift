@@ -9,7 +9,7 @@ import PackageDescription
 let package = Package(
     name: "amplify_native_legacy_wrapper",
     platforms: [
-        .iOS("13.0")
+        .iOS("15.0")
     ],
     products: [
         .library(name: "amplify-native-legacy-wrapper", targets: ["amplify_native_legacy_wrapper"])
