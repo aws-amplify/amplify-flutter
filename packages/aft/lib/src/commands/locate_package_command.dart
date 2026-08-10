@@ -17,7 +17,7 @@ class LocatePackageCommand extends AmplifyCommand {
       defaultsTo: 'path',
       help:
           'Output the package path, or `key=value` lines for its name, '
-          'version, path and flavor.',
+          'version and path.',
     );
   }
 
@@ -65,7 +65,6 @@ class LocatePackageCommand extends AmplifyCommand {
     stdout
       ..writeln('name=${package.name}')
       ..writeln('version=$version')
-      ..writeln('path=$relativePath')
-      ..writeln('flavor=${package.flavor.entrypoint}');
+      ..writeln('path=$relativePath');
   }
 }
