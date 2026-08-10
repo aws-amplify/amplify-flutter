@@ -20,7 +20,7 @@ class NotificationsOutputs
   const NotificationsOutputs({
     this.awsRegion,
     this.amazonPinpointAppId,
-    this.channels,
+    this.channels = const [],
     this.amazonConnect,
   });
 
@@ -41,9 +41,9 @@ class NotificationsOutputs
 
   /// {@macro amplify_core.amplify_outputs.amazon_pinpoint_channel}
   ///
-  /// May be `null` when Pinpoint is not configured — for example when only
-  /// Amazon Connect is provisioned.
-  final List<AmazonPinpointChannel>? channels;
+  /// Defaults to an empty list when Pinpoint is not configured — for example
+  /// when only Amazon Connect is provisioned.
+  final List<AmazonPinpointChannel> channels;
 
   /// {@macro amplify_core.amplify_outputs.amazon_connect_outputs}
   final AmazonConnectOutputs? amazonConnect;

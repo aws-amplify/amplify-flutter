@@ -65,7 +65,7 @@ void main() {
       expect(notifications, isNotNull);
       expect(notifications!.awsRegion, isNull);
       expect(notifications.amazonPinpointAppId, isNull);
-      expect(notifications.channels, isNull);
+      expect(notifications.channels, isEmpty);
       final amazonConnect = notifications.amazonConnect;
       expect(amazonConnect, isNotNull);
       expect(amazonConnect!.awsRegion, 'us-east-1');
