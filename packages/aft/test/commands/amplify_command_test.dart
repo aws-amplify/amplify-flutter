@@ -4,6 +4,8 @@
 @TestOn('vm')
 library;
 
+import 'dart:async';
+
 import 'package:aft/aft.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
@@ -32,20 +34,47 @@ void main() {
       expect(resolvable, isTrue);
     }, timeout: const Timeout(Duration(minutes: 2)));
 
-    test('false for a nonexistent version', () async {
-      final resolvable = await command.canResolveVersion(
-        'path',
-        Version.parse('999.999.999'),
-        flavor: PackageFlavor.dart,
-      );
-      expect(resolvable, isFalse);
-    }, timeout: const Timeout(Duration(minutes: 2)));
+    test(
+      'false for a nonexistent version',
+      () async {
+        final resolvable = await command.canResolveVersion(
+          'path',
+          Version.parse('999.999.999'),
+          flavor: PackageFlavor.dart,
+        );
+        expect(resolvable, isFalse);
+      },
+      timeout: const Timeout(Duration(minutes: 2)),
+    );
 
-    test('awaitVersionResolvable completes for a published version', () async {
-      await command.awaitVersionResolvable(
-        'path',
-        Version.parse('1.9.1'),
-        flavor: PackageFlavor.dart,
+    test(
+      'awaitVersionResolvable completes for a published version',
+      () async {
+        await command.awaitVersionResolvable(
+          'path',
+          Version.parse('1.9.1'),
+          flavor: PackageFlavor.dart,
+        );
+      },
+      timeout: const Timeout(Duration(minutes: 2)),
+    );
+
+    test('awaitVersionResolvable gives up on a version which never '
+        'resolves', () async {
+      await expectLater(
+        command.awaitVersionResolvable(
+          'path',
+          Version.parse('999.999.999'),
+          flavor: PackageFlavor.dart,
+          timeout: const Duration(seconds: 5),
+        ),
+        throwsA(
+          isA<TimeoutException>().having(
+            (e) => e.message,
+            'message',
+            allOf(contains('path'), contains('999.999.999')),
+          ),
+        ),
       );
     }, timeout: const Timeout(Duration(minutes: 2)));
   });

@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -217,7 +218,9 @@ dependencies:
         runInShell: true,
       );
       if (result.exitCode != 0) {
-        logger.verbose('$package $version not resolvable yet: ${result.stderr}');
+        logger.verbose(
+          '$package $version not resolvable yet: ${result.stderr}',
+        );
       }
       return result.exitCode == 0;
     } finally {
@@ -225,11 +228,25 @@ dependencies:
     }
   }
 
+  /// How long [awaitVersionResolvable] waits before giving up.
+  ///
+  /// A version only becomes resolvable once something else publishes it, which
+  /// in CI is a separate workflow, so the wait has to be bounded or a failed
+  /// publish would stall the release until its build timeout.
+  static final versionResolvableTimeout =
+      Platform.environment.containsKey('QA_DURATIONS')
+      ? const Duration(seconds: 10)
+      : const Duration(minutes: 45);
+
   /// Waits until [version] of [package] can be resolved by `pub get`.
+  ///
+  /// Throws a [TimeoutException] after [timeout], defaulting to
+  /// [versionResolvableTimeout].
   Future<void> awaitVersionResolvable(
     String package,
     Version version, {
     PackageFlavor flavor = PackageFlavor.flutter,
+    Duration? timeout,
   }) async {
     final qaDurations = Platform.environment.containsKey('QA_DURATIONS');
 
@@ -237,8 +254,21 @@ dependencies:
         ? const Duration(seconds: 1)
         : const Duration(seconds: 15);
 
-    while (!await canResolveVersion(package, version, flavor: flavor)) {
-      await Future<void>.delayed(pollInterval);
+    final limit = timeout ?? versionResolvableTimeout;
+    try {
+      // Bounds the wall clock rather than the gap between polls, since
+      // `canResolveVersion` runs `pub get` and can itself hang.
+      await Future(() async {
+        while (!await canResolveVersion(package, version, flavor: flavor)) {
+          await Future<void>.delayed(pollInterval);
+        }
+      }).timeout(limit);
+    } on TimeoutException {
+      throw TimeoutException(
+        'Gave up waiting for $package $version to be resolvable from pub.dev. '
+        'The publish which makes it available did not complete.',
+        limit,
+      );
     }
   }
 

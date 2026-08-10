@@ -293,7 +293,11 @@ class PublishScheduler {
               enqueued,
             );
             completedAnalyses.add(packageName);
-          });
+          })
+          // Nothing awaits this until every package is published, so without a
+          // handler a failed wait is an unhandled async error which kills the
+          // isolate without naming the package.
+          .onError<Object>((error, _) => exitError(error));
       pendingAnalyses[packageName] = analysisFuture;
     }
 
