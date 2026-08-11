@@ -96,6 +96,10 @@ class AWSRetryer implements Retryer {
     if (exception is TimeoutException) {
       return true;
     }
+    // Transport-level failures never reached the server, so are safe to retry.
+    if (exception is AWSHttpException) {
+      return true;
+    }
     if (exception is! SmithyException) {
       return false;
     }
