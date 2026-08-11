@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:convert';
-
 import 'package:amplify_event_enrichment_dart/src/metadata/app_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/device_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/sdk_metadata.dart';
@@ -12,7 +10,8 @@ import 'package:meta/meta.dart';
 /// {@template amplify_event_enrichment.enriched_event}
 /// An analytics event enriched with device, app, session, and SDK metadata.
 ///
-/// Use [toJson] to serialize to a structured analytics JSON envelope.
+/// Use [toJson] to produce the structured analytics envelope as a
+/// JSON-compatible map.
 /// {@endtemplate}
 @immutable
 final class EnrichedEvent {
@@ -74,8 +73,10 @@ final class EnrichedEvent {
   /// it is independent of the package version.
   static const _eventVersion = '3.1';
 
-  /// Serializes to the analytics event envelope as a JSON string.
-  String toJson() {
+  /// Serializes to the analytics event envelope as a JSON-compatible map.
+  ///
+  /// Encode with `jsonEncode` where a JSON string is needed.
+  Map<String, dynamic> toJson() {
     final deviceMap = <String, dynamic>{};
     final platformMap = <String, dynamic>{};
     if (device.platform != null) platformMap['name'] = device.platform;
@@ -87,7 +88,7 @@ final class EnrichedEvent {
     if (device.model != null) deviceMap['model'] = device.model;
     if (device.locale != null) deviceMap['locale'] = {'code': device.locale};
 
-    final map = <String, dynamic>{
+    return <String, dynamic>{
       'event_type': eventType,
       'event_timestamp': eventTimestamp,
       // On-device enrichment has no server ingestion step, so this reflects
@@ -115,6 +116,5 @@ final class EnrichedEvent {
       if (attributes.isNotEmpty) 'attributes': attributes,
       if (metrics.isNotEmpty) 'metrics': metrics,
     };
-    return jsonEncode(map);
   }
 }
