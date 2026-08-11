@@ -476,14 +476,15 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     File(p.join(pkgDir.path, 'LICENSE')).writeAsStringSync(apacheLicenseText);
 
     final adminUrl = 'https://pub.dev/packages/$pkgName/admin';
-    final repoInfo =
-        pubspec.repository?.toString() ?? pubspec.homepage?.toString();
+    final repoSlug = _githubRepoSlug(
+      pubspec.repository ?? pubspec.issueTracker,
+    );
 
     if (dryRun) {
       stdout
         ..writeln('\n--- Bootstrap dry run: $pkgName ---')
         ..writeln('Temp directory: ${pkgDir.path}');
-      _printNextSteps(pkgName, adminUrl: adminUrl, repoInfo: repoInfo);
+      _printNextSteps(pkgName, adminUrl: adminUrl, repoSlug: repoSlug);
       return;
     }
 
@@ -509,13 +510,20 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     }
 
     stdout.writeln('\n\u2705 Published $pkgName v0.0.1-wip to pub.dev');
-    _printNextSteps(pkgName, adminUrl: adminUrl, repoInfo: repoInfo);
+    _printNextSteps(pkgName, adminUrl: adminUrl, repoSlug: repoSlug);
+  }
+
+  String? _githubRepoSlug(Uri? url) {
+    if (url == null || url.host != 'github.com') return null;
+    final segments = url.pathSegments;
+    if (segments.length < 2) return null;
+    return '${segments[0]}/${segments[1]}';
   }
 
   void _printNextSteps(
     String pkgName, {
     required String adminUrl,
-    required String? repoInfo,
+    required String? repoSlug,
   }) {
     stdout
       ..writeln('')
@@ -531,8 +539,13 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
         '     \u2192 Under "Automated publishing", enable publishing '
         'from GitHub Actions',
       );
-    if (repoInfo != null) {
-      stdout.writeln('     \u2192 Set the repository to: $repoInfo');
+    if (repoSlug != null) {
+      stdout.writeln('     \u2192 Set the repository to: $repoSlug');
+    } else {
+      stdout.writeln(
+        '     \u2192 No GitHub repository found in the pubspec; the '
+        'GitHub Actions setup above requires one.',
+      );
     }
     stdout
       ..writeln('     \u2192 Set the tag pattern to: $pkgName-v{{version}}')
