@@ -41,25 +41,27 @@ void main() {
       );
     });
 
-    test('produces valid JSON', () {
-      final json = event.toJson();
-      expect(() => jsonDecode(json), returnsNormally);
+    test('produces a JSON-encodable map', () {
+      final map = event.toJson();
+      expect(map, isA<Map<String, dynamic>>());
+      // Round-trip through jsonEncode to verify all values are encodable.
+      expect(() => jsonEncode(map), returnsNormally);
     });
 
     test('contains event_type and event_version', () {
-      final map = jsonDecode(event.toJson()) as Map<String, dynamic>;
+      final map = event.toJson();
       expect(map['event_type'], 'product_viewed');
       expect(map['event_version'], '3.1');
     });
 
     test('contains timestamps', () {
-      final map = jsonDecode(event.toJson()) as Map<String, dynamic>;
+      final map = event.toJson();
       expect(map['event_timestamp'], 1700000000000);
       expect(map['arrival_timestamp'], 1700000000000);
     });
 
     test('contains application with sdk nested', () {
-      final map = jsonDecode(event.toJson()) as Map<String, dynamic>;
+      final map = event.toJson();
       final app = map['application'] as Map<String, dynamic>;
       expect(app['app_id'], 'testApp1');
       expect(app['package_name'], 'com.example.app');
@@ -72,7 +74,7 @@ void main() {
     });
 
     test('contains client with user_id', () {
-      final map = jsonDecode(event.toJson()) as Map<String, dynamic>;
+      final map = event.toJson();
       final client = map['client'] as Map<String, dynamic>;
       expect(client['client_id'], 'device-uuid-123');
       expect(client['user_id'], 'user-42');
@@ -91,13 +93,13 @@ void main() {
         sdk: SdkMetadata(name: 'n', version: 'v'),
         clientId: 'c',
       );
-      final map = jsonDecode(noUser.toJson()) as Map<String, dynamic>;
+      final map = noUser.toJson();
       final client = map['client'] as Map<String, dynamic>;
       expect(client.containsKey('user_id'), isFalse);
     });
 
     test('contains device with platform nested', () {
-      final map = jsonDecode(event.toJson()) as Map<String, dynamic>;
+      final map = event.toJson();
       final device = map['device'] as Map<String, dynamic>;
       final platform = device['platform'] as Map<String, dynamic>;
       expect(platform['name'], 'iOS');
@@ -108,14 +110,14 @@ void main() {
     });
 
     test('contains session fields', () {
-      final map = jsonDecode(event.toJson()) as Map<String, dynamic>;
+      final map = event.toJson();
       final session = map['session'] as Map<String, dynamic>;
       expect(session['id'], contains('testApp1'));
       expect(session['start_timestamp'], '2023-11-14T12:00:00.000Z');
     });
 
     test('contains attributes and metrics', () {
-      final map = jsonDecode(event.toJson()) as Map<String, dynamic>;
+      final map = event.toJson();
       expect(map['attributes'], {'category': 'electronics'});
       expect(map['metrics'], {'price': 29.99});
     });
@@ -133,9 +135,28 @@ void main() {
         sdk: SdkMetadata(name: 'n', version: 'v'),
         clientId: 'c',
       );
-      final map = jsonDecode(empty.toJson()) as Map<String, dynamic>;
+      final map = empty.toJson();
       expect(map.containsKey('attributes'), isFalse);
       expect(map.containsKey('metrics'), isFalse);
+    });
+
+    test('map contains all expected top-level keys', () {
+      final map = event.toJson();
+      expect(
+        map.keys,
+        containsAll([
+          'event_type',
+          'event_timestamp',
+          'arrival_timestamp',
+          'event_version',
+          'application',
+          'client',
+          'device',
+          'session',
+          'attributes',
+          'metrics',
+        ]),
+      );
     });
   });
 }
