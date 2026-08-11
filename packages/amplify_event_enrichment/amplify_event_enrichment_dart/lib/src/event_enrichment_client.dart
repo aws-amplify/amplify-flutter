@@ -31,7 +31,7 @@ import 'package:uuid/uuid.dart';
 /// );
 ///
 /// final event = client.record('button_clicked');
-/// print(event.toJson());
+/// print(jsonEncode(event.toJson()));
 ///
 /// client.close();
 /// ```
