@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_event_enrichment_dart/src/session/session.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
@@ -116,6 +117,37 @@ void main() {
       )..startSession();
       final id = shortManager.session!.id;
       expect(id.substring(0, 8), '______ab');
+    });
+
+    group('Session equality', () {
+      test('same values are equal with matching hashCodes', () {
+        const a = Session(
+          id: 'abc-20260811-120000000',
+          startTimestamp: '2026-08-11T12:00:00.000Z',
+          stopTimestamp: '2026-08-11T12:05:00.000Z',
+          duration: 300000,
+        );
+        const b = Session(
+          id: 'abc-20260811-120000000',
+          startTimestamp: '2026-08-11T12:00:00.000Z',
+          stopTimestamp: '2026-08-11T12:05:00.000Z',
+          duration: 300000,
+        );
+        expect(a, equals(b));
+        expect(a.hashCode, equals(b.hashCode));
+      });
+
+      test('different values are not equal', () {
+        const a = Session(
+          id: 'abc-20260811-120000000',
+          startTimestamp: '2026-08-11T12:00:00.000Z',
+        );
+        const b = Session(
+          id: 'xyz-20260811-130000000',
+          startTimestamp: '2026-08-11T13:00:00.000Z',
+        );
+        expect(a, isNot(equals(b)));
+      });
     });
   });
 }
