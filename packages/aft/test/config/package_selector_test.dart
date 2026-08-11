@@ -32,6 +32,7 @@ void main() {
           nameSelector.allPaths(repoState),
           matchesPackagePaths([
             'packages/amplify/amplify_flutter/example',
+            'packages/amplify_connect_client/amplify_connect_client/example',
             'packages/amplify_datastore/example',
             'packages/amplify_native_legacy_wrapper/example',
             'packages/analytics/amplify_analytics_pinpoint/example',
@@ -129,6 +130,7 @@ void main() {
         matchesPackagePaths([
           'canaries',
           'packages/amplify/amplify_flutter/example',
+          'packages/amplify_connect_client/amplify_connect_client/example',
           'packages/kinesis/amplify_firehose/example',
           'packages/amplify_core/doc',
           'packages/amplify_datastore/example',
