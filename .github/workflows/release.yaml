@@ -28,9 +28,6 @@ jobs:
       - codebuild-amplify-flutter-release-${{ github.run_id }}-${{ github.run_attempt }}
       - image:ubuntu-8.0
       - instance-size:medium
-    # Tagging waits for each package to land on pub.dev before tagging its
-    # dependents, so the job can outlast the 6h GitHub defaults to.
-    timeout-minutes: 720
     steps:
       - name: Set up runner
         run: |
