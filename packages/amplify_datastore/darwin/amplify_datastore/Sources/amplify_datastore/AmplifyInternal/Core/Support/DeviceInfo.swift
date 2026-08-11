@@ -120,11 +120,24 @@ public struct DeviceInfo {
     #if canImport(WatchKit)
         .zero
     #elseif canImport(UIKit)
-        UIScreen.main.nativeBounds
+        DeviceInfo.activeWindowScene?.screen.nativeBounds ?? .zero
     #elseif canImport(AppKit)
         NSScreen.main?.visibleFrame ?? .zero
     #endif
     }
+
+#if !canImport(WatchKit) && canImport(UIKit)
+    /// The window scene the host App is currently presented on.
+    ///
+    /// Replaces `UIScreen.main`, deprecated as of iOS 26. `connectedScenes` is
+    /// unordered, so prefer a foreground scene over an arbitrary one.
+    static var activeWindowScene: UIWindowScene? {
+        let windowScenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+        return windowScenes.first { $0.activationState == .foregroundActive }
+            ?? windowScenes.first { $0.activationState == .foregroundInactive }
+            ?? windowScenes.first
+    }
+#endif
 
 #if canImport(IOKit)
     private func value(forKey key: String) -> String? {
