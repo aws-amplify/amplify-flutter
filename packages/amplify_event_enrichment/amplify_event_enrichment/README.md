@@ -16,6 +16,8 @@ ID on every event. `record` returns a `Result`, so failures surface through the
 `Ok`/`Error` contract rather than as thrown exceptions.
 
 ```dart
+import 'dart:convert';
+
 import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
 
 final client = await EventEnrichmentClientFlutter.create(
@@ -26,7 +28,7 @@ final client = await EventEnrichmentClientFlutter.create(
 final result = client.record('button_clicked', attributes: {'screen': 'home'});
 switch (result) {
   case Ok(:final value):
-    print(value.toJson());
+    print(jsonEncode(value.toJson()));
   case Error(:final error):
     print('Failed to record event: $error');
 }
