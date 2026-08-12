@@ -23,6 +23,8 @@ import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 // ignore: implementation_imports, invalid_use_of_internal_member
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_flutter/src/amplify_isolate.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/foundation.dart';
 
@@ -55,6 +57,40 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
 
     if (zIsWeb || !_isMobile) {
       return;
+    }
+
+    // Everything below reaches the process-wide native Cognito SDK, starting
+    // with `NativeAuthPlugin.setUp`, which registers a handler on this isolate's
+    // binary messenger.
+    //
+    // Gated on messenger availability rather than on root-isolate identity: a
+    // headless `FlutterEngine` always has a working messenger, so this can never
+    // fire there. That matters because `amplifyBackgroundProcessing` adds this
+    // very plugin from such an engine, and breaking it would break recording
+    // push notifications while the app is killed.
+    //
+    // KNOWN GAP: this does not catch a secondary isolate that has already been
+    // bootstrapped with `BackgroundIsolateBinaryMessenger.ensureInitialized`.
+    // That isolate has a messenger and passes this check, but it still cannot
+    // work: `NativeAuthPlugin.setUp` below fails with `UnsupportedError:
+    // Background isolates do not support setMessageHandler(). Messages from the
+    // host platform always go to the root isolate.` Host-to-Dart callbacks are
+    // impossible in any secondary isolate, so that case is broken by Flutter
+    // rather than by Amplify. Reporting it clearly needs root-isolate identity,
+    // which is only safe to rely on once a headless engine's token has been
+    // verified on a device. See #5302.
+    // ignore: invalid_use_of_internal_member
+    if (!amplifyIsolateIsInitialized) {
+      throw PluginError(
+        'AmplifyAuthCognito cannot be added from a secondary isolate with no '
+        'platform channel access. The native Cognito SDK is a single instance '
+        'per process and belongs to the root isolate.',
+        recoverySuggestion:
+            'Add AmplifyAuthCognito and call Amplify.configure on the root '
+            'isolate, and use the Auth category from there. Auth flows which '
+            'run entirely in Dart are available from AmplifyAuthCognitoDart, '
+            'which can be configured in a secondary isolate.',
+      );
     }
 
     // Configure this plugin to act as a native iOS/Android plugin.
