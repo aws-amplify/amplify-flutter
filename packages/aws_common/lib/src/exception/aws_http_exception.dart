@@ -28,6 +28,7 @@ class AWSHttpException implements Exception {
     AWSBaseHttpRequest request, [
     Object? underlyingException,
   ]) {
+    // Anti-double-wrap guard; callers pass the raw transport error.
     if (underlyingException is AWSHttpException) {
       return underlyingException;
     }
