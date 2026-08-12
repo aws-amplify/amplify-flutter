@@ -58,46 +58,42 @@ void main() {
       ],
     );
   });
-  _i1.test(
-    'Ec2EmptyQueryLists (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: QueryListsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'Ec2EmptyQueryLists',
-          documentation: 'Serializes empty query lists',
-          protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
-          authScheme: null,
-          body: 'Action=QueryLists&Version=2020-01-08&ListArg=',
-          bodyMediaType: 'application/x-www-form-urlencoded',
-          params: {'ListArg': []},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          QueryListsInputEc2QuerySerializer(),
-          GreetingStructEc2QuerySerializer(),
-          NestedStructWithListEc2QuerySerializer(),
-        ],
-      );
-    },
-    skip: 'Unclear how to reconcile with QueryEmptyQueryMaps',
-  );
+  _i1.test('Ec2EmptyQueryLists (request)', () async {
+    await _i2.httpRequestTest(
+      operation: QueryListsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'Ec2EmptyQueryLists',
+        documentation: 'Serializes empty query lists',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+        authScheme: null,
+        body: 'Action=QueryLists&Version=2020-01-08&ListArg=',
+        bodyMediaType: 'application/x-www-form-urlencoded',
+        params: {'ListArg': []},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        QueryListsInputEc2QuerySerializer(),
+        GreetingStructEc2QuerySerializer(),
+        NestedStructWithListEc2QuerySerializer(),
+      ],
+    );
+  }, skip: 'Unclear how to reconcile with QueryEmptyQueryMaps');
   _i1.test('Ec2ListArgWithXmlNameMember (request)', () async {
     await _i2.httpRequestTest(
       operation: QueryListsOperation(

@@ -85,6 +85,8 @@ final class ChromeDownload {
 
 enum ChromePlatform {
   linux64,
+  @JsonValue('linux-arm64')
+  linuxArm64,
   @JsonValue('mac-arm64')
   macArm64,
   @JsonValue('mac-x64')
