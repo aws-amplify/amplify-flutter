@@ -9,7 +9,7 @@ import PackageDescription
 let package = Package(
     name: "amplify_auth_cognito",
     platforms: [
-        .iOS("13.0"),
+        .iOS("15.0"),
         .macOS("10.15")
     ],
     products: [

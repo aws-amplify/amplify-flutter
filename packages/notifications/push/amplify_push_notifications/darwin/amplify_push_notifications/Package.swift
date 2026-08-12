@@ -9,7 +9,7 @@ import PackageDescription
 let package = Package(
     name: "amplify_push_notifications",
     platforms: [
-        .iOS("13.0")
+        .iOS("15.0")
     ],
     products: [
         .library(name: "amplify-push-notifications", targets: ["amplify_push_notifications"])
