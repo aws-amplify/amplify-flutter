@@ -258,7 +258,7 @@ class GraphQLRequestFactory {
     };
   }
 
-  Map<String, dynamic> buildVariablesForGetRequest({
+  Map<String, dynamic> serializeModelIdentifier({
     required ModelIdentifier modelIdentifier,
   }) {
     return modelIdentifier.serializeAsMap().map(

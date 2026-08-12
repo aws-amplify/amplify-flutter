@@ -27,6 +27,7 @@ import 'CpkIntPrimaryKey.dart';
 import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 import 'CpkOneToOneBidirectionalParentCD.dart';
+import 'CpkTemporalPrimaryKey.dart';
 import 'OwnerOnly.dart';
 import 'Post.dart';
 import 'Sample.dart';
@@ -39,6 +40,7 @@ export 'CpkIntPrimaryKey.dart';
 export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 export 'CpkOneToOneBidirectionalParentCD.dart';
+export 'CpkTemporalPrimaryKey.dart';
 export 'OwnerOnly.dart';
 export 'Post.dart';
 export 'Sample.dart';
@@ -56,6 +58,7 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     CpkOneToOneBidirectionalChildExplicitCD.schema,
     CpkOneToOneBidirectionalChildImplicitCD.schema,
     CpkOneToOneBidirectionalParentCD.schema,
+    CpkTemporalPrimaryKey.schema,
     OwnerOnly.schema,
     Post.schema,
     Sample.schema,
@@ -83,6 +86,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return CpkOneToOneBidirectionalChildImplicitCD.classType;
       case "CpkOneToOneBidirectionalParentCD":
         return CpkOneToOneBidirectionalParentCD.classType;
+      case "CpkTemporalPrimaryKey":
+        return CpkTemporalPrimaryKey.classType;
       case "OwnerOnly":
         return OwnerOnly.classType;
       case "Post":

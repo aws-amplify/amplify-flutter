@@ -248,6 +248,26 @@ void main() {
       expect(req.variables['sessionStart'], equals(serializedDate));
     });
 
+    test('Delete for a model with a TemporalDateTime in its custom identifier '
+        'serializes without throwing (regression test for #6298)', () {
+      const hwid = '94B216FCC67F';
+      final sessionStart = TemporalDateTime.fromString(
+        '2025-03-28T23:07:34.000Z',
+      );
+      final serializedDate = sessionStart.toString();
+
+      final req = ModelMutations.delete<CpkTemporalPrimaryKey>(
+        CpkTemporalPrimaryKey(hwid: hwid, sessionStart: sessionStart),
+      );
+
+      // request asserts
+      expect(() => json.encode(req.variables), returnsNormally);
+      expect(
+        (req.variables['input'] as Map)['sessionStart'],
+        equals(serializedDate),
+      );
+    });
+
     test(
       'Mutation.create returns proper response.data for Models with custom types',
       () async {
