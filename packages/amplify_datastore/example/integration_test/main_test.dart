@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'clear_test.dart' as clear_tests;
+import 'isolate_native_singleton_test.dart' as isolate_native_singleton_tests;
 import 'model_type_test.dart' as model_type_tests;
 import 'observe_query_test.dart' as observe_query_tests;
 import 'observe_test.dart' as observe_tests;
@@ -24,5 +25,8 @@ void main() async {
     observe_tests.main();
     observe_query_tests.main();
     clear_tests.main();
+    // Runs last: it asks native Amplify to configure a second time, which is a
+    // no-op that throws, so it must not sit in front of the functional suites.
+    isolate_native_singleton_tests.main();
   });
 }
