@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/src/amplify_datastore_stream_controller.dart';
 import 'package:amplify_datastore/src/datastore_plugin_options.dart';
+import 'package:amplify_datastore/src/isolate_context.dart';
 import 'package:amplify_datastore/src/method_channel_datastore.dart';
 import 'package:amplify_datastore/src/native_plugin.g.dart';
 import 'package:amplify_datastore/src/utils/native_api_helpers.dart';
@@ -53,6 +54,22 @@ class AmplifyDataStore extends DataStorePluginInterface
     AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
+    // Checked before the config, because being on the wrong isolate cannot be
+    // fixed by supplying a config. Native Amplify is a single instance per
+    // process, so a secondary isolate would either fail on the platform channel
+    // or quietly attach to the root isolate's already-configured native SDK.
+    if (!amplifyIsInRootIsolate) {
+      throw PluginError(
+        'AmplifyDataStore cannot be configured from a secondary isolate. The '
+        'native DataStore SDK is a single instance per process and belongs to '
+        'the root isolate.',
+        recoverySuggestion:
+            'Add AmplifyDataStore and call Amplify.configure on the root '
+            'isolate, and use the DataStore category from there. Categories '
+            'which run entirely in Dart can still be configured in a secondary '
+            'isolate.',
+      );
+    }
     if (config == null) {
       throw ConfigurationError('No Amplify config provided');
     }
