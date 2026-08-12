@@ -58,46 +58,42 @@ void main() {
       ],
     );
   });
-  _i1.test(
-    'EmptyQueryLists (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: QueryListsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'EmptyQueryLists',
-          documentation: 'Serializes empty query lists',
-          protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
-          authScheme: null,
-          body: 'Action=QueryLists&Version=2020-01-08&ListArg=',
-          bodyMediaType: 'application/x-www-form-urlencoded',
-          params: {'ListArg': []},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          QueryListsInputAwsQuerySerializer(),
-          GreetingStructAwsQuerySerializer(),
-          NestedStructWithListAwsQuerySerializer(),
-        ],
-      );
-    },
-    skip: 'Unclear how to reconcile with QueryEmptyQueryMaps',
-  );
+  _i1.test('EmptyQueryLists (request)', () async {
+    await _i2.httpRequestTest(
+      operation: QueryListsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'EmptyQueryLists',
+        documentation: 'Serializes empty query lists',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body: 'Action=QueryLists&Version=2020-01-08&ListArg=',
+        bodyMediaType: 'application/x-www-form-urlencoded',
+        params: {'ListArg': []},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        QueryListsInputAwsQuerySerializer(),
+        GreetingStructAwsQuerySerializer(),
+        NestedStructWithListAwsQuerySerializer(),
+      ],
+    );
+  }, skip: 'Unclear how to reconcile with QueryEmptyQueryMaps');
   _i1.test('FlattenedQueryLists (request)', () async {
     await _i2.httpRequestTest(
       operation: QueryListsOperation(
