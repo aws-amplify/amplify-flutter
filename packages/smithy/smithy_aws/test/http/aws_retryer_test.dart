@@ -179,8 +179,15 @@ void main() {
       final retryer = AWSRetryer();
       final request = AWSHttpRequest.get(Uri.parse('https://example.com'));
 
-      test('retries transient transport failures (AWSHttpException)', () {
-        expect(retryer.isRetryable(AWSHttpException(request)), isTrue);
+      test('retries transport-level AWSHttpException (retryable flag)', () {
+        expect(
+          retryer.isRetryable(AWSHttpException.retryable(request)),
+          isTrue,
+        );
+      });
+
+      test('does not retry a non-transport AWSHttpException', () {
+        expect(retryer.isRetryable(AWSHttpException(request)), isFalse);
       });
 
       test('retries TimeoutException', () {
@@ -204,7 +211,9 @@ void main() {
             attempts++;
             final completer = CancelableCompleter<int>();
             if (attempts < 2) {
-              completer.completeError(AWSHttpException(request));
+              completer.completeError(
+                AWSHttpException.retryable(request, Exception('reset')),
+              );
             } else {
               completer.complete(42);
             }

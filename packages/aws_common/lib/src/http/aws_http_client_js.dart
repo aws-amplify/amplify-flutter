@@ -168,7 +168,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       );
       completer.complete(streamedResponse);
     } on Object catch (e, st) {
-      completer.completeError(AWSHttpException(request, e), st);
+      completer.completeError(AWSHttpException.retryable(request, e), st);
     }
   }
 
@@ -213,7 +213,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
       completer: completer,
       cancelTrigger: cancelTrigger,
     ).catchError(
-      (Object e, st) => completer.completeError(AWSHttpException(request, e)),
+      (Object e, st) =>
+          completer.completeError(AWSHttpException.retryable(request, e)),
     );
     _openConnections.add(WeakReference(operation));
     return operation;

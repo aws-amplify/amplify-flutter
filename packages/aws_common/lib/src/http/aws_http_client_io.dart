@@ -351,14 +351,14 @@ class AWSHttpClientImpl extends AWSHttpClient {
           logger.debug('Error in stream: $error');
           if (!gotHeaders.isCompleted) {
             gotHeaders.completeError(
-              AWSHttpException(request, error),
+              AWSHttpException.retryable(request, error),
               stackTrace,
             );
             return;
           }
           if (!bodyController.isClosed) {
             bodyController
-              ..addError(AWSHttpException(request, error), stackTrace)
+              ..addError(AWSHttpException.retryable(request, error), stackTrace)
               ..close();
           }
         },
@@ -528,7 +528,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
         ),
       );
     }).catchError((Object e, StackTrace st) {
-      completer.completeError(AWSHttpException(request, e), st);
+      completer.completeError(AWSHttpException.retryable(request, e), st);
     });
 
     return operation;
