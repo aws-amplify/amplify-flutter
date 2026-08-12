@@ -22,6 +22,28 @@ RootIsolateToken? get amplifyRootIsolateToken {
   return RootIsolateToken.instance;
 }
 
+/// {@template amplify_flutter.amplify_is_in_root_isolate}
+/// Whether the current isolate is a root isolate, meaning it owns a Flutter
+/// engine and therefore drives the process-wide native Amplify SDKs.
+///
+/// True on an app's main isolate, and also on the root isolate of a headless
+/// `FlutterEngine` — for example the entry point that records a push
+/// notification while the app is killed. Both of those own an engine, so both
+/// may configure native Amplify.
+///
+/// False only in an isolate started with `Isolate.spawn`, which has no engine
+/// of its own. Such an isolate can still use categories that run entirely in
+/// Dart, but the native SDKs already belong to the root isolate.
+///
+/// Always true on the web, which has no isolates.
+/// {@endtemplate}
+@internal
+bool get amplifyIsInRootIsolate {
+  // `RootIsolateToken.instance` throws on the web rather than returning null.
+  if (kIsWeb) return true;
+  return ServicesBinding.rootIsolateToken != null;
+}
+
 /// {@template amplify_flutter.amplify_isolate_is_initialized}
 /// Whether the current isolate can reach Amplify's platform channels.
 ///
