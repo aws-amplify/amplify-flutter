@@ -18,6 +18,8 @@ on:
       - 'packages/amplify_foundation/amplify_foundation_dart/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
       - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
   pull_request:
     paths:
       - '.github/workflows/amplify_event_enrichment.yaml'
@@ -32,6 +34,8 @@ on:
       - 'packages/amplify_foundation/amplify_foundation_dart/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
       - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
   schedule:
     - cron: "0 13 * * 1" # Every Monday at 06:00 PST
   workflow_dispatch:
