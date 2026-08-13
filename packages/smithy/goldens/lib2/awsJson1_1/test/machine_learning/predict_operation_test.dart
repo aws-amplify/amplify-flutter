@@ -22,57 +22,47 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'MachinelearningPredictEndpoint (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: PredictOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider: const _i3.AWSCredentialsProvider(
-            _i3.AWSCredentials(
-              'DUMMY-ACCESS-KEY-ID',
-              'DUMMY-SECRET-ACCESS-KEY',
-            ),
-          ),
+  _i1.test('MachinelearningPredictEndpoint (request)', () async {
+    await _i2.httpRequestTest(
+      operation: PredictOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'MachinelearningPredictEndpoint',
-          documentation:
-              'MachineLearning\'s api makes use of generated endpoints that the\ncustomer is then expected to use for the Predict operation. Having\nto alter the endpoint for a specific operation would be cumbersome,\nso an AWS client should be able to do it for them.',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{"MLModelId": "foo", "Record": {}, "PredictEndpoint": "https://custom.example.com/"}',
-          bodyMediaType: 'application/json',
-          params: {
-            'MLModelId': 'foo',
-            'Record': {},
-            'PredictEndpoint': 'https://custom.example.com/',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: 'example.com',
-          resolvedHost: 'custom.example.com',
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [PredictInputAwsJson11Serializer()],
-      );
-    },
-    skip: 'ML Predict is not supported yet',
-  );
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'MachinelearningPredictEndpoint',
+        documentation:
+            'MachineLearning\'s api makes use of generated endpoints that the\ncustomer is then expected to use for the Predict operation. Having\nto alter the endpoint for a specific operation would be cumbersome,\nso an AWS client should be able to do it for them.',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{"MLModelId": "foo", "Record": {}, "PredictEndpoint": "https://custom.example.com/"}',
+        bodyMediaType: 'application/json',
+        params: {
+          'MLModelId': 'foo',
+          'Record': {},
+          'PredictEndpoint': 'https://custom.example.com/',
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: 'example.com',
+        resolvedHost: 'custom.example.com',
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [PredictInputAwsJson11Serializer()],
+    );
+  }, skip: 'ML Predict is not supported yet');
 }
 
 class PredictInputAwsJson11Serializer
