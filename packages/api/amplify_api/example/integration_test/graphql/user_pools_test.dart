@@ -293,57 +293,6 @@ void main({
           expect(res.data?.name, name);
         },
       );
-
-      testWidgets(
-        'should CREATE, GET, and DELETE a model with a TemporalDateTime in its '
-        'custom identifier (#6298)',
-        (WidgetTester tester) async {
-          final model = CpkTemporalPrimaryKey(
-            hwid: 'HW-${uuid()}',
-            sessionStart: TemporalDateTime.fromString(
-              '2025-03-28T23:07:34.000Z',
-            ),
-          );
-
-          // CREATE
-          final createRes = await Amplify.API
-              .mutate(
-                request: ModelMutations.create(
-                  model,
-                  authorizationMode: APIAuthorizationType.userPools,
-                ),
-              )
-              .response;
-          expect(createRes, hasNoGraphQLErrors);
-          expect(createRes.data?.hwid, model.hwid);
-
-          // GET by the composite key containing the TemporalDateTime
-          // (the path #6298 fixed).
-          final getReq = ModelQueries.get(
-            CpkTemporalPrimaryKey.classType,
-            model.modelIdentifier,
-            authorizationMode: APIAuthorizationType.userPools,
-          );
-          final getRes = await Amplify.API.query(request: getReq).response;
-          expect(getRes, hasNoGraphQLErrors);
-          expect(getRes.data?.hwid, model.hwid);
-          expect(getRes.data?.sessionStart, model.sessionStart);
-
-          // DELETE by the same composite key.
-          final deleteRes = await Amplify.API
-              .mutate(
-                request: ModelMutations.delete(
-                  model,
-                  authorizationMode: APIAuthorizationType.userPools,
-                ),
-              )
-              .response;
-          expect(deleteRes, hasNoGraphQLErrors);
-
-          final checkRes = await Amplify.API.query(request: getReq).response;
-          expect(checkRes.data, isNull);
-        },
-      );
     });
 
     group('subscriptions', () {

@@ -106,14 +106,6 @@ const schema = a.schema({
     .identifier(["intAsId", "fieldA", "fieldB"])
     .authorization((allow) => [allow.owner()]),
 
-  CpkTemporalPrimaryKey: a
-    .model({
-      hwid: a.string().required(),
-      sessionStart: a.datetime().required(),
-    })
-    .identifier(["hwid", "sessionStart"])
-    .authorization((allow) => [allow.authenticated()]),
-
   lowerCase: a
     .model({
       id: a.id().required(),
