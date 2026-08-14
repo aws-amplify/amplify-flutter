@@ -9,12 +9,23 @@ class _MockSink implements EventSink {
   final List<EnrichedEvent> events = [];
 
   @override
-  void send(EnrichedEvent event) => events.add(event);
+  Future<void> send(EnrichedEvent event) async => events.add(event);
 }
 
+/// Throws synchronously, before returning a future at all.
 class _ThrowingSink implements EventSink {
   @override
-  void send(EnrichedEvent event) => throw StateError('sink failure');
+  Future<void> send(EnrichedEvent event) => throw StateError('sink failure');
+}
+
+/// Suspends first, then fails — the case a sync sink contract could not
+/// express and the try/catch in record() could not catch.
+class _AsyncFailingSink implements EventSink {
+  @override
+  Future<void> send(EnrichedEvent event) async {
+    await Future<void>.delayed(Duration.zero);
+    throw StateError('async sink failure');
+  }
 }
 
 void main() {
@@ -52,8 +63,8 @@ void main() {
       if (!client.isClosed) client.close();
     });
 
-    test('record() returns Ok with correct metadata', () {
-      final result = client.record('test_event');
+    test('record() returns Ok with correct metadata', () async {
+      final result = await client.record('test_event');
       expect(result, isA<Ok<EnrichedEvent>>());
       final event = (result as Ok<EnrichedEvent>).value;
       expect(event.eventType, 'test_event');
@@ -64,95 +75,100 @@ void main() {
       expect(event.session.id, isNotEmpty);
     });
 
-    test('record() dispatches to sink when configured', () {
-      client.record('test_event');
+    test('record() dispatches to sink when configured', () async {
+      await client.record('test_event');
       expect(sink.events, hasLength(1));
       expect(sink.events.first.eventType, 'test_event');
     });
 
-    test('record() does not fail when sink is null', () {
+    test('record() does not fail when sink is null', () async {
       final noSinkClient = EventEnrichmentClient(
         appMetadata: app,
         deviceMetadata: device,
         sdkMetadata: sdk,
         clientId: 'c',
       );
-      final result = noSinkClient.record('test');
+      final result = await noSinkClient.record('test');
       expect(result, isA<Ok<EnrichedEvent>>());
       noSinkClient.close();
     });
 
-    test('record() returns Error after close()', () {
+    test('record() returns Error after close()', () async {
       client.close();
-      final result = client.record('test');
+      final result = await client.record('test');
       expect(result, isA<Error<EnrichedEvent>>());
     });
 
-    test('per-event attributes override globals', () {
+    test('per-event attributes override globals', () async {
       client.addGlobalAttribute('key', 'global');
       final event =
-          (client.record('test', attributes: {'key': 'local'})
+          (await client.record('test', attributes: {'key': 'local'})
                   as Ok<EnrichedEvent>)
               .value;
       expect(event.attributes['key'], 'local');
     });
 
-    test('per-event metrics override globals', () {
+    test('per-event metrics override globals', () async {
       client.addGlobalMetric('m', 1);
       final event =
-          (client.record('test', metrics: {'m': 2.0}) as Ok<EnrichedEvent>)
+          (await client.record('test', metrics: {'m': 2.0})
+                  as Ok<EnrichedEvent>)
               .value;
       expect(event.metrics['m'], 2.0);
     });
 
-    test('global attributes appear on events', () {
+    test('global attributes appear on events', () async {
       client.addGlobalAttribute('env', 'prod');
-      final event = (client.record('test') as Ok<EnrichedEvent>).value;
+      final event = (await client.record('test') as Ok<EnrichedEvent>).value;
       expect(event.attributes['env'], 'prod');
     });
 
-    test('removed global attributes do not appear', () {
+    test('removed global attributes do not appear', () async {
       client
         ..addGlobalAttribute('env', 'prod')
         ..removeGlobalAttribute('env');
-      final event = (client.record('test') as Ok<EnrichedEvent>).value;
+      final event = (await client.record('test') as Ok<EnrichedEvent>).value;
       expect(event.attributes.containsKey('env'), isFalse);
     });
 
-    test('setUserId appears on subsequent events', () {
+    test('setUserId appears on subsequent events', () async {
       client.setUserId('user-1');
-      final event = (client.record('test') as Ok<EnrichedEvent>).value;
+      final event = (await client.record('test') as Ok<EnrichedEvent>).value;
       expect(event.userId, 'user-1');
     });
 
-    test('setUserId(null) clears userId', () {
+    test('setUserId(null) clears userId', () async {
       client
         ..setUserId('user-1')
         ..setUserId(null);
-      final event = (client.record('test') as Ok<EnrichedEvent>).value;
+      final event = (await client.record('test') as Ok<EnrichedEvent>).value;
       expect(event.userId, isNull);
     });
 
-    test('handleAppPaused and handleAppResumed maintain session', () {
-      final firstEvent = (client.record('before') as Ok<EnrichedEvent>).value;
+    test('handleAppPaused and handleAppResumed maintain session', () async {
+      final firstEvent =
+          (await client.record('before') as Ok<EnrichedEvent>).value;
       final sessionId = firstEvent.session.id;
 
       client
         ..handleAppPaused()
         ..handleAppResumed();
 
-      final secondEvent = (client.record('after') as Ok<EnrichedEvent>).value;
+      final secondEvent =
+          (await client.record('after') as Ok<EnrichedEvent>).value;
       expect(secondEvent.session.id, sessionId);
     });
 
-    test('record() after stopSession() starts a fresh session', () {
-      final firstEvent = (client.record('first') as Ok<EnrichedEvent>).value;
+    test('record() after stopSession() starts a fresh session', () async {
+      final firstEvent =
+          (await client.record('first') as Ok<EnrichedEvent>).value;
       final firstSessionId = firstEvent.session.id;
       expect(firstEvent.session.stopTimestamp, isNull);
 
       client.stopSession();
 
-      final secondEvent = (client.record('second') as Ok<EnrichedEvent>).value;
+      final secondEvent =
+          (await client.record('second') as Ok<EnrichedEvent>).value;
       expect(
         secondEvent.session.id,
         isNot(firstSessionId),
@@ -165,7 +181,7 @@ void main() {
       );
     });
 
-    test('record() surfaces a sink failure through Result.error', () {
+    test('record() surfaces a sink failure through Result.error', () async {
       final throwingClient = EventEnrichmentClient(
         appMetadata: app,
         deviceMetadata: device,
@@ -176,12 +192,38 @@ void main() {
       addTearDown(throwingClient.close);
 
       // Must return an Error result rather than throwing out of record().
-      final result = throwingClient.record('boom');
+      final result = await throwingClient.record('boom');
       expect(result, isA<Error<EnrichedEvent>>());
       expect(
         (result as Error<EnrichedEvent>).error,
         isA<EventEnrichmentRecordException>(),
       );
     });
+
+    test(
+      'record() catches a sink that fails asynchronously without propagating',
+      () async {
+        final failingClient = EventEnrichmentClient(
+          appMetadata: app,
+          deviceMetadata: device,
+          sdkMetadata: sdk,
+          clientId: 'device-123',
+          sink: _AsyncFailingSink(),
+        );
+        addTearDown(failingClient.close);
+
+        // The sink suspends before throwing, so this only passes because
+        // record() awaits send() inside its try/catch. Any error escaping to
+        // the zone would fail this test.
+        final result = await failingClient.record('boom');
+        expect(result, isA<Error<EnrichedEvent>>());
+        final error = (result as Error<EnrichedEvent>).error;
+        expect(error, isA<EventEnrichmentRecordException>());
+        expect(
+          (error as EventEnrichmentRecordException).cause,
+          isA<StateError>(),
+        );
+      },
+    );
   });
 }
