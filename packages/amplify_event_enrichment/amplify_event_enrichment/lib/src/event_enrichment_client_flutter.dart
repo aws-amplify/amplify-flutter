@@ -17,8 +17,24 @@ import 'package:uuid/uuid.dart';
 /// - [SharedPreferencesClientIdProvider] for persistent client ID
 /// - [FlutterLifecycleObserver] for automatic session lifecycle tracking
 ///
-/// For richer device info (manufacturer, model), supply a custom
-/// [DeviceMetadataProvider] via the `deviceMetadataProvider` parameter.
+/// Both providers are injectable: pass `deviceMetadataProvider` for richer
+/// device info (manufacturer, model), or `clientIdProvider` to source the
+/// client ID from your own store.
+///
+/// ## Sessions
+///
+/// Every event carries a session, and this wrapper exposes the same manual
+/// controls as the underlying client ([startSession], [stopSession],
+/// [handleAppPaused], [handleAppResumed]).
+///
+/// You do not have to call them. With the default
+/// [EventEnrichmentClientOptions.autoSessionTracking] of `true`, a session
+/// starts up front and follows app foreground/background transitions. With
+/// `autoSessionTracking` set to `false`, no session starts up front and no
+/// lifecycle observer is installed, but recording still works: the first
+/// [record] call lazily starts a session. Use the manual controls when you
+/// want to define session boundaries yourself, or to feed lifecycle
+/// transitions in when the observer is not installed.
 ///
 /// ## Usage
 ///
@@ -28,7 +44,7 @@ import 'package:uuid/uuid.dart';
 ///   sdkMetadata: SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
 /// );
 ///
-/// final event = client.record('button_clicked');
+/// final result = await client.record('button_clicked');
 /// ```
 /// {@endtemplate}
 class EventEnrichmentClientFlutter {
@@ -43,6 +59,7 @@ class EventEnrichmentClientFlutter {
     required SdkMetadata sdkMetadata,
     AppMetadata? appMetadata,
     DeviceMetadataProvider? deviceMetadataProvider,
+    ClientIdProvider? clientIdProvider,
     EventEnrichmentClientOptions? options,
     EventSink? sink,
   }) async {
@@ -53,7 +70,8 @@ class EventEnrichmentClientFlutter {
     );
     final metadataProvider =
         deviceMetadataProvider ?? const PlatformDeviceMetadataProvider();
-    const clientIdProvider = SharedPreferencesClientIdProvider();
+    final idProvider =
+        clientIdProvider ?? const SharedPreferencesClientIdProvider();
     final logger = AmplifyLogging.logger('EventEnrichmentClientFlutter');
 
     // Resolve device metadata and client ID independently so a failure in
@@ -71,7 +89,7 @@ class EventEnrichmentClientFlutter {
 
     String clientId;
     try {
-      clientId = await clientIdProvider.getClientId();
+      clientId = await idProvider.getClientId();
     } on Object catch (e, st) {
       clientId = const Uuid().v4();
       logger.warn(
@@ -108,11 +126,38 @@ class EventEnrichmentClientFlutter {
   bool get isClosed => _delegate.isClosed;
 
   /// Records an event and returns the enriched result.
-  Result<EnrichedEvent> record(
+  ///
+  /// Awaits the configured sink and never throws; delivery failures come back
+  /// as an error [Result]. See `EventEnrichmentClient.record`.
+  Future<Result<EnrichedEvent>> record(
     String eventType, {
     Map<String, String>? attributes,
     Map<String, double>? metrics,
   }) => _delegate.record(eventType, attributes: attributes, metrics: metrics);
+
+  /// Starts a new session manually.
+  ///
+  /// Only needed when you want an explicit session boundary. Recording works
+  /// without it: see [EventEnrichmentClientOptions.autoSessionTracking].
+  void startSession() => _delegate.startSession();
+
+  /// Stops the current session.
+  ///
+  /// The next [record] call starts a fresh session rather than reusing the
+  /// stopped one.
+  void stopSession() => _delegate.stopSession();
+
+  /// Called when the app moves to background.
+  ///
+  /// Only needed when [EventEnrichmentClientOptions.autoSessionTracking] is
+  /// `false`; otherwise [FlutterLifecycleObserver] calls this for you.
+  void handleAppPaused() => _delegate.handleAppPaused();
+
+  /// Called when the app returns to foreground.
+  ///
+  /// Only needed when [EventEnrichmentClientOptions.autoSessionTracking] is
+  /// `false`; otherwise [FlutterLifecycleObserver] calls this for you.
+  void handleAppResumed() => _delegate.handleAppResumed();
 
   /// Sets the user identifier stamped on subsequent events.
   void setUserId(String? userId) => _delegate.setUserId(userId);
