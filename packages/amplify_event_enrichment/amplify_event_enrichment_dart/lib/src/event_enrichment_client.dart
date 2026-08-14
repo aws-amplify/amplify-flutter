@@ -30,8 +30,10 @@ import 'package:uuid/uuid.dart';
 ///   clientId: 'device-uuid',
 /// );
 ///
-/// final event = client.record('button_clicked');
-/// print(jsonEncode(event.toJson()));
+/// final result = await client.record('button_clicked');
+/// if (result case Ok(:final value)) {
+///   print(jsonEncode(value.toJson()));
+/// }
 ///
 /// client.close();
 /// ```
@@ -84,14 +86,19 @@ class EventEnrichmentClient {
 
   /// Records an event and returns the enriched result.
   ///
-  /// Returns [Result.error] with an [EventEnrichmentClosedException] if the
-  /// client has been closed, or an [EventEnrichmentRecordException] if
-  /// recording fails unexpectedly (for example, a custom sink that throws).
-  Result<EnrichedEvent> record(
+  /// Awaits the configured sink, so the returned future completes only once
+  /// the event has been handed to the transport.
+  ///
+  /// Never throws. Returns [Result.error] with an
+  /// [EventEnrichmentClosedException] if the client has been closed, or an
+  /// [EventEnrichmentRecordException] if recording fails unexpectedly — which
+  /// includes a sink that throws synchronously *or* whose future completes
+  /// with an error. Sink failures are logged before being returned.
+  Future<Result<EnrichedEvent>> record(
     String eventType, {
     Map<String, String>? attributes,
     Map<String, double>? metrics,
-  }) {
+  }) async {
     if (_closed) return const Result.error(EventEnrichmentClosedException());
 
     try {
@@ -126,7 +133,9 @@ class EventEnrichmentClient {
         userId: _userId,
       );
 
-      _sink?.send(event);
+      // Awaited inside the try so a sink whose future completes with an error
+      // is caught here rather than surfacing as an unhandled async error.
+      await _sink?.send(event);
       _logger.verbose('Recorded event: $eventType');
       return Result.ok(event);
     } on Object catch (e, st) {
