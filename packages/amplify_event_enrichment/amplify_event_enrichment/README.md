@@ -25,7 +25,10 @@ final client = await EventEnrichmentClientFlutter.create(
   sdkMetadata: SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
 );
 
-final result = client.record('button_clicked', attributes: {'screen': 'home'});
+final result = await client.record(
+  'button_clicked',
+  attributes: {'screen': 'home'},
+);
 switch (result) {
   case Ok(:final value):
     print(jsonEncode(value.toJson()));
@@ -35,6 +38,8 @@ switch (result) {
 ```
 
 For richer device information (manufacturer, model), supply a custom
-`DeviceMetadataProvider` to `EventEnrichmentClientFlutter.create`.
+`DeviceMetadataProvider` to `EventEnrichmentClientFlutter.create`. A custom
+`ClientIdProvider` can be supplied the same way to source the client ID from
+your own store.
 
 ### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
