@@ -462,6 +462,14 @@ jobs:
       run-wasm: true
 ''');
         }
+        // Run the auth Android suite on a larger macOS runner; it otherwise
+        // exceeds the emulator's per-attempt timeout on the standard runner.
+        if (platform == 'android' &&
+            package.name == 'amplify_auth_cognito_example') {
+          workflowContents.write('''
+      runner: macos-26-xlarge
+''');
+        }
       }
     }
 

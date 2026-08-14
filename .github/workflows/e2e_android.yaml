@@ -14,10 +14,15 @@ on:
         description: Whether the E2E workflow needs configuration pulled from AWS
         required: true
         type: boolean
+      runner:
+        description: The runner to execute on. Defaults to ubuntu-latest.
+        required: false
+        type: string
+        default: ubuntu-latest
 
 jobs:
   e2e-test-android:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runner }}
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
