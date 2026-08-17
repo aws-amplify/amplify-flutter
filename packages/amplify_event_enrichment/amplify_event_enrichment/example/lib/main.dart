@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 /// A simple [EventSink] that prints the full enriched JSON to the console.
 class ConsoleEventSink implements EventSink {
   @override
-  void send(EnrichedEvent event) {
+  Future<void> send(EnrichedEvent event) async {
     debugPrint('┌── EnrichedEvent ──');
     debugPrint('│ ${event.toJson()}');
     debugPrint('└───────────────────');
@@ -52,8 +52,8 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
     setState(() => _log.insert(0, msg));
   }
 
-  void _recordEvent(String type, {Map<String, String>? attrs}) {
-    final result = _client?.record(type, attributes: attrs);
+  Future<void> _recordEvent(String type, {Map<String, String>? attrs}) async {
+    final result = await _client?.record(type, attributes: attrs);
     switch (result) {
       case Ok(:final value):
         _addLog(
