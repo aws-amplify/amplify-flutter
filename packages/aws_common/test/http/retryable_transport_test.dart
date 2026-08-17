@@ -4,9 +4,13 @@
 @TestOn('vm')
 library;
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/http/aws_http_client_io.dart'
+    show isRetryableTransportError;
+import 'package:http2/http2.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -30,6 +34,25 @@ void main() {
           ),
         ),
       );
+    });
+  });
+
+  group('isRetryableTransportError', () {
+    test('transport-level failures are retryable', () {
+      expect(isRetryableTransportError(const SocketException('reset')), isTrue);
+      expect(isRetryableTransportError(const HttpException('closed')), isTrue);
+      expect(isRetryableTransportError(TimeoutException('timed out')), isTrue);
+      expect(isRetryableTransportError(TransportException('h2')), isTrue);
+      expect(
+        isRetryableTransportError(StreamTransportException('h2 stream')),
+        isTrue,
+      );
+    });
+
+    test('non-transport failures are not retryable', () {
+      expect(isRetryableTransportError(const FormatException('bad')), isFalse);
+      expect(isRetryableTransportError(StateError('bad')), isFalse);
+      expect(isRetryableTransportError(ArgumentError('bad')), isFalse);
     });
   });
 }
