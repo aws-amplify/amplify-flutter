@@ -3,5 +3,12 @@ include: package:amplify_lints/library.yaml
 analyzer:
   exclude:
     - tool/*.dart
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
   errors:
     public_member_api_docs: ignore

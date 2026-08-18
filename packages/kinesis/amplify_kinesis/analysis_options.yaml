@@ -4,3 +4,10 @@ analyzer:
   exclude:
     - '**/*.g.dart'
     - 'lib/src/sdk/src/**'
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
