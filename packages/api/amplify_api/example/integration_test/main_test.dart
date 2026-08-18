@@ -6,6 +6,7 @@ import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
+import 'cleanup_blogs.dart';
 import 'graphql/api_key_test.dart' as graph_api_key_test;
 import 'graphql/iam_test.dart' as graph_iam_test;
 import 'graphql/user_pools_test.dart' as graph_user_pools_test;
@@ -61,5 +62,11 @@ void main() async {
     graph_user_pools_test.main(useExistingTestUser: true, testUser: testUser);
 
     rest_test.main(useExistingTestUser: true, testUser: testUser);
+
+    // TEMP one-time maintenance (remove after it runs once): purge the
+    // accumulated Blog backlog that makes the list-predicate tests flaky.
+    testWidgets('CLEANUP purge all blogs', (tester) async {
+      await purgeAllBlogs();
+    }, timeout: const Timeout(Duration(minutes: 30)));
   });
 }
