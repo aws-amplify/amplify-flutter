@@ -1,3 +1,7 @@
+## 2.14.0
+
+- Minor bug fixes and improvements
+
 ## 0.1.4
 
 ### Features
