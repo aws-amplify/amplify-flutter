@@ -103,16 +103,25 @@ aft:
         - amplify_secure_storage_dart
     - name: Kinesis
       summary: amplify_kinesis
+      # The Flutter and Dart packages are on independent version lines
+      # (2.x and 0.x). Propagating would bump the Dart package to 2.x.
+      propagate: none
       packages:
         - amplify_kinesis
         - amplify_kinesis_dart
     - name: Firehose
       summary: amplify_firehose
+      # The Flutter and Dart packages are on independent version lines
+      # (2.x and 0.x). Propagating would bump the Dart package to 2.x.
+      propagate: none
       packages:
         - amplify_firehose
         - amplify_firehose_dart
     - name: Connect
       summary: amplify_connect_client
+      # The Flutter and Dart packages are on independent version lines
+      # (2.x and 0.x). Propagating would bump the Dart package to 2.x.
+      propagate: none
       packages:
         - amplify_connect_client
         - amplify_connect_client_dart
