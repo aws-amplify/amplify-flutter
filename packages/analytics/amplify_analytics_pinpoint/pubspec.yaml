@@ -20,9 +20,9 @@ platforms:
 
 dependencies:
   amplify_analytics_pinpoint_dart: ">=0.4.20 <0.5.0"
-  amplify_core: ">=2.15.0 <2.16.0"
-  amplify_db_common: ">=0.4.21 <0.5.0"
-  amplify_secure_storage: ">=0.5.21 <0.6.0"
+  amplify_core: ">=2.14.0 <2.15.0"
+  amplify_db_common: ">=0.4.20 <0.5.0"
+  amplify_secure_storage: ">=0.5.20 <0.6.0"
   aws_common: ">=0.7.15 <0.8.0"
   device_info_plus: ^13.1.0
 
