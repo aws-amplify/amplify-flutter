@@ -5,3 +5,10 @@ analyzer:
     implementation_imports: error #TODO(equartey): Remove when lint is enforced project-wide
   exclude:
     - "**/*.g.dart"
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
