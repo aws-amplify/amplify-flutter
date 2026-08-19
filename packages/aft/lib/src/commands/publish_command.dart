@@ -23,6 +23,12 @@ mixin PublishHelpers on AmplifyCommand {
   /// Names of packages that are not yet published on pub.dev.
   final Set<String> _newPackages = {};
 
+  /// How long pre-publish keeps retrying `pub upgrade` before giving up.
+  static const _pubUpgradeTimeout = Duration(minutes: 20);
+
+  /// How long to wait between `pub upgrade` attempts.
+  static const _pubUpgradeRetryInterval = Duration(seconds: 60);
+
   /// Gathers the subset of packages which are publishable and whose latest
   /// version is not already available on `pub.dev`.
   Future<List<PackageInfo>> unpublishedPackages(
@@ -122,19 +128,43 @@ mixin PublishHelpers on AmplifyCommand {
         pubspecOverrideFile.deleteSync();
       }
     }
-    final res = await Process.run(
-      package.flavor.entrypoint,
-      ['pub', 'upgrade'],
-      stdoutEncoding: utf8,
-      stderrEncoding: utf8,
-      workingDirectory: package.path,
-    );
-    if (res.exitCode != 0) {
-      stdout.write(res.stdout);
-      stderr.write(res.stderr);
-      exit(res.exitCode);
-    }
+    await _pubUpgrade(package);
     await runBuildRunner(package, logger: logger, verbose: verbose);
+  }
+
+  /// Runs `pub upgrade` for [package], retrying until [_pubUpgradeTimeout].
+  ///
+  /// A version takes a few minutes to become resolvable by `pub` after being
+  /// published, so this failing right after a dependency was published usually
+  /// means propagation, not a broken constraint. Retrying keeps that from
+  /// aborting a release halfway through — the alternative is a re-run, which
+  /// lands in the same window and fails again.
+  Future<void> _pubUpgrade(PackageInfo package) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      final res = await Process.run(
+        package.flavor.entrypoint,
+        ['pub', 'upgrade'],
+        stdoutEncoding: utf8,
+        stderrEncoding: utf8,
+        workingDirectory: package.path,
+      );
+      if (res.exitCode == 0) {
+        return;
+      }
+      if (stopwatch.elapsed + _pubUpgradeRetryInterval >= _pubUpgradeTimeout) {
+        stdout.write(res.stdout);
+        stderr.write(res.stderr);
+        exit(res.exitCode);
+      }
+      logger.warn(
+        '`${package.flavor.entrypoint} pub upgrade` failed for '
+        '${package.name}. Retrying in '
+        '${_pubUpgradeRetryInterval.inSeconds}s — a version just published to '
+        '`pub.dev` can take a few minutes to resolve.',
+      );
+      await Future<void>.delayed(_pubUpgradeRetryInterval);
+    }
   }
 
   static final _validationStartRegex = RegExp(

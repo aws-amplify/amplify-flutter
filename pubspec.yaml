@@ -71,6 +71,7 @@ aft:
       summary: amplify_flutter
       packages:
         - amplify_flutter
+        - amplify_connect_client
         - amplify_core
         - amplify_datastore
         - amplify_datastore_plugin_interface
