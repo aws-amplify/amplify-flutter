@@ -1,3 +1,7 @@
+## 0.11.25
+
+- Minor bug fixes and improvements
+
 ## 0.11.24
 
 ### Fixes
