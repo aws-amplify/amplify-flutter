@@ -12,8 +12,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  id-token: write
-  contents: write
+  contents: read
 
 jobs:
   release:
@@ -36,13 +35,7 @@ jobs:
 
           # Install dependencies
           apt-get update -y
-          apt-get install -y git libicu-dev curl xz-utils clang cmake ninja-build pkg-config libgtk-3-dev jq
-          
-          # Install Github CLI
-          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-          sudo apt-get update -y
-          sudo apt-get install -y gh
+          apt-get install -y git libicu-dev curl xz-utils clang cmake ninja-build pkg-config libgtk-3-dev jq openssl
 
           # Fix Git ownership fix
           git config --global --add safe.directory '*'
@@ -54,14 +47,10 @@ jobs:
 
       - name: Git Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
-
-      - name: Create publishing token (pub.dev)
-        run: |
-          set -eo pipefail
-          PUB_TOKEN=$(curl --retry 5 --retry-connrefused -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://pub.dev" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r '.value')
-          echo "PUB_TOKEN=${PUB_TOKEN}" >> $GITHUB_ENV
-          export PUB_TOKEN
-          flutter pub token add https://pub.dev --env-var PUB_TOKEN
+        with:
+          # Keeps `GITHUB_TOKEN` from shadowing the App credential helper.
+          persist-credentials: false
+          fetch-tags: true
 
       - name: Install aft
         run: dart pub global activate -spath packages/aft
@@ -81,44 +70,54 @@ jobs:
             echo "New tags found:"
             echo "$TAGS"
             echo "has_tags=true" >> "$GITHUB_OUTPUT"
-            echo "$TAGS" > "$RUNNER_TEMP/new_tags.txt"
           fi
 
       - name: Verify publish (pre-tag dry run)
         if: steps.check-tags.outputs.has_tags == 'true'
         run: aft publish --dry-run --force
 
-      - name: Create and push tags
-        if: steps.check-tags.outputs.has_tags == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          while IFS= read -r tag; do
-            echo "Creating tag: $tag"
-            git tag "$tag"
-          done < "$RUNNER_TEMP/new_tags.txt"
-          git push origin --tags
-
-      - name: Publish to pub.dev
-        if: steps.check-tags.outputs.has_tags == 'true'
-        run: aft publish --force
-
-      - name: Create GitHub releases
+      # A single installation token expires after 1 hour, which the tag push
+      # phase can outlast, so git mints a fresh one per operation instead.
+      - name: Configure git to authenticate as the GitHub App
         if: steps.check-tags.outputs.has_tags == 'true'
         env:
-          GH_TOKEN: ${{ github.token }}
+          APP_ID: ${{ vars.FLUTTER_RELEASE_APP_ID }}
+          APP_PRIVATE_KEY: ${{ secrets.FLUTTER_RELEASE_APP_PRIVATE_KEY }}
         run: |
-          while IFS= read -r tag; do
-            PACKAGE="${tag%-v*}"
-            VERSION="${tag##*-v}"
+          KEY_FILE="$RUNNER_TEMP/app-key.pem"
+          printf '%s' "$APP_PRIVATE_KEY" > "$KEY_FILE"
+          chmod 600 "$KEY_FILE"
 
-            NOTES=$(aft get-release-notes --package "$PACKAGE" --version "$VERSION" \
-              | awk '/^Changelog:$/{f=1;next} f')
-            [ -z "$NOTES" ] && NOTES="Release ${PACKAGE} v${VERSION}"
+          MINT="$RUNNER_TEMP/mint-app-token.sh"
+          cat > "$MINT" << 'SCRIPT'
+          #!/usr/bin/env bash
+          set -euo pipefail
+          b64url() { openssl base64 -A | tr '+/' '-_' | tr -d '='; }
+          now=$(date +%s)
+          header=$(printf '{"alg":"RS256","typ":"JWT"}' | b64url)
+          payload=$(printf '{"iat":%d,"exp":%d,"iss":"%s"}' "$((now-60))" "$((now+300))" "$APP_ID" | b64url)
+          sig=$(printf '%s.%s' "$header" "$payload" \
+            | openssl dgst -sha256 -sign "$APP_PRIVATE_KEY_FILE" | b64url)
+          jwt="$header.$payload.$sig"
+          inst_id=$(curl -sf -H "Authorization: Bearer $jwt" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/installation" | jq -r .id)
+          curl -sf -X POST -H "Authorization: Bearer $jwt" \
+            "https://api.github.com/app/installations/$inst_id/access_tokens" | jq -r .token
+          SCRIPT
+          chmod +x "$MINT"
 
-            echo "Creating GitHub release for: $tag"
-            gh release create "$tag" \
-              --title "${PACKAGE} v${VERSION}" \
-              --notes "$NOTES" \
-              --target main
-          done < "$RUNNER_TEMP/new_tags.txt"
+          git config --global user.name "flutter-release[bot]"
+          git config --global user.email "flutter-release[bot]@users.noreply.github.com"
+
+          git config --global credential.https://github.com.helper \
+            "!f() { test \"\$1\" = get || return 0; echo username=x-access-token; echo password=\$(APP_ID=$APP_ID APP_PRIVATE_KEY_FILE=$KEY_FILE GITHUB_REPOSITORY=$GITHUB_REPOSITORY $MINT); }; f"
+
+      # `aft publish --ci` pushes the tags. Pushing as the App rather than with
+      # `GITHUB_TOKEN` is what lets the tags trigger downstream workflows.
+      - name: Create and push tags
+        if: steps.check-tags.outputs.has_tags == 'true'
+        run: aft publish --ci --force
+
+      - name: Remove App private key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/app-key.pem" "$RUNNER_TEMP/mint-app-token.sh"
