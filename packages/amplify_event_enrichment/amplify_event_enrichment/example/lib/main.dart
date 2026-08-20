@@ -129,6 +129,15 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
                     },
                     child: const Text('Stop Session'),
                   ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      // Displacing a running session emits its stop first, then
+                      // the new session's start.
+                      await _client?.startSession();
+                      _addLog('New session started (_session.start emitted)');
+                    },
+                    child: const Text('Start Session'),
+                  ),
                 ],
               ),
             ),
