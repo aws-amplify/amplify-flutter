@@ -8,3 +8,6 @@ analyzer:
     - macos/**
     - linux/**
 include: package:amplify_lints/app.yaml
+analyzer:
+  errors:
+    deprecated_member_use: ignore
