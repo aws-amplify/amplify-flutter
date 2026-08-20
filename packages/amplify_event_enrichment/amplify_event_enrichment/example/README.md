@@ -8,7 +8,7 @@ A minimal Flutter app demonstrating the `amplify_event_enrichment` package.
 - Records sample events with attributes and metrics
 - Exercises global fields and user identity
 - Session lifecycle is tracked automatically (background/foreground the app to see session pause/resume in action)
-- Emits a `_session.stop` event when a session ends, so you can see the session's stop timestamp and duration
+- Emits `_session.start` and `_session.stop` events at session boundaries, so you can see each session's start timestamp, stop timestamp and duration
 - Full enriched JSON envelopes are printed to the debug console
 
 ## Run
@@ -27,14 +27,19 @@ Watch the debug console (`flutter logs` or your IDE's console) for the full enri
 3. Return to the app and tap **Record Event** again
 4. If you returned within 5s, the session ID is the same. After 5s, a new session starts automatically.
 
-## Session stop events
+## Session events
 
-Whenever a session ends, a `_session.stop` event is printed alongside the events
-you recorded, carrying that session's `stop_timestamp` and `duration`.
+Session boundaries are printed alongside the events you record: `_session.start`
+when a session begins, and `_session.stop` when it ends, carrying that session's
+`stop_timestamp` and `duration`.
 
-1. Tap **Record Event**, then **Stop Session** — a `_session.stop` envelope is
+1. A `_session.start` is printed as soon as the client initializes
+2. Tap **Record Event**, then **Stop Session** — a `_session.stop` envelope is
    printed for the session you just used
-2. Tap **Record Event** again — a new session starts, and the next stop reports
-   that one
-3. Backgrounding for longer than 5s prints one too, from the session timeout
-4. **Close** prints a final one for whatever session is still running
+3. Tap **Record Event** again — a new session starts, so a `_session.start` is
+   printed before the recorded event
+4. **Start Session** on a running session prints the stop for the old one and
+   then the start for the new one, in that order
+5. Backgrounding for longer than 5s prints a stop from the session timeout, and
+   returning prints the start for the replacement session
+6. **Close** prints a final stop for whatever session is still running
