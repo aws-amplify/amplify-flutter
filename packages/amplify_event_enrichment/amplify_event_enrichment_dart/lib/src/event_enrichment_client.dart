@@ -3,12 +3,12 @@
 
 import 'package:amplify_event_enrichment_dart/src/enriched_event.dart';
 import 'package:amplify_event_enrichment_dart/src/event_enrichment_client_options.dart';
-import 'package:amplify_event_enrichment_dart/src/event_sink.dart';
 import 'package:amplify_event_enrichment_dart/src/exception/event_enrichment_exception.dart';
 import 'package:amplify_event_enrichment_dart/src/global_fields_manager.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/app_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/device_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/sdk_metadata.dart';
+import 'package:amplify_event_enrichment_dart/src/sender.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:uuid/uuid.dart';
@@ -46,12 +46,12 @@ class EventEnrichmentClient {
     required SdkMetadata sdkMetadata,
     required String clientId,
     EventEnrichmentClientOptions? options,
-    EventSink? sink,
+    Sender? sender,
   }) : _appMetadata = appMetadata,
        _deviceMetadata = deviceMetadata,
        _sdkMetadata = sdkMetadata,
        _clientId = clientId,
-       _sink = sink,
+       _sender = sender,
        _logger = AmplifyLogging.logger('EventEnrichmentClient') {
     final opts = options ?? const EventEnrichmentClientOptions();
     _sessionManager = SessionManager(
@@ -68,7 +68,7 @@ class EventEnrichmentClient {
   final DeviceMetadata _deviceMetadata;
   final SdkMetadata _sdkMetadata;
   final String _clientId;
-  final EventSink? _sink;
+  final Sender? _sender;
   final Logger _logger;
   final GlobalFieldsManager _globalFields = GlobalFieldsManager();
   late final SessionManager _sessionManager;
@@ -86,14 +86,14 @@ class EventEnrichmentClient {
 
   /// Records an event and returns the enriched result.
   ///
-  /// Awaits the configured sink, so the returned future completes only once
+  /// Awaits the configured sender, so the returned future completes only once
   /// the event has been handed to the transport.
   ///
   /// Never throws. Returns [Result.error] with an
   /// [EventEnrichmentClosedException] if the client has been closed, or an
   /// [EventEnrichmentRecordException] if recording fails unexpectedly — which
-  /// includes a sink that throws synchronously *or* whose future completes
-  /// with an error. Sink failures are logged before being returned.
+  /// includes a sender that throws synchronously *or* whose future completes
+  /// with an error. Sender failures are logged before being returned.
   Future<Result<EnrichedEvent>> record(
     String eventType, {
     Map<String, String>? attributes,
@@ -133,9 +133,9 @@ class EventEnrichmentClient {
         userId: _userId,
       );
 
-      // Awaited inside the try so a sink whose future completes with an error
-      // is caught here rather than surfacing as an unhandled async error.
-      await _sink?.send(event);
+      // Awaited inside the try so a sender whose future completes with an
+      // error is caught here rather than surfacing as an unhandled async error.
+      await _sender?.send(event);
       _logger.verbose('Recorded event: $eventType');
       return Result.ok(event);
     } on Object catch (e, st) {
