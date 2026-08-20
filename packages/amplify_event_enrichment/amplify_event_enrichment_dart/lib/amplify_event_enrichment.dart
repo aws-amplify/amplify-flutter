@@ -16,4 +16,5 @@ export 'src/metadata/device_metadata_provider.dart';
 export 'src/metadata/sdk_metadata.dart';
 export 'src/sender.dart';
 export 'src/session/session.dart';
+export 'src/session/session_event_types.dart';
 export 'src/session/session_manager.dart';

@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:amplify_event_enrichment_dart/src/enriched_event.dart';
 import 'package:amplify_event_enrichment_dart/src/event_enrichment_client_options.dart';
 import 'package:amplify_event_enrichment_dart/src/exception/event_enrichment_exception.dart';
@@ -9,6 +11,8 @@ import 'package:amplify_event_enrichment_dart/src/metadata/app_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/device_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/sdk_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/sender.dart';
+import 'package:amplify_event_enrichment_dart/src/session/session.dart';
+import 'package:amplify_event_enrichment_dart/src/session/session_event_types.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:uuid/uuid.dart';
@@ -19,6 +23,13 @@ import 'package:uuid/uuid.dart';
 /// Collects device, app, session, and SDK metadata and produces
 /// [EnrichedEvent] instances that serialize to a structured analytics
 /// JSON envelope.
+///
+/// ## Sessions
+///
+/// Every event carries a session. When a session ends the client emits a
+/// [zSessionStopEventType] event for it through the configured [Sender],
+/// carrying the ended session's stop timestamp and duration. See
+/// [stopSession].
 ///
 /// ## Usage
 ///
@@ -35,7 +46,7 @@ import 'package:uuid/uuid.dart';
 ///   print(jsonEncode(value.toJson()));
 /// }
 ///
-/// client.close();
+/// await client.close();
 /// ```
 /// {@endtemplate}
 class EventEnrichmentClient {
@@ -58,9 +69,12 @@ class EventEnrichmentClient {
       appId: appMetadata.appId,
       sessionTimeout: opts.sessionTimeout,
       generateId: () => const Uuid().v4(),
+      onSessionEnded: _emitSessionStop,
     );
     if (opts.autoSessionTracking) {
-      _sessionManager.startSession();
+      // No session exists yet, so there is none to end and the returned future
+      // is already complete.
+      _sessionManager.startSession().ignore();
     }
   }
 
@@ -104,33 +118,18 @@ class EventEnrichmentClient {
     try {
       // A stopped session is still exposed by the manager for inspection, so
       // start a fresh one instead of stamping the stopped session (which
-      // carries a stop_timestamp) onto a new event.
+      // carries a stop_timestamp) onto a new event. A session that already
+      // stopped emitted its stop then, so nothing is emitted here.
       if (_sessionManager.session == null ||
           _sessionManager.state == SessionState.stopped) {
-        _sessionManager.startSession();
+        await _sessionManager.startSession();
       }
 
-      final mergedAttributes = <String, String>{
-        ..._globalFields.attributes,
-        ...?attributes,
-      };
-      final mergedMetrics = <String, double>{
-        ..._globalFields.metrics,
-        ...?metrics,
-      };
-
-      final event = EnrichedEvent(
-        eventId: const Uuid().v4(),
-        eventType: eventType,
-        eventTimestamp: DateTime.now().millisecondsSinceEpoch,
-        session: _sessionManager.session!,
-        attributes: mergedAttributes,
-        metrics: mergedMetrics,
-        device: _deviceMetadata,
-        app: _appMetadata,
-        sdk: _sdkMetadata,
-        clientId: _clientId,
-        userId: _userId,
+      final event = _buildEvent(
+        eventType,
+        _sessionManager.session!,
+        attributes: attributes,
+        metrics: metrics,
       );
 
       // Awaited inside the try so a sender whose future completes with an
@@ -144,25 +143,89 @@ class EventEnrichmentClient {
     }
   }
 
-  /// Starts a new session manually.
-  void startSession() => _sessionManager.startSession();
-
-  /// Stops the current session.
+  /// Enriches [eventType] against [session] and the client's current metadata.
   ///
-  /// This is an explicit end to session tracking: a later
+  /// Shared by [record] and [_emitSessionStop] so a session-stop event is
+  /// enriched exactly like any other event.
+  EnrichedEvent _buildEvent(
+    String eventType,
+    Session session, {
+    Map<String, String>? attributes,
+    Map<String, double>? metrics,
+  }) => EnrichedEvent(
+    eventId: const Uuid().v4(),
+    eventType: eventType,
+    eventTimestamp: DateTime.now().millisecondsSinceEpoch,
+    session: session,
+    attributes: {..._globalFields.attributes, ...?attributes},
+    metrics: {..._globalFields.metrics, ...?metrics},
+    device: _deviceMetadata,
+    app: _appMetadata,
+    sdk: _sdkMetadata,
+    clientId: _clientId,
+    userId: _userId,
+  );
+
+  /// Emits a [zSessionStopEventType] event for a session that just ended.
+  ///
+  /// Wired into [SessionManager] as its session-ended callback, so every end
+  /// path reports the session exactly once: an explicit [stopSession], the
+  /// session timeout expiring while backgrounded, [close], and the implicit
+  /// stop when [startSession] displaces a running session.
+  ///
+  /// The event's session section carries the *ended* session — its id, start
+  /// timestamp, stop timestamp and duration — and the event is otherwise
+  /// enriched exactly like one from [record]: app, client, device and SDK
+  /// metadata, the current user id, and the global attributes and metrics.
+  /// Legacy Pinpoint also stamped its global attributes and metrics on
+  /// `_session.stop`, so including them keeps that behaviour.
+  ///
+  /// Never throws. A sender that fails is logged and swallowed, because ending
+  /// a session is a lifecycle transition rather than a caller's attempt to
+  /// record something: there is no `Result` to hand back, and the timeout path
+  /// has no caller at all.
+  Future<void> _emitSessionStop(Session session) async {
+    final sender = _sender;
+    if (sender == null) return;
+    try {
+      await sender.send(_buildEvent(zSessionStopEventType, session));
+      _logger.verbose('Recorded event: $zSessionStopEventType');
+    } on Object catch (e, st) {
+      _logger.error('Failed to record event: $zSessionStopEventType', e, st);
+    }
+  }
+
+  /// Starts a new session manually.
+  ///
+  /// A session already running is ended first, which emits a
+  /// [zSessionStopEventType] event for it — legacy Pinpoint reported a stop the
+  /// same way when a new session displaced an old one. The returned future
+  /// completes once that event has been handed to the [Sender], and is already
+  /// complete when there was no session to displace.
+  Future<void> startSession() => _sessionManager.startSession();
+
+  /// Stops the current session and emits a [zSessionStopEventType] event for
+  /// it.
+  ///
+  /// The emitted event's session section carries the stopped session's id,
+  /// start timestamp, stop timestamp and duration, so session length reaches
+  /// the [Sender] rather than being computed and dropped. The returned future
+  /// completes once the event has been handed to the sender; a sender failure
+  /// is logged and never thrown. Nothing is emitted, and the returned future
+  /// is already complete, when no session is running.
+  ///
+  /// This is also an explicit end to session tracking: a later
   /// [handleAppResumed] will not start a new session. Recording an event
   /// still lazily starts one, and [startSession] resumes normal lifecycle
   /// behaviour.
-  ///
-  /// The stop timestamp and duration are recorded on the session and stay
-  /// readable via [sessionManager], but they are not emitted anywhere: the
-  /// [Sender] only ever receives events passed to [record]. Emitting a
-  /// session-end event would change the envelope contract shared with the
-  /// other platforms, so it is a deliberate follow-up rather than part of
-  /// this client.
-  void stopSession() => _sessionManager.stopSession();
+  Future<void> stopSession() => _sessionManager.stopSession();
 
   /// Called when the app moves to background.
+  ///
+  /// If the session timeout expires before the app returns, the session ends
+  /// and its [zSessionStopEventType] event is emitted from the timer. Nothing
+  /// is awaiting a timer, so a sender failure on that path surfaces only in
+  /// the logs.
   void handleAppPaused() => _sessionManager.handleAppPaused();
 
   /// Called when the app returns to foreground.
@@ -195,16 +258,25 @@ class EventEnrichmentClient {
 
   /// Releases resources and stops session tracking.
   ///
-  /// The client cannot be reused after closing. Nothing is sent to the
-  /// configured [Sender] here: the session's end is not reported. See
-  /// [stopSession].
-  void close() {
+  /// A session still running is ended first, so its [zSessionStopEventType]
+  /// event reaches the [Sender] before the client goes away; the returned
+  /// future completes once that event has been sent. A session that already
+  /// ended emitted its stop then, so closing after [stopSession] or after a
+  /// session timeout does not emit a second one, and closing with no session
+  /// emits nothing.
+  ///
+  /// The client cannot be reused after closing. Calling this more than once is
+  /// a no-op.
+  Future<void> close() async {
+    if (_closed) return;
+    // Closed first so no further record() call can slip in behind the final
+    // session-stop event. _emitSessionStop deliberately does not consult this
+    // flag, since the close path's whole point is to emit one last event.
     _closed = true;
-    // clearSession rather than stopSession: it cancels the pause timer, marks
-    // the stop as explicit so a later lifecycle resume cannot restart
-    // tracking, and drops the session so none is readable after close.
-    // Computing stop metadata first would only throw it away again, since
-    // nothing consumes it today.
+    await _sessionManager.stopSession();
+    // clearSession rather than leaving the stopped session readable: the stop
+    // has already been recorded and emitted, and this drops the session so
+    // none is readable after close.
     _sessionManager.clearSession();
     _logger.info('Client closed');
   }
