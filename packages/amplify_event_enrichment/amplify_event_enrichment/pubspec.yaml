@@ -36,4 +36,3 @@ dev_dependencies:
   amplify_lints: ">=3.1.6 <3.2.0"
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.0
