@@ -4,7 +4,7 @@ A minimal Flutter app demonstrating the `amplify_event_enrichment` package.
 
 ## What it does
 
-- Initializes `EventEnrichmentClientFlutter` with a console-logging `EventSink`
+- Initializes `EventEnrichmentClientFlutter` with a console-logging `Sender`
 - Records sample events with attributes and metrics
 - Exercises global fields and user identity
 - Session lifecycle is tracked automatically (background/foreground the app to see session pause/resume in action)
