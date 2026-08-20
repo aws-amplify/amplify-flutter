@@ -77,8 +77,11 @@ void main() {
 
     test('record() dispatches to the sender when configured', () async {
       await client.record('test_event');
-      expect(sender.events, hasLength(1));
-      expect(sender.events.first.eventType, 'test_event');
+      // The client eagerly starts a session, so its _session.start event
+      // precedes the recorded one. session_event_test.dart covers that
+      // behaviour; here only the recorded event matters.
+      expect(sender.events, hasLength(2));
+      expect(sender.events.last.eventType, 'test_event');
     });
 
     test('record() does not fail when no sender is configured', () async {

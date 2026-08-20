@@ -32,8 +32,19 @@ class _RecordingSender implements Sender {
   @override
   Future<void> send(EnrichedEvent event) async => events.add(event);
 
-  /// Only the session-stop events, so counts are unaffected by whatever the
-  /// test recorded to get a session started.
+  /// Only the session-boundary events, so counts and ordering are unaffected by
+  /// whatever the test recorded to move a session along.
+  List<EnrichedEvent> get sessionEvents => events
+      .where(
+        (e) =>
+            e.eventType == zSessionStartEventType ||
+            e.eventType == zSessionStopEventType,
+      )
+      .toList();
+
+  List<EnrichedEvent> get sessionStarts =>
+      events.where((e) => e.eventType == zSessionStartEventType).toList();
+
   List<EnrichedEvent> get sessionStops =>
       events.where((e) => e.eventType == zSessionStopEventType).toList();
 }
@@ -188,7 +199,7 @@ void main() {
     });
   });
 
-  group('EventEnrichmentClientFlutter session stop events', () {
+  group('EventEnrichmentClientFlutter session events', () {
     Future<(EventEnrichmentClientFlutter, _RecordingSender)> createClient({
       bool autoSessionTracking = true,
     }) async {
@@ -204,7 +215,27 @@ void main() {
       return (client, sender);
     }
 
-    test('stopSession emits one, carrying the stopped session', () async {
+    test('create emits a start when autoSessionTracking is on', () async {
+      final (client, sender) = await createClient();
+      addTearDown(client.close);
+
+      final first = (await client.record('first') as Ok<EnrichedEvent>).value;
+
+      expect(sender.sessionStarts, hasLength(1));
+      final event = sender.sessionStarts.single;
+      expect(event.eventType, zSessionStartEventType);
+      expect(event.session.id, first.session.id);
+      expect(event.session.stopTimestamp, isNull);
+    });
+
+    test('create emits nothing when autoSessionTracking is off', () async {
+      final (client, sender) = await createClient(autoSessionTracking: false);
+      addTearDown(client.close);
+
+      expect(sender.sessionEvents, isEmpty);
+    });
+
+    test('stopSession emits one stop, carrying the stopped session', () async {
       final (client, sender) = await createClient();
       addTearDown(client.close);
 
@@ -219,7 +250,7 @@ void main() {
       expect(event.session.duration, isNotNull);
     });
 
-    test('close emits one for a running session', () async {
+    test('close emits one stop for a running session', () async {
       final (client, sender) = await createClient();
 
       final first = (await client.record('first') as Ok<EnrichedEvent>).value;
@@ -229,7 +260,7 @@ void main() {
       expect(sender.sessionStops.single.session.id, first.session.id);
     });
 
-    test('close after stopSession does not emit a second', () async {
+    test('close after stopSession does not emit a second stop', () async {
       final (client, sender) = await createClient();
 
       await client.record('first');
@@ -239,15 +270,20 @@ void main() {
       expect(sender.sessionStops, hasLength(1));
     });
 
-    test('startSession emits one for the session it displaces', () async {
+    test('startSession emits the displaced stop then the new start', () async {
       final (client, sender) = await createClient();
       addTearDown(client.close);
 
       final first = (await client.record('first') as Ok<EnrichedEvent>).value;
       await client.startSession();
 
-      expect(sender.sessionStops, hasLength(1));
+      expect(sender.sessionEvents.map((e) => e.eventType), [
+        zSessionStartEventType,
+        zSessionStopEventType,
+        zSessionStartEventType,
+      ]);
       expect(sender.sessionStops.single.session.id, first.session.id);
+      expect(sender.sessionStarts.last.session.id, isNot(first.session.id));
     });
 
     test('close emits nothing when no session ever started', () async {
@@ -255,7 +291,7 @@ void main() {
 
       await client.close();
 
-      expect(sender.sessionStops, isEmpty);
+      expect(sender.sessionEvents, isEmpty);
     });
   });
 }
