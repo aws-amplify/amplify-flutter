@@ -61,7 +61,12 @@ class SessionManager {
   /// Current session state.
   SessionState get state => _state;
 
-  /// Current session, or `null` if stopped.
+  /// Current session, or `null` if none has started yet or [clearSession] has
+  /// dropped it.
+  ///
+  /// A session stopped by [stopSession] or by the timeout expiring stays
+  /// readable here, carrying its stop timestamp and duration, so it can still
+  /// be inspected. Only [clearSession] nulls it.
   Session? get session => _session;
 
   /// Visible for testing — allows injecting a custom timer factory.

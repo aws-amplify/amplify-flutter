@@ -153,6 +153,13 @@ class EventEnrichmentClient {
   /// [handleAppResumed] will not start a new session. Recording an event
   /// still lazily starts one, and [startSession] resumes normal lifecycle
   /// behaviour.
+  ///
+  /// The stop timestamp and duration are recorded on the session and stay
+  /// readable via [sessionManager], but they are not emitted anywhere: the
+  /// [Sender] only ever receives events passed to [record]. Emitting a
+  /// session-end event would change the envelope contract shared with the
+  /// other platforms, so it is a deliberate follow-up rather than part of
+  /// this client.
   void stopSession() => _sessionManager.stopSession();
 
   /// Called when the app moves to background.
@@ -188,14 +195,17 @@ class EventEnrichmentClient {
 
   /// Releases resources and stops session tracking.
   ///
-  /// The client cannot be reused after closing.
+  /// The client cannot be reused after closing. Nothing is sent to the
+  /// configured [Sender] here: the session's end is not reported. See
+  /// [stopSession].
   void close() {
     _closed = true;
-    // Stop the session to record its end, then drop it so no stale session is
-    // readable after close.
-    _sessionManager
-      ..stopSession()
-      ..clearSession();
+    // clearSession rather than stopSession: it cancels the pause timer, marks
+    // the stop as explicit so a later lifecycle resume cannot restart
+    // tracking, and drops the session so none is readable after close.
+    // Computing stop metadata first would only throw it away again, since
+    // nothing consumes it today.
+    _sessionManager.clearSession();
     _logger.info('Client closed');
   }
 }
