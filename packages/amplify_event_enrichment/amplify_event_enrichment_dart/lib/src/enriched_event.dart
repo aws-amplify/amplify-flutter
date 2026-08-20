@@ -5,7 +5,10 @@ import 'package:amplify_event_enrichment_dart/src/metadata/app_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/device_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/sdk_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session.dart';
+import 'package:amplify_event_enrichment_dart/src/util/serializable.dart';
 import 'package:meta/meta.dart';
+
+part 'enriched_event.g.dart';
 
 /// {@template amplify_event_enrichment.enriched_event}
 /// An analytics event enriched with device, app, session, and SDK metadata.
@@ -76,45 +79,178 @@ final class EnrichedEvent {
   /// Serializes to the analytics event envelope as a JSON-compatible map.
   ///
   /// Encode with `jsonEncode` where a JSON string is needed.
-  Map<String, dynamic> toJson() {
-    final deviceMap = <String, dynamic>{};
-    final platformMap = <String, dynamic>{};
-    if (device.platform != null) platformMap['name'] = device.platform;
-    if (device.platformVersion != null) {
-      platformMap['version'] = device.platformVersion;
-    }
-    if (platformMap.isNotEmpty) deviceMap['platform'] = platformMap;
-    if (device.manufacturer != null) deviceMap['make'] = device.manufacturer;
-    if (device.model != null) deviceMap['model'] = device.model;
-    if (device.locale != null) deviceMap['locale'] = {'code': device.locale};
+  ///
+  /// The envelope is not a field-for-field projection of this class — it
+  /// regroups platform name/version, renames `manufacturer` to `make`, wraps
+  /// the locale, and drops empty sections — so it is modelled as its own set
+  /// of generated classes in this file that this method builds and delegates
+  /// to.
+  Map<String, dynamic> toJson() => _envelope().toJson();
 
-    return <String, dynamic>{
-      'event_type': eventType,
-      'event_timestamp': eventTimestamp,
+  _Envelope _envelope() {
+    final platform = device.platform == null && device.platformVersion == null
+        ? null
+        : _Platform(name: device.platform, version: device.platformVersion);
+    final locale = device.locale;
+    return _Envelope(
+      eventType: eventType,
+      eventTimestamp: eventTimestamp,
       // On-device enrichment has no server ingestion step, so this reflects
       // client-side arrival and mirrors event_timestamp. Retained for
       // envelope compatibility.
-      'arrival_timestamp': eventTimestamp,
-      'event_version': _eventVersion,
-      'application': {
-        'app_id': app.appId,
-        if (app.packageName != null) 'package_name': app.packageName,
-        if (app.versionName != null) 'version_name': app.versionName,
-        if (app.versionCode != null) 'version_code': app.versionCode,
-        if (app.title != null) 'title': app.title,
-        'sdk': {'name': sdk.name, 'version': sdk.version},
-      },
-      'client': {'client_id': clientId, if (userId != null) 'user_id': userId},
-      'device': deviceMap,
-      'session': {
-        'id': session.id,
-        'start_timestamp': session.startTimestamp,
-        if (session.stopTimestamp != null)
-          'stop_timestamp': session.stopTimestamp,
-        if (session.duration != null) 'duration': session.duration,
-      },
-      if (attributes.isNotEmpty) 'attributes': attributes,
-      if (metrics.isNotEmpty) 'metrics': metrics,
-    };
+      arrivalTimestamp: eventTimestamp,
+      eventVersion: _eventVersion,
+      application: _Application(
+        appId: app.appId,
+        packageName: app.packageName,
+        versionName: app.versionName,
+        versionCode: app.versionCode,
+        title: app.title,
+        sdk: _Sdk(name: sdk.name, version: sdk.version),
+      ),
+      client: _Client(clientId: clientId, userId: userId),
+      device: _Device(
+        platform: platform,
+        make: device.manufacturer,
+        model: device.model,
+        locale: locale == null ? null : _Locale(code: locale),
+      ),
+      session: _Session(
+        id: session.id,
+        startTimestamp: session.startTimestamp,
+        stopTimestamp: session.stopTimestamp,
+        duration: session.duration,
+      ),
+      // Empty rather than absent globals still mean "nothing to report", and
+      // the envelope omits the section in that case.
+      attributes: attributes.isEmpty ? null : attributes,
+      metrics: metrics.isEmpty ? null : metrics,
+    );
   }
+}
+
+/// The top level of the analytics event envelope.
+@zEventEnrichmentSerializable
+final class _Envelope {
+  const _Envelope({
+    required this.eventType,
+    required this.eventTimestamp,
+    required this.arrivalTimestamp,
+    required this.eventVersion,
+    required this.application,
+    required this.client,
+    required this.device,
+    required this.session,
+    this.attributes,
+    this.metrics,
+  });
+
+  final String eventType;
+  final int eventTimestamp;
+  final int arrivalTimestamp;
+  final String eventVersion;
+  final _Application application;
+  final _Client client;
+  final _Device device;
+  final _Session session;
+  final Map<String, String>? attributes;
+  final Map<String, double>? metrics;
+
+  Map<String, dynamic> toJson() => _$EnvelopeToJson(this);
+}
+
+/// The `application` section, with the SDK nested inside it.
+@zEventEnrichmentSerializable
+final class _Application {
+  const _Application({
+    required this.appId,
+    required this.sdk,
+    this.packageName,
+    this.versionName,
+    this.versionCode,
+    this.title,
+  });
+
+  final String appId;
+  final String? packageName;
+  final String? versionName;
+  final String? versionCode;
+  final String? title;
+  final _Sdk sdk;
+
+  Map<String, dynamic> toJson() => _$ApplicationToJson(this);
+}
+
+/// The `application.sdk` section.
+@zEventEnrichmentSerializable
+final class _Sdk {
+  const _Sdk({required this.name, required this.version});
+
+  final String name;
+  final String version;
+
+  Map<String, dynamic> toJson() => _$SdkToJson(this);
+}
+
+/// The `client` section.
+@zEventEnrichmentSerializable
+final class _Client {
+  const _Client({required this.clientId, this.userId});
+
+  final String clientId;
+  final String? userId;
+
+  Map<String, dynamic> toJson() => _$ClientToJson(this);
+}
+
+/// The `device` section. Emitted even when empty.
+@zEventEnrichmentSerializable
+final class _Device {
+  const _Device({this.platform, this.make, this.model, this.locale});
+
+  final _Platform? platform;
+  final String? make;
+  final String? model;
+  final _Locale? locale;
+
+  Map<String, dynamic> toJson() => _$DeviceToJson(this);
+}
+
+/// The `device.platform` section, absent when neither field is known.
+@zEventEnrichmentSerializable
+final class _Platform {
+  const _Platform({this.name, this.version});
+
+  final String? name;
+  final String? version;
+
+  Map<String, dynamic> toJson() => _$PlatformToJson(this);
+}
+
+/// The `device.locale` section, which wraps the locale code in an object.
+@zEventEnrichmentSerializable
+final class _Locale {
+  const _Locale({required this.code});
+
+  final String code;
+
+  Map<String, dynamic> toJson() => _$LocaleToJson(this);
+}
+
+/// The `session` section.
+@zEventEnrichmentSerializable
+final class _Session {
+  const _Session({
+    required this.id,
+    required this.startTimestamp,
+    this.stopTimestamp,
+    this.duration,
+  });
+
+  final String id;
+  final String startTimestamp;
+  final String? stopTimestamp;
+  final int? duration;
+
+  Map<String, dynamic> toJson() => _$SessionToJson(this);
 }
