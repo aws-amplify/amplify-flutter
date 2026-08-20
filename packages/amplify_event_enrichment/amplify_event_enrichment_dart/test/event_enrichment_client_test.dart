@@ -5,7 +5,7 @@ import 'package:amplify_event_enrichment_dart/amplify_event_enrichment.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:test/test.dart';
 
-class _MockSink implements EventSink {
+class _MockSender implements Sender {
   final List<EnrichedEvent> events = [];
 
   @override
@@ -13,25 +13,25 @@ class _MockSink implements EventSink {
 }
 
 /// Throws synchronously, before returning a future at all.
-class _ThrowingSink implements EventSink {
+class _ThrowingSender implements Sender {
   @override
-  Future<void> send(EnrichedEvent event) => throw StateError('sink failure');
+  Future<void> send(EnrichedEvent event) => throw StateError('sender failure');
 }
 
-/// Suspends first, then fails — the case a sync sink contract could not
+/// Suspends first, then fails — the case a sync sender contract could not
 /// express and the try/catch in record() could not catch.
-class _AsyncFailingSink implements EventSink {
+class _AsyncFailingSender implements Sender {
   @override
   Future<void> send(EnrichedEvent event) async {
     await Future<void>.delayed(Duration.zero);
-    throw StateError('async sink failure');
+    throw StateError('async sender failure');
   }
 }
 
 void main() {
   group('EventEnrichmentClient', () {
     late EventEnrichmentClient client;
-    late _MockSink sink;
+    late _MockSender sender;
 
     const app = AppMetadata(
       appId: 'testApp1',
@@ -49,13 +49,13 @@ void main() {
     const sdk = SdkMetadata(name: 'amplify-flutter', version: '2.0.0');
 
     setUp(() {
-      sink = _MockSink();
+      sender = _MockSender();
       client = EventEnrichmentClient(
         appMetadata: app,
         deviceMetadata: device,
         sdkMetadata: sdk,
         clientId: 'device-123',
-        sink: sink,
+        sender: sender,
       );
     });
 
@@ -75,22 +75,22 @@ void main() {
       expect(event.session.id, isNotEmpty);
     });
 
-    test('record() dispatches to sink when configured', () async {
+    test('record() dispatches to the sender when configured', () async {
       await client.record('test_event');
-      expect(sink.events, hasLength(1));
-      expect(sink.events.first.eventType, 'test_event');
+      expect(sender.events, hasLength(1));
+      expect(sender.events.first.eventType, 'test_event');
     });
 
-    test('record() does not fail when sink is null', () async {
-      final noSinkClient = EventEnrichmentClient(
+    test('record() does not fail when no sender is configured', () async {
+      final noSenderClient = EventEnrichmentClient(
         appMetadata: app,
         deviceMetadata: device,
         sdkMetadata: sdk,
         clientId: 'c',
       );
-      final result = await noSinkClient.record('test');
+      final result = await noSenderClient.record('test');
       expect(result, isA<Ok<EnrichedEvent>>());
-      noSinkClient.close();
+      noSenderClient.close();
     });
 
     test('record() returns Error after close()', () async {
@@ -181,13 +181,48 @@ void main() {
       );
     });
 
-    test('record() surfaces a sink failure through Result.error', () async {
+    test(
+      'handleAppResumed does not restart a session stopped explicitly',
+      () async {
+        await client.record('first');
+        final stopped = client.sessionManager.session!;
+
+        client
+          ..stopSession()
+          ..handleAppResumed();
+
+        expect(client.sessionManager.state, SessionState.stopped);
+        expect(client.sessionManager.session!.id, stopped.id);
+      },
+    );
+
+    test('record() still starts a session after an explicit stop', () async {
+      // The lazy start in record() is deliberately unaffected by the explicit
+      // stop flag: recording an event always produces one with a session.
+      client.stopSession();
+      final result = await client.record('after_stop');
+      expect(result, isA<Ok<EnrichedEvent>>());
+      expect(client.sessionManager.state, SessionState.active);
+      expect((result as Ok<EnrichedEvent>).value.session.stopTimestamp, isNull);
+    });
+
+    test('close() drops the session and blocks lifecycle restarts', () async {
+      await client.record('before_close');
+      client
+        ..close()
+        ..handleAppResumed();
+
+      expect(client.sessionManager.session, isNull);
+      expect(client.sessionManager.state, SessionState.stopped);
+    });
+
+    test('record() surfaces a sender failure through Result.error', () async {
       final throwingClient = EventEnrichmentClient(
         appMetadata: app,
         deviceMetadata: device,
         sdkMetadata: sdk,
         clientId: 'device-123',
-        sink: _ThrowingSink(),
+        sender: _ThrowingSender(),
       );
       addTearDown(throwingClient.close);
 
@@ -201,18 +236,18 @@ void main() {
     });
 
     test(
-      'record() catches a sink that fails asynchronously without propagating',
+      'record() catches a sender that fails asynchronously without propagating',
       () async {
         final failingClient = EventEnrichmentClient(
           appMetadata: app,
           deviceMetadata: device,
           sdkMetadata: sdk,
           clientId: 'device-123',
-          sink: _AsyncFailingSink(),
+          sender: _AsyncFailingSender(),
         );
         addTearDown(failingClient.close);
 
-        // The sink suspends before throwing, so this only passes because
+        // The sender suspends before throwing, so this only passes because
         // record() awaits send() inside its try/catch. Any error escaping to
         // the zone would fail this test.
         final result = await failingClient.record('boom');
