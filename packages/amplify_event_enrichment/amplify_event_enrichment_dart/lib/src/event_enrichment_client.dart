@@ -26,10 +26,11 @@ import 'package:uuid/uuid.dart';
 ///
 /// ## Sessions
 ///
-/// Every event carries a session. When a session ends the client emits a
-/// [zSessionStopEventType] event for it through the configured [Sender],
-/// carrying the ended session's stop timestamp and duration. See
-/// [stopSession].
+/// Every event carries a session. When a session starts the client emits a
+/// [zSessionStartEventType] event for it, and when it ends a
+/// [zSessionStopEventType] event carrying the stop timestamp and duration —
+/// both through the configured [Sender], and both named the way legacy
+/// Analytics named them. See [startSession] and [stopSession].
 ///
 /// ## Usage
 ///
@@ -69,12 +70,23 @@ class EventEnrichmentClient {
       appId: appMetadata.appId,
       sessionTimeout: opts.sessionTimeout,
       generateId: () => const Uuid().v4(),
+      onSessionStarted: _emitSessionStart,
       onSessionEnded: _emitSessionStop,
     );
     if (opts.autoSessionTracking) {
-      // No session exists yet, so there is none to end and the returned future
-      // is already complete.
-      _sessionManager.startSession().ignore();
+      // A constructor has nothing to await, so this eager start's
+      // zSessionStartEventType event is fired the same way the timeout path
+      // fires its own: the emission's guard logs sender failures, and this
+      // catches anything else so no start report can escape as an unhandled
+      // async error. The event still reaches the sender before any event a
+      // caller records straight after construction, because SessionManager
+      // reports a start with nothing to displace synchronously.
+      _sessionManager
+          .startSession()
+          .onError<Object>(
+            (e, st) => _logger.error('Failed to start a session', e, st),
+          )
+          .ignore();
     }
   }
 
@@ -118,8 +130,10 @@ class EventEnrichmentClient {
     try {
       // A stopped session is still exposed by the manager for inspection, so
       // start a fresh one instead of stamping the stopped session (which
-      // carries a stop_timestamp) onto a new event. A session that already
-      // stopped emitted its stop then, so nothing is emitted here.
+      // carries a stop_timestamp) onto a new event. The start is awaited, so
+      // its zSessionStartEventType event reaches the sender ahead of this
+      // event. A session that already stopped emitted its stop then, so no
+      // stop is emitted here.
       if (_sessionManager.session == null ||
           _sessionManager.state == SessionState.stopped) {
         await _sessionManager.startSession();
@@ -145,8 +159,8 @@ class EventEnrichmentClient {
 
   /// Enriches [eventType] against [session] and the client's current metadata.
   ///
-  /// Shared by [record] and [_emitSessionStop] so a session-stop event is
-  /// enriched exactly like any other event.
+  /// Shared by [record] and the session-boundary emissions so a session event
+  /// is enriched exactly like any other event.
   EnrichedEvent _buildEvent(
     String eventType,
     Session session, {
@@ -166,6 +180,19 @@ class EventEnrichmentClient {
     userId: _userId,
   );
 
+  /// Emits a [zSessionStartEventType] event for a session that just started.
+  ///
+  /// Wired into [SessionManager] as its session-started callback, so every
+  /// start path reports the session exactly once: the eager start at
+  /// construction when [EventEnrichmentClientOptions.autoSessionTracking] is
+  /// on, an explicit [startSession], [record]'s lazy start, the restart when a
+  /// resume follows a session timeout, and the new session in a displacement.
+  ///
+  /// The event's session section carries the new session's id and start
+  /// timestamp, with no stop fields, since the session has not ended.
+  Future<void> _emitSessionStart(Session session) =>
+      _emitSessionEvent(zSessionStartEventType, session);
+
   /// Emits a [zSessionStopEventType] event for a session that just ended.
   ///
   /// Wired into [SessionManager] as its session-ended callback, so every end
@@ -174,34 +201,39 @@ class EventEnrichmentClient {
   /// stop when [startSession] displaces a running session.
   ///
   /// The event's session section carries the *ended* session — its id, start
-  /// timestamp, stop timestamp and duration — and the event is otherwise
-  /// enriched exactly like one from [record]: app, client, device and SDK
-  /// metadata, the current user id, and the global attributes and metrics.
-  /// Legacy Pinpoint also stamped its global attributes and metrics on
-  /// `_session.stop`, so including them keeps that behaviour.
+  /// timestamp, stop timestamp and duration.
+  Future<void> _emitSessionStop(Session session) =>
+      _emitSessionEvent(zSessionStopEventType, session);
+
+  /// Sends a session-boundary event through the same enrichment as [record]:
+  /// app, client, device and SDK metadata, the current user id, and the global
+  /// attributes and metrics. Legacy Pinpoint also stamped its globals on
+  /// `_session.start` and `_session.stop`, so including them keeps that
+  /// behaviour.
   ///
-  /// Never throws. A sender that fails is logged and swallowed, because ending
-  /// a session is a lifecycle transition rather than a caller's attempt to
-  /// record something: there is no `Result` to hand back, and the timeout path
-  /// has no caller at all.
-  Future<void> _emitSessionStop(Session session) async {
+  /// Never throws. A sender that fails is logged and swallowed, because a
+  /// session boundary is a lifecycle transition rather than a caller's attempt
+  /// to record something: there is no `Result` to hand back, and the timeout
+  /// and lifecycle paths have no caller at all.
+  Future<void> _emitSessionEvent(String eventType, Session session) async {
     final sender = _sender;
     if (sender == null) return;
     try {
-      await sender.send(_buildEvent(zSessionStopEventType, session));
-      _logger.verbose('Recorded event: $zSessionStopEventType');
+      await sender.send(_buildEvent(eventType, session));
+      _logger.verbose('Recorded event: $eventType');
     } on Object catch (e, st) {
-      _logger.error('Failed to record event: $zSessionStopEventType', e, st);
+      _logger.error('Failed to record event: $eventType', e, st);
     }
   }
 
-  /// Starts a new session manually.
+  /// Starts a new session manually and emits a [zSessionStartEventType] event
+  /// for it.
   ///
   /// A session already running is ended first, which emits a
-  /// [zSessionStopEventType] event for it — legacy Pinpoint reported a stop the
-  /// same way when a new session displaced an old one. The returned future
-  /// completes once that event has been handed to the [Sender], and is already
-  /// complete when there was no session to displace.
+  /// [zSessionStopEventType] event for it before the start — legacy Pinpoint
+  /// reported the same stop-then-start pair when a new session displaced an old
+  /// one. The returned future completes once both events have been handed to
+  /// the [Sender].
   Future<void> startSession() => _sessionManager.startSession();
 
   /// Stops the current session and emits a [zSessionStopEventType] event for
@@ -234,6 +266,11 @@ class EventEnrichmentClient {
   /// expired while backgrounded. Does nothing after an explicit
   /// [stopSession] — a session the customer ended is not resurrected by a
   /// lifecycle transition.
+  ///
+  /// Resuming a paused session is the same session, so nothing is emitted for
+  /// it. A restart after a timeout emits a [zSessionStartEventType] event, with
+  /// no caller to await it, so a sender failure there surfaces only in the
+  /// logs.
   void handleAppResumed() => _sessionManager.handleAppResumed();
 
   /// Sets the user identifier stamped on subsequent events.

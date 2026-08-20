@@ -40,9 +40,10 @@ import 'package:uuid/uuid.dart';
 /// not start a new session on the next foreground after it. Recording an event
 /// starts one again.
 ///
-/// When a session ends, a [zSessionStopEventType] event is emitted through the
-/// configured [Sender] carrying the ended session's stop timestamp and
-/// duration. See [stopSession].
+/// When a session starts, a [zSessionStartEventType] event is emitted through
+/// the configured [Sender]; when it ends, a [zSessionStopEventType] event
+/// carrying the ended session's stop timestamp and duration. Both use the event
+/// types legacy Analytics used. See [startSession] and [stopSession].
 ///
 /// ## Usage
 ///
@@ -143,14 +144,15 @@ class EventEnrichmentClientFlutter {
     Map<String, double>? metrics,
   }) => _delegate.record(eventType, attributes: attributes, metrics: metrics);
 
-  /// Starts a new session manually.
+  /// Starts a new session manually and emits a [zSessionStartEventType] event
+  /// for it.
   ///
   /// Only needed when you want an explicit session boundary. Recording works
   /// without it: see [EventEnrichmentClientOptions.autoSessionTracking].
   ///
   /// A session already running is ended first, which emits a
-  /// [zSessionStopEventType] event for it. The returned future completes once
-  /// that event has been handed to the [Sender].
+  /// [zSessionStopEventType] event for it before the start. The returned future
+  /// completes once both events have been handed to the [Sender].
   Future<void> startSession() => _delegate.startSession();
 
   /// Stops the current session and emits a [zSessionStopEventType] event for
@@ -187,6 +189,10 @@ class EventEnrichmentClientFlutter {
   /// Resumes a paused session, or starts a new one if the session timeout
   /// expired while backgrounded. Does nothing after an explicit
   /// [stopSession].
+  ///
+  /// Resuming a paused session emits nothing, since it is the same session. A
+  /// restart after a timeout emits a [zSessionStartEventType] event, with no
+  /// caller to await it, so a sender failure there surfaces only in the logs.
   void handleAppResumed() => _delegate.handleAppResumed();
 
   /// Sets the user identifier stamped on subsequent events.
