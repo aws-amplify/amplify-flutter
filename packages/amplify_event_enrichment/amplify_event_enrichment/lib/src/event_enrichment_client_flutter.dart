@@ -40,6 +40,10 @@ import 'package:uuid/uuid.dart';
 /// not start a new session on the next foreground after it. Recording an event
 /// starts one again.
 ///
+/// When a session ends, a [zSessionStopEventType] event is emitted through the
+/// configured [Sender] carrying the ended session's stop timestamp and
+/// duration. See [stopSession].
+///
 /// ## Usage
 ///
 /// ```dart
@@ -143,25 +147,36 @@ class EventEnrichmentClientFlutter {
   ///
   /// Only needed when you want an explicit session boundary. Recording works
   /// without it: see [EventEnrichmentClientOptions.autoSessionTracking].
-  void startSession() => _delegate.startSession();
+  ///
+  /// A session already running is ended first, which emits a
+  /// [zSessionStopEventType] event for it. The returned future completes once
+  /// that event has been handed to the [Sender].
+  Future<void> startSession() => _delegate.startSession();
 
-  /// Stops the current session.
+  /// Stops the current session and emits a [zSessionStopEventType] event for
+  /// it.
   ///
-  /// This is an explicit end to session tracking. The lifecycle observer will
-  /// not start a new session when the app next returns to the foreground, so a
-  /// session you ended stays ended. Recording an event still lazily starts a
-  /// fresh session, and [startSession] resumes normal lifecycle behaviour.
+  /// The emitted event's session section carries the stopped session's id,
+  /// start timestamp, stop timestamp and duration, so session length reaches
+  /// the [Sender] rather than being computed and dropped. The returned future
+  /// completes once the event has been handed to the sender; a sender failure
+  /// is logged and never thrown.
   ///
-  /// The stop timestamp and duration are recorded on the session but are not
-  /// emitted anywhere: the [Sender] only ever receives events passed to
-  /// [record]. Emitting a session-end event would change the envelope contract
-  /// shared with the other platforms, so it is a deliberate follow-up.
-  void stopSession() => _delegate.stopSession();
+  /// This is also an explicit end to session tracking. The lifecycle observer
+  /// will not start a new session when the app next returns to the foreground,
+  /// so a session you ended stays ended. Recording an event still lazily starts
+  /// a fresh session, and [startSession] resumes normal lifecycle behaviour.
+  Future<void> stopSession() => _delegate.stopSession();
 
   /// Called when the app moves to background.
   ///
   /// Only needed when [EventEnrichmentClientOptions.autoSessionTracking] is
   /// `false`; otherwise [FlutterLifecycleObserver] calls this for you.
+  ///
+  /// If the session timeout expires before the app returns, the session ends
+  /// and its [zSessionStopEventType] event is emitted from the timer. Nothing
+  /// is awaiting a timer, so a sender failure on that path surfaces only in
+  /// the logs.
   void handleAppPaused() => _delegate.handleAppPaused();
 
   /// Called when the app returns to foreground.
@@ -193,8 +208,13 @@ class EventEnrichmentClientFlutter {
   void removeGlobalMetric(String key) => _delegate.removeGlobalMetric(key);
 
   /// Releases resources, stops session tracking, and removes lifecycle observer.
-  void close() {
+  ///
+  /// A session still running is ended first, so its [zSessionStopEventType]
+  /// event reaches the [Sender] before the client goes away; the returned
+  /// future completes once that event has been sent. A session that already
+  /// ended does not emit a second one.
+  Future<void> close() async {
     _lifecycleObserver?.dispose();
-    _delegate.close();
+    await _delegate.close();
   }
 }
