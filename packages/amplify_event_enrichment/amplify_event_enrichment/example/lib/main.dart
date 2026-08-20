@@ -68,7 +68,10 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
 
   @override
   void dispose() {
-    _client?.close();
+    // dispose() cannot await, so the final session-stop event goes out
+    // best-effort. Await close() where you can (see the Close button) if you
+    // need the session's end to be delivered before continuing.
+    _client?.close().ignore();
     super.dispose();
   }
 
@@ -111,11 +114,20 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
                     child: const Text('Set User'),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      _client?.close();
+                    onPressed: () async {
+                      // Closing ends the session, so a _session.stop event is
+                      // printed by ConsoleSender before this completes.
+                      await _client?.close();
                       _addLog('Client closed');
                     },
                     child: const Text('Close'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await _client?.stopSession();
+                      _addLog('Session stopped (_session.stop emitted)');
+                    },
+                    child: const Text('Stop Session'),
                   ),
                 ],
               ),
