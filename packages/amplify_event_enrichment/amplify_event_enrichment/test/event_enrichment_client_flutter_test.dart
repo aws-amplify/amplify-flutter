@@ -26,6 +26,18 @@ class _ThrowingClientIdProvider implements ClientIdProvider {
   Future<String> getClientId() async => throw StateError('provider failure');
 }
 
+class _RecordingSender implements Sender {
+  final List<EnrichedEvent> events = [];
+
+  @override
+  Future<void> send(EnrichedEvent event) async => events.add(event);
+
+  /// Only the session-stop events, so counts are unaffected by whatever the
+  /// test recorded to get a session started.
+  List<EnrichedEvent> get sessionStops =>
+      events.where((e) => e.eventType == zSessionStopEventType).toList();
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -98,7 +110,7 @@ void main() {
       addTearDown(client.close);
 
       final first = (await client.record('first') as Ok<EnrichedEvent>).value;
-      client.stopSession();
+      await client.stopSession();
       final second = (await client.record('second') as Ok<EnrichedEvent>).value;
 
       expect(second.session.id, isNot(first.session.id));
@@ -113,7 +125,7 @@ void main() {
       addTearDown(client.close);
 
       final first = (await client.record('first') as Ok<EnrichedEvent>).value;
-      client.startSession();
+      await client.startSession();
       final second = (await client.record('second') as Ok<EnrichedEvent>).value;
 
       expect(second.session.id, isNot(first.session.id));
@@ -145,8 +157,8 @@ void main() {
         addTearDown(client.close);
 
         final first = (await client.record('first') as Ok<EnrichedEvent>).value;
+        await client.stopSession();
         client
-          ..stopSession()
           ..handleAppPaused()
           ..handleAppResumed();
 
@@ -173,6 +185,77 @@ void main() {
 
       final event = (await client.record('event') as Ok<EnrichedEvent>).value;
       expect(event.session.id, isNotEmpty);
+    });
+  });
+
+  group('EventEnrichmentClientFlutter session stop events', () {
+    Future<(EventEnrichmentClientFlutter, _RecordingSender)> createClient({
+      bool autoSessionTracking = true,
+    }) async {
+      final sender = _RecordingSender();
+      final client = await EventEnrichmentClientFlutter.create(
+        appId: 'test-app',
+        sdkMetadata: sdk,
+        sender: sender,
+        options: EventEnrichmentClientOptions(
+          autoSessionTracking: autoSessionTracking,
+        ),
+      );
+      return (client, sender);
+    }
+
+    test('stopSession emits one, carrying the stopped session', () async {
+      final (client, sender) = await createClient();
+      addTearDown(client.close);
+
+      final first = (await client.record('first') as Ok<EnrichedEvent>).value;
+      await client.stopSession();
+
+      expect(sender.sessionStops, hasLength(1));
+      final event = sender.sessionStops.single;
+      expect(event.eventType, zSessionStopEventType);
+      expect(event.session.id, first.session.id);
+      expect(event.session.stopTimestamp, isNotNull);
+      expect(event.session.duration, isNotNull);
+    });
+
+    test('close emits one for a running session', () async {
+      final (client, sender) = await createClient();
+
+      final first = (await client.record('first') as Ok<EnrichedEvent>).value;
+      await client.close();
+
+      expect(sender.sessionStops, hasLength(1));
+      expect(sender.sessionStops.single.session.id, first.session.id);
+    });
+
+    test('close after stopSession does not emit a second', () async {
+      final (client, sender) = await createClient();
+
+      await client.record('first');
+      await client.stopSession();
+      await client.close();
+
+      expect(sender.sessionStops, hasLength(1));
+    });
+
+    test('startSession emits one for the session it displaces', () async {
+      final (client, sender) = await createClient();
+      addTearDown(client.close);
+
+      final first = (await client.record('first') as Ok<EnrichedEvent>).value;
+      await client.startSession();
+
+      expect(sender.sessionStops, hasLength(1));
+      expect(sender.sessionStops.single.session.id, first.session.id);
+    });
+
+    test('close emits nothing when no session ever started', () async {
+      final (client, sender) = await createClient(autoSessionTracking: false);
+
+      await client.close();
+
+      expect(sender.sessionStops, isEmpty);
     });
   });
 }
