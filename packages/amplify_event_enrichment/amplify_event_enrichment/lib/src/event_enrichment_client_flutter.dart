@@ -61,7 +61,7 @@ class EventEnrichmentClientFlutter {
     DeviceMetadataProvider? deviceMetadataProvider,
     ClientIdProvider? clientIdProvider,
     EventEnrichmentClientOptions? options,
-    EventSink? sink,
+    Sender? sender,
   }) async {
     assert(
       appMetadata == null || appMetadata.appId == appId,
@@ -105,7 +105,7 @@ class EventEnrichmentClientFlutter {
       sdkMetadata: sdkMetadata,
       clientId: clientId,
       options: options,
-      sink: sink,
+      sender: sender,
     );
 
     FlutterLifecycleObserver? lifecycleObserver;
@@ -127,8 +127,8 @@ class EventEnrichmentClientFlutter {
 
   /// Records an event and returns the enriched result.
   ///
-  /// Awaits the configured sink and never throws; delivery failures come back
-  /// as an error [Result]. See `EventEnrichmentClient.record`.
+  /// Awaits the configured sender and never throws; delivery failures come
+  /// back as an error [Result]. See `EventEnrichmentClient.record`.
   Future<Result<EnrichedEvent>> record(
     String eventType, {
     Map<String, String>? attributes,
