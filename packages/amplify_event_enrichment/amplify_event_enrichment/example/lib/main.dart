@@ -5,8 +5,8 @@ import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:flutter/material.dart';
 
-/// A simple [EventSink] that prints the full enriched JSON to the console.
-class ConsoleEventSink implements EventSink {
+/// A simple [Sender] that prints the full enriched JSON to the console.
+class ConsoleSender implements Sender {
   @override
   Future<void> send(EnrichedEvent event) async {
     debugPrint('┌── EnrichedEvent ──');
@@ -42,7 +42,7 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
     final client = await EventEnrichmentClientFlutter.create(
       appId: 'example-app',
       sdkMetadata: const SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
-      sink: ConsoleEventSink(),
+      sender: ConsoleSender(),
     );
     setState(() => _client = client);
     _addLog('Client initialized (clientId resolved from file)');
