@@ -1,0 +1,306 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "LegacyNativePlugin",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<void>",
+          "name": "configure",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "signOut",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "signIn",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "username",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "password",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "rememberDevice",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "LegacyNativePlugin",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "binaryMessenger",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "BinaryMessenger?",
+              "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "messageChannelSuffix",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "BinaryMessenger?",
+          "name": "pigeonVar_binaryMessenger",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "MessageCodec<Object?>",
+          "name": "pigeonChannelCodec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "pigeonVar_messageChannelSuffix",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_native_legacy_plugin.g.dart"
+      ],
+      "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+    },
+    {
+      "name": "AmplifyNativeLegacyWrapper",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "LegacyNativePlugin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyNativeLegacyWrapper",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_wrapper.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "configure",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "signOut",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "signIn",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "username",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "password",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "rememberDevice",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "BinaryMessenger?",
+          "name": "pigeonVar_binaryMessenger",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_wrapper.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "pigeonVar_messageChannelSuffix",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_wrapper.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "MessageCodec<Object?>",
+          "name": "pigeonChannelCodec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_native_legacy_wrapper.dart"
+      ],
+      "relativePath": "package:amplify_native_legacy_wrapper/amplify_native_legacy_wrapper.dart"
+    }
+  ]
+}
