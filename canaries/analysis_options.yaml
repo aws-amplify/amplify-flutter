@@ -3,3 +3,10 @@ include: package:amplify_lints/app.yaml
 analyzer:
   exclude:
     - lib/models/*
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
