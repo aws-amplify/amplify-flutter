@@ -7,6 +7,24 @@ import 'package:amplify_event_enrichment_dart/src/session/session.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:meta/meta.dart';
 
+/// {@template amplify_event_enrichment.on_session_started}
+/// Called when a session starts, with the newly created session.
+///
+/// Invoked exactly once per session, from every start path: the eager start at
+/// construction, an explicit start, the lazy start when an event is recorded
+/// without a session, the restart when a resume follows a session timeout, and
+/// the new session in a displacement.
+///
+/// In a displacement this is called after [OnSessionEnded] has completed for
+/// the session being replaced, so a stop is always reported before the start
+/// that replaced it.
+///
+/// Implementations must not throw, and should complete their own failures
+/// rather than propagating them: the paths that start a session are lifecycle
+/// transitions, not a caller's attempt to record anything.
+/// {@endtemplate}
+typedef OnSessionStarted = Future<void> Function(Session session);
+
 /// {@template amplify_event_enrichment.on_session_ended}
 /// Called when a session ends, after its stop timestamp and duration have
 /// been recorded on it.
@@ -47,28 +65,32 @@ enum SessionState {
 /// [handleAppResumed] will not start a new session afterwards. See
 /// [handleAppResumed].
 ///
-/// Every session end is reported to the optional [OnSessionEnded] callback
-/// supplied at construction, which is how the client turns a session end into
-/// an emitted event. The manager itself knows nothing about senders or events.
+/// Every session start and end is reported to the optional [OnSessionStarted]
+/// and [OnSessionEnded] callbacks supplied at construction, which is how the
+/// client turns a session boundary into an emitted event. The manager itself
+/// knows nothing about senders or events.
 /// {@endtemplate}
 class SessionManager {
   /// {@macro amplify_event_enrichment.session_manager}
   ///
-  /// [onSessionEnded] is invoked once per session end, after stop metadata has
-  /// been recorded.
+  /// [onSessionStarted] and [onSessionEnded] are each invoked once per session
+  /// boundary, after the state transition has been applied.
   SessionManager({
     required String appId,
     required Duration sessionTimeout,
     required String Function() generateId,
+    OnSessionStarted? onSessionStarted,
     OnSessionEnded? onSessionEnded,
   }) : _appId = appId,
        _sessionTimeout = sessionTimeout,
        _generateId = generateId,
+       _onSessionStarted = onSessionStarted,
        _onSessionEnded = onSessionEnded;
 
   final String _appId;
   final Duration _sessionTimeout;
   final String Function() _generateId;
+  final OnSessionStarted? _onSessionStarted;
   final OnSessionEnded? _onSessionEnded;
   final Logger _logger = AmplifyLogging.logger('EventEnrichmentSessionManager');
 
@@ -105,14 +127,21 @@ class SessionManager {
   /// Also clears the explicit-stop flag, so lifecycle transitions resume
   /// managing sessions again after this call.
   ///
-  /// The state change is synchronous: [session] and [state] describe the new
-  /// session as soon as this returns. The returned future completes once a
-  /// displaced session's end has been reported to [OnSessionEnded], and is
-  /// already complete when there was no session to displace.
+  /// Both state changes are applied synchronously, before anything is awaited:
+  /// [session] and [state] describe the new session as soon as this returns,
+  /// whether or not the caller awaits. The returned future completes once the
+  /// boundary has been reported — a displaced session's end first, then the new
+  /// session's start, in that order.
+  ///
+  /// When there is no session to displace the start is reported synchronously
+  /// rather than after a microtask, so a caller that records an event
+  /// immediately after cannot get its event reported ahead of the session's
+  /// start.
   Future<void> startSession() {
     final ended = _endCurrent();
-    _startFresh();
-    return ended;
+    final started = _startFresh();
+    if (ended == null) return _reportStart(started);
+    return ended.then((_) => _reportStart(started));
   }
 
   /// Stops the current session, recording stop time and duration, and reports
@@ -128,7 +157,7 @@ class SessionManager {
   Future<void> stopSession() {
     final ended = _endCurrent();
     _stoppedExplicitly = true;
-    return ended;
+    return ended ?? Future<void>.value();
   }
 
   /// Clears the current session without recording stop metadata.
@@ -161,6 +190,17 @@ class SessionManager {
   /// expired while backgrounded. Does nothing if tracking was stopped
   /// explicitly via [stopSession] or [clearSession] — a session the customer
   /// ended is not resurrected by a lifecycle transition.
+  /// Called when the app returns to foreground.
+  ///
+  /// Resumes a paused session, or starts a new one if the session timeout
+  /// expired while backgrounded. Does nothing if tracking was stopped
+  /// explicitly via [stopSession] or [clearSession] — a session the customer
+  /// ended is not resurrected by a lifecycle transition.
+  ///
+  /// Resuming a paused session is not a session boundary, so nothing is
+  /// reported for it. A restart after a timeout is, and there is no caller to
+  /// await it: the start report is fired the same way the timeout's end report
+  /// is, so a failure surfaces only in the log.
   void handleAppResumed() {
     switch (_state) {
       case SessionState.paused:
@@ -168,9 +208,9 @@ class SessionManager {
         _state = SessionState.active;
       case SessionState.stopped:
         if (_stoppedExplicitly) return;
-        // Nothing is running, so this starts a session without ending one —
-        // there is no session end to report and nothing for a caller to await.
-        _startFresh();
+        // Nothing is running, so this starts a session without ending one:
+        // there is no end to report and no caller to await the start.
+        _reportStartUnawaited(_startFresh());
       case SessionState.active:
         break;
     }
@@ -179,19 +219,18 @@ class SessionManager {
   /// Records stop metadata on the current session, moves to the stopped state,
   /// and reports the ended session to [OnSessionEnded].
   ///
-  /// Does nothing when no session is running, which is what keeps a session
-  /// from being ended — or reported — twice: whichever end path runs first
-  /// takes it to [SessionState.stopped], and every later one is a no-op. That
-  /// covers stopping twice, closing after a stop, and closing after a timeout.
+  /// Returns `null` when there was no session to end, which is what keeps a
+  /// session from being ended — or reported — twice: whichever end path runs
+  /// first takes it to [SessionState.stopped], and every later one is a no-op.
+  /// That covers stopping twice, closing after a stop, and closing after a
+  /// timeout.
   ///
   /// Deliberately does not touch the explicit-stop flag, so the timeout path
   /// and [startSession]'s implicit stop stay restartable by
   /// [handleAppResumed].
-  Future<void> _endCurrent() {
+  Future<void>? _endCurrent() {
     _cancelTimer();
-    if (_state == SessionState.stopped || _session == null) {
-      return Future<void>.value();
-    }
+    if (_state == SessionState.stopped || _session == null) return null;
     final now = DateTime.now();
     final ended = Session(
       id: _session!.id,
@@ -205,22 +244,43 @@ class SessionManager {
   }
 
   /// Creates and activates a new session, clearing the explicit-stop flag.
-  void _startFresh() {
+  ///
+  /// Returns the new session so the caller can report it. Each call produces a
+  /// distinct session, so a start is reported at most once per session.
+  Session _startFresh() {
     _stoppedExplicitly = false;
     _sessionStart = DateTime.now();
-    _session = Session(
+    final started = Session(
       id: _generateSessionId(),
       startTimestamp: _sessionStart!.toUtc().toIso8601String(),
     );
+    _session = started;
     _state = SessionState.active;
+    return started;
+  }
+
+  Future<void> _reportStart(Session started) =>
+      _onSessionStarted?.call(started) ?? Future<void>.value();
+
+  /// Reports a start that nothing can await, logging anything that escapes the
+  /// callback's own handling.
+  void _reportStartUnawaited(Session started) {
+    unawaited(
+      _reportStart(started).onError<Object>(
+        (e, st) =>
+            _logger.error('Failed to report the start of a session', e, st),
+      ),
+    );
   }
 
   void _onTimeoutExpired() {
     // A timer has no caller, so nothing can await this. OnSessionEnded is
     // contracted not to throw; if one does anyway, the log is the only place
     // the failure can surface.
+    final ended = _endCurrent();
+    if (ended == null) return;
     unawaited(
-      _endCurrent().onError<Object>(
+      ended.onError<Object>(
         (e, st) => _logger.error(
           'Failed to report the end of a session that timed out',
           e,
