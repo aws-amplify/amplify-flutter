@@ -59,8 +59,8 @@ void main() {
       );
     });
 
-    tearDown(() {
-      if (!client.isClosed) client.close();
+    tearDown(() async {
+      if (!client.isClosed) await client.close();
     });
 
     test('record() returns Ok with correct metadata', () async {
@@ -90,11 +90,11 @@ void main() {
       );
       final result = await noSenderClient.record('test');
       expect(result, isA<Ok<EnrichedEvent>>());
-      noSenderClient.close();
+      await noSenderClient.close();
     });
 
     test('record() returns Error after close()', () async {
-      client.close();
+      await client.close();
       final result = await client.record('test');
       expect(result, isA<Error<EnrichedEvent>>());
     });
@@ -165,7 +165,7 @@ void main() {
       final firstSessionId = firstEvent.session.id;
       expect(firstEvent.session.stopTimestamp, isNull);
 
-      client.stopSession();
+      await client.stopSession();
 
       final secondEvent =
           (await client.record('second') as Ok<EnrichedEvent>).value;
@@ -187,9 +187,8 @@ void main() {
         await client.record('first');
         final stopped = client.sessionManager.session!;
 
-        client
-          ..stopSession()
-          ..handleAppResumed();
+        await client.stopSession();
+        client.handleAppResumed();
 
         expect(client.sessionManager.state, SessionState.stopped);
         expect(client.sessionManager.session!.id, stopped.id);
@@ -199,7 +198,7 @@ void main() {
     test('record() still starts a session after an explicit stop', () async {
       // The lazy start in record() is deliberately unaffected by the explicit
       // stop flag: recording an event always produces one with a session.
-      client.stopSession();
+      await client.stopSession();
       final result = await client.record('after_stop');
       expect(result, isA<Ok<EnrichedEvent>>());
       expect(client.sessionManager.state, SessionState.active);
@@ -208,9 +207,8 @@ void main() {
 
     test('close() drops the session and blocks lifecycle restarts', () async {
       await client.record('before_close');
-      client
-        ..close()
-        ..handleAppResumed();
+      await client.close();
+      client.handleAppResumed();
 
       expect(client.sessionManager.session, isNull);
       expect(client.sessionManager.state, SessionState.stopped);
