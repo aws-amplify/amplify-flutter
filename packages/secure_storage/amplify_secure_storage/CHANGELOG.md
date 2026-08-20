@@ -1,3 +1,8 @@
+## 0.5.21
+
+### Features
+- feat: Add iOS 27 support ([#7239](https://github.com/aws-amplify/amplify-flutter/pull/7239))
+
 ## 0.5.20
 
 - Minor bug fixes and improvements
