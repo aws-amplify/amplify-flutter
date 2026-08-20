@@ -48,16 +48,27 @@ Every event carries a session. Sessions follow app foreground/background
 transitions by default, and a session that has been backgrounded longer than
 `EventEnrichmentClientOptions.sessionTimeout` ends rather than resuming.
 
-When a session ends, the client emits a `zSessionStopEventType`
-(`_session.stop`) event through the configured `Sender`, carrying that
-session's stop timestamp and duration alongside the same enrichment every other
-event gets. This is the event type legacy Amplify Analytics used for the same
-signal. It is emitted on an explicit `stopSession()`, on the session timeout
-expiring, on `close()`, and when `startSession()` displaces a running session —
-once per session in every case.
+Session boundaries are emitted through the configured `Sender` as events, using
+the event types legacy Amplify Analytics used for the same signals:
 
-`stopSession()` and `close()` return a `Future` that completes once that event
-has been handed to the sender, so awaiting them means the session's end has
-been delivered. Sender failures on that path are logged, never thrown.
+- `zSessionStartEventType` (`_session.start`) when a session starts, carrying
+  its id and start timestamp
+- `zSessionStopEventType` (`_session.stop`) when it ends, carrying its stop
+  timestamp and duration as well
+
+Both get the same enrichment every other event gets. A start is emitted when the
+client is constructed with `autoSessionTracking` on, on an explicit
+`startSession()`, on the first `record()` if no session is running, and when a
+resume follows a session timeout. A stop is emitted on an explicit
+`stopSession()`, on the session timeout expiring, on `close()`, and when
+`startSession()` displaces a running session. A displacement emits the stop
+before the start, and backgrounding and foregrounding inside the timeout window
+emits nothing, since it is the same session throughout. Each session produces
+exactly one start and at most one stop.
+
+`startSession()`, `stopSession()` and `close()` return a `Future` that completes
+once those events have been handed to the sender, so awaiting them means the
+boundary has been delivered. Sender failures on these paths are logged, never
+thrown.
 
 ### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
