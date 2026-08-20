@@ -151,6 +151,11 @@ class EventEnrichmentClientFlutter {
   /// not start a new session when the app next returns to the foreground, so a
   /// session you ended stays ended. Recording an event still lazily starts a
   /// fresh session, and [startSession] resumes normal lifecycle behaviour.
+  ///
+  /// The stop timestamp and duration are recorded on the session but are not
+  /// emitted anywhere: the [Sender] only ever receives events passed to
+  /// [record]. Emitting a session-end event would change the envelope contract
+  /// shared with the other platforms, so it is a deliberate follow-up.
   void stopSession() => _delegate.stopSession();
 
   /// Called when the app moves to background.
