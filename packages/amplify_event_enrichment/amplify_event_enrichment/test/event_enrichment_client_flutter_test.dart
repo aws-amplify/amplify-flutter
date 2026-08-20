@@ -135,6 +135,32 @@ void main() {
       expect(second.session.id, first.session.id);
     });
 
+    test(
+      'record after a stop and a lifecycle cycle gets a fresh session',
+      () async {
+        final client = await EventEnrichmentClientFlutter.create(
+          appId: 'test-app',
+          sdkMetadata: sdk,
+        );
+        addTearDown(client.close);
+
+        final first = (await client.record('first') as Ok<EnrichedEvent>).value;
+        client
+          ..stopSession()
+          ..handleAppPaused()
+          ..handleAppResumed();
+
+        final second =
+            (await client.record('second') as Ok<EnrichedEvent>).value;
+        expect(second.session.id, isNot(first.session.id));
+        expect(second.session.stopTimestamp, isNull);
+      },
+    );
+    // Note: that a resume does not itself resurrect the stopped session is
+    // asserted in flutter_lifecycle_observer_test.dart, which can observe
+    // SessionManager state. The wrapper deliberately does not expose it, so
+    // both outcomes look the same through record() alone.
+
     test('records with autoSessionTracking disabled', () async {
       // No session is started up front and no lifecycle observer is installed,
       // but the first record() lazily starts one.

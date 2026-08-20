@@ -60,5 +60,34 @@ void main() {
         ..dispose()
         ..dispose();
     });
+
+    test('onResume does not restart a session stopped explicitly', () {
+      observer.onPause();
+      sessionManager.stopSession();
+      final stoppedId = sessionManager.session!.id;
+
+      observer.onResume();
+
+      expect(
+        sessionManager.state,
+        SessionState.stopped,
+        reason: 'the lifecycle observer must not resurrect a stopped session',
+      );
+      expect(sessionManager.session!.id, stoppedId);
+    });
+
+    test(
+      'a resumed lifecycle event does not restart after an explicit stop',
+      () {
+        // Same assertion driven through the real WidgetsBindingObserver entry
+        // point rather than onPause/onResume directly.
+        observer.didChangeAppLifecycleState(AppLifecycleState.paused);
+        sessionManager.stopSession();
+
+        observer.didChangeAppLifecycleState(AppLifecycleState.resumed);
+
+        expect(sessionManager.state, SessionState.stopped);
+      },
+    );
   });
 }
