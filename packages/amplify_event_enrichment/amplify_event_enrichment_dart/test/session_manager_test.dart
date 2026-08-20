@@ -119,6 +119,85 @@ void main() {
       expect(id.substring(0, 8), '______ab');
     });
 
+    group('explicit stop vs timeout stop', () {
+      test('handleAppResumed does not restart after an explicit stop', () {
+        fakeAsync((async) {
+          manager
+            ..startSession()
+            ..handleAppPaused();
+          final stoppedId = manager.session!.id;
+
+          manager
+            ..stopSession()
+            ..handleAppResumed();
+
+          expect(
+            manager.state,
+            SessionState.stopped,
+            reason: 'a session the customer stopped must stay stopped',
+          );
+          expect(
+            manager.session!.id,
+            stoppedId,
+            reason: 'no new session may be started by the resume',
+          );
+        });
+      });
+
+      test('handleAppResumed does restart after a timeout stop', () {
+        fakeAsync((async) {
+          manager
+            ..startSession()
+            ..handleAppPaused();
+          final timedOutId = manager.session!.id;
+          async.elapse(timeout);
+          expect(manager.state, SessionState.stopped);
+
+          manager.handleAppResumed();
+
+          expect(manager.state, SessionState.active);
+          expect(manager.session!.id, isNot(timedOutId));
+        });
+      });
+
+      test('startSession clears the explicit stop', () {
+        fakeAsync((async) {
+          manager
+            ..startSession()
+            ..stopSession()
+            // Explicitly restarting puts lifecycle handling back in charge.
+            ..startSession();
+          final restartedId = manager.session!.id;
+
+          manager.handleAppPaused();
+          async.elapse(timeout);
+          manager.handleAppResumed();
+
+          expect(manager.state, SessionState.active);
+          expect(manager.session!.id, isNot(restartedId));
+        });
+      });
+
+      test('handleAppResumed does not restart after clearSession', () {
+        manager
+          ..startSession()
+          ..clearSession()
+          ..handleAppResumed();
+        expect(manager.state, SessionState.stopped);
+        expect(manager.session, isNull);
+      });
+
+      test('an explicit stop while active is also not resurrected', () {
+        // The paused-then-stopped path is the one the lifecycle observer
+        // exercises; this covers a stop with no preceding background.
+        manager
+          ..startSession()
+          ..stopSession()
+          ..handleAppResumed();
+        expect(manager.state, SessionState.stopped);
+      });
+    });
+
     group('Session equality', () {
       test('same values are equal with matching hashCodes', () {
         const a = Session(
