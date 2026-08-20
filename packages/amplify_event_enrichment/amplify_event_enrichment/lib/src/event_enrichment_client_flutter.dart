@@ -36,6 +36,10 @@ import 'package:uuid/uuid.dart';
 /// want to define session boundaries yourself, or to feed lifecycle
 /// transitions in when the observer is not installed.
 ///
+/// [stopSession] is an explicit end to tracking: the lifecycle observer will
+/// not start a new session on the next foreground after it. Recording an event
+/// starts one again.
+///
 /// ## Usage
 ///
 /// ```dart
@@ -143,8 +147,10 @@ class EventEnrichmentClientFlutter {
 
   /// Stops the current session.
   ///
-  /// The next [record] call starts a fresh session rather than reusing the
-  /// stopped one.
+  /// This is an explicit end to session tracking. The lifecycle observer will
+  /// not start a new session when the app next returns to the foreground, so a
+  /// session you ended stays ended. Recording an event still lazily starts a
+  /// fresh session, and [startSession] resumes normal lifecycle behaviour.
   void stopSession() => _delegate.stopSession();
 
   /// Called when the app moves to background.
@@ -157,6 +163,10 @@ class EventEnrichmentClientFlutter {
   ///
   /// Only needed when [EventEnrichmentClientOptions.autoSessionTracking] is
   /// `false`; otherwise [FlutterLifecycleObserver] calls this for you.
+  ///
+  /// Resumes a paused session, or starts a new one if the session timeout
+  /// expired while backgrounded. Does nothing after an explicit
+  /// [stopSession].
   void handleAppResumed() => _delegate.handleAppResumed();
 
   /// Sets the user identifier stamped on subsequent events.

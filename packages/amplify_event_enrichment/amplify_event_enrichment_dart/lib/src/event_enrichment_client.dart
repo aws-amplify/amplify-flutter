@@ -148,12 +148,22 @@ class EventEnrichmentClient {
   void startSession() => _sessionManager.startSession();
 
   /// Stops the current session.
+  ///
+  /// This is an explicit end to session tracking: a later
+  /// [handleAppResumed] will not start a new session. Recording an event
+  /// still lazily starts one, and [startSession] resumes normal lifecycle
+  /// behaviour.
   void stopSession() => _sessionManager.stopSession();
 
   /// Called when the app moves to background.
   void handleAppPaused() => _sessionManager.handleAppPaused();
 
   /// Called when the app returns to foreground.
+  ///
+  /// Resumes a paused session, or starts a new one if the session timeout
+  /// expired while backgrounded. Does nothing after an explicit
+  /// [stopSession] — a session the customer ended is not resurrected by a
+  /// lifecycle transition.
   void handleAppResumed() => _sessionManager.handleAppResumed();
 
   /// Sets the user identifier stamped on subsequent events.

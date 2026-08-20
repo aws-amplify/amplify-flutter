@@ -25,6 +25,11 @@ enum SessionState {
 /// If the app returns to foreground within the configured timeout, the same
 /// session resumes. If the timeout expires, a new session starts on next
 /// foreground.
+///
+/// An explicit [stopSession] or [clearSession] call is treated differently
+/// from a timeout: it means tracking was ended on purpose, so
+/// [handleAppResumed] will not start a new session afterwards. See
+/// [handleAppResumed].
 /// {@endtemplate}
 class SessionManager {
   /// {@macro amplify_event_enrichment.session_manager}
@@ -45,6 +50,14 @@ class SessionManager {
   Timer? _pauseTimer;
   DateTime? _sessionStart;
 
+  /// Whether the stopped state was reached by an explicit [stopSession] or
+  /// [clearSession] call rather than by the session timeout expiring.
+  ///
+  /// A timeout stop is something the app comes back from, so a later
+  /// foreground starts a fresh session. An explicit stop is the customer
+  /// ending tracking, so a later foreground leaves it ended.
+  bool _stoppedExplicitly = false;
+
   /// Current session state.
   SessionState get state => _state;
 
@@ -56,10 +69,14 @@ class SessionManager {
   Timer Function(Duration, void Function()) timerFactory = Timer.new;
 
   /// Starts a new session. If one is active, stops it first.
+  ///
+  /// Also clears the explicit-stop flag, so lifecycle transitions resume
+  /// managing sessions again after this call.
   void startSession() {
     if (_state != SessionState.stopped) {
-      stopSession();
+      _stop();
     }
+    _stoppedExplicitly = false;
     _sessionStart = DateTime.now();
     _session = Session(
       id: _generateSessionId(),
@@ -69,7 +86,64 @@ class SessionManager {
   }
 
   /// Stops the current session, recording stop time and duration.
+  ///
+  /// This is an explicit end to tracking: [handleAppResumed] will not start a
+  /// new session afterwards. Call [startSession], or record an event on the
+  /// client, to begin tracking again.
   void stopSession() {
+    _stop();
+    _stoppedExplicitly = true;
+  }
+
+  /// Clears the current session without recording stop metadata.
+  ///
+  /// Unlike [stopSession], which records a stop timestamp and duration and
+  /// leaves the stopped session readable, this drops the session entirely and
+  /// returns the manager to the stopped state. Used when disposing the client
+  /// so no stale session remains readable after close.
+  ///
+  /// Like [stopSession], this is an explicit end to tracking, so
+  /// [handleAppResumed] will not start a new session afterwards.
+  void clearSession() {
+    _cancelTimer();
+    _session = null;
+    _sessionStart = null;
+    _state = SessionState.stopped;
+    _stoppedExplicitly = true;
+  }
+
+  /// Called when the app moves to background.
+  void handleAppPaused() {
+    if (_state != SessionState.active) return;
+    _state = SessionState.paused;
+    _pauseTimer = timerFactory(_sessionTimeout, _onTimeoutExpired);
+  }
+
+  /// Called when the app returns to foreground.
+  ///
+  /// Resumes a paused session, or starts a new one if the session timeout
+  /// expired while backgrounded. Does nothing if tracking was stopped
+  /// explicitly via [stopSession] or [clearSession] — a session the customer
+  /// ended is not resurrected by a lifecycle transition.
+  void handleAppResumed() {
+    switch (_state) {
+      case SessionState.paused:
+        _cancelTimer();
+        _state = SessionState.active;
+      case SessionState.stopped:
+        if (_stoppedExplicitly) return;
+        startSession();
+      case SessionState.active:
+        break;
+    }
+  }
+
+  /// Records stop metadata on the current session and moves to the stopped
+  /// state, without marking the stop as explicit.
+  ///
+  /// The timeout path and [startSession]'s implicit stop both go through here
+  /// so they stay restartable by [handleAppResumed].
+  void _stop() {
     _cancelTimer();
     if (_session == null) return;
     final now = DateTime.now();
@@ -82,41 +156,8 @@ class SessionManager {
     _state = SessionState.stopped;
   }
 
-  /// Clears the current session without recording stop metadata.
-  ///
-  /// Unlike [stopSession], which records a stop timestamp and duration and
-  /// leaves the stopped session readable, this drops the session entirely and
-  /// returns the manager to the stopped state. Used when disposing the client
-  /// so no stale session remains readable after close.
-  void clearSession() {
-    _cancelTimer();
-    _session = null;
-    _sessionStart = null;
-    _state = SessionState.stopped;
-  }
-
-  /// Called when the app moves to background.
-  void handleAppPaused() {
-    if (_state != SessionState.active) return;
-    _state = SessionState.paused;
-    _pauseTimer = timerFactory(_sessionTimeout, _onTimeoutExpired);
-  }
-
-  /// Called when the app returns to foreground.
-  void handleAppResumed() {
-    switch (_state) {
-      case SessionState.paused:
-        _cancelTimer();
-        _state = SessionState.active;
-      case SessionState.stopped:
-        startSession();
-      case SessionState.active:
-        break;
-    }
-  }
-
   void _onTimeoutExpired() {
-    stopSession();
+    _stop();
   }
 
   void _cancelTimer() {
