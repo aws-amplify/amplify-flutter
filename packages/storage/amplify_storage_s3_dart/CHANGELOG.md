@@ -1,3 +1,7 @@
+## 0.4.23
+
+- Minor bug fixes and improvements
+
 ## 0.4.22
 
 ### Features
