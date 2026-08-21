@@ -1,0 +1,232 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+import 'package:amplify_event_enrichment_dart/src/session/session.dart';
+import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
+import 'package:fake_async/fake_async.dart';
+import 'package:test/test.dart';
+
+void main() {
+  group('SessionManager', () {
+    late SessionManager manager;
+    const timeout = Duration(seconds: 5);
+    var idCounter = 0;
+
+    setUp(() {
+      idCounter = 0;
+      manager = SessionManager(
+        appId: 'testApp1',
+        sessionTimeout: timeout,
+        generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+      );
+    });
+
+    test('starts in stopped state with no session', () {
+      expect(manager.state, SessionState.stopped);
+      expect(manager.session, isNull);
+    });
+
+    test('startSession transitions to active', () {
+      manager.startSession();
+      expect(manager.state, SessionState.active);
+      expect(manager.session, isNotNull);
+      expect(manager.session!.id, contains('testApp1'));
+    });
+
+    test(
+      'session ID follows format: appId(8)-uniqueId(8)-yyyyMMdd-HHmmssSSS',
+      () {
+        manager.startSession();
+        final id = manager.session!.id;
+        expect(id.startsWith('testApp1-'), isTrue);
+        final afterPrefix = id.substring(9);
+        expect(afterPrefix.startsWith('abcd0000'), isTrue);
+      },
+    );
+
+    test('stopSession transitions to stopped with duration', () {
+      manager
+        ..startSession()
+        ..stopSession();
+      expect(manager.state, SessionState.stopped);
+      expect(manager.session!.stopTimestamp, isNotNull);
+      expect(manager.session!.duration, isNotNull);
+    });
+
+    test('handleAppPaused transitions active to paused', () {
+      fakeAsync((async) {
+        manager
+          ..startSession()
+          ..handleAppPaused();
+        expect(manager.state, SessionState.paused);
+      });
+    });
+
+    test('handleAppResumed within timeout resumes same session', () {
+      fakeAsync((async) {
+        manager.startSession();
+        final sessionId = manager.session!.id;
+        manager.handleAppPaused();
+        async.elapse(const Duration(seconds: 3));
+        manager.handleAppResumed();
+        expect(manager.state, SessionState.active);
+        expect(manager.session!.id, sessionId);
+      });
+    });
+
+    test('timeout expiry stops session', () {
+      fakeAsync((async) {
+        manager
+          ..startSession()
+          ..handleAppPaused();
+        async.elapse(timeout);
+        expect(manager.state, SessionState.stopped);
+        expect(manager.session!.stopTimestamp, isNotNull);
+      });
+    });
+
+    test('handleAppResumed after timeout starts new session', () {
+      fakeAsync((async) {
+        manager.startSession();
+        final oldId = manager.session!.id;
+        manager.handleAppPaused();
+        async.elapse(timeout);
+        manager.handleAppResumed();
+        expect(manager.state, SessionState.active);
+        expect(manager.session!.id, isNot(oldId));
+      });
+    });
+
+    test('handleAppPaused is no-op when not active', () {
+      manager.handleAppPaused();
+      expect(manager.state, SessionState.stopped);
+    });
+
+    test('startSession stops existing session first', () {
+      manager.startSession();
+      final firstId = manager.session!.id;
+      manager.startSession();
+      expect(manager.session!.id, isNot(firstId));
+    });
+
+    test('short appId is padded in session ID', () {
+      final shortManager = SessionManager(
+        appId: 'ab',
+        sessionTimeout: timeout,
+        generateId: () => 'uuid0000-fake-uuid-value',
+      )..startSession();
+      final id = shortManager.session!.id;
+      expect(id.substring(0, 8), '______ab');
+    });
+
+    group('explicit stop vs timeout stop', () {
+      test('handleAppResumed does not restart after an explicit stop', () {
+        fakeAsync((async) {
+          manager
+            ..startSession()
+            ..handleAppPaused();
+          final stoppedId = manager.session!.id;
+
+          manager
+            ..stopSession()
+            ..handleAppResumed();
+
+          expect(
+            manager.state,
+            SessionState.stopped,
+            reason: 'a session the customer stopped must stay stopped',
+          );
+          expect(
+            manager.session!.id,
+            stoppedId,
+            reason: 'no new session may be started by the resume',
+          );
+        });
+      });
+
+      test('handleAppResumed does restart after a timeout stop', () {
+        fakeAsync((async) {
+          manager
+            ..startSession()
+            ..handleAppPaused();
+          final timedOutId = manager.session!.id;
+          async.elapse(timeout);
+          expect(manager.state, SessionState.stopped);
+
+          manager.handleAppResumed();
+
+          expect(manager.state, SessionState.active);
+          expect(manager.session!.id, isNot(timedOutId));
+        });
+      });
+
+      test('startSession clears the explicit stop', () {
+        fakeAsync((async) {
+          manager
+            ..startSession()
+            ..stopSession()
+            // Explicitly restarting puts lifecycle handling back in charge.
+            ..startSession();
+          final restartedId = manager.session!.id;
+
+          manager.handleAppPaused();
+          async.elapse(timeout);
+          manager.handleAppResumed();
+
+          expect(manager.state, SessionState.active);
+          expect(manager.session!.id, isNot(restartedId));
+        });
+      });
+
+      test('handleAppResumed does not restart after clearSession', () {
+        manager
+          ..startSession()
+          ..clearSession()
+          ..handleAppResumed();
+        expect(manager.state, SessionState.stopped);
+        expect(manager.session, isNull);
+      });
+
+      test('an explicit stop while active is also not resurrected', () {
+        // The paused-then-stopped path is the one the lifecycle observer
+        // exercises; this covers a stop with no preceding background.
+        manager
+          ..startSession()
+          ..stopSession()
+          ..handleAppResumed();
+        expect(manager.state, SessionState.stopped);
+      });
+    });
+
+    group('Session equality', () {
+      test('same values are equal with matching hashCodes', () {
+        const a = Session(
+          id: 'abc-20260811-120000000',
+          startTimestamp: '2026-08-11T12:00:00.000Z',
+          stopTimestamp: '2026-08-11T12:05:00.000Z',
+          duration: 300000,
+        );
+        const b = Session(
+          id: 'abc-20260811-120000000',
+          startTimestamp: '2026-08-11T12:00:00.000Z',
+          stopTimestamp: '2026-08-11T12:05:00.000Z',
+          duration: 300000,
+        );
+        expect(a, equals(b));
+        expect(a.hashCode, equals(b.hashCode));
+      });
+
+      test('different values are not equal', () {
+        const a = Session(
+          id: 'abc-20260811-120000000',
+          startTimestamp: '2026-08-11T12:00:00.000Z',
+        );
+        const b = Session(
+          id: 'xyz-20260811-130000000',
+          startTimestamp: '2026-08-11T13:00:00.000Z',
+        );
+        expect(a, isNot(equals(b)));
+      });
+    });
+  });
+}
