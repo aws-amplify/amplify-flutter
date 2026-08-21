@@ -126,6 +126,12 @@ aft:
       packages:
         - amplify_connect_client
         - amplify_connect_client_dart
+    - name: Event Enrichment
+      summary: amplify_event_enrichment
+      propagate: none
+      packages:
+        - amplify_event_enrichment
+        - amplify_event_enrichment_dart
     - name: AWS Common
       summary: aws_common
       propagate: none
