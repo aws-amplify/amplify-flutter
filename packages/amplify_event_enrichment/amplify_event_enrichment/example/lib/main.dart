@@ -5,8 +5,8 @@ import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:flutter/material.dart';
 
-/// A simple [Sender] that prints the full enriched JSON to the console.
-class ConsoleSender implements Sender {
+/// A simple [EnrichedEventSender] that prints the full enriched JSON to the console.
+class ConsoleSender implements EnrichedEventSender {
   @override
   Future<void> send(EnrichedEvent event) async {
     debugPrint('┌── EnrichedEvent ──');
