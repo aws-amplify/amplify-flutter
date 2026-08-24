@@ -5,7 +5,7 @@ import 'package:amplify_event_enrichment_dart/amplify_event_enrichment.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:test/test.dart';
 
-class _MockSender implements Sender {
+class _MockSender implements EnrichedEventSender {
   final List<EnrichedEvent> events = [];
 
   @override
@@ -13,14 +13,14 @@ class _MockSender implements Sender {
 }
 
 /// Throws synchronously, before returning a future at all.
-class _ThrowingSender implements Sender {
+class _ThrowingSender implements EnrichedEventSender {
   @override
   Future<void> send(EnrichedEvent event) => throw StateError('sender failure');
 }
 
 /// Suspends first, then fails — the case a sync sender contract could not
 /// express and the try/catch in record() could not catch.
-class _AsyncFailingSender implements Sender {
+class _AsyncFailingSender implements EnrichedEventSender {
   @override
   Future<void> send(EnrichedEvent event) async {
     await Future<void>.delayed(Duration.zero);
