@@ -4,13 +4,13 @@
 import 'dart:async';
 
 import 'package:amplify_event_enrichment_dart/src/enriched_event.dart';
+import 'package:amplify_event_enrichment_dart/src/enriched_event_sender.dart';
 import 'package:amplify_event_enrichment_dart/src/event_enrichment_client_options.dart';
 import 'package:amplify_event_enrichment_dart/src/exception/event_enrichment_exception.dart';
 import 'package:amplify_event_enrichment_dart/src/global_fields_manager.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/app_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/device_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/metadata/sdk_metadata.dart';
-import 'package:amplify_event_enrichment_dart/src/sender.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session_event_types.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
@@ -29,7 +29,7 @@ import 'package:uuid/uuid.dart';
 /// Every event carries a session. When a session starts the client emits a
 /// [zSessionStartEventType] event for it, and when it ends a
 /// [zSessionStopEventType] event carrying the stop timestamp and duration —
-/// both through the configured [Sender], and both named the way legacy
+/// both through the configured [EnrichedEventSender], and both named the way legacy
 /// Analytics named them. See [startSession] and [stopSession].
 ///
 /// ## Usage
@@ -58,7 +58,7 @@ class EventEnrichmentClient {
     required SdkMetadata sdkMetadata,
     required String clientId,
     EventEnrichmentClientOptions? options,
-    Sender? sender,
+    EnrichedEventSender? sender,
   }) : _appMetadata = appMetadata,
        _deviceMetadata = deviceMetadata,
        _sdkMetadata = sdkMetadata,
@@ -94,7 +94,7 @@ class EventEnrichmentClient {
   final DeviceMetadata _deviceMetadata;
   final SdkMetadata _sdkMetadata;
   final String _clientId;
-  final Sender? _sender;
+  final EnrichedEventSender? _sender;
   final Logger _logger;
   final GlobalFieldsManager _globalFields = GlobalFieldsManager();
   late final SessionManager _sessionManager;
@@ -119,7 +119,7 @@ class EventEnrichmentClient {
   /// [EventEnrichmentClosedException] if the client has been closed, or an
   /// [EventEnrichmentRecordException] if recording fails unexpectedly — which
   /// includes a sender that throws synchronously *or* whose future completes
-  /// with an error. Sender failures are logged before being returned.
+  /// with an error. EnrichedEventSender failures are logged before being returned.
   Future<Result<EnrichedEvent>> record(
     String eventType, {
     Map<String, String>? attributes,
@@ -233,7 +233,7 @@ class EventEnrichmentClient {
   /// [zSessionStopEventType] event for it before the start — legacy Pinpoint
   /// reported the same stop-then-start pair when a new session displaced an old
   /// one. The returned future completes once both events have been handed to
-  /// the [Sender].
+  /// the [EnrichedEventSender].
   Future<void> startSession() => _sessionManager.startSession();
 
   /// Stops the current session and emits a [zSessionStopEventType] event for
@@ -241,7 +241,7 @@ class EventEnrichmentClient {
   ///
   /// The emitted event's session section carries the stopped session's id,
   /// start timestamp, stop timestamp and duration, so session length reaches
-  /// the [Sender] rather than being computed and dropped. The returned future
+  /// the [EnrichedEventSender] rather than being computed and dropped. The returned future
   /// completes once the event has been handed to the sender; a sender failure
   /// is logged and never thrown. Nothing is emitted, and the returned future
   /// is already complete, when no session is running.
@@ -296,7 +296,7 @@ class EventEnrichmentClient {
   /// Releases resources and stops session tracking.
   ///
   /// A session still running is ended first, so its [zSessionStopEventType]
-  /// event reaches the [Sender] before the client goes away; the returned
+  /// event reaches the [EnrichedEventSender] before the client goes away; the returned
   /// future completes once that event has been sent. A session that already
   /// ended emitted its stop then, so closing after [stopSession] or after a
   /// session timeout does not emit a second one, and closing with no session

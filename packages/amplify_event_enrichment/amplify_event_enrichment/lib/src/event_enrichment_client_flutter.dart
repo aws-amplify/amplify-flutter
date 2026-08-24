@@ -41,7 +41,7 @@ import 'package:uuid/uuid.dart';
 /// starts one again.
 ///
 /// When a session starts, a [zSessionStartEventType] event is emitted through
-/// the configured [Sender]; when it ends, a [zSessionStopEventType] event
+/// the configured [EnrichedEventSender]; when it ends, a [zSessionStopEventType] event
 /// carrying the ended session's stop timestamp and duration. Both use the event
 /// types legacy Analytics used. See [startSession] and [stopSession].
 ///
@@ -70,7 +70,7 @@ class EventEnrichmentClientFlutter {
     DeviceMetadataProvider? deviceMetadataProvider,
     ClientIdProvider? clientIdProvider,
     EventEnrichmentClientOptions? options,
-    Sender? sender,
+    EnrichedEventSender? sender,
   }) async {
     assert(
       appMetadata == null || appMetadata.appId == appId,
@@ -152,7 +152,7 @@ class EventEnrichmentClientFlutter {
   ///
   /// A session already running is ended first, which emits a
   /// [zSessionStopEventType] event for it before the start. The returned future
-  /// completes once both events have been handed to the [Sender].
+  /// completes once both events have been handed to the [EnrichedEventSender].
   Future<void> startSession() => _delegate.startSession();
 
   /// Stops the current session and emits a [zSessionStopEventType] event for
@@ -160,7 +160,7 @@ class EventEnrichmentClientFlutter {
   ///
   /// The emitted event's session section carries the stopped session's id,
   /// start timestamp, stop timestamp and duration, so session length reaches
-  /// the [Sender] rather than being computed and dropped. The returned future
+  /// the [EnrichedEventSender] rather than being computed and dropped. The returned future
   /// completes once the event has been handed to the sender; a sender failure
   /// is logged and never thrown.
   ///
@@ -216,7 +216,7 @@ class EventEnrichmentClientFlutter {
   /// Releases resources, stops session tracking, and removes lifecycle observer.
   ///
   /// A session still running is ended first, so its [zSessionStopEventType]
-  /// event reaches the [Sender] before the client goes away; the returned
+  /// event reaches the [EnrichedEventSender] before the client goes away; the returned
   /// future completes once that event has been sent. A session that already
   /// ended does not emit a second one.
   Future<void> close() async {

@@ -38,7 +38,7 @@ final class EventEnrichmentRecordException extends EventEnrichmentException {
     : super(
         message: 'Failed to record event',
         recoverySuggestion:
-            'Inspect the underlying cause. If a custom Sender was '
+            'Inspect the underlying cause. If a custom EnrichedEventSender was '
             'provided, ensure its send method does not throw.',
       );
 }
