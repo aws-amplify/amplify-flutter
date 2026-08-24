@@ -6,7 +6,7 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
 
-class _RecordingSender implements Sender {
+class _RecordingSender implements EnrichedEventSender {
   final List<EnrichedEvent> events = [];
 
   @override
@@ -34,7 +34,7 @@ class _RecordingSender implements Sender {
 /// Records when each send begins and completes, so a test can tell an ordered
 /// hand-off from two sends that are in flight at the same time. A sender that
 /// appends synchronously cannot see the difference.
-class _InterleavingSender implements Sender {
+class _InterleavingSender implements EnrichedEventSender {
   final List<String> log = [];
 
   @override
@@ -48,7 +48,7 @@ class _InterleavingSender implements Sender {
 /// Fails after suspending — the case a synchronous throw does not cover, and
 /// the one that escapes as an unhandled async error if the emission is not
 /// awaited inside its own guard.
-class _AsyncFailingSender implements Sender {
+class _AsyncFailingSender implements EnrichedEventSender {
   int sendCount = 0;
 
   @override
@@ -78,7 +78,7 @@ void main() {
     const timeout = Duration(seconds: 5);
 
     EventEnrichmentClient buildClient(
-      Sender sender, {
+      EnrichedEventSender sender, {
       bool autoSessionTracking = true,
     }) => EventEnrichmentClient(
       appMetadata: app,

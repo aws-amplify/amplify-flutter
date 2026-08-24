@@ -26,7 +26,7 @@ class _ThrowingClientIdProvider implements ClientIdProvider {
   Future<String> getClientId() async => throw StateError('provider failure');
 }
 
-class _RecordingSender implements Sender {
+class _RecordingSender implements EnrichedEventSender {
   final List<EnrichedEvent> events = [];
 
   @override
