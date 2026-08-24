@@ -4,35 +4,46 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
-  tearDown(binding.platformDispatcher.clearPlatformBrightnessTestValue);
+  group('SkipVerifyUserButton', () {
+    tearDown(binding.platformDispatcher.clearPlatformBrightnessTestValue);
 
-  /// The "Skip" button inherits its color from the theme so it stays visible
-  /// in dark mode.
-  testWidgets('Skip button does not hardcode a text color', (tester) async {
-    binding.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
+    for (final brightness in Brightness.values) {
+      testWidgets('renders the Skip label in colorScheme.primary in '
+          '${brightness.name} mode', (tester) async {
+        binding.platformDispatcher.platformBrightnessTestValue = brightness;
 
-    await tester.pumpWidget(
-      MockAuthenticatorApp(
-        initialStep: AuthenticatorStep.verifyUser,
-        darkTheme: ThemeData.dark(useMaterial3: true),
-      ),
-    );
-    await tester.pumpAndSettle();
+        await tester.pumpWidget(
+          MockAuthenticatorApp(
+            initialStep: AuthenticatorStep.verifyUser,
+            lightTheme: ThemeData.light(useMaterial3: true),
+            darkTheme: ThemeData.dark(useMaterial3: true),
+          ),
+        );
+        await tester.pumpAndSettle();
 
-    final verifyUserPage = VerifyUserPage(tester: tester);
-    expect(verifyUserPage.skipButton, findsOneWidget);
+        final skipButton = VerifyUserPage(tester: tester).skipButton;
+        expect(skipButton, findsOneWidget);
 
-    final skipText = tester.widget<Text>(
-      find.descendant(
-        of: verifyUserPage.skipButton,
-        matching: find.byType(Text),
-      ),
-    );
-    expect(skipText.style?.color, isNull);
+        final label = find.descendant(
+          of: skipButton,
+          matching: find.byType(RichText),
+        );
+        final renderedColor = tester
+            .renderObject<RenderParagraph>(label)
+            .text
+            .style
+            ?.color;
+        final colorScheme = Theme.of(tester.element(skipButton)).colorScheme;
+
+        expect(renderedColor, colorScheme.primary);
+        expect(renderedColor, isNot(colorScheme.surface));
+      });
+    }
   });
 }
