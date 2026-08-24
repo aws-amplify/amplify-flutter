@@ -55,6 +55,15 @@ class KinesisSender implements Sender {
     // InternalFailure. All are treated as retryable until the retry
     // limit is reached.
     final errorCodes = response.records.map((e) => e.errorCode).toList();
+    // TEMP DIAG: surface the exact per-record errors behind flaky flushes.
+    final diagErrors = response.records
+        .where((e) => e.errorCode != null)
+        .map((e) => '${e.errorCode}: ${e.errorMessage}')
+        .toList();
+    if (diagErrors.isNotEmpty) {
+      // ignore: avoid_print
+      print('DIAG PutRecords $streamName per-record errors: $diagErrors');
+    }
     return splitResults(
       errorCodes: errorCodes,
       records: records,
