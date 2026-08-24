@@ -7,16 +7,17 @@ import 'package:amplify_event_enrichment_dart/src/enriched_event.dart';
 /// Interface for transporting enriched events to a destination.
 ///
 /// Implement this to pipe events to Kinesis, Firehose, or any custom
-/// transport. Named after the `Sender` abstraction the kinesis and firehose
-/// clients sit behind, and deliberately not `EventSink`, which would collide
-/// with `dart:async`'s `EventSink` in any file importing both.
+/// transport. Named `EnrichedEventSender` rather than something shorter
+/// because the natural alternatives collide in the files most likely to
+/// implement this interface: the kinesis and firehose packages export a
+/// `Sender`, and `dart:async` exports an `EventSink`.
 ///
 /// Sending is asynchronous: [send] returns a `Future` so the client can await
 /// delivery and observe failures. Implementations that do no async work can
 /// still return an already-completed future (an `async` method body with no
 /// `await` is enough).
 /// {@endtemplate}
-abstract interface class Sender {
+abstract interface class EnrichedEventSender {
   /// Sends an enriched event to the configured destination.
   ///
   /// May throw, or return a future that completes with an error, if delivery

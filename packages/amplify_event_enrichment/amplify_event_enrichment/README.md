@@ -48,7 +48,7 @@ Every event carries a session. Sessions follow app foreground/background
 transitions by default, and a session that has been backgrounded longer than
 `EventEnrichmentClientOptions.sessionTimeout` ends rather than resuming.
 
-Session boundaries are emitted through the configured `Sender` as events, using
+Session boundaries are emitted through the configured `EnrichedEventSender` as events, using
 the event types legacy Amplify Analytics used for the same signals:
 
 - `zSessionStartEventType` (`_session.start`) when a session starts, carrying
@@ -68,7 +68,7 @@ exactly one start and at most one stop.
 
 `startSession()`, `stopSession()` and `close()` return a `Future` that completes
 once those events have been handed to the sender, so awaiting them means the
-boundary has been delivered. Sender failures on these paths are logged, never
+boundary has been delivered. EnrichedEventSender failures on these paths are logged, never
 thrown.
 
 ### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
