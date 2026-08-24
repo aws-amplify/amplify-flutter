@@ -15,6 +15,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'utils/setup_utils.dart';
 
 void main() {
+  AmplifyLogging.addSink(
+    AmplifySimplePrinterLogSink(logLevel: LogLevel.verbose),
+  );
   late AmplifyKinesisClient client;
   late AmplifyAuthCredentialsProvider credentialsProvider;
 
@@ -218,6 +221,7 @@ void main() {
       );
 
       final flushResult = await client.flush();
+      safePrint('DIAG kinesis flush result: $flushResult');
       expect(flushResult, isA<Ok<FlushData>>());
       expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
 
