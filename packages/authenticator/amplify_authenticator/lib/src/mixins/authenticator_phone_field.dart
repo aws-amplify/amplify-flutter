@@ -42,7 +42,10 @@ mixin AuthenticatorPhoneFieldMixin<
       .sortedBy((dialCode) => _dialCodeResolver.resolve(context, dialCode.key));
 
   String? formatPhoneNumber(String? phoneNumber) {
-    return phoneNumber?.ensureStartsWith('+${state.dialCode.value}');
+    if (phoneNumber == null || phoneNumber.isEmpty) {
+      return phoneNumber;
+    }
+    return phoneNumber.ensureStartsWith('+${state.dialCode.value}');
   }
 
   String displayPhoneNumber(String phoneNumber) {
