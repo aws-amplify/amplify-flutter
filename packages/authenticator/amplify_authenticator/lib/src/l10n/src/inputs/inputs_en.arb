@@ -221,4 +221,12 @@
     "@selectEmail": {
         "description": "Label for the radio button to select email as the user's chosen MFA method."
     },
+    "showPassword": "Show password",
+    "@showPassword": {
+        "description": "Tooltip and accessibility label for the button that reveals the hidden password in a password field."
+    },
+    "hidePassword": "Hide password",
+    "@hidePassword": {
+        "description": "Tooltip and accessibility label for the button that hides the visible password in a password field."
+    }
 }
