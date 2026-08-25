@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_event_enrichment_dart/amplify_event_enrichment.dart';
+import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
