@@ -176,6 +176,35 @@ void main() {
         expect(usernameFieldError, findsOneWidget);
       });
 
+      testWidgets(
+        'displays message when required phone number submitted empty',
+        (tester) async {
+          await tester.pumpWidget(
+            MockAuthenticatorApp(
+              initialStep: AuthenticatorStep.signUp,
+              signUpForm: SignUpForm.custom(
+                fields: [
+                  SignUpFormField.username(),
+                  SignUpFormField.phoneNumber(required: true),
+                  SignUpFormField.password(),
+                  SignUpFormField.passwordConfirmation(),
+                ],
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+
+          final signUpPage = SignUpPage(tester: tester);
+          await signUpPage.submitSignUp();
+
+          final phoneFieldError = find.descendant(
+            of: signUpPage.phoneField,
+            matching: find.text('Phone Number field must not be blank.'),
+          );
+          expect(phoneFieldError, findsOneWidget);
+        },
+      );
+
       testWidgets('displays message when password does not meet requirements', (
         tester,
       ) async {
