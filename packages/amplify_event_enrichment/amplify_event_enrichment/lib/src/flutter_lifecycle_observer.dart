@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_event_enrichment_dart/amplify_event_enrichment.dart';
+import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 import 'package:flutter/widgets.dart';
 
 /// {@template amplify_event_enrichment.flutter_lifecycle_observer}

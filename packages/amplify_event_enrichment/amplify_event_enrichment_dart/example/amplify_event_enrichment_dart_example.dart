@@ -5,7 +5,7 @@
 
 import 'dart:convert';
 
-import 'package:amplify_event_enrichment_dart/amplify_event_enrichment.dart';
+import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 
 /// A [EnrichedEventSender] that prints each enriched envelope, standing in for a real

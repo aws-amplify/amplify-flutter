@@ -5,7 +5,7 @@
 library;
 
 // Re-export everything from the Dart package.
-export 'package:amplify_event_enrichment_dart/amplify_event_enrichment.dart';
+export 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 
 // Export Flutter-specific implementations.
 export 'src/constants.dart';
