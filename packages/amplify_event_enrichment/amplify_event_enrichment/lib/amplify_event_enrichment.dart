@@ -8,6 +8,7 @@ library;
 export 'package:amplify_event_enrichment_dart/amplify_event_enrichment.dart';
 
 // Export Flutter-specific implementations.
+export 'src/constants.dart';
 export 'src/event_enrichment_client_flutter.dart';
 export 'src/flutter_lifecycle_observer.dart';
 export 'src/shared_preferences_client_id_provider.dart';

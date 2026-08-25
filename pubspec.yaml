@@ -128,6 +128,8 @@ aft:
         - amplify_connect_client_dart
     - name: Event Enrichment
       summary: amplify_event_enrichment
+      # The Flutter and Dart packages take independent version lines once
+      # released, as kinesis, firehose and connect already have.
       propagate: none
       packages:
         - amplify_event_enrichment
