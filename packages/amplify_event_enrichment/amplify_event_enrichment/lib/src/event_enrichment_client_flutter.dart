@@ -31,19 +31,18 @@ import 'package:uuid/uuid.dart';
 /// [EventEnrichmentClientOptions.autoSessionTracking] of `true`, a session
 /// starts up front and follows app foreground/background transitions. With
 /// `autoSessionTracking` set to `false`, no session starts up front and no
-/// lifecycle observer is installed, but recording still works: the first
-/// [record] call lazily starts a session. Use the manual controls when you
-/// want to define session boundaries yourself, or to feed lifecycle
-/// transitions in when the observer is not installed.
+/// lifecycle observer is installed, but the first [record] call lazily starts
+/// one. Use the manual controls to define session boundaries yourself, or to
+/// feed lifecycle transitions in when the observer is not installed.
 ///
 /// [stopSession] is an explicit end to tracking: the lifecycle observer will
 /// not start a new session on the next foreground after it. Recording an event
 /// starts one again.
 ///
-/// When a session starts, a [zSessionStartEventType] event is emitted through
-/// the configured [EnrichedEventSender]; when it ends, a [zSessionStopEventType] event
-/// carrying the ended session's stop timestamp and duration. Both use the event
-/// types legacy Analytics used. See [startSession] and [stopSession].
+/// A [zSessionStartEventType] event is emitted through the configured
+/// [EnrichedEventSender] when a session starts, and a [zSessionStopEventType]
+/// event carrying its stop timestamp and duration when it ends. Both use the
+/// event types legacy Analytics used. See [startSession] and [stopSession].
 ///
 /// ## Usage
 ///
@@ -51,6 +50,8 @@ import 'package:uuid/uuid.dart';
 /// final client = await EventEnrichmentClientFlutter.create(
 ///   appId: 'my-app-id',
 ///   sdkMetadata: SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
+///   initialUserId: 'user-1',
+///   initialGlobalAttributes: const {'env': 'prod'},
 /// );
 ///
 /// final result = await client.record('button_clicked');
@@ -63,10 +64,20 @@ class EventEnrichmentClientFlutter {
   ///
   /// Resolves device metadata and client ID from the platform, then creates
   /// an [EventEnrichmentClient] with automatic lifecycle tracking.
+  ///
+  /// [initialUserId], [initialGlobalAttributes] and [initialGlobalMetrics] are
+  /// applied before the session that
+  /// [EventEnrichmentClientOptions.autoSessionTracking] starts, so the launch
+  /// [zSessionStartEventType] event carries them. Setting them afterwards with
+  /// [setUserId] or [addGlobalAttribute] cannot: that event has already gone
+  /// out.
   static Future<EventEnrichmentClientFlutter> create({
     required String appId,
     required SdkMetadata sdkMetadata,
     AppMetadata? appMetadata,
+    String? initialUserId,
+    Map<String, String>? initialGlobalAttributes,
+    Map<String, double>? initialGlobalMetrics,
     DeviceMetadataProvider? deviceMetadataProvider,
     ClientIdProvider? clientIdProvider,
     EventEnrichmentClientOptions? options,
@@ -113,6 +124,9 @@ class EventEnrichmentClientFlutter {
       deviceMetadata: deviceMetadata,
       sdkMetadata: sdkMetadata,
       clientId: clientId,
+      initialUserId: initialUserId,
+      initialGlobalAttributes: initialGlobalAttributes,
+      initialGlobalMetrics: initialGlobalMetrics,
       options: options,
       sender: sender,
     );
@@ -150,19 +164,17 @@ class EventEnrichmentClientFlutter {
   /// Only needed when you want an explicit session boundary. Recording works
   /// without it: see [EventEnrichmentClientOptions.autoSessionTracking].
   ///
-  /// A session already running is ended first, which emits a
-  /// [zSessionStopEventType] event for it before the start. The returned future
+  /// A session already running is ended first, which emits its
+  /// [zSessionStopEventType] event before the start. The returned future
   /// completes once both events have been handed to the [EnrichedEventSender].
   Future<void> startSession() => _delegate.startSession();
 
-  /// Stops the current session and emits a [zSessionStopEventType] event for
-  /// it.
+  /// Stops the current session and emits a [zSessionStopEventType] event
+  /// carrying its stop timestamp and duration, so session length reaches the
+  /// [EnrichedEventSender] rather than being computed and dropped.
   ///
-  /// The emitted event's session section carries the stopped session's id,
-  /// start timestamp, stop timestamp and duration, so session length reaches
-  /// the [EnrichedEventSender] rather than being computed and dropped. The returned future
-  /// completes once the event has been handed to the sender; a sender failure
-  /// is logged and never thrown.
+  /// The returned future completes once the event has been handed to the
+  /// sender; a sender failure is logged and never thrown.
   ///
   /// This is also an explicit end to session tracking. The lifecycle observer
   /// will not start a new session when the app next returns to the foreground,
@@ -175,10 +187,9 @@ class EventEnrichmentClientFlutter {
   /// Only needed when [EventEnrichmentClientOptions.autoSessionTracking] is
   /// `false`; otherwise [FlutterLifecycleObserver] calls this for you.
   ///
-  /// If the session timeout expires before the app returns, the session ends
-  /// and its [zSessionStopEventType] event is emitted from the timer. Nothing
-  /// is awaiting a timer, so a sender failure on that path surfaces only in
-  /// the logs.
+  /// If the session timeout passes before the app returns, the session ends and
+  /// its [zSessionStopEventType] event is emitted with no caller to await it,
+  /// so a sender failure there surfaces only in the logs.
   void handleAppPaused() => _delegate.handleAppPaused();
 
   /// Called when the app returns to foreground.
@@ -186,19 +197,25 @@ class EventEnrichmentClientFlutter {
   /// Only needed when [EventEnrichmentClientOptions.autoSessionTracking] is
   /// `false`; otherwise [FlutterLifecycleObserver] calls this for you.
   ///
-  /// Resumes a paused session, or starts a new one if the session timeout
-  /// expired while backgrounded. Does nothing after an explicit
-  /// [stopSession].
+  /// Resumes a paused session, or ends it and starts a new one if the app was
+  /// backgrounded for longer than the session timeout. Does nothing after an
+  /// explicit [stopSession].
   ///
-  /// Resuming a paused session emits nothing, since it is the same session. A
-  /// restart after a timeout emits a [zSessionStartEventType] event, with no
-  /// caller to await it, so a sender failure there surfaces only in the logs.
+  /// Resuming emits nothing, since it is the same session. A restart emits the
+  /// old session's [zSessionStopEventType] event and then the new session's
+  /// [zSessionStartEventType] event, with no caller to await them.
   void handleAppResumed() => _delegate.handleAppResumed();
 
   /// Sets the user identifier stamped on subsequent events.
+  ///
+  /// Pass `initialUserId` to [create] instead to have the launch
+  /// [zSessionStartEventType] event carry it.
   void setUserId(String? userId) => _delegate.setUserId(userId);
 
   /// Adds a global attribute stamped on every subsequent event.
+  ///
+  /// Pass `initialGlobalAttributes` to [create] instead to have the launch
+  /// [zSessionStartEventType] event carry it.
   void addGlobalAttribute(String key, String value) =>
       _delegate.addGlobalAttribute(key, value);
 
@@ -207,18 +224,21 @@ class EventEnrichmentClientFlutter {
       _delegate.removeGlobalAttribute(key);
 
   /// Adds a global metric stamped on every subsequent event.
+  ///
+  /// Pass `initialGlobalMetrics` to [create] instead to have the launch
+  /// [zSessionStartEventType] event carry it.
   void addGlobalMetric(String key, double value) =>
       _delegate.addGlobalMetric(key, value);
 
   /// Removes a global metric.
   void removeGlobalMetric(String key) => _delegate.removeGlobalMetric(key);
 
-  /// Releases resources, stops session tracking, and removes lifecycle observer.
+  /// Releases resources, stops session tracking, and removes lifecycle
+  /// observer.
   ///
   /// A session still running is ended first, so its [zSessionStopEventType]
-  /// event reaches the [EnrichedEventSender] before the client goes away; the returned
-  /// future completes once that event has been sent. A session that already
-  /// ended does not emit a second one.
+  /// event reaches the [EnrichedEventSender] before the client goes away. A
+  /// session that already ended does not emit a second one.
   Future<void> close() async {
     _lifecycleObserver?.dispose();
     await _delegate.close();

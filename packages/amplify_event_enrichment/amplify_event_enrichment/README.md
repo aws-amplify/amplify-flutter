@@ -23,6 +23,11 @@ import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
 final client = await EventEnrichmentClientFlutter.create(
   appId: 'my-app-id',
   sdkMetadata: SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
+  // Applied before the session that starts at launch, so its
+  // `_session.start` event carries them. `setUserId` and
+  // `addGlobalAttribute` afterwards are too late for that one event.
+  initialUserId: 'user-1',
+  initialGlobalAttributes: const {'env': 'prod'},
 );
 
 final result = await client.record(

@@ -28,24 +28,18 @@ Future<void> main() async {
   //
   // Constructing the client starts a session, which prints a
   // zSessionStartEventType ("_session.start") envelope before anything below
-  // runs.
-  final client =
-      EventEnrichmentClient(
-          appMetadata: const AppMetadata(appId: 'my-app', versionName: '1.0.0'),
-          deviceMetadata: const DeviceMetadata(
-            platform: 'macOS',
-            locale: 'en_US',
-          ),
-          sdkMetadata: const SdkMetadata(
-            name: 'amplify-flutter',
-            version: '2.0.0',
-          ),
-          clientId: 'a-stable-per-install-id',
-          sender: PrintingSender(),
-        )
-        // Stamped on every event from here on, including the session stop below.
-        // The session start has already gone out, so it does not carry this one.
-        ..addGlobalAttribute('env', 'prod');
+  // runs. The initial user id and globals are applied first, so that envelope
+  // carries them; setUserId and addGlobalAttribute afterwards would be too
+  // late for it.
+  final client = EventEnrichmentClient(
+    appMetadata: const AppMetadata(appId: 'my-app', versionName: '1.0.0'),
+    deviceMetadata: const DeviceMetadata(platform: 'macOS', locale: 'en_US'),
+    sdkMetadata: const SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
+    clientId: 'a-stable-per-install-id',
+    initialUserId: 'user-1',
+    initialGlobalAttributes: const {'env': 'prod'},
+    sender: PrintingSender(),
+  );
 
   // record() never throws: a sender failure comes back as an error Result.
   final result = await client.record(
