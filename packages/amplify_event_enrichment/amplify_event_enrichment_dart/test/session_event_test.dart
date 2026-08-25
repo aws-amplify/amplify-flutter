@@ -1,10 +1,25 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
+
+/// A timer that never runs its callback, standing in for iOS suspending the
+/// Dart event loop while the app is backgrounded.
+class _NeverFiringTimer implements Timer {
+  @override
+  void cancel() {}
+
+  @override
+  bool get isActive => true;
+
+  @override
+  int get tick => 0;
+}
 
 class _RecordingSender implements EnrichedEventSender {
   final List<EnrichedEvent> events = [];
@@ -638,6 +653,84 @@ void main() {
 
         expect(initialSender.sessionStarts.single.userId, 'user-1');
         expect(initialSender.events.last.userId, 'user-2');
+      });
+    });
+
+    group('recording during a pause', () {
+      /// A client whose pause timer never fires, so only the elapsed-time
+      /// comparison can tell the session expired.
+      EventEnrichmentClient suspendedTimerClient(EnrichedEventSender sender) {
+        final built = buildClient(sender);
+        // Armed on pause, which has not happened yet, so replacing the factory
+        // after construction still covers every timer this client arms.
+        built.sessionManager.timerFactory = (_, _) => _NeverFiringTimer();
+        return built;
+      }
+
+      test('past the timeout, the dead session is replaced first', () {
+        fakeAsync((async) {
+          final pausedSender = _RecordingSender();
+          final pausedClient = suspendedTimerClient(pausedSender);
+          final first = pausedClient.sessionManager.session!;
+          async.flushMicrotasks();
+
+          pausedClient.handleAppPaused();
+          async.elapse(const Duration(minutes: 20));
+          pausedClient.record('button_clicked');
+          async.flushMicrotasks();
+
+          expect(pausedSender.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+            zSessionStartEventType,
+            'button_clicked',
+          ], reason: 'the expired session must be closed out before the event');
+          expect(pausedSender.sessionStops.single.session.id, first.id);
+          expect(
+            pausedSender.events.last.session.id,
+            isNot(first.id),
+            reason: 'the event belongs to the session that is live now, not to '
+                'one that ended 20 minutes ago',
+          );
+          expect(
+            pausedSender.events.last.session.id,
+            pausedClient.sessionManager.session!.id,
+          );
+        });
+      });
+
+      test('the replacement stays paused, since the app still is', () {
+        fakeAsync((async) {
+          final pausedSender = _RecordingSender();
+          final pausedClient = suspendedTimerClient(pausedSender)
+            ..handleAppPaused();
+          async.elapse(const Duration(minutes: 20));
+          pausedClient.record('button_clicked');
+          async.flushMicrotasks();
+
+          expect(pausedClient.sessionManager.state, SessionState.paused);
+        });
+      });
+
+      test('inside the timeout, the same session is used silently', () {
+        fakeAsync((async) {
+          final pausedSender = _RecordingSender();
+          final pausedClient = suspendedTimerClient(pausedSender);
+          final first = pausedClient.sessionManager.session!;
+          async.flushMicrotasks();
+
+          pausedClient.handleAppPaused();
+          async.elapse(const Duration(seconds: 3));
+          pausedClient.record('button_clicked');
+          async.flushMicrotasks();
+
+          expect(pausedSender.types, [
+            zSessionStartEventType,
+            'button_clicked',
+          ], reason: 'still the same session, so no boundary');
+          expect(pausedSender.events.last.session.id, first.id);
+          expect(pausedClient.sessionManager.state, SessionState.paused);
+        });
       });
     });
 
