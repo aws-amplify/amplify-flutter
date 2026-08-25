@@ -1,10 +1,27 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:amplify_event_enrichment_dart/src/session/session.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
+
+/// A timer that never runs its callback, standing in for a platform that
+/// suspends timers while the app is backgrounded. iOS suspends the Dart event
+/// loop, so the pause timer may not run until after the app is already back in
+/// the foreground, or at all — the resume has to detect the timeout itself.
+class _NeverFiringTimer implements Timer {
+  @override
+  void cancel() {}
+
+  @override
+  bool get isActive => true;
+
+  @override
+  int get tick => 0;
+}
 
 void main() {
   group('SessionManager', () {
@@ -195,6 +212,156 @@ void main() {
           ..stopSession()
           ..handleAppResumed();
         expect(manager.state, SessionState.stopped);
+      });
+    });
+
+    group('background timeout measured by timestamp', () {
+      const background = Duration(minutes: 20);
+      late List<Session> ended;
+      late List<Session> started;
+
+      /// A manager whose pause timer never fires, so only the timestamp
+      /// comparison on resume can detect the timeout.
+      SessionManager suspendedTimerManager() {
+        ended = [];
+        started = [];
+        return SessionManager(
+          appId: 'testApp1',
+          sessionTimeout: timeout,
+          generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+          onSessionStarted: (s) async => started.add(s),
+          onSessionEnded: (s) async => ended.add(s),
+        )..timerFactory = (_, _) => _NeverFiringTimer();
+      }
+
+      test('a resume past the timeout starts a new session', () {
+        fakeAsync((async) {
+          final suspended = suspendedTimerManager()..startSession();
+          final first = suspended.session!;
+
+          suspended.handleAppPaused();
+          async.elapse(background);
+          suspended.handleAppResumed();
+          async.flushMicrotasks();
+
+          expect(
+            suspended.state,
+            SessionState.active,
+            reason: 'the app is in the foreground again',
+          );
+          expect(
+            suspended.session!.id,
+            isNot(first.id),
+            reason: 'a 20 minute background is not the same session',
+          );
+        });
+      });
+
+      test('the timed-out session is reported stopped, then the new one '
+          'started', () {
+        fakeAsync((async) {
+          final suspended = suspendedTimerManager()..startSession();
+          final first = suspended.session!;
+          async.flushMicrotasks();
+
+          suspended.handleAppPaused();
+          async.elapse(background);
+          suspended.handleAppResumed();
+          async.flushMicrotasks();
+
+          expect(ended.map((s) => s.id), [first.id]);
+          expect(started.map((s) => s.id), [
+            first.id,
+            suspended.session!.id,
+          ], reason: 'the stop must be reported before the start that replaced '
+              'it');
+        });
+      });
+
+      test('the stop is stamped at the pause, not at the resume', () {
+        fakeAsync((async) {
+          final suspended = suspendedTimerManager()..startSession();
+
+          async.elapse(const Duration(seconds: 2));
+          suspended.handleAppPaused();
+          async.elapse(background);
+          suspended.handleAppResumed();
+          async.flushMicrotasks();
+
+          expect(
+            ended.single.duration,
+            const Duration(seconds: 2).inMilliseconds,
+            reason: 'the session went inactive when the app backgrounded, so '
+                'the 20 minutes in the background are not session time',
+          );
+        });
+      });
+
+      test('a resume inside the timeout still resumes the same session', () {
+        fakeAsync((async) {
+          final suspended = suspendedTimerManager()..startSession();
+          final first = suspended.session!;
+          async.flushMicrotasks();
+
+          suspended.handleAppPaused();
+          async.elapse(timeout - const Duration(milliseconds: 1));
+          suspended.handleAppResumed();
+          async.flushMicrotasks();
+
+          expect(suspended.state, SessionState.active);
+          expect(suspended.session!.id, first.id);
+          expect(ended, isEmpty, reason: 'resuming is not a boundary');
+          expect(started.map((s) => s.id), [first.id]);
+        });
+      });
+
+      test('an explicit stop is not resurrected by a late resume', () {
+        fakeAsync((async) {
+          final suspended = suspendedTimerManager()
+            ..startSession()
+            ..handleAppPaused()
+            ..stopSession();
+          final stoppedId = suspended.session!.id;
+          async.elapse(background);
+          suspended.handleAppResumed();
+          async.flushMicrotasks();
+
+          expect(
+            suspended.state,
+            SessionState.stopped,
+            reason: 'the elapsed-time path must not override an explicit stop',
+          );
+          expect(suspended.session!.id, stoppedId);
+        });
+      });
+
+      test('the timer path stamps the stop at the pause too', () {
+        // The real timer, on a platform that runs it. Both paths have to
+        // attribute the stop the same way or the same background produces two
+        // different durations.
+        fakeAsync((async) {
+          final timed = SessionManager(
+            appId: 'testApp1',
+            sessionTimeout: timeout,
+            generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+            onSessionEnded: (s) async => ended.add(s),
+          );
+          ended = [];
+
+          timed.startSession();
+          async.elapse(const Duration(seconds: 2));
+          timed.handleAppPaused();
+          async
+            ..elapse(timeout)
+            ..flushMicrotasks();
+
+          expect(timed.state, SessionState.stopped);
+          expect(
+            ended.single.duration,
+            const Duration(seconds: 2).inMilliseconds,
+            reason: 'not 2s + the timeout window',
+          );
+        });
       });
     });
 

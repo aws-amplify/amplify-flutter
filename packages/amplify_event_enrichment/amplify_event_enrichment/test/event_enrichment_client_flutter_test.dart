@@ -235,6 +235,37 @@ void main() {
       expect(sender.sessionEvents, isEmpty);
     });
 
+    test('create passes the initial user id and globals to the start', () async {
+      // create() resolves providers asynchronously before constructing the
+      // delegate, so the launch start is the first chance to stamp these and
+      // setUserId afterwards would already be too late for it.
+      final sender = _RecordingSender();
+      final client = await EventEnrichmentClientFlutter.create(
+        appId: 'test-app',
+        sdkMetadata: sdk,
+        sender: sender,
+        initialUserId: 'user-1',
+        initialGlobalAttributes: const {'env': 'prod'},
+        initialGlobalMetrics: const {'score': 4.5},
+      );
+      addTearDown(client.close);
+
+      final event = sender.sessionStarts.single;
+      expect(event.userId, 'user-1');
+      expect(event.attributes['env'], 'prod');
+      expect(event.metrics['score'], 4.5);
+    });
+
+    test('create leaves them absent when not supplied', () async {
+      final (client, sender) = await createClient();
+      addTearDown(client.close);
+
+      final event = sender.sessionStarts.single;
+      expect(event.userId, isNull);
+      expect(event.attributes, isEmpty);
+      expect(event.metrics, isEmpty);
+    });
+
     test('stopSession emits one stop, carrying the stopped session', () async {
       final (client, sender) = await createClient();
       addTearDown(client.close);
