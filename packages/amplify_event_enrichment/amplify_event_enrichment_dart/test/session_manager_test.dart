@@ -363,6 +363,68 @@ void main() {
           );
         });
       });
+      test('a session started while backgrounded starts paused', () {
+        // Without tracking the app's own foreground state this session would
+        // be active with no pause timestamp and no timer, so it could not time
+        // out until the next full pause/resume cycle.
+        fakeAsync((async) {
+          ended = [];
+          final timed = SessionManager(
+            appId: 'testApp1',
+            sessionTimeout: timeout,
+            generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+            onSessionEnded: (s) async => ended.add(s),
+          )
+            ..startSession()
+            ..handleAppPaused();
+
+          async
+            ..elapse(timeout)
+            ..flushMicrotasks();
+          expect(
+            timed.state,
+            SessionState.stopped,
+            reason: 'the first session timed out while backgrounded',
+          );
+
+          // Still backgrounded: nothing has resumed.
+          timed.startSession();
+
+          expect(
+            timed.state,
+            SessionState.paused,
+            reason: 'a session cannot be active while the app is not',
+          );
+          async
+            ..elapse(timeout)
+            ..flushMicrotasks();
+          expect(
+            timed.state,
+            SessionState.stopped,
+            reason: 'the second session has to be able to time out too',
+          );
+          expect(ended, hasLength(2));
+        });
+      });
+
+      test('a session started after a resume is active', () {
+        fakeAsync((async) {
+          final timed = SessionManager(
+            appId: 'testApp1',
+            sessionTimeout: timeout,
+            generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+          )
+            ..startSession()
+            ..handleAppPaused();
+
+          async.elapse(timeout);
+          timed
+            ..handleAppResumed()
+            ..startSession();
+
+          expect(timed.state, SessionState.active);
+        });
+      });
     });
 
     group('Session equality', () {
