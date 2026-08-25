@@ -561,6 +561,86 @@ void main() {
       });
     });
 
+    group('the launch start carries the initial fields', () {
+      test('when they are passed to the constructor', () async {
+        // The whole point of the parameters: the eager start emits from the
+        // constructor, so setUserId and addGlobalAttribute cannot reach it.
+        final initialSender = _RecordingSender();
+        final initialClient = EventEnrichmentClient(
+          appMetadata: app,
+          deviceMetadata: device,
+          sdkMetadata: sdk,
+          clientId: 'device-123',
+          initialUserId: 'user-1',
+          initialGlobalAttributes: const {'env': 'prod'},
+          initialGlobalMetrics: const {'score': 4.5},
+          sender: initialSender,
+          options: const EventEnrichmentClientOptions(sessionTimeout: timeout),
+        );
+        addTearDown(initialClient.close);
+        await pumpEventQueue();
+
+        final event = initialSender.sessionStarts.single;
+        expect(event.userId, 'user-1');
+        expect(event.attributes['env'], 'prod');
+        expect(event.metrics['score'], 4.5);
+      });
+
+      test('and nothing when they are not', () async {
+        // client comes from setUp, which passes none of them.
+        await pumpEventQueue();
+
+        final event = sender.sessionStarts.single;
+        expect(event.userId, isNull);
+        expect(event.attributes, isEmpty);
+        expect(event.metrics, isEmpty);
+      });
+
+      test('and they keep applying to later events', () async {
+        final initialSender = _RecordingSender();
+        final initialClient = EventEnrichmentClient(
+          appMetadata: app,
+          deviceMetadata: device,
+          sdkMetadata: sdk,
+          clientId: 'device-123',
+          initialUserId: 'user-1',
+          initialGlobalAttributes: const {'env': 'prod'},
+          sender: initialSender,
+          options: const EventEnrichmentClientOptions(sessionTimeout: timeout),
+        );
+        addTearDown(initialClient.close);
+
+        await initialClient.record('button_clicked');
+
+        final recorded = initialSender.events.last;
+        expect(recorded.eventType, 'button_clicked');
+        expect(recorded.userId, 'user-1');
+        expect(recorded.attributes['env'], 'prod');
+      });
+
+      test('and setUserId still overrides afterwards', () async {
+        final initialSender = _RecordingSender();
+        final initialClient =
+            EventEnrichmentClient(
+              appMetadata: app,
+              deviceMetadata: device,
+              sdkMetadata: sdk,
+              clientId: 'device-123',
+              initialUserId: 'user-1',
+              sender: initialSender,
+              options: const EventEnrichmentClientOptions(
+                sessionTimeout: timeout,
+              ),
+            )..setUserId('user-2');
+        addTearDown(initialClient.close);
+
+        await initialClient.record('button_clicked');
+
+        expect(initialSender.sessionStarts.single.userId, 'user-1');
+        expect(initialSender.events.last.userId, 'user-2');
+      });
+    });
+
     group('sender failures', () {
       test('are logged rather than thrown out of startSession()', () async {
         final failing = _AsyncFailingSender();
