@@ -3,7 +3,7 @@
 
 import 'package:amplify_event_enrichment/src/flutter_lifecycle_observer.dart';
 import 'package:amplify_event_enrichment/src/shared_preferences_client_id_provider.dart';
-import 'package:amplify_event_enrichment_dart/amplify_event_enrichment.dart';
+import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AmplifyLogging, Result;
 import 'package:uuid/uuid.dart';
