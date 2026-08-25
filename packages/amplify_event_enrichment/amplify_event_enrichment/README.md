@@ -51,7 +51,10 @@ your own store.
 
 Every event carries a session. Sessions follow app foreground/background
 transitions by default, and a session that has been backgrounded longer than
-`EventEnrichmentClientOptions.sessionTimeout` ends rather than resuming.
+`EventEnrichmentClientOptions.sessionTimeout` ends rather than resuming. The
+timeout is measured from the moment the app was backgrounded, so it holds on
+platforms that suspend timers while the app is in the background, and the ended
+session's duration counts foreground time only.
 
 Session boundaries are emitted through the configured `EnrichedEventSender` as events, using
 the event types legacy Amplify Analytics used for the same signals:
@@ -63,13 +66,27 @@ the event types legacy Amplify Analytics used for the same signals:
 
 Both get the same enrichment every other event gets. A start is emitted when the
 client is constructed with `autoSessionTracking` on, on an explicit
-`startSession()`, on the first `record()` if no session is running, and when a
+`startSession()`, on a `record()` that has no live session to use, and when a
 resume follows a session timeout. A stop is emitted on an explicit
 `stopSession()`, on the session timeout expiring, on `close()`, and when
 `startSession()` displaces a running session. A displacement emits the stop
 before the start, and backgrounding and foregrounding inside the timeout window
 emits nothing, since it is the same session throughout. Each session produces
 exactly one start and at most one stop.
+
+Because the launch session starts as soon as the client is created, `setUserId`
+and `addGlobalAttribute` cannot reach its `_session.start`. Pass `initialUserId`,
+`initialGlobalAttributes` and `initialGlobalMetrics` to `create()` for values
+that first event should carry:
+
+```dart
+final client = await EventEnrichmentClientFlutter.create(
+  appId: 'my-app-id',
+  sdkMetadata: SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
+  initialUserId: 'user-1',
+  initialGlobalAttributes: const {'env': 'prod'},
+);
+```
 
 `startSession()`, `stopSession()` and `close()` return a `Future` that completes
 once those events have been handed to the sender, so awaiting them means the
