@@ -42,6 +42,11 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
     final client = await EventEnrichmentClientFlutter.create(
       appId: 'example-app',
       sdkMetadata: const SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
+      // Applied before the session that starts here, so the launch
+      // "_session.start" event carries them. The buttons below use setUserId
+      // and addGlobalAttribute, which only reach events recorded after them.
+      initialUserId: 'launch-user',
+      initialGlobalAttributes: const {'env': 'prod'},
       sender: ConsoleSender(),
     );
     setState(() => _client = client);
