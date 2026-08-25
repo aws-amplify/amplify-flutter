@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 /// Represents an app session with start/stop timestamps and duration.
 /// {@endtemplate}
 @immutable
-final class Session with AWSEquatable<Session> {
+final class Session with AWSEquatable<Session>, AWSDebuggable {
   /// {@macro amplify_event_enrichment.session}
   const Session({
     required this.id,
@@ -31,4 +31,7 @@ final class Session with AWSEquatable<Session> {
 
   @override
   List<Object?> get props => [id, startTimestamp, stopTimestamp, duration];
+
+  @override
+  String get runtimeTypeName => 'Session';
 }

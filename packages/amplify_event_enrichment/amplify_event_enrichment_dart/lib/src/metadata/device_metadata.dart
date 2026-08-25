@@ -1,13 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_event_enrichment.device_metadata}
 /// Device-level metadata stamped on every event.
 /// {@endtemplate}
 @immutable
-final class DeviceMetadata {
+final class DeviceMetadata with AWSEquatable<DeviceMetadata>, AWSDebuggable {
   /// {@macro amplify_event_enrichment.device_metadata}
   const DeviceMetadata({
     this.platform,
@@ -31,4 +32,16 @@ final class DeviceMetadata {
 
   /// Device locale code (e.g. "en_US").
   final String? locale;
+
+  @override
+  List<Object?> get props => [
+    platform,
+    platformVersion,
+    manufacturer,
+    model,
+    locale,
+  ];
+
+  @override
+  String get runtimeTypeName => 'DeviceMetadata';
 }

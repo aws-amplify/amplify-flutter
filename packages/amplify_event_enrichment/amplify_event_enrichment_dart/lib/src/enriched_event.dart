@@ -6,6 +6,7 @@ import 'package:amplify_event_enrichment_dart/src/metadata/device_metadata.dart'
 import 'package:amplify_event_enrichment_dart/src/metadata/sdk_metadata.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session.dart';
 import 'package:amplify_event_enrichment_dart/src/util/serializable.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 part 'enriched_event.g.dart';
@@ -17,7 +18,7 @@ part 'enriched_event.g.dart';
 /// JSON-compatible map.
 /// {@endtemplate}
 @immutable
-final class EnrichedEvent {
+final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
   /// {@macro amplify_event_enrichment.enriched_event}
   const EnrichedEvent({
     required this.eventId,
@@ -34,6 +35,10 @@ final class EnrichedEvent {
   });
 
   /// Unique event identifier (UUID).
+  ///
+  /// Generated per event and available for local correlation, but not part of
+  /// the envelope [toJson] emits — the legacy Analytics envelope has no field
+  /// for it.
   final String eventId;
 
   /// Type of the event.
@@ -65,6 +70,24 @@ final class EnrichedEvent {
 
   /// Optional user identifier.
   final String? userId;
+
+  @override
+  List<Object?> get props => [
+    eventId,
+    eventType,
+    eventTimestamp,
+    session,
+    attributes,
+    metrics,
+    device,
+    app,
+    sdk,
+    clientId,
+    userId,
+  ];
+
+  @override
+  String get runtimeTypeName => 'EnrichedEvent';
 
   /// Version of the analytics event envelope schema, emitted as
   /// `event_version`.
