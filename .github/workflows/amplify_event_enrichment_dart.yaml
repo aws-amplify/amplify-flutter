@@ -6,7 +6,10 @@ on:
       - main
       - stable
     paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/amplify_event_enrichment_dart.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_ddc.yaml'
       - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_event_enrichment/amplify_event_enrichment_dart/**/*.dart'
       - 'packages/amplify_event_enrichment/amplify_event_enrichment_dart/**/*.yaml'
@@ -20,7 +23,10 @@ on:
       - 'packages/aws_common/pubspec.yaml'
   pull_request:
     paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/amplify_event_enrichment_dart.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_ddc.yaml'
       - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_event_enrichment/amplify_event_enrichment_dart/**/*.dart'
       - 'packages/amplify_event_enrichment/amplify_event_enrichment_dart/**/*.yaml'
