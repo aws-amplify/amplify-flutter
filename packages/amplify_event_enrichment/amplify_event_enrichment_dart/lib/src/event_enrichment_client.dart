@@ -127,6 +127,11 @@ class EventEnrichmentClient {
 
   /// Records an event and returns the enriched result.
   ///
+  /// Starts a session if none is running, and replaces one the app has been
+  /// backgrounded past the session timeout with, so an event is never
+  /// attributed to a session that has already ended. Both emit their boundary
+  /// events before this event.
+  ///
   /// Awaits the configured sender, so the returned future completes only once
   /// the event has been handed to the transport.
   ///
@@ -143,20 +148,16 @@ class EventEnrichmentClient {
     if (_closed) return const Result.error(EventEnrichmentClosedException());
 
     try {
-      // A stopped session is still exposed by the manager for inspection, so
-      // start a fresh one instead of stamping the stopped session (which
-      // carries a stop_timestamp) onto a new event. The start is awaited, so
-      // its zSessionStartEventType event reaches the sender ahead of this
-      // event. A session that already stopped emitted its stop then, so no
-      // stop is emitted here.
-      if (_sessionManager.session == null ||
-          _sessionManager.state == SessionState.stopped) {
-        await _sessionManager.startSession();
-      }
+      // The manager owns the decision: it starts a session when none is
+      // running and replaces one whose background timeout has already passed,
+      // so neither a stopped session's stop_timestamp nor a session that
+      // logically died while the app was backgrounded can land on this event.
+      // Awaited, so any boundary event it reports reaches the sender first.
+      final session = await _sessionManager.sessionForRecording();
 
       final event = _buildEvent(
         eventType,
-        _sessionManager.session!,
+        session,
         attributes: attributes,
         metrics: metrics,
       );
