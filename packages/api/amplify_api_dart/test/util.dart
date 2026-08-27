@@ -87,6 +87,19 @@ const expectedApiKeyWebSocketConnectionUrl =
 const expectedApiKeyWebSocketConnectionUrlCustomDomain =
     'wss://foo.bar.aws.dev/graphql/realtime?payload=e30%3D';
 
+// Custom domain (e.g. CloudFront) with an explicit real-time endpoint (#6877).
+const testConfigWithRealtimeUrl = DataOutputs(
+  url: 'https://custom.example.com/graphql',
+  realtimeUrl:
+      'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql',
+  awsRegion: 'us-east-1',
+  defaultAuthorizationType: APIAuthorizationType.apiKey,
+  apiKey: 'abc-123',
+  authorizationTypes: [APIAuthorizationType.apiKey],
+);
+const expectedRealtimeUrlWebSocketConnectionUrl =
+    'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?payload=e30%3D';
+
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
   final testAuthProviderRepo = AmplifyAuthProviderRepository()
     ..registerAuthProvider(

@@ -17,6 +17,7 @@ class DataOutputs
   const DataOutputs({
     required this.awsRegion,
     required this.url,
+    this.realtimeUrl,
     this.apiKey,
     required this.defaultAuthorizationType,
     required this.authorizationTypes,
@@ -32,6 +33,11 @@ class DataOutputs
   /// The AppSync endpoint URL.
   @override
   final String url;
+
+  /// Explicit real-time (WebSocket) endpoint. Use for custom domains where the
+  /// real-time host cannot be derived from [url] (e.g. CloudFront in front of AppSync).
+  @override
+  final String? realtimeUrl;
 
   /// The AppSync API Key.
   @override
@@ -56,6 +62,7 @@ class DataOutputs
   List<Object?> get props => [
     awsRegion,
     url,
+    realtimeUrl,
     apiKey,
     defaultAuthorizationType,
     authorizationTypes,

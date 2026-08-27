@@ -9,6 +9,9 @@ import 'package:amplify_core/amplify_core.dart';
 abstract interface class ApiOutputs {
   String get awsRegion;
   String get url;
+
+  /// Explicit real-time (WebSocket) endpoint, used verbatim when set.
+  String? get realtimeUrl;
   String? get apiKey;
   APIAuthorizationType get authorizationType;
   ApiType get apiType;

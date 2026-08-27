@@ -64,6 +64,16 @@ void main() {
         expectedApiKeyWebSocketConnectionUrlCustomDomain,
       );
     });
+
+    test('should use an explicit realtimeUrl when configured', () async {
+      final actualConnectionUri = await generateConnectionUri(
+        testConfigWithRealtimeUrl,
+      );
+      expect(
+        actualConnectionUri.toString(),
+        expectedRealtimeUrlWebSocketConnectionUrl,
+      );
+    });
   });
 
   group('generateSubscriptionRegistrationMessage', () {
@@ -152,6 +162,21 @@ void main() {
       expect(headers.containsKey(AWSHeaders.contentEncoding), true);
       expect(headers.containsKey(AWSHeaders.contentType), true);
       expect(headers.containsKey(AWSHeaders.host), true);
+    });
+
+    test('should use realtime-derived host when realtimeUrl is configured',
+        () async {
+      final headers = await generateAuthorizationHeaders(
+        testConfigWithRealtimeUrl,
+        isConnectionInit: true,
+        authRepo: authProviderRepo,
+        body: {},
+      );
+      // Host must be the appsync-api domain, not the realtime or custom domain.
+      expect(
+        headers[AWSHeaders.host],
+        'abc123.appsync-api.us-east-1.amazonaws.com',
+      );
     });
 
     test('should generate headers for IAM Authorization', () async {

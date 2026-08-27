@@ -39,6 +39,19 @@ Future<Uri> generateConnectionUri(ApiOutputs config) async {
   final authQueryParameters = {
     'payload': base64.encode(utf8.encode(json.encode(appSyncDefaultPayload))),
   };
+  // Use an explicitly configured real-time endpoint verbatim when provided.
+  // Required for custom domains (e.g. CloudFront) where the real-time host
+  // cannot be derived from the HTTP endpoint. See amplify-flutter#6877.
+  final realtimeUrl = config.realtimeUrl;
+  if (realtimeUrl != null) {
+    final uri = Uri.parse(realtimeUrl);
+    return Uri(
+      scheme: 'wss',
+      host: uri.host,
+      port: uri.hasPort ? uri.port : null,
+      path: uri.path,
+    ).replace(queryParameters: authQueryParameters);
+  }
   // Conditionally format the URI for a) AppSync domain b) custom domain.
   var endpointUriHost = Uri.parse(config.url).host;
   String path;
@@ -111,14 +124,25 @@ Future<Map<String, String>> generateAuthorizationHeaders(
   APIAuthorizationType? authorizationMode,
   Map<String, String>? customHeaders,
 }) async {
-  final endpointHost = Uri.parse(config.url).host;
+  // AppSync requires the "host" attribute in the WebSocket payload to be the
+  // AppSync (appsync-api) domain. When an explicit realtimeUrl is configured
+  // (e.g. custom domain), derive it from that endpoint instead of config.url.
+  final realtimeUrl = config.realtimeUrl;
+  final authUrl = realtimeUrl != null
+      ? Uri.parse(config.url).replace(
+          host: Uri.parse(
+            realtimeUrl,
+          ).host.replaceFirst(_appSyncRealtimeHostPortion, _appSyncHostPortion),
+        )
+      : Uri.parse(config.url);
+  final endpointHost = authUrl.host;
   // Create canonical HTTP request to authorize but never send.
   //
   // The canonical request URL is a little different depending on if authorizing
   // connection URI or start message (subscription registration).
   final maybeConnect = isConnectionInit ? '/connect' : '';
   final canonicalHttpRequest = AWSStreamedHttpRequest.post(
-    Uri.parse('${config.url}$maybeConnect'),
+    Uri.parse('$authUrl$maybeConnect'),
     headers: {...?customHeaders, ..._requiredHeaders},
     body: HttpPayload.json(body),
   );

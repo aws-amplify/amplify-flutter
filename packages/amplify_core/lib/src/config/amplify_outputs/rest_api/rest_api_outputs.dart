@@ -35,6 +35,10 @@ class RestApiOutputs
   @override
   final String url;
 
+  /// REST APIs have no real-time endpoint.
+  @override
+  String? get realtimeUrl => null;
+
   /// The Amazon API Gateway API Key.
   @override
   final String? apiKey;

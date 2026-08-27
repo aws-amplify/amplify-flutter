@@ -15,6 +15,7 @@ DataOutputs _$DataOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
     final val = DataOutputs(
       awsRegion: $checkedConvert('aws_region', (v) => v as String),
       url: $checkedConvert('url', (v) => v as String),
+      realtimeUrl: $checkedConvert('realtime_url', (v) => v as String?),
       apiKey: $checkedConvert('api_key', (v) => v as String?),
       defaultAuthorizationType: $checkedConvert(
         'default_authorization_type',
@@ -31,6 +32,7 @@ DataOutputs _$DataOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
   },
   fieldKeyMap: const {
     'awsRegion': 'aws_region',
+    'realtimeUrl': 'realtime_url',
     'apiKey': 'api_key',
     'defaultAuthorizationType': 'default_authorization_type',
     'authorizationTypes': 'authorization_types',
@@ -41,6 +43,7 @@ Map<String, dynamic> _$DataOutputsToJson(DataOutputs instance) =>
     <String, dynamic>{
       'aws_region': instance.awsRegion,
       'url': instance.url,
+      'realtime_url': ?instance.realtimeUrl,
       'api_key': ?instance.apiKey,
       'default_authorization_type':
           _$APIAuthorizationTypeEnumMap[instance.defaultAuthorizationType]!,
