@@ -27,7 +27,15 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
         with:
+          fetch-depth: 0
           submodules: true
+
+      - name: Verify commit is on main
+        run: |
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::Tag commit is not on main"
+            exit 1
+          fi
 
       # Flutter bundles Dart, so this covers dart and flutter packages alike.
       - name: Setup Flutter
