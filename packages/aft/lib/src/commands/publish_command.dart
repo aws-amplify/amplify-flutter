@@ -110,7 +110,10 @@ mixin PublishHelpers on AmplifyCommand {
 
   /// Runs pre-publish operations for [package], most importantly any necessary
   /// `build_runner` tasks.
-  Future<void> prePublish(PackageInfo package) async {
+  Future<void> prePublish(
+    PackageInfo package, {
+    bool runBuilders = true,
+  }) async {
     logger.info('Running pre-publish checks for ${package.name}...');
     if (!dryRun) {
       // Remove any overrides so that `pub` commands resolve against
@@ -135,7 +138,9 @@ mixin PublishHelpers on AmplifyCommand {
       stderr.write(res.stderr);
       exit(res.exitCode);
     }
-    await runBuildRunner(package, logger: logger, verbose: verbose);
+    if (runBuilders) {
+      await runBuildRunner(package, logger: logger, verbose: verbose);
+    }
   }
 
   static final _validationStartRegex = RegExp(
@@ -418,7 +423,7 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     final scheduler = PublishScheduler(
       packages: packagesNeedingPublish,
       publishPackage: (package) async {
-        await prePublish(package);
+        await prePublish(package, runBuilders: !ci);
         // The tag triggers the publish from CI, so the scheduler's wait for
         // the version to become resolvable is what orders dependents.
         if (ci) {
