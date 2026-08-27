@@ -15,6 +15,7 @@ import 'package:amplify_event_enrichment_dart/src/session/session.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session_event_types.dart';
 import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:clock/clock.dart';
 import 'package:uuid/uuid.dart';
 
 /// {@template amplify_event_enrichment.event_enrichment_client}
@@ -185,7 +186,7 @@ class EventEnrichmentClient {
   }) => EnrichedEvent(
     eventId: const Uuid().v4(),
     eventType: eventType,
-    eventTimestamp: DateTime.now().millisecondsSinceEpoch,
+    eventTimestamp: clock.now().millisecondsSinceEpoch,
     session: session,
     attributes: {..._globalFields.attributes, ...?attributes},
     metrics: {..._globalFields.metrics, ...?metrics},
