@@ -100,6 +100,28 @@ const testConfigWithRealtimeUrl = DataOutputs(
 const expectedRealtimeUrlWebSocketConnectionUrl =
     'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?payload=e30%3D';
 
+// realtimeUrl configured with an https:// scheme (should normalize to wss).
+const testConfigWithHttpsRealtimeUrl = DataOutputs(
+  url: 'https://custom.example.com/graphql',
+  realtimeUrl:
+      'https://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql',
+  awsRegion: 'us-east-1',
+  defaultAuthorizationType: APIAuthorizationType.apiKey,
+  apiKey: 'abc-123',
+  authorizationTypes: [APIAuthorizationType.apiKey],
+);
+
+// realtimeUrl configured with customer-set query params (must be preserved).
+const testConfigWithRealtimeUrlQueryParams = DataOutputs(
+  url: 'https://custom.example.com/graphql',
+  realtimeUrl:
+      'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?foo=bar&baz=qux',
+  awsRegion: 'us-east-1',
+  defaultAuthorizationType: APIAuthorizationType.apiKey,
+  apiKey: 'abc-123',
+  authorizationTypes: [APIAuthorizationType.apiKey],
+);
+
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
   final testAuthProviderRepo = AmplifyAuthProviderRepository()
     ..registerAuthProvider(

@@ -39,18 +39,16 @@ Future<Uri> generateConnectionUri(ApiOutputs config) async {
   final authQueryParameters = {
     'payload': base64.encode(utf8.encode(json.encode(appSyncDefaultPayload))),
   };
-  // Use an explicitly configured real-time endpoint verbatim when provided.
-  // Required for custom domains (e.g. CloudFront) where the real-time host
-  // cannot be derived from the HTTP endpoint. See amplify-flutter#6877.
+  // Explicitly configured realtime endpoint (e.g. custom domain, see
+  // amplify-flutter#6877): normalize scheme to wss, keep any customer-set
+  // query params, and append the payload auth param (payload overrides).
   final realtimeUrl = config.realtimeUrl;
   if (realtimeUrl != null) {
     final uri = Uri.parse(realtimeUrl);
-    return Uri(
+    return uri.replace(
       scheme: 'wss',
-      host: uri.host,
-      port: uri.hasPort ? uri.port : null,
-      path: uri.path,
-    ).replace(queryParameters: authQueryParameters);
+      queryParameters: {...uri.queryParameters, ...authQueryParameters},
+    );
   }
   // Conditionally format the URI for a) AppSync domain b) custom domain.
   var endpointUriHost = Uri.parse(config.url).host;

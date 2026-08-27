@@ -74,6 +74,31 @@ void main() {
         expectedRealtimeUrlWebSocketConnectionUrl,
       );
     });
+
+    test('should normalize an https realtimeUrl scheme to wss', () async {
+      final actualConnectionUri = await generateConnectionUri(
+        testConfigWithHttpsRealtimeUrl,
+      );
+      expect(actualConnectionUri.scheme, 'wss');
+      expect(
+        actualConnectionUri.toString(),
+        expectedRealtimeUrlWebSocketConnectionUrl,
+      );
+    });
+
+    test('should preserve realtimeUrl query params and append payload',
+        () async {
+      final actualConnectionUri = await generateConnectionUri(
+        testConfigWithRealtimeUrlQueryParams,
+      );
+      final params = actualConnectionUri.queryParameters;
+      // Customer-set query params are preserved...
+      expect(params['foo'], 'bar');
+      expect(params['baz'], 'qux');
+      // ...and the payload auth param is appended.
+      expect(params['payload'], 'e30=');
+      expect(actualConnectionUri.scheme, 'wss');
+    });
   });
 
   group('generateSubscriptionRegistrationMessage', () {
