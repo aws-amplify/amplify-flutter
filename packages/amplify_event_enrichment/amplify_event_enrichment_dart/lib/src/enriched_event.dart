@@ -34,11 +34,10 @@ final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
     this.userId,
   });
 
-  /// Unique event identifier (UUID).
+  /// Unique event identifier (UUID), generated per event.
   ///
-  /// Generated per event and available for local correlation, but not part of
-  /// the envelope [toJson] emits — the legacy Analytics envelope has no field
-  /// for it.
+  /// Available for local correlation but not emitted by [toJson]: the legacy
+  /// Analytics envelope has no field for it.
   final String eventId;
 
   /// Type of the event.
@@ -92,22 +91,14 @@ final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
   /// Version of the analytics event envelope schema, emitted as
   /// `event_version`.
   ///
-  /// "3.1" identifies the layout of the envelope (the event, application,
-  /// client, device, and session sections and their field names) so
-  /// downstream consumers can tell which schema they are parsing. Bump this
-  /// only when the envelope structure changes in a way consumers must handle;
-  /// it is independent of the package version.
+  /// Identifies the envelope layout for downstream consumers. Independent of
+  /// the package version; bump only when the envelope structure changes.
   static const _eventVersion = '3.1';
 
   /// Serializes to the analytics event envelope as a JSON-compatible map.
   ///
-  /// Encode with `jsonEncode` where a JSON string is needed.
-  ///
-  /// The envelope is not a field-for-field projection of this class — it
-  /// regroups platform name/version, renames `manufacturer` to `make`, wraps
-  /// the locale, and drops empty sections — so it is modelled as its own set
-  /// of generated classes in this file that this method builds and delegates
-  /// to.
+  /// The envelope regroups and renames fields (e.g. `manufacturer` to
+  /// `make`), so it is modelled by its own generated classes below.
   Map<String, dynamic> toJson() => _envelope().toJson();
 
   _Envelope _envelope() {
