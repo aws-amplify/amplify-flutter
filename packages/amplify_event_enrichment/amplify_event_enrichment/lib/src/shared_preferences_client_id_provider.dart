@@ -8,12 +8,7 @@ import 'package:uuid/uuid.dart';
 /// {@template amplify_event_enrichment.client_id_provider}
 /// Provides the persistent client ID stamped on every enriched event.
 ///
-/// Implement this to source the ID from somewhere other than the default
-/// [SharedPreferencesClientIdProvider] — for example a keychain-backed store,
-/// or a fixed value in tests.
-///
-/// The ID is expected to be stable for the lifetime of the install: returning
-/// a new value on each call makes one device look like many.
+/// The ID must be stable for the lifetime of the install.
 /// {@endtemplate}
 // ignore: one_member_abstracts
 abstract interface class ClientIdProvider {
@@ -22,12 +17,11 @@ abstract interface class ClientIdProvider {
 }
 
 /// {@template amplify_event_enrichment.shared_preferences_client_id_provider}
-/// Reads or creates a persistent client ID from SharedPreferences.
+/// Reads or creates a persistent client ID at [zClientIdStorageKey] in
+/// SharedPreferences.
 ///
-/// Uses read-or-create semantics: if a non-empty value exists at
-/// [zClientIdStorageKey], it is returned. Otherwise a new UUID v4 is
-/// generated, persisted, and returned. Whichever of enrichment/Connect
-/// initializes first generates the UUID; the other reads it.
+/// The Connect client uses the same key, so whichever package initializes
+/// first generates the UUID and the other reads it.
 /// {@endtemplate}
 class SharedPreferencesClientIdProvider implements ClientIdProvider {
   /// {@macro amplify_event_enrichment.shared_preferences_client_id_provider}

@@ -3,17 +3,11 @@
 
 /// SharedPreferences key for the persistent client/device ID.
 ///
-/// This value is a cross-package integration contract: the Connect client reads
-/// and writes the same key in the same store with the same read-or-create
-/// semantics, so both Flutter packages resolve the identical id for a device.
-/// Whichever package initializes first generates the UUID; the other reads it.
+/// The Connect client reads and writes the same key with the same
+/// read-or-create semantics, so both packages resolve one ID per device.
+/// `shared_preferences` prefixes stored keys with `flutter.`, so the ID is
+/// shared across Flutter packages but not with native Amplify SDKs.
 ///
-/// Note: `shared_preferences` namespaces keys internally (a `flutter.` prefix
-/// on the stored entry), so the id is shared across Flutter packages in an app,
-/// but not with native Amplify SDKs reading the raw platform store — a hybrid
-/// app embedding both would resolve two ids, each stable per install.
-///
-/// Changing this key re-mints an id for every existing install, which registers
-/// those devices a second time on the backend, so it must stay in lockstep
-/// across packages.
+/// Changing this key re-mints the ID for existing installs, so it must stay
+/// in lockstep across packages.
 const zClientIdStorageKey = 'com.amplifyframework.device_id';
