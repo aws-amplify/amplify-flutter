@@ -270,11 +270,13 @@ void main() {
           async.flushMicrotasks();
 
           expect(ended.map((s) => s.id), [first.id]);
-          expect(started.map((s) => s.id), [
-            first.id,
-            suspended.session!.id,
-          ], reason: 'the stop must be reported before the start that replaced '
-              'it');
+          expect(
+            started.map((s) => s.id),
+            [first.id, suspended.session!.id],
+            reason:
+                'the stop must be reported before the start that replaced '
+                'it',
+          );
         });
       });
 
@@ -291,8 +293,72 @@ void main() {
           expect(
             ended.single.duration,
             const Duration(seconds: 2).inMilliseconds,
-            reason: 'the session went inactive when the app backgrounded, so '
+            reason:
+                'the session went inactive when the app backgrounded, so '
                 'the 20 minutes in the background are not session time',
+          );
+        });
+      });
+
+      test('an explicit stop while paused is stamped at the pause', () {
+        fakeAsync((async) {
+          final suspended = suspendedTimerManager()..startSession();
+
+          async.elapse(const Duration(seconds: 2));
+          suspended.handleAppPaused();
+          async.elapse(const Duration(seconds: 1));
+          suspended.stopSession();
+          async.flushMicrotasks();
+
+          expect(
+            ended.single.duration,
+            const Duration(seconds: 2).inMilliseconds,
+            reason:
+                'the session went inactive at the pause, so a stop while '
+                'still backgrounded does not extend it',
+          );
+        });
+      });
+
+      test('an explicit stop during a pause past the timeout is stamped at '
+          'the pause', () {
+        fakeAsync((async) {
+          final suspended = suspendedTimerManager()..startSession();
+
+          async.elapse(const Duration(seconds: 2));
+          suspended.handleAppPaused();
+          async.elapse(background);
+          suspended.stopSession();
+          async.flushMicrotasks();
+
+          expect(
+            ended.single.duration,
+            const Duration(seconds: 2).inMilliseconds,
+            reason:
+                'a stop that only lands after the timeout must make the '
+                'same attribution the timeout paths make',
+          );
+        });
+      });
+
+      test('an explicit stop while active is stamped at the stop', () {
+        fakeAsync((async) {
+          final suspended = suspendedTimerManager()..startSession();
+
+          async.elapse(const Duration(seconds: 2));
+          suspended.handleAppPaused();
+          async.elapse(const Duration(seconds: 1));
+          suspended.handleAppResumed();
+          async.elapse(const Duration(seconds: 2));
+          suspended.stopSession();
+          async.flushMicrotasks();
+
+          expect(
+            ended.single.duration,
+            const Duration(seconds: 5).inMilliseconds,
+            reason:
+                'a resumed session is active again, so its stop is '
+                'measured to now, background dwell included',
           );
         });
       });
@@ -369,14 +435,15 @@ void main() {
         // out until the next full pause/resume cycle.
         fakeAsync((async) {
           ended = [];
-          final timed = SessionManager(
-            appId: 'testApp1',
-            sessionTimeout: timeout,
-            generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
-            onSessionEnded: (s) async => ended.add(s),
-          )
-            ..startSession()
-            ..handleAppPaused();
+          final timed =
+              SessionManager(
+                  appId: 'testApp1',
+                  sessionTimeout: timeout,
+                  generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+                  onSessionEnded: (s) async => ended.add(s),
+                )
+                ..startSession()
+                ..handleAppPaused();
 
           async
             ..elapse(timeout)
@@ -409,13 +476,14 @@ void main() {
 
       test('a session started after a resume is active', () {
         fakeAsync((async) {
-          final timed = SessionManager(
-            appId: 'testApp1',
-            sessionTimeout: timeout,
-            generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
-          )
-            ..startSession()
-            ..handleAppPaused();
+          final timed =
+              SessionManager(
+                  appId: 'testApp1',
+                  sessionTimeout: timeout,
+                  generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+                )
+                ..startSession()
+                ..handleAppPaused();
 
           async.elapse(timeout);
           timed
