@@ -173,6 +173,11 @@ Future<T> retryOnUsernameExists<T>(
           !e.toString().contains('UsernameExistsException')) {
         rethrow;
       }
+      // TEMP DIAG (verify branch only): confirm the retry actually fired.
+      safePrint(
+        'DIAG retryOnUsernameExists: attempt $attempt hit '
+        'UsernameExistsException, regenerating and retrying',
+      );
     }
   }
 }
