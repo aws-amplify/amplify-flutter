@@ -51,19 +51,43 @@ jobs:
       - name: Install aft
         run: dart pub global activate -spath packages/aft
 
-      # aft resolves the tag to a package in the workspace.
-      # `grep -o` drops any `pub`/SDK chatter that lands on stdout.
+      # aft resolves the tag to a package in the workspace. Parse its exact
+      # three-line output without evaluating it as shell code.
       - name: Resolve package
         id: package
         run: |
           set -eo pipefail
+          fail() {
+            echo "::error::$1"
+            exit 1
+          }
+
           TAG="${GITHUB_REF#refs/tags/}"
-          aft locate-package "$TAG" --format=env \
-            | grep -oE '(name|version|path)=[^[:space:]]+' \
-            > "$RUNNER_TEMP/package.env"
-          . "$RUNNER_TEMP/package.env"
-          : "${name:?aft reported no package name}"
-          : "${version:?aft reported no package version}"
+          metadata=$(aft locate-package "$TAG" --format=env)
+          fields=()
+          while IFS= read -r line; do
+            fields+=("$line")
+          done <<< "$metadata"
+          [ "${#fields[@]}" -eq 3 ] \
+            || fail "aft reported unexpected package metadata"
+
+          [[ "${fields[0]}" =~ ^name=([a-z][a-z0-9_]*)$ ]] \
+            || fail "aft reported an invalid package name"
+          name=${BASH_REMATCH[1]}
+          [[ "${fields[1]}" =~ ^version=([0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?)$ ]] \
+            || fail "aft reported an invalid package version"
+          version=${BASH_REMATCH[1]}
+          [[ "${fields[2]}" =~ ^path=([A-Za-z0-9._/-]+)$ ]] \
+            || fail "aft reported an invalid package path"
+          path=${BASH_REMATCH[1]}
+          if [[ "$path" == /* ]] \
+            || [[ "$path" == *"//"* ]] \
+            || [[ "/$path/" == *"/../"* ]] \
+            || [[ "/$path/" == *"/./"* ]]; then
+            fail "aft reported an invalid package path"
+          fi
+          [ -f "$path/pubspec.yaml" ] \
+            || fail "aft reported a package path without a pubspec"
 
           # aft publishes the pubspec's version, not the tag's, so a tag which
           # disagrees with it would publish a version nobody asked for.
