@@ -9,18 +9,6 @@ class EchoWorkerImpl extends EchoWorker {
   String get name => 'EchoWorker';
 
   @override
-  String get jsEntrypoint {
-    // Flutter web release builds must use the bundled asset.
-    if (zIsFlutter && !zDebugMode) {
-      return 'assets/packages/worker_bee_example/lib/workers.min.js';
-    }
-    // Default to the compiled, published worker.
-    return zDebugMode
-        ? 'packages/worker_bee_example/workers.js'
-        : 'packages/worker_bee_example/workers.min.js';
-  }
-
-  @override
   List<String> get fallbackUrls {
     // When running in a test, we need to find the `packages` directory which
     // is symlinked in the root `test/` directory.
@@ -29,15 +17,25 @@ class EchoWorkerImpl extends EchoWorker {
         .takeWhile((segment) => segment != 'test')
         .map(Uri.encodeComponent)
         .join('/');
-    const relativePath = zDebugMode
-        ? 'packages/worker_bee_example/workers.debug.dart.js'
-        : 'packages/worker_bee_example/workers.release.dart.js';
-    final testRelativePath = Uri(
-      scheme: baseUri.scheme,
-      host: baseUri.host,
-      port: baseUri.port,
-      path: '$basePath/test/$relativePath',
-    ).toString();
-    return [relativePath, testRelativePath];
+    const relativePaths = zDebugMode
+        ? [
+            'packages/worker_bee_example/workers.js',
+            'packages/worker_bee_example/workers.debug.dart.js',
+          ]
+        : [
+            'packages/worker_bee_example/workers.min.js',
+            'packages/worker_bee_example/workers.release.dart.js',
+          ];
+    return [
+      for (final relativePath in relativePaths) ...[
+        relativePath,
+        Uri(
+          scheme: baseUri.scheme,
+          host: baseUri.host,
+          port: baseUri.port,
+          path: '$basePath/test/$relativePath',
+        ).toString(),
+      ],
+    ];
   }
 }

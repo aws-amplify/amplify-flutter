@@ -133,7 +133,7 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
     final store = database.getObjectStore(storeName);
     try {
       final result = store.get(key.toJS).future;
-      return result.then((value) => (value as JSString?)?.toDart);
+      return await result.then((value) => (value as JSString?)?.toDart);
     } on Object catch (e) {
       throw SecureStorageException(e.toString());
     }

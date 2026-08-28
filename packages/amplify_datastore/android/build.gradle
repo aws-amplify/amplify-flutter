@@ -2,7 +2,6 @@ group 'com.amazonaws.amplify.amplify_datastore'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '2.2.0'
     repositories {
         mavenLocal()
         google()
@@ -13,8 +12,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.13.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:8.11.1'
         classpath 'org.jlleitschuh.gradle:ktlint-gradle:14.2.0'
     }
 }
@@ -28,7 +26,18 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+
+// Apply the Kotlin plugin unless the consuming app has AGP's built-in Kotlin
+// enabled (AGP 9+ with android.builtInKotlin=true), where applying it is an
+// error. This keeps already-released versions of this package building across
+// a future Flutter that turns built-in Kotlin on. Fully dropping the apply
+// (built-in Kotlin migration, #7014) lands once the Flutter floor is 3.47+.
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = project.findProperty('android.builtInKotlin')?.toString()?.toBoolean() ?: false
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'kotlin-android'
+}
+
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
@@ -60,10 +69,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    
-    kotlinOptions {
-        jvmTarget = '17'
-    }
 
     testOptions {
         unitTests {
@@ -77,24 +82,30 @@ android {
 dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
 
-    implementation 'com.amplifyframework:aws-auth-cognito:2.35.0'
-    implementation "com.amplifyframework:aws-api:2.35.0"
-    implementation "com.amplifyframework:aws-datastore:2.35.0"
-    implementation "com.amplifyframework:aws-api-appsync:2.35.0"
-    implementation 'com.google.code.gson:gson:2.13.1'
+    implementation 'com.amplifyframework:aws-auth-cognito:2.39.0'
+    implementation "com.amplifyframework:aws-api:2.39.0"
+    implementation "com.amplifyframework:aws-datastore:2.39.0"
+    implementation "com.amplifyframework:aws-api-appsync:2.39.0"
+    implementation 'com.google.code.gson:gson:2.14.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.23.0'
     testImplementation 'org.mockito:mockito-inline:5.2.0'
     testImplementation 'androidx.test:core:1.7.0'
-    testImplementation 'com.google.code.gson:gson:2.13.1'
+    testImplementation 'com.google.code.gson:gson:2.14.0'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2'
 
     // Tests must be updated if bumped
     //noinspection GradleDependency
     testImplementation 'org.robolectric:robolectric:4.16.1'
-    testImplementation 'com.fasterxml.jackson.core:jackson-core:2.21.0'
-    testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.21'
-    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.21.0'
+    testImplementation 'com.fasterxml.jackson.core:jackson-core:2.22.0'
+    testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.22'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.22.0'
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
 }

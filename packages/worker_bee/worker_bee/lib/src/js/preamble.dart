@@ -63,6 +63,11 @@ Future<WorkerAssignment> getWorkerAssignment() async {
     jsOnMessageCallback = onMessageCallback.toJS;
 
     self.addEventListener('message', jsOnMessageCallback);
+
+    // Now listening — tell the spawner it's safe to send the assignment.
+    // ignore: cascade_invocations
+    self.postMessage(workerOnlineSignal.toJS);
+
     return assignmentCompleter.future;
   }, onError: onError);
 }

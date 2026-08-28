@@ -24,6 +24,14 @@ import 'util.dart';
 void testGlobalCallbackFunction(PushNotificationMessage pushMessage) {}
 Future<void> testBackgroundProcessor() async {}
 
+/// Runs [body] as if on iOS. `configure()` now guards on the OS being
+/// iOS/Android, so tests that would otherwise run as the host OS (macOS/Linux
+/// on CI) must declare a supported platform. iOS is used because it skips the
+/// Android-only background-processor registration these tests don't set up —
+/// matching the previous behaviour when they ran on the macOS host.
+Future<T> onMobilePlatform<T>(Future<T> Function() body) =>
+    overrideOperatingSystem(OperatingSystem('ios', ''), body);
+
 @GenerateMocks([
   PushNotificationsHostApi,
   ServiceProviderClient,
@@ -93,9 +101,11 @@ void main() {
         mockPushNotificationsHostApi.getLaunchNotification(),
       ).thenAnswer((_) async => standardAndroidPushMessage.cast());
 
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: config,
+      await onMobilePlatform(
+        () => plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: config,
+        ),
       );
 
       verify(mockPushNotificationsHostApi.requestInitialToken()).called(1);
@@ -114,9 +124,11 @@ void main() {
           mockPushNotificationsHostApi.getLaunchNotification(),
         ).thenAnswer((_) async => standardAndroidPushMessage.cast());
 
-        await plugin.configure(
-          authProviderRepo: authProviderRepo,
-          config: config,
+        await onMobilePlatform(
+          () => plugin.configure(
+            authProviderRepo: authProviderRepo,
+            config: config,
+          ),
         );
 
         verify(mockPushNotificationsHostApi.requestInitialToken()).called(1);
@@ -161,9 +173,11 @@ void main() {
         backgroundProcessor: testBackgroundProcessor,
         dependencyManager: dependencyManager,
       );
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: config,
+      await onMobilePlatform(
+        () => plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: config,
+        ),
       );
 
       await testWidgetsFlutterBinding.defaultBinaryMessenger
@@ -199,6 +213,30 @@ void main() {
       ).called(1);
     });
   });
+  group('unsupported platforms', () {
+    // Push has no implementation beyond iOS/Android; configure() must fail fast
+    // with a clear message instead of a cryptic MissingPluginException.
+    for (final osId in ['macos', 'windows', 'linux', 'fuchsia']) {
+      test('configure() throws on $osId', () async {
+        await overrideOperatingSystem(OperatingSystem(osId, ''), () async {
+          await expectLater(
+            plugin.configure(
+              authProviderRepo: authProviderRepo,
+              config: config,
+            ),
+            throwsA(
+              isA<PushNotificationException>().having(
+                (e) => e.message,
+                'message',
+                contains('only supported on iOS and Android'),
+              ),
+            ),
+          );
+        });
+      });
+    }
+  });
+
   group('Config failure cases', () {
     test(
       'should throw exception when configuring if there is no appId present',
@@ -206,16 +244,18 @@ void main() {
         final config = AmplifyOutputs.fromJson(
           jsonDecode(amplifyConfigNoPushNotification) as Map<String, Object?>,
         );
-        expect(
-          () async => plugin.configure(
-            authProviderRepo: authProviderRepo,
-            config: config,
-          ),
-          throwsA(
-            isA<PushNotificationException>().having(
-              (e) => e.message,
-              'No config',
-              contains('No Pinpoint plugin'),
+        await onMobilePlatform(
+          () async => expect(
+            () async => plugin.configure(
+              authProviderRepo: authProviderRepo,
+              config: config,
+            ),
+            throwsA(
+              isA<PushNotificationException>().having(
+                (e) => e.message,
+                'No config',
+                contains('No Pinpoint plugin'),
+              ),
             ),
           ),
         );
@@ -277,9 +317,11 @@ void main() {
         AmplifyLogger.category(
           Category.pushNotifications,
         ).registerPlugin(loggerPlugin);
-        await plugin.configure(
-          authProviderRepo: authProviderRepo,
-          config: config,
+        await onMobilePlatform(
+          () => plugin.configure(
+            authProviderRepo: authProviderRepo,
+            config: config,
+          ),
         );
         expect(loggerPlugin.logs.length, 1);
         expect(loggerPlugin.logs.first.level, LogLevel.error);
@@ -309,16 +351,18 @@ void main() {
               (_) {},
             );
       });
-      expect(
-        () async => plugin.configure(
-          authProviderRepo: authProviderRepo,
-          config: config,
-        ),
-        throwsA(
-          isA<PushNotificationException>().having(
-            (e) => e.message,
-            'token message',
-            contains('device token'),
+      await onMobilePlatform(
+        () async => expect(
+          () async => plugin.configure(
+            authProviderRepo: authProviderRepo,
+            config: config,
+          ),
+          throwsA(
+            isA<PushNotificationException>().having(
+              (e) => e.message,
+              'token message',
+              contains('device token'),
+            ),
           ),
         ),
       );
@@ -346,9 +390,11 @@ void main() {
               (_) {},
             );
       });
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: config,
+      await onMobilePlatform(
+        () => plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: config,
+        ),
       );
     });
     test('getPermissionStatus returns a permission status', () async {
@@ -444,9 +490,11 @@ void main() {
               (_) {},
             );
       });
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: config,
+      await onMobilePlatform(
+        () => plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: config,
+        ),
       );
     });
     test('identifyUser', () {
@@ -546,7 +594,10 @@ void main() {
       mockPushNotificationsHostApi.getLaunchNotification(),
     ).thenAnswer((_) async => standardAndroidPushMessage.cast());
 
-    await plugin.configure(authProviderRepo: authProviderRepo, config: config);
+    await onMobilePlatform(
+      () =>
+          plugin.configure(authProviderRepo: authProviderRepo, config: config),
+    );
 
     expect(
       plugin.launchNotification?.title,

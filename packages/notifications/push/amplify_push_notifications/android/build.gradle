@@ -2,15 +2,14 @@ group 'com.amazonaws.amplify.amplify_push_notifications'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '2.2.0'
+    ext.kotlin_version = '2.2.20'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.13.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:8.11.1'
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 }
@@ -23,21 +22,28 @@ allprojects {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+
+// Apply the Kotlin plugin unless the consuming app has AGP's built-in Kotlin
+// enabled (AGP 9+ with android.builtInKotlin=true), where applying it is an
+// error. This keeps already-released versions of this package building across
+// a future Flutter that turns built-in Kotlin on. Fully dropping the apply
+// (built-in Kotlin migration, #7014) lands once the Flutter floor is 3.47+.
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = project.findProperty('android.builtInKotlin')?.toString()?.toBoolean() ?: false
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'kotlin-android'
+}
+
 apply plugin: 'kotlinx-serialization'
 
 android {
-    compileSdk 34
+    compileSdk 36
 
     compileOptions {
         coreLibraryDesugaringEnabled true
 
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = '17'
     }
 
     sourceSets {
@@ -67,7 +73,7 @@ android {
 dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
     
-    implementation(platform("com.google.firebase:firebase-bom:34.12.0"))
+    implementation(platform("com.google.firebase:firebase-bom:34.17.0"))
     api "com.google.firebase:firebase-messaging"
 
     // Import support library for Amplify push utils
@@ -75,6 +81,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0"
     implementation project(path: ':flutter_plugin_android_lifecycle')
     implementation 'androidx.test:core-ktx:1.7.0'
+    implementation 'androidx.work:work-runtime-ktx:2.10.1'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'io.mockk:mockk:1.14.4'
@@ -82,5 +89,12 @@ dependencies {
     testImplementation 'org.slf4j:slf4j-nop:2.0.7'
     testImplementation 'org.robolectric:robolectric:4.16.1'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2'
+    testImplementation 'androidx.work:work-testing:2.10.1'
 
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
 }

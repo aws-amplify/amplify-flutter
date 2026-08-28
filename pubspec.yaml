@@ -3,8 +3,8 @@ publish_to: none
 
 # The current constraints for Dart and Flutter SDKs.
 environment:
-  sdk: ^3.10.0
-  flutter: ">=3.38.1"
+  sdk: ^3.11.0
+  flutter: ">=3.41.0"
 
 # Global dependency versions for third-party dependencies of
 # Amplify Flutter projects. These represent the values which
@@ -25,8 +25,8 @@ dependencies:
   # on stable so that CI checks pass for generated code.
   dart_style: ^3.0.1
   device_info_plus: ^13.1.0
-  drift: ^2.25.0
-  drift_dev: ^2.25.1
+  drift: ^2.34.0
+  drift_dev: ^2.34.0
   ffigen: ^9.0.0
   file: ^7.0.1
   flutter_plugin_android_lifecycle: ^2.0.9
@@ -38,13 +38,13 @@ dependencies:
   mime: ^2.0.0
   oauth2: ^2.0.2
   package_info_plus: ^10.1.0
-  pigeon: ^26.0.0
-  sqlite3: ^2.7.6
+  pigeon: ^27.1.0
+  sqlite3: ^3.1.5
   source_gen: ^4.0.0
   stack_trace: ^1.10.0
   uuid: ^4.5.1
   win32: ^6.0.1
-  xml: ^6.5.0
+  xml: ^7.0.0
   test: ^1.22.1
 
 aft:
@@ -71,6 +71,7 @@ aft:
       summary: amplify_flutter
       packages:
         - amplify_flutter
+        - amplify_connect_client
         - amplify_core
         - amplify_datastore
         - amplify_datastore_plugin_interface
@@ -103,14 +104,28 @@ aft:
         - amplify_secure_storage_dart
     - name: Kinesis
       summary: amplify_kinesis
+      # The Flutter and Dart packages are on independent version lines
+      # (2.x and 0.x). Propagating would bump the Dart package to 2.x.
+      propagate: none
       packages:
         - amplify_kinesis
         - amplify_kinesis_dart
     - name: Firehose
       summary: amplify_firehose
+      # The Flutter and Dart packages are on independent version lines
+      # (2.x and 0.x). Propagating would bump the Dart package to 2.x.
+      propagate: none
       packages:
         - amplify_firehose
         - amplify_firehose_dart
+    - name: Connect
+      summary: amplify_connect_client
+      # The Flutter and Dart packages are on independent version lines
+      # (2.x and 0.x). Propagating would bump the Dart package to 2.x.
+      propagate: none
+      packages:
+        - amplify_connect_client
+        - amplify_connect_client_dart
     - name: AWS Common
       summary: aws_common
       propagate: none
@@ -127,6 +142,15 @@ aft:
       packages:
         - worker_bee
         - worker_bee_builder
+    - name: Foundation Dart
+      packages:
+        - amplify_foundation_dart
+    - name: Foundation Dart Bridge
+      packages:
+        - amplify_foundation_dart_bridge
+    - name: Record Cache Dart
+      packages:
+        - amplify_record_cache_dart
 
   # Scripts which are runnable via `aft run <script-name>`.
   scripts:

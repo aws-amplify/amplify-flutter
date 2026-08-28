@@ -1,3 +1,22 @@
+## 0.5.21
+
+### Features
+- feat: Add iOS 27 support ([#7239](https://github.com/aws-amplify/amplify-flutter/pull/7239))
+
+## 0.5.20
+
+- Minor bug fixes and improvements
+
+## 0.5.19
+
+### Features
+- feat(secure_storage): Add wasm support ([#7094](https://github.com/aws-amplify/amplify-flutter/pull/7094))
+
+## 0.5.18
+
+### Features
+- feat(secure_storage): Add Swift Package Manager support to amplify_secure_storage ([#6848](https://github.com/aws-amplify/amplify-flutter/pull/6848))
+
 ## 0.5.17
 
 - Minor bug fixes and improvements

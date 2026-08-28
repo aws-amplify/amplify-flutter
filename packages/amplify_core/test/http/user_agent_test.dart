@@ -21,15 +21,15 @@ void main() {
       expect(osIdentifier, matches(RegExp(r'^Safari/[\d\.]+$')));
     });
 
-    test('Windows', testOn: 'windows', () {
+    test('Windows', testOn: 'vm && windows', () {
       expect(osIdentifier, matches(RegExp(r'^windows/[\d\.]+$')));
     });
 
-    test('macOS', testOn: 'mac-os', () {
+    test('macOS', testOn: 'vm && mac-os', () {
       expect(osIdentifier, matches(RegExp(r'^macos/[\d\.]+$')));
     });
 
-    test('Linux', testOn: 'linux', () {
+    test('Linux', testOn: 'vm && linux', () {
       expect(osIdentifier, matches(RegExp(r'^linux/[\d\.]+$')));
     });
   });

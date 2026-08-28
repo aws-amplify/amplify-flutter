@@ -883,19 +883,15 @@ void main() {
           ),
         );
 
-        final captured = verify(
+        // Named-arg capture order isn't stable across compilers, so match
+        // source/destination concretely and capture only options.
+        final capturedOptions = verify(
           () => storageS3Service.copy(
-            source: captureAny<StoragePath>(named: 'source'),
-            destination: captureAny<StoragePath>(named: 'destination'),
+            source: testSource,
+            destination: testDestination,
             options: captureAny<StorageCopyOptions>(named: 'options'),
           ),
-        ).captured;
-        final capturedSource = captured[0];
-        final capturedDestination = captured[1];
-        final capturedOptions = captured[2];
-
-        expect(capturedSource, testSource);
-        expect(capturedDestination, testDestination);
+        ).captured.last;
 
         expect(
           capturedOptions,

@@ -40,14 +40,25 @@ jobs:
       - name: Enable Long Git Paths
         run: git config --system core.longpaths true
 
+      - name: Mitigate Windows Network & Disk Bottlenecks
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          # 1. Force disable real-time monitoring for the job duration
+          Set-MpPreference -DisableRealtimeMonitoring $true -ErrorAction SilentlyContinue
+          # 2. Exclude your exact workspace path from active scans
+          Set-MpPreference -ExclusionPath "${{ github.workspace }}" -ErrorAction SilentlyContinue
+          # 3. Aggressively lower TCP timed-out port reuse limits (helps local socket recycling)
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'TcpTimedWaitDelay' -Value 30 -ErrorAction SilentlyContinue
+
       - name: Git Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
 
       - name: Git Submodules
         run: git submodule update --init
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@03a180dbe1de8ea7fb700663cbb7d24ca4bbe82c # main
+        uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1 # main
         with:
           sdk: stable
 
@@ -72,7 +83,9 @@ jobs:
       - name: Bootstrap
         id: bootstrap
         timeout-minutes: 20
-        run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
+        # Example apps aren't needed here, and `--no-example` avoids
+        # resolving a Dart package's Flutter example without a Flutter SDK.
+        run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --no-example --verbose
 
       - name: Setup Package
         if: "always() && steps.bootstrap.conclusion == 'success'"

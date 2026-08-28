@@ -612,10 +612,7 @@ class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
       onPressed: state.skipVerifyUser,
       child: Text(
         stringResolver.buttons.skip(context),
-        style: TextStyle(
-          fontSize: AuthenticatorButtonConstants.fontSize,
-          color: Theme.of(context).primaryColor,
-        ),
+        style: const TextStyle(fontSize: AuthenticatorButtonConstants.fontSize),
       ),
     );
   }

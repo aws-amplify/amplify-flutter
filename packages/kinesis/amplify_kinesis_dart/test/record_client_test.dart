@@ -6,6 +6,9 @@
 /// Uses mocktail mocks for KinesisSender with pre-built SendResult
 /// values and explicit IDs, rather than behavioral test doubles with
 /// callback logic.
+///
+/// Uses [createTestStorage] (SQLite on VM, in-memory on web) since the
+/// batching/retry logic is storage-agnostic.
 library;
 
 import 'dart:typed_data';
@@ -17,18 +20,16 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'common/mocktail_mocks.dart';
-import 'helpers/test_database.dart';
+import 'helpers/test_storage.dart';
 
 void main() {
   group('RecordClient', () {
-    late SqliteRecordStorage storage;
+    late RecordStorage storage;
     late MockKinesisSender mockSender;
     late RecordClient client;
 
     setUp(() {
-      final db = createTestDatabase();
-      storage = SqliteRecordStorage(
-        database: db,
+      storage = createTestStorage(
         maxCacheBytes: 1024,
         maxRecordsPerBatch: 500,
         maxBytesPerBatch: 10 * 1024 * 1024,

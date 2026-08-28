@@ -7,6 +7,7 @@ import 'package:actions/actions.dart';
 import 'package:actions/src/android/android_tool.dart';
 import 'package:actions/src/android/avd_manager.dart';
 import 'package:actions/src/android/types.dart';
+import 'package:actions/src/node/process_manager.dart';
 import 'package:path/path.dart' as p;
 
 final androidHome =
@@ -26,7 +27,7 @@ final class SdkManager {
   /// The `sdkmanager` too.
   ///
   /// CLI Reference: https://developer.android.com/tools/sdkmanager
-  static final _sdkmanager = AndroidTool(
+  static final _sdkmanagerTool = AndroidTool(
     'sdkmanager',
     defaultArgs: [
       '--channel=0', // Use stable channel
@@ -36,6 +37,37 @@ final class SdkManager {
     // for accepting licenses.
     defaultStdinCmd: 'yes',
   );
+
+  /// The number of times to attempt a single `sdkmanager` invocation before
+  /// giving up.
+  static const _sdkmanagerMaxAttempts = 3;
+
+  /// Runs `sdkmanager` with [args], retrying on failure.
+  ///
+  /// `sdkmanager` does not validate the `Content-Length` of the archives it
+  /// downloads, so a stalled or truncated transfer of a large package surfaces
+  /// as `Error on ZipFile unknown archive` followed by a non-zero exit (a
+  /// [ProcessException]). The failure follows whichever package is the largest
+  /// single download, so retrying any failed invocation lets a later attempt
+  /// re-download the package. A genuinely broken install still fails the job
+  /// once all attempts are exhausted.
+  static Future<ProcessResult> _sdkmanager(List<String> args) async {
+    for (var attempt = 1; ; attempt++) {
+      try {
+        return await _sdkmanagerTool(args);
+      } on Object catch (error) {
+        if (attempt >= _sdkmanagerMaxAttempts) {
+          rethrow;
+        }
+        core.warning(
+          'sdkmanager ${args.join(' ')} failed '
+          '(attempt $attempt/$_sdkmanagerMaxAttempts), retrying in 5s...\n'
+          '$error',
+        );
+        await Future<void>.delayed(const Duration(seconds: 5));
+      }
+    }
+  }
 
   /// The current `compileSdk` used by the repo.
   // TODO(dnys1): Extract from aft.yaml?
@@ -162,6 +194,21 @@ final class SdkManager {
       },
     );
 
+    // Install the emulator BEFORE the system image. For some API levels
+    // (e.g. 35/36) the system image manifest declares a
+    // `<dependency path="emulator">`, so `sdkmanager system-images;...`
+    // performs a single combined download of both the emulator (~316MB) and
+    // the system image (~1.66GB). That oversized combined transfer stalls and
+    // truncates the emulator zip, producing `Error on ZipFile unknown archive`
+    // and failing CI. Installing the emulator standalone first registers it in
+    // packages.xml so the later system-image install won't re-trigger the
+    // combined download.
+    await core.withGroup('Install/update emulator', () async {
+      const packageName = 'emulator';
+      await _sdkmanager([packageName]);
+      core.info('Successfully installed $packageName');
+    });
+
     final targetTriplet = '$apiLevel;$target;$abi';
     await core.withGroup(
       'Install/update system images ($targetTriplet)',
@@ -171,11 +218,5 @@ final class SdkManager {
         core.info('Successfully installed $packageName');
       },
     );
-
-    await core.withGroup('Install/update emulator', () async {
-      const packageName = 'emulator';
-      await _sdkmanager([packageName]);
-      core.info('Successfully installed $packageName');
-    });
   }
 }

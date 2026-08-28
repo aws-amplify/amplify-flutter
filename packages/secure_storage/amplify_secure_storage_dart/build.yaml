@@ -18,9 +18,13 @@ targets:
         generate_for:
           - lib/src/worker/*.debug.dart
         options:
-          compiler: dart2js
-          dart2js_args:
-            - --no-minify
+          compilers:
+            dart2js:
+              args:
+                - --no-minify
+            dart2wasm:
+              args:
+                - --no-minify
     dependencies:
       - $default
   release:
@@ -33,10 +37,15 @@ targets:
         generate_for:
           - lib/src/worker/*.release.dart
         options:
-          compiler: dart2js
-          dart2js_args:
-            - -O2
-            - --define=dart.vm.product=true
+          compilers:
+            dart2js:
+              args:
+                - -O2
+                - --define=dart.vm.product=true
+            dart2wasm:
+              args:
+                - -O2
+                - --define=dart.vm.product=true
     dependencies:
       - $default
   workers:
@@ -46,9 +55,19 @@ targets:
         enabled: true
         generate_for:
           - lib/src/worker/*.debug.dart.js
+          - lib/src/worker/*.debug.dart2js.js
           - lib/src/worker/*.debug.dart.js.map
+          - lib/src/worker/*.debug.dart2js.js.map
+          - lib/src/worker/*.debug.mjs
+          - lib/src/worker/*.debug.wasm
+          - lib/src/worker/*.debug.wasm.map
           - lib/src/worker/*.release.dart.js
+          - lib/src/worker/*.release.dart2js.js
           - lib/src/worker/*.release.dart.js.map
+          - lib/src/worker/*.release.dart2js.js.map
+          - lib/src/worker/*.release.mjs
+          - lib/src/worker/*.release.wasm
+          - lib/src/worker/*.release.wasm.map
     dependencies:
       - amplify_secure_storage_dart:debug
       - amplify_secure_storage_dart:release

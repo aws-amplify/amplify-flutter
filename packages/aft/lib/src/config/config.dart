@@ -96,6 +96,20 @@ abstract class AftConfig
         packageName;
   }
 
+  /// Locates the package identified by [nameOrTag] in [allPackages], or `null`
+  /// if no matching package exists.
+  ///
+  /// [nameOrTag] may be a package name (`amplify_core`) or a publish tag of
+  /// the form `$name-v$version` as emitted by `aft publish --tags`
+  /// (`amplify_core-v2.10.1`); the trailing `-v$version` is stripped to recover
+  /// the name. Anchoring on `-v` + a digit (never `_v`) leaves names like
+  /// `aws_signature_v4` intact.
+  PackageInfo? locatePackage(String nameOrTag) {
+    final name =
+        _packageTagPattern.firstMatch(nameOrTag)?.group(1) ?? nameOrTag;
+    return allPackages[name];
+  }
+
   @override
   String get runtimeTypeName => 'AftConfig';
 
@@ -235,6 +249,18 @@ class PackageInfo
     final expectedPath = p.join(path, name);
     final dir = Directory(expectedPath);
     return dir.existsSync();
+  }
+
+  /// Whether this package opts into `dart2wasm` browser test coverage.
+  ///
+  /// A package opts in by adding a `test/wasm_smoke_test.dart` file. This
+  /// is additive: the default (dart2js) browser test job still runs for all
+  /// web packages — opting in adds a parallel `dart2wasm` run so both web
+  /// compilers stay covered. Packages turn this on as their web code is
+  /// verified to compile and pass under `dart2wasm`.
+  bool get hasWasmTest {
+    final expectedPath = p.join(path, 'test', 'wasm_smoke_test.dart');
+    return File(expectedPath).existsSync();
   }
 
   /// The integration test directory within the enclosing directory, if any
@@ -473,3 +499,6 @@ final Version activeDartSdkVersion = () {
 }();
 
 final _versionRegex = RegExp(r'\d+\.\d+\.\d+(-[a-zA-Z\d]+)?');
+
+// Strips the -v<version> suffix; anchoring on a digit avoids splitting _v in names like aws_signature_v4.
+final _packageTagPattern = RegExp(r'^(.+?)-v\d');

@@ -1,3 +1,25 @@
+## 2.7.0
+
+### Features
+- feat: Add iOS 27 support ([#7239](https://github.com/aws-amplify/amplify-flutter/pull/7239))
+
+## 2.6.0
+
+### Features
+- feat(authenticator): Add wasm support ([#7195](https://github.com/aws-amplify/amplify-flutter/pull/7195))
+
+## 2.5.5
+
+- Minor bug fixes and improvements
+
+## 2.5.4
+
+- Minor bug fixes and improvements
+
+## 2.5.3
+
+- Minor bug fixes and improvements
+
 ## 2.5.2
 
 - Minor bug fixes and improvements

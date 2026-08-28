@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:worker_bee/worker_bee.dart';
 import 'models/echo_message.dart';
+import 'runtime_info.dart';
 import 'workers/echo_worker.dart';
 
 // Conditional import: web gets the real JS interop, other platforms get a no-op stub.
@@ -134,6 +135,7 @@ class _EchoWorkerDemoState extends State<EchoWorkerDemo> {
       setState(() {
         _isWorkerRunning = true;
         _messages.add('✅ Worker started successfully!');
+        _messages.add('🧭 App runtime: $runtimeDescription');
         _messages.add('');
       });
     } catch (e) {

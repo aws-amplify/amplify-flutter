@@ -1,3 +1,21 @@
+## 0.4.21
+
+### Features
+- feat: Add iOS 27 support ([#7239](https://github.com/aws-amplify/amplify-flutter/pull/7239))
+
+## 0.4.20
+
+### Features
+- feat(db_common): Add wasm support ([#7186](https://github.com/aws-amplify/amplify-flutter/pull/7186))
+
+## 0.4.19
+
+- Minor bug fixes and improvements
+
+## 0.4.18
+
+- Minor bug fixes and improvements
+
 ## 0.4.17
 
 - Minor bug fixes and improvements

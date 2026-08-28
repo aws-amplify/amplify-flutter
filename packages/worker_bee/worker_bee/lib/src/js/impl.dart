@@ -176,6 +176,9 @@ mixin WorkerBeeImpl<Request extends Object, Response>
           /// Captures errors occurring before a `ready` event is received.
           final errorBeforeReady = Completer<void>();
 
+          /// Completes when the worker signals it's ready for its assignment.
+          final online = Completer<void>.sync();
+
           // Whether `run` has completed on the web worker.
           var done = false;
 
@@ -249,6 +252,13 @@ mixin WorkerBeeImpl<Request extends Object, Response>
               eventData as JSString;
               final state = eventData.toDart;
 
+              if (state == workerOnlineSignal) {
+                logger.verbose('Worker is online');
+                if (!online.isCompleted) {
+                  online.complete();
+                }
+                return;
+              }
               if (state == 'ready') {
                 logger.verbose('Received ready event');
                 ready.complete();
@@ -296,6 +306,16 @@ mixin WorkerBeeImpl<Request extends Object, Response>
               logsController.add(message);
             }),
           );
+
+          // Wait for the worker to start listening before sending it the
+          // assignment, otherwise the message is dropped and `spawn` hangs.
+          // The timeout falls back to the old behavior for workers built
+          // before the online signal existed.
+          await Future.any<void>([
+            online.future,
+            errorBeforeReady.future,
+            Future<void>.delayed(const Duration(seconds: 1)),
+          ]);
 
           _worker!.postMessage(name.toJS, [jsLogsChannel.port2].toJS);
 

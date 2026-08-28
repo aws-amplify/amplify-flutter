@@ -46,6 +46,7 @@ ChromeDownload _$ChromeDownloadFromJson(Map json) => ChromeDownload(
 
 const _$ChromePlatformEnumMap = {
   ChromePlatform.linux64: 'linux64',
+  ChromePlatform.linuxArm64: 'linux-arm64',
   ChromePlatform.macArm64: 'mac-arm64',
   ChromePlatform.macX64: 'mac-x64',
   ChromePlatform.win32: 'win32',

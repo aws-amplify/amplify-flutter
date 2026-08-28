@@ -14,6 +14,7 @@ export 'src/commands/generate/generate_command.dart';
 export 'src/commands/get_release_notes_command.dart';
 export 'src/commands/link_command.dart';
 export 'src/commands/list_packages_command.dart';
+export 'src/commands/locate_package_command.dart';
 export 'src/commands/publish_command.dart';
 export 'src/commands/run_command.dart';
 export 'src/commands/serve_command.dart';

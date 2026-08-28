@@ -31,12 +31,10 @@ Future<void> loadAuthenticator({
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   if (!binding.sendFramesToEngine) binding.allowFirstFrame();
 
-  // On web, unfocus any currently focused element before replacing the widget
-  // tree. This prevents a Flutter web framework bug where the browser fires
-  // asynchronous focus change events (didChangeViewFocus) after the old widget
-  // tree has been deactivated, causing "Cannot get renderObject of inactive
-  // element" errors that fail the test.
+  // Unfocus before swapping the tree to reduce web focus-change crashes; the
+  // guard below ignores the ones that still fire mid-test. See _isWebFocusCrash.
   if (kIsWeb) {
+    _installFocusCrashGuard();
     FocusManager.instance.primaryFocus?.unfocus();
     await tester.pumpAndSettle();
   }
@@ -78,4 +76,37 @@ extension BlocAccess on WidgetTester {
     );
     return inheritedBloc.authBloc;
   }
+}
+
+FlutterExceptionHandler? _previousOnError;
+
+// Ignore the benign "Cannot get renderObject of inactive element" assertion
+// that web focus traversal throws on a torn-down tree (flutter/flutter#178109).
+// Installed from the test body because the binding resets onError per test.
+void _installFocusCrashGuard() {
+  final current = FlutterError.onError;
+  if (current == _onFlutterError) return;
+  _previousOnError = current;
+  FlutterError.onError = _onFlutterError;
+}
+
+void _onFlutterError(FlutterErrorDetails details) {
+  if (_isWebFocusCrash(details)) return;
+  (_previousOnError ?? FlutterError.presentError)(details);
+}
+
+// Match the message and the focus-traversal stack so other errors still fail.
+bool _isWebFocusCrash(FlutterErrorDetails details) {
+  if (!kIsWeb) return false;
+  if (!details.exceptionAsString().contains(
+    'Cannot get renderObject of inactive element',
+  )) {
+    return false;
+  }
+  final text = '${details.context}${details.stack}';
+  return text.contains('didChangeViewFocus') ||
+      text.contains('findFirstFocus') ||
+      text.contains('focus_traversal.dart') ||
+      text.contains('FocusNode.rect') ||
+      (text.contains('focus_manager.dart') && text.contains('rect'));
 }

@@ -26007,7 +26007,9 @@ class NSScreen extends NSObject {
     return _lib._objc_msgSend_189(_id, _lib._sel_lastDisplayUpdateTimestamp1);
   }
 
-  /// Returns a new display link whose callback will be invoked in-sync with the display the screen is on. Note that views and windows can move between screens and you may want to get a display link directly from NSView or NSWindow which will track those changes automatically.
+  /// Returns a new display link whose callback will be invoked in-sync with the display the screen is on.
+  ///
+  /// Note that views and windows can move between screens and you may want to get a display link directly from `NSView` or `NSWindow` which will track those changes automatically.
   CADisplayLink displayLinkWithTarget_selector_(
     NSObject target,
     ffi.Pointer<ObjCSel> selector,

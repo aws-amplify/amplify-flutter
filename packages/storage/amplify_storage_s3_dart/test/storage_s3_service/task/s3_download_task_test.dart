@@ -402,13 +402,16 @@ void main() {
         );
 
         await downloadTask.start();
-        await downloadTask.cancel();
-        expect(receivedState.last, StorageTransferState.canceled);
-        expect(
+        // Listen before canceling: cancel() errors `result`, which surfaces as
+        // an uncaught error under wasm if nothing is listening yet.
+        final expectation = expectLater(
           downloadTask.result,
           throwsA(isA<StorageOperationCanceledException>()),
         );
+        await downloadTask.cancel();
+        expect(receivedState.last, StorageTransferState.canceled);
         expect(bodyStreamHasBeenCanceled, isTrue);
+        await expectation;
       });
     });
 

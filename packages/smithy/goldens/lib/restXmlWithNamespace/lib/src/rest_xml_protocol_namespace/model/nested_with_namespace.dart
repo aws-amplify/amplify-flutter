@@ -100,7 +100,7 @@ class NestedWithNamespaceRestXmlSerializer
     if (attrField != null) {
       result$.add(
         _i3.XmlAttribute(
-          _i3.XmlName('xsi:someName'),
+          _i3.XmlName.parts('xsi:someName'),
           (serializers.serialize(
                 attrField,
                 specifiedType: const FullType(String),
