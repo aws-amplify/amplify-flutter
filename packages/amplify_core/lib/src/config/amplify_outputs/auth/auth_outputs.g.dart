@@ -83,6 +83,12 @@ AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
             ?.map((e) => $enumDecode(_$MfaMethodEnumMap, e))
             .toList(),
       ),
+      passwordless: $checkedConvert(
+        'passwordless',
+        (v) => v == null
+            ? null
+            : PasswordlessOutputs.fromJson(v as Map<String, dynamic>),
+      ),
     );
     return val;
   },

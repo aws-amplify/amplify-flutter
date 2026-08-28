@@ -5,6 +5,8 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/mfa.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/passwordless_outputs.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_outputs.g.dart';
@@ -31,6 +33,7 @@ class AuthOutputs
     this.unauthenticatedIdentitiesEnabled = true,
     this.mfaConfiguration,
     this.mfaMethods,
+    this.passwordless,
   });
 
   factory AuthOutputs.fromJson(Map<String, Object?> json) =>
@@ -83,6 +86,10 @@ class AuthOutputs
   /// {@macro amplify_core.amplify_outputs.maf_method}
   final List<MfaMethod>? mfaMethods;
 
+  /// Passwordless authentication configuration.
+  @JsonKey(includeToJson: false)
+  final PasswordlessOutputs? passwordless;
+
   @override
   List<Object?> get props => [
     awsRegion,
@@ -97,6 +104,7 @@ class AuthOutputs
     unauthenticatedIdentitiesEnabled,
     mfaConfiguration,
     mfaMethods,
+    passwordless,
   ];
 
   @override
