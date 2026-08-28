@@ -348,7 +348,11 @@ class AWSHttpClientImpl extends AWSHttpClient {
           }
         },
         onError: (Object error, StackTrace stackTrace) {
-          logger.debug('Error in stream: $error');
+          logger
+            ..debug('Error in stream: $error')
+            ..warn(
+              'TRANSPORT_DIAG (stream) type=${error.runtimeType} error=$error',
+            );
           if (!gotHeaders.isCompleted) {
             gotHeaders.completeError(
               AWSHttpException(request, error),
@@ -528,6 +532,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
         ),
       );
     }).catchError((Object e, StackTrace st) {
+      _logger.warn('TRANSPORT_DIAG (send) type=${e.runtimeType} error=$e');
       completer.completeError(AWSHttpException(request, e), st);
     });
 
