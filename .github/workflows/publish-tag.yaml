@@ -10,10 +10,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
-permissions:
-  id-token: write
-  # `gh release create`; OIDC above still authenticates the pub.dev publish.
-  contents: write
+permissions: {}
 
 defaults:
   run:
@@ -22,13 +19,21 @@ defaults:
 jobs:
   publish:
     name: Publish to pub.dev
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      package: ${{ steps.package.outputs.package }}
+      version: ${{ steps.package.outputs.version }}
+      tag: ${{ steps.package.outputs.tag }}
+      release_notes: ${{ steps.release.outputs.notes }}
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
         with:
           fetch-depth: 0
-          submodules: true
+          persist-credentials: false
 
       - name: Verify commit is on main
         run: |
@@ -95,20 +100,12 @@ jobs:
           PACKAGE: ${{ steps.package.outputs.package }}
         run: aft publish --include "$PACKAGE" --force
 
-      # Runs even when the publish was a no-op, so a re-run can still create a
-      # release which is missing.
-      - name: Create GitHub release
+      - name: Prepare GitHub release
+        id: release
         env:
-          GH_TOKEN: ${{ github.token }}
           PACKAGE: ${{ steps.package.outputs.package }}
           VERSION: ${{ steps.package.outputs.version }}
-          TAG: ${{ steps.package.outputs.tag }}
         run: |
-          if gh release view "$TAG" > /dev/null 2>&1; then
-            echo "Release $TAG already exists, skipping"
-            exit 0
-          fi
-
           NOTES="$RUNNER_TEMP/release_notes.md"
           # aft exits non-zero when the CHANGELOG has no entry for the version,
           # so the empty check below selects the fallback body.
@@ -118,7 +115,32 @@ jobs:
             echo "::warning::No changelog entry for $PACKAGE $VERSION"
             echo "Release $PACKAGE v$VERSION" > "$NOTES"
           fi
+          echo "notes=$(base64 -w 0 "$NOTES")" >> "$GITHUB_OUTPUT"
 
+  release:
+    name: Create GitHub release
+    needs: publish
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      # Runs even when publishing was a no-op, so a re-run can still create a
+      # release which is missing.
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PACKAGE: ${{ needs.publish.outputs.package }}
+          VERSION: ${{ needs.publish.outputs.version }}
+          TAG: ${{ needs.publish.outputs.tag }}
+          RELEASE_NOTES: ${{ needs.publish.outputs.release_notes }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "Release $TAG already exists, skipping"
+            exit 0
+          fi
+
+          NOTES="$RUNNER_TEMP/release_notes.md"
+          printf '%s' "$RELEASE_NOTES" | base64 --decode > "$NOTES"
           gh release create "$TAG" \
             --title "$PACKAGE v$VERSION" \
             --notes-file "$NOTES" \
