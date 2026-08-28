@@ -24,6 +24,12 @@ mixin PublishHelpers on AmplifyCommand {
   /// Names of packages that are not yet published on pub.dev.
   final Set<String> _newPackages = {};
 
+  /// How long pre-publish keeps retrying `pub upgrade` before giving up.
+  static const _pubUpgradeTimeout = Duration(minutes: 20);
+
+  /// How long to wait between `pub upgrade` attempts.
+  static const _pubUpgradeRetryInterval = Duration(seconds: 60);
+
   /// Gathers the subset of packages which are publishable and whose latest
   /// version is not already available on `pub.dev`.
   Future<List<PackageInfo>> unpublishedPackages(
@@ -126,20 +132,44 @@ mixin PublishHelpers on AmplifyCommand {
         pubspecOverrideFile.deleteSync();
       }
     }
-    final res = await Process.run(
-      package.flavor.entrypoint,
-      ['pub', 'upgrade'],
-      stdoutEncoding: utf8,
-      stderrEncoding: utf8,
-      workingDirectory: package.path,
-    );
-    if (res.exitCode != 0) {
-      stdout.write(res.stdout);
-      stderr.write(res.stderr);
-      exit(res.exitCode);
-    }
+    await _pubUpgrade(package);
     if (runBuilders) {
       await runBuildRunner(package, logger: logger, verbose: verbose);
+    }
+  }
+
+  /// Runs `pub upgrade` for [package], retrying until [_pubUpgradeTimeout].
+  ///
+  /// A version takes a few minutes to become resolvable by `pub` after being
+  /// published, so this failing right after a dependency was published usually
+  /// means propagation, not a broken constraint. Retrying keeps that from
+  /// aborting a release halfway through — the alternative is a re-run, which
+  /// lands in the same window and fails again.
+  Future<void> _pubUpgrade(PackageInfo package) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      final res = await Process.run(
+        package.flavor.entrypoint,
+        ['pub', 'upgrade'],
+        stdoutEncoding: utf8,
+        stderrEncoding: utf8,
+        workingDirectory: package.path,
+      );
+      if (res.exitCode == 0) {
+        return;
+      }
+      if (stopwatch.elapsed + _pubUpgradeRetryInterval >= _pubUpgradeTimeout) {
+        stdout.write(res.stdout);
+        stderr.write(res.stderr);
+        exit(res.exitCode);
+      }
+      logger.warn(
+        '`${package.flavor.entrypoint} pub upgrade` failed for '
+        '${package.name}. Retrying in '
+        '${_pubUpgradeRetryInterval.inSeconds}s — a version just published to '
+        '`pub.dev` can take a few minutes to resolve.',
+      );
+      await Future<void>.delayed(_pubUpgradeRetryInterval);
     }
   }
 
@@ -563,14 +593,15 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     File(p.join(pkgDir.path, 'LICENSE')).writeAsStringSync(apacheLicenseText);
 
     final adminUrl = 'https://pub.dev/packages/$pkgName/admin';
-    final repoInfo =
-        pubspec.repository?.toString() ?? pubspec.homepage?.toString();
+    final repoSlug = _githubRepoSlug(
+      pubspec.repository ?? pubspec.issueTracker,
+    );
 
     if (dryRun) {
       stdout
         ..writeln('\n--- Bootstrap dry run: $pkgName ---')
         ..writeln('Temp directory: ${pkgDir.path}');
-      _printNextSteps(pkgName, adminUrl: adminUrl, repoInfo: repoInfo);
+      _printNextSteps(pkgName, adminUrl: adminUrl, repoSlug: repoSlug);
       return;
     }
 
@@ -596,13 +627,20 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     }
 
     stdout.writeln('\n\u2705 Published $pkgName v0.0.1-wip to pub.dev');
-    _printNextSteps(pkgName, adminUrl: adminUrl, repoInfo: repoInfo);
+    _printNextSteps(pkgName, adminUrl: adminUrl, repoSlug: repoSlug);
+  }
+
+  String? _githubRepoSlug(Uri? url) {
+    if (url == null || url.host != 'github.com') return null;
+    final segments = url.pathSegments;
+    if (segments.length < 2) return null;
+    return '${segments[0]}/${segments[1]}';
   }
 
   void _printNextSteps(
     String pkgName, {
     required String adminUrl,
-    required String? repoInfo,
+    required String? repoSlug,
   }) {
     stdout
       ..writeln('')
@@ -618,8 +656,13 @@ class PublishCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
         '     \u2192 Under "Automated publishing", enable publishing '
         'from GitHub Actions',
       );
-    if (repoInfo != null) {
-      stdout.writeln('     \u2192 Set the repository to: $repoInfo');
+    if (repoSlug != null) {
+      stdout.writeln('     \u2192 Set the repository to: $repoSlug');
+    } else {
+      stdout.writeln(
+        '     \u2192 No GitHub repository found in the pubspec; the '
+        'GitHub Actions setup above requires one.',
+      );
     }
     stdout
       ..writeln('     \u2192 Set the tag pattern to: $pkgName-v{{version}}')
