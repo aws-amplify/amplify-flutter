@@ -242,9 +242,11 @@ class S3DownloadTask {
     _bytesSubscription = null;
 
     _emitTransferProgress();
-    _downloadCompleter.completeError(
-      s3_exception.s3ControllableOperationCanceledException,
-    );
+    if (!_downloadCompleter.isCompleted) {
+      _downloadCompleter.completeError(
+        s3_exception.s3ControllableOperationCanceledException,
+      );
+    }
   }
 
   void _emitTransferProgress() {
@@ -288,19 +290,21 @@ class S3DownloadTask {
               try {
                 await _onDone?.call();
                 _emitTransferProgress();
-                _downloadCompleter.complete(
-                  // On VM, download operation gets object metadata directly
-                  // from the underlying `GetObject` call.
-                  // On Web, download operation is done by browser download from
-                  // object presigned URL, where object metadata needs to be
-                  // retrieve via a separate `HeadObject` call.
-                  // To unify the behavior on `downloadOptions.getProperties`
-                  // we hide the metadata from the result on VM if this parameter
-                  // is set to `false`.
-                  _s3PluginOptions.getProperties
-                      ? _downloadedS3Item
-                      : S3Item(path: _downloadedS3Item.path),
-                );
+                if (!_downloadCompleter.isCompleted) {
+                  _downloadCompleter.complete(
+                    // On VM, download operation gets object metadata directly
+                    // from the underlying `GetObject` call.
+                    // On Web, download operation is done by browser download from
+                    // object presigned URL, where object metadata needs to be
+                    // retrieve via a separate `HeadObject` call.
+                    // To unify the behavior on `downloadOptions.getProperties`
+                    // we hide the metadata from the result on VM if this parameter
+                    // is set to `false`.
+                    _s3PluginOptions.getProperties
+                        ? _downloadedS3Item
+                        : S3Item(path: _downloadedS3Item.path),
+                  );
+                }
               } on Exception catch (error, stackTrace) {
                 await _completeDownloadWithError(error, stackTrace);
               }
@@ -328,7 +332,9 @@ class S3DownloadTask {
     _state = StorageTransferState.failure;
     await _onError?.call();
     _emitTransferProgress();
-    _downloadCompleter.completeError(error, stackTrace);
+    if (!_downloadCompleter.isCompleted) {
+      _downloadCompleter.completeError(error, stackTrace);
+    }
   }
 
   Future<s3.GetObjectOutput> _getObject({

@@ -654,6 +654,62 @@ void main() {
         },
       );
 
+      test('result should complete only once when the body stream emits an '
+          'error followed by done', () async {
+        final bodyController = StreamController<List<int>>();
+        final testGetObjectOutput = GetObjectOutput(
+          contentLength: Int64(1024),
+          body: bodyController.stream,
+        );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testGetObjectOutput);
+
+        when(
+          () => s3Client.getObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer((_) => smithyOperation);
+
+        final uncaughtErrors = <Object>[];
+        late S3DownloadTask downloadTask;
+
+        await runZonedGuarded(() async {
+          downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            bucket: testBucket,
+            path: const StoragePath.fromString('public/$testKey'),
+            pathResolver: TestPathResolver(),
+            options: defaultTestOptions,
+            onProgress: (_) {},
+          );
+
+          await downloadTask.start();
+          // Listen so the (error) result is never itself uncaught.
+          unawaited(downloadTask.result.then((_) {}, onError: (_) {}));
+
+          // The body subscription uses the default `cancelOnError: false`,
+          // so both onError and onDone fire and each completes the result.
+          bodyController.addError(
+            const UnknownException('simulated body stream error'),
+          );
+          unawaited(bodyController.close());
+          await Future<void>.delayed(const Duration(milliseconds: 100));
+        }, (error, _) => uncaughtErrors.add(error));
+
+        expect(
+          uncaughtErrors.where(
+            (e) => e.toString().contains('Future already completed'),
+          ),
+          isEmpty,
+          reason: 'the result completer must be completed at most once',
+        );
+      });
+
       group('download result', () {
         const testBodyBytes = [101, 102];
         const testMetadata = {'filename': '1.jpg', 'group': 'GroupA'};
