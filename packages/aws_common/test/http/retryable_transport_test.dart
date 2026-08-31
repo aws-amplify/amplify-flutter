@@ -38,14 +38,23 @@ void main() {
   });
 
   group('isRetryableTransportError', () {
-    test('transport-level failures are retryable', () {
+    test('SocketException (connection never reached the server) is '
+        'retryable', () {
       expect(isRetryableTransportError(const SocketException('reset')), isTrue);
-      expect(isRetryableTransportError(const HttpException('closed')), isTrue);
-      expect(isRetryableTransportError(TimeoutException('timed out')), isTrue);
-      expect(isRetryableTransportError(TransportException('h2')), isTrue);
+      expect(
+        isRetryableTransportError(const SocketException('Failed host lookup')),
+        isTrue,
+      );
+    });
+
+    test('broader transport errors are NOT retryable (may have reached the '
+        'server => duplicate risk)', () {
+      expect(isRetryableTransportError(const HttpException('closed')), isFalse);
+      expect(isRetryableTransportError(TimeoutException('timed out')), isFalse);
+      expect(isRetryableTransportError(TransportException('h2')), isFalse);
       expect(
         isRetryableTransportError(StreamTransportException('h2 stream')),
-        isTrue,
+        isFalse,
       );
     });
 

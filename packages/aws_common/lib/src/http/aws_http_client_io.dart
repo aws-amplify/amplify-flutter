@@ -11,14 +11,9 @@ import 'package:http2/http2.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-/// Whether [error] is a transient transport-level failure that is safe to
-/// retry.
+/// Whether [error] is a retryable [SocketException] transport failure.
 @visibleForTesting
-bool isRetryableTransportError(Object error) =>
-    error is SocketException ||
-    error is HttpException ||
-    error is TimeoutException ||
-    error is TransportException;
+bool isRetryableTransportError(Object error) => error is SocketException;
 
 AWSHttpException _transportException(
   AWSBaseHttpRequest request,

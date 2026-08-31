@@ -8,7 +8,6 @@ import 'package:amplify_record_cache_dart/src/model/record_data.dart';
 import 'package:amplify_record_cache_dart/src/model/record_input.dart';
 import 'package:amplify_record_cache_dart/src/sender/sender.dart';
 import 'package:amplify_record_cache_dart/src/storage/record_storage.dart';
-import 'package:aws_common/aws_common.dart' show AWSHttpException;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart'
     show SmithyHttpException, UnknownSmithyHttpException;
@@ -107,19 +106,7 @@ class RecordClient {
           );
           await _handleFailedRequest(records);
         } catch (e) {
-          final underlying = e is AWSHttpException
-              ? e.underlyingException
-              : null;
-          _logger
-            ..warn(
-              'FLUSH_DIAG stream=$streamName '
-              'type=${e.runtimeType} '
-              'isAWSHttpException=${e is AWSHttpException} '
-              'retryable=${e is AWSHttpException ? e.retryable : 'n/a'} '
-              'underlyingType=${underlying?.runtimeType ?? 'n/a'} '
-              'underlying=$underlying',
-            )
-            ..warn('Error flushing stream $streamName: $e. Aborting flush');
+          _logger.warn('Error flushing stream $streamName: $e. Aborting flush');
           await _handleFailedRequest(records);
           rethrow;
         }
