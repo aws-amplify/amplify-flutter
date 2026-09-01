@@ -47,6 +47,8 @@ enum InputResolverKeyType {
   passwordRequirements,
   format,
   mismatch,
+  showPasswordTooltip,
+  hidePasswordTooltip,
 }
 
 class InputResolverKey {
@@ -388,6 +390,16 @@ class InputResolverKey {
     field: InputField.usernameType,
   );
 
+  static const showPasswordTooltip = InputResolverKey._(
+    InputResolverKeyType.showPasswordTooltip,
+    field: InputField.password,
+  );
+
+  static const hidePasswordTooltip = InputResolverKey._(
+    InputResolverKeyType.hidePasswordTooltip,
+    field: InputField.password,
+  );
+
   String resolve(BuildContext context, InputResolver inputResolver) =>
       inputResolver.resolve(context, this);
 }
@@ -552,6 +564,16 @@ class InputResolver extends Resolver<InputResolverKey> {
     return AuthenticatorLocalizations.inputsOf(context).optional(title);
   }
 
+  /// Returns the tooltip text for showing a hidden password.
+  String showPasswordTooltip(BuildContext context) {
+    return AuthenticatorLocalizations.inputsOf(context).showPassword;
+  }
+
+  /// Returns the tooltip text for hiding a visible password.
+  String hidePasswordTooltip(BuildContext context) {
+    return AuthenticatorLocalizations.inputsOf(context).hidePassword;
+  }
+
   @override
   String resolve(BuildContext context, InputResolverKey key) {
     switch (key.type) {
@@ -571,6 +593,10 @@ class InputResolver extends Resolver<InputResolverKey> {
         return AuthenticatorLocalizations.inputsOf(context).passwordsDoNotMatch;
       case InputResolverKeyType.format:
         return format(context, key.field);
+      case InputResolverKeyType.showPasswordTooltip:
+        return showPasswordTooltip(context);
+      case InputResolverKeyType.hidePasswordTooltip:
+        return hidePasswordTooltip(context);
     }
   }
 }
