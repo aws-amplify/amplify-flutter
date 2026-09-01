@@ -107,10 +107,16 @@ jobs:
       - name: Link packages
         run: aft link
 
-      # `aft publish` adds the pre-publish work plain `pub publish` skips: it
-      # drops the `aft link` overrides, runs `pub upgrade`, and regenerates code
-      # with `build_runner` — some published web workers exist only as its
-      # output. It also tolerates this repo's known-benign pub warnings.
+      # Prepare the package before minting the pub.dev token. This removes the
+      # `aft link` overrides, resolves dependencies, and runs build_runner for
+      # packages whose generated release artifacts are not checked in.
+      - name: Prepare package
+        env:
+          PACKAGE: ${{ steps.package.outputs.package }}
+        run: aft publish --include "$PACKAGE" --force --prepare-only
+
+      # The prepared package is published from the same workspace without
+      # resolving dependencies or executing third-party builders again.
       - name: Publish to pub.dev
         env:
           PACKAGE: ${{ steps.package.outputs.package }}
@@ -120,7 +126,7 @@ jobs:
           echo "::add-mask::$PUB_TOKEN"
           export PUB_TOKEN
           dart pub token add https://pub.dev --env-var PUB_TOKEN
-          aft publish --include "$PACKAGE" --force
+          aft publish --include "$PACKAGE" --force --skip-pre-publish
 
       - name: Prepare GitHub release
         id: release
