@@ -373,18 +373,20 @@ class S3UploadTask {
 
       await _putObjectOperation!.result;
 
-      _uploadCompleter.complete(
-        _s3PluginOptions.getProperties
-            ? S3Item.fromHeadObjectOutput(
-                await StorageS3Service.headObject(
-                  s3client: _s3Client,
-                  bucket: _bucket,
-                  key: _resolvedPath,
-                ),
-                path: _resolvedPath,
-              )
-            : S3Item(path: _resolvedPath),
-      );
+      if (!_uploadCompleter.isCompleted) {
+        _uploadCompleter.complete(
+          _s3PluginOptions.getProperties
+              ? S3Item.fromHeadObjectOutput(
+                  await StorageS3Service.headObject(
+                    s3client: _s3Client,
+                    bucket: _bucket,
+                    key: _resolvedPath,
+                  ),
+                  path: _resolvedPath,
+                )
+              : S3Item(path: _resolvedPath),
+        );
+      }
 
       _state = StorageTransferState.success;
     } on CancellationException {
@@ -394,9 +396,11 @@ class S3UploadTask {
         _logger.debug('PutObject HTTP operation has been paused.');
         return;
       }
-      _uploadCompleter.completeError(
-        s3_exception.s3ControllableOperationCanceledException,
-      );
+      if (!_uploadCompleter.isCompleted) {
+        _uploadCompleter.completeError(
+          s3_exception.s3ControllableOperationCanceledException,
+        );
+      }
     } on smithy.UnknownSmithyHttpException catch (error, stackTrace) {
       _completeUploadWithError(error.toStorageException(), stackTrace);
     } on AWSHttpException catch (error) {
@@ -476,18 +480,20 @@ class S3UploadTask {
         })..onDone(() async {
           try {
             await _completeMultipartUpload();
-            _uploadCompleter.complete(
-              _s3PluginOptions.getProperties
-                  ? S3Item.fromHeadObjectOutput(
-                      await StorageS3Service.headObject(
-                        s3client: _s3Client,
-                        bucket: _bucket,
-                        key: _resolvedPath,
-                      ),
-                      path: _resolvedPath,
-                    )
-                  : S3Item(path: _resolvedPath),
-            );
+            if (!_uploadCompleter.isCompleted) {
+              _uploadCompleter.complete(
+                _s3PluginOptions.getProperties
+                    ? S3Item.fromHeadObjectOutput(
+                        await StorageS3Service.headObject(
+                          s3client: _s3Client,
+                          bucket: _bucket,
+                          key: _resolvedPath,
+                        ),
+                        path: _resolvedPath,
+                      )
+                    : S3Item(path: _resolvedPath),
+              );
+            }
             _state = StorageTransferState.success;
             _emitTransferProgress();
           } on Exception catch (error, stackTrace) {
@@ -772,7 +778,9 @@ class S3UploadTask {
     await _s3Client.abortMultipartUpload(request).result;
 
     if (isCancel) {
-      _uploadCompleter.completeError(error);
+      if (!_uploadCompleter.isCompleted) {
+        _uploadCompleter.completeError(error);
+      }
     } else {
       _completeUploadWithError(
         UnknownException(
@@ -787,7 +795,9 @@ class S3UploadTask {
   void _completeUploadWithError(Object error, [StackTrace? stackTrace]) {
     _state = StorageTransferState.failure;
     _emitTransferProgress();
-    _uploadCompleter.completeError(error, stackTrace);
+    if (!_uploadCompleter.isCompleted) {
+      _uploadCompleter.completeError(error, stackTrace);
+    }
   }
 
   Future<void> _checkIfAWSFileStream(AWSFile file) async {
