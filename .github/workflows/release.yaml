@@ -14,6 +14,10 @@ concurrency:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   verify:
     name: Verify packages
@@ -141,9 +145,16 @@ jobs:
           sig=$(printf '%s.%s' "$header" "$payload" \
             | openssl dgst -sha256 -sign "$APP_PRIVATE_KEY_FILE" | b64url)
           jwt="$header.$payload.$sig"
-          inst_id=$(curl -sf -H "Authorization: Bearer $jwt" \
+          inst_id=$(curl --retry 5 --retry-connrefused -sf \
+            -H "Authorization: Bearer $jwt" \
             "https://api.github.com/repos/$GITHUB_REPOSITORY/installation" | jq -r .id)
-          curl -sf -X POST -H "Authorization: Bearer $jwt" \
+          repo_name=${GITHUB_REPOSITORY#*/}
+          token_request=$(jq -nc --arg repository "$repo_name" \
+            '{repositories: [$repository], permissions: {contents: "write"}}')
+          curl --retry 5 --retry-connrefused -sf -X POST \
+            -H "Authorization: Bearer $jwt" \
+            -H "Content-Type: application/json" \
+            --data "$token_request" \
             "https://api.github.com/app/installations/$inst_id/access_tokens" | jq -r .token
           SCRIPT
           chmod +x "$MINT"
