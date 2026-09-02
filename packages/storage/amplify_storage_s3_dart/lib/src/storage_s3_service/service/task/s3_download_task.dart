@@ -228,6 +228,9 @@ class S3DownloadTask {
   ///
   /// A canceled [S3DownloadTask] is not resumable.
   Future<void> cancel() async {
+    // ensure the task has actually started before cancelling
+    await _getObjectInitiated;
+
     if (_state == StorageTransferState.canceled ||
         _state == StorageTransferState.success ||
         _state == StorageTransferState.failure) {

@@ -413,6 +413,64 @@ void main() {
         expect(bodyStreamHasBeenCanceled, isTrue);
         await expectation;
       });
+
+      test('it should cancel a download that is cancelled before the getObject '
+          'response returns', () async {
+        var bodyStreamHasBeenCanceled = false;
+        final testGetObjectOutput = GetObjectOutput(
+          contentLength: Int64(1024),
+          body:
+              Stream<List<int>>.periodic(
+                    const Duration(milliseconds: 1),
+                    (_) => [101],
+                  )
+                  .take(1024)
+                  .asBroadcastStream(
+                    onCancel: (StreamSubscription<List<int>> subscription) {
+                      bodyStreamHasBeenCanceled = true;
+                    },
+                  ),
+        );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+        final receivedState = <StorageTransferState>[];
+
+        // Delay the response so cancel() runs before the stream is subscribed.
+        when(() => smithyOperation.result).thenAnswer((_) async {
+          await Future<void>.delayed(const Duration(milliseconds: 50));
+          return testGetObjectOutput;
+        });
+
+        when(
+          () => s3Client.getObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer((_) => smithyOperation);
+
+        final downloadTask = S3DownloadTask(
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          bucket: testBucket,
+          path: const StoragePath.fromString('public/$testKey'),
+          pathResolver: TestPathResolver(),
+          options: defaultTestOptions,
+          onProgress: (progress) {
+            receivedState.add(progress.state);
+          },
+        );
+
+        unawaited(downloadTask.start());
+        final expectation = expectLater(
+          downloadTask.result,
+          throwsA(isA<StorageOperationCanceledException>()),
+        );
+        // Cancel before the getObject response returns; the download must
+        // actually stop (its body stream is cancelled), not run to success.
+        await downloadTask.cancel();
+        expect(receivedState.last, StorageTransferState.canceled);
+        expect(bodyStreamHasBeenCanceled, isTrue);
+        await expectation;
+      });
     });
 
     group('error handling around S3Client.getObject', () {
