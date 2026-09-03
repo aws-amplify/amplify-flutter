@@ -1,3 +1,11 @@
+## 2.7.1
+
+### Fixes
+- fix(api): Don't block subscription events during WebSocket reconnect ([#7282](https://github.com/aws-amplify/amplify-flutter/pull/7282))
+- fix(authenticator): Add accessible names for password toggle and form errors ([#7254](https://github.com/aws-amplify/amplify-flutter/pull/7254))
+- fix(authenticator): Make Verify User Skip button visible in dark mode ([#7275](https://github.com/aws-amplify/amplify-flutter/pull/7275))
+- fix(authenticator): Enforce required validation for empty phone number field ([#7296](https://github.com/aws-amplify/amplify-flutter/pull/7296))
+
 ## 2.7.0
 
 ### Features
