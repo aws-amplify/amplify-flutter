@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - '**/pubspec.yaml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '**/pubspec.yaml'
 
 # IMPORTANT: Never cancel a release in progress. Queue subsequent runs.
 concurrency:
@@ -83,12 +87,18 @@ jobs:
 
       - name: Verify publish (pre-tag dry run)
         if: steps.check-tags.outputs.has_tags == 'true'
-        run: aft publish --dry-run --force
+        run: |
+          if ! aft publish --dry-run --force; then
+            echo ""
+            echo "::error::Publish dry run failed. Changed tracked files:"
+            git diff --name-only HEAD
+            exit 1
+          fi
 
   release:
     name: Release packages
     needs: verify
-    if: needs.verify.outputs.has_tags == 'true'
+    if: github.event_name == 'push' && needs.verify.outputs.has_tags == 'true'
     runs-on:
       - codebuild-amplify-flutter-release-${{ github.run_id }}-${{ github.run_attempt }}
       - image:ubuntu-8.0
