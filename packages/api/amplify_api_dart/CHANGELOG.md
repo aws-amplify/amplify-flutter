@@ -1,8 +1,3 @@
-## 0.5.23
-
-### Fixes
-- fix(api): Don't block subscription events during WebSocket reconnect ([#7282](https://github.com/aws-amplify/amplify-flutter/pull/7282))
-
 ## 0.5.22
 
 - Minor bug fixes and improvements
