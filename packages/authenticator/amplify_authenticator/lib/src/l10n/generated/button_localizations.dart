@@ -204,6 +204,54 @@ abstract class AuthenticatorButtonLocalizations {
   /// In en, this message translates to:
   /// **'Sign In with {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple} other{ERROR}}'**
   String signInWith(String provider);
+
+  /// Label of button to sign in using a passkey
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with passkey'**
+  String get signInWithPasskey;
+
+  /// Label of button to sign in using a password
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with password'**
+  String get signInWithPassword;
+
+  /// Label of button to sign in using email OTP
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with email'**
+  String get signInWithEmail;
+
+  /// Label of button to sign in using SMS OTP
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with SMS'**
+  String get signInWithSms;
+
+  /// Label of button to create a new passkey
+  ///
+  /// In en, this message translates to:
+  /// **'Create a passkey'**
+  String get createPasskey;
+
+  /// Label of button to skip passkey registration
+  ///
+  /// In en, this message translates to:
+  /// **'Continue without a passkey'**
+  String get continueWithoutPasskey;
+
+  /// Label of button to set up an additional passkey
+  ///
+  /// In en, this message translates to:
+  /// **'Set up another passkey'**
+  String get setupAnotherPasskey;
+
+  /// Label of button to show alternative sign-in methods
+  ///
+  /// In en, this message translates to:
+  /// **'Other sign-in options'**
+  String get otherSignInOptions;
 }
 
 class _AuthenticatorButtonLocalizationsDelegate

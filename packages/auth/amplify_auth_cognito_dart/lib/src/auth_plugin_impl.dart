@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:convert';
 
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
@@ -125,6 +126,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     return cognitoIdp;
   }
 
+  /// The Cognito WebAuthn client for raw API operations.
+  CognitoWebAuthnClient get _cognitoWebAuthn {
+    final authOutputs = _authOutputs;
+    final region = authOutputs.userPoolId!.split('_').first;
+    return CognitoWebAuthnClient(
+      region: region,
+      httpClient: stateMachine.getOrCreate<AWSHttpClient>(),
+    );
+  }
+
   AuthOutputs get _authOutputs {
     final authOutputs = _stateMachine.get<AuthOutputs>();
     if (authOutputs?.userPoolId == null ||
@@ -208,6 +219,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
         APIAuthorizationType.userPools.authProviderToken,
         CognitoUserPoolsAuthProvider(),
       );
+
+    // Register the WebAuthn credential platform for web.
+    if (zIsWeb) {
+      _stateMachine.addInstance<WebAuthnCredentialPlatform>(
+        WebAuthnCredentialPlatform(),
+      );
+    }
   }
 
   @override
@@ -1139,6 +1157,81 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       _hubEventController.add(AuthHubEvent.signedOut());
     }
     return signOutResult;
+  }
+
+  @override
+  Future<void> associateWebAuthnCredential() async {
+    // 1. Get access token (throws SignedOutException if not signed in)
+    final tokens = await stateMachine.getUserPoolTokens();
+    final accessToken = tokens.accessToken.raw;
+
+    // 2. Start registration with Cognito
+    final createOptions = await _cognitoWebAuthn.startWebAuthnRegistration(
+      accessToken: accessToken,
+    );
+
+    // 3. Get platform bridge and run ceremony
+    final platform = stateMachine.get<WebAuthnCredentialPlatform>();
+    if (platform == null) {
+      throw const PasskeyNotSupportedException(
+        'WebAuthn platform bridge not available',
+      );
+    }
+    final credentialJson = await platform.createCredential(
+      jsonEncode(createOptions.toJson()),
+    );
+
+    // 4. Complete registration with Cognito
+    final credential = PasskeyCreateResult.fromJson(
+      jsonDecode(credentialJson) as Map<String, dynamic>,
+    );
+    await _cognitoWebAuthn.completeWebAuthnRegistration(
+      accessToken: accessToken,
+      credential: credential,
+    );
+  }
+
+  @override
+  Future<List<CognitoWebAuthnCredential>> listWebAuthnCredentials() async {
+    final allCredentials = <CognitoWebAuthnCredential>[];
+
+    String? nextToken;
+    do {
+      final tokens = await stateMachine.getUserPoolTokens();
+      const pageLimit = 20;
+      final result = await _cognitoWebAuthn.listWebAuthnCredentials(
+        accessToken: tokens.accessToken.raw,
+        maxResults: pageLimit,
+        nextToken: nextToken,
+      );
+
+      allCredentials.addAll([
+        for (final description in result.credentials)
+          CognitoWebAuthnCredential.fromDescription(description),
+      ]);
+
+      nextToken = result.nextToken;
+    } while (nextToken != null);
+
+    return allCredentials;
+  }
+
+  @override
+  Future<void> deleteWebAuthnCredential(String credentialId) async {
+    final tokens = await stateMachine.getUserPoolTokens();
+    await _cognitoWebAuthn.deleteWebAuthnCredential(
+      accessToken: tokens.accessToken.raw,
+      credentialId: credentialId,
+    );
+  }
+
+  @override
+  Future<bool> isPasskeySupported() async {
+    final platform = stateMachine.get<WebAuthnCredentialPlatform>();
+    if (platform == null) {
+      return false;
+    }
+    return platform.isPasskeySupported();
   }
 
   @override

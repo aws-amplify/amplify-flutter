@@ -10,7 +10,7 @@ let package = Package(
     name: "amplify_auth_cognito",
     platforms: [
         .iOS("15.0"),
-        .macOS("10.15")
+        .macOS("13.5")
     ],
     products: [
         .library(name: "amplify-auth-cognito", targets: ["amplify_auth_cognito"])

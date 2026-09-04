@@ -174,6 +174,24 @@ abstract class AuthenticatorTitleLocalizations {
   /// In en, this message translates to:
   /// **'Account recovery requires verified contact information'**
   String get verifyUser;
+
+  /// Title of the first-factor selection step
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how to sign in'**
+  String get continueSignInWithFirstFactorSelection;
+
+  /// Title of the passkey registration prompt step
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in faster with a passkey'**
+  String get passkeyPrompt;
+
+  /// Title shown after a passkey is successfully created
+  ///
+  /// In en, this message translates to:
+  /// **'Passkey created successfully'**
+  String get passkeyCreatedSuccess;
 }
 
 class _AuthenticatorTitleLocalizationsDelegate
