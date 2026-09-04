@@ -82,26 +82,29 @@ final class AvdManager {
     ], stdinCmd: 'echo n');
   });
 
-  Future<Process> _startEmulator() =>
-      core.withGroup('Start emulator', () async {
-        final startAvdArgs = <String>[
-          '-avd', name, // Name of the AVD
-          '-no-window',
-          '-noaudio',
-          '-no-boot-anim',
-          '-restart-when-stalled',
-          '-accel', 'on', // Fail if HW accel is unavailable
-          '-no-snapshot',
-          '-wipe-data',
-          '-verbose',
-        ];
-        final emulator = await processManager.start([
-          _emulator.exe,
-          ...startAvdArgs,
-        ], mode: ProcessStartMode.inheritStdio);
-        core.info('Emulator started with args: $startAvdArgs');
-        return emulator;
-      });
+  Future<Process> _startEmulator() => core.withGroup(
+    'Start emulator',
+    () async {
+      final startAvdArgs = <String>[
+        '-avd', name, // Name of the AVD
+        '-port', '5554', // Pin the console port so the serial is deterministic
+        '-no-window',
+        '-noaudio',
+        '-no-boot-anim',
+        '-restart-when-stalled',
+        '-accel', 'on', // Fail if HW accel is unavailable
+        '-no-snapshot',
+        '-wipe-data',
+        '-verbose',
+      ];
+      final emulator = await processManager.start([
+        _emulator.exe,
+        ...startAvdArgs,
+      ], mode: ProcessStartMode.inheritStdio);
+      core.info('Emulator started with args: $startAvdArgs');
+      return emulator;
+    },
+  );
 
   Future<void> _enableKvm() async {
     if (process.platform != OS.linux) {
@@ -152,6 +155,11 @@ final class AvdManager {
         retryIf: (e) => e is _BootNotCompleted,
         onRetry: (e) async {
           core.info(e.toString());
+          // The emulator sometimes fails to register with the adb server
+          // (seen on both Linux and macOS). Restart the server so it
+          // re-detects the device before the next boot check.
+          await _adb(['kill-server']);
+          await _adb(['start-server']);
           final devices = await _adb(['devices', '-l']);
           if (devices.exitCode != 0) {
             throw ProcessException('adb', [
