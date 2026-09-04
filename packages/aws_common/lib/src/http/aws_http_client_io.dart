@@ -11,6 +11,17 @@ import 'package:http2/http2.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 
+/// Whether [error] is a retryable [SocketException] transport failure.
+@visibleForTesting
+bool isRetryableTransportError(Object error) => error is SocketException;
+
+AWSHttpException _transportException(
+  AWSBaseHttpRequest request,
+  Object error,
+) => isRetryableTransportError(error)
+    ? AWSHttpException.retryable(request, error)
+    : AWSHttpException(request, error);
+
 /// {@template aws_common.http.http_client_impl}
 /// The platform-specific implementation of [AWSHttpClient].
 ///
@@ -351,14 +362,14 @@ class AWSHttpClientImpl extends AWSHttpClient {
           logger.debug('Error in stream: $error');
           if (!gotHeaders.isCompleted) {
             gotHeaders.completeError(
-              AWSHttpException(request, error),
+              _transportException(request, error),
               stackTrace,
             );
             return;
           }
           if (!bodyController.isClosed) {
             bodyController
-              ..addError(AWSHttpException(request, error), stackTrace)
+              ..addError(_transportException(request, error), stackTrace)
               ..close();
           }
         },
@@ -528,7 +539,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
         ),
       );
     }).catchError((Object e, StackTrace st) {
-      completer.completeError(AWSHttpException(request, e), st);
+      completer.completeError(_transportException(request, e), st);
     });
 
     return operation;
