@@ -2184,6 +2184,83 @@ void main() {
         expect(uploadTask.result, throwsA(accelerateEndpointUnusable));
       });
     });
+
+    group('upload completion', () {
+      test('result should complete only once when multiple parts fail '
+          'concurrently', () async {
+        const testMultipartUploadId = 'awesome-upload';
+        const testException = smithy.UnknownSmithyHttpException(
+          statusCode: 500,
+          body: 'error',
+        );
+
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+        when(() => createMultipartUploadSmithyOperation.result).thenAnswer(
+          (_) async =>
+              s3.CreateMultipartUploadOutput(uploadId: testMultipartUploadId),
+        );
+        when(
+          () => s3Client.createMultipartUpload(any()),
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+
+        when(
+          () => transferDatabase.insertTransferRecord(any<TransferRecord>()),
+        ).thenAnswer((_) async => '1');
+
+        // A fromData file uploads parts in parallel, so failing them races.
+        when(
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenThrow(testException);
+
+        final abortMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+        when(() => abortMultipartUploadSmithyOperation.result).thenAnswer((
+          _,
+        ) async {
+          // Delay so all concurrent terminations pass the state guard first.
+          await Future<void>.delayed(const Duration(milliseconds: 50));
+          return s3.AbortMultipartUploadOutput();
+        });
+        when(
+          () => s3Client.abortMultipartUpload(any()),
+        ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
+
+        final uncaughtErrors = <Object>[];
+
+        await runZonedGuarded(() async {
+          final uploadTask = S3UploadTask.fromAWSFile(
+            AWSFile.fromData(Uint8List(11 * 1024 * 1024)),
+            s3Client: s3Client,
+            s3ClientConfig: defaultS3ClientConfig,
+            pathResolver: pathResolver,
+            bucket: testBucket,
+            awsRegion: testRegion,
+            path: const StoragePath.fromString('object-upload-to'),
+            options: testUploadDataOptions,
+            logger: logger,
+            transferDatabase: transferDatabase,
+            onProgress: (_) {},
+          );
+
+          unawaited(uploadTask.start());
+          // Listen so the (error) result is never itself uncaught.
+          unawaited(uploadTask.result.then((_) {}, onError: (_) {}));
+          await Future<void>.delayed(const Duration(milliseconds: 200));
+        }, (error, _) => uncaughtErrors.add(error));
+
+        expect(
+          uncaughtErrors.where(
+            (e) => e.toString().contains('Future already completed'),
+          ),
+          isEmpty,
+          reason: 'the result completer must be completed at most once',
+        );
+      });
+    });
   });
 }
 
