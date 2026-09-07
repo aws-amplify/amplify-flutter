@@ -63,7 +63,7 @@ jobs:
           }
 
           TAG="${GITHUB_REF#refs/tags/}"
-          metadata=$(aft locate-package "$TAG" --format=env)
+          metadata=$(aft locate-package "$TAG" --format=env | grep -E '^(name|version|path)=')
           fields=()
           while IFS= read -r line; do
             fields+=("$line")
