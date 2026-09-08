@@ -76,6 +76,11 @@ class SessionManager {
   @visibleForTesting
   Timer Function(Duration, void Function()) timerFactory = Timer.new;
 
+  // Every state transition below happens in a synchronous section: nothing
+  // awaits between reading _state and mutating it, only the reporting
+  // callbacks do. So unawaited re-entrant calls run one after the other on the
+  // event loop and need no lock.
+
   /// Starts a new session, ending any session already running. The returned
   /// future completes once the boundary has been reported, end before start.
   Future<void> startSession() => _restart();
