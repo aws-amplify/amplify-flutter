@@ -100,6 +100,10 @@ void main() {
       await client.close();
       final result = await client.record('test');
       expect(result, isA<Error<EnrichedEvent>>());
+      expect(
+        (result as Error<EnrichedEvent>).error,
+        isA<EventEnrichmentClosedException>(),
+      );
     });
 
     test('per-event attributes override globals', () async {

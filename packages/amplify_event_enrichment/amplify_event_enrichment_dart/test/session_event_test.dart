@@ -257,6 +257,36 @@ void main() {
           'first end',
         ]);
       });
+
+      test('a second close() waits for the same teardown', () async {
+        final seq = _InterleavingSender();
+        final seqClient = buildClient(seq, autoSessionTracking: false);
+        await seqClient.startSession();
+        seq.log.clear();
+
+        final first = seqClient.close();
+        expect(
+          seqClient.isClosed,
+          isTrue,
+          reason: 'closed from the first call',
+        );
+        final second = seqClient.close();
+        await second;
+
+        // The second caller gets the first call's future, so it cannot
+        // complete while the final stop is still in flight.
+        expect(seq.log, [
+          '$zSessionStopEventType begin',
+          '$zSessionStopEventType end',
+        ]);
+
+        await first;
+        expect(
+          seq.log,
+          hasLength(2),
+          reason: 'the teardown ran once, so there is only one stop',
+        );
+      });
     });
 
     group('does not emit a start', () {
@@ -635,18 +665,15 @@ void main() {
 
       test('and setUserId still overrides afterwards', () async {
         final initialSender = _RecordingSender();
-        final initialClient =
-            EventEnrichmentClient(
-              appMetadata: app,
-              deviceMetadata: device,
-              sdkMetadata: sdk,
-              clientId: 'device-123',
-              initialUserId: 'user-1',
-              sender: initialSender,
-              options: const EventEnrichmentClientOptions(
-                sessionTimeout: timeout,
-              ),
-            )..setUserId('user-2');
+        final initialClient = EventEnrichmentClient(
+          appMetadata: app,
+          deviceMetadata: device,
+          sdkMetadata: sdk,
+          clientId: 'device-123',
+          initialUserId: 'user-1',
+          sender: initialSender,
+          options: const EventEnrichmentClientOptions(sessionTimeout: timeout),
+        )..setUserId('user-2');
         addTearDown(initialClient.close);
 
         await initialClient.record('button_clicked');
@@ -689,7 +716,8 @@ void main() {
           expect(
             pausedSender.events.last.session.id,
             isNot(first.id),
-            reason: 'the event belongs to the session that is live now, not to '
+            reason:
+                'the event belongs to the session that is live now, not to '
                 'one that ended 20 minutes ago',
           );
           expect(
