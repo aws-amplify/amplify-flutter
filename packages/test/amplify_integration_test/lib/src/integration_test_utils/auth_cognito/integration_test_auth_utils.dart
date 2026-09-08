@@ -230,18 +230,24 @@ Future<PhoneNumber> generateUnusedUSPhoneNumber({int maxAttempts = 10}) =>
       maxAttempts: maxAttempts,
     );
 
-/// Whether [username] is absent, probed via sign-in: `UserNotFoundException`
-/// means free, `AuthNotAuthorizedException` means taken. No session is created.
+/// Whether [username] is absent from the pool, by probing sign-in with a
+/// throwaway password and classifying the result. No session is created.
 Future<bool> _phoneNumberIsUnused(String username) async {
   try {
     await Amplify.Auth.signIn(username: username, password: _probePassword);
     await Amplify.Auth.signOut();
     return false;
-  } on UserNotFoundException {
-    return true;
-  } on AuthNotAuthorizedException {
-    return false;
+  } on Exception catch (e) {
+    return signInErrorMeansUnused(e);
   }
+}
+
+/// Classifies a sign-in probe error: [UserNotFoundException] means unused,
+/// [AuthNotAuthorizedException] means taken; any other error is rethrown.
+bool signInErrorMeansUnused(Exception error) {
+  if (error is UserNotFoundException) return true;
+  if (error is AuthNotAuthorizedException) return false;
+  throw error;
 }
 
 const _probePassword = 'unused-number-probe';
