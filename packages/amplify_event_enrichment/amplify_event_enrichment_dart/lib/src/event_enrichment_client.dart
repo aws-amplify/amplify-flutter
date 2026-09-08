@@ -106,6 +106,7 @@ class EventEnrichmentClient {
 
   String? _userId;
   bool _closed = false;
+  Future<void>? _closing;
 
   /// Whether the client has been closed.
   bool get isClosed => _closed;
@@ -220,11 +221,15 @@ class EventEnrichmentClient {
   void removeGlobalMetric(String key) => _globalFields.removeMetric(key);
 
   /// Ends any running session, emits its [zSessionStopEventType] event, and
-  /// releases resources. The client cannot be reused after closing.
-  Future<void> close() async {
-    if (_closed) return;
+  /// releases resources. The client cannot be reused after closing. Repeated
+  /// calls return the same teardown, so every caller awaits the final stop.
+  Future<void> close() {
     // Set first so no record() call can land behind the final stop event.
     _closed = true;
+    return _closing ??= _close();
+  }
+
+  Future<void> _close() async {
     await _sessionManager.stopSession();
     _sessionManager.clearSession();
     _logger.info('Client closed');
