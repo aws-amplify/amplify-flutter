@@ -145,7 +145,7 @@ void main() {
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
-      final phoneNumber = generateUSPhoneNumber();
+      final phoneNumber = await generateUnusedUSPhoneNumber();
       await loadAuthenticator(tester: tester);
 
       expect(

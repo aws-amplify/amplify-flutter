@@ -4,6 +4,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
+    show UserNotFoundException;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/common/serializers.dart';
@@ -198,6 +200,51 @@ Future<PhoneNumber> adminCreateUserWithGeneratedPhoneNumber(
   );
   return phoneNumber;
 });
+
+/// Generates values with [generate] and returns the first that [isUnused]
+/// accepts, retrying up to [maxAttempts]. Inverse of [retryOnUsernameExists].
+Future<T> retryUntilUnused<T>(
+  T Function() generate,
+  Future<bool> Function(T value) isUnused, {
+  int maxAttempts = 10,
+}) async {
+  for (var attempt = 1; ; attempt++) {
+    final value = generate();
+    if (await isUnused(value)) {
+      return value;
+    }
+    if (attempt >= maxAttempts) {
+      throw StateError(
+        'Could not generate an unused value after $maxAttempts attempts',
+      );
+    }
+  }
+}
+
+/// A generated US phone number confirmed absent from the shared pool, for a
+/// test that needs a number belonging to nobody (sign in with unknown creds).
+Future<PhoneNumber> generateUnusedUSPhoneNumber({int maxAttempts = 10}) =>
+    retryUntilUnused(
+      generateUSPhoneNumber,
+      (phoneNumber) => _phoneNumberIsUnused(phoneNumber.toE164()),
+      maxAttempts: maxAttempts,
+    );
+
+/// Whether [username] is absent, probed via sign-in: `UserNotFoundException`
+/// means free, `AuthNotAuthorizedException` means taken. No session is created.
+Future<bool> _phoneNumberIsUnused(String username) async {
+  try {
+    await Amplify.Auth.signIn(username: username, password: _probePassword);
+    await Amplify.Auth.signOut();
+    return false;
+  } on UserNotFoundException {
+    return true;
+  } on AuthNotAuthorizedException {
+    return false;
+  }
+}
+
+const _probePassword = 'unused-number-probe';
 
 /// Creates a Cognito user in backend infrastructure. This documention describes
 /// how each parameter is expected to be used in the backend .
