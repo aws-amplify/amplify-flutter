@@ -136,6 +136,65 @@ void main() {
       expect(id.substring(0, 8), '______ab');
     });
 
+    group('calls made without awaiting the previous one', () {
+      late List<String> boundaries;
+
+      /// A manager that logs its boundaries to one list, so a test can pin the
+      /// order two calls report them in and not just how many there were.
+      SessionManager reportingManager() {
+        boundaries = [];
+        return SessionManager(
+          appId: 'testApp1',
+          sessionTimeout: timeout,
+          generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+          onSessionStarted: (s) async => boundaries.add('start ${s.id}'),
+          onSessionEnded: (s) async => boundaries.add('end ${s.id}'),
+        );
+      }
+
+      test('two startSession calls displace the first session', () async {
+        final reporting = reportingManager();
+
+        final first = reporting.startSession();
+        final displaced = reporting.session!;
+        final second = reporting.startSession();
+        await Future.wait([first, second]);
+
+        final replacement = reporting.session!;
+        expect(reporting.state, SessionState.active);
+        expect(replacement.id, isNot(displaced.id));
+        expect(
+          boundaries,
+          [
+            'start ${displaced.id}',
+            'end ${displaced.id}',
+            'start ${replacement.id}',
+          ],
+          reason:
+              'the second call ends the session the first started before '
+              'reporting the replacement',
+        );
+      });
+
+      test('two sessionForRecording calls share one session', () async {
+        final reporting = reportingManager();
+
+        final first = reporting.sessionForRecording();
+        final second = reporting.sessionForRecording();
+        final sessions = await Future.wait([first, second]);
+
+        expect(sessions.first.id, sessions.last.id);
+        expect(sessions.first.id, reporting.session!.id);
+        expect(
+          boundaries,
+          ['start ${reporting.session!.id}'],
+          reason:
+              'the second call finds the session the first one already '
+              'started, so there is nothing left to start',
+        );
+      });
+    });
+
     group('explicit stop vs timeout stop', () {
       test('handleAppResumed does not restart after an explicit stop', () {
         fakeAsync((async) {
