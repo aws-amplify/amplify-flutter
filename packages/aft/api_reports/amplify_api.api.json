@@ -1,0 +1,51 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyAPI",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AmplifyAPIDart",
+        "APIPluginInterface",
+        "AmplifyPluginInterface",
+        "Object",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyAPI",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIPluginOptions"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    }
+  ]
+}

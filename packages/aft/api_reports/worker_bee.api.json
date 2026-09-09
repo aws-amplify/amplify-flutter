@@ -1,0 +1,800 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "CastStreamSink",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "I"
+      ],
+      "superTypeNames": [],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "StreamSink<O>",
+          "name": "cast",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [
+            "O"
+          ],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "SendPorts",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SendPorts",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "messagePort",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SendPort"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "donePort",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SendPort"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "logPort",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SendPort"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "SendPort",
+          "name": "messagePort",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SendPort",
+          "name": "donePort",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SendPort",
+          "name": "logPort",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WorkerAssignment",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WorkerAssignment",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "role",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "logsChannel",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StreamChannel<LogEntry>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "role",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "StreamChannel<LogEntry>",
+          "name": "logsChannel",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WorkerBee",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WorkerBee",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "hivePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "hivePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WorkerBeeBase",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "Request",
+        "Response"
+      ],
+      "superTypeNames": [
+        "WorkerBeeCommon<Request, Response>",
+        "Object",
+        "AWSLoggerPlugin",
+        "Closeable",
+        "WorkerBeeImpl<Request, Response>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "add",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "event",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Request"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "addPendingOperation",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pendingOp",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CancelableOperation<void>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "result",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Response?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "completeError",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "connect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "logsChannel",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StreamChannel<LogEntry>?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WorkerBeeBase<Request, Response>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Serializers?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<Response?>",
+          "name": "run",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "listen",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Stream<Request>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "respond",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StreamSink<Response>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "spawn",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "jsEntrypoint",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "T",
+          "name": "unwrapParameter",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parameter",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "T?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "AWSLogger",
+          "name": "logger",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "StreamSinkCompleter<LogEntry>",
+          "name": "logSink",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "StreamController<LogEntry>",
+          "name": "logsController",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Serializers",
+          "name": "serializers",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Completer<void>",
+          "name": "ready",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "isRemoteWorker",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<LogEntry>",
+          "name": "logs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Function",
+          "name": "vmEntrypoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "jsEntrypoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<String>",
+          "name": "fallbackUrls",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "workerEntrypointOverride",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "isCompleted",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<Response>",
+          "name": "stream",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "StreamSink<Request>",
+          "name": "sink",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "Future<Result<Response?>>",
+          "name": "result",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WorkerBeeException",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Exception"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WorkerBeeException",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WorkerBeeException",
+          "name": "rebuild",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "b",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(WorkerBeeExceptionBuilder)"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "StackTrace?",
+          "name": "stackTrace",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WorkerHive",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WorkerHive",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "workers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<Type>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "List<Type>",
+          "name": "workers",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WorkerLogEntry",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "LogEntry",
+        "Object",
+        "AWSEquatable<LogEntry>",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WorkerLogEntry",
+          "name": "fromLogEntry",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "entry",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LogEntry"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "local",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WorkerLogEntry",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "level",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LogLevel"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "message",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "loggerName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "local",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "time",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DateTime?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "bool",
+          "name": "local",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    }
+  ]
+}

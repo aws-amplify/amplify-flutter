@@ -1,0 +1,1053 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyDataStore",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "DataStorePluginInterface",
+        "AmplifyPluginInterface",
+        "Object",
+        "AWSDebuggable",
+        "AmplifyLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyDataStore",
+          "name": "emptyConstructor",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AmplifyDataStore",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "modelProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelProviderInterface"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DataStorePluginOptions"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "DataStoreStreamController",
+          "name": "streamWrapper",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "StreamController<DataStoreHubEvent>",
+          "name": "streamController",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "DataStorePluginOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "DataStorePluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "errorHandler",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "dynamic Function(AmplifyException)?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "conflictHandler",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ConflictResolutionDecision Function(ConflictData)?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "syncExpressions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<DataStoreSyncExpression>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "syncInterval",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "syncMaxRecords",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "syncPageSize",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authModeStrategy",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AuthModeStrategy"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "dynamic Function(AmplifyException)?",
+          "name": "errorHandler",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ConflictResolutionDecision Function(ConflictData)?",
+          "name": "conflictHandler",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<DataStoreSyncExpression>",
+          "name": "syncExpressions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int?",
+          "name": "syncInterval",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int?",
+          "name": "syncMaxRecords",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int?",
+          "name": "syncPageSize",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AuthModeStrategy",
+          "name": "authModeStrategy",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "DataStoreStreamController",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "DataStoreStreamController",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "registerModelsForHub",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "models",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelProviderInterface"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "StreamController<DataStoreHubEvent>",
+          "name": "datastoreStreamController",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "NativeAmplifyApi",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "NativeApiPlugin",
+        "AWSDebuggable",
+        "AmplifyLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<void>",
+          "name": "deviceOffline",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<String?>",
+          "name": "getLatestAuthToken",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "providerName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLResponse>",
+          "name": "mutate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "NativeAmplifyApi",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "_authProviders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "onStop",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLResponse>",
+          "name": "query",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "setUp",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "api",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeApiPlugin?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "binaryMessenger",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "BinaryMessenger?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "messageChannelSuffix",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLSubscriptionResponse>",
+          "name": "subscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "unsubscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "MessageCodec<Object?>",
+          "name": "pigeonChannelCodec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "NativeApiPlugin",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<void>",
+          "name": "deviceOffline",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<String?>",
+          "name": "getLatestAuthToken",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "providerName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLResponse>",
+          "name": "mutate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "NativeApiPlugin",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "onStop",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLResponse>",
+          "name": "query",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "setUp",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "api",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeApiPlugin?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "binaryMessenger",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "BinaryMessenger?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "messageChannelSuffix",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLSubscriptionResponse>",
+          "name": "subscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "unsubscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "MessageCodec<Object?>",
+          "name": "pigeonChannelCodec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "NativeGraphQLRequest",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "NativeGraphQLRequest",
+          "name": "decode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "result",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "Object",
+          "name": "encode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "NativeGraphQLRequest",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "document",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "variablesJson",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "responseType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "decodePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "document",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "apiName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "variablesJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "responseType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "decodePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "authMode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "int",
+          "name": "hashCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "NativeGraphQLResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "NativeGraphQLResponse",
+          "name": "decode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "result",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "Object",
+          "name": "encode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "NativeGraphQLResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "payloadJson",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "payloadJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "int",
+          "name": "hashCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "NativeGraphQLSubscriptionResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "NativeGraphQLSubscriptionResponse",
+          "name": "decode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "result",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "Object",
+          "name": "encode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "NativeGraphQLSubscriptionResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "type",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "payloadJson",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "type",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String",
+          "name": "subscriptionId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "payloadJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "int",
+          "name": "hashCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4472 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "PubDatabase",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "_$PubDatabase",
+        "GeneratedDatabase",
+        "DatabaseConnectionUser",
+        "Object",
+        "QueryExecutorUser"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<void>",
+          "name": "upsertPackageVersion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Version",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "archiveUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "pubspecYaml",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "readme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "changelog",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "Future<PubPackage?>",
+          "name": "getPackage",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "packageName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PubDatabase",
+          "name": "test",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PubDatabase",
+          "name": "prod",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "dataDir",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "int",
+          "name": "schemaVersion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "$PackagesTable",
+          "name": "packages",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "$PackageVersionsTable",
+          "name": "packageVersions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "$PubDatabaseManager",
+          "name": "managers",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Iterable<TableInfo<Table, Object?>>",
+          "name": "allTables",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<DatabaseSchemaEntity>",
+          "name": "allSchemaEntities",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "_$PubDatabase",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "GeneratedDatabase",
+        "DatabaseConnectionUser",
+        "Object",
+        "QueryExecutorUser"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "_$PubDatabase",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryExecutor",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "$PackagesTable",
+          "name": "packages",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "$PackageVersionsTable",
+          "name": "packageVersions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "$PubDatabaseManager",
+          "name": "managers",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Iterable<TableInfo<Table, Object?>>",
+          "name": "allTables",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<DatabaseSchemaEntity>",
+          "name": "allSchemaEntities",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$PackagesTable",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Packages",
+        "Table",
+        "HasResultSet",
+        "Object",
+        "TableInfo<$PackagesTable, Package>",
+        "DatabaseSchemaEntity",
+        "ResultSetImplementation<$PackagesTable, Package>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$PackagesTable",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "attachedDatabase",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GeneratedDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "_alias",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "$name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<GeneratedColumn<Object>>",
+          "name": "$columns",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "aliasedName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "actualTableName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Set<GeneratedColumn<Object>>",
+          "name": "$primaryKey",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Set<Column<Object>>",
+          "name": "primaryKey",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "Packages",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Table",
+        "HasResultSet",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Packages",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Column<String>",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Set<Column<Object>>",
+          "name": "primaryKey",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "Package",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "DataClass",
+        "Object",
+        "Insertable<Package>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "PackagesCompanion",
+          "name": "toCompanion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "nullToAbsent",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "Package",
+          "name": "copyWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "latest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "Package",
+          "name": "copyWithCompanion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "data",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "PackagesCompanion",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "Package",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "latest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "Package",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, dynamic>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ValueSerializer?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "hashCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "PackagesCompanion",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "UpdateCompanion<Package>",
+        "Object",
+        "Insertable<Package>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Insertable<Package>",
+          "name": "custom",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "latest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "rowid",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<int>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackagesCompanion",
+          "name": "copyWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "latest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "rowid",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<int>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackagesCompanion",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "latest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "rowid",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<int>",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackagesCompanion",
+          "name": "insert",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "latest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "rowid",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<int>",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Value<String>",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Value<String>",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Value<int>",
+          "name": "rowid",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$PackageVersionsTable",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "PackageVersions",
+        "Table",
+        "HasResultSet",
+        "Object",
+        "TableInfo<$PackageVersionsTable, PackageVersion>",
+        "DatabaseSchemaEntity",
+        "ResultSetImplementation<$PackageVersionsTable, PackageVersion>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$PackageVersionsTable",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "attachedDatabase",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GeneratedDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "_alias",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "$name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<GeneratedColumn<Object>>",
+          "name": "$columns",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "aliasedName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "actualTableName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Set<GeneratedColumn<Object>>",
+          "name": "$primaryKey",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "package",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "archiveUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "readme",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "changelog",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<DateTime>",
+          "name": "published",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Set<Column<Object>>",
+          "name": "primaryKey",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "PackageVersions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Table",
+        "HasResultSet",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "PackageVersions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Column<String>",
+          "name": "package",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "archiveUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "readme",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<String>",
+          "name": "changelog",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Column<DateTime>",
+          "name": "published",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Set<Column<Object>>",
+          "name": "primaryKey",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "PackageVersion",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "DataClass",
+        "Object",
+        "Insertable<PackageVersion>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "PackageVersionsCompanion",
+          "name": "toCompanion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "nullToAbsent",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackageVersion",
+          "name": "copyWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "archiveUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "readme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "changelog",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "published",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DateTime?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackageVersion",
+          "name": "copyWithCompanion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "data",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "PackageVersionsCompanion",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackageVersion",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "archiveUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "readme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "changelog",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "published",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DateTime",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackageVersion",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, dynamic>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ValueSerializer?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "package",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "archiveUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "readme",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "changelog",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DateTime",
+          "name": "published",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "hashCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "PackageVersionsCompanion",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "UpdateCompanion<PackageVersion>",
+        "Object",
+        "Insertable<PackageVersion>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Insertable<PackageVersion>",
+          "name": "custom",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "archiveUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "readme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "changelog",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "published",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<DateTime>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "rowid",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Expression<int>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackageVersionsCompanion",
+          "name": "copyWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "archiveUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "readme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "changelog",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "published",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<DateTime>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "rowid",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<int>?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackageVersionsCompanion",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "archiveUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "readme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "changelog",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<String>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "published",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<DateTime>",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "rowid",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<int>",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        },
+        {
+          "returnTypeName": "PackageVersionsCompanion",
+          "name": "insert",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "archiveUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "readme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "changelog",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "published",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DateTime",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "rowid",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Value<int>",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Value<String>",
+          "name": "package",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Value<String>",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Value<String>",
+          "name": "archiveUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Value<String>",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Value<String>",
+          "name": "readme",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Value<String>",
+          "name": "changelog",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Value<DateTime>",
+          "name": "published",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Value<int>",
+          "name": "rowid",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$PubDatabaseManager",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$PubDatabaseManager",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "_db",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "_$PubDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "$$PackagesTableTableManager",
+          "name": "packages",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "$$PackageVersionsTableTableManager",
+          "name": "packageVersions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$$PackagesTableTableManager",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "RootTableManager<_$PubDatabase, $PackagesTable, Package, $$PackagesTableFilterComposer, $$PackagesTableOrderingComposer, $$PackagesTableAnnotationComposer, PackagesCompanion Function({required String latest, required String name, Value<int> rowid}), PackagesCompanion Function({Value<String> latest, Value<String> name, Value<int> rowid}), (Package, BaseReferences<_$PubDatabase, $PackagesTable, Package>), Package, PrefetchHooks Function()>",
+        "BaseTableManager<_$PubDatabase, $PackagesTable, Package, $$PackagesTableFilterComposer, $$PackagesTableOrderingComposer, $$PackagesTableAnnotationComposer, PackagesCompanion Function({required String latest, required String name, Value<int> rowid}), PackagesCompanion Function({Value<String> latest, Value<String> name, Value<int> rowid}), (Package, BaseReferences<_$PubDatabase, $PackagesTable, Package>), Package, PrefetchHooks Function()>",
+        "Selectable<Package>",
+        "Object",
+        "MultiSelectable<Package>",
+        "SingleSelectable<Package>",
+        "SingleOrNullSelectable<Package>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$$PackagesTableTableManager",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "db",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "_$PubDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "table",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "$PackagesTable",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$$PackagesTableFilterComposer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Composer<_$PubDatabase, $PackagesTable>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$$PackagesTableFilterComposer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$db",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "_$PubDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$table",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "$PackagesTable",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "joinBuilder",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "JoinBuilder?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$addJoinBuilderToRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$removeJoinBuilderFromRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ColumnFilters<String>",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnFilters<String>",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$$PackagesTableOrderingComposer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Composer<_$PubDatabase, $PackagesTable>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$$PackagesTableOrderingComposer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$db",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "_$PubDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$table",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "$PackagesTable",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "joinBuilder",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "JoinBuilder?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$addJoinBuilderToRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$removeJoinBuilderFromRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ColumnOrderings<String>",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnOrderings<String>",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$$PackagesTableAnnotationComposer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Composer<_$PubDatabase, $PackagesTable>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$$PackagesTableAnnotationComposer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$db",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "_$PubDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$table",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "$PackagesTable",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "joinBuilder",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "JoinBuilder?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$addJoinBuilderToRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$removeJoinBuilderFromRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GeneratedColumn<String>",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GeneratedColumn<String>",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$$PackageVersionsTableTableManager",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "RootTableManager<_$PubDatabase, $PackageVersionsTable, PackageVersion, $$PackageVersionsTableFilterComposer, $$PackageVersionsTableOrderingComposer, $$PackageVersionsTableAnnotationComposer, PackageVersionsCompanion Function({required String archiveUrl, required String changelog, required String package, required DateTime published, required String pubspec, required String readme, Value<int> rowid, required String version}), PackageVersionsCompanion Function({Value<String> archiveUrl, Value<String> changelog, Value<String> package, Value<DateTime> published, Value<String> pubspec, Value<String> readme, Value<int> rowid, Value<String> version}), (PackageVersion, BaseReferences<_$PubDatabase, $PackageVersionsTable, PackageVersion>), PackageVersion, PrefetchHooks Function()>",
+        "BaseTableManager<_$PubDatabase, $PackageVersionsTable, PackageVersion, $$PackageVersionsTableFilterComposer, $$PackageVersionsTableOrderingComposer, $$PackageVersionsTableAnnotationComposer, PackageVersionsCompanion Function({required String archiveUrl, required String changelog, required String package, required DateTime published, required String pubspec, required String readme, Value<int> rowid, required String version}), PackageVersionsCompanion Function({Value<String> archiveUrl, Value<String> changelog, Value<String> package, Value<DateTime> published, Value<String> pubspec, Value<String> readme, Value<int> rowid, Value<String> version}), (PackageVersion, BaseReferences<_$PubDatabase, $PackageVersionsTable, PackageVersion>), PackageVersion, PrefetchHooks Function()>",
+        "Selectable<PackageVersion>",
+        "Object",
+        "MultiSelectable<PackageVersion>",
+        "SingleSelectable<PackageVersion>",
+        "SingleOrNullSelectable<PackageVersion>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$$PackageVersionsTableTableManager",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "db",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "_$PubDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "table",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "$PackageVersionsTable",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$$PackageVersionsTableFilterComposer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Composer<_$PubDatabase, $PackageVersionsTable>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$$PackageVersionsTableFilterComposer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$db",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "_$PubDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$table",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "$PackageVersionsTable",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "joinBuilder",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "JoinBuilder?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$addJoinBuilderToRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$removeJoinBuilderFromRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ColumnFilters<String>",
+          "name": "package",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnFilters<String>",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnFilters<String>",
+          "name": "archiveUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnFilters<String>",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnFilters<String>",
+          "name": "readme",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnFilters<String>",
+          "name": "changelog",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnFilters<DateTime>",
+          "name": "published",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$$PackageVersionsTableOrderingComposer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Composer<_$PubDatabase, $PackageVersionsTable>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$$PackageVersionsTableOrderingComposer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$db",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "_$PubDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$table",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "$PackageVersionsTable",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "joinBuilder",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "JoinBuilder?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$addJoinBuilderToRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$removeJoinBuilderFromRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ColumnOrderings<String>",
+          "name": "package",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnOrderings<String>",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnOrderings<String>",
+          "name": "archiveUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnOrderings<String>",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnOrderings<String>",
+          "name": "readme",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnOrderings<String>",
+          "name": "changelog",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ColumnOrderings<DateTime>",
+          "name": "published",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "$$PackageVersionsTableAnnotationComposer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Composer<_$PubDatabase, $PackageVersionsTable>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "$$PackageVersionsTableAnnotationComposer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$db",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "_$PubDatabase",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "$table",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "$PackageVersionsTable",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "joinBuilder",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "JoinBuilder?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$addJoinBuilderToRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "$removeJoinBuilderFromRootComposer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function(JoinBuilder)?",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GeneratedColumn<String>",
+          "name": "package",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GeneratedColumn<String>",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GeneratedColumn<String>",
+          "name": "archiveUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GeneratedColumn<String>",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GeneratedColumn<String>",
+          "name": "readme",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GeneratedColumn<String>",
+          "name": "changelog",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GeneratedColumn<DateTime>",
+          "name": "published",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "PubPackage",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "PubPackage",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "latest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "PubPackageVersion",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "versions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<PubPackageVersion>",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        },
+        {
+          "returnTypeName": "PubPackage",
+          "name": "fromDb",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DatabasePackage",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "PubPackageVersion",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<PubPackageVersion>",
+          "name": "versions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/models.dart"
+    },
+    {
+      "name": "PubPackageVersion",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "PubPackageVersion",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Version",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "archiveUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "changelog",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "readme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "published",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DateTime",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        },
+        {
+          "returnTypeName": "PubPackageVersion",
+          "name": "fromDb",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "PackageVersion",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "package",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Version",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "archiveUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, Object?>",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "changelog",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "readme",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DateTime",
+          "name": "published",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/models.dart"
+    },
+    {
+      "name": "DatabasePackage",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "DatabasePackage",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Package",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "latest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "PackageVersion",
+              "relativePath": "package:pub_server/src/database.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "versions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<PackageVersion>",
+              "relativePath": "package:pub_server/src/database.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Package",
+          "name": "package",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "PackageVersion",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<PackageVersion>",
+          "name": "versions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/database.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/database.dart"
+    },
+    {
+      "name": "PubLauncher",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<PubLauncher>",
+          "name": "git",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "pubServer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "gitUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "gitRef",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart"
+        },
+        {
+          "returnTypeName": "Future<PubLauncher>",
+          "name": "local",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "pubServer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "prePublish",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LocalPackage",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "publish",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "package",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LocalPackage",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "run",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart"
+        },
+        {
+          "returnTypeName": "PubLauncher",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pubServerUri",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Uri",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "packages",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<LocalPackage>",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Uri",
+          "name": "pubServerUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<LocalPackage>",
+          "name": "packages",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<LocalPackage>",
+          "name": "sortedPackages",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/launcher.dart"
+    },
+    {
+      "name": "LocalPackage",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "LocalPackage",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Pubspec",
+              "relativePath": "package:pub_server/src/launcher.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "path",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Pubspec",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "PackageFlavor",
+          "name": "flavor",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/launcher.dart"
+    },
+    {
+      "name": "PackageFlavor",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "PackageFlavor",
+          "name": "dart",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "PackageFlavor",
+          "name": "flutter",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<PackageFlavor>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/launcher.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/launcher.dart"
+    },
+    {
+      "name": "VersionSerializer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "JsonConverter<Version, String>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "VersionSerializer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/models.dart"
+    },
+    {
+      "name": "DateTimeSerializer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "JsonConverter<DateTime, String>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "DateTimeSerializer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/models.dart"
+    },
+    {
+      "name": "VersionResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Map<String, dynamic>",
+          "name": "toJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        },
+        {
+          "returnTypeName": "VersionResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Version",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "archiveUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "pubspec",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "published",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DateTime",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        },
+        {
+          "returnTypeName": "VersionResponse",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, dynamic>",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        },
+        {
+          "returnTypeName": "VersionResponse",
+          "name": "fromVersion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "PubPackageVersion",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "archiveUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, Object?>",
+          "name": "pubspec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Version",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DateTime",
+          "name": "published",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/models.dart"
+    },
+    {
+      "name": "GetVersionResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Map<String, dynamic>",
+          "name": "toJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        },
+        {
+          "returnTypeName": "GetVersionResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "VersionResponse",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        },
+        {
+          "returnTypeName": "GetVersionResponse",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, dynamic>",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "VersionResponse",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/models.dart"
+    },
+    {
+      "name": "GetVersionsResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Map<String, dynamic>",
+          "name": "toJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        },
+        {
+          "returnTypeName": "GetVersionsResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "latest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "VersionResponse",
+              "relativePath": "package:pub_server/src/models.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "versions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<VersionResponse>",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        },
+        {
+          "returnTypeName": "GetVersionsResponse",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, dynamic>",
+              "relativePath": "package:pub_server/src/models.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "VersionResponse",
+          "name": "latest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<VersionResponse>",
+          "name": "versions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/models.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/models.dart"
+    },
+    {
+      "name": "PubServer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<Response>",
+          "name": "getVersions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Request",
+              "relativePath": "package:pub_server/src/server.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/server.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart"
+        },
+        {
+          "returnTypeName": "Future<Response>",
+          "name": "getVersion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Request",
+              "relativePath": "package:pub_server/src/server.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/server.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/server.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart"
+        },
+        {
+          "returnTypeName": "Future<Response>",
+          "name": "newVersion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Request",
+              "relativePath": "package:pub_server/src/server.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart"
+        },
+        {
+          "returnTypeName": "Future<Response>",
+          "name": "upload",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Request",
+              "relativePath": "package:pub_server/src/server.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart"
+        },
+        {
+          "returnTypeName": "Future<Response>",
+          "name": "uploadFinish",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Request",
+              "relativePath": "package:pub_server/src/server.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart"
+        },
+        {
+          "returnTypeName": "Future<Response>",
+          "name": "download",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Request",
+              "relativePath": "package:pub_server/src/server.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/server.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:pub_server/src/server.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart"
+        },
+        {
+          "returnTypeName": "PubServer",
+          "name": "prod",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "dataDir",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:pub_server/src/server.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart"
+        },
+        {
+          "returnTypeName": "PubServer",
+          "name": "test",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "PubDatabase",
+          "name": "db",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "FileSystem",
+          "name": "fs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "dataDir",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "FutureOr<Response> Function(Request)",
+          "name": "handler",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:pub_server/src/server.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "pub_server.dart"
+      ],
+      "relativePath": "package:pub_server/src/server.dart"
+    }
+  ]
+}
