@@ -11,9 +11,11 @@ import 'package:http2/http2.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-/// Whether [error] is a retryable [SocketException] transport failure.
+/// Whether [error] is a transport failure which occurred before the request
+/// was transmitted, and is therefore safe to retry.
 @visibleForTesting
-bool isRetryableTransportError(Object error) => error is SocketException;
+bool isRetryableTransportError(Object error) =>
+    error is SocketException || error is HandshakeException;
 
 AWSHttpException _transportException(
   AWSBaseHttpRequest request,

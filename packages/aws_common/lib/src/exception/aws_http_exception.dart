@@ -28,9 +28,18 @@ class AWSHttpException implements Exception {
     AWSBaseHttpRequest request, [
     Object? underlyingException,
   ]) {
-    // Anti-double-wrap guard; callers pass the raw transport error.
+    // Anti-double-wrap guard. If an AWSHttpException is passed, keep its
+    // original context but ensure the result is still flagged retryable.
     if (underlyingException is AWSHttpException) {
-      return underlyingException;
+      if (underlyingException.retryable) {
+        return underlyingException;
+      }
+      return AWSHttpException._(
+        underlyingException.method,
+        underlyingException.uri,
+        underlyingException.underlyingException,
+        true,
+      );
     }
     return AWSHttpException._(
       request.method,
