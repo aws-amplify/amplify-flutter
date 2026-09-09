@@ -1886,6 +1886,82 @@ void main() {
         },
       );
 
+      test(
+        'should send only one AbortMultipartUpload request when multiple parts '
+        'fail concurrently',
+        () async {
+          // A >5MB AWSFile uploads its parts in parallel, so multiple
+          // parts can fail while the abort triggered by the first failure is
+          // still in flight. Use a dedicated client so the abort call count is
+          // isolated from the suite-level mock shared with other tests.
+          final localS3Client = MockS3Client();
+          final testFile = AWSFile.fromData(testBytes);
+          const testMultipartUploadId = 'some-upload-id';
+
+          final createMultipartUploadSmithyOperation =
+              MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+          when(() => createMultipartUploadSmithyOperation.result).thenAnswer(
+            (_) async =>
+                s3.CreateMultipartUploadOutput(uploadId: testMultipartUploadId),
+          );
+          when(
+            () => localS3Client.createMultipartUpload(any()),
+          ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+
+          when(
+            () => transferDatabase.insertTransferRecord(any()),
+          ).thenAnswer((_) async => '1');
+
+          // Every part upload fails.
+          const testException = smithy.UnknownSmithyHttpException(
+            statusCode: 403,
+            body: 'Access denied!',
+          );
+          when(
+            () => localS3Client.uploadPart(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).thenThrow(testException);
+
+          // Delay the abort response so all concurrent part failures reach the
+          // dedupe guard while the first abort is still awaiting.
+          final abortMultipartUploadSmithyOperation =
+              MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+          when(() => abortMultipartUploadSmithyOperation.result).thenAnswer((
+            _,
+          ) async {
+            await Future<void>.delayed(const Duration(milliseconds: 50));
+            return s3.AbortMultipartUploadOutput();
+          });
+          when(
+            () => localS3Client.abortMultipartUpload(any()),
+          ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
+
+          final uploadTask = S3UploadTask.fromAWSFile(
+            testFile,
+            s3Client: localS3Client,
+            s3ClientConfig: defaultS3ClientConfig,
+            pathResolver: pathResolver,
+            bucket: testBucket,
+            awsRegion: testRegion,
+            path: const StoragePath.fromString(testKey),
+            options: testUploadDataOptions,
+            logger: logger,
+            transferDatabase: transferDatabase,
+          );
+
+          unawaited(uploadTask.start());
+
+          await expectLater(
+            uploadTask.result,
+            throwsA(isA<StorageException>()),
+          );
+
+          verify(() => localS3Client.abortMultipartUpload(any())).called(1);
+        },
+      );
+
       group('Control APIs', () {
         final testLocalFile = AWSFile.fromData(testBytes);
         final testUploadPartOutput1 = s3.UploadPartOutput(eTag: 'eTag-part-1');

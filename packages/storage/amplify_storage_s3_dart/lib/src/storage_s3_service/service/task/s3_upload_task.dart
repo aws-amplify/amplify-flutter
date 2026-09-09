@@ -762,6 +762,11 @@ class S3UploadTask {
       return;
     }
 
+    // set failure before the await so the guard dedupes concurrent aborts
+    if (!isCancel) {
+      _state = StorageTransferState.failure;
+    }
+
     final request = s3.AbortMultipartUploadRequest.build((builder) {
       builder
         ..bucket = _bucket
