@@ -71,6 +71,22 @@ void main() {
       expect(calls, 3);
     });
 
+    test('does not count error results', () async {
+      var calls = 0;
+      final flushed = await flushUntilDelivered(
+        () async {
+          calls++;
+          return Result<FlushData>.error(Exception('flush failed'));
+        },
+        1,
+        maxAttempts: 3,
+        retryDelay: Duration.zero,
+      );
+
+      expect(flushed, 0, reason: 'error results are not counted');
+      expect(calls, 3);
+    });
+
     test('without retry (maxAttempts: 1) a throttled first flush yields 0', () {
       // Regression guard: pre-fix behavior — a single, non-retried throttled
       // flush returns 0, which the old `expect(recordsFlushed, 1)` failed on.

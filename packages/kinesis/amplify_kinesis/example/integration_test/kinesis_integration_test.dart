@@ -321,9 +321,25 @@ void main() {
           partitionKey: 'partition-1',
           streamName: 'nonexistent-stream-name',
         );
+        await retryClient.record(
+          data: Uint8List.fromList(utf8.encode('valid-stream-record')),
+          partitionKey: 'partition-1',
+          streamName: testStreamName,
+        );
 
-        // Every flush errors on the invalid stream and delivers nothing; the
-        // record's retry count climbs until it is evicted at maxRetries.
+        // Mixed batch: the valid record still flushes while the invalid one
+        // retries. Cap attempts so the (retryable) invalid record isn't
+        // evicted before the retry-exhaustion loop below.
+        final firstFlushed = await flushUntilDelivered(
+          retryClient.flush,
+          1,
+          maxAttempts: 3,
+        );
+        expect(firstFlushed, equals(1));
+
+        // Every subsequent flush errors on the invalid stream and delivers
+        // nothing; the record's retry count climbs until it is evicted at
+        // maxRetries.
         for (var i = 0; i < maxRetries; i++) {
           final result = await retryClient.flush();
           expect(result, isA<Ok<FlushData>>());
