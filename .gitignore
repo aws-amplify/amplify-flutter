@@ -5,6 +5,7 @@ build/
 **/ios/.symlinks/
 **/android/.settings/
 pubspec.lock
+!packages/aft/pubspec.lock
 Podfile.lock
 *.iml
 *.jar
