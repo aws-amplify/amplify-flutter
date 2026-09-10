@@ -11,8 +11,7 @@ import 'package:http2/http2.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-/// Whether [error] is a transport failure which occurred before the request
-/// was transmitted, and is therefore safe to retry.
+/// Whether [error] is a transport failure which produced no HTTP response.
 @visibleForTesting
 bool isRetryableTransportError(Object error) =>
     error is SocketException || error is HandshakeException;

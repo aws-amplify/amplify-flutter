@@ -38,13 +38,14 @@ void main() {
 
     test('flags a terminated TLS handshake as a retryable '
         'AWSHttpException', () async {
-      // Close the connection cleanly mid-handshake, reproducing the Windows CI
-      // failure "HandshakeException: Connection terminated during handshake".
+      // Replies to the TLS ClientHello with non-TLS bytes, so the handshake
+      // fails in the TLS layer rather than depending on how the OS reports EOF.
       final server = await ServerSocket.bind(InternetAddress.loopbackIPv4, 0);
       addTearDown(server.close);
       server.listen((socket) {
         socket
           ..listen(null, onError: (_) {}, cancelOnError: true)
+          ..add(List<int>.filled(64, 0x41))
           ..close();
       });
 
@@ -87,16 +88,16 @@ void main() {
       );
     });
 
-    test('CertificateException is NOT retryable (an untrusted certificate is '
-        'not transient)', () {
+    test('CertificateException is not flagged; only HandshakeException '
+        'is', () {
       expect(
         isRetryableTransportError(const CertificateException('bad cert')),
         isFalse,
       );
     });
 
-    test('broader transport errors are NOT retryable (may have reached the '
-        'server => duplicate risk)', () {
+    test('other transport errors are not flagged, since a response may '
+        'already have been received', () {
       expect(isRetryableTransportError(const HttpException('closed')), isFalse);
       expect(isRetryableTransportError(TimeoutException('timed out')), isFalse);
       expect(isRetryableTransportError(TransportException('h2')), isFalse);
