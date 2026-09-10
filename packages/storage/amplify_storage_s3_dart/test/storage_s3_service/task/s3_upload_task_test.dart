@@ -1886,6 +1886,138 @@ void main() {
         },
       );
 
+      test(
+        'should send only one AbortMultipartUpload request when multiple parts '
+        'fail concurrently',
+        () async {
+          // A >5MB AWSFile uploads its parts in parallel, so multiple
+          // parts can fail while the abort triggered by the first failure is
+          // still in flight. Use a dedicated client so the abort call count is
+          // isolated from the suite-level mock shared with other tests.
+          final localS3Client = MockS3Client();
+          final testFile = AWSFile.fromData(testBytes);
+          const testMultipartUploadId = 'some-upload-id';
+
+          final createMultipartUploadSmithyOperation =
+              MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+          when(() => createMultipartUploadSmithyOperation.result).thenAnswer(
+            (_) async =>
+                s3.CreateMultipartUploadOutput(uploadId: testMultipartUploadId),
+          );
+          when(
+            () => localS3Client.createMultipartUpload(any()),
+          ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+
+          when(
+            () => transferDatabase.insertTransferRecord(any()),
+          ).thenAnswer((_) async => '1');
+
+          const testException = smithy.UnknownSmithyHttpException(
+            statusCode: 403,
+            body: 'Access denied!',
+          );
+          when(
+            () => localS3Client.uploadPart(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).thenThrow(testException);
+
+          // Delay the abort response so all concurrent part failures reach the
+          // dedupe guard while the first abort is still awaiting.
+          final abortMultipartUploadSmithyOperation =
+              MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+          when(() => abortMultipartUploadSmithyOperation.result).thenAnswer((
+            _,
+          ) async {
+            await Future<void>.delayed(const Duration(milliseconds: 50));
+            return s3.AbortMultipartUploadOutput();
+          });
+          when(
+            () => localS3Client.abortMultipartUpload(any()),
+          ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
+
+          final uploadTask = S3UploadTask.fromAWSFile(
+            testFile,
+            s3Client: localS3Client,
+            s3ClientConfig: defaultS3ClientConfig,
+            pathResolver: pathResolver,
+            bucket: testBucket,
+            awsRegion: testRegion,
+            path: const StoragePath.fromString(testKey),
+            options: testUploadDataOptions,
+            logger: logger,
+            transferDatabase: transferDatabase,
+          );
+
+          unawaited(uploadTask.start());
+
+          await expectLater(
+            uploadTask.result,
+            throwsA(isA<StorageException>()),
+          );
+
+          verify(() => localS3Client.abortMultipartUpload(any())).called(1);
+        },
+      );
+
+      test('should still fail with the original error when the '
+          'AbortMultipartUpload request itself fails', () async {
+        final uploadTask = S3UploadTask.fromAWSFile(
+          testLocalFile,
+          s3Client: s3Client,
+          s3ClientConfig: defaultS3ClientConfig,
+          pathResolver: pathResolver,
+          bucket: testBucket,
+          awsRegion: testRegion,
+          path: const StoragePath.fromString(testKey),
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+        );
+        const testMultipartUploadId = 'some-upload-id';
+
+        final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
+          uploadId: testMultipartUploadId,
+        );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+        when(
+          () => s3Client.createMultipartUpload(any()),
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+
+        when(
+          () => transferDatabase.insertTransferRecord(any()),
+        ).thenAnswer((_) async => '1');
+
+        const testException = smithy.UnknownSmithyHttpException(
+          statusCode: 403,
+          body: 'Access denied!',
+        );
+        when(
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenThrow(testException);
+
+        unawaited(uploadTask.start());
+
+        final abortMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+        when(
+          () => abortMultipartUploadSmithyOperation.result,
+        ).thenThrow(Exception('abort failed'));
+        when(
+          () => s3Client.abortMultipartUpload(any()),
+        ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
+
+        await expectLater(uploadTask.result, throwsA(isA<StorageException>()));
+      });
+
       group('Control APIs', () {
         final testLocalFile = AWSFile.fromData(testBytes);
         final testUploadPartOutput1 = s3.UploadPartOutput(eTag: 'eTag-part-1');
@@ -2182,6 +2314,83 @@ void main() {
         unawaited(uploadTask.start());
 
         expect(uploadTask.result, throwsA(accelerateEndpointUnusable));
+      });
+    });
+
+    group('upload completion', () {
+      test('result should complete only once when multiple parts fail '
+          'concurrently', () async {
+        const testMultipartUploadId = 'awesome-upload';
+        const testException = smithy.UnknownSmithyHttpException(
+          statusCode: 500,
+          body: 'error',
+        );
+
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+        when(() => createMultipartUploadSmithyOperation.result).thenAnswer(
+          (_) async =>
+              s3.CreateMultipartUploadOutput(uploadId: testMultipartUploadId),
+        );
+        when(
+          () => s3Client.createMultipartUpload(any()),
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+
+        when(
+          () => transferDatabase.insertTransferRecord(any<TransferRecord>()),
+        ).thenAnswer((_) async => '1');
+
+        // A fromData file uploads parts in parallel, so failing them races.
+        when(
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenThrow(testException);
+
+        final abortMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+        when(() => abortMultipartUploadSmithyOperation.result).thenAnswer((
+          _,
+        ) async {
+          // Delay so all concurrent terminations pass the state guard first.
+          await Future<void>.delayed(const Duration(milliseconds: 50));
+          return s3.AbortMultipartUploadOutput();
+        });
+        when(
+          () => s3Client.abortMultipartUpload(any()),
+        ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
+
+        final uncaughtErrors = <Object>[];
+
+        await runZonedGuarded(() async {
+          final uploadTask = S3UploadTask.fromAWSFile(
+            AWSFile.fromData(Uint8List(11 * 1024 * 1024)),
+            s3Client: s3Client,
+            s3ClientConfig: defaultS3ClientConfig,
+            pathResolver: pathResolver,
+            bucket: testBucket,
+            awsRegion: testRegion,
+            path: const StoragePath.fromString('object-upload-to'),
+            options: testUploadDataOptions,
+            logger: logger,
+            transferDatabase: transferDatabase,
+            onProgress: (_) {},
+          );
+
+          unawaited(uploadTask.start());
+          // Listen so the (error) result is never itself uncaught.
+          unawaited(uploadTask.result.then((_) {}, onError: (_) {}));
+          await Future<void>.delayed(const Duration(milliseconds: 200));
+        }, (error, _) => uncaughtErrors.add(error));
+
+        expect(
+          uncaughtErrors.where(
+            (e) => e.toString().contains('Future already completed'),
+          ),
+          isEmpty,
+          reason: 'the result completer must be completed at most once',
+        );
       });
     });
   });
