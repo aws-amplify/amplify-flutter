@@ -774,7 +774,11 @@ class S3UploadTask {
         ..uploadId = _multipartUploadId;
     });
 
-    await _s3Client.abortMultipartUpload(request).result;
+    try {
+      await _s3Client.abortMultipartUpload(request).result;
+    } on Exception catch (e) {
+      _logger.error('Failed to abort multipart upload', e);
+    }
 
     if (isCancel) {
       _uploadCompleter.completeError(error);

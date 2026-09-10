@@ -1912,7 +1912,6 @@ void main() {
             () => transferDatabase.insertTransferRecord(any()),
           ).thenAnswer((_) async => '1');
 
-          // Every part upload fails.
           const testException = smithy.UnknownSmithyHttpException(
             statusCode: 403,
             body: 'Access denied!',
@@ -1961,6 +1960,63 @@ void main() {
           verify(() => localS3Client.abortMultipartUpload(any())).called(1);
         },
       );
+
+      test('should still fail with the original error when the '
+          'AbortMultipartUpload request itself fails', () async {
+        final uploadTask = S3UploadTask.fromAWSFile(
+          testLocalFile,
+          s3Client: s3Client,
+          s3ClientConfig: defaultS3ClientConfig,
+          pathResolver: pathResolver,
+          bucket: testBucket,
+          awsRegion: testRegion,
+          path: const StoragePath.fromString(testKey),
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+        );
+        const testMultipartUploadId = 'some-upload-id';
+
+        final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
+          uploadId: testMultipartUploadId,
+        );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+        when(
+          () => s3Client.createMultipartUpload(any()),
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+
+        when(
+          () => transferDatabase.insertTransferRecord(any()),
+        ).thenAnswer((_) async => '1');
+
+        const testException = smithy.UnknownSmithyHttpException(
+          statusCode: 403,
+          body: 'Access denied!',
+        );
+        when(
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenThrow(testException);
+
+        unawaited(uploadTask.start());
+
+        final abortMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+        when(
+          () => abortMultipartUploadSmithyOperation.result,
+        ).thenThrow(Exception('abort failed'));
+        when(
+          () => s3Client.abortMultipartUpload(any()),
+        ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
+
+        await expectLater(uploadTask.result, throwsA(isA<StorageException>()));
+      });
 
       group('Control APIs', () {
         final testLocalFile = AWSFile.fromData(testBytes);
