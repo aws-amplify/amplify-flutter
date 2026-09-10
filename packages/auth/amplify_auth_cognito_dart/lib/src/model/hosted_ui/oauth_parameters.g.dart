@@ -46,6 +46,10 @@ const OAuthErrorCode _$requestUriNotSupported = const OAuthErrorCode._(
 const OAuthErrorCode _$registrationUriNotSupported = const OAuthErrorCode._(
   'registrationUriNotSupported',
 );
+const OAuthErrorCode _$userCancelledAuthorize = const OAuthErrorCode._(
+  'userCancelledAuthorize',
+);
+const OAuthErrorCode _$unknown = const OAuthErrorCode._('unknown');
 
 OAuthErrorCode _$valueOf(String name) {
   switch (name) {
@@ -81,6 +85,10 @@ OAuthErrorCode _$valueOf(String name) {
       return _$requestUriNotSupported;
     case 'registrationUriNotSupported':
       return _$registrationUriNotSupported;
+    case 'userCancelledAuthorize':
+      return _$userCancelledAuthorize;
+    case 'unknown':
+      return _$unknown;
     default:
       throw ArgumentError(name);
   }
@@ -104,6 +112,8 @@ final BuiltSet<OAuthErrorCode> _$values =
       _$requestNotSupported,
       _$requestUriNotSupported,
       _$registrationUriNotSupported,
+      _$userCancelledAuthorize,
+      _$unknown,
     ]);
 
 Serializers _$oauthSerializers =
@@ -135,6 +145,8 @@ class _$OAuthErrorCodeSerializer
     'requestNotSupported': 'request_not_supported',
     'requestUriNotSupported': 'request_uri_not_supported',
     'registrationUriNotSupported': 'registration_uri_not_supported',
+    'userCancelledAuthorize': 'user_cancelled_authorize',
+    'unknown': 'unknown',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'invalid_request': 'invalidRequest',
@@ -153,6 +165,8 @@ class _$OAuthErrorCodeSerializer
     'request_not_supported': 'requestNotSupported',
     'request_uri_not_supported': 'requestUriNotSupported',
     'registration_uri_not_supported': 'registrationUriNotSupported',
+    'user_cancelled_authorize': 'userCancelledAuthorize',
+    'unknown': 'unknown',
   };
 
   @override

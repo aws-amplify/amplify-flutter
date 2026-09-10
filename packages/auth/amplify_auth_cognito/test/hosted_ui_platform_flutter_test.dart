@@ -73,7 +73,59 @@ void main() {
       // signInWithWebUI completes.
       await hostedUiMachine.close();
     });
+
+    // The native platform returns the query parameters of the redirect URI,
+    // which include an error code when the user cancels at the identity
+    // provider, e.g. at the Sign in with Apple consent screen.
+    //
+    // https://github.com/aws-amplify/amplify-flutter/issues/7077
+    test('can cancel flow at the identity provider', () async {
+      dependencyManager.addInstance<NativeAuthBridge>(CancellingNativeBridge());
+      debugDefaultTargetPlatformOverride = TargetPlatform.android;
+      addTearDown(() => debugDefaultTargetPlatformOverride = null);
+
+      final expectation = expectLater(
+        plugin.signInWithWebUI(provider: AuthProvider.apple),
+        throwsA(isA<UserCancelledException>()),
+      );
+      final hostedUiMachine = plugin.stateMachine.expect(
+        HostedUiStateMachine.type,
+      );
+      expect(
+        hostedUiMachine.stream,
+        emitsInOrder([
+          isA<HostedUiSigningIn>(),
+          // Emitted again for the exchange event.
+          emitsThrough(
+            isA<HostedUiFailure>().having(
+              (s) => s.exception,
+              'exception',
+              isA<UserCancelledException>(),
+            ),
+          ),
+          emitsDone,
+        ]),
+      );
+      await expectation;
+      await hostedUiMachine.close();
+    });
   });
+}
+
+final class CancellingNativeBridge extends Fake implements NativeAuthBridge {
+  @override
+  Future<Map<String, String>> signInWithUrl(
+    String arg_url,
+    String arg_callbackUrlScheme,
+    bool arg_preferPrivateSession,
+    String? arg_browserPackageName,
+  ) async => const {
+    'error_description':
+        'Error response from Identity Provider; '
+        'error=user_cancelled_authorize',
+    'state': 'STATE',
+    'error': 'user_cancelled_authorize',
+  };
 }
 
 final class ThrowingNativeBridge extends Fake implements NativeAuthBridge {
