@@ -97,60 +97,56 @@ void main() {
           expect(result.nextStep.additionalInfo, isEmpty);
         });
 
-        asyncTest(
-          'identity ID should be the same between sessions',
-          (_) async {
-            // Get unauthenticated identity
-            final unauthSession =
-                await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+        asyncTest('identity ID should be the same between sessions', (_) async {
+          // Get unauthenticated identity
+          final unauthSession =
+              await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
 
-            // Sign in
-            {
-              final signInRes = await Amplify.Auth.signIn(
-                username: username,
-                password: password,
-              );
-              expect(signInRes.nextStep.signInStep, AuthSignInStep.done);
-            }
-
-            // Get authenticated identity
-            final authSession =
-                await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-            final authenticatedIdentity = authSession.identityIdResult;
-            expect(
-              authenticatedIdentity,
-              isNot(unauthSession.identityIdResult.value),
-              reason:
-                  'Unauthenticated identities should be distinct from authenticated '
-                  'identities, since unauthenticated identities are vended to all '
-                  'new devices when guest access is enabled but should converge to '
-                  'a singular authenticated identity across all devices',
+          // Sign in
+          {
+            final signInRes = await Amplify.Auth.signIn(
+              username: username,
+              password: password,
             );
-            expect(
-              authSession.credentialsResult.value,
-              isNot(unauthSession.credentialsResult.value),
-            );
+            expect(signInRes.nextStep.signInStep, AuthSignInStep.done);
+          }
 
-            await Amplify.Auth.signOut();
-            {
-              final signInRes = await Amplify.Auth.signIn(
-                username: username,
-                password: password,
-              );
-              expect(signInRes.nextStep.signInStep, AuthSignInStep.done);
-            }
+          // Get authenticated identity
+          final authSession =
+              await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+          final authenticatedIdentity = authSession.identityIdResult;
+          expect(
+            authenticatedIdentity,
+            isNot(unauthSession.identityIdResult.value),
+            reason:
+                'Unauthenticated identities should be distinct from authenticated '
+                'identities, since unauthenticated identities are vended to all '
+                'new devices when guest access is enabled but should converge to '
+                'a singular authenticated identity across all devices',
+          );
+          expect(
+            authSession.credentialsResult.value,
+            isNot(unauthSession.credentialsResult.value),
+          );
 
-            final newSession =
-                await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-            expect(
-              newSession.identityIdResult.value,
-              authenticatedIdentity.value,
-              reason:
-                  'Authenticated identity should be the same between sessions',
+          await Amplify.Auth.signOut();
+          {
+            final signInRes = await Amplify.Auth.signIn(
+              username: username,
+              password: password,
             );
-          },
-          skip: environment.name == 'user-pool-only',
-        );
+            expect(signInRes.nextStep.signInStep, AuthSignInStep.done);
+          }
+
+          final newSession =
+              await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+          expect(
+            newSession.identityIdResult.value,
+            authenticatedIdentity.value,
+            reason:
+                'Authenticated identity should be the same between sessions',
+          );
+        }, skip: environment.name == 'user-pool-only');
       });
     }
   });
