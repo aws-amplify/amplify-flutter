@@ -497,51 +497,58 @@ void main() {
           expect(hubEvents, emitsSignOutEvent);
         });
 
-        test('fails hard for user cancellation', () async {
-          seedStorage(
-            secureStorage,
-            identityPoolKeys: identityPoolKeys,
-            hostedUiKeys: hostedUiKeys,
-          );
-          stateMachine.addBuilder<HostedUiPlatform>(
-            createHostedUiFactory(
-              signIn:
-                  (
-                    HostedUiPlatform platform,
-                    CognitoSignInWithWebUIPluginOptions options,
-                    AuthProvider? provider,
-                  ) async {},
-              signOut:
-                  (
-                    HostedUiPlatform platform,
-                    CognitoSignInWithWebUIPluginOptions options,
-                  ) async => throw const UserCancelledException(''),
-            ),
-          );
-          await plugin.configure(
-            config: mockConfig,
-            authProviderRepo: testAuthRepo,
-          );
-
-          await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
-          await expectLater(
-            plugin.signOut(),
-            completion(
-              isA<CognitoFailedSignOut>().having(
-                (res) => res.exception,
-                'exception',
-                isA<UserCancelledException>(),
+        test(
+          'fails hard for user cancellation',
+          () async {
+            seedStorage(
+              secureStorage,
+              identityPoolKeys: identityPoolKeys,
+              hostedUiKeys: hostedUiKeys,
+            );
+            stateMachine.addBuilder<HostedUiPlatform>(
+              createHostedUiFactory(
+                signIn:
+                    (
+                      HostedUiPlatform platform,
+                      CognitoSignInWithWebUIPluginOptions options,
+                      AuthProvider? provider,
+                    ) async {},
+                signOut:
+                    (
+                      HostedUiPlatform platform,
+                      CognitoSignInWithWebUIPluginOptions options,
+                    ) async => throw const UserCancelledException(''),
               ),
-            ),
-          );
-          expect(
-            plugin.stateMachine.getUserPoolTokens(),
-            completes,
-            reason: 'Credentials were not cleared',
-          );
-          unawaited(hubEventsController.close());
-          expect(hubEvents, neverEmits(emitsSignOutEvent));
-        }, skip: zIsWeb ? 'User cancellation is not possible on Web' : null);
+            );
+            await plugin.configure(
+              config: mockConfig,
+              authProviderRepo: testAuthRepo,
+            );
+
+            await expectLater(
+              plugin.stateMachine.getUserPoolTokens(),
+              completes,
+            );
+            await expectLater(
+              plugin.signOut(),
+              completion(
+                isA<CognitoFailedSignOut>().having(
+                  (res) => res.exception,
+                  'exception',
+                  isA<UserCancelledException>(),
+                ),
+              ),
+            );
+            expect(
+              plugin.stateMachine.getUserPoolTokens(),
+              completes,
+              reason: 'Credentials were not cleared',
+            );
+            unawaited(hubEventsController.close());
+            expect(hubEvents, neverEmits(emitsSignOutEvent));
+          },
+          skip: zIsWeb ? 'User cancellation is not possible on Web' : null,
+        );
       });
     });
   });
