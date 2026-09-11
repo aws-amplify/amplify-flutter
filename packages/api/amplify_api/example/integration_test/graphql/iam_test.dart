@@ -159,13 +159,11 @@ void main({
           where: Blog.NAME.eq(blogName) & Blog.ID.eq(blog.id),
           limit: _limit,
         );
-        final res = await Amplify.API.query(request: req).response;
-        final data = res.data;
-        final blogs = [blog];
+        // Walk all pages: the match may be on a later scan page in a large table.
+        final items = await listAllPages<Blog>(req);
 
-        expect(res, hasNoGraphQLErrors);
-        expect(data?.items.length, 1);
-        expect(data?.items, containsAll(blogs));
+        expect(items.length, 1);
+        expect(items, containsAll([blog]));
       });
 
       testWidgets(

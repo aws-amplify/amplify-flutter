@@ -277,6 +277,24 @@ Future<Sample> deleteSample(Sample sample) async {
   return sample;
 }
 
+/// Collects every item from a paginated `list` [request] by following `requestForNextResult` (a single scan page can miss matches in a large table).
+Future<List<T?>> listAllPages<T extends Model>(
+  GraphQLRequest<PaginatedResult<T>> request,
+) async {
+  final items = <T?>[];
+  GraphQLRequest<PaginatedResult<T>>? nextReq = request;
+  while (nextReq != null) {
+    final res = await Amplify.API.query(request: nextReq).response;
+    expect(res, hasNoGraphQLErrors);
+    final data = res.data;
+    items.addAll(data?.items ?? const []);
+    nextReq = (data?.hasNextResult ?? false)
+        ? data!.requestForNextResult
+        : null;
+  }
+  return items;
+}
+
 Future<void> deleteTestModels() async {
   await Future.wait(blogCache.map(deleteBlog));
   await Future.wait(postCache.map(deletePost));

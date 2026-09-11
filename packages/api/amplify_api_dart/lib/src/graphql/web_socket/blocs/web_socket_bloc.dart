@@ -108,6 +108,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   late WebSocketState _currentState;
 
+  /// The in-flight reconnection, if any. Ensures at most one runs at a time.
+  Future<void>? _reconnectOperation;
+
   /// OVERRIDES
   ///
   ///
@@ -378,12 +381,25 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// First establishes there is a connection to AppSync
   /// Then clears web socket connection and restarts init workflow
   /// Sends [NetworkException] when unable to reach AppSync
+  ///
+  /// Runs off the event queue so a slow reconnect doesn't block incoming
+  /// events (e.g. subscription data, keep alives) from being processed.
   Stream<WebSocketState> _reconnect() async* {
     assert(
       _currentState is ReconnectingState,
       'Bloc should be set to connecting before starting reconnection.',
     );
-    final state = _currentState;
+    _reconnectOperation ??= _performReconnect(
+      _currentState,
+    ).whenComplete(() => _reconnectOperation = null);
+
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
+  }
+
+  /// Pings AppSync with retry/back off and reinitializes the connection, or
+  /// shuts down on failure. Runs off the event queue via [_reconnect].
+  Future<void> _performReconnect(WebSocketState state) async {
     try {
       // Begin reconnection with retry/back off on ping endpoint
       final res = await state.options.retryOptions.retry(
@@ -395,6 +411,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
       // **Ping succeeded**
 
+      // Bloc may have shut down during the ping, don't act on a closed bloc
+      if (_isShuttingDown) return;
+
       // Prep new connection
       await state.service.close();
       for (final bloc in state.subscriptionBlocs.values) {
@@ -402,9 +421,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       }
 
       // Init new connection
-      add(const InitEvent());
+      _safeAdd(const InitEvent());
     } on Exception catch (e, st) {
-      // Ping failed, close down
+      // Ping failed, nothing to do if already shutting down
+      if (_isShuttingDown) return;
       _shutdownWithException(
         NetworkException(
           'Unable to recover network connection, web socket will close.',
@@ -414,10 +434,14 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
         st,
       );
     }
-
-    // TODO(dnys1): Yield broken on web debug build.
-    yield* const Stream.empty();
   }
+
+  /// Whether the bloc is closed or shutting down.
+  bool get _isShuttingDown =>
+      _wsEventController.isClosed ||
+      _currentState is PendingDisconnect ||
+      _currentState is DisconnectedState ||
+      _currentState is FailureState;
 
   /// Sends registration message on ws channel when connected
   void _registerSubscriptionRequest(GraphQLRequest<Object?> request) {

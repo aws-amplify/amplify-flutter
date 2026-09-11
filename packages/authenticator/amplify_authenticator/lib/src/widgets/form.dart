@@ -145,6 +145,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
     return ValueListenableBuilder<bool>(
       valueListenable: obscureTextToggleValue,
       builder: (BuildContext context, bool toggleObscureText, Widget? _) {
+        final inputResolver = stringResolver.inputs;
         return IconButton(
           onPressed: () {
             obscureTextToggleValue.value = !toggleObscureText;
@@ -152,6 +153,9 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
           icon: Icon(
             toggleObscureText ? Icons.visibility : Icons.visibility_off,
           ),
+          tooltip: toggleObscureText
+              ? inputResolver.showPasswordTooltip(context)
+              : inputResolver.hidePasswordTooltip(context),
         );
       },
     );

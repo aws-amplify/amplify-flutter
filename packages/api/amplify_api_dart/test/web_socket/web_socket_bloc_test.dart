@@ -181,6 +181,71 @@ void main() {
       await dataCompleter.future;
     });
 
+    test(
+      'delivers incoming subscription data while a reconnect is in progress',
+      () async {
+        final firstData = Completer<String>();
+        final dataDuringReconnect = Completer<String>();
+
+        final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
+          service!.channel.sink.add(mockDataString);
+        });
+
+        final bloc = getWebSocketBloc();
+        bloc.subscribe(subscribeEvent).listen((event) {
+          if (!firstData.isCompleted) {
+            firstData.complete(event.data);
+          } else if (!dataDuringReconnect.isCompleted) {
+            dataDuringReconnect.complete(event.data);
+          }
+        });
+
+        expect(await firstData.future, json.encode(mockSubscriptionData));
+
+        mockPollClient.induceTimeout = true;
+        mockNetworkStreamController.add(ConnectivityStatus.disconnected);
+        await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
+
+        service!.channel.sink.add(mockDataString);
+
+        final data = await dataDuringReconnect.future.timeout(
+          const Duration(seconds: 3),
+          onTimeout: () => throw TimeoutException(
+            'Subscription data was not delivered while a reconnect was in '
+            'progress.',
+          ),
+        );
+        expect(data, json.encode(mockSubscriptionData));
+
+        mockPollClient.induceTimeout = false;
+      },
+    );
+
+    test('shuts down cleanly while a reconnect is in progress', () async {
+      final established = Completer<void>();
+      final bloc = getWebSocketBloc();
+      bloc
+          .subscribe(SubscribeEvent(subscriptionRequest, established.complete))
+          .listen((_) {}, onError: (_) {});
+      await established.future;
+
+      mockPollClient.induceTimeout = true;
+      mockNetworkStreamController.add(ConnectivityStatus.disconnected);
+      await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
+
+      bloc.add(const ShutdownEvent());
+      await bloc.done.future.timeout(
+        const Duration(seconds: 3),
+        onTimeout: () => throw TimeoutException(
+          'Shutdown was blocked by an in-progress reconnect.',
+        ),
+      );
+
+      mockPollClient.induceTimeout = false;
+      await Future<void>.delayed(const Duration(seconds: 7));
+      expect(bloc.done.isCompleted, isTrue);
+    });
+
     test('should throttle reconnect after repeated wifi toggling', () async {
       final blocReady = Completer<void>();
       final subscribeEvent = SubscribeEvent(

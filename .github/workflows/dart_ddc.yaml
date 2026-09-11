@@ -51,7 +51,7 @@ jobs:
         run: git submodule update --init
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@43c102f4dc9b9829c862401f0b64c7c9184eab4e # main
+        uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1 # main
         with:
           sdk: ${{ matrix.sdk }}
 
