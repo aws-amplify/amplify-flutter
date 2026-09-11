@@ -471,6 +471,42 @@ void main() {
         expect(bodyStreamHasBeenCanceled, isTrue);
         await expectation;
       });
+
+      test('cancel() and pause() should return when the task failed before '
+          'the body stream was subscribed', () async {
+        when(
+          () => s3Client.getObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenThrow(
+          AWSHttpException(
+            AWSHttpRequest(method: AWSHttpMethod.get, uri: Uri()),
+          ),
+        );
+        final receivedState = <StorageTransferState>[];
+
+        final downloadTask = S3DownloadTask(
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          bucket: testBucket,
+          path: const StoragePath.fromString('public/$testKey'),
+          pathResolver: TestPathResolver(),
+          options: defaultTestOptions,
+          onProgress: (progress) {
+            receivedState.add(progress.state);
+          },
+        );
+
+        unawaited(downloadTask.start());
+        expect(downloadTask.result, throwsA(isA<NetworkException>()));
+
+        // `cancel` and `pause` wait for the task to start
+        await downloadTask.cancel().timeout(const Duration(seconds: 2));
+        await downloadTask.pause().timeout(const Duration(seconds: 2));
+
+        expect(receivedState.last, StorageTransferState.failure);
+      });
     });
 
     group('error handling around S3Client.getObject', () {
@@ -733,25 +769,39 @@ void main() {
         ).thenAnswer((_) => smithyOperation);
 
         final uncaughtErrors = <Object>[];
-        late S3DownloadTask downloadTask;
+        final receivedState = <StorageTransferState>[];
+        var onDoneCallCount = 0;
+        var onErrorCallCount = 0;
+        Object? resultError;
 
         await runZonedGuarded(() async {
-          downloadTask = S3DownloadTask(
+          final downloadTask = S3DownloadTask(
             s3Client: s3Client,
             defaultS3ClientConfig: defaultS3ClientConfig,
             bucket: testBucket,
             path: const StoragePath.fromString('public/$testKey'),
             pathResolver: TestPathResolver(),
             options: defaultTestOptions,
-            onProgress: (_) {},
+            onProgress: (progress) {
+              receivedState.add(progress.state);
+            },
+            onDone: () => onDoneCallCount++,
+            onError: () => onErrorCallCount++,
           );
 
           await downloadTask.start();
           // Listen so the (error) result is never itself uncaught.
-          unawaited(downloadTask.result.then((_) {}, onError: (_) {}));
+          unawaited(
+            downloadTask.result.then(
+              (_) {},
+              onError: (Object error) {
+                resultError = error;
+              },
+            ),
+          );
 
-          // The body subscription uses the default `cancelOnError: false`,
-          // so both onError and onDone fire and each completes the result.
+          // With `cancelOnError: false`, both callbacks run; only the first may
+          // complete the result.
           bodyController.addError(
             const UnknownException('simulated body stream error'),
           );
@@ -765,6 +815,169 @@ void main() {
           ),
           isEmpty,
           reason: 'the result completer must be completed at most once',
+        );
+        expect(
+          resultError,
+          isA<UnknownException>(),
+          reason: 'the stream error must be the outcome forwarded to `result`',
+        );
+        expect(
+          receivedState,
+          isNot(contains(StorageTransferState.success)),
+          reason: 'a failed download must never emit a success state',
+        );
+        expect(receivedState.last, StorageTransferState.failure);
+        expect(
+          onErrorCallCount,
+          1,
+          reason: 'the cleanup callback must run exactly once',
+        );
+        expect(
+          onDoneCallCount,
+          isZero,
+          reason: 'the completion callback must not run for a failed download',
+        );
+      });
+
+      test('result should complete as a failure when the body stream emits an '
+          'error after all bytes were received', () async {
+        final bodyController = StreamController<List<int>>();
+        final testGetObjectOutput = GetObjectOutput(
+          contentLength: Int64(2),
+          body: bodyController.stream,
+        );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testGetObjectOutput);
+
+        when(
+          () => s3Client.getObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer((_) => smithyOperation);
+
+        final uncaughtErrors = <Object>[];
+        final receivedState = <StorageTransferState>[];
+        var onDoneCallCount = 0;
+        var onErrorCallCount = 0;
+        Object? resultError;
+
+        await runZonedGuarded(() async {
+          final downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            bucket: testBucket,
+            path: const StoragePath.fromString('public/$testKey'),
+            pathResolver: TestPathResolver(),
+            options: defaultTestOptions,
+            onProgress: (progress) {
+              receivedState.add(progress.state);
+            },
+            onDone: () => onDoneCallCount++,
+            onError: () => onErrorCallCount++,
+          );
+
+          await downloadTask.start();
+          unawaited(
+            downloadTask.result.then(
+              (_) {},
+              onError: (Object error) {
+                resultError = error;
+              },
+            ),
+          );
+
+          // all bytes arrive first, so `onDone` would find a complete download
+          bodyController.add([101, 102]);
+          await Future<void>.delayed(const Duration(milliseconds: 10));
+          bodyController.addError(
+            const UnknownException('trailing body stream error'),
+          );
+          unawaited(bodyController.close());
+          await Future<void>.delayed(const Duration(milliseconds: 100));
+        }, (error, _) => uncaughtErrors.add(error));
+
+        expect(
+          uncaughtErrors,
+          isEmpty,
+          reason: 'a second terminal event must not raise uncaught errors',
+        );
+        expect(resultError, isA<UnknownException>());
+        expect(
+          receivedState,
+          isNot(contains(StorageTransferState.success)),
+          reason: 'the download failed, so no success state may be emitted',
+        );
+        expect(receivedState.last, StorageTransferState.failure);
+        expect(onErrorCallCount, 1);
+        expect(
+          onDoneCallCount,
+          isZero,
+          reason: 'the completion callback must not run after the failure',
+        );
+      });
+
+      test('should stop delivering bytes and progress after the download '
+          'failed', () async {
+        final bodyController = StreamController<List<int>>();
+        final testGetObjectOutput = GetObjectOutput(
+          contentLength: Int64(1024),
+          body: bodyController.stream,
+        );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testGetObjectOutput);
+        when(
+          () => s3Client.getObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer((_) => smithyOperation);
+
+        final uncaughtErrors = <Object>[];
+        final receivedState = <StorageTransferState>[];
+        var onDataCallCount = 0;
+
+        await runZonedGuarded(() async {
+          final downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            bucket: testBucket,
+            path: const StoragePath.fromString('public/$testKey'),
+            pathResolver: TestPathResolver(),
+            options: defaultTestOptions,
+            onProgress: (progress) {
+              receivedState.add(progress.state);
+            },
+            onData: (_) => onDataCallCount++,
+          );
+          await downloadTask.start();
+          unawaited(downloadTask.result.then((_) {}, onError: (_) {}));
+
+          bodyController.add([1, 2]);
+          await Future<void>.delayed(const Duration(milliseconds: 10));
+          bodyController.addError(const UnknownException('mid-stream error'));
+          await Future<void>.delayed(const Duration(milliseconds: 10));
+          // with `cancelOnError: false` bytes still arrive after the failure
+          bodyController.add([3, 4, 5]);
+          unawaited(bodyController.close());
+          await Future<void>.delayed(const Duration(milliseconds: 100));
+        }, (error, _) => uncaughtErrors.add(error));
+
+        expect(uncaughtErrors, isEmpty);
+        expect(
+          onDataCallCount,
+          1,
+          reason: 'bytes arriving after the failure must not be delivered',
+        );
+        expect(
+          receivedState.where((s) => s == StorageTransferState.failure).length,
+          1,
+          reason: 'progress must not be emitted again after the failure',
         );
       });
 
