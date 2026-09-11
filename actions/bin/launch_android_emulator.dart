@@ -48,13 +48,18 @@ Future<void> _action() async {
   for (var attempt = 1; attempt <= maxRetries; attempt++) {
     final startTime = DateTime.now();
 
-    core..info('')
-    ..info('════════════════════════════════════════════════════════════════════')
-    ..info('🚀 ATTEMPT $attempt OF $maxRetries - STARTING')
-    ..info('   Timeout: $retryTimeoutMinutes minutes')
-    ..info('   Started at: ${DateTime.now().toUtc().toIso8601String()}')
-    ..info('════════════════════════════════════════════════════════════════════')
-    ..info('');
+    core
+      ..info('')
+      ..info(
+        '════════════════════════════════════════════════════════════════════',
+      )
+      ..info('🚀 ATTEMPT $attempt OF $maxRetries - STARTING')
+      ..info('   Timeout: $retryTimeoutMinutes minutes')
+      ..info('   Started at: ${DateTime.now().toUtc().toIso8601String()}')
+      ..info(
+        '════════════════════════════════════════════════════════════════════',
+      )
+      ..info('');
 
     // Phase 1: Launch emulator (AvdManager creates its own groups internally)
     ({bool success, Object? error, Object? stackTrace}) launchResult;
@@ -78,13 +83,18 @@ Future<void> _action() async {
       lastError = launchResult.error;
       lastStackTrace = launchResult.stackTrace as StackTrace?;
 
-      core..warning('')
-      ..warning('════════════════════════════════════════════════════════════════════')
-      ..warning('❌ ATTEMPT $attempt FAILED - Emulator launch failed')
-      ..warning('   Error: ${launchResult.error}')
-      ..warning('   Time: ${DateTime.now().toUtc().toIso8601String()}')
-      ..warning('════════════════════════════════════════════════════════════════════')
-      ..warning('');
+      core
+        ..warning('')
+        ..warning(
+          '════════════════════════════════════════════════════════════════════',
+        )
+        ..warning('❌ ATTEMPT $attempt FAILED - Emulator launch failed')
+        ..warning('   Error: ${launchResult.error}')
+        ..warning('   Time: ${DateTime.now().toUtc().toIso8601String()}')
+        ..warning(
+          '════════════════════════════════════════════════════════════════════',
+        )
+        ..warning('');
 
       if (attempt < maxRetries) {
         await core.withGroup(
@@ -96,30 +106,38 @@ Future<void> _action() async {
     }
 
     // Phase 2: Run tests with timeout
-    core..info('')
-    ..info('📜 Running tests (timeout: $retryTimeoutMinutes min)...')
-    ..info('');
+    core
+      ..info('')
+      ..info('📜 Running tests (timeout: $retryTimeoutMinutes min)...')
+      ..info('');
 
     final testResult = await core.withGroup(
       '▶️ Attempt $attempt: Run tests',
-          () => _runTestsWithTimeout(
-            timeout: Duration(minutes: retryTimeoutMinutes),
-            attempt: attempt,
-            script: script,
-          ),
+      () => _runTestsWithTimeout(
+        timeout: Duration(minutes: retryTimeoutMinutes),
+        attempt: attempt,
+        script: script,
+      ),
     );
 
     final duration = DateTime.now().difference(startTime);
 
     if (testResult.success) {
       // Success!
-      core..info('')
-      ..info('════════════════════════════════════════════════════════════════════')
-      ..info('✅ ATTEMPT $attempt SUCCEEDED')
-      ..info('   Duration: ${duration.inMinutes} minutes ${duration.inSeconds % 60} seconds')
-      ..info('   Finished at: ${DateTime.now().toUtc().toIso8601String()}')
-      ..info('════════════════════════════════════════════════════════════════════')
-      ..info('');
+      core
+        ..info('')
+        ..info(
+          '════════════════════════════════════════════════════════════════════',
+        )
+        ..info('✅ ATTEMPT $attempt SUCCEEDED')
+        ..info(
+          '   Duration: ${duration.inMinutes} minutes ${duration.inSeconds % 60} seconds',
+        )
+        ..info('   Finished at: ${DateTime.now().toUtc().toIso8601String()}')
+        ..info(
+          '════════════════════════════════════════════════════════════════════',
+        )
+        ..info('');
       return;
     }
 
@@ -128,22 +146,36 @@ Future<void> _action() async {
     lastStackTrace = testResult.stackTrace;
 
     if (testResult.timedOut) {
-      core..warning('')
-      ..warning('════════════════════════════════════════════════════════════════════')
-      ..warning('⏰ ATTEMPT $attempt TIMED OUT')
-      ..warning('   Duration: ${duration.inMinutes} minutes ${duration.inSeconds % 60} seconds')
-      ..warning('   Time: ${DateTime.now().toUtc().toIso8601String()}')
-      ..warning('════════════════════════════════════════════════════════════════════')
-      ..warning('');
+      core
+        ..warning('')
+        ..warning(
+          '════════════════════════════════════════════════════════════════════',
+        )
+        ..warning('⏰ ATTEMPT $attempt TIMED OUT')
+        ..warning(
+          '   Duration: ${duration.inMinutes} minutes ${duration.inSeconds % 60} seconds',
+        )
+        ..warning('   Time: ${DateTime.now().toUtc().toIso8601String()}')
+        ..warning(
+          '════════════════════════════════════════════════════════════════════',
+        )
+        ..warning('');
     } else {
-      core..warning('')
-      ..warning('════════════════════════════════════════════════════════════════════')
-      ..warning('❌ ATTEMPT $attempt FAILED - Tests failed')
-      ..warning('   Error: ${testResult.error}')
-      ..warning('   Duration: ${duration.inMinutes} minutes ${duration.inSeconds % 60} seconds')
-      ..warning('   Time: ${DateTime.now().toUtc().toIso8601String()}')
-      ..warning('════════════════════════════════════════════════════════════════════')
-      ..warning('');
+      core
+        ..warning('')
+        ..warning(
+          '════════════════════════════════════════════════════════════════════',
+        )
+        ..warning('❌ ATTEMPT $attempt FAILED - Tests failed')
+        ..warning('   Error: ${testResult.error}')
+        ..warning(
+          '   Duration: ${duration.inMinutes} minutes ${duration.inSeconds % 60} seconds',
+        )
+        ..warning('   Time: ${DateTime.now().toUtc().toIso8601String()}')
+        ..warning(
+          '════════════════════════════════════════════════════════════════════',
+        )
+        ..warning('');
     }
 
     if (attempt < maxRetries) {
@@ -155,15 +187,21 @@ Future<void> _action() async {
   }
 
   // All attempts failed
-  core..error('')
-  ..error('╔══════════════════════════════════════════════════════════════════╗')
-  ..error('║  ❌ ALL $maxRetries ATTEMPTS FAILED                               ')
-  ..error('║  Last error: $lastError')
-  ..error('║  Time: ${DateTime.now().toUtc().toIso8601String()}')
-  ..error('╚══════════════════════════════════════════════════════════════════╝')
-  ..error('')
-
-  ..setFailed('All $maxRetries attempts failed. Last error: $lastError');
+  core
+    ..error('')
+    ..error(
+      '╔══════════════════════════════════════════════════════════════════╗',
+    )
+    ..error(
+      '║  ❌ ALL $maxRetries ATTEMPTS FAILED                               ',
+    )
+    ..error('║  Last error: $lastError')
+    ..error('║  Time: ${DateTime.now().toUtc().toIso8601String()}')
+    ..error(
+      '╚══════════════════════════════════════════════════════════════════╝',
+    )
+    ..error('')
+    ..setFailed('All $maxRetries attempts failed. Last error: $lastError');
   if (lastError != null) {
     Error.throwWithStackTrace(lastError, lastStackTrace ?? StackTrace.current);
   }
@@ -199,22 +237,25 @@ Future<_AttemptResult> _runTestsWithTimeout({
     await runningScript.future.timeout(timeout);
 
     final duration = DateTime.now().difference(startTime);
-    core.info('⏱️  Tests completed in ${duration.inMinutes} minutes ${duration.inSeconds % 60} seconds');
-
-    return _AttemptResult(
-      success: true,
-      timedOut: false,
-      duration: duration,
+    core.info(
+      '⏱️  Tests completed in ${duration.inMinutes} minutes ${duration.inSeconds % 60} seconds',
     );
+
+    return _AttemptResult(success: true, timedOut: false, duration: duration);
   } on TimeoutException catch (e, st) {
-    core..warning('')
-    ..warning('⏰ ══════════════════════════════════════════════════════════════')
-    ..warning('⏰  TIMEOUT REACHED FOR ATTEMPT $attempt')
-    ..warning('⏰  Attempt exceeded ${timeout.inMinutes} minute limit')
-    ..warning('⏰  Time: ${DateTime.now().toUtc().toIso8601String()}')
-    ..warning('⏰  Killing test process...')
-    ..warning('⏰ ══════════════════════════════════════════════════════════════')
-    ..warning('');
+    core
+      ..warning('')
+      ..warning(
+        '⏰ ══════════════════════════════════════════════════════════════',
+      )
+      ..warning('⏰  TIMEOUT REACHED FOR ATTEMPT $attempt')
+      ..warning('⏰  Attempt exceeded ${timeout.inMinutes} minute limit')
+      ..warning('⏰  Time: ${DateTime.now().toUtc().toIso8601String()}')
+      ..warning('⏰  Killing test process...')
+      ..warning(
+        '⏰ ══════════════════════════════════════════════════════════════',
+      )
+      ..warning('');
     runningScript.kill();
     final duration = DateTime.now().difference(startTime);
     return _AttemptResult(
@@ -239,8 +280,9 @@ Future<_AttemptResult> _runTestsWithTimeout({
 
 /// Cleans up emulator and waits before next retry.
 Future<void> _cleanupAndWait() async {
-  core..info('🔄 Preparing for next retry...')
-  ..info('   Cleaning up before next attempt...');
+  core
+    ..info('🔄 Preparing for next retry...')
+    ..info('   Cleaning up before next attempt...');
   await _cleanupEmulator();
   core.info('   Waiting 10 seconds before next attempt...');
   await Future<void>.delayed(const Duration(seconds: 10));
