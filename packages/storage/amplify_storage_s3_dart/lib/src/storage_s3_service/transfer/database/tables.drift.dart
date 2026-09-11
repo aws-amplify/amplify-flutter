@@ -203,7 +203,18 @@ class $$TransferRecordsTableTableManager
                 awsRegion: awsRegion,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<i1.$TransferRecordsTable, i1.TransferRecord>(
+                    table,
+                  ),
+                  i0.BaseReferences<
+                    i0.GeneratedDatabase,
+                    i1.$TransferRecordsTable,
+                    i1.TransferRecord
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
