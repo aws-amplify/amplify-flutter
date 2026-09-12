@@ -14,7 +14,9 @@ void main() {
     late MockAuthenticatorState mockState;
     setUp(() {
       mockState = MockAuthenticatorState();
-      when(mockState.signIn).thenAnswer((_) async {
+      when(
+        () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+      ).thenAnswer((_) async {
         mockState.isBusy = true;
         await Future<void>.delayed(Duration.zero);
         mockState.isBusy = false;
@@ -83,10 +85,12 @@ void main() {
       // Set initial focus to window.
       await tester.tapAt(Offset.zero);
 
-      verifyNever(mockState.signIn);
+      verifyNever(() => mockState.signIn(buttonKey: any(named: 'buttonKey')));
       await signInWithKeyboard(tester);
       await tester.pumpAndSettle();
-      verify(mockState.signIn).called(1);
+      verify(
+        () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+      ).called(1);
     });
 
     testWidgets('form should submit when enter is pressed from a text field', (
@@ -110,10 +114,12 @@ void main() {
       // Set initial focus to window.
       await tester.tapAt(Offset.zero);
 
-      verifyNever(mockState.signIn);
+      verifyNever(() => mockState.signIn(buttonKey: any(named: 'buttonKey')));
       await signInWithKeyboard(tester, submitViaTextField: true);
       await tester.pumpAndSettle();
-      verify(mockState.signIn).called(1);
+      verify(
+        () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+      ).called(1);
     });
 
     testWidgets(
@@ -137,7 +143,7 @@ void main() {
         // Set initial focus to window.
         await tester.tapAt(Offset.zero);
 
-        verifyNever(mockState.signIn);
+        verifyNever(() => mockState.signIn(buttonKey: any(named: 'buttonKey')));
         await signInWithKeyboard(tester, submitViaTextField: true);
         await signInWithKeyboard(
           tester,
@@ -146,7 +152,9 @@ void main() {
           submitViaTextField: true,
         );
         await tester.pumpAndSettle();
-        verify(mockState.signIn).called(1);
+        verify(
+          () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+        ).called(1);
       },
     );
 
@@ -191,10 +199,12 @@ void main() {
           await tester.sendKeyEvent(LogicalKeyboardKey.tab);
         }
 
-        verifyNever(mockState.signIn);
+        verifyNever(() => mockState.signIn(buttonKey: any(named: 'buttonKey')));
         await signInWithKeyboard(tester);
         await tester.pumpAndSettle();
-        verify(mockState.signIn).called(1);
+        verify(
+          () => mockState.signIn(buttonKey: any(named: 'buttonKey')),
+        ).called(1);
       },
     );
   });
@@ -233,6 +243,12 @@ class MockAuthenticatorState extends Mock implements AuthenticatorState {
 
   @override
   bool get isBusy => _isBusy;
+
+  @override
+  ButtonResolverKey? get busyButtonKey => null;
+
+  @override
+  bool isBusyFor(ButtonResolverKey key) => _isBusy && busyButtonKey == key;
 
   set isBusy(bool busy) {
     _isBusy = busy;

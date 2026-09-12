@@ -16,6 +16,7 @@ import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/models/authenticator_builder.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/src/models/passwordless_settings.dart';
 import 'package:amplify_authenticator/src/models/totp_options.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -47,6 +48,7 @@ export 'src/enums/enums.dart'
     show AuthenticatorStep, AuthenticatorTextEnabledOverride, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
+export 'src/models/passwordless_settings.dart';
 export 'src/models/totp_options.dart';
 export 'src/models/username_input.dart'
     show UsernameType, UsernameInput, UsernameSelection;
@@ -78,6 +80,8 @@ export 'src/widgets/form.dart'
         ConfirmSignInMFAForm,
         ConfirmSignInNewPasswordForm,
         ContinueSignInWithMfaSelectionForm,
+        ContinueSignInWithFirstFactorSelectionForm,
+        PasskeyPromptForm,
         ContinueSignInWithMfaSetupSelectionForm,
         ContinueSignInWithTotpSetupForm,
         ContinueSignInWithEmailMfaSetupForm,
@@ -317,6 +321,7 @@ class Authenticator extends StatefulWidget {
     this.initialStep = AuthenticatorStep.signIn,
     this.authenticatorBuilder,
     this.padding = const EdgeInsets.all(32),
+    this.passwordlessSettings,
     this.dialCodeOptions = const DialCodeOptions(),
     this.totpOptions,
     @visibleForTesting this.authBlocOverride,
@@ -436,6 +441,10 @@ class Authenticator extends StatefulWidget {
   /// method.
   final AuthenticatorStep initialStep;
 
+  /// Settings for passwordless authentication, including passkey registration
+  /// prompts and hidden auth methods.
+  final PasswordlessSettings? passwordlessSettings;
+
   /// {@macro amplify_authenticator_dial_code_options}
   final DialCodeOptions dialCodeOptions;
 
@@ -489,6 +498,12 @@ class Authenticator extends StatefulWidget {
       )
       ..add(DiagnosticsProperty<TotpOptions>('totpOptions', totpOptions))
       ..add(
+        DiagnosticsProperty<PasswordlessSettings?>(
+          'passwordlessSettings',
+          passwordlessSettings,
+        ),
+      )
+      ..add(
         DiagnosticsProperty<StateMachineBloc?>(
           'mockAuthenticatorState',
           authBlocOverride,
@@ -523,6 +538,7 @@ class _AuthenticatorState extends State<Authenticator> {
           preferPrivateSession: widget.preferPrivateSession,
           initialStep: widget.initialStep,
           totpOptions: widget.totpOptions,
+          passwordlessSettings: widget.passwordlessSettings,
         )..add(const AuthLoad()));
     _authenticatorState = AuthenticatorState(
       _stateMachineBloc,
@@ -717,6 +733,9 @@ class _AuthenticatorState extends State<Authenticator> {
                     ContinueSignInWithEmailMfaSetupForm(),
                 confirmSignInWithTotpMfaCodeForm: ConfirmSignInMFAForm(),
                 confirmSignInWithOtpCodeForm: ConfirmSignInMFAForm(),
+                continueSignInWithFirstFactorSelectionForm:
+                    const ContinueSignInWithFirstFactorSelectionForm(),
+                passkeyPromptForm: const PasskeyPromptForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
                 child: widget.child,

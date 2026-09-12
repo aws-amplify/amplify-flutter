@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/tyllark/development/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/tyllark/Documents/GitHub/amplify-flutter/packages/notifications/push/amplify_push_notifications/example"
+export "FLUTTER_ROOT=/home/ec2-user/.flutter-sdk"
+export "FLUTTER_APPLICATION_PATH=/home/ec2-user/Work/AmplifyDev/amplify-flutter/packages/notifications/push/amplify_push_notifications/example"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.1.0"

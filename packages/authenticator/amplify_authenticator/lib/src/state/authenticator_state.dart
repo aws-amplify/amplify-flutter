@@ -71,15 +71,32 @@ class AuthenticatorState extends ChangeNotifier {
     }
   }
 
-  /// Indicates if the form is currently in a loading state
+  /// Indicates if the form is currently in a loading state.
   ///
-  /// Will be set to true when an asynchronous action (such as login) in
-  /// initiated, and will be set to false when that asynchronous action completes
+  /// Will be set to true when an asynchronous action (such as login) is
+  /// initiated, and will be set to false when that asynchronous action completes.
   bool get isBusy => _isBusy;
 
+  /// The [ButtonResolverKey] of the button that initiated the current busy
+  /// state, or `null` when idle or when the originating button is unknown.
+  ///
+  /// Use [isBusyFor] to check whether a specific button should show its
+  /// loading indicator.
+  ButtonResolverKey? get busyButtonKey => _busyButtonKey;
+
+  /// Returns `true` when the authenticator is busy **and** the operation was
+  /// initiated by a button with the given [key].
+  ///
+  /// Buttons whose [key] does not match should disable themselves without
+  /// showing a spinner.
+  bool isBusyFor(ButtonResolverKey key) => _isBusy && _busyButtonKey == key;
+
   bool _isBusy = false;
-  void _setIsBusy(bool busy) {
+  ButtonResolverKey? _busyButtonKey;
+
+  void _setIsBusy(bool busy, {ButtonResolverKey? buttonKey}) {
     _isBusy = busy;
+    _busyButtonKey = busy ? buttonKey : null;
     notifyListeners();
   }
 
@@ -510,21 +527,85 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(false);
   }
 
-  /// Sign in with [username], and [password]
-  Future<void> signIn() async {
+  /// Sign in with [username], and [password].
+  ///
+  /// The optional [buttonKey] identifies which button initiated the operation
+  /// so that only that button displays a loading spinner.
+  Future<void> signIn({ButtonResolverKey? buttonKey}) async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    _setIsBusy(true);
+    _setIsBusy(true, buttonKey: buttonKey);
 
     TextInput.finishAutofillContext(shouldSave: true);
 
-    final signIn = AuthUsernamePasswordSignInData(
-      username: _username.trim(),
-      password: _password.trim(),
+    final preferred = _authBloc.passwordlessSettings?.preferredAuthMethod;
+
+    if (preferred != null && preferred != AuthFactorType.password) {
+      final signIn = AuthPasswordlessSignInData(
+        username: _username.trim(),
+        preferredFactor: preferred,
+      );
+      _authBloc.add(AuthSignIn(signIn));
+    } else {
+      final signIn = AuthUsernamePasswordSignInData(
+        username: _username.trim(),
+        password: _password.trim(),
+      );
+      _authBloc.add(AuthSignIn(signIn));
+    }
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
+  /// Sign in with username and password, bypassing any passwordless preference.
+  ///
+  /// The optional [buttonKey] identifies which button initiated the operation
+  /// so that only that button displays a loading spinner.
+  Future<void> signInWithPassword({ButtonResolverKey? buttonKey}) async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _setIsBusy(
+      true,
+      buttonKey: buttonKey ?? ButtonResolverKey.signInWithPassword,
     );
-    _authBloc.add(AuthSignIn(signIn));
+    TextInput.finishAutofillContext(shouldSave: true);
+    _authBloc.add(
+      AuthSignIn(
+        AuthUsernamePasswordSignInData(
+          username: _username.trim(),
+          password: _password.trim(),
+        ),
+      ),
+    );
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
+  /// Sign in with a specific passwordless factor (webAuthn, emailOtp, smsOtp).
+  ///
+  /// Only validates that a username is present — password validation is skipped
+  /// since passwordless methods don't require one. The optional [buttonKey]
+  /// identifies which button initiated the operation so that only that button
+  /// displays a loading spinner.
+  Future<void> signInWithFactor(
+    AuthFactorType factor, {
+    ButtonResolverKey? buttonKey,
+  }) async {
+    if (_username.trim().isEmpty) {
+      return;
+    }
+    _setIsBusy(true, buttonKey: buttonKey);
+    _authBloc.add(
+      AuthSignIn(
+        AuthPasswordlessSignInData(
+          username: _username.trim(),
+          preferredFactor: factor,
+        ),
+      ),
+    );
     await nextBlocEvent();
     _setIsBusy(false);
   }

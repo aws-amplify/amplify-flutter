@@ -85,4 +85,28 @@ class AuthenticatorButtonLocalizationsEn
     });
     return 'Sign In with $temp0';
   }
+
+  @override
+  String get signInWithPasskey => 'Sign in with passkey';
+
+  @override
+  String get signInWithPassword => 'Sign in with password';
+
+  @override
+  String get signInWithEmail => 'Sign in with email';
+
+  @override
+  String get signInWithSms => 'Sign in with SMS';
+
+  @override
+  String get createPasskey => 'Create a passkey';
+
+  @override
+  String get continueWithoutPasskey => 'Continue without a passkey';
+
+  @override
+  String get setupAnotherPasskey => 'Set up another passkey';
+
+  @override
+  String get otherSignInOptions => 'Other sign-in options';
 }

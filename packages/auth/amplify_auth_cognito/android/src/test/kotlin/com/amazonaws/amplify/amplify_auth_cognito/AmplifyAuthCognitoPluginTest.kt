@@ -3,6 +3,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito
 
+import android.content.Context
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.BinaryMessenger
 import kotlinx.coroutines.Dispatchers
@@ -37,8 +38,10 @@ internal class AmplifyAuthCognitoPluginTest {
             }
         }
         val binaryMessenger = mock<BinaryMessenger>()
+        val mockContext = mock<Context>()
         val mockPluginBinding = mock<FlutterPlugin.FlutterPluginBinding> {
             on { getBinaryMessenger() } doReturn binaryMessenger
+            on { applicationContext } doReturn mockContext
         }
         mockPlugin.onAttachedToEngine(mockPluginBinding)
 
@@ -75,8 +78,10 @@ internal class AmplifyAuthCognitoPluginTest {
             }
         }
         val binaryMessenger = mock<BinaryMessenger>()
+        val mockContext = mock<Context>()
         val mockPluginBinding = mock<FlutterPlugin.FlutterPluginBinding> {
             on { getBinaryMessenger() } doReturn binaryMessenger
+            on { applicationContext } doReturn mockContext
         }
         mockPlugin.onAttachedToEngine(mockPluginBinding)
 

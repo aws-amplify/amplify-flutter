@@ -385,6 +385,9 @@ final class SignInStateMachine
       ),
       ChallengeNameType.passwordSrp when hasUserResponse =>
         createPasswordSrpRequest(event),
+      ChallengeNameType.webAuthn => createWebAuthnAssertionRequest(
+        challengeParameters,
+      ),
       _ => null,
     };
   }
@@ -948,6 +951,42 @@ final class SignInStateMachine
         })
         ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
+  /// Creates a [RespondToAuthChallengeRequest] for a WEB_AUTHN challenge
+  /// by invoking the platform WebAuthn bridge to perform an assertion ceremony.
+  @protected
+  Future<RespondToAuthChallengeRequest> createWebAuthnAssertionRequest(
+    BuiltMap<String, String?> challengeParameters,
+  ) async {
+    final optionsJson =
+        challengeParameters[CognitoConstants
+            .challengeParamCredentialRequestOptions];
+    if (optionsJson == null || optionsJson.isEmpty) {
+      throw const PasskeyAssertionFailedException(
+        'CREDENTIAL_REQUEST_OPTIONS not found in challenge parameters',
+      );
+    }
+
+    final platform = get<WebAuthnCredentialPlatform>();
+    if (platform == null) {
+      throw const PasskeyNotSupportedException(
+        'No WebAuthn platform bridge is registered. '
+        'Ensure passkey support is configured for this platform.',
+      );
+    }
+
+    final credentialJson = await platform.getCredential(optionsJson);
+
+    return RespondToAuthChallengeRequest.build((b) {
+      b
+        ..challengeName = ChallengeNameType.webAuthn
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: cognitoUsername,
+          CognitoConstants.challengeParamCredential: credentialJson,
+        })
+        ..clientId = _authOutputs.userPoolClientId;
     });
   }
 
