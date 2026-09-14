@@ -15,10 +15,46 @@ class AWSHttpException implements Exception {
     if (underlyingException is AWSHttpException) {
       return underlyingException;
     }
-    return AWSHttpException._(request.method, request.uri, underlyingException);
+    return AWSHttpException._(
+      request.method,
+      request.uri,
+      underlyingException,
+      false,
+    );
   }
 
-  const AWSHttpException._(this.method, this.uri, this.underlyingException);
+  /// Creates an exception for a transport-level failure that is safe to retry.
+  factory AWSHttpException.retryable(
+    AWSBaseHttpRequest request, [
+    Object? underlyingException,
+  ]) {
+    // Anti-double-wrap guard. If an AWSHttpException is passed, keep its
+    // original context but ensure the result is still flagged retryable.
+    if (underlyingException is AWSHttpException) {
+      if (underlyingException.retryable) {
+        return underlyingException;
+      }
+      return AWSHttpException._(
+        underlyingException.method,
+        underlyingException.uri,
+        underlyingException.underlyingException,
+        true,
+      );
+    }
+    return AWSHttpException._(
+      request.method,
+      request.uri,
+      underlyingException,
+      true,
+    );
+  }
+
+  const AWSHttpException._(
+    this.method,
+    this.uri,
+    this.underlyingException,
+    this.retryable,
+  );
 
   /// The method of the HTTP operation which was in progress.
   final AWSHttpMethod method;
@@ -28,6 +64,9 @@ class AWSHttpException implements Exception {
 
   /// The exception which triggered this exception being thrown.
   final Object? underlyingException;
+
+  /// Whether this is a transport-level failure that is safe to retry.
+  final bool retryable;
 
   @override
   String toString() =>
