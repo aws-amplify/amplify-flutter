@@ -92,22 +92,29 @@ void main() {
     // === API: Create Todo ===
     final todo = Todo(name: 'canary-test-${uuid()}', owner: username);
     final createMutation = ModelMutations.create(todo);
-    final createResponse =
-        await Amplify.API.mutate(request: createMutation).response;
+    final createResponse = await Amplify.API
+        .mutate(request: createMutation)
+        .response;
     expect(createResponse.hasErrors, isFalse);
     expect(createResponse.data, isNotNull);
     final createdTodo = createResponse.data!;
 
     // === API: Query Todo ===
-    final queryRequest = ModelQueries.get(Todo.classType, createdTodo.modelIdentifier);
-    final queryResponse = await Amplify.API.query(request: queryRequest).response;
+    final queryRequest = ModelQueries.get(
+      Todo.classType,
+      createdTodo.modelIdentifier,
+    );
+    final queryResponse = await Amplify.API
+        .query(request: queryRequest)
+        .response;
     expect(queryResponse.hasErrors, isFalse);
     expect(queryResponse.data?.id, createdTodo.id);
 
     // === API: Delete Todo (cleanup) ===
     final deleteMutation = ModelMutations.delete(createdTodo);
-    final deleteResponse =
-        await Amplify.API.mutate(request: deleteMutation).response;
+    final deleteResponse = await Amplify.API
+        .mutate(request: deleteMutation)
+        .response;
     expect(deleteResponse.hasErrors, isFalse);
 
     // === DATASTORE: Save and observe ===
@@ -198,7 +205,7 @@ void main() {
     await tester.runAsync(() async {
       final signOutResult = await Amplify.Auth.signOut();
       expect(signOutResult, isA<CognitoCompleteSignOut>());
-      
+
       // Verify user is signed out
       final sessionAfterSignOut = await Amplify.Auth.fetchAuthSession();
       expect(sessionAfterSignOut.isSignedIn, isFalse);
@@ -222,6 +229,10 @@ void main() {
       emitsThrough(AuthHubEvent.userDeleted()),
     );
     await tester.pumpAndSettle();
-    expect(signUpTab, findsOneWidget, reason: 'User should be signed out after deletion');
+    expect(
+      signUpTab,
+      findsOneWidget,
+      reason: 'User should be signed out after deletion',
+    );
   });
 }

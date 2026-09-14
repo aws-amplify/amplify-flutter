@@ -435,11 +435,7 @@ extension DependencyToYaml on Dependency {
     PathDependency(:final path) => YamlMap.wrap({'path': path}),
     SdkDependency(:final sdk) => YamlMap.wrap({'sdk': sdk}),
     GitDependency(:final url, :final ref, :final path) => YamlMap.wrap({
-      'git': {
-        'url': url.toString(),
-        'ref': ?ref,
-        'path': ?path,
-      },
+      'git': {'url': url.toString(), 'ref': ?ref, 'path': ?path},
     }),
   };
 }

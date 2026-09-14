@@ -43,7 +43,8 @@ PhoneNumber generateFrenchPhoneNumber() {
   const countryCode = '+33';
   const areaCode = '1';
   final seed = _uniqueSeed();
-  final suffix = (seed % 1000).toString().padLeft(3, _randomDigit()) + _randomDigit();
+  final suffix =
+      (seed % 1000).toString().padLeft(3, _randomDigit()) + _randomDigit();
   return PhoneNumber(
     countryCode: countryCode,
     areaCode: areaCode,
@@ -57,8 +58,8 @@ String generateUsername() => 'TEMP_USER-${uuid()}';
 
 String generatePassword() =>
     uuid() +
-        uppercaseLetters[random.nextInt(uppercaseLetters.length)] +
-        symbols[random.nextInt(symbols.length)];
+    uppercaseLetters[random.nextInt(uppercaseLetters.length)] +
+    symbols[random.nextInt(symbols.length)];
 
 String generateNameAttribute() => 'FAKE-NAME-${uuid()}';
 

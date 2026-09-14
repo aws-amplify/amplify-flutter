@@ -102,11 +102,7 @@ Future<void> _createPubspecOverride(
         final ref = v.ref;
         final path = v.path;
         return MapEntry(k, {
-          'git': {
-            'url': v.url.toString(),
-            'ref': ?ref,
-            'path': ?path,
-          },
+          'git': {'url': v.url.toString(), 'ref': ?ref, 'path': ?path},
         });
       }
       if (v is PathDependency) {
