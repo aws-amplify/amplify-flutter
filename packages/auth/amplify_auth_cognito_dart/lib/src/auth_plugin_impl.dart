@@ -186,6 +186,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           _hubEventController.add(hubEvent);
         }
       },
+      // State machine errors which cannot be resolved to a state are reported
+      // to the caller of the API which triggered them, via the stream of the
+      // state machine itself. Handle them here as well so that they are not
+      // re-raised as uncaught async errors in the app's zone.
+      onError: (Object error, StackTrace stackTrace) {
+        logger.verbose('Unresolved state machine error', error, stackTrace);
+      },
       cancelOnError: false,
       onDone: _hubEventController.close,
     );
