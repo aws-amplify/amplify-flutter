@@ -348,6 +348,16 @@ ${dependabotGroups.join('\n')}
 
     workflowPaths.sort();
 
+    // Workflows which fan out to E2E tests are the heaviest consumers of the
+    // shared GitHub-hosted runner pool (Android emulators, Linux/Web jobs on
+    // the capped `ubuntu-latest` pool, and macOS runners for iOS). Skip them
+    // for pushes to draft PRs. Package workflows without E2E tests only run
+    // analyze/format/unit jobs, which are cheap and wanted while iterating, so
+    // they keep running on drafts.
+    final gateOnDraftPrs = needsE2ETest;
+    final prTypes = gateOnDraftPrs ? draftGatedPullRequestTypes : '';
+    final jobGate = gateOnDraftPrs ? draftGateJobCondition : '';
+
     final workflowContents = StringBuffer('''
 # Generated with aft. To update, run: `aft generate workflows`
 name: ${package.name}
@@ -359,7 +369,7 @@ on:
     paths:
 ${workflowPaths.map((path) => "      - '$path'").join('\n')}
   pull_request:
-    paths:
+$prTypes    paths:
 ${workflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
     - cron: "0 13 * * 1" # Every Monday at 06:00 PST
@@ -378,7 +388,7 @@ concurrency:
 
 jobs:
   test:
-    uses: ./.github/workflows/$analyzeAndTestWorkflow
+$jobGate    uses: ./.github/workflows/$analyzeAndTestWorkflow
     secrets: inherit
     with:
       package-name: ${package.name}
@@ -394,7 +404,7 @@ jobs:
       workflowContents.write('''
   native_test:
     needs: test
-    uses: ./.github/workflows/$nativeWorkflow
+$jobGate    uses: ./.github/workflows/$nativeWorkflow
     secrets: inherit 
     with:
       package-name: ${package.name}
@@ -405,14 +415,14 @@ jobs:
         workflowContents.write('''
   ddc_test:
     needs: test
-    uses: ./.github/workflows/$ddcWorkflow
+$jobGate    uses: ./.github/workflows/$ddcWorkflow
     secrets: inherit
     with:
       package-name: ${package.name}
       working-directory: $repoRelativePath
   dart2js_test:
     needs: test
-    uses: ./.github/workflows/$dart2JsWorkflow
+$jobGate    uses: ./.github/workflows/$dart2JsWorkflow
     secrets: inherit
     with:
       package-name: ${package.name}
@@ -422,7 +432,7 @@ jobs:
           workflowContents.write('''
   dart2wasm_test:
     needs: test
-    uses: ./.github/workflows/$dart2WasmWorkflow
+$jobGate    uses: ./.github/workflows/$dart2WasmWorkflow
     secrets: inherit
     with:
       package-name: ${package.name}
@@ -448,7 +458,7 @@ jobs:
         workflowContents.write('''
   e2e_${platform}_test:
     needs: [${dependsOn.join(', ')}]
-    uses: ./.github/workflows/$e2eWorkflow
+$jobGate    uses: ./.github/workflows/$e2eWorkflow
     secrets: inherit
     with:
       package-name: ${package.name}
@@ -473,7 +483,7 @@ jobs:
         workflowContents.write('''
   ffigen_${osLabel}_test:
     needs: test
-    uses: ./.github/workflows/$ffigenWorkflow
+$jobGate    uses: ./.github/workflows/$ffigenWorkflow
     secrets: inherit
     with:
       package-name: ${package.name}
@@ -584,7 +594,7 @@ on:
       - main
       - stable
   pull_request:
-    paths:
+$draftGatedPullRequestTypes    paths:
       - '$repoRelativePath/**/*.yaml'
       - '$repoRelativePath/android/**/*'
       - '$repoRelativePath/example/android/**/*'
@@ -605,7 +615,7 @@ concurrency:
 
 jobs:
   android:
-    uses: ./.github/workflows/$androidWorkflow
+$draftGateJobCondition    uses: ./.github/workflows/$androidWorkflow
     secrets: inherit
     with:
       example-directory: $repoRelativePath/example
@@ -656,7 +666,7 @@ on:
       - main
       - stable
   pull_request:
-    paths:
+$draftGatedPullRequestTypes    paths:
       - '$repoRelativePath/**/*.yaml'
       - '$repoRelativePath/ios/**/*'
       - '$repoRelativePath/example/ios/**/*'
@@ -677,7 +687,7 @@ concurrency:
 
 jobs:
   ios:
-    uses: ./.github/workflows/$iosWorkflow
+$draftGateJobCondition    uses: ./.github/workflows/$iosWorkflow
     secrets: inherit
     with:
       example-directory: $repoRelativePath/example
@@ -768,3 +778,29 @@ const permissionsBlock = '''
 permissions:
   id-token: write
   contents: read''';
+
+/// The `types` line emitted under the `pull_request` trigger of workflows which
+/// are gated on draft PRs.
+///
+/// GitHub's default `pull_request` types are `opened`, `synchronize` and
+/// `reopened`. `ready_for_review` MUST be listed alongside them so that a
+/// gated suite fires when a PR leaves draft state — otherwise the jobs skipped
+/// while the PR was a draft would never run until the next push.
+///
+/// This is only emitted for gated workflows. Adding it to ungated workflows
+/// would queue a redundant duplicate run on `ready_for_review`, since nothing
+/// was skipped for them while the PR was a draft.
+const draftGatedPullRequestTypes =
+    '    types: [opened, synchronize, reopened, ready_for_review]\n';
+
+/// The job-level condition emitted on every job of a workflow which is gated on
+/// draft PRs.
+///
+/// Heavy workflows (E2E fan-out and native iOS/Android build-tests) consume
+/// scarce shared runner capacity, so they are skipped for pushes to draft PRs.
+/// The `github.event_name` guard leaves `push`, `schedule` and
+/// `workflow_dispatch` runs untouched, since `github.event.pull_request` is
+/// null for those events.
+const draftGateJobCondition =
+    "    if: github.event_name != 'pull_request' || "
+    'github.event.pull_request.draft == false\n';

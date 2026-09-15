@@ -75,6 +75,7 @@ on:
       - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - '.github/workflows/amplify_auth_cognito_example.yaml'
       - '.github/workflows/e2e_android.yaml'
@@ -164,6 +165,7 @@ concurrency:
 
 jobs:
   test:
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     uses: ./.github/workflows/flutter_vm.yaml
     secrets: inherit
     with:
@@ -172,6 +174,7 @@ jobs:
       has-goldens: false
   e2e_android_test:
     needs: [test]
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     uses: ./.github/workflows/e2e_android.yaml
     secrets: inherit
     with:
@@ -180,6 +183,7 @@ jobs:
       needs-aws-config: true
   e2e_ios_test:
     needs: [test]
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     uses: ./.github/workflows/e2e_ios.yaml
     secrets: inherit
     with:
@@ -188,6 +192,7 @@ jobs:
       needs-aws-config: true
   e2e_web_test:
     needs: [test]
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     uses: ./.github/workflows/e2e_web.yaml
     secrets: inherit
     with:
@@ -197,6 +202,7 @@ jobs:
       run-wasm: true
   e2e_linux_test:
     needs: [test]
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     uses: ./.github/workflows/e2e_linux.yaml
     secrets: inherit
     with:
@@ -205,6 +211,7 @@ jobs:
       needs-aws-config: true
   e2e_windows_test:
     needs: [test]
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     uses: ./.github/workflows/e2e_windows.yaml
     secrets: inherit
     with:
