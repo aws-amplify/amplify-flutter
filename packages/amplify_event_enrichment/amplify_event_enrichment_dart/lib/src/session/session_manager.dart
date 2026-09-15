@@ -79,23 +79,26 @@ class SessionManager {
   // Every state transition below happens in a synchronous section: nothing
   // awaits between reading _state and mutating it, only the reporting
   // callbacks do. So unawaited re-entrant calls run one after the other on the
-  // event loop and need no lock.
+  // event loop and need no lock. Reporting is the only thing that awaits, and
+  // a caller must not read _session back across that await: a racing close()
+  // or clearSession() may have dropped it by then. Sessions are threaded out
+  // of the synchronous transition that created them instead.
 
   /// Starts a new session, ending any session already running. The returned
   /// future completes once the boundary has been reported, end before start.
-  Future<void> startSession() => _restart();
+  Future<void> startSession() => _restart().reported;
 
   /// Returns the session an event recorded now belongs to, starting a fresh
   /// one when there is none or the current pause has outlasted the timeout.
   Future<Session> sessionForRecording() {
-    if (_state == SessionState.paused) {
-      if (!_pauseExpired) return Future.value(_session!);
-      return _restart().then((_) => _session!);
-    }
-    if (_state == SessionState.stopped || _session == null) {
-      return _restart().then((_) => _session!);
-    }
-    return Future.value(_session!);
+    final needsFreshSession = switch (_state) {
+      SessionState.paused => _pauseExpired,
+      SessionState.stopped => true,
+      SessionState.active => _session == null,
+    };
+    if (!needsFreshSession) return Future.value(_session!);
+    final (:session, :reported) = _restart();
+    return reported.then((_) => session);
   }
 
   /// Stops the current session and reports it to [OnSessionEnded].
@@ -140,7 +143,7 @@ class SessionManager {
           return;
         }
         _fireAndLog(
-          _restart(),
+          _restart().reported,
           'Failed to report a session boundary after a background timeout',
         );
       case SessionState.stopped:
@@ -166,11 +169,16 @@ class SessionManager {
     _pauseTimer = timerFactory(_sessionTimeout, _onTimeoutExpired);
   }
 
-  Future<void> _restart() {
+  // Returns the session it started along with the future that reports both
+  // boundaries, so a caller awaiting the report does not have to read
+  // _session back once it resolves.
+  ({Session session, Future<void> reported}) _restart() {
     final ended = _endCurrent();
     final started = _startFresh();
-    if (ended == null) return _reportStart(started);
-    return ended.then((_) => _reportStart(started));
+    final reported = ended == null
+        ? _reportStart(started)
+        : ended.then((_) => _reportStart(started));
+    return (session: started, reported: reported);
   }
 
   // A paused session's stop is stamped at the pause, so no end path counts
