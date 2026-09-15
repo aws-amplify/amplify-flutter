@@ -60,6 +60,26 @@ class _InterleavingSender implements EnrichedEventSender {
   }
 }
 
+/// Holds one event type in flight until the test releases it, so other calls
+/// can run while an emission is still pending.
+class _GatedSender implements EnrichedEventSender {
+  _GatedSender(this._gatedType);
+
+  final String _gatedType;
+  final Completer<void> _gate = Completer<void>();
+  final List<EnrichedEvent> events = [];
+
+  List<String> get types => events.map((e) => e.eventType).toList();
+
+  void release() => _gate.complete();
+
+  @override
+  Future<void> send(EnrichedEvent event) async {
+    events.add(event);
+    if (event.eventType == _gatedType) await _gate.future;
+  }
+}
+
 /// Fails after suspending — the case a synchronous throw does not cover, and
 /// the one that escapes as an unhandled async error if the emission is not
 /// awaited inside its own guard.
@@ -287,6 +307,66 @@ void main() {
           reason: 'the teardown ran once, so there is only one stop',
         );
       });
+    });
+
+    group('close() racing a record()', () {
+      test('does not fail the record whose session the close drops', () async {
+        // The lazy start is still reporting when close() ends that session and
+        // clears it, so the session the record belongs to has to come out of
+        // the start itself and not out of a read taken afterwards.
+        final gated = _GatedSender(zSessionStartEventType);
+        final racing = buildClient(gated, autoSessionTracking: false);
+
+        final recorded = racing.record('button_clicked');
+        final started = racing.sessionManager.session!;
+        final teardown = racing.close();
+        await pumpEventQueue();
+        gated.release();
+
+        final result = await recorded;
+        await teardown;
+
+        expect(
+          result,
+          isA<Ok<EnrichedEvent>>(),
+          reason: 'the record was accepted before the close, so it completes',
+        );
+        expect((result as Ok<EnrichedEvent>).value.session.id, started.id);
+        expect(gated.types, contains('button_clicked'));
+        expect(racing.sessionManager.session, isNull);
+      });
+
+      test(
+        'rejects a record() made while the final stop is in flight',
+        () async {
+          // Same turn as the close(), with its stop emission still pending: the
+          // closed flag has to be set before the teardown starts, or an event
+          // recorded here lands behind the final stop.
+          final gated = _GatedSender(zSessionStopEventType);
+          final closing = buildClient(gated, autoSessionTracking: false);
+          await closing.startSession();
+
+          final teardown = closing.close();
+          final rejected = closing.record('too_late');
+
+          final result = await rejected;
+          expect(result, isA<Error<EnrichedEvent>>());
+          expect(
+            (result as Error<EnrichedEvent>).error,
+            isA<EventEnrichmentClosedException>(),
+          );
+
+          gated.release();
+          await teardown;
+
+          expect(
+            gated.types,
+            isNot(contains('too_late')),
+            reason: 'an event recorded after close() must never be sent',
+          );
+          expect(gated.types, [zSessionStartEventType, zSessionStopEventType]);
+        },
+      );
     });
 
     group('does not emit a start', () {

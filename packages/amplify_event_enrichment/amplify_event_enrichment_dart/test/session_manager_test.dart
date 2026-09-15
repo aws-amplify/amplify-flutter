@@ -554,6 +554,132 @@ void main() {
       });
     });
 
+    group('a timer that outlived its pause', () {
+      late List<Session> ended;
+      late List<void Function()> armed;
+
+      /// A manager whose pause timers ignore [Timer.cancel] and hand their
+      /// callback to the test. A timer already dispatched when the cancel
+      /// arrives still runs its callback, so the callback itself has to notice
+      /// that the pause it was armed for is over.
+      SessionManager staleTimerManager() {
+        ended = [];
+        armed = [];
+        return SessionManager(
+            appId: 'testApp1',
+            sessionTimeout: timeout,
+            generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+            onSessionEnded: (s) async => ended.add(s),
+          )
+          ..timerFactory = (_, callback) {
+            armed.add(callback);
+            return _NeverFiringTimer();
+          };
+      }
+
+      test('does not end a session that was resumed inside the timeout', () {
+        fakeAsync((async) {
+          final stale = staleTimerManager()..startSession();
+          final resumed = stale.session!;
+
+          stale.handleAppPaused();
+          async.elapse(const Duration(seconds: 3));
+          stale.handleAppResumed();
+          async.flushMicrotasks();
+          expect(stale.state, SessionState.active);
+
+          // The timer the resume cancelled fires anyway.
+          armed.single();
+          async.flushMicrotasks();
+
+          expect(
+            stale.state,
+            SessionState.active,
+            reason: 'the pause the timer was armed for ended at the resume',
+          );
+          expect(stale.session!.id, resumed.id);
+          expect(
+            stale.session!.stopTimestamp,
+            isNull,
+            reason: 'a session still running has not stopped',
+          );
+          expect(ended, isEmpty, reason: 'nothing ended, so nothing to report');
+        });
+      });
+
+      test('does not report a second end after a stop while paused', () {
+        fakeAsync((async) {
+          final stale = staleTimerManager()..startSession();
+          final stopped = stale.session!;
+
+          stale
+            ..handleAppPaused()
+            ..stopSession();
+          async.flushMicrotasks();
+          expect(ended.map((s) => s.id), [stopped.id]);
+
+          armed.single();
+          async.flushMicrotasks();
+
+          expect(
+            ended,
+            hasLength(1),
+            reason: 'the session the timer was armed for already ended',
+          );
+          expect(stale.state, SessionState.stopped);
+        });
+      });
+    });
+
+    group('a session dropped while its start is still reporting', () {
+      test('is still the session the recording call is given', () async {
+        // clearSession() lands while the start report is in flight, so the
+        // session the call resolves with has to come out of the start itself
+        // rather than a read that happens after the await.
+        final reportingStart = Completer<void>();
+        final dropped = SessionManager(
+          appId: 'testApp1',
+          sessionTimeout: timeout,
+          generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+          onSessionStarted: (_) => reportingStart.future,
+        );
+
+        final pending = dropped.sessionForRecording();
+        final started = dropped.session!;
+        dropped.clearSession();
+        reportingStart.complete();
+
+        expect(
+          (await pending).id,
+          started.id,
+          reason: 'the call must not fail because the session was dropped',
+        );
+        expect(dropped.session, isNull);
+      });
+
+      test('is still the session an explicit start reported', () async {
+        final reportingStart = Completer<void>();
+        final reported = <Session>[];
+        final dropped = SessionManager(
+          appId: 'testApp1',
+          sessionTimeout: timeout,
+          generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+          onSessionStarted: (s) async {
+            reported.add(s);
+            await reportingStart.future;
+          },
+        );
+
+        final pending = dropped.startSession();
+        final started = dropped.session!;
+        dropped.clearSession();
+        reportingStart.complete();
+
+        await expectLater(pending, completes);
+        expect(reported.single.id, started.id);
+      });
+    });
+
     group('Session equality', () {
       test('same values are equal with matching hashCodes', () {
         const a = Session(
