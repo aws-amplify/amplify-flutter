@@ -93,7 +93,7 @@ class PinpointProvider implements ServiceProviderClient {
         if (region == null || appId == null) {
           throw ConfigurationError(
             'No Pinpoint configuration found for the Notifications category. '
-            'Notifications may be present without Pinpoint being configured — '
+            'Notifications may be present without Pinpoint being configured, '
             'for example when only Amazon Connect is provisioned.',
             recoverySuggestion:
                 'Make sure Amazon Pinpoint is configured in the Notifications '
