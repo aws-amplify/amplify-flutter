@@ -57,8 +57,16 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
     setState(() => _log.insert(0, msg));
   }
 
-  Future<void> _recordEvent(String type, {Map<String, String>? attrs}) async {
-    final result = await _client?.record(type, attributes: attrs);
+  Future<void> _recordEvent(
+    String type, {
+    Map<String, String>? attrs,
+    Map<String, double>? metrics,
+  }) async {
+    final result = await _client?.record(
+      type,
+      attributes: attrs,
+      metrics: metrics,
+    );
     switch (result) {
       case Ok(:final value):
         _addLog(
@@ -101,8 +109,9 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
                     onPressed: () => _recordEvent(
                       'purchase',
                       attrs: {'item': 'widget', 'category': 'tools'},
+                      metrics: {'price': 9.99},
                     ),
-                    child: const Text('Record w/ Attrs'),
+                    child: const Text('Record w/ Attrs + Metrics'),
                   ),
                   ElevatedButton(
                     onPressed: () {

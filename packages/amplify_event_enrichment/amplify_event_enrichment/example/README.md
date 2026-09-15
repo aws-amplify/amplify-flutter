@@ -22,7 +22,7 @@ Watch the debug console (`flutter logs` or your IDE's console) for the full enri
 
 ## Session lifecycle
 
-1. Tap **Record Event** — observe the session ID in the output
+1. Tap **Record Event** and observe the session ID in the output
 2. Background the app (press Home) and wait a few seconds
 3. Return to the app and tap **Record Event** again
 4. If you returned within 5s, the session ID is the same. After 5s, a new session starts automatically.
@@ -34,9 +34,9 @@ when a session begins, and `_session.stop` when it ends, carrying that session's
 `stop_timestamp` and `duration`.
 
 1. A `_session.start` is printed as soon as the client initializes
-2. Tap **Record Event**, then **Stop Session** — a `_session.stop` envelope is
+2. Tap **Record Event**, then **Stop Session**. A `_session.stop` envelope is
    printed for the session you just used
-3. Tap **Record Event** again — a new session starts, so a `_session.start` is
+3. Tap **Record Event** again. A new session starts, so a `_session.start` is
    printed before the recorded event
 4. **Start Session** on a running session prints the stop for the old one and
    then the start for the new one, in that order
