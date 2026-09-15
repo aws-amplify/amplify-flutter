@@ -48,10 +48,9 @@ Future<void> configureAmplify() async {
   );
 
   await Amplify.addPlugins([authPlugin]);
-  // Amplify.configure only understands its own sections; strip the custom
-  // notifications key so Auth configures cleanly.
-  final authOnly = Map<String, dynamic>.from(_outputs)..remove('notifications');
-  await Amplify.configure(jsonEncode(authOnly));
+  // The full outputs configure as-is: a notifications section holding only
+  // amazon_connect is a shape Amplify.configure accepts.
+  await Amplify.configure(amplifyConfig);
   addTearDown(Amplify.reset);
 }
 
