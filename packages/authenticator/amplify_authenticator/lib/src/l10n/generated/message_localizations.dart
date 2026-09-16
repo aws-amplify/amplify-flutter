@@ -120,6 +120,24 @@ abstract class AuthenticatorMessageLocalizations {
   /// In en, this message translates to:
   /// **'Copy to clipboard failed.'**
   String get copyFailed;
+
+  /// The message displayed when passkey registration fails
+  ///
+  /// In en, this message translates to:
+  /// **'Passkey registration failed. Please try again or continue without a passkey.'**
+  String get passkeyRegistrationFailed;
+
+  /// The message displayed when a passkey sign-in ceremony fails
+  ///
+  /// In en, this message translates to:
+  /// **'Passkey sign-in failed. Please try again or choose another method.'**
+  String get passkeyCeremonyFailed;
+
+  /// Descriptive text explaining what passkeys are
+  ///
+  /// In en, this message translates to:
+  /// **'Passkeys let you sign in securely using your device\'s built-in authentication.'**
+  String get passkeyPromptDescription;
 }
 
 class _AuthenticatorMessageLocalizationsDelegate
