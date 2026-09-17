@@ -1,3 +1,8 @@
+## 2.15.1
+
+### Fixes
+- fix(auth): Preserve HostedUiException names under R8 in release builds
+
 ## 2.15.0
 
 ### Features

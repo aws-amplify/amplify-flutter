@@ -1,3 +1,9 @@
+## 0.4.24
+
+### Fixes
+- fix(storage): Dedupe AbortMultipartUpload on concurrent part failures ([#7384](https://github.com/aws-amplify/amplify-flutter/pull/7384))
+- fix(storage): Prevent crash when cancelling or failing an active S3 upload ([#7354](https://github.com/aws-amplify/amplify-flutter/pull/7354))
+
 ## 0.4.23
 
 - Minor bug fixes and improvements

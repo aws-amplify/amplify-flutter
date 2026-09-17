@@ -1,3 +1,8 @@
+## 0.5.22
+
+### Fixes
+- fix(secure_storage): Remove destructive iOS/macOS reinstall-clear ([#7396](https://github.com/aws-amplify/amplify-flutter/pull/7396))
+
 ## 0.5.21
 
 ### Features
