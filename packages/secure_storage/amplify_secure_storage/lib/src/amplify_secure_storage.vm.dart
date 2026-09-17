@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:amplify_secure_storage/src/amplify_secure_storage.android.dart';
 import 'package:amplify_secure_storage/src/path_provider_local.dart';
-import 'package:amplify_secure_storage/src/pigeons/ns_user_defaults_pigeon.g.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 // ignore: implementation_imports
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
@@ -129,6 +128,11 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   /// and then the flag will be set.
   ///
   /// Intended to clear storage after an app uninstall & re-install.
+  ///
+  /// Only performed on Linux. iOS/macOS Keychain persists across reinstalls,
+  /// and the old `UserDefaults` reinstall check couldn't distinguish a real
+  /// reinstall from a suite unreadable before first unlock, so it wiped valid
+  /// credentials and signed users out. See aws-amplify/amplify-swift#3972.
   Future<void> _initializeScope() async {
     if (Platform.isLinux) {
       final path = (await getApplicationSupportDirectory()).path;
@@ -143,17 +147,6 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
         // ignore: invalid_use_of_internal_member
         await _instance.removeAll();
         await fileStore.writeKey(key: config.scope!, value: true);
-      }
-    }
-
-    if (Platform.isIOS || Platform.isMacOS) {
-      final userDefaults = NSUserDefaultsPigeon();
-      final key = '$scopeStoragePrefix.${config.scope}.isKeychainConfigured';
-      final isInitialized = await userDefaults.boolFor(key);
-      if (!isInitialized) {
-        // ignore: invalid_use_of_internal_member
-        await _instance.removeAll();
-        await userDefaults.setBool(key, true);
       }
     }
   }
