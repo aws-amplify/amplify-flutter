@@ -16,6 +16,10 @@ import 'package:worker_bee/src/js/message_port_channel.dart';
 import 'package:worker_bee/src/preamble.dart';
 import 'package:worker_bee/worker_bee.dart';
 
+/// Safety timeout bounding how long spawn() waits for the worker to come
+/// online and then become ready. A stalled start throws instead of hanging.
+const Duration _workerStartupTimeout = Duration(seconds: 30);
+
 /// The result of serializing a message using the registered `built_value`
 /// serializers.
 ///
@@ -307,19 +311,32 @@ mixin WorkerBeeImpl<Request extends Object, Response>
             }),
           );
 
-          // Wait for the worker to start listening before sending it the
-          // assignment, otherwise the message is dropped and `spawn` hangs.
-          // The timeout falls back to the old behavior for workers built
-          // before the online signal existed.
+          // Post the assignment only after the worker is listening; a stalled
+          // start throws rather than hanging (see
+          // aws-amplify/amplify-flutter#7419).
           await Future.any<void>([
             online.future,
             errorBeforeReady.future,
-            Future<void>.delayed(const Duration(seconds: 1)),
-          ]);
+          ]).timeout(
+            _workerStartupTimeout,
+            onTimeout: () => throw WorkerBeeExceptionImpl(
+              'Timed out waiting for web worker to start.',
+            ),
+          );
 
           _worker!.postMessage(name.toJS, [jsLogsChannel.port2].toJS);
 
-          await Future.any<void>([ready.future, errorBeforeReady.future]);
+          // Bound the ready wait too, so a worker that comes online but never
+          // reports ready fails instead of hanging.
+          await Future.any<void>([
+            ready.future,
+            errorBeforeReady.future,
+          ]).timeout(
+            _workerStartupTimeout,
+            onTimeout: () => throw WorkerBeeExceptionImpl(
+              'Timed out waiting for web worker to start.',
+            ),
+          );
 
           stream = _incomingMessages!.stream;
           sink = _controller!.sink;
