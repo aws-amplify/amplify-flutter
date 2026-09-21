@@ -18,3 +18,8 @@ allow_licenses:
   - "BlueOak-1.0.0"
   - "MITNFA"
   - "MIT AND MITNFA"
+
+# pub.dev reports this package's license as "mit", which is not a valid SPDX
+# identifier, so its validity cannot be determined against allow_licenses
+allow_dependencies_licenses:
+  - "pkg:pub/phone_numbers_parser"
