@@ -1,0 +1,9 @@
+*.xcworkspace
+/*/Pods
+/*/Frameworks
+/DerivedData
+.generated
+/*.xcconfig
+/ServiceDefinitions.json
+/Pods
+/Podfile.lock
