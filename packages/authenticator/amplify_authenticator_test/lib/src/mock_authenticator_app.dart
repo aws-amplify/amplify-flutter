@@ -3,6 +3,7 @@
 
 // ignore_for_file: diagnostic_describe_all_properties, invalid_use_of_visible_for_testing_member, implementation_imports
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
@@ -57,6 +58,13 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
     final baseBloc = StateMachineBloc(
       authService: AmplifyAuthService(),
       preferPrivateSession: false,
+      oidcOptions: const OidcOptions(
+        nonce: 'nonce',
+        language: 'language',
+        loginHint: 'loginHint',
+        prompt: [CognitoSignInWithWebUIPrompt.selectAccount],
+        resource: 'resource',
+      ),
       initialStep: widget.initialStep,
     );
     switch (baseBloc.initialStep) {
