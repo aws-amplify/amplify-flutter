@@ -1,0 +1,56 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyAnalyticsPinpoint",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AmplifyAnalyticsPinpointDart",
+        "AnalyticsPluginInterface",
+        "AmplifyPluginInterface",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyAnalyticsPinpoint",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "appLifecycleProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AppLifecycleProvider?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "secureStorageFactory",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AnalyticsPinpointPluginOptions"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    }
+  ]
+}

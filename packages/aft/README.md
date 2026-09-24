@@ -18,6 +18,7 @@ A CLI tool for managing the Amplify Flutter repository.
 - `exec`: Execute a command in all repo packages
 - `generate`: Generates various repo items
   - `workflows`: Generates GitHub actions workflows for all packages in the repo
+  - `api-report`: Generates API reports for all packages (run before every PR)
 - `link`: Links all packages together using `pubspec_overrides.yaml`
 - `list`: Lists all packages in the repo
 - `publish`: Runs `dart pub publish`/`flutter pub publish` for all packages which need publishing
@@ -133,3 +134,13 @@ Currently, a Map with the following shape is available for querying:
 ```
 
 The script passed to `run` is templated each time it is run with the current package. So when using `{{ package.name }}` in a script, for example, it will always reference the package currently running the script.
+
+## API Reports
+
+Before submitting a pull request that modifies Dart code, you must generate updated API reports:
+
+```sh
+$ aft generate api-report
+```
+
+This command analyzes the public API of all packages and generates JSON reports that are checked in CI. The reports help track API changes and ensure they are intentional. Always run this command and commit the generated files when your PR modifies any `.dart` files. Use the ```--include``` option to run on specific packages.
