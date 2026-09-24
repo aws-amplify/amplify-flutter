@@ -283,25 +283,19 @@ void main() {
             expect(result.downloadedItem.path, path);
           });
 
-          testWidgets(
-            'can cancel',
-            (_) async {
-              final filePath = '$directory/downloaded-file.txt';
-              final operation = Amplify.Storage.downloadFile(
-                localFile: AWSFile.fromPath(filePath),
-                path: StoragePath.fromString(path),
-              );
-              final expectException = expectLater(
-                () => operation.result,
-                throwsA(isA<StorageOperationCanceledException>()),
-              );
-              await operation.cancel();
-              await expectException;
-            },
-            // TODO(Jordan-Nelson): resolve issue and re-enable test
-            // This test is failing as of flutter v3.22
-            skip: true,
-          );
+          testWidgets('can cancel', (_) async {
+            final filePath = '$directory/downloaded-file.txt';
+            final operation = Amplify.Storage.downloadFile(
+              localFile: AWSFile.fromPath(filePath),
+              path: StoragePath.fromString(path),
+            );
+            final expectException = expectLater(
+              () => operation.result,
+              throwsA(isA<StorageOperationCanceledException>()),
+            );
+            await operation.cancel();
+            await expectException;
+          });
         },
         // TODO(Jordan-Nelson): Determine why these are failing on web
         skip: kIsWeb,
