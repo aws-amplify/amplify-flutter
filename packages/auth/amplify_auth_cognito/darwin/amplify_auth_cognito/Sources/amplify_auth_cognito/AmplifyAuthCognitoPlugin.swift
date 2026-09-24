@@ -30,6 +30,10 @@ public class AmplifyAuthCognitoPlugin: NSObject, FlutterPlugin, NativeAuthBridge
         let nativeAuthPlugin = NativeAuthPlugin(binaryMessenger: messenger)
         let instance = AmplifyAuthCognitoPlugin(nativeAuthPlugin: nativeAuthPlugin)
         NativeAuthBridgeSetup.setUp(binaryMessenger: messenger, api: instance)
+
+        // Register WebAuthn bridge for passkey operations
+        let webAuthnBridge = WebAuthnBridgeImpl()
+        WebAuthnBridgeApiSetup.setUp(binaryMessenger: messenger, api: webAuthnBridge)
     }
     
     func signInWithUrl(

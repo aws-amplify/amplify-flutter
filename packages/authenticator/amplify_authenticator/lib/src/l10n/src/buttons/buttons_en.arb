@@ -84,5 +84,37 @@
                 "description": "The social sign-in provider"
             }
         }
+    },
+    "signInWithPasskey": "Sign in with passkey",
+    "@signInWithPasskey": {
+        "description": "Label of button to sign in using a passkey"
+    },
+    "signInWithPassword": "Sign in with password",
+    "@signInWithPassword": {
+        "description": "Label of button to sign in using a password"
+    },
+    "signInWithEmail": "Sign in with email",
+    "@signInWithEmail": {
+        "description": "Label of button to sign in using email OTP"
+    },
+    "signInWithSms": "Sign in with SMS",
+    "@signInWithSms": {
+        "description": "Label of button to sign in using SMS OTP"
+    },
+    "createPasskey": "Create a passkey",
+    "@createPasskey": {
+        "description": "Label of button to create a new passkey"
+    },
+    "continueWithoutPasskey": "Continue without a passkey",
+    "@continueWithoutPasskey": {
+        "description": "Label of button to skip passkey registration"
+    },
+    "setupAnotherPasskey": "Set up another passkey",
+    "@setupAnotherPasskey": {
+        "description": "Label of button to set up an additional passkey"
+    },
+    "otherSignInOptions": "Other sign-in options",
+    "@otherSignInOptions": {
+        "description": "Label of button to show alternative sign-in methods"
     }
 }
