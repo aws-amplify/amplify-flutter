@@ -5,6 +5,7 @@ import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/dial_code_resolver.dart';
 import 'package:amplify_authenticator/src/utils/breakpoint.dart';
 import 'package:amplify_authenticator/src/utils/dial_code.dart';
+import 'package:amplify_authenticator/src/utils/phone_number_formatter.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:collection/collection.dart';
@@ -45,7 +46,8 @@ mixin AuthenticatorPhoneFieldMixin<
     if (phoneNumber == null || phoneNumber.isEmpty) {
       return phoneNumber;
     }
-    return phoneNumber.ensureStartsWith('+${state.dialCode.value}');
+    final nationalNumber = nationalPhoneNumber(phoneNumber, state.dialCode);
+    return nationalNumber.ensureStartsWith('+${state.dialCode.value}');
   }
 
   String displayPhoneNumber(String phoneNumber) {
