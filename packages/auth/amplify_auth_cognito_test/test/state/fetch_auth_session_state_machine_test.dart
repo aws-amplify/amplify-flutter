@@ -53,6 +53,7 @@ void main() {
 
     Future<CognitoAuthSession> fetchAuthSession({
       bool forceRefresh = false,
+      FetchAuthSessionPluginOptions? pluginOptions,
       required bool willRefresh,
     }) async {
       final sm = stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
@@ -68,7 +69,10 @@ void main() {
       final sessionState = await stateMachine
           .dispatchAndComplete<FetchAuthSessionSuccess>(
             FetchAuthSessionEvent.fetch(
-              FetchAuthSessionOptions(forceRefresh: forceRefresh),
+              FetchAuthSessionOptions(
+                forceRefresh: forceRefresh,
+                pluginOptions: pluginOptions,
+              ),
             ),
           );
       return sessionState.session;
@@ -962,6 +966,144 @@ void main() {
               () => session.identityIdResult.value,
               throwsA(isA<UnknownException>()),
             );
+          });
+        });
+      });
+
+      group('client metadata', () {
+        GetTokensFromRefreshTokenRequest? refreshRequest;
+
+        GetTokensFromRefreshTokenResponse refreshResponse() {
+          return GetTokensFromRefreshTokenResponse(
+            authenticationResult: AuthenticationResultType(
+              accessToken: newAccessToken.raw,
+              refreshToken: refreshToken,
+              idToken: newIdToken.raw,
+            ),
+          );
+        }
+
+        setUp(() {
+          refreshRequest = null;
+        });
+
+        Future<void> seedExpiredIdToken() async {
+          seedStorage(
+            secureStorage,
+            identityPoolKeys: identityPoolKeys,
+            userPoolKeys: userPoolKeys,
+          );
+          secureStorage.write(
+            key: userPoolKeys[CognitoUserPoolKey.idToken],
+            value: expiredIdToken.raw,
+          );
+        }
+
+        test('sends clientMetadata when provided', () async {
+          await seedExpiredIdToken();
+          await configureAmplify(config);
+          stateMachine.addInstance<CognitoIdentityProviderClient>(
+            MockCognitoIdentityProviderClient(
+              getTokensFromRefreshTokenWithRequest: (request) async {
+                refreshRequest = request;
+                return refreshResponse();
+              },
+            ),
+          );
+
+          await fetchAuthSession(
+            willRefresh: true,
+            pluginOptions: const CognitoFetchAuthSessionPluginOptions(
+              clientMetadata: {'context': 'mobile'},
+            ),
+          );
+
+          expect(refreshRequest, isNotNull);
+          expect(refreshRequest!.clientMetadata?.toMap(), {
+            'context': 'mobile',
+          });
+        });
+
+        test('omits clientMetadata when plugin options are absent', () async {
+          await seedExpiredIdToken();
+          await configureAmplify(config);
+          stateMachine.addInstance<CognitoIdentityProviderClient>(
+            MockCognitoIdentityProviderClient(
+              getTokensFromRefreshTokenWithRequest: (request) async {
+                refreshRequest = request;
+                return refreshResponse();
+              },
+            ),
+          );
+
+          await fetchAuthSession(willRefresh: true);
+
+          expect(refreshRequest, isNotNull);
+          expect(refreshRequest!.clientMetadata, isNull);
+        });
+
+        test('omits clientMetadata when the map is empty', () async {
+          await seedExpiredIdToken();
+          await configureAmplify(config);
+          stateMachine.addInstance<CognitoIdentityProviderClient>(
+            MockCognitoIdentityProviderClient(
+              getTokensFromRefreshTokenWithRequest: (request) async {
+                refreshRequest = request;
+                return refreshResponse();
+              },
+            ),
+          );
+
+          await fetchAuthSession(
+            willRefresh: true,
+            pluginOptions: const CognitoFetchAuthSessionPluginOptions(
+              clientMetadata: {},
+            ),
+          );
+
+          expect(refreshRequest, isNotNull);
+          expect(refreshRequest!.clientMetadata, isNull);
+        });
+
+        test('sends clientMetadata on force refresh of valid tokens', () async {
+          seedStorage(
+            secureStorage,
+            identityPoolKeys: identityPoolKeys,
+            userPoolKeys: userPoolKeys,
+          );
+          await configureAmplify(config);
+          stateMachine
+            ..addInstance<CognitoIdentityProviderClient>(
+              MockCognitoIdentityProviderClient(
+                getTokensFromRefreshTokenWithRequest: (request) async {
+                  refreshRequest = request;
+                  return refreshResponse();
+                },
+              ),
+            )
+            ..addInstance<CognitoIdentityClient>(
+              MockCognitoIdentityClient(
+                getCredentialsForIdentity: () async =>
+                    GetCredentialsForIdentityResponse(
+                      credentials: Credentials(
+                        accessKeyId: newAccessKeyId,
+                        secretKey: newSecretAccessKey,
+                      ),
+                    ),
+              ),
+            );
+
+          await fetchAuthSession(
+            willRefresh: true,
+            forceRefresh: true,
+            pluginOptions: const CognitoFetchAuthSessionPluginOptions(
+              clientMetadata: {'context': 'mobile'},
+            ),
+          );
+
+          expect(refreshRequest, isNotNull);
+          expect(refreshRequest!.clientMetadata?.toMap(), {
+            'context': 'mobile',
           });
         });
       });
