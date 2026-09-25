@@ -12,6 +12,7 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:amplify_kinesis/amplify_kinesis.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'utils/flush_utils.dart';
 import 'utils/setup_utils.dart';
 
 void main() {
@@ -61,9 +62,7 @@ void main() {
       );
       expect(recordResult, isA<Ok<void>>());
 
-      final flushResult = await client.flush();
-      expect(flushResult, isA<Ok<FlushData>>());
-      final flushed = (flushResult as Ok<FlushData>).value.recordsFlushed;
+      final flushed = await flushUntilDelivered(client.flush, 1);
       expect(flushed, greaterThan(0));
     });
 
@@ -110,9 +109,8 @@ void main() {
 
       client.enable();
 
-      final flushResult = await client.flush();
-      expect(flushResult, isA<Ok<FlushData>>());
-      expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
+      final flushed = await flushUntilDelivered(client.flush, 1);
+      expect(flushed, equals(1));
     });
 
     testWidgets('concurrent flush returns in-progress', (tester) async {
@@ -217,9 +215,14 @@ void main() {
         streamName: testStreamName,
       );
 
-      final flushResult = await client.flush();
-      expect(flushResult, isA<Ok<FlushData>>());
-      expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
+      // Cap attempts so the (retryable) nonexistent-stream record isn't
+      // evicted before the clearCache assertion below.
+      final flushed = await flushUntilDelivered(
+        client.flush,
+        1,
+        maxAttempts: 3,
+      );
+      expect(flushed, equals(1));
 
       final clearResult = await client.clearCache();
       expect(clearResult, isA<Ok<ClearCacheData>>());
@@ -287,9 +290,8 @@ void main() {
       );
       expect(validResult, isA<Ok<void>>());
 
-      final flushResult = await client.flush();
-      expect(flushResult, isA<Ok<FlushData>>());
-      expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
+      final flushed = await flushUntilDelivered(client.flush, 1);
+      expect(flushed, equals(1));
     });
   });
 
@@ -319,18 +321,9 @@ void main() {
           partitionKey: 'partition-1',
           streamName: 'nonexistent-stream-name',
         );
-        await retryClient.record(
-          data: Uint8List.fromList(utf8.encode('valid-stream-record')),
-          partitionKey: 'partition-1',
-          streamName: testStreamName,
-        );
 
-        // First flush: valid record flushed, invalid stays
-        final firstFlush = await retryClient.flush();
-        expect(firstFlush, isA<Ok<FlushData>>());
-        expect((firstFlush as Ok<FlushData>).value.recordsFlushed, equals(1));
-
-        // Flush maxRetries more times to exhaust retries
+        // Every flush errors on the invalid stream and delivers nothing; the
+        // record's retry count climbs until it is evicted at maxRetries.
         for (var i = 0; i < maxRetries; i++) {
           final result = await retryClient.flush();
           expect(result, isA<Ok<FlushData>>());
@@ -398,6 +391,13 @@ void main() {
         totalFlushed += (flushResult as Ok<FlushData>).value.recordsFlushed;
       }
 
+      // A cycle's flush may deliver fewer than buffered when the service
+      // throttles records back into the cache; drain the remainder.
+      totalFlushed += await flushUntilDelivered(
+        client.flush,
+        (cycles * recordsPerCycle) - totalFlushed,
+      );
+
       expect(totalFlushed, equals(cycles * recordsPerCycle));
     });
 
@@ -434,17 +434,17 @@ void main() {
       producersDone = true;
       await flusher;
 
-      // Final drain flush
-      final drainResult = await client.flush();
-      expect(drainResult, isA<Ok<FlushData>>());
-      totalFlushed += (drainResult as Ok<FlushData>).value.recordsFlushed;
+      // Drain any records the service throttled back into the cache.
+      totalFlushed += await flushUntilDelivered(
+        client.flush,
+        totalExpected - totalFlushed,
+      );
+      expect(totalFlushed, equals(totalExpected));
 
-      // Second drain to confirm nothing is left
+      // Nothing left to flush.
       final finalResult = await client.flush();
       expect(finalResult, isA<Ok<FlushData>>());
       expect((finalResult as Ok<FlushData>).value.recordsFlushed, equals(0));
-
-      expect(totalFlushed, equals(totalExpected));
     });
   });
 
@@ -539,9 +539,8 @@ void main() {
       );
       expect(result, isA<Ok<void>>());
 
-      final flushResult = await client.flush();
-      expect(flushResult, isA<Ok<FlushData>>());
-      expect((flushResult as Ok<FlushData>).value.recordsFlushed, equals(1));
+      final flushed = await flushUntilDelivered(client.flush, 1);
+      expect(flushed, equals(1));
     });
   });
 
