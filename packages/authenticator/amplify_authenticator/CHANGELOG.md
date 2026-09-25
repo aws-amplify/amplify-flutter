@@ -1,3 +1,8 @@
+## 2.7.2
+
+### Fixes
+- fix(authenticator): Drop a repeated dial code from the phone number field ([#7420](https://github.com/aws-amplify/amplify-flutter/pull/7420))
+
 ## 2.7.1
 
 ### Fixes
