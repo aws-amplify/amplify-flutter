@@ -138,7 +138,9 @@ void main() {
         const state = 'state';
         const codeVerifier = 'codeVerifier';
         secureStorage
+          // ignore: unawaited_futures
           ..write(key: keys[HostedUiKey.state], value: state)
+          // ignore: unawaited_futures
           ..write(key: keys[HostedUiKey.codeVerifier], value: codeVerifier);
 
         stateMachine
