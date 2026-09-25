@@ -37,6 +37,7 @@ void main() {
       EndpointStore(
         pinpointAppId,
         mockStore,
+        // ignore: unawaited_futures
       ).write(key: EndpointStoreKey.endpointId.name, value: mockEndpointId);
       final mockEndpointInfoStoreManager = EndpointInfoStoreManager(
         store: mockStore,
