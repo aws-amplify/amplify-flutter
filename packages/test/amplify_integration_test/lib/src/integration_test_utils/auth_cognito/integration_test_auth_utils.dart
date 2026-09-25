@@ -158,6 +158,52 @@ mutation DeleteDevice($input: DeleteDeviceInput!) {
   }
 }
 
+/// Runs [createUser], retrying on `UsernameExistsException` (generated
+/// usernames can collide with users left in the shared pool). [createUser]
+/// should produce a new username on each attempt.
+Future<T> retryOnUsernameExists<T>(
+  Future<T> Function() createUser, {
+  int maxAttempts = 10,
+}) async {
+  for (var attempt = 1; ; attempt++) {
+    try {
+      return await createUser();
+    } on Exception catch (e) {
+      if (attempt >= maxAttempts ||
+          !e.toString().contains('UsernameExistsException')) {
+        rethrow;
+      }
+      // TEMP DIAG (verify branch only): confirm the retry actually fired.
+      safePrint(
+        'DIAG retryOnUsernameExists: attempt $attempt hit '
+        'UsernameExistsException, regenerating and retrying',
+      );
+    }
+  }
+}
+
+/// Creates a Cognito user whose username is a generated US phone number,
+/// regenerating and retrying if the number is already taken in the shared pool.
+///
+/// Returns the phone number that was successfully created.
+Future<PhoneNumber> adminCreateUserWithGeneratedPhoneNumber(
+  String password, {
+  bool autoConfirm = false,
+  bool enableMfa = false,
+  bool verifyAttributes = false,
+}) => retryOnUsernameExists(() async {
+  final phoneNumber = generateUSPhoneNumber();
+  await adminCreateUser(
+    phoneNumber.toE164(),
+    password,
+    autoConfirm: autoConfirm,
+    enableMfa: enableMfa,
+    verifyAttributes: verifyAttributes,
+    attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
+  );
+  return phoneNumber;
+});
+
 /// Creates a Cognito user in backend infrastructure. This documention describes
 /// how each parameter is expected to be used in the backend .
 ///
