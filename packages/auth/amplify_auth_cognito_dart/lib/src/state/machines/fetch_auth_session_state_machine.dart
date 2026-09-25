@@ -226,6 +226,7 @@ final class FetchAuthSessionStateMachine
         FetchAuthSessionEvent.refresh(
           refreshUserPoolTokens: refreshUserPoolTokens,
           refreshAwsCredentials: refreshAwsCredentials,
+          options: options,
         ),
       );
     }
@@ -373,7 +374,10 @@ final class FetchAuthSessionStateMachine
           );
         }
         try {
-          userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
+          userPoolTokens = await _refreshUserPoolTokens(
+            userPoolTokens,
+            options: event.options,
+          );
           userPoolTokensResult = AuthResult.success(userPoolTokens);
           userSubResult = AuthResult.success(userPoolTokens.userId);
         } on Exception catch (e, s) {
@@ -502,8 +506,9 @@ final class FetchAuthSessionStateMachine
   }
 
   Future<CognitoUserPoolTokens> _refreshUserPoolTokens(
-    CognitoUserPoolTokens userPoolTokens,
-  ) async {
+    CognitoUserPoolTokens userPoolTokens, {
+    FetchAuthSessionOptions? options,
+  }) async {
     final deviceSecrets = await getOrCreate<DeviceMetadataRepository>().get(
       userPoolTokens.username,
     );
@@ -511,6 +516,9 @@ final class FetchAuthSessionStateMachine
     final deviceKey = deviceSecrets?.deviceKey;
     // ignore: invalid_use_of_internal_member
     final appClientSecret = _authConfig?.appClientSecret;
+    final clientMetadata =
+        (options?.pluginOptions as CognitoFetchAuthSessionPluginOptions?)
+            ?.clientMetadata;
 
     final refreshRequest = cognito_idp.GetTokensFromRefreshTokenRequest.build((
       b,
@@ -523,6 +531,9 @@ final class FetchAuthSessionStateMachine
       }
       if (appClientSecret != null) {
         b.clientSecret = appClientSecret;
+      }
+      if (clientMetadata != null && clientMetadata.isNotEmpty) {
+        b.clientMetadata.addAll(clientMetadata);
       }
     });
     try {

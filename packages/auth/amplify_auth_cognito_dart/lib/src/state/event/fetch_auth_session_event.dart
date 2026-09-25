@@ -37,6 +37,7 @@ sealed class FetchAuthSessionEvent
   const factory FetchAuthSessionEvent.refresh({
     required bool refreshUserPoolTokens,
     required bool refreshAwsCredentials,
+    FetchAuthSessionOptions? options,
   }) = FetchAuthSessionRefresh;
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_succeeded}
@@ -113,6 +114,7 @@ final class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
     required this.refreshUserPoolTokens,
     required this.refreshAwsCredentials,
     this.federationOptions,
+    this.options,
   }) : super._();
 
   /// Whether to refresh the user pool tokens.
@@ -124,6 +126,10 @@ final class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
   /// Options for federation to an identity pool.
   final FederateToIdentityPoolOptions? federationOptions;
 
+  /// Options from the original fetch, including plugin-specific values such as
+  /// client metadata.
+  final FetchAuthSessionOptions? options;
+
   @override
   FetchAuthSessionEventType get type => FetchAuthSessionEventType.refresh;
 
@@ -133,6 +139,7 @@ final class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
     refreshAwsCredentials,
     refreshUserPoolTokens,
     federationOptions,
+    options,
   ];
 
   @override

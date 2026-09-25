@@ -55,6 +55,10 @@ class MockCognitoIdentityProviderClient
     Future<SetUserMfaPreferenceResponse> Function()? setUserMfaPreference,
     Future<GetTokensFromRefreshTokenResponse> Function()?
     getTokensFromRefreshToken,
+    Future<GetTokensFromRefreshTokenResponse> Function(
+      GetTokensFromRefreshTokenRequest,
+    )?
+    getTokensFromRefreshTokenWithRequest,
   }) : _associateSoftwareToken = associateSoftwareToken,
        _changePassword = changePassword,
        _confirmDevice = confirmDevice,
@@ -78,7 +82,9 @@ class MockCognitoIdentityProviderClient
        _verifySoftwareToken = verifySoftwareToken,
        _verifyUserAttribute = verifyUserAttribute,
        _setUserMfaPreference = setUserMfaPreference,
-       _getTokensFromRefreshToken = getTokensFromRefreshToken;
+       _getTokensFromRefreshToken = getTokensFromRefreshToken,
+       _getTokensFromRefreshTokenWithRequest =
+           getTokensFromRefreshTokenWithRequest;
 
   final Future<AssociateSoftwareTokenResponse> Function()?
   _associateSoftwareToken;
@@ -113,6 +119,10 @@ class MockCognitoIdentityProviderClient
   final Future<SetUserMfaPreferenceResponse> Function()? _setUserMfaPreference;
   final Future<GetTokensFromRefreshTokenResponse> Function()?
   _getTokensFromRefreshToken;
+  final Future<GetTokensFromRefreshTokenResponse> Function(
+    GetTokensFromRefreshTokenRequest,
+  )?
+  _getTokensFromRefreshTokenWithRequest;
 
   @override
   SmithyOperation<AssociateSoftwareTokenResponse> associateSoftwareToken(
@@ -287,7 +297,11 @@ class MockCognitoIdentityProviderClient
     GetTokensFromRefreshTokenRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) => _mockIfProvided(_getTokensFromRefreshToken);
+  }) => _mockIfProvided(
+    _getTokensFromRefreshTokenWithRequest != null
+        ? () => _getTokensFromRefreshTokenWithRequest(input)
+        : _getTokensFromRefreshToken,
+  );
 }
 
 class MockCognitoIdentityClient implements CognitoIdentityClient {
