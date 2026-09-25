@@ -174,6 +174,56 @@ void main() {
         });
       }
     });
+
+    group('isRetryable', () {
+      final retryer = AWSRetryer();
+      final request = AWSHttpRequest.get(Uri.parse('https://example.com'));
+
+      test('retries transport-level AWSHttpException (retryable flag)', () {
+        expect(
+          retryer.isRetryable(AWSHttpException.retryable(request)),
+          isTrue,
+        );
+      });
+
+      test('does not retry a non-transport AWSHttpException', () {
+        expect(retryer.isRetryable(AWSHttpException(request)), isFalse);
+      });
+
+      test('retries TimeoutException', () {
+        expect(retryer.isRetryable(TimeoutException('slow')), isTrue);
+      });
+
+      test('does not retry non-transport, non-Smithy exceptions', () {
+        expect(retryer.isRetryable(const FormatException('bad')), isFalse);
+      });
+    });
+
+    group('retry recovery', () {
+      test('recovers after a transient AWSHttpException (retries then '
+          'succeeds)', () async {
+        await runZoned(() async {
+          // exponentialBase: 0 => zero backoff, so the test is fast.
+          final retryer = AWSRetryer(exponentialBase: 0);
+          final request = AWSHttpRequest.get(Uri.parse('https://example.com'));
+          var attempts = 0;
+          final result = await retryer.retry<int>(() {
+            attempts++;
+            final completer = CancelableCompleter<int>();
+            if (attempts < 2) {
+              completer.completeError(
+                AWSHttpException.retryable(request, Exception('reset')),
+              );
+            } else {
+              completer.complete(42);
+            }
+            return completer.operation;
+          }).valueOrCancellation();
+          expect(attempts, 2, reason: 'should retry once, then succeed');
+          expect(result, 42, reason: 'should return the retried result');
+        }, zoneValues: {AWSConfigValue.maxAttempts: 3});
+      });
+    });
   });
 }
 
