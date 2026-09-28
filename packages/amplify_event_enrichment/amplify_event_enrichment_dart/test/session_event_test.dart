@@ -367,6 +367,275 @@ void main() {
           expect(gated.types, [zSessionStartEventType, zSessionStopEventType]);
         },
       );
+
+      test(
+        'sends the record before the final stop on an active session',
+        () async {
+          // The record is past the closed check, so close() owes it a send ahead
+          // of the final stop even though the record suspends in between.
+          final gated = _GatedSender('button_clicked');
+          final racing = buildClient(gated);
+          await pumpEventQueue();
+
+          final order = <String>[];
+          final recorded = racing
+              .record('button_clicked')
+              .whenComplete(() => order.add('record'));
+          final teardown = racing.close().whenComplete(
+            () => order.add('close'),
+          );
+          await pumpEventQueue();
+
+          expect(
+            order,
+            isEmpty,
+            reason: 'close() cannot finish while the record is still sending',
+          );
+          expect(gated.types, [zSessionStartEventType, 'button_clicked']);
+
+          gated.release();
+          await recorded;
+          await teardown;
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            'button_clicked',
+            zSessionStopEventType,
+          ], reason: 'the final stop is the last event the sender sees');
+          expect(order, ['record', 'close']);
+        },
+      );
+
+      test(
+        'sends the record before the final stop on a fresh session',
+        () async {
+          // Same race, but the record has to start the session first, so it
+          // suspends twice before its own send.
+          final gated = _GatedSender('button_clicked');
+          final racing = buildClient(gated, autoSessionTracking: false);
+
+          final order = <String>[];
+          final recorded = racing
+              .record('button_clicked')
+              .whenComplete(() => order.add('record'));
+          final teardown = racing.close().whenComplete(
+            () => order.add('close'),
+          );
+          await pumpEventQueue();
+
+          expect(order, isEmpty);
+          expect(gated.types, [zSessionStartEventType, 'button_clicked']);
+
+          gated.release();
+          await recorded;
+          await teardown;
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            'button_clicked',
+            zSessionStopEventType,
+          ]);
+          expect(order, ['record', 'close']);
+        },
+      );
+
+      test('keeps the lifecycle callbacks inert while close() drains', () {
+        // close() is suspended on the record, so the session is still active
+        // and a pause would arm a timer that ends it ahead of the final stop.
+        fakeAsync((async) {
+          final gated = _GatedSender('button_clicked');
+          final racing = buildClient(gated);
+          async.flushMicrotasks();
+
+          unawaited(racing.record('button_clicked'));
+          unawaited(racing.close());
+          async.flushMicrotasks();
+
+          racing.handleAppPaused();
+          async.elapse(timeout * 2);
+
+          expect(
+            gated.types,
+            [zSessionStartEventType, 'button_clicked'],
+            reason: 'a closed client arms no pause timer, so nothing timed out',
+          );
+
+          racing.handleAppResumed();
+          async.flushMicrotasks();
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            'button_clicked',
+          ], reason: 'and no resume revives the session being torn down');
+
+          gated.release();
+          async.flushMicrotasks();
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            'button_clicked',
+            zSessionStopEventType,
+          ]);
+          expect(racing.sessionManager.session, isNull);
+        });
+      });
+    });
+
+    group('a closed client', () {
+      test('does not start a session on startSession()', () async {
+        final closedSender = _RecordingSender();
+        final closed = buildClient(closedSender);
+        await closed.close();
+        final afterClose = List.of(closedSender.types);
+
+        await closed.startSession();
+        await pumpEventQueue();
+
+        expect(closedSender.types, afterClose);
+        expect(
+          closedSender.sessionStarts,
+          hasLength(1),
+          reason: 'only the launch start, never a start a close cannot stop',
+        );
+        expect(closedSender.types.last, zSessionStopEventType);
+        expect(closed.sessionManager.session, isNull);
+      });
+
+      test('does not report anything on stopSession()', () async {
+        final closedSender = _RecordingSender();
+        final closed = buildClient(closedSender);
+        await closed.close();
+        final afterClose = List.of(closedSender.types);
+
+        await closed.stopSession();
+        await pumpEventQueue();
+
+        expect(closedSender.types, afterClose);
+        expect(closedSender.sessionStops, hasLength(1));
+      });
+
+      test('does not restart on handleAppResumed()', () async {
+        final closedSender = _RecordingSender();
+        final closed = buildClient(closedSender);
+        await closed.close();
+        final afterClose = List.of(closedSender.types);
+
+        closed
+          ..handleAppPaused()
+          ..handleAppResumed();
+        await pumpEventQueue();
+
+        expect(closedSender.types, afterClose);
+        expect(closed.sessionManager.state, SessionState.stopped);
+      });
+
+      test('stays inert when startSession() races the teardown', () async {
+        // The teardown is still reporting the final stop, so a start accepted
+        // here would outlive the client.
+        final gated = _GatedSender(zSessionStopEventType);
+        final closing = buildClient(gated);
+        await pumpEventQueue();
+
+        final teardown = closing.close();
+        final revived = closing.startSession();
+        await pumpEventQueue();
+
+        gated.release();
+        await revived;
+        await teardown;
+
+        expect(gated.types, [zSessionStartEventType, zSessionStopEventType]);
+      });
+    });
+
+    group('a pending stop', () {
+      test('reaches the sender before the start a resume reports', () {
+        // The timeout ended the session and nobody awaited that report, so the
+        // resume has to chain its start behind it.
+        fakeAsync((async) {
+          final gated = _GatedSender(zSessionStopEventType);
+          final resuming = buildClient(gated);
+          async.flushMicrotasks();
+
+          resuming.handleAppPaused();
+          async.elapse(timeout);
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+          ], reason: 'the timeout fired and its stop is still in flight');
+
+          resuming.handleAppResumed();
+          async.elapse(timeout);
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+          ], reason: 'the new start waits for the stop it replaced');
+
+          gated.release();
+          async.flushMicrotasks();
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+            zSessionStartEventType,
+          ]);
+        });
+      });
+
+      test(
+        'reaches the sender before the start startSession() reports',
+        () async {
+          final gated = _GatedSender(zSessionStopEventType);
+          final restarting = buildClient(gated);
+          await pumpEventQueue();
+
+          final stopping = restarting.stopSession();
+          final starting = restarting.startSession();
+          await pumpEventQueue();
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+          ], reason: 'the start cannot overtake a stop nobody awaited');
+
+          gated.release();
+          await stopping;
+          await starting;
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+            zSessionStartEventType,
+          ]);
+          await restarting.close();
+        },
+      );
+
+      test("reaches the sender before record()'s lazy start", () async {
+        final gated = _GatedSender(zSessionStopEventType);
+        final recording = buildClient(gated);
+        await pumpEventQueue();
+
+        final stopping = recording.stopSession();
+        final recorded = recording.record('button_clicked');
+        await pumpEventQueue();
+
+        expect(gated.types, [zSessionStartEventType, zSessionStopEventType]);
+
+        gated.release();
+        await stopping;
+        await recorded;
+
+        expect(gated.types, [
+          zSessionStartEventType,
+          zSessionStopEventType,
+          zSessionStartEventType,
+          'button_clicked',
+        ], reason: 'the lazy start chains after the stop, then the event');
+        await recording.close();
+      });
     });
 
     group('does not emit a start', () {
