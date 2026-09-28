@@ -11,7 +11,7 @@ import 'package:test/test.dart';
 /// A timer that never runs its callback, standing in for a platform that
 /// suspends timers while the app is backgrounded. iOS suspends the Dart event
 /// loop, so the pause timer may not run until after the app is already back in
-/// the foreground, or at all — the resume has to detect the timeout itself.
+/// the foreground, or at all. The resume has to detect the timeout itself.
 class _NeverFiringTimer implements Timer {
   @override
   void cancel() {}

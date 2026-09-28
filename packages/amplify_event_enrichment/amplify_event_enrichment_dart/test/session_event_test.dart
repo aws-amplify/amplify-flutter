@@ -80,7 +80,7 @@ class _GatedSender implements EnrichedEventSender {
   }
 }
 
-/// Fails after suspending — the case a synchronous throw does not cover, and
+/// Fails after suspending. The case a synchronous throw does not cover, and
 /// the one that escapes as an unhandled async error if the emission is not
 /// awaited inside its own guard.
 class _AsyncFailingSender implements EnrichedEventSender {

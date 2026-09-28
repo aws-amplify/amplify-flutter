@@ -18,7 +18,7 @@ class _ThrowingSender implements EnrichedEventSender {
   Future<void> send(EnrichedEvent event) => throw StateError('sender failure');
 }
 
-/// Suspends first, then fails — the case a sync sender contract could not
+/// Suspends first, then fails. The case a sync sender contract could not
 /// express and the try/catch in record() could not catch.
 class _AsyncFailingSender implements EnrichedEventSender {
   @override
