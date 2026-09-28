@@ -3,6 +3,8 @@
 
 import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart' show Ok;
+import 'package:flutter/services.dart' show StringCodec;
+import 'package:flutter/widgets.dart' show AppLifecycleState;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -251,6 +253,9 @@ void main() {
           initialGlobalMetrics: const {'score': 4.5},
         );
         addTearDown(client.close);
+        // The launch start is queued on the report tail, so create() can return
+        // before the sender has seen it.
+        await pumpEventQueue();
 
         final event = sender.sessionStarts.single;
         expect(event.userId, 'user-1');
@@ -262,6 +267,7 @@ void main() {
     test('create leaves them absent when not supplied', () async {
       final (client, sender) = await createClient();
       addTearDown(client.close);
+      await pumpEventQueue();
 
       final event = sender.sessionStarts.single;
       expect(event.userId, isNull);
@@ -326,6 +332,91 @@ void main() {
       await client.close();
 
       expect(sender.sessionEvents, isEmpty);
+    });
+  });
+
+  group('EventEnrichmentClientFlutter create while backgrounded', () {
+    // create() resolves its providers before the observer can register, so a
+    // background transition in that window is only visible through the
+    // lifecycle state the delegate is seeded from.
+    Future<void> setLifecycleState(AppLifecycleState state) =>
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .handlePlatformMessage(
+              'flutter/lifecycle',
+              const StringCodec().encodeMessage(state.toString()),
+              (_) {},
+            );
+
+    // Short enough to expire inside a test, long enough not to race create().
+    const shortTimeout = Duration(milliseconds: 50);
+    const pastTimeout = Duration(milliseconds: 300);
+
+    tearDown(() => setLifecycleState(AppLifecycleState.resumed));
+
+    Future<(EventEnrichmentClientFlutter, _RecordingSender)>
+    createClient() async {
+      final sender = _RecordingSender();
+      final client = await EventEnrichmentClientFlutter.create(
+        appId: 'test-app',
+        sdkMetadata: sdk,
+        sender: sender,
+        options: const EventEnrichmentClientOptions(
+          sessionTimeout: shortTimeout,
+        ),
+      );
+      await pumpEventQueue();
+      return (client, sender);
+    }
+
+    test('pauses the launch session so it can time out', () async {
+      await setLifecycleState(AppLifecycleState.paused);
+
+      final (client, sender) = await createClient();
+      addTearDown(client.close);
+
+      expect(sender.sessionStarts, hasLength(1));
+      expect(sender.sessionStops, isEmpty);
+
+      await Future<void>.delayed(pastTimeout);
+      await pumpEventQueue();
+
+      expect(
+        sender.sessionStops,
+        hasLength(1),
+        reason: 'a session launched into the background must still time out',
+      );
+      expect(
+        sender.sessionStops.single.session.id,
+        sender.sessionStarts.single.session.id,
+      );
+    });
+
+    test('treats a hidden app as backgrounded too', () async {
+      await setLifecycleState(AppLifecycleState.hidden);
+
+      final (client, sender) = await createClient();
+      addTearDown(client.close);
+
+      await Future<void>.delayed(pastTimeout);
+      await pumpEventQueue();
+
+      expect(sender.sessionStops, hasLength(1));
+    });
+
+    test('leaves a foreground launch session running', () async {
+      await setLifecycleState(AppLifecycleState.resumed);
+
+      final (client, sender) = await createClient();
+      addTearDown(client.close);
+
+      await Future<void>.delayed(pastTimeout);
+      await pumpEventQueue();
+
+      expect(
+        sender.sessionStops,
+        isEmpty,
+        reason: 'nothing pauses a foreground session, so nothing times out',
+      );
     });
   });
 }

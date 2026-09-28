@@ -71,6 +71,16 @@ class _GatedSender implements EnrichedEventSender {
 
   List<String> get types => events.map((e) => e.eventType).toList();
 
+  /// Only the session boundaries, so a record still queued behind the gate
+  /// cannot shift the sequence under test.
+  List<EnrichedEvent> get boundaries => events
+      .where(
+        (e) =>
+            e.eventType == zSessionStartEventType ||
+            e.eventType == zSessionStopEventType,
+      )
+      .toList();
+
   void release() => _gate.complete();
 
   @override
@@ -155,7 +165,7 @@ void main() {
 
       test('ahead of an event recorded straight after construction', () async {
         // The eager start has no caller to await it, so this only holds
-        // because a start with nothing to displace is reported synchronously.
+        // because the record waits on the report tail the start is queued on.
         final eagerSender = _RecordingSender();
         final eagerClient = buildClient(eagerSender);
         await eagerClient.record('first');
@@ -638,6 +648,268 @@ void main() {
       });
     });
 
+    group('a record waits for the boundaries queued ahead of it', () {
+      /// A client whose pause timer never fires, so the resume, not the timer,
+      /// is what ends an expired session.
+      EventEnrichmentClient suspendedTimerClient(EnrichedEventSender sender) {
+        final built = buildClient(sender);
+        built.sessionManager.timerFactory = (_, _) => _NeverFiringTimer();
+        return built;
+      }
+
+      test('when a resume past the timeout replaced the session', () {
+        // The session the record names is already active, so only the report
+        // tail can hold the record behind that session's own start.
+        fakeAsync((async) {
+          final gated = _GatedSender(zSessionStopEventType);
+          final resuming = suspendedTimerClient(gated);
+          async.flushMicrotasks();
+          final first = resuming.sessionManager.session!;
+
+          resuming.handleAppPaused();
+          async.elapse(timeout * 2);
+          resuming.handleAppResumed();
+          final second = resuming.sessionManager.session!;
+          unawaited(resuming.record('button_clicked'));
+          async.flushMicrotasks();
+
+          expect(second.id, isNot(first.id));
+          expect(gated.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+          ], reason: 'the gated stop holds everything queued behind it');
+
+          gated.release();
+          async.flushMicrotasks();
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+            zSessionStartEventType,
+            'button_clicked',
+          ], reason: 'the record cannot precede the start of its own session');
+          expect(gated.events.last.session.id, second.id);
+        });
+      });
+
+      test('when an unawaited startSession() replaced the session', () async {
+        final gated = _GatedSender(zSessionStopEventType);
+        final restarting = buildClient(gated);
+        await pumpEventQueue();
+        final first = restarting.sessionManager.session!;
+
+        unawaited(restarting.startSession());
+        final second = restarting.sessionManager.session!;
+        final recorded = restarting.record('button_clicked');
+        await pumpEventQueue();
+
+        expect(second.id, isNot(first.id));
+        expect(gated.types, [zSessionStartEventType, zSessionStopEventType]);
+
+        gated.release();
+        await recorded;
+
+        expect(gated.types, [
+          zSessionStartEventType,
+          zSessionStopEventType,
+          zSessionStartEventType,
+          'button_clicked',
+        ]);
+        expect(gated.events.last.session.id, second.id);
+        await restarting.close();
+      });
+    });
+
+    group('every stop precedes its own start', () {
+      test('across two restarts nobody awaited', () async {
+        // Two ends are outstanding at once, so a design that remembers only the
+        // most recent one lets the older start fall behind the newer stop.
+        final gated = _GatedSender(zSessionStopEventType);
+        final restarting = buildClient(gated);
+        await pumpEventQueue();
+        final a = restarting.sessionManager.session!;
+
+        unawaited(restarting.startSession());
+        final b = restarting.sessionManager.session!;
+        unawaited(restarting.startSession());
+        final c = restarting.sessionManager.session!;
+        await pumpEventQueue();
+
+        gated.release();
+        await pumpEventQueue();
+
+        expect(gated.boundaries.map((e) => e.eventType), [
+          zSessionStartEventType,
+          zSessionStopEventType,
+          zSessionStartEventType,
+          zSessionStopEventType,
+          zSessionStartEventType,
+        ]);
+        expect(gated.boundaries.map((e) => e.session.id), [
+          a.id,
+          a.id,
+          b.id,
+          b.id,
+          c.id,
+        ], reason: 'each pair belongs to one session, in that session order');
+        await restarting.close();
+      });
+
+      test('across records that replace expired paused sessions', () {
+        fakeAsync((async) {
+          final gated = _GatedSender(zSessionStopEventType);
+          final backgrounded = buildClient(gated);
+          backgrounded.sessionManager.timerFactory = (_, _) =>
+              _NeverFiringTimer();
+          async.flushMicrotasks();
+          final a = backgrounded.sessionManager.session!;
+
+          backgrounded.handleAppPaused();
+          async.elapse(timeout * 2);
+          unawaited(backgrounded.record('first'));
+          async.flushMicrotasks();
+          final b = backgrounded.sessionManager.session!;
+
+          async.elapse(timeout * 2);
+          unawaited(backgrounded.record('second'));
+          async.flushMicrotasks();
+          final c = backgrounded.sessionManager.session!;
+
+          gated.release();
+          async.flushMicrotasks();
+
+          expect(gated.boundaries.map((e) => e.eventType), [
+            zSessionStartEventType,
+            zSessionStopEventType,
+            zSessionStartEventType,
+            zSessionStopEventType,
+            zSessionStartEventType,
+          ]);
+          expect(gated.boundaries.map((e) => e.session.id), [
+            a.id,
+            a.id,
+            b.id,
+            b.id,
+            c.id,
+          ]);
+        });
+      });
+    });
+
+    group('close() waits for a stop already in flight', () {
+      test('one the pause timer started', () {
+        fakeAsync((async) {
+          final gated = _GatedSender(zSessionStopEventType);
+          final closing = buildClient(gated);
+          async.flushMicrotasks();
+
+          closing.handleAppPaused();
+          async
+            ..elapse(timeout)
+            ..flushMicrotasks();
+
+          expect(gated.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+          ], reason: 'the timeout ended the session and its stop is pending');
+
+          final order = <String>[];
+          unawaited(closing.close().whenComplete(() => order.add('close')));
+          async.flushMicrotasks();
+
+          expect(
+            order,
+            isEmpty,
+            reason: 'close() has nothing left to end but must still wait',
+          );
+
+          gated.release();
+          async.flushMicrotasks();
+
+          expect(order, ['close']);
+          expect(gated.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+          ], reason: 'the pending stop is the only one, and the last event');
+        });
+      });
+
+      test('one an unawaited stopSession() started', () async {
+        final gated = _GatedSender(zSessionStopEventType);
+        final closing = buildClient(gated);
+        await pumpEventQueue();
+
+        final order = <String>[];
+        final stopping = closing.stopSession().whenComplete(
+          () => order.add('stop'),
+        );
+        await pumpEventQueue();
+
+        final teardown = closing.close().whenComplete(() => order.add('close'));
+        await pumpEventQueue();
+
+        expect(
+          order,
+          isEmpty,
+          reason: 'close() found nothing to end but a stop is still sending',
+        );
+        expect(gated.types, [zSessionStartEventType, zSessionStopEventType]);
+
+        gated.release();
+        await stopping;
+        await teardown;
+
+        // Both settle off the same send, and which callback observes it first
+        // is a future-propagation detail, so only completion is pinned.
+        expect(order, unorderedEquals(['stop', 'close']));
+        expect(gated.types, [zSessionStartEventType, zSessionStopEventType]);
+      });
+    });
+
+    group('a cleared session manager', () {
+      test('reports nothing when driven directly after close()', () async {
+        // The manager is reachable through the public getter, so the guards on
+        // the client alone would not stop a start the client cannot ever stop.
+        final closedSender = _RecordingSender();
+        final closed = buildClient(closedSender);
+        await closed.close();
+        final afterClose = List.of(closedSender.types);
+        final manager = closed.sessionManager;
+
+        await manager.startSession();
+        manager.handleAppResumed();
+        await manager.stopSession();
+        manager.handleAppPaused();
+        await pumpEventQueue();
+
+        expect(
+          closedSender.types,
+          afterClose,
+          reason: 'nothing a closed client cannot stop may be started',
+        );
+        expect(closedSender.sessionStarts, hasLength(1));
+        expect(closedSender.types.last, zSessionStopEventType);
+        expect(manager.session, isNull);
+        expect(manager.state, SessionState.stopped);
+      });
+
+      test('fails sessionForRecording() with a StateError', () async {
+        final closedSender = _RecordingSender();
+        final closed = buildClient(closedSender);
+        await closed.close();
+
+        await expectLater(
+          closed.sessionManager.sessionForRecording(),
+          throwsStateError,
+        );
+        expect(
+          closedSender.sessionStarts,
+          hasLength(1),
+          reason: 'a loud failure rather than a phantom session',
+        );
+      });
+    });
+
     group('does not emit a start', () {
       test('at construction when autoSessionTracking is off', () async {
         final idleSender = _RecordingSender();
@@ -1022,8 +1294,12 @@ void main() {
           initialUserId: 'user-1',
           sender: initialSender,
           options: const EventEnrichmentClientOptions(sessionTimeout: timeout),
-        )..setUserId('user-2');
+        );
         addTearDown(initialClient.close);
+        // The launch start is queued on the report tail, so let it reach the
+        // sender before overriding the user id.
+        await pumpEventQueue();
+        initialClient.setUserId('user-2');
 
         await initialClient.record('button_clicked');
 
