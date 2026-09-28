@@ -64,6 +64,7 @@ class SessionManager {
   DateTime? _pausedAt;
   bool _backgrounded = false;
   bool _stoppedExplicitly = false;
+  Future<void>? _pendingEnd;
 
   /// Current session state.
   SessionState get state => _state;
@@ -82,7 +83,9 @@ class SessionManager {
   // event loop and need no lock. Reporting is the only thing that awaits, and
   // a caller must not read _session back across that await: a racing close()
   // or clearSession() may have dropped it by then. Sessions are threaded out
-  // of the synchronous transition that created them instead.
+  // of the synchronous transition that created them instead. An end report a
+  // caller left unawaited stays in _pendingEnd, so the next start chains after
+  // it rather than racing it to the sender.
 
   /// Starts a new session, ending any session already running. The returned
   /// future completes once the boundary has been reported, end before start.
@@ -148,8 +151,9 @@ class SessionManager {
         );
       case SessionState.stopped:
         if (_stoppedExplicitly) return;
+        final started = _startFresh();
         _fireAndLog(
-          _reportStart(_startFresh()),
+          _reportStartAfter(_pendingEnd, started),
           'Failed to report the start of a session',
         );
       case SessionState.active:
@@ -175,10 +179,10 @@ class SessionManager {
   ({Session session, Future<void> reported}) _restart() {
     final ended = _endCurrent();
     final started = _startFresh();
-    final reported = ended == null
-        ? _reportStart(started)
-        : ended.then((_) => _reportStart(started));
-    return (session: started, reported: reported);
+    return (
+      session: started,
+      reported: _reportStartAfter(ended ?? _pendingEnd, started),
+    );
   }
 
   // A paused session's stop is stamped at the pause, so no end path counts
@@ -197,7 +201,14 @@ class SessionManager {
     );
     _session = ended;
     _state = SessionState.stopped;
-    return _onSessionEnded?.call(ended) ?? Future<void>.value();
+    final reported = _onSessionEnded?.call(ended) ?? Future<void>.value();
+    // Retained so the next start chains after it. A caller that does not await
+    // this end must still not let a later start reach the sender first.
+    _pendingEnd = reported;
+    reported.whenComplete(() {
+      if (_pendingEnd == reported) _pendingEnd = null;
+    }).ignore();
+    return reported;
   }
 
   Session _startFresh() {
@@ -217,6 +228,13 @@ class SessionManager {
 
   Future<void> _reportStart(Session started) =>
       _onSessionStarted?.call(started) ?? Future<void>.value();
+
+  // Chains a start report after an end report that has not reached the sender
+  // yet, so a start never overtakes the stop of the session it replaced.
+  Future<void> _reportStartAfter(Future<void>? prior, Session started) =>
+      prior == null
+      ? _reportStart(started)
+      : prior.then((_) => _reportStart(started));
 
   void _fireAndLog(Future<void> reported, String failureMessage) {
     unawaited(

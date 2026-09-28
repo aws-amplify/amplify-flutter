@@ -108,6 +108,10 @@ class EventEnrichmentClient {
   bool _closed = false;
   Future<void>? _closing;
 
+  // Records that got past the closed check. close() drains these before the
+  // final stop so none of them lands behind it.
+  final Set<Future<void>> _inFlightRecords = {};
+
   /// Whether the client has been closed.
   bool get isClosed => _closed;
 
@@ -121,9 +125,28 @@ class EventEnrichmentClient {
     String eventType, {
     Map<String, String>? attributes,
     Map<String, double>? metrics,
-  }) async {
-    if (_closed) return const Result.error(EventEnrichmentClosedException());
+  }) {
+    if (_closed) {
+      return Future.value(const Result.error(EventEnrichmentClosedException()));
+    }
 
+    // Tracked before the first await, so a close() in the same turn drains
+    // this record instead of sending the final stop ahead of it.
+    final recording = _record(
+      eventType,
+      attributes: attributes,
+      metrics: metrics,
+    );
+    _inFlightRecords.add(recording);
+    recording.whenComplete(() => _inFlightRecords.remove(recording)).ignore();
+    return recording;
+  }
+
+  Future<Result<EnrichedEvent>> _record(
+    String eventType, {
+    Map<String, String>? attributes,
+    Map<String, double>? metrics,
+  }) async {
     try {
       final session = await _sessionManager.sessionForRecording();
 
@@ -183,21 +206,34 @@ class EventEnrichmentClient {
   }
 
   /// Starts a new session and emits a [zSessionStartEventType] event, ending
-  /// any session already running.
-  Future<void> startSession() => _sessionManager.startSession();
+  /// any session already running. No-op once the client is closed.
+  Future<void> startSession() {
+    if (_closed) return Future<void>.value();
+    return _sessionManager.startSession();
+  }
 
   /// Stops the current session and emits a [zSessionStopEventType] event
-  /// carrying its stop timestamp and duration.
+  /// carrying its stop timestamp and duration. No-op once the client is closed.
   ///
   /// [handleAppResumed] will not start a new session afterwards; recording an
   /// event or calling [startSession] begins tracking again.
-  Future<void> stopSession() => _sessionManager.stopSession();
+  Future<void> stopSession() {
+    if (_closed) return Future<void>.value();
+    return _sessionManager.stopSession();
+  }
 
-  /// Called when the app moves to background.
-  void handleAppPaused() => _sessionManager.handleAppPaused();
+  /// Called when the app moves to background. No-op once the client is closed.
+  void handleAppPaused() {
+    if (_closed) return;
+    _sessionManager.handleAppPaused();
+  }
 
-  /// Called when the app returns to foreground.
-  void handleAppResumed() => _sessionManager.handleAppResumed();
+  /// Called when the app returns to foreground. No-op once the client is
+  /// closed.
+  void handleAppResumed() {
+    if (_closed) return;
+    _sessionManager.handleAppResumed();
+  }
 
   /// Sets the user identifier stamped on subsequent events. Use
   /// `initialUserId` on the constructor to have the launch session event
@@ -221,8 +257,10 @@ class EventEnrichmentClient {
   void removeGlobalMetric(String key) => _globalFields.removeMetric(key);
 
   /// Ends any running session, emits its [zSessionStopEventType] event, and
-  /// releases resources. The client cannot be reused after closing. Repeated
-  /// calls return the same teardown, so every caller awaits the final stop.
+  /// releases resources. Waits for records already in flight, so none of them
+  /// reaches the sender after the final stop. The client cannot be reused after
+  /// closing. Repeated calls return the same teardown, so every caller awaits
+  /// the final stop.
   Future<void> close() {
     // Set first so no record() call can land behind the final stop event.
     _closed = true;
@@ -230,8 +268,21 @@ class EventEnrichmentClient {
   }
 
   Future<void> _close() async {
+    await _drainInFlightRecords();
     await _sessionManager.stopSession();
     _sessionManager.clearSession();
     _logger.info('Client closed');
+  }
+
+  // One pass is enough: a new record can only be registered by record(), which
+  // the closed flag already rejects. record() catches everything, so a failure
+  // here is not expected, but close() must not surface one either.
+  Future<void> _drainInFlightRecords() async {
+    if (_inFlightRecords.isEmpty) return;
+    try {
+      await Future.wait(_inFlightRecords.toList());
+    } on Object catch (e, st) {
+      _logger.error('An in-flight record failed during close', e, st);
+    }
   }
 }
