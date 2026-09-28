@@ -6,6 +6,7 @@ import 'package:amplify_event_enrichment/src/shared_preferences_client_id_provid
 import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AmplifyLogging, Result;
+import 'package:flutter/widgets.dart' show AppLifecycleState, WidgetsBinding;
 import 'package:uuid/uuid.dart';
 
 /// {@template amplify_event_enrichment.event_enrichment_client_flutter}
@@ -104,6 +105,12 @@ class EventEnrichmentClientFlutter {
     FlutterLifecycleObserver? lifecycleObserver;
     final opts = options ?? const EventEnrichmentClientOptions();
     if (opts.autoSessionTracking) {
+      // The awaits above can span a background transition the observer was not
+      // there to see, so seed the launch session from the state the app is in
+      // now rather than assuming the foreground.
+      if (_isBackgrounded(WidgetsBinding.instance.lifecycleState)) {
+        delegate.handleAppPaused();
+      }
       lifecycleObserver = FlutterLifecycleObserver(
         sessionManager: delegate.sessionManager,
       );
@@ -111,6 +118,11 @@ class EventEnrichmentClientFlutter {
 
     return EventEnrichmentClientFlutter._(delegate, lifecycleObserver);
   }
+
+  // Mirrors FlutterLifecycleObserver's mapping. Null until the first lifecycle
+  // message arrives, which is treated as the foreground.
+  static bool _isBackgrounded(AppLifecycleState? state) =>
+      state == AppLifecycleState.paused || state == AppLifecycleState.hidden;
 
   final EventEnrichmentClient _delegate;
   final FlutterLifecycleObserver? _lifecycleObserver;
