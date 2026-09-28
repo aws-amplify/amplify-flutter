@@ -16,7 +16,7 @@ sealed class EventEnrichmentException extends AmplifyException {
 }
 
 /// {@template amplify_event_enrichment.client_closed_exception}
-/// Thrown when an operation is attempted on a closed client.
+/// Returned as [Result.error] when recording is attempted on a closed client.
 /// {@endtemplate}
 final class EventEnrichmentClosedException extends EventEnrichmentException {
   /// {@macro amplify_event_enrichment.client_closed_exception}

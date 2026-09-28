@@ -20,8 +20,8 @@ abstract interface class ClientIdProvider {
 /// Reads or creates a persistent client ID at [zClientIdStorageKey] in
 /// SharedPreferences.
 ///
-/// The Connect client uses the same key, so whichever package initializes
-/// first generates the UUID and the other reads it.
+/// The Connect client uses the same key. When initialization is serialized,
+/// the first package creates the UUID and the other reads it.
 /// {@endtemplate}
 class SharedPreferencesClientIdProvider implements ClientIdProvider {
   /// {@macro amplify_event_enrichment.shared_preferences_client_id_provider}

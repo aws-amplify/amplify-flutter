@@ -4,10 +4,8 @@
 /// Amplify Event Enrichment client for Flutter.
 library;
 
-// Re-export everything from the Dart package.
 export 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 
-// Export Flutter-specific implementations.
 export 'src/constants.dart';
 export 'src/event_enrichment_client_flutter.dart';
 export 'src/flutter_lifecycle_observer.dart';

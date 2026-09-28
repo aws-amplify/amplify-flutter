@@ -5,10 +5,7 @@ import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart
 import 'package:flutter/widgets.dart';
 
 /// {@template amplify_event_enrichment.flutter_lifecycle_observer}
-/// Flutter implementation of [LifecycleObserver] using [WidgetsBindingObserver].
-///
-/// Listens to [AppLifecycleState] changes and calls the session manager's
-/// pause/resume methods accordingly.
+/// Bridges Flutter lifecycle changes to [SessionManager].
 /// {@endtemplate}
 class FlutterLifecycleObserver
     with WidgetsBindingObserver

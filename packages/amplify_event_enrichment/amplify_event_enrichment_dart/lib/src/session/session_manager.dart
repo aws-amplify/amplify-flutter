@@ -173,9 +173,8 @@ class SessionManager {
     _pauseTimer = timerFactory(_sessionTimeout, _onTimeoutExpired);
   }
 
-  // Returns the session it started along with the future that reports both
-  // boundaries, so a caller awaiting the report does not have to read
-  // _session back once it resolves.
+  // Returns the new session with a future that reports its start after any
+  // prior end, avoiding a read of _session across the await.
   ({Session session, Future<void> reported}) _restart() {
     final ended = _endCurrent();
     final started = _startFresh();
@@ -185,8 +184,8 @@ class SessionManager {
     );
   }
 
-  // A paused session's stop is stamped at the pause, so no end path counts
-  // background time. Returns null when there was nothing to end.
+  // A session ended while paused is stamped at the pause. Returns null when
+  // there was nothing to end.
   Future<void>? _endCurrent() {
     _cancelTimer();
     final pausedAt = _pausedAt;

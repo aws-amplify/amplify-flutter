@@ -8,12 +8,7 @@ import 'dart:convert';
 import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 
-/// A [EnrichedEventSender] that prints each enriched envelope, standing in for a real
-/// transport such as the Kinesis or Firehose client.
-///
-/// Sending is asynchronous, so a transport that suspends can be awaited and its
-/// failures observed. This one does no async work and still satisfies the
-/// contract with an `async` body.
+/// Prints each enriched envelope as JSON.
 class PrintingSender implements EnrichedEventSender {
   @override
   Future<void> send(EnrichedEvent event) async {
