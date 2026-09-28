@@ -64,7 +64,11 @@ class SessionManager {
   DateTime? _pausedAt;
   bool _backgrounded = false;
   bool _stoppedExplicitly = false;
-  Future<void>? _pendingEnd;
+  bool _disposed = false;
+
+  // Boundary reports run one at a time in enqueue order. Never fails: a report
+  // that did is caught here so the ones behind it still run.
+  Future<void> _reportTail = Future<void>.value();
 
   /// Current session state.
   SessionState get state => _state;
@@ -83,37 +87,58 @@ class SessionManager {
   // event loop and need no lock. Reporting is the only thing that awaits, and
   // a caller must not read _session back across that await: a racing close()
   // or clearSession() may have dropped it by then. Sessions are threaded out
-  // of the synchronous transition that created them instead. An end report a
-  // caller left unawaited stays in _pendingEnd, so the next start chains after
-  // it rather than racing it to the sender.
+  // of the synchronous transition that created them instead. Every boundary
+  // report is enqueued on _reportTail inside that same synchronous section, so
+  // the sender observes boundaries in exactly the order the transitions
+  // happened: no start overtakes the stop it displaced, and no stop arrives
+  // before the start of its own session.
 
   /// Starts a new session, ending any session already running. The returned
   /// future completes once the boundary has been reported, end before start.
-  Future<void> startSession() => _restart().reported;
+  /// No-op once [clearSession] has run.
+  Future<void> startSession() {
+    if (_disposed) return _reportTail;
+    return _restart().reported;
+  }
 
   /// Returns the session an event recorded now belongs to, starting a fresh
   /// one when there is none or the current pause has outlasted the timeout.
+  ///
+  /// Fails with a [StateError] once [clearSession] has run.
   Future<Session> sessionForRecording() {
+    if (_disposed) {
+      return Future.error(StateError('SessionManager has been cleared'));
+    }
     final needsFreshSession = switch (_state) {
       SessionState.paused => _pauseExpired,
       SessionState.stopped => true,
       SessionState.active => _session == null,
     };
-    if (!needsFreshSession) return Future.value(_session!);
+    if (!needsFreshSession) {
+      // Held from before the wait, so no read of _session crosses it, and the
+      // record still lands behind every boundary already enqueued.
+      final current = _session!;
+      return _reportTail.then((_) => current);
+    }
     final (:session, :reported) = _restart();
     return reported.then((_) => session);
   }
 
   /// Stops the current session and reports it to [OnSessionEnded].
-  /// [handleAppResumed] will not start a new session afterwards.
+  /// [handleAppResumed] will not start a new session afterwards. No-op once
+  /// [clearSession] has run.
   Future<void> stopSession() {
+    if (_disposed) return _reportTail;
     final ended = _endCurrent();
     _stoppedExplicitly = true;
-    return ended ?? Future<void>.value();
+    // Nothing to end can still mean a stop is in flight, so an awaiting
+    // caller, and therefore close(), waits for the tail instead.
+    return ended ?? _reportTail;
   }
 
   /// Drops the current session without recording or reporting a stop. Used
-  /// when disposing the client.
+  /// when disposing the client. The manager cannot be reused afterwards;
+  /// further calls are no-ops.
   void clearSession() {
     _cancelTimer();
     _session = null;
@@ -121,12 +146,14 @@ class SessionManager {
     _pausedAt = null;
     _state = SessionState.stopped;
     _stoppedExplicitly = true;
+    _disposed = true;
   }
 
   /// Called when the app moves to background. Stamps the pause and arms the
   /// timeout timer; the timestamp, not the timer, is authoritative, since iOS
-  /// can suspend timers while backgrounded.
+  /// can suspend timers while backgrounded. No-op once [clearSession] has run.
   void handleAppPaused() {
+    if (_disposed) return;
     _backgrounded = true;
     if (_state != SessionState.active) return;
     _pauseCurrent();
@@ -134,8 +161,9 @@ class SessionManager {
 
   /// Called when the app returns to foreground. Resumes a pause shorter than
   /// the timeout, replaces the session after a longer one, and does nothing
-  /// after an explicit stop.
+  /// after an explicit stop or once [clearSession] has run.
   void handleAppResumed() {
+    if (_disposed) return;
     _backgrounded = false;
     switch (_state) {
       case SessionState.paused:
@@ -153,7 +181,7 @@ class SessionManager {
         if (_stoppedExplicitly) return;
         final started = _startFresh();
         _fireAndLog(
-          _reportStartAfter(_pendingEnd, started),
+          _reportStart(started),
           'Failed to report the start of a session',
         );
       case SessionState.active:
@@ -173,15 +201,12 @@ class SessionManager {
     _pauseTimer = timerFactory(_sessionTimeout, _onTimeoutExpired);
   }
 
-  // Returns the new session with a future that reports its start after any
-  // prior end, avoiding a read of _session across the await.
+  // Returns the new session with the future that reports its start. The end is
+  // enqueued first, so the start is already behind it in the tail.
   ({Session session, Future<void> reported}) _restart() {
-    final ended = _endCurrent();
+    _endCurrent();
     final started = _startFresh();
-    return (
-      session: started,
-      reported: _reportStartAfter(ended ?? _pendingEnd, started),
-    );
+    return (session: started, reported: _reportStart(started));
   }
 
   // A session ended while paused is stamped at the pause. Returns null when
@@ -200,14 +225,9 @@ class SessionManager {
     );
     _session = ended;
     _state = SessionState.stopped;
-    final reported = _onSessionEnded?.call(ended) ?? Future<void>.value();
-    // Retained so the next start chains after it. A caller that does not await
-    // this end must still not let a later start reach the sender first.
-    _pendingEnd = reported;
-    reported.whenComplete(() {
-      if (_pendingEnd == reported) _pendingEnd = null;
-    }).ignore();
-    return reported;
+    return _enqueueReport(
+      () => _onSessionEnded?.call(ended) ?? Future<void>.value(),
+    );
   }
 
   Session _startFresh() {
@@ -225,15 +245,19 @@ class SessionManager {
     return started;
   }
 
-  Future<void> _reportStart(Session started) =>
-      _onSessionStarted?.call(started) ?? Future<void>.value();
+  Future<void> _reportStart(Session started) => _enqueueReport(
+    () => _onSessionStarted?.call(started) ?? Future<void>.value(),
+  );
 
-  // Chains a start report after an end report that has not reached the sender
-  // yet, so a start never overtakes the stop of the session it replaced.
-  Future<void> _reportStartAfter(Future<void>? prior, Session started) =>
-      prior == null
-      ? _reportStart(started)
-      : prior.then((_) => _reportStart(started));
+  // Queues a boundary report behind the ones already queued. The callback is
+  // invoked inside the tail, not before it, so its send cannot run early.
+  Future<void> _enqueueReport(Future<void> Function() report) {
+    final next = _reportTail.then((_) => report());
+    // The tail swallows the failure so later reports still run; next keeps it
+    // for whoever awaits this boundary.
+    _reportTail = next.catchError((Object _, StackTrace _) {});
+    return next;
+  }
 
   void _fireAndLog(Future<void> reported, String failureMessage) {
     unawaited(

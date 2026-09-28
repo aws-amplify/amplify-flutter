@@ -101,7 +101,8 @@ class EventEnrichmentClient {
   late final SessionManager _sessionManager;
 
   /// The session manager for this client, for platform-specific lifecycle
-  /// observers.
+  /// observers. Inert once the client is closed: [close] clears it, and a
+  /// cleared manager reports no further boundaries.
   SessionManager get sessionManager => _sessionManager;
 
   String? _userId;
