@@ -85,7 +85,6 @@ concurrency:
 
 jobs:
   test:
-    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     uses: ./.github/workflows/flutter_vm.yaml
     secrets: inherit
     with:
@@ -122,7 +121,6 @@ jobs:
       run-wasm: true
   e2e_linux_test:
     needs: [test]
-    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     uses: ./.github/workflows/e2e_linux.yaml
     secrets: inherit
     with:

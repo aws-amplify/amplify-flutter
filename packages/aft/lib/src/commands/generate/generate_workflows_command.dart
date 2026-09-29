@@ -349,14 +349,24 @@ ${dependabotGroups.join('\n')}
     workflowPaths.sort();
 
     // Workflows which fan out to E2E tests are the heaviest consumers of the
-    // shared GitHub-hosted runner pool (Android emulators, Linux/Web jobs on
-    // the capped `ubuntu-latest` pool, and macOS runners for iOS). Skip them
-    // for pushes to draft PRs. Package workflows without E2E tests only run
+    // shared GitHub-hosted runner pool (Android emulators, Web jobs on the
+    // capped `ubuntu-latest` pool, and macOS runners for iOS). Skip those for
+    // pushes to draft PRs. Package workflows without E2E tests only run
     // analyze/format/unit jobs, which are cheap and wanted while iterating, so
     // they keep running on drafts.
     final gateOnDraftPrs = needsE2ETest;
     final prTypes = gateOnDraftPrs ? draftGatedPullRequestTypes : '';
     final jobGate = gateOnDraftPrs ? draftGateJobCondition : '';
+
+    // Drafts keep one E2E platform for real signal (see
+    // [draftUngatedE2ePlatforms]). The `test` job has to stay ungated wherever
+    // that applies: every E2E job declares `needs: [test]`, and GitHub Actions
+    // skips a job whose dependency was skipped, so gating `test` would skip the
+    // ungated E2E jobs along with it.
+    final hasUngatedE2eJob =
+        needsE2ETest &&
+        e2eWorkflows.keys.any(draftUngatedE2ePlatforms.contains);
+    final testJobGate = hasUngatedE2eJob ? '' : jobGate;
 
     final workflowContents = StringBuffer('''
 # Generated with aft. To update, run: `aft generate workflows`
@@ -388,7 +398,7 @@ concurrency:
 
 jobs:
   test:
-$jobGate    uses: ./.github/workflows/$analyzeAndTestWorkflow
+$testJobGate    uses: ./.github/workflows/$analyzeAndTestWorkflow
     secrets: inherit
     with:
       package-name: ${package.name}
@@ -455,10 +465,13 @@ $jobGate    uses: ./.github/workflows/$dart2WasmWorkflow
       final e2eNeedsWasm = _e2eNeedsWasm(package);
       for (final MapEntry(key: platform, value: e2eWorkflow)
           in e2eWorkflows.entries) {
+        final platformGate = draftUngatedE2ePlatforms.contains(platform)
+            ? ''
+            : jobGate;
         workflowContents.write('''
   e2e_${platform}_test:
     needs: [${dependsOn.join(', ')}]
-$jobGate    uses: ./.github/workflows/$e2eWorkflow
+$platformGate    uses: ./.github/workflows/$e2eWorkflow
     secrets: inherit
     with:
       package-name: ${package.name}
@@ -793,14 +806,29 @@ permissions:
 const draftGatedPullRequestTypes =
     '    types: [opened, synchronize, reopened, ready_for_review]\n';
 
-/// The job-level condition emitted on every job of a workflow which is gated on
-/// draft PRs.
+/// The job-level condition emitted on every gated job of a workflow which is
+/// gated on draft PRs.
 ///
-/// Heavy workflows (E2E fan-out and native iOS/Android build-tests) consume
-/// scarce shared runner capacity, so they are skipped for pushes to draft PRs.
-/// The `github.event_name` guard leaves `push`, `schedule` and
-/// `workflow_dispatch` runs untouched, since `github.event.pull_request` is
+/// Heavy workflows (most of the E2E fan-out and the native iOS/Android
+/// build-tests) consume scarce shared runner capacity, so they are skipped for
+/// pushes to draft PRs. The `github.event_name` guard leaves `push`, `schedule`
+/// and `workflow_dispatch` runs untouched, since `github.event.pull_request` is
 /// null for those events.
+///
+/// Not every job in a gated workflow carries this — see
+/// [draftUngatedE2ePlatforms].
 const draftGateJobCondition =
     "    if: github.event_name != 'pull_request' || "
     'github.event.pull_request.draft == false\n';
+
+/// E2E platforms which keep running on draft PRs.
+///
+/// Gating every E2E platform leaves a draft with no end-to-end signal at all.
+/// Linux is the cheapest platform to run, so it stays ungated to catch
+/// regressions early while the expensive platforms (Android emulators, macOS
+/// for iOS, Windows) are deferred until the PR is marked ready for review.
+///
+/// A package whose E2E set does not include one of these — `amplify_datastore`
+/// only runs Android and iOS — stays fully gated, since there is no cheap
+/// platform to keep.
+const draftUngatedE2ePlatforms = {'linux'};
