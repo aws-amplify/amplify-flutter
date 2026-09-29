@@ -1,9 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -233,6 +236,98 @@ void main() {
               (state) => state.exception,
               'exception',
               isA<cognito_idp.InvalidParameterException>(),
+            ),
+          ),
+        );
+      });
+
+      test('should fail with an AuthException when the confirm device worker '
+          'does not respond', () async {
+        final mockClient = MockCognitoIdentityProviderClient(
+          initiateAuth: expectAsync1((_) async {
+            return cognito_idp.InitiateAuthResponse(
+              authenticationResult: cognito_idp.AuthenticationResultType(
+                accessToken: accessToken.raw,
+                refreshToken: refreshToken,
+                idToken: idToken.raw,
+                newDeviceMetadata: cognito_idp.NewDeviceMetadataType(
+                  deviceKey: deviceKey,
+                  deviceGroupKey: deviceGroupKey,
+                ),
+              ),
+            );
+          }),
+        );
+        stateMachine
+          ..addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient)
+          ..addInstance<ConfirmDeviceWorker>(
+            _UnresponsiveConfirmDeviceWorker(),
+          );
+
+        await expectLater(
+          stateMachine
+              .accept(
+                SignInEvent.initiate(
+                  parameters: SignInParameters(
+                    (b) => b
+                      ..username = srpUsername
+                      ..password = srpPassword,
+                  ),
+                ),
+              )
+              .completed,
+          completion(
+            isA<SignInFailure>().having(
+              (state) => state.exception,
+              'exception',
+              allOf(isA<AuthException>(), isNot(isA<StateError>())),
+            ),
+          ),
+        );
+      });
+
+      test('should fail with an AuthException when the confirm device worker '
+          'reports an Error', () async {
+        final mockClient = MockCognitoIdentityProviderClient(
+          initiateAuth: expectAsync1((_) async {
+            return cognito_idp.InitiateAuthResponse(
+              authenticationResult: cognito_idp.AuthenticationResultType(
+                accessToken: accessToken.raw,
+                refreshToken: refreshToken,
+                idToken: idToken.raw,
+                newDeviceMetadata: cognito_idp.NewDeviceMetadataType(
+                  deviceKey: deviceKey,
+                  deviceGroupKey: deviceGroupKey,
+                ),
+              ),
+            );
+          }),
+        );
+        stateMachine
+          ..addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient)
+          ..addInstance<ConfirmDeviceWorker>(
+            _UnresponsiveConfirmDeviceWorker(
+              error: StateError('worker crashed'),
+            ),
+          );
+
+        await expectLater(
+          stateMachine
+              .accept(
+                SignInEvent.initiate(
+                  parameters: SignInParameters(
+                    (b) => b
+                      ..username = srpUsername
+                      ..password = srpPassword,
+                  ),
+                ),
+              )
+              .completed,
+          completion(
+            isA<SignInFailure>().having(
+              (state) => state.exception,
+              'exception',
+              allOf(isA<AuthException>(), isNot(isA<StateError>())),
             ),
           ),
         );
@@ -638,4 +733,32 @@ class _SignInException implements Exception {
 
 class _ConfirmSignInException implements Exception {
   const _ConfirmSignInException();
+}
+
+class _UnresponsiveConfirmDeviceWorker extends ConfirmDeviceWorker {
+  _UnresponsiveConfirmDeviceWorker({Object? error}) {
+    // ignore: close_sinks
+    final requests = StreamController<ConfirmDeviceMessage>.broadcast();
+    sink = requests.sink;
+    if (error != null) {
+      requests.stream.first.then((_) => completeError(error));
+    }
+    // Close the response stream once the request is sent, so the worker closes
+    // without responding.
+    stream = requests.stream
+        .take(1)
+        .asyncExpand((_) => const Stream<ConfirmDeviceResponse>.empty());
+  }
+
+  @override
+  String get name => 'ConfirmDeviceWorker';
+
+  @override
+  String get jsEntrypoint => 'unused.js';
+
+  @override
+  Future<ConfirmDeviceResponse?> run(
+    Stream<ConfirmDeviceMessage> listen,
+    StreamSink<ConfirmDeviceResponse> respond,
+  ) async => null;
 }
