@@ -53,7 +53,8 @@ void main() {
 
     Future<CognitoAuthSession> fetchAuthSession({
       bool forceRefresh = false,
-      FetchAuthSessionPluginOptions? pluginOptions,
+      CognitoFetchAuthSessionPluginOptions pluginOptions =
+          const CognitoFetchAuthSessionPluginOptions(),
       required bool willRefresh,
     }) async {
       final sm = stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
@@ -69,10 +70,8 @@ void main() {
       final sessionState = await stateMachine
           .dispatchAndComplete<FetchAuthSessionSuccess>(
             FetchAuthSessionEvent.fetch(
-              FetchAuthSessionOptions(
-                forceRefresh: forceRefresh,
-                pluginOptions: pluginOptions,
-              ),
+              options: FetchAuthSessionOptions(forceRefresh: forceRefresh),
+              pluginOptions: pluginOptions,
             ),
           );
       return sessionState.session;

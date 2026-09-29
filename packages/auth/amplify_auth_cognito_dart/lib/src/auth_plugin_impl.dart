@@ -257,10 +257,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     final sessionState = await _stateMachine
         .acceptAndComplete<FetchAuthSessionSuccess>(
           FetchAuthSessionEvent.fetch(
-            FetchAuthSessionOptions(
+            options: FetchAuthSessionOptions(
               forceRefresh: options?.forceRefresh ?? false,
-              pluginOptions: pluginOptions,
             ),
+            pluginOptions: pluginOptions,
           ),
         );
     return sessionState.session;
