@@ -516,9 +516,10 @@ final class FetchAuthSessionStateMachine
     final deviceKey = deviceSecrets?.deviceKey;
     // ignore: invalid_use_of_internal_member
     final appClientSecret = _authConfig?.appClientSecret;
-    final clientMetadata =
-        (options?.pluginOptions as CognitoFetchAuthSessionPluginOptions?)
-            ?.clientMetadata;
+    final pluginOptions = options?.pluginOptions;
+    final clientMetadata = pluginOptions is CognitoFetchAuthSessionPluginOptions
+        ? pluginOptions.clientMetadata
+        : null;
 
     final refreshRequest = cognito_idp.GetTokensFromRefreshTokenRequest.build((
       b,

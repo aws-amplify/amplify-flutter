@@ -250,9 +250,18 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   Future<CognitoAuthSession> fetchAuthSession({
     FetchAuthSessionOptions? options,
   }) async {
+    final pluginOptions = reifyPluginOptions(
+      pluginOptions: options?.pluginOptions,
+      defaultPluginOptions: const CognitoFetchAuthSessionPluginOptions(),
+    );
     final sessionState = await _stateMachine
         .acceptAndComplete<FetchAuthSessionSuccess>(
-          FetchAuthSessionEvent.fetch(options),
+          FetchAuthSessionEvent.fetch(
+            FetchAuthSessionOptions(
+              forceRefresh: options?.forceRefresh ?? false,
+              pluginOptions: pluginOptions,
+            ),
+          ),
         );
     return sessionState.session;
   }
