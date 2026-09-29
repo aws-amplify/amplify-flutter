@@ -1,3 +1,7 @@
+## 0.5.23
+
+- Minor bug fixes and improvements
+
 ## 0.5.22
 
 ### Fixes

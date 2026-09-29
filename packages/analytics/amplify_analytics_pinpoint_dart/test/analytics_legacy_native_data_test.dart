@@ -83,10 +83,12 @@ void main() {
       ).thenAnswer((_) => Future.value(legacyEndpointId));
 
       final endpointId = uuid();
+      // ignore: unawaited_futures
       store.write(
         key: EndpointStoreKey.version.name,
         value: EndpointStoreVersion.v1.name,
       );
+      // ignore: unawaited_futures
       endpointStore.write(
         key: EndpointStoreKey.endpointId.name,
         value: endpointId,
