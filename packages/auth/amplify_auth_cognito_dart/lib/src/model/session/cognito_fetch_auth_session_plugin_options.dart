@@ -20,11 +20,7 @@ class CognitoFetchAuthSessionPluginOptions
   ) => _$CognitoFetchAuthSessionPluginOptionsFromJson(json);
 
   /// {@template amplify_auth_cognito.model.cognito_fetch_auth_session_plugin_options.client_metadata}
-  /// A map of custom key-value pairs that you can provide as input for certain
-  /// custom workflows that this action triggers.
-  ///
-  /// When tokens are refreshed, Amazon Cognito passes this map to the pre token
-  /// generation Lambda trigger.
+  /// Custom metadata passed to the pre token generation Lambda trigger during token refresh.
   /// {@endtemplate}
   final Map<String, String> clientMetadata;
 
