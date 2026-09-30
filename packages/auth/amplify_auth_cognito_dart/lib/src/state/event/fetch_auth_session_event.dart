@@ -62,7 +62,7 @@ final class FetchAuthSessionFetch extends FetchAuthSessionEvent {
   /// Options for the fetch.
   final FetchAuthSessionOptions? options;
 
-  /// The plugin options.
+  /// Plugin-specific options to apply if fetching the session refreshes tokens.
   final CognitoFetchAuthSessionPluginOptions pluginOptions;
 
   @override
@@ -133,7 +133,7 @@ final class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
   /// Options for federation to an identity pool.
   final FederateToIdentityPoolOptions? federationOptions;
 
-  /// The plugin options.
+  /// Plugin-specific options to apply while refreshing user pool tokens.
   final CognitoFetchAuthSessionPluginOptions pluginOptions;
 
   @override
