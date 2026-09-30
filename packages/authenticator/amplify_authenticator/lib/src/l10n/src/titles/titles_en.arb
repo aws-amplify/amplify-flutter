@@ -40,5 +40,17 @@
     "verifyUser": "Account recovery requires verified contact information",
     "@verifyUser": {
         "description": "Title of the Verify and Confirm Verify User s and forms"
+    },
+    "continueSignInWithFirstFactorSelection": "Choose how to sign in",
+    "@continueSignInWithFirstFactorSelection": {
+        "description": "Title of the first-factor selection step"
+    },
+    "passkeyPrompt": "Sign in faster with a passkey",
+    "@passkeyPrompt": {
+        "description": "Title of the passkey registration prompt step"
+    },
+    "passkeyCreatedSuccess": "Passkey created successfully",
+    "@passkeyCreatedSuccess": {
+        "description": "Title shown after a passkey is successfully created"
     }
 }

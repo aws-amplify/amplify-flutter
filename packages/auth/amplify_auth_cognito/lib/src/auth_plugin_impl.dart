@@ -2,13 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:io'
+    if (dart.library.js_interop) 'package:amplify_auth_cognito/src/web_io_stub.dart';
 
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint/src/flutter_endpoint_info_store_manager.dart';
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_impl.dart';
+import 'package:amplify_auth_cognito/src/linux/linux_webauthn_platform_stub.dart'
+    if (dart.library.io) 'package:amplify_auth_cognito/src/linux/linux_webauthn_platform.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
+import 'package:amplify_auth_cognito/src/pigeon_webauthn_credential_platform.dart';
+import 'package:amplify_auth_cognito/src/windows/windows_webauthn_platform_stub.dart'
+    if (dart.library.io) 'package:amplify_auth_cognito/src/windows/windows_webauthn_platform.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
@@ -24,7 +31,6 @@ import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
-import 'package:flutter/foundation.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
@@ -53,20 +59,47 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   }) async {
     await super.addPlugin(authProviderRepo: authProviderRepo);
 
-    if (zIsWeb || !_isMobile) {
+    if (zIsWeb) {
       return;
     }
 
-    // Configure this plugin to act as a native iOS/Android plugin.
+    // Windows and Linux use direct FFI bridges (no Pigeon)
+    if (Platform.isWindows) {
+      stateMachine.addInstance<WebAuthnCredentialPlatform>(
+        WindowsWebAuthnPlatform(),
+      );
+      return;
+    }
+    if (Platform.isLinux) {
+      stateMachine.addInstance<WebAuthnCredentialPlatform>(
+        LinuxWebAuthnPlatform(),
+      );
+      return;
+    }
+
+    // iOS, Android, and macOS use the Pigeon bridge
+    if (!(Platform.isAndroid || Platform.isIOS || Platform.isMacOS)) {
+      return;
+    }
+
+    // Configure this plugin to act as a native iOS/Android/macOS plugin.
     final nativePlugin = _NativeAmplifyAuthCognito(stateMachine);
     NativeAuthPlugin.setUp(nativePlugin);
 
     final nativeBridge = NativeAuthBridge();
-    stateMachine
-      ..addInstance(nativeBridge)
-      ..addInstance<ASFDeviceInfoCollector>(
+    final webAuthnBridge = WebAuthnBridgeApi();
+    final webAuthnPlatform = PigeonWebAuthnCredentialPlatform(webAuthnBridge);
+    stateMachine.addInstance(nativeBridge);
+
+    // macOS uses FFI for ASF device info collection (ASFDeviceInfoMacOS),
+    // while iOS and Android use the Pigeon method channel bridge.
+    if (Platform.isAndroid || Platform.isIOS) {
+      stateMachine.addInstance<ASFDeviceInfoCollector>(
         _NativeASFDeviceInfoCollector(nativeBridge),
       );
+    }
+
+    stateMachine.addInstance<WebAuthnCredentialPlatform>(webAuthnPlatform);
 
     final legacyCredentialProvider = LegacyCredentialProviderImpl(stateMachine);
     stateMachine.addInstance<LegacyCredentialProvider>(
@@ -99,7 +132,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       defaultPluginOptions: const CognitoSignUpPluginOptions(),
     );
     Map<String, String>? validationData;
-    if (!zIsWeb && _isMobile) {
+    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS || Platform.isMacOS)) {
       final nativeValidationData = await stateMachine
           .expect<NativeAuthBridge>()
           .getValidationData();
@@ -178,8 +211,3 @@ class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<AmplifyAuthCognito> {
   @override
   String get runtimeTypeName => 'AmplifyAuthCognito';
 }
-
-// WASM-safe iOS/Android check
-bool get _isMobile =>
-    defaultTargetPlatform == TargetPlatform.android ||
-    defaultTargetPlatform == TargetPlatform.iOS;

@@ -1466,4 +1466,55 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     AuthCategoryMethod.deleteUser,
     () => defaultPlugin.deleteUser(),
   );
+
+  /// {@template amplify_core.amplify_auth_category.associate_webauthn_credential}
+  /// Registers a new passkey/WebAuthn credential on the user's account.
+  ///
+  /// This orchestrates the full registration flow: requests creation options
+  /// from the server, triggers the platform WebAuthn ceremony, and sends
+  /// the credential back to the server.
+  ///
+  /// Requires an authenticated user session.
+  /// {@endtemplate}
+  Future<void> associateWebAuthnCredential() => identifyCall(
+    AuthCategoryMethod.associateWebAuthnCredential,
+    () => defaultPlugin.associateWebAuthnCredential(),
+  );
+
+  /// {@template amplify_core.amplify_auth_category.list_webauthn_credentials}
+  /// Lists all passkey/WebAuthn credentials registered on the user's account.
+  ///
+  /// Returns a list of [AuthWebAuthnCredential] objects representing each
+  /// registered credential.
+  ///
+  /// Requires an authenticated user session.
+  /// {@endtemplate}
+  Future<List<AuthWebAuthnCredential>> listWebAuthnCredentials() =>
+      identifyCall(
+        AuthCategoryMethod.listWebAuthnCredentials,
+        () => defaultPlugin.listWebAuthnCredentials(),
+      );
+
+  /// {@template amplify_core.amplify_auth_category.delete_webauthn_credential}
+  /// Deletes a specific passkey/WebAuthn credential from the user's account.
+  ///
+  /// The [credentialId] parameter identifies which credential to delete.
+  ///
+  /// Requires an authenticated user session.
+  /// {@endtemplate}
+  Future<void> deleteWebAuthnCredential(String credentialId) => identifyCall(
+    AuthCategoryMethod.deleteWebAuthnCredential,
+    () => defaultPlugin.deleteWebAuthnCredential(credentialId),
+  );
+
+  /// {@template amplify_core.amplify_auth_category.is_passkey_supported}
+  /// Checks if passkey/WebAuthn is supported on the current platform.
+  ///
+  /// Returns `true` if the platform supports WebAuthn credentials,
+  /// `false` otherwise.
+  /// {@endtemplate}
+  Future<bool> isPasskeySupported() => identifyCall(
+    AuthCategoryMethod.isPasskeySupported,
+    () => defaultPlugin.isPasskeySupported(),
+  );
 }

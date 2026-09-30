@@ -110,4 +110,17 @@ abstract class CognitoConstants {
 
   /// The `PREFERRED_CHALLENGE` parameter
   static const preferredChallenge = 'PREFERRED_CHALLENGE';
+
+  /// The `CREDENTIAL_REQUEST_OPTIONS` challenge parameter.
+  ///
+  /// Contains JSON-serialized `PublicKeyCredentialRequestOptions` for WebAuthn
+  /// assertion ceremonies.
+  static const challengeParamCredentialRequestOptions =
+      'CREDENTIAL_REQUEST_OPTIONS';
+
+  /// The `CREDENTIAL` challenge response parameter.
+  ///
+  /// Contains JSON-serialized `AuthenticationResponseJSON` from the WebAuthn
+  /// assertion ceremony.
+  static const challengeParamCredential = 'CREDENTIAL';
 }

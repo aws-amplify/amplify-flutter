@@ -375,6 +375,11 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   Future<void> deleteUser() async {
     throw UnimplementedError('deleteUser is not implemented.');
   }
+
+  @override
+  Future<bool> isPasskeySupported() async {
+    return false;
+  }
 }
 
 class MockCognitoUser {
