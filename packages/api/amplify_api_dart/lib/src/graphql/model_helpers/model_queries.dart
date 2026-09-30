@@ -59,6 +59,54 @@ class ModelQueries {
       headers: headers,
     );
   }
+
+  /// Generates a request for a list of model instances from
+  /// secondary index. The `modelType` must have a secondary index defined.
+  /// Check out the Amplify documentation for more information on how to define
+  /// secondary indexes. https://docs.amplify.aws/gen1/react/build-a-backend/graphqlapi/best-practice/query-with-sorting/
+  ///
+  /// ```dart
+  /// final request = ModelQueries.listByIndex(Todo.classType, queryField: parentId);
+  /// ```
+  /// or optional parameters:
+  /// ```dart
+  /// final request = ModelQueries.listByIndex(
+  ///   Todo.classType,
+  ///   queryField: parentId,
+  ///   sortDirection: "DESC", // ASC or DESC, default is DESC
+  ///   indexName: "todosByDate", // default is the first secondary index
+  ///   overrideQueryFieldType: "ID!", // override the query field type, default is "ID!", e.g. "String!"
+  ///   where: Todo.TASK.eq(taskId), // If your query parameter is taskId, you cannot use in where at the same time
+  /// );
+  /// ```
+  
+  static GraphQLRequest<PaginatedResult<T>> listByIndex<T extends Model>(
+    ModelType<T> modelType, {
+    int? limit,
+    String? queryField,
+    String? sortDirection,
+    String? indexName,
+    String? overrideQueryFieldType,
+    String? customQueryName,
+    QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
+    return ModelQueriesFactory.instance.listByIndex<T>(
+      modelType,
+      limit: limit,
+      where: where,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+      queryField: queryField,
+      sortDirection: sortDirection ?? 'DESC',
+      indexName: indexName,
+      overrideQueryFieldType: overrideQueryFieldType,
+      customQueryName: customQueryName,
+    );
+  }
 }
 
 // TODO(ragingsquirrel3): remove when https://github.com/dart-lang/sdk/issues/50748 addressed
