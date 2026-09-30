@@ -24,9 +24,10 @@ sealed class FetchAuthSessionEvent
   const FetchAuthSessionEvent._();
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_fetch}
-  const factory FetchAuthSessionEvent.fetch([
+  const factory FetchAuthSessionEvent.fetch({
     FetchAuthSessionOptions? options,
-  ]) = FetchAuthSessionFetch;
+    CognitoFetchAuthSessionPluginOptions pluginOptions,
+  }) = FetchAuthSessionFetch;
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_federate}
   const factory FetchAuthSessionEvent.federate(
@@ -37,6 +38,7 @@ sealed class FetchAuthSessionEvent
   const factory FetchAuthSessionEvent.refresh({
     required bool refreshUserPoolTokens,
     required bool refreshAwsCredentials,
+    CognitoFetchAuthSessionPluginOptions pluginOptions,
   }) = FetchAuthSessionRefresh;
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_succeeded}
@@ -52,16 +54,22 @@ sealed class FetchAuthSessionEvent
 /// {@endtemplate}
 final class FetchAuthSessionFetch extends FetchAuthSessionEvent {
   /// {@macro amplify_auth_cognito.fetch_auth_session_fetch}
-  const FetchAuthSessionFetch([this.options]) : super._();
+  const FetchAuthSessionFetch({
+    this.options,
+    this.pluginOptions = const CognitoFetchAuthSessionPluginOptions(),
+  }) : super._();
 
   /// Options for the fetch.
   final FetchAuthSessionOptions? options;
+
+  /// Plugin-specific options to apply if fetching the session refreshes tokens.
+  final CognitoFetchAuthSessionPluginOptions pluginOptions;
 
   @override
   FetchAuthSessionEventType get type => FetchAuthSessionEventType.fetch;
 
   @override
-  List<Object?> get props => [type, options];
+  List<Object?> get props => [type, options, pluginOptions];
 
   @override
   PreconditionException? checkPrecondition(FetchAuthSessionState currentState) {
@@ -113,6 +121,7 @@ final class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
     required this.refreshUserPoolTokens,
     required this.refreshAwsCredentials,
     this.federationOptions,
+    this.pluginOptions = const CognitoFetchAuthSessionPluginOptions(),
   }) : super._();
 
   /// Whether to refresh the user pool tokens.
@@ -124,6 +133,9 @@ final class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
   /// Options for federation to an identity pool.
   final FederateToIdentityPoolOptions? federationOptions;
 
+  /// Plugin-specific options to apply while refreshing user pool tokens.
+  final CognitoFetchAuthSessionPluginOptions pluginOptions;
+
   @override
   FetchAuthSessionEventType get type => FetchAuthSessionEventType.refresh;
 
@@ -133,6 +145,7 @@ final class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
     refreshAwsCredentials,
     refreshUserPoolTokens,
     federationOptions,
+    pluginOptions,
   ];
 
   @override

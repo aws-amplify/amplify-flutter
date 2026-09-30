@@ -403,6 +403,25 @@ Future<void> fetchCognitoAuthSession() async {
 }
 // #enddocregion fetch-cognito-auth-session
 
+// #docregion fetch-auth-session-client-metadata
+Future<void> fetchAuthSessionWithClientMetadata() async {
+  try {
+    final cognitoPlugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
+    final result = await cognitoPlugin.fetchAuthSession(
+      options: const FetchAuthSessionOptions(
+        forceRefresh: true,
+        pluginOptions: CognitoFetchAuthSessionPluginOptions(
+          clientMetadata: {'context': 'mobile'},
+        ),
+      ),
+    );
+    safePrint('User is signed in: ${result.isSignedIn}');
+  } on AuthException catch (e) {
+    safePrint('Error retrieving auth session: ${e.message}');
+  }
+}
+// #enddocregion fetch-auth-session-client-metadata
+
 // #docregion fetch-user-attributes
 Future<void> fetchCurrentUserAttributes() async {
   try {
