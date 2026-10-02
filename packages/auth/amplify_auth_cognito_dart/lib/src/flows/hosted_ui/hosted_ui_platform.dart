@@ -227,6 +227,15 @@ abstract class HostedUiPlatform implements Closeable {
         throw LambdaException(errorDesc);
       }
 
+      // The user cancelled the flow at the identity provider, e.g. by
+      // declining the consent screen shown by Sign in with Apple. Amazon
+      // Cognito relays the provider's error code verbatim.
+      if (error == OAuthErrorCode.userCancelledAuthorize) {
+        throw const UserCancelledException(
+          'The user cancelled the sign-in flow',
+        );
+      }
+
       final errorUri = parameters.errorUri;
       final desc = StringBuffer(errorDesc);
       if (errorUri != null) {

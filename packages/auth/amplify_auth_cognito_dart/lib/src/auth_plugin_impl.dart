@@ -186,6 +186,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           _hubEventController.add(hubEvent);
         }
       },
+      // Consume unresolved errors here after reporting them to the API caller
+      // to prevent uncaught async errors.
+      onError: (Object error, StackTrace stackTrace) {
+        logger.verbose('Unresolved state machine error', error, stackTrace);
+      },
       cancelOnError: false,
       onDone: _hubEventController.close,
     );
