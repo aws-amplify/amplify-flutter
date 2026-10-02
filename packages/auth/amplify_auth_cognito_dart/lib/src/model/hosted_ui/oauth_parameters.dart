@@ -184,22 +184,15 @@ class OAuthErrorCode extends EnumClass {
   /// The [OAuthErrorCode] value for [name].
   static OAuthErrorCode valueOf(String name) => _$valueOf(name);
 
-  /// The [OAuthErrorCode] serializer.
-  ///
-  /// Note: [oauthSerializers] overrides this with
-  /// [_OAuthErrorCodeSerializer], which tolerates unrecognized error codes.
+  /// The generated serializer; [oauthSerializers] replaces it with
+  /// [_OAuthErrorCodeSerializer] to accept unrecognized error codes.
   static Serializer<OAuthErrorCode> get serializer =>
       _$oAuthErrorCodeSerializer;
 }
 
 /// {@template amplify_auth_cognito.oauth_error_code_serializer}
-/// Serializer for [OAuthErrorCode] which deserializes unrecognized error codes
-/// to [OAuthErrorCode.unknown] instead of throwing.
-///
-/// Amazon Cognito relays error codes from external identity providers verbatim,
-/// e.g. `user_cancelled_authorize` from Sign in with Apple, so the set of codes
-/// which may be received is open-ended. Failing to deserialize them would
-/// surface as an unrecoverable error instead of an [AuthException].
+/// Deserializes provider-specific error codes relayed by Amazon Cognito as
+/// [OAuthErrorCode.unknown] so they can surface as [AuthException]s.
 /// {@endtemplate}
 class _OAuthErrorCodeSerializer implements PrimitiveSerializer<OAuthErrorCode> {
   /// {@macro amplify_auth_cognito.oauth_error_code_serializer}
@@ -264,9 +257,7 @@ abstract class OAuthParameters
     final parameters =
         oauthSerializers.deserializeWith(serializer, json) as OAuthParameters;
 
-    // Unrecognized error codes are deserialized as [OAuthErrorCode.unknown].
-    // Retain the raw code so that it is not lost when no description was
-    // provided by the authorization server.
+    // Preserve an unrecognized raw code when the server omits a description.
     final rawError = json['error'];
     if (parameters.error == OAuthErrorCode.unknown &&
         parameters.errorDescription == null &&
