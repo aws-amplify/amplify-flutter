@@ -61,10 +61,34 @@ void main() {
         plugin.fetchAuthSession().ignore();
         await expectLater(authStream, emits(AuthHubEvent.sessionExpired()));
       });
+
+      test('rejects non-Cognito plugin options at call time', () async {
+        await expectLater(
+          plugin.fetchAuthSession(
+            options: const FetchAuthSessionOptions(
+              pluginOptions: _FakeFetchAuthSessionPluginOptions(),
+            ),
+          ),
+          throwsA(isA<ArgumentError>()),
+        );
+      });
     });
 
     tearDown(() async {
       await plugin.close();
     });
   });
+}
+
+class _FakeFetchAuthSessionPluginOptions extends FetchAuthSessionPluginOptions {
+  const _FakeFetchAuthSessionPluginOptions();
+
+  @override
+  List<Object?> get props => [];
+
+  @override
+  String get runtimeTypeName => '_FakeFetchAuthSessionPluginOptions';
+
+  @override
+  Map<String, Object?> toJson() => const {};
 }

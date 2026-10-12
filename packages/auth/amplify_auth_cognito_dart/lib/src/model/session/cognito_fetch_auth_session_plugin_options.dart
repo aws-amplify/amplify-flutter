@@ -12,15 +12,20 @@ part 'cognito_fetch_auth_session_plugin_options.g.dart';
 class CognitoFetchAuthSessionPluginOptions
     extends FetchAuthSessionPluginOptions {
   /// {@macro amplify_auth_cognito.model.cognito_fetch_auth_session_plugin_options}
-  const CognitoFetchAuthSessionPluginOptions();
+  const CognitoFetchAuthSessionPluginOptions({this.clientMetadata = const {}});
 
   /// {@macro amplify_auth_cognito.model.cognito_fetch_auth_session_plugin_options}
   factory CognitoFetchAuthSessionPluginOptions.fromJson(
     Map<String, Object?> json,
   ) => _$CognitoFetchAuthSessionPluginOptionsFromJson(json);
 
+  /// {@template amplify_auth_cognito.model.cognito_fetch_auth_session_plugin_options.client_metadata}
+  /// Custom metadata passed to the pre token generation Lambda trigger during token refresh.
+  /// {@endtemplate}
+  final Map<String, String> clientMetadata;
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [clientMetadata];
 
   @override
   String get runtimeTypeName => 'CognitoFetchAuthSessionPluginOptions';
