@@ -54,6 +54,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
+/// Test TMP Trigger
 /// {@template amplify_auth_cognito_dart.amplify_auth_cognito_dart}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
