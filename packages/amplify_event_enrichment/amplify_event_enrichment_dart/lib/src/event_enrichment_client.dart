@@ -109,9 +109,9 @@ class EventEnrichmentClient {
   bool _closed = false;
   Future<void>? _closing;
 
-  // Records that got past the closed check. close() drains these before the
-  // final stop so none of them lands behind it.
-  final Set<Future<void>> _inFlightRecords = {};
+  // Sends run one at a time in call order. Never fails, so a failed send does
+  // not stall the ones behind it.
+  Future<void> _sendTail = Future<void>.value();
 
   /// Whether the client has been closed.
   bool get isClosed => _closed;
@@ -131,41 +131,43 @@ class EventEnrichmentClient {
       return Future.value(const Result.error(EventEnrichmentClosedException()));
     }
 
-    // Tracked before the first await, so a close() in the same turn drains
-    // this record instead of sending the final stop ahead of it.
-    final recording = _record(
-      eventType,
-      attributes: attributes,
-      metrics: metrics,
-    );
-    _inFlightRecords.add(recording);
-    recording.whenComplete(() => _inFlightRecords.remove(recording)).ignore();
-    return recording;
-  }
-
-  Future<Result<EnrichedEvent>> _record(
-    String eventType, {
-    Map<String, String>? attributes,
-    Map<String, double>? metrics,
-  }) async {
+    // Built and queued in this turn, behind the start of its own session.
+    final EnrichedEvent event;
     try {
-      final session = await _sessionManager.sessionForRecording();
-
-      final event = _buildEvent(
+      event = _buildEvent(
         eventType,
-        session,
+        _sessionManager.sessionForRecording(),
         attributes: attributes,
         metrics: metrics,
       );
-
-      // Awaited inside the try so async sender errors are caught here.
-      await _sender?.send(event);
-      _logger.verbose('Recorded event: $eventType');
-      return Result.ok(event);
     } on Object catch (e, st) {
-      _logger.error('Failed to record event: $eventType', e, st);
-      return Result.error(EventEnrichmentRecordException(cause: e));
+      return Future.value(_recordFailure(eventType, e, st));
     }
+    return _enqueueSend(
+      () => _sendRecord(event),
+    ).onError<Object>((e, st) => _recordFailure(eventType, e, st));
+  }
+
+  Future<Result<EnrichedEvent>> _sendRecord(EnrichedEvent event) async {
+    await _sender?.send(event);
+    _logger.verbose('Recorded event: ${event.eventType}');
+    return Result.ok(event);
+  }
+
+  Result<EnrichedEvent> _recordFailure(
+    String eventType,
+    Object e,
+    StackTrace st,
+  ) {
+    _logger.error('Failed to record event: $eventType', e, st);
+    return Result.error(EventEnrichmentRecordException(cause: e));
+  }
+
+  // A failure goes to this caller, not to the queue.
+  Future<T> _enqueueSend<T>(Future<T> Function() send) {
+    final next = _sendTail.then((_) => send());
+    _sendTail = next.then<void>((_) {}, onError: (Object _, StackTrace _) {});
+    return next;
   }
 
   EnrichedEvent _buildEvent(
@@ -193,17 +195,20 @@ class EventEnrichmentClient {
   Future<void> _emitSessionStop(Session session) =>
       _emitSessionEvent(zSessionStopEventType, session);
 
-  // Logged rather than thrown: some boundaries have no caller to hand an
-  // error back to.
-  Future<void> _emitSessionEvent(String eventType, Session session) async {
+  // Built and queued inside the transition. Logged rather than thrown: some
+  // boundaries have no caller to hand an error back to.
+  Future<void> _emitSessionEvent(String eventType, Session session) {
     final sender = _sender;
-    if (sender == null) return;
-    try {
-      await sender.send(_buildEvent(eventType, session));
-      _logger.verbose('Recorded event: $eventType');
-    } on Object catch (e, st) {
-      _logger.error('Failed to record event: $eventType', e, st);
-    }
+    if (sender == null) return Future<void>.value();
+    final event = _buildEvent(eventType, session);
+    return _enqueueSend(() async {
+      try {
+        await sender.send(event);
+        _logger.verbose('Recorded event: $eventType');
+      } on Object catch (e, st) {
+        _logger.error('Failed to record event: $eventType', e, st);
+      }
+    });
   }
 
   /// Starts a new session and emits a [zSessionStartEventType] event, ending
@@ -258,32 +263,22 @@ class EventEnrichmentClient {
   void removeGlobalMetric(String key) => _globalFields.removeMetric(key);
 
   /// Ends any running session, emits its [zSessionStopEventType] event, and
-  /// releases resources. Waits for records already in flight, so none of them
+  /// releases resources. Waits for every send already queued, so nothing
   /// reaches the sender after the final stop. The client cannot be reused after
   /// closing. Repeated calls return the same teardown, so every caller awaits
   /// the final stop.
   Future<void> close() {
-    // Set first so no record() call can land behind the final stop event.
+    // Set first so no record() call can queue behind the final stop event.
     _closed = true;
     return _closing ??= _close();
   }
 
   Future<void> _close() async {
-    await _drainInFlightRecords();
-    await _sessionManager.stopSession();
+    final stopped = _sessionManager.stopSession();
+    // Cleared in the same turn, so nothing can queue behind the final stop.
     _sessionManager.clearSession();
+    await stopped;
+    await _sendTail;
     _logger.info('Client closed');
-  }
-
-  // One pass is enough: a new record can only be registered by record(), which
-  // the closed flag already rejects. record() catches everything, so a failure
-  // here is not expected, but close() must not surface one either.
-  Future<void> _drainInFlightRecords() async {
-    if (_inFlightRecords.isEmpty) return;
-    try {
-      await Future.wait(_inFlightRecords.toList());
-    } on Object catch (e, st) {
-      _logger.error('An in-flight record failed during close', e, st);
-    }
   }
 }

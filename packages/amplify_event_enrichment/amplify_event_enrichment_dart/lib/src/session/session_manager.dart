@@ -8,11 +8,13 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:clock/clock.dart';
 import 'package:meta/meta.dart';
 
-/// Called once per session when it starts. Implementations must not throw.
+/// Called once per session when it starts, inside the state transition.
+/// Implementations must not throw or call back into the manager.
 typedef OnSessionStarted = Future<void> Function(Session session);
 
-/// Called once per session when it ends, with stop timestamp and duration
-/// recorded on the [Session]. Implementations must not throw.
+/// Called once per session when it ends, inside the state transition, with
+/// stop timestamp and duration recorded on the [Session]. Implementations must
+/// not throw or call back into the manager.
 typedef OnSessionEnded = Future<void> Function(Session session);
 
 /// The state of the session manager.
@@ -66,10 +68,6 @@ class SessionManager {
   bool _stoppedExplicitly = false;
   bool _disposed = false;
 
-  // Boundary reports run one at a time in enqueue order. Never fails: a report
-  // that did is caught here so the ones behind it still run.
-  Future<void> _reportTail = Future<void>.value();
-
   /// Current session state.
   SessionState get state => _state;
 
@@ -81,59 +79,46 @@ class SessionManager {
   @visibleForTesting
   Timer Function(Duration, void Function()) timerFactory = Timer.new;
 
-  // Every state transition below happens in a synchronous section: nothing
-  // awaits between reading _state and mutating it, only the reporting
-  // callbacks do. So unawaited re-entrant calls run one after the other on the
-  // event loop and need no lock. Reporting is the only thing that awaits, and
-  // a caller must not read _session back across that await: a racing close()
-  // or clearSession() may have dropped it by then. Sessions are threaded out
-  // of the synchronous transition that created them instead. Every boundary
-  // report is enqueued on _reportTail inside that same synchronous section, so
-  // the sender observes boundaries in exactly the order the transitions
-  // happened: no start overtakes the stop it displaced, and no stop arrives
-  // before the start of its own session.
+  // Every transition is synchronous, so re-entrant calls need no lock. The
+  // boundary callbacks run inside it, so a caller that queues in callback
+  // order sends boundaries in transition order. Sessions are threaded out of
+  // the transition: a racing clearSession() may drop _session across an await.
 
   /// Starts a new session, ending any session already running. The returned
   /// future completes once the boundary has been reported, end before start.
   /// No-op once [clearSession] has run.
   Future<void> startSession() {
-    if (_disposed) return _reportTail;
+    if (_disposed) return Future<void>.value();
     return _restart().reported;
   }
 
   /// Returns the session an event recorded now belongs to, starting a fresh
   /// one when there is none or the current pause has outlasted the timeout.
   ///
-  /// Fails with a [StateError] once [clearSession] has run.
-  Future<Session> sessionForRecording() {
-    if (_disposed) {
-      return Future.error(StateError('SessionManager has been cleared'));
-    }
+  /// Synchronous so the caller can queue its send behind a fresh start.
+  ///
+  /// Throws a [StateError] once [clearSession] has run.
+  Session sessionForRecording() {
+    if (_disposed) throw StateError('SessionManager has been cleared');
     final needsFreshSession = switch (_state) {
       SessionState.paused => _pauseExpired,
       SessionState.stopped => true,
       SessionState.active => _session == null,
     };
-    if (!needsFreshSession) {
-      // Held from before the wait, so no read of _session crosses it, and the
-      // record still lands behind every boundary already enqueued.
-      final current = _session!;
-      return _reportTail.then((_) => current);
-    }
+    if (!needsFreshSession) return _session!;
     final (:session, :reported) = _restart();
-    return reported.then((_) => session);
+    _fireAndLog(reported, 'Failed to report the start of a session');
+    return session;
   }
 
   /// Stops the current session and reports it to [OnSessionEnded].
   /// [handleAppResumed] will not start a new session afterwards. No-op once
   /// [clearSession] has run.
   Future<void> stopSession() {
-    if (_disposed) return _reportTail;
+    if (_disposed) return Future<void>.value();
     final ended = _endCurrent();
     _stoppedExplicitly = true;
-    // Nothing to end can still mean a stop is in flight, so an awaiting
-    // caller, and therefore close(), waits for the tail instead.
-    return ended ?? _reportTail;
+    return ended ?? Future<void>.value();
   }
 
   /// Drops the current session without recording or reporting a stop. Used
@@ -202,7 +187,7 @@ class SessionManager {
   }
 
   // Returns the new session with the future that reports its start. The end is
-  // enqueued first, so the start is already behind it in the tail.
+  // reported first, so the start is already behind it in the caller's queue.
   ({Session session, Future<void> reported}) _restart() {
     _endCurrent();
     final started = _startFresh();
@@ -225,9 +210,7 @@ class SessionManager {
     );
     _session = ended;
     _state = SessionState.stopped;
-    return _enqueueReport(
-      () => _onSessionEnded?.call(ended) ?? Future<void>.value(),
-    );
+    return _onSessionEnded?.call(ended) ?? Future<void>.value();
   }
 
   Session _startFresh() {
@@ -245,19 +228,8 @@ class SessionManager {
     return started;
   }
 
-  Future<void> _reportStart(Session started) => _enqueueReport(
-    () => _onSessionStarted?.call(started) ?? Future<void>.value(),
-  );
-
-  // Queues a boundary report behind the ones already queued. The callback is
-  // invoked inside the tail, not before it, so its send cannot run early.
-  Future<void> _enqueueReport(Future<void> Function() report) {
-    final next = _reportTail.then((_) => report());
-    // The tail swallows the failure so later reports still run; next keeps it
-    // for whoever awaits this boundary.
-    _reportTail = next.catchError((Object _, StackTrace _) {});
-    return next;
-  }
+  Future<void> _reportStart(Session started) =>
+      _onSessionStarted?.call(started) ?? Future<void>.value();
 
   void _fireAndLog(Future<void> reported, String failureMessage) {
     unawaited(
