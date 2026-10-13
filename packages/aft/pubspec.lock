@@ -54,7 +54,7 @@ packages:
       path: "../aws_common"
       relative: true
     source: path
-    version: "0.7.15"
+    version: "0.7.16"
   aws_signature_v4:
     dependency: "direct overridden"
     description:
