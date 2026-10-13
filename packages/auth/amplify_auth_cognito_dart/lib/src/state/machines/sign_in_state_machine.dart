@@ -136,11 +136,32 @@ final class SignInStateMachine
         return worker;
       });
 
+  /// Awaits [response] from the worker named [workerName], surfacing a failed
+  /// worker as an [AuthException].
+  Future<R> _workerResponse<R>(
+    String workerName,
+    Future<R> Function() response,
+  ) async {
+    try {
+      return await response();
+    } on Object catch (e, st) {
+      Error.throwWithStackTrace(
+        UnknownException(
+          'Could not get a response from the $workerName worker',
+          underlyingException: e,
+        ),
+        st,
+      );
+    }
+  }
+
   /// Creates the initial SRP public/private values used in SRP handshakes.
   Future<SrpInitResult> _initSrp() async {
     final worker = await initWorker;
-    worker.add(SrpInitMessage());
-    return worker.stream.first;
+    return _workerResponse(worker.name, () {
+      worker.add(SrpInitMessage());
+      return worker.nextResponse();
+    });
   }
 
   /// The SRP password verifier worker.
@@ -441,8 +462,10 @@ final class SignInStateMachine
             ..password = password,
         );
     });
-    worker.sink.add(workerMessage);
-    return worker.stream.first;
+    return _workerResponse(worker.name, () {
+      worker.sink.add(workerMessage);
+      return worker.nextResponse();
+    });
   }
 
   /// Creates the device SRP auth request to initiate the device SRP flow.
@@ -481,8 +504,10 @@ final class SignInStateMachine
         ..clientSecret = _authOutputs.appClientSecret
         ..challengeParameters = BuiltMap(_publicChallengeParameters);
     });
-    worker.sink.add(workerMessage);
-    return worker.stream.first;
+    return _workerResponse(worker.name, () {
+      worker.sink.add(workerMessage);
+      return worker.nextResponse();
+    });
   }
 
   /// Creates the response object for an SMS MFA challenge.
@@ -1117,14 +1142,16 @@ final class SignInStateMachine
     NewDeviceMetadataType newDeviceMetadata,
   ) async {
     final worker = await confirmDeviceWorker;
-    worker.add(
-      ConfirmDeviceMessage(
-        (b) => b
-          ..accessToken = accessToken
-          ..newDeviceMetadata.replace(newDeviceMetadata),
-      ),
-    );
-    final workerResult = await worker.stream.first;
+    final workerResult = await _workerResponse(worker.name, () {
+      worker.add(
+        ConfirmDeviceMessage(
+          (b) => b
+            ..accessToken = accessToken
+            ..newDeviceMetadata.replace(newDeviceMetadata),
+        ),
+      );
+      return worker.nextResponse();
+    });
     final response = await cognitoIdentityProvider
         .confirmDevice(workerResult.request)
         .result;
