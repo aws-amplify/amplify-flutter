@@ -16,6 +16,7 @@ import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/models/authenticator_builder.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/src/models/oidc_options.dart';
 import 'package:amplify_authenticator/src/models/totp_options.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -47,6 +48,7 @@ export 'src/enums/enums.dart'
     show AuthenticatorStep, AuthenticatorTextEnabledOverride, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
+export 'src/models/oidc_options.dart';
 export 'src/models/totp_options.dart';
 export 'src/models/username_input.dart'
     show UsernameType, UsernameInput, UsernameSelection;
@@ -314,6 +316,7 @@ class Authenticator extends StatefulWidget {
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
     this.preferPrivateSession = false,
+    this.oidcOptions,
     this.initialStep = AuthenticatorStep.signIn,
     this.authenticatorBuilder,
     this.padding = const EdgeInsets.all(32),
@@ -422,6 +425,9 @@ class Authenticator extends StatefulWidget {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.private_session}
   final bool preferPrivateSession;
 
+  /// {@macro amplify_authenticator.oidc_options}
+  final OidcOptions? oidcOptions;
+
   /// This widget will be displayed after a user has signed in.
   final Widget child;
 
@@ -467,6 +473,11 @@ class Authenticator extends StatefulWidget {
       ..add(
         DiagnosticsProperty<bool>('preferPrivateSession', preferPrivateSession),
       )
+      ..add(StringProperty('nonce', oidcOptions?.nonce))
+      ..add(StringProperty('language', oidcOptions?.language))
+      ..add(StringProperty('loginHint', oidcOptions?.loginHint))
+      ..add(IterableProperty('prompt', oidcOptions?.prompt))
+      ..add(StringProperty('resource', oidcOptions?.resource))
       ..add(EnumProperty<AuthenticatorStep>('initialStep', initialStep))
       ..add(
         ObjectFlagProperty<AuthenticatorBuilder?>.has(
@@ -521,6 +532,7 @@ class _AuthenticatorState extends State<Authenticator> {
         (StateMachineBloc(
           authService: _authService,
           preferPrivateSession: widget.preferPrivateSession,
+          oidcOptions: widget.oidcOptions,
           initialStep: widget.initialStep,
           totpOptions: widget.totpOptions,
         )..add(const AuthLoad()));
