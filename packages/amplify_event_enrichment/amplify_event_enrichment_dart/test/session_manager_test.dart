@@ -176,15 +176,14 @@ void main() {
         );
       });
 
-      test('two sessionForRecording calls share one session', () async {
+      test('two sessionForRecording calls share one session', () {
         final reporting = reportingManager();
 
         final first = reporting.sessionForRecording();
         final second = reporting.sessionForRecording();
-        final sessions = await Future.wait([first, second]);
 
-        expect(sessions.first.id, sessions.last.id);
-        expect(sessions.first.id, reporting.session!.id);
+        expect(first.id, second.id);
+        expect(first.id, reporting.session!.id);
         expect(
           boundaries,
           ['start ${reporting.session!.id}'],
@@ -650,7 +649,7 @@ void main() {
         reportingStart.complete();
 
         expect(
-          (await pending).id,
+          pending.id,
           started.id,
           reason: 'the call must not fail because the session was dropped',
         );

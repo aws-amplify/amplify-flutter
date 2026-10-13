@@ -104,6 +104,22 @@ class _AsyncFailingSender implements EnrichedEventSender {
   }
 }
 
+/// Fails one event type and records the rest, so a test can tell whether a
+/// failed send stalls the queue behind it.
+class _SelectivelyFailingSender implements EnrichedEventSender {
+  _SelectivelyFailingSender(this._failingType);
+
+  final String _failingType;
+  final List<String> types = [];
+
+  @override
+  Future<void> send(EnrichedEvent event) async {
+    types.add(event.eventType);
+    await Future<void>.delayed(Duration.zero);
+    if (event.eventType == _failingType) throw StateError('sender failure');
+  }
+}
+
 void main() {
   group('session event emission', () {
     const app = AppMetadata(
@@ -165,7 +181,7 @@ void main() {
 
       test('ahead of an event recorded straight after construction', () async {
         // The eager start has no caller to await it, so this only holds
-        // because the record waits on the report tail the start is queued on.
+        // because the record queues behind it.
         final eagerSender = _RecordingSender();
         final eagerClient = buildClient(eagerSender);
         await eagerClient.record('first');
@@ -658,8 +674,8 @@ void main() {
       }
 
       test('when a resume past the timeout replaced the session', () {
-        // The session the record names is already active, so only the report
-        // tail can hold the record behind that session's own start.
+        // The session the record names is already active, so only the queue
+        // can hold the record behind that session's own start.
         fakeAsync((async) {
           final gated = _GatedSender(zSessionStopEventType);
           final resuming = suspendedTimerClient(gated);
@@ -893,15 +909,50 @@ void main() {
         expect(manager.state, SessionState.stopped);
       });
 
+      test('reports no start made through the getter during close()', () async {
+        // close() is waiting on the final stop, and the getter still hands
+        // out the manager.
+        final gated = _GatedSender(zSessionStopEventType);
+        final closing = buildClient(gated);
+        await pumpEventQueue();
+
+        final teardown = closing.close();
+        final revived = closing.sessionManager.startSession();
+        await pumpEventQueue();
+        gated.release();
+        await revived;
+        await teardown;
+        await pumpEventQueue();
+
+        expect(gated.types, [zSessionStartEventType, zSessionStopEventType]);
+        expect(closing.sessionManager.session, isNull);
+      });
+
+      test(
+        'rejects sessionForRecording() in the same turn as close()',
+        () async {
+          final closingSender = _RecordingSender();
+          final closing = buildClient(closingSender);
+          await pumpEventQueue();
+
+          final teardown = closing.close();
+          expect(closing.sessionManager.sessionForRecording, throwsStateError);
+          await teardown;
+          await pumpEventQueue();
+
+          expect(closingSender.types, [
+            zSessionStartEventType,
+            zSessionStopEventType,
+          ], reason: 'no session may start behind the final stop');
+        },
+      );
+
       test('fails sessionForRecording() with a StateError', () async {
         final closedSender = _RecordingSender();
         final closed = buildClient(closedSender);
         await closed.close();
 
-        await expectLater(
-          closed.sessionManager.sessionForRecording(),
-          throwsStateError,
-        );
+        expect(closed.sessionManager.sessionForRecording, throwsStateError);
         expect(
           closedSender.sessionStarts,
           hasLength(1),
@@ -1284,6 +1335,20 @@ void main() {
         expect(recorded.attributes['env'], 'prod');
       });
 
+      test('and not fields set in the same turn as construction', () async {
+        // The launch start is built in the constructor, not when it is sent.
+        final sameTurnSender = _RecordingSender();
+        final sameTurnClient = buildClient(sameTurnSender)
+          ..setUserId('user-2')
+          ..addGlobalAttribute('env', 'prod');
+        addTearDown(sameTurnClient.close);
+        await pumpEventQueue();
+
+        final event = sameTurnSender.sessionStarts.single;
+        expect(event.userId, isNull);
+        expect(event.attributes, isEmpty);
+      });
+
       test('and setUserId still overrides afterwards', () async {
         final initialSender = _RecordingSender();
         final initialClient = EventEnrichmentClient(
@@ -1296,8 +1361,8 @@ void main() {
           options: const EventEnrichmentClientOptions(sessionTimeout: timeout),
         );
         addTearDown(initialClient.close);
-        // The launch start is queued on the report tail, so let it reach the
-        // sender before overriding the user id.
+        // Let the queued launch start reach the sender before overriding the
+        // user id.
         await pumpEventQueue();
         initialClient.setUserId('user-2');
 
@@ -1384,6 +1449,163 @@ void main() {
           expect(pausedSender.events.last.session.id, first.id);
           expect(pausedClient.sessionManager.state, SessionState.paused);
         });
+      });
+    });
+
+    group('the single send queue', () {
+      test('puts a record ahead of a stop called in the same turn', () async {
+        // A record that resolved its session asynchronously would land behind
+        // that session's own stop.
+        final gapSender = _RecordingSender();
+        final gapClient = buildClient(gapSender, autoSessionTracking: false);
+
+        unawaited(gapClient.record('a'));
+        await gapClient.stopSession();
+
+        expect(gapSender.types, [
+          zSessionStartEventType,
+          'a',
+          zSessionStopEventType,
+        ]);
+        await gapClient.close();
+      });
+
+      test('does the same on a session that is already active', () async {
+        final activeSender = _RecordingSender();
+        final activeClient = buildClient(activeSender);
+        await pumpEventQueue();
+
+        unawaited(activeClient.record('a'));
+        await activeClient.stopSession();
+
+        expect(activeSender.types, [
+          zSessionStartEventType,
+          'a',
+          zSessionStopEventType,
+        ]);
+        await activeClient.close();
+      });
+
+      test('holds a stop until a gated record has finished sending', () async {
+        final gated = _GatedSender('a');
+        final gatedClient = buildClient(gated);
+        await pumpEventQueue();
+
+        unawaited(gatedClient.record('a'));
+        final stopping = gatedClient.stopSession();
+        await pumpEventQueue();
+
+        expect(gated.types, [
+          zSessionStartEventType,
+          'a',
+        ], reason: 'the sender is still in the record, so it gets no stop yet');
+
+        gated.release();
+        await stopping;
+
+        expect(gated.types, [
+          zSessionStartEventType,
+          'a',
+          zSessionStopEventType,
+        ]);
+        await gatedClient.close();
+      });
+
+      test('completes each send before it begins the next', () async {
+        // Stronger than call order: no two sends are ever in flight at once.
+        final seq = _InterleavingSender();
+        final seqClient = buildClient(seq, autoSessionTracking: false);
+
+        unawaited(seqClient.record('a'));
+        await seqClient.stopSession();
+
+        expect(seq.log, [
+          '$zSessionStartEventType begin',
+          '$zSessionStartEventType end',
+          'a begin',
+          'a end',
+          '$zSessionStopEventType begin',
+          '$zSessionStopEventType end',
+        ]);
+        await seqClient.close();
+      });
+
+      test('keeps close() behind a gated record without a drain', () async {
+        final gated = _GatedSender('a');
+        final closing = buildClient(gated);
+        await pumpEventQueue();
+
+        final order = <String>[];
+        final recorded = closing
+            .record('a')
+            .whenComplete(() => order.add('record'));
+        final teardown = closing.close().whenComplete(() => order.add('close'));
+        await pumpEventQueue();
+
+        expect(
+          order,
+          isEmpty,
+          reason: 'the queue, not a set of in-flight records, holds the stop',
+        );
+        expect(gated.types, [zSessionStartEventType, 'a']);
+
+        gated.release();
+        await recorded;
+        await teardown;
+
+        expect(gated.types, [
+          zSessionStartEventType,
+          'a',
+          zSessionStopEventType,
+        ]);
+        expect(order, ['record', 'close']);
+      });
+
+      test('runs the boundaries behind a record that failed', () async {
+        final failing = _SelectivelyFailingSender('a');
+        final failingClient = buildClient(failing);
+        await pumpEventQueue();
+
+        final result = await failingClient.record('a');
+        await failingClient.stopSession();
+        await failingClient.startSession();
+
+        expect(result, isA<Error<EnrichedEvent>>());
+        expect(failing.types, [
+          zSessionStartEventType,
+          'a',
+          zSessionStopEventType,
+          zSessionStartEventType,
+        ], reason: 'a failed send must not poison the queue behind it');
+        await failingClient.close();
+      });
+
+      test('keeps every stop behind its own start across restarts', () async {
+        final restartSender = _RecordingSender();
+        final restarting = buildClient(restartSender);
+        await pumpEventQueue();
+        final a = restarting.sessionManager.session!;
+
+        unawaited(restarting.startSession());
+        final b = restarting.sessionManager.session!;
+        await restarting.startSession();
+        final c = restarting.sessionManager.session!;
+
+        expect(restartSender.sessionEvents.map((e) => e.eventType), [
+          zSessionStartEventType,
+          zSessionStopEventType,
+          zSessionStartEventType,
+          zSessionStopEventType,
+          zSessionStartEventType,
+        ]);
+        expect(restartSender.sessionEvents.map((e) => e.session.id), [
+          a.id,
+          a.id,
+          b.id,
+          b.id,
+          c.id,
+        ]);
+        await restarting.close();
       });
     });
 

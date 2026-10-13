@@ -253,14 +253,34 @@ void main() {
           initialGlobalMetrics: const {'score': 4.5},
         );
         addTearDown(client.close);
-        // The launch start is queued on the report tail, so create() can return
-        // before the sender has seen it.
+        // The launch start is queued, so create() can return before the sender
+        // has seen it.
         await pumpEventQueue();
 
         final event = sender.sessionStarts.single;
         expect(event.userId, 'user-1');
         expect(event.attributes['env'], 'prod');
         expect(event.metrics['score'], 4.5);
+      },
+    );
+
+    test(
+      'create keeps a setUserId made straight after it off the start',
+      () async {
+        final sender = _RecordingSender();
+        final client =
+            await EventEnrichmentClientFlutter.create(
+                appId: 'test-app',
+                sdkMetadata: sdk,
+                sender: sender,
+              )
+              ..setUserId('user-2');
+        addTearDown(client.close);
+        await pumpEventQueue();
+
+        expect(sender.sessionStarts.single.userId, isNull);
+        final recorded = await client.record('event');
+        expect((recorded as Ok<EnrichedEvent>).value.userId, 'user-2');
       },
     );
 
@@ -347,14 +367,15 @@ void main() {
               (_) {},
             );
 
-    // Short enough to expire inside a test, long enough not to race create().
+    // Fake time, so the timeout only elapses when a test pumps past it.
     const shortTimeout = Duration(milliseconds: 50);
     const pastTimeout = Duration(milliseconds: 300);
 
     tearDown(() => setLifecycleState(AppLifecycleState.resumed));
 
-    Future<(EventEnrichmentClientFlutter, _RecordingSender)>
-    createClient() async {
+    Future<(EventEnrichmentClientFlutter, _RecordingSender)> createClient(
+      WidgetTester tester,
+    ) async {
       final sender = _RecordingSender();
       final client = await EventEnrichmentClientFlutter.create(
         appId: 'test-app',
@@ -364,21 +385,19 @@ void main() {
           sessionTimeout: shortTimeout,
         ),
       );
-      await pumpEventQueue();
+      await tester.pump();
       return (client, sender);
     }
 
-    test('pauses the launch session so it can time out', () async {
+    testWidgets('pauses the launch session so it can time out', (tester) async {
       await setLifecycleState(AppLifecycleState.paused);
 
-      final (client, sender) = await createClient();
-      addTearDown(client.close);
+      final (client, sender) = await createClient(tester);
 
       expect(sender.sessionStarts, hasLength(1));
       expect(sender.sessionStops, isEmpty);
 
-      await Future<void>.delayed(pastTimeout);
-      await pumpEventQueue();
+      await tester.pump(pastTimeout);
 
       expect(
         sender.sessionStops,
@@ -389,34 +408,33 @@ void main() {
         sender.sessionStops.single.session.id,
         sender.sessionStarts.single.session.id,
       );
+      await client.close();
     });
 
-    test('treats a hidden app as backgrounded too', () async {
+    testWidgets('treats a hidden app as backgrounded too', (tester) async {
       await setLifecycleState(AppLifecycleState.hidden);
 
-      final (client, sender) = await createClient();
-      addTearDown(client.close);
+      final (client, sender) = await createClient(tester);
 
-      await Future<void>.delayed(pastTimeout);
-      await pumpEventQueue();
+      await tester.pump(pastTimeout);
 
       expect(sender.sessionStops, hasLength(1));
+      await client.close();
     });
 
-    test('leaves a foreground launch session running', () async {
+    testWidgets('leaves a foreground launch session running', (tester) async {
       await setLifecycleState(AppLifecycleState.resumed);
 
-      final (client, sender) = await createClient();
-      addTearDown(client.close);
+      final (client, sender) = await createClient(tester);
 
-      await Future<void>.delayed(pastTimeout);
-      await pumpEventQueue();
+      await tester.pump(pastTimeout);
 
       expect(
         sender.sessionStops,
         isEmpty,
         reason: 'nothing pauses a foreground session, so nothing times out',
       );
+      await client.close();
     });
   });
 }
