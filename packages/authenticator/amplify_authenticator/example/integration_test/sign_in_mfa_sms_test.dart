@@ -5,7 +5,6 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -23,15 +22,12 @@ void main() {
     setUp(() async {
       await testRunner.configure(environmentName: 'sign-in-with-phone');
 
-      phoneNumber = generateUSPhoneNumber();
       password = generatePassword();
-      await adminCreateUser(
-        phoneNumber.toE164(),
+      phoneNumber = await adminCreateUserWithGeneratedPhoneNumber(
         password,
         autoConfirm: true,
         enableMfa: true,
         verifyAttributes: true,
-        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
       );
     });
 
