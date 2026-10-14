@@ -1,3 +1,8 @@
+## 2.16.0
+
+### Features
+- feat(auth): Pass clientMetadata on token refresh ([#7446](https://github.com/aws-amplify/amplify-flutter/pull/7446))
+
 ## 2.15.1
 
 - Minor bug fixes and improvements
