@@ -992,7 +992,7 @@ void main() {
             identityPoolKeys: identityPoolKeys,
             userPoolKeys: userPoolKeys,
           );
-          secureStorage.write(
+          await secureStorage.write(
             key: userPoolKeys[CognitoUserPoolKey.idToken],
             value: expiredIdToken.raw,
           );
