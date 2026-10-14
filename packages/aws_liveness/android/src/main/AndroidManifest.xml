@@ -1,0 +1,20 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="true" />
+
+    <application>
+        <!-- 
+            FaceLivenessActivity: Dedicated native Android Activity for AWS Face Liveness detection.
+            This Activity is completely independent of Flutter's widget tree and owns its own lifecycle.
+            It only contains the AWS FaceLivenessDetector component and state management.
+        -->
+        <activity
+            android:name=".FaceLivenessActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask" />
+    </application>
+</manifest>
