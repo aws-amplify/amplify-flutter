@@ -146,6 +146,11 @@ type CpkIntPrimaryKey @model @auth(rules: [{ allow: owner }]) {
   fieldB: Int!
 }
 
+type CpkTemporalPrimaryKey @model @auth(rules: [{ allow: private }]) {
+  hwid: String! @primaryKey(sortKeyFields: ["sessionStart"])
+  sessionStart: AWSDateTime!
+}
+
 type CustomOwnerField
   @model
   @auth(rules: [{ allow: private }, { allow: owner, ownerField: "owners" }]) {
