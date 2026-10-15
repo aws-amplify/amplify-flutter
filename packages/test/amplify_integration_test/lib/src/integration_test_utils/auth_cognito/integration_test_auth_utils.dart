@@ -4,6 +4,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
+    show UserNotFoundException;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/common/serializers.dart';
@@ -157,6 +159,98 @@ mutation DeleteDevice($input: DeleteDeviceInput!) {
     throw Exception(deleteError);
   }
 }
+
+/// Runs [createUser], retrying on `UsernameExistsException` (generated
+/// usernames can collide with users left in the shared pool). [createUser]
+/// should produce a new username on each attempt.
+Future<T> retryOnUsernameExists<T>(
+  Future<T> Function() createUser, {
+  int maxAttempts = 10,
+}) async {
+  for (var attempt = 1; ; attempt++) {
+    try {
+      return await createUser();
+    } on Exception catch (e) {
+      if (attempt >= maxAttempts ||
+          !e.toString().contains('UsernameExistsException')) {
+        rethrow;
+      }
+    }
+  }
+}
+
+/// Creates a Cognito user whose username is a generated US phone number,
+/// regenerating and retrying if the number is already taken in the shared pool.
+///
+/// Returns the phone number that was successfully created.
+Future<PhoneNumber> adminCreateUserWithGeneratedPhoneNumber(
+  String password, {
+  bool autoConfirm = false,
+  bool enableMfa = false,
+  bool verifyAttributes = false,
+}) => retryOnUsernameExists(() async {
+  final phoneNumber = generateUSPhoneNumber();
+  await adminCreateUser(
+    phoneNumber.toE164(),
+    password,
+    autoConfirm: autoConfirm,
+    enableMfa: enableMfa,
+    verifyAttributes: verifyAttributes,
+    attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
+  );
+  return phoneNumber;
+});
+
+/// Generates values with [generate] and returns the first that [isUnused]
+/// accepts, retrying up to [maxAttempts]. Inverse of [retryOnUsernameExists].
+Future<T> retryUntilUnused<T>(
+  T Function() generate,
+  Future<bool> Function(T value) isUnused, {
+  int maxAttempts = 10,
+}) async {
+  for (var attempt = 1; ; attempt++) {
+    final value = generate();
+    if (await isUnused(value)) {
+      return value;
+    }
+    if (attempt >= maxAttempts) {
+      throw StateError(
+        'Could not generate an unused value after $maxAttempts attempts',
+      );
+    }
+  }
+}
+
+/// A generated US phone number confirmed absent from the shared pool, for a
+/// test that needs a number belonging to nobody (sign in with unknown creds).
+Future<PhoneNumber> generateUnusedUSPhoneNumber({int maxAttempts = 10}) =>
+    retryUntilUnused(
+      generateUSPhoneNumber,
+      (phoneNumber) => _phoneNumberIsUnused(phoneNumber.toE164()),
+      maxAttempts: maxAttempts,
+    );
+
+/// Whether [username] is absent from the pool, by probing sign-in with a
+/// throwaway password and classifying the result. No session is created.
+Future<bool> _phoneNumberIsUnused(String username) async {
+  try {
+    await Amplify.Auth.signIn(username: username, password: _probePassword);
+    await Amplify.Auth.signOut();
+    return false;
+  } on Exception catch (e) {
+    return signInErrorMeansUnused(e);
+  }
+}
+
+/// Classifies a sign-in probe error: [UserNotFoundException] means unused,
+/// [AuthNotAuthorizedException] means taken; any other error is rethrown.
+bool signInErrorMeansUnused(Exception error) {
+  if (error is UserNotFoundException) return true;
+  if (error is AuthNotAuthorizedException) return false;
+  throw error;
+}
+
+const _probePassword = 'unused-number-probe';
 
 /// Creates a Cognito user in backend infrastructure. This documention describes
 /// how each parameter is expected to be used in the backend .
