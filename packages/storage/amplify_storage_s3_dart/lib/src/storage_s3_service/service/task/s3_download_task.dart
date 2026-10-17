@@ -114,6 +114,11 @@ class S3DownloadTask {
   Future<void>? get _getObjectInitiated => _getObjectCompleter?.future;
   Future<void>? get _pausedCompleted => _pauseCompleter?.future;
 
+  bool get _isTerminal =>
+      _state == StorageTransferState.canceled ||
+      _state == StorageTransferState.success ||
+      _state == StorageTransferState.failure;
+
   /// The result of a download task.
   Future<S3Item> get result => _downloadCompleter.future;
 
@@ -126,14 +131,14 @@ class S3DownloadTask {
 
     if (_s3PluginOptions.useAccelerateEndpoint &&
         _defaultS3ClientConfig.usePathStyle) {
-      await _completeDownloadWithError(s3_exception.accelerateEndpointUnusable);
+      await _terminateDownloadOnError(s3_exception.accelerateEndpointUnusable);
       return;
     }
 
     try {
       await _preStart?.call();
     } on Exception catch (error, stackTrace) {
-      await _completeDownloadWithError(error, stackTrace);
+      await _terminateDownloadOnError(error, stackTrace);
       return;
     }
 
@@ -148,7 +153,7 @@ class S3DownloadTask {
 
       final remoteSize = getObjectOutput.contentLength?.toInt();
       if (remoteSize == null) {
-        await _completeDownloadWithError(
+        await _terminateDownloadOnError(
           const UnknownException(
             '`contentLength` property is null in GetObjectOutput.',
             recoverySuggestion:
@@ -165,7 +170,7 @@ class S3DownloadTask {
         path: _resolvedPath,
       );
     } on Exception catch (error, stackTrace) {
-      await _completeDownloadWithError(error, stackTrace);
+      await _terminateDownloadOnError(error, stackTrace);
     }
   }
 
@@ -219,7 +224,7 @@ class S3DownloadTask {
       );
       _listenToBytesSteam(getObjectOutput.body);
     } on Exception catch (error, stackTrace) {
-      await _completeDownloadWithError(error, stackTrace);
+      await _terminateDownloadOnError(error, stackTrace);
     }
   }
 
@@ -228,9 +233,10 @@ class S3DownloadTask {
   ///
   /// A canceled [S3DownloadTask] is not resumable.
   Future<void> cancel() async {
-    if (_state == StorageTransferState.canceled ||
-        _state == StorageTransferState.success ||
-        _state == StorageTransferState.failure) {
+    // ensure the task has actually started before cancelling
+    await _getObjectInitiated;
+
+    if (_isTerminal) {
       return;
     }
 
@@ -242,9 +248,11 @@ class S3DownloadTask {
     _bytesSubscription = null;
 
     _emitTransferProgress();
-    _downloadCompleter.completeError(
-      s3_exception.s3ControllableOperationCanceledException,
-    );
+    if (!_downloadCompleter.isCompleted) {
+      _downloadCompleter.completeError(
+        s3_exception.s3ControllableOperationCanceledException,
+      );
+    }
   }
 
   void _emitTransferProgress() {
@@ -265,9 +273,16 @@ class S3DownloadTask {
     _pauseCompleter = Completer();
   }
 
+  void _completeGetObjectCompleter() {
+    final getObjectCompleter = _getObjectCompleter;
+    if (getObjectCompleter != null && !getObjectCompleter.isCompleted) {
+      getObjectCompleter.complete();
+    }
+  }
+
   void _listenToBytesSteam(Stream<List<int>>? bytesStream) {
     if (bytesStream == null) {
-      _completeDownloadWithError(
+      _terminateDownloadOnError(
         const UnknownException(
           '`body` is null in GetObjectOutput.',
           recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
@@ -276,31 +291,37 @@ class S3DownloadTask {
       return;
     }
 
+    // with the default `cancelOnError: false` these callbacks can still run
     _bytesSubscription =
         bytesStream.listen((bytes) {
+            if (_isTerminal) {
+              return;
+            }
+
             _downloadedBytesSize += bytes.length;
             _onData?.call(bytes);
             _emitTransferProgress();
           })
           ..onDone(() async {
+            if (_isTerminal) {
+              return;
+            }
+
             if (_downloadedBytesSize == _totalBytes) {
               _state = StorageTransferState.success;
               try {
                 await _onDone?.call();
                 _emitTransferProgress();
-                _downloadCompleter.complete(
-                  // On VM, download operation gets object metadata directly
-                  // from the underlying `GetObject` call.
-                  // On Web, download operation is done by browser download from
-                  // object presigned URL, where object metadata needs to be
-                  // retrieve via a separate `HeadObject` call.
-                  // To unify the behavior on `downloadOptions.getProperties`
-                  // we hide the metadata from the result on VM if this parameter
-                  // is set to `false`.
-                  _s3PluginOptions.getProperties
-                      ? _downloadedS3Item
-                      : S3Item(path: _downloadedS3Item.path),
-                );
+                if (!_downloadCompleter.isCompleted) {
+                  _downloadCompleter.complete(
+                    // VM gets metadata from GetObject; web browser downloads use
+                    // presigned URLs and require HeadObject. Omit VM metadata
+                    // when getProperties is false for consistent behavior.
+                    _s3PluginOptions.getProperties
+                        ? _downloadedS3Item
+                        : S3Item(path: _downloadedS3Item.path),
+                  );
+                }
               } on Exception catch (error, stackTrace) {
                 await _completeDownloadWithError(error, stackTrace);
               }
@@ -314,11 +335,24 @@ class S3DownloadTask {
               );
             }
           })
-          ..onError(_completeDownloadWithError);
+          ..onError(_terminateDownloadOnError);
 
     // After setting up the body stream listener, we consider the task is fully
     // started, and can be paused etc.
-    _getObjectCompleter?.complete();
+    _completeGetObjectCompleter();
+  }
+
+  // in parallel the stream error callback and the start/resume error paths can
+  // all invoke this, use this to avoid a second terminal outcome
+  Future<void> _terminateDownloadOnError(
+    Object error, [
+    StackTrace? stackTrace,
+  ]) async {
+    if (_isTerminal) {
+      return;
+    }
+
+    await _completeDownloadWithError(error, stackTrace);
   }
 
   Future<void> _completeDownloadWithError(
@@ -326,9 +360,13 @@ class S3DownloadTask {
     StackTrace? stackTrace,
   ]) async {
     _state = StorageTransferState.failure;
+    // release `pause`/`cancel` if the failure preceded the stream subscription
+    _completeGetObjectCompleter();
     await _onError?.call();
     _emitTransferProgress();
-    _downloadCompleter.completeError(error, stackTrace);
+    if (!_downloadCompleter.isCompleted) {
+      _downloadCompleter.completeError(error, stackTrace);
+    }
   }
 
   Future<s3.GetObjectOutput> _getObject({
