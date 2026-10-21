@@ -25,6 +25,14 @@ enum ButtonResolverKeyType {
   backTo,
   skip,
   copyKey,
+  signInWithPasskey,
+  signInWithPassword,
+  signInWithEmail,
+  signInWithSms,
+  createPasskey,
+  continueWithoutPasskey,
+  setupAnotherPasskey,
+  otherSignInOptions,
 }
 
 class ButtonResolverKey {
@@ -66,6 +74,30 @@ class ButtonResolverKey {
   );
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
   static const copyKey = ButtonResolverKey._(ButtonResolverKeyType.copyKey);
+  static const signInWithPasskey = ButtonResolverKey._(
+    ButtonResolverKeyType.signInWithPasskey,
+  );
+  static const signInWithPassword = ButtonResolverKey._(
+    ButtonResolverKeyType.signInWithPassword,
+  );
+  static const signInWithEmail = ButtonResolverKey._(
+    ButtonResolverKeyType.signInWithEmail,
+  );
+  static const signInWithSms = ButtonResolverKey._(
+    ButtonResolverKeyType.signInWithSms,
+  );
+  static const createPasskey = ButtonResolverKey._(
+    ButtonResolverKeyType.createPasskey,
+  );
+  static const continueWithoutPasskey = ButtonResolverKey._(
+    ButtonResolverKeyType.continueWithoutPasskey,
+  );
+  static const setupAnotherPasskey = ButtonResolverKey._(
+    ButtonResolverKeyType.setupAnotherPasskey,
+  );
+  static const otherSignInOptions = ButtonResolverKey._(
+    ButtonResolverKeyType.otherSignInOptions,
+  );
 
   @override
   String toString() => type.name;
@@ -169,6 +201,46 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
     return AuthenticatorLocalizations.buttonsOf(context).copyKey;
   }
 
+  /// Label of button to sign in with a passkey.
+  String signInWithPasskey(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).signInWithPasskey;
+  }
+
+  /// Label of button to sign in with a password.
+  String signInWithPassword(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).signInWithPassword;
+  }
+
+  /// Label of button to sign in with email.
+  String signInWithEmail(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).signInWithEmail;
+  }
+
+  /// Label of button to sign in with SMS.
+  String signInWithSms(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).signInWithSms;
+  }
+
+  /// Label of button to create a passkey.
+  String createPasskey(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).createPasskey;
+  }
+
+  /// Label of button to continue without a passkey.
+  String continueWithoutPasskey(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).continueWithoutPasskey;
+  }
+
+  /// Label of button to set up another passkey.
+  String setupAnotherPasskey(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).setupAnotherPasskey;
+  }
+
+  /// Label of button to show other sign-in options.
+  String otherSignInOptions(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).otherSignInOptions;
+  }
+
   @override
   String resolve(BuildContext context, ButtonResolverKey key) {
     switch (key.type) {
@@ -208,6 +280,22 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return skip(context);
       case ButtonResolverKeyType.copyKey:
         return copyKey(context);
+      case ButtonResolverKeyType.signInWithPasskey:
+        return signInWithPasskey(context);
+      case ButtonResolverKeyType.signInWithPassword:
+        return signInWithPassword(context);
+      case ButtonResolverKeyType.signInWithEmail:
+        return signInWithEmail(context);
+      case ButtonResolverKeyType.signInWithSms:
+        return signInWithSms(context);
+      case ButtonResolverKeyType.createPasskey:
+        return createPasskey(context);
+      case ButtonResolverKeyType.continueWithoutPasskey:
+        return continueWithoutPasskey(context);
+      case ButtonResolverKeyType.setupAnotherPasskey:
+        return setupAnotherPasskey(context);
+      case ButtonResolverKeyType.otherSignInOptions:
+        return otherSignInOptions(context);
     }
   }
 }

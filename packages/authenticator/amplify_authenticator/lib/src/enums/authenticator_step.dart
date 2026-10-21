@@ -102,6 +102,16 @@ enum AuthenticatorStep {
   /// The user has initiated verification of an account recovery means
   /// (email, phone), and needs to provide a verification code.
   confirmVerifyUser,
+
+  /// The user is on the Continue Sign In with First Factor Selection step.
+  ///
+  /// The sign-in is not complete and the user must select a first-factor
+  /// method.
+  continueSignInWithFirstFactorSelection,
+
+  /// The user is being prompted to register a passkey after successful
+  /// sign-in or sign-up.
+  passkeyPrompt,
 }
 
 const validInitialAuthenticatorSteps = [

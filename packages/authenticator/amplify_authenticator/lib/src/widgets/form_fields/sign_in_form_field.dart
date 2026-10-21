@@ -95,6 +95,9 @@ abstract class _SignInFormFieldState<FieldValue extends Object>
           SignInFormField<FieldValue>
         > {
   @override
+  bool get enabled => !state.isBusy;
+
+  @override
   bool get obscureText {
     switch (widget.field) {
       case SignInField.username:

@@ -89,6 +89,23 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
     return AuthenticatorLocalizations.titlesOf(context).verifyUser;
   }
 
+  /// The title for the first-factor selection Widget.
+  String continueSignInWithFirstFactorSelection(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(
+      context,
+    ).continueSignInWithFirstFactorSelection;
+  }
+
+  /// The title for the passkey registration prompt Widget.
+  String passkeyPrompt(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).passkeyPrompt;
+  }
+
+  /// The title shown after a passkey is successfully created.
+  String passkeyCreatedSuccess(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).passkeyCreatedSuccess;
+  }
+
   @override
   String resolve(BuildContext context, AuthenticatorStep key) {
     switch (key) {
@@ -119,6 +136,10 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
         return verifyUser(context);
+      case AuthenticatorStep.continueSignInWithFirstFactorSelection:
+        return continueSignInWithFirstFactorSelection(context);
+      case AuthenticatorStep.passkeyPrompt:
+        return passkeyPrompt(context);
       case AuthenticatorStep.loading:
       case AuthenticatorStep.onboarding:
       case AuthenticatorStep.signIn:
