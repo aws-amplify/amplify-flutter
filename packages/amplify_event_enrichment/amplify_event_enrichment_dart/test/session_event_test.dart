@@ -1670,6 +1670,72 @@ void main() {
       });
     });
 
+    group('with emitSessionEvents off', () {
+      EventEnrichmentClient buildQuietClient(
+        EnrichedEventSender sender, {
+        bool autoSessionTracking = true,
+      }) => EventEnrichmentClient(
+        appMetadata: app,
+        deviceMetadata: device,
+        sdkMetadata: sdk,
+        clientId: 'device-123',
+        sender: sender,
+        options: EventEnrichmentClientOptions(
+          autoSessionTracking: autoSessionTracking,
+          sessionTimeout: timeout,
+          emitSessionEvents: false,
+        ),
+      );
+
+      test('the option defaults to true', () {
+        expect(const EventEnrichmentClientOptions().emitSessionEvents, isTrue);
+      });
+
+      test(
+        'only the records are sent, each stamped with its session',
+        () async {
+          final quietSender = _RecordingSender();
+          final quiet = buildQuietClient(
+            quietSender,
+            autoSessionTracking: false,
+          );
+
+          await quiet.record('first');
+          await quiet.stopSession();
+          await quiet.record('second');
+          await quiet.close();
+
+          expect(quietSender.types, ['first', 'second']);
+          final [first, second] = quietSender.events;
+          expect(first.session.id, isNotEmpty);
+          expect(
+            second.session.id,
+            isNot(first.session.id),
+            reason: 'the stop ended the first session',
+          );
+        },
+      );
+
+      test('the automatic and manual boundaries are not sent', () async {
+        final quietSender = _RecordingSender();
+        final quiet = buildQuietClient(quietSender);
+        await pumpEventQueue();
+        final launchId = quiet.sessionManager.session?.id;
+
+        await quiet.startSession();
+        expect(
+          quiet.sessionManager.session?.id,
+          allOf(isNotNull, isNot(launchId)),
+          reason: 'sessions are still tracked',
+        );
+        await quiet.stopSession();
+        await quiet.close();
+
+        expect(launchId, isNotNull);
+        expect(quietSender.events, isEmpty);
+      });
+    });
+
     test('no session event is emitted without a sender', () async {
       final senderless = EventEnrichmentClient(
         appMetadata: app,
