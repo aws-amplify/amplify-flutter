@@ -25,7 +25,8 @@ import 'package:uuid/uuid.dart';
 /// [EnrichedEvent] instances that serialize to a structured analytics JSON
 /// envelope. Session boundaries are emitted as [zSessionStartEventType] and
 /// [zSessionStopEventType] events through the configured
-/// [EnrichedEventSender].
+/// [EnrichedEventSender], unless
+/// [EventEnrichmentClientOptions.emitSessionEvents] is `false`.
 ///
 /// ## Usage
 ///
@@ -69,6 +70,8 @@ class EventEnrichmentClient {
        _clientId = clientId,
        _userId = initialUserId,
        _sender = sender,
+       _emitSessionEvents =
+           (options ?? const EventEnrichmentClientOptions()).emitSessionEvents,
        _logger = AmplifyLogging.logger('EventEnrichmentClient') {
     initialGlobalAttributes?.forEach(_globalFields.addAttribute);
     initialGlobalMetrics?.forEach(_globalFields.addMetric);
@@ -96,6 +99,7 @@ class EventEnrichmentClient {
   final SdkMetadata _sdkMetadata;
   final String _clientId;
   final EnrichedEventSender? _sender;
+  final bool _emitSessionEvents;
   final Logger _logger;
   final GlobalFieldsManager _globalFields = GlobalFieldsManager();
   late final SessionManager _sessionManager;
@@ -199,7 +203,7 @@ class EventEnrichmentClient {
   // boundaries have no caller to hand an error back to.
   Future<void> _emitSessionEvent(String eventType, Session session) {
     final sender = _sender;
-    if (sender == null) return Future<void>.value();
+    if (sender == null || !_emitSessionEvents) return Future<void>.value();
     final event = _buildEvent(eventType, session);
     return _enqueueSend(() async {
       try {

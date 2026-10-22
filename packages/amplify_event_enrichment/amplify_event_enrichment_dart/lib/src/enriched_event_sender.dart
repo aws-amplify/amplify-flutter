@@ -16,5 +16,9 @@ abstract interface class EnrichedEventSender {
   /// May throw, or return a future that completes with an error, if delivery
   /// fails. `EventEnrichmentClient.record` converts a failure into an error
   /// `Result`.
+  ///
+  /// Sends run one at a time, so this should return promptly. It must not
+  /// call back into the client and await the result: that call waits behind
+  /// this send.
   Future<void> send(EnrichedEvent event);
 }

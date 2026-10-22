@@ -12,6 +12,7 @@ final class EventEnrichmentClientOptions
   const EventEnrichmentClientOptions({
     this.autoSessionTracking = true,
     this.sessionTimeout = const Duration(seconds: 5),
+    this.emitSessionEvents = true,
   });
 
   /// Whether to automatically start a session at construction and drive it
@@ -31,8 +32,19 @@ final class EventEnrichmentClientOptions
   /// Defaults to 5 seconds.
   final Duration sessionTimeout;
 
+  /// Whether session starts and stops are sent as `_session.start` and
+  /// `_session.stop` events. Sessions are tracked and stamped on every event
+  /// either way.
+  ///
+  /// Defaults to `true`.
+  final bool emitSessionEvents;
+
   @override
-  List<Object?> get props => [autoSessionTracking, sessionTimeout];
+  List<Object?> get props => [
+    autoSessionTracking,
+    sessionTimeout,
+    emitSessionEvents,
+  ];
 
   @override
   String get runtimeTypeName => 'EventEnrichmentClientOptions';
