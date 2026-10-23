@@ -186,8 +186,9 @@ class SessionManager {
     _pauseTimer = timerFactory(_sessionTimeout, _onTimeoutExpired);
   }
 
-  // Returns the new session with the future that reports its start. The end is
-  // reported first, so the start is already behind it in the caller's queue.
+  // Returns the new session with the future that reports its start. Any prior
+  // end is reported first, so the start is already behind it in the caller's
+  // queue.
   ({Session session, Future<void> reported}) _restart() {
     _endCurrent();
     final started = _startFresh();
