@@ -269,7 +269,6 @@ class EventEnrichmentClient {
   /// enabled, emits the final stop event. Waits for queued sends, cannot be
   /// reused, and returns the same teardown to repeated callers.
   Future<void> close() {
-    // Set first so no record() call can queue behind the final stop event.
     _closed = true;
     return _closing ??= _close();
   }

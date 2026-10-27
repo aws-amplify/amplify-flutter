@@ -5,8 +5,8 @@ import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// The read-or-create another package sharing the key performs, as the
-// Connect client's device ID store does.
+// A second package reading or creating the same key through the same
+// `getInstance()` cache, as the Connect client's device ID store does.
 Future<String> _otherPackageReadOrCreate(String newId) async {
   final prefs = await SharedPreferences.getInstance();
   final existing = prefs.getString(zClientIdStorageKey);
@@ -28,6 +28,15 @@ void main() {
     test('returns an existing ID', () async {
       SharedPreferences.setMockInitialValues({zClientIdStorageKey: 'stored'});
       expect(await provider.getClientId(), 'stored');
+    });
+
+    test('replaces and persists an empty stored ID', () async {
+      SharedPreferences.setMockInitialValues({zClientIdStorageKey: ''});
+      final id = await provider.getClientId();
+
+      expect(id, isNotEmpty);
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString(zClientIdStorageKey), id);
     });
 
     test('concurrent calls persist and return one ID', () async {

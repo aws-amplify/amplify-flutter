@@ -54,7 +54,8 @@ transitions by default, and a session that has been backgrounded longer than
 timeout is measured from the moment the app was backgrounded, so it holds on
 platforms that suspend timers while the app is in the background. The ended
 session is stamped as stopped when the app was backgrounded, so its duration
-leaves out that final background stretch.
+leaves out that final background stretch. Events recorded during that stretch
+still belong to the session, so their timestamps can be later than its stop.
 
 When a `sender` is configured and `EventEnrichmentClientOptions.emitSessionEvents`
 is `true` (the default), session boundaries are sent through it as events, using

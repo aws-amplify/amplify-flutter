@@ -86,7 +86,7 @@ class SessionManager {
   // order sends boundaries in transition order.
 
   /// Starts a new session, ending any session already running. The returned
-  /// future completes once the boundary has been reported, end before start.
+  /// future completes once any displaced end and the new start are reported.
   /// No-op once [clearSession] has run.
   Future<void> startSession() {
     if (_disposed) return Future<void>.value();
