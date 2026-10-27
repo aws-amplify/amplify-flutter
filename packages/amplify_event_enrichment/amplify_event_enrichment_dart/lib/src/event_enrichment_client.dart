@@ -69,20 +69,18 @@ class EventEnrichmentClient {
        _clientId = clientId,
        _userId = initialUserId,
        _sender = sender,
-       _emitSessionEvents =
-           (options ?? const EventEnrichmentClientOptions()).emitSessionEvents,
+       _options = options ?? const EventEnrichmentClientOptions(),
        _logger = AmplifyLogging.logger('EventEnrichmentClient') {
     initialGlobalAttributes?.forEach(_globalFields.addAttribute);
     initialGlobalMetrics?.forEach(_globalFields.addMetric);
-    final opts = options ?? const EventEnrichmentClientOptions();
     _sessionManager = SessionManager(
       appId: appMetadata.appId,
-      sessionTimeout: opts.sessionTimeout,
+      sessionTimeout: _options.sessionTimeout,
       generateId: () => const Uuid().v4(),
       onSessionStarted: _emitSessionStart,
       onSessionEnded: _emitSessionStop,
     );
-    if (opts.autoSessionTracking) {
+    if (_options.autoSessionTracking) {
       // Nothing can await a constructor, so failures are logged.
       _sessionManager
           .startSession()
@@ -98,7 +96,7 @@ class EventEnrichmentClient {
   final SdkMetadata _sdkMetadata;
   final String _clientId;
   final EnrichedEventSender? _sender;
-  final bool _emitSessionEvents;
+  final EventEnrichmentClientOptions _options;
   final Logger _logger;
   final GlobalFieldsManager _globalFields = GlobalFieldsManager();
   late final SessionManager _sessionManager;
@@ -124,7 +122,8 @@ class EventEnrichmentClient {
   ///
   /// Never throws. Returns [Result.error] with:
   /// - [EventEnrichmentClosedException] if the client has been closed
-  /// - [EventEnrichmentRecordException] if the sender fails
+  /// - [EventEnrichmentRecordException] if the event cannot be built or the
+  ///   sender fails
   Future<Result<EnrichedEvent>> record(
     String eventType, {
     Map<String, String>? attributes,
@@ -202,7 +201,9 @@ class EventEnrichmentClient {
   // boundaries have no caller to hand an error back to.
   Future<void> _emitSessionEvent(String eventType, Session session) {
     final sender = _sender;
-    if (sender == null || !_emitSessionEvents) return Future<void>.value();
+    if (sender == null || !_options.emitSessionEvents) {
+      return Future<void>.value();
+    }
     final event = _buildEvent(eventType, session);
     return _enqueueSend(() async {
       try {

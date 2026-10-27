@@ -83,8 +83,7 @@ class SessionManager {
 
   // Every transition is synchronous, so re-entrant calls need no lock. The
   // boundary callbacks run inside it, so a caller that queues in callback
-  // order sends boundaries in transition order. Sessions are threaded out of
-  // the transition: a racing clearSession() may drop _session across an await.
+  // order sends boundaries in transition order.
 
   /// Starts a new session, ending any session already running. The returned
   /// future completes once the boundary has been reported, end before start.
@@ -105,7 +104,7 @@ class SessionManager {
     final needsFreshSession = switch (_state) {
       SessionState.paused => _pauseExpired,
       SessionState.stopped => true,
-      SessionState.active => _session == null,
+      SessionState.active => false,
     };
     if (!needsFreshSession) return _session!;
     final (:session, :reported) = _restart();

@@ -253,7 +253,7 @@ void main() {
         addTearDown(failingClient.close);
 
         // The sender suspends before throwing, so this only passes because
-        // record() awaits send() inside its try/catch. Any error escaping to
+        // record() handles the queued send's error. Any error escaping to
         // the zone would fail this test.
         final result = await failingClient.record('boom');
         expect(result, isA<Error<EnrichedEvent>>());
