@@ -89,6 +89,15 @@ class EventEnrichmentClientFlutter {
       );
     }
 
+    // The awaits above can span a background transition the observer was not
+    // there to see, so the launch session is seeded from the state the app is
+    // in now. Read before the client exists, so a missing binding throws
+    // before a launch session is queued.
+    final opts = options ?? const EventEnrichmentClientOptions();
+    final backgrounded =
+        opts.autoSessionTracking &&
+        _isBackgrounded(WidgetsBinding.instance.lifecycleState);
+
     final delegate = EventEnrichmentClient(
       appMetadata: appMetadata ?? AppMetadata(appId: appId),
       deviceMetadata: deviceMetadata,
@@ -102,14 +111,8 @@ class EventEnrichmentClientFlutter {
     );
 
     FlutterLifecycleObserver? lifecycleObserver;
-    final opts = options ?? const EventEnrichmentClientOptions();
     if (opts.autoSessionTracking) {
-      // The awaits above can span a background transition the observer was not
-      // there to see, so seed the launch session from the state the app is in
-      // now rather than assuming the foreground.
-      if (_isBackgrounded(WidgetsBinding.instance.lifecycleState)) {
-        delegate.handleAppPaused();
-      }
+      if (backgrounded) delegate.handleAppPaused();
       lifecycleObserver = FlutterLifecycleObserver(
         sessionManager: delegate.sessionManager,
       );
