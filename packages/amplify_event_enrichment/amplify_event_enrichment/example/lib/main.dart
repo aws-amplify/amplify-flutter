@@ -50,7 +50,7 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
       sender: ConsoleSender(),
     );
     setState(() => _client = client);
-    _addLog('Client initialized (clientId resolved from file)');
+    _addLog('Client initialized (clientId from shared preferences)');
   }
 
   void _addLog(String msg) {
@@ -129,8 +129,8 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      // Closing ends the session, so a _session.stop event is
-                      // printed by ConsoleSender before this completes.
+                      // Closing ends any running session, so its _session.stop
+                      // is printed by ConsoleSender before this completes.
                       await _client?.close();
                       _addLog('Client closed');
                     },
@@ -139,7 +139,7 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
                   ElevatedButton(
                     onPressed: () async {
                       await _client?.stopSession();
-                      _addLog('Session stopped (_session.stop emitted)');
+                      _addLog('Session stopped');
                     },
                     child: const Text('Stop Session'),
                   ),
@@ -148,7 +148,7 @@ class _EventEnrichmentExampleAppState extends State<EventEnrichmentExampleApp> {
                       // Displacing a running session emits its stop first, then
                       // the new session's start.
                       await _client?.startSession();
-                      _addLog('New session started (_session.start emitted)');
+                      _addLog('New session started');
                     },
                     child: const Text('Start Session'),
                   ),
