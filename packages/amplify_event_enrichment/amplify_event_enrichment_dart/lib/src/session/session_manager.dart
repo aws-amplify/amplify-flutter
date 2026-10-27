@@ -121,9 +121,9 @@ class SessionManager {
     return ended ?? Future<void>.value();
   }
 
-  /// Drops the current session without recording or reporting a stop. Used
-  /// when disposing the client. The manager cannot be reused afterwards;
-  /// further calls are no-ops.
+  /// Drops the session without reporting a stop and prevents reuse. Lifecycle
+  /// and explicit start or stop calls become no-ops; [sessionForRecording]
+  /// throws a [StateError].
   void clearSession() {
     _cancelTimer();
     _session = null;

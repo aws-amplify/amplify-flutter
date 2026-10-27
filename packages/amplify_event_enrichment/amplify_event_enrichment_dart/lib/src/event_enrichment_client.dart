@@ -51,9 +51,8 @@ import 'package:uuid/uuid.dart';
 class EventEnrichmentClient {
   /// {@macro amplify_event_enrichment.event_enrichment_client}
   ///
-  /// [initialUserId], [initialGlobalAttributes] and [initialGlobalMetrics]
-  /// are applied before the automatic session start, so the launch
-  /// [zSessionStartEventType] event carries them.
+  /// Initial user and global values are applied before automatic session
+  /// creation and appear in its start event when session events are enabled.
   EventEnrichmentClient({
     required AppMetadata appMetadata,
     required DeviceMetadata deviceMetadata,
@@ -215,18 +214,17 @@ class EventEnrichmentClient {
     });
   }
 
-  /// Starts a new session and emits a [zSessionStartEventType] event, ending
-  /// any session already running. No-op once the client is closed.
+  /// Starts a new session, ending any running session. Emits a
+  /// [zSessionStartEventType] event when session events are enabled. No-op
+  /// once the client is closed.
   Future<void> startSession() {
     if (_closed) return Future<void>.value();
     return _sessionManager.startSession();
   }
 
-  /// Stops the current session and emits a [zSessionStopEventType] event
-  /// carrying its stop timestamp and duration. No-op once the client is closed.
-  ///
-  /// [handleAppResumed] will not start a new session afterwards; recording an
-  /// event or calling [startSession] begins tracking again.
+  /// Stops the current session. When session events are enabled, emits a
+  /// [zSessionStopEventType] event with its stop time and duration. No-op after
+  /// close. Recording or calling [startSession] begins tracking again.
   Future<void> stopSession() {
     if (_closed) return Future<void>.value();
     return _sessionManager.stopSession();
@@ -245,9 +243,9 @@ class EventEnrichmentClient {
     _sessionManager.handleAppResumed();
   }
 
-  /// Sets the user identifier stamped on subsequent events. Use
-  /// `initialUserId` on the constructor to have the launch session event
-  /// carry it.
+  /// Sets the user identifier stamped on subsequent events. Pass
+  /// `initialUserId` to include it in the launch event when session events are
+  /// enabled.
   // Method rather than a setter for consistency with the other mutators.
   // ignore: use_setters_to_change_properties
   void setUserId(String? userId) => _userId = userId;
@@ -266,11 +264,9 @@ class EventEnrichmentClient {
   /// Removes a global metric.
   void removeGlobalMetric(String key) => _globalFields.removeMetric(key);
 
-  /// Ends any running session, emits its [zSessionStopEventType] event, and
-  /// releases resources. Waits for every send already queued, so nothing
-  /// reaches the sender after the final stop. The client cannot be reused after
-  /// closing. Repeated calls return the same teardown, so every caller awaits
-  /// the final stop.
+  /// Ends any running session and releases resources. When session events are
+  /// enabled, emits the final stop event. Waits for queued sends, cannot be
+  /// reused, and returns the same teardown to repeated callers.
   Future<void> close() {
     // Set first so no record() call can queue behind the final stop event.
     _closed = true;

@@ -17,15 +17,10 @@ class PrintingSender implements EnrichedEventSender {
 }
 
 Future<void> main() async {
-  // Pure Dart has no platform providers, so app, device and SDK metadata and
-  // the client id are supplied directly. The amplify_event_enrichment Flutter
-  // package resolves all four for you and tracks the app lifecycle.
-  //
-  // Constructing the client starts a session, which prints a
-  // zSessionStartEventType ("_session.start") envelope before anything below
-  // runs. The initial user id and globals are applied first, so that envelope
-  // carries them; setUserId and addGlobalAttribute afterwards would be too
-  // late for it.
+  // The standalone client takes metadata and a client ID directly. The Flutter
+  // wrapper supplies device metadata and a client ID and tracks lifecycle.
+  // Construction emits the default session-start event before later mutators,
+  // so pass initial user and global values to include them in that event.
   final client = EventEnrichmentClient(
     appMetadata: const AppMetadata(appId: 'my-app', versionName: '1.0.0'),
     deviceMetadata: const DeviceMetadata(platform: 'macOS', locale: 'en_US'),

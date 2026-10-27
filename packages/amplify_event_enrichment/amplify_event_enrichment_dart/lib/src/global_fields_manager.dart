@@ -4,9 +4,9 @@
 import 'dart:collection';
 
 /// {@template amplify_event_enrichment.global_fields_manager}
-/// Manages global attributes and metrics that are stamped on every event.
+/// Stores global attributes and metrics stamped on every event.
 ///
-/// Values are in-memory only and not persisted between sessions.
+/// Values remain in memory until this manager is discarded.
 /// {@endtemplate}
 class GlobalFieldsManager {
   /// {@macro amplify_event_enrichment.global_fields_manager}

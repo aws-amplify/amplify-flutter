@@ -39,9 +39,8 @@ class EventEnrichmentClientFlutter {
 
   /// {@macro amplify_event_enrichment.event_enrichment_client_flutter}
   ///
-  /// [initialUserId], [initialGlobalAttributes] and [initialGlobalMetrics]
-  /// are applied before the automatic session start, so the launch
-  /// [zSessionStartEventType] event carries them.
+  /// Initial user and global values are applied before automatic session
+  /// creation and appear in its start event when session events are enabled.
   static Future<EventEnrichmentClientFlutter> create({
     required String appId,
     required SdkMetadata sdkMetadata,
@@ -157,8 +156,9 @@ class EventEnrichmentClientFlutter {
   /// [FlutterLifecycleObserver] calls this.
   void handleAppResumed() => _delegate.handleAppResumed();
 
-  /// Sets the user identifier stamped on subsequent events. Use
-  /// `initialUserId` on [create] to have the launch session event carry it.
+  /// Sets the user identifier stamped on subsequent events. Pass
+  /// `initialUserId` to [create] to include it in the launch event when session
+  /// events are enabled.
   void setUserId(String? userId) => _delegate.setUserId(userId);
 
   /// Adds a global attribute stamped on every subsequent event.
