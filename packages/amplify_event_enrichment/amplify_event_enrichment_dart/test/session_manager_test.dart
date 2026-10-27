@@ -679,6 +679,97 @@ void main() {
       });
     });
 
+    group('a startSession that displaces a running session', () {
+      late List<String> calls;
+      late Completer<void> endReported;
+      late Completer<void> startReported;
+      late SessionManager gated;
+
+      setUp(() {
+        calls = [];
+        endReported = Completer<void>();
+        startReported = Completer<void>();
+        gated = SessionManager(
+          appId: 'testApp1',
+          sessionTimeout: timeout,
+          generateId: () => 'abcd${idCounter++}000-fake-uuid-value',
+          // The first start reports at once, so each test begins with a
+          // running session whose replacement it can gate.
+          onSessionStarted: (_) {
+            calls.add('start');
+            return calls.length == 1
+                ? Future<void>.value()
+                : startReported.future;
+          },
+          onSessionEnded: (_) {
+            calls.add('end');
+            return endReported.future;
+          },
+        );
+      });
+
+      test(
+        'waits for the end report even after the start is reported',
+        () async {
+          await gated.startSession();
+          var done = false;
+          unawaited(gated.startSession().then((_) => done = true));
+          startReported.complete();
+          await pumpEventQueue();
+
+          expect(calls, ['start', 'end', 'start']);
+          expect(
+            done,
+            isFalse,
+            reason: 'the displaced stop is still reporting',
+          );
+
+          endReported.complete();
+          await pumpEventQueue();
+          expect(done, isTrue);
+        },
+      );
+
+      test('waits for the end report of a paused session', () async {
+        await gated.startSession();
+        gated.handleAppPaused();
+        var done = false;
+        unawaited(gated.startSession().then((_) => done = true));
+        startReported.complete();
+        await pumpEventQueue();
+        expect(done, isFalse, reason: 'the displaced stop is still reporting');
+
+        endReported.complete();
+        await pumpEventQueue();
+        expect(done, isTrue);
+      });
+
+      test('waits for the start report after the end is reported', () async {
+        await gated.startSession();
+        var done = false;
+        unawaited(gated.startSession().then((_) => done = true));
+        endReported.complete();
+        await pumpEventQueue();
+        expect(done, isFalse, reason: 'the new start is still reporting');
+
+        startReported.complete();
+        await pumpEventQueue();
+        expect(done, isTrue);
+      });
+
+      test('waits only for the start when no session was running', () async {
+        await gated.startSession();
+        final stopped = gated.stopSession();
+        endReported.complete();
+        await stopped;
+
+        final restarted = gated.startSession();
+        startReported.complete();
+        await expectLater(restarted, completes);
+        expect(calls, ['start', 'end', 'start']);
+      });
+    });
+
     group('Session equality', () {
       test('same values are equal with matching hashCodes', () {
         const a = Session(

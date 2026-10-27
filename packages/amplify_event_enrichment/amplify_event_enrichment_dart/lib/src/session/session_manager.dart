@@ -8,8 +8,10 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:clock/clock.dart';
 import 'package:meta/meta.dart';
 
-/// Called once per session when it starts, inside the state transition.
-/// Implementations must not throw or call back into the manager.
+/// Called once per session when it starts, inside the state transition. When
+/// it replaces a session, it runs right after that session's [OnSessionEnded]
+/// call without waiting for its future. Implementations must not throw or call
+/// back into the manager.
 typedef OnSessionStarted = Future<void> Function(Session session);
 
 /// Called once per session when it ends, inside the state transition, with
@@ -187,12 +189,18 @@ class SessionManager {
   }
 
   // Returns the new session with the future that reports its start. Any prior
-  // end is reported first, so the start is already behind it in the caller's
-  // queue.
+  // end is reported first, keeping the start behind it in the caller's queue.
+  // The future waits for both.
   ({Session session, Future<void> reported}) _restart() {
-    _endCurrent();
+    final ended = _endCurrent();
     final started = _startFresh();
-    return (session: started, reported: _reportStart(started));
+    final reportedStart = _reportStart(started);
+    return (
+      session: started,
+      reported: ended == null
+          ? reportedStart
+          : Future.wait([ended, reportedStart]),
+    );
   }
 
   // A session ended while paused is stamped at the pause. Returns null when
