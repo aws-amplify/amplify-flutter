@@ -20,8 +20,10 @@ abstract interface class ClientIdProvider {
 /// Reads or creates a persistent client ID at [zClientIdStorageKey] in
 /// SharedPreferences.
 ///
-/// The Connect client uses the same key. When initialization is serialized,
-/// the first package creates the UUID and the other reads it.
+/// The Connect client reads or creates the same key the same way. Both use
+/// the per-isolate `SharedPreferences.getInstance()` cache, which a write
+/// updates before awaiting the platform, so concurrent calls in one isolate
+/// resolve one ID. Separate isolates do not share that cache and can race.
 /// {@endtemplate}
 class SharedPreferencesClientIdProvider implements ClientIdProvider {
   /// {@macro amplify_event_enrichment.shared_preferences_client_id_provider}
