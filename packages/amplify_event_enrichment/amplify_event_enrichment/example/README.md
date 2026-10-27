@@ -40,6 +40,7 @@ when a session begins, and `_session.stop` when it ends, carrying that session's
    printed before the recorded event
 4. **Start Session** on a running session prints the stop for the old one and
    then the start for the new one, in that order
-5. Backgrounding for longer than 5s prints a stop from the session timeout, and
-   returning prints the start for the replacement session
+5. Backgrounding for longer than 5s prints a stop from the session timeout (on
+   return, if the platform suspended the timer), and returning prints the start
+   for the replacement session
 6. **Close** prints a final stop for whatever session is still running
