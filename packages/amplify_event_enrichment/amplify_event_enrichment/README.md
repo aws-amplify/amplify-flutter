@@ -23,9 +23,8 @@ import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
 final client = await EventEnrichmentClientFlutter.create(
   appId: 'my-app-id',
   sdkMetadata: SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
-  // Applied before the session that starts at launch, so its
-  // `_session.start` event carries them. `setUserId` and
-  // `addGlobalAttribute` afterwards are too late for that one event.
+  // Applied before the launch session starts, so its start event can carry
+  // them. See Sessions below.
   initialUserId: 'user-1',
   initialGlobalAttributes: const {'env': 'prod'},
 );
@@ -53,10 +52,12 @@ Every event carries a session. Sessions follow app foreground/background
 transitions by default, and a session that has been backgrounded longer than
 `EventEnrichmentClientOptions.sessionTimeout` ends rather than resuming. The
 timeout is measured from the moment the app was backgrounded, so it holds on
-platforms that suspend timers while the app is in the background, and the ended
-session's duration counts foreground time only.
+platforms that suspend timers while the app is in the background. The ended
+session is stamped as stopped when the app was backgrounded, so its duration
+leaves out that final background stretch.
 
-Session boundaries are emitted through the configured `EnrichedEventSender` as events, using
+When a `sender` is configured and `EventEnrichmentClientOptions.emitSessionEvents`
+is `true` (the default), session boundaries are sent through it as events, using
 the event types legacy Amplify Analytics used for the same signals:
 
 - `zSessionStartEventType` (`_session.start`) when a session starts, carrying
@@ -68,11 +69,12 @@ Both get the same enrichment every other event gets. A start is emitted when the
 client is constructed with `autoSessionTracking` on, on an explicit
 `startSession()`, on a `record()` that has no live session to use, and when a
 resume follows a session timeout. A stop is emitted on an explicit
-`stopSession()`, on the session timeout expiring, on `close()`, and when
+`stopSession()`, on the session timeout expiring (noticed at the next resume or
+`record()` if the platform suspended the timer), on `close()`, and when
 `startSession()` displaces a running session. A displacement emits the stop
 before the start, and backgrounding and foregrounding inside the timeout window
-emits nothing, since it is the same session throughout. Each session produces
-exactly one start and at most one stop.
+emits nothing, since it is the same session throughout. With session events
+enabled, each session produces exactly one start and at most one stop.
 
 Because the launch session starts as soon as the client is created, `setUserId`
 and `addGlobalAttribute` cannot reach its `_session.start`. Pass `initialUserId`,
@@ -89,8 +91,7 @@ final client = await EventEnrichmentClientFlutter.create(
 ```
 
 `startSession()`, `stopSession()` and `close()` return a `Future` that completes
-once those events have been handed to the sender, so awaiting them means the
-boundary has been delivered. EnrichedEventSender failures on these paths are logged, never
-thrown.
+once the sender's `send` has completed for the session events they emit. Sender
+failures on these paths are logged, never thrown.
 
 ### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
