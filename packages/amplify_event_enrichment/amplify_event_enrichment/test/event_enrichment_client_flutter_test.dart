@@ -112,6 +112,36 @@ void main() {
           .getClientId();
       expect(event.clientId, persisted);
     });
+
+    test('throws when appMetadata.appId differs from appId', () async {
+      await expectLater(
+        EventEnrichmentClientFlutter.create(
+          appId: 'test-app',
+          sdkMetadata: sdk,
+          appMetadata: const AppMetadata(appId: 'other-app'),
+        ),
+        throwsA(
+          isA<ArgumentError>().having(
+            (e) => e.name,
+            'name',
+            'appMetadata.appId',
+          ),
+        ),
+      );
+    });
+
+    test('uses appMetadata when its appId matches appId', () async {
+      final client = await EventEnrichmentClientFlutter.create(
+        appId: 'test-app',
+        sdkMetadata: sdk,
+        appMetadata: const AppMetadata(appId: 'test-app', title: 'Title'),
+      );
+      addTearDown(client.close);
+
+      final event = (await client.record('event') as Ok<EnrichedEvent>).value;
+      expect(event.app.appId, 'test-app');
+      expect(event.app.title, 'Title');
+    });
   });
 
   group('EventEnrichmentClientFlutter session controls', () {

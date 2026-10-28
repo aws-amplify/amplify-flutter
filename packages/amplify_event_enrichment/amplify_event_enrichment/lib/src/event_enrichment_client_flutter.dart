@@ -41,6 +41,8 @@ class EventEnrichmentClientFlutter {
   ///
   /// Initial user and global values are applied before automatic session
   /// creation and appear in its start event when session events are enabled.
+  ///
+  /// Throws an [ArgumentError] if `appMetadata.appId` differs from [appId].
   static Future<EventEnrichmentClientFlutter> create({
     required String appId,
     required SdkMetadata sdkMetadata,
@@ -53,11 +55,13 @@ class EventEnrichmentClientFlutter {
     EventEnrichmentClientOptions? options,
     EnrichedEventSender? sender,
   }) async {
-    assert(
-      appMetadata == null || appMetadata.appId == appId,
-      'appMetadata.appId ("${appMetadata.appId}") does not match the appId '
-      '"$appId". When both are provided they must be the same value.',
-    );
+    if (appMetadata != null && appMetadata.appId != appId) {
+      throw ArgumentError.value(
+        appMetadata.appId,
+        'appMetadata.appId',
+        'Must match appId',
+      );
+    }
     final metadataProvider =
         deviceMetadataProvider ?? const PlatformDeviceMetadataProvider();
     final idProvider =
