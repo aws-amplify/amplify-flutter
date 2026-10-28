@@ -1,11 +1,26 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
+
+/// A pause timer that never fires, so only a resume or record can end the
+/// paused session.
+class _NeverFiringTimer implements Timer {
+  @override
+  void cancel() {}
+
+  @override
+  bool get isActive => true;
+
+  @override
+  int get tick => 0;
+}
 
 class _MockSender implements EnrichedEventSender {
   final List<EnrichedEvent> events = [];
@@ -269,6 +284,43 @@ void main() {
     );
   });
 
+  group('EventEnrichmentClient constructor validation', () {
+    const sdk = SdkMetadata(name: 'amplify-flutter', version: '2.0.0');
+
+    EventEnrichmentClient build({
+      String appId = 'testApp1',
+      String clientId = 'device-123',
+      Duration sessionTimeout = const Duration(seconds: 5),
+    }) => EventEnrichmentClient(
+      appMetadata: AppMetadata(appId: appId),
+      deviceMetadata: const DeviceMetadata(),
+      sdkMetadata: sdk,
+      clientId: clientId,
+      options: EventEnrichmentClientOptions(sessionTimeout: sessionTimeout),
+    );
+
+    test('throws for an empty app ID', () {
+      expect(() => build(appId: ''), throwsArgumentError);
+    });
+
+    test('throws for an empty client ID', () {
+      expect(() => build(clientId: ''), throwsArgumentError);
+    });
+
+    test('throws for a negative session timeout', () {
+      expect(
+        () => build(sessionTimeout: const Duration(milliseconds: -1)),
+        throwsArgumentError,
+      );
+    });
+
+    test('accepts a zero session timeout', () async {
+      final client = build(sessionTimeout: Duration.zero);
+      addTearDown(client.close);
+      expect(await client.record('e'), isA<Ok<EnrichedEvent>>());
+    });
+  });
+
   group('EventEnrichmentClient non-finite metrics', () {
     const app = AppMetadata(appId: 'testApp1');
     const device = DeviceMetadata();
@@ -327,14 +379,52 @@ void main() {
         },
       );
 
-      test('constructor throws for an initial global metric of $value', () {
-        expect(
-          () => newClient(initialGlobalMetrics: {'g': value}),
-          throwsArgumentError,
-        );
-        expect(sender.events, isEmpty);
-      });
+      test(
+        'constructor throws for an initial global metric of $value',
+        () async {
+          expect(
+            () => newClient(initialGlobalMetrics: {'g': value}),
+            throwsArgumentError,
+          );
+          await pumpEventQueue();
+          expect(sender.events, isEmpty);
+        },
+      );
     }
+
+    test('a rejected record leaves an expired pause untouched', () {
+      fakeAsync((async) {
+        // Built without newClient's tear-down, which would await a future
+        // owned by the fake zone.
+        final client = EventEnrichmentClient(
+          appMetadata: app,
+          deviceMetadata: device,
+          sdkMetadata: sdk,
+          clientId: 'device-123',
+          sender: sender,
+        );
+        client.sessionManager.timerFactory = (_, _) => _NeverFiringTimer();
+        async.flushMicrotasks();
+        final session = client.sessionManager.session!;
+        client.handleAppPaused();
+        async.elapse(const Duration(seconds: 10));
+
+        Result<EnrichedEvent>? result;
+        client
+            .record('e', metrics: {'m': double.nan})
+            .then((r) => result = r)
+            .ignore();
+        async.flushMicrotasks();
+
+        expect(result, isA<Error<EnrichedEvent>>());
+        expect(sender.events.map((e) => e.eventType), [zSessionStartEventType]);
+        expect(client.sessionManager.state, SessionState.paused);
+        expect(client.sessionManager.session, session);
+
+        client.close().ignore();
+        async.flushMicrotasks();
+      });
+    });
 
     test('session events still encode after a rejected global', () async {
       final client = newClient(autoSessionTracking: false);

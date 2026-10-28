@@ -54,8 +54,9 @@ class EventEnrichmentClient {
   /// Initial user and global values are applied before automatic session
   /// creation and appear in its start event when session events are enabled.
   ///
-  /// Throws an [ArgumentError] if `initialGlobalMetrics` has a NaN or infinite
-  /// value.
+  /// Throws an [ArgumentError] if `appMetadata.appId` or `clientId` is empty,
+  /// `options.sessionTimeout` is negative, or `initialGlobalMetrics` has a NaN
+  /// or infinite value.
   EventEnrichmentClient({
     required AppMetadata appMetadata,
     required DeviceMetadata deviceMetadata,
@@ -74,6 +75,23 @@ class EventEnrichmentClient {
        _sender = sender,
        _options = options ?? const EventEnrichmentClientOptions(),
        _logger = AmplifyLogging.logger('EventEnrichmentClient') {
+    if (appMetadata.appId.isEmpty) {
+      throw ArgumentError.value(
+        appMetadata.appId,
+        'appMetadata.appId',
+        'Must not be empty',
+      );
+    }
+    if (clientId.isEmpty) {
+      throw ArgumentError.value(clientId, 'clientId', 'Must not be empty');
+    }
+    if (_options.sessionTimeout.isNegative) {
+      throw ArgumentError.value(
+        _options.sessionTimeout,
+        'options.sessionTimeout',
+        'Must not be negative',
+      );
+    }
     initialGlobalAttributes?.forEach(_globalFields.addAttribute);
     initialGlobalMetrics?.forEach(_globalFields.addMetric);
     _sessionManager = SessionManager(
@@ -105,8 +123,8 @@ class EventEnrichmentClient {
   late final SessionManager _sessionManager;
 
   /// The session manager for this client, for platform-specific lifecycle
-  /// observers. [close] clears it, so it reports no further boundaries; see
-  /// [SessionManager.clearSession].
+  /// observers, which should only call its lifecycle handlers. [close] clears
+  /// it, so it reports no further boundaries; see [SessionManager.clearSession].
   SessionManager get sessionManager => _sessionManager;
 
   String? _userId;

@@ -4,7 +4,8 @@
 import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_event_enrichment.event_enrichment_client_options}
-/// Configuration options for `EventEnrichmentClient`.
+/// Session behavior for `EventEnrichmentClient`. Every field has a default, so
+/// `const EventEnrichmentClientOptions()` gives the documented defaults.
 /// {@endtemplate}
 final class EventEnrichmentClientOptions
     with AWSEquatable<EventEnrichmentClientOptions>, AWSDebuggable {
@@ -27,7 +28,9 @@ final class EventEnrichmentClientOptions
   final bool autoSessionTracking;
 
   /// How long the app may stay backgrounded before the session ends and the
-  /// next foreground starts a new one.
+  /// next foreground starts a new one. Zero ends the session as soon as the app
+  /// is backgrounded. The client throws an [ArgumentError] for a negative
+  /// value.
   ///
   /// Defaults to 5 seconds.
   final Duration sessionTimeout;

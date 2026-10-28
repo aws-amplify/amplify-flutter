@@ -9,13 +9,14 @@ import 'package:uuid/uuid.dart';
 /// Provides the persistent client ID stamped on every enriched event.
 ///
 /// The ID must be stable for the lifetime of the install. If
-/// [getClientId] throws, `EventEnrichmentClientFlutter.create` logs a warning
-/// and uses an ephemeral ID for that client.
+/// [getClientId] throws or returns an empty ID,
+/// `EventEnrichmentClientFlutter.create` logs a warning and uses an ephemeral
+/// ID for that client.
 /// {@endtemplate}
 // ignore: one_member_abstracts
 abstract interface class ClientIdProvider {
-  /// Returns the persistent client ID, creating one if none is stored. Throws
-  /// if a new ID cannot be persisted.
+  /// Returns the persistent, non-empty client ID, creating one if none is
+  /// stored. Throws if a new ID cannot be persisted.
   Future<String> getClientId();
 }
 

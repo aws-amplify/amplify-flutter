@@ -156,6 +156,56 @@ void main() {
       );
     });
 
+    test(
+      'uses an ephemeral ID when the provider returns an empty one',
+      () async {
+        final logs = _CapturingLogSink();
+        AmplifyLogging.addSink(logs);
+        addTearDown(() => AmplifyLogging.removeSink(logs));
+
+        final client = await EventEnrichmentClientFlutter.create(
+          appId: 'test-app',
+          sdkMetadata: sdk,
+          clientIdProvider: const _FixedClientIdProvider(''),
+        );
+        addTearDown(client.close);
+
+        final event = (await client.record('event') as Ok<EnrichedEvent>).value;
+        expect(event.clientId, isNotEmpty);
+        expect(
+          logs.messages.where((m) => m.level == LogLevel.warn),
+          hasLength(1),
+        );
+      },
+    );
+
+    test('throws for an empty appId before persisting a client ID', () async {
+      await expectLater(
+        EventEnrichmentClientFlutter.create(appId: '', sdkMetadata: sdk),
+        throwsArgumentError,
+      );
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString(zClientIdStorageKey), isNull);
+    });
+
+    test(
+      'throws for a negative session timeout before persisting a client ID',
+      () async {
+        await expectLater(
+          EventEnrichmentClientFlutter.create(
+            appId: 'test-app',
+            sdkMetadata: sdk,
+            options: const EventEnrichmentClientOptions(
+              sessionTimeout: Duration(milliseconds: -1),
+            ),
+          ),
+          throwsArgumentError,
+        );
+        final prefs = await SharedPreferences.getInstance();
+        expect(prefs.getString(zClientIdStorageKey), isNull);
+      },
+    );
+
     test('throws when appMetadata.appId differs from appId', () async {
       await expectLater(
         EventEnrichmentClientFlutter.create(
@@ -538,7 +588,11 @@ void main() {
           ),
           throwsArgumentError,
         );
+        await pumpEventQueue();
         expect(sender.events, isEmpty);
+        // Rejected before the default provider could persist an ID.
+        final prefs = await SharedPreferences.getInstance();
+        expect(prefs.getString(zClientIdStorageKey), isNull);
       });
     }
   });

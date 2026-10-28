@@ -42,8 +42,11 @@ class EventEnrichmentClientFlutter {
   /// Initial user and global values are applied before automatic session
   /// creation and appear in its start event when session events are enabled.
   ///
-  /// Throws an [ArgumentError] if `appMetadata.appId` differs from [appId] or
-  /// `initialGlobalMetrics` has a NaN or infinite value.
+  /// Throws an [ArgumentError] if [appId] is empty, `appMetadata.appId`
+  /// differs from it, `options.sessionTimeout` is negative, or
+  /// `initialGlobalMetrics` has a NaN or infinite value. These are checked
+  /// before any provider runs. Also throws if automatic session tracking is on
+  /// and no [WidgetsBinding] has been initialized.
   static Future<EventEnrichmentClientFlutter> create({
     required String appId,
     required SdkMetadata sdkMetadata,
@@ -56,12 +59,31 @@ class EventEnrichmentClientFlutter {
     EventEnrichmentClientOptions? options,
     EnrichedEventSender? sender,
   }) async {
+    if (appId.isEmpty) {
+      throw ArgumentError.value(appId, 'appId', 'Must not be empty');
+    }
     if (appMetadata != null && appMetadata.appId != appId) {
       throw ArgumentError.value(
         appMetadata.appId,
         'appMetadata.appId',
         'Must match appId',
       );
+    }
+    // The delegate checks these too, but only after the providers have run
+    // and possibly persisted a client ID.
+    final opts = options ?? const EventEnrichmentClientOptions();
+    if (opts.sessionTimeout.isNegative) {
+      throw ArgumentError.value(
+        opts.sessionTimeout,
+        'options.sessionTimeout',
+        'Must not be negative',
+      );
+    }
+    for (final MapEntry(:key, :value)
+        in (initialGlobalMetrics ?? const {}).entries) {
+      if (!value.isFinite) {
+        throw ArgumentError.value(value, key, 'Metric must be finite');
+      }
     }
     final metadataProvider =
         deviceMetadataProvider ?? const PlatformDeviceMetadataProvider();
@@ -85,6 +107,7 @@ class EventEnrichmentClientFlutter {
     String clientId;
     try {
       clientId = await idProvider.getClientId();
+      if (clientId.isEmpty) throw StateError('Client ID provider returned ""');
     } on Object catch (e, st) {
       clientId = const Uuid().v4();
       logger.warn(
@@ -98,7 +121,6 @@ class EventEnrichmentClientFlutter {
     // there to see, so the launch session is seeded from the state the app is
     // in now. Read before the client exists, so a missing binding throws
     // before a launch session is queued.
-    final opts = options ?? const EventEnrichmentClientOptions();
     final backgrounded =
         opts.autoSessionTracking &&
         _isBackgrounded(WidgetsBinding.instance.lifecycleState);
