@@ -42,6 +42,22 @@ class _GatedStore extends InMemorySharedPreferencesStore {
   }
 }
 
+/// A store that holds the first write until [gate] and rejects it, and
+/// accepts every later write.
+class _RejectFirstStore extends InMemorySharedPreferencesStore {
+  _RejectFirstStore() : super.empty();
+
+  final Completer<void> gate = Completer();
+  int writes = 0;
+
+  @override
+  Future<bool> setValue(String valueType, String key, Object value) async {
+    if (writes++ > 0) return super.setValue(valueType, key, value);
+    await gate.future;
+    return false;
+  }
+}
+
 // A second package reading or creating the same key through the same
 // `getInstance()` cache, as the Connect client's device ID store does.
 Future<String> _otherPackageReadOrCreate(String newId) async {
@@ -120,6 +136,26 @@ void main() {
         prefs.getString(zClientIdStorageKey),
         isNull,
         reason: 'an unpersisted ID must not stay readable from the cache',
+      );
+    });
+
+    test('a rejected write keeps an ID another package stored', () async {
+      final store = _RejectFirstStore();
+      SharedPreferencesStorePlatform.instance = store;
+
+      final call = provider.getClientId();
+      await Future<void>.delayed(Duration.zero);
+      // Another package that read the key before this write began stores its
+      // own ID while this write is pending.
+      final prefs = await SharedPreferences.getInstance();
+      expect(await prefs.setString(zClientIdStorageKey, 'other-id'), isTrue);
+      store.gate.complete();
+
+      await expectLater(call, throwsStateError);
+      expect(prefs.getString(zClientIdStorageKey), 'other-id');
+      expect(
+        (await store.getAll())['flutter.$zClientIdStorageKey'],
+        'other-id',
       );
     });
 
