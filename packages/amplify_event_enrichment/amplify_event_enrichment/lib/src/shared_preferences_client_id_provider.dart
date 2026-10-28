@@ -8,11 +8,14 @@ import 'package:uuid/uuid.dart';
 /// {@template amplify_event_enrichment.client_id_provider}
 /// Provides the persistent client ID stamped on every enriched event.
 ///
-/// The ID must be stable for the lifetime of the install.
+/// The ID must be stable for the lifetime of the install. If
+/// [getClientId] throws, `EventEnrichmentClientFlutter.create` logs a warning
+/// and uses an ephemeral ID for that client.
 /// {@endtemplate}
 // ignore: one_member_abstracts
 abstract interface class ClientIdProvider {
-  /// Returns the persistent client ID, creating one if it doesn't exist.
+  /// Returns the persistent client ID, creating one if none is stored. Throws
+  /// if a new ID cannot be persisted.
   Future<String> getClientId();
 }
 
@@ -29,13 +32,18 @@ class SharedPreferencesClientIdProvider implements ClientIdProvider {
   /// {@macro amplify_event_enrichment.shared_preferences_client_id_provider}
   const SharedPreferencesClientIdProvider();
 
+  /// Returns the stored ID, or creates and stores one when it is absent or
+  /// empty. Throws a [StateError] if the platform rejects that write.
   @override
   Future<String> getClientId() async {
     final prefs = await SharedPreferences.getInstance();
     final existing = prefs.getString(zClientIdStorageKey);
     if (existing != null && existing.isNotEmpty) return existing;
     final id = const Uuid().v4();
-    await prefs.setString(zClientIdStorageKey, id);
+    final persisted = await prefs.setString(zClientIdStorageKey, id);
+    if (!persisted) {
+      throw StateError('Failed to persist the client ID');
+    }
     return id;
   }
 }

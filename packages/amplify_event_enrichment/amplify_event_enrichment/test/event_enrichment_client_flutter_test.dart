@@ -2,11 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
-import 'package:amplify_foundation_dart/amplify_foundation_dart.dart' show Ok;
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    show AmplifyLogging, LogLevel, LogMessage, LogSink, Ok;
 import 'package:flutter/services.dart' show StringCodec;
 import 'package:flutter/widgets.dart' show AppLifecycleState;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 
 class _ThrowingDeviceMetadataProvider implements DeviceMetadataProvider {
   @override
@@ -26,6 +28,25 @@ class _FixedClientIdProvider implements ClientIdProvider {
 class _ThrowingClientIdProvider implements ClientIdProvider {
   @override
   Future<String> getClientId() async => throw StateError('provider failure');
+}
+
+/// A store whose writes the platform rejects.
+class _RejectingStore extends InMemorySharedPreferencesStore {
+  _RejectingStore() : super.empty();
+
+  @override
+  Future<bool> setValue(String valueType, String key, Object value) async =>
+      false;
+}
+
+class _CapturingLogSink implements LogSink {
+  final List<LogMessage> messages = [];
+
+  @override
+  bool isEnabled(LogLevel logLevel) => true;
+
+  @override
+  void emit(LogMessage message) => messages.add(message);
 }
 
 class _RecordingSender implements EnrichedEventSender {
@@ -111,6 +132,28 @@ void main() {
       final persisted = await const SharedPreferencesClientIdProvider()
           .getClientId();
       expect(event.clientId, persisted);
+    });
+
+    test('uses an ephemeral ID when the client ID write is rejected', () async {
+      SharedPreferencesStorePlatform.instance = _RejectingStore();
+      final logs = _CapturingLogSink();
+      AmplifyLogging.addSink(logs);
+      addTearDown(() => AmplifyLogging.removeSink(logs));
+
+      final client = await EventEnrichmentClientFlutter.create(
+        appId: 'test-app',
+        sdkMetadata: sdk,
+      );
+      addTearDown(client.close);
+
+      final event = (await client.record('event') as Ok<EnrichedEvent>).value;
+      expect(event.clientId, isNotEmpty);
+      expect(
+        logs.messages.where(
+          (m) => m.level == LogLevel.warn && m.error is StateError,
+        ),
+        hasLength(1),
+      );
     });
 
     test('throws when appMetadata.appId differs from appId', () async {
