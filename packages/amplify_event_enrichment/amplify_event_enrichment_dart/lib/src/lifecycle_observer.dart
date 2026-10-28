@@ -8,12 +8,14 @@
 /// (e.g. Flutter's `WidgetsBindingObserver`) to the session manager.
 /// {@endtemplate}
 abstract interface class LifecycleObserver {
-  /// Called when the app moves to the background.
+  /// Forwards a move to the background, typically to
+  /// `SessionManager.handleAppPaused`.
   void onPause();
 
-  /// Called when the app returns to the foreground.
+  /// Forwards a return to the foreground, typically to
+  /// `SessionManager.handleAppResumed`.
   void onResume();
 
-  /// Stops observing lifecycle events and releases resources.
+  /// Stops observing, so no further [onPause] or [onResume] calls are made.
   void dispose();
 }

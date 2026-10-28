@@ -43,8 +43,9 @@ final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
   /// Application-defined type serialized as `event_type`.
   final String eventType;
 
-  /// Recording time in milliseconds since epoch, serialized as
-  /// `event_timestamp` and `arrival_timestamp`.
+  /// Build time in milliseconds since epoch, serialized as `event_timestamp`
+  /// and `arrival_timestamp`. For a stop event this is when the stop was
+  /// detected, which can be later than `session.stop_timestamp`.
   final int eventTimestamp;
 
   /// Session the event belongs to, serialized in the `session` section.

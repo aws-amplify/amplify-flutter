@@ -24,10 +24,11 @@ enum SessionState {
   /// No active session.
   stopped,
 
-  /// Session is active (app in foreground).
+  /// A session is running and the app is not known to be backgrounded.
   active,
 
-  /// Session is paused (app backgrounded, within timeout).
+  /// The app was backgrounded during the session. It stays paused until the
+  /// timeout timer, a resume or a record ends or resumes it.
   paused,
 }
 
@@ -41,7 +42,9 @@ enum SessionState {
 class SessionManager {
   /// {@macro amplify_event_enrichment.session_manager}
   ///
-  /// [generateId] must return at least 8 characters, typically a UUID v4.
+  /// Session IDs start with the first 8 characters of [appId], left-padded
+  /// with `_` when shorter. [generateId] must return at least 8 characters,
+  /// typically a UUID v4.
   SessionManager({
     required String appId,
     required Duration sessionTimeout,
