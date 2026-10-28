@@ -43,16 +43,19 @@ final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
   /// Application-defined type serialized as `event_type`.
   final String eventType;
 
-  /// Milliseconds since epoch when the event was recorded.
+  /// Recording time in milliseconds since epoch, serialized as
+  /// `event_timestamp` and `arrival_timestamp`.
   final int eventTimestamp;
 
-  /// Session active at the time of recording.
+  /// Session the event belongs to, serialized in the `session` section.
   final Session session;
 
-  /// Merged attributes (globals + per-event).
+  /// Global and per-event attributes, per-event winning on a shared key.
+  /// Serialized as `attributes`, omitted when empty.
   final Map<String, String> attributes;
 
-  /// Merged metrics (globals + per-event).
+  /// Global and per-event metrics, per-event winning on a shared key.
+  /// Serialized as `metrics`, omitted when empty.
   final Map<String, double> metrics;
 
   /// Device context serialized in the `device` envelope section.
@@ -64,7 +67,7 @@ final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
   /// SDK identity serialized under `application.sdk`.
   final SdkMetadata sdk;
 
-  /// Persistent client/device identifier.
+  /// Install-level identifier serialized as `client.client_id`.
   final String clientId;
 
   /// User identifier serialized as `client.user_id` when non-null.

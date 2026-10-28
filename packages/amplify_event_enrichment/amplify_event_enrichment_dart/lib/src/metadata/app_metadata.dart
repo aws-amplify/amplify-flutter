@@ -18,19 +18,19 @@ final class AppMetadata with AWSEquatable<AppMetadata>, AWSDebuggable {
     this.title,
   });
 
-  /// Application identifier used in the event envelope.
+  /// Serialized as `application.app_id` and used as the session ID prefix.
   final String appId;
 
-  /// Application package name.
+  /// Serialized as `application.package_name` when non-null.
   final String? packageName;
 
-  /// Application version name.
+  /// Serialized as `application.version_name` when non-null.
   final String? versionName;
 
-  /// Application version code.
+  /// Serialized as `application.version_code` when non-null.
   final String? versionCode;
 
-  /// Application display title.
+  /// Display title serialized as `application.title` when non-null.
   final String? title;
 
   @override

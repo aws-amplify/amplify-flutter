@@ -117,7 +117,8 @@ class EventEnrichmentClient {
   // not stall the ones behind it.
   Future<void> _sendTail = Future<void>.value();
 
-  /// Whether the client has been closed.
+  /// `true` once [close] is called. [record] then returns an
+  /// [EventEnrichmentClosedException] error.
   bool get isClosed => _closed;
 
   /// Records an event and returns the enriched result, starting or replacing
@@ -249,14 +250,16 @@ class EventEnrichmentClient {
     return _sessionManager.stopSession();
   }
 
-  /// Called when the app moves to background. No-op once the client is closed.
+  /// Pauses the session when the app moves to background. It ends if the app
+  /// stays there for the session timeout. No-op once the client is closed.
   void handleAppPaused() {
     if (_closed) return;
     _sessionManager.handleAppPaused();
   }
 
-  /// Called when the app returns to foreground. No-op once the client is
-  /// closed.
+  /// Resumes the session when the app returns to foreground, or replaces it
+  /// after a pause longer than the session timeout. Does nothing after [close],
+  /// or after [stopSession] until the next [record] or [startSession].
   void handleAppResumed() {
     if (_closed) return;
     _sessionManager.handleAppResumed();

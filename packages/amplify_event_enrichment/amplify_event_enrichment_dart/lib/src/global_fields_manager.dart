@@ -15,11 +15,11 @@ class GlobalFieldsManager {
   final Map<String, String> _attributes = {};
   final Map<String, double> _metrics = {};
 
-  /// Current global attributes (unmodifiable view).
+  /// Read-only live view of the global attributes.
   UnmodifiableMapView<String, String> get attributes =>
       UnmodifiableMapView(_attributes);
 
-  /// Current global metrics (unmodifiable view).
+  /// Read-only live view of the global metrics.
   UnmodifiableMapView<String, double> get metrics =>
       UnmodifiableMapView(_metrics);
 

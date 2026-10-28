@@ -134,7 +134,8 @@ class EventEnrichmentClientFlutter {
   final EventEnrichmentClient _delegate;
   final FlutterLifecycleObserver? _lifecycleObserver;
 
-  /// Whether the client has been closed.
+  /// `true` once [close] is called. [record] then returns an
+  /// [EventEnrichmentClosedException] error.
   bool get isClosed => _delegate.isClosed;
 
   /// Records an event and returns the enriched result. Never throws; see
@@ -156,12 +157,14 @@ class EventEnrichmentClientFlutter {
 
   /// Called when the app moves to background. Only needed when
   /// [EventEnrichmentClientOptions.autoSessionTracking] is `false`; otherwise
-  /// [FlutterLifecycleObserver] calls this.
+  /// [FlutterLifecycleObserver] calls this. See
+  /// [EventEnrichmentClient.handleAppPaused].
   void handleAppPaused() => _delegate.handleAppPaused();
 
   /// Called when the app returns to foreground. Only needed when
   /// [EventEnrichmentClientOptions.autoSessionTracking] is `false`; otherwise
-  /// [FlutterLifecycleObserver] calls this.
+  /// [FlutterLifecycleObserver] calls this. See
+  /// [EventEnrichmentClient.handleAppResumed].
   void handleAppResumed() => _delegate.handleAppResumed();
 
   /// Sets the user identifier stamped on subsequent events. Pass

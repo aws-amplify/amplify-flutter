@@ -13,7 +13,9 @@ import 'package:amplify_event_enrichment_dart/src/metadata/device_metadata_stub.
 /// `device_info_plus` for model and manufacturer.
 /// {@endtemplate}
 abstract interface class DeviceMetadataProvider {
-  /// Returns device metadata for the current platform.
+  /// Returns device metadata for the current platform. If this throws,
+  /// `EventEnrichmentClientFlutter.create` logs a warning and uses empty
+  /// metadata.
   Future<DeviceMetadata> getDeviceMetadata();
 }
 

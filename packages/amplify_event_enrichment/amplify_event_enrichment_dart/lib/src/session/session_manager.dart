@@ -70,7 +70,7 @@ class SessionManager {
   bool _stoppedExplicitly = false;
   bool _disposed = false;
 
-  /// Current session state.
+  /// Current state. Every transition updates it synchronously.
   SessionState get state => _state;
 
   /// Current session, or `null` if none has started yet or [clearSession]

@@ -17,16 +17,18 @@ final class Session with AWSEquatable<Session>, AWSDebuggable {
     this.duration,
   });
 
-  /// Unique session identifier.
+  /// Session identifier serialized as `session.id`.
   final String id;
 
-  /// ISO 8601 UTC timestamp when the session started.
+  /// ISO 8601 UTC start time serialized as `session.start_timestamp`.
   final String startTimestamp;
 
-  /// ISO 8601 UTC timestamp when the session stopped.
+  /// ISO 8601 UTC stop time serialized as `session.stop_timestamp`, `null`
+  /// until the session ends.
   final String? stopTimestamp;
 
-  /// Duration of the session in milliseconds.
+  /// Milliseconds from start to stop serialized as `session.duration`, `null`
+  /// until the session ends.
   final int? duration;
 
   @override

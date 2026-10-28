@@ -18,19 +18,21 @@ final class DeviceMetadata with AWSEquatable<DeviceMetadata>, AWSDebuggable {
     this.locale,
   });
 
-  /// Platform name (e.g. "iOS", "Android").
+  /// Platform name (e.g. "iOS") serialized as `device.platform.name`.
+  /// `device.platform` is omitted when this and [platformVersion] are null.
   final String? platform;
 
-  /// Platform OS version.
+  /// OS version serialized as `device.platform.version` when non-null.
   final String? platformVersion;
 
-  /// Device manufacturer (e.g. "Apple", "Samsung").
+  /// Manufacturer (e.g. "Apple") serialized as `device.make` when non-null.
   final String? manufacturer;
 
-  /// Device model (e.g. "iPhone", "SM-G900F").
+  /// Model (e.g. "iPhone") serialized as `device.model` when non-null.
   final String? model;
 
-  /// Device locale code (e.g. "en_US").
+  /// Locale code (e.g. "en_US") serialized as `device.locale.code` when
+  /// non-null.
   final String? locale;
 
   @override

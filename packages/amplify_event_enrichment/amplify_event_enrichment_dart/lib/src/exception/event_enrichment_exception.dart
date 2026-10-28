@@ -4,7 +4,8 @@
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 
 /// {@template amplify_event_enrichment.event_enrichment_exception}
-/// Base exception for Amplify Event Enrichment errors.
+/// Sealed base of the errors `EventEnrichmentClient.record` returns, so a
+/// switch over its subtypes is exhaustive.
 /// {@endtemplate}
 sealed class EventEnrichmentException extends AmplifyException {
   /// {@macro amplify_event_enrichment.event_enrichment_exception}

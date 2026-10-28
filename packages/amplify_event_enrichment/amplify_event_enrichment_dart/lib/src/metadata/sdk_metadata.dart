@@ -12,10 +12,10 @@ final class SdkMetadata with AWSEquatable<SdkMetadata>, AWSDebuggable {
   /// {@macro amplify_event_enrichment.sdk_metadata}
   const SdkMetadata({required this.name, required this.version});
 
-  /// SDK name (e.g. "amplify-flutter").
+  /// SDK name (e.g. "amplify-flutter") serialized as `application.sdk.name`.
   final String name;
 
-  /// SDK version string.
+  /// SDK version serialized as `application.sdk.version`.
   final String version;
 
   @override

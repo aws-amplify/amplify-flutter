@@ -5,7 +5,9 @@ import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart
 import 'package:flutter/widgets.dart';
 
 /// {@template amplify_event_enrichment.flutter_lifecycle_observer}
-/// Bridges Flutter lifecycle changes to [SessionManager].
+/// Registers with [WidgetsBinding] and maps `paused` and `hidden` to
+/// [SessionManager.handleAppPaused] and `resumed` to
+/// [SessionManager.handleAppResumed]. Other states are ignored.
 /// {@endtemplate}
 class FlutterLifecycleObserver
     with WidgetsBindingObserver
