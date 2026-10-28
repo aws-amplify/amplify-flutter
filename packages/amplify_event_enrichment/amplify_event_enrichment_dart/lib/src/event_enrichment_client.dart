@@ -124,7 +124,8 @@ class EventEnrichmentClient {
 
   /// The session manager for this client, for platform-specific lifecycle
   /// observers, which should only call its lifecycle handlers. [close] clears
-  /// it, so it reports no further boundaries; see [SessionManager.clearSession].
+  /// it, so it reports no further boundaries; see
+  /// [SessionManager.clearSession].
   SessionManager get sessionManager => _sessionManager;
 
   String? _userId;

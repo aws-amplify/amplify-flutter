@@ -82,9 +82,17 @@ class EventEnrichmentClientFlutter {
     for (final MapEntry(:key, :value)
         in (initialGlobalMetrics ?? const {}).entries) {
       if (!value.isFinite) {
-        throw ArgumentError.value(value, key, 'Metric must be finite');
+        throw ArgumentError.value(
+          value,
+          'initialGlobalMetrics',
+          'Metric "$key" must be finite',
+        );
       }
     }
+    // Read before the providers, so a missing binding throws before a client
+    // ID is persisted.
+    final binding = opts.autoSessionTracking ? WidgetsBinding.instance : null;
+
     final metadataProvider =
         deviceMetadataProvider ?? const PlatformDeviceMetadataProvider();
     final idProvider =
@@ -119,11 +127,9 @@ class EventEnrichmentClientFlutter {
 
     // The awaits above can span a background transition the observer was not
     // there to see, so the launch session is seeded from the state the app is
-    // in now. Read before the client exists, so a missing binding throws
-    // before a launch session is queued.
+    // in now.
     final backgrounded =
-        opts.autoSessionTracking &&
-        _isBackgrounded(WidgetsBinding.instance.lifecycleState);
+        binding != null && _isBackgrounded(binding.lifecycleState);
 
     final delegate = EventEnrichmentClient(
       appMetadata: appMetadata ?? AppMetadata(appId: appId),

@@ -28,9 +28,9 @@ final class EventEnrichmentClientOptions
   final bool autoSessionTracking;
 
   /// How long the app may stay backgrounded before the session ends and the
-  /// next foreground starts a new one. Zero ends the session as soon as the app
-  /// is backgrounded. The client throws an [ArgumentError] for a negative
-  /// value.
+  /// next foreground starts a new one. Zero ends the session on the next timer
+  /// tick after backgrounding. The client throws an [ArgumentError] for a
+  /// negative value.
   ///
   /// Defaults to 5 seconds.
   final Duration sessionTimeout;

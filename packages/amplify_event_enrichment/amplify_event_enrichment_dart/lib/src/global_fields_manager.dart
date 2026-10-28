@@ -33,7 +33,7 @@ class GlobalFieldsManager {
   /// [ArgumentError] if [value] is NaN or infinite.
   void addMetric(String key, double value) {
     if (!value.isFinite) {
-      throw ArgumentError.value(value, key, 'Metric must be finite');
+      throw ArgumentError.value(value, 'value', 'Metric "$key" must be finite');
     }
     _metrics[key] = value;
   }

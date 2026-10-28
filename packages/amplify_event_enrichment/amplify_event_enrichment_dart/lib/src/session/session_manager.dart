@@ -27,8 +27,10 @@ enum SessionState {
   /// A session is running and the app is not known to be backgrounded.
   active,
 
-  /// The app was backgrounded during the session. It stays paused until the
-  /// timeout timer, a resume or a record ends or resumes it.
+  /// The app was backgrounded during the session. A resume within the timeout
+  /// makes it active again. It ends once the pause outlasts the timeout (on the
+  /// timer, a resume or a record), or on [SessionManager.startSession] or
+  /// [SessionManager.stopSession].
   paused,
 }
 
