@@ -69,6 +69,7 @@ class SessionManager {
   SessionState _state = SessionState.stopped;
   Session? _session;
   Timer? _pauseTimer;
+  int _pauseGeneration = 0;
   DateTime? _sessionStart;
   DateTime? _pausedAt;
   bool _backgrounded = false;
@@ -189,7 +190,11 @@ class SessionManager {
   void _pauseCurrent() {
     _state = SessionState.paused;
     _pausedAt = clock.now();
-    _pauseTimer = timerFactory(_sessionTimeout, _onTimeoutExpired);
+    final generation = ++_pauseGeneration;
+    _pauseTimer = timerFactory(
+      _sessionTimeout,
+      () => _onTimeoutExpired(generation),
+    );
   }
 
   // Returns the new session with the future that reports its start. Any prior
@@ -250,9 +255,9 @@ class SessionManager {
     );
   }
 
-  void _onTimeoutExpired() {
-    // A timer that outlived its pause must not end the session after it.
-    if (_state != SessionState.paused) return;
+  void _onTimeoutExpired(int generation) {
+    // A timer that outlived its pause must not end the session or a later one.
+    if (_state != SessionState.paused || generation != _pauseGeneration) return;
     final ended = _endCurrent();
     if (ended == null) return;
     _fireAndLog(ended, 'Failed to report the end of a session that timed out');

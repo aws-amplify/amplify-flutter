@@ -628,6 +628,57 @@ void main() {
           expect(stale.state, SessionState.stopped);
         });
       });
+
+      test('does not end a later pause of the same session', () {
+        fakeAsync((async) {
+          final stale = staleTimerManager()..startSession();
+          final paused = stale.session!;
+
+          stale.handleAppPaused();
+          async.elapse(const Duration(seconds: 3));
+          stale
+            ..handleAppResumed()
+            ..handleAppPaused();
+          async.elapse(const Duration(seconds: 1));
+
+          // The first pause's timer fires during the second pause.
+          armed.first();
+          async.flushMicrotasks();
+
+          expect(stale.state, SessionState.paused);
+          expect(stale.session!.id, paused.id);
+          expect(ended, isEmpty, reason: 'the second pause has not timed out');
+
+          armed.last();
+          async.flushMicrotasks();
+
+          expect(stale.state, SessionState.stopped);
+          expect(ended.map((s) => s.id), [paused.id]);
+        });
+      });
+
+      test('does not end a pause of a session started after it', () {
+        fakeAsync((async) {
+          final stale = staleTimerManager()..startSession();
+          final first = stale.session!;
+
+          stale.handleAppPaused();
+          async.elapse(timeout);
+          // The resume outlasted the timeout, so it starts a new session.
+          stale.handleAppResumed();
+          final second = stale.session!;
+          stale.handleAppPaused();
+          async.flushMicrotasks();
+          expect(ended.map((s) => s.id), [first.id]);
+
+          armed.first();
+          async.flushMicrotasks();
+
+          expect(stale.state, SessionState.paused);
+          expect(stale.session!.id, second.id);
+          expect(ended.map((s) => s.id), [first.id]);
+        });
+      });
     });
 
     group('a session dropped while its start is still reporting', () {
