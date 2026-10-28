@@ -10,8 +10,8 @@ import 'package:uuid/uuid.dart';
 ///
 /// The ID must be stable for the lifetime of the install. If
 /// [getClientId] throws or returns an empty ID,
-/// `EventEnrichmentClientFlutter.create` logs a warning and uses an ephemeral
-/// ID shared by every client in the isolate.
+/// `EventEnrichmentClientFlutter.create` logs a warning and uses one ephemeral
+/// ID for every client in the isolate that falls back.
 /// {@endtemplate}
 // ignore: one_member_abstracts
 abstract interface class ClientIdProvider {
@@ -24,16 +24,18 @@ abstract interface class ClientIdProvider {
 /// Reads or creates a persistent client ID at [zClientIdStorageKey] in
 /// SharedPreferences.
 ///
-/// Concurrent calls in one isolate share one lookup and get the ID only once
-/// it is persisted. The Connect client reads the same key itself and can see
-/// an ID while a write is pending. Separate isolates do not share this state.
+/// Concurrent calls in one isolate share one lookup, and an ID this provider
+/// creates is returned only once it is persisted. The Connect client writes the
+/// same key itself, so either package can read the other's ID while that write
+/// is pending. Separate isolates do not share this state.
 /// {@endtemplate}
 class SharedPreferencesClientIdProvider implements ClientIdProvider {
   /// {@macro amplify_event_enrichment.shared_preferences_client_id_provider}
   const SharedPreferencesClientIdProvider();
 
   /// Returns the stored ID, or creates and stores one when it is absent or
-  /// empty. Throws a [StateError] if the platform rejects that write.
+  /// empty. Throws a [StateError] if the platform rejects that write, or the
+  /// platform's error if it throws.
   @override
   Future<String> getClientId() =>
       _pending ??= _readOrCreate().whenComplete(() => _pending = null);
@@ -45,9 +47,16 @@ class SharedPreferencesClientIdProvider implements ClientIdProvider {
     final existing = prefs.getString(zClientIdStorageKey);
     if (existing != null && existing.isNotEmpty) return existing;
     final id = const Uuid().v4();
-    final persisted = await prefs.setString(zClientIdStorageKey, id);
+    // The cache already holds the ID, so later reads would see it as stored
+    // unless a failed write removes it.
+    final bool persisted;
+    try {
+      persisted = await prefs.setString(zClientIdStorageKey, id);
+    } on Object {
+      await prefs.remove(zClientIdStorageKey);
+      rethrow;
+    }
     if (!persisted) {
-      // The cache already holds the ID, so later reads would see it as stored.
       await prefs.remove(zClientIdStorageKey);
       throw StateError('Failed to persist the client ID');
     }

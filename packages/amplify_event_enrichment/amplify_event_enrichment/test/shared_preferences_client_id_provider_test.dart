@@ -17,6 +17,15 @@ class _RejectingStore extends InMemorySharedPreferencesStore {
       false;
 }
 
+/// A store whose writes throw.
+class _ThrowingStore extends InMemorySharedPreferencesStore {
+  _ThrowingStore() : super.empty();
+
+  @override
+  Future<bool> setValue(String valueType, String key, Object value) async =>
+      throw Exception('platform failure');
+}
+
 /// A store whose writes wait for [gate], then succeed only if [accept].
 class _GatedStore extends InMemorySharedPreferencesStore {
   _GatedStore({required this.accept}) : super.empty();
@@ -94,6 +103,18 @@ void main() {
       SharedPreferencesStorePlatform.instance = _RejectingStore();
 
       await expectLater(provider.getClientId(), throwsStateError);
+      final prefs = await SharedPreferences.getInstance();
+      expect(
+        prefs.getString(zClientIdStorageKey),
+        isNull,
+        reason: 'an unpersisted ID must not stay readable from the cache',
+      );
+    });
+
+    test('rethrows when the platform write throws', () async {
+      SharedPreferencesStorePlatform.instance = _ThrowingStore();
+
+      await expectLater(provider.getClientId(), throwsException);
       final prefs = await SharedPreferences.getInstance();
       expect(
         prefs.getString(zClientIdStorageKey),
