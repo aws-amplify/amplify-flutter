@@ -251,18 +251,18 @@ class EventEnrichmentClient {
   // ignore: use_setters_to_change_properties
   void setUserId(String? userId) => _userId = userId;
 
-  /// Adds a global attribute stamped on every subsequent event.
+  /// Sets a global attribute on subsequent events, replacing [key].
   void addGlobalAttribute(String key, String value) =>
       _globalFields.addAttribute(key, value);
 
-  /// Removes a global attribute.
+  /// Removes [key] from subsequent events without changing recorded events.
   void removeGlobalAttribute(String key) => _globalFields.removeAttribute(key);
 
-  /// Adds a global metric stamped on every subsequent event.
+  /// Sets a global metric on subsequent events, replacing [key].
   void addGlobalMetric(String key, double value) =>
       _globalFields.addMetric(key, value);
 
-  /// Removes a global metric.
+  /// Removes [key] from subsequent events without changing recorded events.
   void removeGlobalMetric(String key) => _globalFields.removeMetric(key);
 
   /// Ends any running session and releases resources. When session events are

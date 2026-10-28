@@ -40,7 +40,7 @@ final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
   /// Analytics envelope has no field for it.
   final String eventId;
 
-  /// Type of the event.
+  /// Application-defined type serialized as `event_type`.
   final String eventType;
 
   /// Milliseconds since epoch when the event was recorded.
@@ -55,19 +55,19 @@ final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
   /// Merged metrics (globals + per-event).
   final Map<String, double> metrics;
 
-  /// Device metadata.
+  /// Device context serialized in the `device` envelope section.
   final DeviceMetadata device;
 
-  /// Application metadata.
+  /// Application context serialized in the `application` envelope section.
   final AppMetadata app;
 
-  /// SDK metadata.
+  /// SDK identity serialized under `application.sdk`.
   final SdkMetadata sdk;
 
   /// Persistent client/device identifier.
   final String clientId;
 
-  /// Optional user identifier.
+  /// User identifier serialized as `client.user_id` when non-null.
   final String? userId;
 
   @override

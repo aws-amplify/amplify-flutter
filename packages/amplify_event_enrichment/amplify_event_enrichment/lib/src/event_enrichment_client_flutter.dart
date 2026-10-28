@@ -168,19 +168,19 @@ class EventEnrichmentClientFlutter {
   /// events are enabled.
   void setUserId(String? userId) => _delegate.setUserId(userId);
 
-  /// Adds a global attribute stamped on every subsequent event.
+  /// Sets a global attribute on subsequent events, replacing [key].
   void addGlobalAttribute(String key, String value) =>
       _delegate.addGlobalAttribute(key, value);
 
-  /// Removes a global attribute.
+  /// Removes [key] from subsequent events without changing recorded events.
   void removeGlobalAttribute(String key) =>
       _delegate.removeGlobalAttribute(key);
 
-  /// Adds a global metric stamped on every subsequent event.
+  /// Sets a global metric on subsequent events, replacing [key].
   void addGlobalMetric(String key, double value) =>
       _delegate.addGlobalMetric(key, value);
 
-  /// Removes a global metric.
+  /// Removes [key] from subsequent events without changing recorded events.
   void removeGlobalMetric(String key) => _delegate.removeGlobalMetric(key);
 
   /// Ends any running session, removes the lifecycle observer, and releases

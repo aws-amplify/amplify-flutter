@@ -23,15 +23,15 @@ class GlobalFieldsManager {
   UnmodifiableMapView<String, double> get metrics =>
       UnmodifiableMapView(_metrics);
 
-  /// Adds a global attribute.
+  /// Sets a global attribute, replacing any value for [key].
   void addAttribute(String key, String value) => _attributes[key] = value;
 
-  /// Removes a global attribute by key.
+  /// Removes [key], with no effect when it is absent.
   void removeAttribute(String key) => _attributes.remove(key);
 
-  /// Adds a global metric.
+  /// Sets a global metric, replacing any value for [key].
   void addMetric(String key, double value) => _metrics[key] = value;
 
-  /// Removes a global metric by key.
+  /// Removes [key], with no effect when it is absent.
   void removeMetric(String key) => _metrics.remove(key);
 }
