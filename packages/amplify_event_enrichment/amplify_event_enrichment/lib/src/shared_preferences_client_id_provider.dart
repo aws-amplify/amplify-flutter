@@ -43,6 +43,8 @@ class SharedPreferencesClientIdProvider implements ClientIdProvider {
     final id = const Uuid().v4();
     final persisted = await prefs.setString(zClientIdStorageKey, id);
     if (!persisted) {
+      // The cache already holds the ID, so later reads would see it as stored.
+      await prefs.remove(zClientIdStorageKey);
       throw StateError('Failed to persist the client ID');
     }
     return id;

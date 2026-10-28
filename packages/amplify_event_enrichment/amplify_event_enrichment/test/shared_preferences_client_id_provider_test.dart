@@ -76,6 +76,12 @@ void main() {
       SharedPreferencesStorePlatform.instance = _RejectingStore();
 
       await expectLater(provider.getClientId(), throwsStateError);
+      final prefs = await SharedPreferences.getInstance();
+      expect(
+        prefs.getString(zClientIdStorageKey),
+        isNull,
+        reason: 'an unpersisted ID must not stay readable from the cache',
+      );
     });
   });
 }

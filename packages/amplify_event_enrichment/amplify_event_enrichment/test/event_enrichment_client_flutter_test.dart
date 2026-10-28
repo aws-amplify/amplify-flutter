@@ -154,6 +154,10 @@ void main() {
         ),
         hasLength(1),
       );
+      // Another reader of the key must not see an ID that differs from the
+      // ephemeral one this client uses.
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString(zClientIdStorageKey), isNull);
     });
 
     test(
@@ -221,6 +225,8 @@ void main() {
           ),
         ),
       );
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString(zClientIdStorageKey), isNull);
     });
 
     test('uses appMetadata when its appId matches appId', () async {
