@@ -121,6 +121,26 @@ void main() {
       expect(event.clientId, isNotEmpty);
     });
 
+    test('clients share one ephemeral ID when the provider fails', () async {
+      final clients = [
+        for (var i = 0; i < 2; i++)
+          await EventEnrichmentClientFlutter.create(
+            appId: 'test-app',
+            sdkMetadata: sdk,
+            clientIdProvider: _ThrowingClientIdProvider(),
+          ),
+      ];
+      for (final client in clients) {
+        addTearDown(client.close);
+      }
+
+      final ids = [
+        for (final client in clients)
+          ((await client.record('event')) as Ok<EnrichedEvent>).value.clientId,
+      ];
+      expect(ids.toSet(), hasLength(1));
+    });
+
     test('defaults to the shared preferences client ID', () async {
       final client = await EventEnrichmentClientFlutter.create(
         appId: 'test-app',

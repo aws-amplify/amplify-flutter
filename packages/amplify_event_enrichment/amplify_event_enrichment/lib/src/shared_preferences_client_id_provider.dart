@@ -11,7 +11,7 @@ import 'package:uuid/uuid.dart';
 /// The ID must be stable for the lifetime of the install. If
 /// [getClientId] throws or returns an empty ID,
 /// `EventEnrichmentClientFlutter.create` logs a warning and uses an ephemeral
-/// ID for that client.
+/// ID shared by every client in the isolate.
 /// {@endtemplate}
 // ignore: one_member_abstracts
 abstract interface class ClientIdProvider {
@@ -24,10 +24,9 @@ abstract interface class ClientIdProvider {
 /// Reads or creates a persistent client ID at [zClientIdStorageKey] in
 /// SharedPreferences.
 ///
-/// The Connect client reads or creates the same key the same way. Both use
-/// the per-isolate `SharedPreferences.getInstance()` cache, which a write
-/// updates before awaiting the platform, so concurrent calls in one isolate
-/// resolve one ID. Separate isolates do not share that cache and can race.
+/// Concurrent calls in one isolate share one lookup and get the ID only once
+/// it is persisted. The Connect client reads the same key itself and can see
+/// an ID while a write is pending. Separate isolates do not share this state.
 /// {@endtemplate}
 class SharedPreferencesClientIdProvider implements ClientIdProvider {
   /// {@macro amplify_event_enrichment.shared_preferences_client_id_provider}
@@ -36,7 +35,12 @@ class SharedPreferencesClientIdProvider implements ClientIdProvider {
   /// Returns the stored ID, or creates and stores one when it is absent or
   /// empty. Throws a [StateError] if the platform rejects that write.
   @override
-  Future<String> getClientId() async {
+  Future<String> getClientId() =>
+      _pending ??= _readOrCreate().whenComplete(() => _pending = null);
+
+  static Future<String>? _pending;
+
+  Future<String> _readOrCreate() async {
     final prefs = await SharedPreferences.getInstance();
     final existing = prefs.getString(zClientIdStorageKey);
     if (existing != null && existing.isNotEmpty) return existing;

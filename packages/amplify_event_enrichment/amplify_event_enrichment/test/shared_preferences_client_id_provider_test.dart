@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +15,22 @@ class _RejectingStore extends InMemorySharedPreferencesStore {
   @override
   Future<bool> setValue(String valueType, String key, Object value) async =>
       false;
+}
+
+/// A store whose writes wait for [gate], then succeed only if [accept].
+class _GatedStore extends InMemorySharedPreferencesStore {
+  _GatedStore({required this.accept}) : super.empty();
+
+  bool accept;
+  final Completer<void> gate = Completer();
+  int writes = 0;
+
+  @override
+  Future<bool> setValue(String valueType, String key, Object value) async {
+    writes++;
+    await gate.future;
+    return accept && await super.setValue(valueType, key, value);
+  }
 }
 
 // A second package reading or creating the same key through the same
@@ -82,6 +100,61 @@ void main() {
         isNull,
         reason: 'an unpersisted ID must not stay readable from the cache',
       );
+    });
+
+    group('concurrent calls while the write is pending', () {
+      test('get the ID only once it is persisted', () async {
+        final store = _GatedStore(accept: true);
+        SharedPreferencesStorePlatform.instance = store;
+
+        var resolved = 0;
+        final calls = List.generate(
+          5,
+          (_) => provider.getClientId().whenComplete(() => resolved++),
+        );
+        await Future<void>.delayed(Duration.zero);
+        expect(resolved, 0, reason: 'the write has not been confirmed');
+        expect(store.writes, 1);
+
+        store.gate.complete();
+        final ids = await Future.wait(calls);
+
+        expect(ids.toSet(), hasLength(1));
+        expect(
+          (await store.getAll())['flutter.$zClientIdStorageKey'],
+          ids.first,
+        );
+      });
+
+      test('all throw when the write is rejected', () async {
+        final store = _GatedStore(accept: false);
+        SharedPreferencesStorePlatform.instance = store;
+
+        final calls = List.generate(5, (_) => provider.getClientId());
+        await Future<void>.delayed(Duration.zero);
+        store.gate.complete();
+
+        for (final call in calls) {
+          await expectLater(call, throwsStateError);
+        }
+        expect(store.writes, 1);
+        expect(await store.getAll(), isEmpty);
+        final prefs = await SharedPreferences.getInstance();
+        expect(prefs.getString(zClientIdStorageKey), isNull);
+      });
+
+      test('a later call retries after a rejected write', () async {
+        final store = _GatedStore(accept: false);
+        SharedPreferencesStorePlatform.instance = store;
+        store.gate.complete();
+        await expectLater(provider.getClientId(), throwsStateError);
+
+        store.accept = true;
+        final id = await provider.getClientId();
+
+        expect(store.writes, 2);
+        expect((await store.getAll())['flutter.$zClientIdStorageKey'], id);
+      });
     });
   });
 }

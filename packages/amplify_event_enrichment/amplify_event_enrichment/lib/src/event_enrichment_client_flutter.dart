@@ -117,7 +117,7 @@ class EventEnrichmentClientFlutter {
       clientId = await idProvider.getClientId();
       if (clientId.isEmpty) throw StateError('Client ID provider returned ""');
     } on Object catch (e, st) {
-      clientId = const Uuid().v4();
+      clientId = _ephemeralClientId;
       logger.warn(
         'Failed to resolve a persistent client ID; using an ephemeral one.',
         e,
@@ -153,6 +153,9 @@ class EventEnrichmentClientFlutter {
 
     return EventEnrichmentClientFlutter._(delegate, lifecycleObserver);
   }
+
+  // Shared so every client in the isolate agrees when none could be persisted.
+  static final String _ephemeralClientId = const Uuid().v4();
 
   // Mirrors FlutterLifecycleObserver's mapping. Null until the first lifecycle
   // message arrives, which is treated as the foreground.
