@@ -61,6 +61,18 @@ void main() {
       );
     });
 
+    for (final value in [
+      double.nan,
+      double.infinity,
+      double.negativeInfinity,
+    ]) {
+      test('addMetric throws for $value and keeps the old value', () {
+        manager.addMetric('m', 1);
+        expect(() => manager.addMetric('m', value), throwsArgumentError);
+        expect(manager.metrics, {'m': 1.0});
+      });
+    }
+
     test('metrics view is unmodifiable', () {
       manager.addMetric('key', 1);
       expect(

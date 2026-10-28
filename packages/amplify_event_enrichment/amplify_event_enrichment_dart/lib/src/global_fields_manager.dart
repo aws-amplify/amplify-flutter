@@ -29,8 +29,14 @@ class GlobalFieldsManager {
   /// Removes [key], with no effect when it is absent.
   void removeAttribute(String key) => _attributes.remove(key);
 
-  /// Sets a global metric, replacing any value for [key].
-  void addMetric(String key, double value) => _metrics[key] = value;
+  /// Sets a global metric, replacing any value for [key]. Throws an
+  /// [ArgumentError] if [value] is NaN or infinite.
+  void addMetric(String key, double value) {
+    if (!value.isFinite) {
+      throw ArgumentError.value(value, key, 'Metric must be finite');
+    }
+    _metrics[key] = value;
+  }
 
   /// Removes [key], with no effect when it is absent.
   void removeMetric(String key) => _metrics.remove(key);

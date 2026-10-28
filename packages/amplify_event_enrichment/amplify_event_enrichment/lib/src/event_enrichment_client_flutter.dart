@@ -42,7 +42,8 @@ class EventEnrichmentClientFlutter {
   /// Initial user and global values are applied before automatic session
   /// creation and appear in its start event when session events are enabled.
   ///
-  /// Throws an [ArgumentError] if `appMetadata.appId` differs from [appId].
+  /// Throws an [ArgumentError] if `appMetadata.appId` differs from [appId] or
+  /// `initialGlobalMetrics` has a NaN or infinite value.
   static Future<EventEnrichmentClientFlutter> create({
     required String appId,
     required SdkMetadata sdkMetadata,
@@ -176,7 +177,8 @@ class EventEnrichmentClientFlutter {
   void removeGlobalAttribute(String key) =>
       _delegate.removeGlobalAttribute(key);
 
-  /// Sets a global metric on subsequent events, replacing [key].
+  /// Sets a global metric on subsequent events, replacing [key]. Throws an
+  /// [ArgumentError] if [value] is NaN or infinite.
   void addGlobalMetric(String key, double value) =>
       _delegate.addGlobalMetric(key, value);
 

@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:convert';
+
 import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:test/test.dart';
@@ -265,5 +267,92 @@ void main() {
         );
       },
     );
+  });
+
+  group('EventEnrichmentClient non-finite metrics', () {
+    const app = AppMetadata(appId: 'testApp1');
+    const device = DeviceMetadata();
+    const sdk = SdkMetadata(name: 'amplify-flutter', version: '2.0.0');
+    const nonFinite = [double.nan, double.infinity, double.negativeInfinity];
+
+    late _MockSender sender;
+
+    EventEnrichmentClient newClient({
+      bool autoSessionTracking = true,
+      Map<String, double>? initialGlobalMetrics,
+    }) {
+      final client = EventEnrichmentClient(
+        appMetadata: app,
+        deviceMetadata: device,
+        sdkMetadata: sdk,
+        clientId: 'device-123',
+        initialGlobalMetrics: initialGlobalMetrics,
+        options: EventEnrichmentClientOptions(
+          autoSessionTracking: autoSessionTracking,
+        ),
+        sender: sender,
+      );
+      addTearDown(client.close);
+      return client;
+    }
+
+    setUp(() {
+      sender = _MockSender();
+    });
+
+    for (final value in nonFinite) {
+      test('record() returns a validation error for $value', () async {
+        final client = newClient(autoSessionTracking: false);
+
+        final result = await client.record('m', metrics: {'ok': 1, 'm': value});
+
+        expect(
+          (result as Error<EnrichedEvent>).error,
+          isA<EventEnrichmentValidationException>(),
+        );
+        // Rejected before a session starts, so nothing reaches the sender.
+        expect(sender.events, isEmpty);
+        expect(client.sessionManager.session, isNull);
+      });
+
+      test(
+        'addGlobalMetric throws for $value and keeps the old value',
+        () async {
+          final client = newClient()..addGlobalMetric('g', 1);
+
+          expect(() => client.addGlobalMetric('g', value), throwsArgumentError);
+
+          final event = (await client.record('e') as Ok<EnrichedEvent>).value;
+          expect(event.metrics, {'g': 1.0});
+        },
+      );
+
+      test('constructor throws for an initial global metric of $value', () {
+        expect(
+          () => newClient(initialGlobalMetrics: {'g': value}),
+          throwsArgumentError,
+        );
+        expect(sender.events, isEmpty);
+      });
+    }
+
+    test('session events still encode after a rejected global', () async {
+      final client = newClient(autoSessionTracking: false);
+      expect(
+        () => client.addGlobalMetric('g', double.nan),
+        throwsArgumentError,
+      );
+
+      await client.startSession();
+      await client.stopSession();
+
+      expect(sender.events.map((e) => e.eventType), [
+        zSessionStartEventType,
+        zSessionStopEventType,
+      ]);
+      for (final event in sender.events) {
+        expect(() => jsonEncode(event.toJson()), returnsNormally);
+      }
+    });
   });
 }

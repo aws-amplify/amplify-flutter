@@ -510,4 +510,36 @@ void main() {
       await client.close();
     });
   });
+
+  group('EventEnrichmentClientFlutter non-finite metrics', () {
+    const nonFinite = [double.nan, double.infinity, double.negativeInfinity];
+
+    for (final value in nonFinite) {
+      test('addGlobalMetric throws for $value', () async {
+        final client = await EventEnrichmentClientFlutter.create(
+          appId: 'test-app',
+          sdkMetadata: sdk,
+        );
+        addTearDown(client.close);
+
+        expect(() => client.addGlobalMetric('g', value), throwsArgumentError);
+        final event = (await client.record('e') as Ok<EnrichedEvent>).value;
+        expect(event.metrics, isEmpty);
+      });
+
+      test('create throws for an initial global metric of $value', () async {
+        final sender = _RecordingSender();
+        await expectLater(
+          EventEnrichmentClientFlutter.create(
+            appId: 'test-app',
+            sdkMetadata: sdk,
+            initialGlobalMetrics: {'g': value},
+            sender: sender,
+          ),
+          throwsArgumentError,
+        );
+        expect(sender.events, isEmpty);
+      });
+    }
+  });
 }

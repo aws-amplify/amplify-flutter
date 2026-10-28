@@ -27,6 +27,19 @@ final class EventEnrichmentClosedException extends EventEnrichmentException {
       );
 }
 
+/// {@template amplify_event_enrichment.validation_exception}
+/// Returned as [Result.error] when `record` is given a value the event
+/// envelope cannot encode, such as a NaN or infinite metric. Nothing is sent.
+/// {@endtemplate}
+final class EventEnrichmentValidationException
+    extends EventEnrichmentException {
+  /// {@macro amplify_event_enrichment.validation_exception}
+  const EventEnrichmentValidationException({
+    required super.message,
+    required super.recoverySuggestion,
+  });
+}
+
 /// {@template amplify_event_enrichment.record_exception}
 /// Returned as [Result.error] when recording an event fails unexpectedly.
 ///

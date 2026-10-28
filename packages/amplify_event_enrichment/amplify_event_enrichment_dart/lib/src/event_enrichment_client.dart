@@ -53,6 +53,9 @@ class EventEnrichmentClient {
   ///
   /// Initial user and global values are applied before automatic session
   /// creation and appear in its start event when session events are enabled.
+  ///
+  /// Throws an [ArgumentError] if `initialGlobalMetrics` has a NaN or infinite
+  /// value.
   EventEnrichmentClient({
     required AppMetadata appMetadata,
     required DeviceMetadata deviceMetadata,
@@ -122,6 +125,8 @@ class EventEnrichmentClient {
   ///
   /// Never throws. Returns [Result.error] with:
   /// - [EventEnrichmentClosedException] if the client has been closed
+  /// - [EventEnrichmentValidationException] if a value in [metrics] is NaN or
+  ///   infinite, in which case no event is built or sent
   /// - [EventEnrichmentRecordException] if the event cannot be built or the
   ///   sender fails
   Future<Result<EnrichedEvent>> record(
@@ -131,6 +136,19 @@ class EventEnrichmentClient {
   }) {
     if (_closed) {
       return Future.value(const Result.error(EventEnrichmentClosedException()));
+    }
+    // Rejected before a session can start: JSON cannot encode these values.
+    for (final MapEntry(:key, :value) in (metrics ?? const {}).entries) {
+      if (!value.isFinite) {
+        return Future.value(
+          Result.error(
+            EventEnrichmentValidationException(
+              message: 'Metric "$key" is not finite: $value',
+              recoverySuggestion: 'Pass only finite metric values.',
+            ),
+          ),
+        );
+      }
     }
 
     // Built and queued in this turn, behind the start of its own session.
@@ -258,7 +276,8 @@ class EventEnrichmentClient {
   /// Removes [key] from subsequent events without changing recorded events.
   void removeGlobalAttribute(String key) => _globalFields.removeAttribute(key);
 
-  /// Sets a global metric on subsequent events, replacing [key].
+  /// Sets a global metric on subsequent events, replacing [key]. Throws an
+  /// [ArgumentError] if [value] is NaN or infinite.
   void addGlobalMetric(String key, double value) =>
       _globalFields.addMetric(key, value);
 
