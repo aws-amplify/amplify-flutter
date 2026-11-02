@@ -27,15 +27,18 @@ abstract interface class ClientIdProvider {
 /// Concurrent calls in one isolate share one lookup, and an ID this provider
 /// creates is returned only once it is persisted. The Connect client writes the
 /// same key itself, so either package can read the other's ID while that write
-/// is pending. Separate isolates do not share this state.
+/// is pending. If the other package stores its own ID during this provider's
+/// write, this provider returns that ID. Separate isolates do not share this
+/// state.
 /// {@endtemplate}
 class SharedPreferencesClientIdProvider implements ClientIdProvider {
   /// {@macro amplify_event_enrichment.shared_preferences_client_id_provider}
   const SharedPreferencesClientIdProvider();
 
   /// Returns the stored ID, or creates and stores one when it is absent or
-  /// empty. Throws a [StateError] if the platform rejects that write, or the
-  /// platform's error if it throws.
+  /// empty. If that write fails and no other ID is stored, throws a
+  /// [StateError] when the platform rejects it, or the platform's error if it
+  /// throws.
   @override
   Future<String> getClientId() =>
       _pending ??= _readOrCreate().whenComplete(() => _pending = null);
@@ -48,22 +51,37 @@ class SharedPreferencesClientIdProvider implements ClientIdProvider {
     if (existing != null && existing.isNotEmpty) return existing;
     final id = const Uuid().v4();
     // The cache already holds the ID, so later reads would see it as stored
-    // unless a failed write removes it. Another writer's ID is left in place.
+    // unless a failed write removes it. Another writer's ID is left in place
+    // and returned.
     final bool persisted;
     try {
       persisted = await prefs.setString(zClientIdStorageKey, id);
     } on Object {
-      if (prefs.getString(zClientIdStorageKey) == id) {
-        await prefs.remove(zClientIdStorageKey);
+      if (await _otherIdAfterFailedWrite(prefs, id) case final other?) {
+        return other;
       }
       rethrow;
     }
     if (!persisted) {
-      if (prefs.getString(zClientIdStorageKey) == id) {
-        await prefs.remove(zClientIdStorageKey);
+      if (await _otherIdAfterFailedWrite(prefs, id) case final other?) {
+        return other;
       }
       throw StateError('Failed to persist the client ID');
     }
-    return id;
+    final stored = prefs.getString(zClientIdStorageKey);
+    return stored != null && stored.isNotEmpty ? stored : id;
+  }
+
+  // Removes [id] if the cache still holds it, then returns another writer's ID
+  // if the cache holds one, including one stored while the remove is pending.
+  static Future<String?> _otherIdAfterFailedWrite(
+    SharedPreferences prefs,
+    String id,
+  ) async {
+    if (prefs.getString(zClientIdStorageKey) == id) {
+      await prefs.remove(zClientIdStorageKey);
+    }
+    final stored = prefs.getString(zClientIdStorageKey);
+    return stored != null && stored.isNotEmpty ? stored : null;
   }
 }

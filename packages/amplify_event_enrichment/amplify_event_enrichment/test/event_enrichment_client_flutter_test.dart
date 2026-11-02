@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AmplifyLogging, LogLevel, LogMessage, LogSink, Ok;
@@ -37,6 +39,22 @@ class _RejectingStore extends InMemorySharedPreferencesStore {
   @override
   Future<bool> setValue(String valueType, String key, Object value) async =>
       false;
+}
+
+/// A store that holds the first write until [gate] and rejects it, and
+/// accepts every later write.
+class _RejectFirstStore extends InMemorySharedPreferencesStore {
+  _RejectFirstStore() : super.empty();
+
+  final Completer<void> gate = Completer();
+  int writes = 0;
+
+  @override
+  Future<bool> setValue(String valueType, String key, Object value) async {
+    if (writes++ > 0) return super.setValue(valueType, key, value);
+    await gate.future;
+    return false;
+  }
 }
 
 class _CapturingLogSink implements LogSink {
@@ -178,6 +196,32 @@ void main() {
       // ephemeral one this client uses.
       final prefs = await SharedPreferences.getInstance();
       expect(prefs.getString(zClientIdStorageKey), isNull);
+    });
+
+    test('uses an ID another package stored during a rejected write', () async {
+      final store = _RejectFirstStore();
+      SharedPreferencesStorePlatform.instance = store;
+      final logs = _CapturingLogSink();
+      AmplifyLogging.addSink(logs);
+      addTearDown(() => AmplifyLogging.removeSink(logs));
+
+      final pending = EventEnrichmentClientFlutter.create(
+        appId: 'test-app',
+        sdkMetadata: sdk,
+      );
+      await pumpEventQueue();
+      expect(store.writes, 1, reason: 'the client ID write must be pending');
+      // Another package clears the key and stores a new ID meanwhile.
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(zClientIdStorageKey);
+      expect(await prefs.setString(zClientIdStorageKey, 'other-id'), isTrue);
+      store.gate.complete();
+      final client = await pending;
+      addTearDown(client.close);
+
+      final event = (await client.record('event') as Ok<EnrichedEvent>).value;
+      expect(event.clientId, 'other-id');
+      expect(logs.messages.where((m) => m.level == LogLevel.warn), isEmpty);
     });
 
     test(

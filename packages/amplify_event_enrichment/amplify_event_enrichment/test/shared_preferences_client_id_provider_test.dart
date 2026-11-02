@@ -42,19 +42,55 @@ class _GatedStore extends InMemorySharedPreferencesStore {
   }
 }
 
-/// A store that holds the first write until [gate] and rejects it, and
-/// accepts every later write.
-class _RejectFirstStore extends InMemorySharedPreferencesStore {
-  _RejectFirstStore() : super.empty();
+enum _Outcome {
+  accepted('is accepted'),
+  rejected('is rejected'),
+  throws('throws');
 
+  const _Outcome(this.label);
+
+  final String label;
+}
+
+/// A store that holds the first write until [gate] and then ends it with
+/// [outcome], and accepts every later write. An accepted first write reaches
+/// the store before any later one.
+class _HeldFirstWriteStore extends InMemorySharedPreferencesStore {
+  _HeldFirstWriteStore(this.outcome) : super.empty();
+
+  final _Outcome outcome;
   final Completer<void> gate = Completer();
   int writes = 0;
 
   @override
   Future<bool> setValue(String valueType, String key, Object value) async {
     if (writes++ > 0) return super.setValue(valueType, key, value);
+    final accepted =
+        outcome == _Outcome.accepted &&
+        await super.setValue(valueType, key, value);
     await gate.future;
-    return false;
+    if (outcome == _Outcome.throws) throw Exception('platform failure');
+    return accepted;
+  }
+}
+
+/// A store that rejects the first write, accepts later writes, and holds
+/// every remove until [removeGate]. A remove reaches the store before any
+/// later write.
+class _HeldRemoveStore extends _HeldFirstWriteStore {
+  _HeldRemoveStore() : super(_Outcome.rejected) {
+    gate.complete();
+  }
+
+  final Completer<void> removeGate = Completer();
+  int removes = 0;
+
+  @override
+  Future<bool> remove(String key) async {
+    removes++;
+    final removed = await super.remove(key);
+    await removeGate.future;
+    return removed;
   }
 }
 
@@ -139,25 +175,58 @@ void main() {
       );
     });
 
-    test('a rejected write keeps an ID another package stored', () async {
-      final store = _RejectFirstStore();
-      SharedPreferencesStorePlatform.instance = store;
+    group('another package stores an ID during the write', () {
+      // Another package clears the key and stores a new ID while this write
+      // is pending.
+      Future<String> withCompetingWrite(_HeldFirstWriteStore store) async {
+        SharedPreferencesStorePlatform.instance = store;
+        final call = provider.getClientId();
+        await pumpEventQueue();
+        expect(store.writes, 1, reason: 'this write must be pending');
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove(zClientIdStorageKey);
+        expect(await prefs.setString(zClientIdStorageKey, 'other-id'), isTrue);
+        store.gate.complete();
+        return call;
+      }
 
-      final call = provider.getClientId();
-      await Future<void>.delayed(Duration.zero);
-      // Another package that read the key before this write began stores its
-      // own ID while this write is pending.
-      final prefs = await SharedPreferences.getInstance();
-      expect(await prefs.setString(zClientIdStorageKey, 'other-id'), isTrue);
-      store.gate.complete();
+      for (final outcome in _Outcome.values) {
+        test('returns that ID when this write ${outcome.label}', () async {
+          final store = _HeldFirstWriteStore(outcome);
 
-      await expectLater(call, throwsStateError);
-      expect(prefs.getString(zClientIdStorageKey), 'other-id');
-      expect(
-        (await store.getAll())['flutter.$zClientIdStorageKey'],
-        'other-id',
-      );
+          expect(await withCompetingWrite(store), 'other-id');
+          final prefs = await SharedPreferences.getInstance();
+          expect(prefs.getString(zClientIdStorageKey), 'other-id');
+          expect(
+            (await store.getAll())['flutter.$zClientIdStorageKey'],
+            'other-id',
+          );
+        });
+      }
     });
+
+    test(
+      'returns an ID another package stores while the cleanup is pending',
+      () async {
+        final store = _HeldRemoveStore();
+        SharedPreferencesStorePlatform.instance = store;
+
+        final call = provider.getClientId();
+        await pumpEventQueue();
+        expect(store.removes, 1, reason: 'the cleanup must be pending');
+        // Another package now reads an empty key and stores its own ID.
+        final prefs = await SharedPreferences.getInstance();
+        expect(prefs.getString(zClientIdStorageKey), isNull);
+        expect(await prefs.setString(zClientIdStorageKey, 'other-id'), isTrue);
+        store.removeGate.complete();
+
+        expect(await call, 'other-id');
+        expect(
+          (await store.getAll())['flutter.$zClientIdStorageKey'],
+          'other-id',
+        );
+      },
+    );
 
     group('concurrent calls while the write is pending', () {
       test('get the ID only once it is persisted', () async {
