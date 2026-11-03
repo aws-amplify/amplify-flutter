@@ -148,7 +148,9 @@ class GraphQLRequestFactory {
           // codegen. Instead, just write the value to the document.
           final bLowerOutput = StringBuffer(_openParen);
           for (final field in modelIndex.fields) {
-            var value = modelIdentifier!.serializeAsMap()[field];
+            var value = _getSerializedValue(
+              modelIdentifier!.serializeAsMap()[field],
+            );
             if (value is String) {
               value = '"$value"';
             }
@@ -254,6 +256,14 @@ class GraphQLRequestFactory {
       'limit': limit,
       'nextToken': nextToken,
     };
+  }
+
+  Map<String, dynamic> serializeModelIdentifier({
+    required ModelIdentifier modelIdentifier,
+  }) {
+    return modelIdentifier.serializeAsMap().map(
+      (key, dynamic value) => MapEntry(key, _getSerializedValue(value)),
+    );
   }
 
   Map<String, dynamic> buildVariablesForMutationRequest({
