@@ -115,19 +115,11 @@ jobs:
           PACKAGE: ${{ steps.package.outputs.package }}
         run: aft publish --include "$PACKAGE" --force --prepare-only
 
-      # The prepared package is published from the same workspace without
-      # resolving dependencies or executing third-party builders again.
-      - name: Publish to pub.dev
-        env:
-          PACKAGE: ${{ steps.package.outputs.package }}
-        run: |
-          set -eo pipefail
-          PUB_TOKEN=$(curl --retry 5 --retry-connrefused -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://pub.dev" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r '.value')
-          echo "::add-mask::$PUB_TOKEN"
-          export PUB_TOKEN
-          dart pub token add https://pub.dev --env-var PUB_TOKEN
-          aft publish --include "$PACKAGE" --force --skip-pre-publish
-
+     # Must run before "Publish to pub.dev". That step registers a pub.dev
+     # credential bound to $PUB_TOKEN, which only exists in its own shell.
+     # Afterwards every `aft` call (dart pub global run → resolve against
+     # pub.dev) fails with "requires environment variable PUB_TOKEN" before
+     # aft even starts, and the fallback release body would be used.
       - name: Prepare GitHub release
         id: release
         env:
@@ -144,6 +136,19 @@ jobs:
             echo "Release $PACKAGE v$VERSION" > "$NOTES"
           fi
           echo "notes=$(base64 -w 0 "$NOTES")" >> "$GITHUB_OUTPUT"
+
+      # The prepared package is published from the same workspace without
+      # resolving dependencies or executing third-party builders again.
+      - name: Publish to pub.dev
+        env:
+          PACKAGE: ${{ steps.package.outputs.package }}
+        run: |
+          set -eo pipefail
+          PUB_TOKEN=$(curl --retry 5 --retry-connrefused -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://pub.dev" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r '.value')
+          echo "::add-mask::$PUB_TOKEN"
+          export PUB_TOKEN
+          dart pub token add https://pub.dev --env-var PUB_TOKEN
+          aft publish --include "$PACKAGE" --force --skip-pre-publish
 
   release:
     name: Create GitHub release

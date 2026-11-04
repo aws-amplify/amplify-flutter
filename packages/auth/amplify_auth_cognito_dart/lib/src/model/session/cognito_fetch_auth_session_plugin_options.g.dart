@@ -11,10 +11,19 @@ _$CognitoFetchAuthSessionPluginOptionsFromJson(Map<String, dynamic> json) =>
     $checkedCreate('CognitoFetchAuthSessionPluginOptions', json, (
       $checkedConvert,
     ) {
-      final val = CognitoFetchAuthSessionPluginOptions();
+      final val = CognitoFetchAuthSessionPluginOptions(
+        clientMetadata: $checkedConvert(
+          'clientMetadata',
+          (v) =>
+              (v as Map<String, dynamic>?)?.map(
+                (k, e) => MapEntry(k, e as String),
+              ) ??
+              const {},
+        ),
+      );
       return val;
     });
 
 Map<String, dynamic> _$CognitoFetchAuthSessionPluginOptionsToJson(
   CognitoFetchAuthSessionPluginOptions instance,
-) => <String, dynamic>{};
+) => <String, dynamic>{'clientMetadata': instance.clientMetadata};

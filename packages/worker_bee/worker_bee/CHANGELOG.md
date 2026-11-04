@@ -1,3 +1,8 @@
+## 0.3.15
+
+### Fixes
+- fix(worker_bee): Bound spawn() worker startup to prevent silent hang ([#7430](https://github.com/aws-amplify/amplify-flutter/pull/7430))
+
 ## 0.3.14
 
 - Minor bug fixes and improvements

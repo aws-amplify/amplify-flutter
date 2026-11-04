@@ -708,7 +708,16 @@ class $$KinesisRecordsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$KinesisRecordsTable, DriftStoredRecord>(table),
+                  BaseReferences<
+                    _$RecordCacheDatabase,
+                    $KinesisRecordsTable,
+                    DriftStoredRecord
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

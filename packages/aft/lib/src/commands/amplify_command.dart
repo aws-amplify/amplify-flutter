@@ -217,7 +217,9 @@ dependencies:
         runInShell: true,
       );
       if (result.exitCode != 0) {
-        logger.verbose('$package $version not resolvable yet: ${result.stderr}');
+        logger.verbose(
+          '$package $version not resolvable yet: ${result.stderr}',
+        );
       }
       return result.exitCode == 0;
     } finally {
