@@ -44,7 +44,7 @@ void main() {
       await storage.delete(key: key1);
       await storage.delete(key: key2);
     });
-    test('Previous keys are cleared when a new scope is initialized', () async {
+    test('Keychain is retained even when the reinstall marker is cleared', () async {
       // initialize storage and store a value
 
       await storage.write(key: key1, value: value1);
@@ -61,14 +61,14 @@ void main() {
       expect(await storage1.read(key: key1), isNotNull);
       expect(await storage1.read(key: key2), isNotNull);
 
-      // Sets the current scope to an uninitialized state, similar to
-      // an app uninstall
+      // Clearing the marker used to trigger a destructive reinstall-clear that
+      // has since been removed; the keychain must now be retained.
       await userDefaults.setBool(
         '${AmplifySecureStorage.scopeStoragePrefix}.$scope.isKeychainConfigured',
         false,
       );
 
-      // assert value IS cleared when initializing a new scope after an app uninstall
+      // assert values are RETAINED even after the marker is cleared
       // ignore: invalid_use_of_internal_member
       final storage2 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(
@@ -76,8 +76,8 @@ void main() {
           macOSOptions: macOSOptions,
         ),
       );
-      expect(await storage2.read(key: key1), isNull);
-      expect(await storage2.read(key: key2), isNull);
+      expect(await storage2.read(key: key1), isNotNull);
+      expect(await storage2.read(key: key2), isNotNull);
     });
   });
 

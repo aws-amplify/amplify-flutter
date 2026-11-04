@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "amplify_secure_storage", path: "../.packages/amplify_secure_storage"),
-        .package(name: "shared_preferences_foundation", path: "../.packages/shared_preferences_foundation-2.5.6"),
+        .package(name: "shared_preferences_foundation", path: "../.packages/shared_preferences_foundation-2.5.7"),
         .package(name: "FlutterFramework", path: "../.packages/FlutterFramework")
     ],
     targets: [

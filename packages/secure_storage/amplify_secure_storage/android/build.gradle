@@ -47,6 +47,7 @@ android {
 
     defaultConfig {
         minSdkVersion 24
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     testOptions.unitTests.includeAndroidResources = true
@@ -61,7 +62,7 @@ dependencies {
     // See https://github.com/aws-amplify/amplify-flutter/issues/2640
     implementation 'com.google.crypto.tink:tink-android:[1.8.0, )'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.16.1'
+    testImplementation 'org.robolectric:robolectric:4.17'
     testImplementation 'androidx.test:core-ktx:1.7.0'
 }
 

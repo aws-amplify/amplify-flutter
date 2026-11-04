@@ -82,10 +82,10 @@ android {
 dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
 
-    implementation 'com.amplifyframework:aws-auth-cognito:2.39.0'
-    implementation "com.amplifyframework:aws-api:2.39.0"
-    implementation "com.amplifyframework:aws-datastore:2.39.0"
-    implementation "com.amplifyframework:aws-api-appsync:2.39.0"
+    implementation 'com.amplifyframework:aws-auth-cognito:2.41.1'
+    implementation "com.amplifyframework:aws-api:2.41.1"
+    implementation "com.amplifyframework:aws-datastore:2.41.1"
+    implementation "com.amplifyframework:aws-api-appsync:2.41.1"
     implementation 'com.google.code.gson:gson:2.14.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
 
@@ -98,7 +98,7 @@ dependencies {
 
     // Tests must be updated if bumped
     //noinspection GradleDependency
-    testImplementation 'org.robolectric:robolectric:4.16.1'
+    testImplementation 'org.robolectric:robolectric:4.17'
     testImplementation 'com.fasterxml.jackson.core:jackson-core:2.22.0'
     testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.22'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.22.0'

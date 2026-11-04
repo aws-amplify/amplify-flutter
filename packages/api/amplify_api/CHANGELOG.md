@@ -1,3 +1,11 @@
+## 2.16.0
+
+- Minor bug fixes and improvements
+
+## 2.15.1
+
+- Minor bug fixes and improvements
+
 ## 2.15.0
 
 ### Features
