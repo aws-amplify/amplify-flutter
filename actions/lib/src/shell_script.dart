@@ -23,7 +23,8 @@ extension type ShellScript(String script) {
   Future<void> run() => start().future;
 
   Future<void> _run(RunningScript running) async {
-    final fullScript = '''
+    final fullScript =
+        '''
 #!/bin/bash
 set -eo pipefail
 $script
@@ -34,10 +35,10 @@ $script
     await fs.withTempDir('shell_script', (tempDir) async {
       final scriptPath = p.join(tempDir, 'script.sh');
       fs.writeFileSync(scriptPath, fullScript);
-      final process = await processManager.start(
-        ['/bin/bash', scriptPath],
-        mode: ProcessStartMode.normal,
-      );
+      final process = await processManager.start([
+        '/bin/bash',
+        scriptPath,
+      ], mode: ProcessStartMode.normal);
       running._process = process;
       final stdout = StringBuffer();
       final stderr = StringBuffer();
@@ -99,7 +100,9 @@ class RunningScript {
 
     // Kill all child processes of the bash wrapper before killing the wrapper
     // itself.  Ignore errors – the children may have already exited.
-    ShellScript('pkill -KILL -P ${process.pid} 2>/dev/null || true').run().ignore();
+    ShellScript(
+      'pkill -KILL -P ${process.pid} 2>/dev/null || true',
+    ).run().ignore();
 
     process.kill(ProcessSignal.sigkill);
 

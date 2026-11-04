@@ -317,7 +317,16 @@ class $$DriftQueuedItemsTableTableManager
               ({Value<int> id = const Value.absent(), required String value}) =>
                   DriftQueuedItemsCompanion.insert(id: id, value: value),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$DriftQueuedItemsTable, DriftQueuedItem>(table),
+                  BaseReferences<
+                    _$DriftQueuedItemStore,
+                    $DriftQueuedItemsTable,
+                    DriftQueuedItem
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

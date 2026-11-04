@@ -225,6 +225,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
     // Close all open connections.
     try {
       for (final openConnection in _openConnections) {
+        // ignore: unawaited_futures
         openConnection.target?.cancel();
       }
     } finally {

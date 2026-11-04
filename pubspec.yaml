@@ -38,6 +38,7 @@ dependencies:
   mime: ^2.0.0
   oauth2: ^2.0.2
   package_info_plus: ^10.1.0
+  phone_numbers_parser: ^9.0.26
   pigeon: ^27.1.0
   sqlite3: ^3.1.5
   source_gen: ^4.0.0

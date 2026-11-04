@@ -3,6 +3,7 @@
 
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_auth_session.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_fetch_auth_session_plugin_options.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_user_pool_tokens.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/federate_to_identity_pool_options.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/federate_to_identity_pool_request.dart';

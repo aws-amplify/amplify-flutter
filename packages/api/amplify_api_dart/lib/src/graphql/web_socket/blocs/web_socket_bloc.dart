@@ -513,6 +513,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     if (_currentState is! FailureState) {
       _emit(_currentState.disconnect());
     }
+    // ignore: unawaited_futures
     _currentState.service.close();
 
     await Future.wait<void>([

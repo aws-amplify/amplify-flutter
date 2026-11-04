@@ -1,3 +1,17 @@
+## 0.5.24
+
+### Fixes
+- fix(secure_storage): Prevent R8 missing-class errors from Tink in release builds ([#7499](https://github.com/aws-amplify/amplify-flutter/pull/7499))
+
+## 0.5.23
+
+- Minor bug fixes and improvements
+
+## 0.5.22
+
+### Fixes
+- fix(secure_storage): Remove destructive iOS/macOS reinstall-clear ([#7396](https://github.com/aws-amplify/amplify-flutter/pull/7396))
+
 ## 0.5.21
 
 ### Features

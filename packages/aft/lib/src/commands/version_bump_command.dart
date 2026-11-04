@@ -110,6 +110,13 @@ class VersionBumpCommand extends AmplifyCommand
       }
     }
 
+    // `aft` depends on some repo packages by path, which its lockfile records
+    // by version. Re-resolve it so `pub get --enforce-lockfile` keeps passing.
+    final aftPackage = repo.allPackages['aft'];
+    if (aftPackage != null) {
+      await runPub(aftPackage.flavor, ['get'], aftPackage, verbose: verbose);
+    }
+
     logger.info('Version successfully bumped');
     // Stage changes
     final publishableBumpedPackages = commandPackages.values
