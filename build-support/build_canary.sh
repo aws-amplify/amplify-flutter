@@ -12,7 +12,6 @@ flutter create --project-name=amplified_todo .
 flutter pub add amplify_flutter \
   amplify_datastore \
   amplify_storage_s3 \
-  amplify_analytics_pinpoint \
   amplify_auth_cognito \
   amplify_authenticator \
   amplify_api

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
@@ -19,7 +18,6 @@ Future<void> main() async {
   await Amplify.addPlugins([
     AmplifyAuthCognito(),
     AmplifyStorageS3(),
-    AmplifyAnalyticsPinpoint(),
     AmplifyAPI(
       options: APIPluginOptions(modelProvider: ModelProvider.instance),
     ),
