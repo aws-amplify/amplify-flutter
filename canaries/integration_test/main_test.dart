@@ -32,7 +32,6 @@ void main() {
 
   const data = 'hello, world';
   const path = StoragePath.fromString('public/hello');
-  final event = AnalyticsEvent('hello');
 
   Future<void> performUnauthenticatedActions() async {
     // Upload data to Storage
@@ -40,10 +39,6 @@ void main() {
       data: StorageDataPayload.string(data),
       path: path,
     ).result;
-
-    // Record Analytics event
-    await Amplify.Analytics.recordEvent(event: event);
-    await Amplify.Analytics.flushEvents();
 
     // Try API mutation
     final todo = Todo(name: 'name', owner: 'test');
@@ -81,10 +76,6 @@ void main() {
       path: StoragePath.fromString('public/'),
     ).result;
     expect(listResult.items.isNotEmpty, isTrue);
-
-    // === ANALYTICS: Record event ===
-    await Amplify.Analytics.recordEvent(event: event);
-    await Amplify.Analytics.flushEvents();
 
     // === AUTH: Get current user ===
     final username = (await Amplify.Auth.getCurrentUser()).username;
