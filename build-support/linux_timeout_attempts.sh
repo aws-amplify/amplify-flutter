@@ -31,9 +31,10 @@ for ((i=1; i<=num_attempts; i++)); do
     echo "═══════════════════════════════════════════════════════════════════="
     echo ""
     exit 0
+  else
+    exit_code=$?
   fi
   
-  exit_code=$?
   end_time=$(date +%s)
   duration=$((end_time - start_time))
   minutes=$((duration / 60))
