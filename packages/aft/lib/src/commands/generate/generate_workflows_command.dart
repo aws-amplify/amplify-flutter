@@ -27,6 +27,8 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
 
   late final bool setExitIfChanged = argResults!['set-exit-if-changed'] as bool;
 
+  final _dependabotDirectories = <String>{};
+
   late final StringBuffer _dependabotConfig = () {
     final groupPubPackages = repo.aftConfig.dependencies.keys
         .map(_dependabotGroup)
@@ -122,6 +124,11 @@ $groupPubPackages
     // skip aft tests which include a snapshot of the mono repo
     if (repoRelativePath.contains('snapshot')) {
       return [];
+    }
+    // Example packages are visited twice: once from `commandPackages` and once
+    // via their parent's `example`. Dependabot requires unique directories.
+    if (!_dependabotDirectories.add(repoRelativePath)) {
+      return dependentPackages;
     }
     _dependabotConfig.write('''
   - package-ecosystem: "pub"
@@ -260,15 +267,21 @@ ${dependabotGroups.join('\n')}
     const dart2JsWorkflow = 'dart_dart2js.yaml';
     const dart2WasmWorkflow = 'dart_dart2wasm.yaml';
     const nativeWorkflow = 'dart_native.yaml';
-    final e2eWorkflows = {
-      'android': 'e2e_android.yaml',
-      'ios': 'e2e_ios.yaml',
-      if (!package.name.contains('datastore')) ...{
-        'web': 'e2e_web.yaml',
-        'linux': 'e2e_linux.yaml',
-        'windows': 'e2e_windows.yaml',
-      },
-    };
+    // E2E runs build the example app for the platform, so only emit a job for
+    // platforms the example app targets.
+    final e2eWorkflows =
+        {
+          'android': 'e2e_android.yaml',
+          'ios': 'e2e_ios.yaml',
+          if (!package.name.contains('datastore')) ...{
+            'web': 'e2e_web.yaml',
+            'linux': 'e2e_linux.yaml',
+            'windows': 'e2e_windows.yaml',
+          },
+        }..removeWhere(
+          (platform, _) =>
+              !Directory(p.join(package.path, platform)).existsSync(),
+        );
 
     // Determine workflows used
     final analyzeAndTestWorkflow = isDartPackage
@@ -616,13 +629,18 @@ jobs:
     writeWorkflowFile(androidWorkflowFile, androidWorkflowContents);
   }
 
-  /// If a package has iOS unit tests, generate a separate workflow for them.
+  /// If a package has iOS code and an example, generate a workflow that builds
+  /// the example for iOS and runs its unit tests when `example/ios/unit_tests`
+  /// exists.
   Future<void> generateIosUnitTestWorkflow({
     required PackageInfo package,
     required String repoRelativePath,
   }) async {
-    final iosDir = Directory(p.join(package.path, 'ios'));
-    final hasIosCode = iosDir.existsSync();
+    // iOS code lives in `ios/`, or in `darwin/` when the plugin sets
+    // `sharedDarwinSource`.
+    final hasIosCode =
+        Directory(p.join(package.path, 'ios')).existsSync() ||
+        Directory(p.join(package.path, 'darwin')).existsSync();
     if (package.flavor != PackageFlavor.flutter ||
         !hasIosCode ||
         package.example == null) {
