@@ -57,6 +57,8 @@ dependencies:
   json_serializable: ">=6.9.4 <6.10.0"
 
 aft:
+  pinned:
+    - json_serializable
   scripts:
     license:
       description: Adds license headers recursively in the current directory
@@ -76,6 +78,8 @@ dependencies:
   json_serializable: ">=6.9.4 <6.10.0"
 
 aft:
+  pinned:
+    - built_value
   scripts:
     format:
       description: Checks formatting for all packages
@@ -108,6 +112,11 @@ aft:
           (it) => it
             ..containsKey('json_serializable')
             ..not((it) => it..containsKey('built_value')),
+        )
+        ..has((config) => config.pinned.toList(), 'pinned').which(
+          (it) => it
+            ..contains('json_serializable')
+            ..not((it) => it..contains('built_value')),
         )
         ..has((config) => config.scripts.toMap(), 'scripts').which(
           (it) => it

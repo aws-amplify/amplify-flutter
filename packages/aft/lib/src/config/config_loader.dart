@@ -100,6 +100,7 @@ class AftConfigLoader {
           ..scripts.addAll(rawAftConfig.scripts);
 
         if (isRoot) {
+          aftConfig.pinned.addAll(rawAftConfig.pinned);
           if (rawAftConfig.platforms case final platforms?) {
             aftConfig.platforms.replace(platforms);
           }

@@ -37,6 +37,10 @@ dependencies:
   json_serializable: ^6.11.0
   mime: ^2.0.0
   oauth2: ^2.0.2
+  # 2.0.4 marks os_detect discontinued and deprecates its main library.
+  # package:platform 3.2 needs meta ^1.18.0; Flutter 3.41.0 pins 1.17.0.
+  # TODO(VarshithaPamisetty): Migrate once minimum Flutter is >=3.44.0.
+  os_detect: ">=2.0.2 <2.0.4"
   package_info_plus: ^10.1.0
   phone_numbers_parser: ^9.0.26
   pigeon: ^27.1.0
@@ -65,6 +69,11 @@ aft:
   # Packages to ignore in all repo operations.
   ignore:
     - synthetic_package
+
+  # Global dependencies which `aft constraints update` leaves unchanged.
+  pinned:
+    - os_detect
+    - source_helper
 
   # Strongly connected components which should have version bumps happen
   # in unison, i.e. a version bump to one package cascades to all.
