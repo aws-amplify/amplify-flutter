@@ -322,10 +322,10 @@ packages:
     dependency: "direct main"
     description:
       name: git
-      sha256: "46556ed28a3b25b1be9bcde0291d84a57b206a899f8b37bf7ab335d8fb640e84"
+      sha256: e569a692291d6632db69ef20165fb420b655d4a847c30fb575277a78ef0ad8ab
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.5.0"
   glob:
     dependency: "direct main"
     description:
