@@ -207,6 +207,23 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
   /// The stream of responses.
   Stream<Response> get stream => _streamController.stream;
 
+  /// Awaits the next response, throwing a [WorkerBeeException] if the
+  /// worker's stream closes first.
+  Future<Response> nextResponse() async {
+    await for (final response in stream) {
+      return response;
+    }
+
+    // Prefer the worker's own error over a generic "No element".
+    if (isCompleted) {
+      final result = await this.result;
+      if (result.asError case final error?) {
+        Error.throwWithStackTrace(error.error, error.stackTrace);
+      }
+    }
+    throw WorkerBeeExceptionImpl('The $name worker closed before responding');
+  }
+
   @protected
   set stream(Stream<Response> stream) {
     _streamController
