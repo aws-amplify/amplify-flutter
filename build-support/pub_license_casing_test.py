@@ -2,7 +2,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-"""Tests for pub_license_casing. Run by the Dependency Review workflow."""
+"""Tests for pub_license_casing, run by the Dependency Review workflow."""
 import json
 import pathlib
 import subprocess
@@ -18,7 +18,6 @@ POLICY = HERE.parent / ".github" / "dependency-review-config.yml"
 FIXTURE = 'allow_licenses:\n  - "MIT"\n  - "Apache-2.0"\n  - "curl"\n  - "MITNFA"\n  - "MIT AND MITNFA"\n'
 
 
-
 def change(name, spdx, version="1.0.0", ecosystem="PUB", change_type="added"):
     return {
         "change_type": change_type,
@@ -26,7 +25,7 @@ def change(name, spdx, version="1.0.0", ecosystem="PUB", change_type="added"):
         "ecosystem": ecosystem,
         "name": name,
         "version": version,
-        "package_url": f"pkg:pub/{name}",
+        "package_url": f"pkg:{ecosystem.lower()}/{name}",
         "license": spdx,
         "source_repository_url": None,
         "scope": "runtime",
@@ -40,7 +39,7 @@ class PubLicenseCasing(unittest.TestCase):
             tmp = pathlib.Path(tmp)
             changes_path = pathlib.Path(changes) if raw_path else tmp / "changes.json"
             if raw_path:
-                pass
+                self.assertFalse(changes_path.exists())
             elif isinstance(changes, str):
                 changes_path.write_text(changes)
             else:
@@ -90,7 +89,7 @@ class PubLicenseCasing(unittest.TestCase):
     def test_a_name_in_another_ecosystem_is_left_to_the_review(self):
         """The action compares the purl type first, so exempting a pub package
         says nothing about a same-named package elsewhere."""
-        purls, out = self.run_script(
+        purls, _ = self.run_script(
             [change("yaml", "mit"), change("yaml", "GPL-3.0", ecosystem="npm")]
         )
         self.assertEqual(purls, "pkg:pub/yaml")
@@ -140,8 +139,6 @@ class PubLicenseCasing(unittest.TestCase):
             self.assertIn("leaving the pub package named", out)
 
     def test_folds_the_case_of_a_name_it_can_vouch_for(self):
-        """The action matches an exemption case-insensitively, so the folded
-        name covers every spelling the action would have matched."""
         purls, _ = self.run_script([change("A_B", "mit")])
         self.assertEqual(purls, "pkg:pub/a_b")
 

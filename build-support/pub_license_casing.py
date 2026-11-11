@@ -47,8 +47,6 @@ def exemptable(changes, allowed):
         if not isinstance(name, str) or not NAME.match(name.lower()):
             print(f"::warning::leaving the pub package named {name!r} to dependency review")
             continue
-        # The action folds case when matching, so the folded name stands for
-        # every spelling of it in this run.
         name = name.lower()
         canonical = allowed.get(spdx.lower()) if isinstance(spdx, str) else None
         if canonical is None:
