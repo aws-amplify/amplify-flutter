@@ -165,11 +165,16 @@ public struct AmplifyOutputsData: Codable {
         }
     }
 
+    /// The outputs for the Notifications category.
+    ///
+    /// Every field is optional because a `notifications` section may hold only
+    /// non-Pinpoint providers, such as Amazon Connect. Consumers must check for
+    /// the values they need.
     @_spi(InternalAmplifyConfiguration)
     public struct Notifications: Codable {
-        public let awsRegion: String
-        public let amazonPinpointAppId: String
-        public let channels: [AmazonPinpointChannelType]
+        public let awsRegion: String?
+        public let amazonPinpointAppId: String?
+        public let channels: [AmazonPinpointChannelType]?
     }
 
     @_spi(InternalAmplifyConfiguration)

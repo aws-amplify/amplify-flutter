@@ -5,6 +5,7 @@
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
+import 'package:amplify_core/src/config/amplify_outputs/notifications/amazon_connect_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/notifications/amazon_pinpoint_channel.dart';
 import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -66,6 +67,33 @@ void main() {
             (e) => e.message,
             'config error',
             contains('No AWSIamAmplifyAuthProvider available'),
+          ),
+        ),
+      );
+    });
+
+    test('init fails when the notifications config has no Pinpoint fields', () {
+      const connectOnlyConfig = NotificationsOutputs(
+        amazonConnect: AmazonConnectOutputs(
+          awsRegion: 'us-east-1',
+          endpoint: 'https://abc123.execute-api.us-east-1.amazonaws.com',
+        ),
+      );
+      when(
+        () => mockAmplifyAuthProviderRepository.getAuthProvider(
+          APIAuthorizationType.iam.authProviderToken,
+        ),
+      ).thenReturn(awsIamAmplifyAuthProvider);
+      expect(
+        () async => PinpointProvider().init(
+          config: connectOnlyConfig,
+          authProviderRepo: mockAmplifyAuthProviderRepository,
+        ),
+        throwsA(
+          isA<ConfigurationError>().having(
+            (e) => e.message,
+            'config error',
+            contains('No Pinpoint configuration found'),
           ),
         ),
       );

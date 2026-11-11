@@ -15,16 +15,24 @@ NotificationsOutputs _$NotificationsOutputsFromJson(
   json,
   ($checkedConvert) {
     final val = NotificationsOutputs(
-      awsRegion: $checkedConvert('aws_region', (v) => v as String),
+      awsRegion: $checkedConvert('aws_region', (v) => v as String?),
       amazonPinpointAppId: $checkedConvert(
         'amazon_pinpoint_app_id',
-        (v) => v as String,
+        (v) => v as String?,
       ),
       channels: $checkedConvert(
         'channels',
-        (v) => (v as List<dynamic>)
-            .map((e) => $enumDecode(_$AmazonPinpointChannelEnumMap, e))
-            .toList(),
+        (v) =>
+            (v as List<dynamic>?)
+                ?.map((e) => $enumDecode(_$AmazonPinpointChannelEnumMap, e))
+                .toList() ??
+            const [],
+      ),
+      amazonConnect: $checkedConvert(
+        'amazon_connect',
+        (v) => v == null
+            ? null
+            : AmazonConnectOutputs.fromJson(v as Map<String, dynamic>),
       ),
     );
     return val;
@@ -32,17 +40,19 @@ NotificationsOutputs _$NotificationsOutputsFromJson(
   fieldKeyMap: const {
     'awsRegion': 'aws_region',
     'amazonPinpointAppId': 'amazon_pinpoint_app_id',
+    'amazonConnect': 'amazon_connect',
   },
 );
 
 Map<String, dynamic> _$NotificationsOutputsToJson(
   NotificationsOutputs instance,
 ) => <String, dynamic>{
-  'aws_region': instance.awsRegion,
-  'amazon_pinpoint_app_id': instance.amazonPinpointAppId,
+  'aws_region': ?instance.awsRegion,
+  'amazon_pinpoint_app_id': ?instance.amazonPinpointAppId,
   'channels': instance.channels
       .map((e) => _$AmazonPinpointChannelEnumMap[e]!)
       .toList(),
+  'amazon_connect': ?instance.amazonConnect?.toJson(),
 };
 
 const _$AmazonPinpointChannelEnumMap = {
