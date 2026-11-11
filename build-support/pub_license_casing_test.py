@@ -15,7 +15,10 @@ SCRIPT = HERE / "pub_license_casing.py"
 POLICY = HERE.parent / ".github" / "dependency-review-config.yml"
 # Cases that depend on which licenses are allowed run against this fixture,
 # so adding or removing an entry in the real policy does not reach them.
-FIXTURE = 'allow_licenses:\n  - "MIT"\n  - "Apache-2.0"\n  - "curl"\n  - "MITNFA"\n  - "MIT AND MITNFA"\n'
+FIXTURE = (
+    'allow_licenses:\n  - "MIT"\n  - "Apache-2.0"\n  - "curl"\n  - "MITNFA"\n'
+    '  - "MIT AND MITNFA"\n  - "MIT OR MITNFA"\n'
+)
 
 
 def change(name, spdx, version="1.0.0", ecosystem="PUB", change_type="added"):
@@ -70,6 +73,14 @@ class PubLicenseCasing(unittest.TestCase):
         self.assertNotIn("found no allow_licenses", out)
         self.assertIn("not allowed under any capitalisation", out)
 
+    def test_reads_a_tab_indented_policy(self):
+        """YAML permits a tab inside the indentation of a block sequence."""
+        with tempfile.TemporaryDirectory() as tmp:
+            config = pathlib.Path(tmp) / "tabs.yml"
+            config.write_text('allow_licenses:\n\t- "MIT"\n')
+            purls, _ = self.run_script([change("probe", "mit")], config=config)
+        self.assertEqual(purls, "pkg:pub/probe")
+
     def test_reads_a_policy_with_blank_and_comment_lines(self):
         """The committed policy may gain either without changing meaning."""
         with tempfile.TemporaryDirectory() as tmp:
@@ -103,6 +114,15 @@ class PubLicenseCasing(unittest.TestCase):
         )
         self.assertEqual(purls, "")
         self.assertIn("also appears under a license", out)
+
+    def test_reports_the_first_mis_cased_spelling_of_a_name(self):
+        """Two mis-cased spellings of one name yield one exemption and one line."""
+        purls, out = self.run_script(
+            [change("dup", "mit"), change("dup", "apache-2.0", version="2.0.0")]
+        )
+        self.assertEqual(purls, "pkg:pub/dup")
+        self.assertIn("mit is MIT with SPDX casing", out)
+        self.assertNotIn("apache-2.0 is Apache-2.0", out)
 
     def test_joins_several_packages_with_commas(self):
         """dependency-review splits the input on commas."""
@@ -140,6 +160,12 @@ class PubLicenseCasing(unittest.TestCase):
             self.assertEqual(purls, "", name)
             self.assertIn("leaving the pub package named", out)
 
+    def test_skips_a_name_that_only_folds_into_the_charset(self):
+        """U+212A folds to "k", so the charset is matched before folding."""
+        purls, out = self.run_script([change("\u212a", "mit")])
+        self.assertEqual(purls, "")
+        self.assertIn("leaving the pub package named", out)
+
     def test_folds_the_case_of_a_name_it_can_vouch_for(self):
         purls, _ = self.run_script([change("A_B", "mit")])
         self.assertEqual(purls, "pkg:pub/a_b")
@@ -176,6 +202,7 @@ class PubLicenseCasing(unittest.TestCase):
             [change("probe", "mit", change_type="removed")],
             [change("probe", None)],
             [change("probe", "mit and mitnfa")],
+            [change("probe", "mit or mitnfa")],
             [],
         ):
             purls, _ = self.run_script(changes)
@@ -198,6 +225,15 @@ class PubLicenseCasing(unittest.TestCase):
             purls, out = self.run_script(str(absent), raw_path=True)
             self.assertEqual(purls, "")
             self.assertIn("could not read the dependency changes", out)
+
+    def test_exempts_nothing_when_the_policy_key_is_nested(self):
+        """The reader finds the key only at the top level."""
+        with tempfile.TemporaryDirectory() as tmp:
+            config = pathlib.Path(tmp) / "nested.yml"
+            config.write_text('outer:\n  allow_licenses:\n    - "MIT"\n')
+            purls, out = self.run_script([change("probe", "mit")], config=config)
+        self.assertEqual(purls, "")
+        self.assertIn("found no allow_licenses", out)
 
     def test_exempts_nothing_when_the_policy_cannot_be_parsed(self):
         with tempfile.TemporaryDirectory() as tmp:

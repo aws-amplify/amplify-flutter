@@ -31,7 +31,7 @@ jobs:
       # only when the policy already allows its license and the reported
       # spelling differs from it in case alone. Upstream:
       # actions/dependency-review-action#1168 -- drop this once that is fixed.
-      - name: "Repair pub license casing"
+      - name: "Test and repair pub license casing"
         id: casing
         run: |
           set -euo pipefail

@@ -7,8 +7,9 @@ import json
 import re
 import sys
 
-# pub.dev package names. A name outside this set is left to the review.
-NAME = re.compile(r"\A[a-z0-9_]+\Z")
+# pub.dev package names, matched before folding so that only ASCII folds.
+# A name outside this set is left to the review.
+NAME = re.compile(r"\A[A-Za-z0-9_]+\Z")
 
 
 def allow_licenses(config_path):
@@ -44,7 +45,7 @@ def exemptable(changes, allowed):
             continue
         name = change.get("name")
         spdx = change.get("license")
-        if not isinstance(name, str) or not NAME.match(name.lower()):
+        if not isinstance(name, str) or not NAME.match(name):
             print(f"::warning::leaving the pub package named {name!r} to dependency review")
             continue
         name = name.lower()
