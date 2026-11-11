@@ -376,6 +376,10 @@ final class FetchAuthSessionStateMachine
         try {
           userPoolTokens = await _refreshUserPoolTokens(
             userPoolTokens,
+            signInUsername: switch (result.signInDetails) {
+              CognitoSignInDetailsApiBased(:final username) => username,
+              _ => null,
+            },
             pluginOptions: event.pluginOptions,
           );
           userPoolTokensResult = AuthResult.success(userPoolTokens);
@@ -507,12 +511,21 @@ final class FetchAuthSessionStateMachine
 
   Future<CognitoUserPoolTokens> _refreshUserPoolTokens(
     CognitoUserPoolTokens userPoolTokens, {
+    String? signInUsername,
     CognitoFetchAuthSessionPluginOptions pluginOptions =
         const CognitoFetchAuthSessionPluginOptions(),
   }) async {
-    final deviceSecrets = await getOrCreate<DeviceMetadataRepository>().get(
-      userPoolTokens.username,
-    );
+    final deviceRepo = getOrCreate<DeviceMetadataRepository>();
+    // Sign-in flows that return tokens without a challenge, such as
+    // USER_PASSWORD_AUTH, store the device secrets under the name the user
+    // typed, which can differ from the username in the tokens (for example an
+    // email address).
+    final tokenUsername = userPoolTokens.username;
+    final deviceSecrets =
+        await deviceRepo.get(tokenUsername) ??
+        (signInUsername == null || signInUsername == tokenUsername
+            ? null
+            : await deviceRepo.get(signInUsername));
 
     final deviceKey = deviceSecrets?.deviceKey;
     // ignore: invalid_use_of_internal_member
