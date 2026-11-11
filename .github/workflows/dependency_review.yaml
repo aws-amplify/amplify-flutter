@@ -11,7 +11,40 @@ jobs:
     steps:
       - name: "Checkout Repository"
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
+
+      - name: "Fetch dependency changes"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          gh api --paginate --slurp \
+            "repos/${{ github.repository }}/dependency-graph/compare/$BASE...$HEAD" \
+            > "$RUNNER_TEMP/dependency-changes.json" \
+            || echo "::warning::could not read the dependency graph"
+
+      # GitHub's dependency graph reports pub licenses in lowercase, e.g.
+      # "bsd-3-clause", which is not a valid SPDX identifier, so the review
+      # below fails a pull request that changes a pub dependency instead of
+      # judging its license. Only pub is affected: one scan reports
+      # pkg:npm/yaml as "ISC" and pkg:pub/yaml as "mit". This exempts a
+      # package only when the policy already allows its license and the
+      # reported spelling differs from it in case alone. Upstream:
+      # actions/dependency-review-action#1168 -- drop this once that is fixed.
+      - name: "Repair pub license casing"
+        id: casing
+        run: |
+          set -euo pipefail
+          build-support/pub_license_casing_test.py
+          build-support/pub_license_casing.py \
+            .github/dependency-review-config.yml \
+            "$RUNNER_TEMP/dependency-changes.json" \
+            "$RUNNER_TEMP/pub-license-purls.txt"
+          printf 'purls=%s\n' "$(cat "$RUNNER_TEMP/pub-license-purls.txt")" \
+            >> "$GITHUB_OUTPUT"
+
       - name: "Dependency Review"
         uses: actions/dependency-review-action@v5
         with:
           config-file: "./.github/dependency-review-config.yml"
+          allow-dependencies-licenses: "${{ steps.casing.outputs.purls }}"
