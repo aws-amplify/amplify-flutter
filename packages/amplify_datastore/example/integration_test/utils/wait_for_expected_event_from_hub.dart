@@ -32,7 +32,17 @@ class WaitForExpectedEventFromHub<T extends DataStoreHubEventPayload> {
       }
     });
 
-    return _completer.future.timeout(timeout);
+    return _completer.future.timeout(
+      timeout,
+      onTimeout: () {
+        hubSubscription.cancel();
+        throw TimeoutException(
+          'No $eventName event matching the expectation was received on the '
+          'DataStore hub.',
+          timeout,
+        );
+      },
+    );
   }
 }
 
