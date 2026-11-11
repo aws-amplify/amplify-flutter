@@ -13,8 +13,8 @@ import unittest
 HERE = pathlib.Path(__file__).resolve().parent
 SCRIPT = HERE / "pub_license_casing.py"
 POLICY = HERE.parent / ".github" / "dependency-review-config.yml"
-# The policy-dependent cases run against a fixture, so editing the real
-# allow list cannot turn this test, and therefore the gate, red.
+# Cases that depend on which licenses are allowed run against this fixture,
+# so adding or removing an entry in the real policy does not reach them.
 FIXTURE = 'allow_licenses:\n  - "MIT"\n  - "Apache-2.0"\n  - "curl"\n  - "MITNFA"\n  - "MIT AND MITNFA"\n'
 
 
@@ -62,11 +62,13 @@ class PubLicenseCasing(unittest.TestCase):
         self.assertIn("mit is MIT with SPDX casing", out)
 
     def test_the_real_policy_parses(self):
-        """The only case that touches the committed allow list. It asserts a
-        known entry resolves, so a silently truncated parse fails here."""
-        purls, out = self.run_script([change("os_detect", "mit")], config=POLICY)
-        self.assertEqual(purls, "pkg:pub/os_detect")
-        self.assertNotIn("::warning::", out)
+        """The only case that reads the committed policy. It asserts the parse
+        found entries, not which ones, so editing the allow list cannot redden
+        the gate, while a parse that silently finds nothing still fails."""
+        purls, out = self.run_script([change("probe", "nonsense")], config=POLICY)
+        self.assertEqual(purls, "")
+        self.assertNotIn("found no allow_licenses", out)
+        self.assertIn("not allowed under any capitalisation", out)
 
     def test_reads_a_policy_with_blank_and_comment_lines(self):
         """The committed policy may gain either without changing meaning."""

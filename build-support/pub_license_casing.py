@@ -7,7 +7,7 @@ import json
 import re
 import sys
 
-# pub.dev package names; anything else cannot be trusted in the purl list.
+# pub.dev package names. A name outside this set is left to the review.
 NAME = re.compile(r"\A[a-z0-9_]+\Z")
 
 
@@ -26,7 +26,7 @@ def allow_licenses(config_path):
 
 
 def exemptable(changes, allowed):
-    """Names whose every added change is an allowed license mis-cased.
+    """Names whose every added change carries an allowed license, mis-cased.
 
     A name is returned only if nothing else about it is in question, because
     the action matches an exemption by name, case-insensitively and ignoring
