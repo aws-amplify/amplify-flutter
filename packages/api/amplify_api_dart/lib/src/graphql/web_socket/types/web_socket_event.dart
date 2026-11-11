@@ -165,9 +165,7 @@ class WsErrorEvent extends WebSocketEvent {
 
 /// Connection Error while setting up web socket connection
 class ConnectionErrorEvent extends WebSocketEvent {
-  /// Create an Connection error event.
-  /// Takes the [wsError] AppSync reported with the connection error, which is
-  /// absent when the message carries no payload.
+  /// Event takes the [WebSocketError] provided by AppSync
   const ConnectionErrorEvent(this.wsError);
 
   /// The web socket error
