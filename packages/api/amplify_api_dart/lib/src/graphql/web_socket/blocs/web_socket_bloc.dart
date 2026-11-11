@@ -285,6 +285,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   Stream<WebSocketState> _connectionError(ConnectionErrorEvent event) async* {
     final exception = NetworkException(
       'Error occurred while connecting to the websocket',
+      recoverySuggestion:
+          'The connection was authorized with the '
+          '"${_currentState.config.authorizationType.name}" auth mode. Check '
+          'that this credential is valid for the API.',
       underlyingException: event.wsError,
     );
 
