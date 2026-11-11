@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Print the pub packages whose license differs from the policy only in case."""
 import json
 import re
@@ -63,11 +66,16 @@ def exemptable(changes, allowed):
 
 def main():
     config_path, changes_path, purls_path = sys.argv[1:4]
+    try:
+        licenses = allow_licenses(config_path)
+    except OSError as error:
+        print(f"::warning::could not read {config_path}: {error}")
+        licenses = []
     # Expressions are dropped because dependency review drops them too, so
     # treating one as policy here could exempt a package it would reject.
     allowed = {
         spdx.lower(): spdx
-        for spdx in allow_licenses(config_path)
+        for spdx in licenses
         if " AND " not in spdx and " OR " not in spdx
     }
     exempt = {}
