@@ -73,6 +73,14 @@ class PubLicenseCasing(unittest.TestCase):
         self.assertNotIn("found no allow_licenses", out)
         self.assertIn("not allowed under any capitalisation", out)
 
+    def test_reads_an_unindented_policy(self):
+        """YAML permits a block sequence at the key's own indentation."""
+        with tempfile.TemporaryDirectory() as tmp:
+            config = pathlib.Path(tmp) / "flat.yml"
+            config.write_text('allow_licenses:\n- "MIT"\ndeny_licenses:\n- "GPL-3.0"\n')
+            purls, _ = self.run_script([change("probe", "mit")], config=config)
+        self.assertEqual(purls, "pkg:pub/probe")
+
     def test_reads_a_tab_indented_policy(self):
         """YAML permits a tab inside the indentation of a block sequence."""
         with tempfile.TemporaryDirectory() as tmp:

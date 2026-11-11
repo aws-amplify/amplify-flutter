@@ -19,10 +19,13 @@ def allow_licenses(config_path):
             stripped = line.strip()
             if not stripped or stripped.startswith("#"):
                 continue
-            if not line.startswith((" ", "\t")):
+            if stripped.startswith("- "):
+                if in_list:
+                    licenses.append(stripped[2:].strip().strip("\"'"))
+            elif not line.startswith((" ", "\t")):
                 in_list = stripped in ("allow_licenses:", "allow-licenses:")
-            elif in_list and stripped.startswith("- "):
-                licenses.append(stripped[2:].strip().strip("\"'"))
+            else:
+                in_list = False
     return licenses
 
 
