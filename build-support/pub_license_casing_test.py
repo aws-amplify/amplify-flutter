@@ -234,6 +234,16 @@ class PubLicenseCasing(unittest.TestCase):
             self.assertEqual(purls, "")
             self.assertIn("could not read the dependency changes", out)
 
+    def test_exempts_nothing_when_the_policy_is_malformed(self):
+        """An indented line that is not an item ends the list, so a policy the
+        action's own loader would reject exempts nothing here too."""
+        with tempfile.TemporaryDirectory() as tmp:
+            config = pathlib.Path(tmp) / "bad.yml"
+            config.write_text('allow_licenses:\n  nested: yes\n  - "MIT"\n')
+            purls, out = self.run_script([change("probe", "mit")], config=config)
+        self.assertEqual(purls, "")
+        self.assertIn("found no allow_licenses", out)
+
     def test_exempts_nothing_when_the_policy_key_is_nested(self):
         """The reader finds the key only at the top level."""
         with tempfile.TemporaryDirectory() as tmp:
