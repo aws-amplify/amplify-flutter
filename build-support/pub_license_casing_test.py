@@ -129,7 +129,7 @@ class PubLicenseCasing(unittest.TestCase):
 
     def test_leaves_every_other_case_alone(self):
         for changes in (
-            [change("probe", "BSD-3-Clause")],
+            [change("probe", "MIT")],
             [change("probe", "mit", ecosystem="npm")],
             [change("probe", "mit", change_type="removed")],
             [change("probe", None)],
