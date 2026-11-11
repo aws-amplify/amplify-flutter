@@ -4,7 +4,6 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -26,13 +25,10 @@ void main() {
       // "ui/components/authenticator/sign-in-with-phone"
       await testRunner.configure(environmentName: 'sign-in-with-phone');
 
-      phoneNumber = generateUSPhoneNumber();
       password = generatePassword();
-      await adminCreateUser(
-        phoneNumber.toE164(),
+      phoneNumber = await adminCreateUserWithGeneratedPhoneNumber(
         password,
         verifyAttributes: true,
-        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
       );
     });
 
