@@ -49,6 +49,7 @@ export 'remove_result.dart';
 export 'storage_bucket.dart';
 export 'storage_item.dart';
 export 'storage_path.dart';
+export 'subpath_strategy.dart';
 export 'transfer_progress.dart';
 export 'upload_data_operation.dart';
 export 'upload_data_options.dart';

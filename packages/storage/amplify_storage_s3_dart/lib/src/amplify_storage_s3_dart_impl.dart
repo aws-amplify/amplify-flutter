@@ -127,15 +127,14 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     required StoragePath path,
     StorageListOptions? options,
   }) {
-    final s3PluginOptions = reifyPluginOptions(
-      pluginOptions: options?.pluginOptions,
-      defaultPluginOptions: const S3ListPluginOptions(),
-    );
     final s3Options = StorageListOptions(
-      pluginOptions: s3PluginOptions,
+      pluginOptions: options?.pluginOptions,
       nextToken: options?.nextToken,
       bucket: options?.bucket,
       pageSize: options?.pageSize ?? 1000,
+      subpathStrategy:
+          options?.subpathStrategy ?? const SubpathStrategy.include(),
+      listAll: options?.listAll ?? false,
     );
 
     return S3ListOperation(

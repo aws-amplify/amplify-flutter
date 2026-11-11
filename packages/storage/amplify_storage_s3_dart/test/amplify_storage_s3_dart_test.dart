@@ -85,11 +85,7 @@ void main() {
 
     group('list()', () {
       const testPath = StoragePath.fromString('some/path');
-      final testResult = S3ListResult(
-        <S3Item>[],
-        hasNextPage: false,
-        metadata: S3ListMetadata.fromS3CommonPrefixes(commonPrefixes: []),
-      );
+      final testResult = S3ListResult(<S3Item>[], hasNextPage: false);
 
       setUpAll(() {
         registerFallbackValue(const StorageListOptions());
@@ -98,9 +94,7 @@ void main() {
       test(
         'should forward default options to StorageS3Service.list() API',
         () async {
-          const defaultOptions = StorageListOptions(
-            pluginOptions: S3ListPluginOptions(),
-          );
+          const defaultOptions = StorageListOptions();
 
           when(
             () =>
@@ -125,7 +119,7 @@ void main() {
 
       test('should forward options to StorageS3Service.list() API', () async {
         const testOptions = StorageListOptions(
-          pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
+          subpathStrategy: SubpathStrategy.exclude(),
           nextToken: 'next-token-123',
           bucket: StorageBucket.fromBucketInfo(
             BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
