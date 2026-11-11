@@ -1,3 +1,6 @@
+allow_dependencies_licenses:
+  # pub.dev reports "bsd-3-clause", which is not a resolvable SPDX id.
+  - "pkg:pub/os_detect"
 allow_licenses:
   - "0BSD"
   - "Apache-2.0"
