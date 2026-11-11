@@ -3,7 +3,8 @@
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
@@ -155,6 +156,106 @@ void main() {
       );
 
       await stateMachine.close();
+    });
+
+    group('custom headers', () {
+      test(
+        'configure succeeds with AuthPluginOptions headers callback',
+        () async {
+          stateMachine.addInstance<AuthPluginOptions>(
+            AuthPluginOptions(
+              headers: () async => {
+                'x-aws-waf-token': 'test-waf-token',
+                'x-custom-header': 'custom-value',
+              },
+            ),
+          );
+
+          final configurationStateMachine = stateMachine.getOrCreate(
+            ConfigurationStateMachine.type,
+          );
+
+          stateMachine
+              .dispatch(ConfigurationEvent.configure(mockConfig))
+              .ignore();
+          await expectLater(
+            configurationStateMachine.stream.startWith(
+              configurationStateMachine.currentState,
+            ),
+            emitsInOrder(<Matcher>[
+              isA<NotConfigured>(),
+              isA<Configuring>(),
+              isA<Configured>(),
+            ]),
+          );
+
+          // Verify that a CognitoIdentityProviderClient was registered.
+          expect(stateMachine.get<CognitoIdentityProviderClient>(), isNotNull);
+
+          await stateMachine.close();
+        },
+      );
+
+      test(
+        'configure succeeds without AuthPluginOptions (no custom headers)',
+        () async {
+          // Do not add AuthPluginOptions -- simulates default behavior.
+          final configurationStateMachine = stateMachine.getOrCreate(
+            ConfigurationStateMachine.type,
+          );
+
+          stateMachine
+              .dispatch(ConfigurationEvent.configure(mockConfig))
+              .ignore();
+          await expectLater(
+            configurationStateMachine.stream.startWith(
+              configurationStateMachine.currentState,
+            ),
+            emitsInOrder(<Matcher>[
+              isA<NotConfigured>(),
+              isA<Configuring>(),
+              isA<Configured>(),
+            ]),
+          );
+
+          // Verify that a CognitoIdentityProviderClient was still registered.
+          expect(stateMachine.get<CognitoIdentityProviderClient>(), isNotNull);
+
+          await stateMachine.close();
+        },
+      );
+
+      test(
+        'configure succeeds with AuthPluginOptions without headers callback',
+        () async {
+          // AuthPluginOptions with null headers (default).
+          stateMachine.addInstance<AuthPluginOptions>(
+            const AuthPluginOptions(),
+          );
+
+          final configurationStateMachine = stateMachine.getOrCreate(
+            ConfigurationStateMachine.type,
+          );
+
+          stateMachine
+              .dispatch(ConfigurationEvent.configure(mockConfig))
+              .ignore();
+          await expectLater(
+            configurationStateMachine.stream.startWith(
+              configurationStateMachine.currentState,
+            ),
+            emitsInOrder(<Matcher>[
+              isA<NotConfigured>(),
+              isA<Configuring>(),
+              isA<Configured>(),
+            ]),
+          );
+
+          expect(stateMachine.get<CognitoIdentityProviderClient>(), isNotNull);
+
+          await stateMachine.close();
+        },
+      );
     });
   });
 }
