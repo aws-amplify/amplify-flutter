@@ -162,7 +162,7 @@ class AmplifyWebSocketService
         final messageAck = message.payload as ConnectionAckMessagePayload;
         return ConnectionAckMessageEvent(messageAck);
       case MessageType.connectionError:
-        return const ConnectionErrorEvent();
+        return ConnectionErrorEvent(message.payload as WebSocketError?);
       case MessageType.keepAlive:
         return const KeepAliveEvent();
       case MessageType.error:
