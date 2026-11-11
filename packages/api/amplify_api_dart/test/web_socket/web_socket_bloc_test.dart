@@ -578,11 +578,17 @@ void main() {
         expect(
           subscription,
           emitsError(
-            isA<NetworkException>().having(
-              (e) => e.underlyingException.toString(),
-              'underlyingException',
-              contains(appSyncReason),
-            ),
+            isA<NetworkException>()
+                .having(
+                  (e) => e.underlyingException.toString(),
+                  'underlyingException',
+                  contains(appSyncReason),
+                )
+                .having(
+                  (e) => e.recoverySuggestion,
+                  'recoverySuggestion',
+                  contains('"apiKey" auth mode'),
+                ),
           ),
         );
       });
