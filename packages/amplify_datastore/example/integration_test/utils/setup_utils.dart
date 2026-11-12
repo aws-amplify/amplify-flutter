@@ -89,18 +89,26 @@ Future<void> waitForObserve() async {
   await Amplify.DataStore.delete(blog);
 }
 
-/// Am async operator that starts DataStore API sync.
-/// It returns a Future which complets when [Amplify.Hub] receives the ready
-/// event on [HubChannel.DataStore], or completes with an timeout error if
-/// the ready event hasn't been emitted with in 2 minutes.
+/// An async operator that starts DataStore API sync.
+/// It returns a Future which completes when [Amplify.Hub] receives the ready
+/// event on [HubChannel.DataStore], or completes with a [TimeoutException]
+/// after [DATASTORE_READY_EVENT_TIMEOUT]. The timeout names the hub events
+/// that did arrive, so a sync that stalled part-way is distinguishable from
+/// a DataStore that never started.
 class DataStoreStarter {
   final Completer _completer = Completer();
   late StreamSubscription<DataStoreHubEvent> hubSubscription;
+  final Map<String, int> _observedEvents = {};
 
   Future<void> startDataStore() {
     hubSubscription = Amplify.Hub.listen(HubChannel.DataStore, (
       DataStoreHubEvent event,
     ) {
+      _observedEvents.update(
+        event.eventName,
+        (count) => count + 1,
+        ifAbsent: () => 1,
+      );
       if (event.eventName == 'ready') {
         print(
           '🎉🎉🎉DataStore is ready to start running test suites with API sync enabled.🎉🎉🎉',
@@ -113,7 +121,26 @@ class DataStoreStarter {
     // we are not waiting for DataStore.start to complete
     // but an asynchronous DataStore ready event dispatched via the hub
     Amplify.DataStore.start();
-    return _completer.future.timeout(DATASTORE_READY_EVENT_TIMEOUT);
+    return _completer.future.timeout(
+      DATASTORE_READY_EVENT_TIMEOUT,
+      onTimeout: () {
+        hubSubscription.cancel();
+        final observed = _observedEvents.isEmpty
+            ? '(none)'
+            : _observedEvents.entries
+                  .map(
+                    (entry) => entry.value == 1
+                        ? entry.key
+                        : '${entry.key} x${entry.value}',
+                  )
+                  .join(', ');
+        throw TimeoutException(
+          'DataStore did not emit the ready event. '
+          'Hub events observed: $observed',
+          DATASTORE_READY_EVENT_TIMEOUT,
+        );
+      },
+    );
   }
 }
 
