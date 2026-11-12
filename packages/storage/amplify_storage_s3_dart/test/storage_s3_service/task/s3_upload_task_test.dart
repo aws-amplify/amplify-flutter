@@ -1921,7 +1921,7 @@ void main() {
               any(),
               s3ClientConfig: any(named: 's3ClientConfig'),
             ),
-          ).thenThrow(testException);
+          ).thenAnswer((_) => _uploadPartFailingWith(testException));
 
           // Delay the abort response so all concurrent part failures reach the
           // dedupe guard while the first abort is still awaiting.
@@ -2346,7 +2346,7 @@ void main() {
             any(),
             s3ClientConfig: any(named: 's3ClientConfig'),
           ),
-        ).thenThrow(testException);
+        ).thenAnswer((_) => _uploadPartFailingWith(testException));
 
         final abortMultipartUploadSmithyOperation =
             MockSmithyOperation<s3.AbortMultipartUploadOutput>();
@@ -2393,6 +2393,228 @@ void main() {
         );
       });
     });
+
+    group('cancel() or a part failure landing while a part batch is being '
+        'started', () {
+      // A cancel() or a part failure can land while the part batch is still
+      // starting parts: a cancel() that was waiting for CreateMultipartUpload
+      // to return, or either one while a part's bytes are read from a stream.
+      // Both abort the multipart upload, so any part started after them would
+      // upload against an aborted upload ID until S3 rejects it.
+      const testKey = 'object-upload-to';
+      const partSize = 5 * 1024 * 1024;
+      const fileSize = 16 * 1024 * 1024; // 4 parts, all in the first batch
+      late MockS3Client client;
+      late Completer<void> createReturns;
+      late List<
+        ({
+          MockSmithyOperation<s3.UploadPartOutput> operation,
+          Completer<s3.UploadPartOutput> ended,
+        })
+      >
+      startedParts;
+      late int partsRead;
+      late Future<void> Function(int partNumber) sendPart;
+      late StreamController<List<int>> bytes;
+
+      S3UploadTask uploadTask(
+        AWSFile file, {
+        void Function(S3TransferProgress)? onProgress,
+      }) => S3UploadTask.fromAWSFile(
+        file,
+        s3Client: client,
+        s3ClientConfig: defaultS3ClientConfig,
+        pathResolver: pathResolver,
+        bucket: testBucket,
+        awsRegion: testRegion,
+        path: const StoragePath.fromString(testKey),
+        options: testUploadDataOptions,
+        logger: logger,
+        transferDatabase: transferDatabase,
+        onProgress: onProgress,
+      );
+
+      // A stream-backed file of [fileSize] bytes. Each time the task asks for
+      // the next part's bytes, [partsRead] goes up, and the part's bytes are
+      // sent once [send] completes for that part number.
+      AWSFile streamedFile(Future<void> Function(int partNumber) send) {
+        sendPart = send;
+        return AWSFile.fromStream(
+          bytes.stream,
+          size: fileSize,
+          contentType: 'video/mp4',
+        );
+      }
+
+      setUp(() {
+        client = MockS3Client();
+        createReturns = Completer<void>();
+        startedParts = [];
+        partsRead = 0;
+        void readPart() {
+          final partNumber = ++partsRead;
+          final size = min(partSize, fileSize - (partNumber - 1) * partSize);
+          unawaited(
+            sendPart(partNumber).then((_) {
+              bytes.add(Uint8List(size));
+              if (partNumber * partSize >= fileSize) unawaited(bytes.close());
+            }),
+          );
+        }
+
+        bytes = StreamController(onListen: readPart, onResume: readPart);
+
+        final createOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+        when(() => createOperation.result).thenAnswer((_) async {
+          await createReturns.future;
+          return s3.CreateMultipartUploadOutput(uploadId: 'some-upload-id');
+        });
+        when(
+          () => client.createMultipartUpload(any()),
+        ).thenAnswer((_) => createOperation);
+
+        // A part never lands on its own; it ends when canceled, or when a
+        // test completes its `ended`.
+        when(
+          () => client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer((_) {
+          final ended = Completer<s3.UploadPartOutput>();
+          final operation = MockSmithyOperation<s3.UploadPartOutput>();
+          when(() => operation.result).thenAnswer((_) => ended.future);
+          when(operation.cancel).thenAnswer((_) async {
+            if (!ended.isCompleted) {
+              ended.completeError(const CancellationException());
+            }
+          });
+          startedParts.add((operation: operation, ended: ended));
+          return operation;
+        });
+
+        final abortOperation =
+            MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+        when(
+          () => abortOperation.result,
+        ).thenAnswer((_) async => s3.AbortMultipartUploadOutput());
+        when(
+          () => client.abortMultipartUpload(any()),
+        ).thenAnswer((_) => abortOperation);
+
+        when(
+          () => transferDatabase.insertTransferRecord(any()),
+        ).thenAnswer((_) async => '1');
+      });
+
+      tearDown(() {
+        // Not awaited: close() completes only once the done event is
+        // delivered or the listener cancels, and neither happens here. The
+        // stream tests leave the stream paused, and the data-backed test never
+        // listens to it.
+        unawaited(bytes.close());
+      });
+
+      test('cancels every part the batch started when cancel() was waiting '
+          'for CreateMultipartUpload', () async {
+        final task = uploadTask(AWSFile.fromData(Uint8List(fileSize)));
+        unawaited(task.start());
+        await pumpEventQueue();
+
+        final result = expectLater(
+          task.result,
+          throwsA(isA<StorageOperationCanceledException>()),
+        );
+        unawaited(task.cancel());
+        createReturns.complete();
+        await result;
+        await pumpEventQueue();
+
+        verify(() => client.abortMultipartUpload(any())).called(1);
+        expect(
+          startedParts,
+          hasLength(1),
+          reason:
+              'the batch starts part 1 before cancel() resumes, and no part '
+              'after it',
+        );
+        for (final part in startedParts) {
+          verify(part.operation.cancel).called(1);
+        }
+      });
+
+      test('starts no part, and reads no further, when cancel() landed while '
+          "a part's bytes were being read", () async {
+        final bytesReleased = Completer<void>();
+        final firstProgress = Completer<void>();
+        final task = uploadTask(
+          streamedFile((_) => bytesReleased.future),
+          onProgress: (_) {
+            if (!firstProgress.isCompleted) firstProgress.complete();
+          },
+        );
+        createReturns.complete();
+        unawaited(task.start());
+        await firstProgress.future;
+
+        final result = expectLater(
+          task.result,
+          throwsA(isA<StorageOperationCanceledException>()),
+        );
+        await task.cancel();
+        await result;
+        bytesReleased.complete();
+        await pumpEventQueue();
+
+        verifyNever(
+          () => client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        );
+        expect(partsRead, 1);
+      });
+
+      test('starts no part, and reads no further, when a part failed while '
+          "the next part's bytes were being read", () async {
+        final secondPartAskedFor = Completer<void>();
+        final laterPartsReleased = Completer<void>();
+        final task = uploadTask(
+          streamedFile((partNumber) {
+            if (partNumber == 1) return Future.value();
+            if (partNumber == 2) secondPartAskedFor.complete();
+            return laterPartsReleased.future;
+          }),
+        );
+        createReturns.complete();
+        unawaited(task.start());
+        await secondPartAskedFor.future;
+
+        final result = expectLater(
+          task.result,
+          throwsA(isA<UnknownException>()),
+        );
+        startedParts.single.ended.completeError(
+          const smithy.UnknownSmithyHttpException(
+            statusCode: 500,
+            body: 'We encountered an internal error. Please try again.',
+          ),
+        );
+        await result;
+        laterPartsReleased.complete();
+        await pumpEventQueue();
+
+        verify(
+          () => client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).called(1);
+        verify(() => client.abortMultipartUpload(any())).called(1);
+        expect(partsRead, 2);
+      });
+    });
   });
 }
 
@@ -2406,4 +2628,18 @@ Stream<List<int>> _getBytesStream(Uint8List bytes) async* {
     yield bytes.sublist(currentPosition, readRange);
     currentPosition += chunkSize;
   }
+}
+
+/// An UploadPart operation that fails with [exception] the way a real HTTP
+/// failure does: once the part batch that started it has started all its
+/// parts, rather than while that batch is still starting them.
+MockSmithyOperation<s3.UploadPartOutput> _uploadPartFailingWith(
+  Exception exception,
+) {
+  final operation = MockSmithyOperation<s3.UploadPartOutput>();
+  when(() => operation.result).thenAnswer((_) async {
+    await Future<void>.delayed(Duration.zero);
+    throw exception;
+  });
+  return operation;
 }
