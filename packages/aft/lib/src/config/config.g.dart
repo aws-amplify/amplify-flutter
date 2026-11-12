@@ -59,6 +59,13 @@ class _$AftConfigSerializer implements StructuredSerializer<AftConfig> {
           const FullType(String),
         ]),
       ),
+      'pinned',
+      serializers.serialize(
+        object.pinned,
+        specifiedType: const FullType(BuiltList, const [
+          const FullType(String),
+        ]),
+      ),
       'components',
       serializers.serialize(
         object.components,
@@ -172,6 +179,17 @@ class _$AftConfigSerializer implements StructuredSerializer<AftConfig> {
                 as BuiltList<Object?>,
           );
           break;
+        case 'pinned':
+          result.pinned.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltList, const [
+                    const FullType(String),
+                  ]),
+                )!
+                as BuiltList<Object?>,
+          );
+          break;
         case 'components':
           result.components.replace(
             serializers.deserialize(
@@ -217,6 +235,8 @@ class _$AftConfig extends AftConfig {
   @override
   final BuiltList<String> ignore;
   @override
+  final BuiltList<String> pinned;
+  @override
   final BuiltMap<String, AftComponent> components;
   @override
   final BuiltMap<String, AftScript> scripts;
@@ -232,6 +252,7 @@ class _$AftConfig extends AftConfig {
     required this.environment,
     this.platforms,
     required this.ignore,
+    required this.pinned,
     required this.components,
     required this.scripts,
   }) : super._();
@@ -253,6 +274,7 @@ class _$AftConfig extends AftConfig {
         environment == other.environment &&
         platforms == other.platforms &&
         ignore == other.ignore &&
+        pinned == other.pinned &&
         components == other.components &&
         scripts == other.scripts;
   }
@@ -267,6 +289,7 @@ class _$AftConfig extends AftConfig {
     _$hash = $jc(_$hash, environment.hashCode);
     _$hash = $jc(_$hash, platforms.hashCode);
     _$hash = $jc(_$hash, ignore.hashCode);
+    _$hash = $jc(_$hash, pinned.hashCode);
     _$hash = $jc(_$hash, components.hashCode);
     _$hash = $jc(_$hash, scripts.hashCode);
     _$hash = $jf(_$hash);
@@ -315,6 +338,10 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
   ListBuilder<String> get ignore => _$this._ignore ??= ListBuilder<String>();
   set ignore(ListBuilder<String>? ignore) => _$this._ignore = ignore;
 
+  ListBuilder<String>? _pinned;
+  ListBuilder<String> get pinned => _$this._pinned ??= ListBuilder<String>();
+  set pinned(ListBuilder<String>? pinned) => _$this._pinned = pinned;
+
   MapBuilder<String, AftComponent>? _components;
   MapBuilder<String, AftComponent> get components =>
       _$this._components ??= MapBuilder<String, AftComponent>();
@@ -339,6 +366,7 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
       _environment = $v.environment.toBuilder();
       _platforms = $v.platforms?.toBuilder();
       _ignore = $v.ignore.toBuilder();
+      _pinned = $v.pinned.toBuilder();
       _components = $v.components.toBuilder();
       _scripts = $v.scripts.toBuilder();
       _$v = null;
@@ -380,6 +408,7 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
             environment: environment.build(),
             platforms: _platforms?.build(),
             ignore: ignore.build(),
+            pinned: pinned.build(),
             components: components.build(),
             scripts: scripts.build(),
           );
@@ -396,6 +425,8 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
         _platforms?.build();
         _$failedField = 'ignore';
         ignore.build();
+        _$failedField = 'pinned';
+        pinned.build();
         _$failedField = 'components';
         components.build();
         _$failedField = 'scripts';
