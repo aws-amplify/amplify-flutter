@@ -3,6 +3,8 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
+import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
@@ -966,6 +968,93 @@ void main() {
               throwsA(isA<UnknownException>()),
             );
           });
+        });
+      });
+
+      group('device key', () {
+        // The name typed at sign-in, which is stored with the session and can
+        // differ from the Cognito username in the tokens.
+        const signInName = 'user@example.com';
+        GetTokensFromRefreshTokenRequest? refreshRequest;
+        late DeviceMetadataRepository deviceRepo;
+
+        CognitoDeviceSecrets secretsWithKey(String key) {
+          return CognitoDeviceSecrets(
+            (b) => b
+              ..deviceKey = key
+              ..deviceGroupKey = deviceGroupKey
+              ..devicePassword = devicePassword,
+          );
+        }
+
+        setUp(() async {
+          // The first two tests need the name used to sign in to differ from
+          // the username in the stored ID token.
+          expect(
+            expiredIdToken.claims.customClaims['cognito:username'],
+            username,
+          );
+          expect(signInName, isNot(username));
+
+          refreshRequest = null;
+          seedStorage(
+            secureStorage,
+            identityPoolKeys: identityPoolKeys,
+            userPoolKeys: userPoolKeys,
+          );
+          await secureStorage.write(
+            key: userPoolKeys[CognitoUserPoolKey.idToken],
+            value: expiredIdToken.raw,
+          );
+          await secureStorage.write(
+            key: userPoolKeys[CognitoUserPoolKey.username],
+            value: signInName,
+          );
+          deviceRepo = DeviceMetadataRepository(
+            mockConfig.auth!,
+            secureStorage,
+          );
+          await configureAmplify(config);
+          stateMachine.addInstance<CognitoIdentityProviderClient>(
+            MockCognitoIdentityProviderClient(
+              getTokensFromRefreshTokenWithRequest: (request) async {
+                refreshRequest = request;
+                return GetTokensFromRefreshTokenResponse(
+                  authenticationResult: AuthenticationResultType(
+                    accessToken: newAccessToken.raw,
+                    refreshToken: refreshToken,
+                    idToken: newIdToken.raw,
+                  ),
+                );
+              },
+            ),
+          );
+        });
+
+        test('is sent when stored under the name used to sign in', () async {
+          await deviceRepo.put(signInName, secretsWithKey(deviceKey));
+
+          await fetchAuthSession(willRefresh: true);
+
+          expect(refreshRequest, isNotNull);
+          expect(refreshRequest!.deviceKey, deviceKey);
+        });
+
+        test('stored under the token username takes precedence', () async {
+          await deviceRepo.put(signInName, secretsWithKey(deviceKey));
+          await deviceRepo.put(username, secretsWithKey('tokenUsernameKey'));
+
+          await fetchAuthSession(willRefresh: true);
+
+          expect(refreshRequest, isNotNull);
+          expect(refreshRequest!.deviceKey, 'tokenUsernameKey');
+        });
+
+        test('is omitted when no device is stored', () async {
+          await fetchAuthSession(willRefresh: true);
+
+          expect(refreshRequest, isNotNull);
+          expect(refreshRequest!.deviceKey, isNull);
         });
       });
 
