@@ -96,10 +96,32 @@ $ aft bootstrap
 > The `aft` command provides useful tooling when developing within this repo. See `aft`'s [README](packages/aft/README.md) for more instructions on how to use `aft`.
 
 #### Packages inside Amplify Flutter
+Packages is stored under `packages/`. Thease are published at [pub.dev](https://pub.dev/)
 
-- [amplify_flutter](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify/amplify_flutter)
-- [amplify_auth_cognito](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/auth/amplify_auth_cognito)
+- [amplify_flutter](https://pub.dev/packages/amplify_flutter)
+- [amplify_core](https://pub.dev/packages/amplify_core)
+- [amplify_datastore](https://pub.dev/packages/amplify_datastore)
+- [amplify_lints](https://pub.dev/packages/amplify_lints)
+- [amplify_analytics pinpoint](https://pub.dev/packages/amplify_analytics_pinpoint)
+- [amplify_api](https://pub.dev/packages/amplify_api)
+- [amplify_api_dart](https://pub.dev/packages/amplify_api_dart)
 - [amplify_analytics_pinpoint](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/analytics/amplify_analytics_pinpoint)
+- [amplify_analytics_pinpoint_dart](https://pub.dev/packages/amplify_analytics_pinpoint_dart)
+- [amplify_auth_cognito](https://pub.dev/packages/amplify_auth_cognito)
+- [amplify_auth_cognito_dart](https://pub.dev/packages/amplify_auth_cognito_dart)
+- [aws_signature_v4](https://pub.dev/packages/aws_signature_v4)
+- [amplify_db_common](https://pub.dev/packages/amplify_db_common)
+- [amplify_db_common_dart](https://pub.dev/packages/amplify_db_common_dart)
+- [amplify_push_notifications](https://pub.dev/packages/amplify_push_notifications)
+- [amplify_push_notifications_pinpoint](https://pub.dev/packages/amplify_push_notifications_pinpoint)
+- [amplify_secure_storage](https://pub.dev/packages/amplify_secure_storage)
+- [amplify_secure_storage_dart](https://pub.dev/packages/amplify_secure_storage_dart)
+- [smithy](https://pub.dev/packages/smithy)
+- [smithy_aws](https://pub.dev/packages/smithy_aws)
+- [amplify_storage_s3](https://pub.dev/packages/amplify_storage_s3)
+- [amplify_storage_s3_dart](https://pub.dev/packages/amplify_storage_s3_dart)
+- [worker_bee](https://pub.dev/packages/worker_bee)
+- [worker_bee_builder](https://pub.dev/packages/worker_bee_builder)
 
 ### Platform Setup
 
