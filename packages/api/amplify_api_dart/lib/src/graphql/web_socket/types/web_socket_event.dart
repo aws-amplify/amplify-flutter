@@ -165,14 +165,17 @@ class WsErrorEvent extends WebSocketEvent {
 
 /// Connection Error while setting up web socket connection
 class ConnectionErrorEvent extends WebSocketEvent {
-  /// Create an Connection error event
-  const ConnectionErrorEvent();
+  /// Event takes the [WebSocketError] provided by AppSync
+  const ConnectionErrorEvent(this.wsError);
+
+  /// The web socket error
+  final WebSocketError? wsError;
 
   @override
   String get runtimeTypeName => 'ConnectionErrorEvent';
 
   @override
-  Map<String, Object?> toJson() => const {};
+  Map<String, Object?> toJson() => {'wsError': wsError?.toJson()};
 }
 
 /// Subscribe Event to establish a new subscription on the bloc
