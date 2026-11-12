@@ -19,7 +19,7 @@ dependencies:
   logging: ^1.0.0
   meta: ^1.16.0
   mime: ^2.0.0
-  os_detect: ^2.0.2
+  os_detect: ">=2.0.2 <2.0.4"
   path: ^1.8.0
   stream_transform: ^2.1.0
   uuid: ^4.5.1

@@ -73,6 +73,7 @@ class RawAftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   const RawAftConfig({
     this.platforms,
     this.ignore = const [],
+    this.pinned = const [],
     this.components = const [],
     this.scripts = const {},
     this.github,
@@ -86,6 +87,9 @@ class RawAftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
 
   /// Packages to ignore in all repo operations.
   final List<String> ignore;
+
+  /// Global dependencies left unchanged by `aft constraints update`.
+  final List<String> pinned;
 
   /// {@macro aft.models.aft_component}
   final List<RawAftComponent> components;

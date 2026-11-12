@@ -58,6 +58,10 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    ignore:
+      # Ignore dependencies pinned in the global "pubspec.yaml"
+      - dependency-name: "os_detect"
+      - dependency-name: "source_helper"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       async:
@@ -123,6 +127,9 @@ updates:
       oauth2:
         patterns:
           - "oauth2"
+      os_detect:
+        patterns:
+          - "os_detect"
       package_info_plus:
         patterns:
           - "package_info_plus"
@@ -1403,6 +1410,9 @@ updates:
       mime:
         patterns:
           - "mime"
+      os_detect:
+        patterns:
+          - "os_detect"
       uuid:
         patterns:
           - "uuid"
@@ -1887,6 +1897,9 @@ updates:
       flutter_plugin_android_lifecycle:
         patterns:
           - "flutter_plugin_android_lifecycle"
+      os_detect:
+        patterns:
+          - "os_detect"
       build_runner:
         patterns:
           - "build_runner"

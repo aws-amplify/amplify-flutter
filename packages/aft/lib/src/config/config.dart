@@ -32,6 +32,7 @@ abstract class AftConfig
     required Environment environment,
     PlatformEnvironment? platforms,
     List<String> ignore = const [],
+    List<String> pinned = const [],
     Map<String, AftComponent> components = const {},
     Map<String, AftScript> scripts = const {},
   }) {
@@ -43,6 +44,7 @@ abstract class AftConfig
       environment: environment,
       platforms: platforms,
       ignore: ignore.build(),
+      pinned: pinned.build(),
       components: components.build(),
       scripts: scripts.build(),
     );
@@ -78,6 +80,9 @@ abstract class AftConfig
 
   /// Packages to ignore in all repo operations.
   BuiltList<String> get ignore;
+
+  /// Global dependencies left unchanged by `aft constraints update`.
+  BuiltList<String> get pinned;
 
   /// {@macro aft.models.aft_component}
   BuiltMap<String, AftComponent> get components;
