@@ -6,7 +6,14 @@ import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart'
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
 import 'package:flutter/material.dart';
 
-enum MessageResolverKeyType { codeSent, copySucceeded, copyFailed }
+enum MessageResolverKeyType {
+  codeSent,
+  copySucceeded,
+  copyFailed,
+  passkeyRegistrationFailed,
+  passkeyCeremonyFailed,
+  passkeyPromptDescription,
+}
 
 class MessageResolverKey {
   const MessageResolverKey._(this.type, this.destination);
@@ -15,6 +22,19 @@ class MessageResolverKey {
     : this._(MessageResolverKeyType.codeSent, destination);
   final MessageResolverKeyType type;
   final String? destination;
+
+  static const passkeyRegistrationFailed = MessageResolverKey._(
+    MessageResolverKeyType.passkeyRegistrationFailed,
+    null,
+  );
+  static const passkeyCeremonyFailed = MessageResolverKey._(
+    MessageResolverKeyType.passkeyCeremonyFailed,
+    null,
+  );
+  static const passkeyPromptDescription = MessageResolverKey._(
+    MessageResolverKeyType.passkeyPromptDescription,
+    null,
+  );
 }
 
 /// The resolver class for messages
@@ -43,6 +63,25 @@ class MessageResolver extends Resolver<MessageResolverKey> {
     return AuthenticatorLocalizations.messagesOf(context).copyFailed;
   }
 
+  /// The message displayed when passkey registration fails.
+  String passkeyRegistrationFailed(BuildContext context) {
+    return AuthenticatorLocalizations.messagesOf(
+      context,
+    ).passkeyRegistrationFailed;
+  }
+
+  /// The message displayed when a passkey sign-in ceremony fails.
+  String passkeyCeremonyFailed(BuildContext context) {
+    return AuthenticatorLocalizations.messagesOf(context).passkeyCeremonyFailed;
+  }
+
+  /// Descriptive text explaining what passkeys are.
+  String passkeyPromptDescription(BuildContext context) {
+    return AuthenticatorLocalizations.messagesOf(
+      context,
+    ).passkeyPromptDescription;
+  }
+
   /// Resolves error messages for AuthenticatorException instances
   String error(BuildContext context, AuthenticatorException exception) {
     if (exception is CognitoAuthenticatorException) {
@@ -67,6 +106,12 @@ class MessageResolver extends Resolver<MessageResolverKey> {
         return copySucceeded(context);
       case MessageResolverKeyType.copyFailed:
         return copyFailed(context);
+      case MessageResolverKeyType.passkeyRegistrationFailed:
+        return passkeyRegistrationFailed(context);
+      case MessageResolverKeyType.passkeyCeremonyFailed:
+        return passkeyCeremonyFailed(context);
+      case MessageResolverKeyType.passkeyPromptDescription:
+        return passkeyPromptDescription(context);
     }
   }
 }

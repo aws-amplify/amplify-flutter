@@ -23,5 +23,17 @@
     "copyFailed": "Copy to clipboard failed.",
     "@copyFailed": {
         "description": "The message that is displayed after a value failed to copy to the clipboard"
+    },
+    "passkeyRegistrationFailed": "Passkey registration failed. Please try again or continue without a passkey.",
+    "@passkeyRegistrationFailed": {
+        "description": "The message displayed when passkey registration fails"
+    },
+    "passkeyCeremonyFailed": "Passkey sign-in failed. Please try again or choose another method.",
+    "@passkeyCeremonyFailed": {
+        "description": "The message displayed when a passkey sign-in ceremony fails"
+    },
+    "passkeyPromptDescription": "Passkeys let you sign in securely using your device's built-in authentication.",
+    "@passkeyPromptDescription": {
+        "description": "Descriptive text explaining what passkeys are"
     }
-} 
+}

@@ -21,6 +21,8 @@ class InheritedForms extends InheritedWidget {
     required this.continueSignInWithEmailMfaSetupForm,
     required this.confirmSignInWithTotpMfaCodeForm,
     required this.confirmSignInWithOtpCodeForm,
+    required this.continueSignInWithFirstFactorSelectionForm,
+    required this.passkeyPromptForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
     required super.child,
@@ -39,6 +41,9 @@ class InheritedForms extends InheritedWidget {
   final ContinueSignInWithEmailMfaSetupForm continueSignInWithEmailMfaSetupForm;
   final ConfirmSignInMFAForm confirmSignInWithTotpMfaCodeForm;
   final ConfirmSignInMFAForm confirmSignInWithOtpCodeForm;
+  final ContinueSignInWithFirstFactorSelectionForm
+  continueSignInWithFirstFactorSelectionForm;
+  final PasskeyPromptForm passkeyPromptForm;
   final ResetPasswordForm resetPasswordForm;
   final ConfirmResetPasswordForm confirmResetPasswordForm;
   final VerifyUserForm verifyUserForm;
@@ -72,6 +77,10 @@ class InheritedForms extends InheritedWidget {
         return continueSignInWithEmailMfaSetupForm;
       case AuthenticatorStep.confirmSignInWithOtpCode:
         return confirmSignInWithOtpCodeForm;
+      case AuthenticatorStep.continueSignInWithFirstFactorSelection:
+        return continueSignInWithFirstFactorSelectionForm;
+      case AuthenticatorStep.passkeyPrompt:
+        return passkeyPromptForm;
       case AuthenticatorStep.resetPassword:
         return resetPasswordForm;
       case AuthenticatorStep.confirmResetPassword:
@@ -123,7 +132,10 @@ class InheritedForms extends InheritedWidget {
         oldWidget.continueSignInWithEmailMfaSetupForm !=
             continueSignInWithEmailMfaSetupForm ||
         oldWidget.continueSignInWithMfaSetupSelectionForm !=
-            continueSignInWithMfaSetupSelectionForm;
+            continueSignInWithMfaSetupSelectionForm ||
+        oldWidget.continueSignInWithFirstFactorSelectionForm !=
+            continueSignInWithFirstFactorSelectionForm ||
+        oldWidget.passkeyPromptForm != passkeyPromptForm;
   }
 }
 

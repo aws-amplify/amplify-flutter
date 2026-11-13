@@ -134,6 +134,47 @@ class ContinueSignInWithMfaSetupSelection extends UnauthenticatedState {
   String get runtimeTypeName => 'ContinueSignInWithMfaSetupSelection';
 }
 
+class ContinueSignInWithFirstFactorSelection extends UnauthenticatedState {
+  const ContinueSignInWithFirstFactorSelection({
+    Set<AuthFactorType>? availableFactors,
+  }) : availableFactors = availableFactors ?? const {},
+       super(step: AuthenticatorStep.continueSignInWithFirstFactorSelection);
+
+  final Set<AuthFactorType> availableFactors;
+
+  @override
+  List<Object?> get props => [step, availableFactors];
+
+  @override
+  String get runtimeTypeName => 'ContinueSignInWithFirstFactorSelection';
+}
+
+class PasskeyPromptState extends UnauthenticatedState {
+  const PasskeyPromptState({
+    this.isRegistering = false,
+    this.isSuccess = false,
+    this.errorMessage,
+    this.registeredCredentials = const [],
+  }) : super(step: AuthenticatorStep.passkeyPrompt);
+
+  final bool isRegistering;
+  final bool isSuccess;
+  final String? errorMessage;
+  final List<AuthWebAuthnCredential> registeredCredentials;
+
+  @override
+  List<Object?> get props => [
+    step,
+    isRegistering,
+    isSuccess,
+    errorMessage,
+    registeredCredentials,
+  ];
+
+  @override
+  String get runtimeTypeName => 'PasskeyPromptState';
+}
+
 class ContinueSignInTotpSetup extends UnauthenticatedState {
   const ContinueSignInTotpSetup(this.totpSetupDetails, this.totpSetupUri)
     : super(step: AuthenticatorStep.continueSignInWithTotpSetup);

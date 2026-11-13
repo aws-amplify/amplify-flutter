@@ -38,6 +38,8 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
       AuthSignInStep.continueSignInWithFirstFactorSelection,
     ChallengeNameType.password ||
     ChallengeNameType.passwordSrp => AuthSignInStep.confirmSignInWithPassword,
+    ChallengeNameType.webAuthn =>
+      AuthSignInStep.confirmSignInWithCustomChallenge,
     ChallengeNameType.adminNoSrpAuth ||
     ChallengeNameType.passwordVerifier ||
     ChallengeNameType.devicePasswordVerifier ||
