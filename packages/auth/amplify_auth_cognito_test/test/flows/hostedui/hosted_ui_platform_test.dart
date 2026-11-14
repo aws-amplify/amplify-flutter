@@ -11,6 +11,7 @@ import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_dispatcher.dart';
+import 'package:amplify_auth_cognito_test/common/mock_hosted_ui.dart';
 import 'package:amplify_auth_cognito_test/common/mock_oauth_server.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -112,6 +113,43 @@ void main() {
 
         expect(platform.exchange(parameters), completes);
       });
+
+      // https://github.com/aws-amplify/amplify-flutter/issues/7077
+      test('user_cancelled_authorize throws UserCancelledException', () {
+        expect(
+          platform.exchange(
+            OAuthParameters(
+              (b) => b
+                ..state = state
+                ..error = OAuthErrorCode.userCancelledAuthorize
+                ..errorDescription =
+                    'Error response from Identity Provider; '
+                    'error=user_cancelled_authorize',
+            ),
+          ),
+          throwsA(isA<UserCancelledException>()),
+        );
+      });
+
+      test('unrecognized error codes throw UnknownException', () {
+        expect(
+          platform.exchange(
+            OAuthParameters(
+              (b) => b
+                ..state = state
+                ..error = OAuthErrorCode.unknown
+                ..errorDescription = 'some_provider_specific_error',
+            ),
+          ),
+          throwsA(
+            isA<UnknownException>().having(
+              (e) => e.message,
+              'message',
+              contains('some_provider_specific_error'),
+            ),
+          ),
+        );
+      });
     });
 
     group('signIn', () {
@@ -156,6 +194,84 @@ void main() {
         // Ensure queue is flushed and done event is emitted after
         // signInWithWebUI completes.
         await hostedUiMachine.close();
+      });
+    });
+
+    // The identity provider can redirect back with an error code instead of an
+    // authorization code, e.g. when the user cancels at the provider's consent
+    // screen. The error must be delivered to the caller of `signInWithWebUI`
+    // and must not be re-raised as an uncaught async error.
+    //
+    // https://github.com/aws-amplify/amplify-flutter/issues/7077
+    group('cancelled at the identity provider', () {
+      const cancelUri =
+          'myapp://callback'
+          '?error_description=Error+response+from+Identity+Provider;'
+          '+error=user_cancelled_authorize'
+          '&state=STATE'
+          '&error=user_cancelled_authorize';
+
+      late AmplifyAuthCognitoDart plugin;
+
+      setUp(() async {
+        final secureStorage = MockSecureStorage();
+        SecureStorageInterface storageFactory(scope) => secureStorage;
+        final stateMachine = CognitoAuthStateMachine()
+          ..addInstance<SecureStorageInterface>(secureStorage)
+          ..addInstance<http.Client>(server.httpClient);
+        stateMachine.addBuilder<HostedUiPlatform>(
+          createHostedUiFactory(
+            // Mimics the native platform returning the error parameters of
+            // the redirect URI.
+            signIn: (platform, options, provider) async {
+              stateMachine
+                  .dispatch(
+                    HostedUiEvent.exchange(
+                      OAuthParameters.fromUri(Uri.parse(cancelUri))!,
+                    ),
+                  )
+                  .ignore();
+            },
+            signOut: (platform, options) async {},
+          ),
+        );
+        plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
+          ..stateMachine = stateMachine;
+        // `configure` installs the plugin's listener on the state machine,
+        // which is where unresolved errors would otherwise become uncaught.
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: AmplifyAuthProviderRepository(),
+        );
+      });
+
+      tearDown(() => plugin.close());
+
+      test('throws UserCancelledException without an uncaught async '
+          'error', () async {
+        final uncaughtErrors = <Object>[];
+        final testCompleted = Completer<void>();
+
+        unawaited(
+          runZonedGuarded(
+            () async {
+              await expectLater(
+                plugin.signInWithWebUI(provider: AuthProvider.apple),
+                throwsA(isA<UserCancelledException>()),
+              );
+              // Allow any uncaught error to propagate to the zone handler.
+              await Future<void>.delayed(Duration.zero);
+              testCompleted.complete();
+            },
+            (error, stackTrace) {
+              uncaughtErrors.add(error);
+              if (!testCompleted.isCompleted) testCompleted.complete();
+            },
+          ),
+        );
+
+        await testCompleted.future;
+        expect(uncaughtErrors, isEmpty);
       });
     });
   });
