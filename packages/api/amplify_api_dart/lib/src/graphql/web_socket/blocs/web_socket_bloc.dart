@@ -220,7 +220,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     logger.verbose('Closing subscription ${event.subscriptionId}...');
     yield* _sendEventToSubBloc(event);
 
-    _currentState.subscriptionBlocs.remove(event.subscriptionId);
+    final completed = _currentState.subscriptionBlocs.remove(
+      event.subscriptionId,
+    );
+    if (completed == null) return;
 
     if (_currentState.subscriptionBlocs.isEmpty) {
       add(const ShutdownEvent());
@@ -627,11 +630,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// Takes a WebSocketEvent and sends it to the corresponding sub bloc
   Stream<WebSocketState> _sendEventToSubBloc(SubscriptionEvent event) async* {
     final id = event.subscriptionId;
-    assert(
-      _currentState.subscriptionBlocs.containsKey(id),
-      'Bloc is missing subscription for $id',
-    );
-    _currentState.subscriptionBlocs[id]!.add(event);
+    // AppSync messages can already be queued when a subscription completes or
+    // the connection fails. Those messages no longer have a receiver.
+    final subscription = _currentState.subscriptionBlocs[id];
+    if (subscription == null) return;
+    subscription.add(event);
     // TODO(dnys1): Yield broken on web debug build.
     yield* const Stream.empty();
   }
