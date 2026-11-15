@@ -20,7 +20,6 @@ export 's3_get_url_plugin_options.dart';
 export 's3_get_url_result.dart';
 export 's3_item.dart';
 export 's3_list_operation.dart';
-export 's3_list_plugin_options.dart';
 export 's3_list_result.dart';
 export 's3_remove_many_operation.dart';
 export 's3_remove_many_plugin_options.dart';
