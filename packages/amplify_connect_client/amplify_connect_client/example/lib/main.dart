@@ -65,14 +65,11 @@ class _ConnectPocHomeState extends State<ConnectPocHome> {
       final raw = await rootBundle.loadString('amplify_outputs.json');
       final outputs = jsonDecode(raw) as Map<String, dynamic>;
 
-      // Amplify.configure only understands its own sections; strip the
-      // notifications key so Auth configures cleanly.
-      final authOnly = Map<String, dynamic>.from(outputs)
-        ..remove('notifications');
-
       await Amplify.addPlugin(AmplifyAuthCognito());
       if (!Amplify.isConfigured) {
-        await Amplify.configure(jsonEncode(authOnly));
+        // The full outputs configure as-is: a notifications section holding
+        // only amazon_connect is a shape Amplify.configure accepts.
+        await Amplify.configure(raw);
       }
 
       // The Connect client reads notifications.amazon_connect
