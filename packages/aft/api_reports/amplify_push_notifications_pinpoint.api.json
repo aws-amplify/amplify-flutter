@@ -1,0 +1,31 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyPushNotificationsPinpoint",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AmplifyPushNotifications",
+        "PushNotificationsPluginInterface",
+        "AmplifyPluginInterface",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyPushNotificationsPinpoint",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    }
+  ]
+}
