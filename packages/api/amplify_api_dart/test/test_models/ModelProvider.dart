@@ -27,6 +27,7 @@ import 'CpkIntPrimaryKey.dart';
 import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 import 'CpkOneToOneBidirectionalParentCD.dart';
+import 'CpkTemporalPrimaryKey.dart';
 import 'CustomOwnerField.dart';
 import 'ModelWithAppsyncScalarTypes.dart';
 import 'ModelWithCustomType.dart';
@@ -43,6 +44,7 @@ export 'CpkIntPrimaryKey.dart';
 export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 export 'CpkOneToOneBidirectionalParentCD.dart';
+export 'CpkTemporalPrimaryKey.dart';
 export 'CustomOwnerField.dart';
 export 'CustomTypeWithAppsyncScalarTypes.dart';
 export 'EnumField.dart';
@@ -65,6 +67,7 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     CpkOneToOneBidirectionalChildExplicitCD.schema,
     CpkOneToOneBidirectionalChildImplicitCD.schema,
     CpkOneToOneBidirectionalParentCD.schema,
+    CpkTemporalPrimaryKey.schema,
     CustomOwnerField.schema,
     ModelWithAppsyncScalarTypes.schema,
     ModelWithCustomType.schema,
@@ -97,6 +100,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return CpkOneToOneBidirectionalChildImplicitCD.classType;
       case "CpkOneToOneBidirectionalParentCD":
         return CpkOneToOneBidirectionalParentCD.classType;
+      case "CpkTemporalPrimaryKey":
+        return CpkTemporalPrimaryKey.classType;
       case "CustomOwnerField":
         return CustomOwnerField.classType;
       case "ModelWithAppsyncScalarTypes":
