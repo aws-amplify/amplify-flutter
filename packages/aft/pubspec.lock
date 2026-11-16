@@ -771,7 +771,7 @@ packages:
     source: hosted
     version: "4.3.0"
   source_helper:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: source_helper
       sha256: "5e6f216fdf6376c9f3852381ae037499797a3385377d388b011dac98d303c67c"

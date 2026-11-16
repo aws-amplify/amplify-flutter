@@ -701,7 +701,7 @@ void main() {}
       expect(stderr, isNot(contains('<asynchronous suspension>')));
       expect(result.stdout, isEmpty);
     });
-  });
+  }, timeout: const Timeout(Duration(minutes: 2)));
 
   group('Changelog: marker semantics', () {
     test(

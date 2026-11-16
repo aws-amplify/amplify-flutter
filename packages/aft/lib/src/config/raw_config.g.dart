@@ -957,6 +957,7 @@ RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
       allowedKeys: const [
         'platforms',
         'ignore',
+        'pinned',
         'components',
         'scripts',
         'github',
@@ -971,6 +972,11 @@ RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
       ),
       ignore: $checkedConvert(
         'ignore',
+        (v) =>
+            (v as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
+      ),
+      pinned: $checkedConvert(
+        'pinned',
         (v) =>
             (v as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
       ),
@@ -1012,6 +1018,7 @@ Map<String, dynamic> _$RawAftConfigToJson(RawAftConfig instance) =>
     <String, dynamic>{
       'platforms': instance.platforms?.toJson(),
       'ignore': instance.ignore,
+      'pinned': instance.pinned,
       'components': instance.components.map((e) => e.toJson()).toList(),
       'scripts': instance.scripts.map((k, e) => MapEntry(k, e.toJson())),
       'github': instance.github?.toJson(),

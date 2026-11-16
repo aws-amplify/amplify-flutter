@@ -99,7 +99,14 @@ void main() {
       final notGit = Directory(p.join(tempRoot.path, 'not_git'))
         ..createSync(recursive: true);
       File(p.join(notGit.path, 'pubspec.yaml')).writeAsStringSync(_rootPubspec);
-      await check(_open(notGit)).throws<ProcessException>();
+      // package:git 2.5.0 reports a missing repository as an ArgumentError;
+      // older versions surface the git ProcessException.
+      await check(_open(notGit)).throws<Object>(
+        (it) => it.anyOf([
+          (it) => it.isA<ArgumentError>(),
+          (it) => it.isA<ProcessException>(),
+        ]),
+      );
     });
 
     test('throws when the root pubspec is below the git root', () async {

@@ -34,6 +34,10 @@ Serializers _$aftSerializers =
             () => ListBuilder<String>(),
           )
           ..addBuilderFactory(
+            const FullType(BuiltList, const [const FullType(String)]),
+            () => ListBuilder<String>(),
+          )
+          ..addBuilderFactory(
             const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(AftComponent),
