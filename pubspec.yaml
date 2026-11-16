@@ -43,7 +43,7 @@ dependencies:
   os_detect: ">=2.0.2 <2.0.4"
   package_info_plus: ^10.1.0
   phone_numbers_parser: ^9.0.26
-  pigeon: ^27.1.0
+  pigeon: ^30.0.2
   sqlite3: ^3.1.5
   source_gen: ^4.0.0
   # source_helper 1.4.0 conflicts with json_serializable <6.15.1, and
