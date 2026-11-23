@@ -154,10 +154,10 @@ packages:
     dependency: "direct dev"
     description:
       name: checks
-      sha256: "9c360a078576950976c9045fe28392dfb5f3b0b648ae897e8c1fe307a6ffbed2"
+      sha256: f7c70411eda2c104d0422a3bc57efab91aa3ac70d7775f20bba14c859476a69d
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.0"
   cli_config:
     dependency: transitive
     description:
