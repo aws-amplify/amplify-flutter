@@ -1,5 +1,6 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /// Use for testing the [MockAuthenticatorApp] widget locally.

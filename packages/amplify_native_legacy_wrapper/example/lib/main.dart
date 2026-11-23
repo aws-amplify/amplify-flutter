@@ -4,6 +4,7 @@
 import 'package:amplify_native_legacy_wrapper/amplify_native_legacy_wrapper.dart';
 import 'package:amplify_native_legacy_wrapper_example/amplifyconfiguration.dart';
 import 'package:aws_common/aws_common.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 void main() {

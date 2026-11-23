@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 import '../models/ModelProvider.dart';

@@ -3,6 +3,7 @@
 
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:flutter/foundation.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 class InheritedAuthenticatorState extends InheritedNotifier {

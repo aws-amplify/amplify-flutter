@@ -3,6 +3,7 @@
 
 import 'package:amplify_authenticator/src/models/authenticator_builder.dart';
 import 'package:flutter/foundation.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 class InheritedAuthenticatorBuilder extends InheritedWidget {

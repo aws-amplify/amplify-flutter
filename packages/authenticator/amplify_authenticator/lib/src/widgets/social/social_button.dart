@@ -11,6 +11,7 @@ import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_icons.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart' hide Category;
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 class SocialSignInButtons extends StatelessAuthenticatorComponent {

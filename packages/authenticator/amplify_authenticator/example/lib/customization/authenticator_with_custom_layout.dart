@@ -3,6 +3,7 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 import '../main.dart';

@@ -4,6 +4,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:flutter/foundation.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /// {@template amplify_authenticator.authenticator_checkbox}

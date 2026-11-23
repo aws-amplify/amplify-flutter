@@ -3,6 +3,7 @@
 
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /// {@template amplify_analytics_pinpoint.flutter_app_lifecycle_provider}

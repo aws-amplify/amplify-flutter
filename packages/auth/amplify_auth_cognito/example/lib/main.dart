@@ -9,6 +9,7 @@ import 'package:amplify_auth_cognito_example/screens/update_user_attributes.dart
 import 'package:amplify_auth_cognito_example/screens/view_user_attributes.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

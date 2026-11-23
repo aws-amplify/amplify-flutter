@@ -3,6 +3,7 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_example/l10n/app_localizations.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /// Our custom button string resolver which calls into our localizations class.

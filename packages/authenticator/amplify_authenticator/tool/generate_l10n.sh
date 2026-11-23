@@ -4,6 +4,8 @@ HEADER=$(cat <<EOF
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: deprecated_member_use
+
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 EOF
 )

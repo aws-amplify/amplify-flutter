@@ -1,3 +1,4 @@
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /// No-op JS interop setup for non-web platforms.

@@ -22,6 +22,7 @@ import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';

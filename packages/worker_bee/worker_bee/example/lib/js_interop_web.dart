@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:js_interop';
 
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 // JavaScript interop functions exposed to window object

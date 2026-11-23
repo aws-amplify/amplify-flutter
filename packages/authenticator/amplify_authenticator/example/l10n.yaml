@@ -5,5 +5,6 @@ synthetic-package: false
 
 # To make use of Authenticator enums
 #header: import 'package:amplify_authenticator/amplify_authenticator.dart';
+header: "// ignore_for_file: deprecated_member_use"
 
 nullable-getter: false

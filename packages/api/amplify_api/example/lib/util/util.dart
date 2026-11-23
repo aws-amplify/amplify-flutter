@@ -3,6 +3,7 @@
 
 // Checks for errors and print the response on screen
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 String handleResponse(GraphQLResponse<Model> response) {

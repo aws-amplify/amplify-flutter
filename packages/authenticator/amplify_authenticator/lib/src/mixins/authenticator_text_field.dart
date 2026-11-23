@@ -4,6 +4,7 @@
 import 'package:amplify_authenticator/src/controllers/authenticator_text_field_controller.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';

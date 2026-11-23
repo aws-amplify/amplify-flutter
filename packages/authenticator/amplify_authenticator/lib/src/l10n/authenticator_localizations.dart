@@ -13,6 +13,7 @@ import 'package:amplify_authenticator/src/l10n/generated/message_localizations.d
 import 'package:amplify_authenticator/src/l10n/generated/message_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/title_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/title_localizations_en.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -22,7 +23,9 @@ abstract class AuthenticatorLocalizations {
 
   /// All localizations delegates for the Authenticator.
   static const localizationsDelegates = [
+    // ignore: deprecated_member_use
     GlobalMaterialLocalizations.delegate,
+    // ignore: deprecated_member_use
     GlobalCupertinoLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
     AuthenticatorButtonLocalizations.delegate,

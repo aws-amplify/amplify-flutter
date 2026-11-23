@@ -6,6 +6,7 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

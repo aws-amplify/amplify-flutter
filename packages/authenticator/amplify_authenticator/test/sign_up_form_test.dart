@@ -6,6 +6,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

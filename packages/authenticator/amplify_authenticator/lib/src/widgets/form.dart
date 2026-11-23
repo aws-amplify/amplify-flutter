@@ -18,6 +18,7 @@ import 'package:amplify_core/src/config/amplify_outputs/auth/identity_provider.d
 import 'package:amplify_core/src/config/amplify_outputs/auth/mfa.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /// Base class for Authenticator forms and ancestor of all Authenticator

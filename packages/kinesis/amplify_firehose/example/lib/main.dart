@@ -13,6 +13,7 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AWSCredentialsProvider, TemporaryCredentials;
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     show AmplifyLogging, AmplifySimplePrinterLogSink, LogLevel, Ok;
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 import 'amplify_outputs.dart';

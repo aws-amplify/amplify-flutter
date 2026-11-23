@@ -4,6 +4,7 @@
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
 import 'package:amplify_authenticator/src/utils/unmet_password_requirements.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 enum InputField {

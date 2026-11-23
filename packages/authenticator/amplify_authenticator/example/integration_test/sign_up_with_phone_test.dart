@@ -8,6 +8,7 @@ import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

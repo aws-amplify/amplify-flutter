@@ -9,6 +9,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart' as keys;
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';

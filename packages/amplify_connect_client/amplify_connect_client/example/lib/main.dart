@@ -11,6 +11,7 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_connect_client/amplify_connect_client.dart';
 import 'package:amplify_flutter/amplify_flutter.dart' hide UserProfile;
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 

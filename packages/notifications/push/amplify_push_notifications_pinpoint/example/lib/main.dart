@@ -6,6 +6,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_push_notifications_pinpoint/amplify_push_notifications_pinpoint.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 import 'amplifyconfiguration.dart';

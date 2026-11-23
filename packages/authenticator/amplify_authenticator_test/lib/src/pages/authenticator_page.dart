@@ -12,6 +12,7 @@ import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator_test/src/finders/authenticated_app_finder.dart';
 import 'package:amplify_authenticator_test/src/test_utils.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
