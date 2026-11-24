@@ -14,11 +14,15 @@ let package = Package(
     products: [
         .library(name: "amplify-secure-storage", targets: ["amplify_secure_storage"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(name: "FlutterFramework", path: "../FlutterFramework")
+    ],
     targets: [
         .target(
             name: "amplify_secure_storage",
-            dependencies: [],
+            dependencies: [
+                .product(name: "FlutterFramework", package: "FlutterFramework")
+            ],
             resources: [
                 .process("PrivacyInfo.xcprivacy"),
             ]
