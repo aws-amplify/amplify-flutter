@@ -123,6 +123,28 @@ void main() {
       );
     });
 
+    test(
+      'record() is unaffected by later changes to the caller maps',
+      () async {
+        final attributes = {'k': 'v'};
+        final metrics = {'m': 1.0};
+        final pending = client.record(
+          'test',
+          attributes: attributes,
+          metrics: metrics,
+        );
+        attributes['k'] = 'changed';
+        metrics['m'] = 2.0;
+        final event = (await pending as Ok<EnrichedEvent>).value;
+        attributes['k'] = 'changed again';
+        expect(event.attributes, {'k': 'v'});
+        expect(event.metrics, {'m': 1.0});
+        expect(sender.events.last.toJson()['attributes'], {'k': 'v'});
+        expect(sender.events.last.toJson()['metrics'], {'m': 1.0});
+        expect(() => event.attributes['k'] = 'x', throwsUnsupportedError);
+      },
+    );
+
     test('per-event attributes override globals', () async {
       client.addGlobalAttribute('key', 'global');
       final event =

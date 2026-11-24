@@ -11,31 +11,31 @@ void main() {
     late EnrichedEvent event;
 
     setUp(() {
-      event = const EnrichedEvent(
+      event = EnrichedEvent(
         eventId: 'test-event-id',
         eventType: 'product_viewed',
         eventTimestamp: 1700000000000,
-        session: Session(
+        session: const Session(
           id: 'testApp1-uuid0000-20231114-120000000',
           startTimestamp: '2023-11-14T12:00:00.000Z',
         ),
-        attributes: {'category': 'electronics'},
-        metrics: {'price': 29.99},
-        device: DeviceMetadata(
+        attributes: const {'category': 'electronics'},
+        metrics: const {'price': 29.99},
+        device: const DeviceMetadata(
           platform: 'iOS',
           platformVersion: '17.0',
           manufacturer: 'Apple',
           model: 'iPhone 15',
           locale: 'en_US',
         ),
-        app: AppMetadata(
+        app: const AppMetadata(
           appId: 'testApp1',
           packageName: 'com.example.app',
           versionName: '1.0.0',
           versionCode: '1',
           title: 'Test App',
         ),
-        sdk: SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
+        sdk: const SdkMetadata(name: 'amplify-flutter', version: '2.0.0'),
         clientId: 'device-uuid-123',
         userId: 'user-42',
       );
@@ -81,16 +81,16 @@ void main() {
     });
 
     test('omits user_id when null', () {
-      const noUser = EnrichedEvent(
+      final noUser = EnrichedEvent(
         eventId: 'id',
         eventType: 'test',
         eventTimestamp: 0,
-        session: Session(id: 's', startTimestamp: 't'),
-        attributes: {},
-        metrics: {},
-        device: DeviceMetadata(),
-        app: AppMetadata(appId: 'a'),
-        sdk: SdkMetadata(name: 'n', version: 'v'),
+        session: const Session(id: 's', startTimestamp: 't'),
+        attributes: const {},
+        metrics: const {},
+        device: const DeviceMetadata(),
+        app: const AppMetadata(appId: 'a'),
+        sdk: const SdkMetadata(name: 'n', version: 'v'),
         clientId: 'c',
       );
       final map = noUser.toJson();
@@ -123,16 +123,16 @@ void main() {
     });
 
     test('omits attributes and metrics when empty', () {
-      const empty = EnrichedEvent(
+      final empty = EnrichedEvent(
         eventId: 'id',
         eventType: 'test',
         eventTimestamp: 0,
-        session: Session(id: 's', startTimestamp: 't'),
-        attributes: {},
-        metrics: {},
-        device: DeviceMetadata(),
-        app: AppMetadata(appId: 'a'),
-        sdk: SdkMetadata(name: 'n', version: 'v'),
+        session: const Session(id: 's', startTimestamp: 't'),
+        attributes: const {},
+        metrics: const {},
+        device: const DeviceMetadata(),
+        app: const AppMetadata(appId: 'a'),
+        sdk: const SdkMetadata(name: 'n', version: 'v'),
         clientId: 'c',
       );
       final map = empty.toJson();
@@ -157,6 +157,59 @@ void main() {
           'metrics',
         ]),
       );
+    });
+  });
+
+  group('EnrichedEvent', () {
+    EnrichedEvent build(
+      Map<String, String> attributes,
+      Map<String, double> metrics,
+    ) => EnrichedEvent(
+      eventId: 'id',
+      eventType: 'test',
+      eventTimestamp: 0,
+      session: const Session(id: 's', startTimestamp: 't'),
+      attributes: attributes,
+      metrics: metrics,
+      device: const DeviceMetadata(),
+      app: const AppMetadata(appId: 'a'),
+      sdk: const SdkMetadata(name: 'n', version: 'v'),
+      clientId: 'client-id-value',
+      userId: 'user-id-value',
+    );
+
+    test('toString() does not include identifiers or attributes', () {
+      final string = build({'email': 'a@example.com'}, {}).toString();
+      expect(string, isNot(contains('client-id-value')));
+      expect(string, isNot(contains('user-id-value')));
+      expect(string, isNot(contains('a@example.com')));
+    });
+
+    test('is unaffected by later changes to the source maps', () {
+      final attributes = {'k': 'v'};
+      final metrics = {'m': 1.0};
+      final event = build(attributes, metrics);
+      final expected = build({'k': 'v'}, {'m': 1.0});
+      attributes['k'] = 'changed';
+      metrics['m'] = 2.0;
+      expect(event, expected);
+      expect(event.hashCode, expected.hashCode);
+      expect(event.toJson(), expected.toJson());
+    });
+
+    test('exposes unmodifiable maps', () {
+      final event = build({'k': 'v'}, {'m': 1.0});
+      expect(() => event.attributes['k'] = 'x', throwsUnsupportedError);
+      expect(() => event.metrics['m'] = 2.0, throwsUnsupportedError);
+    });
+
+    test('toJson() returns copies of the maps', () {
+      final event = build({'k': 'v'}, {'m': 1.0});
+      final json = event.toJson();
+      (json['attributes'] as Map<String, String>)['k'] = 'x';
+      (json['metrics'] as Map<String, double>)['m'] = 2.0;
+      expect(event.attributes, {'k': 'v'});
+      expect(event.metrics, {'m': 1.0});
     });
   });
 }

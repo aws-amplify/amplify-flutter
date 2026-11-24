@@ -18,21 +18,24 @@ part 'enriched_event.g.dart';
 /// JSON-compatible map.
 /// {@endtemplate}
 @immutable
-final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
+final class EnrichedEvent with AWSEquatable<EnrichedEvent> {
   /// {@macro amplify_event_enrichment.enriched_event}
-  const EnrichedEvent({
+  ///
+  /// Copies [attributes] and [metrics] into unmodifiable maps.
+  EnrichedEvent({
     required this.eventId,
     required this.eventType,
     required this.eventTimestamp,
     required this.session,
-    required this.attributes,
-    required this.metrics,
+    required Map<String, String> attributes,
+    required Map<String, double> metrics,
     required this.device,
     required this.app,
     required this.sdk,
     required this.clientId,
     this.userId,
-  });
+  }) : attributes = Map.unmodifiable(attributes),
+       metrics = Map.unmodifiable(metrics);
 
   /// Unique event identifier (UUID), generated per event.
   ///
@@ -89,9 +92,6 @@ final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
     userId,
   ];
 
-  @override
-  String get runtimeTypeName => 'EnrichedEvent';
-
   /// Version of the analytics event envelope schema, emitted as
   /// `event_version`.
   ///
@@ -141,8 +141,8 @@ final class EnrichedEvent with AWSEquatable<EnrichedEvent>, AWSDebuggable {
       ),
       // Empty rather than absent globals still mean "nothing to report", and
       // the envelope omits the section in that case.
-      attributes: attributes.isEmpty ? null : attributes,
-      metrics: metrics.isEmpty ? null : metrics,
+      attributes: attributes.isEmpty ? null : {...attributes},
+      metrics: metrics.isEmpty ? null : {...metrics},
     );
   }
 }
