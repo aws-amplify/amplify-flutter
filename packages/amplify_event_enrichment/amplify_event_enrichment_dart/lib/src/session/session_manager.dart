@@ -41,7 +41,7 @@ enum SessionState {
 /// timeout resumes it, and returning later starts a new one. Boundaries are
 /// reported to the [OnSessionStarted] and [OnSessionEnded] callbacks.
 /// {@endtemplate}
-class SessionManager {
+final class SessionManager {
   /// {@macro amplify_event_enrichment.session_manager}
   ///
   /// Session IDs start with the first 8 characters of [appId], left-padded

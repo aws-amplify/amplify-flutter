@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 /// [SessionManager.handleAppPaused] and `resumed` to
 /// [SessionManager.handleAppResumed]. Other states are ignored.
 /// {@endtemplate}
-class FlutterLifecycleObserver
+final class FlutterLifecycleObserver
     with WidgetsBindingObserver
     implements LifecycleObserver {
   /// {@macro amplify_event_enrichment.flutter_lifecycle_observer}

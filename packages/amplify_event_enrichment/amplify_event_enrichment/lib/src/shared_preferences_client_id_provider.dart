@@ -31,7 +31,7 @@ abstract interface class ClientIdProvider {
 /// write, this provider returns that ID. Separate isolates do not share this
 /// state.
 /// {@endtemplate}
-class SharedPreferencesClientIdProvider implements ClientIdProvider {
+final class SharedPreferencesClientIdProvider implements ClientIdProvider {
   /// {@macro amplify_event_enrichment.shared_preferences_client_id_provider}
   const SharedPreferencesClientIdProvider();
 

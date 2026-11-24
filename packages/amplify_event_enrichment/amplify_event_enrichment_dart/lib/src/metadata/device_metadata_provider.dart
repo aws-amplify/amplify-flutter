@@ -23,7 +23,7 @@ abstract interface class DeviceMetadataProvider {
 /// Default [DeviceMetadataProvider] reporting OS name, version, and locale on
 /// native platforms, and empty metadata on web.
 /// {@endtemplate}
-class PlatformDeviceMetadataProvider implements DeviceMetadataProvider {
+final class PlatformDeviceMetadataProvider implements DeviceMetadataProvider {
   /// {@macro amplify_event_enrichment.platform_device_metadata_provider}
   const PlatformDeviceMetadataProvider();
 

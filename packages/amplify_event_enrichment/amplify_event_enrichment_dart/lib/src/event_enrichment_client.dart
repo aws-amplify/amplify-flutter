@@ -48,7 +48,7 @@ import 'package:uuid/uuid.dart';
 /// await client.close();
 /// ```
 /// {@endtemplate}
-class EventEnrichmentClient {
+final class EventEnrichmentClient {
   /// {@macro amplify_event_enrichment.event_enrichment_client}
   ///
   /// Initial user and global values are applied before automatic session

@@ -34,7 +34,7 @@ import 'package:uuid/uuid.dart';
 /// final result = await client.record('button_clicked');
 /// ```
 /// {@endtemplate}
-class EventEnrichmentClientFlutter {
+final class EventEnrichmentClientFlutter {
   EventEnrichmentClientFlutter._(this._delegate, this._lifecycleObserver);
 
   /// {@macro amplify_event_enrichment.event_enrichment_client_flutter}
