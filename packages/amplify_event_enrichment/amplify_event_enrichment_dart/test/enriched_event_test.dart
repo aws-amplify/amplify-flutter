@@ -185,6 +185,11 @@ void main() {
       expect(string, isNot(contains('a@example.com')));
     });
 
+    test('Session.toString() does not include the session ID', () {
+      const session = Session(id: 'session-id-value', startTimestamp: 't');
+      expect(session.toString(), isNot(contains('session-id-value')));
+    });
+
     test('is unaffected by later changes to the source maps', () {
       final attributes = {'k': 'v'};
       final metrics = {'m': 1.0};

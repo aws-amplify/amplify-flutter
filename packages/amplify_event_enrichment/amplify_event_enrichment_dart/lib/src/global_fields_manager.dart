@@ -8,7 +8,7 @@ import 'dart:collection';
 ///
 /// Values remain in memory until this manager is discarded.
 /// {@endtemplate}
-class GlobalFieldsManager {
+final class GlobalFieldsManager {
   /// {@macro amplify_event_enrichment.global_fields_manager}
   GlobalFieldsManager();
 
