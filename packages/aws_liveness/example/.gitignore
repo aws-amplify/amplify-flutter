@@ -27,3 +27,5 @@ build/
 /ios/Flutter/flutter_export_environment.sh
 /ios/Pods/
 /ios/.symlinks/
+# Amplify backend configuration
+assets/amplify_outputs.json

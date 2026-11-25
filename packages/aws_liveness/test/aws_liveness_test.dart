@@ -1,39 +1,175 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aws_liveness/aws_liveness.dart';
-import 'package:aws_liveness/aws_liveness_method_channel.dart';
-import 'package:aws_liveness/aws_liveness_platform_interface.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'dart:async';
 
-class MockAwsLivenessPlatform
-    with MockPlatformInterfaceMixin
-    implements AwsLivenessPlatform {
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:aws_liveness/aws_liveness.dart';
+import 'package:aws_liveness/src/pigeons/aws_liveness_pigeon.g.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+const _startChannel =
+    'dev.flutter.pigeon.aws_liveness.AwsLivenessHostApi.start';
+const _fetchCredentialsChannel =
+    'dev.flutter.pigeon.aws_liveness.AwsLivenessFlutterApi.fetchCredentials';
+const _codec = AwsLivenessFlutterApi.pigeonChannelCodec;
+
+final class _FakeCredentialsProvider implements AWSCredentialsProvider {
+  _FakeCredentialsProvider(this.credentials);
+
+  final AWSCredentials credentials;
+
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
+  Future<AWSCredentials> resolve() async => credentials;
 }
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  final messenger =
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
 
-  final initialPlatform = AwsLivenessPlatform.instance;
+  AwsLiveness liveness([AWSCredentials? credentials]) => AwsLiveness(
+    credentialsProvider: _FakeCredentialsProvider(
+      credentials ?? const StaticCredentials('akid', 'secret'),
+    ),
+  );
 
-  test(r'$MethodChannelAwsLiveness is the default instance', () {
-    expect(initialPlatform, isInstanceOf<MethodChannelAwsLiveness>());
+  /// Handles `start` by calling [onStart] with the decoded request and
+  /// replying with its result, a pigeon-encoded response list.
+  void mockStart(Future<List<Object?>> Function(LivenessStartRequest) onStart) {
+    messenger.setMockMessageHandler(_startChannel, (message) async {
+      final args = _codec.decodeMessage(message)! as List<Object?>;
+      final reply = await onStart(args.single! as LivenessStartRequest);
+      return _codec.encodeMessage(reply);
+    });
+  }
+
+  /// Calls the Dart credentials handler the way native code does.
+  Future<LivenessCredentials?> fetchCredentials() async {
+    final completer = Completer<LivenessCredentials?>();
+    await messenger.handlePlatformMessage(
+      _fetchCredentialsChannel,
+      _codec.encodeMessage(null),
+      (reply) {
+        final decoded = _codec.decodeMessage(reply) as List<Object?>?;
+        completer.complete(decoded?.single as LivenessCredentials?);
+      },
+    );
+    return completer.future;
+  }
+
+  tearDown(() => messenger.setMockMessageHandler(_startChannel, null));
+
+  test('start sends the request and completes on success', () async {
+    LivenessStartRequest? received;
+    mockStart((request) async {
+      received = request;
+      return [null];
+    });
+
+    await liveness().start(
+      sessionId: 'session',
+      region: 'us-east-1',
+      disableStartView: true,
+    );
+
+    expect(received?.sessionId, 'session');
+    expect(received?.region, 'us-east-1');
+    expect(received?.disableStartView, isTrue);
   });
 
-  test('AwsLiveness class exports correctly', () {
-    // Test that the AwsLiveness class is accessible
-    // The actual start method requires native platform, so we just verify the class exists
-    expect(AwsLiveness.enableLogging, isFalse);
+  test('start maps platform errors to FaceLivenessException', () async {
+    mockStart(
+      (_) async => ['sessionNotFound', 'Session not found.', 'Use a new one.'],
+    );
+
+    await expectLater(
+      liveness().start(sessionId: 'session', region: 'us-east-1'),
+      throwsA(
+        isA<FaceLivenessException>()
+            .having(
+              (e) => e.code,
+              'code',
+              FaceLivenessErrorCode.sessionNotFound,
+            )
+            .having((e) => e.message, 'message', 'Session not found.')
+            .having(
+              (e) => e.recoverySuggestion,
+              'recoverySuggestion',
+              'Use a new one.',
+            ),
+      ),
+    );
   });
 
-  test('Can enable and disable logging', () {
-    expect(AwsLiveness.enableLogging, isFalse);
-    AwsLiveness.enableLogging = true;
-    expect(AwsLiveness.enableLogging, isTrue);
-    AwsLiveness.enableLogging = false;
-    expect(AwsLiveness.enableLogging, isFalse);
+  test('unrecognized platform error codes map to unknown', () async {
+    mockStart((_) async => ['somethingNew', null, null]);
+
+    await expectLater(
+      liveness().start(sessionId: 'session', region: 'us-east-1'),
+      throwsA(
+        isA<FaceLivenessException>().having(
+          (e) => e.code,
+          'code',
+          FaceLivenessErrorCode.unknown,
+        ),
+      ),
+    );
+  });
+
+  test('start rejects empty arguments without calling native', () async {
+    var called = false;
+    mockStart((_) async {
+      called = true;
+      return [null];
+    });
+
+    await expectLater(
+      liveness().start(sessionId: '', region: 'us-east-1'),
+      throwsArgumentError,
+    );
+    expect(called, isFalse);
+  });
+
+  test('native can fetch temporary credentials while start runs', () async {
+    final expiration = DateTime.utc(2030);
+    LivenessCredentials? fetched;
+    mockStart((_) async {
+      fetched = await fetchCredentials();
+      return [null];
+    });
+
+    await liveness(
+      TemporaryCredentials('akid', 'secret', 'token', expiration),
+    ).start(sessionId: 'session', region: 'us-east-1');
+
+    expect(fetched?.accessKeyId, 'akid');
+    expect(fetched?.secretAccessKey, 'secret');
+    expect(fetched?.sessionToken, 'token');
+    expect(
+      fetched?.expirationEpochSeconds,
+      expiration.millisecondsSinceEpoch ~/ 1000,
+    );
+  });
+
+  test('static credentials have no session token or expiration', () async {
+    LivenessCredentials? fetched;
+    mockStart((_) async {
+      fetched = await fetchCredentials();
+      return [null];
+    });
+
+    await liveness().start(sessionId: 'session', region: 'us-east-1');
+
+    expect(fetched?.accessKeyId, 'akid');
+    expect(fetched?.sessionToken, isNull);
+    expect(fetched?.expirationEpochSeconds, isNull);
+  });
+
+  test('the credentials handler is removed after start completes', () async {
+    mockStart((_) async => [null]);
+    await liveness().start(sessionId: 'session', region: 'us-east-1');
+
+    expect(await fetchCredentials(), isNull);
   });
 }

@@ -7,9 +7,11 @@ environment:
   flutter: ">=3.41.0"
 
 dependencies:
+  amplify_auth_cognito: any
+  amplify_flutter: any
+  amplify_foundation_dart: any
   aws_liveness:
     path: ../
-  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
 
@@ -22,3 +24,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    # Place your Amplify Gen2 `amplify_outputs.json` here. It is gitignored.
+    - assets/

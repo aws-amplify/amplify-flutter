@@ -8,6 +8,8 @@ on:
     paths:
       - '.github/workflows/aws_liveness.yaml'
       - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
+      - 'packages/amplify_foundation/amplify_foundation_dart/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
       - 'packages/amplify_lints/pubspec.yaml'
       - 'packages/aws_liveness/**/*.dart'
@@ -18,6 +20,8 @@ on:
     paths:
       - '.github/workflows/aws_liveness.yaml'
       - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_foundation/amplify_foundation_dart/lib/**/*.dart'
+      - 'packages/amplify_foundation/amplify_foundation_dart/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
       - 'packages/amplify_lints/pubspec.yaml'
       - 'packages/aws_liveness/**/*.dart'

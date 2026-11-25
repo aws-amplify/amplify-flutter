@@ -1,330 +1,162 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
+    as foundation
+    show AWSCredentialsProvider, TemporaryCredentials;
 import 'package:aws_liveness/aws_liveness.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(LivenessExampleApp(amplifyError: await _configureAmplify()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+/// Configures Amplify from `assets/amplify_outputs.json`.
+///
+/// Returns an error message, or `null` on success.
+Future<String?> _configureAmplify() async {
+  const path = 'assets/amplify_outputs.json';
+  final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
+  if (!manifest.listAssets().contains(path)) {
+    return 'Add your amplify_outputs.json to example/assets/ and rebuild.';
+  }
+  final outputs = await rootBundle.loadString(path);
+  try {
+    await Amplify.addPlugin(AmplifyAuthCognito());
+    await Amplify.configure(outputs);
+    return null;
+  } on AmplifyException catch (e) {
+    return 'Failed to configure Amplify: ${e.message}';
+  }
+}
+
+/// Resolves credentials from the current Amplify Auth session.
+///
+/// Guest (unauthenticated) credentials work if the identity pool allows them.
+class AmplifyAuthCredentialsProvider
+    implements foundation.AWSCredentialsProvider {
+  @override
+  Future<foundation.TemporaryCredentials> resolve() async {
+    final session = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+    final credentials = session.credentialsResult.value;
+    return foundation.TemporaryCredentials(
+      credentials.accessKeyId,
+      credentials.secretAccessKey,
+      credentials.sessionToken!,
+      credentials.expiration!,
+    );
+  }
+}
+
+/// The example app.
+class LivenessExampleApp extends StatelessWidget {
+  /// Creates the example app. [amplifyError] is shown instead of the form.
+  const LivenessExampleApp({super.key, this.amplifyError});
+
+  /// Why Amplify could not be configured, if it could not.
+  final String? amplifyError;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AWS Liveness Example',
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-      home: const LivenessExampleScreen(),
+      home: Scaffold(
+        appBar: AppBar(title: const Text('AWS Liveness Example')),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: amplifyError == null
+              ? const LivenessForm()
+              : Center(child: Text(amplifyError!)),
+        ),
+      ),
     );
   }
 }
 
-class LivenessExampleScreen extends StatefulWidget {
-  const LivenessExampleScreen({super.key});
+/// Collects a session ID and region and runs the check.
+class LivenessForm extends StatefulWidget {
+  /// Creates the form.
+  const LivenessForm({super.key});
 
   @override
-  State<LivenessExampleScreen> createState() => _LivenessExampleScreenState();
+  State<LivenessForm> createState() => _LivenessFormState();
 }
 
-class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
-  bool _isLoading = false;
-  String? _resultMessage;
-  bool? _isLive;
-  String? _sessionId;
+class _LivenessFormState extends State<LivenessForm> {
+  final _liveness = AwsLiveness(
+    credentialsProvider: AmplifyAuthCredentialsProvider(),
+  );
+  final _sessionId = TextEditingController();
+  final _region = TextEditingController(text: 'us-east-1');
+  bool _running = false;
+  String? _status;
 
   @override
-  void initState() {
-    super.initState();
-    _listenToEvents();
+  void dispose() {
+    _sessionId.dispose();
+    _region.dispose();
+    super.dispose();
   }
 
-  /// Listen to liveness detection events
-  void _listenToEvents() {
-    AwsLiveness.events.listen((event) {
-      debugPrint('📡 Liveness Event: $event');
-      switch (event['type']) {
-        case 'started':
-          debugPrint('🚀 Liveness detection started');
-        case 'complete':
-          debugPrint('✅ Liveness detection completed');
-        case 'error':
-          debugPrint('❌ Liveness detection error: ${event['data']}');
-        case 'cancelled':
-          debugPrint('🚫 Liveness detection cancelled');
-      }
-    });
-  }
-
-  /// Start the face liveness detection flow
-  Future<void> _startLivenessCheck() async {
+  Future<void> _start() async {
+    final sessionId = _sessionId.text.trim();
+    final region = _region.text.trim();
+    if (sessionId.isEmpty || region.isEmpty) {
+      setState(() => _status = 'Enter a session ID and region.');
+      return;
+    }
     setState(() {
-      _isLoading = true;
-      _resultMessage = null;
-      _isLive = null;
-      _sessionId = null;
+      _running = true;
+      _status = null;
     });
-
+    String status;
     try {
-      // IMPORTANT: In a real app, get the session ID from your backend
-      // Your backend should call AWS Rekognition's CreateFaceLivenessSession API
-      // and return the sessionId to your Flutter app
-      const sessionId = 'YOUR_SESSION_ID_FROM_BACKEND';
-
-      if (sessionId == 'YOUR_SESSION_ID_FROM_BACKEND') {
-        setState(() {
-          _isLoading = false;
-          _resultMessage =
-              '⚠️ Please replace with a real session ID from your backend';
-        });
-        _showInfoDialog(
-          'Setup Required',
-          'To test liveness detection:\n\n'
-              '1. Set up a backend that calls AWS Rekognition\'s CreateFaceLivenessSession API\n'
-              '2. Replace the sessionId in this example with the one from your backend\n'
-              '3. Ensure amplifyconfiguration.json is properly configured',
-        );
-        return;
-      }
-
-      final result = await AwsLiveness.start(
-        sessionId: sessionId,
-        region: 'us-east-1', // Change to your AWS region
-      );
-
-      debugPrint('📦 Liveness Result: $result');
-
-      setState(() {
-        if (result['status'] == 'success') {
-          _isLive = result['isLive'] as bool?;
-          _sessionId = result['sessionId'] as String?;
-          _resultMessage = _isLive ?? false
-              ? '✅ Face liveness verified!'
-              : '❌ Face liveness check failed';
-        } else if (result['status'] == 'cancelled') {
-          _resultMessage = '🚫 Liveness check was cancelled';
-        }
-      });
-    } on PlatformException catch (e) {
-      debugPrint('❌ PlatformException: ${e.code} - ${e.message}');
-
-      setState(() {
-        _resultMessage = '❌ Error: ${e.message}';
-      });
-
-      // Handle specific error codes
-      _handleError(e.code, e.message);
-    } on Exception catch (e) {
-      debugPrint('❌ Unexpected error: $e');
-      setState(() {
-        _resultMessage = '❌ Unexpected error occurred';
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
+      await _liveness.start(sessionId: sessionId, region: region);
+      status =
+          'Check completed. Call GetFaceLivenessSessionResults on your '
+          'backend to get the result.';
+    } on FaceLivenessException catch (e) {
+      status = '${e.code.name}: ${e.message}';
     }
-  }
-
-  /// Handle specific error codes
-  void _handleError(String code, String? message) {
-    String title;
-    String content;
-
-    switch (code) {
-      case 'TIMEOUT':
-        title = 'Timeout';
-        content =
-            'Face verification timed out. Please try again and complete the verification within 50 seconds.';
-      case 'CAMERA_PERMISSION_DENIED':
-      case 'PERMISSION_DENIED':
-        title = 'Camera Permission Required';
-        content =
-            'Please grant camera permission to use face liveness detection.';
-      case 'USER_CANCELLED':
-        // User cancelled - no need to show error dialog
-        return;
-      case 'SESSION_NOT_FOUND':
-        title = 'Session Not Found';
-        content =
-            'The liveness session was not found. Please create a new session.';
-      case 'ACCESS_DENIED':
-        title = 'Access Denied';
-        content = 'AWS access was denied. Please check your IAM permissions.';
-      case 'INVALID_ARGUMENTS':
-        title = 'Invalid Arguments';
-        content = 'Session ID and region are required.';
-      default:
-        title = 'Error';
-        content = message ?? 'An error occurred during face verification.';
-    }
-
-    _showErrorDialog(title, content);
-  }
-
-  void _showErrorDialog(String title, String content) {
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(content),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showInfoDialog(String title, String content) {
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(content),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Got it'),
-          ),
-        ],
-      ),
-    );
+    if (!mounted) return;
+    setState(() {
+      _running = false;
+      _status = status;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('AWS Liveness Example'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Icon
-              Icon(
-                _isLive ?? false
-                    ? Icons.verified_user
-                    : _isLive == false
-                    ? Icons.error
-                    : Icons.face,
-                size: 80,
-                color: _isLive ?? false
-                    ? Colors.green
-                    : _isLive == false
-                    ? Colors.red
-                    : Colors.blue,
-              ),
-              const SizedBox(height: 32),
-
-              // Title
-              Text(
-                'Face Liveness Detection',
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-
-              // Description
-              Text(
-                'Verify that a real person is in front of the camera using AWS Face Liveness.',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32),
-
-              // Result message
-              if (_resultMessage != null) ...[
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: _isLive ?? false
-                        ? Colors.green.withValues(alpha: 0.1)
-                        : _isLive == false
-                        ? Colors.red.withValues(alpha: 0.1)
-                        : Colors.grey.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        _resultMessage!,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: _isLive ?? false
-                              ? Colors.green[700]
-                              : _isLive == false
-                              ? Colors.red[700]
-                              : Colors.grey[700],
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      if (_sessionId != null) ...[
-                        const SizedBox(height: 8),
-                        Text(
-                          'Session: ${_sessionId!.substring(0, _sessionId!.length > 20 ? 20 : _sessionId!.length)}...',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24),
-              ],
-
-              // Start button
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton.icon(
-                  onPressed: _isLoading ? null : _startLivenessCheck,
-                  icon: _isLoading
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : const Icon(Icons.face_retouching_natural),
-                  label: Text(
-                    _isLoading ? 'Verifying...' : 'Start Face Verification',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 48),
-
-              // Info text
-              Text(
-                'Note: Face liveness requires a physical device.\nCamera features do not work on simulators.',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(color: Colors.grey[500]),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Text(
+          'Create a session with CreateFaceLivenessSession on your backend, '
+          'then enter its ID below.',
         ),
-      ),
+        const SizedBox(height: 16),
+        TextField(
+          controller: _sessionId,
+          decoration: const InputDecoration(labelText: 'Session ID'),
+        ),
+        TextField(
+          controller: _region,
+          decoration: const InputDecoration(labelText: 'Region'),
+        ),
+        const SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: _running ? null : _start,
+          child: const Text('Start Face Liveness'),
+        ),
+        if (_status != null) ...[
+          const SizedBox(height: 16),
+          Text(_status!, key: const Key('status')),
+        ],
+      ],
     );
   }
 }

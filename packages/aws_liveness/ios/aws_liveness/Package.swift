@@ -16,7 +16,6 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "FlutterFramework", path: "../FlutterFramework"),
-        .package(url: "https://github.com/aws-amplify/amplify-swift", from: "2.60.2"),
         .package(url: "https://github.com/aws-amplify/amplify-ui-swift-liveness", from: "1.6.0")
     ],
     targets: [
@@ -24,8 +23,6 @@ let package = Package(
             name: "aws_liveness",
             dependencies: [
                 .product(name: "FlutterFramework", package: "FlutterFramework"),
-                .product(name: "Amplify", package: "amplify-swift"),
-                .product(name: "AWSCognitoAuthPlugin", package: "amplify-swift"),
                 .product(name: "FaceLiveness", package: "amplify-ui-swift-liveness")
             ],
             resources: [
