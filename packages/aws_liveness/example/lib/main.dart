@@ -7,6 +7,7 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart'
     as foundation
     show AWSCredentialsProvider, TemporaryCredentials;
 import 'package:aws_liveness/aws_liveness.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

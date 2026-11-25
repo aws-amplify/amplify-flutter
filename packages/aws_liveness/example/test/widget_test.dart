@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aws_liveness_example/main.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
