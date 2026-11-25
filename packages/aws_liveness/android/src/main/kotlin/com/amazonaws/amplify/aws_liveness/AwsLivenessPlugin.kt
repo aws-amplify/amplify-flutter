@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.solvian.aws_liveness
+package com.amazonaws.amplify.aws_liveness
 
 import android.app.Activity
 import android.content.Intent

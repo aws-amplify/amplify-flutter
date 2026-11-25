@@ -31,7 +31,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.code.aws_liveness
+        package: com.amazonaws.amplify.aws_liveness
         pluginClass: AwsLivenessPlugin
       ios:
         pluginClass: AwsLivenessPlugin
