@@ -146,9 +146,7 @@ final class EventEnrichmentClientFlutter {
     FlutterLifecycleObserver? lifecycleObserver;
     if (opts.autoSessionTracking) {
       if (backgrounded) delegate.handleAppPaused();
-      lifecycleObserver = FlutterLifecycleObserver(
-        sessionManager: delegate.sessionManager,
-      );
+      lifecycleObserver = FlutterLifecycleObserver(client: delegate);
     }
 
     return EventEnrichmentClientFlutter._(delegate, lifecycleObserver);

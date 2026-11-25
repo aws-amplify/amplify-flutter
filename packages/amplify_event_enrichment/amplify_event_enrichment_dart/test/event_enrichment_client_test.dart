@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_event_enrichment_dart/amplify_event_enrichment_dart.dart';
+import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';

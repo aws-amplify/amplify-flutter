@@ -6,19 +6,17 @@ import 'package:flutter/widgets.dart';
 
 /// {@template amplify_event_enrichment.flutter_lifecycle_observer}
 /// Registers with [WidgetsBinding] and maps `paused` and `hidden` to
-/// [SessionManager.handleAppPaused] and `resumed` to
-/// [SessionManager.handleAppResumed]. Other states are ignored.
+/// [EventEnrichmentClient.handleAppPaused] and `resumed` to
+/// [EventEnrichmentClient.handleAppResumed]. Other states are ignored.
 /// {@endtemplate}
-final class FlutterLifecycleObserver
-    with WidgetsBindingObserver
-    implements LifecycleObserver {
+final class FlutterLifecycleObserver with WidgetsBindingObserver {
   /// {@macro amplify_event_enrichment.flutter_lifecycle_observer}
-  FlutterLifecycleObserver({required SessionManager sessionManager})
-    : _sessionManager = sessionManager {
+  FlutterLifecycleObserver({required EventEnrichmentClient client})
+    : _client = client {
     WidgetsBinding.instance.addObserver(this);
   }
 
-  final SessionManager _sessionManager;
+  final EventEnrichmentClient _client;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -33,12 +31,12 @@ final class FlutterLifecycleObserver
     }
   }
 
-  @override
-  void onPause() => _sessionManager.handleAppPaused();
+  /// Forwards a move to the background.
+  void onPause() => _client.handleAppPaused();
 
-  @override
-  void onResume() => _sessionManager.handleAppResumed();
+  /// Forwards a return to the foreground.
+  void onResume() => _client.handleAppResumed();
 
-  @override
+  /// Stops observing, so no further [onPause] or [onResume] calls are made.
   void dispose() => WidgetsBinding.instance.removeObserver(this);
 }

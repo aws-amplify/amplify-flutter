@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_event_enrichment/amplify_event_enrichment.dart';
+import 'package:amplify_event_enrichment/src/flutter_lifecycle_observer.dart';
+import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,20 +11,24 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('FlutterLifecycleObserver', () {
+    late EventEnrichmentClient client;
     late SessionManager sessionManager;
     late FlutterLifecycleObserver observer;
 
     setUp(() {
-      sessionManager = SessionManager(
-        appId: 'testApp1',
-        sessionTimeout: const Duration(seconds: 5),
-        generateId: () => 'uuid0000-fake-uuid-value',
-      )..startSession();
-      observer = FlutterLifecycleObserver(sessionManager: sessionManager);
+      client = EventEnrichmentClient(
+        appMetadata: const AppMetadata(appId: 'testApp1'),
+        deviceMetadata: const DeviceMetadata(platform: 'test'),
+        sdkMetadata: const SdkMetadata(name: 'test', version: '0.0.0'),
+        clientId: 'client-1',
+      );
+      sessionManager = client.sessionManager;
+      observer = FlutterLifecycleObserver(client: client);
     });
 
-    tearDown(() {
+    tearDown(() async {
       observer.dispose();
+      await client.close();
     });
 
     test('onPause calls sessionManager.handleAppPaused', () {

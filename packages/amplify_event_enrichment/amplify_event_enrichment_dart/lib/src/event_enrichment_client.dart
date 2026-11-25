@@ -16,6 +16,7 @@ import 'package:amplify_event_enrichment_dart/src/session/session_event_types.da
 import 'package:amplify_event_enrichment_dart/src/session/session_manager.dart';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:clock/clock.dart';
+import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
 
 /// {@template amplify_event_enrichment.event_enrichment_client}
@@ -122,10 +123,8 @@ final class EventEnrichmentClient {
   final GlobalFieldsManager _globalFields = GlobalFieldsManager();
   late final SessionManager _sessionManager;
 
-  /// The session manager for this client, for platform-specific lifecycle
-  /// observers, which should only call its lifecycle handlers. [close] clears
-  /// it, so it reports no further boundaries; see
-  /// [SessionManager.clearSession].
+  /// Provides access to the session manager (for testing).
+  @visibleForTesting
   SessionManager get sessionManager => _sessionManager;
 
   String? _userId;
