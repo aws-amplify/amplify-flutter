@@ -3,11 +3,20 @@
 
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
     // The Compose compiler runs at the host app's Kotlin version; this is
     // only the minimum version of the Gradle plugin.
-    id 'org.jetbrains.kotlin.plugin.compose' version '2.0.0'
+    id 'org.jetbrains.kotlin.plugin.compose' version '2.0.0' apply false
 }
+
+// Apply the Kotlin plugin unless the consuming app has AGP's built-in Kotlin
+// enabled (AGP 9+ with android.builtInKotlin=true), where applying it is an
+// error. Matches amplify_auth_cognito.
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = project.findProperty('android.builtInKotlin')?.toString()?.toBoolean() ?: false
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'org.jetbrains.kotlin.android'
+}
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 android {
     namespace 'com.amazonaws.amplify.aws_liveness'
@@ -25,9 +34,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+}
 
-    kotlinOptions {
-        jvmTarget = '17'
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
