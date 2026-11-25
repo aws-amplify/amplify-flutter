@@ -1,12 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
-
+import 'package:aws_liveness/aws_liveness_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'aws_liveness_method_channel.dart';
-
+/// The interface that platform-specific implementations of `aws_liveness`
+/// must extend.
 abstract class AwsLivenessPlatform extends PlatformInterface {
   /// Constructs a AwsLivenessPlatform.
   AwsLivenessPlatform() : super(token: _token);
@@ -28,6 +27,7 @@ abstract class AwsLivenessPlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  /// Returns the platform version.
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }

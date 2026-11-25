@@ -4,8 +4,8 @@ version: 0.0.1
 
 
 environment:
-  sdk: ^3.9.0
-  flutter: '>=3.3.0'
+  sdk: ^3.11.0
+  flutter: ">=3.41.0"
 
 dependencies:
   flutter:
@@ -13,7 +13,7 @@ dependencies:
   plugin_platform_interface: ^2.0.2
 
 dev_dependencies:
-  amplify_lints: ">=3.1.4 <3.2.0"
+  amplify_lints: ">=3.1.6 <3.2.0"
   flutter_test:
     sdk: flutter
 

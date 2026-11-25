@@ -1,11 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
+import 'package:aws_liveness/aws_liveness_platform_interface.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-
-import 'aws_liveness_platform_interface.dart';
 
 /// An implementation of [AwsLivenessPlatform] that uses method channels.
 class MethodChannelAwsLiveness extends AwsLivenessPlatform {
@@ -15,7 +13,9 @@ class MethodChannelAwsLiveness extends AwsLivenessPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version = await methodChannel.invokeMethod<String>(
+      'getPlatformVersion',
+    );
     return version;
   }
 }

@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 import 'dart:developer' as developer;
 import 'package:flutter/services.dart';
 
@@ -9,9 +8,10 @@ import 'package:flutter/services.dart';
 ///
 /// Provides a simple API to start AWS Face Liveness detection flow.
 /// Returns a Future that completes with a result map or throws an error.
-class AwsLiveness {
-  static const MethodChannel _methodChannel =
-      MethodChannel('aws_liveness/methods');
+abstract final class AwsLiveness {
+  static const MethodChannel _methodChannel = MethodChannel(
+    'aws_liveness/methods',
+  );
   static const EventChannel _eventChannel = EventChannel('aws_liveness/events');
 
   /// Enable or disable debug logging
@@ -44,10 +44,7 @@ class AwsLiveness {
 
       final result = await _methodChannel.invokeMethod<Map<Object?, Object?>>(
         'start',
-        {
-          'sessionId': sessionId,
-          'region': region,
-        },
+        {'sessionId': sessionId, 'region': region},
       );
 
       _log('Method channel returned: $result');

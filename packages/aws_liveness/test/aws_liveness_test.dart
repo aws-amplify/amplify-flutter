@@ -1,13 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
-import 'package:flutter_test/flutter_test.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
 import 'package:aws_liveness/aws_liveness.dart';
 import 'package:aws_liveness/aws_liveness_method_channel.dart';
 import 'package:aws_liveness/aws_liveness_platform_interface.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockAwsLivenessPlatform
     with MockPlatformInterfaceMixin
@@ -19,9 +17,9 @@ class MockAwsLivenessPlatform
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final AwsLivenessPlatform initialPlatform = AwsLivenessPlatform.instance;
+  final initialPlatform = AwsLivenessPlatform.instance;
 
-  test('\$MethodChannelAwsLiveness is the default instance', () {
+  test(r'$MethodChannelAwsLiveness is the default instance', () {
     expect(initialPlatform, isInstanceOf<MethodChannelAwsLiveness>());
   });
 

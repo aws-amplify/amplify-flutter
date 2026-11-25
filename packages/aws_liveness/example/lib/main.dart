@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:aws_liveness/aws_liveness.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:aws_liveness/aws_liveness.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,16 +48,12 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
       switch (event['type']) {
         case 'started':
           debugPrint('🚀 Liveness detection started');
-          break;
         case 'complete':
           debugPrint('✅ Liveness detection completed');
-          break;
         case 'error':
           debugPrint('❌ Liveness detection error: ${event['data']}');
-          break;
         case 'cancelled':
           debugPrint('🚫 Liveness detection cancelled');
-          break;
       }
     });
   }
@@ -104,7 +100,7 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
         if (result['status'] == 'success') {
           _isLive = result['isLive'] as bool?;
           _sessionId = result['sessionId'] as String?;
-          _resultMessage = _isLive == true
+          _resultMessage = _isLive ?? false
               ? '✅ Face liveness verified!'
               : '❌ Face liveness check failed';
         } else if (result['status'] == 'cancelled') {
@@ -120,7 +116,7 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
 
       // Handle specific error codes
       _handleError(e.code, e.message);
-    } catch (e) {
+    } on Exception catch (e) {
       debugPrint('❌ Unexpected error: $e');
       setState(() {
         _resultMessage = '❌ Unexpected error occurred';
@@ -142,13 +138,11 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
         title = 'Timeout';
         content =
             'Face verification timed out. Please try again and complete the verification within 50 seconds.';
-        break;
       case 'CAMERA_PERMISSION_DENIED':
       case 'PERMISSION_DENIED':
         title = 'Camera Permission Required';
         content =
             'Please grant camera permission to use face liveness detection.';
-        break;
       case 'USER_CANCELLED':
         // User cancelled - no need to show error dialog
         return;
@@ -156,15 +150,12 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
         title = 'Session Not Found';
         content =
             'The liveness session was not found. Please create a new session.';
-        break;
       case 'ACCESS_DENIED':
         title = 'Access Denied';
         content = 'AWS access was denied. Please check your IAM permissions.';
-        break;
       case 'INVALID_ARGUMENTS':
         title = 'Invalid Arguments';
         content = 'Session ID and region are required.';
-        break;
       default:
         title = 'Error';
         content = message ?? 'An error occurred during face verification.';
@@ -174,7 +165,7 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
   }
 
   void _showErrorDialog(String title, String content) {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title),
@@ -190,7 +181,7 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
   }
 
   void _showInfoDialog(String title, String content) {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title),
@@ -214,19 +205,19 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Icon
               Icon(
-                _isLive == true
+                _isLive ?? false
                     ? Icons.verified_user
                     : _isLive == false
                     ? Icons.error
                     : Icons.face,
                 size: 80,
-                color: _isLive == true
+                color: _isLive ?? false
                     ? Colors.green
                     : _isLive == false
                     ? Colors.red
@@ -257,7 +248,7 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: _isLive == true
+                    color: _isLive ?? false
                         ? Colors.green.withValues(alpha: 0.1)
                         : _isLive == false
                         ? Colors.red.withValues(alpha: 0.1)
@@ -271,7 +262,7 @@ class _LivenessExampleScreenState extends State<LivenessExampleScreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: _isLive == true
+                          color: _isLive ?? false
                               ? Colors.green[700]
                               : _isLive == false
                               ? Colors.red[700]

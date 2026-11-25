@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 // This is a basic Flutter integration test.
 //
 // Since integration tests run in a full Flutter application, they can interact
@@ -10,10 +9,9 @@
 // For more information about Flutter integration tests, please see
 // https://flutter.dev/to/integration-testing
 
+import 'package:aws_liveness/aws_liveness.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-
-import 'package:aws_liveness/aws_liveness.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
