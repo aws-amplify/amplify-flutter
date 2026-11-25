@@ -51,8 +51,19 @@ jobs:
         timeout-minutes: 20
         run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
 
+      # Swift packages such as aws-sdk-swift (used by aws_liveness) run build
+      # tool plugins, which Xcode refuses to run non-interactively until they
+      # are trusted.
+      - name: Trust Swift package plugins
+        run: |
+          defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidatation -bool YES
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+
+      # Builds for device rather than `--simulator`: with `-sdk iphonesimulator`
+      # Xcode builds SwiftPM build tool plugins for the simulator instead of
+      # the host, which fails (https://github.com/flutter/flutter/issues/195155).
       - name: Build
-        run: flutter build ios --simulator
+        run: flutter build ios --no-codesign
         working-directory: ${{ inputs.example-directory }}
 
       - name: Run iOS unit tests
