@@ -38,7 +38,7 @@ class AwsLiveness {
         hostApi: AwsLivenessHostApi(),
       );
 
-  /// Creates an [AwsLiveness] backed by [hostApi]. For testing.
+  /// Injects platform-channel dependencies for tests.
   @visibleForTesting
   AwsLiveness.withHostApi({
     required AWSCredentialsProvider credentialsProvider,
@@ -51,6 +51,10 @@ class AwsLiveness {
   final AWSCredentialsProvider _credentialsProvider;
   final AwsLivenessHostApi _hostApi;
   final BinaryMessenger? _binaryMessenger;
+
+  /// Whether any instance has a check running. The credentials handler is
+  /// global to the engine, so a second check must not replace it.
+  static bool _inProgress = false;
 
   /// Presents the Face Liveness check for [sessionId] and completes once the
   /// video has been streamed to Rekognition.
@@ -71,8 +75,14 @@ class AwsLiveness {
     if (sessionId.isEmpty || region.isEmpty) {
       throw ArgumentError('sessionId and region must not be empty.');
     }
-    // The handler is global to the engine, so register it only while this
-    // instance's check is running.
+    if (_inProgress) {
+      throw const FaceLivenessException(
+        code: FaceLivenessErrorCode.alreadyInProgress,
+        message: 'A Face Liveness check is already in progress.',
+        recoverySuggestion: 'Wait for the current check to finish.',
+      );
+    }
+    _inProgress = true;
     AwsLivenessFlutterApi.setUp(
       _CredentialsHandler(_credentialsProvider),
       binaryMessenger: _binaryMessenger,
@@ -97,6 +107,7 @@ class AwsLiveness {
       );
     } finally {
       AwsLivenessFlutterApi.setUp(null, binaryMessenger: _binaryMessenger);
+      _inProgress = false;
     }
   }
 }

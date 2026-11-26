@@ -172,4 +172,54 @@ void main() {
 
     expect(await fetchCredentials(), isNull);
   });
+
+  test('a concurrent start is rejected without replacing the '
+      'credentials handler', () async {
+    final release = Completer<void>();
+    var startCalls = 0;
+    mockStart((_) async {
+      startCalls++;
+      await release.future;
+      return [null];
+    });
+
+    final first = liveness(
+      const StaticCredentials('first', 'secret'),
+    ).start(sessionId: 'session', region: 'us-east-1');
+    await pumpEventQueue();
+
+    await expectLater(
+      liveness(
+        const StaticCredentials('second', 'secret'),
+      ).start(sessionId: 'other', region: 'us-east-1'),
+      throwsA(
+        isA<FaceLivenessException>().having(
+          (e) => e.code,
+          'code',
+          FaceLivenessErrorCode.alreadyInProgress,
+        ),
+      ),
+    );
+    expect(startCalls, 1);
+    expect((await fetchCredentials())?.accessKeyId, 'first');
+
+    release.complete();
+    await first;
+
+    // A new check can start once the first one finishes.
+    mockStart((_) async => [null]);
+    await liveness().start(sessionId: 'session', region: 'us-east-1');
+  });
+
+  test('credentials are redacted from toString', () {
+    final credentials = LivenessCredentials(
+      accessKeyId: 'akid',
+      secretAccessKey: 'super-secret',
+      sessionToken: 'super-token',
+      expirationEpochSeconds: 1,
+    );
+
+    expect(credentials.toString(), isNot(contains('super-secret')));
+    expect(credentials.toString(), isNot(contains('super-token')));
+  });
 }
