@@ -154,6 +154,17 @@ const List<AmplifyBackendGroup> infraConfig = [
       ),
     ],
   ),
+  AmplifyBackendGroup(
+    category: 'Liveness',
+    defaultOutput: 'packages/aws_liveness/example/lib',
+    backends: [
+      AmplifyBackend(
+        name: 'main',
+        identifier: 'liveness',
+        pathToSource: 'infra-gen2/backends/liveness/main',
+      ),
+    ],
+  ),
 ];
 
 const pathToBackends = 'infra-gen2/backends';

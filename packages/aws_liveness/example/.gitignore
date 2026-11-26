@@ -27,5 +27,7 @@ build/
 /ios/Flutter/flutter_export_environment.sh
 /ios/Pods/
 /ios/.symlinks/
-# Amplify backend configuration
-assets/amplify_outputs.json
+# Amplify backend configuration (written by infra-gen2/tool/deploy_gen2.dart,
+# or as a placeholder by aft bootstrap)
+lib/amplify_outputs.dart
+lib/amplifyconfiguration.dart

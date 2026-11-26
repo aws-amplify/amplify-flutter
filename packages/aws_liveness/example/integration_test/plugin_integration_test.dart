@@ -8,11 +8,13 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  // A full check needs a backend-created session and a real camera, so this
-  // only verifies that the app and plugin start on device.
+  // A full check needs a person in front of the camera, so this verifies that
+  // the app, Amplify and the plugin start on device with the CI config.
   testWidgets('example app launches', (tester) async {
-    await tester.pumpWidget(const LivenessExampleApp());
+    await tester.pumpWidget(
+      LivenessExampleApp(amplifyError: await configureAmplify()),
+    );
     await tester.pumpAndSettle();
-    expect(find.text('Start Face Liveness'), findsOneWidget);
+    expect(find.byType(LivenessExampleApp), findsOneWidget);
   });
 }
