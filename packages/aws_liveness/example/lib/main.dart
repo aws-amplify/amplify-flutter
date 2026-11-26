@@ -53,12 +53,12 @@ class AmplifyAuthCredentialsProvider
   }
 }
 
-/// The example app.
+/// Demonstrates Face Liveness with credentials from Amplify Auth.
 class LivenessExampleApp extends StatelessWidget {
-  /// Creates the example app. [amplifyError] is shown instead of the form.
+  /// Shows [amplifyError] instead of the form when provided.
   const LivenessExampleApp({super.key, this.amplifyError});
 
-  /// Why Amplify could not be configured, if it could not.
+  /// The Amplify configuration error shown instead of the form.
   final String? amplifyError;
 
   @override
@@ -80,7 +80,7 @@ class LivenessExampleApp extends StatelessWidget {
 
 /// Collects a session ID and region and runs the check.
 class LivenessForm extends StatefulWidget {
-  /// Creates the form.
+  /// Creates a form with us-east-1 as the initial region.
   const LivenessForm({super.key});
 
   @override
