@@ -36,4 +36,4 @@ jobs:
     with:
       example-directory: packages/aws_liveness/example
       package-name: aws_liveness
-      has-native-tests: false
+      has-native-tests: true
