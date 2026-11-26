@@ -195,9 +195,6 @@ extension type NodeChildProcess._(JSObject it) implements EventEmitter {
 @JS()
 @anonymous
 extension type NodeReadableStream._(JSObject it) implements EventEmitter {
-  /// Forwards this stream to [destination], ending it when this stream ends.
-  external NodeWriteableStream pipe(NodeWriteableStream destination);
-
   Stream<List<int>> get stream {
     final controller = StreamController<List<int>>(sync: true);
     void onData(JSUint8Array chunk) {
@@ -256,7 +253,7 @@ extension type EventEmitter._(JSObject it) implements JSObject {
 
 @JS()
 @anonymous
-extension type NodeWriteableStream._(JSObject it) implements EventEmitter {
+extension type NodeWriteableStream._(JSObject it) {
   external void write(
     JSUint8Array chunk, [
     String? encoding,

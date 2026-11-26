@@ -141,27 +141,11 @@ final class NodeProcessManager implements Closeable, ProcessManager {
       includeParentEnvironment: includeParentEnvironment,
       runInShell: runInShell,
       mode: mode,
-      // Sharing `pipe.stdout` directly as stdin races with this process, which
-      // also reads from it, so forward it explicitly instead.
-      stdin: pipe == null ? null : 'pipe'.toJS,
+      stdin: pipe?.stdout,
     );
-    if (pipe != null) _forward(pipe, jsProcess);
     final nodeProcess = NodeProcess(executable, args, jsProcess);
     await nodeProcess._init();
     return _activeProcesses[nodeProcess.pid] = nodeProcess;
-  }
-
-  /// Pipes [source]'s stdout into [destination]'s stdin, like `source | destination`.
-  static void _forward(NodeChildProcess source, NodeChildProcess destination) {
-    final stdout = source.stdout;
-    final stdin = destination.stdin;
-    if (stdout == null || stdin == null) return;
-    // Writes fail with EPIPE if [destination] exits before [source] (e.g.
-    // `yes | cmd`). Without a listener, the error would crash the action.
-    stdin.addListener('error', ((JSAny? _) {}).toJS);
-    stdout.pipe(stdin);
-    // Stop [source] once nothing consumes its output, as a shell would.
-    unawaited(destination.onClose.then((_) => source.kill()));
   }
 
   @override
