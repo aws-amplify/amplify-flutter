@@ -39,7 +39,7 @@ backend.getResult.resources.lambda.addToRolePolicy(
   }),
 );
 
-// Lets signed-in users stream video for a session (aws_face_liveness start()).
+// Lets signed-in users stream video for a session (amplify_face_liveness start()).
 backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
   new PolicyStatement({
     actions: ["rekognition:StartFaceLivenessSession"],

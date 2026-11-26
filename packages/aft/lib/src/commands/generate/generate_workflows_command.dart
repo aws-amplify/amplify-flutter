@@ -826,7 +826,7 @@ ${_iosDeviceBuildPackages.contains(package.name) ? '      build-for-device: true
 /// build tool plugins that `flutter build ios --simulator` cannot build.
 /// Remove entries once https://github.com/flutter/flutter/issues/195155
 /// is fixed.
-const _iosDeviceBuildPackages = {'aws_face_liveness'};
+const _iosDeviceBuildPackages = {'amplify_face_liveness'};
 
 /// First line of every file written by `aft generate workflows`.
 const generatedHeader =

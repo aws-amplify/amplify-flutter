@@ -156,7 +156,7 @@ const List<AmplifyBackendGroup> infraConfig = [
   ),
   AmplifyBackendGroup(
     category: 'Liveness',
-    defaultOutput: 'packages/aws_face_liveness/example/lib',
+    defaultOutput: 'packages/amplify_face_liveness/example/lib',
     backends: [
       AmplifyBackend(
         name: 'main',
