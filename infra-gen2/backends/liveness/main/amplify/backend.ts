@@ -4,12 +4,14 @@ import { AttributeType, TableV2 } from "aws-cdk-lib/aws-dynamodb";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { auth } from "./auth/resource";
 import { data } from "./data/resource";
-import { liveness } from "./functions/liveness/resource";
+import { createSession } from "./functions/create-session/resource";
+import { getResult } from "./functions/get-result/resource";
 
 const backend = defineBackend({
   auth,
   data,
-  liveness,
+  createSession,
+  getResult,
 });
 
 // Records who created each session, so only they can read its result.
@@ -18,16 +20,21 @@ const sessions = new TableV2(backend.createStack("LivenessSessions"), "Sessions"
   timeToLiveAttribute: "expiresAt",
   removalPolicy: RemovalPolicy.DESTROY,
 });
-sessions.grantReadWriteData(backend.liveness.resources.lambda);
-backend.liveness.addEnvironment("SESSIONS_TABLE_NAME", sessions.tableName);
+sessions.grantWriteData(backend.createSession.resources.lambda);
+sessions.grantReadData(backend.getResult.resources.lambda);
+for (const fn of [backend.createSession, backend.getResult]) {
+  fn.addEnvironment("SESSIONS_TABLE_NAME", sessions.tableName);
+}
 
-// Lets the function create sessions and read their results.
-backend.liveness.resources.lambda.addToRolePolicy(
+backend.createSession.resources.lambda.addToRolePolicy(
   new PolicyStatement({
-    actions: [
-      "rekognition:CreateFaceLivenessSession",
-      "rekognition:GetFaceLivenessSessionResults",
-    ],
+    actions: ["rekognition:CreateFaceLivenessSession"],
+    resources: ["*"],
+  }),
+);
+backend.getResult.resources.lambda.addToRolePolicy(
+  new PolicyStatement({
+    actions: ["rekognition:GetFaceLivenessSessionResults"],
     resources: ["*"],
   }),
 );

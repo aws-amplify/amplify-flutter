@@ -1,6 +1,6 @@
 import { defineFunction } from "@aws-amplify/backend";
 
-export const liveness = defineFunction({
-  name: "liveness",
+export const getResult = defineFunction({
+  name: "get-liveness-result",
   entry: "./handler.ts",
 });

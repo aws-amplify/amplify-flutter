@@ -9,8 +9,8 @@ The test backend is in `infra-gen2/backends/liveness/main`. It provides:
 
 - Cognito email sign-in. Only signed-in users can create sessions and stream
   video, so anonymous callers can't run up Rekognition usage.
-- `createLivenessSession` and `getLivenessResult` GraphQL queries, backed by a
-  Lambda function that calls `CreateFaceLivenessSession` and
+- `createLivenessSession` and `getLivenessResult` GraphQL queries, each backed
+  by a Lambda function that calls `CreateFaceLivenessSession` or
   `GetFaceLivenessSessionResults`. Each session is recorded (in DynamoDB, for
   a day) with the user who created it, and only that user can read its
   result. Results contain only the status and confidence, not the reference
