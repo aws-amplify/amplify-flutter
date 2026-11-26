@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import AVFoundation
 import FaceLiveness
 import Flutter
 import SwiftUI
@@ -29,16 +30,35 @@ public class AwsLivenessPlugin: NSObject, FlutterPlugin, AwsLivenessHostApi {
             )))
             return
         }
-        guard let presenter = Self.topViewController() else {
-            completion(.failure(PigeonError(
-                code: ErrorCodes.noForegroundUi,
-                message: "No foreground view controller is available.",
-                details: nil
-            )))
-            return
-        }
+        // Reserve the check now so a concurrent start is rejected while the
+        // permission prompt is showing.
         pendingCompletion = completion
 
+        // The SDK shows a permission screen without a way out and never
+        // reports a denial, so resolve the permission before presenting.
+        Self.requestCameraAccess { [weak self] granted in
+            guard let self else { return }
+            guard granted else {
+                self.fail(
+                    code: ErrorCodes.cameraPermissionDenied,
+                    message: "Camera permissions have not been granted.",
+                    recoverySuggestion: "Prompt the user to allow camera access in Settings."
+                )
+                return
+            }
+            self.present(request)
+        }
+    }
+
+    private func present(_ request: LivenessStartRequest) {
+        guard let presenter = Self.topViewController() else {
+            fail(
+                code: ErrorCodes.noForegroundUi,
+                message: "No foreground view controller is available.",
+                recoverySuggestion: nil
+            )
+            return
+        }
         let credentialsProvider = DartCredentialsProvider(flutterApi: flutterApi)
         weak var controller: UIViewController?
         let view = FaceLivenessView(request: request, credentialsProvider: credentialsProvider) { [weak self] result in
@@ -51,6 +71,27 @@ public class AwsLivenessPlugin: NSObject, FlutterPlugin, AwsLivenessHostApi {
         presenter.present(hosting, animated: true)
     }
 
+    private func fail(code: String, message: String, recoverySuggestion: String?) {
+        guard let completion = pendingCompletion else { return }
+        pendingCompletion = nil
+        completion(.failure(PigeonError(code: code, message: message, details: recoverySuggestion)))
+    }
+
+    /// Calls `completion` on the main thread with whether camera access is granted,
+    /// prompting the user if they have not decided yet.
+    private static func requestCameraAccess(_ completion: @escaping (Bool) -> Void) {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            completion(true)
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                DispatchQueue.main.async { completion(granted) }
+            }
+        default:
+            completion(false)
+        }
+    }
+
     private func complete(
         _ result: Result<Void, FaceLivenessDetectionError>,
         controller: UIViewController?,
@@ -61,7 +102,11 @@ public class AwsLivenessPlugin: NSObject, FlutterPlugin, AwsLivenessHostApi {
         pendingCompletion = nil
         let mapped = result.mapError { error -> Error in
             PigeonError(
-                code: ErrorCodes.code(for: error, credentialsFailed: credentialsProvider.didFail),
+                code: ErrorCodes.code(
+                    for: error,
+                    credentialsFailed: credentialsProvider.didFail,
+                    cameraAuthorized: AVCaptureDevice.authorizationStatus(for: .video) == .authorized
+                ),
                 message: error.message,
                 details: error.recoverySuggestion
             )
@@ -99,6 +144,11 @@ private struct FaceLivenessView: View {
             credentialsProvider: credentialsProvider,
             region: request.region,
             disableStartView: request.disableStartView,
+            challengeOptions: ChallengeOptions(
+                faceMovementChallengeOption: .init(
+                    camera: request.faceMovementCamera == .back ? .back : .front
+                )
+            ),
             isPresented: $isPresented,
             onCompletion: onCompletion
         )

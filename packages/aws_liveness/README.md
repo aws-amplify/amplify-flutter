@@ -69,7 +69,22 @@ The IAM role behind these credentials needs `rekognition:StartFaceLivenessSessio
 backend, not in the app's role.
 
 Only one check can run at a time. Each session ID can only be used once, so
-create a new session to retry after any error.
+create a new session to retry after any error. If the credentials provider
+does not complete within 30 seconds, the check fails with
+`FaceLivenessErrorCode.credentials`.
+
+## Options
+
+`start` accepts:
+
+- `disableStartView`: skip the introduction screen, which includes a
+  photosensitivity warning.
+- `faceMovementCamera`: use `FaceLivenessCamera.back` for sessions that use
+  the FaceMovement challenge. The FaceMovementAndLight challenge always uses
+  the front camera.
+
+These native options are not supported yet: video options (Android), replacing
+or hiding the cancel button, and theming.
 
 ## Platform setup
 

@@ -8,6 +8,9 @@ import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 /// The native Face Liveness SDKs on Android and iOS report errors in
 /// different shapes. They are normalized to these codes; codes that only one
 /// platform can produce are noted.
+///
+/// New codes may be added in minor releases as the native SDKs report new
+/// errors, so keep a `default` (or `_`) branch when switching over this enum.
 enum FaceLivenessErrorCode {
   /// The user closed the check before it finished.
   userCancelled,

@@ -5,4 +5,5 @@
 library;
 
 export 'package:aws_liveness/src/aws_liveness.dart';
+export 'package:aws_liveness/src/face_liveness_camera.dart';
 export 'package:aws_liveness/src/face_liveness_exception.dart';

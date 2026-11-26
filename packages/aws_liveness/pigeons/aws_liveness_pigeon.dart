@@ -18,17 +18,22 @@ import 'package:pigeon/pigeon.dart';
     copyrightHeader: 'pigeons/copyright.txt',
   ),
 )
+/// The camera used for the FaceMovement challenge.
+enum LivenessCameraPosition { front, back }
+
 /// Options for a single Face Liveness check.
 class LivenessStartRequest {
   LivenessStartRequest({
     required this.sessionId,
     required this.region,
     required this.disableStartView,
+    required this.faceMovementCamera,
   });
 
   final String sessionId;
   final String region;
   final bool disableStartView;
+  final LivenessCameraPosition faceMovementCamera;
 }
 
 /// AWS credentials handed from Dart to the native Face Liveness SDK.

@@ -30,6 +30,10 @@ android {
         compose = true
     }
 
+    sourceSets {
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -50,4 +54,6 @@ repositories {
 dependencies {
     implementation 'com.amplifyframework.ui:liveness:1.13.0'
     implementation 'androidx.activity:activity-compose:1.10.1'
+
+    testImplementation 'junit:junit:4.13.2'
 }

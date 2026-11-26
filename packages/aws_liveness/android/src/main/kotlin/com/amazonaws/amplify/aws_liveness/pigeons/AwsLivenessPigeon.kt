@@ -198,6 +198,18 @@ class FlutterError (
   val details: Any? = null
 ) : RuntimeException()
 
+/** The camera used for the FaceMovement challenge. */
+enum class LivenessCameraPosition(val raw: Int) {
+  FRONT(0),
+  BACK(1);
+
+  companion object {
+    fun ofRaw(raw: Int): LivenessCameraPosition? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 /**
  * Options for a single Face Liveness check.
  *
@@ -206,7 +218,8 @@ class FlutterError (
 data class LivenessStartRequest (
   val sessionId: String,
   val region: String,
-  val disableStartView: Boolean
+  val disableStartView: Boolean,
+  val faceMovementCamera: LivenessCameraPosition
 )
  {
   companion object {
@@ -214,7 +227,8 @@ data class LivenessStartRequest (
       val sessionId = pigeonVar_list[0] as String
       val region = pigeonVar_list[1] as String
       val disableStartView = pigeonVar_list[2] as Boolean
-      return LivenessStartRequest(sessionId, region, disableStartView)
+      val faceMovementCamera = pigeonVar_list[3] as LivenessCameraPosition
+      return LivenessStartRequest(sessionId, region, disableStartView, faceMovementCamera)
     }
   }
   fun toList(): List<Any?> {
@@ -222,6 +236,7 @@ data class LivenessStartRequest (
       sessionId,
       region,
       disableStartView,
+      faceMovementCamera,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -232,7 +247,7 @@ data class LivenessStartRequest (
       return true
     }
     val other = other as LivenessStartRequest
-    return AwsLivenessPigeonPigeonUtils.deepEquals(this.sessionId, other.sessionId) && AwsLivenessPigeonPigeonUtils.deepEquals(this.region, other.region) && AwsLivenessPigeonPigeonUtils.deepEquals(this.disableStartView, other.disableStartView)
+    return AwsLivenessPigeonPigeonUtils.deepEquals(this.sessionId, other.sessionId) && AwsLivenessPigeonPigeonUtils.deepEquals(this.region, other.region) && AwsLivenessPigeonPigeonUtils.deepEquals(this.disableStartView, other.disableStartView) && AwsLivenessPigeonPigeonUtils.deepEquals(this.faceMovementCamera, other.faceMovementCamera)
   }
 
   override fun hashCode(): Int {
@@ -240,10 +255,11 @@ data class LivenessStartRequest (
     result = 31 * result + AwsLivenessPigeonPigeonUtils.deepHash(this.sessionId)
     result = 31 * result + AwsLivenessPigeonPigeonUtils.deepHash(this.region)
     result = 31 * result + AwsLivenessPigeonPigeonUtils.deepHash(this.disableStartView)
+    result = 31 * result + AwsLivenessPigeonPigeonUtils.deepHash(this.faceMovementCamera)
     return result
   }
   override fun toString(): String {
-    return "LivenessStartRequest(sessionId=$sessionId, region=$region, disableStartView=$disableStartView)"
+    return "LivenessStartRequest(sessionId=$sessionId, region=$region, disableStartView=$disableStartView, faceMovementCamera=$faceMovementCamera)"
   }
 }
 
@@ -303,11 +319,16 @@ private open class AwsLivenessPigeonPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
       129.toByte() -> {
+        return (readValue(buffer) as Long?)?.let {
+          LivenessCameraPosition.ofRaw(it.toInt())
+        }
+      }
+      130.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           LivenessStartRequest.fromList(it)
         }
       }
-      130.toByte() -> {
+      131.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           LivenessCredentials.fromList(it)
         }
@@ -317,12 +338,16 @@ private open class AwsLivenessPigeonPigeonCodec : StandardMessageCodec() {
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
     when (value) {
-      is LivenessStartRequest -> {
+      is LivenessCameraPosition -> {
         stream.write(129)
+        writeValue(stream, value.raw.toLong())
+      }
+      is LivenessStartRequest -> {
+        stream.write(130)
         writeValue(stream, value.toList())
       }
       is LivenessCredentials -> {
-        stream.write(130)
+        stream.write(131)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)

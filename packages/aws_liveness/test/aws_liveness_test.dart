@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
 import 'package:aws_liveness/aws_liveness.dart';
 import 'package:aws_liveness/src/pigeons/aws_liveness_pigeon.g.dart';
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 const _startChannel =
@@ -21,6 +22,12 @@ final class _FakeCredentialsProvider implements AWSCredentialsProvider {
 
   @override
   Future<AWSCredentials> resolve() async => credentials;
+}
+
+final class _NeverCompletingCredentialsProvider
+    implements AWSCredentialsProvider {
+  @override
+  Future<AWSCredentials> resolve() => Completer<AWSCredentials>().future;
 }
 
 void main() {
@@ -209,6 +216,55 @@ void main() {
     // A new check can start once the first one finishes.
     mockStart((_) async => [null]);
     await liveness().start(sessionId: 'session', region: 'us-east-1');
+  });
+
+  test('start sends the FaceMovement camera', () async {
+    LivenessStartRequest? received;
+    mockStart((request) async {
+      received = request;
+      return [null];
+    });
+
+    await liveness().start(sessionId: 'session', region: 'us-east-1');
+    expect(received?.faceMovementCamera, LivenessCameraPosition.front);
+
+    await liveness().start(
+      sessionId: 'session',
+      region: 'us-east-1',
+      faceMovementCamera: FaceLivenessCamera.back,
+    );
+    expect(received?.faceMovementCamera, LivenessCameraPosition.back);
+  });
+
+  test('a credentials provider that never completes times out', () {
+    fakeAsync((async) {
+      List<Object?>? reply;
+      mockStart((_) async {
+        await messenger.handlePlatformMessage(
+          _fetchCredentialsChannel,
+          _codec.encodeMessage(null),
+          (data) => reply = _codec.decodeMessage(data) as List<Object?>?,
+        );
+        return [null];
+      });
+
+      unawaited(
+        AwsLiveness(
+          credentialsProvider: _NeverCompletingCredentialsProvider(),
+        ).start(sessionId: 'session', region: 'us-east-1'),
+      );
+      async
+        ..flushMicrotasks()
+        ..elapse(const Duration(seconds: 29))
+        ..flushMicrotasks();
+      expect(reply, isNull);
+
+      async
+        ..elapse(const Duration(seconds: 2))
+        ..flushMicrotasks();
+      // Pigeon error replies are [code, message, details].
+      expect(reply, hasLength(3));
+    });
   });
 
   test('credentials are redacted from toString', () {

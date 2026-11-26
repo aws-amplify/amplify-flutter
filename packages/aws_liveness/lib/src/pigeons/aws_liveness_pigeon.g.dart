@@ -114,12 +114,16 @@ int _deepHash(Object? value) {
   return value.hashCode;
 }
 
+/// The camera used for the FaceMovement challenge.
+enum LivenessCameraPosition { front, back }
+
 /// Options for a single Face Liveness check.
 class LivenessStartRequest {
   LivenessStartRequest({
     required this.sessionId,
     required this.region,
     required this.disableStartView,
+    required this.faceMovementCamera,
   });
 
   String sessionId;
@@ -128,8 +132,10 @@ class LivenessStartRequest {
 
   bool disableStartView;
 
+  LivenessCameraPosition faceMovementCamera;
+
   List<Object?> _toList() {
-    return <Object?>[sessionId, region, disableStartView];
+    return <Object?>[sessionId, region, disableStartView, faceMovementCamera];
   }
 
   Object encode() {
@@ -142,6 +148,7 @@ class LivenessStartRequest {
       sessionId: result[0]! as String,
       region: result[1]! as String,
       disableStartView: result[2]! as bool,
+      faceMovementCamera: result[3]! as LivenessCameraPosition,
     );
   }
 
@@ -156,7 +163,8 @@ class LivenessStartRequest {
     }
     return _deepEquals(sessionId, other.sessionId) &&
         _deepEquals(region, other.region) &&
-        _deepEquals(disableStartView, other.disableStartView);
+        _deepEquals(disableStartView, other.disableStartView) &&
+        _deepEquals(faceMovementCamera, other.faceMovementCamera);
   }
 
   @override
@@ -165,7 +173,7 @@ class LivenessStartRequest {
 
   @override
   String toString() {
-    return 'LivenessStartRequest(sessionId: $sessionId, region: $region, disableStartView: $disableStartView)';
+    return 'LivenessStartRequest(sessionId: $sessionId, region: $region, disableStartView: $disableStartView, faceMovementCamera: $faceMovementCamera)';
   }
 }
 
@@ -241,11 +249,14 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    } else if (value is LivenessStartRequest) {
+    } else if (value is LivenessCameraPosition) {
       buffer.putUint8(129);
+      writeValue(buffer, value.index);
+    } else if (value is LivenessStartRequest) {
+      buffer.putUint8(130);
       writeValue(buffer, value.encode());
     } else if (value is LivenessCredentials) {
-      buffer.putUint8(130);
+      buffer.putUint8(131);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -256,8 +267,11 @@ class _PigeonCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 129:
-        return LivenessStartRequest.decode(readValue(buffer)!);
+        final value = readValue(buffer) as int?;
+        return value == null ? null : LivenessCameraPosition.values[value];
       case 130:
+        return LivenessStartRequest.decode(readValue(buffer)!);
+      case 131:
         return LivenessCredentials.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

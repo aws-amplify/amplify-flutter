@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_foundation_dart/amplify_foundation_dart.dart';
+import 'package:aws_liveness/src/face_liveness_camera.dart';
 import 'package:aws_liveness/src/face_liveness_exception.dart';
 import 'package:aws_liveness/src/pigeons/aws_liveness_pigeon.g.dart';
 import 'package:flutter/foundation.dart';
@@ -62,6 +63,8 @@ class AwsLiveness {
   /// [region] is the AWS region the session was created in.
   /// Set [disableStartView] to skip the SDK's introduction screen, which
   /// includes a photosensitivity warning.
+  /// [faceMovementCamera] selects the camera for the FaceMovement challenge;
+  /// FaceMovementAndLight always uses the front camera.
   ///
   /// Throws a [FaceLivenessException] if the check does not complete,
   /// including when the user cancels it
@@ -71,6 +74,7 @@ class AwsLiveness {
     required String sessionId,
     required String region,
     bool disableStartView = false,
+    FaceLivenessCamera faceMovementCamera = FaceLivenessCamera.front,
   }) async {
     if (sessionId.isEmpty || region.isEmpty) {
       throw ArgumentError('sessionId and region must not be empty.');
@@ -93,6 +97,10 @@ class AwsLiveness {
           sessionId: sessionId,
           region: region,
           disableStartView: disableStartView,
+          faceMovementCamera: switch (faceMovementCamera) {
+            FaceLivenessCamera.front => LivenessCameraPosition.front,
+            FaceLivenessCamera.back => LivenessCameraPosition.back,
+          },
         ),
       );
     } on PlatformException catch (e) {
@@ -117,9 +125,14 @@ final class _CredentialsHandler implements AwsLivenessFlutterApi {
 
   final AWSCredentialsProvider _provider;
 
+  /// How long native code waits for credentials. The native UI has no way
+  /// out while it waits, so a provider that never completes must fail the
+  /// check (as a `credentials` error) instead of blocking it.
+  static const timeout = Duration(seconds: 30);
+
   @override
   Future<LivenessCredentials> fetchCredentials() async {
-    final credentials = await _provider.resolve();
+    final credentials = await _provider.resolve().timeout(timeout);
     return switch (credentials) {
       TemporaryCredentials(:final sessionToken, :final expiration) =>
         LivenessCredentials(

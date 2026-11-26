@@ -13,9 +13,13 @@ import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.amazonaws.amplify.aws_liveness.pigeons.LivenessCameraPosition
 import com.amazonaws.amplify.aws_liveness.pigeons.LivenessStartRequest
 import com.amplifyframework.ui.liveness.model.FaceLivenessDetectionException
+import com.amplifyframework.ui.liveness.ui.Camera
+import com.amplifyframework.ui.liveness.ui.ChallengeOptions
 import com.amplifyframework.ui.liveness.ui.FaceLivenessDetector
+import com.amplifyframework.ui.liveness.ui.LivenessChallenge
 
 /** Hosts the Amplify UI `FaceLivenessDetector` composable for a single check. */
 class FaceLivenessActivity : ComponentActivity() {
@@ -71,7 +75,22 @@ class FaceLivenessActivity : ComponentActivity() {
                 credentialsProvider = session.credentialsProvider,
                 disableStartView = session.request.disableStartView,
                 onComplete = { runOnUiThread { finishWithSuccess() } },
-                onError = { error -> runOnUiThread { finishWithError(errorCode(error, session), error) } }
+                onError = { error ->
+                    runOnUiThread {
+                        finishWithError(
+                            errorCode(error, credentialsFailed = session.credentialsProvider.lastError != null),
+                            error
+                        )
+                    }
+                },
+                challengeOptions = ChallengeOptions(
+                    faceMovement = LivenessChallenge.FaceMovement(
+                        camera = when (session.request.faceMovementCamera) {
+                            LivenessCameraPosition.FRONT -> Camera.Front
+                            LivenessCameraPosition.BACK -> Camera.Back
+                        }
+                    )
+                )
             )
         }
     }
@@ -94,26 +113,6 @@ class FaceLivenessActivity : ComponentActivity() {
                 .putExtra(EXTRA_ERROR_RECOVERY, error.recoverySuggestion)
         )
         finish()
-    }
-
-    private fun errorCode(error: FaceLivenessDetectionException, session: Session): String = when (error) {
-        is FaceLivenessDetectionException.UserCancelledException -> ErrorCodes.USER_CANCELLED
-        is FaceLivenessDetectionException.CameraPermissionDeniedException -> ErrorCodes.CAMERA_PERMISSION_DENIED
-        is FaceLivenessDetectionException.SessionNotFoundException -> ErrorCodes.SESSION_NOT_FOUND
-        is FaceLivenessDetectionException.SessionTimedOutException -> ErrorCodes.SESSION_TIMED_OUT
-        is FaceLivenessDetectionException.SessionInterruptedException -> ErrorCodes.SESSION_INTERRUPTED
-        is FaceLivenessDetectionException.UnsupportedChallengeTypeException -> ErrorCodes.UNSUPPORTED_CHALLENGE_TYPE
-        is FaceLivenessDetectionException.VideoEncodingException,
-        is FaceLivenessDetectionException.VideoMuxingException -> ErrorCodes.VIDEO_ENCODING
-        // A failed credentials fetch surfaces as a generic SDK error.
-        else -> when {
-            session.credentialsProvider.lastError != null -> ErrorCodes.CREDENTIALS
-            error is FaceLivenessDetectionException.AccessDeniedException -> ErrorCodes.ACCESS_DENIED
-            // This subclass is internal to the SDK.
-            error.javaClass.simpleName == "FaceInOvalMatchExceededTimeLimitException" ->
-                ErrorCodes.FACE_IN_OVAL_MATCH_EXCEEDED_TIME_LIMIT
-            else -> ErrorCodes.UNKNOWN
-        }
     }
 
     internal companion object {

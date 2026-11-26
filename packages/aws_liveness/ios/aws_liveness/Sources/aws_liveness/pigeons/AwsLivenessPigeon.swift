@@ -191,6 +191,12 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
 }
 
 
+/// The camera used for the FaceMovement challenge.
+enum LivenessCameraPosition: Int, CaseIterable {
+  case front = 0
+  case back = 1
+}
+
 /// Options for a single Face Liveness check.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -198,6 +204,7 @@ struct LivenessStartRequest: Hashable, CustomStringConvertible {
   var sessionId: String
   var region: String
   var disableStartView: Bool
+  var faceMovementCamera: LivenessCameraPosition
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -205,11 +212,13 @@ struct LivenessStartRequest: Hashable, CustomStringConvertible {
     let sessionId = pigeonVar_list[0] as! String
     let region = pigeonVar_list[1] as! String
     let disableStartView = pigeonVar_list[2] as! Bool
+    let faceMovementCamera = pigeonVar_list[3] as! LivenessCameraPosition
 
     return LivenessStartRequest(
       sessionId: sessionId,
       region: region,
-      disableStartView: disableStartView
+      disableStartView: disableStartView,
+      faceMovementCamera: faceMovementCamera
     )
   }
   func toList() -> [Any?] {
@@ -217,13 +226,14 @@ struct LivenessStartRequest: Hashable, CustomStringConvertible {
       sessionId,
       region,
       disableStartView,
+      faceMovementCamera,
     ]
   }
   static func == (lhs: LivenessStartRequest, rhs: LivenessStartRequest) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return AwsLivenessPigeonPigeonInternal.deepEquals(lhs.sessionId, rhs.sessionId) && AwsLivenessPigeonPigeonInternal.deepEquals(lhs.region, rhs.region) && AwsLivenessPigeonPigeonInternal.deepEquals(lhs.disableStartView, rhs.disableStartView)
+    return AwsLivenessPigeonPigeonInternal.deepEquals(lhs.sessionId, rhs.sessionId) && AwsLivenessPigeonPigeonInternal.deepEquals(lhs.region, rhs.region) && AwsLivenessPigeonPigeonInternal.deepEquals(lhs.disableStartView, rhs.disableStartView) && AwsLivenessPigeonPigeonInternal.deepEquals(lhs.faceMovementCamera, rhs.faceMovementCamera)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -231,10 +241,11 @@ struct LivenessStartRequest: Hashable, CustomStringConvertible {
     AwsLivenessPigeonPigeonInternal.deepHash(value: sessionId, hasher: &hasher)
     AwsLivenessPigeonPigeonInternal.deepHash(value: region, hasher: &hasher)
     AwsLivenessPigeonPigeonInternal.deepHash(value: disableStartView, hasher: &hasher)
+    AwsLivenessPigeonPigeonInternal.deepHash(value: faceMovementCamera, hasher: &hasher)
   }
 
   public var description: String {
-    return "LivenessStartRequest(sessionId: \(String(describing: sessionId)), region: \(String(describing: region)), disableStartView: \(String(describing: disableStartView)))"
+    return "LivenessStartRequest(sessionId: \(String(describing: sessionId)), region: \(String(describing: region)), disableStartView: \(String(describing: disableStartView)), faceMovementCamera: \(String(describing: faceMovementCamera)))"
   }
 }
 
@@ -294,8 +305,14 @@ private class AwsLivenessPigeonPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
     case 129:
-      return LivenessStartRequest.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return LivenessCameraPosition(rawValue: enumResultAsInt)
+      }
+      return nil
     case 130:
+      return LivenessStartRequest.fromList(self.readValue() as! [Any?])
+    case 131:
       return LivenessCredentials.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -305,11 +322,14 @@ private class AwsLivenessPigeonPigeonCodecReader: FlutterStandardReader {
 
 private class AwsLivenessPigeonPigeonCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
-    if let value = value as? LivenessStartRequest {
+    if let value = value as? LivenessCameraPosition {
       super.writeByte(129)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? LivenessStartRequest {
+      super.writeByte(130)
       super.writeValue(value.toList())
     } else if let value = value as? LivenessCredentials {
-      super.writeByte(130)
+      super.writeByte(131)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)

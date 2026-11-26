@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "FlutterFramework", path: "../FlutterFramework"),
-        .package(url: "https://github.com/aws-amplify/amplify-ui-swift-liveness", from: "1.6.0")
+        .package(url: "https://github.com/aws-amplify/amplify-ui-swift-liveness", .upToNextMinor(from: "1.6.0"))
     ],
     targets: [
         .target(
