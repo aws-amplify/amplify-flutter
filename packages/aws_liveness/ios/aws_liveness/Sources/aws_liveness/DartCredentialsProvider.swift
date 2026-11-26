@@ -6,7 +6,10 @@ import Foundation
 
 /// Resolves credentials by calling the `AWSCredentialsProvider` passed to
 /// `AwsLiveness` in Dart.
-final class DartCredentialsProvider: AWSCredentialsProvider {
+///
+/// `@unchecked Sendable`: `flutterApi` is only used on the main thread and
+/// `failed` is guarded by `lock`.
+final class DartCredentialsProvider: AWSCredentialsProvider, @unchecked Sendable {
     private let flutterApi: AwsLivenessFlutterApi
     private let lock = NSLock()
     private var failed = false
@@ -14,9 +17,7 @@ final class DartCredentialsProvider: AWSCredentialsProvider {
     /// Whether a fetch has failed, so the resulting liveness error can be
     /// reported as a credentials error.
     var didFail: Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        return failed
+        lock.withLock { failed }
     }
 
     init(flutterApi: AwsLivenessFlutterApi) {
@@ -35,9 +36,7 @@ final class DartCredentialsProvider: AWSCredentialsProvider {
                 }
             }
         } catch {
-            lock.lock()
-            failed = true
-            lock.unlock()
+            lock.withLock { failed = true }
             throw error
         }
         if let sessionToken = credentials.sessionToken, let expiration = credentials.expirationEpochSeconds {
