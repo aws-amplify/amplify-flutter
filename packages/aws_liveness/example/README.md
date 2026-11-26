@@ -11,8 +11,10 @@ The test backend is in `infra-gen2/backends/liveness/main`. It provides:
   video, so anonymous callers can't run up Rekognition usage.
 - `createLivenessSession` and `getLivenessResult` GraphQL queries, backed by a
   Lambda function that calls `CreateFaceLivenessSession` and
-  `GetFaceLivenessSessionResults`. Results contain only the status and
-  confidence, not the reference or audit images.
+  `GetFaceLivenessSessionResults`. Each session is recorded (in DynamoDB, for
+  a day) with the user who created it, and only that user can read its
+  result. Results contain only the status and confidence, not the reference
+  or audit images.
 - `rekognition:StartFaceLivenessSession` for the authenticated role, used by
   the app to stream video.
 
@@ -25,10 +27,6 @@ dart run tool/deploy_gen2.dart -c Liveness
 ```
 
 Deploy to a [region that supports Face Liveness](https://docs.aws.amazon.com/general/latest/gr/rekognition.html).
-
-The sample doesn't record which user created a session, so any signed-in user
-who knows a session ID can read its result. Production backends should tie
-sessions to the caller.
 
 ## Running
 
