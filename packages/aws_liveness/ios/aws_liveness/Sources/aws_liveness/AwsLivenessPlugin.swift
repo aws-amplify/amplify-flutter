@@ -119,10 +119,13 @@ public class AwsLivenessPlugin: NSObject, FlutterPlugin, AwsLivenessHostApi {
     }
 
     private static func topViewController() -> UIViewController? {
-        let windows = UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .filter { $0.activationState == .foregroundActive }
-            .flatMap(\.windows)
+        let scenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+        // Right after the camera permission prompt closes, the scene can still
+        // be inactive, so fall back to foreground-inactive scenes.
+        let windows = [UIScene.ActivationState.foregroundActive, .foregroundInactive]
+            .lazy
+            .map { state in scenes.filter { $0.activationState == state }.flatMap(\.windows) }
+            .first { !$0.isEmpty } ?? []
         var top = (windows.first(where: \.isKeyWindow) ?? windows.first)?.rootViewController
         while let presented = top?.presentedViewController, !presented.isBeingDismissed {
             top = presented
