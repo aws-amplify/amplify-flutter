@@ -96,8 +96,10 @@ The plugin declares the `CAMERA` permission and requests it at runtime.
 ### iOS
 
 - iOS 15 or higher.
-- Swift Package Manager must be enabled for your app, because the iOS Face
-  Liveness component is only distributed through Swift Package Manager. See
+- Swift Package Manager must be enabled for your app (the default since
+  Flutter 3.44). CocoaPods is not supported, because the iOS Face Liveness
+  component and Amplify Swift are only distributed through Swift Package
+  Manager. See
   [Swift Package Manager for app developers](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers).
 - Add a camera usage description to `ios/Runner/Info.plist`:
 
