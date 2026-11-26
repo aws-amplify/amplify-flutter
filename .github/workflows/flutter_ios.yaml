@@ -1,6 +1,4 @@
-      - name: Trust Swift package plugins
-        if: inputs.build-for-device
-        run: |name: Flutter iOS
+name: Flutter iOS
 on:
   workflow_call:
     inputs:
