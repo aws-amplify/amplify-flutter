@@ -730,7 +730,7 @@ jobs:
       example-directory: $repoRelativePath/example
       package-name: ${package.name}
       has-native-tests: $hasIosTests
-''';
+${_iosDeviceBuildPackages.contains(package.name) ? '      build-for-device: true\n' : ''}''';
 
     writeWorkflowFile(iosWorkflowFile, iosWorkflowContents);
   }
@@ -820,6 +820,13 @@ jobs:
     workflowFile.writeAsStringSync(content);
   }
 }
+
+/// Packages whose iOS example must be built for a device instead of the
+/// simulator, because their Swift dependencies (aws-sdk-swift) use SwiftPM
+/// build tool plugins that `flutter build ios --simulator` cannot build.
+/// Remove entries once https://github.com/flutter/flutter/issues/195155
+/// is fixed.
+const _iosDeviceBuildPackages = {'aws_liveness'};
 
 /// First line of every file written by `aft generate workflows`.
 const generatedHeader =

@@ -15,6 +15,15 @@ on:
         description: Whether the package has native iOS unit tests
         required: true
         type: boolean
+      build-for-device:
+        description: >-
+          Build for a device instead of the simulator. Needed for packages
+          whose Swift dependencies use SwiftPM build tool plugins, which
+          `flutter build ios --simulator` cannot build
+          (https://github.com/flutter/flutter/issues/195155).
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   flutter-ios-build-and-test:
@@ -59,11 +68,8 @@ jobs:
           defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidatation -bool YES
           defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
 
-      # Builds for device rather than `--simulator`: with `-sdk iphonesimulator`
-      # Xcode builds SwiftPM build tool plugins for the simulator instead of
-      # the host, which fails (https://github.com/flutter/flutter/issues/195155).
       - name: Build
-        run: flutter build ios --no-codesign
+        run: flutter build ios ${{ inputs.build-for-device && '--no-codesign' || '--simulator' }}
         working-directory: ${{ inputs.example-directory }}
 
       - name: Run iOS unit tests

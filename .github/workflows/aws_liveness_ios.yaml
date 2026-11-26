@@ -37,3 +37,4 @@ jobs:
       example-directory: packages/aws_liveness/example
       package-name: aws_liveness
       has-native-tests: false
+      build-for-device: true
