@@ -60,7 +60,7 @@ jobs:
         timeout-minutes: 20
         run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
 
-      # Swift packages such as aws-sdk-swift (used by aws_liveness) run build
+      # Swift packages such as aws-sdk-swift (used by aws_face_liveness) run build
       # tool plugins, which Xcode refuses to run non-interactively until they
       # are trusted. Only needed by the packages that build for device.
       - name: Trust Swift package plugins

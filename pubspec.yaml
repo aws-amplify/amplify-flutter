@@ -140,10 +140,10 @@ aft:
       packages:
         - amplify_connect_client
         - amplify_connect_client_dart
-    - name: Liveness
-      summary: aws_liveness
+    - name: Face Liveness
+      summary: aws_face_liveness
       packages:
-        - aws_liveness
+        - aws_face_liveness
     - name: AWS Common
       summary: aws_common
       propagate: none
