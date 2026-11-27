@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Not required, so that apps using this plugin stay installable on
+         devices without a front camera. -->
+    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
+
+    <application>
+        <activity
+            android:name=".FaceLivenessActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Material.NoActionBar"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden|uiMode" />
+    </application>
+</manifest>

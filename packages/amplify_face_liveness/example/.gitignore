@@ -1,0 +1,33 @@
+
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.idea/
+.vscode/
+*.iml
+
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+/android/local.properties
+/android/generated_gradle_build_settings.gradle
+/android/.gradle
+/ios/.generated/
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/flutter_export_environment.sh
+/ios/Pods/
+/ios/.symlinks/
+# Amplify backend configuration (written by infra-gen2/tool/deploy_gen2.dart,
+# or as a placeholder by aft bootstrap)
+lib/amplify_outputs.dart
+lib/amplifyconfiguration.dart

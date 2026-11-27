@@ -96,6 +96,7 @@ Future<void> logMetric() async {
     'kinesis',
     'connect_client',
     'pub_server',
+    'amplify_face_liveness',
   ];
 
   final category = categories.firstWhereOrNull(workingDirectory.contains);
