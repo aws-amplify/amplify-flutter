@@ -627,7 +627,9 @@ class S3UploadTask {
       while (count++ <= numToBatch) {
         // part number starts from 1 up to 10_000
         _currentSubTaskId += 1;
-        await _startNextUploadPart(partNumber: _currentSubTaskId);
+        if (!await _startNextUploadPart(partNumber: _currentSubTaskId)) {
+          break;
+        }
       }
     }
 
@@ -635,7 +637,9 @@ class S3UploadTask {
     _uploadPartBatchingCompleter?.complete();
   }
 
-  Future<void> _startNextUploadPart({required int partNumber}) async {
+  /// Starts uploading part [partNumber], unless the upload was canceled or
+  /// failed first. Returns whether the part was started.
+  Future<bool> _startNextUploadPart({required int partNumber}) async {
     late Stream<List<int>> Function() chunkGetter;
 
     // If the AWSFile is backed by a stream of bytes, read chunks one by one
@@ -654,6 +658,17 @@ class S3UploadTask {
       );
     }
 
+    // A cancel or failure can land while this batch is under way (for
+    // example while the chunk above is read). Either one aborts the multipart
+    // upload, and neither cancels a part started after it, so such a part
+    // would upload against an aborted upload ID until S3 refused it.
+    // Nothing may be awaited between this check and the part's registration
+    // in `_uploadPart`, or a cancel or a part failure could land in between.
+    if (_state == StorageTransferState.canceled ||
+        _state == StorageTransferState.failure) {
+      return false;
+    }
+
     _ongoingSubtasks[partNumber] = _OngoingSubtask(
       partBodyGetter: chunkGetter,
       partNumber: partNumber,
@@ -665,6 +680,7 @@ class S3UploadTask {
         ),
       ),
     );
+    return true;
   }
 
   Future<_CompletedSubtask> _uploadPart({
