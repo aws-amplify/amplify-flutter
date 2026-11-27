@@ -1,3 +1,7 @@
+## 0.3.13
+
+- Minor bug fixes and improvements
+
 ## 0.3.12
 
 ### Fixes

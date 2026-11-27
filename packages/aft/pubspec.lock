@@ -54,14 +54,14 @@ packages:
       path: "../aws_common"
       relative: true
     source: path
-    version: "0.7.16"
+    version: "0.7.17"
   aws_signature_v4:
     dependency: "direct overridden"
     description:
       path: "../aws_signature_v4"
       relative: true
     source: path
-    version: "0.6.13"
+    version: "0.6.14"
   boolean_selector:
     dependency: transitive
     description:
@@ -747,14 +747,14 @@ packages:
       path: "../smithy/smithy"
       relative: true
     source: path
-    version: "0.7.13"
+    version: "0.7.14"
   smithy_aws:
     dependency: "direct overridden"
     description:
       path: "../smithy/smithy_aws"
       relative: true
     source: path
-    version: "0.7.13"
+    version: "0.7.14"
   smithy_codegen:
     dependency: "direct main"
     description:

@@ -1,3 +1,7 @@
+## 0.6.14
+
+- Minor bug fixes and improvements
+
 ## 0.6.13
 
 ### Features

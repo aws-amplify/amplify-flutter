@@ -1,6 +1,6 @@
 name: amplify_face_liveness
 description: A Flutter plugin for Amazon Rekognition Face Liveness on Android and iOS, built on the Amplify UI Face Liveness components.
-version: 0.0.1
+version: 0.0.2
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_face_liveness
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues

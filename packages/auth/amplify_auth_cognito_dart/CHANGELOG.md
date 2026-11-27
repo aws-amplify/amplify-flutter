@@ -1,3 +1,7 @@
+## 0.11.27
+
+- Minor bug fixes and improvements
+
 ## 0.11.26
 
 ### Features
