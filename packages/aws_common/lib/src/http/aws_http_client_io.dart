@@ -254,15 +254,13 @@ class AWSHttpClientImpl extends AWSHttpClient {
           supportedProtocols.supports(AlpnProtocol.http1_1)) {
         logger.verbose('Could not negotiate HTTP/2. Falling back to HTTP/1.1');
         socket.destroy();
-        unawaited(
-          _sendH1(
-            logger: logger,
-            request: request,
-            completer: completer,
-            cancelTrigger: cancelTrigger,
-            requestProgress: requestProgress,
-            responseProgress: responseProgress,
-          ),
+        await _sendH1(
+          logger: logger,
+          request: request,
+          completer: completer,
+          cancelTrigger: cancelTrigger,
+          requestProgress: requestProgress,
+          responseProgress: responseProgress,
         );
         return null;
       }
