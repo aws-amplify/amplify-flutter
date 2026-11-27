@@ -124,10 +124,7 @@ void main() {
               )
               .toList();
           const testPath = StoragePath.fromString('album');
-          const testOptions = StorageListOptions(
-            pageSize: testPageSize,
-            pluginOptions: S3ListPluginOptions(),
-          );
+          const testOptions = StorageListOptions(pageSize: testPageSize);
 
           final testPaginatedResult =
               PaginatedResult<ListObjectsV2Output, int, String>(
@@ -182,7 +179,7 @@ void main() {
       });
 
       test(
-        'should attach delimiter to the ListObjectV2Request when options excludeSubPaths is set to true',
+        'should attach delimiter to the ListObjectV2Request when subpathStrategy is exclude',
         () async {
           final testS3Objects = [1, 2, 3, 4, 5]
               .map(
@@ -196,7 +193,7 @@ void main() {
           const testPath = StoragePath.fromString('album');
           const testOptions = StorageListOptions(
             pageSize: testPageSize,
-            pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
+            subpathStrategy: SubpathStrategy.exclude(delimiter: '#'),
           );
           const testSubPaths = [
             'album#folder1',
@@ -239,9 +236,58 @@ void main() {
             options: testOptions,
           );
 
-          expect(result.metadata.subPaths, equals(testSubPaths));
+          final capturedRequest = verify(
+            () => s3Client.listObjectsV2(captureAny<ListObjectsV2Request>()),
+          ).captured.last;
+          expect((capturedRequest as ListObjectsV2Request).delimiter, '#');
+
+          expect(result.excludedSubpaths, equals(testSubPaths));
         },
       );
+
+      test('should not attach delimiter to the ListObjectV2Request when'
+          ' subpathStrategy is include', () async {
+        const testPath = StoragePath.fromString('album');
+        const testOptions = StorageListOptions(
+          pageSize: testPageSize,
+          subpathStrategy: SubpathStrategy.include(),
+        );
+        final testPaginatedResult =
+            PaginatedResult<ListObjectsV2Output, int, String>(
+              ListObjectsV2Output(
+                contents: const [],
+                name: testBucketName,
+                maxKeys: testPageSize,
+              ),
+              next: ([int? pageSize]) {
+                throw UnimplementedError();
+              },
+              nextContinuationToken: null,
+            );
+        final smithyOperation =
+            MockSmithyOperation<
+              PaginatedResult<ListObjectsV2Output, int, String>
+            >();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testPaginatedResult);
+        when(
+          () => s3Client.listObjectsV2(any()),
+        ).thenAnswer((_) => smithyOperation);
+
+        final result = await storageS3Service.list(
+          path: testPath,
+          options: testOptions,
+        );
+
+        final capturedRequest = verify(
+          () => s3Client.listObjectsV2(captureAny<ListObjectsV2Request>()),
+        ).captured.last;
+        expect((capturedRequest as ListObjectsV2Request).delimiter, isNull);
+
+        expect(result.excludedSubpaths, isEmpty);
+      });
 
       test(
         'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
@@ -282,7 +328,7 @@ void main() {
           const testPath = StoragePath.fromString('album');
           const testOptions = StorageListOptions(
             pageSize: testPageSize,
-            pluginOptions: S3ListPluginOptions.listAll(),
+            listAll: true,
           );
 
           const defaultPageSize = 1000;
@@ -380,6 +426,11 @@ void main() {
           expect(
             listResult.items.map((e) => e.eTag),
             equals(testS3Objects.map((e) => e.eTag)),
+          );
+          // The excluded subpaths of every page are merged into the result.
+          expect(
+            listResult.excludedSubpaths,
+            equals(List.filled(3, testPrefix)),
           );
         },
       );
