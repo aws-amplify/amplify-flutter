@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 void main() {

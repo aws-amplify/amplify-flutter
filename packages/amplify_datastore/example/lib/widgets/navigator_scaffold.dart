@@ -1,6 +1,7 @@
 import 'package:amplify_datastore_example/widgets/auth_view.dart';
 import 'package:amplify_datastore_example/widgets/public_view.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 class NavigatorScaffold extends StatefulWidget {

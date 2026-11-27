@@ -11,6 +11,7 @@ import 'package:amplify_api_example/widgets/get_by_id.dart';
 import 'package:amplify_api_example/widgets/query.dart';
 import 'package:amplify_api_example/widgets/subscribe.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /// Amplify Flutter GraphQL API Example

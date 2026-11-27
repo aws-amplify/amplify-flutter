@@ -6,6 +6,7 @@ import 'package:amplify_authenticator/src/enums/status_type.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_banner.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

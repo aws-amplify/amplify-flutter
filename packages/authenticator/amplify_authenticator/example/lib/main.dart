@@ -9,6 +9,7 @@ import 'package:amplify_authenticator_example/resolvers/localized_dial_code_reso
 import 'package:amplify_authenticator_example/resolvers/localized_input_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_title_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 import 'amplifyconfiguration.dart';

@@ -4,6 +4,7 @@
 import 'dart:typed_data';
 
 import 'package:aws_common/aws_common.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as path;

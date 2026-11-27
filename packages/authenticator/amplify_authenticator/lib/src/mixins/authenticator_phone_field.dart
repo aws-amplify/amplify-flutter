@@ -9,6 +9,7 @@ import 'package:amplify_authenticator/src/utils/phone_number_formatter.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:collection/collection.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 mixin AuthenticatorPhoneFieldMixin<

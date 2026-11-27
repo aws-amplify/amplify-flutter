@@ -54,6 +54,7 @@ void generateResolver(String dir, List<GenCountry> _countries) {
 $license
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 enum DialCodeResolverKey {

@@ -5,6 +5,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 // ignore: implementation_imports
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator_test/src/pages/authenticator_page.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

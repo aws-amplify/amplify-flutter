@@ -3,6 +3,7 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_example/main.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 // A custom authenticator widget that adds an onboarding view

@@ -3,6 +3,7 @@
 
 import 'package:amplify_authenticator/src/enums/status_type.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /// Creates an Authenticator-themed Material banner.

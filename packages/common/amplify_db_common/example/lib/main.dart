@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_db_common_example/db.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 void main() {

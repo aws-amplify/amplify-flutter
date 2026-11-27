@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:amplify_authenticator/src/l10n/generated/message_localizations_en.dart'

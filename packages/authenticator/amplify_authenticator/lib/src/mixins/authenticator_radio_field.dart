@@ -4,6 +4,7 @@
 import 'package:amplify_authenticator/src/l10n/input_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 mixin AuthenticatorRadioField<

@@ -5,6 +5,7 @@ import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/app_
 import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/device_info_provider/device_info_provider.dart';
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /// {@template amplify_analytics_pinpoint.flutter_device_context_info_provider}

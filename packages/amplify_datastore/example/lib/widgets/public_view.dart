@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:amplify_datastore_example/main.dart';
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 class PublicView extends StatefulWidget {

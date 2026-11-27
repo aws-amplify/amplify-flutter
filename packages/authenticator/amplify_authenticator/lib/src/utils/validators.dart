@@ -6,6 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 
 /* TODO: update `usernameRegex` expression to match Cognito requirements

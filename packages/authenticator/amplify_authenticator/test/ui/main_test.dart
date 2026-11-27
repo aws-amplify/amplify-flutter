@@ -11,6 +11,7 @@ import 'package:amplify_authenticator_test/src/amplify_outputs/phone_config.dart
 import 'package:amplify_authenticator_test/src/amplify_outputs/sms_or_totp_config.dart';
 import 'package:amplify_authenticator_test/src/amplify_outputs/social_providers_config.dart';
 import 'package:amplify_authenticator_test/src/amplify_outputs/username_with_attributes.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
