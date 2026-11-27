@@ -121,6 +121,22 @@ class OAuthErrorCode extends EnumClass {
   static const OAuthErrorCode registrationUriNotSupported =
       _$registrationUriNotSupported;
 
+  /// The user cancelled the authorization request at the identity provider,
+  /// e.g. by declining the consent screen shown by Sign in with Apple.
+  ///
+  /// This code is not part of the OAuth or OIDC specifications. It is relayed
+  /// verbatim by Amazon Cognito from the external identity provider.
+  @BuiltValueEnumConst(wireName: 'user_cancelled_authorize')
+  static const OAuthErrorCode userCancelledAuthorize = _$userCancelledAuthorize;
+
+  /// An error code which is not recognized by this library.
+  ///
+  /// Amazon Cognito relays error codes from external identity providers
+  /// verbatim, so the set of codes which may be returned is open-ended.
+  /// Unrecognized codes deserialize to this value instead of failing.
+  @BuiltValueEnumConst(wireName: 'unknown')
+  static const OAuthErrorCode unknown = _$unknown;
+
   /// The user-facing description of the error.
   String get description {
     switch (this) {
@@ -145,6 +161,8 @@ class OAuthErrorCode extends EnumClass {
       case OAuthErrorCode.unsupportedResponseType:
         return 'The authorization server does not support obtaining an '
             'authorization code using this method.';
+      case OAuthErrorCode.userCancelledAuthorize:
+        return 'The user cancelled the sign-in flow.';
       case OAuthErrorCode.accountSelectionRequired:
       case OAuthErrorCode.consentRequired:
       case OAuthErrorCode.interactionRequired:
@@ -154,6 +172,7 @@ class OAuthErrorCode extends EnumClass {
       case OAuthErrorCode.registrationUriNotSupported:
       case OAuthErrorCode.requestNotSupported:
       case OAuthErrorCode.requestUriNotSupported:
+      case OAuthErrorCode.unknown:
         return 'An unknown error occurred.';
     }
     throw ArgumentError('Invalid code: $this');
@@ -165,9 +184,53 @@ class OAuthErrorCode extends EnumClass {
   /// The [OAuthErrorCode] value for [name].
   static OAuthErrorCode valueOf(String name) => _$valueOf(name);
 
-  /// The [OAuthErrorCode] serializer.
+  /// The generated serializer; [oauthSerializers] replaces it with
+  /// [_OAuthErrorCodeSerializer] to accept unrecognized error codes.
   static Serializer<OAuthErrorCode> get serializer =>
       _$oAuthErrorCodeSerializer;
+}
+
+/// {@template amplify_auth_cognito.oauth_error_code_serializer}
+/// Deserializes provider-specific error codes relayed by Amazon Cognito as
+/// [OAuthErrorCode.unknown] so they can surface as [AuthException]s.
+/// {@endtemplate}
+class _OAuthErrorCodeSerializer implements PrimitiveSerializer<OAuthErrorCode> {
+  /// {@macro amplify_auth_cognito.oauth_error_code_serializer}
+  const _OAuthErrorCodeSerializer();
+
+  /// The generated serializer, which throws for unrecognized codes.
+  static PrimitiveSerializer<OAuthErrorCode> get _generated =>
+      _$oAuthErrorCodeSerializer as PrimitiveSerializer<OAuthErrorCode>;
+
+  @override
+  Iterable<Type> get types => const [OAuthErrorCode];
+
+  @override
+  String get wireName => 'OAuthErrorCode';
+
+  @override
+  Object serialize(
+    Serializers serializers,
+    OAuthErrorCode object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _generated.serialize(serializers, object, specifiedType: specifiedType);
+
+  @override
+  OAuthErrorCode deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    try {
+      return _generated.deserialize(
+        serializers,
+        serialized,
+        specifiedType: specifiedType,
+      );
+    } on ArgumentError {
+      return OAuthErrorCode.unknown;
+    }
+  }
 }
 
 /// {@template amplify_auth_cognito.oauth_parameters}
@@ -191,8 +254,18 @@ abstract class OAuthParameters
         value is String ? Uri.decodeQueryComponent(value) : '',
       );
     });
-    return oauthSerializers.deserializeWith(serializer, json)
-        as OAuthParameters;
+    final parameters =
+        oauthSerializers.deserializeWith(serializer, json) as OAuthParameters;
+
+    // Preserve an unrecognized raw code when the server omits a description.
+    final rawError = json['error'];
+    if (parameters.error == OAuthErrorCode.unknown &&
+        parameters.errorDescription == null &&
+        rawError is String) {
+      return parameters.rebuild((b) => b.errorDescription = rawError);
+    }
+
+    return parameters;
   }
 
   /// Parses OAuth parameters from a [uri].
@@ -274,4 +347,9 @@ abstract class OAuthParameters
 /// Serializers for OAuth flow parameters.
 @SerializersFor([OAuthErrorCode, OAuthParameters])
 final Serializers oauthSerializers =
-    (_$oauthSerializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
+    (_$oauthSerializers.toBuilder()
+          ..addPlugin(StandardJsonPlugin())
+          // Overrides the generated [OAuthErrorCode] serializer, which throws
+          // for unrecognized error codes.
+          ..add(const _OAuthErrorCodeSerializer()))
+        .build();
