@@ -1,0 +1,4171 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "APIPluginOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "APIPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authProviders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<APIAuthProvider>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "baseHttpClient",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSHttpClient?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "modelProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelProviderInterface?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "subscriptionOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "List<APIAuthProvider>",
+          "name": "authProviders",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSHttpClient?",
+          "name": "baseHttpClient",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ModelProviderInterface?",
+          "name": "modelProvider",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "subscriptionOptions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "AmplifyAPIDart",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "APIPluginInterface",
+        "AmplifyPluginInterface",
+        "Object",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WebSocketBloc",
+          "name": "createWebSocketBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "endpoint",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointConfig"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AWSHttpClient",
+          "name": "getHttpClient",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "type",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiType"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "AmplifyAPIDart",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIPluginOptions"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "connectivity",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ConnectivityPlatform"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "processLifeCycle",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ProcessLifeCycle"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ModelProviderInterface?",
+          "name": "modelProvider",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "ConnectedState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ConnectedState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "timeoutTimer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "RestartableTimer"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pollTimer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Timer"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "RestartableTimer",
+          "name": "timeoutTimer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Timer",
+          "name": "pollTimer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "ConnectingState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectedState",
+          "name": "connected",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "timer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "RestartableTimer"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pollTimer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Timer"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "ConnectivityPlatform",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectivityPlatform",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Stream<ConnectivityStatus>",
+          "name": "onConnectivityChanged",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "ConnectivityStatus",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "ConnectivityStatus",
+          "name": "connected",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ConnectivityStatus",
+          "name": "disconnected",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<ConnectivityStatus>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "DisconnectedState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "EndpointConfig",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSEquatable<EndpointConfig>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Uri",
+          "name": "getUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, dynamic>?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "EndpointConfig",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Object?>",
+          "name": "props",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "FailureState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Object",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "StackTrace",
+          "name": "stackTrace",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "ModelMutations",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "create",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "model",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "T"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "delete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "model",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "T"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "deleteById",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelIdentifier",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelIdentifier<T>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "update",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "model",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "T"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "ModelQueries",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "get",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelIdentifier",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelIdentifier<T>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "GraphQLRequest<PaginatedResult<T>>",
+          "name": "list",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "limit",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "ModelSubscriptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "onCreate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "onDelete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "onUpdate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "PendingDisconnect",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "ProcessLifeCycle",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ProcessLifeCycle",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Stream<ProcessStatus>",
+          "name": "onStateChanged",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "ProcessStatus",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "ProcessStatus",
+          "name": "detached",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ProcessStatus",
+          "name": "paused",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ProcessStatus",
+          "name": "hidden",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ProcessStatus",
+          "name": "inactive",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ProcessStatus",
+          "name": "resumed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<ProcessStatus>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "ReconnectingState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectedState",
+          "name": "connected",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "timer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "RestartableTimer"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pollTimer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Timer"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "SubscribeEvent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WebSocketEvent",
+        "Object",
+        "AWSSerializable<Map<String, Object?>>",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscribeEvent<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "SubscriptionBloc",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "Object",
+        "Closeable",
+        "AWSDebuggable",
+        "AmplifyLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "add",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "event",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SubscriptionEvent"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "addResponseError",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionBloc<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "initialState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WsSubscriptionState<T>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Stream<GraphQLResponse<T>>",
+          "name": "responseStream",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WsSubscriptionState<T>",
+          "name": "currentState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<WsSubscriptionState<T>>",
+          "name": "stream",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "SubscriptionCompletedState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WsSubscriptionState<T>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "SubscriptionErrorState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WsSubscriptionState<T>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "exception",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Object",
+          "name": "exception",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "StackTrace?",
+          "name": "stackTrace",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "SubscriptionEvent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketEvent",
+        "Object",
+        "AWSSerializable<Map<String, Object?>>",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionEvent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "subscriptionId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "SubscriptionListeningState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WsSubscriptionState<T>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionListeningState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "SubscriptionPendingState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WsSubscriptionState<T>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionListeningState<T>",
+          "name": "ready",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WebSocketBloc",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSDebuggable",
+        "AmplifyLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "add",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "event",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketEvent"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "checkPollResponse",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "res",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpResponse"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WebSocketBloc",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "wsService",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "subscriptionOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "connectivity",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ConnectivityPlatform"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "processLifeCycle",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ProcessLifeCycle"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "pollClientOverride",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSHttpClient?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Stream<GraphQLResponse<T>>",
+          "name": "subscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "event",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SubscribeEvent<T>"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "blocId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Completer<void>",
+          "name": "done",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<WebSocketState>",
+          "name": "stream",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<WebSocketEvent>",
+          "name": "wsEventStream",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketState",
+          "name": "currentState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WebSocketEvent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSSerializable<Map<String, Object?>>",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WebSocketEvent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "WebSocketService",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Closeable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Stream<WebSocketEvent>",
+          "name": "init",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "state",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketState"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WebSocketService",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "register",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "state",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ConnectedState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<Object?>"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "unsubscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": []
+    },
+    {
+      "name": "WebSocketState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WebSocketState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    },
+    {
+      "name": "WsSubscriptionState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "WsSubscriptionState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ]
+    }
+  ]
+}
