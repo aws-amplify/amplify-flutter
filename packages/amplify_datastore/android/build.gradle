@@ -101,7 +101,7 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.17'
     testImplementation 'com.fasterxml.jackson.core:jackson-core:2.22.0'
     testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.22'
-    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.22.0'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.23.0'
 }
 
 kotlin {
