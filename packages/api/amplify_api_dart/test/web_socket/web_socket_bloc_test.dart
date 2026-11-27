@@ -559,6 +559,40 @@ void main() {
         expect(subscription, emitsError(isA<ApiException>()));
       });
 
+      test('connection_error and should report the AppSync reason', () async {
+        const appSyncReason = 'Valid authorization header not provided.';
+        final connectionError = jsonEncode({
+          'type': 'connection_error',
+          'payload': {
+            'errors': [
+              {'errorType': 'UnauthorizedException', 'message': appSyncReason},
+            ],
+          },
+        });
+        final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
+          service!.channel.sink.add(connectionError);
+        });
+        final bloc = getWebSocketBloc();
+
+        final subscription = bloc.subscribe(subscribeEvent);
+        expect(
+          subscription,
+          emitsError(
+            isA<NetworkException>()
+                .having(
+                  (e) => e.underlyingException.toString(),
+                  'underlyingException',
+                  contains(appSyncReason),
+                )
+                .having(
+                  (e) => e.recoverySuggestion,
+                  'recoverySuggestion',
+                  contains('"apiKey" auth mode'),
+                ),
+          ),
+        );
+      });
+
       test('an exception when poll responds unhealthy', () async {
         final blocReady = Completer<void>();
         final subscribeEvent = SubscribeEvent(
