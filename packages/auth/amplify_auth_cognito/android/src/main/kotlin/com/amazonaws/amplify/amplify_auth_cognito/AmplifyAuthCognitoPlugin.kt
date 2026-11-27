@@ -75,6 +75,11 @@ open class AmplifyAuthCognitoPlugin :
   private var nativePlugin: NativeAuthPlugin? = null
 
   /**
+   * The WebAuthn bridge for passkey operations.
+   */
+  private var webAuthnBridge: WebAuthnBridgeImpl? = null
+
+  /**
    * The initial route parameters used to launch the main activity, which can happen when using
    * non-Chrome browsers or when a Hosted UI redirect occurs while the app is closed. They are
    * sent to the platform during configuration.
@@ -120,6 +125,11 @@ open class AmplifyAuthCognitoPlugin :
       binding.binaryMessenger,
       this,
     )
+    webAuthnBridge = WebAuthnBridgeImpl(
+      context = binding.applicationContext,
+      activityProvider = { mainActivity }
+    )
+    WebAuthnBridgeApi.setUp(binding.binaryMessenger, webAuthnBridge)
   }
 
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -131,6 +141,9 @@ open class AmplifyAuthCognitoPlugin :
       binding.binaryMessenger,
       null,
     )
+    webAuthnBridge?.dispose()
+    webAuthnBridge = null
+    WebAuthnBridgeApi.setUp(binding.binaryMessenger, null)
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {

@@ -23,6 +23,16 @@ class AuthSocialSignInData extends AuthSignInData {
   final AuthProvider provider;
 }
 
+class AuthPasswordlessSignInData extends AuthSignInData {
+  const AuthPasswordlessSignInData({
+    required this.username,
+    this.preferredFactor = AuthFactorType.webAuthn,
+  });
+
+  final String username;
+  final AuthFactorType preferredFactor;
+}
+
 ///Sign Up Data
 class AuthSignUpData {
   const AuthSignUpData({

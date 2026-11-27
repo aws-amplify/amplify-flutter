@@ -53,7 +53,11 @@ enum AuthCategoryMethod with AmplifyCategoryMethod {
   getMfaPreference('50'),
   setUpTotp('51'),
   verifyTotpSetup('52'),
-  fetchCurrentDevice('59');
+  fetchCurrentDevice('59'),
+  associateWebAuthnCredential('60'),
+  listWebAuthnCredentials('61'),
+  deleteWebAuthnCredential('62'),
+  isPasskeySupported('63');
 
   const AuthCategoryMethod(this.method);
 

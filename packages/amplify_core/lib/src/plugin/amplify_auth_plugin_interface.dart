@@ -200,4 +200,30 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   Future<void> deleteUser() {
     throw UnimplementedError('deleteUser() has not been implemented.');
   }
+
+  /// {@macro amplify_core.amplify_auth_category.associate_webauthn_credential}
+  Future<void> associateWebAuthnCredential() {
+    throw UnimplementedError(
+      'associateWebAuthnCredential() has not been implemented.',
+    );
+  }
+
+  /// {@macro amplify_core.amplify_auth_category.list_webauthn_credentials}
+  Future<List<AuthWebAuthnCredential>> listWebAuthnCredentials() {
+    throw UnimplementedError(
+      'listWebAuthnCredentials() has not been implemented.',
+    );
+  }
+
+  /// {@macro amplify_core.amplify_auth_category.delete_webauthn_credential}
+  Future<void> deleteWebAuthnCredential(String credentialId) {
+    throw UnimplementedError(
+      'deleteWebAuthnCredential() has not been implemented.',
+    );
+  }
+
+  /// {@macro amplify_core.amplify_auth_category.is_passkey_supported}
+  Future<bool> isPasskeySupported() {
+    throw UnimplementedError('isPasskeySupported() has not been implemented.');
+  }
 }

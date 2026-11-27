@@ -93,6 +93,11 @@ const List<AmplifyBackendGroup> infraConfig = [
         identifier: 'user-login-mfa',
         pathToSource: 'infra-gen2/backends/auth/username-login-mfa',
       ),
+      AmplifyBackend(
+        name: 'webauthn',
+        identifier: 'webauthn',
+        pathToSource: 'infra-gen2/backends/auth/webauthn',
+      ),
     ],
   ),
   AmplifyBackendGroup(

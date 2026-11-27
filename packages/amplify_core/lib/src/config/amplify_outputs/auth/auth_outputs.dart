@@ -5,6 +5,8 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/mfa.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/passwordless_outputs.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_outputs.g.dart';
@@ -31,10 +33,34 @@ class AuthOutputs
     this.unauthenticatedIdentitiesEnabled = true,
     this.mfaConfiguration,
     this.mfaMethods,
+    this.passwordless,
   });
 
-  factory AuthOutputs.fromJson(Map<String, Object?> json) =>
-      _$AuthOutputsFromJson(json);
+  factory AuthOutputs.fromJson(Map<String, Object?> json) {
+    final base = _$AuthOutputsFromJson(json);
+    final passwordlessJson = json['passwordless'];
+    return AuthOutputs(
+      awsRegion: base.awsRegion,
+      userPoolId: base.userPoolId,
+      userPoolClientId: base.userPoolClientId,
+      userPoolEndpoint: base.userPoolEndpoint,
+      appClientSecret: base.appClientSecret,
+      identityPoolId: base.identityPoolId,
+      passwordPolicy: base.passwordPolicy,
+      oauth: base.oauth,
+      standardRequiredAttributes: base.standardRequiredAttributes,
+      usernameAttributes: base.usernameAttributes,
+      userVerificationTypes: base.userVerificationTypes,
+      unauthenticatedIdentitiesEnabled: base.unauthenticatedIdentitiesEnabled,
+      mfaConfiguration: base.mfaConfiguration,
+      mfaMethods: base.mfaMethods,
+      passwordless: passwordlessJson == null
+          ? null
+          : PasswordlessOutputs.fromJson(
+              passwordlessJson as Map<String, Object?>,
+            ),
+    );
+  }
 
   /// The AWS region of Amazon Cognito resources.
   final String awsRegion;
@@ -82,6 +108,10 @@ class AuthOutputs
 
   /// {@macro amplify_core.amplify_outputs.maf_method}
   final List<MfaMethod>? mfaMethods;
+
+  /// Passwordless authentication configuration.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final PasswordlessOutputs? passwordless;
 
   @override
   List<Object?> get props => [
