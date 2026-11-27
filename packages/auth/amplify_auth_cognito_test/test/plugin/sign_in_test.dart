@@ -135,6 +135,75 @@ void main() {
       });
     });
 
+    group('device tracking when the sign-in name differs from the token '
+        'username', () {
+      const signInName = 'user@example.com';
+      GetTokensFromRefreshTokenRequest? refreshRequest;
+
+      setUp(() async {
+        refreshRequest = null;
+        await plugin.configure(
+          config: mockConfigUserPoolOnly,
+          authProviderRepo: testAuthRepo,
+        );
+
+        // With USER_PASSWORD_AUTH, InitiateAuth returns the tokens directly.
+        // The `cognito:username` claim of the mock ID token differs from the
+        // email address the user types in the test below.
+        final mockIdp = MockCognitoIdentityProviderClient(
+          initiateAuth: (request) async {
+            expect(request.authFlow, AuthFlowType.userPasswordAuth);
+            return InitiateAuthResponse(
+              authenticationResult: AuthenticationResultType(
+                accessToken: accessToken.raw,
+                refreshToken: refreshToken,
+                idToken: idToken.raw,
+                newDeviceMetadata: NewDeviceMetadataType(
+                  deviceKey: deviceKey,
+                  deviceGroupKey: deviceGroupKey,
+                ),
+              ),
+            );
+          },
+          confirmDevice: () async =>
+              ConfirmDeviceResponse(userConfirmationNecessary: false),
+          getTokensFromRefreshTokenWithRequest: (request) async {
+            refreshRequest = request;
+            return GetTokensFromRefreshTokenResponse(
+              authenticationResult: AuthenticationResultType(
+                accessToken: accessToken.raw,
+                refreshToken: refreshToken,
+                idToken: idToken.raw,
+              ),
+            );
+          },
+        );
+        stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
+      });
+
+      test('refreshing tokens sends the device key', () async {
+        expect(idToken.claims.customClaims['cognito:username'], username);
+        expect(signInName, isNot(username));
+
+        await plugin.signIn(
+          username: signInName,
+          password: password,
+          options: const SignInOptions(
+            pluginOptions: CognitoSignInPluginOptions(
+              authFlowType: AuthenticationFlowType.userPasswordAuth,
+            ),
+          ),
+        );
+
+        await plugin.fetchAuthSession(
+          options: const FetchAuthSessionOptions(forceRefresh: true),
+        );
+
+        expect(refreshRequest, isNotNull);
+        expect(refreshRequest!.deviceKey, deviceKey);
+      });
+    });
+
     group('sign-in invalidates previous confirmation', () {
       setUp(() async {
         await plugin.configure(
