@@ -5,15 +5,18 @@ import 'dart:async';
 
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
+import 'package:amplify_auth_cognito_dart/src/auth_plugin_options.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/interceptors/with_custom_headers.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/config/amplify_outputs/analytics/analytics_outputs.dart';
+import 'package:smithy/smithy.dart';
 
 /// {@template amplify_auth_cognito.configuration_state_machine}
 /// Manages configuration of the Auth category.
@@ -73,12 +76,24 @@ final class ConfigurationStateMachine
     }
     addInstance(authOutputs);
     final waiters = <Future<void>>[];
+
+    // Build additional request interceptors from AuthPluginOptions.
+    // AuthPluginOptions is registered by `_init()` in the plugin impl and will
+    // always be present in normal usage. The nullable lookup is defensive for
+    // tests that may configure the state machine without the full plugin setup.
+    final authPluginOptions = get<AuthPluginOptions>();
+    final additionalInterceptors = <HttpRequestInterceptor>[
+      if (authPluginOptions?.headers != null)
+        WithCustomHeaders(authPluginOptions!.headers!),
+    ];
+
     addInstance<CognitoIdentityProviderClient>(
       WrappedCognitoIdentityProviderClient(
         region: authOutputs.awsRegion,
         credentialsProvider: _credentialsProvider,
         dependencyManager: this,
         endpoint: authOutputs.userPoolEndpoint,
+        additionalRequestInterceptors: additionalInterceptors,
       ),
     );
 
@@ -93,6 +108,7 @@ final class ConfigurationStateMachine
           region: authOutputs.awsRegion,
           credentialsProvider: _credentialsProvider,
           dependencyManager: this,
+          additionalRequestInterceptors: additionalInterceptors,
         ),
       );
     }

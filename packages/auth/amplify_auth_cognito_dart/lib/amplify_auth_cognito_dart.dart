@@ -10,6 +10,7 @@ export 'src/asf/asf_context_data.dart';
 export 'src/asf/asf_context_data_provider.dart';
 export 'src/asf/asf_device_info_collector.dart' show ASFDeviceInfoCollector;
 export 'src/auth_plugin_impl.dart';
+export 'src/auth_plugin_options.dart';
 export 'src/exception/device_not_tracked_exception.dart';
 export 'src/exception/invalid_account_type_exception.dart';
 export 'src/jwt/src/cognito.dart';
