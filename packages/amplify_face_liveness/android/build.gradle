@@ -5,7 +5,7 @@ plugins {
     id 'com.android.library'
     // The Compose compiler runs at the host app's Kotlin version; this is
     // only the minimum version of the Gradle plugin.
-    id 'org.jetbrains.kotlin.plugin.compose' version '2.0.0' apply false
+    id 'org.jetbrains.kotlin.plugin.compose' version '2.4.21' apply false
 }
 
 // Apply the Kotlin plugin unless the consuming app has AGP's built-in Kotlin
