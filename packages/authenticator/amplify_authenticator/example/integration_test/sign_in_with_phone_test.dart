@@ -28,7 +28,7 @@ void main() {
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
-      final phoneNumber = generateUSPhoneNumber();
+      final phoneNumber = await generateUnusedUSPhoneNumber();
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -101,12 +101,10 @@ void main() {
     testWidgets('Sign in with confirmed credentials then sign out', (
       tester,
     ) async {
-      await adminCreateUser(
-        phoneNumber.toE164(),
+      phoneNumber = await adminCreateUserWithGeneratedPhoneNumber(
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
       );
 
       await loadAuthenticator(tester: tester);
@@ -149,11 +147,7 @@ void main() {
     testWidgets('Sign in with force change password credentials', (
       tester,
     ) async {
-      await adminCreateUser(
-        phoneNumber.toE164(),
-        password,
-        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
-      );
+      phoneNumber = await adminCreateUserWithGeneratedPhoneNumber(password);
 
       await loadAuthenticator(tester: tester);
 
